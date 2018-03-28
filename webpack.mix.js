@@ -11,5 +11,9 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.js([
+		'resources/assets/js/app.js', 'resources/assets/js/now-ui-kit/now-ui-kit.js',
+		'resources/assets/js/now-ui-kit/plugins/bootstrap-switch.js'
+	], 'public/js')
+   .sass('resources/assets/sass/app.scss', 'public/css')
+   .sass('resources/assets/sass/now-ui-kit/now-ui-kit.scss', 'public/css');
