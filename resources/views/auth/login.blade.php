@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form class="form" method="POST" action="{{ route('login') }}">
+    {!! Form::open(['url' => '/login', 'method' => 'POST', 'class' => 'form']) !!}
         {{ csrf_field() }}
         <div class="header header-primary text-center">
             <div class="logo-container">
@@ -40,8 +40,15 @@
                 @endif
             </div>
             <div class="form-group">
-                <div class="captcha-addon">{!! Captcha::img(); !!}</div>
-                <i class="now-ui-icons arrows-1_refresh-69 cursor-pointer" onclick="refresh_captcha()"></i>
+                <div class="row">
+                    <div class="col-md-8 text-right">
+                        <div class="captcha-addon">{!! Captcha::img(); !!}</div>
+                    </div>
+                    <div class="col-md-4 text-left">
+                        <i class="now-ui-icons arrows-1_refresh-69 cursor-pointer vertical-middle" 
+                           onclick="refresh_captcha()"></i>
+                    </div>
+                </div>
             </div>
             <div class="form-group{{ $errors->has('captcha') ? ' has-error' : '' }}">
                 <div class="input-group form-group-no-border input-sm">
