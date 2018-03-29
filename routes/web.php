@@ -12,7 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+		/** Si el usuario esta autenticado redirecciona a la página del panel de control */
+        return view('dashboard.index');
+    }
+    else {
+    	/** Si el usuario no está autenticado muestra la página de acceso */
+        return view('auth.login');
+    }
 });
 
 Auth::routes();
