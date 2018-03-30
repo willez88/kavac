@@ -1,0 +1,69 @@
+/** Estilos HTML Generales */
+body {
+	font-size:13px;
+	color:#636E7B;
+	background-color:#EBECF1;
+}
+footer nav ul {
+	text-align: center;
+}
+
+/** Estilos para el contenido de la aplicación */
+.app-content {
+	position: relative;
+	margin: 20px;
+}
+
+/** Estilos generales */
+.img-circle {
+	border-radius: 50%;
+}
+.media {
+	> .float-left {
+		margin-right: 10px;
+	}
+}
+.media-heading {
+	color: #333;
+	font-size: 14px;
+	font-weight: 500;
+	margin: 0;
+}
+.footer {
+	padding: 10px 0;
+}
+.nodisplay {
+	display: none;
+}
+.md-title {
+	font-size: 1em;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+.ico-2x {
+	font-size:2rem;
+}
+.ico-3x {
+	font-size:3rem;
+}
+.ico-4x {
+	font-size:4rem;
+}
+.bg-info {
+	background-color: #2CA8FF !important;
+}
+.bg-success {
+	background-color: rgba(24, 206, 15, 0.8);
+}
+.bg-warning {
+	background-color: rgba(255, 178, 54, 0.8);
+}
+.bg-danger {
+	background-color: rgba(255, 54, 54, 0.8);
+}
+.bg-info, .bg-success, .bg-warning, .bg-danger {
+	color: #fff !important;
+}
+.app-content {
+	min-height: 100vh;
+}

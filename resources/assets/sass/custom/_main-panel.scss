@@ -1,0 +1,58 @@
+/** Estilos para el encabezado del contenido */
+.main-panel {
+	margin-left: 230px;
+
+	.content-header-map {
+		padding: 20px;
+		border-bottom: 1px solid #eee;
+		padding-bottom: 20px;
+		height: 90px;
+		-webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+		box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+
+		/*.media {padding: 0;clear: both;}*/
+
+		.pageicon {
+			width: 50px;
+			height: 50px;
+			background-color: #2BA3F7;
+			display: inline-block;
+			color: #fff;
+			font-size: 32px;
+			border-radius: 3px;
+			padding-top: 1px;
+			padding-left: 10px;
+		}
+
+		.breadcrumb {
+			margin: 0;
+			padding: 0;
+			background: none;
+			font-size: 11px;
+			color: #999;
+			line-height: 18px;
+
+			> li {
+				display: inline-block;
+			}
+
+			i {
+				color: #999;
+			}
+
+			> li + li:before {
+				padding: 0 3px;
+				color: #ccc;
+				content: "/\00a0";
+			}
+		}
+
+		h4 {
+			margin: -2px 0 0 0;
+			font-size: 28px;
+			font-weight: 500;
+			color: #999;
+			line-height: normal;
+		}
+	}
+}

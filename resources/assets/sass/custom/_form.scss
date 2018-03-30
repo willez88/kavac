@@ -1,0 +1,37 @@
+/** Estilos de formularios */
+.input-group-focus .input-group-addon, .input-group-focus .form-control, .form-control:focus {
+	border-color: #2CA8FF;
+}
+
+.radio input[type="radio"]:checked + label::after {
+	background-color: #2CA8FF;border-color: #2CA8FF;
+}
+
+.checkbox label::after {
+	color: #2CA8FF;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on, .bootstrap-switch .bootstrap-switch-handle-off, 
+.bootstrap-switch .bootstrap-switch-label {
+	font-size: 10px;
+}
+
+.is-required {
+	&.form-group {
+		.form-control {
+			padding-right: 40px;
+		}
+	}
+
+	&:after {
+		font-family: 'Ionicons';
+		content: "\f314";
+		display: inline-block;
+		position: absolute;
+		right: 15px;
+		bottom: 10px;
+		color: #FF3636;
+		font-size: 8px;
+		margin:2px 0;
+	}
+}

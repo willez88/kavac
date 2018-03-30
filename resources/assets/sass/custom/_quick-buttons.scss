@@ -1,0 +1,95 @@
+/** Quick Buttons */
+.btn-simplex {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 80px;
+  padding-top: 16px;
+  margin: 10px;
+  color: #444444;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  -webkit-box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;background-color: #fff;
+
+  span {
+        display: block;
+  }
+}
+
+a {
+    .btn-simplex {
+        text-decoration: none !important;
+    }
+}
+
+/** Square buttons */
+.btn {
+    &.btn-square, &.btn-square:hover {
+        background-color: #fff;
+    }
+}
+
+.btn-square {
+    padding: 5px;
+    border: 3px double #2CA8FF;
+    color: #337AB7;
+    min-height: 120px;
+    max-width: 100%;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    margin: 5px;
+    -webkit-box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+
+    a {
+        text-decoration: none;
+
+        h2, h3, h4, h5, h6 {
+            margin-top: 15px;
+        }
+    }
+
+    &.btn-square-primary {
+        border: 3px double #F96332;
+
+        a {
+            color: #F96332;
+        }
+    }
+
+    &.btn-square-success {
+        border: 3px double rgba(24, 206, 15, 0.8);
+
+        a {
+            color: rgba(24, 206, 15, 0.8);
+        }
+    }
+
+    &.btn-square-warning {
+        border: 3px double rgba(255, 178, 54, 0.8);
+
+        a {
+            color: rgba(255, 178, 54, 0.8);
+        }
+    }
+
+    &.btn-square-danger {
+        border: 3px double rgba(255, 54, 54, 0.8);
+
+        a {
+            color: rgba(255, 54, 54, 0.8);
+        }
+    }
+
+    &.btn-square-info {
+        border: 3px double rgba(44, 168, 255, 0.8);
+
+        a {
+            color: rgba(44, 168, 255, 0.8);
+        }
+    }
+}

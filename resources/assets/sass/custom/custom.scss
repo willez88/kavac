@@ -1,0 +1,41 @@
+body {font-size:13px;color:#636E7B;background-color:#EBECF1;}
+	    	footer nav ul {text-align: center;}
+
+// Variables
+@import "variables";
+
+// Estilos generales reescritos o adecuados
+@import "base";
+
+// Navbar
+@import "navbar";
+
+// Panel Izquierdo
+@import "left-panel";
+
+// Panel de contenido
+@import "main-panel";
+
+// Cards
+@import "card";
+
+// Forms
+@import "form";
+
+// Info Panels
+@import "info-panel";
+
+// Quick Buttons
+@import "quick-buttons";
+
+// Info Box
+@import "info-box";
+
+// Adecuación en estilos de plugins
+@import "override";
+
+// Dash Box
+@import "dash-box";
+
+// JQuery Menu
+@import "menu"

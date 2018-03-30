@@ -1,0 +1,74 @@
+/** Estilos para la barra de navegación superior */
+.navbar {
+	max-height:60px;
+	padding-left: 0;
+
+	> .container {
+		margin-right:0;
+		padding-right: 0;
+	}
+
+	> .container-left {
+		width:230px;
+		max-height:60px;
+		padding:14px 15px;
+		float:left;
+		border-right:1px solid rgba(255,255,255,0.14);
+		background-color: rgba(0,0,0,0.03);
+		position: relative;
+
+		> .logo > img {
+			max-height:30px;
+		}
+
+		.menu-collapse {
+		    -moz-transition: all 0.2s ease-out 0s;
+		    -webkit-transition: all 0.2s ease-out 0s;
+		    transition: all 0.2s ease-out 0s;
+		    border: 1px solid rgba(255,255,255,0.3);
+		    color: rgba(255,255,255,0.8);
+		    padding: 6px 9px;
+		    -moz-border-radius: 50px;
+		    -webkit-border-radius: 50px;
+		    border-radius: 50px;
+		    display: inline-block;
+		    font-size: 16px;
+		    line-height: normal;
+		    position: absolute;
+		    top: 13px;
+		    right: 15px;
+		}
+
+		&.collapsed {position: relative;left: -168px;}
+	}
+
+	.nav-item {
+		&.dropdown {
+			.dropdown-menu {
+				.dropdown-item {
+					color: #868e96;
+
+					i {
+						margin-right: 10px;
+						font-size: .8rem;
+					}
+				}
+			}
+		}
+	}
+
+	.badge-notify {
+		position:relative;
+		top: -10px;
+		left:-10px;
+		padding:.15em .4em;
+		background-color: #f96332;
+		color:#fff;
+		margin-bottom:0;
+		display:'';
+	}
+}
+
+.navbar-toggler {
+	color:#fff;
+}

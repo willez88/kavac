@@ -1,0 +1,142 @@
+/** Panel de información */
+.information_panel {
+	padding: 15px;
+	color: #FFFFFF;
+	border: none;
+	margin-bottom: 20px;
+	display: block;
+	width: 100%;
+	float: left;
+	border-radius:15px;
+	box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+
+	b, strong {
+		font-weight: 700;
+	}
+
+	canvas {
+		display: inline-block;
+		width: 47px;
+		height: 25px;
+		vertical-align: top;
+	}
+
+	.information_panel_inner {
+		position: relative;
+		text-align: center;
+
+		span {
+			margin-bottom: 3px;
+			display: inline-block;
+			margin-top: 5px;
+		}
+
+		b {
+			margin-bottom: 5px;
+			margin-top: 12px;
+			float: left;
+		}
+
+		small {
+			font-size: .9em;
+		}
+	}
+
+	.infoprogress_success, .infoprogress_info, .infoprogress_warning, .infoprogress_danger {
+		height: 6px;
+		margin-bottom: 5px;
+		margin-top: 28px;
+	}
+
+	.infoprogress_success {
+		background-color: rgba(17,153,11,0.8);
+	}
+
+	.infoprogress_info {
+		background-color: rgba(26,100,152,0.8);
+	}
+
+	.infoprogress_warning {
+		background-color: rgba(196,137,41,0.8);
+	}
+
+	.infoprogress_danger {
+		background-color: rgba(213,45,45,0.8);
+	}
+
+	.success_progress, .info_progress, .warning_progress, .danger_progress {
+		width: 80%;
+		height: 100%;
+	}
+
+	.success_progress {
+		background-color: rgba(26,225,16,0.8);
+	}
+
+	.info {
+		border-radius: 50%;
+		float: left;
+		height: 80px;
+		width: 80px;
+
+		.icon {
+			font-size: 50px;
+			color: #FFFFFF;
+			float: left;
+			margin-right: 20px;
+			margin: 17px 0px 0px 14px;
+		}
+	}
+
+	.work-progress {
+		margin-top: 5px;
+	}
+
+	.success_symbols {
+		background-color: rgba(26,225,16,0.8);
+	}
+
+	&.success_panel, &.info_panel, &.warning_panel, &.danger_panel {
+		background: #fff;
+	}
+
+	&.success_panel {
+		color: rgba(26,225,16,0.8);
+	}
+
+	.info_symbols {
+		background-color:rgba(44,168,255,0.8);
+	}
+
+	&.info_panel {
+		color: rgba(44,168,255,0.8);
+	}
+
+	.info_progress {
+		background-color: rgba(44,168,255,0.8);
+	}
+
+	.warning_symbols {
+		background-color:rgba(255,178,54,0.8);
+	}
+
+	&.warning_panel {
+		color: rgba(255,178,54,0.8);
+	}
+
+	.warning_progress {
+		background-color: rgba(255,178,54,0.8);
+	}
+
+	.danger_symbols {
+		background-color:rgba(255,54,54,0.8);
+	}
+
+	&.danger_panel {
+		color: rgba(255,54,54,0.8);
+	}
+
+	.danger_progress {
+		background-color: rgba(255,54,54,0.8);
+	}
+}
