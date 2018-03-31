@@ -11,12 +11,16 @@
         <title>{{ config('app.name', 'KAVAC | Sistema de Gestión Administrativa') }}</title>
 
         {{-- Estilos de la aplicación --}}
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        {{-- <link href="{{ asset('css/now-ui-kit.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> --}}
-        <link href="{{ asset('vendor/select2/css/select2.min.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('vendor/datatable/css/dataTables.bootstrap4.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/datatable/responsive/css/responsive.bootstrap4.min.css') }}">
+        {!! Html::style('css/app.css') !!}
+        {{-- Estilos de Plugins --}}
+        {{-- Select2 --}}
+        {!! Html::style('vendor/select2/css/select2.min.css') !!}
+        {{-- Datatable --}}
+        {!! Html::style('vendor/datatable/css/dataTables.bootstrap4.min.css') !!}
+        {!! Html::style('vendor/datatable/responsive/css/responsive.bootstrap4.min.css') !!}
+
+        {{-- Sección para estilos extras dispuestos por las plantillas según requerimientos particulares --}}
+        @yield('extra-css')
     </head>
     <body class="@guest login-page sidebar-collapse @endguest">
         @guest
@@ -30,31 +34,7 @@
                     </div>
                 </div>
                 <footer class="footer">
-                    <div class="container">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href="https://www.cenditel.gob.ve">CENDITEL</a>
-                                </li>
-                                <li>
-                                    <a href="" class="about_app">Acerca de</a>
-                                </li>
-                                <li>
-                                    <a href="#">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="" class="license_app">Licencia</a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <div class="copyright">
-                            &copy;
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>, Desarrollado por 
-                            <a href="https://www.cenditel.gob.ve" target="_blank">CENDITEL</a> nodo Mérida.
-                        </div>
-                    </div>
+                    @include('layouts.footer')
                 </footer>
             </div>
         @else
@@ -66,14 +46,21 @@
         @endguest
 
         {{-- Scripts --}}
-        <script src="{{ asset('js/nouislider.min.js') }}"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/bootbox.min.js') }}"></script>
-        <script src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
-        <script src="{{ asset('vendor/datatable/js/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('vendor/datatable/js/dataTables.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('vendor/datatable/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('vendor/datatable/js/responsive.bootstrap4.min.js') }}"></script>
+        {{-- Plugin Sliders --}}
+        {!! Html::script('js/nouislider.min.js') !!}
+        {{-- Scripts de la aplicación --}}
+        {!! Html::script('js/app.js') !!}
+        {{-- Plugin Bootbox --}}
+        {!! Html::script('js/bootbox.min.js') !!}
+        {{-- Plugin Select2 --}}
+        {!! Html::script('vendor/select2/js/select2.full.min.js') !!}
+        {{-- Plugin Datatable --}}
+        {!! Html::script('vendor/datatable/js/jquery.dataTables.min.js') !!}
+        {!! Html::script('vendor/datatable/js/dataTables.bootstrap4.min.js') !!}
+        {!! Html::script('vendor/datatable/js/dataTables.responsive.min.js') !!}
+        {!! Html::script('vendor/datatable/js/responsive.bootstrap4.min.js') !!}
+
+        {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}
         @yield('extra-js')
     </body>
 </html>

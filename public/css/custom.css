@@ -112,6 +112,12 @@ footer nav ul {
   margin: 10px auto;
 }
 
+.modal-footer {
+  -webkit-box-pack: end !important;
+      -ms-flex-pack: end !important;
+          justify-content: flex-end !important;
+}
+
 table {
   font-size: 0.87em;
   width: 100% !important;
