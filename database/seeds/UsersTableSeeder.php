@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Ultraware\Roles\Models\Role;
 
 use App\User;
 use Carbon\Carbon;
@@ -15,8 +16,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::transaction(function() {
-        	/** @var [boolean] Crea el usuario por defecto de la aplicación */
-    		$db_user = User::updateOrCreate(
+        	/** @var [Object] Crea el usuario por defecto de la aplicación */
+    		$user_admin = User::updateOrCreate(
                 ['username' => 'admin'],
                 [
                     'name' => 'Admin',
@@ -26,10 +27,22 @@ class UsersTableSeeder extends Seeder
                     'created_at' => Carbon::now()
                 ]
             );
-	        if (!$db_user)
-            {
+	        if (!$user_admin) {
                 throw new Exception('Error creando el usuario administrador por defecto');
             }
+
+            /** @var [Object] Crea el rol de administrador del sistema */
+            $adminRole = Role::updateOrCreate(
+                ['slug' => 'admin'],
+                [
+                    'name' => 'Admin',
+                    'description' => 'Administrador de la aplicación',
+                    'level' => 1,
+                ]
+            );
+
+            /** Asigna el rol de administrador */
+            $user_admin->attachRole($adminRole);
     	});
     }
 }

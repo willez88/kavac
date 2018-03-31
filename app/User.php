@@ -6,13 +6,14 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
+use Ultraware\Roles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
     use RevisionableTrait;
-    //use HasRoleAndPermissionTrait;
+    use HasRoleAndPermission;
     protected $revisionCreationsEnabled = true;
 
     /**
