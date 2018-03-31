@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
             $adminRole = Role::updateOrCreate(
                 ['slug' => 'admin'],
                 [
-                    'name' => 'Admin',
+                    'name' => 'Administrador',
                     'description' => 'Administrador de la aplicación',
                     'level' => 1,
                 ]
@@ -43,6 +43,16 @@ class UsersTableSeeder extends Seeder
 
             /** Asigna el rol de administrador */
             $user_admin->attachRole($adminRole);
+
+            /** @var [Object] Crea el rol de usuario del sistema */
+            $userRole = Role::updateOrCreate(
+                ['slug' => 'user'],
+                [
+                    'name' => 'Usuario',
+                    'description' => 'Usuario de la aplicación',
+                    'level' => 2,
+                ]
+            );
     	});
     }
 }
