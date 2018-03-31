@@ -48,9 +48,27 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Ultraware\Roles\Exceptions\PermissionDeniedException) {
+            /** Exception catch when deny access by permissions */
+            $request->session()->flash('message', [
+                'type' => 'deny', 'msg' => 'No dispone de permisos para acceder a esta funcionalidad'
+            ]);
+            return redirect()->back();
+        }
+
+        if ($exception instanceof \Ultraware\Roles\Exceptions\LevelDeniedException) {
+            /** Exception catch when deny access by levels */
+            $request->session()->flash('message', [
+                'type' => 'deny', 'msg' => 'Su nivel de acceso no le permite acceder a esta funcionalidad'
+            ]);
+            return redirect()->back();
+        }
+
         if ($exception instanceof \Ultraware\Roles\Exceptions\RoleDeniedException) {
-            /** Exception catch when deny access */
-            $request->session()->flash('message', ['type' => 'deny']);
+            /** Exception catch when deny access by roles */
+            $request->session()->flash('message', [
+                'type' => 'deny', 'msg' => 'El rol asignado no le permite acceder a esta funcionalidad'
+            ]);
             return redirect()->back();
         }
         return parent::render($request, $exception);
