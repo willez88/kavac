@@ -48,6 +48,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Ultraware\Roles\Exceptions\RoleDeniedException) {
+            /** Exception catch when deny access */
+            $request->session()->flash('message', ['type' => 'deny']);
+            return redirect()->back();
+        }
         return parent::render($request, $exception);
     }
 }
