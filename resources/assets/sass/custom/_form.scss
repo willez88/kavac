@@ -1,4 +1,15 @@
 /** Estilos de formularios */
+.input-group {
+	&.input-sm {
+		.input-group-addon, input {
+			max-height:35px;
+		}
+	}
+	input[type=date] {
+		padding-left: 6px !important;
+		padding-right: 6px !important;
+	}
+}
 .input-group-focus .input-group-addon, .input-group-focus .form-control, .form-control:focus {
 	border-color: #2CA8FF;
 }

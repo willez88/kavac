@@ -99,6 +99,30 @@ footer nav ul {
   min-height: 100vh;
 }
 
+.card-title {
+  text-transform: uppercase;
+  color: #0073b7;
+}
+
+table {
+  font-size: 0.87em;
+  width: 100% !important;
+}
+
+table th,
+table td {
+  padding: 0.5rem !important;
+  vertical-align: middle !important;
+}
+
+.panel-legend span {
+  margin-left: 10px;
+}
+
+.mg-bottom-20 {
+  margin-bottom: 20px;
+}
+
 /** Estilos para la barra de navegación superior */
 
 .navbar {
@@ -167,6 +191,16 @@ footer nav ul {
 
 .navbar-toggler {
   color: #fff;
+}
+
+.btn.btn-icon.btn-xs {
+  height: 1.4rem;
+  min-width: 1.4rem;
+  width: 1.4rem;
+}
+
+.btn.btn-icon.btn-xs i {
+  font-size: .7rem;
 }
 
 /** Efectos para mostrar u ocultar las opciones del menú del panel izquierdo */
@@ -459,12 +493,12 @@ footer nav ul {
 }
 
 .card-btns .btn i {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 .btn-card-action {
-  background: transparent;
-  color: #2CA8FF;
+  background: transparent !important;
+  color: #2CA8FF !important;
 }
 
 .card-footer {
@@ -476,6 +510,16 @@ footer nav ul {
 }
 
 /** Estilos de formularios */
+
+.input-group.input-sm .input-group-addon,
+.input-group.input-sm input {
+  max-height: 35px;
+}
+
+.input-group input[type=date] {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
 
 .input-group-focus .input-group-addon,
 .input-group-focus .form-control,
@@ -1116,8 +1160,57 @@ a .btn-simplex {
   text-align: left;
 }
 
+.jquery-accordion-menu ul ul.submenu {
+  width: 100%;
+  display: none;
+  position: static;
+}
+
 .jquery-accordion-menu ul ul.submenu .submenu-indicator {
   line-height: 16px;
+}
+
+.jquery-accordion-menu ul ul.submenu li {
+  clear: both;
+  width: 100%;
+}
+
+.jquery-accordion-menu ul ul.submenu li ul.submenu {
+  width: 100%;
+  display: none;
+  position: static;
+}
+
+.jquery-accordion-menu ul ul.submenu li a {
+  width: 100%;
+  float: left;
+  font-size: 11px;
+  background: #383838;
+  border-top: none;
+  position: relative;
+  border-left: solid 6px transparent;
+  -webkit-transition: border .2s linear;
+  transition: border .2s linear;
+}
+
+.jquery-accordion-menu ul ul.submenu li:hover > a {
+  border-left-color: #414956;
+}
+
+.jquery-accordion-menu ul ul.submenu li .jquery-accordion-menu-label {
+  top: 12px;
+}
+
+.jquery-accordion-menu ul ul.submenu > li > a {
+  padding-left: 30px;
+}
+
+.jquery-accordion-menu ul ul.submenu > li > ul.submenu > li > a {
+  padding-left: 45px;
+}
+
+.jquery-accordion-menu ul ul.submenu > li > ul.submenu > li > ul.submenu > li > a {
+  padding-left: 60px;
 }
 
 .jquery-accordion-menu > ul > li.active > a,
@@ -1143,48 +1236,8 @@ a .btn-simplex {
 }
 
 .jquery-accordion-menu .submenu-indicator-minus > .submenu-indicator {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.jquery-accordion-menu ul ul.submenu,
-.jquery-accordion-menu ul ul.submenu li ul.submenu {
-  width: 100%;
-  display: none;
-  position: static;
-}
-
-.jquery-accordion-menu ul ul.submenu li {
-  clear: both;
-  width: 100%;
-}
-
-.jquery-accordion-menu ul ul.submenu li a {
-  width: 100%;
-  float: left;
-  font-size: 11px;
-  background: #383838;
-  border-top: none;
-  position: relative;
-  border-left: solid 6px transparent;
-  -webkit-transition: border .2s linear;
-  transition: border .2s linear;
-}
-
-.jquery-accordion-menu ul ul.submenu li:hover > a {
-  border-left-color: #414956;
-}
-
-.jquery-accordion-menu ul ul.submenu > li > a {
-  padding-left: 30px;
-}
-
-.jquery-accordion-menu ul ul.submenu > li > ul.submenu > li > a {
-  padding-left: 45px;
-}
-
-.jquery-accordion-menu ul ul.submenu > li > ul.submenu > li > ul.submenu > li > a {
-  padding-left: 60px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .jquery-accordion-menu ul li .jquery-accordion-menu-label,
@@ -1201,10 +1254,6 @@ a .btn-simplex {
   line-height: 18px;
   background: #f0f0f0;
   border-radius: 100%;
-}
-
-.jquery-accordion-menu ul ul.submenu li .jquery-accordion-menu-label {
-  top: 12px;
 }
 
 .ink {
@@ -1242,16 +1291,16 @@ a .btn-simplex {
   background: #4A89DC;
 }
 
-.blue.jquery-accordion-menu > ul > li.active > a,
-.blue.jquery-accordion-menu > ul > li:hover > a {
+.blue > ul > li.active > a,
+.blue > ul > li:hover > a {
   background: #3e82da;
 }
 
-.blue.jquery-accordion-menu > ul > li > a {
+.blue > ul > li > a {
   border-bottom-color: #3e82da;
 }
 
-.blue.jquery-accordion-menu ul ul.submenu li:hover > a {
+.blue ul ul.submenu li:hover > a {
   border-left-color: #3e82da;
 }
 
@@ -1261,16 +1310,16 @@ a .btn-simplex {
   background: #03A678;
 }
 
-.green.jquery-accordion-menu > ul > li.active > a,
-.green.jquery-accordion-menu > ul > li:hover > a {
+.green > ul > li.active > a,
+.green > ul > li:hover > a {
   background: #049372;
 }
 
-.green.jquery-accordion-menu > ul > li > a {
+.green > ul > li > a {
   border-bottom-color: #049372;
 }
 
-.green.jquery-accordion-menu ul ul.submenu li:hover > a {
+.green ul ul.submenu li:hover > a {
   border-left-color: #049372;
 }
 
@@ -1280,16 +1329,16 @@ a .btn-simplex {
   background: #ED5565;
 }
 
-.red.jquery-accordion-menu > ul > li.active > a,
-.red.jquery-accordion-menu > ul > li:hover > a {
+.red > ul > li.active > a,
+.red > ul > li:hover > a {
   background: #DA4453;
 }
 
-.red.jquery-accordion-menu > ul > li > a {
+.red > ul > li > a {
   border-bottom-color: #DA4453;
 }
 
-.red.jquery-accordion-menu ul ul.submenu li:hover > a {
+.red ul ul.submenu li:hover > a {
   border-left-color: #DA4453;
 }
 
@@ -1300,25 +1349,30 @@ a .btn-simplex {
   color: #555;
 }
 
-.white.jquery-accordion-menu > ul > li.active > a,
-.white.jquery-accordion-menu > ul > li:hover > a {
+.white > ul > li.active > a,
+.white > ul > li:hover > a {
   background: #f0f0f0;
 }
 
-.white.jquery-accordion-menu > ul > li > a {
+.white > ul > li > a {
   border-bottom-color: #f0f0f0;
 }
 
-.white.jquery-accordion-menu ul ul.submenu li:hover > a {
-  border-left-color: #f0f0f0;
+.white > ul > li > a > .ink {
+  background: rgba(0, 0, 0, 0.1);
 }
 
-.white.jquery-accordion-menu ul ul.submenu li a {
+.white ul ul.submenu li:hover > a {
+  border-left-color: #2BA3F7;
+}
+
+.white ul ul.submenu li a {
   color: #f0f0f0;
 }
 
-.white.jquery-accordion-menu > ul > li > a > .ink {
-  background: rgba(0, 0, 0, 0.1);
+.white.jquery-accordion-menu ul ul.submenu li a {
+  background: #f7f7f7;
+  color: #555;
 }
 
 .black.jquery-accordion-menu .jquery-accordion-menu-footer,
@@ -1327,16 +1381,16 @@ a .btn-simplex {
   background: #292929;
 }
 
-.black.jquery-accordion-menu > ul > li.active > a,
-.black.jquery-accordion-menu > ul > li:hover > a {
+.black > ul > li.active > a,
+.black > ul > li:hover > a {
   background: #222;
 }
 
-.black.jquery-accordion-menu > ul > li > a {
+.black > ul > li > a {
   border-bottom-color: #222;
 }
 
-.black.jquery-accordion-menu ul ul.submenu li:hover > a {
+.black ul ul.submenu li:hover > a {
   border-left-color: #222;
 }
 

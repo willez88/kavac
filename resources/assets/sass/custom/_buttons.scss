@@ -1,0 +1,13 @@
+.btn {
+	&.btn-icon {
+		&.btn-xs {
+			height:1.4rem;
+			min-width:1.4rem;
+			width:1.4rem;
+
+			i {
+				font-size: .7rem;
+			}
+		}
+	}
+}

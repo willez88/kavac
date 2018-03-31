@@ -6,7 +6,7 @@ $(document).ready(function() {
 		$(this).tooltip();
 	});
 
-	/** Acciones del menu izquierdo */
+	/** Maximizar / minimizar panel de menú izquierdo */
 	$('.menu-collapse').click(function() {
       if (!$('body').hasClass('hidden-left')) {
          if ($('.container-left').hasClass('collapsed')) {
@@ -36,9 +36,10 @@ $(document).ready(function() {
    });
 
 
-	$('.btn-card-action').attr('style', 'background:transparent;color:#2CA8FF');
-
-	$('select').select2();
+    if ($('select').length) {
+        /** Implementación del plugin selec2 para los elementos del DOM de tipo Select */
+        $('select').select2();
+    }
 
 	/*$('.card-header').hover(function() {
     	$(this).find('.card-btns').fadeIn('fast');
@@ -60,13 +61,13 @@ $(document).ready(function() {
     	
     	if(!$(this).hasClass('maximize')) {
     		p.find('hr').addClass('nodisplay');
-    		p.find('.card-body, .card-footer').slideUp(400);
+    		p.find('.card-body, .card-footer').fadeOut('fast');
     		t.addClass('maximize');
     		t.find('i').removeClass('arrows-1_minimal-up').addClass('arrows-1_minimal-down');
     		$(this).attr('data-original-title','Maximize Panel').tooltip();
     	} else {
     		p.find('hr').removeClass('nodisplay');
-    		p.find('.card-body, .card-footer').slideDown(400);
+    		p.find('.card-body, .card-footer').fadeIn('fast');
         	t.removeClass('maximize');
         	t.find('i').removeClass('arrows-1_minimal-down').addClass('arrows-1_minimal-up');
         	$(this).attr('data-original-title','Minimize Panel').tooltip();
@@ -75,24 +76,39 @@ $(document).ready(function() {
         return false;
     });
 
-    // Sliders for demo purpose in refine cards section
-    var slider = document.getElementById('sliderRegular');
-    noUiSlider.create(slider, {
-    	start: 40,
-    	connect: [true, false],
-    	range: {
-    		min: 0,
-    		max: 100
-    	}
-    });
+    /** Implementación de sliders sencillos */
+    if ($('#sliderRegular').length) {
+        /** @type {Object} [Estilos personalizados para el uso de esliders] */
+        var slider = document.getElementById('sliderRegular');
+        noUiSlider.create(slider, {
+            start: 40,
+            connect: [true, false],
+            range: {
+                min: 0,
+                max: 100
+            }
+        });
+    }
+    
+    /** Implementación de sliders dobles */
+    if ($('#sliderDouble').length) {
+        var slider2 = document.getElementById('sliderDouble');
+        noUiSlider.create(slider2, {
+            start: [20, 60],
+            connect: true,
+            range: {
+                min: 0,
+                max: 100
+            }
+        });
+    }
 
-    var slider2 = document.getElementById('sliderDouble');
-    noUiSlider.create(slider2, {
-    	start: [20, 60],
-    	connect: true,
-    	range: {
-    		min: 0,
-    		max: 100
-    	}
+    /** Reemplazo de icono indicador en el menú del panel izquierdo */
+    $('.submenu-indicator').html('<i class="ion-ios-arrow-left text-center"></i>');
+
+    /** Acciones para ocultar los mensajes tooltip cuando se posiciona o se hace clic en otro elemento */
+    $('a').on('hover, click', function() {
+        $('.tooltip:last').remove();
+        $('.tooltip:last').tooltip();
     });
 });

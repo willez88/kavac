@@ -36,14 +36,14 @@
             padding: .12rem .24rem;
 
             i {
-                  font-size:1.5em;
+                  font-size:1em;
             }
       }
 }
             
 .btn-card-action {
-      background: transparent;
-      color: #2CA8FF;
+      background: transparent !important;
+      color: #2CA8FF !important;
 }
 
 .card-footer {

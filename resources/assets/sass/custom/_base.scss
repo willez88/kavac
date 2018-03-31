@@ -67,3 +67,24 @@ footer nav ul {
 .app-content {
 	min-height: 100vh;
 }
+.card-title {
+	text-transform: uppercase;
+	color: #0073b7;
+}
+table {
+	font-size: 0.87em;
+	width: 100% !important;
+
+	th, td {
+		padding: 0.5rem !important;
+		vertical-align: middle !important;
+	}
+}
+.panel-legend {
+	span {
+		margin-left: 10px;
+	}
+}
+.mg-bottom-20 {
+	margin-bottom:20px;
+}
