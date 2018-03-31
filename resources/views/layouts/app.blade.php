@@ -18,6 +18,8 @@
         {{-- Datatable --}}
         {!! Html::style('vendor/datatable/css/dataTables.bootstrap4.min.css') !!}
         {!! Html::style('vendor/datatable/responsive/css/responsive.bootstrap4.min.css') !!}
+        {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
+        {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css') !!}
 
         {{-- Sección para estilos extras dispuestos por las plantillas según requerimientos particulares --}}
         @yield('extra-css')
@@ -59,6 +61,55 @@
         {!! Html::script('vendor/datatable/js/dataTables.bootstrap4.min.js') !!}
         {!! Html::script('vendor/datatable/js/dataTables.responsive.min.js') !!}
         {!! Html::script('vendor/datatable/js/responsive.bootstrap4.min.js') !!}
+        {{-- Plugin Gritter --}}
+        {!! Html::script('vendor/jquery.gritter/js/jquery.gritter.min.js') !!}
+
+        <script>
+            $(document).ready(function() {
+                @if (session('message'))
+                    {{-- Mensajes de la aplicación --}}
+                    var msg_title = '', msg_text = '', msg_class = '', msg_icon = '';
+                    msg_title = 'Éxito';
+                    msg_icon = 'screen-ok';
+                    msg_class = 'growl-success';
+                    @if (session('message')['type'] == 'store')
+                        msg_text = 'Registro almacenado con éxito';
+                    @elseif (session('message')['type'] == 'update')
+                        msg_text = 'Registro actualizado con éxito';
+                    @elseif (session('message')['type'] == 'destroy')
+                        msg_text = 'Registro eliminado con éxito';
+                    @elseif (session('message')['type'] == 'deny')
+                        msg_title = 'Acceso Denegado';
+                        msg_icon = 'screen-error';
+                        msg_class = 'growl-danger';
+                        msg_text = 'Usted no tiene acceso a la petición solicitada';
+                        @if (session('message')['msg'])
+                            msg_text = '{!! session('message')['msg'] !!}';
+                        @endif
+                    @elseif (session('message')['type'] == 'other')
+                        msg_icon = 'screen-info';
+                        @if (session('message')['title'])
+                            msg_title = '{!! session('message')['title'] !!}';
+                        @endif
+                        @if (session('message')['icon'])
+                            msg_icon = '{!! session('message')['icon'] !!}';
+                        @endif
+                        @if (session('message')['class'])
+                            msg_class = '{!! session('message')['class'] !!}';
+                        @endif
+                        msg_text = "{{ session('message')['text'] }}";
+                    @endif
+                    $.gritter.add({
+                        title: msg_title,
+                        text: msg_text,
+                        class_name: msg_class,
+                        image: "{{ asset('images') }}/" + msg_icon + ".png",
+                        sticky: false,
+                        time: ''
+                    });
+                @endif
+            });
+        </script>
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}
         @yield('extra-js')

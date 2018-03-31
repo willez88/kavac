@@ -43,3 +43,9 @@ Route::group(['middleware' => 'auth'], function() {
         return $response;
     });
 });
+
+Route::group(['middleware' => 'role:admin'], function() {
+    Route::get('/settings', function() {
+        return view('admin.settings');
+    })->name('settings');
+});
