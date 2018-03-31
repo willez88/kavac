@@ -26,3 +26,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/refresh-captcha', 'Auth\LoginController@refreshCaptcha');
+
+Route::group(['middleware' => 'auth'], function() {
+	/** Ruta para acceder a las imágenes almacenadas por la aplicación */
+    Route::get('storage/pictures/{image}', function($image) {
+        $path = storage_path('pictures/' . $image);
+        if (!File::exists($path)) {
+            abort(404);
+        }
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+    });
+});
