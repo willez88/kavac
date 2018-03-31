@@ -21,34 +21,26 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="https://www.creative-tim.com">
-                            Creative Tim
-                        </a>
+                        <a href="https://www.cenditel.gob.ve" target="_blank">CENDITEL</a>
                     </li>
                     <li>
-                        <a href="http://presentation.creative-tim.com">
-                            About Us
-                        </a>
+                        <a href="" class="about_app">Acerca de</a>
                     </li>
                     <li>
-                        <a href="http://blog.creative-tim.com">
-                            Blog
-                        </a>
+                        <a href="#" target="_blank">Blog</a>
                     </li>
                     <li>
-                        <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
-                            MIT License
-                        </a>
+                        <a href="" class="license_app">Licencia</a>
                     </li>
                 </ul>
             </nav>
             <div class="copyright">
-                ©
+                &copy;
                 <script>
-                    document.write(new Date().getFullYear())
-                </script>2018, Designed by
-                <a href="http://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                    document.write(new Date().getFullYear());
+                </script>, Diseñado por 
+                <a href="mailto:rvargas@cenditel.gob.ve">Ing. Roldan Vargas</a>, Desarrollado por 
+                <a href="https://www.cenditel.gob.ve" target="_blank">CENDITEL</a> nodo Mérida.
             </div>
         </div>
     </footer>

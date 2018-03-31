@@ -49188,6 +49188,48 @@ $(document).ready(function () {
         $('.tooltip:last').remove();
         $('.tooltip:last').tooltip();
     });
+
+    if ($('.datatable').length) {
+        $.extend($.fn.dataTableExt.oStdClasses, {
+            "sFilterInput": "form-control input-sm",
+            "sLengthSelect": "input-sm select2"
+        });
+        dt_options = {
+            "language": {
+                //"url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+                "processing": "Procesando...",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "Lo sentimos - no existen registros",
+                "infoEmpty": "No hay registros disponibles",
+                "emptyTable": "Ningún dato disponible en esta tabla",
+                "info": "Página _PAGE_ de _PAGES_",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "loadingRecords": "Cargando...",
+                "infoThousands": ",",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "infoPostFix": "",
+                "aria": {
+                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "ordering": true,
+            "order": [[0, 'asc']],
+            "bDestroy": true,
+            "bPaginate": true,
+            "bInfo": true,
+            "initComplete": function initComplete(settings, json) {
+                $('.dataTables_length select').select2();
+            }
+        };
+        $('.datatable').dataTable(dt_options);
+    }
 });
 
 /***/ }),
