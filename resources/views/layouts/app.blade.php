@@ -148,37 +148,6 @@
         <script src="{{ asset('vendor/datatable/js/dataTables.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('vendor/datatable/js/dataTables.responsive.min.js') }}"></script>
         <script src="{{ asset('vendor/datatable/js/responsive.bootstrap4.min.js') }}"></script>
-        <script>
-            $(document).ready(function() {
-                $('.about_app').on('click', function(e) {
-                    e.preventDefault();
-                    bootbox.alert(
-                        '<h6>SISTEMA DE GESTION ADMINISTRATIVA | KAVAC</h6>' +
-                        '<p class="text-justify">Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública. Registra y controla el presupuesto de la institución.</p>' +
-                        '<h6 class="card-title">Créditos</h6>' +
-                        '<ul>' +
-                            '<li class="special-title">Lider de proyecto / Diseño / Desarrollo</li>' +
-                            '<li>Roldan Vargas (rvargas@cenditel.gob.ve)</li>' +
-                            '<li class="special-title">Analistas</li>' +
-                            '<li>Julie Vera (jvera@cenditel.gob.ve)</li>' +
-                            '<li>María Gónzalez (mgonzalez@cenditel.gob.ve)</li>' +
-                            '<li class="special-title">Desarrolladores</li>' +
-                            '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' +
-                            '<li>Juan Vizcarrondo (jvizcarrondo@cenditel.gob.ve)</li>' +
-                        '</ul>'
-                    );
-                });
-
-                $('.license_app').on('click', function(e) {
-                    e.preventDefault();
-                    bootbox.alert(
-                        '<h6>LICENCIA | Copyleft <i class="fa fa-copyright"></i></h6>' + 
-                        '<p>La aplicación, salvo aquellos paquetes de tercero con licenciamiento personalizado excluyentes de esta aplicación, se distribuye bajo los terminos de licenciamiento GPL v3.</p>' +
-                        '<p>Esto quiere decir que eres libre de copiarla, estudiarla, modificarla y/o distribuirla.<p>'
-                    );
-                });
-            });
-        </script>
         @yield('extra-js')
     </body>
 </html>
