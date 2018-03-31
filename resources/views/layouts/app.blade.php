@@ -17,28 +17,6 @@
         <link href="{{ asset('vendor/select2/css/select2.min.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('vendor/datatable/css/dataTables.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/datatable/responsive/css/responsive.bootstrap4.min.css') }}">
-        <style>
-            @guest
-                .login-page .card-login .input-group:last-child {
-                    margin-bottom: 20px;
-                }
-                .login-page .page-header .page-header-image {
-                    background-image:url({{ asset('images/auth-bg.jpg') }});
-                }
-                .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
-                    background-color: rgba(255, 255, 255, 0.4);
-                }
-            @endguest
-            .input-group-addon {
-                border-radius: 30px 0 0 30px;
-            }
-            .cursor-pointer {
-                cursor:pointer;
-            }
-            .vertical-middle {
-                margin:10px auto;
-            }
-        </style>
     </head>
     <body class="@guest login-page sidebar-collapse @endguest">
         @guest
@@ -86,60 +64,8 @@
                 @include('layouts.content')
             </div>
         @endguest
-            <!--<nav class="navbar navbar-default navbar-static-top">
-                <div class="container">
-                    <div class="navbar-header">
 
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                            <span class="sr-only">Toggle Navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            {{ config('app.name', 'Laravel') }}
-                        </a>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            &nbsp;
-                        </ul>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            @guest
-                                <li><a href="{{ route('login') }}">Login</a></li>
-                                <li><a href="{{ route('register') }}">Register</a></li>
-                            @else
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                        {{ Auth::user()->name }} <span class="caret"></span>
-                                    </a>
-
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                                Logout
-                                            </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
-                            @endguest
-                        </ul>
-                    </div>
-                </div>
-            </nav>-->
-
-            
-
-        <!-- Scripts -->
+        {{-- Scripts --}}
         <script src="{{ asset('js/nouislider.min.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/bootbox.min.js') }}"></script>
