@@ -1,4 +1,4 @@
-/** Estilos de formularios */
+/** Estilos personalizados en campos con imágenes agrupadas en formularios */
 .input-group {
 	&.input-sm {
 		.input-group-addon, input {
@@ -17,19 +17,17 @@
 	border-color: #2CA8FF;
 }
 
+/** Estilos personalizados para campos de tipo radio */
 .radio input[type="radio"]:checked + label::after {
 	background-color: #2CA8FF;border-color: #2CA8FF;
 }
 
+/** Estilos personalizados para campos de tipo checkbox */
 .checkbox label::after {
 	color: #2CA8FF;
 }
 
-.bootstrap-switch .bootstrap-switch-handle-on, .bootstrap-switch .bootstrap-switch-handle-off, 
-.bootstrap-switch .bootstrap-switch-label {
-	font-size: 10px;
-}
-
+/** Estilos para campos requeridos en formularios */
 .is-required {
 	&.form-group {
 		.form-control {
@@ -48,4 +46,37 @@
 		font-size: 8px;
 		margin:2px 0;
 	}
+}
+
+/** Estilos personalizados para Bootstrap Switch */
+.bootstrap-switch {
+	.bootstrap-switch-handle-on, .bootstrap-switch-handle-off, .bootstrap-switch-label {
+		font-size: 10px;
+		font-weight: bold !important;
+	}
+
+	&.bootstrap-switch-off {
+		background-color: rgba(249, 99, 50, .9);
+
+		.bootstrap-switch-label {
+			background-color: rgb(211, 211, 211);
+		}
+	}
+
+	&.bootstrap-switch-on {
+		background-color: rgba(18, 160, 11, .9);
+
+		.bootstrap-switch-label {
+			background-color: rgb(255, 255, 255);
+		}
+	}
+}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+	background-color: rgba(249, 99, 50, .7) !important;
+	color: #fff !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+	color:#fff !important;
 }
