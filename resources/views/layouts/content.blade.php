@@ -2,14 +2,22 @@
 	<div class="content-header-map">
         <div class="media">
             <div class="pageicon float-left">
-                <i class="fa fa-home"></i>
+                @section('maproute-icon')
+                    <i class="ion-ios-speedometer"></i>
+                @show
             </div>
             <div class="media-body">
                 <ul class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-home"></i></a></li>
-                    <li>Dashboard</li>
+                    <li>
+                        <a href="{{ route('index') }}">
+                            @section('maproute-icon-mini')
+                                <i class="ion-ios-speedometer"></i>
+                            @show
+                        </a>
+                    </li>
+                    <li>@yield('maproute-actual', 'Panel de Control')</li>
                 </ul>
-                <h4>Dashboard</h4>
+                <h4>@yield('maproute-title', 'Panel de Control')</h4>
             </div>
         </div>
     </div>

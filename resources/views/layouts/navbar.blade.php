@@ -1,7 +1,7 @@
 {{-- Barra de Navegación Superior --}}
 <nav class="navbar navbar-expand-lg bg-info fixed-top">
 	<div class="container-left">
-		<a href="index.html" class="logo">
+		<a href="{{ route('index') }}" class="logo">
                 <img src="{{ asset('images/logo-white.png') }}" alt="" /> 
             </a>
             <div class="float-right">
@@ -20,7 +20,7 @@
 			</button>
 		</div>
 		<div class="collapse navbar-collapse justify-content-end" 
-			 id="app-navbar-info" data-nav-image="{{ asset('images/blurred-image-1.jpg') }}">
+			 id="app-navbar-info" data-nav-image="{{ asset('images/blurred-image.jpg') }}">
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a class="nav-link btn btn-sm btn-info" href="#" title="Notificaciones del sistema" data-toggle="tooltip">
@@ -50,13 +50,13 @@
 						   data-toggle="tooltip">Inglés</a>
 					</div>
 				</li>
-				<li class="nav-item">
+				{{-- <li class="nav-item">
 					<a class="nav-link btn btn-sm btn-info" href="#" 
 					   title="Configuración del Sistema, solo administradores" 
 					   data-toggle="tooltip">
 						<i class="now-ui-icons ui-2_settings-90"></i>
 					</a>
-				</li>
+				</li> --}}
 				<li class="nav-item">
 					<a class="nav-link btn btn-sm btn-info" href="#" title="chat" data-toggle="tooltip">
 						<i class="now-ui-icons ui-2_chat-round"></i>

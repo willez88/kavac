@@ -14,14 +14,15 @@
 		<ul>
             {{-- Acceso al panel de control del usuario --}}
 			<li class="active">
-                <a href="#" title="Panel de control del usuario" data-toggle="tooltip" data-placement="right">
+                <a href="{{ route('index') }}" title="Panel de control del usuario" 
+                   data-toggle="tooltip" data-placement="right">
                     <i class="ion-ios-speedometer-outline"></i><span>Panel de control</span>
                 </a>
             </li>
             {{-- Acceso a la configuración de la aplicación --}}
             <li>
                 <a href="{{ route('settings') }}" title="Configuración de la aplicación" data-toggle="tooltip" data-placement="right">
-                    <i class="ion-ios-settings"></i><span>Configuración</span>
+                    <i class="ion-settings"></i><span>Configuración</span>
                 </a>
             </li>
             {{-- Gestión de beneficiarios --}}
