@@ -25,27 +25,29 @@
         @yield('extra-css')
     </head>
     <body class="@guest login-page sidebar-collapse @endguest">
-        @guest
-            <div class="page-header" filter-color="orange">
-                <div class="page-header-image"></div>
-                <div class="container">
-                    <div class="col-md-4 content-center">
-                        <div class="card card-login card-plain">
-                            @yield('content')
+        @section('custom-page')
+            @guest
+                <div class="page-header" filter-color="orange">
+                    <div class="page-header-image"></div>
+                    <div class="container">
+                        <div class="col-md-4 content-center">
+                            <div class="card card-login card-plain">
+                                @yield('content')
+                            </div>
                         </div>
                     </div>
+                    <footer class="footer">
+                        @include('layouts.footer')
+                    </footer>
                 </div>
-                <footer class="footer">
-                    @include('layouts.footer')
-                </footer>
-            </div>
-        @else
-            @include('layouts.navbar')
-            <div class="content-wrapper">
-                @include('layouts.left-panel')
-                @include('layouts.content')
-            </div>
-        @endguest
+            @else
+                @include('layouts.navbar')
+                <div class="content-wrapper">
+                    @include('layouts.left-panel')
+                    @include('layouts.content')
+                </div>
+            @endguest
+        @show
 
         {{-- Scripts --}}
         {{-- Plugin Sliders --}}
