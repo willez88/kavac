@@ -12,6 +12,15 @@
 	</div>
 	<div class="container">
 		<div class="navbar-translate">
+			@php
+				$institution = App\Models\Institution::where('active', true)
+													 ->where('default', true)->first();
+			@endphp
+			@if ($institution)
+				<div class="navbar-brand">
+					{!! $institution->acronym !!} | {!! $institution->name !!}
+				</div>
+			@endif
 			<button class="navbar-toggler navbar-toggler-right" type="button" 
 					data-toggle="collapse" data-target="#app-navbar-info" 
 					aria-controls="navbarSupportedContent" aria-expanded="false" 
@@ -21,16 +30,19 @@
 		</div>
 		<div class="collapse navbar-collapse justify-content-end" 
 			 id="app-navbar-info" data-nav-image="{{ asset('images/blurred-image.jpg') }}">
+
 			<ul class="navbar-nav">
+				@if (App\Models\Setting::where('active', true)->where('notify', true)->first())
+					<li class="nav-item">
+						<a class="nav-link btn btn-sm btn-info" href="#" title="Notificaciones del sistema" data-toggle="tooltip">
+							<i class="now-ui-icons ui-1_bell-53"></i>
+							<!-- Mensajes de notificaciones del sistema -->
+							<span class="badge badge-primary badge-notify">2</span>
+						</a>
+					</li>
+				@endif
 				<li class="nav-item">
-					<a class="nav-link btn btn-sm btn-info" href="#" title="Notificaciones del sistema" data-toggle="tooltip">
-						<i class="now-ui-icons ui-1_bell-53"></i>
-						<!-- Mensajes de Alertas del sistema -->
-						<span class="badge badge-primary badge-notify">2</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link btn btn-sm btn-info" href="#" title="Mensajes" data-toggle="tooltip">
+					<a class="nav-link btn btn-sm btn-info" href="#" title="Mensajes de procesos o usuarios" data-toggle="tooltip">
 						<i class="now-ui-icons ui-1_email-85"></i>
 						<!-- Mensajes de Notificación de procesos o usuarios -->
 						<span class="badge badge-primary badge-notify">2</span>
@@ -57,16 +69,20 @@
 						<i class="now-ui-icons ui-2_settings-90"></i>
 					</a>
 				</li> --}}
-				<li class="nav-item">
-					<a class="nav-link btn btn-sm btn-info" href="#" title="chat" data-toggle="tooltip">
-						<i class="now-ui-icons ui-2_chat-round"></i>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link btn btn-sm btn-info" href="#" title="Contacte con soporte técnico" data-toggle="tooltip">
-						<i class="now-ui-icons objects_support-17"></i>
-					</a>
-				</li>
+				@if (App\Models\Setting::where('active', true)->where('chat', true)->first())
+					<li class="nav-item">
+						<a class="nav-link btn btn-sm btn-info" href="#" title="chat" data-toggle="tooltip">
+							<i class="now-ui-icons ui-2_chat-round"></i>
+						</a>
+					</li>
+				@endif
+				@if (App\Models\Setting::where('active', true)->where('support', true)->first())
+					<li class="nav-item">
+						<a class="nav-link btn btn-sm btn-info" href="#" title="Contacte con soporte técnico" data-toggle="tooltip">
+							<i class="now-ui-icons objects_support-17"></i>
+						</a>
+					</li>
+				@endif
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_user" 
 					   data-toggle="dropdown" aria-expanded="false" title="Mi configuración y datos">

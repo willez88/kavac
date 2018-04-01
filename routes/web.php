@@ -22,9 +22,13 @@ Route::get('/', function () {
     }
 })->name('index');
 
+/** Rutas de Autenticación */
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+/** Acceso a la ruta que permite generar una nueva imagen de captcha */
 Route::get('/refresh-captcha', 'Auth\LoginController@refreshCaptcha');
 
 Route::group(['middleware' => 'auth'], function() {
@@ -45,5 +49,8 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::group(['middleware' => 'role:admin'], function() {
+    /** Ruta para la configuración de la aplicación */
     Route::resource('settings', 'SettingController', ['except' => ['create', 'edit', 'show', 'update', 'destroy']]);
+    /** Ruta para la gestión de información sobre la(s) institución(es) */
+    Route::resource('institution', 'InstitutionController', ['except', 'index', 'create', 'show']);
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Models\Institution;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -16,12 +17,16 @@ class SettingController extends Controller
     {
         $model_setting = Setting::where('active', true)->first();
         $header_setting = [
-            'route' => 'settings.store', 
-            'method' => 'POST', 
-            'role' => 'form',
-            'class' => 'form',
+            'route' => 'settings.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('admin.settings', compact('model_setting', 'header_setting'));
+        $model_institution = Institution::where('active', true)->where('default', true)->first();
+        $header_institution = [
+            'route' => 'institution.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form'
+        ];
+        return view(
+            'admin.settings',
+            compact('model_setting', 'header_setting', 'model_institution', 'header_institution')
+        );
     }
 
     /**

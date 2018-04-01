@@ -10,9 +10,9 @@
     				</a>
 				</div>
 			</div>
-			<div class="card-body">
-				{{-- {!! Form::model($model_institution, $header_institution) !!} --}}
-				<form action="" method="post" accept-charset="utf-8">
+			{!! Form::model($model_institution, $header_institution) !!}
+				<div class="card-body">
+					@include('layouts.form-errors')
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
@@ -159,9 +159,9 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group is-required">
-								{!! Form::label('start_date', 'Fecha de inicio de operaciones', []) !!}
-								{!! Form::date('start_date', 
-									(isset($model))?$model->start_date:old('start_date'), [
+								{!! Form::label('start_operations_date', 'Fecha de inicio de operaciones', []) !!}
+								{!! Form::date('start_operations_date', 
+									(isset($model))?$model->start_operations_date:old('start_operations_date'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique la fecha de inicio de operaciones'
@@ -307,24 +307,24 @@
 							</div>
 						</div>
 					</div>
-				</form>
-				<hr>
-				<h6 class="md-title">Instituciones Registradas</h6>
-				<table class="table table-hover table-striped dt-responsive nowrap datatable">
-					<thead>
-						<tr>
-							<th>Logo</th>
-							<th>R.I.F</th>
-							<th>Código ONAPRE</th>
-							<th>Nombre</th>
-							<th>Activa</th>
-						</tr>
-					</thead>
-				</table>
-			</div>
-			<div class="card-footer text-right">
-				@include('layouts.form-buttons')
-			</div>
+					<hr>
+					<h6 class="md-title">Instituciones Registradas</h6>
+					<table class="table table-hover table-striped dt-responsive nowrap datatable">
+						<thead>
+							<tr>
+								<th>Logo</th>
+								<th>R.I.F</th>
+								<th>Código ONAPRE</th>
+								<th>Nombre</th>
+								<th>Activa</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div class="card-footer text-right">
+					@include('layouts.form-buttons')
+				</div>
+			{!! Form::close() !!}
 		</div>
 	</div>
 </div>

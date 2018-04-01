@@ -170,6 +170,49 @@ table td {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
+/**
+ * Estilos para páginas de error
+ */
+
+.notfoundpanel {
+  text-align: center;
+  width: 600px;
+  margin: 80px auto 0 auto;
+  position: relative;
+}
+
+.notfoundpanel h1 {
+  font-size: 180px;
+  font-weight: 200;
+  color: #000;
+  margin: 0 0 10px 0;
+  line-height: 180px;
+  /* text-shadow: 4px 4px rgba(0,0,0,0.2); */
+}
+
+.notfoundpanel h3 {
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.notfoundpanel p {
+  font-size: 14px !important;
+}
+
+.notfoundpanel form {
+  width: 350px;
+  margin: 20px auto 0 auto;
+}
+
+.notfoundpanel .form-control {
+  width: 250px;
+  float: left;
+}
+
+.notfoundpanel .btn {
+  padding: 9px 20px 10px 20px;
+}
+
 /** Estilos para la barra de navegación superior */
 
 .navbar {
