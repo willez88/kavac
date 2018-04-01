@@ -14,17 +14,14 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $model_setting = Setting::where('active', true)->first();
+        $header_setting = [
+            'route' => 'settings.store', 
+            'method' => 'POST', 
+            'role' => 'form',
+            'class' => 'form',
+        ];
+        return view('admin.settings', compact('model_setting', 'header_setting'));
     }
 
     /**
@@ -35,51 +32,19 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Setting $setting)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Setting $setting)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Setting $setting)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Setting $setting)
-    {
-        //
+        $setting = Setting::updateOrCreate(
+            ['active' => true],
+            [
+                'support' => ($request->input('support')!==null),
+                'chat' => ($request->input('chat')!==null),
+                'notify' => ($request->input('notify')!==null),
+                'report_banner' => ($request->input('report_banner')!==null),
+                'multi_institution' => ($request->input('multi_institution')!==null),
+                'digital_sign' => ($request->input('digital_sign')!==null)
+            ]
+        );
+        
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('settings.index');
     }
 }

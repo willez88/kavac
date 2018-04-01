@@ -45,7 +45,5 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::group(['middleware' => 'role:admin'], function() {
-    Route::get('/settings', function() {
-        return view('admin.settings');
-    })->name('settings');
+    Route::resource('settings', 'SettingController', ['except' => ['create', 'edit', 'show', 'update', 'destroy']]);
 });

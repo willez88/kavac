@@ -21,7 +21,7 @@
             </li>
             {{-- Acceso a la configuración de la aplicación --}}
             <li>
-                <a href="{{ route('settings') }}" title="Configuración de la aplicación" data-toggle="tooltip" data-placement="right">
+                <a href="{{ route('settings.index') }}" title="Configuración de la aplicación" data-toggle="tooltip" data-placement="right">
                     <i class="ion-settings"></i><span>Configuración</span>
                 </a>
             </li>
