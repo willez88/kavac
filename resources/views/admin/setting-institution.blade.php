@@ -308,6 +308,19 @@
 						</div>
 					</div>
 				</form>
+				<hr>
+				<h6 class="md-title">Instituciones Registradas</h6>
+				<table class="table table-hover table-striped dt-responsive nowrap datatable">
+					<thead>
+						<tr>
+							<th>Logo</th>
+							<th>R.I.F</th>
+							<th>Código ONAPRE</th>
+							<th>Nombre</th>
+							<th>Activa</th>
+						</tr>
+					</thead>
+				</table>
 			</div>
 			<div class="card-footer text-right">
 				@include('layouts.form-buttons')

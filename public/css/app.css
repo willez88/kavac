@@ -24906,8 +24906,12 @@ textarea.form-control:active {
 }
 
 .select2-container--default .select2-selection--single,
-.select2-container--default.select2-container--focus .select2-selection--multiple {
+.select2-container--default .select2-selection--multiple {
   border: 1px solid #E3E3E3 !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: 1px solid #2CA8FF !important;
 }
 
 .form-group .input-group-addon,

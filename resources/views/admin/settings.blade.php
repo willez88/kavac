@@ -17,9 +17,9 @@
 @stop
 
 @section('content')
-	@include('admin.setting-institution')
 	@include('admin.settings-parameters')
-	<div class="row">
+	@include('admin.setting-institution')
+	{{-- <div class="row">
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
@@ -145,7 +145,7 @@
 				<div class="card-footer"></div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 @stop
 
 @section('extra-js')

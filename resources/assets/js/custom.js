@@ -117,7 +117,7 @@ $(document).ready(function() {
     }
 
     /** Reemplazo de icono indicador en el menú del panel izquierdo */
-    $('.submenu-indicator').html('<i class="ion-ios-arrow-left text-center"></i>');
+    $('.submenu-indicator').html('<i class="ion-ios-arrow-left text-center text-info"></i>');
 
     /** Acciones para ocultar los mensajes tooltip cuando se posiciona o se hace clic en otro elemento */
     $('a').on('hover, click', function() {
