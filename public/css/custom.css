@@ -31,8 +31,22 @@ footer nav ul {
 
 /** Estilos generales */
 
+.no-list-symbol {
+  list-style: none;
+}
+
 .img-circle {
   border-radius: 50%;
+}
+
+.img-logo {
+  width: 100px;
+  max-height: 100px;
+}
+
+.img-banner {
+  width: 100%;
+  max-height: 100px;
 }
 
 .media > .float-left {
@@ -234,6 +248,12 @@ table td {
 
 .btn.btn-icon.btn-xs i {
   font-size: .7rem;
+}
+
+.btn-add-record {
+  color: #2CA8FF;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 /** Efectos para mostrar u ocultar las opciones del menú del panel izquierdo */
@@ -578,10 +598,21 @@ table td {
   color: #2CA8FF;
 }
 
+textarea.form-control {
+  border: 1px solid #E3E3E3;
+  border-radius: 10px;
+}
+
+textarea.form-control:focus,
+textarea.form-control:active {
+  border: 1px solid #2CA8FF;
+}
+
 /** Estilos para campos requeridos en formularios */
 
 .is-required.form-group .form-control {
-  padding-right: 40px;
+  /*padding-right: 40px;*/
+  padding-right: 26px;
 }
 
 .is-required:after {
@@ -589,11 +620,12 @@ table td {
   content: "\F314";
   display: inline-block;
   position: absolute;
-  right: 15px;
+  right: 12px;
   bottom: 10px;
   color: #FF3636;
   font-size: 8px;
   margin: 2px 0;
+  z-index: 99;
 }
 
 /** Estilos personalizados para Bootstrap Switch */
@@ -628,6 +660,16 @@ table td {
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
   color: #fff !important;
+}
+
+.select2-container--default .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: 1px solid #E3E3E3 !important;
+}
+
+.form-group .input-group-addon,
+.input-group .input-group-addon {
+  padding: 8px 0 10px 18px;
 }
 
 /** Panel de información */

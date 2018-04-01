@@ -39,6 +39,11 @@ $(document).ready(function() {
     if ($('select').length) {
         /** Implementación del plugin selec2 para los elementos del DOM de tipo Select */
         $('select').select2();
+        $('.select2').attr({
+            'title': 'Seleccione un registro de la lista',
+            'data-toggle': 'tooltip'
+        });
+        $('.select2').tooltip();
     }
 
 	/*$('.card-header').hover(function() {
@@ -101,6 +106,14 @@ $(document).ready(function() {
                 max: 100
             }
         });
+    }
+
+    if ($('.btn-add-record').length) {
+        $('.btn-add-record').attr({
+            'title': 'Agregar un nuevo registro',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-add-record').tooltip();
     }
 
     /** Reemplazo de icono indicador en el menú del panel izquierdo */
@@ -171,7 +184,19 @@ $(document).ready(function() {
                 '<li class="special-title">Desarrolladores</li>' +
                 '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' +
                 '<li>Juan Vizcarrondo (jvizcarrondo@cenditel.gob.ve)</li>' +
-            '</ul>'
+            '</ul>' +
+            '<h6 class="card-title">Repositorio</h6>' +
+            '<ul>' +
+                '<li class="no-list-symbol">' +
+                    '<a href="#" target="_blank">Repositorio</a>' +
+                '</li>' +
+            '</ul>' +
+            '<h6 class="card-title">Documentación</h6>' +
+            '<ul>' +
+                '<li class="no-list-symbol">' +
+                    '<a href="#" target="_blank">Documentación</a>' +
+                '</li>' +
+            '</ul>'    
         );
     });
 
@@ -180,8 +205,24 @@ $(document).ready(function() {
         e.preventDefault();
         bootbox.alert(
             '<h6>LICENCIA | Copyleft <i class="fa fa-copyright"></i></h6>' + 
-            '<p>La aplicación, salvo aquellos paquetes de tercero con licenciamiento personalizado excluyentes de esta aplicación, se distribuye bajo los terminos de licenciamiento GPL v3.</p>' +
-            '<p>Esto quiere decir que eres libre de copiarla, estudiarla, modificarla y/o distribuirla.<p>'
+            '<p>La aplicación, salvo aquellos paquetes de tercero con licenciamiento personalizado excluyentes de esta aplicación, se distribuye bajo los terminos de licenciamiento de la GPL v2.</p>' +
+            '<p>Esto quiere decir que eres libre de copiarla, estudiarla, modificarla y/o distribuirla.<p>' +
+            '<p>A continuación un extracto de la licencia:</p>' +
+            '<p class="text-justify text-info">' +
+                'This program is free software. You can redistribute it and/or modify ' +
+                'it under the terms of the GNU General Public License as published by ' +
+                'the Free Software Foundation; either version 2 of the License.' +
+                '<br><br>' +
+                'This program is distributed in the hope that it will be useful, ' +
+                'but WITHOUT ANY WARRANTY; without even the implied warranty of ' +
+                'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the ' +
+                'GNU General Public License for more details.' +
+                '<br><br>' +
+                'You should have received a copy of the GNU General Public License ' +
+                'along with this program; if not, write to the Free Software ' +
+                'Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA.' +
+            '</p>' +
+            '<p>El texto completo de la licencia se puede leer <a href="" title="">aquí</a></p>'
         );
     });
     
