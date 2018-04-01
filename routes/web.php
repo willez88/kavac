@@ -20,7 +20,7 @@ Route::get('/', function () {
     	/** Si el usuario no está autenticado muestra la página de acceso */
         return view('auth.login');
     }
-});
+})->name('index');
 
 Auth::routes();
 
