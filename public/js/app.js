@@ -48120,6 +48120,8 @@ $(document).ready(function () {
         $this = $(this);
         data_on_label = $this.data('on-label') || '';
         data_off_label = $this.data('off-label') || '';
+        data_on_color = $this.data('on-color') || '';
+        data_off_color = $this.data('off-color') || '';
 
         $this.bootstrapSwitch({
             onText: data_on_label,
