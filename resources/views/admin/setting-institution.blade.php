@@ -14,6 +14,9 @@
 				<div class="card-body">
 					@include('layouts.form-errors')
 					<div class="row">
+						<input id="input-b1" name="input-b1" type="file" class="file">
+					</div>
+					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="">Logotipo Institucional</label>

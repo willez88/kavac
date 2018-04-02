@@ -12,6 +12,8 @@ try {
     /** Required for Bootstrap 4 */
     window.Popper = require('popper.js').default;
     require('bootstrap');
+    /** Required for file input uploads */
+    require('bootstrap-fileinput');
 } catch (e) {}
 
 /**
