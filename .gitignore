@@ -4,6 +4,7 @@
 /public/storage
 /storage/*.key
 /storage/debugbar
+/storage/pictures
 /vendor
 /.idea
 /.vscode
