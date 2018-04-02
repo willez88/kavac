@@ -1,6 +1,6 @@
 {{-- Mensajes de error --}}
 @if ($errors->any())
-	<div class="alert alert-warning" role="alert">
+	<div class="alert alert-danger" role="alert">
 		<div class="container">
 			<div class="alert-icon">
 				<i class="now-ui-icons objects_support-17"></i>

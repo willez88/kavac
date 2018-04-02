@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use App\Models\Institution;
+use App\Models\Country;
+use App\Models\Estate;
+use App\Models\Municipality;
+use App\Models\Parish;
+use App\Models\City;
+use App\Models\InstitutionSector;
+use App\Models\InstitutionType;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -23,9 +30,21 @@ class SettingController extends Controller
         $header_institution = [
             'route' => 'institution.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form'
         ];
+        $institutions = Institution::all();
+        $countries = Country::template_choices();
+        $estates = Estate::template_choices();
+        $municipalities = Municipality::template_choices();
+        $parishes = Parish::template_choices();
+        $cities = City::template_choices();
+        $sectors = InstitutionSector::template_choices();
+        $types = InstitutionType::template_choices();
+        
         return view(
             'admin.settings',
-            compact('model_setting', 'header_setting', 'model_institution', 'header_institution')
+            compact(
+                'model_setting', 'header_setting', 'model_institution', 'header_institution', 'institutions',
+                'countries', 'estates', 'municipalities', 'parishes', 'cities', 'sectors', 'types'
+            )
         );
     }
 

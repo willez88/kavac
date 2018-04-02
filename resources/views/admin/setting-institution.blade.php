@@ -38,7 +38,7 @@
 							<div class="form-group is-required">
 								{!! Form::label('onapre_code', 'Código ONAPRE', []) !!}
 								{!! Form::text('onapre_code', 
-									(isset($model))?$model->onapre_code:old('onapre_code'), [
+									(isset($model_institution))?$model_institution->onapre_code:old('onapre_code'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique el código ONAPRE asignado a la institución'
@@ -50,7 +50,7 @@
 							<div class="form-group is-required">
 								{!! Form::label('rif', 'R.I.F.', []) !!}
 								{!! Form::text('rif', 
-									(isset($model))?$model->rif:old('rif'), [
+									(isset($model_institution))?$model_institution->rif:old('rif'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique el número de registro de identificación fiscal'
@@ -60,9 +60,9 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group is-required">
-								{!! Form::label('nombre', 'Nombre', []) !!}
-								{!! Form::text('nombre', 
-									(isset($model))?$model->nombre:old('nombre'), [
+								{!! Form::label('name', 'Nombre', []) !!}
+								{!! Form::text('name', 
+									(isset($model_institution))?$model_institution->name:old('name'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
 										'title' => 'Introduzca el nombre de la institución'
@@ -76,7 +76,7 @@
 							<div class="form-group">
 								{!! Form::label('acronym', 'Acrónimo (Nombre Corto)', []) !!}
 								{!! Form::text('acronym', 
-									(isset($model))?$model->acronym:old('acronym'), [
+									(isset($model_institution))?$model_institution->acronym:old('acronym'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
 										'title' => 'Introduzca el nombre corto de la institución'
@@ -88,7 +88,7 @@
 							<div class="form-group">
 								{!! Form::label('business_name', 'Razón Social', []) !!}
 								{!! Form::text('business_name', 
-									(isset($model))?$model->business_name:old('business_name'), [
+									(isset($model_institution))?$model_institution->business_name:old('business_name'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
 										'title' => 'Introduzca la razón social'
@@ -149,7 +149,7 @@
 							<div class="form-group is-required">
 								{!! Form::label('postal_code', 'Código Postal', []) !!}
 								{!! Form::text('postal_code', 
-									(isset($model))?$model->postal_code:old('postal_code'), [
+									(isset($model_institution))?$model_institution->postal_code:old('postal_code'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique el código postal'
@@ -161,7 +161,7 @@
 							<div class="form-group is-required">
 								{!! Form::label('start_operations_date', 'Fecha de inicio de operaciones', []) !!}
 								{!! Form::date('start_operations_date', 
-									(isset($model))?$model->start_operations_date:old('start_operations_date'), [
+									(isset($model_institution))?$model_institution->start_operations_date:old('start_operations_date'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique la fecha de inicio de operaciones'
@@ -212,7 +212,7 @@
 							<div class="form-group">
 								{!! Form::label('web', 'Sitio Web', []) !!}
 								{!! Form::text('web', 
-									(isset($model))?$model->web:old('web'), [
+									(isset($model_institution))?$model_institution->web:old('web'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique la URL del sitio web'
@@ -319,6 +319,26 @@
 								<th>Activa</th>
 							</tr>
 						</thead>
+						<tbody>
+							@foreach ($institutions as $institution)
+								<tr>
+									<td></td>
+									<td>
+										<a href="#">{{ $institution->rif }}</a>
+									</td>
+									<td>{{ $institution->onapre_code }}</td>
+									<td>
+										@if ($institution->acronym)
+											{{ $institution->acronym }} - 
+										@endif
+										{{ $institution->name }}
+									</td>
+									<td>
+										{{ ($institution->active)?'SI':'NO' }}
+									</td>
+								</tr>
+							@endforeach
+						</tbody>
 					</table>
 				</div>
 				<div class="card-footer text-right">
