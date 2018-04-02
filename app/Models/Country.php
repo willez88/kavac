@@ -33,4 +33,16 @@ class Country extends Model
     {
     	return $this->hasMany(App\Models\Estate::class);
     }
+
+    /**
+     * Select choices for template uses
+     */
+    public static function template_choices()
+    {
+        $options = [];
+        foreach (self::all() as $reg) {
+            $options[$reg->id] = $reg->name;
+        }
+        return $options;
+    }
 }

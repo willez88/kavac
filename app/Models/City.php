@@ -33,4 +33,16 @@ class City extends Model
     {
         return $this->belongsTo(App\Models\Estate::class, 'estate_id');
     }
+
+    /**
+     * Select choices for template uses
+     */
+    public static function template_choices()
+    {
+        $options = [];
+        foreach (self::all() as $reg) {
+            $options[$reg->id] = $reg->name;
+        }
+        return $options;
+    }
 }

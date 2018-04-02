@@ -25,4 +25,16 @@ class InstitutionSector extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    /**
+     * Select choices for template uses
+     */
+    public static function template_choices()
+    {
+        $options = [];
+        foreach (self::all() as $reg) {
+            $options[$reg->id] = $reg->name;
+        }
+        return $options;
+    }
 }
