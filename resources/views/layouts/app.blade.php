@@ -67,8 +67,6 @@
         {!! Html::script('vendor/datatable/js/responsive.bootstrap4.min.js') !!}
         {{-- Plugin Gritter --}}
         {!! Html::script('vendor/jquery.gritter/js/jquery.gritter.min.js') !!}
-        {{-- Fileinput themes for fontawesome --}}
-        {!! Html::script('vendor/bootstrap-fileinput/themes/fa/theme.js') !!}
 
         <script>
             $(document).ready(function() {

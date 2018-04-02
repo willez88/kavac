@@ -14,6 +14,10 @@ try {
     require('bootstrap');
     /** Required for file input uploads */
     require('bootstrap-fileinput');
+    require('bootstrap-fileinput/js/locales/es');
+    require('bootstrap-fileinput/themes/fa/theme');
+    /** Override fileinput default icon fonts to FontAwesome and locale */
+    $('input[type=file]').fileinput({theme: 'fa', language: 'es'});
 } catch (e) {}
 
 /**

@@ -225,5 +225,4 @@ $(document).ready(function() {
             '<p>El texto completo de la licencia se puede leer <a href="" title="">aquí</a></p>'
         );
     });
-    
 });
