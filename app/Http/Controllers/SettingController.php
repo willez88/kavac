@@ -28,7 +28,8 @@ class SettingController extends Controller
         ];
         $model_institution = Institution::where('active', true)->where('default', true)->first();
         $header_institution = [
-            'route' => 'institution.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form'
+            'route' => 'institution.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'enctype' => 'multipart/form-data'
         ];
         $institutions = Institution::all();
         $countries = Country::template_choices();
