@@ -47,7 +47,7 @@
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group is-required">
+							<div class="form-group{{ $errors->has('rif') ? ' has-error' : '' }} is-required">
 								{!! Form::label('rif', 'R.I.F.', []) !!}
 								{!! Form::text('rif', 
 									(isset($model_institution))?$model_institution->rif:old('rif'), [
@@ -59,7 +59,7 @@
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group is-required">
+							<div class="form-group is-required{{ $errors->has('name') ? ' has-error' : '' }}">
 								{!! Form::label('name', 'Nombre', []) !!}
 								{!! Form::text('name', 
 									(isset($model_institution))?$model_institution->name:old('name'), [

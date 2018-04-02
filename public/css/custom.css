@@ -671,6 +671,14 @@ textarea.form-control:active {
   z-index: 99;
 }
 
+.form-group.has_error label {
+  color: #ff3636;
+}
+
+.form-group.has_error .form-control {
+  border: 1px solid #ff3636 !important;
+}
+
 /** Estilos personalizados para Bootstrap Switch */
 
 .bootstrap-switch .bootstrap-switch-handle-on,

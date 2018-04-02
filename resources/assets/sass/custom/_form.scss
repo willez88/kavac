@@ -62,6 +62,15 @@ textarea {
 	}
 }
 
+.form-group.has_error {
+	label {
+		color: rgb(255, 54, 54);
+	}
+	.form-control {
+		border: 1px solid rgb(255, 54, 54) !important;
+	}
+}
+
 /** Estilos personalizados para Bootstrap Switch */
 .bootstrap-switch {
 	.bootstrap-switch-handle-on, .bootstrap-switch-handle-off, .bootstrap-switch-label {
