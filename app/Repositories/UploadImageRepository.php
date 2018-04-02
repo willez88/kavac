@@ -93,6 +93,10 @@ class UploadImageRepository
 		return $this->error_msg;
 	}
 
+	/**
+	 * Obtiene el objeto de la imagen guardada
+	 * @return [object] Devuelve el objeto de la imagen guardada
+	 */
 	public function getImageStored()
 	{
 		return $this->image_stored;
