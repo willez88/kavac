@@ -38,7 +38,7 @@ class SettingController extends Controller
         $cities = City::template_choices();
         $sectors = InstitutionSector::template_choices();
         $types = InstitutionType::template_choices();
-        
+
         return view(
             'admin.settings',
             compact(

@@ -23,7 +23,7 @@
 								<label for="" class="control-label">Soporte Técnico</label>
 								<div class="col-12">
 									{!! Form::checkbox('support', true, 
-										($model_setting->support!==null && $model_setting->support==true), [
+										($model_setting!==null && $model_setting->support), [
 										'id' => 'support', 'class' => 'form-control bootstrap-switch',
 										'data-on-label' => 'SI', 'data-off-label' => 'NO'
 									]) !!}
@@ -35,7 +35,7 @@
 								<label for="" class="control-label">Chat</label>
 								<div class="col-12">
 									{!! Form::checkbox('chat', true, 
-										($model_setting->chat!==null && $model_setting->chat==true), [
+										($model_setting!==null && $model_setting->chat), [
 										'id' => 'chat', 'class' => 'form-control bootstrap-switch',
 										'data-on-label' => 'SI', 'data-off-label' => 'NO'
 									]) !!}
@@ -47,7 +47,7 @@
 								<label for="" class="control-label">Notificaciones</label>
 								<div class="col-12">
 									{!! Form::checkbox('notify', true, 
-										($model_setting->notify!==null && $model_setting->notify==true), [
+										($model_setting!==null && $model_setting->notify), [
 										'id' => 'notify', 'class' => 'form-control bootstrap-switch',
 										'data-on-label' => 'SI', 'data-off-label' => 'NO'
 									]) !!}
@@ -59,7 +59,7 @@
 								<label for="" class="control-label">Banner en Reportes</label>
 								<div class="col-12">
 									{!! Form::checkbox('report_banner', true, 
-										($model_setting->report_banner!==null && $model_setting->report_banner==true), [
+										($model_setting!==null && $model_setting->report_banner), [
 										'id' => 'report_banner', 'class' => 'form-control bootstrap-switch',
 										'data-on-label' => 'SI', 'data-off-label' => 'NO'
 									]) !!}
@@ -73,7 +73,7 @@
 								<label for="" class="control-label">Multi Gestión (varias instituciones)</label>
 								<div class="col-12">
 									{!! Form::checkbox('multi_institution', true, 
-										($model_setting->multi_institution!==null && $model_setting->multi_institution==true), [
+										($model_setting!==null && $model_setting->multi_institution), [
 										'id' => 'multi_institution', 'class' => 'form-control bootstrap-switch',
 										'data-on-label' => 'SI', 'data-off-label' => 'NO'
 									]) !!}
@@ -85,7 +85,7 @@
 								<label for="" class="control-label">Firma Electrónica</label>
 								<div class="col-12">
 									{!! Form::checkbox('digital_sign', true, 
-										($model_setting->digital_sign!==null && $model_setting->digital_sign==true), [
+										($model_setting!==null && $model_setting->digital_sign), [
 										'id' => 'digital_sign', 'class' => 'form-control bootstrap-switch',
 										'data-on-label' => 'SI', 'data-off-label' => 'NO'
 									]) !!}
