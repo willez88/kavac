@@ -25,4 +25,12 @@ class Image extends Model
      * @var array
      */
     protected $fillable = ['file', 'url'];
+
+    /**
+     * Get the Instituions with Images
+     */
+    public function institutions()
+    {
+        return $this->hasMany(App\Models\Institution::class);
+    }
 }

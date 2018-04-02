@@ -14,24 +14,30 @@
 				<div class="card-body">
 					@include('layouts.form-errors')
 					<div class="row">
-						<div class="col-md-3">
-							<input id="input-b1" name="input-b1" type="file" class="file">
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Logotipo Institucional</label>
+								@if ($model_institution!==null && $model_institution->logo_id)
+									<div class="col-12">
+										<img src="{{ url($model_institution->logo->url) }}" class="img-fluid" style="max-height:150px;margin:0 auto;" alt="logo actual">
+									</div>
+								@endif
 								<div class="col-12">
-									<img src="{{ asset('images/no-image.png') }}" alt="Raised Image" class="rounded img-raised img-logo img-fluid">
+									<input id="logo_id" name="logo_id" type="file" class="file">
 								</div>
 							</div>
 						</div>
-						<div class="col-md-9">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Banner Institucional</label>
+								@if ($model_institution!==null && $model_institution->banner_id)
+									<div class="col-12">
+										<img src="{{ url($model_institution->banner->url) }}" class="img-fluid" style="max-height:150px;margin:0 auto;" alt="banner actual">
+									</div>
+								@endif
 								<div class="col-12">
-									<img src="{{ asset('images/no-image.png') }}" alt="Raised Image" class="rounded img-raised img-banner img-fluid">
+									<input id="banner_id" name="banner_id" type="file" 
+										   class="file">
 								</div>
 							</div>
 						</div>
@@ -327,7 +333,13 @@
 						<tbody>
 							@foreach ($institutions as $institution)
 								<tr>
-									<td></td>
+									<td class="text-center">
+										@if($institution->logo_id)
+											<img src="{{ url($institution->logo->url) }}" 
+												 alt="logo" class="img-fluid" 
+												 style="max-height:50px;">
+										@endif
+									</td>
 									<td>
 										<a href="#">{{ $institution->rif }}</a>
 									</td>
@@ -338,7 +350,7 @@
 										@endif
 										{{ $institution->name }}
 									</td>
-									<td>
+									<td class="text-center">
 										{{ ($institution->active)?'SI':'NO' }}
 									</td>
 								</tr>

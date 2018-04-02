@@ -30,4 +30,20 @@ class Institution extends Model
     	'postal_code', 'active', 'default', 'retention_agent', 'institution_sector_id', 'institution_type_id',
     	'municipality_id', 'city_id', 'logo_id', 'banner_id'
     ];
+
+    /**
+     * Get the Logo image of the Institution
+     */
+    public function logo()
+    {
+        return $this->belongsTo('App\Models\Image', 'logo_id');
+    }
+
+    /**
+     * Get the Banner image of the Institution
+     */
+    public function banner()
+    {
+        return $this->belongsTo('App\Models\Image', 'banner_id');
+    }
 }

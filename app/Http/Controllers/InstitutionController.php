@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Institution;
 use Illuminate\Http\Request;
+use App\Repositories\UploadImageRepository;
 
 class InstitutionController extends Controller
 {
@@ -33,7 +34,7 @@ class InstitutionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadImageRepository $up)
     {
         $this->validate($request, [
             'onapre_code' => 'required|max:20',
@@ -49,6 +50,20 @@ class InstitutionController extends Controller
             'municipality_id' => 'required',
             'city_id' => 'required'
         ]);
+
+        $logo = $banner = null;
+        if ($request->file('logo_id')) {
+            /** Gestiona la carga del archivo de la imagen al servidor y la asigna al campo correspondiente */
+            if ($up->uploadImage($request->file('logo_id'), 'pictures')) {
+                $logo = $up->getImageStored()->id;
+            }
+        }
+        if ($request->file('banner_id')) {
+            /** Gestiona la carga del archivo de la imagen al servidor y la asigna al campo correspondiente */
+            if ($up->uploadImage($request->file('banner_id'), 'pictures')) {
+                $banner = $up->getImageStored()->id;
+            }
+        }
 
         $institution = Institution::updateOrCreate(
             ['active' => true, 'default' => true],
@@ -75,8 +90,8 @@ class InstitutionController extends Controller
                 'web' => ($request->input('web'))?$request->input('web'):null,
                 'composition_assets' => ($request->input('composition_assets'))?$request->input('composition_assets'):null,
                 'retention_agent' => ($request->input('retention_agent')!==null),
-                'logo_id' => ($request->input('logo_id'))?$request->input('logo_id'):null,
-                'banner_id' => ($request->input('banner_id'))?$request->input('banner_id'):null,
+                'logo_id' => $logo,
+                'banner_id' => $banner,
             ]
         );
 

@@ -9,6 +9,7 @@ class UploadImageRepository
 {
 	private $image_name;
 	private $image_extension;
+	private $image_stored;
 	private $allowed_upload = [];
 	private $min_sizes = ['width' => '480', 'height' => '480'];
 	private $max_sizes = ['width' => '1280', 'height' => '900'];
@@ -42,6 +43,11 @@ class UploadImageRepository
 				else {
 					$upload = Storage::disk($store)->put($this->image_name, \File::get($file));
 					if ($upload) {
+						$this->image_stored = Image::create([
+							'file' => $this->image_name,
+							'url' => 'storage/pictures/'. $this->image_name
+						]);
+						 
 						return true;
 					}
 					else {
@@ -85,6 +91,11 @@ class UploadImageRepository
 	public function getErrorMessage()
 	{
 		return $this->error_msg;
+	}
+
+	public function getImageStored()
+	{
+		return $this->image_stored;
 	}
 
 	/**
