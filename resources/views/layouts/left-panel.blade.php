@@ -12,15 +12,18 @@
     <div id="jquery-accordion-menu" class="jquery-accordion-menu white">
 		{{-- <div class="jquery-accordion-menu-header">Header </div> --}}
 		<ul>
+            @php
+                $current_url = Route::current()->getName();
+            @endphp
             {{-- Acceso al panel de control del usuario --}}
-			<li class="active">
+			<li class="{!! ($current_url=='index')?'active':'' !!}">
                 <a href="{{ route('index') }}" title="Panel de control del usuario" 
                    data-toggle="tooltip" data-placement="right">
                     <i class="ion-ios-speedometer-outline"></i><span>Panel de control</span>
                 </a>
             </li>
             {{-- Acceso a la configuración de la aplicación --}}
-            <li>
+            <li class="{!! ($current_url=='settings.index')?'active':'' !!}">
                 <a href="{{ route('settings.index') }}" title="Configuración de la aplicación" data-toggle="tooltip" data-placement="right">
                     <i class="ion-settings"></i><span>Configuración</span>
                 </a>

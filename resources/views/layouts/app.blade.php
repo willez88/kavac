@@ -49,6 +49,8 @@
             @endguest
         @show
 
+        {{-- Ventana modal para mostrar mensaje de espera mientras cargan los datos --}}
+        @include('layouts.loading-message')
         {{-- Scripts --}}
         {{-- Plugin Sliders --}}
         {!! Html::script('js/nouislider.min.js') !!}
@@ -115,5 +117,43 @@
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}
         @yield('extra-js')
+
+        @auth
+            <script>
+                /** Variable que construye la función que muestra u oculta el mensaje de espera */
+                var waiting;
+                waiting = waiting || (function() {
+                    var loadingMessage = $("#modal-loading");
+                    return {
+                        showLoadingMessage: function() {
+                            loadingMessage.modal();
+                        },
+                        hideLoadingMessage: function(e) {
+                            loadingMessage.on('shown.bs.modal', function (e) {
+                                loadingMessage.modal('hide');
+                            });
+                        }
+                    }
+                })();
+
+                /** Evento que muestra el mensaje de espera cuando una petición AJAX es enviada */
+                $(document).ajaxSend(function(event, request, settings) {
+                    waiting.showLoadingMessage();
+                });
+
+                /** Evento que oculta el mensaje de espera cuando una petición AJAX fue completada */
+                $(document).ajaxComplete(function(event, request, settings) {
+                    waiting.hideLoadingMessage();
+                });
+
+                /** Evento que muestra el mensaje de espera cuando la aplicación carga una página */
+                waiting.showLoadingMessage();
+
+                /** Evento que oculta el mensaje de espera cuando una página ha sido cargada por completo */
+                $(document).ready(function() {
+                    waiting.hideLoadingMessage();
+                });
+            </script>
+        @endauth
     </body>
 </html>
