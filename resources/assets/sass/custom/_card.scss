@@ -1,0 +1,56 @@
+/** Estilos para Card */
+.card {
+      .card-header:not([data-background-color]), .card-footer:not([data-background-color]) {
+            background-color: transparent;
+      }
+
+      .card-header {
+            padding: 15px 15px 0;
+            border: 0;
+            margin-bottom: 0;
+      }
+
+      label {
+            font-size: 0.8571em;
+            margin-bottom: 5px;
+            color: #9A9A9A;
+      }
+}
+            
+.card-category {
+      font-size: 1.5em;
+}
+
+.category, .card-category {
+      text-transform: capitalize;
+      font-weight: 400;
+      color: #9A9A9A;
+}
+
+.card-btns {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      .btn {
+            padding: .12rem .24rem;
+
+            i {
+                  font-size:1em;
+            }
+      }
+}
+            
+.btn-card-action {
+      background: transparent !important;
+      color: #2CA8FF !important;
+}
+
+.card-footer {
+      border-top: 0;
+      border-top: 1px solid #EEE;
+
+      .btn-default {
+            background-color: #d2d5d8;
+      }
+}
