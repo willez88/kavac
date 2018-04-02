@@ -46,6 +46,20 @@ Route::group(['middleware' => 'auth'], function() {
 
         return $response;
     });
+    /** Ruta para acceder a los documentos almacenados por la aplicación */
+    Route::get('storage/documents/{document}', function($document) {
+        $path = storage_path('documents/' . $document);
+        if (!File::exists($path)) {
+            abort(404);
+        }
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+    });
 });
 
 Route::group(['middleware' => 'role:admin'], function() {
