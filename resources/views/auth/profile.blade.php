@@ -26,22 +26,22 @@
                 <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">
-                            <i class="now-ui-icons shopping_cart-simple"></i> Perfil
+                            <i class="ion-android-person"></i> Perfil
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#activity" role="tab">
-                            <i class="now-ui-icons objects_umbrella-13"></i> Actividad
+                            <i class="ion-arrow-swap"></i> Actividad
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
-                            <i class="now-ui-icons shopping_shop"></i> Mensajes
+                            <i class="ion-android-mail"></i> Mensajes
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#directory" role="tab">
-                            <i class="now-ui-icons ui-2_settings-90"></i> Directorio
+                            <i class="ion-android-contacts"></i> Directorio
                         </a>
                     </li>
                 </ul>
@@ -50,6 +50,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="profile" role="tabpanel">
                             {!! Form::model($model, $header) !!}
+                                @include('layouts.form-errors')
                                 <div class="form-group">
                                     {!! Form::label('name', 'Nombre y Apellido', []) !!}
                                     {!! Form::text('name', $model->name, [

@@ -92,13 +92,13 @@
                         @endif
                     @elseif (session('message')['type'] == 'other')
                         msg_icon = 'screen-info';
-                        @if (session('message')['title'])
+                        @if (isset(session('message')['title']))
                             msg_title = '{!! session('message')['title'] !!}';
                         @endif
-                        @if (session('message')['icon'])
+                        @if (isset(session('message')['icon']))
                             msg_icon = '{!! session('message')['icon'] !!}';
                         @endif
-                        @if (session('message')['class'])
+                        @if (isset(session('message')['class']))
                             msg_class = '{!! session('message')['class'] !!}';
                         @endif
                         msg_text = "{{ session('message')['text'] }}";

@@ -74,7 +74,28 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        if ($request->input('password')) {
+            $this->validate($request, [
+                'password' => 'min:6|confirmed',
+                'password_confirmation' => 'min:6|required_with:password',
+                'complexity-level' => 'numeric|min:43|max:100'
+            ],[
+                'confirmed' => 'La contraseña no coincide con la verificación',
+                'required_with' => 'Debe confirmar la nueva contraseña',
+                'complexity-level' => 'Contraseña muy débil. Intente incorporar símbolos, letras y números, ' . 
+                                      'en cominación con mayúsculas y minúsculas.',
+            ]);
+
+            $user->password = bcrypt($request->input('password'));
+            $user->save();
+
+            $request->session()->flash('message', ['type' => 'update']);
+        }
+        else {
+            $request->session()->flash('message', ['type' => 'other', 'text' => 'No se indicaron modificaciones']);
+        }
+        
+        return redirect()->back();
     }
 
     /**
