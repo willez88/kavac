@@ -142,7 +142,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-1">
-                                        <p id="complexity" class="pull-right font-bold">0%</p>
+                                        <p id="complexity" class="float-right font-bold">0%</p>
                                         <input id="complexity-level" name="complexity-level" type="hidden">
                                     </div>
                                 </div>
@@ -165,16 +165,16 @@
                         <div class="tab-pane" id="messages" role="tabpanel">
                             <ul class="media-list msg-list">
     <li class="media unread">
-        <div class="pull-left">
-            <input type="checkbox" name="checkbox1" id="checkbox1" data-size="mini">
+        <div class="float-left">
+            <input type="checkbox" name="checkbox1" id="checkbox1" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
             <label for="checkbox1"></label>
         </div>
-        <a href="#" class="pull-left">
+        <a href="#" class="float-left">
             <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}" 
                  alt="usuario">
         </a>
         <div class="media-body">
-            <div class="pull-right media-option">
+            <div class="float-right media-option">
                 <i class="fa fa-paperclip mr5"></i>
                 <small>Yesterday 5:51am</small>
             </div>
@@ -188,16 +188,16 @@
     </li>
 
     <li class="media unread">
-        <div class="pull-left">
-            <input type="checkbox" name="checkbox2" id="checkbox2" data-size="mini">
+        <div class="float-left">
+            <input type="checkbox" name="checkbox2" id="checkbox2" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
             <label for="checkbox1"></label>
         </div>
-        <a href="#" class="pull-left">
+        <a href="#" class="float-left">
             <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}" 
                  alt="usuario">
         </a>
         <div class="media-body">
-            <div class="pull-right media-option">
+            <div class="float-right media-option">
                 <i class="fa fa-paperclip mr5"></i>
                 <small>Yesterday 5:51am</small>
             </div>
@@ -211,16 +211,16 @@
     </li>
 
     <li class="media unread">
-        <div class="pull-left">
-            <input type="checkbox" name="checkbox3" id="checkbox3" data-size="mini">
+        <div class="float-left">
+            <input type="checkbox" name="checkbox3" id="checkbox3" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
             <label for="checkbox1"></label>
         </div>
-        <a href="#" class="pull-left">
+        <a href="#" class="float-left">
             <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}" 
                  alt="usuario">
         </a>
         <div class="media-body">
-            <div class="pull-right media-option">
+            <div class="float-right media-option">
                 <i class="fa fa-paperclip mr5"></i>
                 <small>Yesterday 5:51am</small>
             </div>
@@ -234,15 +234,15 @@
     </li>
 
     <li class="media unread">
-        <div class="pull-left">
-            <input type="checkbox" name="checkbox4" id="checkbox4" data-size="mini">
+        <div class="float-left">
+            <input type="checkbox" name="checkbox4" id="checkbox4" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
         </div>
-        <a href="#" class="pull-left">
+        <a href="#" class="float-left">
             <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}" 
                  alt="usuario">
         </a>
         <div class="media-body">
-            <div class="pull-right media-option">
+            <div class="float-right media-option">
                 <i class="fa fa-paperclip mr5"></i>
                 <small>Yesterday 5:51am</small>
             </div>
@@ -257,9 +257,152 @@
 </ul>
                         </div>
                         <div class="tab-pane" id="directory" role="tabpanel">
-                            <p>
-                                "I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at."
-                            </p>
+                            <div class="row">
+    <div class="col-sm-12">
+        {{-- Búsqueda de contacto en el directorio institucional --}}
+        <div class="well mt10">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <input type="text" name="" class="form-control" placeholder="Buscar...">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <select id="search-type" class="width100p select2-offscreen select2" data-placeholder="Tipo de Consulta" tabindex="-1" title="">
+                        <option value="">Seleccione...</option>
+                        <option value="full_name">Nombre completo</option>
+                        <option value="position">Cargo</option>
+                        <option value="email">Correo Electrónico</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        {{-- Directorio institucional --}}
+        <div class="list-group contact-group">
+            <a href="#" class="list-group-item">
+                <div class="media">
+                    <div class="float-left">
+                        <img class="img-circle img-online" 
+                             src="{{ asset('images/default-avatar.png') }}" 
+                             alt="usuario">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                        <div class="media-content">
+                            <i class="fa fa-map-marker"></i> Dirección
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- media -->
+            </a><!-- list-group -->
+            
+            <a href="#" class="list-group-item">
+                <div class="media">
+                    <div class="float-left">
+                        <img class="img-circle img-online" 
+                             src="{{ asset('images/default-avatar.png') }}" 
+                             alt="usuario">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                        <div class="media-content">
+                            <i class="fa fa-map-marker"></i> Dirección
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- media -->
+            </a><!-- list-group -->
+            
+            <a href="#" class="list-group-item">
+                <div class="media">
+                    <div class="float-left">
+                        <img class="img-circle img-online" 
+                             src="{{ asset('images/default-avatar.png') }}" 
+                             alt="usuario">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                        <div class="media-content">
+                            <i class="fa fa-map-marker"></i> Dirección
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- media -->
+            </a><!-- list-group -->
+            
+            <a href="#" class="list-group-item">
+                <div class="media">
+                    <div class="float-left">
+                        <img class="img-circle img-online" 
+                             src="{{ asset('images/default-avatar.png') }}" 
+                             alt="usuario">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                        <div class="media-content">
+                            <i class="fa fa-map-marker"></i> Dirección
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- media -->
+            </a><!-- list-group -->
+            
+            <a href="#" class="list-group-item">
+                <div class="media">
+                    <div class="float-left">
+                        <img class="img-circle img-online" 
+                             src="{{ asset('images/default-avatar.png') }}" 
+                             alt="usuario">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                        <div class="media-content">
+                            <i class="fa fa-map-marker"></i> Dirección
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- media -->
+            </a><!-- list-group -->
+            
+            <a href="#" class="list-group-item">
+                <div class="media">
+                    <div class="float-left">
+                        <img class="img-circle img-online" 
+                             src="{{ asset('images/default-avatar.png') }}" 
+                             alt="usuario">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                        <div class="media-content">
+                            <i class="fa fa-map-marker"></i> Dirección
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- media -->
+            </a><!-- list-group -->
+            
+        </div>
+    </div>
+</div>
                         </div>
                     </div>
                 </div>
