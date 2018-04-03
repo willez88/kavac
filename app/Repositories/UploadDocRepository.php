@@ -4,7 +4,7 @@ namespace App\Repositories;
 use \Illuminate\Support\Facades\Storage;
 use \Illuminate\Support\Facades\Session;
 
-class UploadImageRepository
+class UploadDocRepository
 {
 	private $doc_name;
 	private $doc_extension;
