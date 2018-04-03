@@ -62,6 +62,11 @@ Route::group(['middleware' => 'auth'], function() {
     });
 });
 
+Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {
+    /** Ruta de recursos para la gestión de usuarios */
+    Route::resource('users', 'UserController');
+});
+
 Route::group(['middleware' => 'role:admin'], function() {
     /** Ruta para la configuración de la aplicación */
     Route::resource('settings', 'SettingController', ['except' => ['create', 'edit', 'show', 'update', 'destroy']]);

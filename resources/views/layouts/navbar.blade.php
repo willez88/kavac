@@ -94,7 +94,7 @@
 						<a class="dropdown-item" href="#" title="Establecer configuración personalizada" 
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-gear-a"></i>Configurar Cuenta</a>
-						<a class="dropdown-item" href="#" title="Actualizar datos de perfil del usuario" 
+						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}" title="Actualizar datos de perfil del usuario" 
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-person"></i>Mi Perfil</a>
 						<a class="dropdown-item" href="#" title="Ver actividad en la aplicación" 

@@ -25147,6 +25147,21 @@ table td {
   color: #fff;
 }
 
+.nav-tabs.custom-tabs > .nav-item > .nav-link {
+  border-radius: 0;
+}
+
+.nav-tabs.custom-tabs > .nav-item > .nav-link.active {
+  border-radius: 0;
+  border: none;
+  border-bottom: 3px solid #519BF6;
+}
+
+.nav-tabs.custom-tabs .nav-link {
+  -webkit-transition: all 0s ease 0s;
+  transition: all 0s ease 0s;
+}
+
 .btn.btn-icon.btn-xs {
   height: 1.4rem;
   min-width: 1.4rem;

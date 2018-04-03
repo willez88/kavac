@@ -1,0 +1,24 @@
+.nav-tabs {
+	&.custom-tabs {
+		> .nav-item {
+			
+			> .nav-link {
+				border-radius:0;
+
+				&.active {
+					border-radius:0;
+					border:none;
+					border-bottom: 3px solid #519BF6;
+				}
+			}
+		}
+
+		.nav-link {
+			-webkit-transition:all 0s ease 0s ;
+			-moz-transition:all 0s ease 0s ;
+			-ms-transition:all 0s ease 0s ;
+			-o-transition:all 0s ease 0s ;
+			transition:all 0s ease 0s ;
+		}
+	}
+}
