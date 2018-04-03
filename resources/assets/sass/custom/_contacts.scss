@@ -1,0 +1,104 @@
+/** Estilos para directorio de contactos */
+.nav-contacts {
+    margin-bottom: 20px;
+}
+
+.nav-contacts li a {
+    color: #666;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.nav-contacts li .badge {
+    background: none;
+    font-weight: 500;
+    color: #333;
+}
+
+.nav-contacts li.active .badge {
+    color: #fff;
+    background: none;
+}
+
+.people-group .media img {
+    width: 45px;
+}
+
+.people-group .list-group-item {
+    -moz-transition: all 0.2s ease-out 0s;
+    -webkit-transition: all 0.2s ease-out 0s;
+    transition: all 0.2s ease-out 0s;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin: 0;
+    border-width: 0;
+}
+
+.people-group .media-heading {
+    margin-top: 5px;
+}
+
+.people-group .media-heading,
+.people-group .media-body {
+    line-height: normal;
+}
+
+.pagination-contact {
+    margin-top: -3px;
+}
+
+.contact-group {
+    margin-top: 20px;
+}
+
+.contact-group .media img {
+    width: 80px;
+}
+
+.contact-group .media-heading {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.contact-group .media-heading small {
+    margin-left: 5px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #999;
+}
+
+.contact-group .list-group-item {
+    border-color: #e7e7e7;
+    margin-top: 10px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #53A0FE;
+}
+
+.contact-group .list-group-item:hover {
+    background-color: #fcfcfc;
+}
+
+.contact-group .media-content {
+    margin-top: 5px;
+}
+
+.contact-group .media-content .fa {
+    font-size: 16px;
+    vertical-align: middle;
+    width: 20px;
+    color: #333;
+}
+
+.contact-group .media-content ul {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.contact-group .media-content ul > li {
+    display: inline-block;
+    min-width: 200px;
+    margin-bottom: 5px;
+}
