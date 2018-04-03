@@ -91,6 +91,13 @@
 						<span>actualizados</span>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-4 panel-legend">
+						<i class="ion-android-checkbox-blank text-info" title="Registros reestablecidos" 
+						   data-toggle="tooltip"></i>
+						<span>restaurados después de eliminación</span>
+					</div>
+				</div>
 				<div class="row mg-bottom-20">
 					<div class="col-md-4 panel-legend">
 						<i class="ion-android-checkbox-blank text-danger" title="Registros eliminados" 
@@ -98,18 +105,72 @@
 						<span>eliminados</span>
 					</div>
 				</div>
+				@php 
+                	$revisions = \Venturecraft\Revisionable\Revision::where(
+                		'key', '<>', 'last_login'
+                	)->take(40)->get();
+                @endphp
 				<table class="table table-hover table-striped dt-responsive nowrap datatable">
 					<thead>
 						<tr class="text-center">
 							<th>Fecha - Hora</th>
 							<th>Módulo</th>
 							<th>ID</th>
-							<th>Tipo</th>
 							<th>Usuario</th>
 							<th>Datos anteriores</th>
 							<th>Datos nuevos</th>
 						</tr>
 					</thead>
+					<tbody>
+						@if ($revisions->count())
+							@foreach ($revisions as $history)
+								@if($history->fieldName()!="remember_token")
+									@php
+										$registro_class = '';
+
+										if ($history->key == 'created_at' && !$history->old_value) {
+											$registro_class = 'text-success';
+										}
+										elseif ($history->key == 'deleted_at' && !$history->old_value) {
+											$registro_class = 'text-danger';
+										}
+										elseif ($history->key == 'deleted_at' && !$history->new_value) {
+											$registro_class = 'text-info';
+										}
+										elseif ($history->key == 'updated_at') {
+											$registro_class = 'text-warning';
+										}
+									@endphp
+		                            <tr>
+		                                <td class="{!! $registro_class !!}">
+		                                    {{ $history->created_at->format('d/m/Y') }}
+		                                     - 
+		                                    {{ $history->created_at->format('H:i:s') }}
+		                                </td>
+		                                <td class="{!! $registro_class !!}">{{ $history->revisionable_type }}</td>
+		                                <td class="{!! $registro_class !!}">{{ $history->revisionable_id }}</td>
+		                                <td class="{!! $registro_class !!}">
+		                                	{{ ($history->userResponsible())?$history->userResponsible()->username:'' }}
+		                                </td>
+		                                <td class="{!! $registro_class !!}">
+		                                    @if ($history->oldValue())
+		                                    	@if ($history->fieldName()=="password")
+		                                    		El usuario modificó la contraseña
+		                                    	@else
+		                                        	<b>{{ $history->fieldName() }}:</b> {{ $history->oldValue() }}
+		                                        @endif
+		                                    @endif
+		                                </td>
+		                                <td class="{!! $registro_class !!}">
+		                                	@if (!$history->fieldName()=="password")
+		                                		<b>{{ $history->fieldName() }}:</b> {{ $history->newValue() }}
+		                                	@endif
+		                                </td>
+		                            </tr>
+	                            @endif
+	                        @endforeach
+						@endif
+					</tbody>
 				</table>
 			</div>
 		</div>
