@@ -226,3 +226,29 @@ $(document).ready(function() {
         );
     });
 });
+
+/** Script para medir la fortaleza de la contraseña */
+(function($) {
+    $('#password').complexify({}, function (valid, complexity) {
+        var progressBar = $('#complexity-bar');
+        var progressContainer = progressBar.closest('.progress-container');
+        progressContainer.toggleClass('progress-danger', (complexity<43));
+        progressContainer.toggleClass('progress-warning', (complexity>=43&&complexity<=70));
+        progressContainer.toggleClass('progress-success', (complexity>70));
+
+        if ((complexity<43)) {
+            progressContainer.find('.progress-badge').html('Débil');
+        }
+        else if (complexity>=43&&complexity<=70) {
+            progressContainer.find('.progress-badge').html('Aceptable');
+        }
+        else if (complexity>70) {
+            progressContainer.find('.progress-badge').html('Fuerte');
+        }
+        
+        progressBar.css({'width': complexity + '%'});
+
+        $('#complexity').text(Math.round(complexity) + '%');
+        $('#complexity-level').val(Math.round(complexity));
+    });
+})(jQuery);

@@ -18,6 +18,9 @@ try {
     require('bootstrap-fileinput/themes/fa/theme');
     /** Override fileinput default icon fonts to FontAwesome and locale */
     $('input[type=file]').fileinput({theme: 'fa', language: 'es'});
+    /** JQuery.Complexify required for validate strong password */
+    require('jquery.complexify/jquery.complexify.banlist');
+    require('jquery.complexify');
 } catch (e) {}
 
 /**

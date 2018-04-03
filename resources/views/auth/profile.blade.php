@@ -137,9 +137,17 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-8 col-sm-offset-2">
-                                        <div class="progress">
+                                        <div class="progress-container">
+                                            <span class="progress-badge">Débil</span>
+                                                <div class="progress">
+                                                    <div id="complexity-bar" class="progress-bar" role="progressbar">
+                                                        <!--<span class="progress-value">25%</span>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <!--<div class="progress">
                                             <div id="complexity-bar" class="progress-bar progress-bar-danger" role="progressbar" style="width: 0%;"></div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <div class="col-sm-1">
                                         <p id="complexity" class="float-right font-bold">0%</p>
