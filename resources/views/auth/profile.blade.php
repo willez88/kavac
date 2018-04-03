@@ -49,7 +49,73 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane active" id="activity" role="tabpanel">
-                            <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                            {{-- Muestra los últimos 20 registros en la línea de tiempo del usuario --}}
+<div class="row mg-bottom-20">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+        {!! Form::text('search_timeline', null, [
+            'class' => 'form-control input-sm', 'id' => 'search_timeline',
+            'placeholder' => 'buscar...'
+        ]) !!}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+    <ul class="timeline timeline-inverse">
+        <li class="time-label">
+            <span class="bg-red">
+                10 Feb. 2016
+            </span>
+        </li>
+        <li>
+            <i class="fa fa-envelope bg-blue"></i>
+            <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                <div class="timeline-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <div class="timeline-footer">
+                    <a class="btn btn-info btn-xs">Read more</a>
+                    <a class="btn btn-warning btn-xs">Delete</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="time-label">
+            <span class="bg-green">
+                10 Jun. 2016
+            </span>
+        </li>
+        <li>
+            <i class="fa fa-user bg-yellow"></i>
+            <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                <div class="timeline-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <div class="timeline-footer">
+                    <a class="btn btn-info btn-xs">Read more</a>
+                    <a class="btn btn-warning btn-xs">Delete</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+
+
                         </div>
                         <div class="tab-pane" id="profile" role="tabpanel">
                             {!! Form::model($model, $header) !!}
