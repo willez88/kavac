@@ -93,6 +93,21 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-12">
+							<h6>Datos Generales</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-2">
+							<div class="btn btn-square btn-square-primary text-center" data-toggle="tooltip">
+								<a href="#">
+									<i class="now-ui-icons business_badge ico-4x"></i>
+									<h5 class="md-title">Estado de Documentos</h5>
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="card-footer text-right">
 					@include('layouts.form-buttons')
