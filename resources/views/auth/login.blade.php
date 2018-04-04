@@ -29,7 +29,7 @@
                     <span class="input-group-addon">
                         <i class="now-ui-icons ui-1_lock-circle-open"></i>
                     </span>
-                    {!! Form::text('password', old('password'), [
+                    {!! Form::password('password', [
                         'class' => 'form-control', 'placeholder' => 'Contraseña', 'required' => 'required'
                     ]) !!}
                 </div>
