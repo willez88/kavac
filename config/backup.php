@@ -1,6 +1,6 @@
 <?php
 
-$mail = (env(MAIL_USERNAME)!==null)?['mail']:[];
+$mail = (config('mail.username')!==null)?['mail']:[];
 
 return [
 
@@ -10,7 +10,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('APP_NAME'),
+        'name' => config('app.name'),
 
         'source' => [
 
@@ -44,7 +44,7 @@ return [
              * MySQL, PostgreSQL, SQLite and Mongo databases are supported.
              */
             'databases' => [
-                'pgsql',
+                env('DB_CONNECTION'),
             ],
         ],
 

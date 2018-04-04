@@ -58,14 +58,26 @@
                                         {{ $backup['last_modified'] }}
                                     </td>
                                     <td class="text-center">
-                                        <a class="btn btn-xs btn-default"
-                                           href="{{ url('backup/download/'.$backup['file_name']) }}">
-                                            <i class="fa fa-cloud-download"></i> Descargar
-                                        </a>
-                                        <a class="btn btn-xs btn-danger" data-button-type="delete"
-                                           href="{{ url('backup/delete/'.$backup['file_name']) }}">
-                                            <i class="fa fa-trash-o"></i> Eliminar
-                                        </a>
+                                        {!! Form::button('<i class="fa fa-cloud-download"></i>', [
+                                            'class' => 'btn btn-default btn-xs btn-icon btn-round',
+                                            'data-toggle' => 'tooltip', 'type' => 'button',
+                                            'title' => 'Descargar respaldo', 
+                                            'onclick' => 'location.href="' . 
+                                            url('backup/download/' .$backup['file_name'] ) .'"'
+                                        ]) !!}
+                                        {!! Form::button('<i class="fa fa-cloud-upload"></i>', [
+                                            'class' => 'btn btn-info btn-xs btn-icon btn-round',
+                                            'data-toggle' => 'tooltip', 'type' => 'button',
+                                            'title' => 'Restaurar respaldo', 
+                                            'onclick' => '#'
+                                        ]) !!}
+                                        {!! Form::button('<i class="fa fa-trash-o"></i>', [
+                                            'class' => 'btn btn-danger btn-xs btn-icon btn-round',
+                                            'data-toggle' => 'tooltip', 'type' => 'button',
+                                            'title' => 'Eliminar respaldo', 
+                                            'onclick' => 'location.href="' . 
+                                            url('backup/delete/' .$backup['file_name'] ) .'"'
+                                        ]) !!}
                                     </td>
                                 </tr>
                             @endforeach

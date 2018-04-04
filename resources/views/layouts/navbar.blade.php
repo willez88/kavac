@@ -85,7 +85,8 @@
 				@endif
 				@if(Auth::user()->hasRole('admin'))
 					<li class="nav-item">
-						<a class="nav-link btn btn-sm btn-info" href="#" 
+						<a class="nav-link btn btn-sm btn-info" 
+						   href="{{ route('backup.index') }}" 
 						   title="Respaldos de Base de Datos" 
 						   data-toggle="tooltip">
 							<i class="fa fa-database"></i>

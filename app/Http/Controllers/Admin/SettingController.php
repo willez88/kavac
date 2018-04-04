@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Setting;
 use App\Models\Institution;
@@ -12,6 +12,7 @@ use App\Models\City;
 use App\Models\InstitutionSector;
 use App\Models\InstitutionType;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SettingController extends Controller
 {

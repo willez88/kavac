@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Institution;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Repositories\UploadImageRepository;
+use App\Models\Institution;
 
 class InstitutionController extends Controller
 {
