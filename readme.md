@@ -1,31 +1,73 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# KAVAC | Sistema de Gestión Administrativa
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Sobre la aplicación
 
-## About Laravel
+Kavac es una aplicación para la gestión administrativa de entes públicos, permite registrar y controlar todos los procesos de la formulación y ejecución de presupuesto institucional, así como toda la información relevante de operatividad. Este proyecto surge como iniciativa en la mejora de los procesos administrativos apuntando al uso de nuevas tecnologías.
+Se encuentra desarrollado bajo patrones de diseño MVC con un esquema agradable y comprensible usando el framework Laravel y una documentación extensa tanto para desarrolladores o personal técnico, así como también para usuarios del sistema.
+Provee de la mayoría de las herramientas requeridas para una correcta gestión de los recursos institucionales y de los procesos inherentes a estos.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+## Antecedentes
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Mencionar al SAID y sus distintos enlaces
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+- [enlace 1](http://enlace1).
+- [enlace 2](http://enlace2).
+- [enlace 3](http://enlace3).
 
-## Learning Laravel
+## Pre-requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+Requerimientos previos para la instalación
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+## Instalación
+
+Para poder ejectutar la instalación es importante contar con el paquete [composer](https://getcomposer.org/) el cual permite gestionar las distintas dependencias y/o paquetes requeridos por el sistema y una conexión externa a Internet. Cabe destacar que para mejores resultados, se debe tener instalado composer de manera global.
+
+Abrir un terminal o consola y posicionarse en la ruta base del proyecto "/", luego ejecuta la siguiente instrucción:
+
+	composer install
+	
+Una vez instalada la aplicación, ejecuta el comando:
+
+	php artisan key:generate
+
+Esto generará un identificador único para la aplicación y creará (si no existe), el archivo de configuración .env
+
+En el archivo .env, localizado en la raíz del sistema, se deben establecer los parámetros de configuración necesarios bajo los cuales se ejecutará la aplicación.
+
+> APP_NAME
+> APP_ENV
+> APP_KEY
+> APP_DEBUG
+> APP_LOG_LEVEL
+> APP_URL
+> 
+> DB_CONNECTION
+> DB_HOST
+> DB_PORT
+> DB_DATABASE
+> DB_USERNAME
+> DB_PASSWORD
+>
+> BROADCAST_DRIVER
+> CACHE_DRIVER
+> SESSION_DRIVER
+> QUEUE_DRIVER
+> 
+> REDIS_HOST
+> REDIS_PASSWORD
+> REDIS_PORT
+> 
+> MAIL_DRIVER
+> MAIL_HOST
+> MAIL_PORT
+> MAIL_USERNAME
+> MAIL_PASSWORD
+> MAIL_ENCRYPTION
+> 
+> PUSHER_APP_ID
+> PUSHER_APP_KEY
+> PUSHER_APP_SECRET
+> PUSHER_APP_CLUSTER
 
 ## Laravel Sponsors
 
@@ -53,6 +95,6 @@ Thank you for considering contributing to the Laravel framework! The contributio
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+## Licencia
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Kavac es una aplicación de código abierto y se distribuye estrictamente bajo la licencia [MIT license](https://opensource.org/licenses/MIT).
