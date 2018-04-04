@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card">
                 <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
                     <li class="nav-item">
@@ -51,65 +51,90 @@
                         <div class="tab-pane active" id="profile" role="tabpanel">
                             {!! Form::model($model, $header) !!}
                                 @include('layouts.form-errors')
-                                <div class="form-group">
-                                    {!! Form::label('name', 'Nombre y Apellido', []) !!}
-                                    {!! Form::text('name', $model->name, [
-                                            'class' => 'form-control input-sm', 'readonly' => 'readonly',
-                                            'data-toggle' => 'tooltip',
-                                            'title' => 'Nombre y Apellido. Este dato solo puede ser modificado por personal autorizado.'
-                                        ]
-                                    ) !!}
-                                </div>
-                                <div class="form-group">
-                                    {!! Form::label('email', 'Correo Electrónico', []) !!}
-                                    {!! Form::email('email', $model->email, [
-                                            'class' => 'form-control input-sm', 'readonly' => 'readonly',
-                                            'data-toggle' => 'tooltip',
-                                            'title' => 'Correo electrónico. Este dato solo puede ser modificado por personal autorizado.'
-                                        ]
-                                    ) !!}
-                                </div>
-                                <div class="form-group">
-                                    {!! Form::label('username', 'Usuario', []) !!}
-                                    {!! Form::text('username', $model->username, [
-                                            'class' => 'form-control input-sm', 'readonly' => 'readonly',
-                                            'data-toggle' => 'tooltip',
-                                            'title' => 'Nombre de usuario para acceso al sistema. ' . 
-                                                       'Este dato solo puede ser modificado por personal autorizado.'
-                                        ]
-                                    ) !!}
-                                </div>
-                                <div class="form-group">
-                                    {!! Form::label('password', 'Nueva Contraseña', []) !!}
-                                    {!! Form::password('password', [
-                                            'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
-                                            'title' => 'Introduzca la nueva contraseña de acceso al sistema'
-                                        ]
-                                    ) !!}
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-8 col-sm-offset-2">
-                                        <div class="progress-container">
-                                            <span class="progress-badge">Débil</span>
-                                            <div class="progress">
-                                                <div id="complexity-bar" class="progress-bar" role="progressbar">
-                                                </div>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {!! Form::label('name', 'Nombre y Apellido', []) !!}
+                                            {!! Form::text('name', $model->name, [
+                                                    'class' => 'form-control input-sm', 'readonly' => 'readonly',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Nombre y Apellido. Este dato solo puede ser modificado por personal autorizado.'
+                                                ]
+                                            ) !!}
                                         </div>
                                     </div>
-                                    <div class="col-sm-1">
-                                        <p id="complexity" class="float-right font-bold">0%</p>
-                                        {!! Form::hidden('complexity-level', null, ['id' => 'complexity-level']) !!}
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {!! Form::label('position', 'Cargo', []) !!}
+                                            {!! Form::text('position', /*$model->position*/null, [
+                                                    'class' => 'form-control input-sm', 'readonly' => 'readonly',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Cargo en la institución. Este dato solo puede ser modificado por personal autorizado.'
+                                                ]
+                                            ) !!}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    {!! Form::label('password_confirmation', 'Confirmar Contraseña', []) !!}
-                                    {!! Form::password('password_confirmation', [
-                                            'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
-                                            'title' => 'Introduzca nuevamente la nueva contraseña de acceso al sistema'
-                                        ]
-                                    ) !!}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {!! Form::label('email', 'Correo Electrónico', []) !!}
+                                            {!! Form::email('email', $model->email, [
+                                                    'class' => 'form-control input-sm', 'readonly' => 'readonly',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Correo electrónico. Este dato solo puede ser modificado por personal autorizado.'
+                                                ]
+                                            ) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {!! Form::label('username', 'Usuario', []) !!}
+                                            {!! Form::text('username', $model->username, [
+                                                    'class' => 'form-control input-sm', 'readonly' => 'readonly',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Nombre de usuario para acceso al sistema. ' . 
+                                                               'Este dato solo puede ser modificado por personal autorizado.'
+                                                ]
+                                            ) !!}
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {!! Form::label('password', 'Nueva Contraseña', []) !!}
+                                            {!! Form::password('password', [
+                                                    'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
+                                                    'title' => 'Introduzca la nueva contraseña de acceso al sistema'
+                                                ]
+                                            ) !!}
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="progress-container">
+                                                <span class="progress-badge">Débil</span>
+                                                <div class="progress">
+                                                    <div id="complexity-bar" class="progress-bar" role="progressbar">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p id="complexity" class="float-right font-bold">0%</p>
+                                            {!! Form::hidden('complexity-level', null, ['id' => 'complexity-level']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {!! Form::label('password_confirmation', 'Confirmar Contraseña', []) !!}
+                                            {!! Form::password('password_confirmation', [
+                                                    'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
+                                                    'title' => 'Introduzca nuevamente la nueva contraseña de acceso al sistema'
+                                                ]
+                                            ) !!}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
                                 <div class="form-group">
                                     <div class="col-sm-12 text-right">
                                         {!! Form::button('<i class="fa fa-save"></i>', [

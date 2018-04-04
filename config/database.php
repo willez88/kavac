@@ -52,6 +52,13 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
+            'dump' => [
+                'dump_binary_path' => '/user/bin',
+                'use_single_transaction',
+                'timeout' => 60 * 20, // 20 minute timeout
+                //'exclude_tables' => [],
+                //'add_extra_option' => '--optionname=optionvalue',
+            ]
         ],
 
         'pgsql' => [
@@ -65,6 +72,13 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
+            'dump' => [
+                'dump_binary_path' => '/usr/bin',
+                'use_single_transaction',
+                'timeout' => 60 * 20, // 20 minute timeout
+                //'exclude_tables' => ['table1', 'table2'],
+                'add_extra_option' => '-o -b -Ft',
+            ]  
         ],
 
         'sqlsrv' => [

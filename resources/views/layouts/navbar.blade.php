@@ -83,6 +83,15 @@
 						</a>
 					</li>
 				@endif
+				@if(Auth::user()->hasRole('admin'))
+					<li class="nav-item">
+						<a class="nav-link btn btn-sm btn-info" href="#" 
+						   title="Respaldos de Base de Datos" 
+						   data-toggle="tooltip">
+							<i class="fa fa-database"></i>
+						</a>
+					</li>
+				@endif
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_user" 
 					   data-toggle="dropdown" aria-expanded="false" title="Mi configuración y datos">
