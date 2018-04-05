@@ -258,3 +258,36 @@ $(document).ready(function() {
         $('#complexity-level').val(Math.round(complexity));
     });
 })(jQuery);
+
+/**
+ * Permite mostrar alerta de mensajes de acciones realizadas con vue o js
+ * @param  {string} msg_title Título de la ventana de alerta
+ * @param  {string} msg_class Clase de estilo a usar en la ventana de alerta
+ * @param  {string} msg_icon  Ícono a usar en la ventana de alerta
+ * @param  {string} type      Tipo de mensaje a mostrar (store|update|destroy)
+ */
+function vue_messages(msg_title, msg_class, msg_icon, type) {
+    msg_title = (!msg_title)?'Éxito':msg_title;
+    msg_class = (!msg_class)?'growl-success':'glowl-'+msg_class;
+    msg_icon = (!msg_icon)?'screen-ok':msg_icon;
+
+    var msg_text;
+    if (type=='store') {
+        msg_text = 'Registro almacenado con éxito';
+    }
+    else if (type=='update') {
+        msg_text = 'Registro actualizado con éxito';
+    }
+    else if (type=='destroy') {
+        msg_text = 'Registro eliminado con éxito';
+    }
+
+    $.gritter.add({
+        title: msg_title,
+        text: msg_text,
+        class_name: msg_class,
+        image: "/images/" + msg_icon + ".png",
+        sticky: false,
+        time: ''
+    });
+}

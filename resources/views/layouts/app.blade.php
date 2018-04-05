@@ -12,6 +12,8 @@
 
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css') !!}
+        {{-- Icofont --}}
+        {!! Html::style('css/icofont.css') !!}
         {{-- Estilos de Plugins --}}
         {{-- Select2 --}}
         {!! Html::style('vendor/select2/css/select2.min.css') !!}

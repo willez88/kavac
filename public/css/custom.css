@@ -92,6 +92,10 @@ footer nav ul {
   font-weight: normal;
 }
 
+.nopadding-left {
+  padding-left: 0 !important;
+}
+
 .ico-2x {
   font-size: 2rem;
 }
@@ -518,6 +522,22 @@ table td {
   color: #2CA8FF;
   cursor: pointer;
   margin-left: 10px;
+}
+
+/** Botones personalizados para Apps */
+
+.btn-app {
+  border-radius: 3px;
+  position: relative;
+  padding: 15px 5px;
+  margin: 0 0 10px 10px;
+  min-width: 80px;
+  height: 60px;
+  text-align: center;
+  color: #666;
+  border: 1px solid #ddd;
+  background-color: #f4f4f4;
+  font-size: 12px;
 }
 
 /** Efectos para mostrar u ocultar las opciones del menú del panel izquierdo */
@@ -1114,7 +1134,7 @@ textarea.form-control:active {
   margin: 10px;
   color: #444444;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
   -webkit-box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
@@ -1122,11 +1142,23 @@ textarea.form-control:active {
   background-color: #fff;
 }
 
-.btn-simplex span {
-  display: block;
+.btn-simplex.btn-simplex-primary {
+  border: 3px double #519BF6;
+  color: #519BF6;
 }
 
-a .btn-simplex {
+.btn-simplex.btn-simplex-md {
+  width: 130px;
+  height: 120px;
+}
+
+.btn-simplex span {
+  display: block;
+  text-transform: uppercase;
+}
+
+a .btn-simplex,
+a .btn-simplex:hover {
   text-decoration: none !important;
 }
 
@@ -2286,6 +2318,15 @@ a .btn-simplex {
   display: inline-block;
   min-width: 200px;
   margin-bottom: 5px;
+}
+
+.modal-dialog.vue-crud {
+  min-width: 70% !important;
+}
+
+.modal-dialog.vue-crud .modal-body.modal-table {
+  max-height: 400px;
+  overflow: auto;
 }
 
 /*@-webkit-keyframes outerRotate1 {

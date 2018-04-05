@@ -8,19 +8,30 @@
   margin: 10px;
   color: #444444;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
   -webkit-box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
   border-radius: 15px;background-color: #fff;
 
+  &.btn-simplex-primary {
+    border: 3px double #519BF6;
+    color: #519BF6;
+  }
+
+  &.btn-simplex-md {
+    width: 130px;
+    height: 120px;
+  }
+
   span {
         display: block;
+        text-transform: uppercase;
   }
 }
 
 a {
-    .btn-simplex {
+    .btn-simplex, .btn-simplex:hover {
         text-decoration: none !important;
     }
 }

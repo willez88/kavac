@@ -1,0 +1,11 @@
+.modal-dialog {
+	&.vue-crud {
+		min-width:70% !important;
+
+		.modal-body {
+			&.modal-table {
+				max-height:400px;overflow:auto;
+			}
+		}
+	}
+}

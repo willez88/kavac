@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="app">
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
@@ -95,17 +95,149 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<h6>Datos Generales</h6>
+							<h6>Datos Básicos</h6>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-2">
-							<div class="btn btn-square btn-square-primary text-center" data-toggle="tooltip">
-								<a href="#">
-									<i class="now-ui-icons business_badge ico-4x"></i>
-									<h5 class="md-title">Estado de Documentos</h5>
-								</a>
-							</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de estados de los documentos" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-ui-copy ico-3x"></i>
+								<span>Estatus<br>Documentos</span>
+							</a>
+						</div>
+						<marital-status></marital-status>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de profesiones" data-toggle="tooltip">
+								<i class="icofont icofont-graduate-alt ico-3x"></i>
+								<span>Profesiones</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de tipos de instituciones" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-building-alt ico-3x"></i>
+								<span>Tipo<br>Instituciones</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros para sectores de instituciones" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-focus ico-3x"></i>
+								<span>Sector<br>Instituciones</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de unidades administrativas o departamentos" data-toggle="tooltip">
+								<i class="icofont icofont-architecture-alt ico-3x"></i>
+								<span>Unidades<br>Administrativas</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de clasificador de bienes" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-read-book ico-3x"></i>
+								<span>Clasificador<br>Bienes</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de Países" data-toggle="tooltip">
+								<i class="icofont icofont-map ico-3x"></i>
+								<span>Países</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de Estado de un Pais" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-map-search ico-3x"></i>
+								<span>Estados</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de Municipios de un Estado" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-ui-map ico-3x"></i>
+								<span>Municipios</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de Parroquias de un Municipio" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-map-pins ico-3x"></i>
+								<span>Parroquias</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de Ciudades de un Estado" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-5-star-hotel ico-3x"></i>
+								<span>Ciudades</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de Impuestos" data-toggle="tooltip">
+								<i class="icofont icofont-deal ico-3x"></i>
+								<span>Impuestos</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de Deducciones o Retenciones" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-scroll-long-down ico-3x"></i>
+								<span>Deducciones</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de entidades bancarias" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-bank-alt ico-3x"></i>
+								<span>Bancos</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de agencias bancarias" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-business-man ico-3x"></i>
+								<span>Agencias<br>Bancarias</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de tipos de cuenta bancaria" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-mathematical ico-3x"></i>
+								<span>Tipos<br>Cuenta</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de cuentas bancarias" 
+							   data-toggle="tooltip">
+								<i class="icofont icofont-law-document ico-3x"></i>
+								<span>Cuentas<br>Bancarias</span>
+							</a>
+						</div>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+							   href="#" title="Registros de chequeras" data-toggle="tooltip">
+								<i class="icofont icofont-card ico-3x"></i>
+								<span>Chequeras</span>
+							</a>
 						</div>
 					</div>
 				</div>
