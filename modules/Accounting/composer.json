@@ -1,0 +1,25 @@
+{
+    "name": "kavac/accounting",
+    "description": "Accounting resources management",
+    "authors": [
+        {
+            "name": "Ing. Roldan Vargas",
+            "email": "roldandvg@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Accounting\\Providers\\AccountingServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Accounting\\": ""
+        }
+    }
+}
