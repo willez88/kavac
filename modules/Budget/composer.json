@@ -1,0 +1,25 @@
+{
+    "name": "kavac/budget",
+    "description": "Budget resources management",
+    "authors": [
+        {
+            "name": "Ing. Roldan Vargas",
+            "email": "roldandvg@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Budget\\Providers\\BudgetServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Budget\\": ""
+        }
+    }
+}
