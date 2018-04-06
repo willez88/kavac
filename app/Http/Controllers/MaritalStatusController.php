@@ -14,8 +14,7 @@ class MaritalStatusController extends Controller
      */
     public function index()
     {
-        $marital_status = MaritalStatus::all();
-        return response()->json(['marital_status' => $marital_status], 200);
+        return response()->json(['records' => MaritalStatus::all()], 200);
     }
 
     /**
@@ -40,10 +39,10 @@ class MaritalStatusController extends Controller
             'name' => 'required|max:100'
         ]);
 
-        $ms = MaritalStatus::create(['name' => $request->input('name')]);
+        $maritalStatus = MaritalStatus::create(['name' => $request->input('name')]);
 
         return response()->json([
-            'marital_st' => $ms,
+            'record' => $maritalStatus,
             'message' => 'Success'
         ], 200);
     }
@@ -101,7 +100,7 @@ class MaritalStatusController extends Controller
     {
         $maritalStatus->delete();
         return response()->json([
-            'marital_st' => $maritalStatus,
+            'record' => $maritalStatus,
             'message' => 'Success'
         ], 200);
     }

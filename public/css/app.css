@@ -27188,9 +27188,22 @@ a .btn-simplex:hover {
   min-width: 70% !important;
 }
 
+.modal-dialog.vue-crud .modal-header button {
+  top: 20px;
+}
+
 .modal-dialog.vue-crud .modal-body.modal-table {
   max-height: 400px;
   overflow: auto;
+}
+
+.modal-dialog.vue-crud .modal-footer {
+  border-top: 1px solid #EEE !important;
+  padding-top: 10px !important;
+}
+
+.modal-dialog.vue-crud .modal-footer .btn {
+  margin: 0 5px;
 }
 
 /*@-webkit-keyframes outerRotate1 {

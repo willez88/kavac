@@ -266,7 +266,7 @@ $(document).ready(function() {
  * @param  {string} msg_icon  Ícono a usar en la ventana de alerta
  * @param  {string} type      Tipo de mensaje a mostrar (store|update|destroy)
  */
-function vue_messages(msg_title, msg_class, msg_icon, type) {
+function gritter_messages(msg_title, msg_class, msg_icon, type) {
     msg_title = (!msg_title)?'Éxito':msg_title;
     msg_class = (!msg_class)?'growl-success':'glowl-'+msg_class;
     msg_icon = (!msg_icon)?'screen-ok':msg_icon;

@@ -52033,41 +52033,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			marital_st: {
+			record: {
 				id: '',
 				name: ''
 			},
 			errors: [],
-			marital_status: [],
-			update_marital_status: {}
+			records: []
 		};
 	},
 	mounted: function mounted() {
-		this.readMaritalStatus();
+		this.readRecords();
 	},
 
 	methods: {
-		addMaritalStatus: function addMaritalStatus(e) {
+		addRecord: function addRecord(e) {
 			e.preventDefault();
 			this.errors = [];
-			//$("#add_ms_model").modal('show');
-			bootbox.alert('hola');
+			$("#add_ms_model").modal('show');
 		},
-		createMaritalStatus: function createMaritalStatus() {
+		createRecord: function createRecord() {
 			var _this = this;
 
-			if (this.marital_st.id) {
-				this.updateMaritalStatus();
+			if (this.record.id) {
+				this.updateRecord();
 			} else {
 				axios.post('/marital-status', {
-					name: this.marital_st.name
+					name: this.record.name
 				}).then(function (response) {
 					_this.reset();
-					_this.readMaritalStatus();
+					_this.readRecords();
 					vue_messages(false, false, false, 'store');
 				}).catch(function (error) {
 					_this.errors = [];
@@ -52078,27 +52080,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		reset: function reset() {
-			this.marital_st.name = '';
+			this.record.name = '';
 		},
-		readMaritalStatus: function readMaritalStatus() {
+		readRecords: function readRecords() {
 			var _this2 = this;
 
 			axios.get('/marital-status').then(function (response) {
-				_this2.marital_status = response.data.marital_status;
+				_this2.records = response.data.records;
 			});
 		},
 		initUpdate: function initUpdate(index, event) {
 			this.errors = [];
-			this.marital_st = this.marital_status[index];
+			this.record = this.records[index];
 			event.preventDefault();
 		},
-		updateMaritalStatus: function updateMaritalStatus() {
+		updateRecord: function updateRecord() {
 			var _this3 = this;
 
-			axios.patch('/marital-status/' + this.marital_st.id, {
-				name: this.marital_st.name
+			axios.patch('/marital-status/' + this.record.id, {
+				name: this.record.name
 			}).then(function (response) {
-				_this3.readMaritalStatus();
+				_this3.readRecords();
 			}).catch(function (error) {
 				_this3.errors = [];
 				if (error.response.data.errors.name) {
@@ -52106,14 +52108,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}
 			});
 		},
-		deleteMaritalStatus: function deleteMaritalStatus(index) {
+		deleteRecord: function deleteRecord(index) {
 			var _this4 = this;
 
 			var conf = confirm("Esta seguro de eliminar este registro?");
 
 			if (conf === true) {
-				axios.delete('/marital-status/' + this.marital_status[index].id).then(function (response) {
-					_this4.marital_status.splice(index, 1);
+				axios.delete('/marital-status/' + this.records[index].id).then(function (response) {
+					_this4.records.splice(index, 1);
 					vue_messages(type = 'destroy');
 				}).catch(function (error) {});
 			}
@@ -52139,7 +52141,7 @@ var render = function() {
           title: "Registros de estados civiles",
           "data-toggle": "tooltip"
         },
-        on: { click: _vm.addMaritalStatus }
+        on: { click: _vm.addRecord }
       },
       [
         _c("i", { staticClass: "fa fa-female ico-3x inline-block" }),
@@ -52184,8 +52186,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.marital_st.name,
-                        expression: "marital_st.name"
+                        value: _vm.record.name,
+                        expression: "record.name"
                       }
                     ],
                     staticClass: "form-control input-sm",
@@ -52195,13 +52197,13 @@ var render = function() {
                       id: "name",
                       placeholder: "Estado Civil"
                     },
-                    domProps: { value: _vm.marital_st.name },
+                    domProps: { value: _vm.record.name },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.marital_st, "name", $event.target.value)
+                        _vm.$set(_vm.record, "name", $event.target.value)
                       }
                     }
                   }),
@@ -52211,18 +52213,18 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.marital_st.id,
-                        expression: "marital_st.id"
+                        value: _vm.record.id,
+                        expression: "record.id"
                       }
                     ],
                     attrs: { type: "hidden", name: "id", id: "id" },
-                    domProps: { value: _vm.marital_st.id },
+                    domProps: { value: _vm.record.id },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.marital_st, "id", $event.target.value)
+                        _vm.$set(_vm.record, "id", $event.target.value)
                       }
                     }
                   })
@@ -52241,7 +52243,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.marital_status, function(ms, index) {
+                      _vm._l(_vm.records, function(ms, index) {
                         return _c("tr", [
                           _c("td", [_vm._v(_vm._s(ms.name))]),
                           _vm._v(" "),
@@ -52283,7 +52285,7 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.deleteMaritalStatus(index)
+                                      _vm.deleteRecord(index)
                                     }
                                   }
                                 },
@@ -52302,7 +52304,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default",
+                    staticClass: "btn btn-default btn-sm btn-round",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -52311,9 +52313,9 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary",
+                    staticClass: "btn btn-primary btn-sm btn-round",
                     attrs: { type: "button" },
-                    on: { click: _vm.createMaritalStatus }
+                    on: { click: _vm.createRecord }
                   },
                   [_vm._v("\n                \t\tGuardar\n\t                ")]
                 )
@@ -52350,7 +52352,12 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       ),
       _vm._v(" "),
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Agregar Estado Civil")])
+      _c("h6", { staticClass: "card-title" }, [
+        _c("i", { staticClass: "fa fa-female inline-block" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fa fa-male inline-block" }),
+        _vm._v(" \n\t\t\t\t\t\tEstado Civil\n\t\t\t\t\t")
+      ])
     ])
   },
   function() {

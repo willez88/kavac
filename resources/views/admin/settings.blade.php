@@ -18,6 +18,7 @@
 
 @section('content')
 	@include('admin.settings-parameters')
+	@include('admin.settings-commons')
 	@include('admin.setting-institution')
 	{{-- <div class="row">
 		<div class="col-12">
