@@ -1,14 +1,12 @@
 <template>
-	<div class="vue-root">
-		<div class="col-md-2 text-center">
-			<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
-			   title="Registros de estados civiles" data-toggle="tooltip" @click="addMaritalStatus">
-				<i class="fa fa-female ico-3x inline-block"></i>
-				<i class="fa fa-male ico-3x nopadding-left"></i>
-				<span>Estados<br>Civiles</span>
-			</a>
-		</div>
-		<div class="modal fade" tabindex="-1" role="dialog" id="add_ms_model">
+	<div class="col-md-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
+		   title="Registros de estados civiles" data-toggle="tooltip" @click="addMaritalStatus">
+			<i class="fa fa-female ico-3x inline-block"></i>
+			<i class="fa fa-male ico-3x nopadding-left"></i>
+			<span>Estados<br>Civiles</span>
+		</a>
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_ms_model">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -27,6 +25,7 @@
 							<label for="name">Nombre:</label>
 							<input type="text" name="name" id="name" placeholder="Estado Civil" 
 								   class="form-control input-sm" v-model="marital_st.name">
+							<input type="hidden" name="id" id="id" v-model="marital_st.id">
 	                    </div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -41,7 +40,7 @@
 								<tr v-for="(ms, index) in marital_status">
 									<td>{{ ms.name }}</td>
 									<td class="text-center" width="10%">
-										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip">
+										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
 										</button>
 										<button @click="deleteMaritalStatus(index)" 
@@ -72,6 +71,7 @@
 		data() {
 			return {
 				marital_st: {
+					id: '',
 					name: ''
 				},
 				errors: [],
@@ -87,23 +87,31 @@
 			addMaritalStatus(e) {
 				e.preventDefault();
 				this.errors = [];
-				$("#add_ms_model").modal('show');
+				//$("#add_ms_model").modal('show');
+				bootbox.alert('hola');
 			},
 			createMaritalStatus()
 			{
-				axios.post('/marital-status', {name: this.marital_st.name})
-					 .then(response => {
-					 	this.reset();
-					 	//$("#add_ms_model").modal("hide");
+				if (this.marital_st.id) {
+					this.updateMaritalStatus();
+				}
+				else {
+					axios.post('/marital-status', {
+						name: this.marital_st.name
+					})
+					.then(response => {
+						this.reset();
 					 	this.readMaritalStatus();
 					 	vue_messages(false, false, false, 'store');
-					 })
-					 .catch(error => {
-					 	this.errors = [];
+					})
+					.catch(error => {
+						this.errors = [];
 					 	if (error.response.data.errors.name) {
                             this.errors.push(error.response.data.errors.name[0]);
                         }
-					 });
+                    });
+				}
+				
 			},
 			reset()
 			{
@@ -115,21 +123,39 @@
 					this.marital_status = response.data.marital_status;
 				});
 			},
-			/*initUpdate(index)
+			initUpdate(index, event)
 			{
 				this.errors = [];
-				this.marital_st = 
-			}*/
+				this.marital_st = this.marital_status[index];
+				event.preventDefault();
+			},
+			updateMaritalStatus()
+            {
+                axios.patch('/marital-status/' + this.marital_st.id, {
+                    name: this.marital_st.name,
+                })
+                .then(response => {
+                	this.readMaritalStatus();
+                })
+                .catch(error => {
+                	this.errors = [];
+                	if (error.response.data.errors.name) {
+                		this.errors.push(error.response.data.errors.name[0]);
+                	}
+                });
+            },
 			deleteMaritalStatus(index)
 			{
 				let conf = confirm("Esta seguro de eliminar este registro?");
 
 				if (conf === true) {
-					axios.delete('/marital-status/' + this.marital_status[index].id)
-						 .then(response => {
-						 	this.marital_status.splice(index, 1);
+					axios.delete('/marital-status/' + this.marital_status[index].id).then(
+						response => {
+							this.marital_status.splice(index, 1);
 						 	vue_messages(type='destroy');
-						 }).catch(error => {});
+						}
+					)
+					.catch(error => {});
 				}
 			}
 		}

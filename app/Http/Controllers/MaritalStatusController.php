@@ -79,7 +79,16 @@ class MaritalStatusController extends Controller
      */
     public function update(Request $request, MaritalStatus $maritalStatus)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100'
+        ]);
+ 
+        $maritalStatus->name = $request->input('name');
+        $maritalStatus->save();
+ 
+        return response()->json([
+            'message' => 'Registro actualizado correctamente'
+        ], 200);
     }
 
     /**

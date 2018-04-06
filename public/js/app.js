@@ -52033,12 +52033,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			marital_st: {
+				id: '',
 				name: ''
 			},
 			errors: [],
@@ -52054,22 +52054,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		addMaritalStatus: function addMaritalStatus(e) {
 			e.preventDefault();
 			this.errors = [];
-			$("#add_ms_model").modal('show');
+			//$("#add_ms_model").modal('show');
+			bootbox.alert('hola');
 		},
 		createMaritalStatus: function createMaritalStatus() {
 			var _this = this;
 
-			axios.post('/marital-status', { name: this.marital_st.name }).then(function (response) {
-				_this.reset();
-				//$("#add_ms_model").modal("hide");
-				_this.readMaritalStatus();
-				vue_messages(false, false, false, 'store');
-			}).catch(function (error) {
-				_this.errors = [];
-				if (error.response.data.errors.name) {
-					_this.errors.push(error.response.data.errors.name[0]);
-				}
-			});
+			if (this.marital_st.id) {
+				this.updateMaritalStatus();
+			} else {
+				axios.post('/marital-status', {
+					name: this.marital_st.name
+				}).then(function (response) {
+					_this.reset();
+					_this.readMaritalStatus();
+					vue_messages(false, false, false, 'store');
+				}).catch(function (error) {
+					_this.errors = [];
+					if (error.response.data.errors.name) {
+						_this.errors.push(error.response.data.errors.name[0]);
+					}
+				});
+			}
 		},
 		reset: function reset() {
 			this.marital_st.name = '';
@@ -52081,20 +52087,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this2.marital_status = response.data.marital_status;
 			});
 		},
-
-		/*initUpdate(index)
-  {
-  	this.errors = [];
-  	this.marital_st = 
-  }*/
-		deleteMaritalStatus: function deleteMaritalStatus(index) {
+		initUpdate: function initUpdate(index, event) {
+			this.errors = [];
+			this.marital_st = this.marital_status[index];
+			event.preventDefault();
+		},
+		updateMaritalStatus: function updateMaritalStatus() {
 			var _this3 = this;
+
+			axios.patch('/marital-status/' + this.marital_st.id, {
+				name: this.marital_st.name
+			}).then(function (response) {
+				_this3.readMaritalStatus();
+			}).catch(function (error) {
+				_this3.errors = [];
+				if (error.response.data.errors.name) {
+					_this3.errors.push(error.response.data.errors.name[0]);
+				}
+			});
+		},
+		deleteMaritalStatus: function deleteMaritalStatus(index) {
+			var _this4 = this;
 
 			var conf = confirm("Esta seguro de eliminar este registro?");
 
 			if (conf === true) {
 				axios.delete('/marital-status/' + this.marital_status[index].id).then(function (response) {
-					_this3.marital_status.splice(index, 1);
+					_this4.marital_status.splice(index, 1);
 					vue_messages(type = 'destroy');
 				}).catch(function (error) {});
 			}
@@ -52110,33 +52129,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "vue-root" }, [
-    _c("div", { staticClass: "col-md-2 text-center" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn-simplex btn-simplex-md btn-simplex-primary",
-          attrs: {
-            href: "",
-            title: "Registros de estados civiles",
-            "data-toggle": "tooltip"
-          },
-          on: { click: _vm.addMaritalStatus }
+  return _c("div", { staticClass: "col-md-2 text-center" }, [
+    _c(
+      "a",
+      {
+        staticClass: "btn-simplex btn-simplex-md btn-simplex-primary",
+        attrs: {
+          href: "",
+          title: "Registros de estados civiles",
+          "data-toggle": "tooltip"
         },
-        [
-          _c("i", { staticClass: "fa fa-female ico-3x inline-block" }),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-male ico-3x nopadding-left" }),
-          _vm._v(" "),
-          _vm._m(0)
-        ]
-      )
-    ]),
+        on: { click: _vm.addMaritalStatus }
+      },
+      [
+        _c("i", { staticClass: "fa fa-female ico-3x inline-block" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fa fa-male ico-3x nopadding-left" }),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    ),
     _vm._v(" "),
     _c(
       "div",
       {
-        staticClass: "modal fade",
+        staticClass: "modal fade text-left",
         attrs: { tabindex: "-1", role: "dialog", id: "add_ms_model" }
       },
       [
@@ -52187,6 +52204,27 @@ var render = function() {
                         _vm.$set(_vm.marital_st, "name", $event.target.value)
                       }
                     }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.marital_st.id,
+                        expression: "marital_st.id"
+                      }
+                    ],
+                    attrs: { type: "hidden", name: "id", id: "id" },
+                    domProps: { value: _vm.marital_st.id },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.marital_st, "id", $event.target.value)
+                      }
+                    }
                   })
                 ])
               ]),
@@ -52221,7 +52259,8 @@ var render = function() {
                                     "btn btn-warning btn-xs btn-icon btn-round",
                                   attrs: {
                                     title: "Modificar registro",
-                                    "data-toggle": "tooltip"
+                                    "data-toggle": "tooltip",
+                                    type: "button"
                                   },
                                   on: {
                                     click: function($event) {
