@@ -25,7 +25,7 @@
 								<li v-for="error in errors">{{ error }}</li>
 							</ul>
 						</div>
-						<div class="form-group">
+						<div class="form-group is-required">
 							<label for="name">Nombre:</label>
 							<input type="text" name="name" id="name" placeholder="Estado Civil" 
 								   class="form-control input-sm" v-model="record.name">

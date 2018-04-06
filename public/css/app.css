@@ -27188,6 +27188,10 @@ a .btn-simplex:hover {
   min-width: 70% !important;
 }
 
+.modal-dialog.vue-crud .is-required:after {
+  bottom: 6px;
+}
+
 .modal-dialog.vue-crud .modal-header button {
   top: 20px;
 }

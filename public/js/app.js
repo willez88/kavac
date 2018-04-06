@@ -52070,7 +52070,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}).then(function (response) {
 					_this.reset();
 					_this.readRecords();
-					vue_messages(false, false, false, 'store');
+					gritter_messages(false, false, false, 'store');
 				}).catch(function (error) {
 					_this.errors = [];
 					if (error.response.data.errors.name) {
@@ -52116,7 +52116,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			if (conf === true) {
 				axios.delete('/marital-status/' + this.records[index].id).then(function (response) {
 					_this4.records.splice(index, 1);
-					vue_messages(type = 'destroy');
+					gritter_messages(type = 'destroy');
 				}).catch(function (error) {});
 			}
 		}
@@ -52178,7 +52178,7 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "form-group is-required" }, [
                   _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre:")]),
                   _vm._v(" "),
                   _c("input", {
@@ -54576,7 +54576,7 @@ $(document).ready(function () {
  * @param  {string} msg_icon  Ícono a usar en la ventana de alerta
  * @param  {string} type      Tipo de mensaje a mostrar (store|update|destroy)
  */
-function vue_messages(msg_title, msg_class, msg_icon, type) {
+function gritter_messages(msg_title, msg_class, msg_icon, type) {
     msg_title = !msg_title ? 'Éxito' : msg_title;
     msg_class = !msg_class ? 'growl-success' : 'glowl-' + msg_class;
     msg_icon = !msg_icon ? 'screen-ok' : msg_icon;
