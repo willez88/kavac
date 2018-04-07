@@ -41,10 +41,7 @@ class MaritalStatusController extends Controller
 
         $maritalStatus = MaritalStatus::create(['name' => $request->input('name')]);
 
-        return response()->json([
-            'record' => $maritalStatus,
-            'message' => 'Success'
-        ], 200);
+        return response()->json(['record' => $maritalStatus, 'message' => 'Success'], 200);
     }
 
     /**
@@ -85,9 +82,7 @@ class MaritalStatusController extends Controller
         $maritalStatus->name = $request->input('name');
         $maritalStatus->save();
  
-        return response()->json([
-            'message' => 'Registro actualizado correctamente'
-        ], 200);
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
@@ -99,9 +94,6 @@ class MaritalStatusController extends Controller
     public function destroy(MaritalStatus $maritalStatus)
     {
         $maritalStatus->delete();
-        return response()->json([
-            'record' => $maritalStatus,
-            'message' => 'Success'
-        ], 200);
+        return response()->json(['record' => $maritalStatus, 'message' => 'Success'], 200);
     }
 }

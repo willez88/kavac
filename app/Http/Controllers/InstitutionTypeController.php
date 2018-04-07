@@ -46,10 +46,7 @@ class InstitutionTypeController extends Controller
             'acronym' => ($request->input('acronym'))?$request->input('acronym'):null
         ]);
 
-        return response()->json([
-            'record' => $institutionType,
-            'message' => 'Success'
-        ], 200);
+        return response()->json(['record' => $institutionType, 'message' => 'Success'], 200);
     }
 
     /**
@@ -92,9 +89,7 @@ class InstitutionTypeController extends Controller
         $institutionType->acronym = ($request->input('acronym'))?$request->input('acronym'):null;
         $institutionType->save();
  
-        return response()->json([
-            'message' => 'Registro actualizado correctamente'
-        ], 200);
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**

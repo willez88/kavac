@@ -44,10 +44,7 @@ class InstitutionSectorController extends Controller
             'name' => $request->input('name')
         ]);
 
-        return response()->json([
-            'record' => $institutionSector,
-            'message' => 'Success'
-        ], 200);
+        return response()->json(['record' => $institutionSector, 'message' => 'Success'], 200);
     }
 
     /**
@@ -88,9 +85,7 @@ class InstitutionSectorController extends Controller
         $institutionSector->name = $request->input('name');
         $institutionSector->save();
  
-        return response()->json([
-            'message' => 'Registro actualizado correctamente'
-        ], 200);
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
@@ -102,9 +97,6 @@ class InstitutionSectorController extends Controller
     public function destroy(InstitutionSector $institutionSector)
     {
         $institutionSector->delete();
-        return response()->json([
-            'record' => $institutionSector,
-            'message' => 'Success'
-        ], 200);
+        return response()->json(['record' => $institutionSector, 'message' => 'Success'], 200);
     }
 }

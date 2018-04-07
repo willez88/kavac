@@ -46,10 +46,7 @@ class ProfessionController extends Controller
             'acronym' => ($request->input('acronym'))?$request->input('acronym'):null
         ]);
 
-        return response()->json([
-            'record' => $profession,
-            'message' => 'Success'
-        ], 200);
+        return response()->json(['record' => $profession, 'message' => 'Success'], 200);
     }
 
     /**
@@ -92,9 +89,7 @@ class ProfessionController extends Controller
         $profession->acronym = ($request->input('acronym'))?$request->input('acronym'):null;
         $profession->save();
  
-        return response()->json([
-            'message' => 'Registro actualizado correctamente'
-        ], 200);
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
@@ -106,9 +101,6 @@ class ProfessionController extends Controller
     public function destroy(Profession $profession)
     {
         $profession->delete();
-        return response()->json([
-            'record' => $profession,
-            'message' => 'Success'
-        ], 200);
+        return response()->json(['record' => $profession, 'message' => 'Success'], 200);
     }
 }

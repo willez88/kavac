@@ -46,10 +46,7 @@ class CountryController extends Controller
             'prefix' => $request->input('prefix')
         ]);
 
-        return response()->json([
-            'record' => $country,
-            'message' => 'Success'
-        ], 200);
+        return response()->json(['record' => $country, 'message' => 'Success'], 200);
     }
 
     /**
@@ -92,9 +89,7 @@ class CountryController extends Controller
         $country->prefix = $request->input('prefix');
         $country->save();
  
-        return response()->json([
-            'message' => 'Registro actualizado correctamente'
-        ], 200);
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
