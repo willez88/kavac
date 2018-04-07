@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InstitutionType;
+use App\Models\Profession;
 use Illuminate\Http\Request;
 
-class InstitutionTypeController extends Controller
+class ProfessionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class InstitutionTypeController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => InstitutionType::all()], 200);
+        return response()->json(['records' => Profession::all()], 200);
     }
 
     /**
@@ -41,13 +41,13 @@ class InstitutionTypeController extends Controller
         ]);
 
 
-        $institutionType = InstitutionType::create([
+        $profession = Profession::create([
             'name' => $request->input('name'),
             'acronym' => ($request->input('acronym'))?$request->input('acronym'):null
         ]);
 
         return response()->json([
-            'record' => $institutionType,
+            'record' => $profession,
             'message' => 'Success'
         ], 200);
     }
@@ -55,10 +55,10 @@ class InstitutionTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\InstitutionType  $institutionType
+     * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function show(InstitutionType $institutionType)
+    public function show(Profession $profession)
     {
         //
     }
@@ -66,10 +66,10 @@ class InstitutionTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\InstitutionType  $institutionType
+     * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function edit(InstitutionType $institutionType)
+    public function edit(Profession $profession)
     {
         //
     }
@@ -78,19 +78,19 @@ class InstitutionTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\InstitutionType  $institutionType
+     * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InstitutionType $institutionType)
+    public function update(Request $request, Profession $profession)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
             'acronym' => 'max:10'
         ]);
  
-        $institutionType->name = $request->input('name');
-        $institutionType->acronym = ($request->input('acronym'))?$request->input('acronym'):null;
-        $institutionType->save();
+        $profession->name = $request->input('name');
+        $profession->acronym = ($request->input('acronym'))?$request->input('acronym'):null;
+        $profession->save();
  
         return response()->json([
             'message' => 'Registro actualizado correctamente'
@@ -100,12 +100,15 @@ class InstitutionTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\InstitutionType  $institutionType
+     * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InstitutionType $institutionType)
+    public function destroy(Profession $profession)
     {
-        $institutionType->delete();
-        return response()->json(['record' => $institutionType, 'message' => 'Success'], 200);
+        $profession->delete();
+        return response()->json([
+            'record' => $profession,
+            'message' => 'Success'
+        ], 200);
     }
 }

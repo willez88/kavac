@@ -63,6 +63,18 @@ Route::group(['middleware' => 'auth'], function() {
 
     /** Rutas para la gestión de estados civiles */
     Route::resource('marital-status', 'MaritalStatusController', ['except' => ['show']]);
+
+    /** Rutas para la gestión de profesiones */
+    Route::resource('professions', 'ProfessionController', ['except' => ['show']]);
+
+    /** Rutas para la gestión de tipos de instituciones */
+    Route::resource('institution-types', 'InstitutionTypeController', ['except' => ['show']]);
+
+    /** Rutas para la gestión de sectores de instituciones */
+    Route::resource('institution-sectors', 'InstitutionSectorController', ['except' => ['show']]);
+
+    /** Rutas para la gestión de países */
+    Route::resource('countries', 'CountryController', ['except' => ['show']]);    
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {

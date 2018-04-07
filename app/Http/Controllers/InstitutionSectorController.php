@@ -14,7 +14,7 @@ class InstitutionSectorController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['records' => InstitutionSector::all()], 200);
     }
 
     /**
@@ -35,7 +35,19 @@ class InstitutionSectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+        ]);
+
+
+        $institutionSector = InstitutionSector::create([
+            'name' => $request->input('name')
+        ]);
+
+        return response()->json([
+            'record' => $institutionSector,
+            'message' => 'Success'
+        ], 200);
     }
 
     /**
@@ -69,7 +81,16 @@ class InstitutionSectorController extends Controller
      */
     public function update(Request $request, InstitutionSector $institutionSector)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+        ]);
+ 
+        $institutionSector->name = $request->input('name');
+        $institutionSector->save();
+ 
+        return response()->json([
+            'message' => 'Registro actualizado correctamente'
+        ], 200);
     }
 
     /**
@@ -80,6 +101,10 @@ class InstitutionSectorController extends Controller
      */
     public function destroy(InstitutionSector $institutionSector)
     {
-        //
+        $institutionSector->delete();
+        return response()->json([
+            'record' => $institutionSector,
+            'message' => 'Success'
+        ], 200);
     }
 }

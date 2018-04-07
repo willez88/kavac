@@ -265,7 +265,7 @@
 					<hr>
 					<h6 class="md-title">Datos Complementarios:</h6>
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('legal_base', 'Base Legal', []) !!}
 								{!! Form::textarea('legal_base', null, [
@@ -273,7 +273,7 @@
 								]) !!}
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('legal_form', 'Forma Jurídica', []) !!}
 								{!! Form::textarea('legal_form', null, [
@@ -281,9 +281,7 @@
 								]) !!}
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('main_activity', 'Actividad Principal', []) !!}
 								{!! Form::textarea('main_activity', null, [
@@ -291,7 +289,9 @@
 								]) !!}
 							</div>
 						</div>
-						<div class="col-md-6">
+					</div>
+					<div class="row">
+						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('mission', 'Misión', []) !!}
 								{!! Form::textarea('mission', null, [
@@ -299,9 +299,7 @@
 								]) !!}
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('vision', 'Visión', []) !!}
 								{!! Form::textarea('vision', null, [
@@ -309,7 +307,7 @@
 								]) !!}
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('composition_assets', 'Composición de Patrimonio', []) !!}
 								{!! Form::textarea('composition_assets', null, [

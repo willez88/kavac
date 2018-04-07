@@ -1,3 +1,13 @@
+.bootbox {
+	&.modal {
+		.modal-footer {
+			button {
+				margin: 0 5px;
+			}
+		}
+	}
+}
+
 .modal-dialog {
 	&.vue-crud {
 		min-width:70% !important;
@@ -11,6 +21,11 @@
 		.modal-header {
 			button {
 				top:20px;
+			}
+
+			h1, h2, h3, h4, h5, h6 {
+			    text-transform: uppercase;
+			    color: #0073b7;
 			}
 		}
 

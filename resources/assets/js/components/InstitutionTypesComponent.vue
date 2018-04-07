@@ -1,12 +1,12 @@
 <template>
 	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
-		   title="Registros de estados civiles" data-toggle="tooltip" @click="addRecord">
-			<i class="fa fa-female ico-3x inline-block"></i>
-			<i class="fa fa-male ico-3x nopadding-left"></i>
-			<span>Estados<br>Civiles</span>
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+		   href="" title="Registros de tipos de instituciones" 
+		   data-toggle="tooltip" @click="addRecord">
+			<i class="icofont icofont-building-alt ico-3x"></i>
+			<span>Tipo<br>Instituciones</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_marital_status">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_institution_type">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -14,9 +14,8 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="fa fa-female inline-block"></i>
-							<i class="fa fa-male inline-block"></i> 
-							Estado Civil
+							<i class="icofont icofont-building-alt inline-block"></i> 
+							Tipo de Institución
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -25,23 +24,37 @@
 								<li v-for="error in errors">{{ error }}</li>
 							</ul>
 						</div>
-						<div class="form-group is-required">
-							<label for="marital_status_name">Nombre:</label>
-							<input type="text" name="marital_status_name" id="marital_status_name" placeholder="Estado Civil" 
-								   class="form-control input-sm" v-model="record.marital_status_name">
-							<input type="hidden" name="marital_status_id" id="marital_status_id" v-model="record.marital_status_id">
-	                    </div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="acronym">Acrónimo:</label>
+									<input type="text" name="acronym" id="acronym" 
+										   placeholder="Acrónimo" 
+										   class="form-control input-sm" v-model="record.acronym">
+									<input type="hidden" name="id" id="id" v-model="record.id">
+			                    </div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group is-required">
+									<label for="name">Nombre:</label>
+									<input type="text" name="name" id="name" placeholder="Profesión" 
+										   class="form-control input-sm" v-model="record.name">
+			                    </div>
+							</div>
+						</div>
 	                </div>
 	                <div class="modal-body modal-table">
 	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
 							<thead>
 								<tr class="text-center">
+									<th>Acrónimo</th>
 									<th>Nombre</th>
 									<th>Acción</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr v-for="(rec, index) in records">
+									<td>{{ rec.acronym }}</td>
 									<td>{{ rec.name }}</td>
 									<td class="text-center" width="10%">
 										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
@@ -75,31 +88,33 @@
 		data() {
 			return {
 				record: {
-					marital_status_id: '',
-					marital_status_name: ''
+					id: '',
+					acronym: '',
+					name: ''
 				},
 				errors: [],
 				records: []
 			}
 		},
-		mounted()
-		{
+		mounted() {
 			this.readRecords();
 		},
 		methods: {
 			addRecord(e) {
 				e.preventDefault();
 				this.errors = [];
-				$("#add_marital_status").modal('show');
+				this.reset();
+				$("#add_institution_type").modal('show');
 			},
 			createRecord()
 			{
-				if (this.record.marital_status_id) {
+				if (this.record.id) {
 					this.updateRecord();
 				}
 				else {
-					axios.post('/marital-status', {
-						name: this.record.marital_status_name
+					axios.post('/institution-types', {
+						acronym: this.record.acronym,
+						name: this.record.name
 					})
 					.then(response => {
 						this.reset();
@@ -109,11 +124,14 @@
 					.catch(error => {
 						this.errors = [];
 						
-					 	if (typeof(error.response) !="undefined") {
-					 		if (error.response.data.errors.name) {
-					 			this.errors.push(error.response.data.errors.name[0]);
-					 		}
-                        }
+						if (typeof(error.response) !="undefined") {
+						 	if (error.response.data.errors.name) {
+	                            this.errors.push(error.response.data.errors.name[0]);
+	                        }
+	                        if (error.response.data.errors.acronym) {
+	                            this.errors.push(error.response.data.errors.acronym[0]);
+	                        }
+	                    }
                     });
 				}
 				
@@ -124,11 +142,11 @@
 			},
 			readRecords()
 			{
-				axios.get('/marital-status').then(response => {
+				axios.get('/institution-types').then(response => {
 					this.records = response.data.records;
 				});
 			},
-			initUpdate(index, event)
+			initUpdate(index)
 			{
 				this.errors = [];
 				this.record = this.records[index];
@@ -136,8 +154,9 @@
 			},
 			updateRecord()
             {
-                axios.patch('/marital-status/' + this.record.marital_status_id, {
-                    name: this.record.marital_status_name,
+                axios.patch('/institution-types/' + this.record.id, {
+                    name: this.record.name,
+                    acronym: this.record.acronym,
                 })
                 .then(response => {
                 	this.readRecords();
@@ -150,15 +169,18 @@
 	                	if (error.response.data.errors.name) {
 	                		this.errors.push(error.response.data.errors.name[0]);
 	                	}
+	                	if (error.response.data.errors.acronym) {
+	                		this.errors.push(error.response.data.errors.acronym[0]);
+	                	}
 	                }
                 });
             },
 			deleteRecord(index)
 			{
 				let conf = confirm("Esta seguro de eliminar este registro?");
-
+				
 				if (conf === true) {
-					axios.delete('/marital-status/' + this.records[index].id).then(
+					axios.delete('/institution-types/' + this.records[index].id).then(
 						response => {
 							this.records.splice(index, 1);
 						 	gritter_messages(type='destroy');

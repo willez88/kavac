@@ -21,29 +21,9 @@
 						</a>
 					</div>
 					<marital-status></marital-status>
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de profesiones" data-toggle="tooltip">
-							<i class="icofont icofont-graduate-alt ico-3x"></i>
-							<span>Profesiones</span>
-						</a>
-					</div>
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de tipos de instituciones" 
-						   data-toggle="tooltip">
-							<i class="icofont icofont-building-alt ico-3x"></i>
-							<span>Tipo<br>Instituciones</span>
-						</a>
-					</div>
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros para sectores de instituciones" 
-						   data-toggle="tooltip">
-							<i class="icofont icofont-focus ico-3x"></i>
-							<span>Sector<br>Instituciones</span>
-						</a>
-					</div>
+					<professions></professions>
+					<institution-types></institution-types>
+					<institution-sectors></institution-sectors>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de unidades administrativas o departamentos" data-toggle="tooltip">
@@ -59,13 +39,7 @@
 							<span>Clasificador<br>Bienes</span>
 						</a>
 					</div>
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de Países" data-toggle="tooltip">
-							<i class="icofont icofont-map ico-3x"></i>
-							<span>Países</span>
-						</a>
-					</div>
+					<countries></countries>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de Estado de un Pais" 

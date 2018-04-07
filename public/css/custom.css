@@ -2320,6 +2320,10 @@ a .btn-simplex:hover {
   margin-bottom: 5px;
 }
 
+.bootbox.modal .modal-footer button {
+  margin: 0 5px;
+}
+
 .modal-dialog.vue-crud {
   min-width: 70% !important;
 }
@@ -2330,6 +2334,16 @@ a .btn-simplex:hover {
 
 .modal-dialog.vue-crud .modal-header button {
   top: 20px;
+}
+
+.modal-dialog.vue-crud .modal-header h1,
+.modal-dialog.vue-crud .modal-header h2,
+.modal-dialog.vue-crud .modal-header h3,
+.modal-dialog.vue-crud .modal-header h4,
+.modal-dialog.vue-crud .modal-header h5,
+.modal-dialog.vue-crud .modal-header h6 {
+  text-transform: uppercase;
+  color: #0073b7;
 }
 
 .modal-dialog.vue-crud .modal-body.modal-table {

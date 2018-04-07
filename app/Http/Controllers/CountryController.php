@@ -14,7 +14,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['records' => Country::all()], 200);
     }
 
     /**
@@ -35,7 +35,21 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'prefix' => 'required|max:3'
+        ]);
+
+
+        $country = Country::create([
+            'name' => $request->input('name'),
+            'prefix' => $request->input('prefix')
+        ]);
+
+        return response()->json([
+            'record' => $country,
+            'message' => 'Success'
+        ], 200);
     }
 
     /**
@@ -69,7 +83,18 @@ class CountryController extends Controller
      */
     public function update(Request $request, Country $country)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'prefix' => 'required|max:3'
+        ]);
+ 
+        $country->name = $request->input('name');
+        $country->prefix = $request->input('prefix');
+        $country->save();
+ 
+        return response()->json([
+            'message' => 'Registro actualizado correctamente'
+        ], 200);
     }
 
     /**
@@ -80,6 +105,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        //
+        $country->delete();
+        return response()->json(['record' => $country, 'message' => 'Success'], 200);
     }
 }
