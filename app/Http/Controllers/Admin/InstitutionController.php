@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UploadImageRepository;
 use App\Models\Institution;
+use App\Models\Setting;
 
 class InstitutionController extends Controller
 {
@@ -51,6 +52,9 @@ class InstitutionController extends Controller
             'municipality_id' => 'required',
             'city_id' => 'required'
         ]);
+
+        // AGREGAR VALIDACIÓN DE MULTIPLES INSTITUCIONES CUANDO SE DEFINEN COMO TRUE EN 
+        // LA CONFIGURACION DE PARAMETROS
 
         $logo = $banner = null;
         if ($request->file('logo_id')) {
