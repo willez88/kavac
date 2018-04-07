@@ -30,6 +30,9 @@ Vue.component('institution-sectors', require('./components/InstitutionSectorsCom
 /** Countries management component */
 Vue.component('countries', require('./components/CountriesComponent.vue'));
 
+/** Estates  management component from countries */
+Vue.component('estates', require('./components/EstatesComponent.vue'));
+
 const app = new Vue({
     el: '#app'
 });

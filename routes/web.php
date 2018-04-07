@@ -74,7 +74,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('institution-sectors', 'InstitutionSectorController', ['except' => ['show']]);
 
     /** Rutas para la gestión de países */
-    Route::resource('countries', 'CountryController', ['except' => ['show']]);    
+    Route::resource('countries', 'CountryController', ['except' => ['show']]);
+
+    /** Rutas para la gestión de estados de países */
+    Route::resource('estates', 'EstateController', ['except' => ['show']]);
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {

@@ -40,14 +40,7 @@
 						</a>
 					</div>
 					<countries></countries>
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de Estado de un Pais" 
-						   data-toggle="tooltip">
-							<i class="icofont icofont-map-search ico-3x"></i>
-							<span>Estados</span>
-						</a>
-					</div>
+					<estates></estates>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de Municipios de un Estado" 
