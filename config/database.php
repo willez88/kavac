@@ -51,7 +51,7 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'strict' => true,
-            'engine' => null,
+            'engine' => 'InnoDB',
             'dump' => [
                 'dump_binary_path' => '/usr/bin',
                 'use_single_transaction',
