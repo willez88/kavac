@@ -36,6 +36,15 @@ Vue.component('countries', require('./components/CountriesComponent.vue'));
 /** Estates  management component from countries */
 Vue.component('estates', require('./components/EstatesComponent.vue'));
 
+/** Municipalities management component from estates */
+Vue.component('municipalities', require('./components/MunicipalitiesComponent.vue'));
+
+/** Cities management component from estates */
+Vue.component('cities', require('./components/CitiesComponent.vue'));
+
+/** Parishes management component from municipalities */
+Vue.component('parishes', require('./components/ParishesComponent.vue'));
+
 const app = new Vue({
     el: '#app'
 });
