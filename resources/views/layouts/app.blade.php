@@ -15,8 +15,6 @@
         {{-- Icofont --}}
         {!! Html::style('css/icofont.css') !!}
         {{-- Estilos de Plugins --}}
-        {{-- Select2 --}}
-        {!! Html::style('vendor/select2/css/select2.min.css') !!}
         {{-- Datatable --}}
         {!! Html::style('vendor/datatable/css/dataTables.bootstrap4.min.css') !!}
         {!! Html::style('vendor/datatable/responsive/css/responsive.bootstrap4.min.css') !!}
@@ -60,8 +58,6 @@
         {!! Html::script('js/app.js') !!}
         {{-- Plugin Bootbox --}}
         {!! Html::script('js/bootbox.min.js') !!}
-        {{-- Plugin Select2 --}}
-        {!! Html::script('vendor/select2/js/select2.full.min.js') !!}
         {{-- Plugin Datatable --}}
         {!! Html::script('vendor/datatable/js/jquery.dataTables.min.js') !!}
         {!! Html::script('vendor/datatable/js/dataTables.bootstrap4.min.js') !!}

@@ -38,7 +38,7 @@ $(document).ready(function() {
 
     if ($('select').length) {
         /** Implementación del plugin selec2 para los elementos del DOM de tipo Select */
-        $('select').select2();
+        $('select').select2({});
         $('.select2').attr({
             'title': 'Seleccione un registro de la lista',
             'data-toggle': 'tooltip'

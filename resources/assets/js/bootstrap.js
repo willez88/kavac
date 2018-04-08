@@ -21,6 +21,8 @@ try {
     /** JQuery.Complexify required for validate strong password */
     require('jquery.complexify/jquery.complexify.banlist');
     require('jquery.complexify');
+    /** Required for select list element */
+    require('select2');
 } catch (e) {}
 
 /**
