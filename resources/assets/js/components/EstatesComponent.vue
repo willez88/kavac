@@ -25,19 +25,27 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label for="country_id">Pais:</label>
-									<input type="text" name="country_id" id="country_id" 
+									<select2 :options="countries" v-model="record.country_id"></select2>
+									<!--<input type="text" name="country_id" id="country_id" 
 										   placeholder="Pais" 
-										   class="form-control input-sm" v-model="record.country_id">
+										   class="form-control input-sm" v-model="record.country_id">-->
 									<input type="hidden" name="id" id="id" v-model="record.id">
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
+								<div class="form-group is-required">
+									<label for="code">Código:</label>
+									<input type="text" name="code" id="code" placeholder="Código de Estado" 
+										   class="form-control input-sm" v-model="record.code">
+			                    </div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label for="name">Nombre:</label>
-									<input type="text" name="name" id="name" placeholder="Profesión" 
+									<input type="text" name="name" id="name" placeholder="Nombre de Estado" 
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -49,6 +57,7 @@
 								<tr class="text-center">
 									<th>Pais</th>
 									<th>Estado</th>
+									<th>Código</th>
 									<th>Acción</th>
 								</tr>
 							</thead>
@@ -56,6 +65,7 @@
 								<tr v-for="(rec, index) in records">
 									<td>{{ rec.country.name }}</td>
 									<td>{{ rec.name }}</td>
+									<td>{{ rec.code }}</td>
 									<td class="text-center" width="10%">
 										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
@@ -90,13 +100,18 @@
 				record: {
 					id: '',
 					country_id: '',
-					name: ''
+					name: '',
+					code: ''
 				},
 				errors: [],
-				records: []
+				records: [],
+				countries: []
 			}
 		},
 		mounted() {
+			axios.get('/get-countries').then(response => {
+				this.countries = response.data;
+			});
 			this.readRecords();
 		},
 		methods: {
@@ -114,7 +129,8 @@
 				else {
 					axios.post('/estates', {
 						country_id: this.record.country_id,
-						name: this.record.name
+						name: this.record.name,
+						code: this.record.code
 					})
 					.then(response => {
 						this.reset();
@@ -130,6 +146,9 @@
 	                        }
 	                        if (error.response.data.errors.country_id) {
 	                            this.errors.push(error.response.data.errors.country_id[0]);
+	                        }
+	                        if (error.response.data.errors.code) {
+	                            this.errors.push(error.response.data.errors.code[0]);
 	                        }
 	                    }
                     });
@@ -157,6 +176,7 @@
                 axios.patch('/estates/' + this.record.id, {
                     name: this.record.name,
                     country_id: this.record.country_id,
+                    code: this.record.code
                 })
                 .then(response => {
                 	this.readRecords();
@@ -171,6 +191,9 @@
 	                	}
 	                	if (error.response.data.errors.country_id) {
 	                		this.errors.push(error.response.data.errors.country_id[0]);
+	                	}
+	                	if (error.response.data.errors.code) {
+	                		this.errors.push(error.response.data.errors.code[0]);
 	                	}
 	                }
                 });

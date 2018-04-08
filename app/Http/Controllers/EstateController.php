@@ -35,7 +35,20 @@ class EstateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'code' => 'required|max:10',
+            'country_id' => 'required'
+        ]);
+
+
+        $estate = Estate::create([
+            'name' => $request->input('name'),
+            'code' => $request->input('code'),
+            'country_id' => $request->input('country_id')
+        ]);
+
+        return response()->json(['record' => $estate, 'message' => 'Success'], 200);
     }
 
     /**
@@ -69,7 +82,18 @@ class EstateController extends Controller
      */
     public function update(Request $request, Estate $estate)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'code' => 'required|max:10',
+            'country_id' => 'required'
+        ]);
+ 
+        $estate->name = $request->input('name');
+        $estate->code = $request->input('code');
+        $estate->country_id = $request->input('country_id');
+        $estate->save();
+ 
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
@@ -80,6 +104,7 @@ class EstateController extends Controller
      */
     public function destroy(Estate $estate)
     {
-        //
+        $estate->delete();
+        return response()->json(['record' => $estate, 'message' => 'Success'], 200);
     }
 }

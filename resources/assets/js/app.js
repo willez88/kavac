@@ -15,6 +15,9 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+/** Select List component */
+Vue.component('select2', require('./components/SelectsComponent.vue'));
+
 /** Marital status management component */
 Vue.component('marital-status', require('./components/MaritalStatusComponent.vue'));
 
