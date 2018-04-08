@@ -45,9 +45,25 @@ Route::get('/', function () {
  */
 Auth::routes();
 
-/** Acceso a la ruta que permite generar una nueva imagen de captcha */
+/**
+ * -----------------------------------------------------------------------
+ * Ruta para recargar la imagen del captcha
+ * -----------------------------------------------------------------------
+ *
+ * Gestiona el proceso para generar una nueva imagen de captcha a petición del usuario
+ */
 Route::get('/refresh-captcha', 'Auth\LoginController@refreshCaptcha');
 
+
+/**
+ * -----------------------------------------------------------------------
+ * Grupo de rutas para la gestión general de registros
+ * -----------------------------------------------------------------------
+ *
+ * Permite gestionar los distintos modelos de uso común en la aplicación y 
+ * el acceso a los distintos discos establecidos en la configuración de 
+ * config/filesystems.php
+ */
 Route::group(['middleware' => 'auth'], function() {
 	/** Ruta para acceder a las imágenes almacenadas por la aplicación */
     Route::get('storage/pictures/{image}', function($image) {
@@ -97,11 +113,28 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('estates', 'EstateController', ['except' => ['show']]);
 });
 
+/**
+ * -----------------------------------------------------------------------
+ * Grupo de rutas establecidas en el namespace Auth
+ * -----------------------------------------------------------------------
+ *
+ * Gestiona los controladores que se encuentran en el namespace Auth y que 
+ * requieren de que el usuario se encuentre autenticado en el sistema
+ */
 Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {
     /** Ruta de recursos para la gestión de usuarios */
     Route::resource('users', 'UserController');
 });
 
+/**
+ * -----------------------------------------------------------------------
+ * Grupo de rutas para la gestión de servicios del sistema
+ * -----------------------------------------------------------------------
+ *
+ * Gestiona diferentes datos dentro de la aplicación y retorna los mismos 
+ * en formato json, estos a su vez requieren de que el usuario se encuentre 
+ * autenticado en el sistema para poder hacer uso de ellos
+ */
 Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
     /** Obtiene los países registrados */
     Route::get('get-countries', 'LocatesController@getCountries');
@@ -115,6 +148,14 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
     Route::get('get-parishes/{municipality_id}', 'LocatesController@getParishes');
 });
 
+/**
+ * -----------------------------------------------------------------------
+ * Grupo de rutas de acceso exclusivo del usuario administrador
+ * -----------------------------------------------------------------------
+ *
+ * Gestiona las rutas que solo pueden accederse si el usuario autenticado 
+ * es administrador del sistema
+ */
 Route::group(['middleware' => ['auth', 'role:admin'], 'namespace' => 'Admin'], function() {
     /** Ruta para la configuración de la aplicación */
     Route::resource('settings', 'SettingController', [
