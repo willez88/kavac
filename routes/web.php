@@ -11,6 +11,15 @@
 |
 */
 
+/**
+ * -----------------------------------------------------------------------
+ * Ruta para la gestión de acceso a la aplicación
+ * -----------------------------------------------------------------------
+ *
+ * Condiciona el acceso a la aplicación y evalúa si el usuario esta 
+ * autenticado en el sistema, si lo está, redirecciona a la página principal 
+ * de lo contrario muestra la interfaz de autenticación
+ */
 Route::get('/', function () {
     if (Auth::check()) {
 		/** Si el usuario esta autenticado redirecciona a la página del panel de control */
@@ -22,11 +31,19 @@ Route::get('/', function () {
     }
 })->name('index');
 
-/** Rutas de Autenticación */
+/**
+ * -----------------------------------------------------------------------
+ * Rutas para la gestión de acceso al sistema
+ * -----------------------------------------------------------------------
+ *
+ * Gestiona las rutas de:
+ * - login (GET|POST)
+ * - logout
+ * - password/email
+ * - password/reset
+ * - password/reset/{token}
+ */
 Auth::routes();
-
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 /** Acceso a la ruta que permite generar una nueva imagen de captcha */
 Route::get('/refresh-captcha', 'Auth\LoginController@refreshCaptcha');
@@ -83,6 +100,19 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {
     /** Ruta de recursos para la gestión de usuarios */
     Route::resource('users', 'UserController');
+});
+
+Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
+    /** Obtiene los países registrados */
+    Route::get('get-countries', 'LocatesController@getCountries');
+    /** Obtiene los estados de un país */
+    Route::get('get-estates/{country_id}', 'LocatesController@getEstates');
+    /** Obtiene los municipios de un estado */
+    Route::get('get-municipalities/{estate_id}', 'LocatesController@getMunicipalities');
+    /** Obtiene las ciudades de un estado */
+    Route::get('get-cities/{estate_id}', 'LocatesController@getCities');
+    /** Obtiene las parroquias de un municipio */
+    Route::get('get-parishes/{municipality_id}', 'LocatesController@getParishes');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin'], 'namespace' => 'Admin'], function() {
