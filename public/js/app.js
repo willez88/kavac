@@ -54917,7 +54917,7 @@ var render = function() {
                       "tbody",
                       _vm._l(_vm.records, function(rec, index) {
                         return _c("tr", [
-                          _c("td", [_vm._v(_vm._s(rec.country))]),
+                          _c("td", [_vm._v(_vm._s(rec.country.name))]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(rec.name))]),
                           _vm._v(" "),

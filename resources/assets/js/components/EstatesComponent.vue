@@ -54,7 +54,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="(rec, index) in records">
-									<td>{{ rec.country }}</td>
+									<td>{{ rec.country.name }}</td>
 									<td>{{ rec.name }}</td>
 									<td class="text-center" width="10%">
 										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">

@@ -14,7 +14,7 @@ class EstateController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => Estate::all()], 200);
+        return response()->json(['records' => Estate::with('country')->get()], 200);
     }
 
     /**
