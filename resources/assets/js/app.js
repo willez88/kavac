@@ -45,6 +45,9 @@ Vue.component('cities', require('./components/CitiesComponent.vue'));
 /** Parishes management component from municipalities */
 Vue.component('parishes', require('./components/ParishesComponent.vue'));
 
+/** Document Status management component */
+Vue.component('document-status', require('./components/DocumentStatusComponent.vue'));
+
 const app = new Vue({
     el: '#app'
 });

@@ -12,17 +12,15 @@
 			</div>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de estados de los documentos" 
-						   data-toggle="tooltip">
-							<i class="icofont icofont-ui-copy ico-3x"></i>
-							<span>Estatus<br>Documentos</span>
-						</a>
-					</div>
+					{{-- Configuración de estatus de documentos --}}
+					<document-status></document-status>
+					{{-- Configuración de estados civiles --}}
 					<marital-status></marital-status>
+					{{-- Configuración de profesiones --}}
 					<professions></professions>
+					{{-- Configuración de tipos de institución --}}
 					<institution-types></institution-types>
+					{{-- Configuración de sectores de instituciones --}}
 					<institution-sectors></institution-sectors>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
@@ -39,7 +37,9 @@
 							<span>Clasificador<br>Bienes</span>
 						</a>
 					</div>
+					{{-- Configuración de Países --}}
 					<countries></countries>
+					{{-- Configuración de Estados --}}
 					<estates></estates>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 

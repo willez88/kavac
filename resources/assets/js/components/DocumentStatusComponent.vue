@@ -1,12 +1,11 @@
 <template>
 	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de Estado de un Pais" 
-		   data-toggle="tooltip" @click="addRecord">
-			<i class="icofont icofont-map-search ico-3x"></i>
-			<span>Estados</span>
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
+		title="Registros de estados de los documentos" data-toggle="tooltip" @click="addRecord">
+			<i class="icofont icofont-ui-copy ico-3x"></i>
+			<span>Estatus<br>Documentos</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_estate">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_doc_estatus">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -14,8 +13,8 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-map-search inline-block"></i> 
-							Estado
+							<i class="icofont icofont-ui-copy inline-block"></i> 
+							Estatus de Documento
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -25,28 +24,26 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="country_id">Pais:</label>
-									<select2 :options="countries" v-model="record.country_id"></select2>
-									<!--<input type="text" name="country_id" id="country_id" 
-										   placeholder="Pais" 
-										   class="form-control input-sm" v-model="record.country_id">-->
-									<input type="hidden" name="id" id="id" v-model="record.id">
-			                    </div>
-							</div>
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<div class="form-group is-required">
-									<label for="code">Código:</label>
-									<input type="text" name="code" id="code" placeholder="Código de Estado" 
-										   class="form-control input-sm" v-model="record.code">
+									<label for="color">Color:</label>
+									<input type="text" placeholder="Color" 
+										   class="form-control input-sm" v-model="record.color">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label for="name">Nombre:</label>
-									<input type="text" name="name" id="name" placeholder="Nombre de Estado" 
+									<input type="text" placeholder="Nombre" 
 										   class="form-control input-sm" v-model="record.name">
+									<input type="hidden" name="id" id="id" v-model="record.id">
+			                    </div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group is-required">
+									<label for="description">Descripción:</label>
+									<input type="text" placeholder="Descripción" 
+										   class="form-control input-sm" v-model="record.description">
 			                    </div>
 							</div>
 						</div>
@@ -55,17 +52,19 @@
 	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
 							<thead>
 								<tr class="text-center">
-									<th>Pais</th>
-									<th>Estado</th>
-									<th>Código</th>
+									<th>Nombre</th>
+									<th>Descripción</th>
 									<th>Acción</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr v-for="(rec, index) in records">
-									<td>{{ rec.country.name }}</td>
-									<td>{{ rec.name }}</td>
-									<td class="text-center">{{ rec.code }}</td>
+									<td>
+										<span class="badge" v-bind:style="{ background: rec.color, border: rec.color, color: '#fff' }">
+											{{ rec.name }}
+										</span>
+									</td>
+									<td>{{ rec.description }}</td>
 									<td class="text-center" width="10%">
 										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
@@ -99,19 +98,15 @@
 			return {
 				record: {
 					id: '',
-					country_id: '',
+					description: '',
 					name: '',
-					code: ''
+					color: ''
 				},
 				errors: [],
-				records: [],
-				countries: []
+				records: []
 			}
 		},
 		mounted() {
-			axios.get('/get-countries').then(response => {
-				this.countries = response.data;
-			});
 			this.readRecords();
 		},
 		methods: {
@@ -119,7 +114,7 @@
 				e.preventDefault();
 				this.errors = [];
 				this.reset();
-				$("#add_estate").modal('show');
+				$("#add_doc_estatus").modal('show');
 			},
 			createRecord()
 			{
@@ -127,10 +122,10 @@
 					this.updateRecord();
 				}
 				else {
-					axios.post('/estates', {
-						country_id: this.record.country_id,
+					axios.post('/document-status', {
+						description: this.record.description,
 						name: this.record.name,
-						code: this.record.code
+						color: this.record.color
 					})
 					.then(response => {
 						this.reset();
@@ -144,11 +139,11 @@
 						 	if (error.response.data.errors.name) {
 	                            this.errors.push(error.response.data.errors.name[0]);
 	                        }
-	                        if (error.response.data.errors.country_id) {
-	                            this.errors.push(error.response.data.errors.country_id[0]);
+	                        if (error.response.data.errors.description) {
+	                            this.errors.push(error.response.data.errors.description[0]);
 	                        }
-	                        if (error.response.data.errors.code) {
-	                            this.errors.push(error.response.data.errors.code[0]);
+	                        if (error.response.data.errors.color) {
+	                            this.errors.push(error.response.data.errors.color[0]);
 	                        }
 	                    }
                     });
@@ -161,7 +156,7 @@
 			},
 			readRecords()
 			{
-				axios.get('/estates').then(response => {
+				axios.get('/document-status').then(response => {
 					this.records = response.data.records;
 				});
 			},
@@ -173,10 +168,10 @@
 			},
 			updateRecord()
             {
-                axios.patch('/estates/' + this.record.id, {
+                axios.patch('/document-status/' + this.record.id, {
                     name: this.record.name,
-                    country_id: this.record.country_id,
-                    code: this.record.code
+                    description: this.record.description,
+                    color: this.record.color,
                 })
                 .then(response => {
                 	this.readRecords();
@@ -189,11 +184,11 @@
 	                	if (error.response.data.errors.name) {
 	                		this.errors.push(error.response.data.errors.name[0]);
 	                	}
-	                	if (error.response.data.errors.country_id) {
-	                		this.errors.push(error.response.data.errors.country_id[0]);
+	                	if (error.response.data.errors.description) {
+	                		this.errors.push(error.response.data.errors.description[0]);
 	                	}
-	                	if (error.response.data.errors.code) {
-	                		this.errors.push(error.response.data.errors.code[0]);
+	                	if (error.response.data.errors.color) {
+	                		this.errors.push(error.response.data.errors.color[0]);
 	                	}
 	                }
                 });
@@ -203,7 +198,7 @@
 				let conf = confirm("Esta seguro de eliminar este registro?");
 				
 				if (conf === true) {
-					axios.delete('/estates/' + this.records[index].id).then(
+					axios.delete('/document-status/' + this.records[index].id).then(
 						response => {
 							this.records.splice(index, 1);
 						 	gritter_messages(type='destroy');

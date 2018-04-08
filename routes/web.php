@@ -94,6 +94,9 @@ Route::group(['middleware' => 'auth'], function() {
         return $response;
     });
 
+    /** Rutas para la gestión de estatus de documentos */
+    Route::resource('document-status', 'DocumentStatusController', ['except' => ['show']]);
+
     /** Rutas para la gestión de estados civiles */
     Route::resource('marital-status', 'MaritalStatusController', ['except' => ['show']]);
 
