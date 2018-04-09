@@ -1,7 +1,8 @@
 <template>
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
-		   title="Registros de estados civiles" data-toggle="tooltip" @click="addRecord">
+		   title="Registros de estados civiles" data-toggle="tooltip" 
+		   @click="addRecord('add_marital_status')">
 			<i class="fa fa-female ico-3x inline-block"></i>
 			<i class="fa fa-male ico-3x nopadding-left"></i>
 			<span>Estados<br>Civiles</span>
@@ -47,7 +48,7 @@
 										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
 										</button>
-										<button @click="deleteRecord(index)" 
+										<button @click="deleteRecord(index, 'marital-status')" 
 												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-trash-o"></i>
 										</button>
@@ -87,11 +88,6 @@
 			this.readRecords();
 		},
 		methods: {
-			addRecord(e) {
-				e.preventDefault();
-				this.errors = [];
-				$("#add_marital_status").modal('show');
-			},
 			createRecord()
 			{
 				if (this.record.marital_status_id) {
@@ -153,20 +149,6 @@
 	                }
                 });
             },
-			deleteRecord(index)
-			{
-				let conf = confirm("Esta seguro de eliminar este registro?");
-
-				if (conf === true) {
-					axios.delete('/marital-status/' + this.records[index].id).then(
-						response => {
-							this.records.splice(index, 1);
-						 	gritter_messages(type='destroy');
-						}
-					)
-					.catch(error => {});
-				}
-			}
 		}
 	}
 </script>

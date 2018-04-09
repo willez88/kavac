@@ -15,39 +15,69 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-/** Select List component */
+/** Componente genérico para el uso de listas desplegables con select2 */
 Vue.component('select2', require('./components/SelectsComponent.vue'));
 
-/** Marital status management component */
+/** Componente para la gestión de estados civiles */
 Vue.component('marital-status', require('./components/MaritalStatusComponent.vue'));
 
-/** Professions management component */
+/** Componente para la gestión de profesiones */
 Vue.component('professions', require('./components/ProfessionsComponent.vue'));
 
-/** Institution Types management component */
+/** Componente para la gestión de tipos de instituciones */
 Vue.component('institution-types', require('./components/InstitutionTypesComponent.vue'));
 
-/** Institution Sectors management component */
+/** Componente para la configuración y gestión de sectores de instituciones */
 Vue.component('institution-sectors', require('./components/InstitutionSectorsComponent.vue'));
 
-/** Countries management component */
+/** Componente para la gestión de Países */
 Vue.component('countries', require('./components/CountriesComponent.vue'));
 
-/** Estates  management component from countries */
+/** Componente para la gestión de Estados */
 Vue.component('estates', require('./components/EstatesComponent.vue'));
 
-/** Municipalities management component from estates */
+/** Componente para la gestión de Municipio */
 Vue.component('municipalities', require('./components/MunicipalitiesComponent.vue'));
 
-/** Cities management component from estates */
+/** Componente para la gestión de Ciudades */
 Vue.component('cities', require('./components/CitiesComponent.vue'));
 
-/** Parishes management component from municipalities */
+/** Componente para la gestión de Parroquias */
 Vue.component('parishes', require('./components/ParishesComponent.vue'));
 
-/** Document Status management component */
+/** Componente para la gestión de estatus de documentos */
 Vue.component('document-status', require('./components/DocumentStatusComponent.vue'));
 
+/** Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación */
+Vue.mixin({
+	methods: {
+		addRecord(modal_id) {
+			event.preventDefault();
+			this.errors = [];
+			this.reset();
+			$("#" + modal_id).modal('show');
+		},
+		/**
+		 * Método para la eliminación de registros
+		 * @param  {integer} index Elemento seleccionado para su eliminación
+		 * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
+		 */
+    	deleteRecord(index, url) {
+			let conf = confirm("Esta seguro de eliminar este registro?");
+			
+			if (conf === true) {
+				axios.delete('/' + url + '/' + this.records[index].id).then(
+					response => {
+						this.records.splice(index, 1);
+					 	gritter_messages(type='destroy');
+					}
+				)
+				.catch(error => {});
+			}
+		}
+    }
+});
+
 const app = new Vue({
-    el: '#app'
+    el: '#app',
 });

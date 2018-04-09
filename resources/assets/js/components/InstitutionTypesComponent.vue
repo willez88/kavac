@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de tipos de instituciones" 
-		   data-toggle="tooltip" @click="addRecord">
+		   data-toggle="tooltip" @click="addRecord('add_institution_type')">
 			<i class="icofont icofont-building-alt ico-3x"></i>
 			<span>Tipo<br>Instituciones</span>
 		</a>
@@ -37,7 +37,7 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label for="name">Nombre:</label>
-									<input type="text" name="name" id="name" placeholder="Profesión" 
+									<input type="text" name="name" id="name" placeholder="Tipo" 
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -60,7 +60,7 @@
 										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
 										</button>
-										<button @click="deleteRecord(index)" 
+										<button @click="deleteRecord(index, 'institution-types')" 
 												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-trash-o"></i>
 										</button>
@@ -100,12 +100,6 @@
 			this.readRecords();
 		},
 		methods: {
-			addRecord(e) {
-				e.preventDefault();
-				this.errors = [];
-				this.reset();
-				$("#add_institution_type").modal('show');
-			},
 			createRecord()
 			{
 				if (this.record.id) {
@@ -175,20 +169,6 @@
 	                }
                 });
             },
-			deleteRecord(index)
-			{
-				let conf = confirm("Esta seguro de eliminar este registro?");
-				
-				if (conf === true) {
-					axios.delete('/institution-types/' + this.records[index].id).then(
-						response => {
-							this.records.splice(index, 1);
-						 	gritter_messages(type='destroy');
-						}
-					)
-					.catch(error => {});
-				}
-			}
 		}
 	}
 </script>

@@ -19853,41 +19853,71 @@ window.Vue = __webpack_require__(43);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-/** Select List component */
+/** Componente genérico para el uso de listas desplegables con select2 */
 Vue.component('select2', __webpack_require__(46));
 
-/** Marital status management component */
+/** Componente para la gestión de estados civiles */
 Vue.component('marital-status', __webpack_require__(54));
 
-/** Professions management component */
+/** Componente para la gestión de profesiones */
 Vue.component('professions', __webpack_require__(57));
 
-/** Institution Types management component */
+/** Componente para la gestión de tipos de instituciones */
 Vue.component('institution-types', __webpack_require__(60));
 
-/** Institution Sectors management component */
+/** Componente para la configuración y gestión de sectores de instituciones */
 Vue.component('institution-sectors', __webpack_require__(63));
 
-/** Countries management component */
+/** Componente para la gestión de Países */
 Vue.component('countries', __webpack_require__(66));
 
-/** Estates  management component from countries */
+/** Componente para la gestión de Estados */
 Vue.component('estates', __webpack_require__(69));
 
-/** Municipalities management component from estates */
+/** Componente para la gestión de Municipio */
 Vue.component('municipalities', __webpack_require__(72));
 
-/** Cities management component from estates */
+/** Componente para la gestión de Ciudades */
 Vue.component('cities', __webpack_require__(73));
 
-/** Parishes management component from municipalities */
+/** Componente para la gestión de Parroquias */
 Vue.component('parishes', __webpack_require__(74));
 
-/** Document Status management component */
+/** Componente para la gestión de estatus de documentos */
 Vue.component('document-status', __webpack_require__(75));
 
+/** Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación */
+Vue.mixin({
+	methods: {
+		addRecord: function addRecord(modal_id) {
+			event.preventDefault();
+			this.errors = [];
+			this.reset();
+			$("#" + modal_id).modal('show');
+		},
+
+		/**
+   * Método para la eliminación de registros
+   * @param  {integer} index Elemento seleccionado para su eliminación
+   * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
+   */
+		deleteRecord: function deleteRecord(index, url) {
+			var _this = this;
+
+			var conf = confirm("Esta seguro de eliminar este registro?");
+
+			if (conf === true) {
+				axios.delete('/' + url + '/' + this.records[index].id).then(function (response) {
+					_this.records.splice(index, 1);
+					gritter_messages(type = 'destroy');
+				}).catch(function (error) {});
+			}
+		}
+	}
+});
+
 var app = new Vue({
-  el: '#app'
+	el: '#app'
 });
 
 /***/ }),
@@ -58418,6 +58448,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -58435,11 +58466,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		addRecord: function addRecord(e) {
-			e.preventDefault();
-			this.errors = [];
-			$("#add_marital_status").modal('show');
-		},
 		createRecord: function createRecord() {
 			var _this = this;
 
@@ -58495,18 +58521,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				}
 			});
-		},
-		deleteRecord: function deleteRecord(index) {
-			var _this4 = this;
-
-			var conf = confirm("Esta seguro de eliminar este registro?");
-
-			if (conf === true) {
-				axios.delete('/marital-status/' + this.records[index].id).then(function (response) {
-					_this4.records.splice(index, 1);
-					gritter_messages(type = 'destroy');
-				}).catch(function (error) {});
-			}
 		}
 	}
 });
@@ -58529,7 +58543,11 @@ var render = function() {
           title: "Registros de estados civiles",
           "data-toggle": "tooltip"
         },
-        on: { click: _vm.addRecord }
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_marital_status")
+          }
+        }
       },
       [
         _c("i", { staticClass: "fa fa-female ico-3x inline-block" }),
@@ -58687,7 +58705,7 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.deleteRecord(index)
+                                      _vm.deleteRecord(index, "marital-status")
                                     }
                                   }
                                 },
@@ -58921,6 +58939,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -58939,12 +58958,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		addRecord: function addRecord(e) {
-			e.preventDefault();
-			this.errors = [];
-			this.reset();
-			$("#add_profession").modal('show');
-		},
 		createRecord: function createRecord() {
 			var _this = this;
 
@@ -59008,18 +59021,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				}
 			});
-		},
-		deleteRecord: function deleteRecord(index) {
-			var _this4 = this;
-
-			var conf = confirm("Esta seguro de eliminar este registro?");
-
-			if (conf === true) {
-				axios.delete('/professions/' + this.records[index].id).then(function (response) {
-					_this4.records.splice(index, 1);
-					gritter_messages(type = 'destroy');
-				}).catch(function (error) {});
-			}
 		}
 	}
 });
@@ -59042,7 +59043,11 @@ var render = function() {
           title: "Registros de profesiones",
           "data-toggle": "tooltip"
         },
-        on: { click: _vm.addRecord }
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_profession")
+          }
+        }
       },
       [
         _c("i", { staticClass: "icofont icofont-graduate-alt ico-3x" }),
@@ -59227,7 +59232,7 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.deleteRecord(index)
+                                      _vm.deleteRecord(index, "professions")
                                     }
                                   }
                                 },
@@ -59474,12 +59479,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		addRecord: function addRecord(e) {
-			e.preventDefault();
-			this.errors = [];
-			this.reset();
-			$("#add_institution_type").modal('show');
-		},
 		createRecord: function createRecord() {
 			var _this = this;
 
@@ -59543,18 +59542,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				}
 			});
-		},
-		deleteRecord: function deleteRecord(index) {
-			var _this4 = this;
-
-			var conf = confirm("Esta seguro de eliminar este registro?");
-
-			if (conf === true) {
-				axios.delete('/institution-types/' + this.records[index].id).then(function (response) {
-					_this4.records.splice(index, 1);
-					gritter_messages(type = 'destroy');
-				}).catch(function (error) {});
-			}
 		}
 	}
 });
@@ -59577,7 +59564,11 @@ var render = function() {
           title: "Registros de tipos de instituciones",
           "data-toggle": "tooltip"
         },
-        on: { click: _vm.addRecord }
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_institution_type")
+          }
+        }
       },
       [
         _c("i", { staticClass: "icofont icofont-building-alt ico-3x" }),
@@ -59689,7 +59680,7 @@ var render = function() {
                           type: "text",
                           name: "name",
                           id: "name",
-                          placeholder: "Profesión"
+                          placeholder: "Tipo"
                         },
                         domProps: { value: _vm.record.name },
                         on: {
@@ -59762,7 +59753,10 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.deleteRecord(index)
+                                      _vm.deleteRecord(
+                                        index,
+                                        "institution-types"
+                                      )
                                     }
                                   }
                                 },
@@ -60004,12 +59998,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		addRecord: function addRecord(e) {
-			e.preventDefault();
-			this.errors = [];
-			this.reset();
-			$("#add_institution_sector").modal('show');
-		},
 		createRecord: function createRecord() {
 			var _this = this;
 
@@ -60065,18 +60053,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				}
 			});
-		},
-		deleteRecord: function deleteRecord(index) {
-			var _this4 = this;
-
-			var conf = confirm("Esta seguro de eliminar este registro?");
-
-			if (conf === true) {
-				axios.delete('/institution-sectors/' + this.records[index].id).then(function (response) {
-					_this4.records.splice(index, 1);
-					gritter_messages(type = 'destroy');
-				}).catch(function (error) {});
-			}
 		}
 	}
 });
@@ -60099,7 +60075,11 @@ var render = function() {
           title: "Registros para sectores de instituciones",
           "data-toggle": "tooltip"
         },
-        on: { click: _vm.addRecord }
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_institution_sector")
+          }
+        }
       },
       [
         _c("i", { staticClass: "icofont icofont-focus ico-3x" }),
@@ -60247,7 +60227,10 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.deleteRecord(index)
+                                      _vm.deleteRecord(
+                                        index,
+                                        "institution-sectors"
+                                      )
                                     }
                                   }
                                 },
@@ -60497,12 +60480,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		addRecord: function addRecord(e) {
-			e.preventDefault();
-			this.errors = [];
-			this.reset();
-			$("#add_country").modal('show');
-		},
 		createRecord: function createRecord() {
 			var _this = this;
 
@@ -60566,18 +60543,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				}
 			});
-		},
-		deleteRecord: function deleteRecord(index) {
-			var _this4 = this;
-
-			var conf = confirm("Esta seguro de eliminar este registro?");
-
-			if (conf === true) {
-				axios.delete('/countries/' + this.records[index].id).then(function (response) {
-					_this4.records.splice(index, 1);
-					gritter_messages(type = 'destroy');
-				}).catch(function (error) {});
-			}
 		}
 	}
 });
@@ -60600,7 +60565,11 @@ var render = function() {
           title: "Registros de Países",
           "data-toggle": "tooltip"
         },
-        on: { click: _vm.addRecord }
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_country")
+          }
+        }
       },
       [
         _c("i", { staticClass: "icofont icofont-map ico-3x" }),
@@ -60785,7 +60754,7 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.deleteRecord(index)
+                                      _vm.deleteRecord(index, "countries")
                                     }
                                   }
                                 },
@@ -61049,12 +61018,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		addRecord: function addRecord(e) {
-			e.preventDefault();
-			this.errors = [];
-			this.reset();
-			$("#add_estate").modal('show');
-		},
 		createRecord: function createRecord() {
 			var _this2 = this;
 
@@ -61126,18 +61089,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				}
 			});
-		},
-		deleteRecord: function deleteRecord(index) {
-			var _this5 = this;
-
-			var conf = confirm("Esta seguro de eliminar este registro?");
-
-			if (conf === true) {
-				axios.delete('/estates/' + this.records[index].id).then(function (response) {
-					_this5.records.splice(index, 1);
-					gritter_messages(type = 'destroy');
-				}).catch(function (error) {});
-			}
 		}
 	}
 });
@@ -61160,7 +61111,11 @@ var render = function() {
           title: "Registros de Estado de un Pais",
           "data-toggle": "tooltip"
         },
-        on: { click: _vm.addRecord }
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_estate")
+          }
+        }
       },
       [
         _c("i", { staticClass: "icofont icofont-map-search ico-3x" }),
@@ -61373,7 +61328,7 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.deleteRecord(index)
+                                      _vm.deleteRecord(index, "estates")
                                     }
                                   }
                                 },
@@ -61703,6 +61658,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -61722,12 +61678,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		addRecord: function addRecord(e) {
-			e.preventDefault();
-			this.errors = [];
-			this.reset();
-			$("#add_doc_estatus").modal('show');
-		},
 		createRecord: function createRecord() {
 			var _this = this;
 
@@ -61799,18 +61749,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				}
 			});
-		},
-		deleteRecord: function deleteRecord(index) {
-			var _this4 = this;
-
-			var conf = confirm("Esta seguro de eliminar este registro?");
-
-			if (conf === true) {
-				axios.delete('/document-status/' + this.records[index].id).then(function (response) {
-					_this4.records.splice(index, 1);
-					gritter_messages(type = 'destroy');
-				}).catch(function (error) {});
-			}
 		}
 	}
 });
@@ -61833,7 +61771,11 @@ var render = function() {
           title: "Registros de estados de los documentos",
           "data-toggle": "tooltip"
         },
-        on: { click: _vm.addRecord }
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_doc_status")
+          }
+        }
       },
       [
         _c("i", { staticClass: "icofont icofont-ui-copy ico-3x" }),
@@ -61846,7 +61788,7 @@ var render = function() {
       "div",
       {
         staticClass: "modal fade text-left",
-        attrs: { tabindex: "-1", role: "dialog", id: "add_doc_estatus" }
+        attrs: { tabindex: "-1", role: "dialog", id: "add_doc_status" }
       },
       [
         _c(
@@ -62061,7 +62003,7 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.deleteRecord(index)
+                                      _vm.deleteRecord(index, "document-status")
                                     }
                                   }
                                 },
