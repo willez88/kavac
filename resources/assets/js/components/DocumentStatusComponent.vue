@@ -83,7 +83,7 @@
 	                	<button type="button" class="btn btn-default btn-sm btn-round" data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord" class="btn btn-primary btn-sm btn-round">
+	                	<button type="button" @click="createRecord('document-status')" class="btn btn-primary btn-sm btn-round">
 	                		Guardar
 		                </button>
 		            </div>
@@ -108,86 +108,7 @@
 			}
 		},
 		mounted() {
-			this.readRecords();
-		},
-		methods: {
-			createRecord()
-			{
-				if (this.record.id) {
-					this.updateRecord();
-				}
-				else {
-					axios.post('/document-status', {
-						description: this.record.description,
-						name: this.record.name,
-						color: this.record.color
-					})
-					.then(response => {
-						this.reset();
-					 	this.readRecords();
-					 	gritter_messages(false, false, false, 'store');
-					})
-					.catch(error => {
-						this.errors = [];
-						
-						if (typeof(error.response) !="undefined") {
-						 	if (error.response.data.errors.name) {
-	                            this.errors.push(error.response.data.errors.name[0]);
-	                        }
-	                        if (error.response.data.errors.description) {
-	                            this.errors.push(error.response.data.errors.description[0]);
-	                        }
-	                        if (error.response.data.errors.color) {
-	                            this.errors.push(error.response.data.errors.color[0]);
-	                        }
-	                    }
-                    });
-				}
-				
-			},
-			reset()
-			{
-				this.record = [];
-			},
-			readRecords()
-			{
-				axios.get('/document-status').then(response => {
-					this.records = response.data.records;
-				});
-			},
-			initUpdate(index)
-			{
-				this.errors = [];
-				this.record = this.records[index];
-				event.preventDefault();
-			},
-			updateRecord()
-            {
-                axios.patch('/document-status/' + this.record.id, {
-                    name: this.record.name,
-                    description: this.record.description,
-                    color: this.record.color,
-                })
-                .then(response => {
-                	this.readRecords();
-                	this.reset();
-                })
-                .catch(error => {
-                	this.errors = [];
-
-                	if (typeof(error.response) !="undefined") {
-	                	if (error.response.data.errors.name) {
-	                		this.errors.push(error.response.data.errors.name[0]);
-	                	}
-	                	if (error.response.data.errors.description) {
-	                		this.errors.push(error.response.data.errors.description[0]);
-	                	}
-	                	if (error.response.data.errors.color) {
-	                		this.errors.push(error.response.data.errors.color[0]);
-	                	}
-	                }
-                });
-            },
+			this.readRecords('document-status');
 		}
 	}
 </script>

@@ -19889,6 +19889,33 @@ Vue.component('document-status', __webpack_require__(75));
 /** Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación */
 Vue.mixin({
 	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   */
+		reset: function reset() {
+			this.record = [];
+		},
+
+		/**
+   * Mérodo que obtiene los registros a mostrar
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   * @param  {string} url Ruta que obtiene todos los registros solicitados
+   */
+		readRecords: function readRecords(url) {
+			var _this = this;
+
+			axios.get('/' + url).then(function (response) {
+				_this.records = response.data.records;
+			});
+		},
+
+		/**
+   * Método que permite mostrar una ventana emergente con la información registrada 
+   * y la nueva a registrar
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   * @param {string} modal_id Identificador de la ventana modal
+   */
 		addRecord: function addRecord(modal_id) {
 			event.preventDefault();
 			this.errors = [];
@@ -19897,25 +19924,131 @@ Vue.mixin({
 		},
 
 		/**
+   * Método que permite crear o actualizar un registro
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   * @param  {string} url Ruta de la acción a ejecutar para la creación o actualización de datos
+   */
+		createRecord: function createRecord(url) {
+			var _this2 = this;
+
+			if (this.record.id) {
+				this.updateRecord(url);
+			} else {
+				var fields = {};
+				for (var index in this.record) {
+					fields[index] = this.record[index];
+				}
+				axios.post('/' + url, fields).then(function (response) {
+					_this2.reset();
+					_this2.readRecords();
+					_this2.showMessage('store');
+				}).catch(function (error) {
+					_this2.errors = [];
+					if (typeof error.response != "undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								_this2.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
+				});
+			}
+		},
+
+		/**
+   * Método que carga el formulario con los datos a modificar
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   * @param  {integer} index Identificador del registro a ser modificado
+   */
+		initUpdate: function initUpdate(index) {
+			this.errors = [];
+			this.record = this.records[index];
+			event.preventDefault();
+		},
+
+		/**
+   * Método que permite actualizar información
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   * @param  {string} url Ruta de la acci´on que modificará los datos
+   */
+		updateRecord: function updateRecord(url) {
+			var _this3 = this;
+
+			var fields = {};
+			for (var index in this.record) {
+				fields[index] = this.record[index];
+			}
+			axios.patch('/' + url + '/' + this.record.id, fields).then(function (response) {
+				_this3.readRecords();
+				_this3.reset();
+				_this3.showMessage('update');
+			}).catch(function (error) {
+				_this3.errors = [];
+
+				if (typeof error.response != "undefined") {
+					for (var index in error.response.data.errors) {
+						if (error.response.data.errors[index]) {
+							_this3.errors.push(error.response.data.errors[index][0]);
+						}
+					}
+				}
+			});
+		},
+
+		/**
    * Método para la eliminación de registros
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
    * @param  {integer} index Elemento seleccionado para su eliminación
    * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
    */
 		deleteRecord: function deleteRecord(index, url) {
-			var _this = this;
+			var _this4 = this;
 
 			var conf = confirm("Esta seguro de eliminar este registro?");
 
 			if (conf === true) {
 				axios.delete('/' + url + '/' + this.records[index].id).then(function (response) {
-					_this.records.splice(index, 1);
-					gritter_messages(type = 'destroy');
+					_this4.records.splice(index, 1);
+					_this4.showMessage('destroy');
 				}).catch(function (error) {});
 			}
+		},
+
+		/**
+   * Método que muestra un mensaje al usuario sobre el resultado de una acción
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   * @param  {string} type      Tipo de mensaje a mostrar
+   * @param  {string} msg_title Título del mensaje (opcional)
+   * @param  {string} msg_class Clase CSS a utilizar en el mensaje (opcional)
+   * @param  {string} msg_icon  Ícono a mostrar en el mensaje (opcional)
+   */
+		showMessage: function showMessage(type, msg_title, msg_class, msg_icon) {
+			msg_title = !msg_title ? 'Éxito' : msg_title;
+			msg_class = !msg_class ? 'growl-success' : 'glowl-' + msg_class;
+			msg_icon = !msg_icon ? 'screen-ok' : msg_icon;
+
+			var msg_text;
+			if (type == 'store') {
+				msg_text = 'Registro almacenado con éxito';
+			} else if (type == 'update') {
+				msg_text = 'Registro actualizado con éxito';
+			} else if (type == 'destroy') {
+				msg_text = 'Registro eliminado con éxito';
+			}
+
+			$.gritter.add({
+				title: msg_title,
+				text: msg_text,
+				class_name: msg_class,
+				image: "/images/" + msg_icon + ".png",
+				sticky: false,
+				time: ''
+			});
 		}
 	}
 });
 
+/** @type {object} Constante que crea el elemento Vue */
 var app = new Vue({
 	el: '#app'
 });
@@ -61674,82 +61807,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords();
-	},
-
-	methods: {
-		createRecord: function createRecord() {
-			var _this = this;
-
-			if (this.record.id) {
-				this.updateRecord();
-			} else {
-				axios.post('/document-status', {
-					description: this.record.description,
-					name: this.record.name,
-					color: this.record.color
-				}).then(function (response) {
-					_this.reset();
-					_this.readRecords();
-					gritter_messages(false, false, false, 'store');
-				}).catch(function (error) {
-					_this.errors = [];
-
-					if (typeof error.response != "undefined") {
-						if (error.response.data.errors.name) {
-							_this.errors.push(error.response.data.errors.name[0]);
-						}
-						if (error.response.data.errors.description) {
-							_this.errors.push(error.response.data.errors.description[0]);
-						}
-						if (error.response.data.errors.color) {
-							_this.errors.push(error.response.data.errors.color[0]);
-						}
-					}
-				});
-			}
-		},
-		reset: function reset() {
-			this.record = [];
-		},
-		readRecords: function readRecords() {
-			var _this2 = this;
-
-			axios.get('/document-status').then(function (response) {
-				_this2.records = response.data.records;
-			});
-		},
-		initUpdate: function initUpdate(index) {
-			this.errors = [];
-			this.record = this.records[index];
-			event.preventDefault();
-		},
-		updateRecord: function updateRecord() {
-			var _this3 = this;
-
-			axios.patch('/document-status/' + this.record.id, {
-				name: this.record.name,
-				description: this.record.description,
-				color: this.record.color
-			}).then(function (response) {
-				_this3.readRecords();
-				_this3.reset();
-			}).catch(function (error) {
-				_this3.errors = [];
-
-				if (typeof error.response != "undefined") {
-					if (error.response.data.errors.name) {
-						_this3.errors.push(error.response.data.errors.name[0]);
-					}
-					if (error.response.data.errors.description) {
-						_this3.errors.push(error.response.data.errors.description[0]);
-					}
-					if (error.response.data.errors.color) {
-						_this3.errors.push(error.response.data.errors.color[0]);
-					}
-				}
-			});
-		}
+		this.readRecords('document-status');
 	}
 });
 
@@ -62033,7 +62091,11 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary btn-sm btn-round",
                     attrs: { type: "button" },
-                    on: { click: _vm.createRecord }
+                    on: {
+                      click: function($event) {
+                        _vm.createRecord("document-status")
+                      }
+                    }
                   },
                   [_vm._v("\n                \t\tGuardar\n\t                ")]
                 )
