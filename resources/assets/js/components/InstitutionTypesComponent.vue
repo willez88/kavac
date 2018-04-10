@@ -27,18 +27,17 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="acronym">Acrónimo:</label>
-									<input type="text" name="acronym" id="acronym" 
-										   placeholder="Acrónimo" 
+									<label>Acrónimo:</label>
+									<input type="text" placeholder="Acrónimo" 
 										   class="form-control input-sm" v-model="record.acronym">
-									<input type="hidden" name="id" id="id" v-model="record.id">
+									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label for="name">Nombre:</label>
-									<input type="text" name="name" id="name" placeholder="Tipo" 
-										   class="form-control input-sm" v-model="record.name">
+									<label>Nombre:</label>
+									<input type="text" placeholder="Tipo" class="form-control input-sm" 
+										   v-model="record.name">
 			                    </div>
 							</div>
 						</div>
@@ -73,7 +72,7 @@
 	                	<button type="button" class="btn btn-default btn-sm btn-round" data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord" class="btn btn-primary btn-sm btn-round">
+	                	<button type="button" @click="createRecord('institution-types')" class="btn btn-primary btn-sm btn-round">
 	                		Guardar
 		                </button>
 		            </div>
@@ -97,78 +96,7 @@
 			}
 		},
 		mounted() {
-			this.readRecords();
+			this.readRecords('institution-types');
 		},
-		methods: {
-			createRecord()
-			{
-				if (this.record.id) {
-					this.updateRecord();
-				}
-				else {
-					axios.post('/institution-types', {
-						acronym: this.record.acronym,
-						name: this.record.name
-					})
-					.then(response => {
-						this.reset();
-					 	this.readRecords();
-					 	gritter_messages(false, false, false, 'store');
-					})
-					.catch(error => {
-						this.errors = [];
-						
-						if (typeof(error.response) !="undefined") {
-						 	if (error.response.data.errors.name) {
-	                            this.errors.push(error.response.data.errors.name[0]);
-	                        }
-	                        if (error.response.data.errors.acronym) {
-	                            this.errors.push(error.response.data.errors.acronym[0]);
-	                        }
-	                    }
-                    });
-				}
-				
-			},
-			reset()
-			{
-				this.record = [];
-			},
-			readRecords()
-			{
-				axios.get('/institution-types').then(response => {
-					this.records = response.data.records;
-				});
-			},
-			initUpdate(index)
-			{
-				this.errors = [];
-				this.record = this.records[index];
-				event.preventDefault();
-			},
-			updateRecord()
-            {
-                axios.patch('/institution-types/' + this.record.id, {
-                    name: this.record.name,
-                    acronym: this.record.acronym,
-                })
-                .then(response => {
-                	this.readRecords();
-                	this.reset();
-                })
-                .catch(error => {
-                	this.errors = [];
-
-                	if (typeof(error.response) !="undefined") {
-	                	if (error.response.data.errors.name) {
-	                		this.errors.push(error.response.data.errors.name[0]);
-	                	}
-	                	if (error.response.data.errors.acronym) {
-	                		this.errors.push(error.response.data.errors.acronym[0]);
-	                	}
-	                }
-                });
-            },
-		}
 	}
 </script>

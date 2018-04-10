@@ -27,25 +27,22 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label for="country_id">Pais:</label>
+									<label>Pais:</label>
 									<select2 :options="countries" v-model="record.country_id"></select2>
-									<!--<input type="text" name="country_id" id="country_id" 
-										   placeholder="Pais" 
-										   class="form-control input-sm" v-model="record.country_id">-->
-									<input type="hidden" name="id" id="id" v-model="record.id">
+									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
-									<label for="code">Código:</label>
-									<input type="text" name="code" id="code" placeholder="Código de Estado" 
+									<label>Código:</label>
+									<input type="text" placeholder="Código de Estado" 
 										   class="form-control input-sm" v-model="record.code">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
-									<label for="name">Nombre:</label>
-									<input type="text" name="name" id="name" placeholder="Nombre de Estado" 
+									<label>Nombre:</label>
+									<input type="text" placeholder="Nombre de Estado" 
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -80,10 +77,12 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" data-dismiss="modal">
+	                	<button type="button" class="btn btn-default btn-sm btn-round" 
+	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord" class="btn btn-primary btn-sm btn-round">
+	                	<button type="button" @click="createRecord('estates')" 
+	                			class="btn btn-primary btn-sm btn-round">
 	                		Guardar
 		                </button>
 		            </div>
@@ -112,86 +111,7 @@
 			axios.get('/get-countries').then(response => {
 				this.countries = response.data;
 			});
-			this.readRecords();
+			this.readRecords('estates');
 		},
-		methods: {
-			createRecord()
-			{
-				if (this.record.id) {
-					this.updateRecord();
-				}
-				else {
-					axios.post('/estates', {
-						country_id: this.record.country_id,
-						name: this.record.name,
-						code: this.record.code
-					})
-					.then(response => {
-						this.reset();
-					 	this.readRecords();
-					 	gritter_messages(false, false, false, 'store');
-					})
-					.catch(error => {
-						this.errors = [];
-						
-						if (typeof(error.response) !="undefined") {
-						 	if (error.response.data.errors.name) {
-	                            this.errors.push(error.response.data.errors.name[0]);
-	                        }
-	                        if (error.response.data.errors.country_id) {
-	                            this.errors.push(error.response.data.errors.country_id[0]);
-	                        }
-	                        if (error.response.data.errors.code) {
-	                            this.errors.push(error.response.data.errors.code[0]);
-	                        }
-	                    }
-                    });
-				}
-				
-			},
-			reset()
-			{
-				this.record = [];
-			},
-			readRecords()
-			{
-				axios.get('/estates').then(response => {
-					this.records = response.data.records;
-				});
-			},
-			initUpdate(index)
-			{
-				this.errors = [];
-				this.record = this.records[index];
-				event.preventDefault();
-			},
-			updateRecord()
-            {
-                axios.patch('/estates/' + this.record.id, {
-                    name: this.record.name,
-                    country_id: this.record.country_id,
-                    code: this.record.code
-                })
-                .then(response => {
-                	this.readRecords();
-                	this.reset();
-                })
-                .catch(error => {
-                	this.errors = [];
-
-                	if (typeof(error.response) !="undefined") {
-	                	if (error.response.data.errors.name) {
-	                		this.errors.push(error.response.data.errors.name[0]);
-	                	}
-	                	if (error.response.data.errors.country_id) {
-	                		this.errors.push(error.response.data.errors.country_id[0]);
-	                	}
-	                	if (error.response.data.errors.code) {
-	                		this.errors.push(error.response.data.errors.code[0]);
-	                	}
-	                }
-                });
-            },
-		}
 	}
 </script>

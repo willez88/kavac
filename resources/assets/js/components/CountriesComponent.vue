@@ -26,17 +26,16 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="prefix">Prefijo:</label>
-									<input type="text" name="prefix" id="prefix" 
-										   placeholder="Prefijo" 
+									<label>Prefijo:</label>
+									<input type="text" placeholder="Prefijo" 
 										   class="form-control input-sm" v-model="record.prefix">
-									<input type="hidden" name="id" id="id" v-model="record.id">
+									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label for="name">Nombre:</label>
-									<input type="text" name="name" id="name" placeholder="Profesión" 
+									<label>Nombre:</label>
+									<input type="text" placeholder="Profesión" 
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -69,10 +68,12 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" data-dismiss="modal">
+	                	<button type="button" class="btn btn-default btn-sm btn-round" 
+	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord" class="btn btn-primary btn-sm btn-round">
+	                	<button type="button" @click="createRecord('countries')" 
+	                			class="btn btn-primary btn-sm btn-round">
 	                		Guardar
 		                </button>
 		            </div>
@@ -96,78 +97,7 @@
 			}
 		},
 		mounted() {
-			this.readRecords();
+			this.readRecords('countries');
 		},
-		methods: {
-			createRecord()
-			{
-				if (this.record.id) {
-					this.updateRecord();
-				}
-				else {
-					axios.post('/countries', {
-						prefix: this.record.prefix,
-						name: this.record.name
-					})
-					.then(response => {
-						this.reset();
-					 	this.readRecords();
-					 	gritter_messages(false, false, false, 'store');
-					})
-					.catch(error => {
-						this.errors = [];
-						
-						if (typeof(error.response) !="undefined") {
-						 	if (error.response.data.errors.name) {
-	                            this.errors.push(error.response.data.errors.name[0]);
-	                        }
-	                        if (error.response.data.errors.prefix) {
-	                            this.errors.push(error.response.data.errors.prefix[0]);
-	                        }
-	                    }
-                    });
-				}
-				
-			},
-			reset()
-			{
-				this.record = [];
-			},
-			readRecords()
-			{
-				axios.get('/countries').then(response => {
-					this.records = response.data.records;
-				});
-			},
-			initUpdate(index)
-			{
-				this.errors = [];
-				this.record = this.records[index];
-				event.preventDefault();
-			},
-			updateRecord()
-            {
-                axios.patch('/countries/' + this.record.id, {
-                    name: this.record.name,
-                    prefix: this.record.prefix,
-                })
-                .then(response => {
-                	this.readRecords();
-                	this.reset();
-                })
-                .catch(error => {
-                	this.errors = [];
-
-                	if (typeof(error.response) !="undefined") {
-	                	if (error.response.data.errors.name) {
-	                		this.errors.push(error.response.data.errors.name[0]);
-	                	}
-	                	if (error.response.data.errors.prefix) {
-	                		this.errors.push(error.response.data.errors.prefix[0]);
-	                	}
-	                }
-                });
-            },
-		}
 	}
 </script>

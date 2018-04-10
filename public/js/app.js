@@ -59019,6 +59019,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -59033,74 +59034,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords();
-	},
-
-	methods: {
-		createRecord: function createRecord() {
-			var _this = this;
-
-			if (this.record.id) {
-				this.updateRecord();
-			} else {
-				axios.post('/professions', {
-					acronym: this.record.acronym,
-					name: this.record.name
-				}).then(function (response) {
-					_this.reset();
-					_this.readRecords();
-					gritter_messages(false, false, false, 'store');
-				}).catch(function (error) {
-					_this.errors = [];
-
-					if (typeof error.response != "undefined") {
-						if (error.response.data.errors.name) {
-							_this.errors.push(error.response.data.errors.name[0]);
-						}
-						if (error.response.data.errors.acronym) {
-							_this.errors.push(error.response.data.errors.acronym[0]);
-						}
-					}
-				});
-			}
-		},
-		reset: function reset() {
-			this.record = [];
-		},
-		readRecords: function readRecords() {
-			var _this2 = this;
-
-			axios.get('/professions').then(function (response) {
-				_this2.records = response.data.records;
-			});
-		},
-		initUpdate: function initUpdate(index) {
-			this.errors = [];
-			this.record = this.records[index];
-			event.preventDefault();
-		},
-		updateRecord: function updateRecord() {
-			var _this3 = this;
-
-			axios.patch('/professions/' + this.record.id, {
-				name: this.record.name,
-				acronym: this.record.acronym
-			}).then(function (response) {
-				_this3.readRecords();
-				_this3.reset();
-			}).catch(function (error) {
-				_this3.errors = [];
-
-				if (typeof error.response != "undefined") {
-					if (error.response.data.errors.name) {
-						_this3.errors.push(error.response.data.errors.name[0]);
-					}
-					if (error.response.data.errors.acronym) {
-						_this3.errors.push(error.response.data.errors.acronym[0]);
-					}
-				}
-			});
-		}
+		this.readRecords('professions');
 	}
 });
 
@@ -59164,9 +59098,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "acronym" } }, [
-                        _vm._v("Acrónimo:")
-                      ]),
+                      _c("label", [_vm._v("Acrónimo:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -59178,12 +59110,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: {
-                          type: "text",
-                          name: "acronym",
-                          id: "acronym",
-                          placeholder: "Acrónimo"
-                        },
+                        attrs: { type: "text", placeholder: "Acrónimo" },
                         domProps: { value: _vm.record.acronym },
                         on: {
                           input: function($event) {
@@ -59204,7 +59131,7 @@ var render = function() {
                             expression: "record.id"
                           }
                         ],
-                        attrs: { type: "hidden", name: "id", id: "id" },
+                        attrs: { type: "hidden" },
                         domProps: { value: _vm.record.id },
                         on: {
                           input: function($event) {
@@ -59220,9 +59147,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Nombre:")
-                      ]),
+                      _c("label", [_vm._v("Nombre:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -59234,12 +59159,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: {
-                          type: "text",
-                          name: "name",
-                          id: "name",
-                          placeholder: "Profesión"
-                        },
+                        attrs: { type: "text", placeholder: "Profesión" },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -59341,7 +59261,11 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary btn-sm btn-round",
                     attrs: { type: "button" },
-                    on: { click: _vm.createRecord }
+                    on: {
+                      click: function($event) {
+                        _vm.createRecord("professions")
+                      }
+                    }
                   },
                   [_vm._v("\n                \t\tGuardar\n\t                ")]
                 )
@@ -59539,7 +59463,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -59554,74 +59477,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords();
-	},
-
-	methods: {
-		createRecord: function createRecord() {
-			var _this = this;
-
-			if (this.record.id) {
-				this.updateRecord();
-			} else {
-				axios.post('/institution-types', {
-					acronym: this.record.acronym,
-					name: this.record.name
-				}).then(function (response) {
-					_this.reset();
-					_this.readRecords();
-					gritter_messages(false, false, false, 'store');
-				}).catch(function (error) {
-					_this.errors = [];
-
-					if (typeof error.response != "undefined") {
-						if (error.response.data.errors.name) {
-							_this.errors.push(error.response.data.errors.name[0]);
-						}
-						if (error.response.data.errors.acronym) {
-							_this.errors.push(error.response.data.errors.acronym[0]);
-						}
-					}
-				});
-			}
-		},
-		reset: function reset() {
-			this.record = [];
-		},
-		readRecords: function readRecords() {
-			var _this2 = this;
-
-			axios.get('/institution-types').then(function (response) {
-				_this2.records = response.data.records;
-			});
-		},
-		initUpdate: function initUpdate(index) {
-			this.errors = [];
-			this.record = this.records[index];
-			event.preventDefault();
-		},
-		updateRecord: function updateRecord() {
-			var _this3 = this;
-
-			axios.patch('/institution-types/' + this.record.id, {
-				name: this.record.name,
-				acronym: this.record.acronym
-			}).then(function (response) {
-				_this3.readRecords();
-				_this3.reset();
-			}).catch(function (error) {
-				_this3.errors = [];
-
-				if (typeof error.response != "undefined") {
-					if (error.response.data.errors.name) {
-						_this3.errors.push(error.response.data.errors.name[0]);
-					}
-					if (error.response.data.errors.acronym) {
-						_this3.errors.push(error.response.data.errors.acronym[0]);
-					}
-				}
-			});
-		}
+		this.readRecords('institution-types');
 	}
 });
 
@@ -59685,9 +59541,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "acronym" } }, [
-                        _vm._v("Acrónimo:")
-                      ]),
+                      _c("label", [_vm._v("Acrónimo:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -59699,12 +59553,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: {
-                          type: "text",
-                          name: "acronym",
-                          id: "acronym",
-                          placeholder: "Acrónimo"
-                        },
+                        attrs: { type: "text", placeholder: "Acrónimo" },
                         domProps: { value: _vm.record.acronym },
                         on: {
                           input: function($event) {
@@ -59725,7 +59574,7 @@ var render = function() {
                             expression: "record.id"
                           }
                         ],
-                        attrs: { type: "hidden", name: "id", id: "id" },
+                        attrs: { type: "hidden" },
                         domProps: { value: _vm.record.id },
                         on: {
                           input: function($event) {
@@ -59741,9 +59590,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Nombre:")
-                      ]),
+                      _c("label", [_vm._v("Nombre:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -59755,12 +59602,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: {
-                          type: "text",
-                          name: "name",
-                          id: "name",
-                          placeholder: "Tipo"
-                        },
+                        attrs: { type: "text", placeholder: "Tipo" },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -59865,7 +59707,11 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary btn-sm btn-round",
                     attrs: { type: "button" },
-                    on: { click: _vm.createRecord }
+                    on: {
+                      click: function($event) {
+                        _vm.createRecord("institution-types")
+                      }
+                    }
                   },
                   [_vm._v("\n                \t\tGuardar\n\t                ")]
                 )
@@ -60060,6 +59906,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -60073,66 +59921,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords();
-	},
-
-	methods: {
-		createRecord: function createRecord() {
-			var _this = this;
-
-			if (this.record.id) {
-				this.updateRecord();
-			} else {
-				axios.post('/institution-sectors', {
-					name: this.record.name
-				}).then(function (response) {
-					_this.reset();
-					_this.readRecords();
-					gritter_messages(false, false, false, 'store');
-				}).catch(function (error) {
-					_this.errors = [];
-
-					if (typeof error.response != "undefined") {
-						if (error.response.data.errors.name) {
-							_this.errors.push(error.response.data.errors.name[0]);
-						}
-					}
-				});
-			}
-		},
-		reset: function reset() {
-			this.record = [];
-		},
-		readRecords: function readRecords() {
-			var _this2 = this;
-
-			axios.get('/institution-sectors').then(function (response) {
-				_this2.records = response.data.records;
-			});
-		},
-		initUpdate: function initUpdate(index) {
-			this.errors = [];
-			this.record = this.records[index];
-			event.preventDefault();
-		},
-		updateRecord: function updateRecord() {
-			var _this3 = this;
-
-			axios.patch('/institution-sectors/' + this.record.id, {
-				name: this.record.name
-			}).then(function (response) {
-				_this3.readRecords();
-				_this3.reset();
-			}).catch(function (error) {
-				_this3.errors = [];
-
-				if (typeof error.response != "undefined") {
-					if (error.response.data.errors.name) {
-						_this3.errors.push(error.response.data.errors.name[0]);
-					}
-				}
-			});
-		}
+		this.readRecords('institution-sectors');
 	}
 });
 
@@ -60196,9 +59985,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-12" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Nombre:")
-                      ]),
+                      _c("label", [_vm._v("Nombre:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -60210,12 +59997,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: {
-                          type: "text",
-                          name: "name",
-                          id: "name",
-                          placeholder: "Profesión"
-                        },
+                        attrs: { type: "text", placeholder: "Profesión" },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -60236,7 +60018,7 @@ var render = function() {
                             expression: "record.id"
                           }
                         ],
-                        attrs: { type: "hidden", name: "id", id: "id" },
+                        attrs: { type: "hidden" },
                         domProps: { value: _vm.record.id },
                         on: {
                           input: function($event) {
@@ -60339,7 +60121,11 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary btn-sm btn-round",
                     attrs: { type: "button" },
-                    on: { click: _vm.createRecord }
+                    on: {
+                      click: function($event) {
+                        _vm.createRecord("institution-sectors")
+                      }
+                    }
                   },
                   [_vm._v("\n                \t\tGuardar\n\t                ")]
                 )
@@ -60541,6 +60327,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -60555,74 +60342,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords();
-	},
-
-	methods: {
-		createRecord: function createRecord() {
-			var _this = this;
-
-			if (this.record.id) {
-				this.updateRecord();
-			} else {
-				axios.post('/countries', {
-					prefix: this.record.prefix,
-					name: this.record.name
-				}).then(function (response) {
-					_this.reset();
-					_this.readRecords();
-					gritter_messages(false, false, false, 'store');
-				}).catch(function (error) {
-					_this.errors = [];
-
-					if (typeof error.response != "undefined") {
-						if (error.response.data.errors.name) {
-							_this.errors.push(error.response.data.errors.name[0]);
-						}
-						if (error.response.data.errors.prefix) {
-							_this.errors.push(error.response.data.errors.prefix[0]);
-						}
-					}
-				});
-			}
-		},
-		reset: function reset() {
-			this.record = [];
-		},
-		readRecords: function readRecords() {
-			var _this2 = this;
-
-			axios.get('/countries').then(function (response) {
-				_this2.records = response.data.records;
-			});
-		},
-		initUpdate: function initUpdate(index) {
-			this.errors = [];
-			this.record = this.records[index];
-			event.preventDefault();
-		},
-		updateRecord: function updateRecord() {
-			var _this3 = this;
-
-			axios.patch('/countries/' + this.record.id, {
-				name: this.record.name,
-				prefix: this.record.prefix
-			}).then(function (response) {
-				_this3.readRecords();
-				_this3.reset();
-			}).catch(function (error) {
-				_this3.errors = [];
-
-				if (typeof error.response != "undefined") {
-					if (error.response.data.errors.name) {
-						_this3.errors.push(error.response.data.errors.name[0]);
-					}
-					if (error.response.data.errors.prefix) {
-						_this3.errors.push(error.response.data.errors.prefix[0]);
-					}
-				}
-			});
-		}
+		this.readRecords('countries');
 	}
 });
 
@@ -60686,9 +60406,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "prefix" } }, [
-                        _vm._v("Prefijo:")
-                      ]),
+                      _c("label", [_vm._v("Prefijo:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -60700,12 +60418,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: {
-                          type: "text",
-                          name: "prefix",
-                          id: "prefix",
-                          placeholder: "Prefijo"
-                        },
+                        attrs: { type: "text", placeholder: "Prefijo" },
                         domProps: { value: _vm.record.prefix },
                         on: {
                           input: function($event) {
@@ -60726,7 +60439,7 @@ var render = function() {
                             expression: "record.id"
                           }
                         ],
-                        attrs: { type: "hidden", name: "id", id: "id" },
+                        attrs: { type: "hidden" },
                         domProps: { value: _vm.record.id },
                         on: {
                           input: function($event) {
@@ -60742,9 +60455,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Nombre:")
-                      ]),
+                      _c("label", [_vm._v("Nombre:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -60756,12 +60467,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: {
-                          type: "text",
-                          name: "name",
-                          id: "name",
-                          placeholder: "Profesión"
-                        },
+                        attrs: { type: "text", placeholder: "Profesión" },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -60863,7 +60569,11 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary btn-sm btn-round",
                     attrs: { type: "button" },
-                    on: { click: _vm.createRecord }
+                    on: {
+                      click: function($event) {
+                        _vm.createRecord("countries")
+                      }
+                    }
                   },
                   [_vm._v("\n                \t\tGuardar\n\t                ")]
                 )
@@ -61071,7 +60781,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -61093,82 +60802,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		axios.get('/get-countries').then(function (response) {
 			_this.countries = response.data;
 		});
-		this.readRecords();
-	},
-
-	methods: {
-		createRecord: function createRecord() {
-			var _this2 = this;
-
-			if (this.record.id) {
-				this.updateRecord();
-			} else {
-				axios.post('/estates', {
-					country_id: this.record.country_id,
-					name: this.record.name,
-					code: this.record.code
-				}).then(function (response) {
-					_this2.reset();
-					_this2.readRecords();
-					gritter_messages(false, false, false, 'store');
-				}).catch(function (error) {
-					_this2.errors = [];
-
-					if (typeof error.response != "undefined") {
-						if (error.response.data.errors.name) {
-							_this2.errors.push(error.response.data.errors.name[0]);
-						}
-						if (error.response.data.errors.country_id) {
-							_this2.errors.push(error.response.data.errors.country_id[0]);
-						}
-						if (error.response.data.errors.code) {
-							_this2.errors.push(error.response.data.errors.code[0]);
-						}
-					}
-				});
-			}
-		},
-		reset: function reset() {
-			this.record = [];
-		},
-		readRecords: function readRecords() {
-			var _this3 = this;
-
-			axios.get('/estates').then(function (response) {
-				_this3.records = response.data.records;
-			});
-		},
-		initUpdate: function initUpdate(index) {
-			this.errors = [];
-			this.record = this.records[index];
-			event.preventDefault();
-		},
-		updateRecord: function updateRecord() {
-			var _this4 = this;
-
-			axios.patch('/estates/' + this.record.id, {
-				name: this.record.name,
-				country_id: this.record.country_id,
-				code: this.record.code
-			}).then(function (response) {
-				_this4.readRecords();
-				_this4.reset();
-			}).catch(function (error) {
-				_this4.errors = [];
-
-				if (typeof error.response != "undefined") {
-					if (error.response.data.errors.name) {
-						_this4.errors.push(error.response.data.errors.name[0]);
-					}
-					if (error.response.data.errors.country_id) {
-						_this4.errors.push(error.response.data.errors.country_id[0]);
-					}
-					if (error.response.data.errors.code) {
-						_this4.errors.push(error.response.data.errors.code[0]);
-					}
-				}
-			});
-		}
+		this.readRecords('estates');
 	}
 });
 
@@ -61235,9 +60869,7 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c("label", { attrs: { for: "country_id" } }, [
-                          _vm._v("Pais:")
-                        ]),
+                        _c("label", [_vm._v("Pais:")]),
                         _vm._v(" "),
                         _c("select2", {
                           attrs: { options: _vm.countries },
@@ -61259,7 +60891,7 @@ var render = function() {
                               expression: "record.id"
                             }
                           ],
-                          attrs: { type: "hidden", name: "id", id: "id" },
+                          attrs: { type: "hidden" },
                           domProps: { value: _vm.record.id },
                           on: {
                             input: function($event) {
@@ -61277,9 +60909,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-4" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
-                      _c("label", { attrs: { for: "code" } }, [
-                        _vm._v("Código:")
-                      ]),
+                      _c("label", [_vm._v("Código:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -61293,8 +60923,6 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "text",
-                          name: "code",
-                          id: "code",
                           placeholder: "Código de Estado"
                         },
                         domProps: { value: _vm.record.code },
@@ -61312,9 +60940,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-4" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Nombre:")
-                      ]),
+                      _c("label", [_vm._v("Nombre:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -61328,8 +60954,6 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "text",
-                          name: "name",
-                          id: "name",
                           placeholder: "Nombre de Estado"
                         },
                         domProps: { value: _vm.record.name },
@@ -61437,7 +61061,11 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary btn-sm btn-round",
                     attrs: { type: "button" },
-                    on: { click: _vm.createRecord }
+                    on: {
+                      click: function($event) {
+                        _vm.createRecord("estates")
+                      }
+                    }
                   },
                   [_vm._v("\n                \t\tGuardar\n\t                ")]
                 )
@@ -61504,11 +61132,12 @@ if (false) {
 /* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = null
+var __vue_template__ = __webpack_require__(112)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -61526,6 +61155,22 @@ var Component = normalizeComponent(
   __vue_module_identifier__
 )
 Component.options.__file = "resources/assets/js/components/MunicipalitiesComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ef0c56c8", Component.options)
+  } else {
+    hotAPI.reload("data-v-ef0c56c8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
 
 module.exports = Component.exports
 
@@ -64619,6 +64264,49 @@ $(document).ready(function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-ef0c56c8", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
