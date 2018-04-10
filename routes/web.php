@@ -123,6 +123,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     /** Rutas para la gestión de Parroquias de Municipios */
     Route::resource('parishes', 'ParishController', ['except' => ['show']]);
+
+    /** Rutas para la gestión de Impuestos */
+    Route::resource('taxes', 'TaxController');
 });
 
 /**
