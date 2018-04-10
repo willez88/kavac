@@ -97,11 +97,12 @@ Vue.mixin({
 				axios.post('/' + url, fields)
 					 .then(response => {
 					 	this.reset();
-					 	this.readRecords();
+					 	this.readRecords(url);
 					 	this.showMessage('store');
 					 })
 					 .catch(error => {
 					 	this.errors = [];
+					 	
 					 	if (typeof(error.response) !="undefined") {
 					 		for (var index in error.response.data.errors) {
 					 			if (error.response.data.errors[index]) {
@@ -135,7 +136,7 @@ Vue.mixin({
 			}
 			axios.patch('/' + url + '/' + this.record.id, fields)
 				 .then(response => {
-				 	this.readRecords();
+				 	this.readRecords(url);
                 	this.reset();
                 	this.showMessage('update');
                  })

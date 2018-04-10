@@ -61,7 +61,7 @@
 	                	<button type="button" class="btn btn-default btn-sm btn-round" data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord" class="btn btn-primary btn-sm btn-round">
+	                	<button type="button" @click="createRecord('marital-status')" class="btn btn-primary btn-sm btn-round">
 	                		Guardar
 		                </button>
 		            </div>
@@ -85,70 +85,7 @@
 		},
 		mounted()
 		{
-			this.readRecords();
+			this.readRecords('marital-status');
 		},
-		methods: {
-			createRecord()
-			{
-				if (this.record.marital_status_id) {
-					this.updateRecord();
-				}
-				else {
-					axios.post('/marital-status', {
-						name: this.record.marital_status_name
-					})
-					.then(response => {
-						this.reset();
-					 	this.readRecords();
-					 	gritter_messages(false, false, false, 'store');
-					})
-					.catch(error => {
-						this.errors = [];
-						
-					 	if (typeof(error.response) !="undefined") {
-					 		if (error.response.data.errors.name) {
-					 			this.errors.push(error.response.data.errors.name[0]);
-					 		}
-                        }
-                    });
-				}
-				
-			},
-			reset()
-			{
-				this.record = [];
-			},
-			readRecords()
-			{
-				axios.get('/marital-status').then(response => {
-					this.records = response.data.records;
-				});
-			},
-			initUpdate(index, event)
-			{
-				this.errors = [];
-				this.record = this.records[index];
-				event.preventDefault();
-			},
-			updateRecord()
-            {
-                axios.patch('/marital-status/' + this.record.marital_status_id, {
-                    name: this.record.marital_status_name,
-                })
-                .then(response => {
-                	this.readRecords();
-                	this.reset();
-                })
-                .catch(error => {
-                	this.errors = [];
-
-                	if (typeof(error.response) !="undefined") {
-	                	if (error.response.data.errors.name) {
-	                		this.errors.push(error.response.data.errors.name[0]);
-	                	}
-	                }
-                });
-            },
-		}
 	}
 </script>
