@@ -41,14 +41,7 @@
 					<countries></countries>
 					{{-- Configuración de Estados --}}
 					<estates></estates>
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de Municipios de un Estado" 
-						   data-toggle="tooltip">
-							<i class="icofont icofont-ui-map ico-3x"></i>
-							<span>Municipios</span>
-						</a>
-					</div>
+					<municipalities></municipalities>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de Parroquias de un Municipio" 

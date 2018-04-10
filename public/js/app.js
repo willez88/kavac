@@ -61135,7 +61135,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(113)
 /* template */
 var __vue_template__ = __webpack_require__(112)
 /* template functional */
@@ -64296,9 +64296,334 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "col-md-2 text-center" }, [
+    _c(
+      "a",
+      {
+        staticClass: "btn-simplex btn-simplex-md btn-simplex-primary",
+        attrs: {
+          href: "",
+          title: "Registros de Municipios de un Estado",
+          "data-toggle": "tooltip"
+        },
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_municipality")
+          }
+        }
+      },
+      [
+        _c("i", { staticClass: "icofont icofont-ui-map ico-3x" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Municipios")])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade text-left",
+        attrs: { tabindex: "-1", role: "dialog", id: "add_municipality" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog vue-crud", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm.errors.length > 0
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _c(
+                        "ul",
+                        _vm._l(_vm.errors, function(error) {
+                          return _c("li", [_vm._v(_vm._s(error))])
+                        })
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Pais:")]),
+                        _vm._v(" "),
+                        _c("select2", {
+                          attrs: { options: _vm.countries },
+                          on: { input: _vm.getEstates },
+                          model: {
+                            value: _vm.record.country_id,
+                            callback: function($$v) {
+                              _vm.$set(_vm.record, "country_id", $$v)
+                            },
+                            expression: "record.country_id"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.record.id,
+                              expression: "record.id"
+                            }
+                          ],
+                          attrs: { type: "hidden" },
+                          domProps: { value: _vm.record.id },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.record, "id", $event.target.value)
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Estados:")]),
+                        _vm._v(" "),
+                        _c("select2", {
+                          attrs: { options: _vm.estates },
+                          model: {
+                            value: _vm.record.estate_id,
+                            callback: function($$v) {
+                              _vm.$set(_vm.record, "estate_id", $$v)
+                            },
+                            expression: "record.estate_id"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Código:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.code,
+                            expression: "record.code"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Código de Municipio"
+                        },
+                        domProps: { value: _vm.record.code },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.record, "code", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Nombre:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.name,
+                            expression: "record.name"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Nombre de Municipio"
+                        },
+                        domProps: { value: _vm.record.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.record, "name", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body modal-table" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-hover table-striped dt-responsive nowrap datatable"
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.records, function(rec, index) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(rec.estate.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(rec.name))]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _vm._v(_vm._s(rec.code))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "text-center",
+                              attrs: { width: "10%" }
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning btn-xs btn-icon btn-round",
+                                  attrs: {
+                                    title: "Modificar registro",
+                                    "data-toggle": "tooltip",
+                                    type: "button"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.initUpdate(index)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-edit" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-danger btn-xs btn-icon btn-round",
+                                  attrs: {
+                                    title: "Eliminar registro",
+                                    "data-toggle": "tooltip",
+                                    type: "button"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.deleteRecord(index, "municipalities")
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-trash-o" })]
+                              )
+                            ]
+                          )
+                        ])
+                      })
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default btn-sm btn-round",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("\n                \t\tCerrar\n                \t")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary btn-sm btn-round",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.createRecord("municipalities")
+                      }
+                    }
+                  },
+                  [_vm._v("\n                \t\tGuardar\n\t                ")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+      _vm._v(" "),
+      _c("h6", [
+        _c("i", { staticClass: "icofont icofont-ui-map inline-block" }),
+        _vm._v(" \n\t\t\t\t\t\tMunicipios\n\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "text-center" }, [
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Municipio")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Código")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -64307,6 +64632,154 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-ef0c56c8", module.exports)
   }
 }
+
+/***/ }),
+/* 113 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			record: {
+				id: '',
+				country_id: '0',
+				estate_id: '',
+				name: '',
+				code: ''
+			},
+			errors: [],
+			records: [],
+			countries: [],
+			estates: []
+		};
+	},
+	mounted: function mounted() {
+		var _this = this;
+
+		axios.get('/get-countries').then(function (response) {
+			_this.countries = response.data;
+		});
+		this.readRecords('municipalities');
+	},
+
+	methods: {
+		getEstates: function getEstates() {
+			var _this2 = this;
+
+			if (this.record.country_id) {
+				axios.get('/get-estates/' + this.record.country_id).then(function (response) {
+					_this2.estates = response.data;
+				});
+			}
+		}
+	}
+});
 
 /***/ })
 /******/ ]);

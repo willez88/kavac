@@ -119,7 +119,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('municipalities', 'MunicipalityController', ['except' => ['show']]);
 
     /** Rutas para la gestión de Ciudades de Estados */
-    Route::resources('cities', 'CityController', ['except' => ['show']]);
+    Route::resource('cities', 'CityController', ['except' => ['show']]);
 
     /** Rutas para la gestión de Parroquias de Municipios */
     Route::resource('parishes', 'ParishController', ['except' => ['show']]);

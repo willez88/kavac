@@ -15,7 +15,7 @@ class MunicipalityController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['records' => Municipality::with('estate')->get()], 200);
     }
 
     /**
@@ -38,7 +38,20 @@ class MunicipalityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'code' => 'required|max:10',
+            'estate_id' => 'required'
+        ]);
+
+
+        $municipality = Municipality::create([
+            'name' => $request->input('name'),
+            'code' => $request->input('code'),
+            'estate_id' => $request->input('estate_id')
+        ]);
+
+        return response()->json(['record' => $municipality, 'message' => 'Success'], 200);
     }
 
     /**
@@ -75,7 +88,18 @@ class MunicipalityController extends Controller
      */
     public function update(Request $request, Municipality $municipality)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'code' => 'required|max:10',
+            'estate_id' => 'required'
+        ]);
+ 
+        $municipality->name = $request->input('name');
+        $municipality->code = $request->input('code');
+        $municipality->estate_id = $request->input('estate_id');
+        $municipality->save();
+ 
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
@@ -87,6 +111,7 @@ class MunicipalityController extends Controller
      */
     public function destroy(Municipality $municipality)
     {
-        //
+        $municipality->delete();
+        return response()->json(['record' => $municipality, 'message' => 'Success'], 200);
     }
 }
