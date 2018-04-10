@@ -19940,10 +19940,11 @@ Vue.mixin({
 				}
 				axios.post('/' + url, fields).then(function (response) {
 					_this2.reset();
-					_this2.readRecords();
+					_this2.readRecords(url);
 					_this2.showMessage('store');
 				}).catch(function (error) {
 					_this2.errors = [];
+
 					if (typeof error.response != "undefined") {
 						for (var index in error.response.data.errors) {
 							if (error.response.data.errors[index]) {
@@ -19979,7 +19980,7 @@ Vue.mixin({
 				fields[index] = this.record[index];
 			}
 			axios.patch('/' + url + '/' + this.record.id, fields).then(function (response) {
-				_this3.readRecords();
+				_this3.readRecords(url);
 				_this3.reset();
 				_this3.showMessage('update');
 			}).catch(function (error) {
@@ -58595,66 +58596,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords();
-	},
-
-	methods: {
-		createRecord: function createRecord() {
-			var _this = this;
-
-			if (this.record.marital_status_id) {
-				this.updateRecord();
-			} else {
-				axios.post('/marital-status', {
-					name: this.record.marital_status_name
-				}).then(function (response) {
-					_this.reset();
-					_this.readRecords();
-					gritter_messages(false, false, false, 'store');
-				}).catch(function (error) {
-					_this.errors = [];
-
-					if (typeof error.response != "undefined") {
-						if (error.response.data.errors.name) {
-							_this.errors.push(error.response.data.errors.name[0]);
-						}
-					}
-				});
-			}
-		},
-		reset: function reset() {
-			this.record = [];
-		},
-		readRecords: function readRecords() {
-			var _this2 = this;
-
-			axios.get('/marital-status').then(function (response) {
-				_this2.records = response.data.records;
-			});
-		},
-		initUpdate: function initUpdate(index, event) {
-			this.errors = [];
-			this.record = this.records[index];
-			event.preventDefault();
-		},
-		updateRecord: function updateRecord() {
-			var _this3 = this;
-
-			axios.patch('/marital-status/' + this.record.marital_status_id, {
-				name: this.record.marital_status_name
-			}).then(function (response) {
-				_this3.readRecords();
-				_this3.reset();
-			}).catch(function (error) {
-				_this3.errors = [];
-
-				if (typeof error.response != "undefined") {
-					if (error.response.data.errors.name) {
-						_this3.errors.push(error.response.data.errors.name[0]);
-					}
-				}
-			});
-		}
+		this.readRecords('marital-status');
 	}
 });
 
@@ -58868,7 +58810,11 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary btn-sm btn-round",
                     attrs: { type: "button" },
-                    on: { click: _vm.createRecord }
+                    on: {
+                      click: function($event) {
+                        _vm.createRecord("marital-status")
+                      }
+                    }
                   },
                   [_vm._v("\n                \t\tGuardar\n\t                ")]
                 )
@@ -61792,17 +61738,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			/** @type {json} Inicialización de atributos */
 			record: {
 				id: '',
 				description: '',
 				name: '',
 				color: ''
 			},
+			/** @type {Array} Inicialización de errores a mostrar */
 			errors: [],
+			/** @type {Array} Inicialización de atributo que cargara información registrada */
 			records: []
 		};
 	},
@@ -61871,9 +61828,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-2" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
-                      _c("label", { attrs: { for: "color" } }, [
-                        _vm._v("Color:")
-                      ]),
+                      _c("label", [_vm._v("Color:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -61901,9 +61856,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-4" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Nombre:")
-                      ]),
+                      _c("label", [_vm._v("Nombre:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -61936,7 +61889,7 @@ var render = function() {
                             expression: "record.id"
                           }
                         ],
-                        attrs: { type: "hidden", name: "id", id: "id" },
+                        attrs: { type: "hidden" },
                         domProps: { value: _vm.record.id },
                         on: {
                           input: function($event) {
@@ -61952,9 +61905,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
-                      _c("label", { attrs: { for: "description" } }, [
-                        _vm._v("Descripción:")
-                      ]),
+                      _c("label", [_vm._v("Descripción:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
