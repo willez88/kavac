@@ -15,6 +15,13 @@ use Carbon\Carbon;
 
 class BackupController extends Controller
 {
+    /**
+     * Muestra un listado de respaldos del sistema
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @param  BackupRepository $backup Objeto con los métodos a implementar para la gestión de respaldos
+     * @return [view]                   Devuelve la vista con los datos a mostrar
+     */
     public function index(BackupRepository $backup)
     {
     	$backups = $backup->getList(
@@ -24,6 +31,13 @@ class BackupController extends Controller
     }
 
 
+    /**
+     * Crea un nuevo respaldo
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @param  BackupRepository $backup Objeto con los métodos a implementar para la gestión de respaldos
+     * @return [object]                 Redirecciona a la página anterior después de realizar el respaldo
+     */
     public function create(BackupRepository $backup)
     {
         $backup->create();
@@ -32,9 +46,12 @@ class BackupController extends Controller
     }
 
     /**
-     * Downloads a backup zip file.
+     * Descarga un respaldo solicitado
      *
-     * TODO: make it work no matter the flysystem driver (S3 Bucket, etc).
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @param  [string]           $file_name Nombre del archivo a descargar
+     * @param  BackupRepository   $backup    Objeto con los métodos para la gestión de respaldos
+     * @return [response]                    Retorna el response para la descarga del archivo
      */
     public function download($file_name, BackupRepository $backup)
     {
@@ -62,6 +79,14 @@ class BackupController extends Controller
     /**
      * Deletes a backup file.
      */
+    /**
+     * Elimina un archivo de respaldo
+     * @param  [string]         $file_name Nombre del archivo a eliminar
+     * @param  BackupRepository $backup    Objeto con los métodos para la gestión de respaldos
+     * @return [response]                  Muestra una página de error 404 si el archivo no pudo ser 
+     *                                     eliminado, si el procedimiento fue exitoso retorna al 
+     *                                     listado de respaldos
+     */
     public function delete($file_name, BackupRepository $backup)
     {
         $removed = $backup->delFile(
@@ -74,6 +99,5 @@ class BackupController extends Controller
 
         return redirect()->back();
     }
-
     
 }

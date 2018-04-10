@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class CountryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muesta todos los registros de los Países
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -18,8 +19,9 @@ class CountryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo registro de Pais
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -28,8 +30,9 @@ class CountryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Valida y registra un nuevo Pais
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -50,8 +53,9 @@ class CountryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información acerca del Pais
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
@@ -61,8 +65,9 @@ class CountryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para actualizar información de un Pais
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
@@ -72,8 +77,9 @@ class CountryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información del Pais
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
@@ -93,8 +99,9 @@ class CountryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el Pais
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */

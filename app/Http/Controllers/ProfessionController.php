@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class ProfessionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muesta todos los registros de profesiones
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -18,8 +19,9 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo registro de profesiones
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -28,15 +30,16 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Valida y registra una nueva profesión
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
+            'name' => 'required|max:100|unique:profession,name',
             'acronym' => 'max:10'
         ]);
 
@@ -50,8 +53,9 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información acerca de la profesión
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
      */
@@ -61,8 +65,9 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para actualizar información de una profesión
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
      */
@@ -72,8 +77,9 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información de la profesión
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
@@ -81,7 +87,7 @@ class ProfessionController extends Controller
     public function update(Request $request, Profession $profession)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
+            'name' => 'required|max:100|unique:profession,name,' . $profession->id,
             'acronym' => 'max:10'
         ]);
  
@@ -93,8 +99,9 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina la profesión
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
      */

@@ -13,21 +13,24 @@ class City extends Model
     protected $revisionCreationsEnabled = true;
 
     /**
-     * The attributes that should be mutated to dates.
+     * Los atributos que pueden ser convertidos a fechas
      *
      * @var array
      */
     protected $dates = ['deleted_at'];
 
     /**
-     * The attributes that are mass assignable.
+     * Los atributos que pueden ser asignados masivamente
      *
      * @var array
      */
     protected $fillable = ['name', 'estate_id'];
 
     /**
-     * Get the State of the City
+     * Método que obtiene el Estado de una Ciudad
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @return [type] [description]
      */
 	public function estate()
     {
@@ -35,7 +38,10 @@ class City extends Model
     }
 
     /**
-     * Select choices for template uses
+     * Método que genera un listado de opciones a implementar en elementos tipo select
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @return [type] [description]
      */
     public static function template_choices()
     {

@@ -9,8 +9,9 @@ use App\Http\Controllers\Controller;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muesta todos los registros de los usuarios
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -19,8 +20,9 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo registro de usuario
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -29,8 +31,9 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Valida y registra un nuevo usuario
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -40,8 +43,9 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información acerca del usuario
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
@@ -55,8 +59,9 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para actualizar información de un usuario
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
@@ -66,8 +71,9 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información del usuario
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
@@ -99,8 +105,9 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el usuario
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */

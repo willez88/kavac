@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class MaritalStatusController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra todos los registros de estados civiles
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -18,8 +19,9 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo registro de estados civiles
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -28,8 +30,9 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Valida y registra un nuevo estado civil
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -45,8 +48,9 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información acerca del estado civil
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\MaritalStatus  $maritalStatus
      * @return \Illuminate\Http\Response
      */
@@ -56,8 +60,9 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para actualizar información de un estado civil
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\MaritalStatus  $maritalStatus
      * @return \Illuminate\Http\Response
      */
@@ -67,8 +72,9 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información del estado civil
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\MaritalStatus  $maritalStatus
      * @return \Illuminate\Http\Response
@@ -86,8 +92,9 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el estado civil
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\MaritalStatus  $maritalStatus
      * @return \Illuminate\Http\Response
      */

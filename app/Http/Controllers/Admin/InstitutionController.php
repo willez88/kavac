@@ -11,8 +11,9 @@ use App\Models\Setting;
 class InstitutionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muesta todos los registros de las Instituciones
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -21,8 +22,9 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo registro de Institución
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -31,8 +33,9 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Valida y registra una nueva Institución
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -105,8 +108,9 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información acerca de la Institución
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Institution  $institution
      * @return \Illuminate\Http\Response
      */
@@ -116,8 +120,9 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para actualizar información de una Institución
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Institution  $institution
      * @return \Illuminate\Http\Response
      */
@@ -127,8 +132,9 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información de la Institución
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Institution  $institution
      * @return \Illuminate\Http\Response
@@ -139,8 +145,9 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina la Institución seleccionada
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Institution  $institution
      * @return \Illuminate\Http\Response
      */

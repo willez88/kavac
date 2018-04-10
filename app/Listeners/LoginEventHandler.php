@@ -9,7 +9,7 @@ use Illuminate\Auth\Events\Login;
 class LoginEventHandler
 {
     /**
-     * Create the event listener.
+     * Constructor de la clase que crea los eventos a ser monitoreados
      *
      * @return void
      */
@@ -19,7 +19,7 @@ class LoginEventHandler
     }
 
     /**
-     * Handle the event.
+     * Registra los eventos en la autenticación de usuarios
      *
      * @param  object  $event
      * @return void

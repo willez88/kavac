@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class DocumentStatusController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
+     * Muesta todos los registros de estatus de documentos
+     * 
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -18,8 +19,9 @@ class DocumentStatusController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo registro de estatus de documentos
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -28,17 +30,18 @@ class DocumentStatusController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Valida y registra un nuevo estatus de documento
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:20',
+            'name' => 'required|max:20|unique:document_status,name',
             'description' => 'required',
-            'color' => 'required|min:4|max:30'
+            'color' => 'required|min:4|max:30|unique:document_status,color'
         ]);
 
 
@@ -52,8 +55,9 @@ class DocumentStatusController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información acerca del estatus de documento
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\DocumentStatus  $documentStatus
      * @return \Illuminate\Http\Response
      */
@@ -63,8 +67,9 @@ class DocumentStatusController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para actualizar información de un estatus de documento
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\DocumentStatus  $documentStatus
      * @return \Illuminate\Http\Response
      */
@@ -74,8 +79,9 @@ class DocumentStatusController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información del estatus de documento
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\DocumentStatus  $documentStatus
      * @return \Illuminate\Http\Response
@@ -83,9 +89,9 @@ class DocumentStatusController extends Controller
     public function update(Request $request, DocumentStatus $documentStatus)
     {
         $this->validate($request, [
-            'name' => 'required|max:20',
+            'name' => 'required|max:20|unique:document_status,name,' . $documentStatus->id,
             'description' => 'required',
-            'color' => 'required|min:4|max:30'
+            'color' => 'required|min:4|max:30|unique:document_status,color,' . $documentStatus->id
         ]);
  
         $documentStatus->name = $request->input('name');
@@ -97,8 +103,9 @@ class DocumentStatusController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el estatus de documento
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\DocumentStatus  $documentStatus
      * @return \Illuminate\Http\Response
      */

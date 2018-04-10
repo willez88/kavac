@@ -17,8 +17,9 @@ use App\Http\Controllers\Controller;
 class SettingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muesta todos los registros de los parámetros de configuración de la aplicación
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -51,8 +52,9 @@ class SettingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Valida y registra los parámetros de configuración de la aplicación
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */

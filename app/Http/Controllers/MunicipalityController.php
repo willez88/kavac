@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class MunicipalityController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muesta todos los registros de los Municipios
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -18,8 +19,9 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo registro de Municipio
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>v
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -28,8 +30,9 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Valida y registra un nuevo Municipio
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -39,8 +42,9 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información acerca del Municipio
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Municipality  $municipality
      * @return \Illuminate\Http\Response
      */
@@ -50,8 +54,9 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para actualizar información de un Municipio
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Municipality  $municipality
      * @return \Illuminate\Http\Response
      */
@@ -61,8 +66,9 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información del Municipio
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Municipality  $municipality
      * @return \Illuminate\Http\Response
@@ -73,8 +79,9 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el Municipio
      *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Municipality  $municipality
      * @return \Illuminate\Http\Response
      */
