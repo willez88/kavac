@@ -1,6 +1,6 @@
 <div class="left-panel">
 	<div class="media profile-left">
-            <a class="float-left profile-thumb" href="profile.html">
+            <a class="float-left profile-thumb" href="{{ url('users') . "/" . Auth::user()->id }}">
                 <img class="img-circle" src="{{ asset('images/default-avatar.png') }}" alt="">
             </a>
             <div class="media-body">

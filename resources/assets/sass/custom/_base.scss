@@ -8,7 +8,15 @@ footer nav ul {
 	text-align: center;
 }
 
+/** Perfil de usuario */
+.img-profile {
+	border:1px solid #519BF6; padding:15px; border-radius: 20px;
+}
+
 /** Estilos para el contenido de la aplicación */
+.col-right-border {
+	border-right:1px solid #eee;
+}
 .app-content {
 	position: relative;
 	margin: 20px;

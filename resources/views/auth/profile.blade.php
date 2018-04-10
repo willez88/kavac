@@ -1,51 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 col-right-border">
                     <div class="row">
                         <div class="col-12 text-center">
                             <img src="{{ asset('images/default-avatar.png') }}" alt="" 
-                                 style="border:1px solid #519BF6; padding:15px; border-radius: 20px;">
+                                 class="img-profile">
                         </div>
                         <div class="col-12 text-center">
                             <h4>Nombre</h4>
                             <h5>Cargo</h5>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-info btn-block">
+                                Bloquear Pantalla
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-info btn-block">Bloquear Pantalla</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="card">
-                <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">
-                            <i class="ion-android-person"></i> Perfil
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#activity" role="tab">
-                            <i class="ion-arrow-swap"></i> Actividad
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
-                            <i class="ion-android-mail"></i> Mensajes
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#directory" role="tab">
-                            <i class="ion-android-contacts"></i> Directorio
-                        </a>
-                    </li>
-                </ul>
-                <div class="card-body">
+                <div class="col-md-9">
+                    <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">
+                                <i class="ion-android-person"></i> Perfil
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#activity" role="tab">
+                                <i class="ion-arrow-swap"></i> Actividad
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
+                                <i class="ion-android-mail"></i> Mensajes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#directory" role="tab">
+                                <i class="ion-android-contacts"></i> Directorio
+                            </a>
+                        </li>
+                    </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane active" id="profile" role="tabpanel">
@@ -311,7 +311,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     {{-- Búsqueda de contacto en el directorio institucional --}}
-                                    <div class="well mt10">
+                                    <!--<div class="well mt10">
                                         <div class="row">
                                             <div class="col-sm-9">
                                                 <div class="form-group">
@@ -327,130 +327,360 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     {{-- Directorio institucional --}}
                                     <div class="list-group contact-group">
-                                        <a href="#" class="list-group-item">
-                                            <div class="media">
-                                                <div class="float-left">
-                                                    <img class="img-circle img-online" 
-                                                         src="{{ asset('images/default-avatar.png') }}" 
-                                                         alt="usuario">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
-                                                    <div class="media-content">
-                                                        <i class="fa fa-map-marker"></i> Dirección
-                                                        <ul class="list-unstyled">
-                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
-                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div><!-- media -->
-                                        </a><!-- list-group -->
-                                        
-                                        <a href="#" class="list-group-item">
-                                            <div class="media">
-                                                <div class="float-left">
-                                                    <img class="img-circle img-online" 
-                                                         src="{{ asset('images/default-avatar.png') }}" 
-                                                         alt="usuario">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
-                                                    <div class="media-content">
-                                                        <i class="fa fa-map-marker"></i> Dirección
-                                                        <ul class="list-unstyled">
-                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
-                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div><!-- media -->
-                                        </a><!-- list-group -->
-                                        
-                                        <a href="#" class="list-group-item">
-                                            <div class="media">
-                                                <div class="float-left">
-                                                    <img class="img-circle img-online" 
-                                                         src="{{ asset('images/default-avatar.png') }}" 
-                                                         alt="usuario">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
-                                                    <div class="media-content">
-                                                        <i class="fa fa-map-marker"></i> Dirección
-                                                        <ul class="list-unstyled">
-                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
-                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div><!-- media -->
-                                        </a><!-- list-group -->
-                                        
-                                        <a href="#" class="list-group-item">
-                                            <div class="media">
-                                                <div class="float-left">
-                                                    <img class="img-circle img-online" 
-                                                         src="{{ asset('images/default-avatar.png') }}" 
-                                                         alt="usuario">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
-                                                    <div class="media-content">
-                                                        <i class="fa fa-map-marker"></i> Dirección
-                                                        <ul class="list-unstyled">
-                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
-                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div><!-- media -->
-                                        </a><!-- list-group -->
-                                        
-                                        <a href="#" class="list-group-item">
-                                            <div class="media">
-                                                <div class="float-left">
-                                                    <img class="img-circle img-online" 
-                                                         src="{{ asset('images/default-avatar.png') }}" 
-                                                         alt="usuario">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
-                                                    <div class="media-content">
-                                                        <i class="fa fa-map-marker"></i> Dirección
-                                                        <ul class="list-unstyled">
-                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
-                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div><!-- media -->
-                                        </a><!-- list-group -->
-                                        
-                                        <a href="#" class="list-group-item">
-                                            <div class="media">
-                                                <div class="float-left">
-                                                    <img class="img-circle img-online" 
-                                                         src="{{ asset('images/default-avatar.png') }}" 
-                                                         alt="usuario">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
-                                                    <div class="media-content">
-                                                        <i class="fa fa-map-marker"></i> Dirección
-                                                        <ul class="list-unstyled">
-                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
-                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div><!-- media -->
-                                        </a><!-- list-group -->
-                                        
+                                        <table class="table table-hover table-striped dt-responsive nowrap datatable">
+                                            <thead><tr><th></th></tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="list-group-item">
+                                                            <div class="media">
+                                                                <div class="float-left">
+                                                                    <img class="img-circle img-online" 
+                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                         alt="usuario">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">Nombre <small>Cargo</small></h4>
+                                                                    <div class="media-content">
+                                                                        <i class="fa fa-map-marker"></i> Dirección
+                                                                        <ul class="list-unstyled">
+                                                                            <li><i class="fa fa-mobile"></i> Número de teléfono</li>
+                                                                            <li><i class="fa fa-envelope-o"></i> correo institucional</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- media -->
+                                                        </a><!-- list-group -->
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
