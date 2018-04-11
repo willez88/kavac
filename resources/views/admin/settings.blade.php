@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('maproute-icon')
-	<i class="now-ui-icons ui-2_settings-90"></i>
+	<i class="ion-settings"></i>
 @stop
 
 @section('maproute-icon-mini')
-	<i class="now-ui-icons ui-2_settings-90"></i>
+	<i class="ion-settings"></i>
 @stop
 
 @section('maproute-actual')
