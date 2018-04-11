@@ -27,4 +27,15 @@ class Tax extends Model
     protected $fillable = [
     	'name', 'description', 'affect_tax', 'active'
     ];
+
+    /**
+     * Método que obtiene los históricos de los impuestos
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @return [type] [description]
+     */
+    public function histories()
+    {
+        return $this->hasMany('App\Models\HistoryTax');
+    }
 }

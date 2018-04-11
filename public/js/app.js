@@ -19886,6 +19886,9 @@ Vue.component('parishes', __webpack_require__(76));
 /** Componente para la gestión de estatus de documentos */
 Vue.component('document-status', __webpack_require__(79));
 
+/** Componente para la gestión de impuestos */
+Vue.component('taxes', __webpack_require__(118));
+
 /** Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación */
 Vue.mixin({
 	methods: {
@@ -65793,6 +65796,692 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7c5734cd", module.exports)
+  }
+}
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(119)
+/* template */
+var __vue_template__ = __webpack_require__(120)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/TaxesComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-70f65f5b", Component.options)
+  } else {
+    hotAPI.reload("data-v-70f65f5b", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 119 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			record: {
+				id: '',
+				name: '',
+				description: '',
+				affect_tax: false,
+				active: false,
+				operation_date: '',
+				percentage: ''
+			},
+			errors: [],
+			records: []
+		};
+	},
+	mounted: function mounted() {
+		this.readRecords('taxes');
+	}
+});
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col-md-2 text-center" }, [
+    _c(
+      "a",
+      {
+        staticClass: "btn-simplex btn-simplex-md btn-simplex-primary",
+        attrs: {
+          href: "",
+          title: "Registros de Impuestos",
+          "data-toggle": "tooltip"
+        },
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_tax")
+          }
+        }
+      },
+      [
+        _c("i", { staticClass: "icofont icofont-deal ico-3x" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Impuestos")])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade text-left",
+        attrs: { tabindex: "-1", role: "dialog", id: "add_tax" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog vue-crud", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm.errors.length > 0
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _c(
+                        "ul",
+                        _vm._l(_vm.errors, function(error) {
+                          return _c("li", [_vm._v(_vm._s(error))])
+                        })
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Nombre:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.name,
+                            expression: "record.name"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: { type: "text", placeholder: "Impuesto" },
+                        domProps: { value: _vm.record.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.record, "name", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.id,
+                            expression: "record.id"
+                          }
+                        ],
+                        attrs: { type: "hidden" },
+                        domProps: { value: _vm.record.id },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.record, "id", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Descripción:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.description,
+                            expression: "record.description"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: { type: "text", placeholder: "Descripción" },
+                        domProps: { value: _vm.record.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.record,
+                              "description",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Fecha entrada en vigencia:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.operation_date,
+                            expression: "record.operation_date"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: { type: "date", placeholder: "dd/mm/yyyy" },
+                        domProps: { value: _vm.record.operation_date },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.record,
+                              "operation_date",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Porcentaje:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.percentage,
+                            expression: "record.percentage"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          placeholder: "0",
+                          step: "0.01"
+                        },
+                        domProps: { value: _vm.record.percentage },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.record,
+                              "percentage",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Afecta cuenta de IVA:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.affect_tax,
+                            expression: "record.affect_tax"
+                          }
+                        ],
+                        staticClass: "form-control bootstrap-switch",
+                        attrs: {
+                          type: "checkbox",
+                          "data-on-label": "SI",
+                          "data-off-label": "NO"
+                        },
+                        domProps: {
+                          checked: Array.isArray(_vm.record.affect_tax)
+                            ? _vm._i(_vm.record.affect_tax, null) > -1
+                            : _vm.record.affect_tax
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.record.affect_tax,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.record,
+                                    "affect_tax",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.record,
+                                    "affect_tax",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.record, "affect_tax", $$c)
+                            }
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Activo:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.active,
+                            expression: "record.active"
+                          }
+                        ],
+                        staticClass: "form-control bootstrap-switch",
+                        attrs: {
+                          type: "checkbox",
+                          "data-on-label": "SI",
+                          "data-off-label": "NO"
+                        },
+                        domProps: {
+                          checked: Array.isArray(_vm.record.active)
+                            ? _vm._i(_vm.record.active, null) > -1
+                            : _vm.record.active
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.record.active,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.record,
+                                    "active",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.record,
+                                    "active",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.record, "active", $$c)
+                            }
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body modal-table" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-hover table-striped dt-responsive nowrap datatable"
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.records, function(rec, index) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(rec.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(rec.description))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(rec.histories.operation_date))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(rec.histories.percentage))]),
+                          _vm._v(" "),
+                          rec.active
+                            ? _c("td", [_vm._v("Activo")])
+                            : _c("td", [_vm._v("Inactivo")]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "text-center",
+                              attrs: { width: "10%" }
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning btn-xs btn-icon btn-round",
+                                  attrs: {
+                                    title: "Modificar registro",
+                                    "data-toggle": "tooltip",
+                                    type: "button"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.initUpdate(index)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-edit" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-danger btn-xs btn-icon btn-round",
+                                  attrs: {
+                                    title: "Eliminar registro",
+                                    "data-toggle": "tooltip",
+                                    type: "button"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.deleteRecord(index, "taxes")
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-trash-o" })]
+                              )
+                            ]
+                          )
+                        ])
+                      })
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default btn-sm btn-round",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("\n                \t\tCerrar\n                \t")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary btn-sm btn-round",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.createRecord("taxes")
+                      }
+                    }
+                  },
+                  [_vm._v("\n                \t\tGuardar\n\t                ")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+      _vm._v(" "),
+      _c("h6", [
+        _c("i", { staticClass: "icofont icofont-deal inline-block" }),
+        _vm._v(" \n\t\t\t\t\t\tImpuestos\n\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "text-center" }, [
+        _c("th", [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Descripción")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha Vigencia")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Porcentaje")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Activo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-70f65f5b", module.exports)
   }
 }
 

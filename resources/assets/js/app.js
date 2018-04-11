@@ -48,6 +48,9 @@ Vue.component('parishes', require('./components/ParishesComponent.vue'));
 /** Componente para la gestión de estatus de documentos */
 Vue.component('document-status', require('./components/DocumentStatusComponent.vue'));
 
+/** Componente para la gestión de impuestos */
+Vue.component('taxes', require('./components/TaxesComponent.vue'));
+
 /** Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación */
 Vue.mixin({
 	methods: {

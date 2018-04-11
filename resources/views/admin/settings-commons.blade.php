@@ -44,13 +44,7 @@
 					<municipalities></municipalities>
 					<parishes></parishes>
 					<cities></cities>
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de Impuestos" data-toggle="tooltip">
-							<i class="icofont icofont-deal ico-3x"></i>
-							<span>Impuestos</span>
-						</a>
-					</div>
+					<taxes></taxes>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de Deducciones o Retenciones" 

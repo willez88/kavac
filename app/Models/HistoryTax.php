@@ -27,4 +27,12 @@ class HistoryTax extends Model
     protected $fillable = [
     	'operation_date', 'percentage', 'tax_id'
     ];
+
+    /**
+     * Get the Tax of the History
+     */
+    public function tax()
+    {
+        return $this->belongsTo('App\Models\Tax', 'tax_id');
+    }
 }
