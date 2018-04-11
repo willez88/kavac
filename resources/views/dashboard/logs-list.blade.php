@@ -142,7 +142,7 @@
 										}
 									@endphp
 		                            <tr>
-		                                <td class="{!! $registro_class !!}">
+		                                <td class="{{ $registro_class }}">
 		                                    {{ $history->created_at->format('d/m/Y') }}
 		                                     - 
 		                                    {{ $history->created_at->format('H:i:s') }}
