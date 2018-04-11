@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Estado de un Pais" 
-		   data-toggle="tooltip" @click="addRecord('add_estate')">
+		   data-toggle="tooltip" @click="addRecord('add_estate', 'estates')">
 			<i class="icofont icofont-map-search ico-3x"></i>
 			<span>Estados</span>
 		</a>
@@ -111,7 +111,7 @@
 			axios.get('/get-countries').then(response => {
 				this.countries = response.data;
 			});
-			this.readRecords('estates');
+			//this.readRecords('estates');
 		},
 	}
 </script>

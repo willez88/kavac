@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de Parroquias de un Municipio" 
-		   data-toggle="tooltip" @click="addRecord('add_parish')">
+		   data-toggle="tooltip" @click="addRecord('add_parish', 'parishes')">
 			<i class="icofont icofont-map-pins ico-3x"></i>
 			<span>Parroquias</span>
 		</a>
@@ -132,7 +132,7 @@
 			axios.get('/get-countries').then(response => {
 				this.countries = response.data;
 			});
-			this.readRecords('municipalities');
+			//this.readRecords('municipalities');
 		},
 		methods: {
 			getEstates() {

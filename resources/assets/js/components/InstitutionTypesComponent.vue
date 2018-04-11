@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de tipos de instituciones" 
-		   data-toggle="tooltip" @click="addRecord('add_institution_type')">
+		   data-toggle="tooltip" @click="addRecord('add_institution_type', 'institution-types')">
 			<i class="icofont icofont-building-alt ico-3x"></i>
 			<span>Tipo<br>Instituciones</span>
 		</a>
@@ -96,7 +96,7 @@
 			}
 		},
 		mounted() {
-			this.readRecords('institution-types');
+			//this.readRecords('institution-types');
 		},
 	}
 </script>

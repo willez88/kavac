@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros para sectores de instituciones" 
-		   data-toggle="tooltip" @click="addRecord('add_institution_sector')">
+		   data-toggle="tooltip" @click="addRecord('add_institution_sector', 'institution-sectors')">
 			<i class="icofont icofont-focus ico-3x"></i>
 			<span>Sector<br>Instituciones</span>
 		</a>
@@ -88,7 +88,7 @@
 			}
 		},
 		mounted() {
-			this.readRecords('institution-sectors');
+			//this.readRecords('institution-sectors');
 		},
 	}
 </script>

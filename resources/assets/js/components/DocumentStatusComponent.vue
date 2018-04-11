@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
 		   title="Registros de estados de los documentos" data-toggle="tooltip" 
-		   @click="addRecord('add_doc_status')">
+		   @click="addRecord('add_doc_status', 'document-status')">
 		   	<i class="icofont icofont-ui-copy ico-3x"></i>
 			<span>Estatus<br>Documentos</span>
 		</a>
@@ -119,7 +119,7 @@
 			}
 		},
 		mounted() {
-			this.readRecords('document-status');
+			//this.readRecords('document-status');
 		}
 	}
 </script>

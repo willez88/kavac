@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de profesiones" data-toggle="tooltip" 
-		   @click="addRecord('add_profession')">
+		   @click="addRecord('add_profession', 'professions')">
 			<i class="icofont icofont-graduate-alt ico-3x"></i>
 			<span>Profesiones</span>
 		</a>
@@ -98,7 +98,7 @@
 			}
 		},
 		mounted() {
-			this.readRecords('professions');
+			//this.readRecords('professions');
 		},
 	}
 </script>

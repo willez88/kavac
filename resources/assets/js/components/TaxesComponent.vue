@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de Impuestos" data-toggle="tooltip" 
-		   @click="addRecord('add_tax')">
+		   @click="addRecord('add_tax', 'taxes')">
 			<i class="icofont icofont-deal ico-3x"></i>
 			<span>Impuestos</span>
 		</a>
@@ -139,7 +139,7 @@
 			}
 		},
 		mounted() {
-			this.readRecords('taxes');
+			//this.readRecords('taxes');
 		},
 	}
 </script>

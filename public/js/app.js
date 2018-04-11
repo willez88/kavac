@@ -19894,6 +19894,7 @@ Vue.mixin({
 	methods: {
 		/**
    * Método que borra todos los datos del formulario
+   * 
    * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
    */
 		reset: function reset() {
@@ -19902,6 +19903,7 @@ Vue.mixin({
 
 		/**
    * Mérodo que obtiene los registros a mostrar
+   * 
    * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
    * @param  {string} url Ruta que obtiene todos los registros solicitados
    */
@@ -19916,18 +19918,21 @@ Vue.mixin({
 		/**
    * Método que permite mostrar una ventana emergente con la información registrada 
    * y la nueva a registrar
+   * 
    * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
    * @param {string} modal_id Identificador de la ventana modal
    */
-		addRecord: function addRecord(modal_id) {
+		addRecord: function addRecord(modal_id, url) {
 			event.preventDefault();
 			this.errors = [];
 			this.reset();
 			$("#" + modal_id).modal('show');
+			this.readRecords(url);
 		},
 
 		/**
    * Método que permite crear o actualizar un registro
+   * 
    * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
    * @param  {string} url Ruta de la acción a ejecutar para la creación o actualización de datos
    */
@@ -19961,6 +19966,7 @@ Vue.mixin({
 
 		/**
    * Método que carga el formulario con los datos a modificar
+   * 
    * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
    * @param  {integer} index Identificador del registro a ser modificado
    */
@@ -19972,6 +19978,7 @@ Vue.mixin({
 
 		/**
    * Método que permite actualizar información
+   * 
    * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
    * @param  {string} url Ruta de la acci´on que modificará los datos
    */
@@ -20001,6 +20008,7 @@ Vue.mixin({
 
 		/**
    * Método para la eliminación de registros
+   * 
    * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
    * @param  {integer} index Elemento seleccionado para su eliminación
    * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
@@ -20020,16 +20028,18 @@ Vue.mixin({
 
 		/**
    * Método que muestra un mensaje al usuario sobre el resultado de una acción
+   * 
    * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
    * @param  {string} type      Tipo de mensaje a mostrar
    * @param  {string} msg_title Título del mensaje (opcional)
    * @param  {string} msg_class Clase CSS a utilizar en el mensaje (opcional)
    * @param  {string} msg_icon  Ícono a mostrar en el mensaje (opcional)
    */
-		showMessage: function showMessage(type, msg_title, msg_class, msg_icon) {
+		showMessage: function showMessage(type, msg_title, msg_class, msg_icon, custom_text) {
 			msg_title = !msg_title ? 'Éxito' : msg_title;
 			msg_class = !msg_class ? 'growl-success' : 'glowl-' + msg_class;
 			msg_icon = !msg_icon ? 'screen-ok' : msg_icon;
+			custom_text = typeof custom_text !== "undefined" ? custom_text : '';
 
 			var msg_text;
 			if (type == 'store') {
@@ -20038,8 +20048,11 @@ Vue.mixin({
 				msg_text = 'Registro actualizado con éxito';
 			} else if (type == 'destroy') {
 				msg_text = 'Registro eliminado con éxito';
+			} else if (type == 'custom') {
+				msg_text = custom_text;
 			}
 
+			/** @type {object} Muestra el correspondiente mensaje al usuario */
 			$.gritter.add({
 				title: msg_title,
 				text: msg_text,
@@ -58599,7 +58612,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords('marital-status');
+		//this.readRecords('marital-status');
 	}
 });
 
@@ -58623,7 +58636,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_marital_status")
+            _vm.addRecord("add_marital_status", "marital-status")
           }
         }
       },
@@ -59037,7 +59050,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords('professions');
+		//this.readRecords('professions');
 	}
 });
 
@@ -59061,7 +59074,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_profession")
+            _vm.addRecord("add_profession", "professions")
           }
         }
       },
@@ -59480,7 +59493,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords('institution-types');
+		//this.readRecords('institution-types');
 	}
 });
 
@@ -59504,7 +59517,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_institution_type")
+            _vm.addRecord("add_institution_type", "institution-types")
           }
         }
       },
@@ -59924,7 +59937,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords('institution-sectors');
+		//this.readRecords('institution-sectors');
 	}
 });
 
@@ -59948,7 +59961,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_institution_sector")
+            _vm.addRecord("add_institution_sector", "institution-sectors")
           }
         }
       },
@@ -60331,6 +60344,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -60345,7 +60359,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords('countries');
+		//this.readRecords('countries');
 	}
 });
 
@@ -60369,7 +60383,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_country")
+            _vm.addRecord("add_country", "countries")
           }
         }
       },
@@ -60805,7 +60819,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		axios.get('/get-countries').then(function (response) {
 			_this.countries = response.data;
 		});
-		this.readRecords('estates');
+		//this.readRecords('estates');
 	}
 });
 
@@ -60829,7 +60843,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_estate")
+            _vm.addRecord("add_estate", "estates")
           }
         }
       },
@@ -61310,7 +61324,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		axios.get('/get-countries').then(function (response) {
 			_this.countries = response.data;
 		});
-		this.readRecords('municipalities');
+		//this.readRecords('municipalities');
 	},
 
 	methods: {
@@ -61346,7 +61360,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_municipality")
+            _vm.addRecord("add_municipality", "municipalities")
           }
         }
       },
@@ -61907,7 +61921,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		axios.get('/get-countries').then(function (response) {
 			_this.countries = response.data;
 		});
-		this.readRecords('municipalities');
+		//this.readRecords('municipalities');
 	},
 
 	methods: {
@@ -61952,7 +61966,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_parish")
+            _vm.addRecord("add_parish", "parishes")
           }
         }
       },
@@ -62474,7 +62488,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords('document-status');
+		//this.readRecords('document-status');
 	}
 });
 
@@ -62498,7 +62512,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_doc_status")
+            _vm.addRecord("add_doc_status", "document-status")
           }
         }
       },
@@ -65475,7 +65489,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		axios.get('/get-countries').then(function (response) {
 			_this.countries = response.data;
 		});
-		this.readRecords('cities');
+		/*this.readRecords('cities');*/
 	},
 
 	methods: {
@@ -65511,7 +65525,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_city")
+            _vm.addRecord("add_city", "cities")
           }
         }
       },
@@ -65993,7 +66007,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.readRecords('taxes');
+		//this.readRecords('taxes');
 	}
 });
 
@@ -66017,7 +66031,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_tax")
+            _vm.addRecord("add_tax", "taxes")
           }
         }
       },

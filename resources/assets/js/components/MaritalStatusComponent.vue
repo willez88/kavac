@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
 		   title="Registros de estados civiles" data-toggle="tooltip" 
-		   @click="addRecord('add_marital_status')">
+		   @click="addRecord('add_marital_status', 'marital-status')">
 			<i class="fa fa-female ico-3x inline-block"></i>
 			<i class="fa fa-male ico-3x nopadding-left"></i>
 			<span>Estados<br>Civiles</span>
@@ -85,7 +85,7 @@
 		},
 		mounted()
 		{
-			this.readRecords('marital-status');
+			//this.readRecords('marital-status');
 		},
 	}
 </script>
