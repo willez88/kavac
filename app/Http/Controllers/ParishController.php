@@ -82,7 +82,18 @@ class ParishController extends Controller
      */
     public function update(Request $request, Parish $parish)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'code' => 'required|max:10',
+            'municipality_id' => 'required'
+        ]);
+ 
+        $parish->name = $request->input('name');
+        $parish->code = $request->input('code');
+        $parish->municipality_id = $request->input('municipality_id');
+        $parish->save();
+ 
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
@@ -93,6 +104,7 @@ class ParishController extends Controller
      */
     public function destroy(Parish $parish)
     {
-        //
+        $parish->delete();
+        return response()->json(['record' => $parish, 'message' => 'Success'], 200);
     }
 }
