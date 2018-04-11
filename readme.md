@@ -8,11 +8,11 @@ Provee de la mayoría de las herramientas requeridas para una correcta gestión 
 
 ## Antecedentes
 
-Mencionar al SAID y sus distintos enlaces
+Esta aplicación cuenta con funcionalidades y mejoras con respecto a otras herramientas de las cuales se tomaron en consideración algunos de sus procesos, implementando nuevos parádigmas de desarrollo acordes a las tendencias tecnológicas del momento.
 
-- [enlace 1](http://enlace1).
-- [enlace 2](http://enlace2).
-- [enlace 3](http://enlace3).
+Como antecedentes de esta aplicación se consideran los siguientes:
+
+- [SAID - Sistema Administrativo Integrado Descentralizado](http://said.cenditel.gob.ve/wiki).
 
 ## Pre-requisitos
 
@@ -69,31 +69,14 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > PUSHER_APP_SECRET
 > PUSHER_APP_CLUSTER
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+## Documentación
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+La aplicación cuenta con una amplia documentación técnica y para usuarios del sistema, las cuales se encuentran bajo las siguientes rutas:
 
-## Contributing
+- [Técnica]()
+- [Usuario]()
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## Licencia
 
