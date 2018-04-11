@@ -43,14 +43,7 @@
 					<estates></estates>
 					<municipalities></municipalities>
 					<parishes></parishes>
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de Ciudades de un Estado" 
-						   data-toggle="tooltip">
-							<i class="icofont icofont-5-star-hotel ico-3x"></i>
-							<span>Ciudades</span>
-						</a>
-					</div>
+					<cities></cities>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de Impuestos" data-toggle="tooltip">
