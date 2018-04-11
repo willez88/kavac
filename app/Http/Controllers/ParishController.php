@@ -14,7 +14,7 @@ class ParishController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['records' => Parish::with('municipality')->get()], 200);
     }
 
     /**
@@ -35,7 +35,20 @@ class ParishController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'code' => 'required|max:10',
+            'municipality_id' => 'required'
+        ]);
+
+
+        $parish = Parish::create([
+            'name' => $request->input('name'),
+            'code' => $request->input('code'),
+            'municipality_id' => $request->input('municipality_id')
+        ]);
+
+        return response()->json(['record' => $parish, 'message' => 'Success'], 200);
     }
 
     /**

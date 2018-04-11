@@ -31,6 +31,6 @@ class Image extends Model
      */
     public function institutions()
     {
-        return $this->hasMany(App\Models\Institution::class);
+        return $this->hasMany('App\Models\Institution');
     }
 }

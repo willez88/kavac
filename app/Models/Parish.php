@@ -31,7 +31,7 @@ class Parish extends Model
      */
 	public function municipality()
     {
-        return $this->belongsTo(App\Models\Municipality::class, 'municipality_id');
+        return $this->belongsTo('App\Models\Municipality', 'municipality_id');
     }
 
     /**
