@@ -19836,60 +19836,108 @@ module.exports = __webpack_require__(92);
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 /**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+*--------------------------------------------------------------------------
+* App Scripts
+*--------------------------------------------------------------------------
+*
+* Scripts a compilar por la aplicación
+*/
 
 __webpack_require__(15);
 
 window.Vue = __webpack_require__(43);
 
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
  */
-
-/** Componente genérico para el uso de listas desplegables con select2 */
 Vue.component('select2', __webpack_require__(46));
 
-/** Componente para la gestión de estados civiles */
+/**
+ * Componente para la gestión de estados civiles
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('marital-status', __webpack_require__(54));
 
-/** Componente para la gestión de profesiones */
+/**
+ * Componente para la gestión de profesiones
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('professions', __webpack_require__(57));
 
-/** Componente para la gestión de tipos de instituciones */
+/**
+ * Componente para la gestión de tipos de instituciones
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('institution-types', __webpack_require__(60));
 
-/** Componente para la configuración y gestión de sectores de instituciones */
+/**
+ * Componente para la configuración y gestión de sectores de instituciones
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('institution-sectors', __webpack_require__(63));
 
-/** Componente para la gestión de Países */
+/**
+ * Componente para la gestión de Países
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('countries', __webpack_require__(66));
 
-/** Componente para la gestión de Estados */
+/**
+ * Componente para la gestión de Estados
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('estates', __webpack_require__(69));
 
-/** Componente para la gestión de Municipio */
+/**
+ * Componente para la gestión de Municipio
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('municipalities', __webpack_require__(72));
 
-/** Componente para la gestión de Ciudades */
+/**
+ * Componente para la gestión de Ciudades
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('cities', __webpack_require__(75));
 
-/** Componente para la gestión de Parroquias */
+/**
+ * Componente para la gestión de Parroquias
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('parishes', __webpack_require__(76));
 
-/** Componente para la gestión de estatus de documentos */
+/**
+ * Componente para la gestión de estatus de documentos
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('document-status', __webpack_require__(79));
 
-/** Componente para la gestión de impuestos */
+/**
+ * Componente para la gestión de impuestos
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('taxes', __webpack_require__(118));
 
-/** Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación */
+/**
+ * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
+ * 
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @param  {object} methods Métodos generales a implementar en CRUDS
+ */
 Vue.mixin({
 	methods: {
 		/**
