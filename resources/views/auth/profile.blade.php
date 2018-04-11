@@ -55,23 +55,38 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             {!! Form::label('name', 'Nombre y Apellido', []) !!}
-                                            {!! Form::text('name', $model->name, [
-                                                    'class' => 'form-control input-sm', 'readonly' => 'readonly',
+                                            <div class="input-group input-sm">
+                                                <span class="input-group-addon readonly">
+                                                    <i class="now-ui-icons users_single-02"></i>
+                                                </span>
+                                                {!! Form::text('name', $model->name, [
+                                                    'class' => 'form-control input-sm', 
+                                                    'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Nombre y Apellido. Este dato solo puede ser modificado por personal autorizado.'
-                                                ]
-                                            ) !!}
+                                                    'title' => 'Nombre y Apellido. Este dato solo ' . 
+                                                               'puede ser modificado por personal ' . 
+                                                               'autorizado.'
+                                                ]) !!}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             {!! Form::label('position', 'Cargo', []) !!}
-                                            {!! Form::text('position', /*$model->position*/null, [
-                                                    'class' => 'form-control input-sm', 'readonly' => 'readonly',
+                                            <div class="input-group input-sm">
+                                                <span class="input-group-addon readonly">
+                                                    <i class="now-ui-icons education_agenda-bookmark">
+                                                    </i>
+                                                </span>
+                                                {!! Form::text('position', /*$model->position*/null, [
+                                                    'class' => 'form-control input-sm', 
+                                                    'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Cargo en la institución. Este dato solo puede ser modificado por personal autorizado.'
-                                                ]
-                                            ) !!}
+                                                    'title' => 'Cargo en la institución. Este dato ' . 
+                                                               'solo puede ser modificado por ' . 
+                                                               'personal autorizado.'
+                                                ]) !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -79,24 +94,36 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             {!! Form::label('email', 'Correo Electrónico', []) !!}
-                                            {!! Form::email('email', $model->email, [
-                                                    'class' => 'form-control input-sm', 'readonly' => 'readonly',
+                                            <div class="input-group input-sm">
+                                                <span class="input-group-addon readonly">
+                                                    <i class="now-ui-icons ui-1_email-85"></i>
+                                                </span>
+                                                {!! Form::email('email', $model->email, [
+                                                    'class' => 'form-control input-sm', 
+                                                    'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Correo electrónico. Este dato solo puede ser modificado por personal autorizado.'
-                                                ]
-                                            ) !!}
+                                                    'title' => 'Correo electrónico. Este dato solo ' . 
+                                                               'puede ser modificado por personal ' . 
+                                                               'autorizado.'
+                                                ]) !!}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             {!! Form::label('username', 'Usuario', []) !!}
-                                            {!! Form::text('username', $model->username, [
-                                                    'class' => 'form-control input-sm', 'readonly' => 'readonly',
+                                            <div class="input-group input-sm">
+                                                <span class="input-group-addon readonly">
+                                                    <i class="now-ui-icons users_circle-08"></i>
+                                                </span>
+                                                {!! Form::text('username', $model->username, [
+                                                    'class' => 'form-control', 'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Nombre de usuario para acceso al sistema. ' . 
-                                                               'Este dato solo puede ser modificado por personal autorizado.'
-                                                ]
-                                            ) !!}
+                                                    'title' => 'Nombre de usuario para acceso al ' . 
+                                                               'sistema. Este dato solo puede ser ' . 
+                                                               'modificado por personal autorizado.'
+                                                ]) !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -104,11 +131,17 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             {!! Form::label('password', 'Nueva Contraseña', []) !!}
-                                            {!! Form::password('password', [
-                                                    'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
-                                                    'title' => 'Introduzca la nueva contraseña de acceso al sistema'
-                                                ]
-                                            ) !!}
+                                            <div class="input-group input-sm">
+                                                <span class="input-group-addon">
+                                                    <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                                                </span>
+                                                {!! Form::password('password', [
+                                                    'class' => 'form-control input-sm', 
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Introduzca la nueva contraseña de ' . 
+                                                               'acceso al sistema'
+                                                ]) !!}
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="progress-container">
@@ -125,11 +158,17 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             {!! Form::label('password_confirmation', 'Confirmar Contraseña', []) !!}
-                                            {!! Form::password('password_confirmation', [
-                                                    'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
-                                                    'title' => 'Introduzca nuevamente la nueva contraseña de acceso al sistema'
-                                                ]
-                                            ) !!}
+                                            <div class="input-group input-sm">
+                                                <span class="input-group-addon">
+                                                    <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                                                </span>
+                                                {!! Form::password('password_confirmation', [
+                                                    'class' => 'form-control input-sm', 
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Introduzca nuevamente la nueva ' . 
+                                                               'contraseña de acceso al sistema'
+                                                ]) !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
