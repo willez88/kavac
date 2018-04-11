@@ -75,8 +75,7 @@
                                             'class' => 'btn btn-danger btn-xs btn-icon btn-round',
                                             'data-toggle' => 'tooltip', 'type' => 'button',
                                             'title' => 'Eliminar respaldo', 
-                                            'onclick' => 'location.href="' . 
-                                            url('backup/delete/' .$backup['file_name'] ) .'"'
+                                            'onclick' => 'delete_backup("'.$backup['file_name'].'")'
                                         ]) !!}
                                     </td>
                                 </tr>
@@ -87,4 +86,18 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('extra-js')
+    @parent
+    <script>
+        function delete_backup(filename) {
+            bootbox.confirm('Esta seguro de eliminar este respaldo?', function(result) {
+                if (result) {
+                    location.href="/backup/delete/" + filename;
+                }
+                event.preventDefault();
+            });
+        }
+    </script>
 @endsection
