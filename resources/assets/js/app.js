@@ -128,7 +128,7 @@ Vue.mixin({
 		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
 		 * @param {string} modal_id Identificador de la ventana modal
 		 */
-		addRecord(modal_id, url) {
+		addRecord(modal_id, url, event) {
 			event.preventDefault();
 			this.errors = [];
 			this.reset();
@@ -174,7 +174,7 @@ Vue.mixin({
 		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
 		 * @param  {integer} index Identificador del registro a ser modificado
 		 */
-		initUpdate(index) {
+		initUpdate(index, event) {
 			this.errors = [];
 			this.record = this.records[index];
 			event.preventDefault();

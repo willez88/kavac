@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de Ciudades de un Estado" 
-		   data-toggle="tooltip" @click="addRecord('add_city', 'cities')">
+		   data-toggle="tooltip" @click="addRecord('add_city', 'cities', $event)">
 			<i class="icofont icofont-5-star-hotel ico-3x"></i>
 			<span>Ciudades</span>
 		</a>
@@ -64,7 +64,9 @@
 									<td>{{ rec.estate.name }}</td>
 									<td>{{ rec.name }}</td>
 									<td class="text-center" width="10%">
-										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
+										<button @click="initUpdate(index, $event)" 
+												class="btn btn-warning btn-xs btn-icon btn-round" 
+												title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
 										</button>
 										<button @click="deleteRecord(index, 'cities')" 

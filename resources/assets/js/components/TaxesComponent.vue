@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de Impuestos" data-toggle="tooltip" 
-		   @click="addRecord('add_tax', 'taxes')">
+		   @click="addRecord('add_tax', 'taxes', $event)">
 			<i class="icofont icofont-deal ico-3x"></i>
 			<span>Impuestos</span>
 		</a>
@@ -93,7 +93,9 @@
 									<td v-if="rec.active">Activo</td>
 									<td v-else>Inactivo</td>
 									<td class="text-center" width="10%">
-										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
+										<button @click="initUpdate(index, $event)" 
+												class="btn btn-warning btn-xs btn-icon btn-round" 
+												title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
 										</button>
 										<button @click="deleteRecord(index, 'taxes')" 

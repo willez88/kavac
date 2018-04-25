@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de Parroquias de un Municipio" 
-		   data-toggle="tooltip" @click="addRecord('add_parish', 'parishes')">
+		   data-toggle="tooltip" @click="addRecord('add_parish', 'parishes', $event)">
 			<i class="icofont icofont-map-pins ico-3x"></i>
 			<span>Parroquias</span>
 		</a>
@@ -81,7 +81,9 @@
 									<td>{{ rec.name }}</td>
 									<td class="text-center">{{ rec.code }}</td>
 									<td class="text-center" width="10%">
-										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
+										<button @click="initUpdate(index, $event)" 
+												class="btn btn-warning btn-xs btn-icon btn-round" 
+												title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
 										</button>
 										<button @click="deleteRecord(index, 'parishes')" 

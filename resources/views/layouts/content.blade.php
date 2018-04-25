@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="app-content">
+    <div class="app-content" id="app">
     	@yield('content')
     </div>
     <footer class="footer footer-default">

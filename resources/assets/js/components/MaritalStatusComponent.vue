@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
 		   title="Registros de estados civiles" data-toggle="tooltip" 
-		   @click="addRecord('add_marital_status', 'marital-status')">
+		   @click="addRecord('add_marital_status', 'marital-status', $event)">
 			<i class="fa fa-female ico-3x inline-block"></i>
 			<i class="fa fa-male ico-3x nopadding-left"></i>
 			<span>Estados<br>Civiles</span>
@@ -45,7 +45,9 @@
 								<tr v-for="(rec, index) in records">
 									<td>{{ rec.name }}</td>
 									<td class="text-center" width="10%">
-										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
+										<button @click="initUpdate(index, $event)" 
+												class="btn btn-warning btn-xs btn-icon btn-round" 
+												title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
 										</button>
 										<button @click="deleteRecord(index, 'marital-status')" 

@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
 		   title="Registros de estados de los documentos" data-toggle="tooltip" 
-		   @click="addRecord('add_doc_status', 'document-status')">
+		   @click="addRecord('add_doc_status', 'document-status', $event)">
 		   	<i class="icofont icofont-ui-copy ico-3x"></i>
 			<span>Estatus<br>Documentos</span>
 		</a>
@@ -68,7 +68,7 @@
 									</td>
 									<td>{{ rec.description }}</td>
 									<td class="text-center" width="10%">
-										<button @click="initUpdate(index)" 
+										<button @click="initUpdate(index, $event)" 
 												class="btn btn-warning btn-xs btn-icon btn-round" 
 												title="Modificar registro" data-toggle="tooltip" 
 												type="button">

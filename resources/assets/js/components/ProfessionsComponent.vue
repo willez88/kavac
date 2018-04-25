@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de profesiones" data-toggle="tooltip" 
-		   @click="addRecord('add_profession', 'professions')">
+		   @click="addRecord('add_profession', 'professions', $event)">
 			<i class="icofont icofont-graduate-alt ico-3x"></i>
 			<span>Profesiones</span>
 		</a>
@@ -56,7 +56,9 @@
 									<td>{{ rec.acronym }}</td>
 									<td>{{ rec.name }}</td>
 									<td class="text-center" width="10%">
-										<button @click="initUpdate(index)" class="btn btn-warning btn-xs btn-icon btn-round" title="Modificar registro" data-toggle="tooltip" type="button">
+										<button @click="initUpdate(index, $event)" 
+												class="btn btn-warning btn-xs btn-icon btn-round" 
+												title="Modificar registro" data-toggle="tooltip" type="button">
 											<i class="fa fa-edit"></i>
 										</button>
 										<button @click="deleteRecord(index, 'professions')" 
