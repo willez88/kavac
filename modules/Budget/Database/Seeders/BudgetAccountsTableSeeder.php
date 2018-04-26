@@ -4,6 +4,8 @@ namespace Modules\Budget\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Modules\Budget\Models\BudgetAccount;
 
 class BudgetAccountsTableSeeder extends Seeder
 {
@@ -15,7 +17,7 @@ class BudgetAccountsTableSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
+        
         $budget_accounts = [
             [
                 'group' => '3', 'item' => '00', 'generic' => '00', 'specific' => '00', 'subspecific' => '00',
@@ -1356,7 +1358,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '02', 'generic' => '01', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Colocación de tÃ­tulos y valores de la deuda pÃºblica interna a largo plazo',
+                'denomination' => 'Colocación de títulos y valores de la deuda pública interna a largo plazo',
                 'active' => true
             ],
             [
@@ -1381,7 +1383,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '02', 'generic' => '01', 'specific' => '04', 'subspecific' => '02',
-                'denomination' => 'Obtención de préstamos de la RepÃºblica a largo plazo',
+                'denomination' => 'Obtención de préstamos de la República a largo plazo',
                 'active' => true
             ],
             [
@@ -2322,7 +2324,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '06', 'generic' => '03', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Incremento de la depreciación acumulada de maquinarias y demás equipos de construcción, campo, industria y taller',
+                'denomination' => 'Incremento de la depreciación acumulada de maquinarias y demás equipos de construcción, campo, ' . 
+                                  'industria y taller',
                 'active' => true
             ],
             [
@@ -2477,12 +2480,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '08', 'generic' => '02', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Venta de acciones y participaciones de capital de entes descentralizados con fines empresariales petroleros',
+                'denomination' => 'Venta de acciones y participaciones de capital de entes descentralizados con fines empresariales ' . 
+                                  'petroleros',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '08', 'generic' => '02', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Venta de acciones y participaciones de capital de entes descentralizados con fines empresariales no petroleros',
+                'denomination' => 'Venta de acciones y participaciones de capital de entes descentralizados con fines empresariales ' . 
+                                  'no petroleros',
                 'active' => true
             ],
             [
@@ -2547,12 +2552,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '09', 'generic' => '02', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Recuperación de préstamos otorgados a entes descentralizados con fines empresariales petroleros de corto plazo',
+                'denomination' => 'Recuperación de préstamos otorgados a entes descentralizados con fines empresariales petroleros de ' . 
+                                  'corto plazo',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '09', 'generic' => '02', 'specific' => '05', 'subspecific' => '00',
-                'denomination' => 'Recuperación de préstamos otorgados a entes descentralizados con fines empresariales no petroleros de corto plazo',
+                'denomination' => 'Recuperación de préstamos otorgados a entes descentralizados con fines empresariales no petroleros ' . 
+                                  'de corto plazo',
                 'active' => true
             ],
             [
@@ -2632,12 +2639,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Recuperación de préstamos otorgados a entes descentralizados con fines empresariales petroleros de largo plazo',
+                'denomination' => 'Recuperación de préstamos otorgados a entes descentralizados con fines empresariales petroleros de ' . 
+                                  'largo plazo',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '10', 'generic' => '02', 'specific' => '05', 'subspecific' => '00',
-                'denomination' => 'Recuperación de préstamos otorgados a entes descentralizados con fines empresariales no petroleros de largo plazo',
+                'denomination' => 'Recuperación de préstamos otorgados a entes descentralizados con fines empresariales no petroleros ' . 
+                                  'de largo plazo',
                 'active' => true
             ],
             [
@@ -2852,12 +2861,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '11', 'generic' => '07', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Disminución de intereses de la deuda pÃºblica interna a corto plazo pagados por anticipado',
+                'denomination' => 'Disminución de intereses de la deuda pública interna a corto plazo pagados por anticipado',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '11', 'generic' => '07', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Disminución de intereses de la deuda pÃºblica externa a corto plazo pagados por anticipado',
+                'denomination' => 'Disminución de intereses de la deuda pública externa a corto plazo pagados por anticipado',
                 'active' => true
             ],
             [
@@ -2877,7 +2886,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '11', 'generic' => '07', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Disminución de depósitos en garantÃ­a a corto plazo',
+                'denomination' => 'Disminución de depósitos en garantía a corto plazo',
                 'active' => true
             ],
             [
@@ -2897,12 +2906,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '11', 'generic' => '08', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Disminución de intereses de la deuda pÃºblica interna a largo plazo pagados por anticipado',
+                'denomination' => 'Disminución de intereses de la deuda pública interna a largo plazo pagados por anticipado',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '11', 'generic' => '08', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Disminución de intereses de la deuda pÃºblica externa a largo plazo pagados por anticipado',
+                'denomination' => 'Disminución de intereses de la deuda pública externa a largo plazo pagados por anticipado',
                 'active' => true
             ],
             [
@@ -2917,7 +2926,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '11', 'generic' => '08', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Disminución de depósitos en garantÃ­a a mediano y largo plazo',
+                'denomination' => 'Disminución de depósitos en garantía a mediano y largo plazo',
                 'active' => true
             ],
             [
@@ -2932,7 +2941,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '11', 'generic' => '09', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Disminución del Fondo de Estabilización Macroeconómica (FEM) de la RepÃºblica',
+                'denomination' => 'Disminución del Fondo de Estabilización Macroeconómica (FEM) de la República',
                 'active' => true
             ],
             [
@@ -2967,12 +2976,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '11', 'generic' => '12', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Disminución del Fondo de Aporte del Sector PÃºblico',
+                'denomination' => 'Disminución del Fondo de Aporte del Sector Público',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '11', 'generic' => '12', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Disminución del Fondo de Aporte del Sector PÃºblico',
+                'denomination' => 'Disminución del Fondo de Aporte del Sector Público',
                 'active' => true
             ],
             [
@@ -3027,12 +3036,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '12', 'generic' => '02', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Incremento de aportes patronales y retenciones laborales por pagar al Instituto Venezolano de los Seguros Sociales (IVSS)',
+                'denomination' => 'Incremento de aportes patronales y retenciones laborales por pagar al Instituto Venezolano de los ' . 
+                                  'Seguros Sociales (IVSS)',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '12', 'generic' => '02', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Incremento de aportes patronales y retenciones laborales por pagar al Instituto de Previsión Social del Ministerio de Educación (Ipasme)',
+                'denomination' => 'Incremento de aportes patronales y retenciones laborales por pagar al Instituto de Previsión Social ' . 
+                                  'del Ministerio de Educación (Ipasme)',
                 'active' => true
             ],
             [
@@ -3052,7 +3063,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '12', 'generic' => '02', 'specific' => '06', 'subspecific' => '00',
-                'denomination' => 'Incremento de aportes patronales y retenciones laborales por pagar por seguro de vida, accidentes personales, hospitalización, cirugÃ­a y maternidad (HCM) y gastos funerarios',
+                'denomination' => 'Incremento de aportes patronales y retenciones laborales por pagar por seguro de vida, accidentes personales, hospitalización, cirugía y maternidad (HCM) y gastos funerarios',
                 'active' => true
             ],
             [
@@ -3067,7 +3078,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '12', 'generic' => '02', 'specific' => '09', 'subspecific' => '00',
-                'denomination' => 'Incremento de aportes patronales y retenciones laborales por pagar al Instituto de Cooperación Educativa (INCE)',
+                'denomination' => 'Incremento de aportes patronales y retenciones laborales por pagar al Instituto de Cooperación ' . 
+                                  'Educativa (INCE)',
                 'active' => true
             ],
             [
@@ -3307,22 +3319,26 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '12', 'generic' => '11', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Incremento por reestructuración y/o refinanciamiento de la deuda pública interna de largo plazo en corto plazo',
+                'denomination' => 'Incremento por reestructuración y/o refinanciamiento de la deuda pública interna de largo plazo en ' . 
+                                  'corto plazo',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '12', 'generic' => '11', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Incremento por reestructuración y/o refinanciamiento de la deuda pública interna de corto plazo en largo plazo',
+                'denomination' => 'Incremento por reestructuración y/o refinanciamiento de la deuda pública interna de corto plazo en ' . 
+                                  'largo plazo',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '12', 'generic' => '11', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Incremento por reestructuración y/o refinanciamiento de la deuda pública externa de largo plazo en corto plazo',
+                'denomination' => 'Incremento por reestructuración y/o refinanciamiento de la deuda pública externa de largo plazo en ' . 
+                                  'corto plazo',
                 'active' => true
             ],
             [
                 'group' => '3', 'item' => '12', 'generic' => '11', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Incremento por reestructuración y/o refinanciamiento de la deuda pública externa de corto plazo en largo plazo',
+                'denomination' => 'Incremento por reestructuración y/o refinanciamiento de la deuda pública externa de corto plazo en ' . 
+                                  'largo plazo',
                 'active' => true
             ],
             [
@@ -3847,7 +3863,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '01', 'generic' => '05', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Aguinaldos, utilidades o bonificación legal, y bono vacacional a empleados, obreros, contratados, personal militar y parlamentarios',
+                'denomination' => 'Aguinaldos, utilidades o bonificación legal, y bono vacacional a empleados, obreros, contratados, ' . 
+                                  'personal militar y parlamentarios',
                 'active' => true
             ],
             [
@@ -3922,7 +3939,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '01', 'generic' => '06', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Aporte patronal al Instituto de Previsión y Asistencia Social para el personal del Ministerio de Educación (IPASME) por empleados',
+                'denomination' => 'Aporte patronal al Instituto de Previsión y Asistencia Social para el personal del Ministerio de ' . 
+                                  'Educación (IPASME) por empleados',
                 'active' => true
             ],
             [
@@ -3962,7 +3980,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '01', 'generic' => '06', 'specific' => '18', 'subspecific' => '00',
-                'denomination' => 'Aporte patronal a los organismos de seguridad social por los trabajadores locales empleados en las representaciones de Venezuela en el exterior',
+                'denomination' => 'Aporte patronal a los organismos de seguridad social por los trabajadores locales empleados en ' . 
+                                  'las representaciones de Venezuela en el exterior',
                 'active' => true
             ],
             [
@@ -4037,7 +4056,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '01', 'generic' => '07', 'specific' => '08', 'subspecific' => '00',
-                'denomination' => 'Aporte patronal al seguro de vida, accidentes personales, hospitalización, cirugí­a, maternidad (HCM) y gastos funerarios por empleados',
+                'denomination' => 'Aporte patronal al seguro de vida, accidentes personales, hospitalización, cirugí­a, maternidad (HCM) ' . 
+                                  'y gastos funerarios por empleados',
                 'active' => false
             ],
             [
@@ -4212,7 +4232,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '01', 'generic' => '08', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Prestaciones sociales e indemnizaciones a empleados, obreros, contratados, personal militar y parlamentarios ',
+                'denomination' => 'Prestaciones sociales e indemnizaciones a empleados, obreros, contratados, personal militar y ' . 
+                                  'parlamentarios ',
                 'active' => true
             ],
             [
@@ -5067,7 +5088,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '03', 'generic' => '11', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Conservación y reparaciones menores de maquinaria y demás equipos de construcción, campo, industria y taller',
+                'denomination' => 'Conservación y reparaciones menores de maquinaria y demás equipos de construcción, campo, industria ' . 
+                                  'y taller',
                 'active' => true
             ],
             [
@@ -5772,7 +5794,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '01', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Aportes en acciones y participaciones de capital al sector pÃºblico',
+                'denomination' => 'Aportes en acciones y participaciones de capital al sector público',
                 'active' => true
             ],
             [
@@ -5787,12 +5809,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '01', 'specific' => '02', 'subspecific' => '03',
-                'denomination' => 'Aportes en acciones y participaciones de capital a entes descentralizados con fines empresariales petroleros',
+                'denomination' => 'Aportes en acciones y participaciones de capital a entes descentralizados con fines empresariales ' . 
+                                  'petroleros',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '01', 'specific' => '02', 'subspecific' => '04',
-                'denomination' => 'Aportes en acciones y participaciones de capital a entes descentralizados con fines empresariales no petroleros',
+                'denomination' => 'Aportes en acciones y participaciones de capital a entes descentralizados con fines empresariales ' . 
+                                  'no petroleros',
                 'active' => true
             ],
             [
@@ -5807,7 +5831,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '01', 'specific' => '02', 'subspecific' => '07',
-                'denomination' => 'Aportes en acciones y participaciones de capital  a organismos del sector pÃºblico para el pago de su deuda',
+                'denomination' => 'Aportes en acciones y participaciones de capital  a organismos del sector público para el pago de ' . 
+                                  'su deuda',
                 'active' => true
             ],
             [
@@ -5862,12 +5887,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '02', 'specific' => '02', 'subspecific' => '02',
-                'denomination' => 'Adquisición de tÃ­tulos y valores pÃºblicos',
+                'denomination' => 'Adquisición de títulos y valores públicos',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '02', 'specific' => '02', 'subspecific' => '03',
-                'denomination' => 'Adquisición de tÃ­tulos y valores externos',
+                'denomination' => 'Adquisición de títulos y valores externos',
                 'active' => true
             ],
             [
@@ -5962,12 +5987,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '04', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Concesión de préstamos al sector pÃºblico a largo plazo',
+                'denomination' => 'Concesión de préstamos al sector público a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '04', 'specific' => '02', 'subspecific' => '01',
-                'denomination' => 'Concesión de préstamos a la RepÃºblica',
+                'denomination' => 'Concesión de préstamos a la República',
                 'active' => true
             ],
             [
@@ -6047,7 +6072,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '05', 'specific' => '02', 'subspecific' => '01',
-                'denomination' => 'Incremento en bancos pÃºblicos',
+                'denomination' => 'Incremento en bancos públicos',
                 'active' => true
             ],
             [
@@ -6197,12 +6222,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '11', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Incremento de intereses de la deuda pÃºblica interna a corto plazo pagados por anticipado ',
+                'denomination' => 'Incremento de intereses de la deuda pública interna a corto plazo pagados por anticipado ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '11', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Incremento de intereses de la deuda pÃºblica externa a corto plazo pagados por anticipado',
+                'denomination' => 'Incremento de intereses de la deuda pública externa a corto plazo pagados por anticipado',
                 'active' => true
             ],
             [
@@ -6222,7 +6247,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '11', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Incremento de depósitos otorgados en garantÃ­a a corto plazo',
+                'denomination' => 'Incremento de depósitos otorgados en garantía a corto plazo',
                 'active' => true
             ],
             [
@@ -6242,12 +6267,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '12', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Incremento de intereses de la deuda pÃºblica interna a largo plazo pagados por anticipado ',
+                'denomination' => 'Incremento de intereses de la deuda pública interna a largo plazo pagados por anticipado ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '12', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Incremento de intereses de la deuda pÃºblica externa a largo plazo pagados por anticipado',
+                'denomination' => 'Incremento de intereses de la deuda pública externa a largo plazo pagados por anticipado',
                 'active' => true
             ],
             [
@@ -6262,7 +6287,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '12', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Incremento de depósitos otorgados en garantÃ­a a mediano y largo plazo',
+                'denomination' => 'Incremento de depósitos otorgados en garantía a mediano y largo plazo',
                 'active' => true
             ],
             [
@@ -6277,7 +6302,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '13', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Incremento del Fondo de Estabilización Macroeconómica (FEM) de la RepÃºblica',
+                'denomination' => 'Incremento del Fondo de Estabilización Macroeconómica (FEM) de la República',
                 'active' => true
             ],
             [
@@ -6312,12 +6337,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '16', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Incremento del Fondo de Aportes del Sector PÃºblico ',
+                'denomination' => 'Incremento del Fondo de Aportes del Sector Público ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '16', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Incremento del Fondo de Aportes del Sector PÃºblico ',
+                'denomination' => 'Incremento del Fondo de Aportes del Sector Público ',
                 'active' => true
             ],
             [
@@ -6342,7 +6367,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '05', 'generic' => '21', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Incremento de tÃ­tulos y otros valores de la deuda pÃºblica en litigio a largo plazo',
+                'denomination' => 'Incremento de títulos y otros valores de la deuda pública en litigio a largo plazo',
                 'active' => true
             ],
             [
@@ -6407,12 +6432,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '04',
-                'denomination' => 'Becas universitarias en el paÃ­s',
+                'denomination' => 'Becas universitarias en el país',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '05',
-                'denomination' => 'Becas de perfeccionamiento profesional en el paÃ­s',
+                'denomination' => 'Becas de perfeccionamiento profesional en el país',
                 'active' => true
             ],
             [
@@ -6502,7 +6527,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '36',
-                'denomination' => 'Indemnización por comisión por cesantÃ­a ',
+                'denomination' => 'Indemnización por comisión por cesantía ',
                 'active' => true
             ],
             [
@@ -6522,7 +6547,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '40',
-                'denomination' => 'Indemnización por cesantÃ­a ',
+                'denomination' => 'Indemnización por cesantía ',
                 'active' => true
             ],
             [
@@ -6532,7 +6557,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '42',
-                'denomination' => 'Incapacidad parcial por accidente comÃºn',
+                'denomination' => 'Incapacidad parcial por accidente común',
                 'active' => true
             ],
             [
@@ -6547,22 +6572,22 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '45',
-                'denomination' => 'Indemnización Ãºnica por invalidez ',
+                'denomination' => 'Indemnización única por invalidez ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '46',
-                'denomination' => 'Indemnización Ãºnica por vejez ',
+                'denomination' => 'Indemnización única por vejez ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '47',
-                'denomination' => 'Sobrevivientes por enfermedad comÃºn ',
+                'denomination' => 'Sobrevivientes por enfermedad común ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '48',
-                'denomination' => 'Sobrevivientes por accidente comÃºn ',
+                'denomination' => 'Sobrevivientes por accidente común ',
                 'active' => true
             ],
             [
@@ -6647,7 +6672,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '01', 'subspecific' => '78',
-                'denomination' => 'Subsidios cientÃ­ficos al sector privado',
+                'denomination' => 'Subsidios científicos al sector privado',
                 'active' => true
             ],
             [
@@ -6682,12 +6707,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Transferencias corrientes internas al sector pÃºblico',
+                'denomination' => 'Transferencias corrientes internas al sector público',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '03', 'subspecific' => '01',
-                'denomination' => 'Transferencias corrientes a la RepÃºblica',
+                'denomination' => 'Transferencias corrientes a la República',
                 'active' => true
             ],
             [
@@ -6697,7 +6722,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '03', 'subspecific' => '03',
-                'denomination' => 'Transferencias corrientes a entes descentralizados sin fines empresariales para atender beneficios de la seguridad social',
+                'denomination' => 'Transferencias corrientes a entes descentralizados sin fines empresariales para atender beneficios ' . 
+                                  'de la seguridad social',
                 'active' => true
             ],
             [
@@ -6707,7 +6733,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '03', 'subspecific' => '05',
-                'denomination' => 'Transferencias corrientes a instituciones de protección social para atender beneficios de la seguridad social',
+                'denomination' => 'Transferencias corrientes a instituciones de protección social para atender beneficios de la ' . 
+                                  'seguridad social',
                 'active' => true
             ],
             [
@@ -6752,7 +6779,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '03', 'subspecific' => '15',
-                'denomination' => 'Subsidios otorgados por precios polÃ­ticos',
+                'denomination' => 'Subsidios otorgados por precios políticos',
                 'active' => true
             ],
             [
@@ -6762,12 +6789,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Donaciones corrientes internas al sector pÃºblico',
+                'denomination' => 'Donaciones corrientes internas al sector público',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '01', 'specific' => '04', 'subspecific' => '01',
-                'denomination' => 'Donaciones corrientes a la RepÃºblica',
+                'denomination' => 'Donaciones corrientes a la República',
                 'active' => true
             ],
             [
@@ -6907,12 +6934,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '03', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Transferencias de capital internas al sector pÃºblico',
+                'denomination' => 'Transferencias de capital internas al sector público',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '03', 'specific' => '03', 'subspecific' => '01',
-                'denomination' => 'Transferencias de capital a la RepÃºblica',
+                'denomination' => 'Transferencias de capital a la República',
                 'active' => true
             ],
             [
@@ -6957,12 +6984,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '03', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Donaciones de capital internas al sector pÃºblico ',
+                'denomination' => 'Donaciones de capital internas al sector público ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '07', 'generic' => '03', 'specific' => '04', 'subspecific' => '01',
-                'denomination' => 'Donaciones de capital a la RepÃºblica',
+                'denomination' => 'Donaciones de capital a la República',
                 'active' => true
             ],
             [
@@ -7262,7 +7289,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '08', 'generic' => '02', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Intereses por tÃ­tulos y valores',
+                'denomination' => 'Intereses por títulos y valores',
                 'active' => true
             ],
             [
@@ -7412,7 +7439,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '08', 'generic' => '08', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Indemnizaciones por daños y perjuicios ocasionados por organismos de la República, del Poder Estadal y del Poder Municipal',
+                'denomination' => 'Indemnizaciones por daños y perjuicios ocasionados por organismos de la República, del Poder ' . 
+                                  'Estadal y del Poder Municipal',
                 'active' => true
             ],
             [
@@ -7582,12 +7610,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '09', 'generic' => '13', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Fondo para la cancelación de deuda por servicios de electricidad, teléfono, aseo, agua y condominio, de los organismos de la Administración Central',
+                'denomination' => 'Fondo para la cancelación de deuda por servicios de electricidad, teléfono, aseo, agua y condominio, ' . 
+                                  'de los organismos de la Administración Central',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '09', 'generic' => '13', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Fondo para la cancelación de deuda por servicios de electricidad, teléfono, aseo, agua y condominio, de los organismos de la Administración Descentralizada Nacional',
+                'denomination' => 'Fondo para la cancelación de deuda por servicios de electricidad, teléfono, aseo, agua y condominio, ' . 
+                                  'de los organismos de la Administración Descentralizada Nacional',
                 'active' => true
             ],
             [
@@ -7622,12 +7652,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '09', 'generic' => '17', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Asignaciones para cancelar la deuda Fogade - Ministerio competente en materia de Finanzas - Banco Central de Venezuela (BCV)',
+                'denomination' => 'Asignaciones para cancelar la deuda Fogade - Ministerio competente en materia de Finanzas - ' . 
+                                  'Banco Central de Venezuela (BCV)',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '09', 'generic' => '17', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Asignaciones para cancelar la deuda Fogade - Ministerio competente en materia de Finanzas - Banco Central de Venezuela (BCV)',
+                'denomination' => 'Asignaciones para cancelar la deuda Fogade - Ministerio competente en materia de Finanzas - ' . 
+                                  'Banco Central de Venezuela (BCV)',
                 'active' => true
             ],
             [
@@ -7642,12 +7674,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '09', 'generic' => '19', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Asignaciones para atender los gastos por honorarios profesionales de bufetes internacionales, costas y costos judiciales',
+                'denomination' => 'Asignaciones para atender los gastos por honorarios profesionales de bufetes internacionales, ' . 
+                                  'costas y costos judiciales',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '09', 'generic' => '19', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Asignaciones para atender los gastos por honorarios profesionales de bufetes internacionales, costas y costos judiciales',
+                'denomination' => 'Asignaciones para atender los gastos por honorarios profesionales de bufetes internacionales, ' . 
+                                  'costas y costos judiciales',
                 'active' => true
             ],
             [
@@ -7672,12 +7706,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '09', 'generic' => '22', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Asignaciones para programas y proyectos financiados con recursos de organismos multilaterales y/o bilaterales',
+                'denomination' => 'Asignaciones para programas y proyectos financiados con recursos de organismos multilaterales y/o ' . 
+                                  'bilaterales',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '09', 'generic' => '22', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Asignaciones para programas y proyectos financiados con recursos de organismos multilaterales y/o bilaterales',
+                'denomination' => 'Asignaciones para programas y proyectos financiados con recursos de organismos multilaterales y/o ' . 
+                                  'bilaterales',
                 'active' => true
             ],
             [
@@ -7727,32 +7763,32 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica interna a corto plazo de tÃ­tulos y valores',
+                'denomination' => 'Amortización de la deuda pública interna a corto plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica interna a corto plazo de letras del tesoro',
+                'denomination' => 'Amortización de la deuda pública interna a corto plazo de letras del tesoro',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '01', 'subspecific' => '03',
-                'denomination' => 'Intereses de la deuda pÃºblica interna a corto plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses de la deuda pública interna a corto plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '01', 'subspecific' => '04',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna a corto plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna a corto plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '01', 'subspecific' => '05',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna a corto plazo de tÃ­tulos y valores',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna a corto plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '01', 'subspecific' => '06',
-                'denomination' => 'Descuentos en colocación de tÃ­tulos y valores de la deuda pÃºblica interna a  corto plazo',
+                'denomination' => 'Descuentos en colocación de títulos y valores de la deuda pública interna a  corto plazo',
                 'active' => true
             ],
             [
@@ -7762,292 +7798,332 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica interna por préstamos a corto plazo',
+                'denomination' => 'Servicio de la deuda pública interna por préstamos a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos del sector privado a corto plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos del sector privado a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de la RepÃºblica a corto plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de la República a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '03',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados sin fines empresariales a corto plazo',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados sin ' . 
+                                  'fines empresariales a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '04',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de instituciones de protección social a corto plazo',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de instituciones de protección ' . 
+                                  'social a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '05',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros a corto plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados con ' . 
+                                  'fines empresariales petroleros a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '06',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros a corto plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados con ' . 
+                                  'fines empresariales no petroleros a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '07',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros bancarios a corto plazo  ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados ' . 
+                                  'financieros bancarios a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '08',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros no bancarios a corto plazo  ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados ' . 
+                                  'financieros no bancarios a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '09',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos del Poder Estadal a corto plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos del Poder Estadal a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '10',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos del Poder Municipal a corto plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos del Poder Municipal a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '11',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos del sector privado a corto plazo',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos del sector privado a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '12',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de la RepÃºblica a corto plazo',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de la República a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '13',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados sin fines empresariales a corto plazo',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados sin ' . 
+                                  'fines empresariales a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '14',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de instituciones de protección social a corto plazo',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de instituciones de protección ' . 
+                                  'social a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '15',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros a corto plazo ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados con ' . 
+                                  'fines empresariales petroleros a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '16',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros a corto plazo ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados con ' . 
+                                  'fines empresariales no petroleros a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '17',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros bancarios a corto plazo  ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados ' . 
+                                  'financieros bancarios a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '18',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros no bancarios a corto plazo  ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados ' . 
+                                  'financieros no bancarios a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '19',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos del Poder Estadal a corto plazo ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos del Poder Estadal a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '20',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos del Poder Municipal a corto plazo ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos del Poder Municipal a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '21',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos del sector privado a corto plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos del sector privado ' . 
+                                  'a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '22',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de la RepÃºblica a corto plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de la República a ' . 
+                                  'corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '23',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados sin fines empresariales a corto plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados sin fines empresariales a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '24',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de instituciones de protección social a corto plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de instituciones ' . 
+                                  'de protección social a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '25',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros a corto plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados con fines empresariales petroleros a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '26',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros a corto plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados con fines empresariales no petroleros a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '27',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros bancarios a corto plazo  ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados financieros bancarios a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '28',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros no bancarios a corto plazo  ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados financieros no bancarios a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '29',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos del Poder Estadal a corto plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos del Poder Estadal ' . 
+                                  'a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '30',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos del Poder Municipal a corto plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos del Poder Municipal ' . 
+                                  'a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '31',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos del sector privado a corto plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos del sector privado ' . 
+                                  'a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '32',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de la RepÃºblica a corto plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de la República ' . 
+                                  'a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '33',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados sin fines empresariales a corto plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados sin fines empresariales a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '34',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de instituciones de protección social a corto  plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de instituciones de ' . 
+                                  'protección social a corto  plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '35',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros a corto plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados con fines empresariales petroleros a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '36',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros a corto plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados con fines empresariales no petroleros a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '37',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros bancarios a corto plazo  ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados financieros bancarios a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '38',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros no bancarios a corto  plazo  ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados financieros no bancarios a corto  plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '39',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos del Poder Estadal a corto plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos del Poder Estadal ' . 
+                                  'a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '02', 'subspecific' => '40',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos del Poder Municipal a corto  plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos del Poder Municipal ' . 
+                                  'a corto  plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica interna indirecta por préstamos a corto plazo',
+                'denomination' => 'Servicio de la deuda pública interna indirecta por préstamos a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '03', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica interna indirecta por préstamos recibidos del sector privado a corto plazo',
+                'denomination' => 'Amortización de la deuda pública interna indirecta por préstamos recibidos del sector privado ' . 
+                                  'a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '03', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica interna indirecta por préstamos recibidos del sector pÃºblico a corto plazo',
+                'denomination' => 'Amortización de la deuda pública interna indirecta por préstamos recibidos del sector público ' . 
+                                  'a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '03', 'subspecific' => '03',
-                'denomination' => 'Intereses de la deuda pÃºblica interna indirecta por préstamos recibidos del sector privado a corto plazo',
+                'denomination' => 'Intereses de la deuda pública interna indirecta por préstamos recibidos del sector privado ' . 
+                                  'a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '03', 'subspecific' => '04',
-                'denomination' => 'Intereses de la deuda pÃºblica interna indirecta por préstamos recibidos del sector pÃºblico a corto plazo',
+                'denomination' => 'Intereses de la deuda pública interna indirecta por préstamos recibidos del sector público ' . 
+                                  'a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '03', 'subspecific' => '05',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna indirecta por préstamos recibidos del sector privado a corto plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna indirecta por préstamos recibidos ' . 
+                                  'del sector privado a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '03', 'subspecific' => '06',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna indirecta por préstamos recibidos del sector pÃºblico a corto plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna indirecta por préstamos recibidos ' . 
+                                  'del sector público a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '03', 'subspecific' => '07',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna indirecta por préstamos recibidos del sector privado a corto plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna indirecta por préstamos recibidos ' . 
+                                  'del sector privado a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '01', 'specific' => '03', 'subspecific' => '08',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna indirecta por préstamos recibidos del sector pÃºblico a corto plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna indirecta por préstamos recibidos ' . 
+                                  'del sector público a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica interna a largo plazo',
+                'denomination' => 'Servicio de la deuda pública interna a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica interna a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Servicio de la deuda pública interna a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica interna a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Amortización de la deuda pública interna a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica interna a largo plazo de letras del tesoro',
+                'denomination' => 'Amortización de la deuda pública interna a largo plazo de letras del tesoro',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '01', 'subspecific' => '03',
-                'denomination' => 'Intereses de la deuda pÃºblica interna a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses de la deuda pública interna a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '01', 'subspecific' => '04',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '01', 'subspecific' => '05',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '01', 'subspecific' => '06',
-                'denomination' => 'Descuentos en colocación de tÃ­tulos y valores de la deuda pÃºblica interna a largo plazo',
+                'denomination' => 'Descuentos en colocación de títulos y valores de la deuda pública interna a largo plazo',
                 'active' => true
             ],
             [
@@ -8057,282 +8133,319 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica interna por préstamos a largo plazo',
+                'denomination' => 'Servicio de la deuda pública interna por préstamos a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos del sector privado a largo plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos del sector privado a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de la RepÃºblica a largo plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de la República a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '03',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados sin fines empresariales a largo plazo',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados sin ' . 
+                                  'fines empresariales a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '04',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de instituciones de protección social a largo plazo',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de instituciones de protección ' . 
+                                  'social a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '05',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros a largo plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados con ' . 
+                                  'fines empresariales petroleros a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '06',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros a largo plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados con ' . 
+                                  'fines empresariales no petroleros a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '07',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros bancarios a largo plazo  ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados ' . 
+                                  'financieros bancarios a largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '08',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros no bancarios a largo plazo  ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos de entes descentralizados ' . 
+                                  'financieros no bancarios a largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '09',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos del Poder Estadal a largo plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos del Poder Estadal a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '10',
-                'denomination' => 'Amortización de la deuda pÃºblica interna por préstamos recibidos del Poder Municipal a largo plazo ',
+                'denomination' => 'Amortización de la deuda pública interna por préstamos recibidos del Poder Municipal a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '11',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos del sector privado a largo plazo',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos del sector privado a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '12',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de la RepÃºblica a largo plazo',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de la República a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '13',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados sin fines empresariales a largo plazo',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados sin fines empresariales a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '14',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de instituciones de protección social a largo plazo',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de instituciones de protección social ' . 
+                                  'a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '15',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros a largo plazo ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados con ' . 
+                                  'fines empresariales petroleros a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '16',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros a largo plazo ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados con ' . 
+                                  'fines empresariales no petroleros a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '17',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros bancarios a largo plazo  ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados ' . 
+                                  'financieros bancarios a largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '18',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros no bancarios a largo plazo  ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos de entes descentralizados ' . 
+                                  'financieros no bancarios a largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '19',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos del Poder Estadal a largo plazo ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos del Poder Estadal a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '20',
-                'denomination' => 'Intereses de la deuda pÃºblica interna por préstamos recibidos del Poder Municipal a largo plazo ',
+                'denomination' => 'Intereses de la deuda pública interna por préstamos recibidos del Poder Municipal a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '21',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos del sector privado a largo plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos del sector privado ' . 
+                                  'a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '22',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de la RepÃºblica a largo plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de la República ' . 
+                                  'a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '23',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados sin fines empresariales a largo plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados sin fines empresariales a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '24',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de instituciones de protección social a largo plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de instituciones ' . 
+                                  'de protección social a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '25',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros a largo plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados con fines empresariales petroleros a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '26',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros a largo plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados con fines empresariales no petroleros a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '27',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros bancarios a largo plazo  ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados financieros bancarios a largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '28',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros no bancarios a largo plazo  ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados financieros no bancarios a largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '29',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos del Poder Estadal a largo plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos del Poder Estadal ' . 
+                                  'a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '30',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna por préstamos recibidos del Poder Municipal a largo plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna por préstamos recibidos del Poder Municipal ' . 
+                                  'a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '31',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos del sector privado a largo plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos del sector privado ' . 
+                                  'a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '32',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de la RepÃºblica a largo plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de la República ' . 
+                                  'a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '33',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados sin fines empresariales a largo plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados sin fines empresariales a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '34',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de instituciones de protección social a largo plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de instituciones ' . 
+                                  'de protección social a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '35',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros a largo plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados con fines empresariales petroleros a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '36',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros a largo plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados con fines empresariales no petroleros a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '37',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros bancarios a largo plazo  ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados financieros bancarios a largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '38',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos de entes descentralizados financieros no bancarios a largo plazo  ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos de entes ' . 
+                                  'descentralizados financieros no bancarios a largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '39',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos del Poder Estadal a largo plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos del Poder Estadal ' . 
+                                  'a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '02', 'subspecific' => '40',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna por préstamos recibidos del Poder Municipal a largo plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna por préstamos recibidos del Poder Municipal ' . 
+                                  'a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica interna indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Servicio de la deuda pública interna indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '03', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica interna indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Amortización de la deuda pública interna indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '03', 'subspecific' => '02',
-                'denomination' => 'Intereses de la deuda pÃºblica interna indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses de la deuda pública interna indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '03', 'subspecific' => '03',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '03', 'subspecific' => '04',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '03', 'subspecific' => '05',
-                'denomination' => 'Descuentos en colocación de tÃ­tulos y valores de la deuda pÃºblica interna indirecta de largo plazo',
+                'denomination' => 'Descuentos en colocación de títulos y valores de la deuda pública interna indirecta de largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica interna indirecta por préstamos a largo plazo',
+                'denomination' => 'Servicio de la deuda pública interna indirecta por préstamos a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica interna indirecta por préstamos recibidos del sector privado a largo plazo  ',
+                'denomination' => 'Amortización de la deuda pública interna indirecta por préstamos recibidos del sector privado a ' . 
+                                  'largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica interna indirecta por préstamos recibidos del sector pÃºblico a largo plazo  ',
+                'denomination' => 'Amortización de la deuda pública interna indirecta por préstamos recibidos del sector público a ' . 
+                                  'largo plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '03',
-                'denomination' => 'Intereses de la deuda pÃºblica interna indirecta por préstamos recibidos del sector privado a largo plazo',
+                'denomination' => 'Intereses de la deuda pública interna indirecta por préstamos recibidos del sector privado a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '04',
-                'denomination' => 'Intereses de la deuda pÃºblica interna indirecta por préstamos recibidos del sector pÃºblico a largo plazo',
+                'denomination' => 'Intereses de la deuda pública interna indirecta por préstamos recibidos del sector público a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '05',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna indirecta por préstamos recibidos del sector privado a largo plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna indirecta por préstamos recibidos del sector ' . 
+                                  'privado a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '06',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica interna indirecta por préstamos recibidos del sector pÃºblico a largo plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública interna indirecta por préstamos recibidos del ' . 
+                                  'sector público a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '07',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna indirecta por préstamos recibidos del sector privado a largo plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna indirecta por préstamos recibidos del sector ' . 
+                                  'privado a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '02', 'specific' => '04', 'subspecific' => '08',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica interna indirecta por préstamos recibidos del sector pÃºblico a largo plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública interna indirecta por préstamos recibidos del sector ' . 
+                                  'público a largo plazo',
                 'active' => true
             ],
             [
@@ -8342,437 +8455,495 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica externa a corto plazo de tÃ­tulos y valores',
+                'denomination' => 'Servicio de la deuda pública externa a corto plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica externa a corto plazo de tÃ­tulos y valores',
+                'denomination' => 'Amortización de la deuda pública externa a corto plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Intereses de la deuda pÃºblica externa a corto plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses de la deuda pública externa a corto plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '01', 'subspecific' => '03',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa a corto plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa a corto plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '01', 'subspecific' => '04',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa a corto plazo de tÃ­tulos y valores',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa a corto plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '01', 'subspecific' => '05',
-                'denomination' => 'Descuentos en colocación de tÃ­tulos y valores de la deuda pÃºblica externa a corto plazo',
+                'denomination' => 'Descuentos en colocación de títulos y valores de la deuda pública externa a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica externa por préstamos a corto plazo',
+                'denomination' => 'Servicio de la deuda pública externa por préstamos a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica externa por préstamos recibidos de gobiernos extranjeros a corto plazo ',
+                'denomination' => 'Amortización de la deuda pública externa por préstamos recibidos de gobiernos extranjeros a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica externa por préstamos recibidos de organismos internacionales a corto plazo',
+                'denomination' => 'Amortización de la deuda pública externa por préstamos recibidos de organismos internacionales a ' . 
+                                  'corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '03',
-                'denomination' => 'Amortización de la deuda pÃºblica externa por préstamos recibidos de instituciones financieras externas a corto plazo',
+                'denomination' => 'Amortización de la deuda pública externa por préstamos recibidos de instituciones financieras ' . 
+                                  'externas a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '04',
-                'denomination' => 'Amortización de la deuda pÃºblica externa por préstamos recibidos de proveedores de bienes y servicios externos a corto plazo',
+                'denomination' => 'Amortización de la deuda pública externa por préstamos recibidos de proveedores de bienes y ' . 
+                                  'servicios externos a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '05',
-                'denomination' => 'Intereses de la deuda pÃºblica externa por préstamos  recibidos de gobiernos extranjeros a corto plazo',
+                'denomination' => 'Intereses de la deuda pública externa por préstamos  recibidos de gobiernos extranjeros a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '06',
-                'denomination' => 'Intereses de la deuda pÃºblica externa por préstamos  recibidos de organismos internacionales a corto plazo',
+                'denomination' => 'Intereses de la deuda pública externa por préstamos  recibidos de organismos internacionales a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '07',
-                'denomination' => 'Intereses de la deuda pÃºblica externa por préstamos  recibidos de instituciones financieras externas a corto plazo',
+                'denomination' => 'Intereses de la deuda pública externa por préstamos  recibidos de instituciones financieras externas ' . 
+                                  'a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '08',
-                'denomination' => 'Intereses de la deuda pÃºblica externa por préstamos  recibidos de proveedores de bienes y servicios externos a corto plazo',
+                'denomination' => 'Intereses de la deuda pública externa por préstamos  recibidos de proveedores de bienes y servicios ' . 
+                                  'externos a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '09',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa por préstamos recibidos de gobiernos extranjeros a corto plazo  ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa por préstamos recibidos de gobiernos ' . 
+                                  'extranjeros a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '10',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa por préstamos recibidos  de organismos internacionales a corto plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa por préstamos recibidos  de organismos ' . 
+                                  'internacionales a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '11',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa por préstamos recibidos de instituciones financieras externas a corto plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa por préstamos recibidos de instituciones ' . 
+                                  'financieras externas a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '12',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa por préstamos recibidos de proveedores de bienes y servicios externos a corto plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa por préstamos recibidos de proveedores de ' . 
+                                  'bienes y servicios externos a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '13',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa por préstamos  recibidos de gobiernos extranjeros a corto plazo  ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa por préstamos  recibidos de gobiernos ' . 
+                                  'extranjeros a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '14',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa por préstamos  recibidos  de organismos internacionales a corto plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa por préstamos  recibidos  de organismos ' . 
+                                  'internacionales a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '15',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa por préstamos  recibidos de instituciones financieras externas a corto plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa por préstamos  recibidos de instituciones ' . 
+                                  'financieras externas a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '02', 'subspecific' => '16',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa por préstamos recibidos de proveedores de bienes y servicios externos a corto plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa por préstamos recibidos de proveedores de ' . 
+                                  'bienes y servicios externos a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica externa indirecta por préstamos a corto plazo',
+                'denomination' => 'Servicio de la deuda pública externa indirecta por préstamos a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica externa indirecta por préstamos recibidos de gobiernos extranjeros a corto plazo ',
+                'denomination' => 'Amortización de la deuda pública externa indirecta por préstamos recibidos de gobiernos extranjeros ' . 
+                                  'a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica externa indirecta por préstamos recibidos de organismos internacionales a corto plazo',
+                'denomination' => 'Amortización de la deuda pública externa indirecta por préstamos recibidos de organismos ' . 
+                                  'internacionales a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '03',
-                'denomination' => 'Amortización de la deuda pÃºblica externa indirecta por préstamos recibidos de instituciones financieras externas a corto plazo',
+                'denomination' => 'Amortización de la deuda pública externa indirecta por préstamos recibidos de instituciones ' . 
+                                  'financieras externas a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '04',
-                'denomination' => 'Amortización de la deuda pÃºblica externa indirecta por préstamos  recibidos de proveedores de bienes y servicios externos a corto plazo',
+                'denomination' => 'Amortización de la deuda pública externa indirecta por préstamos  recibidos de proveedores de bienes ' . 
+                                  'y servicios externos a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '05',
-                'denomination' => 'Intereses de la deuda pÃºblica externa indirecta por préstamos recibidos de gobiernos extranjeros a corto plazo',
+                'denomination' => 'Intereses de la deuda pública externa indirecta por préstamos recibidos de gobiernos extranjeros ' . 
+                                  'a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '06',
-                'denomination' => 'Intereses de la deuda pÃºblica externa indirecta por préstamos recibidos de organismos internacionales a corto plazo',
+                'denomination' => 'Intereses de la deuda pública externa indirecta por préstamos recibidos de organismos ' . 
+                                  'internacionales a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '07',
-                'denomination' => 'Intereses de la deuda pÃºblica externa indirecta por préstamos recibidos de instituciones financieras externas a corto plazo',
+                'denomination' => 'Intereses de la deuda pública externa indirecta por préstamos recibidos de instituciones ' . 
+                                  'financieras externas a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '08',
-                'denomination' => 'Intereses de la deuda pÃºblica externa indirecta por préstamos recibidos de proveedores de bienes y servicios externos a corto plazo',
+                'denomination' => 'Intereses de la deuda pública externa indirecta por préstamos recibidos de proveedores de bienes ' . 
+                                  'y servicios externos a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '09',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa indirecta por préstamos  recibidos de gobiernos extranjeros a corto plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa indirecta por préstamos  recibidos de ' . 
+                                  'gobiernos extranjeros a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '10',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa indirecta por préstamos recibidos de organismos internacionales a corto plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa indirecta por préstamos recibidos de ' . 
+                                  'organismos internacionales a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '11',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa indirecta por préstamos recibidos de instituciones financieras externas a corto plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa indirecta por préstamos recibidos de ' . 
+                                  'instituciones financieras externas a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '12',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa indirecta por préstamos  recibidos de proveedores de bienes y servicios externos a corto plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa indirecta por préstamos  recibidos de ' . 
+                                  'proveedores de bienes y servicios externos a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '13',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa indirecta por préstamos  recibidos de gobiernos extranjeros a corto plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa indirecta por préstamos  recibidos de ' . 
+                                  'gobiernos extranjeros a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '14',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa indirecta por préstamos recibidos de organismos internacionales a corto plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa indirecta por préstamos recibidos de ' . 
+                                  'organismos internacionales a corto plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '15',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa indirecta por préstamos  recibidos de instituciones financieras externas a corto plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa indirecta por préstamos  recibidos de ' . 
+                                  'instituciones financieras externas a corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '03', 'specific' => '03', 'subspecific' => '16',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa indirecta por préstamos recibidos de proveedores de bienes y servicios externos a corto plazo  ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa indirecta por préstamos recibidos de ' . 
+                                  'proveedores de bienes y servicios externos a corto plazo  ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica externa a largo plazo',
+                'denomination' => 'Servicio de la deuda pública externa a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica externa a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Servicio de la deuda pública externa a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica externa a largo plazode tÃ­tulos y valores',
+                'denomination' => 'Amortización de la deuda pública externa a largo plazode títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Intereses de la deuda pÃºblica externa a largo plazode tÃ­tulos y valores',
+                'denomination' => 'Intereses de la deuda pública externa a largo plazode títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '01', 'subspecific' => '03',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '01', 'subspecific' => '04',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '01', 'subspecific' => '05',
-                'denomination' => 'Descuentos en colocación de tÃ­tulos y valores de la deuda pÃºblica externa a largo plazo',
+                'denomination' => 'Descuentos en colocación de títulos y valores de la deuda pública externa a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica externa por préstamos a largo plazo',
+                'denomination' => 'Servicio de la deuda pública externa por préstamos a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica externa por préstamos recibidos de gobiernos extranjeros a  largo plazo ',
+                'denomination' => 'Amortización de la deuda pública externa por préstamos recibidos de gobiernos extranjeros a  largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica externa por préstamos  recibidos de organismos internacionales a largo plazo',
+                'denomination' => 'Amortización de la deuda pública externa por préstamos  recibidos de organismos internacionales a ' . 
+                                  'largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '03',
-                'denomination' => 'Amortización de la deuda pÃºblica externa por préstamos recibidos de instituciones financieras externas  a largo plazo',
+                'denomination' => 'Amortización de la deuda pública externa por préstamos recibidos de instituciones financieras ' . 
+                                  'externas a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '04',
-                'denomination' => 'Amortización de la deuda pÃºblica externa por préstamos recibidos de proveedores de bienes y servicios externos  a largo plazo',
+                'denomination' => 'Amortización de la deuda pública externa por préstamos recibidos de proveedores de bienes y ' . 
+                                  'servicios externos  a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '05',
-                'denomination' => 'Intereses de la deuda pÃºblica externa por préstamos recibidos de gobiernos extranjeros  a largo plazo ',
+                'denomination' => 'Intereses de la deuda pública externa por préstamos recibidos de gobiernos extranjeros  a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '06',
-                'denomination' => 'Intereses de la deuda pÃºblica externa por préstamos recibidos de organismos internacionales a largo plazo',
+                'denomination' => 'Intereses de la deuda pública externa por préstamos recibidos de organismos internacionales a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '07',
-                'denomination' => 'Intereses de la deuda pÃºblica externa por préstamos recibidos de instituciones financieras externas  a largo plazo',
+                'denomination' => 'Intereses de la deuda pública externa por préstamos recibidos de instituciones financieras externas ' . 
+                                  'a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '08',
-                'denomination' => 'Intereses de la deuda pÃºblica externa por préstamos recibidos de proveedores de bienes y servicios externos  a largo plazo',
+                'denomination' => 'Intereses de la deuda pública externa por préstamos recibidos de proveedores de bienes y servicios ' . 
+                                  'externos  a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '09',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa por préstamos  recibidos de gobiernos extranjeros  a largo plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa por préstamos  recibidos de gobiernos ' . 
+                                  'extranjeros  a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '10',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa por préstamos recibidos de organismos internacionales a largo plazo',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa por préstamos recibidos de organismos ' . 
+                                  'internacionales a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '11',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa por préstamos recibidos de instituciones financieras externas  a largo plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa por préstamos recibidos de instituciones ' . 
+                                  'financieras externas  a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '12',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa por préstamos recibidos de proveedores de bienes y servicios externos  a largo plazo ',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa por préstamos recibidos de proveedores de ' . 
+                                  'bienes y servicios externos  a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '13',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa por préstamos recibidos de gobiernos extranjeros  a largo plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa por préstamos recibidos de gobiernos ' . 
+                                  'extranjeros  a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '14',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa por préstamos recibidos de organismos internacionales a largo plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa por préstamos recibidos de organismos ' . 
+                                  'internacionales a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '15',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa por préstamos recibidos de instituciones financieras externas  a largo plazo ',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa por préstamos recibidos de instituciones ' . 
+                                  'financieras externas  a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '02', 'subspecific' => '16',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa por préstamos  recibidos de proveedores de bienes y servicios externos  a largo plazo',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa por préstamos  recibidos de proveedores de ' . 
+                                  'bienes y servicios externos  a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica externa indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Servicio de la deuda pública externa indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '03', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica externa indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Amortización de la deuda pública externa indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '03', 'subspecific' => '02',
-                'denomination' => 'Intereses de la deuda pÃºblica externa indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses de la deuda pública externa indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '03', 'subspecific' => '03',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica externa indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Intereses por mora y multas de la deuda pública externa indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '03', 'subspecific' => '04',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica externa indirecta a largo plazo de tÃ­tulos y valores',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública externa indirecta a largo plazo de títulos y valores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '03', 'subspecific' => '05',
-                'denomination' => 'Descuentos en colocación de tÃ­tulos y valores de la deuda pÃºblica externa indirecta a largo plazo',
+                'denomination' => 'Descuentos en colocación de títulos y valores de la deuda pública externa indirecta a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica externa indirecta por préstamos a largo plazo',
+                'denomination' => 'Servicio de la deuda pública externa indirecta por préstamos a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '01',
-                'denomination' => 'Amortización de la deuda pÃºblica externa indirecta por préstamos recibidos de gobiernos extranjeros a largo plazo',
+                'denomination' => 'Amortización de la deuda pública externa indirecta por préstamos recibidos de gobiernos extranjeros ' . 
+                                  'a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '02',
-                'denomination' => 'Amortización de la deuda pÃºblica externa indirecta por préstamos recibidos de organismos internacionales a largo plazo',
+                'denomination' => 'Amortización de la deuda pública externa indirecta por préstamos recibidos de organismos ' . 
+                                  'internacionales a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '03',
-                'denomination' => ' Amortización de la deuda pÃºblica externa indirecta por préstamos recibidos de instituciones financieras externas a largo plazo',
+                'denomination' => ' Amortización de la deuda pública externa indirecta por préstamos recibidos de instituciones ' . 
+                                  'financieras externas a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '04',
-                'denomination' => ' Amortización de la deuda pÃºblica externa indirecta por préstamos recibidos de proveedores de bienes y servicios externos  a largo plazo',
+                'denomination' => ' Amortización de la deuda pública externa indirecta por préstamos recibidos de proveedores de ' . 
+                                  'bienes y servicios externos  a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '05',
-                'denomination' => 'Intereses de la deuda pÃºblica externa indirecta por préstamos recibidos de gobiernos extranjeros a largo plazo',
+                'denomination' => 'Intereses de la deuda pública externa indirecta por préstamos recibidos de gobiernos extranjeros ' . 
+                                  'a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '06',
-                'denomination' => 'Intereses de la deuda pÃºblica externa indirecta por préstamos recibidos de organismos internacionales a largo plazo',
+                'denomination' => 'Intereses de la deuda pública externa indirecta por préstamos recibidos de organismos ' . 
+                                  'internacionales a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '07',
-                'denomination' => 'Intereses de la deuda pÃºblica externa indirecta por préstamos recibidos de instituciones financieras externas a largo plazo',
+                'denomination' => 'Intereses de la deuda pública externa indirecta por préstamos recibidos de instituciones ' . 
+                                  'financieras externas a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '08',
-                'denomination' => 'Intereses de la deuda pÃºblica externa indirecta por préstamos recibidos de proveedores de bienes y servicios externos  a largo plazo',
+                'denomination' => 'Intereses de la deuda pública externa indirecta por préstamos recibidos de proveedores de bienes ' . 
+                                  'y servicios externos  a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '09',
-                'denomination' => ' Intereses por mora y multas de la deuda pÃºblica externa indirecta por préstamos recibidos de gobiernos extranjeros a largo plazo ',
+                'denomination' => ' Intereses por mora y multas de la deuda pública externa indirecta por préstamos recibidos ' . 
+                                  'de gobiernos extranjeros a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '10',
-                'denomination' => ' Intereses por mora y multas de la deuda pÃºblica externa indirecta por préstamos recibidos de organismos internacionales a largo plazo ',
+                'denomination' => ' Intereses por mora y multas de la deuda pública externa indirecta por préstamos recibidos ' . 
+                                  'de organismos internacionales a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '11',
-                'denomination' => ' Intereses por mora y multas de la deuda pÃºblica externa indirecta por préstamos recibidos de instituciones financieras externas a largo plazo',
+                'denomination' => ' Intereses por mora y multas de la deuda pública externa indirecta por préstamos recibidos ' . 
+                                  'de instituciones financieras externas a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '12',
-                'denomination' => ' Intereses por mora y multas de la deuda pÃºblica externa indirecta por préstamos recibidos de proveedores de bienes y servicios externos a largo plazo',
+                'denomination' => ' Intereses por mora y multas de la deuda pública externa indirecta por préstamos recibidos ' . 
+                                  'de proveedores de bienes y servicios externos a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '13',
-                'denomination' => ' Comisiones y otros gastos de la deuda pÃºblica externa indirecta por préstamos recibidos de gobiernos extranjeros a largo plazo',
+                'denomination' => ' Comisiones y otros gastos de la deuda pública externa indirecta por préstamos recibidos de ' . 
+                                  'gobiernos extranjeros a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '14',
-                'denomination' => ' Comisiones y otros gastos de la deuda pÃºblica externa indirecta por préstamos recibidos de organismos internacionales a largo plazo ',
+                'denomination' => ' Comisiones y otros gastos de la deuda pública externa indirecta por préstamos recibidos de ' . 
+                                  'organismos internacionales a largo plazo ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '15',
-                'denomination' => ' Comisiones y otros gastos de la deuda pÃºblica externa indirecta por préstamos  recibidos de instituciones financieras externas a largo plazo',
+                'denomination' => ' Comisiones y otros gastos de la deuda pública externa indirecta por préstamos  recibidos de ' . 
+                                  'instituciones financieras externas a largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '04', 'specific' => '04', 'subspecific' => '16',
-                'denomination' => ' Comisiones y otros gastos de la deuda pÃºblica externa indirecta por préstamos  recibidos de proveedores de bienes y servicios externos  a largo plazo',
+                'denomination' => ' Comisiones y otros gastos de la deuda pública externa indirecta por préstamos  recibidos de ' . 
+                                  'proveedores de bienes y servicios externos  a largo plazo',
                 'active' => true
             ],
             [
@@ -8782,62 +8953,66 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '05', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Disminución por reestructuración y/o refinanciamiento de la deuda interna a largo plazo, en a  corto plazo-',
+                'denomination' => 'Disminución por reestructuración y/o refinanciamiento de la deuda interna a largo plazo, en a  ' . 
+                                  'corto plazo-',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '05', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Disminución por reestructuración y/o refinanciamiento de la deuda interna a corto plazo, en a largo plazo',
+                'denomination' => 'Disminución por reestructuración y/o refinanciamiento de la deuda interna a corto plazo, en a ' . 
+                                  'largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '05', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Disminución por reestructuración y/o refinanciamiento de la deuda externa a largo plazo, en a corto plazo',
+                'denomination' => 'Disminución por reestructuración y/o refinanciamiento de la deuda externa a largo plazo, en a ' . 
+                                  'corto plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '05', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Disminución por reestructuración y/o refinanciamiento de la deuda externa a corto plazo, en a largo plazo',
+                'denomination' => 'Disminución por reestructuración y/o refinanciamiento de la deuda externa a corto plazo, en a ' . 
+                                  'largo plazo',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '05', 'specific' => '05', 'subspecific' => '00',
-                'denomination' => 'Disminución  de la deuda pÃºblica por distribuir',
+                'denomination' => 'Disminución  de la deuda pública por distribuir',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '05', 'specific' => '05', 'subspecific' => '01',
-                'denomination' => 'Disminución  de la deuda pÃºblica interna por distribuir   ',
+                'denomination' => 'Disminución  de la deuda pública interna por distribuir   ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '05', 'specific' => '05', 'subspecific' => '02',
-                'denomination' => 'Disminución de la deuda pÃºblica externa por distribuir    ',
+                'denomination' => 'Disminución de la deuda pública externa por distribuir    ',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '06', 'specific' => '00', 'subspecific' => '00',
-                'denomination' => 'Servicio de la deuda pÃºblica por obligaciones de ejercicios anteriores',
+                'denomination' => 'Servicio de la deuda pública por obligaciones de ejercicios anteriores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '06', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Amortización de la deuda pÃºblica de obligaciones pendientes de ejercicios anteriores',
+                'denomination' => 'Amortización de la deuda pública de obligaciones pendientes de ejercicios anteriores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '06', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Intereses de la deuda pÃºblica de obligaciones pendientes de ejercicios anteriores',
+                'denomination' => 'Intereses de la deuda pública de obligaciones pendientes de ejercicios anteriores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '06', 'specific' => '03', 'subspecific' => '00',
-                'denomination' => 'Intereses por mora y multas de la deuda pÃºblica de obligaciones pendientes de ejercicios anteriores',
+                'denomination' => 'Intereses por mora y multas de la deuda pública de obligaciones pendientes de ejercicios anteriores',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '10', 'generic' => '06', 'specific' => '04', 'subspecific' => '00',
-                'denomination' => 'Comisiones y otros gastos de la deuda pÃºblica de obligaciones pendientes de ejercicios anteriores',
+                'denomination' => 'Comisiones y otros gastos de la deuda pública de obligaciones pendientes de ejercicios anteriores',
                 'active' => true
             ],
             [
@@ -8862,12 +9037,14 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '11', 'generic' => '02', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Disminución de aportes patronales y retenciones laborales por pagar al Instituto Venezolano de los Seguros Sociales (IVSS)',
+                'denomination' => 'Disminución de aportes patronales y retenciones laborales por pagar al Instituto Venezolano de ' . 
+                                  'los Seguros Sociales (IVSS)',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '11', 'generic' => '02', 'specific' => '02', 'subspecific' => '00',
-                'denomination' => 'Disminución de aportes patronales y retenciones laborales por pagar al Instituto de Previsión Social del Ministerio de Educación (IPASME)',
+                'denomination' => 'Disminución de aportes patronales y retenciones laborales por pagar al Instituto de Previsión ' . 
+                                  'Social del Ministerio de Educación (IPASME)',
                 'active' => true
             ],
             [
@@ -8887,7 +9064,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '11', 'generic' => '02', 'specific' => '06', 'subspecific' => '00',
-                'denomination' => 'Disminución  de  aportes patronales y retenciones laborales por pagar al seguro de vida, accidentes personales, hospitalización, cirugÃ­a, maternidad (HCM) y gastos funerarios',
+                'denomination' => 'Disminución  de  aportes patronales y retenciones laborales por pagar al seguro de vida, ' . 
+                                  'accidentes personales, hospitalización, cirugía, maternidad (HCM) y gastos funerarios',
                 'active' => true
             ],
             [
@@ -8902,7 +9080,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '11', 'generic' => '02', 'specific' => '09', 'subspecific' => '00',
-                'denomination' => 'Disminución  de retenciones  laborales  por  pagar  al  Instituto Nacional de Cooperación Educativa (INCE)',
+                'denomination' => 'Disminución  de retenciones  laborales  por  pagar  al  Instituto Nacional de Cooperación ' . 
+                                  'Educativa (INCE)',
                 'active' => true
             ],
             [
@@ -9087,7 +9266,7 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '11', 'generic' => '09', 'specific' => '01', 'subspecific' => '00',
-                'denomination' => 'Disminución de depósitos recibidos en garantÃ­a',
+                'denomination' => 'Disminución de depósitos recibidos en garantía',
                 'active' => true
             ],
             [
@@ -9107,12 +9286,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '11', 'generic' => '10', 'specific' => '01', 'subspecific' => '01',
-                'denomination' => 'Disminución  de  depósitos   de  terceros  a  la  vista  de  organismos  del   sector pÃºblico',
+                'denomination' => 'Disminución  de  depósitos   de  terceros  a  la  vista  de  organismos  del   sector público',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '11', 'generic' => '10', 'specific' => '01', 'subspecific' => '02',
-                'denomination' => 'Disminución  de depósitos de terceros a la vista de personas naturales y jurÃ­dicas del sector privado',
+                'denomination' => 'Disminución  de depósitos de terceros a la vista de personas naturales y jurídicas del sector privado',
                 'active' => true
             ],
             [
@@ -9122,12 +9301,12 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '11', 'generic' => '10', 'specific' => '02', 'subspecific' => '01',
-                'denomination' => 'Disminución de depósitos a plazo fijo de organismos del sector pÃºblico',
+                'denomination' => 'Disminución de depósitos a plazo fijo de organismos del sector público',
                 'active' => true
             ],
             [
                 'group' => '4', 'item' => '11', 'generic' => '10', 'specific' => '02', 'subspecific' => '02',
-                'denomination' => 'Disminución de depósitos a plazo fijo de personas naturales y jurÃ­dicas del sector privado',
+                'denomination' => 'Disminución de depósitos a plazo fijo de personas naturales y jurídicas del sector privado',
                 'active' => true
             ],
             [
@@ -9482,7 +9661,9 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '3', 'item' => '01', 'generic' => '02', 'specific' => '04', 'subspecific' => '08',
-                'denomination' => 'Reparos administrativos impuesto a la operación de juegos de lotería, apuestas sobre la explotación de espectáculos hípicos y organización en general de juegos de envite o azar y apuestas deportivas',
+                'denomination' => 'Reparos administrativos impuesto a la operación de juegos de lotería, apuestas sobre la ' . 
+                                  'explotación de espectáculos hípicos y organización en general de juegos de envite o azar y apuestas ' . 
+                                  'deportivas',
                 'active' => true
             ],
             [
@@ -9517,7 +9698,8 @@ class BudgetAccountsTableSeeder extends Seeder
             ],
             [
                 'group' => '4', 'item' => '01', 'generic' => '06', 'specific' => '39', 'subspecific' => '00',
-                'denomination' => 'Aporte patronal al Instituto Venezolano de los Seguros Sociales (IVSS) por personal de alto nivel y de dirección',
+                'denomination' => 'Aporte patronal al Instituto Venezolano de los Seguros Sociales (IVSS) por personal de alto nivel ' . 
+                                  'y de dirección',
                 'active' => true
             ],
             [
@@ -9551,5 +9733,27 @@ class BudgetAccountsTableSeeder extends Seeder
                 'active' => true
             ]
         ];
+
+        DB::transaction(function() use ($budget_accounts) {
+            foreach ($budget_accounts as $account) {
+                $parent = BudgetAccount::getParent(
+                    $account['group'], $account['item'], $account['generic'], $account['specific'], $account['subspecific']
+                );
+
+                BudgetAccount::updateOrCreate(
+                    [
+                        'group' => $account['group'], 'item' => $account['item'], 'generic' => $account['generic'],
+                        'specific' => $account['specific'], 'subspecific' => $account['subspecific']
+                    ],
+                    [
+                        'denomination' => $account['denomination'], 'active' => $account['active'],
+                        'inactivity_date' => (!$account['active'])?date("Y-m-d"):null,
+                        'resource' => ((int)$account['group'] === 3),
+                        'egress' => ((int)$account['group'] === 4),
+                        'parent_id' => ($parent == false)?null:$parent->id
+                    ]
+                );
+            }
+        });
     }
 }

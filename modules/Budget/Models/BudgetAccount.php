@@ -25,9 +25,37 @@ class BudgetAccount extends Model
      * @var array
      */
     protected $fillable = [
-    	'group', 'generic', 'specific', 'subspecific', 'denomination', 'active', 'resource',
+    	'group', 'item', 'generic', 'specific', 'subspecific', 'denomination', 'active', 'resource',
     	'egress', 'tax_id', 'parent_id'
     ];
 
+    public static function getParent($group, $item, $generic, $specific, $subspecific) {
+        if ($item !== '00') {
+            $parent = self::where('group', $group);
+            if ($generic !== '00') {
+                $parent = $parent->where('item', $item);
+                if ($specific !== '00') {
+                    $parent = $parent->where('generic', $generic);
+                    if ($subspecific !== '00') {
+                        $parent = $parent->where('specific', $specific);
+                    }
+                    else {
+                        $parent = $parent->where('subspecific', '00');
+                    }
+                }
+                else {
+                    $parent = $parent->where('specific', '00');
+                }
+            }
+            else {
+                $parent = $parent->where('generic', '00');
+            }
+        }
+        
+        if (!isset($parent)) {
+            return false;
+        }
 
+        return $parent->first();
+    }
 }
