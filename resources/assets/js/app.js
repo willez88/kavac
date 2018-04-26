@@ -266,7 +266,6 @@ Vue.mixin({
     }
 });
 
-
 /** @type {object} Constante que crea el elemento Vue */
 const app = new Vue({
     el: '#app',

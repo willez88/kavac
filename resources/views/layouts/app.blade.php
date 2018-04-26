@@ -31,7 +31,7 @@
                     <div class="page-header-image"></div>
                     <div class="container">
                         <div class="col-md-4 content-center">
-                            <div class="card card-login card-plain">
+                            <div class="card card-login card-plain" id="app">
                                 @yield('content')
                             </div>
                         </div>

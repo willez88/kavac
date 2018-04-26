@@ -58488,6 +58488,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			vm.$emit('input', this.value);
 		});
 	},
+	/**
+  * Monitorea el valor de un select y carga los datos del select dependiente cuando este cambia su valor
+  *
+  * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+  * @type {Object}
+  */
 	watch: {
 		value: function value(_value) {
 			$(this.$el).val(_value).trigger('change');
@@ -60870,6 +60876,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	mounted: function mounted() {},
 
 	methods: {
+		/**
+   * Inicializa los registros base del formulario
+   *
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   */
 		initRecords: function initRecords() {
 			var _this = this;
 
@@ -61380,6 +61391,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	mounted: function mounted() {},
 
 	methods: {
+		/**
+   * Inicializa los registros base del formulario
+   *
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   */
 		initRecords: function initRecords() {
 			var _this = this;
 
@@ -61387,6 +61403,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.countries = response.data;
 			});
 		},
+
+		/**
+   * Obtiene los Estados del Pais seleccionado
+   * 
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   */
 		getEstates: function getEstates() {
 			var _this2 = this;
 
@@ -61912,6 +61934,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	mounted: function mounted() {},
 
 	methods: {
+		/**
+   * Inicializa los registros base del formulario
+   *
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   */
 		initRecords: function initRecords() {
 			var _this = this;
 
@@ -61919,6 +61946,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.countries = response.data;
 			});
 		},
+
+		/**
+   * Obtiene los Estados del Pais seleccionado
+   * 
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   */
 		getEstates: function getEstates() {
 			var _this2 = this;
 
@@ -62427,6 +62460,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	mounted: function mounted() {},
 
 	methods: {
+		/**
+   * Inicializa los registros base del formulario
+   *
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   */
 		initRecords: function initRecords() {
 			var _this = this;
 
@@ -62434,6 +62472,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.countries = response.data;
 			});
 		},
+
+		/**
+   * Obtiene los Estados del Pais seleccionado
+   * 
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   */
 		getEstates: function getEstates() {
 			var _this2 = this;
 
@@ -62443,6 +62487,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				});
 			}
 		},
+
+		/**
+   * Obtiene los Municipios del Estado seleccionado
+   * 
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+   */
 		getMunicipalities: function getMunicipalities() {
 			var _this3 = this;
 
