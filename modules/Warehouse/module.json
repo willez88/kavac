@@ -1,0 +1,16 @@
+{
+    "name": "Warehouse",
+    "alias": "warehouse",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Warehouse\\Providers\\WarehouseServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
