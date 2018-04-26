@@ -23,6 +23,7 @@ class CreateBudgetAccountsTable extends Migration
                 $table->char('subspecific', 2)->comment('Subespecífica de la cuenta');
                 $table->text('denomination')->comment('Descripción de la cuenta');
                 $table->boolean('active')->default(true)->comment('Indica si la cuenta esta activa');
+                $table->date('inactivity_date')->nullable()->comment('Fecha en la que se inactiva la cuenta');
                 $table->boolean('resource')->comment('Indica si es una cuenta de reursos');
                 $table->boolean('egress')->comment('Indica si es una cuenta de egresos');
                 $table->integer('tax_id')->nullable()->unsigned()
