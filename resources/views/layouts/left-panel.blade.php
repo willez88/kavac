@@ -40,6 +40,7 @@
                     <i class="ion-social-dropbox-outline"></i><span>Proveedores</span>
                 </a>
             </li>
+            @include('digitalsignature::layouts.menu-option')
             @include('payroll::layouts.menu-option')
             @include('budget::layouts.menu-option')
             {{-- Gestión de compras --}}

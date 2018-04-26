@@ -1,0 +1,16 @@
+{
+    "name": "DigitalSignature",
+    "alias": "digitalsignature",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\DigitalSignature\\Providers\\DigitalSignatureServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
