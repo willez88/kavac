@@ -19974,6 +19974,7 @@ Vue.mixin({
 			this.errors = [];
 			this.reset();
 			$("#" + modal_id).modal('show');
+			this.initRecords();
 			this.readRecords(url);
 		},
 
@@ -58660,9 +58661,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: []
 		};
 	},
-	mounted: function mounted() {
-		//this.readRecords('marital-status');
-	}
+	mounted: function mounted() {}
 });
 
 /***/ }),
@@ -59100,9 +59099,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: []
 		};
 	},
-	mounted: function mounted() {
-		//this.readRecords('professions');
-	}
+	mounted: function mounted() {}
 });
 
 /***/ }),
@@ -59545,9 +59542,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: []
 		};
 	},
-	mounted: function mounted() {
-		//this.readRecords('institution-types');
-	}
+	mounted: function mounted() {}
 });
 
 /***/ }),
@@ -59991,9 +59986,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: []
 		};
 	},
-	mounted: function mounted() {
-		//this.readRecords('institution-sectors');
-	}
+	mounted: function mounted() {}
 });
 
 /***/ }),
@@ -60419,9 +60412,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: []
 		};
 	},
-	mounted: function mounted() {
-		//this.readRecords('countries');
-	}
+	mounted: function mounted() {}
 });
 
 /***/ }),
@@ -60876,13 +60867,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			countries: []
 		};
 	},
-	mounted: function mounted() {
-		var _this = this;
+	mounted: function mounted() {},
 
-		axios.get('/get-countries').then(function (response) {
-			_this.countries = response.data;
-		});
-		//this.readRecords('estates');
+	methods: {
+		initRecords: function initRecords() {
+			var _this = this;
+
+			axios.get('/get-countries').then(function (response) {
+				_this.countries = response.data;
+			});
+		}
 	}
 });
 
@@ -61383,16 +61377,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			estates: []
 		};
 	},
-	mounted: function mounted() {
-		var _this = this;
-
-		axios.get('/get-countries').then(function (response) {
-			_this.countries = response.data;
-		});
-		//this.readRecords('municipalities');
-	},
+	mounted: function mounted() {},
 
 	methods: {
+		initRecords: function initRecords() {
+			var _this = this;
+
+			axios.get('/get-countries').then(function (response) {
+				_this.countries = response.data;
+			});
+		},
 		getEstates: function getEstates() {
 			var _this2 = this;
 
@@ -61915,16 +61909,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			estates: []
 		};
 	},
-	mounted: function mounted() {
-		var _this = this;
-
-		axios.get('/get-countries').then(function (response) {
-			_this.countries = response.data;
-		});
-		/*this.readRecords('cities');*/
-	},
+	mounted: function mounted() {},
 
 	methods: {
+		initRecords: function initRecords() {
+			var _this = this;
+
+			axios.get('/get-countries').then(function (response) {
+				_this.countries = response.data;
+			});
+		},
 		getEstates: function getEstates() {
 			var _this2 = this;
 
@@ -62430,16 +62424,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			municipalities: []
 		};
 	},
-	mounted: function mounted() {
-		var _this = this;
-
-		axios.get('/get-countries').then(function (response) {
-			_this.countries = response.data;
-		});
-		//this.readRecords('municipalities');
-	},
+	mounted: function mounted() {},
 
 	methods: {
+		initRecords: function initRecords() {
+			var _this = this;
+
+			axios.get('/get-countries').then(function (response) {
+				_this.countries = response.data;
+			});
+		},
 		getEstates: function getEstates() {
 			var _this2 = this;
 
@@ -63002,9 +62996,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: []
 		};
 	},
-	mounted: function mounted() {
-		//this.readRecords('document-status');
-	}
+	mounted: function mounted() {}
 });
 
 /***/ }),
@@ -63547,9 +63539,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: []
 		};
 	},
-	mounted: function mounted() {
-		//this.readRecords('taxes');
-	}
+	mounted: function mounted() {}
 });
 
 /***/ }),

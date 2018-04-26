@@ -121,12 +121,14 @@
 			}
 		},
 		mounted() {
-			axios.get('/get-countries').then(response => {
-				this.countries = response.data;
-			});
-			//this.readRecords('municipalities');
+
 		},
 		methods: {
+			initRecords() {
+				axios.get('/get-countries').then(response => {
+					this.countries = response.data;
+				});
+			},
 			getEstates() {
 				if (this.record.country_id) {
 					axios.get('/get-estates/' + this.record.country_id).then(response => {

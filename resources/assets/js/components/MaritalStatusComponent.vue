@@ -85,9 +85,8 @@
 				records: []
 			}
 		},
-		mounted()
-		{
-			//this.readRecords('marital-status');
+		mounted() {
+
 		},
 	}
 </script>

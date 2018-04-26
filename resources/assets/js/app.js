@@ -133,6 +133,7 @@ Vue.mixin({
 			this.errors = [];
 			this.reset();
 			$("#" + modal_id).modal('show');
+			this.initRecords();
 			this.readRecords(url);
 		},
 		/**

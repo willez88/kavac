@@ -110,10 +110,14 @@
 			}
 		},
 		mounted() {
-			axios.get('/get-countries').then(response => {
-				this.countries = response.data;
-			});
-			//this.readRecords('estates');
+			
 		},
+		methods: {
+			initRecords() {
+				axios.get('/get-countries').then(response => {
+					this.countries = response.data;
+				});
+			}
+		}
 	}
 </script>

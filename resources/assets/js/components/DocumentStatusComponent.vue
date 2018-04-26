@@ -119,7 +119,7 @@
 			}
 		},
 		mounted() {
-			//this.readRecords('document-status');
+			
 		}
 	}
 </script>

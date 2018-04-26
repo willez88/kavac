@@ -141,7 +141,7 @@
 			}
 		},
 		mounted() {
-			//this.readRecords('taxes');
+
 		},
 	}
 </script>

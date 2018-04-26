@@ -90,7 +90,7 @@
 			}
 		},
 		mounted() {
-			//this.readRecords('institution-sectors');
+			
 		},
 	}
 </script>

@@ -100,7 +100,7 @@
 			}
 		},
 		mounted() {
-			//this.readRecords('countries');
+			
 		},
 	}
 </script>

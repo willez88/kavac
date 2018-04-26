@@ -98,7 +98,7 @@
 			}
 		},
 		mounted() {
-			//this.readRecords('institution-types');
+			
 		},
 	}
 </script>
