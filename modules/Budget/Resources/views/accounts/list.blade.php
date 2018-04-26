@@ -32,7 +32,8 @@
 				<div class="card-body">
 					<div class="row" style="padding:10px 0;">
 						<div class="col-12 text-right">
-							<a href="{{ route('budget.accounts.create') }}" class="btn btn-simple btn-info btn-sm">
+							<a href="{{ route('budget.accounts.create') }}" class="btn btn-simple btn-info btn-sm" 
+							   title="Crear nuevo registro" data-toggle="tooltip">
 								<i class="fa fa-plus-circle"></i>
 								Nuevo
 							</a>
