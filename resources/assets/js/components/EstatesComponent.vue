@@ -110,9 +110,14 @@
 			}
 		},
 		mounted() {
-			
+
 		},
 		methods: {
+			/**
+			 * Inicializa los registros base del formulario
+			 *
+			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+			 */
 			initRecords() {
 				axios.get('/get-countries').then(response => {
 					this.countries = response.data;

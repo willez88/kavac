@@ -18,6 +18,12 @@
 					   		vm.$emit('input', this.value)
 					   });
 		},
+		/**
+		 * Monitorea el valor de un select y carga los datos del select dependiente cuando este cambia su valor
+		 *
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @type {Object}
+		 */
 		watch: {
 			value: function(value) {
 				$(this.$el).val(value).trigger('change');

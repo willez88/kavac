@@ -114,11 +114,21 @@
 			
 		},
 		methods: {
+			/**
+			 * Inicializa los registros base del formulario
+			 *
+			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+			 */
 			initRecords() {
 				axios.get('/get-countries').then(response => {
 					this.countries = response.data;
 				});
 			},
+			/**
+			 * Obtiene los Estados del Pais seleccionado
+			 * 
+			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+			 */
 			getEstates() {
 				if (this.record.country_id) {
 					axios.get('/get-estates/' + this.record.country_id).then(response => {
