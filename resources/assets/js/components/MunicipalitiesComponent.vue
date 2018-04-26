@@ -109,7 +109,7 @@
 			return {
 				record: {
 					id: '',
-					country_id: '0',
+					country_id: '',
 					estate_id: '',
 					name: '',
 					code: ''

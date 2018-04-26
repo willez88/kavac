@@ -1,3 +1,44 @@
+@section('extra-js')
+	@parent
+	<script>
+		$(document).ready(function() {
+			/*$("#logo_id").fileinput({
+			    overwriteInitial: true,
+			    maxFileSize: 1500,
+			    showClose: false,
+			    showCaption: false,
+			    showBrowse: false,
+			    browseOnZoneClick: true,
+			    removeLabel: '',
+			    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+			    removeTitle: 'Cancel or reset changes',
+			    elErrorContainer: '#kv-avatar-errors-logo_id',
+			    msgErrorClass: 'alert alert-block alert-danger',
+			    defaultPreviewContent: '<img src="{{ asset('images/default-avatar.png') }}" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
+			    layoutTemplates: {main2: '{preview} {remove} {browse}'},
+			    allowedFileExtensions: ["jpg", "png", "gif"]
+			});*/
+
+			/*$("#banner_id").fileinput({
+			    overwriteInitial: true,
+			    maxFileSize: 1500,
+			    showClose: false,
+			    showCaption: false,
+			    showBrowse: false,
+			    browseOnZoneClick: true,
+			    removeLabel: '',
+			    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+			    removeTitle: 'Cancel or reset changes',
+			    elErrorContainer: '#kv-avatar-errors-banner_id',
+			    msgErrorClass: 'alert alert-block alert-danger',
+			    defaultPreviewContent: '<img src="{{ asset('images/default-avatar.png') }}" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
+			    layoutTemplates: {main2: '{preview} {remove} {browse}'},
+			    allowedFileExtensions: ["jpg", "png", "gif"]
+			});*/
+		});
+	</script>
+@endsection
+
 <div class="row">
 	<div class="col-12">
 		<div class="card">
@@ -13,32 +54,37 @@
 			{!! Form::model($model_institution, $header_institution) !!}
 				<div class="card-body">
 					@include('layouts.form-errors')
+					<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
+					<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Logotipo Institucional</label>
+								<div class="kv-avatar">
+					                <div class="file-loading">
+					                    <input id="logo_id" name="logo_id" type="file">
+					                </div>
+					            </div>
 								@if ($model_institution!==null && $model_institution->logo_id)
-									<div class="col-12">
+									<div class="col-12 text-center">
 										<img src="{{ url($model_institution->logo->url) }}" class="img-fluid" style="max-height:150px;margin:0 auto;" alt="logo actual">
 									</div>
 								@endif
-								<div class="col-12">
-									<input id="logo_id" name="logo_id" type="file" class="file">
-								</div>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Banner Institucional</label>
+								<div class="kv-avatar">
+					                <div class="file-loading">
+					                    <input id="banner_id" name="banner_id" type="file">
+					                </div>
+					            </div>
 								@if ($model_institution!==null && $model_institution->banner_id)
 									<div class="col-12">
 										<img src="{{ url($model_institution->banner->url) }}" class="img-fluid" style="max-height:150px;margin:0 auto;" alt="banner actual">
 									</div>
 								@endif
-								<div class="col-12">
-									<input id="banner_id" name="banner_id" type="file" 
-										   class="file">
-								</div>
 							</div>
 						</div>
 					</div>

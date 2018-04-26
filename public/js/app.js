@@ -61372,7 +61372,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			record: {
 				id: '',
-				country_id: '0',
+				country_id: '',
 				estate_id: '',
 				name: '',
 				code: ''

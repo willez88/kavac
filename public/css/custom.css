@@ -2657,3 +2657,27 @@ body {
   max-height: 40px;
 }
 
+.kv-avatar .krajee-default.file-preview-frame,
+.kv-avatar .krajee-default.file-preview-frame:hover {
+  margin: 0;
+  padding: 0;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  text-align: center;
+}
+
+.kv-avatar {
+  /*display: inline-block;*/
+}
+
+.kv-avatar .file-input {
+  display: table-cell;
+  width: 100%;
+}
+
+.kv-avatar-errors {
+  width: 100%;
+  display: none;
+}
+
