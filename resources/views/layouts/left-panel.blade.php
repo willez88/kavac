@@ -40,10 +40,15 @@
                     <i class="ion-social-dropbox-outline"></i><span>Proveedores</span>
                 </a>
             </li>
+            {{-- Menú de opciones del módulo de firma digital --}}
             @include('digitalsignature::layouts.menu-option')
+            {{-- Menú de opciones del módulo de nómina --}}
             @include('payroll::layouts.menu-option')
+            {{-- Menú de opciones del módulo de presupuesto --}}
             @include('budget::layouts.menu-option')
+            {{-- Menú de opciones del módulo de compras --}}
             @include('purchase::layouts.menu-option')
+            {{-- Menú de opciones del módulo de almacén --}}
             @include('warehouse::layouts.menu-option')
             {{-- Gestión de bienes --}}
             <li>
