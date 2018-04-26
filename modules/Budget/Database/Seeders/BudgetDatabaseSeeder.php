@@ -16,6 +16,6 @@ class BudgetDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(BudgetAccountsTableSeeder::class);
     }
 }
