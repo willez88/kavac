@@ -1,0 +1,27 @@
+{{-- Gestión de compras --}}
+<li>
+    <a href="#" title="Gestión de compras de bienes y servicios" data-toggle="tooltip" 
+       data-placement="right">
+        <i class="ion-ios-cart-outline"></i><span>Compras</span>
+    </a>
+    <ul class="submenu">
+        <li>
+            <a href="#">Configuración</a>
+        </li>
+        <li>
+            <a href="#">Requisición</a>
+        </li>
+        <li>
+            <a href="#">Cotización</a>
+        </li>
+        <li>
+            <a href="#">Acta</a>
+        </li>
+        <li>
+            <a href="#">Orden de Compra / Servicio</a>
+        </li>
+        <li>
+            <a href="#">Reintegro</a>
+        </li>
+    </ul>
+</li>
