@@ -1,5 +1,8 @@
 {{-- Barra de Navegación Superior --}}
 <nav class="navbar navbar-expand-lg bg-info fixed-top">
+	{{-- <div>
+		<img src="{{ App\Models\Institution::where('default', true)->first()->banner->url }}" alt="">
+	</div> --}}
 	<div class="container-left">
 		<a href="{{ route('index') }}" class="logo">
                 <img src="{{ asset('images/logo-white.png') }}" alt="" /> 

@@ -183,7 +183,6 @@ $(document).ready(function() {
                 '<li>María Gónzalez (mgonzalez@cenditel.gob.ve)</li>' +
                 '<li class="special-title">Desarrolladores</li>' +
                 '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' +
-                '<li>Juan Vizcarrondo (jvizcarrondo@cenditel.gob.ve)</li>' +
             '</ul>' +
             '<h6 class="card-title">Repositorio</h6>' +
             '<ul>' +
@@ -261,6 +260,8 @@ $(document).ready(function() {
 
 /**
  * Permite mostrar alerta de mensajes de acciones realizadas con vue o js
+ *
+ * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
  * @param  {string} msg_title Título de la ventana de alerta
  * @param  {string} msg_class Clase de estilo a usar en la ventana de alerta
  * @param  {string} msg_icon  Ícono a usar en la ventana de alerta

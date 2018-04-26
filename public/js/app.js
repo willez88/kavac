@@ -66227,7 +66227,7 @@ $(document).ready(function () {
     /** Evento que permite mostrar datos sobre la aplicación (acerca de) */
     $('.about_app').on('click', function (e) {
         e.preventDefault();
-        bootbox.alert('<h6>SISTEMA DE GESTION ADMINISTRATIVA | KAVAC</h6>' + '<p class="text-justify">Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública. Registra y controla el presupuesto de la institución.</p>' + '<h6 class="card-title">Créditos</h6>' + '<ul>' + '<li class="special-title">Lider de proyecto / Diseño / Desarrollo</li>' + '<li>Roldan Vargas (rvargas@cenditel.gob.ve)</li>' + '<li class="special-title">Analistas</li>' + '<li>Julie Vera (jvera@cenditel.gob.ve)</li>' + '<li>María Gónzalez (mgonzalez@cenditel.gob.ve)</li>' + '<li class="special-title">Desarrolladores</li>' + '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' + '<li>Juan Vizcarrondo (jvizcarrondo@cenditel.gob.ve)</li>' + '</ul>' + '<h6 class="card-title">Repositorio</h6>' + '<ul>' + '<li class="no-list-symbol">' + '<a href="#" target="_blank">Repositorio</a>' + '</li>' + '</ul>' + '<h6 class="card-title">Documentación</h6>' + '<ul>' + '<li class="no-list-symbol">' + '<a href="#" target="_blank">Documentación</a>' + '</li>' + '</ul>');
+        bootbox.alert('<h6>SISTEMA DE GESTION ADMINISTRATIVA | KAVAC</h6>' + '<p class="text-justify">Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública. Registra y controla el presupuesto de la institución.</p>' + '<h6 class="card-title">Créditos</h6>' + '<ul>' + '<li class="special-title">Lider de proyecto / Diseño / Desarrollo</li>' + '<li>Roldan Vargas (rvargas@cenditel.gob.ve)</li>' + '<li class="special-title">Analistas</li>' + '<li>Julie Vera (jvera@cenditel.gob.ve)</li>' + '<li>María Gónzalez (mgonzalez@cenditel.gob.ve)</li>' + '<li class="special-title">Desarrolladores</li>' + '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' + '</ul>' + '<h6 class="card-title">Repositorio</h6>' + '<ul>' + '<li class="no-list-symbol">' + '<a href="#" target="_blank">Repositorio</a>' + '</li>' + '</ul>' + '<h6 class="card-title">Documentación</h6>' + '<ul>' + '<li class="no-list-symbol">' + '<a href="#" target="_blank">Documentación</a>' + '</li>' + '</ul>');
     });
 
     /** Evento que permite mostrar datos sobre el licenciamiento de la aplicación */
@@ -66269,6 +66269,8 @@ $(document).ready(function () {
 
 /**
  * Permite mostrar alerta de mensajes de acciones realizadas con vue o js
+ *
+ * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
  * @param  {string} msg_title Título de la ventana de alerta
  * @param  {string} msg_class Clase de estilo a usar en la ventana de alerta
  * @param  {string} msg_icon  Ícono a usar en la ventana de alerta

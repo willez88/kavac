@@ -9,7 +9,7 @@
             <a href="#">Configuración</a>
         </li>
         <li>
-            <a href="#">Plan de Cuentas</a>
+            <a href="{{ route('budget.accounts.index') }}">Plan de Cuentas</a>
         </li>
         <li>
             <a href="#">Formulación</a>

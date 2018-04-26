@@ -29,7 +29,8 @@ class BudgetAccount extends Model
     	'egress', 'tax_id', 'parent_id'
     ];
 
-    public static function getParent($group, $item, $generic, $specific, $subspecific) {
+    public static function getParent($group, $item, $generic, $specific, $subspecific)
+    {
         if ($item !== '00') {
             $parent = self::where('group', $group);
             if ($generic !== '00') {
@@ -58,4 +59,5 @@ class BudgetAccount extends Model
 
         return $parent->first();
     }
+
 }
