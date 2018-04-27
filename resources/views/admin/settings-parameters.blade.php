@@ -17,6 +17,7 @@
 							<h6>Activar funciones de la aplicación</h6>
 						</div>
 					</div>
+					@include('layouts.form-errors')
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">

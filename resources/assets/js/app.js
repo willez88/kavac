@@ -104,7 +104,7 @@ require('./modules');
  * @param  {object} methods Métodos generales a implementar en CRUDS
  */
 Vue.mixin({
-	props: ['route_list', 'route_create', 'route_update', 'route_delete'],
+	props: ['route_list', 'route_create', 'route_edit', 'route_update', 'route_delete'],
 	methods: {
 		/**
 		 * Método que borra todos los datos del formulario

@@ -84,4 +84,27 @@ class BudgetAccount extends Model
         return $code;
     }
 
+    /**
+     * Construye un arreglo de elementos para usar en palntillas blade
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @return [array] Arreglo con los registros
+     */
+    public static function template_choices($filters = [])
+    {
+        $records = self::all();
+        if ($filters) {
+            $records = self::where('original', true);
+            foreach ($filters as $key => $value) {
+                $records = $records->where($key, $value);
+            }
+            $records = $records->get();
+        }
+        $options = [];
+        foreach ($records as $rec) {
+            $options[$rec->id] = $rec->getCode() . " - " . $rec->denomination;
+        }
+        return $options;
+    }
+
 }

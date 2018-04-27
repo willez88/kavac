@@ -31,11 +31,16 @@
 				</div>
 				{!! (!isset($model))?Form::open($header):Form::model($model, $header) !!}
 					<div class="card-body">
+						@include('layouts.form-errors')
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="control-label">Cuenta</label>
-									{!! Form::select('parent_id', [], null, ['class' => 'select2']) !!}
+									{!! Form::select('parent_id', $budget_accounts, null, [
+										'class' => 'select2', 'data-toggle' => 'tooltip',
+										'title' => 'Seleccione una cuenta presupuestaria',
+										'onclick' => 'genBudgetAccount($(this).val())'
+									]) !!}
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -71,7 +76,7 @@
 										</div>
 										<div class="col-1">.</div>
 										<div class="col-1">
-											{!! Form::text('subespecific', old('subespecific'), [
+											{!! Form::text('subspecific', old('subspecific'), [
 												'class' => 'form-control', 'placeholder' => '00', 'data-toggle' => 'tooltip',
 												'title' => 'Subespecífica a la que pertenece la cuenta', 'maxlength' => '2'
 											]) !!}

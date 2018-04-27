@@ -19941,7 +19941,7 @@ __webpack_require__(87);
  * @param  {object} methods Métodos generales a implementar en CRUDS
  */
 Vue.mixin({
-	props: ['route_list', 'route_create', 'route_update', 'route_delete'],
+	props: ['route_list', 'route_create', 'route_edit', 'route_update', 'route_delete'],
 	methods: {
 		/**
    * Método que borra todos los datos del formulario
@@ -64099,6 +64099,12 @@ __webpack_require__(88);
 /* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/**
+ * Componente para mostrar listado del clasificador de cuentas presupuestarias
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
 Vue.component('budget-accounts-list', __webpack_require__(89));
 
 /***/ }),
@@ -64196,6 +64202,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	mounted: function mounted() {
 		this.readRecords(this.route_list);
+	},
+
+	methods: {
+		editForm: function editForm(id) {
+			location.href = this.route_edit + '/' + id;
+		}
 	}
 });
 
@@ -64256,7 +64268,11 @@ var render = function() {
                     "data-toggle": "tooltip",
                     type: "button"
                   },
-                  on: { click: function($event) {} }
+                  on: {
+                    click: function($event) {
+                      _vm.editForm(rec.id)
+                    }
+                  }
                 },
                 [_c("i", { staticClass: "fa fa-edit" })]
               ),

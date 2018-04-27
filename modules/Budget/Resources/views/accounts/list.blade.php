@@ -40,7 +40,10 @@
 							</a>
 						</div>
 					</div>
-					<budget-accounts-list route_list='budget/accounts/vue-list' route_delete="budget/accounts/delete"></budget-accounts-list>
+					<budget-accounts-list route_list='budget/accounts/vue-list' 
+										  route_delete="budget/accounts/delete" 
+										  route_edit="accounts/edit">
+					</budget-accounts-list>
 				</div>
 			</div>
 		</div>
