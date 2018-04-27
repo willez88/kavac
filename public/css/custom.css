@@ -895,6 +895,29 @@ table td {
   border-color: #2CA8FF;
 }
 
+.inline-inputs {
+  padding: 0 15px;
+}
+
+.inline-inputs .col-1:nth-child(odd),
+.inline-inputs .col-2:nth-child(odd),
+.inline-inputs .col-3:nth-child(odd),
+.inline-inputs .col-4:nth-child(odd),
+.inline-inputs .col-5:nth-child(odd),
+.inline-inputs .col-6:nth-child(odd) {
+  padding: 0;
+}
+
+.inline-inputs .col-1 input[type=text],
+.inline-inputs .col-2 input[type=text],
+.inline-inputs .col-3 input[type=text],
+.inline-inputs .col-4 input[type=text],
+.inline-inputs .col-5 input[type=text],
+.inline-inputs .col-6 input[type=text] {
+  padding: 10px;
+  text-align: center;
+}
+
 /** Estilos personalizados para campos de tipo radio */
 
 .radio input[type="radio"]:checked + label::after {

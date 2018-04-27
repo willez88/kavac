@@ -25,7 +25,13 @@ class BudgetAccountController extends Controller
      */
     public function create()
     {
-        //return view('budget::create');
+        $header = [
+            'route' => 'budget.accounts.store', 
+            'method' => 'POST', 
+            'role' => 'form',
+            'class' => 'form-horizontal',
+        ];
+        return view('budget::accounts.create-edit-form', compact('header'));
     }
 
     /**
