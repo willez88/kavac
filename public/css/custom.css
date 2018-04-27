@@ -2690,12 +2690,8 @@ body {
   display: none;
 }
 
-table.table td.wrapping {
-  max-width: 200px;
-}
-
-table.table td,
-table.table th {
+table.table.table-big td,
+table.table.table-big th {
   white-space: pre-wrap !important;
   word-break: break-word !important;
 }

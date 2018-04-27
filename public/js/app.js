@@ -64211,7 +64211,7 @@ var render = function() {
     "table",
     {
       staticClass:
-        "table table-hover table-striped dt-responsive nowrap datatable"
+        "table table-big table-hover table-striped dt-responsive nowrap datatable"
     },
     [
       _vm._m(0),

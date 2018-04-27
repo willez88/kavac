@@ -1,5 +1,5 @@
 <template>
-	<table class="table table-hover table-striped dt-responsive nowrap datatable">
+	<table class="table table-big table-hover table-striped dt-responsive nowrap datatable">
 		<thead>
 			<tr class="text-center">
 				<th>Código</th>
