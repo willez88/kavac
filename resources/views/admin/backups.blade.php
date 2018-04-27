@@ -33,8 +33,10 @@
                     <div class="row">
                         <div class="col-12">
                             <a id="create-new-backup-button" href="{{ url('backup/create') }}" 
-                                class="btn btn-primary float-right" style="margin-bottom:2em;">
-                                <i class="fa fa-plus"></i> Crear nuevo Respaldo
+                                class="btn btn-sm btn-primary btn-custom float-right" data-toggle="tooltip" 
+                                title="Crear un nuevo respaldo">
+                                <i class="fa fa-plus-circle"></i>
+                                <span>Nuevo</span>
                             </a>
                         </div>
                     </div>

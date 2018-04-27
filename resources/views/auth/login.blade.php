@@ -57,7 +57,7 @@
                     </span>
                     {!! Form::text('captcha', old('captcha'), [
                         'class' => 'form-control', 'placeholder' => 'Captcha', 'required' => 'required',
-                        'id' => 'captcha'
+                        'id' => 'captcha', 'onfocus' => '$(this).val("")'
                     ]) !!}
                 </div>
                 @if ($errors->has('captcha'))

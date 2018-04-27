@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Plan de Cuentas
+	Catálogo de Cuentas
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Catálogo de Cuentas</h6>
+					<h6 class="card-title">Catálogo de Cuentas Presupuestarias</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 						   data-toggle="tooltip">
@@ -30,12 +30,13 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<div class="row" style="padding:10px 0;">
-						<div class="col-12 text-right">
-							<a href="{{ route('budget.accounts.create') }}" class="btn btn-simple btn-info btn-sm" 
+					<div class="row">
+						<div class="col-12">
+							<a href="{{ route('budget.accounts.create') }}" 
+							   class="btn btn-sm btn-primary btn-custom float-right" 
 							   title="Crear nuevo registro" data-toggle="tooltip">
 								<i class="fa fa-plus-circle"></i>
-								Nuevo
+								<span>Nuevo</span>
 							</a>
 						</div>
 					</div>
@@ -44,16 +45,18 @@
 							<tr class="text-center">
 								<th>Código</th>
 								<th>Denominación</th>
+								<th>Original</th>
 								<th>Acción</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach ($records as $rec)
 								<tr>
-									<td>
-										{{ $rec->group .'.'. $rec->item .'.'. $rec->generic .'.'. $rec->specific .'.'. $rec->subspecific}}
+									<td width="20%">
+										{{ $rec->getCode() }}
 									</td>
-									<td>{{ $rec->denomination }}</td>
+									<td width="60%">{{ $rec->denomination }}</td>
+									<td class="text-center" width="10%">{{ ($rec->original)?'SI':'NO' }}</td>
 									<td class="text-center" width="10%">
 										{!! Form::button('<i class="fa fa-edit"></i>', [
                                             'class' => 'btn btn-warning btn-xs btn-icon btn-round',

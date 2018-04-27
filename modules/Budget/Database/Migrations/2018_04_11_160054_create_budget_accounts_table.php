@@ -26,6 +26,8 @@ class CreateBudgetAccountsTable extends Migration
                 $table->date('inactivity_date')->nullable()->comment('Fecha en la que se inactiva la cuenta');
                 $table->boolean('resource')->comment('Indica si es una cuenta de reursos');
                 $table->boolean('egress')->comment('Indica si es una cuenta de egresos');
+                $table->boolean('original')->default(true)
+                      ->comment('Indica si la cuenta es del clasificador presupuestario original');
                 $table->integer('tax_id')->nullable()->unsigned()
                       ->comment('Identificador asociado al impuesto');
                 $table->integer('parent_id')->nullable()->unsigned()

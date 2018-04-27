@@ -26,7 +26,7 @@ class BudgetAccount extends Model
      */
     protected $fillable = [
     	'group', 'item', 'generic', 'specific', 'subspecific', 'denomination', 'active', 'resource',
-    	'egress', 'tax_id', 'parent_id'
+    	'egress', 'tax_id', 'parent_id', 'original'
     ];
 
     public static function getParent($group, $item, $generic, $specific, $subspecific)
@@ -58,6 +58,13 @@ class BudgetAccount extends Model
         }
 
         return $parent->first();
+    }
+
+    public function getCode()
+    {
+        $code = $this->group .'.'. $this->item .'.'. $this->generic .'.'. $this->specific .'.'. $this->subspecific;
+
+        return $code;
     }
 
 }

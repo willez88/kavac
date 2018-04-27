@@ -107,16 +107,17 @@
 						<a class="dropdown-item" href="#" title="Establecer configuración personalizada" 
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-gear-a"></i>Configurar Cuenta</a>
-						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}" title="Actualizar datos de perfil del usuario" 
+						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}" 
+						   title="Actualizar datos de perfil del usuario" 
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-person"></i>Mi Perfil</a>
 						<a class="dropdown-item" href="#" title="Ver actividad en la aplicación" 
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-ios-star"></i>Registro de Actividad</a>
-						<a class="dropdown-item" href="#" title="Bloquear pantalla" 
+						<a class="dropdown-item" href="#" title="Bloquear pantalla de la aplicación" 
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-android-lock"></i>Bloquear Pantalla</a>
-						<a class="dropdown-item" href="#" title="Ayuda" 
+						<a class="dropdown-item" href="#" title="Ayuda / Manual de usuario" 
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-help-circled"></i>Ayuda</a>
 						<div class="divider"></div>

@@ -530,6 +530,15 @@ table td {
   font-size: .7rem;
 }
 
+.btn-custom {
+  margin-bottom: 2em;
+  font-size: .7rem;
+}
+
+.btn-custom span {
+  margin-left: 5px;
+}
+
 .btn-add-record {
   color: #2CA8FF;
   cursor: pointer;
