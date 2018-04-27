@@ -31,7 +31,7 @@
             <div class="form-group">
                 <div class="input-group form-group-no-border input-sm">
                     <span class="input-group-addon">
-                        <i class="now-ui-icons ui-1_email-85"></i>
+                        <i class="now-ui-icons ui-1_lock-circle-open"></i>
                     </span>
                     {!! Form::password('password', old('password'), [
                         'class' => 'form-control', 'required' => 'required', 'id' => 'password'
@@ -46,7 +46,7 @@
             <div class="form-group">
                 <div class="input-group form-group-no-border input-sm">
                     <span class="input-group-addon">
-                        <i class="now-ui-icons ui-1_email-85"></i>
+                        <i class="now-ui-icons ui-1_lock-circle-open"></i>
                     </span>
                     {!! Form::password('password_confirmation', old('password_confirmation'), [
                         'class' => 'form-control', 'required' => 'required', 'id' => 'password-confirm'
