@@ -29,6 +29,17 @@ class BudgetAccount extends Model
     	'egress', 'tax_id', 'parent_id', 'original'
     ];
 
+    /**
+     * Método que permite obtener la cuenta asociada de nivel superior
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @param  [string] $group       Grupo de la cuenta
+     * @param  [string] $item        Ítem de la cuenta
+     * @param  [string] $generic     Genérica de la cuenta
+     * @param  [string] $specific    Específica de la cuenta
+     * @param  [string] $subspecific Subespecífica de la cuenta
+     * @return [boolean|object]      Retorna falso si no existe una cuenta de nivel superior, de lo contrario obtiene los datos de la misma
+     */
     public static function getParent($group, $item, $generic, $specific, $subspecific)
     {
         if ($item !== '00') {
@@ -60,6 +71,12 @@ class BudgetAccount extends Model
         return $parent->first();
     }
 
+    /**
+     * Método que permite obtener el código de una cuenta presupuestaria
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @return [string] Retorna el código de la cuenta
+     */
     public function getCode()
     {
         $code = $this->group .'.'. $this->item .'.'. $this->generic .'.'. $this->specific .'.'. $this->subspecific;
