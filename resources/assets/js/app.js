@@ -94,6 +94,9 @@ Vue.component('document-status', require('./components/DocumentStatusComponent.v
  */
 Vue.component('taxes', require('./components/TaxesComponent.vue'));
 
+/** Incorpora requerimientos de componentes de los módulos de la aplicación */
+require('./modules');
+
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
  * 
@@ -101,6 +104,7 @@ Vue.component('taxes', require('./components/TaxesComponent.vue'));
  * @param  {object} methods Métodos generales a implementar en CRUDS
  */
 Vue.mixin({
+	props: ['route_list', 'route_create', 'route_update', 'route_delete'],
 	methods: {
 		/**
 		 * Método que borra todos los datos del formulario
@@ -132,7 +136,11 @@ Vue.mixin({
 			event.preventDefault();
 			this.errors = [];
 			this.reset();
-			$("#" + modal_id).modal('show');
+
+			if ($("#" + modal_id).length) {
+				$("#" + modal_id).modal('show');
+			}
+			
 			this.initRecords();
 			this.readRecords(url);
 		},
@@ -218,6 +226,7 @@ Vue.mixin({
 			let conf = confirm("Esta seguro de eliminar este registro?");
 			
 			if (conf === true) {
+				url = (url)?url:this.route_delete;
 				axios.delete('/' + url + '/' + this.records[index].id).then(response => {
 					this.records.splice(index, 1);
 					this.showMessage('destroy');

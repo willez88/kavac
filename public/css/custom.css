@@ -2690,3 +2690,13 @@ body {
   display: none;
 }
 
+table.table td.wrapping {
+  max-width: 200px;
+}
+
+table.table td,
+table.table th {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+}
+

@@ -1,0 +1,1 @@
+require('../../../modules/Budget/Resources/assets/js/_all.js');

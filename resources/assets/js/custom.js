@@ -161,6 +161,7 @@ $(document).ready(function() {
             "bDestroy": true,
             "bPaginate": true,
             "bInfo": true,
+            "bAutoWidth": false,
             "initComplete": function(settings, json) {
                 $('.dataTables_length select').select2();
             }
