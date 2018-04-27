@@ -1,0 +1,1 @@
+Vue.component('budget-accounts-list', require('./components/BudgetAccountsListComponent.vue'));

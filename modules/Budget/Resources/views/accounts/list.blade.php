@@ -40,41 +40,7 @@
 							</a>
 						</div>
 					</div>
-					<table class="table table-hover table-striped dt-responsive nowrap datatable">
-						<thead>
-							<tr class="text-center">
-								<th>Código</th>
-								<th>Denominación</th>
-								<th>Original</th>
-								<th>Acción</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach ($records as $rec)
-								<tr>
-									<td width="20%">
-										{{ $rec->getCode() }}
-									</td>
-									<td width="60%">{{ $rec->denomination }}</td>
-									<td class="text-center" width="10%">{{ ($rec->original)?'SI':'NO' }}</td>
-									<td class="text-center" width="10%">
-										{!! Form::button('<i class="fa fa-edit"></i>', [
-                                            'class' => 'btn btn-warning btn-xs btn-icon btn-round',
-                                            'data-toggle' => 'tooltip', 'type' => 'button',
-                                            'title' => 'Editar registro', 
-                                            'onclick' => "location='" . route('budget.accounts.edit', $rec->id) . "'"
-                                        ]) !!}
-                                        {!! Form::button('<i class="fa fa-trash-o"></i>', [
-                                            'class' => 'btn btn-danger btn-xs btn-icon btn-round',
-                                            'data-toggle' => 'tooltip', 'type' => 'button',
-                                            'title' => 'Eliminar registro', 
-                                            'onclick' => ''
-                                        ]) !!}
-									</td>
-								</tr>
-							@endforeach
-						</tbody>
-					</table>
+					<budget-accounts-list route_list='budget/accounts/vue-list' route_delete="budget/accounts/delete"></budget-accounts-list>
 				</div>
 			</div>
 		</div>

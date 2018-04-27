@@ -16,7 +16,7 @@ class BudgetAccountController extends Controller
     public function index()
     {
         $records = BudgetAccount::all();
-        return view('budget::accounts.list', compact('records'));
+        return view('budget::accounts.list');
     }
 
     /**
@@ -43,7 +43,7 @@ class BudgetAccountController extends Controller
      */
     public function show()
     {
-        return view('budget::show');
+        //return view('budget::show');
     }
 
     /**
@@ -68,7 +68,19 @@ class BudgetAccountController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $budgetAccount = BudgetAccount::find($id);
+
+        if ($budgetAccount) {
+            $budgetAccount->delete();
+        }
+        
+        return response()->json(['record' => $budgetAccount, 'message' => 'Success'], 200);
+    }
+
+    public function vueList()
+    {
+        return response()->json(['records' => BudgetAccount::all()], 200);
     }
 }
