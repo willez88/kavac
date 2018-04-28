@@ -33,6 +33,33 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'presupuesto.inicio'
             ],
             [
+                'name' => 'Configuración del módulo de presupuesto', 'slug' => 'budget.setting.create',
+                'description' => 'Acceso a la configuración del módulo de presupuesto', 
+                'model' => '', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'configuracion.crear'
+            ],
+            [
+                'name' => 'Editar configuración del módulo de presupuesto', 
+                'slug' => 'budget.setting.edit',
+                'description' => 'Acceso para editar la configuración del módulo de presupuesto', 
+                'model' => '', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'configuracion.editar'
+            ],
+            [
+                'name' => 'Ver configuración del módulo de presupuesto', 
+                'slug' => 'budget.setting.list',
+                'description' => 'Acceso para editar la configuración del módulo de presupuesto', 
+                'model' => '', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'configuracion.ver'
+            ],
+            [
+                'name' => 'Eliminar configuración del módulo de presupuesto', 
+                'slug' => 'budget.setting.delete',
+                'description' => 'Acceso para eliminar la configuración del módulo de presupuesto', 
+                'model' => '', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'configuracion.eliminar'
+            ],
+            [
                 'name' => 'Crear cuenta presupuestaria', 'slug' => 'budget.account.create',
                 'description' => 'Acceso para crear cuenta presupuestaria', 
                 'model' => 'Modules\Budget\Models\BudgetAccount', 'model_prefix' => 'presupuesto',

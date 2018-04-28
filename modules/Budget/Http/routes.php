@@ -15,6 +15,8 @@ Route::group([
     ]);*/
     Route::get('accounts', 'BudgetAccountController@index')->name('budget.accounts.index')
          ->middleware('permission:budget.account.list');
+    Route::get('settings', 'BudgetSettingController@index')->name('budget.settings.index')
+         ->middleware('permission:budget.setting.create');
     Route::get('accounts/create', 'BudgetAccountController@create')->name('budget.accounts.create')
          ->middleware('permission:budget.account.create');
     Route::post('accounts/store', 'BudgetAccountController@store')->name('budget.accounts.store')
