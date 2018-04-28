@@ -1771,7 +1771,8 @@ a .btn-simplex:hover {
   border-bottom-color: #3e82da;
 }
 
-.blue ul ul.submenu li:hover > a {
+.blue ul ul.submenu li:hover > a,
+.blue ul ul.submenu li.active > a {
   border-left-color: #3e82da;
 }
 
@@ -1790,7 +1791,8 @@ a .btn-simplex:hover {
   border-bottom-color: #049372;
 }
 
-.green ul ul.submenu li:hover > a {
+.green ul ul.submenu li:hover > a,
+.green ul ul.submenu li.active > a {
   border-left-color: #049372;
 }
 
@@ -1809,7 +1811,8 @@ a .btn-simplex:hover {
   border-bottom-color: #DA4453;
 }
 
-.red ul ul.submenu li:hover > a {
+.red ul ul.submenu li:hover > a,
+.red ul ul.submenu li.active > a {
   border-left-color: #DA4453;
 }
 
@@ -1833,7 +1836,8 @@ a .btn-simplex:hover {
   background: rgba(0, 0, 0, 0.1);
 }
 
-.white ul ul.submenu li:hover > a {
+.white ul ul.submenu li:hover > a,
+.white ul ul.submenu li.active > a {
   border-left-color: #2BA3F7;
 }
 
@@ -1861,7 +1865,8 @@ a .btn-simplex:hover {
   border-bottom-color: #222;
 }
 
-.black ul ul.submenu li:hover > a {
+.black ul ul.submenu li:hover > a,
+.black ul ul.submenu li.active > a {
   border-left-color: #222;
 }
 

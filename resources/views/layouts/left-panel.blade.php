@@ -23,23 +23,31 @@
                 </a>
             </li>
             {{-- Acceso a la configuración de la aplicación --}}
-            <li class="{!! ($current_url=='settings.index')?'active':'' !!}">
-                <a href="{{ route('settings.index') }}" title="Configuración de la aplicación" data-toggle="tooltip" data-placement="right">
+            <li>
+                <a href="#" title="Gestión de configuración" data-toggle="tooltip" data-placement="right">
                     <i class="ion-settings"></i><span>Configuración</span>
                 </a>
+                <ul class="submenu" @if ($current_url=='settings.index') style="display:block;" @endif>
+                    <li class="{!! ($current_url=='settings.index')?'active':'' !!}">
+                        <a href="{{ route('settings.index') }}" title="Configuración general de la aplicación" 
+                           data-toggle="tooltip" data-placement="right">
+                            General
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" title="Gestión de usuarios, roles y permisos" data-toggle="tooltip" 
+                           data-placement="right">
+                            Acceso
+                        </a>
+                    </li>
+                </ul>
             </li>
             {{-- Gestión de beneficiarios --}}
-            <li>
+            {{-- <li>
                 <a href="#" title="Gestión de beneficiarios" data-toggle="tooltip" data-placement="right">
                     <i class="ion-ios-people-outline"></i><span>Beneficiarios</span>
                 </a>
-            </li>
-            {{-- Gestión de proveedores --}}
-            <li>
-                <a href="#" title="Gestión de Proveedores" data-toggle="tooltip" data-placement="right">
-                    <i class="ion-social-dropbox-outline"></i><span>Proveedores</span>
-                </a>
-            </li>
+            </li> --}}
             {{-- Menú de opciones del módulo de firma digital --}}
             @include('digitalsignature::layouts.menu-option')
             {{-- Menú de opciones del módulo de nómina --}}

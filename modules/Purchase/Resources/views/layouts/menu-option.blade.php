@@ -2,11 +2,16 @@
 <li>
     <a href="#" title="Gestión de compras de bienes y servicios" data-toggle="tooltip" 
        data-placement="right">
-        <i class="ion-ios-cart-outline"></i><span>Compras</span>
+        <i class="ion-social-dropbox-outline"></i><span>Compras</span>
     </a>
     <ul class="submenu">
         <li>
             <a href="#">Configuración</a>
+        </li>
+        <li>
+            <a href="#" title="Gestión de Proveedores" data-toggle="tooltip" data-placement="right">
+                Proveedores
+            </a>
         </li>
         <li>
             <a href="#">Requisición</a>

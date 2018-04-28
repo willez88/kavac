@@ -16,6 +16,9 @@ class BudgetDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        /** Seeder para clasificador presupuestario original */
         $this->call(BudgetAccountsTableSeeder::class);
+        /** Seeder para roles y permisos disponibles en el módulo */
+        $this->call(BudgetRoleAndPermissionsTableSeeder::class);
     }
 }
