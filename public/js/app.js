@@ -66465,7 +66465,7 @@ $(document).ready(function () {
             "bDestroy": true,
             "bPaginate": true,
             "bInfo": true,
-            "bAutoWidth": false,
+            //"bAutoWidth": false,
             "initComplete": function initComplete(settings, json) {
                 $('.dataTables_length select').select2();
             }

@@ -171,20 +171,38 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
  * Gestiona las rutas que solo pueden accederse si el usuario autenticado 
  * es administrador del sistema
  */
-Route::group(['middleware' => ['auth', 'role:admin'], 'namespace' => 'Admin'], function() {
-    /** Ruta para la configuración de la aplicación */
-    Route::resource('settings', 'SettingController', [
-        'except' => ['create', 'edit', 'show', 'update', 'destroy']
-    ]);
-    /** Ruta para la gestión de información sobre la(s) institución(es) */
-    Route::resource('institution', 'InstitutionController', [
-        'except', 'index', 'create', 'show'
-    ]);
+Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
-    /** Rutas para gestionar respaldos de la aplicación */
-    Route::get('backup', 'BackupController@index')->name('backup.index');
-    Route::get('backup/create', 'BackupController@create')->name('backup.create');
-    Route::get('backup/download/{file_name}', 'BackupController@download')
-         ->name('backup.download');
-    Route::get('backup/delete/{file_name}', 'BackupController@delete')->name('backup.delete');
+    /**
+     * ------------------------------------------------------------------
+     * Grupo de rutas del namespace Admin
+     * ------------------------------------------------------------------
+     */
+    Route::group(['namespace' => 'Admin'], function() {
+        /** Ruta para la configuración de la aplicación */
+        Route::resource('settings', 'SettingController', [
+            'except' => ['create', 'edit', 'show', 'update', 'destroy']
+        ]);
+        /** Ruta para la gestión de información sobre la(s) institución(es) */
+        Route::resource('institution', 'InstitutionController', [
+            'except', 'index', 'create', 'show'
+        ]);
+
+        /** Rutas para gestionar respaldos de la aplicación */
+        Route::get('backup', 'BackupController@index')->name('backup.index');
+        Route::get('backup/create', 'BackupController@create')->name('backup.create');
+        Route::get('backup/download/{file_name}', 'BackupController@download')
+             ->name('backup.download');
+        Route::get('backup/delete/{file_name}', 'BackupController@delete')->name('backup.delete');
+    });
+    
+    /**
+     * ------------------------------------------------------------------
+     * Grupo de rutas del namespace Auth
+     * ------------------------------------------------------------------
+     */
+    Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function() {
+        /** Rutas para la configuración de usuarios, roles y permisos */
+        Route::get('settings/users', 'UserController@index')->name('access.settings');
+    });
 });
