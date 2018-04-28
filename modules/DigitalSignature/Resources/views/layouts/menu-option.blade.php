@@ -4,8 +4,10 @@
         <i class="ion-ios-compose-outline"></i><span>Firma Electrónica</span>
     </a>
     <ul class="submenu">
-        <li>
-            <a href="#">Configuración</a>
-        </li>
+    	@role('admin')
+	        <li>
+	            <a href="#">Configuración</a>
+	        </li>
+	    @endrole
     </ul>
 </li>

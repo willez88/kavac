@@ -22,29 +22,31 @@
                     <i class="ion-ios-speedometer-outline"></i><span>Panel de control</span>
                 </a>
             </li>
-            {{-- Acceso a la configuración de la aplicación --}}
-            <li>
-                <a href="#" title="Gestión de configuración" data-toggle="tooltip" data-placement="right">
-                    <i class="ion-settings"></i><span>Configuración</span>
-                </a>
-                <ul class="submenu" 
-                    @if ($current_url=='settings.index' || $current_url=='access.settings')
-                        style="display:block;"
-                    @endif>
-                    <li class="{!! ($current_url=='settings.index')?'active':'' !!}">
-                        <a href="{{ route('settings.index') }}" title="Configuración general de la aplicación" 
-                           data-toggle="tooltip" data-placement="right">
-                            General
-                        </a>
-                    </li>
-                    <li class="{!! ($current_url=='access.settings')?'active':'' !!}">
-                        <a href="{{ route('access.settings') }}" title="Gestión de usuarios, roles y permisos" 
-                           data-toggle="tooltip" data-placement="right">
-                            Acceso
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            @role('admin')
+                {{-- Acceso a la configuración de la aplicación --}}
+                <li>
+                    <a href="#" title="Gestión de configuración" data-toggle="tooltip" data-placement="right">
+                        <i class="ion-settings"></i><span>Configuración</span>
+                    </a>
+                    <ul class="submenu" 
+                        @if ($current_url=='settings.index' || $current_url=='access.settings')
+                            style="display:block;"
+                        @endif>
+                        <li class="{!! ($current_url=='settings.index')?'active':'' !!}">
+                            <a href="{{ route('settings.index') }}" title="Configuración general de la aplicación" 
+                               data-toggle="tooltip" data-placement="right">
+                                General
+                            </a>
+                        </li>
+                        <li class="{!! ($current_url=='access.settings')?'active':'' !!}">
+                            <a href="{{ route('access.settings') }}" title="Gestión de usuarios, roles y permisos" 
+                               data-toggle="tooltip" data-placement="right">
+                                Acceso
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endrole
             {{-- Gestión de beneficiarios --}}
             {{-- <li>
                 <a href="#" title="Gestión de beneficiarios" data-toggle="tooltip" data-placement="right">
