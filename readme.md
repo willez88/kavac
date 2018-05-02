@@ -18,6 +18,9 @@ Como antecedentes de esta aplicación se consideran los siguientes:
 
 Requerimientos previos para la instalación
 
+	* php >= 7.0.0
+	* php-gd
+
 ## Instalación
 
 Para poder ejectutar la instalación es importante contar con el paquete [composer](https://getcomposer.org/) el cual permite gestionar las distintas dependencias y/o paquetes requeridos por el sistema y una conexión externa a Internet. Cabe destacar que para mejores resultados, se debe tener instalado composer de manera global.
