@@ -16,7 +16,7 @@
 				<td width="60%" class="wrapping">{{ rec.denomination }}</td>
 				<td class="text-center" width="10%">{{ (rec.original)?'SI':'NO' }}</td>
 				<td class="text-center" width="10%">
-					<button @click="" 
+					<button @click="editForm(rec.id)" 
 							class="btn btn-warning btn-xs btn-icon btn-round" 
 							title="Modificar registro" data-toggle="tooltip" type="button">
 						<i class="fa fa-edit"></i>
@@ -41,5 +41,10 @@
 		mounted() {
 			this.readRecords(this.route_list);
 		},
+		methods: {
+			editForm(id) {
+				location.href = this.route_edit + '/' + id;
+			}
+		}
 	}
 </script>

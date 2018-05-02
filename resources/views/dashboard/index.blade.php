@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-	@include('dashboard.users-connected')
-	@include('dashboard.logs-list')
-	@include('dashboard.undelete-records')
+	@role('admin')
+		@include('dashboard.users-connected')
+		@include('dashboard.logs-list')
+		@include('dashboard.undelete-records')
+	@endrole
 @stop
 
 @section('extra-js')

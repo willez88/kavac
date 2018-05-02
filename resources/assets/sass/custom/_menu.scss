@@ -324,7 +324,7 @@
 		ul {
 			&.submenu {
 				li {
-					&:hover {
+					&:hover, &.active {
 						> a {
 							border-left-color:#3e82da;
 						}
@@ -358,7 +358,7 @@
 		ul {
 			&.submenu {
 				li {
-					&:hover {
+					&:hover, &.active {
 						> a {
 							border-left-color:#049372;
 						}
@@ -392,7 +392,7 @@
 		ul {
 			&.submenu {
 				li {
-					&:hover {
+					&:hover, &.active {
 						> a {
 							border-left-color:#DA4453;
 						}
@@ -431,7 +431,7 @@
 		ul {
 			&.submenu {
 				li {
-					&:hover {
+					&:hover, &.active {
 						> a {
 							border-left-color:#2BA3F7;
 						}
@@ -484,7 +484,7 @@
 		ul {
 			&.submenu {
 				li {
-					&:hover {
+					&:hover, &.active {
 						> a {
 							border-left-color:#222;
 						}

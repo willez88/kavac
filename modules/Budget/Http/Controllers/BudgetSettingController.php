@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class BudgetController extends Controller
+class BudgetSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        return view('budget::index');
+        return view('budget::settings');
     }
 
     /**

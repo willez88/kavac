@@ -4,12 +4,19 @@
        data-placement="right">
         <i class="ion-arrow-graph-up-right"></i><span>Presupuesto</span>
     </a>
-    <ul class="submenu">
-        <li>
-            <a href="#">Configuración</a>
+    <ul class="submenu" 
+        @if ($current_url=='budget.accounts.index')
+            style="display:block;"
+        @endif>
+        <li class="{!! ($current_url=='budget.settings.index')?'active':'' !!}">
+            <a href="{{ route('budget.settings.index') }}" data-toggle="tooltip" data-placement="right" 
+               title="Configuración de presupuesto">Configuración</a>
         </li>
-        <li>
-            <a href="{{ route('budget.accounts.index') }}">Plan de Cuentas</a>
+        <li class="{!! ($current_url=='budget.accounts.index')?'active':'' !!}">
+            <a href="{{ route('budget.accounts.index') }}" data-toggle="tooltip" data-placement="right" 
+               title="Gestión del clasificador de cuentas presupuestarias">
+                Clasificador Presupuestario
+            </a>
         </li>
         <li>
             <a href="#">Formulación</a>
