@@ -115,7 +115,7 @@ Vue.mixin({
 			this.record = [];
 		},
 		/**
-		 * Mérodo que obtiene los registros a mostrar
+		 * Método que obtiene los registros a mostrar
 		 * 
 		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
 		 * @param  {string} url Ruta que obtiene todos los registros solicitados
