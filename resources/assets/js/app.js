@@ -94,6 +94,13 @@ Vue.component('document-status', require('./components/DocumentStatusComponent.v
  */
 Vue.component('taxes', require('./components/TaxesComponent.vue'));
 
+/**
+ * Componente para la gestión de unidades tributarias
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
+Vue.component('tax-units', require('./components/TaxUnitsComponent.vue'));
+
 /** Incorpora requerimientos de componentes de los módulos de la aplicación */
 require('./modules');
 

@@ -126,6 +126,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     /** Rutas para la gestión de Impuestos */
     Route::resource('taxes', 'TaxController');
+
+    /** Rutas para la gestión de Unidades Tributarias */
+    Route::resource('tax-units', 'TaxUnitController');
 });
 
 /**

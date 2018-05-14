@@ -45,6 +45,7 @@
 					<parishes></parishes>
 					<cities></cities>
 					<taxes></taxes>
+					<tax-units></tax-units>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de Deducciones o Retenciones" 

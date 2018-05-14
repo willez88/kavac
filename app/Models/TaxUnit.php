@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
 
-class Image extends Model
+class TaxUnit extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -17,20 +17,12 @@ class Image extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'strat_date', 'end_date'];
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['file', 'url', 'max-width', 'max-height', 'min-width', 'min-height'];
-
-    /**
-     * Get the Instituions with Images
-     */
-    public function institutions()
-    {
-        return $this->hasMany('App\Models\Institution');
-    }
+    protected $fillable = ['value', 'start_date', 'end_date', 'active'];
 }
