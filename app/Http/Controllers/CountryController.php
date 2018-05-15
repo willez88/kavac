@@ -11,7 +11,7 @@ class CountryController extends Controller
      * Muesta todos los registros de los Países
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return \Illuminate\Http\Response
+     * @return JSON con los registros de Países
      */
     public function index()
     {
