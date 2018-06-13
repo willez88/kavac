@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use Illuminate\Http\Request;
 
+/**
+ * @class CityController
+ * @brief Controlador de Ciudades
+ * 
+ * Clase que gestiona las Ciudades
+ * 
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class CityController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra un listado de Ciudades
      *
-     * @return \Illuminate\Http\Response
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return JSON con los registros a mostrar
      */
     public function index()
     {
@@ -18,9 +28,10 @@ class CityController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear una nueva Ciudad
      *
-     * @return \Illuminate\Http\Response
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return Objeto con los datos a mostrar en el formulario
      */
     public function create()
     {
@@ -28,10 +39,11 @@ class CityController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra una nueva Ciudad
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @param[in] $request [<b>Illuminate::Http::Request</b>] Datos de la petición
+     * @return JSON con el resultado de la petición
      */
     public function store(Request $request)
     {
@@ -49,10 +61,11 @@ class CityController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra los datos de una Ciudad
      *
-     * @param  \App\Models\City  $city
-     * @return \Illuminate\Http\Response
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @param[in] $city [<b>App::Models::City</b>] Datos de la Ciudad
+     * @return Objeto con los datos a mostrar
      */
     public function show(City $city)
     {
@@ -60,10 +73,11 @@ class CityController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario con los datos a modificar de una Ciudad
      *
-     * @param  \App\Models\City  $city
-     * @return \Illuminate\Http\Response
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @param[in] $city [<b>App::Models::City</b>] Datos de la Ciudad
+     * @return Objeto con los datos a mostrar en el formulario de edición
      */
     public function edit(City $city)
     {
@@ -71,11 +85,12 @@ class CityController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Muestra los datos de una Ciudad
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\City  $city
-     * @return \Illuminate\Http\Response
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @param[in] $request [<b>Illuminate::Http::Request</b>] Datos de la petición
+     * @param[in] $city [<b>App::Models::City</b>] Datos de la Ciudad
+     * @return JSON con el resultado de la petición
      */
     public function update(Request $request, City $city)
     {
@@ -92,10 +107,11 @@ class CityController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una Ciudad específica
      *
-     * @param  \App\Models\City  $city
-     * @return \Illuminate\Http\Response
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @param[in] $city [<b>App::Models::City</b>] Datos de la Ciudad
+     * @return JSON con el resultado de la petición
      */
     public function destroy(City $city)
     {
