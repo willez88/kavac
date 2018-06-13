@@ -5,12 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @class Session
+ * @brief Datos de Sesiones
+ * 
+ * Gestiona el modelo de datos para las sesiones del sistema
+ * 
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class Session extends Model
 {
     /**
-     * Obtiene la sesión de un usuario
-     * @param  [integer] $user_id Identificador del usuario
-     * @return [Object]           Objeto con los datos del usuario
+     * Método que obtiene los datos de sessión del usuario autenticado
+     *
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @param[in] $user_id [<b>integer</b>] Identificador del usuario 
+     * @return Objeto con los datos de la sessión activa del usuario autenticado en el sistema
      */
     public static function getSessionData($user_id)
     {

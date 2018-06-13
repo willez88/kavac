@@ -6,31 +6,43 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
 
+/**
+ * @class Country
+ * @brief Datos de Países
+ * 
+ * Gestiona el modelo de datos para los Países
+ * 
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class Country extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
+
+    /**
+     * Establece el uso o no de bitácora de registros para este modelo
+     * @var boolean $revisionCreationsEnabled
+     */
     protected $revisionCreationsEnabled = true;
 
     /**
-     * Los atributos que pueden ser convertidos a fechas
-     *
-     * @var array
+     * Lista de atributos para la gestión de fechas
+     * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
-     * Los atributos que pueden ser asignados masivamente
-     *
-     * @var array
+     * Lista de atributos que pueden ser asignados masivamente
+     * @var array $fillable
      */
     protected $fillable = ['name', 'prefix'];
 
     /**
-     * Método que obtiene los Estados de un Países
+     * Método que obtiene el Estado de un Pais
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return [type] [description]
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return Objeto con los registros relacionados al modelo Estate
      */
     public function estates()
     {
@@ -40,8 +52,8 @@ class Country extends Model
     /**
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return [type] [description]
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return Listado de Países registrados para ser implementados en plantillas
      */
     public static function template_choices()
     {

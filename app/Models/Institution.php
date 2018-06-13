@@ -6,23 +6,35 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
 
+/**
+ * @class Istitution
+ * @brief Datos de Instituciones
+ * 
+ * Gestiona el modelo de datos para las Instituciones
+ * 
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class Institution extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
+
+    /**
+     * Establece el uso o no de bitácora de registros para este modelo
+     * @var boolean $revisionCreationsEnabled
+     */
     protected $revisionCreationsEnabled = true;
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
+     * Lista de atributos para la gestión de fechas
+     * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * Lista de atributos que pueden ser asignados masivamente
+     * @var array $fillable
      */
     protected $fillable = [
     	'onapre_code', 'rif', 'acronym', 'name', 'business_name', 'start_operations_date', 'legal_base',
@@ -32,7 +44,10 @@ class Institution extends Model
     ];
 
     /**
-     * Get the Logo image of the Institution
+     * Método que obtiene el logotipo de la Institución
+     *
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return Objeto con el registro relacionado al modelo Image
      */
     public function logo()
     {
@@ -40,7 +55,10 @@ class Institution extends Model
     }
 
     /**
-     * Get the Banner image of the Institution
+     * Método que obtiene el banner de la Institución
+     *
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return Objeto con el registro relacionado al modelo Image
      */
     public function banner()
     {
