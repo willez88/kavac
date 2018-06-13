@@ -4,12 +4,21 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * @class CreateCountriesTable
+ * @brief Crear tabla de Países
+ * 
+ * Gestiona la creación o eliminación de la tabla de Países
+ * 
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class CreateCountriesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Método que ejecuta las migraciones
      *
-     * @return void
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
      */
     public function up()
     {
@@ -26,9 +35,9 @@ class CreateCountriesTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Método que elimina las migraciones
      *
-     * @return void
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
      */
     public function down()
     {
