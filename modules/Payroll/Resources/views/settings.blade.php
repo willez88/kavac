@@ -35,7 +35,7 @@
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 							   href="#" title="Registro de tipos de personal" data-toggle="tooltip">
-								<i class="icofont icofont-businessman ico-3x"></i>
+								<i class="icofont icofont-people ico-3x"></i>
 								<span>Tipo de<br>Personal</span>
 							</a>
 						</div>
@@ -53,7 +53,7 @@
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 							   href="#" title="Registro de tipos de cargos"
 							   data-toggle="tooltip">
-								<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
+								<i class="icofont icofont-contact-add ico-3x"></i>
 								<span>Tipos de<br>Cargos</span>
 							</a>
 						</div>
@@ -62,7 +62,7 @@
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 							   href="#" title="Registro de clasificación del personal"
 							   data-toggle="tooltip">
-								<i class="icofont icofont-businessman ico-3x"></i>
+								<i class="icofont icofont-company ico-3x"></i>
 								<span>Clasificación<br>del Personal</span>
 							</a>
 						</div>
