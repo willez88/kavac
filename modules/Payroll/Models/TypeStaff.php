@@ -15,18 +15,18 @@ use \Venturecraft\Revisionable\RevisionableTrait;
 * @author William Páez (wpaez@cenditel.gob.ve)
 * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
 */
-class StaffType extends Model
+class TypeStaff extends Model
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
 
-	/**
+    /**
 	* Establece el uso o no de bitácora de registros para este modelo
 	* @var boolean $revisionCreationsEnabled
 	*/
     protected $revisionCreationsEnabled = true;
 
-	/**
+    /**
 	* Lista de atributos para la gestión de fechas
 	* @var array $dates
 	*/
@@ -38,10 +38,10 @@ class StaffType extends Model
      * @var array $fillable
      */
     protected $fillable = [
-    	'name','acronym','level'
+        'name','description',
     ];
 
-	/**
+    /**
 	* Método que genera un listado de opciones a implementar en elementos tipo select
 	*
 	* @author  William Páez (wpaez@cenditel.gob.ve)
