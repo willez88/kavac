@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Modules\Payroll\Models\TypeStaff;
+
 class TypeStaffController extends Controller
 {
     /**
@@ -14,7 +16,9 @@ class TypeStaffController extends Controller
      */
     public function index()
     {
-        return view('payroll::index');
+        $type_staff = TypeStaff::all();
+        return view('payroll::typestaff.index');
+        #return view('payroll::index');
     }
 
     /**
