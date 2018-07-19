@@ -6,5 +6,9 @@ Route::group(['middleware' => 'web', 'prefix' => 'payroll', 'namespace' => 'Modu
 
     Route::get('settings', 'PayrollSettingController@index')->name('payroll.settings.index');
 
-    Route::get('typestaff', 'TypeStaffController@index')->name('payroll.typestaff.index');
+    //Route::get('stafftype', 'StaffTypeController@index')->name('payroll.stafftype.index');
+    //Route::get('stafftype/create', 'StaffTypeController@create')->name('payroll.stafftype.create');
+    //Route::get('stafftype/store', 'StaffTypeController@store')->name('payroll.stafftype.store');
+
+    Route::resource('staff-types', 'StaffTypeController');
 });

@@ -34,7 +34,7 @@
 						{{-- Configuración de tipos de personal --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.typestaff.index') }}" title="Registro de tipos de personal" data-toggle="tooltip">
+							   href="{{ route('staff-types.index') }}" title="Registro de tipos de personal" data-toggle="tooltip">
 								<i class="icofont icofont-people ico-3x"></i>
 								<span>Tipo de<br>Personal</span>
 							</a>
