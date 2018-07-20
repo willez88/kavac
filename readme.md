@@ -28,7 +28,7 @@ Para poder ejectutar la instalación es importante contar con el paquete [compos
 Abrir un terminal o consola y posicionarse en la ruta base del proyecto "/", luego ejecuta la siguiente instrucción:
 
 	composer install
-	
+
 Una vez instalada la aplicación, ejecuta el comando:
 
 	php artisan key:generate
@@ -43,7 +43,7 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > APP_DEBUG
 > APP_LOG_LEVEL
 > APP_URL
-> 
+>
 > DB_CONNECTION
 > DB_HOST
 > DB_PORT
@@ -55,18 +55,18 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > CACHE_DRIVER
 > SESSION_DRIVER
 > QUEUE_DRIVER
-> 
+>
 > REDIS_HOST
 > REDIS_PASSWORD
 > REDIS_PORT
-> 
+>
 > MAIL_DRIVER
 > MAIL_HOST
 > MAIL_PORT
 > MAIL_USERNAME
 > MAIL_PASSWORD
 > MAIL_ENCRYPTION
-> 
+>
 > PUSHER_APP_ID
 > PUSHER_APP_KEY
 > PUSHER_APP_SECRET
@@ -84,3 +84,13 @@ La aplicación cuenta con una amplia documentación técnica y para usuarios del
 ## Licencia
 
 Kavac es una aplicación de código abierto y se distribuye estrictamente bajo la licencia [MIT license](https://opensource.org/licenses/MIT).
+
+## Comandos básicos laravel-modules
+
+Crea un nuevo modelo para el módulo especificado junto con su migración
+
+	php artisan module:make-model -m nombre_modelo nombre_modulo
+
+Genera nuevo controlador restful para el módulo especificado
+
+	php artisan module:make-controller nombre_modelo nombre_modulo
