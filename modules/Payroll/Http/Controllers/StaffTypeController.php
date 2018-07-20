@@ -5,11 +5,14 @@ namespace Modules\Payroll\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Payroll\Models\StaffType;
 
 class StaffTypeController extends Controller
 {
+    use ValidatesRequests;
+    
     /**
      * Display a listing of the resource.
      * @return Response
@@ -41,6 +44,11 @@ class StaffTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'description' => 'required|max:200'
+        ]);
+
         $staff_types = new StaffType;
         $staff_types->name  = $request->name;
         $staff_types->description = $request->description;
