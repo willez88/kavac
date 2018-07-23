@@ -42,7 +42,7 @@
 						{{-- Configuración de cargos --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="#" title="Registro de cargos"
+							   href="{{ route('positions.index') }}" title="Registro de cargos"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
 								<span>Cargos</span>

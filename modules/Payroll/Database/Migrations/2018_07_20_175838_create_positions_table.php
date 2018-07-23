@@ -4,26 +4,37 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * @class CreatePositionsTable
+ * @brief Crear tabla de cargos
+ *
+ * Gestiona la creación o eliminación de la tabla de cargos
+ *
+ * @author William Páez (wpaez at cenditel.gob.ve)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class CreatePositionsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Método que ejecuta las migraciones
      *
-     * @return void
+     * @author William Páez (wpaez at cenditel.gob.ve)
      */
     public function up()
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->string('name', 100)->comment('Nombre del cargo');
+            $table->string('description', 200)->comment('Descripción del cargo');
             $table->timestamps();
+            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Método que elimina las migraciones
      *
-     * @return void
+     * @author William Páez (wpaez at cenditel.gob.ve)
      */
     public function down()
     {

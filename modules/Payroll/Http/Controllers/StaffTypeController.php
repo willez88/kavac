@@ -5,14 +5,14 @@ namespace Modules\Payroll\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\StaffType;
 
 class StaffTypeController extends Controller
 {
     use ValidatesRequests;
-    
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -49,11 +49,11 @@ class StaffTypeController extends Controller
             'description' => 'required|max:200'
         ]);
 
-        $staff_types = new StaffType;
-        $staff_types->name  = $request->name;
-        $staff_types->description = $request->description;
+        $staff_type = new StaffType;
+        $staff_type->name  = $request->name;
+        $staff_type->description = $request->description;
 
-        $staff_types->save();
+        $staff_type->save();
 
         return redirect()->route('staff-types.index');
     }

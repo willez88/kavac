@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Tipo de Personal
+	Cargos
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Tipos de Personal</h6>
+					<h6 class="card-title">Cargos</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 						   data-toggle="tooltip">
@@ -30,7 +30,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<a href="{{ route('staff-types.create') }}" class='btn btn-success btn-round'>Registrar</a>
+					<a href="{{ route('positions.create') }}" class='btn btn-success btn-round'>Registrar</a>
 					<table class="table table-hover table-striped dt-responsive datatable">
 						<thead>
 							<tr>
@@ -40,13 +40,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($staff_types as $staff_type)
+							@foreach($positions as $position)
 								<tr>
-									<td> {{ $staff_type->name }} </td>
-									<td> {{ $staff_type->description }} </td>
+									<td> {{ $position->name }} </td>
+									<td> {{ $position->description }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('staff-types.edit', $staff_type->id) }}" class="btn btn-danger btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="icofont icofont-edit"></i></a>
+											<a href="{{ route('positions.edit', $position->id) }}" class="btn btn-danger btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="icofont icofont-edit"></i></a>
 											<button class="btn btn-danger btn-xs btn-icon btn-round" data-toggle="modal" data-target="#exampleModal"><i class="icofont icofont-ui-delete"></i></button>
 										</div>
 									</td>
@@ -72,8 +72,8 @@
 					<p>¿Seguro que desea eliminar los datos?</p>
 				</div>
 				<div class="modal-footer">
-					{!! Form::open(['route' => ['staff-types.destroy', $staff_type->id], 'method' => 'DELETE']) !!}<button class="btn btn-danger btn-xs">Eliminar</button>{!! Form::close() !!}
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button class="btn btn-danger btn-xs">Eliminar</button>
+					{!! Form::open(['route' => ['positions.destroy', $position->id], 'method' => 'DELETE']) !!}<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>{!! Form::close() !!}
 				</div>
 			</div>
 		</div>

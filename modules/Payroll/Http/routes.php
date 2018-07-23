@@ -11,4 +11,5 @@ Route::group(['middleware' => 'web', 'prefix' => 'payroll', 'namespace' => 'Modu
     //Route::get('stafftype/store', 'StaffTypeController@store')->name('payroll.stafftype.store');
 
     Route::resource('staff-types', 'StaffTypeController');
+    Route::resource('positions', 'PositionController');
 });
