@@ -26,7 +26,7 @@ class PositionController extends Controller
      * Muesta todos los registros de cargos
      *
      * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return \Illuminate\Http\Response
+     * @return [<b>View</b>] vista con la lista de los cargos
      */
     public function index()
     {
@@ -38,7 +38,7 @@ class PositionController extends Controller
      * Muestra el formulario para crear un nuevo cargo
      *
      * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return \Illuminate\Http\Response
+     * @return [<b>View</b>] vista con el formulario de registro
      */
     public function create()
     {
@@ -52,8 +52,8 @@ class PositionController extends Controller
      * Guarda un nuevo cargo en la base de datos
      *
      * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param[in] $request [<b>Illuminate::Http::Request</b>] Datos de la petición
-     * @return Ruta con la redirección hacia la vista de listar cargos
+     * @param $request [<b>Illuminate::Http::Request</b>] Datos de la petición
+     * @return [<b>Route</b>] ruta hacia la vista de listar cargos
      */
     public function store(Request $request)
     {
@@ -61,13 +61,10 @@ class PositionController extends Controller
             'name' => 'required|max:100',
             'description' => 'required|max:200'
         ]);
-
         $position = new Position;
         $position->name  = $request->name;
         $position->description = $request->description;
-
         $position->save();
-
         return redirect()->route('positions.index');
     }
 
@@ -84,29 +81,32 @@ class PositionController extends Controller
      * Muestra el formulario con los datos a modificar de un cargo
      *
      * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param[in] $id [<b>Modules::Payroll::Models::Position.id</b>] id del cargo
-     * @return Objeto con los datos a mostrar en el formulario de edición
+     * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
+     * @return [<b>View</b>] vista con los datos a mostrar en el formulario de edición
      */
-    public function edit($id)
+    public function edit(Position $position)
     {
-        $model_position = Position::find($id);
+        $model_position = $position;
         $header_position = [
-            'route' => ['positions.update', $model_position->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['positions.update', $model_position], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::positions.edit', compact('model_position','header_position'));
     }
 
     /**
-     * Hace la actualización de los datos de un cargo
+     * Hace la actualización de los datos de un cargo en la base de datos
      *
      * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param[in] $request [<b>Illuminate::Http::Request</b>] datos de la petición
-     * @param[in] $id [<b>Modules::Payroll::Models::Position.id</b>] id del cargo
-     * @return Ruta con la redirección hacia la vista positions.index
+     * @param $request [<b>Illuminate::Http::Request</b>] datos de la petición
+     * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
+     * @return [<b>Route</b>] ruta hacia la vista de listar cargos
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Position $position)
     {
-        $position = Position::find($id);
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'description' => 'required|max:200'
+        ]);
         $position->name  = $request->name;
         $position->description = $request->description;
         $position->save();
@@ -117,12 +117,11 @@ class PositionController extends Controller
      * Elimina los datos de un cargo
      *
      * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param[in] $id [<b>Modules::Payroll::Models::Position.id</b>] id del cargo
-     * @return Ruta con la redirección hacia positions.index
+     * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
+     * @return [<b>Route</<b>] ruta hacia la vista de listar cargos
      */
-    public function destroy($id)
+    public function destroy(Position $position)
     {
-        $position = Position::find($id);
         $position->delete();
         return back()->with('info', 'Fue eliminado exitosamente');
     }

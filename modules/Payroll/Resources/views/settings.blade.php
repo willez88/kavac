@@ -36,7 +36,7 @@
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 							   href="{{ route('staff-types.index') }}" title="Registro de tipos de personal" data-toggle="tooltip">
 								<i class="icofont icofont-people ico-3x"></i>
-								<span>Tipo de<br>Personal</span>
+								<span>Tipos de<br>Personal</span>
 							</a>
 						</div>
 						{{-- Configuración de cargos --}}

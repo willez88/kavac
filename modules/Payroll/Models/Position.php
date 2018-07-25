@@ -10,7 +10,7 @@ use \Venturecraft\Revisionable\RevisionableTrait;
  * @class Position
  * @brief Datos de cargos
  *
- * Gestiona el modelo de datos para los cargos que tiene una persona
+ * Gestiona el modelo de datos para los cargos
  *
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
@@ -45,7 +45,7 @@ class Position extends Model
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  William Páez (wpaez at cenditel.gob.ve)
-     * @return Listado de cargos registrados para ser implementados en plantillas
+     * @return [<b>List</b>] Listado de cargos registrados para ser implementados en plantillas
      */
     public static function template_choices()
     {
