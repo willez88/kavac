@@ -51,7 +51,7 @@
 						{{-- Configuración de tipos de cargos --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="#" title="Registro de tipos de cargos"
+							   href="{{ route('position-types.index') }}" title="Registro de tipos de cargos"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-contact-add ico-3x"></i>
 								<span>Tipos de<br>Cargos</span>
@@ -60,7 +60,7 @@
 						{{-- Configuración de clasificación del personal --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="#" title="Registro de clasificación del personal"
+							   href="{{ route('staff-classifications.index') }}" title="Registro de clasificación del personal"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-company ico-3x"></i>
 								<span>Clasificación<br>del Personal</span>

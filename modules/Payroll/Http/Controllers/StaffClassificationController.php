@@ -31,7 +31,7 @@ class StaffClassificationController extends Controller
     public function index()
     {
         $staff_classifications = StaffClassification::all();
-        return view('payroll::staff-classifications.index', compact('$staff_classifications'));
+        return view('payroll::staff-classifications.index', compact('staff_classifications'));
     }
 
     /**
@@ -45,7 +45,7 @@ class StaffClassificationController extends Controller
         $header_staff_classification = [
             'route' => 'staff-classifications.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::staff-classification.create', compact('header_staff_classification'));
+        return view('payroll::staff-classifications.create', compact('header_staff_classification'));
     }
 
     /**

@@ -29,7 +29,7 @@
     				</a>
 				</div>
 			</div>
-			{!! Form::model($model_staff_type,$header_staff_type) !!}
+			{!! Form::model($staff_type,$header_staff_type) !!}
 				<div class="card-body">
 					@include('layouts.form-errors')
 					<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
@@ -38,7 +38,7 @@
 						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} is-required">
 								{!! Form::label('name', 'Nombre', []) !!}
-								{!! Form::text('name',(isset($model_staff_type))?$model_staff_type->name:old('name'),
+								{!! Form::text('name',(isset($staff_type))?$staff_type->name:old('name'),
 									[
 										'class' => 'form-control input-sm',
 										'data-toggle' => 'tooltip',
@@ -50,7 +50,7 @@
 						<div class="col-md-6">
 							<div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} is-required">
 								{!! Form::label('description', 'Descripción', []) !!}
-								{!! Form::text('description',(isset($model_staff_type))?$model_staff_type->description:old('description'),
+								{!! Form::text('description',(isset($staff_type))?$staff_type->description:old('description'),
 									[
 										'class' => 'form-control input-sm',
 										'data-toggle' => 'tooltip',

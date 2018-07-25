@@ -87,11 +87,10 @@ class StaffTypeController extends Controller
      */
     public function edit(StaffType $staff_type)
     {
-        $model_staff_type = $staff_type;
         $header_staff_type = [
             'route' => ['staff-types.update', $staff_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::staff-types.edit', compact('model_staff_type','header_staff_type'));
+        return view('payroll::staff-types.edit', compact('staff_type','header_staff_type'));
     }
 
     /**

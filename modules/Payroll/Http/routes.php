@@ -10,6 +10,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'payroll', 'namespace' => 'Modu
     //Route::get('stafftype/create', 'StaffTypeController@create')->name('payroll.stafftype.create');
     //Route::get('stafftype/store', 'StaffTypeController@store')->name('payroll.stafftype.store');
 
-    Route::resource('staff-types', 'StaffTypeController');
-    Route::resource('positions', 'PositionController');
+    Route::resource('staff-types', 'StaffTypeController', ['except' => ['show']]);
+    Route::resource('positions', 'PositionController', ['except' => ['show']]);
+    Route::resource('position-types', 'PositionTypeController', ['except' => ['show']]);
+    Route::resource('staff-classifications', 'StaffClassificationController', ['except' => ['show']]);
 });

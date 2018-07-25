@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Cargos
+	tipos de Cargo
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title">Actualizar Cargo</h6>
+				<h6 class="card-title">Actualizar el Tipo de Cargo</h6>
 				<div class="card-btns">
 					<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 					   data-toggle="tooltip">
@@ -29,7 +29,7 @@
     				</a>
 				</div>
 			</div>
-			{!! Form::model($position,$header_position) !!}
+			{!! Form::model($position_type,$header_position_type) !!}
 				<div class="card-body">
 					@include('layouts.form-errors')
 					<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
@@ -38,12 +38,12 @@
 						<div class="col-md-6">
 							<div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} is-required">
 								{!! Form::label('name', 'Nombre', []) !!}
-								{!! Form::text('name',(isset($position))?$position->name:old('name'),
+								{!! Form::text('name',(isset($position_type))?$position_type->name:old('name'),
 									[
 										'class' => 'form-control input-sm',
 										'data-toggle' => 'tooltip',
 										'required' => 'required',
-										'title' => 'Indique el nombre del cargo'
+										'title' => 'Indique el nombre del tipo de cargo'
 									]
 								) !!}
 							</div>
@@ -51,12 +51,12 @@
 						<div class="col-md-6">
 							<div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} is-required">
 								{!! Form::label('description', 'Descripción', []) !!}
-								{!! Form::text('description',(isset($position))?$position->description:old('description'),
+								{!! Form::text('description',(isset($position_type))?$position_type->description:old('description'),
 									[
 										'class' => 'form-control input-sm',
 										'data-toggle' => 'tooltip',
 										'required' => 'required',
-										'title' => 'Indique la descripción del cargo'
+										'title' => 'Indique la descripción del tipo de cargo'
 									]
 								) !!}
 							</div>

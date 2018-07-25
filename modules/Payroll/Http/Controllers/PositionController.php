@@ -86,11 +86,10 @@ class PositionController extends Controller
      */
     public function edit(Position $position)
     {
-        $model_position = $position;
         $header_position = [
-            'route' => ['positions.update', $model_position], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['positions.update', $position], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::positions.edit', compact('model_position','header_position'));
+        return view('payroll::positions.edit', compact('position','header_position'));
     }
 
     /**
