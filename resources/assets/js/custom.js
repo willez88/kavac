@@ -302,3 +302,40 @@ function gritter_messages(msg_title, msg_class, msg_icon, type) {
         time: ''
     });
 }
+
+/*
+ * Función que permite eliminar registros mediante ajax
+ * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+ * @param {string} url URL del controlador que realiza la acción de eliminación
+ * @return Un mensaje al usuario solicitando confirmación de la eliminación del registro
+ */
+function delete_record(url) {
+    bootbox.confirm('Esta seguro de querer eliminar este registro?', function(result) {
+        if (result) {
+            /** Ajax config csrf token */
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            /** Ajax delete record */
+            $.ajax({
+                type: 'DELETE',
+                cache: false,
+                dataType: 'JSON',
+                url: url,
+                data: {},
+                success: function(data){
+                    if (data.result) {
+                        location.reload();
+                    }
+                },
+                error: function(jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                    bootbox.alert('Error interno del servidor al eliminar el registro.');
+                    console.log( 'Error con la petición solicitada. Detalles: ' + err );
+                }
+            });
+        }
+    });
+}
