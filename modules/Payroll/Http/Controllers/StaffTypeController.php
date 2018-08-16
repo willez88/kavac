@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\StaffType;
+use Modules\Payroll\Models\PayrollStaffType;
 
 /**
  * @class StaffTypeController
@@ -30,7 +30,7 @@ class StaffTypeController extends Controller
      */
     public function index()
     {
-        $staff_types = StaffType::all();
+        $staff_types = PayrollStaffType::all();
         //error_log($staff_types);
         return view('payroll::staff-types.index', compact('staff_types'));
     }
@@ -62,7 +62,7 @@ class StaffTypeController extends Controller
             'name' => 'required|max:100',
             'description' => 'required|max:200'
         ]);
-        $staff_type = new StaffType;
+        $staff_type = new PayrollStaffType;
         $staff_type->name  = $request->name;
         $staff_type->description = $request->description;
         $staff_type->save();
@@ -85,7 +85,7 @@ class StaffTypeController extends Controller
      * @param $staff_type [<b>Modules::Payroll::Models::StaffType</b>] datos del tipo de personal
      * @return [<b>View</b>] vista con los datos a mostrar en el formulario de edición
      */
-    public function edit(StaffType $staff_type)
+    public function edit(PayrollStaffType $staff_type)
     {
         $header = [
             'route' => ['staff-types.update', $staff_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
@@ -101,7 +101,7 @@ class StaffTypeController extends Controller
      * @param $staff_type [<b>Modules::Payroll::Models::StaffType</b>] datos del tipo de personal
      * @return [<b>Route</b>] ruta hacia la vista de listar cargos
      */
-    public function update(Request $request, StaffType $staff_type)
+    public function update(Request $request, PayrollStaffType $staff_type)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
@@ -120,15 +120,13 @@ class StaffTypeController extends Controller
      * @param $staff_type [<b>Modules::Payroll::Models::StaffType</b>] datos del tipo de personal
      * @return [<b>Route</<b>] ruta hacia la vista de listar cargos
      */
-    public function destroy(Request $request, StaffType $staff_type)
+    public function destroy(Request $request, PayrollStaffType $staff_type)
     {
-        //$staff_type->delete();
         if ($request->ajax()) {
             $staff_type->delete();
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        //return back()->with('info', 'Fue eliminado exitosamente');
         return redirect()->route('staff-types.index');
     }
 }

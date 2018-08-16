@@ -15,7 +15,7 @@ use \Venturecraft\Revisionable\RevisionableTrait;
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class StaffType extends Model
+class PayrollStaffType extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;

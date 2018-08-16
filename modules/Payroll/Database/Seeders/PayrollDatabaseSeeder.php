@@ -16,6 +16,7 @@ class PayrollDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        /** Seeder para roles y permisos disponibles en el módulo */
+        $this->call(PayrollRoleAndPermissionsTableSeeder::class);
     }
 }

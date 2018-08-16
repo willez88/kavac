@@ -5,15 +5,15 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * @class CreatePositionTypesTable
- * @brief Crear tabla de tipos de cargos
+ * @class CreateStaffTypesTable
+ * @brief Crear tabla de tipo de personal
  *
- * Gestiona la creación o eliminación de la tabla de tipos de cargos
+ * Gestiona la creación o eliminación de la tabla de tipos de personal
  *
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class CreatePositionTypesTable extends Migration
+class CreatePayrollStaffTypesTable extends Migration
 {
     /**
      * Método que ejecuta las migraciones
@@ -22,10 +22,10 @@ class CreatePositionTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('payroll_position_types', function (Blueprint $table) {
+        Schema::create('payroll_staff_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 100)->comment('Nombre del tipo de cargo');
-            $table->string('description', 200)->comment('Descripción del tipo de cargo');
+            $table->string('name', 100)->comment('Nombre del tipo de personal');
+            $table->string('description', 200)->comment('Descripción del tipo de personal');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });
@@ -38,6 +38,6 @@ class CreatePositionTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('position_types');
+        Schema::dropIfExists('payroll_staff_types');
     }
 }

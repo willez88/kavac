@@ -13,7 +13,7 @@ use Illuminate\Database\Migrations\Migration;
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class CreateStaffClassificationsTable extends Migration
+class CreatePayrollStaffClassificationsTable extends Migration
 {
     /**
      * Método que ejecuta las migraciones
@@ -38,6 +38,6 @@ class CreateStaffClassificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staff_classifications');
+        Schema::dropIfExists('payroll_staff_classifications');
     }
 }
