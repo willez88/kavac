@@ -56,9 +56,9 @@
 									<td>
 										<div class="d-inline-flex">
 											<a href="{{ route('staff-types.edit', $staff_type) }}" class="btn btn-warning btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											{!! Form::open(['route' => ['staff-types.destroy', $staff_type], 'method' => 'DELETE']) !!}
-												<button class="btn btn-danger btn-xs btn-icon btn-round" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
-											{!! Form::close() !!}
+
+											<button class="btn btn-danger btn-xs btn-icon btn-round" onclick="delete_record('{{ route('staff-types.destroy', $staff_type) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+
 										</div>
 									</td>
 								</tr>

@@ -42,10 +42,10 @@ class PositionController extends Controller
      */
     public function create()
     {
-        $header_position = [
+        $header = [
             'route' => 'positions.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::positions.create', compact('header_position'));
+        return view('payroll::positions.create-edit', compact('header'));
     }
 
     /**
@@ -86,10 +86,10 @@ class PositionController extends Controller
      */
     public function edit(Position $position)
     {
-        $header_position = [
+        $header = [
             'route' => ['positions.update', $position], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::positions.edit', compact('position','header_position'));
+        return view('payroll::positions.create-edit', compact('position','header'));
     }
 
     /**
