@@ -42,10 +42,10 @@ class StaffClassificationController extends Controller
      */
     public function create()
     {
-        $header_staff_classification = [
+        $header = [
             'route' => 'staff-classifications.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::staff-classifications.create', compact('header_staff_classification'));
+        return view('payroll::staff-classifications.create-edit', compact('header'));
     }
 
     /**
@@ -86,10 +86,10 @@ class StaffClassificationController extends Controller
      */
     public function edit(StaffClassification $staff_classification)
     {
-        $header_staff_classification = [
+        $header = [
             'route' => ['staff-classifications.update', $staff_classification], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::staff-classifications.edit', compact('staff_classification','header_staff_classification'));
+        return view('payroll::staff-classifications.create-edit', compact('staff_classification','header'));
     }
 
     /**

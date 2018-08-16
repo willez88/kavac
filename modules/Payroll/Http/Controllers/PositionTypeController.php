@@ -42,10 +42,10 @@ class PositionTypeController extends Controller
      */
     public function create()
     {
-        $header_position_type = [
+        $header = [
             'route' => 'position-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::position-types.create', compact('header_position_type'));
+        return view('payroll::position-types.create-edit', compact('header'));
     }
 
     /**
@@ -86,10 +86,10 @@ class PositionTypeController extends Controller
      */
     public function edit(PositionType $position_type)
     {
-        $header_position_type = [
+        $header = [
             'route' => ['position-types.update', $position_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::position-types.edit', compact('position_type','header_position_type'));
+        return view('payroll::position-types.create-edit', compact('position_type','header'));
     }
 
     /**

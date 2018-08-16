@@ -43,10 +43,10 @@ class StaffTypeController extends Controller
      */
     public function create()
     {
-        $header_staff_type = [
+        $header = [
             'route' => 'staff-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::staff-types.create', compact('header_staff_type'));
+        return view('payroll::staff-types.create-edit', compact('header'));
     }
 
     /**
@@ -87,10 +87,10 @@ class StaffTypeController extends Controller
      */
     public function edit(StaffType $staff_type)
     {
-        $header_staff_type = [
+        $header = [
             'route' => ['staff-types.update', $staff_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::staff-types.edit', compact('staff_type','header_staff_type'));
+        return view('payroll::staff-types.create-edit', compact('staff_type','header'));
     }
 
     /**
@@ -120,9 +120,15 @@ class StaffTypeController extends Controller
      * @param $staff_type [<b>Modules::Payroll::Models::StaffType</b>] datos del tipo de personal
      * @return [<b>Route</<b>] ruta hacia la vista de listar cargos
      */
-    public function destroy(StaffType $staff_type)
+    public function destroy(Request $request, StaffType $staff_type)
     {
-        $staff_type->delete();
-        return back()->with('info', 'Fue eliminado exitosamente');
+        //$staff_type->delete();
+        if ($request->ajax()) {
+            $staff_type->delete();
+            $request->session()->flash('message', ['type' => 'destroy']);
+            //return response()->json(['result' => true]);
+        }
+        //return back()->with('info', 'Fue eliminado exitosamente');
+        return redirect()->route('staff-types.index');
     }
 }

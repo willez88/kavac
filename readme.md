@@ -87,14 +87,18 @@ Kavac es una aplicación de código abierto y se distribuye estrictamente bajo l
 
 ## Comandos básicos laravel-modules
 
-Ejecutar las migraciones
+Ejecutar las migraciones laravel-modules
 
 	php artisan module:migrate
 
 Crea un nuevo modelo para el módulo especificado junto con su migración
 
-	php artisan module:make-model -m nombre_modelo nombre_modulo
+	php artisan module:make-model -m ModelName ModuleName
 
 Genera nuevo controlador restful para el módulo especificado
 
-	php artisan module:make-controller nombre_modelo nombre_modulo
+	php artisan module:make-controller ModelName ModuleName
+
+Genera nuevo seeder para el módulo especificado (nombre del modelo en plural)
+
+	php artisan module:make-seed ModelName ModuleName

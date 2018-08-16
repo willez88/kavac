@@ -30,10 +30,19 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<a href="{{ route('staff-types.create') }}" class='btn btn-success btn-round'>Registrar</a>
-					<table class="table table-hover table-striped dt-responsive datatable">
+					<div class="row">
+						<div class="col-12">
+							<a href="{{ route('staff-types.create') }}"
+								class="btn btn-sm btn-primary btn-custom float-right"
+								title="Crear nuevo registro" data-toggle="tooltip">
+								<i class="fa fa-plus-circle"></i>
+								<span>Nuevo</span>
+							</a>
+						</div>
+					</div>
+					<table class="table table-big table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
-							<tr>
+							<tr class="text-center">
 								<th>Nombre</th>
 								<th>Descripción</th>
 								<th width="10%">Acciones</th>
@@ -41,15 +50,15 @@
 						</thead>
 						<tbody>
 							@foreach($staff_types as $staff_type)
-								<tr>
+								<tr class="text-center">
 									<td> {{ $staff_type->name }} </td>
 									<td> {{ $staff_type->description }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('staff-types.edit', $staff_type) }}" class="btn btn-danger btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="icofont icofont-edit"></i></a>
-											{!! Form::open(['route' => ['staff-types.destroy', $staff_type], 'method' => 'DELETE']) !!}
-												<button class="btn btn-danger btn-xs btn-icon btn-round"><i class="icofont icofont-ui-delete"></i></button>
-											{!! Form::close() !!}
+											<a href="{{ route('staff-types.edit', $staff_type) }}" class="btn btn-warning btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+
+											<button class="btn btn-danger btn-xs btn-icon btn-round" onclick="delete_record('{{ route('staff-types.destroy', $staff_type) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+
 										</div>
 									</td>
 								</tr>
