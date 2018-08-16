@@ -126,7 +126,7 @@ class StaffTypeController extends Controller
         if ($request->ajax()) {
             $staff_type->delete();
             $request->session()->flash('message', ['type' => 'destroy']);
-            //return response()->json(['result' => true]);
+            return response()->json(['result' => true]);
         }
         //return back()->with('info', 'Fue eliminado exitosamente');
         return redirect()->route('staff-types.index');

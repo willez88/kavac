@@ -111,6 +111,36 @@
                     });
                 @endif
             });
+            function delete_record(url) {
+                bootbox.confirm('Esta seguro de querer eliminar este registro?', function (result) {
+                    if (result) {
+                        /** Ajax config csrf token */
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        /** Ajax delete record */
+                        $.ajax({
+                            type: 'DELETE',
+                            cache: false,
+                            dataType: 'JSON',
+                            url: url,
+                            data: {},
+                            success: function success(data) {
+                                if (data.result) {
+                                    location.reload();
+                                }
+                            },
+                            error: function error(jqxhr, textStatus, _error) {
+                                var err = textStatus + ", " + _error;
+                                bootbox.alert('Error interno del servidor al eliminar el registro.');
+                                console.log('Error con la petición solicitada. Detalles: ' + err);
+                            }
+                        });
+                    }
+                });
+            }
         </script>
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}
