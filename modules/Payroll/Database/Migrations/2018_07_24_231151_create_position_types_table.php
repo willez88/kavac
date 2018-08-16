@@ -22,7 +22,7 @@ class CreatePositionTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('position_types', function (Blueprint $table) {
+        Schema::create('payroll_position_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100)->comment('Nombre del tipo de cargo');
             $table->string('description', 200)->comment('Descripción del tipo de cargo');

@@ -22,7 +22,7 @@ class CreateStaffTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('staff_types', function (Blueprint $table) {
+        Schema::create('payroll_staff_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100)->comment('Nombre del tipo de personal');
             $table->string('description', 200)->comment('Descripción del tipo de personal');
