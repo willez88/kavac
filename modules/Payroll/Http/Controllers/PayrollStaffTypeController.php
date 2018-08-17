@@ -18,7 +18,7 @@ use Modules\Payroll\Models\PayrollStaffType;
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class StaffTypeController extends Controller
+class PayrollStaffTypeController extends Controller
 {
     use ValidatesRequests;
 

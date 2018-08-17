@@ -93,12 +93,12 @@ Ejecutar las migraciones laravel-modules
 
 Crea un nuevo modelo para el módulo especificado junto con su migración
 
-	php artisan module:make-model -m ModelName ModuleName
+	php artisan module:make-model -m ModuleNameModelName ModuleName
 
 Genera nuevo controlador restful para el módulo especificado
 
-	php artisan module:make-controller ModelName ModuleName
+	php artisan module:make-controller ModuleNameModelName ModuleName
 
 Genera nuevo seeder para el módulo especificado (nombre del modelo en plural)
 
-	php artisan module:make-seed ModelName ModuleName
+	php artisan module:make-seed ModuleNameModelName ModuleName

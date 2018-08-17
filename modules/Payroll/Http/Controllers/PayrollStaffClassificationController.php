@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\StaffClassification;
+use Modules\Payroll\Models\PayrollStaffClassification;
 
 /**
  * @class StaffClassificationController
@@ -18,7 +18,7 @@ use Modules\Payroll\Models\StaffClassification;
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class StaffClassificationController extends Controller
+class PayrollStaffClassificationController extends Controller
 {
     use ValidatesRequests;
 
@@ -30,7 +30,7 @@ class StaffClassificationController extends Controller
      */
     public function index()
     {
-        $staff_classifications = StaffClassification::all();
+        $staff_classifications = PayrollStaffClassification::all();
         return view('payroll::staff-classifications.index', compact('staff_classifications'));
     }
 
@@ -61,7 +61,7 @@ class StaffClassificationController extends Controller
             'name' => 'required|max:100',
             'description' => 'required|max:200'
         ]);
-        $staff_classification = new StaffClassification;
+        $staff_classification = new PayrollStaffClassification;
         $staff_classification->name  = $request->name;
         $staff_classification->description = $request->description;
         $staff_classification->save();
@@ -84,7 +84,7 @@ class StaffClassificationController extends Controller
      * @param $staff_classification [<b>Modules::Payroll::Models::StaffClassification</b>] datos de la clasificación del personal
      * @return [<b>View</b>] vista con los datos a mostrar en el formulario de edición
      */
-    public function edit(StaffClassification $staff_classification)
+    public function edit(PayrollStaffClassification $staff_classification)
     {
         $header = [
             'route' => ['staff-classifications.update', $staff_classification], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
@@ -100,7 +100,7 @@ class StaffClassificationController extends Controller
      * @param $staff_classification [<b>Modules::Payroll::Models::StaffClassification</b>] datos de la clasificación del personal
      * @return [<b>Route</b>] ruta hacia la vista de listar las clasificaciones del personal
      */
-    public function update(Request $request, StaffClassification $staff_classification)
+    public function update(Request $request, PayrollStaffClassification $staff_classification)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
@@ -119,9 +119,13 @@ class StaffClassificationController extends Controller
      * @param $staff_classification [<b>Modules::Payroll::Models::StaffClassification</b>] datos de la clasificación del personal
      * @return [<b>Route</<b>] ruta hacia la vista de listar las clasificaciones del personal
      */
-    public function destroy(StaffClassification $staff_classification)
+    public function destroy(Request $request, PayrollStaffClassification $staff_classification)
     {
-        $staff_classification->delete();
-        return back()->with('info', 'Fue eliminado exitosamente');
+        if ($request->ajax()) {
+            $staff_classification->delete();
+            $request->session()->flash('message', ['type' => 'destroy']);
+            return response()->json(['result' => true]);
+        }
+        return redirect()->route('staff-types.index');
     }
 }

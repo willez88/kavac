@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
 
 /**
- * @class StaffClassification
- * @brief Datos del clasificación del personal
+ * @class PayrollStaff
+ * @brief Datos del personal
  *
- * Gestiona el modelo de datos para los tipos de cargo
+ * Gestiona el modelo de datos del personal
  *
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class StaffClassification extends Model
+class PayrollStaff extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -38,7 +38,9 @@ class StaffClassification extends Model
      * @var array $fillable
      */
     protected $fillable = [
-        'name', 'description'
+        'code', 'first_name', 'last_name', 'birthdate', 'sex', 'email', 'active', 'website', 'direction',
+        'sons', 'start_date_public_adm', 'start_date', 'end_date', 'id_number', 'nationality', 'passport',
+        'marital_status_id', 'professions_id', 'cities_id'
     ];
 
     /**

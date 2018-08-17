@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\Position;
+use Modules\Payroll\Models\PayrollPosition;
 
 /**
  * @class PositionController
@@ -18,7 +18,7 @@ use Modules\Payroll\Models\Position;
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PositionController extends Controller
+class PayrollPositionController extends Controller
 {
     use ValidatesRequests;
 
@@ -30,7 +30,7 @@ class PositionController extends Controller
      */
     public function index()
     {
-        $positions = Position::all();
+        $positions = PayrollPosition::all();
         return view('payroll::positions.index', compact('positions'));
     }
 
@@ -61,7 +61,7 @@ class PositionController extends Controller
             'name' => 'required|max:100',
             'description' => 'required|max:200'
         ]);
-        $position = new Position;
+        $position = new PayrollPosition;
         $position->name  = $request->name;
         $position->description = $request->description;
         $position->save();
@@ -84,7 +84,7 @@ class PositionController extends Controller
      * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
      * @return [<b>View</b>] vista con los datos a mostrar en el formulario de edición
      */
-    public function edit(Position $position)
+    public function edit(PayrollPosition $position)
     {
         $header = [
             'route' => ['positions.update', $position], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
@@ -100,7 +100,7 @@ class PositionController extends Controller
      * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
      * @return [<b>Route</b>] ruta hacia la vista de listar cargos
      */
-    public function update(Request $request, Position $position)
+    public function update(Request $request, PayrollPosition $position)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
@@ -119,9 +119,14 @@ class PositionController extends Controller
      * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
      * @return [<b>Route</<b>] ruta hacia la vista de listar cargos
      */
-    public function destroy(Position $position)
+    public function destroy(Request $request,PayrollPosition $position)
     {
-        $position->delete();
-        return back()->with('info', 'Fue eliminado exitosamente');
+        if ($request->ajax())
+        {
+            $position->delete();
+            $request->session()->flash('message', ['type' => 'destroy']);
+            return response()->json(['result' => true]);
+        }
+        return redirect()->route('positions.index');
     }
 }

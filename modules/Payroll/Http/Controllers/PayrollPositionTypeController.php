@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\PositionType;
+use Modules\Payroll\Models\PayrollPositionType;
 
 /**
  * @class PositionTypeController
@@ -18,7 +18,7 @@ use Modules\Payroll\Models\PositionType;
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PositionTypeController extends Controller
+class PayrollPositionTypeController extends Controller
 {
     use ValidatesRequests;
 
@@ -30,7 +30,7 @@ class PositionTypeController extends Controller
      */
     public function index()
     {
-        $position_types = PositionType::all();
+        $position_types = PayrollPositionType::all();
         return view('payroll::position-types.index', compact('position_types'));
     }
 
@@ -61,7 +61,7 @@ class PositionTypeController extends Controller
             'name' => 'required|max:100',
             'description' => 'required|max:200'
         ]);
-        $position_type = new PositionType;
+        $position_type = new PayrollPositionType;
         $position_type->name  = $request->name;
         $position_type->description = $request->description;
         $position_type->save();
@@ -84,7 +84,7 @@ class PositionTypeController extends Controller
      * @param $position_type [<b>Modules::Payroll::Models::PositionType</b>] datos del tipo de cargo
      * @return [<b>View</b>] vista con los datos a mostrar en el formulario de edición
      */
-    public function edit(PositionType $position_type)
+    public function edit(PayrollPositionType $position_type)
     {
         $header = [
             'route' => ['position-types.update', $position_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
@@ -100,7 +100,7 @@ class PositionTypeController extends Controller
      * @param $position_type [<b>Modules::Payroll::Models::PositionType</b>] datos del cargo
      * @return [<b>Route</b>] ruta hacia la vista de listar tipos de cargo
      */
-    public function update(Request $request, PositionType $position_type)
+    public function update(Request $request, PayrollPositionType $position_type)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
@@ -119,9 +119,14 @@ class PositionTypeController extends Controller
      * @param $position_type [<b>Modules::Payroll::Models::PositionType</b>] datos del tipo de cargo
      * @return [<b>Route</<b>] ruta hacia la vista de listar tipos de cargo
      */
-    public function destroy(PositionType $position_type)
+    public function destroy(Request $request, PayrollPositionType $position_type)
     {
-        $position_type->delete();
-        return back()->with('info', 'Fue eliminado exitosamente');
+        if ($request->ajax())
+        {
+            $position_type->delete();
+            $request->session()->flash('message', ['type' => 'destroy']);
+            return response()->json(['result' => true]);
+        }
+        return redirect()->route('position-types.index');
     }
 }

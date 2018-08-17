@@ -20,7 +20,7 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
 
         $adminRole = Role::where('slug', 'admin')->first();
 
-        $budgetRole = Role::updateOrCreate(
+        $payrollRole = Role::updateOrCreate(
             ['slug' => 'Payroll'],
             ['name' => 'Nómina', 'description' => 'Coordinador de nómina']
         );
@@ -35,27 +35,44 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
             [
                 'name' => 'Ver tipos de personal', 'slug' => 'payroll.staff-type.index',
                 'description' => 'Acceso para ver tipos de personal',
-                'model' => 'Modules\Payroll\Models\StaffType', 'model_prefix' => 'nomina',
+                'model' => 'Modules\Payroll\Models\PayrollStaffType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo_personal.ver'
             ],
             [
                 'name' => 'Crear tipos de personal', 'slug' => 'payroll.staff-type.create',
                 'description' => 'Acceso para crear tipos de personal',
-                'model' => 'Modules\Payroll\Models\StaffType', 'model_prefix' => 'nomina',
+                'model' => 'Modules\Payroll\Models\PayrollStaffType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo_personal.crear'
             ],
             [
                 'name' => 'Editar tipos de personal', 'slug' => 'payroll.staff-type.edit',
                 'description' => 'Acceso para editar los tipos de personal',
-                'model' => 'Modules\Payroll\Models\StaffType', 'model_prefix' => 'nomina',
+                'model' => 'Modules\Payroll\Models\PayrollStaffType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo_personal.editar'
             ],
             [
                 'name' => 'Eliminar tipos de personal', 'slug' => 'payroll.staff-type.delete',
                 'description' => 'Acceso para eliminar tipos de personal',
-                'model' => 'Modules\Payroll\Models\StaffType', 'model_prefix' => 'nomina',
+                'model' => 'Modules\Payroll\Models\PayrollStaffType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo_personal.eliminar'
             ],
         ];
+
+        foreach ($permissions as $permission) {
+            $per = Permission::updateOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'], 'description' => $permission['description'],
+                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                    'slug_alt' => $permission['slug_alt']
+                ]
+            );
+
+            $payrollRole->attachPermission($per);
+
+            if ($adminRole) {
+                $adminRole->attachPermission($per);
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Cargos
+	Personal
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Cargos</h6>
+					<h6 class="card-title">Personal</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 						   data-toggle="tooltip">
@@ -32,7 +32,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-12">
-							<a href="{{ route('positions.create') }}"
+							<a href="{{ route('staff.create') }}"
 								class="btn btn-sm btn-primary btn-custom float-right"
 								title="Crear nuevo registro" data-toggle="tooltip">
 								<i class="fa fa-plus-circle"></i>
@@ -49,14 +49,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($positions as $position)
+							@foreach($staff as $staff)
 								<tr class="text-center">
-									<td> {{ $position->name }} </td>
-									<td> {{ $position->description }} </td>
+									<td> {{ $staff->name }} </td>
+									<td> {{ $staff->description }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('positions.edit', $position) }}" class="btn btn-warning btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											<button class="btn btn-danger btn-xs btn-icon btn-round" onclick="delete_record('{{ route('positions.destroy', $position) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+											<a href="{{ route('staff.edit', $staff) }}" class="btn btn-warning btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+											<button class="btn btn-danger btn-xs btn-icon btn-round" onclick="delete_record('{{ route('staff.destroy', $staff) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
 										</div>
 									</td>
 								</tr>

@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
 
 /**
- * @class PositionType
- * @brief Datos de tipos de cargo
+ * @class Position
+ * @brief Datos de cargos
  *
- * Gestiona el modelo de datos para los tipos de cargo
+ * Gestiona el modelo de datos para los cargos
  *
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PositionType extends Model
+class PayrollPosition extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
