@@ -8,8 +8,9 @@
             <a href="{{ route('payroll.settings.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Configuración de nómina">Configuración</a>
         </li>
-        <li>
-            <a href="#">Expediente</a>
+        <li class="{!! ($current_url=='staff.index')?'active':'' !!}">
+            <a href="{{ route('staff.index') }}" data-toggle="tooltip" data-placement="right"
+                title="Expediente del personal">Expediente</a>
         </li>
         <li>
             <a href="#">Registros de Nómina</a>
