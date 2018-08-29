@@ -65,6 +65,49 @@ class PayrollStaffController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'code' => 'required|max:20',
+            'first_name' => 'required|max:100',
+            'last_name' => 'required|max:100',
+            'birthdate' => 'required|date',
+            'sex' => 'required|max:1',
+            'email' => 'required|email',
+            'active' => 'required',
+            'website' => 'required|max:255',
+            'direction' => 'required',
+            'sons' => 'required|integer',
+            'start_date_public_adm' => 'required|date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'id_number' => 'required|max:12',
+            'nationality' => 'required|max:100',
+            'passport' => 'required|max:20',
+            'marital_status_id' => 'required',
+            'profession_id' => 'required',
+            'city_id' => 'required'
+        ]);
+        $staff = new PayrollStaff;
+        $staff->code  = $request->code;
+        $staff->first_name = $request->first_name;
+        $staff->last_name = $request->last_name;
+        $staff->birthdate = $request->birthdate;
+        $staff->sex = $request->sex;
+        $staff->email = $request->email;
+        $staff->active = $request->active;
+        $staff->website = $request->website;
+        $staff->direction = $request->direction;
+        $staff->sons = $request->sons;
+        $staff->start_date_public_adm = $request->start_date_public_adm;
+        $staff->start_date = $request->start_date;
+        $staff->end_date = $request->end_date;
+        $staff->id_number = $request->id_number;
+        $staff->nationality = $request->nationality;
+        $staff->passport = $request->passport;
+        $staff->marital_status_id = $request->marital_status_id;
+        $staff->profession_id = $request->profession_id;
+        $staff->city_id = $request->city_id;
+        $staff->save();
+        return redirect()->route('staffs.index');
     }
 
     /**
@@ -80,9 +123,17 @@ class PayrollStaffController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit(PayrollStaff $staff)
     {
-        return view('payroll::edit');
+        $header = [
+            'route' => ['staffs.update', $staff], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+        ];
+        $marital_status = MaritalStatus::template_choices();
+        $professions = Profession::template_choices();
+        $countries = Country::template_choices();
+        $estates = Estate::template_choices();
+        $cities = City::template_choices();
+        return view('payroll::staffs.create-edit', compact('staff','header','marital_status','professions','countries','estates','cities'));
     }
 
     /**
@@ -90,15 +141,63 @@ class PayrollStaffController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, PayrollStaff $staff)
     {
+        $this->validate($request, [
+            'code' => 'required|max:20',
+            'first_name' => 'required|max:100',
+            'last_name' => 'required|max:100',
+            'birthdate' => 'required|date',
+            'sex' => 'required|max:1',
+            'email' => 'required|email',
+            'active' => 'required',
+            'website' => 'required|max:255',
+            'direction' => 'required',
+            'sons' => 'required|integer',
+            'start_date_public_adm' => 'required|date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'id_number' => 'required|max:12',
+            'nationality' => 'required|max:100',
+            'passport' => 'required|max:20',
+            'marital_status_id' => 'required',
+            'profession_id' => 'required',
+            'city_id' => 'required'
+        ]);
+        $staff->code  = $request->code;
+        $staff->first_name = $request->first_name;
+        $staff->last_name = $request->last_name;
+        $staff->birthdate = $request->birthdate;
+        $staff->sex = $request->sex;
+        $staff->email  = $request->email;
+        $staff->active = $request->active;
+        $staff->website = $request->website;
+        $staff->direction = $request->direction;
+        $staff->sons = $request->sons;
+        $staff->start_date_public_adm = $request->start_date_public_adm;
+        $staff->start_date = $request->start_date;
+        $staff->end_date = $request->end_date;
+        $staff->id_number = $request->id_number;
+        $staff->nationality = $request->nationality;
+        $staff->passport = $request->passport;
+        $staff->marital_status_id = $request->marital_status_id;
+        $staff->profession_id = $request->profession_id;
+        $staff->city_id = $request->city_id;
+        $staff->save();
+        return redirect()->route('staffs.index');
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy(Request $request, PayrollStaff $staff)
     {
+        if ($request->ajax()) {
+            $staff->delete();
+            $request->session()->flash('message', ['type' => 'destroy']);
+            return response()->json(['result' => true]);
+        }
+        return redirect()->route('staffs.index');
     }
 }

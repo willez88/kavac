@@ -9,7 +9,7 @@
                 title="Configuración de nómina">Configuración</a>
         </li>
         <li class="{!! ($current_url=='staff.index')?'active':'' !!}">
-            <a href="{{ route('staff.index') }}" data-toggle="tooltip" data-placement="right"
+            <a href="{{ route('staffs.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Expediente del personal">Expediente</a>
         </li>
         <li>

@@ -75,8 +75,8 @@
 						<div class="row">
 						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('nacionality') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('nacionality', 'Nacionalidad', []) !!}
-						            {!! Form::text('nacionality',(isset($staff))?$staff->nacionality:old('nacionality'),
+						            {!! Form::label('nationality', 'Nacionalidad', []) !!}
+						            {!! Form::text('nationality',(isset($staff))?$staff->nationality:old('nationality'),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
@@ -215,8 +215,8 @@
 						    </div>
 						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('start_date_adm_public') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('start_date_adm_public', 'Fecha de Ingreso a la Administración Pública', []) !!}
-						            {!! Form::date('start_date_adm_public',(isset($staff))?$staff->start_date_adm_public:old('start_date_adm_public'),
+						            {!! Form::label('start_date_public_adm', 'Fecha de Ingreso a la Administración Pública', []) !!}
+						            {!! Form::date('start_date_public_adm',(isset($staff))?$staff->start_date_public_adm:old('start_date_public_adm'),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',

@@ -32,7 +32,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-12">
-							<a href="{{ route('staff.create') }}"
+							<a href="{{ route('staffs.create') }}"
 								class="btn btn-sm btn-primary btn-custom float-right"
 								title="Crear nuevo registro" data-toggle="tooltip">
 								<i class="fa fa-plus-circle"></i>
@@ -71,14 +71,14 @@
 									<td> {{ $staff->code }} </td>
 									<td> {{ $staff->first_name }} </td>
 									<td> {{ $staff->last_name }} </td>
-									<td> {{ $staff->nacionality }} </td>
+									<td> {{ $staff->nationality }} </td>
 									<td> {{ $staff->id_number }} </td>
 									<td> {{ $staff->passport }} </td>
 									<td> {{ $staff->email }} </td>
 									<td> {{ $staff->birthdate }} </td>
 									<td> {{ $staff->sex }} </td>
 									<td> {{ $staff->marital_status_id }} </td>
-									<td> {{ $staff->prefession_id }} </td>
+									<td> {{ $staff->profession_id }} </td>
 									<td> {{ $staff->active }} </td>
 									<td> {{ $staff->website }} </td>
 									<td> {{ $staff->sons }} </td>
@@ -89,8 +89,8 @@
 									<td> {{ $staff->direction }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('staff.edit', $staff) }}" class="btn btn-warning btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											<button class="btn btn-danger btn-xs btn-icon btn-round" onclick="delete_record('{{ route('staff.destroy', $staff) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+											<a href="{{ route('staffs.edit', $staff) }}" class="btn btn-warning btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+											<button class="btn btn-danger btn-xs btn-icon btn-round" onclick="delete_record('{{ route('staffs.destroy', $staff) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
 										</div>
 									</td>
 								</tr>
