@@ -28,7 +28,8 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Prefijo:</label>
-									<input type="text" placeholder="Prefijo" 
+									<input type="text" placeholder="Prefijo" data-toggle="tooltip" 
+										   title="Indique el prefijo del Pais (requerido)" 
 										   class="form-control input-sm" v-model="record.prefix">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -36,7 +37,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Profesión" 
+									<input type="text" placeholder="Nombre de Pais" data-toggle="tooltip" 
+										   title="Indique el nombre del Pais (requerido)" 
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -71,12 +73,12 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="createRecord('countries')" 
-	                			class="btn btn-primary btn-sm btn-round">
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>

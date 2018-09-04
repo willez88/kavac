@@ -29,7 +29,8 @@
 						<div class="form-group is-required">
 							<label for="marital_status_name">Nombre:</label>
 							<input type="text" name="marital_status_name" id="marital_status_name" placeholder="Estado Civil" 
-								   class="form-control input-sm" v-model="record.marital_status_name">
+								   class="form-control input-sm" v-model="record.marital_status_name" data-toggle="tooltip" 
+								   title="Indique el nombre del estado civil (requerido)">
 							<input type="hidden" name="marital_status_id" id="marital_status_id" v-model="record.marital_status_id">
 	                    </div>
 	                </div>
@@ -60,10 +61,10 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" data-dismiss="modal">
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('marital-status')" class="btn btn-primary btn-sm btn-round">
+	                	<button type="button" @click="createRecord('marital-status')" class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>

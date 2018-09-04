@@ -36,7 +36,7 @@ class Image extends Model
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['file', 'url', 'max-width', 'max-height', 'min-width', 'min-height'];
+    protected $fillable = ['file', 'url', 'max_width', 'max_height', 'min_width', 'min_height'];
 
     /**
      * Método que obtiene las instituciones de las imágenes

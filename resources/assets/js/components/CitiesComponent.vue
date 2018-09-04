@@ -42,7 +42,8 @@
 							<div class="col-md-12">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Nombre de la Ciudad" 
+									<input type="text" placeholder="Nombre de la Ciudad" data-toggle="tooltip" 
+										   title="Indique el nombre de la ciudad (requerido)" 
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -79,12 +80,12 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="createRecord('cities')" 
-	                			class="btn btn-primary btn-sm btn-round">
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>

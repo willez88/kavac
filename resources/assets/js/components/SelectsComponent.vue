@@ -1,5 +1,5 @@
 <template>
-	<select class="form-control">
+	<select class="form-control select2" data-toggle="tooltip" title="Seleccione una opción">
 		<slot></slot>
 	</select>
 </template>

@@ -28,7 +28,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Valor:</label>
-									<input type="number" placeholder="0.00" 
+									<input type="number" placeholder="0.00" data-toggle="tooltip" 
+										   title="Indique el valor de la unidad tributaria (requerido)"
 										   class="form-control input-sm" v-model="record.value">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -36,22 +37,24 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Fecha Inicio:</label>
-									<input type="date" placeholder="dd/mm/yyyy" 
+									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip" 
+										   title="Seleccione una fecha del calendario (requerido)" 
 										   class="form-control input-sm" v-model="record.start_date">
 			                    </div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-group is-required">
+								<div class="form-group">
 									<label>Fecha fin:</label>
-									<input type="date" placeholder="dd/mm/yyyy" 
-										   class="form-control input-sm" 
-										   v-model="record.end_date">
+									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip" 
+										   title="Seleccione una fecha del calendario"
+										   class="form-control input-sm" v-model="record.end_date">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Activo:</label>
-									<input type="checkbox" class="form-control bootstrap-switch" 
+									<input type="checkbox" class="form-control bootstrap-switch" data-toggle="tooltip" 
+										   title="Indique si la unidad tributaria esta o no activa"
 										   data-on-label="SI" data-off-label="NO" 
 										   v-model="record.active">
 			                    </div>
@@ -93,12 +96,12 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="createRecord('tax-units')" 
-	                			class="btn btn-primary btn-sm btn-round">
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>

@@ -58531,7 +58531,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("select", { staticClass: "form-control" }, [_vm._t("default")], 2)
+  return _c(
+    "select",
+    {
+      staticClass: "form-control select2",
+      attrs: { "data-toggle": "tooltip", title: "Seleccione una opción" }
+    },
+    [_vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58596,6 +58604,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -58764,7 +58773,9 @@ var render = function() {
                       type: "text",
                       name: "marital_status_name",
                       id: "marital_status_name",
-                      placeholder: "Estado Civil"
+                      placeholder: "Estado Civil",
+                      "data-toggle": "tooltip",
+                      title: "Indique el nombre del estado civil (requerido)"
                     },
                     domProps: { value: _vm.record.marital_status_name },
                     on: {
@@ -58885,7 +58896,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -58894,7 +58906,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -59108,6 +59121,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -59196,7 +59211,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Acrónimo" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Acrónimo",
+                          "data-toggle": "tooltip",
+                          title: "Indique el acrónimo de la profesión"
+                        },
                         domProps: { value: _vm.record.acronym },
                         on: {
                           input: function($event) {
@@ -59245,7 +59265,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Profesión" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Profesión",
+                          "data-toggle": "tooltip",
+                          title: "Indique el nombre de la profesión (requerido)"
+                        },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -59336,7 +59361,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -59345,7 +59371,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -59551,6 +59578,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -59639,7 +59668,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Acrónimo" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Acrónimo",
+                          "data-toggle": "tooltip",
+                          title: "Indique el acrónimo del tipo de institución"
+                        },
                         domProps: { value: _vm.record.acronym },
                         on: {
                           input: function($event) {
@@ -59688,7 +59722,13 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Tipo" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Tipo",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique el nombre del tipo de institución (requerido)"
+                        },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -59782,7 +59822,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -59791,7 +59832,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -59996,6 +60038,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -60087,7 +60130,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Profesión" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Nombre del sector",
+                          "data-toggle": "tooltip",
+                          title: "Indique el nombre del sector (requerido)"
+                        },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -60200,7 +60248,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -60209,7 +60258,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -60421,6 +60471,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -60509,7 +60561,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Prefijo" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Prefijo",
+                          "data-toggle": "tooltip",
+                          title: "Indique el prefijo del Pais (requerido)"
+                        },
                         domProps: { value: _vm.record.prefix },
                         on: {
                           input: function($event) {
@@ -60558,7 +60615,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Profesión" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Nombre de Pais",
+                          "data-toggle": "tooltip",
+                          title: "Indique el nombre del Pais (requerido)"
+                        },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -60649,7 +60711,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -60658,7 +60721,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -60778,6 +60842,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -61024,7 +61090,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "text",
-                          placeholder: "Código de Estado"
+                          placeholder: "Código de Estado",
+                          "data-toggle": "tooltip",
+                          title: "Indique el código del Estado (requerido)"
                         },
                         domProps: { value: _vm.record.code },
                         on: {
@@ -61055,7 +61123,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "text",
-                          placeholder: "Nombre de Estado"
+                          placeholder: "Nombre de Estado",
+                          "data-toggle": "tooltip",
+                          title: "Infique el nombre del Estado (requerido)"
                         },
                         domProps: { value: _vm.record.name },
                         on: {
@@ -61151,7 +61221,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -61160,7 +61231,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -61282,6 +61354,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -61577,7 +61651,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "text",
-                          placeholder: "Código de Municipio"
+                          placeholder: "Código de Municipio",
+                          "data-toggle": "tooltip",
+                          title: "Indique el código del Municipio (requerido)"
                         },
                         domProps: { value: _vm.record.code },
                         on: {
@@ -61608,7 +61684,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "text",
-                          placeholder: "Nombre de Municipio"
+                          placeholder: "Nombre de Municipio",
+                          "data-toggle": "tooltip",
+                          title: "Indique el nombre del Municipio (requerido)"
                         },
                         domProps: { value: _vm.record.name },
                         on: {
@@ -61704,7 +61782,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -61713,7 +61792,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -61835,6 +61915,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -62120,7 +62201,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "text",
-                          placeholder: "Nombre de la Ciudad"
+                          placeholder: "Nombre de la Ciudad",
+                          "data-toggle": "tooltip",
+                          title: "Indique el nombre de la ciudad (requerido)"
                         },
                         domProps: { value: _vm.record.name },
                         on: {
@@ -62212,7 +62295,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -62221,7 +62305,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -62341,6 +62426,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -62684,7 +62771,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "text",
-                          placeholder: "Código de Parroquia"
+                          placeholder: "Código de Parroquia",
+                          "data-toggle": "tooltip",
+                          title: "Indique el código de la Parroquia (requerido)"
                         },
                         domProps: { value: _vm.record.code },
                         on: {
@@ -62715,7 +62804,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "text",
-                          placeholder: "Nombre de Parroquia"
+                          placeholder: "Nombre de Parroquia",
+                          "data-toggle": "tooltip",
+                          title: "Indique el nombre de la Parroquia (requerido)"
                         },
                         domProps: { value: _vm.record.name },
                         on: {
@@ -62811,7 +62902,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -62820,7 +62912,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -63045,6 +63138,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -63137,7 +63233,13 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Color" },
+                        attrs: {
+                          type: "color",
+                          placeholder: "Color",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Seleccione un color para identificar el estatus de documento (requerido)"
+                        },
                         domProps: { value: _vm.record.color },
                         on: {
                           input: function($event) {
@@ -63165,7 +63267,13 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Nombre" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Nombre",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique el nombre del estatus de documento (requerido)"
+                        },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -63214,7 +63322,13 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Descripción" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Descripción",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique una descripción breve sobre el estatus de documento (requerido)"
+                        },
                         domProps: { value: _vm.record.description },
                         on: {
                           input: function($event) {
@@ -63328,7 +63442,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -63337,7 +63452,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -63588,6 +63704,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -63680,7 +63802,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Impuesto" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Impuesto",
+                          "data-toggle": "tooltip",
+                          title: "Indique el nombre del impuesto (requerido)"
+                        },
                         domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
@@ -63729,7 +63856,13 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "Descripción" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Descripción",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique una descripción breve del impuesto (requerido)"
+                        },
                         domProps: { value: _vm.record.description },
                         on: {
                           input: function($event) {
@@ -63761,7 +63894,13 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "date", placeholder: "dd/mm/yyyy" },
+                        attrs: {
+                          type: "date",
+                          placeholder: "dd/mm/yyyy",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Seleccione una fecha del calendario (requerido)"
+                        },
                         domProps: { value: _vm.record.operation_date },
                         on: {
                           input: function($event) {
@@ -63796,7 +63935,10 @@ var render = function() {
                         attrs: {
                           type: "number",
                           placeholder: "0",
-                          step: "0.01"
+                          step: "0.01",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique el porcentaje del impuesto (requerido)"
                         },
                         domProps: { value: _vm.record.percentage },
                         on: {
@@ -63831,6 +63973,9 @@ var render = function() {
                         staticClass: "form-control bootstrap-switch",
                         attrs: {
                           type: "checkbox",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique si el impuesto afecta la cuenta presupuestaria de IVA",
                           "data-on-label": "SI",
                           "data-off-label": "NO"
                         },
@@ -63887,6 +64032,8 @@ var render = function() {
                         staticClass: "form-control bootstrap-switch",
                         attrs: {
                           type: "checkbox",
+                          "data-toggle": "tooltip",
+                          title: "Indique si el impuesta esta o no activo",
                           "data-on-label": "SI",
                           "data-off-label": "NO"
                         },
@@ -64014,7 +64161,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -64023,7 +64171,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -64259,6 +64408,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -64349,7 +64501,13 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "number", placeholder: "0.00" },
+                        attrs: {
+                          type: "number",
+                          placeholder: "0.00",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique el valor de la unidad tributaria (requerido)"
+                        },
                         domProps: { value: _vm.record.value },
                         on: {
                           input: function($event) {
@@ -64398,7 +64556,13 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "date", placeholder: "dd/mm/yyyy" },
+                        attrs: {
+                          type: "date",
+                          placeholder: "dd/mm/yyyy",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Seleccione una fecha del calendario (requerido)"
+                        },
                         domProps: { value: _vm.record.start_date },
                         on: {
                           input: function($event) {
@@ -64417,7 +64581,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group is-required" }, [
+                    _c("div", { staticClass: "form-group" }, [
                       _c("label", [_vm._v("Fecha fin:")]),
                       _vm._v(" "),
                       _c("input", {
@@ -64430,7 +64594,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control input-sm",
-                        attrs: { type: "date", placeholder: "dd/mm/yyyy" },
+                        attrs: {
+                          type: "date",
+                          placeholder: "dd/mm/yyyy",
+                          "data-toggle": "tooltip",
+                          title: "Seleccione una fecha del calendario"
+                        },
                         domProps: { value: _vm.record.end_date },
                         on: {
                           input: function($event) {
@@ -64464,6 +64633,9 @@ var render = function() {
                         staticClass: "form-control bootstrap-switch",
                         attrs: {
                           type: "checkbox",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique si la unidad tributaria esta o no activa",
                           "data-on-label": "SI",
                           "data-off-label": "NO"
                         },
@@ -64593,7 +64765,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-default btn-sm btn-round",
+                    staticClass:
+                      "btn btn-default btn-sm btn-round btn-modal-close",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("\n                \t\tCerrar\n                \t")]
@@ -64602,7 +64775,8 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-sm btn-round",
+                    staticClass:
+                      "btn btn-primary btn-sm btn-round btn-modal-save",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -66994,12 +67168,37 @@ $(document).ready(function () {
         });
     }
 
+    /** Tooltips personalizados */
+    if ($('.btn-modal-close').length) {
+        $('.btn-modal-close').attr({
+            'title': 'Presione para cerrar la ventana',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-modal-close').tooltip();
+    }
+
+    if ($('.btn-modal-save').length) {
+        $('.btn-modal-save').attr({
+            'title': 'Presione para guardar el registro',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-modal-save').tooltip();
+    }
+
     if ($('.btn-add-record').length) {
         $('.btn-add-record').attr({
             'title': 'Agregar un nuevo registro',
             'data-toggle': 'tooltip'
         });
         $('.btn-add-record').tooltip();
+    }
+
+    if ($('.btn-file').length) {
+        $('.btn-file').attr({
+            'title': 'Seleccione un archivo a cargar',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-file').tooltip();
     }
 
     /** Reemplazo de icono indicador en el menú del panel izquierdo */
@@ -67053,6 +67252,16 @@ $(document).ready(function () {
             }
         };
         $('.datatable').dataTable(dt_options);
+        $('.dataTables_length .selection').attr({
+            'title': 'Seleccione la cantidad de registros a mostrar por cada página',
+            'data-toggle': 'tooltip'
+        });
+        $('dataTables_length .selection').tooltip();
+        $('.dataTables_filter input').attr({
+            'title': 'Indique los datos del registro a buscar',
+            'data-toggle': 'tooltip'
+        });
+        $('.dataTables_filter input').tooltip();
     }
 
     /** Evento que permite mostrar datos sobre la aplicación (acerca de) */

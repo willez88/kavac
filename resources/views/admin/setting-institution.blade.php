@@ -98,7 +98,7 @@
 									(isset($model_institution))?$model_institution->onapre_code:old('onapre_code'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
-										'title' => 'Indique el código ONAPRE asignado a la institución'
+										'title' => 'Indique el código ONAPRE asignado a la institución (requerido)'
 									]
 								) !!}
 							</div>
@@ -110,7 +110,7 @@
 									(isset($model_institution))?$model_institution->rif:old('rif'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
-										'title' => 'Indique el número de registro de identificación fiscal'
+										'title' => 'Indique el número de registro de identificación fiscal (requerido)'
 									]
 								) !!}
 							</div>
@@ -122,7 +122,7 @@
 									(isset($model_institution))?$model_institution->name:old('name'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
-										'title' => 'Introduzca el nombre de la institución'
+										'title' => 'Introduzca el nombre de la institución (requerido)'
 									]
 								) !!}
 							</div>
@@ -209,7 +209,7 @@
 									(isset($model_institution))?$model_institution->postal_code:old('postal_code'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
-										'title' => 'Indique el código postal'
+										'title' => 'Indique el código postal (requerido)'
 									]
 								) !!}
 							</div>
@@ -221,7 +221,7 @@
 									(isset($model_institution))?$model_institution->start_operations_date:old('start_operations_date'), [
 										'class' => 'form-control input-sm', 
 										'data-toggle' => 'tooltip',
-										'title' => 'Indique la fecha de inicio de operaciones'
+										'title' => 'Indique la fecha de inicio de operaciones (requerido)'
 									]
 								) !!}
 							</div>
@@ -261,7 +261,8 @@
 							<div class="form-group is-required">
 								{!! Form::label('legal_address', 'Dirección Fiscal', []) !!}
 								{!! Form::textarea('legal_address', null, [
-									'class' => 'form-control', 'rows' => '4'
+									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
+									'title' => 'Indique la dirección fiscal de la institución  (requerido)'
 								]) !!}
 							</div>
 						</div>
@@ -315,7 +316,8 @@
 							<div class="form-group">
 								{!! Form::label('legal_base', 'Base Legal', []) !!}
 								{!! Form::textarea('legal_base', null, [
-									'class' => 'form-control', 'rows' => '4'
+									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip', 
+									'title' => 'Indique la base legal constitutiva de la institución'
 								]) !!}
 							</div>
 						</div>
@@ -323,7 +325,8 @@
 							<div class="form-group">
 								{!! Form::label('legal_form', 'Forma Jurídica', []) !!}
 								{!! Form::textarea('legal_form', null, [
-									'class' => 'form-control', 'rows' => '4'
+									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
+									'title' => 'Indique la forma jurídica de la institución'
 								]) !!}
 							</div>
 						</div>
@@ -331,7 +334,8 @@
 							<div class="form-group">
 								{!! Form::label('main_activity', 'Actividad Principal', []) !!}
 								{!! Form::textarea('main_activity', null, [
-									'class' => 'form-control', 'rows' => '4'
+									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
+									'title' => 'Indique la actividad principal a la cual se dedica la institución'
 								]) !!}
 							</div>
 						</div>
@@ -341,7 +345,8 @@
 							<div class="form-group">
 								{!! Form::label('mission', 'Misión', []) !!}
 								{!! Form::textarea('mission', null, [
-									'class' => 'form-control', 'rows' => '4'
+									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
+									'title' => 'Indique la misión de la institución'
 								]) !!}
 							</div>
 						</div>
@@ -349,7 +354,8 @@
 							<div class="form-group">
 								{!! Form::label('vision', 'Visión', []) !!}
 								{!! Form::textarea('vision', null, [
-									'class' => 'form-control', 'rows' => '4'
+									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
+									'title' => 'Indique la visión de la institución'
 								]) !!}
 							</div>
 						</div>
@@ -357,7 +363,8 @@
 							<div class="form-group">
 								{!! Form::label('composition_assets', 'Composición de Patrimonio', []) !!}
 								{!! Form::textarea('composition_assets', null, [
-									'class' => 'form-control', 'rows' => '4'
+									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
+									'title' => 'Indique la composición patrimonial de la institución'
 								]) !!}
 							</div>
 						</div>

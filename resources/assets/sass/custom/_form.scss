@@ -46,6 +46,12 @@
 	color: #2CA8FF;
 }
 
+/** Estilos personalizados en campos de tipo color */
+input[type="color"] {
+	min-height:36px;
+	color: #ffffff;
+}
+
 textarea {
 	&.form-control {
 		border: 1px solid #E3E3E3;
