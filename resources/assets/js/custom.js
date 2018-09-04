@@ -108,12 +108,37 @@ $(document).ready(function() {
         });
     }
 
+    /** Tooltips personalizados */
+    if ($('.btn-modal-close').length) {
+        $('.btn-modal-close').attr({
+            'title': 'Presione para cerrar la ventana',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-modal-close').tooltip();
+    }
+
+    if ($('.btn-modal-save').length) {
+        $('.btn-modal-save').attr({
+            'title': 'Presione para guardar el registro',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-modal-save').tooltip();
+    }
+
     if ($('.btn-add-record').length) {
         $('.btn-add-record').attr({
             'title': 'Agregar un nuevo registro',
             'data-toggle': 'tooltip'
         });
         $('.btn-add-record').tooltip();
+    }
+
+    if ($('.btn-file').length) {
+        $('.btn-file').attr({
+            'title': 'Seleccione un archivo a cargar',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-file').tooltip();
     }
 
     /** Reemplazo de icono indicador en el menú del panel izquierdo */
@@ -124,6 +149,7 @@ $(document).ready(function() {
         $('.tooltip:last').remove();
         $('.tooltip:last').tooltip();
     });
+
 
     if ($('.datatable').length) {
         /** Configuración de atributos para tablas con datatable */
@@ -167,6 +193,17 @@ $(document).ready(function() {
             }
         };
         $('.datatable').dataTable(dt_options);
+        $('.dataTables_length .selection').attr({
+            'title': 'Seleccione la cantidad de registros a mostrar por cada página',
+            'data-toggle': 'tooltip'
+        });
+        $('dataTables_length .selection').tooltip();
+        $('.dataTables_filter input').attr({
+            'title': 'Indique los datos del registro a buscar',
+            'data-toggle': 'tooltip'
+        });
+        $('.dataTables_filter input').tooltip();
+
     }
 
     /** Evento que permite mostrar datos sobre la aplicación (acerca de) */

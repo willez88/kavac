@@ -50,14 +50,16 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Código:</label>
-									<input type="text" placeholder="Código de Parroquia" 
+									<input type="text" placeholder="Código de Parroquia" data-toggle="tooltip" 
+										   title="Indique el código de la Parroquia (requerido)" 
 										   class="form-control input-sm" v-model="record.code">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Nombre de Parroquia" 
+									<input type="text" placeholder="Nombre de Parroquia" data-toggle="tooltip" 
+										   title="Indique el nombre de la Parroquia (requerido)" 
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -96,12 +98,12 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="createRecord('parishes')" 
-	                			class="btn btn-primary btn-sm btn-round">
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>

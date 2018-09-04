@@ -28,14 +28,16 @@
 							<div class="col-md-2">
 								<div class="form-group is-required">
 									<label>Color:</label>
-									<input type="text" placeholder="Color" 
+									<input type="color" placeholder="Color" data-toggle="tooltip" 
+										   title="Seleccione un color para identificar el estatus de documento (requerido)"
 										   class="form-control input-sm" v-model="record.color">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Nombre" 
+									<input type="text" placeholder="Nombre" data-toggle="tooltip" 
+										   title="Indique el nombre del estatus de documento (requerido)" 
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -43,7 +45,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-									<input type="text" placeholder="Descripción" 
+									<input type="text" placeholder="Descripción" data-toggle="tooltip" 
+										   title="Indique una descripción breve sobre el estatus de documento (requerido)" 
 										   class="form-control input-sm" v-model="record.description">
 			                    </div>
 							</div>
@@ -86,12 +89,12 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="createRecord('document-status')" 
-	                			class="btn btn-primary btn-sm btn-round">
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>

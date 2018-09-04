@@ -28,7 +28,8 @@
 							<div class="col-md-12">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Profesión" 
+									<input type="text" placeholder="Nombre del sector" data-toggle="tooltip" 
+										   title="Indique el nombre del sector (requerido)"  
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -62,12 +63,12 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="createRecord('institution-sectors')" 
-	                			class="btn btn-primary btn-sm btn-round">
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>

@@ -15,9 +15,9 @@ class AddFieldsToImagesTable extends Migration
     {
         Schema::table('images', function (Blueprint $table) {
             $table->float('max_width')->nullable();
-            $table->float('max-height')->nullable();
-            $table->float('min-width')->nullable();
-            $table->float('min-height')->nullable();
+            $table->float('max_height')->nullable();
+            $table->float('min_width')->nullable();
+            $table->float('min_height')->nullable();
         });
     }
 
@@ -29,10 +29,10 @@ class AddFieldsToImagesTable extends Migration
     public function down()
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->dropColumn('max-width');
-            $table->dropColumn('max-height');
-            $table->dropColumn('min-width');
-            $table->dropColumn('min-height');
+            $table->dropColumn('max_width');
+            $table->dropColumn('max_height');
+            $table->dropColumn('min_width');
+            $table->dropColumn('min_height');
         });
     }
 }

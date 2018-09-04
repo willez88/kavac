@@ -115,4 +115,13 @@ class UserController extends Controller
     {
         //
     }
+
+    /**
+     * Assigna roles y permisos de acceso a los usuarios del sistema
+     * @param Request $request Objeto con los datos de la petición
+     */
+    public function setAccess(Request $request)
+    {
+
+    }
 }

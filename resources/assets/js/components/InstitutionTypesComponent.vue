@@ -28,7 +28,8 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Acrónimo:</label>
-									<input type="text" placeholder="Acrónimo" 
+									<input type="text" placeholder="Acrónimo" data-toggle="tooltip" 
+										   title="Indique el acrónimo del tipo de institución" 
 										   class="form-control input-sm" v-model="record.acronym">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -36,8 +37,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Tipo" class="form-control input-sm" 
-										   v-model="record.name">
+									<input type="text" placeholder="Tipo" class="form-control input-sm" data-toggle="tooltip"
+										   v-model="record.name" title="Indique el nombre del tipo de institución (requerido)">
 			                    </div>
 							</div>
 						</div>
@@ -71,10 +72,11 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" data-dismiss="modal">
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('institution-types')" class="btn btn-primary btn-sm btn-round">
+	                	<button type="button" @click="createRecord('institution-types')" 
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>

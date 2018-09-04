@@ -28,7 +28,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Impuesto" 
+									<input type="text" placeholder="Impuesto" data-toggle="tooltip" 
+										   title="Indique el nombre del impuesto (requerido)" 
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -36,28 +37,32 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-									<input type="text" placeholder="Descripción" 
+									<input type="text" placeholder="Descripción" data-toggle="tooltip" 
+										   title="Indique una descripción breve del impuesto (requerido)" 
 										   class="form-control input-sm" v-model="record.description">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Fecha entrada en vigencia:</label>
-									<input type="date" placeholder="dd/mm/yyyy" 
+									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip" 
+										   title="Seleccione una fecha del calendario (requerido)" 
 										   class="form-control input-sm" v-model="record.operation_date">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Porcentaje:</label>
-									<input type="number" placeholder="0" step="0.01" 
+									<input type="number" placeholder="0" step="0.01" data-toggle="tooltip" 
+										   title="Indique el porcentaje del impuesto (requerido)"
 										   class="form-control input-sm" v-model="record.percentage">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Afecta cuenta de IVA:</label>
-									<input type="checkbox" class="form-control bootstrap-switch" 
+									<input type="checkbox" class="form-control bootstrap-switch" data-toggle="tooltip" 
+										   title="Indique si el impuesto afecta la cuenta presupuestaria de IVA" 
 										   data-on-label="SI" data-off-label="NO" 
 										   v-model="record.affect_tax">
 			                    </div>
@@ -65,7 +70,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Activo:</label>
-									<input type="checkbox" class="form-control bootstrap-switch" 
+									<input type="checkbox" class="form-control bootstrap-switch" data-toggle="tooltip" 
+										   title="Indique si el impuesta esta o no activo" 
 										   data-on-label="SI" data-off-label="NO" 
 										   v-model="record.active">
 			                    </div>
@@ -108,12 +114,12 @@
 						</table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="createRecord('taxes')" 
-	                			class="btn btn-primary btn-sm btn-round">
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>

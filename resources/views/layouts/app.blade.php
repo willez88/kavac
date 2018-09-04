@@ -8,7 +8,7 @@
         {{-- CSRF Token --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'KAVAC | Sistema de Gestión Administrativa') }}</title>
+        <title>KAVAC | Sistema de Gestión Administrativa</title>
 
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css') !!}
@@ -107,7 +107,7 @@
                         class_name: msg_class,
                         image: "{{ asset('images') }}/" + msg_icon + ".png",
                         sticky: false,
-                        time: ''
+                        time: 1500
                     });
                 @endif
             });
