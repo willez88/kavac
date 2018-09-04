@@ -79,7 +79,11 @@
 									<td> {{ $staff->sex }} </td>
 									<td> {{ $staff->marital_status_id }} </td>
 									<td> {{ $staff->profession_id }} </td>
-									<td> {{ $staff->active }} </td>
+									@if( $staff->active == 1 )
+										<td> Si </td>
+									@else
+										<td> No </td>
+									@endif
 									<td> {{ $staff->website }} </td>
 									<td> {{ $staff->sons }} </td>
 									<td> {{ $staff->start_date_adm_public }} </td>

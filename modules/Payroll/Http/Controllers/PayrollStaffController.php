@@ -48,7 +48,7 @@ class PayrollStaffController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'staff.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'staffs.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         $marital_status = MaritalStatus::template_choices();
         $professions = Profession::template_choices();
@@ -72,7 +72,6 @@ class PayrollStaffController extends Controller
             'birthdate' => 'required|date',
             'sex' => 'required|max:1',
             'email' => 'required|email',
-            'active' => 'required',
             'website' => 'required|max:255',
             'direction' => 'required',
             'sons' => 'required|integer',
@@ -93,7 +92,7 @@ class PayrollStaffController extends Controller
         $staff->birthdate = $request->birthdate;
         $staff->sex = $request->sex;
         $staff->email = $request->email;
-        $staff->active = $request->active;
+        $staff->active = ($request->input('active')!==null);
         $staff->website = $request->website;
         $staff->direction = $request->direction;
         $staff->sons = $request->sons;
@@ -150,7 +149,6 @@ class PayrollStaffController extends Controller
             'birthdate' => 'required|date',
             'sex' => 'required|max:1',
             'email' => 'required|email',
-            'active' => 'required',
             'website' => 'required|max:255',
             'direction' => 'required',
             'sons' => 'required|integer',
@@ -170,7 +168,7 @@ class PayrollStaffController extends Controller
         $staff->birthdate = $request->birthdate;
         $staff->sex = $request->sex;
         $staff->email  = $request->email;
-        $staff->active = $request->active;
+        $staff->active = ($request->input('active')!==null);
         $staff->website = $request->website;
         $staff->direction = $request->direction;
         $staff->sons = $request->sons;
