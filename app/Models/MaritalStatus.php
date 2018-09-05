@@ -58,4 +58,8 @@ class MaritalStatus extends Model
         }
         return $options;
     }
+
+    public function payrolls() {
+        return (Module::has('Payroll'))?$this->hasMany(\Modules\Payroll\Models\PayrollStaff::class):[];
+    }
 }
