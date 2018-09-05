@@ -43,7 +43,7 @@
 									@foreach ($roles as $role)
 										<th class="text-center" title="{{ $role->description }}" 
 											data-toggle="tooltip">
-											{{ $role->name }}
+											{{ $role->description }}
 										</th>
 									@endforeach
 								</tr>
@@ -64,15 +64,15 @@
 									@if ($perm->slug_alt)
 										<tr>
 											<td title="{{ $perm->description }}" data-toggle="tooltip">
-												{{ $perm->slug_alt }}
+												{{ $perm->name }}
 											</td>
 											@foreach ($roles as $role)
 												<td class="text-center">
 													{!! Form::checkbox(
 														'perm[]', $role->id . ":" . $perm->id, null, [
-															'class' => 'form-control bootstrap-switch',
+															'class' => 'form-control bootstrap-switch bootstrap-switch-mini',
 															'data-on-label' => 'SI', 
-															'data-off-label' => 'NO'
+															'data-off-label' => 'NO',
 														]
 													) !!}
 												</td>

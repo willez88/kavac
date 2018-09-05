@@ -111,6 +111,22 @@ require('./modules');
  * @param  {object} methods Métodos generales a implementar en CRUDS
  */
 Vue.mixin({
+	/*data() {
+		return {
+			dataSelect: {
+				opt_one: [],
+				opt_two: [],
+				opt_three: [],
+				opt_four: [],
+				opt_five: [],
+				opt_six: [],
+				opt_seven: [],
+				opt_eight: [],
+				opt_nine: [],
+				opt_ten: []
+			}
+		}
+	},*/
 	props: ['route_list', 'route_create', 'route_edit', 'route_update', 'route_delete'],
 	methods: {
 		/**
@@ -278,7 +294,17 @@ Vue.mixin({
 		        sticky: false,
 		        time: ''
 		    });
-		}
+		}/*,
+		loadRelationalSelect(parent_id, target_url) {
+			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
+			var target_url = (typeof(target_url) !== "undefined")?target_url:false;
+
+			if (parent_id) {
+				axios.get('/' + target_url + '/' + parent_id).then(response => {
+					this.estates = response.data;
+				});
+			}
+		}*/
     }
 });
 

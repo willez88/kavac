@@ -129,6 +129,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     /** Rutas para la gestión de Unidades Tributarias */
     Route::resource('tax-units', 'TaxUnitController');
+
+    /** Ruta para obtener datos de selecs dependientes dinámicamente */
+    Route::get('get-select-data/{parent_id}/{model}/{module_name}', 'CommonController@getSelectData');
 });
 
 /**

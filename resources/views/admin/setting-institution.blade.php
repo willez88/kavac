@@ -159,7 +159,8 @@
 									'country_id', 'Pais', []
 								) !!}
 								{!! Form::select('country_id', (isset($countries))?$countries:[], null, [
-									'class' => 'form-control select2', 'placeholder' => 'Seleccione...'
+									'class' => 'form-control select2', 'placeholder' => 'Seleccione...',
+									'onchange' => 'updateSelect($(this).val(), $("#estate_id"), "Estate")'
 								]) !!}
 								{{-- <i class="fa fa-plus-circle btn-add-record"></i> --}}
 							</div>
@@ -170,7 +171,8 @@
 							<div class="form-group">
 								{!! Form::label('estate_id', 'Estado', []) !!}
 								{!! Form::select('estate_id', (isset($estates))?$estates:[], null, [
-									'class' => 'form-control select2', 'placeholder' => 'Seleccione...'
+									'class' => 'form-control select2', 'placeholder' => 'Seleccione...',
+									'id' => 'estate_id'
 								]) !!}
 							</div>
 						</div>

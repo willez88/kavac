@@ -111,6 +111,13 @@
                     });
                 @endif
             });
+
+            /*
+             * Función que permite eliminar registros mediante ajax
+             * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+             * @param {string} url URL del controlador que realiza la acción de eliminación
+             * @return Un mensaje al usuario solicitando confirmación de la eliminación del registro
+             */
             function delete_record(url) {
                 bootbox.confirm('Esta seguro de querer eliminar este registro?', function (result) {
                     if (result) {
@@ -138,6 +145,34 @@
                                 console.log('Error con la petición solicitada. Detalles: ' + err);
                             }
                         });
+                    }
+                });
+            }
+
+            function updateSelect(parent_id, target_element, target_model, module_name) {
+                var module_name = (typeof(module_name) !== "undefined")?'/' + module_name:'';
+                
+                target_element.select2({
+                    ajax: {
+                        url: '/get-select-data/' + parent_id + '/' + target_model + module_name,
+                        dataType: 'json',
+                        type: "GET",
+                        data: function (params) {
+                            return {
+                                q: params.term // search term
+                            };
+                        },
+                        processResults: function (data) {
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true,
+                        /*processResults: function(data) {
+                            return {
+                                results: data.items
+                            }
+                        }*/
                     }
                 });
             }
