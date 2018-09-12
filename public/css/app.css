@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);/*!
+/*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -25948,6 +25948,49 @@ table td {
   width: 100% !important;
 }
 
+.bootstrap-switch-mini .bootstrap-switch {
+  height: 16px !important;
+  width: 46px !important;
+}
+
+.bootstrap-switch-mini .bootstrap-switch .bootstrap-switch-label {
+  height: 16px !important;
+  width: 16px !important;
+  font-size: .57rem !important;
+}
+
+.bootstrap-switch-mini .bootstrap-switch .bootstrap-switch-container {
+  width: 85px !important;
+}
+
+.bootstrap-switch-mini .bootstrap-switch .bootstrap-switch-handle-off {
+  text-indent: 0;
+  padding: 3px 12px !important;
+}
+
+.bootstrap-switch-mini .bootstrap-switch .bootstrap-switch-handle-off:hover {
+  width: 18px !important;
+}
+
+.bootstrap-switch-mini .bootstrap-switch .bootstrap-switch-handle-on {
+  padding: 3px 12px !important;
+}
+
+.bootstrap-switch-mini .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {
+  margin-left: -32px !important;
+}
+
+.bootstrap-switch-mini .bootstrap-switch.bootstrap-switch-off:hover .bootstrap-switch-label {
+  width: 20px !important;
+  font-size: .57rem !important;
+}
+
+.bootstrap-switch-mini .bootstrap-switch.bootstrap-switch-on:hover .bootstrap-switch-label {
+  width: 20px !important;
+  margin-left: -14px !important;
+  font-size: .57rem !important;
+}
+
 /** Estilos para la barra de navegación superior */
 
 .navbar {
@@ -28242,5 +28285,27 @@ table.table.table-big td,
 table.table.table-big th {
   white-space: pre-wrap !important;
   word-break: break-word !important;
+}
+
+table th.border-right,
+table td.border-right {
+  border-right: solid 1px #dee2e6;
+}
+
+.bootstrap-switch.bootstrap-switch-mini {
+  heught: 16px !important;
+  width: 46px !important;
+}
+
+.bootstrap-switch.bootstrap-switch-mini.bootstrap-switch-mini .bootstrap-switch-handle-off {
+  text-indent: none;
+}
+
+.bootstrap-switch.bootstrap-switch-mini.bootstrap-switch-mini.bootstrap-switch-off .bootstrap-switch-container {
+  margin-left: -26px !important;
+}
+
+.bootstrap-switch.bootstrap-switch-mini.bootstrap-switch-mini .bootstrap-switch-container {
+  width: 72px !important;
 }
 

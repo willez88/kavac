@@ -1,0 +1,21 @@
+.bootstrap-switch.bootstrap-switch-mini {
+	heught: 16px !important;
+	width: 46px !important;
+	&.bootstrap-switch-mini {
+		
+		
+		.bootstrap-switch-handle-off {
+			text-indent:none;
+		}
+
+		&.bootstrap-switch-off {
+			.bootstrap-switch-container {
+				margin-left: -26px !important;
+			}
+		}
+
+		.bootstrap-switch-container {
+			width: 72px !important;
+		}
+	}
+}
