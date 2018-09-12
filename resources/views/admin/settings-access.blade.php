@@ -32,7 +32,7 @@
 				{{-- {!! Form::open($header) !!} --}}
 					<div class="card-body">
 						@php
-							$roles = Ultraware\Roles\Models\Role::all();
+							$roles = Ultraware\Roles\Models\Role::where('slug', '<>', 'user')->get();
 							$permissions = Ultraware\Roles\Models\Permission::all();
 							$module = "";
 						@endphp
@@ -60,7 +60,7 @@
 										<tr>
 											<th></th>
 											<th class="text-center" colspan="{{ count($roles) }}">
-												MÓDULO: <h6 class="card-title">{{ strtoupper($module) }}</h6>
+												<span class="card-title">MÓDULO [{{ strtoupper($module) }}]</span>
 											</th>
 										</tr>
 									@endif
