@@ -39,11 +39,14 @@
 						<table class="table table-hover table-striped dt-responsive">
 							<thead>
 								<tr>
-									<th>ROLES</th>
+									<th class="text-center border-right" rowspan="2">PERMISOS</th>
+									<th class="text-center" colspan="{{ count($roles) }}">ROLES</th>
+								</tr>
+								<tr>
 									@foreach ($roles as $role)
 										<th class="text-center" title="{{ $role->description }}" 
 											data-toggle="tooltip">
-											{{ $role->description }}
+											{{ $role->name }}
 										</th>
 									@endforeach
 								</tr>
@@ -55,24 +58,25 @@
 											$module = $perm->model_prefix;
 										@endphp
 										<tr>
-											<th>PERMISOS</th>
+											<th></th>
 											<th class="text-center" colspan="{{ count($roles) }}">
-												MÓDULO: {{ strtoupper($module) }}
+												MÓDULO: <h6 class="card-title">{{ strtoupper($module) }}</h6>
 											</th>
 										</tr>
 									@endif
 									@if ($perm->slug_alt)
 										<tr>
-											<td title="{{ $perm->description }}" data-toggle="tooltip">
-												{{ $perm->name }}
+											<td title="{{ $perm->description }}" data-toggle="tooltip" class="border-right" style="width: 20%">
+												{{ (!empty($perm->short_description))?$perm->short_description:$perm->name }}
 											</td>
 											@foreach ($roles as $role)
-												<td class="text-center">
+												<td class="text-center bootstrap-switch-mini">
 													{!! Form::checkbox(
-														'perm[]', $role->id . ":" . $perm->id, null, [
+														'perm[]', $role->id . ":" . $perm->id, 
+														($role->permissions()->where('permission_id', $perm->id)->first()), [
 															'class' => 'form-control bootstrap-switch bootstrap-switch-mini',
 															'data-on-label' => 'SI', 
-															'data-off-label' => 'NO',
+															'data-off-label' => 'NO'
 														]
 													) !!}
 												</td>
