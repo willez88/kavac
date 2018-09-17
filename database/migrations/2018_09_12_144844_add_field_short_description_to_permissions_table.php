@@ -13,9 +13,11 @@ class AddFieldShortDescriptionToPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('permissions', function (Blueprint $table) {
-            $table->string('short_description')->default('')->comment('Descripción breve del permiso');
-        });
+        if (!Schema::hasColumn('permissions', 'short_description')) {
+            Schema::table('permissions', function (Blueprint $table) {
+                $table->string('short_description')->default('')->comment('Descripción breve del permiso');
+            });
+        }
     }
 
     /**
