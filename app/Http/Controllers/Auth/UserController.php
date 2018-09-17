@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Ultraware\Roles\Models\Role;
+use Ultraware\Roles\Models\Permission;
 
 class UserController extends Controller
 {
@@ -117,7 +119,44 @@ class UserController extends Controller
     }
 
     /**
+     * Configuración de permisos asociados a roles de usuarios
+     * 
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @param \Illuminate\Http\Request  $request
+     * @return Retorna la vista que ejecuta la acción junto con el mensaje al usuario
+     */
+    public function setRolesAndPermissions(Request $request)
+    {
+        $this->validate($request, [
+            'perm' => 'required|array|min:1'
+        ],[
+            'perm.required' => 'Se requiere asignar al menos un permiso a un rol'
+        ]);
+
+        foreach (Role::all() as $r) {
+            $r->detachAllPermissions();
+        }
+
+        $roleConsult = '';
+        foreach ($request->input('perm') as $role_perm) {
+            list($role_id, $perm_id) = explode(":", $role_perm);
+            if ($roleConsult !== $role_id) {
+                $role = Role::find($role_id);
+                $roleConsult = $role_id;
+            }
+            $perm = Permission::find($perm_id);
+            $role->attachPermission($perm);
+        }
+
+        $request->session()->flash('message', ['type' => 'store']);
+
+        return redirect()->back();
+    }
+
+    /**
      * Assigna roles y permisos de acceso a los usuarios del sistema
+     * 
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param Request $request Objeto con los datos de la petición
      */
     public function setAccess(Request $request)

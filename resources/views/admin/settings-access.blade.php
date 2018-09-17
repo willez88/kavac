@@ -29,8 +29,10 @@
 						</a>
 					</div>
 				</div>
-				{{-- {!! Form::open($header) !!} --}}
+				{!! Form::open(['route' => 'roles.permissions.settings', 'method' => 'POST']) !!}
+					{!! Form::token() !!}
 					<div class="card-body">
+						@include('layouts.form-errors')
 						@php
 							$roles = Ultraware\Roles\Models\Role::where('slug', '<>', 'user')->get();
 							$permissions = Ultraware\Roles\Models\Permission::all();
@@ -90,7 +92,7 @@
 					<div class="card-footer text-right">
 						@include('layouts.form-buttons')
 					</div>
-				{{-- {!! Form::close() !!} --}}
+				{!! Form::close() !!}
 			</div>
 		</div>
 	</div>
