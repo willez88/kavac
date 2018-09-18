@@ -29,77 +29,80 @@
 	    				</a>
 					</div>
 				</div>
-				<div class="card-body">
-					<div class="row">
-						<div class="col-12">
-							<h6>Formulación</h6>
+				{!! Form::open(['route' => 'budget.settings.store', 'method' => 'post']) !!}
+					{!! Form::token() !!}
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12">
+								<h6>Formulación</h6>
+							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('formulations_code', 'Código de Formulación', []) !!}
+									{!! Form::text('formulations_code', old('formulations_code'), [
+										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código de la formulación de presupuesto',
+										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+									]) !!}
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-12">
+								<h6>Ejecución</h6>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('commitments_code', 'Código de Compromiso', []) !!}
+									{!! Form::text('commitments_code', old('commitments_code'), [
+										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código del causado',
+										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+									]) !!}
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('transfers_code', 'Código de Traspaso', []) !!}
+									{!! Form::text('transfers_code', old('transfers_code'), [
+										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código del traspaso',
+										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+									]) !!}
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('reductions_code', 'Código de Reducción', []) !!}
+									{!! Form::text('reductions_code', old('reductions_code'), [
+										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código de reducciones',
+										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+									]) !!}
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('credits_code', 'Código de Crédito Adicional', []) !!}
+									{!! Form::text('credits_code', old('credits_code'), [
+										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código de créditos adicionales',
+										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+									]) !!}
+								</div>
+							</div>
+						</div>
+						@include('layouts.help-text', ['codeSetting' => true])
 					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								{!! Form::label('formulation_code', 'Código de Formulación', []) !!}
-								{!! Form::text('formulation_code', old('formulation_code'), [
-									'class' => 'form-control', 'data-toggle' => 'tooltip',
-									'title' => 'Formato para el código de la formulación de presupuesto',
-									'placeholder' => 'Ej. XXX-0000000000-YYYY'
-								]) !!}
-							</div>
-						</div>
+					<div class="card-footer text-right">
+						@include('layouts.form-buttons')
 					</div>
-					<hr>
-					<div class="row">
-						<div class="col-12">
-							<h6>Ejecución</h6>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								{!! Form::label('commitments_code', 'Código de Compromiso', []) !!}
-								{!! Form::text('commitments_code', old('commitments_code'), [
-									'class' => 'form-control', 'data-toggle' => 'tooltip',
-									'title' => 'Formato para el código del causado',
-									'placeholder' => 'Ej. XXX-0000000000-YYYY'
-								]) !!}
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								{!! Form::label('transfers_code', 'Código de Traspaso', []) !!}
-								{!! Form::text('transfers_code', old('transfers_code'), [
-									'class' => 'form-control', 'data-toggle' => 'tooltip',
-									'title' => 'Formato para el código del traspaso',
-									'placeholder' => 'Ej. XXX-0000000000-YYYY'
-								]) !!}
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								{!! Form::label('reductions_code', 'Código de Reducción', []) !!}
-								{!! Form::text('reductions_code', old('reductions_code'), [
-									'class' => 'form-control', 'data-toggle' => 'tooltip',
-									'title' => 'Formato para el código de reducciones',
-									'placeholder' => 'Ej. XXX-0000000000-YYYY'
-								]) !!}
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								{!! Form::label('credits_code', 'Código de Crédito Adicional', []) !!}
-								{!! Form::text('credits_code', old('credits_code'), [
-									'class' => 'form-control', 'data-toggle' => 'tooltip',
-									'title' => 'Formato para el código de créditos adicionales',
-									'placeholder' => 'Ej. XXX-0000000000-YYYY'
-								]) !!}
-							</div>
-						</div>
-					</div>
-					@include('layouts.help-text', ['codeSetting' => true])
-				</div>
-				<div class="card-footer text-right">
-					@include('layouts.form-buttons')
-				</div>
+				{!! Form::close() !!}
 			</div>
 		</div>
 	</div>

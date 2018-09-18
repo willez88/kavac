@@ -17,13 +17,14 @@ class CreateCodeSettingsTable extends Migration
             Schema::create('code_settings', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('module')->nullable()->comment('Nombre del módulo si aplica');
+                $table->string('model')->comment('Namespace del modelo donde aplica la configuración');
                 $table->string('table')->comment('Tabla en donde se aplicará la configuración del código');
                 $table->string('field')->default('code')
                       ->comment('Nombre del campo que registrará el código configurado. El campo por defecto es "code"');
                 $table->boolean('active')->default(true)->comment('Indica si la configuración esta activa');
-                $table->string('format_prefix', 3)->nullable()->comment('Formato del prefijo configurado');
+                $table->string('format_prefix', 3)->comment('Formato del prefijo configurado');
                 $table->string('format_digits', 8)->comment('Formato de los dígitos configurados');
-                $table->enum('format_year', ['YY', 'YYYY'])->nullable()->comment('Formato del prefijo configurado');
+                $table->enum('format_year', ['YY', 'YYYY'])->comment('Formato del prefijo configurado');
                 $table->text('description')->nullable()->comment('Descripción de la configuración del código');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
