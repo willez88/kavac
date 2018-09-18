@@ -1,10 +1,10 @@
 {
-    "name": "nwidart/asset",
-    "description": "",
+    "name": "kavac/asset",
+    "description": "resources management",
     "authors": [
         {
-            "name": "Nicolas Widart",
-            "email": "n.widart@gmail.com"
+            "name": "",
+            "email": ""
         }
     ],
     "extra": {

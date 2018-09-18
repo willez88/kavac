@@ -16,6 +16,9 @@ class AssetDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(AssetTypeTableSeeder::class);
+        $this->call(AssetCategoryTableSeeder::class);
+        $this->call(AssetSubcategoryTableSeeder::class);
+        $this->call(AssetSpecificcategoryTableSeeder::class);
     }
 }
