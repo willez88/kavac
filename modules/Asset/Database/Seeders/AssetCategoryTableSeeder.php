@@ -5,15 +5,23 @@ namespace Modules\Asset\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use Modules\Asset\Models\Type;
-use Modules\Asset\Models\Category;
+use Modules\Asset\Models\AssetType;
+use Modules\Asset\Models\AssetCategory;
 
-
+/**
+ * @class AssetCategoryTableSeeder
+ * @brief Inicializa Categorias Generales
+ * 
+ * 
+ * @author Henry Paredes (henryp2804@gmail.com)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class AssetCategoryTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores iniciales de Categorias Generales de un Bien
      *
+     * @author  Henry Paredes (henryp2804@gmail.com)
      * @return void
      */
     public function run()
@@ -41,9 +49,9 @@ class AssetCategoryTableSeeder extends Seeder
 
         foreach ($asset_categories as $key => $categories) {
 
-            $asset_type = Type::where('id',$key)->first();
+            $asset_type = AssetType::where('id',$key)->first();
             foreach ($categories as $code => $cat) {
-                Category::UpdateorCreate([
+                AssetCategory::UpdateorCreate([
                     'code' => $code,
                     'name' => $cat,
                     'asset_type_id' => $asset_type->id],[]);

@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
 
 /**
- * @class AssetRequest
- * @brief Datos de las solicitudes de Bienes Institucionales
+ * @class AssetDisincorṕoration
+ * @brief Datos de las Asignaciones de Bienes Institucionales
  * 
- * Gestiona el modelo de datos para las solicitudes de Bienes Institucionales
+ * Gestiona el modelo de datos para las asignaciones de Bienes Institucionales
  * 
  * @author Henry Paredes (henryp2804@gmail.com)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class AssetRequest extends Model
+class AssetDisincorporation extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -39,9 +39,9 @@ class AssetRequest extends Model
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['id'];
+    protected $fillable = ['asset_id', 'motive', 'date', 'observation'];
 
-    /**
+     /**
      *
      * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
      * 

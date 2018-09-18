@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Solicitudes</h6>
+					<h6 class="card-title">Solicitudes de Bienes</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 						   data-toggle="tooltip">
@@ -30,32 +30,19 @@
 					</div>
 				</div>
 
+				
 				<div class="card-body">
-					<label class="control-label">Tipo de Solicitud</label>
 					<div class="row">
-						<div class="col-6">
-								{!! Form::select('request_id', (isset($requests))?$requests:[
-										'Prestamo de Equipos (Uso Interno)',
-										'Prestamo de Equipos (Uso Externo)',
-										'Prestamo de Equipos para Agentes Externos',
-										], [1,1], [		
-										'class' => 'form-control select2',
-										'placeholder' => 'Seleccione...',
-										'title' => 'Indique el tipo de solicitud a realizar'
-									]) !!}								
-						</div>
-						<div class="col-1">
-							<a href="#" class='btn btn-sm btn-primary btn-custom float-right'>
+						<div class="col-12">
+							<a href="{{ route('asset.request.create') }}" class='btn btn-sm btn-primary btn-custom float-right'>
 								<i class="fa fa-plus-circle"></i>
-								<span>	Registrar	</span>
-							</a>
+								<span>	Nuevo	</span>
+							</a>	
 						</div>
-
 					</div>
-							
 					<table class="table table-hover table-striped dt-responsive datatable">
 						<thead>
-							<tr>			
+							<tr class="text-center">			
 								<th>Tipo de Solicitud</th>
 								<th>Motivo</th>
 								<th>Fecha de la Solicitud</th>
@@ -96,17 +83,4 @@
 			</div>
 		</div>
 	</div>
-@stop
-
-
-@section('extra-js')
-<script>
-
-var select = document.getElementById('request_id').options[1];
-function myFunction() {
-        console.log(select);
-}
-
-
-</script>
 @stop

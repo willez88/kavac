@@ -5,42 +5,40 @@
         <i class="ion-ios-pricetags-outline"></i><span>Bienes</span>
     </a>
     <ul class="submenu"
-        @if ($current_url=='asset.clasification.index')
-            style="display:block;"
-        @endif
-        @if ($current_url=='asset.assets.index')
+        @if ($current_url=='asset.index')
             style="display:block;"
         @endif
         @if ($current_url=='asset.asignation.index')
             style="display:block;"
         @endif
-        @if ($current_url=='asset.requests.index')
+        @if ($current_url=='asset.desincorporation.index')
             style="display:block;"
         @endif>
-        <li class='{!! ($current_url=='asset.clasification.index')?'active':'' !!}'>
-            <a href="{{ route('asset.clasification.index') }}">Clasificador</a>
+         <li class="{!! ($current_url=='asset.setting.index')?'active':'' !!}">
+            <a href="{{ route('asset.setting.index') }}" data-toggle="tooltip" data-placement="right" 
+               title="Configuración de bienes">Configuración</a>
         </li>
-
-        <li title="Registrar nuevo bien institucional" data-toggle="tooltip"
+        
+        <li title="Gestión de registros de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
-            class='{!! ($current_url=='asset.assets.index')?'active':'' !!}'>
+            class='{!! ($current_url=='asset.index')?'active':'' !!}'>
             <a href="{{ route('asset.index') }}">Registrar</a>
         </li>
-
-        <li title="Asignar bien institucional" data-toggle="tooltip"
+        <li title="Gestión de asignaciones de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
             class='{!! ($current_url=='asset.asignation.index')?'active':'' !!}'>
             <a href="{{ route('asset.asignation.index') }}">Asignar</a>
         </li>
-
-        <li title="Solicitudes de Equipos institucional" data-toggle="tooltip"
+        <li title="Gestión de Desincorporaciones de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
-            class='{!! ($current_url=='asset.requests.index')?'active':'' !!}'>
-            <a href="{{ route('asset.requests.index') }}">Solicitudes</a>
+            class='{!! ($current_url=='asset.disincorporation.index')?'active':'' !!}'>
+            <a href="{{ route('asset.disincorporation.index') }}">Desincorporación</a>
         </li>
-
-        <li>
-            <a href="#">Desincorporación</a>
+        
+        <li title="Gestión de asignaciones de bienes institucionales" data-toggle="tooltip"
+            data-placement="right"
+            class='{!! ($current_url=='asset.request.index')?'active':'' !!}'>
+            <a href="{{ route('asset.request.index') }}">Solicitud</a>
         </li>
         <li>
             <a href="#">Reportes</a>

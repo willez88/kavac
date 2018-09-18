@@ -5,14 +5,24 @@ namespace Modules\Asset\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use Modules\Asset\Models\Category;
-use Modules\Asset\Models\Subcategory;
+use Modules\Asset\Models\AssetCategory;
+use Modules\Asset\Models\AssetSubcategory;
+
+/**
+ * @class AssetSubcategoryTableSeeder
+ * @brief Inicializa Subcategorias de un Bien
+ * 
+ * 
+ * @author Henry Paredes (henryp2804@gmail.com)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 
 class AssetSubcategoryTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores iniciales de Categorias Generales de un Bien
      *
+     * @author  Henry Paredes (henryp2804@gmail.com)
      * @return void
      */
     public function run()
@@ -91,9 +101,9 @@ class AssetSubcategoryTableSeeder extends Seeder
 
         foreach ($asset_subcategories as $key => $subcategories) {
 
-            $asset_category = Category::where('id',$key)->first();
+            $asset_category = AssetCategory::where('id',$key)->first();
             foreach ($subcategories as $code => $subcat) {
-                Subcategory::UpdateorCreate([
+                AssetSubcategory::UpdateorCreate([
                     'code' => $code,
                     'name' => $subcat,
                     'asset_category_id' => $asset_category->id],[]);

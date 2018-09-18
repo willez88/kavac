@@ -1,50 +1,36 @@
 <template>
-    <table class="table table-big table-hover table-striped dt-responsive nowrap datatable">
-        <thead>
-            <tr class="text-center">
-                <th>Código</th>
-                <th>Denominación</th>
-                <th>Original</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(rec, index) in records">
-                <td width="20%">
-                    {{ rec.group + "." + rec.item + "." + rec.generic + "." + rec.specific + "." + rec.subspecific }}
-                </td>
-                <td width="60%" class="wrapping">{{ rec.denomination }}</td>
-                <td class="text-center" width="10%">{{ (rec.original)?'SI':'NO' }}</td>
-                <td class="text-center" width="10%">
-                    <button @click="editForm(rec.id)" 
-                            class="btn btn-warning btn-xs btn-icon btn-round" 
-                            title="Modificar registro" data-toggle="tooltip" type="button">
-                        <i class="fa fa-edit"></i>
-                    </button>
-                    <button @click="deleteRecord(index, '')" 
-                            class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-                        <i class="fa fa-trash-o"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Tipo de Bien:</label>
+                <select2 :options="types" v-model="record.type_id"></select2>
+                <input type="hidden" v-model="record.id">
+            </div>
+        </div>
 </template>
 
 <script>
     export default {
         data() {
             return {
-                records: []
+            record: {
+                    id: '',
+                    type_id: ''
+                },
+                errors: [],
+                records: [],
+                types: []
             }
         },
         mounted() {
-            this.readRecords(this.route_list);
         },
         methods: {
-            editForm(id) {
-                location.href = this.route_edit + '/' + id;
+
+            initRecords() {
+                axios.get('/asset/vue-list').then(response => {
+                    this.types = response.data;
+                });
             }
+
         }
     }
 </script>

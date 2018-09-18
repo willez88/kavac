@@ -3,21 +3,20 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
 
 /**
- * @class AssetRequest
- * @brief Datos de las solicitudes de Bienes Institucionales
+ * @class AssetType
+ * @brief Datos de los tipo de bienes
  * 
- * Gestiona el modelo de datos para las solicitudes de Bienes Institucionales
+ * Gestiona el modelo de datos para los tipos de bien
  * 
  * @author Henry Paredes (henryp2804@gmail.com)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class AssetRequest extends Model
+class AssetType extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -37,18 +36,41 @@ class AssetRequest extends Model
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
-    protected $fillable = ['id'];
+    protected $fillable = ['name'];
 
     /**
+     * Método que obtiene la categoria general de un bien
      *
-     * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
-     * 
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @return [array] Listado de asignaciones de bienes institucionales
+     * @return Objeto con los registros relacionados al modelo AssetCategory
      */
-     public static function template_choices()
+    public function categories()
+    {
+    	return $this->hasMany('Modules\Asset\Models\AssetCategory');
+    }
+
+    /**
+     * Método que obtiene los bienes del tipo de bien
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo Asset
+     */
+    public function assets()
+    {
+        return $this->hasMany('Modules\Asset\Models\Asset');
+    }
+
+
+    /**
+     * Método que genera un listado de opciones a implementar en elementos tipo select
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Listado de tipos de bien registrados para ser implementados en plantillas
+     */
+    public static function template_choices()
     {
         $options = [];
         foreach (self::all() as $reg) {
