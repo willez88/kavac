@@ -263,3 +263,55 @@ table {
 .width100p {
 	width: 100% !important;
 }
+
+.bootstrap-switch-mini {
+	.bootstrap-switch {
+		height: 16px !important;
+		width: 46px !important;
+
+		.bootstrap-switch-label {
+			height:16px !important;
+			width:16px !important;
+			font-size:.57rem !important;
+		}
+
+		.bootstrap-switch-container {
+			width:85px !important;
+		}
+
+		.bootstrap-switch-handle-off {
+			text-indent:0;
+			padding: 3px 12px !important;
+
+			&:hover {
+				width:18px !important;
+			}
+		}
+
+		.bootstrap-switch-handle-on {
+			padding: 3px 12px !important;
+		}
+
+		&.bootstrap-switch-off {
+			.bootstrap-switch-container {
+				margin-left:-32px !important;
+			}
+			&:hover {
+				.bootstrap-switch-label {
+					width:20px !important;
+					font-size:.57rem !important;
+				}
+			}
+		}
+
+		&.bootstrap-switch-on {
+			&:hover {
+				.bootstrap-switch-label {
+					width:20px !important;
+					margin-left:-14px !important;
+					font-size:.57rem !important;
+				}
+			}
+		}
+	}
+}

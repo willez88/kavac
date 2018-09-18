@@ -14,8 +14,12 @@ class AddFieldsToPermissionsTable extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->string('model_prefix', 100)->nullable()->comment('Prefijo del modelo');
-            $table->string('slug_alt', 50)->nullable()->comment('Slug alternativo');
+            if (!Schema::hasColumn('permissions', 'model_prefix')) {
+                $table->string('model_prefix', 100)->nullable()->comment('Prefijo del modelo');
+            }
+            if (!Schema::hasColumn('permissions', 'slug_alt')) {
+                $table->string('slug_alt', 50)->nullable()->comment('Slug alternativo');
+            }
         });
     }
 

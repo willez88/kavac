@@ -7,3 +7,11 @@ table.table.table-big {
 		word-break: break-word !important;
 	}
 }
+
+table {
+	th, td {
+		&.border-right {
+			border-right: solid 1px #dee2e6;
+		}
+	}
+}

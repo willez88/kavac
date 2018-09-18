@@ -67405,21 +67405,6 @@ function delete_record(url) {
     });
 }
 
-function updateSelect(parent_id, target_element, target_model, module_name) {
-    var module_name = typeof module_name !== "undefined" ? '/' + module_name : '';
-
-    target_element.select2({
-        ajax: {
-            url: '/get-select-data/' + parent_id + '/' + target_model + module_name,
-            processResults: function processResults(data) {
-                return {
-                    results: data.items
-                };
-            }
-        }
-    });
-}
-
 /***/ }),
 /* 100 */
 /***/ (function(module, exports) {
