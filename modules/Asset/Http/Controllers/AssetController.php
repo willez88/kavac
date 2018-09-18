@@ -6,67 +6,243 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Asset\Models\Asset;
+use Modules\Asset\Models\AssetType;
+use Modules\Asset\Models\AssetCategory;
+use Modules\Asset\Models\AssetSubcategory;
+use Modules\Asset\Models\AssetSpecificCategory;
+
+use Modules\Asset\Models\AssetPurchase;
+use Modules\Asset\Models\AssetCondition;
+use Modules\Asset\Models\AssetStatus;
+
+/**
+ * @class AssetController
+ * @brief Controlador de Bienes Institucionales
+ * 
+ * Clase que gestiona los Bienes Institucionales
+ * 
+ * @author Henry Paredes (henryp2804@gmail.com)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
+
 class AssetController extends Controller
 {
+    use ValidatesRequests;
+
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de los Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
-        return view('asset::index');
+        $assets = Asset::all();
+        return view('asset::Register.list', compact('assets'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * Muestra el formulario para registrar un nuevo Bien Institucional
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function create()
     {
-        return view('asset::create');
+        $header = [
+            'route' => 'asset.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
+        ];
+
+        $types = AssetType::template_choices();
+        $categories = AssetCategory::template_choices();
+        $subcategories = AssetSubcategory::template_choices();
+        $specific_categories = AssetSpecificCategory::template_choices();
+
+        $purchases = AssetPurchase::template_choices();
+        $conditions = AssetCondition::template_choices();
+        $status = AssetStatus::template_choices();
+
+        return view('asset::Register.create', compact('header','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y Registra un nuevo Bien Institucional
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+
+
+            'type' => 'required',
+            'category' => 'required',
+            'subcategory' => 'required',
+            'specific_category' => 'required',
+            //'asset_institution' => 'required',
+            //'proveedor' => 'required',
+            'purchase' => 'required',
+            'purchase_year' => 'required',
+            'status' => 'required|max:50',
+            'condition' => 'required|max:50',
+            'value' => 'required',
+
+        ]);
+        if ($request->type == 1){
+            $this->validate($request,[
+                'serial' => 'required|max:50',
+                'marca'  => 'required|max:50',
+                'model' => 'required|max:50',
+
+            ]);
+        }
+        if ($request->type == 2){
+            $this->validate($request,[
+                'use' => 'required|max:50',
+                'quantity'  => 'required|max:50',
+
+            ]);
+        }
+
+        $asset = new Asset;
+        /*
+         * $asset->orden_compra = $request->orden_compra; 
+        **/
+        $asset->disposicion = "01-Activo";    
+        $asset->type_id = $request->type;
+        $asset->category_id = $request->category;
+        $asset->subcategory_id = $request->subcategory;
+        $asset->specific_category_id = $request->specific_category;
+        $asset->institution_id = $request->institution;
+        $asset->proveedor_id = $request->proveedor;
+        $asset->condition_id = $request->condition;
+        $asset->purchase_id = $request->purchase;
+        $asset->purchase_year = $request->purchase_year;
+        $asset->status_id = $request->status;
+        $asset->serial = $request->serial;
+        $asset->marca = $request->marca;
+        $asset->model = $request->model;
+        $asset->serial_inventario = $asset->getCode();
+        $asset->value = $request->value;
+        $asset->save();
+        return redirect()->route('asset.index');
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
+     * Muestra los datos de Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\Asset  $asset (Datos del bien)
+     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
-    public function show()
+    public function show(Asset $asset)
     {
-        return view('asset::show');
+        
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * Muestra el formulario para actualizar la información de los Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\Asset  $asset (Datos del Bien)
+     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
-    public function edit()
+    public function edit(Asset $asset)
     {
-        return view('asset::edit');
+        $header = [
+            'route' => ['asset.update', $asset], 'method' => 'PUT', 'role'=> 'form', 'class' => 'form',
+        ];
+        $types = AssetType::template_choices();
+        $categories = AssetCategory::template_choices();
+        $subcategories = AssetSubcategory::template_choices();
+        $specific_categories = AssetSpecificCategory::template_choices();
+
+        $purchases = AssetPurchase::template_choices();
+        $conditions = AssetCondition::template_choices();
+        $status = AssetStatus::template_choices();
+
+        return view('asset::Register.create', compact('header','asset','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status'));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de los Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @param  \Modules\Asset\Models\Asset  $asset (Datos del Bien)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function update(Request $request)
+    public function update(Request $request, Asset $asset)
     {
+        $this->validate($request, [
+
+
+            'type' => 'required',
+            'category' => 'required',
+            'subcategory' => 'required',
+            'specific_category' => 'required',
+            //'asset_institution' => 'required',
+            //'proveedor' => 'required',
+            'purchase' => 'required',
+            'purchase_year' => 'required',
+            'status' => 'required|max:50',
+            'condition' => 'required|max:50',
+            'value' => 'required',
+
+        ]);
+        if ($request->type == 1){
+            $this->validate($request,[
+                'serial' => 'required|max:50',
+                'marca'  => 'required|max:50',
+                'model' => 'required|max:50',
+
+            ]);
+        }
+        if ($request->type == 2){
+            $this->validate($request,[
+                'use' => 'required|max:50',
+                'quantity'  => 'required|max:50',
+
+            ]);
+        }
+
+        /*
+         * $asset->orden_compra = $request->orden_compra; 
+        **/
+        $asset->disposicion = "01-Activo";    
+        $asset->type_id = $request->type;
+        $asset->category_id = $request->category;
+        $asset->subcategory_id = $request->subcategory;
+        $asset->specific_category_id = $request->specific_category;
+        $asset->institution_id = $request->institution;
+        $asset->proveedor_id = $request->proveedor;
+        $asset->condition_id = $request->condition;
+        $asset->purchase_id = $request->purchase;
+        $asset->purchase_year = $request->purchase_year;
+        $asset->status_id = $request->status;
+        $asset->serial = $request->serial;
+        $asset->marca = $request->marca;
+        $asset->model = $request->model;
+        $asset->serial_inventario = $asset->getCode();
+        $asset->value = $request->value;
+        $asset->save();
+        return redirect()->route('asset.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina un Bien Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\Asset $asset (Datos del Bien)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function destroy()
+    public function destroy(Asset $asset)
     {
+        $asset->delete();
+        return back()->with('info', 'Fue eliminado exitosamente');
     }
 }
