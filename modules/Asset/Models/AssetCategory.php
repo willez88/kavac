@@ -75,17 +75,26 @@ class AssetCategory extends Model
     }
 
     /**
-     * Método que genera un listado de opciones a implementar en elementos tipo select
      *
+     * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
+     * 
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Listado de categorias generales registradas para ser implementados en plantillas
+     * @return [array] Listado de bienes
      */
-    public static function template_choices()
+     public static function template_choices($filters = [])
     {
+        $records = self::all();
+        if ($filters) {
+            foreach ($filters as $key => $value) {
+                $records = $records->where($key, $value);
+            }
+        }
         $options = [];
-        foreach (self::all() as $reg) {
-            $options[$reg->id] = $reg->name;
+        foreach ($records as $rec) {
+            $options[$rec->id] = $rec->name;
         }
         return $options;
     }
+
+
 }
