@@ -17,6 +17,20 @@ use Illuminate\Http\Request;
 class CityController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:city.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:city.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:city.delete', ['only' => 'destroy']);
+        $this->middleware('permission:city.list', ['only' => 'index']);
+    }
+
+    /**
      * Muestra un listado de Ciudades
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)

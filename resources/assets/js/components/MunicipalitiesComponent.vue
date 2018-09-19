@@ -111,7 +111,6 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'estate.country.name': 'Pais',
 				'estate.name': 'Estado',
 				'name': 'Nombre',
 				'code': 'Código',
