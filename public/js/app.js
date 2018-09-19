@@ -71176,7 +71176,7 @@ var render = function() {
                                   click: function($event) {
                                     _vm.deleteRecord(
                                       props.index,
-                                      "document-status"
+                                      "marital-status"
                                     )
                                   }
                                 }
@@ -71621,10 +71621,7 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    _vm.deleteRecord(
-                                      props.index,
-                                      "document-status"
-                                    )
+                                    _vm.deleteRecord(props.index, "professions")
                                   }
                                 }
                               },
@@ -72061,7 +72058,7 @@ var render = function() {
                                   click: function($event) {
                                     _vm.deleteRecord(
                                       props.index,
-                                      "document-status"
+                                      "institution-types"
                                     )
                                   }
                                 }
@@ -72276,14 +72273,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -72293,10 +72282,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				name: ''
 			},
 			errors: [],
-			records: []
+			records: [],
+			columns: ['name', 'id']
 		};
 	},
-	mounted: function mounted() {}
+	created: function created() {
+		this.table_options.headings = {
+			'name': 'Nombre',
+			'id': 'Acción'
+		};
+		this.table_options.sortable = ['name'];
+		this.table_options.filterable = ['name'];
+	}
 });
 
 /***/ }),
@@ -72417,77 +72414,71 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body modal-table" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-hover table-striped dt-responsive nowrap datatable"
-                  },
-                  [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.records, function(rec, index) {
-                        return _c("tr", [
-                          _c("td", [_vm._v(_vm._s(rec.name))]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass: "text-center",
-                              attrs: { width: "10%" }
-                            },
-                            [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Modificar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.initUpdate(index, $event)
-                                    }
-                                  }
+              _c(
+                "div",
+                { staticClass: "modal-body modal-table" },
+                [
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("v-client-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      data: _vm.records,
+                      options: _vm.table_options
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "id",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Modificar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-danger btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Eliminar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteRecord(
-                                        index,
-                                        "institution-sectors"
-                                      )
-                                    }
+                                on: {
+                                  click: function($event) {
+                                    _vm.initUpdate(props.index, $event)
                                   }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Eliminar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-trash-o" })]
-                              )
-                            ]
-                          )
-                        ])
-                      })
-                    )
-                  ]
-                )
-              ]),
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteRecord(
+                                      props.index,
+                                      "institution-sectors"
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash-o" })]
+                            )
+                          ])
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -72550,18 +72541,6 @@ var staticRenderFns = [
       _c("h6", [
         _c("i", { staticClass: "icofont icofont-focus inline-block" }),
         _vm._v(" \n\t\t\t\t\t\tSector de Institución\n\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "text-center" }, [
-        _c("th", [_vm._v("Nombre")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
       ])
     ])
   }
@@ -72708,16 +72687,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -72728,10 +72697,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				name: ''
 			},
 			errors: [],
-			records: []
+			records: [],
+			columns: ['prefix', 'name', 'id']
 		};
 	},
-	mounted: function mounted() {}
+	created: function created() {
+		this.table_options.headings = {
+			'prefix': 'Prefijo',
+			'name': 'Nombre',
+			'id': 'Acción'
+		};
+		this.table_options.sortable = ['name', 'prefix'];
+		this.table_options.filterable = ['name', 'prefix'];
+	}
 });
 
 /***/ }),
@@ -72881,76 +72859,68 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body modal-table" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-hover table-striped dt-responsive nowrap datatable"
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.records, function(rec, index) {
-                        return _c("tr", [
-                          _c("td", [_vm._v(_vm._s(rec.prefix))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(rec.name))]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass: "text-center",
-                              attrs: { width: "10%" }
-                            },
-                            [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Modificar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.initUpdate(index, $event)
-                                    }
-                                  }
+              _c(
+                "div",
+                { staticClass: "modal-body modal-table" },
+                [
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("v-client-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      data: _vm.records,
+                      options: _vm.table_options
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "id",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Modificar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-danger btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Eliminar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteRecord(index, "countries")
-                                    }
+                                on: {
+                                  click: function($event) {
+                                    _vm.initUpdate(props.index, $event)
                                   }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Eliminar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-trash-o" })]
-                              )
-                            ]
-                          )
-                        ])
-                      })
-                    )
-                  ]
-                )
-              ]),
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteRecord(props.index, "countries")
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash-o" })]
+                            )
+                          ])
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -73007,20 +72977,6 @@ var staticRenderFns = [
       _c("h6", [
         _c("i", { staticClass: "icofont icofont-map inline-block" }),
         _vm._v(" \n\t\t\t\t\t\tPaís\n\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "text-center" }, [
-        _c("th", [_vm._v("Prefijo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Nombre")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
       ])
     ])
   }
@@ -73173,18 +73129,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -73197,24 +73141,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			},
 			errors: [],
 			records: [],
-			countries: []
+			countries: [],
+			columns: ['country.name', 'name', 'code', 'id']
 		};
 	},
-	mounted: function mounted() {},
+	created: function created() {
+		this.table_options.headings = {
+			'country.name': 'Pais',
+			'name': 'Nombre',
+			'code': 'Código',
+			'id': 'Acción'
+		};
+		this.table_options.sortable = ['country.name', 'name', 'code'];
+		this.table_options.filterable = ['country.name', 'name', 'code'];
+	},
+	mounted: function mounted() {
+		var _this = this;
 
-	methods: {
-		/**
-   * Inicializa los registros base del formulario
-   *
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-   */
-		initRecords: function initRecords() {
-			var _this = this;
-
-			axios.get('/get-countries').then(function (response) {
-				_this.countries = response.data;
-			});
-		}
+		axios.get('/get-countries').then(function (response) {
+			_this.countries = response.data;
+		});
 	}
 });
 
@@ -73387,80 +73333,68 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body modal-table" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-hover table-striped dt-responsive nowrap datatable"
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.records, function(rec, index) {
-                        return _c("tr", [
-                          _c("td", [_vm._v(_vm._s(rec.country.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(rec.name))]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(rec.code))
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass: "text-center",
-                              attrs: { width: "10%" }
-                            },
-                            [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Modificar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.initUpdate(index, $event)
-                                    }
-                                  }
+              _c(
+                "div",
+                { staticClass: "modal-body modal-table" },
+                [
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("v-client-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      data: _vm.records,
+                      options: _vm.table_options
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "id",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Modificar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-danger btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Eliminar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteRecord(index, "estates")
-                                    }
+                                on: {
+                                  click: function($event) {
+                                    _vm.initUpdate(props.index, $event)
                                   }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Eliminar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-trash-o" })]
-                              )
-                            ]
-                          )
-                        ])
-                      })
-                    )
-                  ]
-                )
-              ]),
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteRecord(props.index, "estates")
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash-o" })]
+                            )
+                          ])
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -73517,22 +73451,6 @@ var staticRenderFns = [
       _c("h6", [
         _c("i", { staticClass: "icofont icofont-map-search inline-block" }),
         _vm._v(" \n\t\t\t\t\t\tEstado\n\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "text-center" }, [
-        _c("th", [_vm._v("Pais")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Estado")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Código")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
       ])
     ])
   }
@@ -73692,20 +73610,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -73720,25 +73624,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			errors: [],
 			records: [],
 			countries: [],
-			estates: []
+			estates: [],
+			columns: ['estate.name', 'name', 'code', 'id']
 		};
 	},
-	mounted: function mounted() {},
+	created: function created() {
+		this.table_options.headings = {
+			'estate.country.name': 'Pais',
+			'estate.name': 'Estado',
+			'name': 'Nombre',
+			'code': 'Código',
+			'id': 'Acción'
+		};
+		this.table_options.sortable = ['estate.name', 'name', 'code'];
+		this.table_options.filterable = ['estate.name', 'name', 'code'];
+	},
+	mounted: function mounted() {
+		var _this = this;
+
+		axios.get('/get-countries').then(function (response) {
+			_this.countries = response.data;
+		});
+	},
 
 	methods: {
-		/**
-   * Inicializa los registros base del formulario
-   *
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-   */
-		initRecords: function initRecords() {
-			var _this = this;
-
-			axios.get('/get-countries').then(function (response) {
-				_this.countries = response.data;
-			});
-		},
-
 		/**
    * Obtiene los Estados del Pais seleccionado
    * 
@@ -73948,80 +73857,71 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body modal-table" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-hover table-striped dt-responsive nowrap datatable"
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.records, function(rec, index) {
-                        return _c("tr", [
-                          _c("td", [_vm._v(_vm._s(rec.estate.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(rec.name))]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(rec.code))
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass: "text-center",
-                              attrs: { width: "10%" }
-                            },
-                            [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Modificar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.initUpdate(index, $event)
-                                    }
-                                  }
+              _c(
+                "div",
+                { staticClass: "modal-body modal-table" },
+                [
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("v-client-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      data: _vm.records,
+                      options: _vm.table_options
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "id",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Modificar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-danger btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Eliminar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteRecord(index, "municipalities")
-                                    }
+                                on: {
+                                  click: function($event) {
+                                    _vm.initUpdate(props.index, $event)
                                   }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Eliminar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-trash-o" })]
-                              )
-                            ]
-                          )
-                        ])
-                      })
-                    )
-                  ]
-                )
-              ]),
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteRecord(
+                                      props.index,
+                                      "municipalities"
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash-o" })]
+                            )
+                          ])
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -74078,22 +73978,6 @@ var staticRenderFns = [
       _c("h6", [
         _c("i", { staticClass: "icofont icofont-ui-map inline-block" }),
         _vm._v(" \n\t\t\t\t\t\tMunicipios\n\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "text-center" }, [
-        _c("th", [_vm._v("Estado")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Municipio")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Código")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
       ])
     ])
   }

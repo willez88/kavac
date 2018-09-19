@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class InstitutionTypeController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:institution.type.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:institution.type.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:institution.type.delete', ['only' => 'destroy']);
+        $this->middleware('permission:institution.type.list', ['only' => 'index']);
+    }
+    
+    /**
      * Muesta todos los registros de los tipos de institución
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>

@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class InstitutionSectorController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:institution.sector.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:institution.sector.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:institution.sector.delete', ['only' => 'destroy']);
+        $this->middleware('permission:institution.sector.list', ['only' => 'index']);
+    }
+
+    /**
      * Muesta todos los registros de los sectores de institución
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>

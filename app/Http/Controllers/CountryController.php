@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class CountryController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:country.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:country.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:country.delete', ['only' => 'destroy']);
+        $this->middleware('permission:country.list', ['only' => 'index']);
+    }
+
+    /**
      * Muesta todos los registros de los Países
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
