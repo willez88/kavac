@@ -28292,6 +28292,19 @@ table td.border-right {
   border-right: solid 1px #dee2e6;
 }
 
+/**
+ * Estilos para el componente Vue-tables-2
+ */
+
+.VueTables__child-row-toggler {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
 .bootstrap-switch.bootstrap-switch-mini {
   heught: 16px !important;
   width: 46px !important;

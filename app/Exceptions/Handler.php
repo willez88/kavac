@@ -50,25 +50,37 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof \Ultraware\Roles\Exceptions\PermissionDeniedException) {
             /** Exception catch when deny access by permissions */
-            $request->session()->flash('message', [
-                'type' => 'deny', 'msg' => 'No dispone de permisos para acceder a esta funcionalidad'
-            ]);
+            $msg = 'No dispone de permisos para acceder a esta funcionalidad';
+            
+            if ($request->ajax()) {
+                return response()->json(['result' => false, 'message' => $msg], 403);
+            }
+            
+            $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
             return redirect()->back();
         }
 
         if ($exception instanceof \Ultraware\Roles\Exceptions\LevelDeniedException) {
             /** Exception catch when deny access by levels */
-            $request->session()->flash('message', [
-                'type' => 'deny', 'msg' => 'Su nivel de acceso no le permite acceder a esta funcionalidad'
-            ]);
+            $msg = 'Su nivel de acceso no le permite acceder a esta funcionalidad';
+
+            if ($request->ajax()) {
+                return response()->json(['result' => false, 'message' => $msg], 403);
+            }
+
+            $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
             return redirect()->back();
         }
 
         if ($exception instanceof \Ultraware\Roles\Exceptions\RoleDeniedException) {
             /** Exception catch when deny access by roles */
-            $request->session()->flash('message', [
-                'type' => 'deny', 'msg' => 'El rol asignado no le permite acceder a esta funcionalidad'
-            ]);
+            $msg = 'El rol asignado no le permite acceder a esta funcionalidad';
+
+            if ($request->ajax()) {
+                return response()->json(['result' => false, 'message' => $msg], 403);
+            }
+
+            $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
             return redirect()->back();
         }
         return parent::render($request, $exception);

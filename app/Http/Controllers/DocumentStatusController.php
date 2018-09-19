@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class DocumentStatusController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:document.status.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:document.status.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:document.status.delete', ['only' => 'destroy']);
+        $this->middleware('permission:document.status.list', ['only' => 'index']);
+    }
+
+    /**
      * Muesta todos los registros de estatus de documentos
      * 
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>

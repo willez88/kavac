@@ -10,6 +10,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import {ServerTable, ClientTable, Event} from 'vue-tables-2';
+
+Vue.use(ClientTable);
+
 /**
  * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
  *
@@ -138,6 +142,34 @@ Vue.mixin({
 			this.record = [];
 		},
 		/**
+		 * Inicializa los registros base del formulario
+		 *
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 */
+		initRecords(url, modal_id) {
+			this.errors = [];
+			this.reset();
+			var records = [];
+			axios.get(url).then(response => {
+				records = response.data.records;
+				if ($("#" + modal_id).length) {
+					$("#" + modal_id).modal('show');
+				}
+			}).catch(error => {
+				if (error.response.status == 403) {
+					this.showMessage(
+						'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+					);
+				}
+				else {
+					console.log(error.response);
+				}
+			});
+
+			this.records = records;
+			this.readRecords(url);
+		},
+		/**
 		 * Método que obtiene los registros a mostrar
 		 * 
 		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
@@ -157,15 +189,7 @@ Vue.mixin({
 		 */
 		addRecord(modal_id, url, event) {
 			event.preventDefault();
-			this.errors = [];
-			this.reset();
-
-			if ($("#" + modal_id).length) {
-				$("#" + modal_id).modal('show');
-			}
-			
-			this.initRecords();
-			this.readRecords(url);
+			this.initRecords(url, modal_id);
 		},
 		/**
 		 * Método que permite crear o actualizar un registro
@@ -267,7 +291,7 @@ Vue.mixin({
 		 */
 		showMessage(type, msg_title, msg_class, msg_icon, custom_text) {
 			msg_title = (!msg_title)?'Éxito':msg_title;
-		    msg_class = (!msg_class)?'growl-success':'glowl-'+msg_class;
+		    msg_class = (!msg_class)?'growl-success':'growl-'+msg_class;
 		    msg_icon = (!msg_icon)?'screen-ok':msg_icon;
 		    custom_text = (typeof(custom_text)!=="undefined")?custom_text:'';
 
@@ -292,10 +316,10 @@ Vue.mixin({
 		        class_name: msg_class,
 		        image: "/images/" + msg_icon + ".png",
 		        sticky: false,
-		        time: ''
+		        time: 1500
 		    });
-		}/*,
-		loadRelationalSelect(parent_id, target_url) {
+		},
+		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
 			var target_url = (typeof(target_url) !== "undefined")?target_url:false;
 

@@ -35,7 +35,7 @@
 						@include('layouts.form-errors')
 						@php
 							$roles = Ultraware\Roles\Models\Role::where('slug', '<>', 'user')->get();
-							$permissions = Ultraware\Roles\Models\Permission::all();
+							$permissions = Ultraware\Roles\Models\Permission::orderBy('model_prefix')->get();
 							$module = "";
 						@endphp
 						<table class="table table-hover table-striped dt-responsive">
@@ -62,7 +62,9 @@
 										<tr>
 											<th></th>
 											<th class="text-center" colspan="{{ count($roles) }}">
-												<span class="card-title">MÓDULO [{{ strtoupper($module) }}]</span>
+												<span class="card-title">
+													MÓDULO [{{ strtoupper((substr($module, 0,1) != '0')?$module:substr($module, 1)) }}]
+												</span>
 											</th>
 										</tr>
 									@endif
