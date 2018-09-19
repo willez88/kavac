@@ -122,7 +122,8 @@ Vue.mixin({
 				texts: {
                     filter: "Buscar:",
                     filterBy: 'Buscar por {column}',
-                    count:'Página {page}',
+                    //count:'Página {page}',
+                    count: ' ',
                     first: 'PRIMERO',
                     last: 'ÚLTIMO',
                     limit: 'Registros',
