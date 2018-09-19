@@ -145,6 +145,28 @@ class Asset extends Model
         return $this->belongsTo('Modules\Asset\Models\AssetUse', 'use_id');
     }
 
+    /**
+     * Método que obtiene el tipo al que pertenece el bien
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetCategory
+     */
+    public function asig()
+    {
+        return $this->hasMany('Modules\Asset\Models\AssetAsignation');
+    }
+
+    /**
+     * Método que obtiene el tipo al que pertenece el bien
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetCategory
+     */
+    public function disasig()
+    {
+        return $this->hasMany('Modules\Asset\Models\AssetDisincorporation');
+    }
+
 
 
     /**

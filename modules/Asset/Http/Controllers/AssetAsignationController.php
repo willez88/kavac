@@ -81,12 +81,12 @@ class AssetAsignationController extends Controller
         $asignation = new AssetAsignation;
         $asignation->asset_id = $asset->id;
         $assets = Asset::template_choices(['id' => $asset->id]);
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
+        $types = AssetType::template_choices(['id' => $asset->type_id]);
+        $categories = AssetCategory::template_choices(['id' => $asset->category_id]);
+        $subcategories = AssetSubcategory::template_choices(['id' => $asset->subcategory_id]);
+        $specific_categories = AssetSpecificCategory::template_choices(['id' => $asset->specific_category_id]);
 
-        return view('asset::asignations.create', compact('header','asignation','assets','types','categories','subcategories','specific_categories'));
+        return view('asset::asignations.create', compact('header','asignation','assets','asset','types','categories','subcategories','specific_categories'));
         }
 
     /**
@@ -100,12 +100,12 @@ class AssetAsignationController extends Controller
     {
         $this->validate($request, [
 
-            'asset_type' => 'required',
-            'asset_category' => 'required',
-            'asset_subcategory' => 'required',
-            'asset_specific_category' => 'required',
+            'type' => 'required',
+            'category' => 'required',
+            'subcategory' => 'required',
+            'specific_category' => 'required',
             'asset' => 'required',
-            //'staff_ubication' => 'required',
+            //'ubication' => 'required',
             //'staff' => 'required',
 
         ]);
@@ -144,13 +144,14 @@ class AssetAsignationController extends Controller
             'route' => ['asset.asignation.update', $asignation], 'method' => 'PUT', 'role'=> 'form', 'class' => 'form',
         ];
         
-        $assets = Asset::template_choices();
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
+        $asset = $asignation->asset;
+        $assets = Asset::template_choices(['id' => $asset->id]);
+        $types = AssetType::template_choices(['id' => $asset->type_id]);
+        $categories = AssetCategory::template_choices(['id' => $asset->category_id]);
+        $subcategories = AssetSubcategory::template_choices(['id' => $asset->subcategory_id]);
+        $specific_categories = AssetSpecificCategory::template_choices(['id' => $asset->specific_category_id]);
 
-        return view('asset::asignations.create', compact('header', 'asignation', 'assets', 'types', 'categories', 'subcategories', 'specific_categories'));
+        return view('asset::asignations.create', compact('header', 'asignation', 'assets', 'types', 'categories', 'subcategories', 'specific_categories','asset'));
     }
 
     /**
@@ -165,13 +166,13 @@ class AssetAsignationController extends Controller
     {
         $this->validate($request, [
 
-            'asset_type' => 'required',
-            'asset_category' => 'required',
-            'asset_subcategory' => 'required',
-            'asset_specific_category' => 'required',
+            'type' => 'required',
+            'category' => 'required',
+            'subcategory' => 'required',
+            'specific_category' => 'required',
             'asset' => 'required',
-            'staff_ubication' => 'required',
-            'staff' => 'required',
+            //'ubication' => 'required',
+            //'staff' => 'required',
 
         ]);
 

@@ -42,6 +42,17 @@ class AssetDisincorporation extends Model
     protected $fillable = ['asset_id', 'motive', 'date', 'observation'];
 
      /**
+     * Método que obtiene el tipo al que pertenece el bien
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetCategory
+     */
+    public function asset()
+    {
+        return $this->belongsTo('Modules\Asset\Models\Asset', 'asset_id');
+    }
+
+    /**
      *
      * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
      * 

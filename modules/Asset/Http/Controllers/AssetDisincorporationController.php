@@ -74,13 +74,15 @@ class AssetDisincorporationController extends Controller
     {
         $this->validate($request, [
 
-            'asset_type' => 'required',
-            'asset_category' => 'required',
-            'asset_subcategory' => 'required',
-            'asset_specific_category' => 'required',
+            'type' => 'required',
+            'category' => 'required',
+            'subcategory' => 'required',
+            'specific_category' => 'required',
             'asset' => 'required',
-            //'staff_ubication' => 'required',
+            //'ubication' => 'required',
             //'staff' => 'required',
+            'motive' => 'required',
+            'observation' => 'required'
 
         ]);
         $disincorporation = new AssetDisincorporation;
@@ -111,46 +113,92 @@ class AssetDisincorporationController extends Controller
         $disincorporation = new AssetDisincorporation;
         $disincorporation->asset_id = $asset->id;
         $assets = Asset::template_choices(['id' => $asset->id]);
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
+        $types = AssetType::template_choices(['id' => $asset->type_id]);
+        $categories = AssetCategory::template_choices(['id' => $asset->category_id]);
+        $subcategories = AssetSubcategory::template_choices(['id' => $asset->subcategory_id]);
+        $specific_categories = AssetSpecificCategory::template_choices(['id' => $asset->specific_category_id]);
 
-        return view('asset::disincorporations.create', compact('header','disincorporation','assets','types','categories','subcategories','specific_categories'));
+        return view('asset::disincorporations.create', compact('header','disincorporation','assets','asset','types','categories','subcategories','specific_categories'));
         }
 
-        /**
-     * Show the specified resource.
-     * @return Response
+    /**
+     * Muestra los datos de las Desincorporaciones de Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\AssetDisincorporation  $disincorporation (Datos de la desincorporación de un Bien)
+     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
-    public function show()
+    public function show(AssetDisincorporation $disincorporation)
     {
-        return view('asset::show');
+        
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * Muestra el formulario para actualizar la información de las Desincorporaciones de Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\AssetDisincorporation  $disincorporation (Datos de la Desincorporación de un Bien)
+     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
-    public function edit()
+    public function edit(AssetDisincorporation $disincorporation)
     {
-        return view('asset::edit');
+        $header = [
+            'route' => ['asset.disincorporation.update', $disincorporation], 'method' => 'PUT', 'role'=> 'form', 'class' => 'form',
+        ];
+        
+        $asset = $disincorporation->asset;
+        $assets = Asset::template_choices(['id' => $asset->id]);
+        $types = AssetType::template_choices(['id' => $asset->type_id]);
+        $categories = AssetCategory::template_choices(['id' => $asset->category_id]);
+        $subcategories = AssetSubcategory::template_choices(['id' => $asset->subcategory_id]);
+        $specific_categories = AssetSpecificCategory::template_choices(['id' => $asset->specific_category_id]);
+
+        return view('asset::disincorporations.create', compact('header', 'disincorporation', 'assets', 'types', 'categories', 'subcategories', 'specific_categories','asset'));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de las Desincorporaciones de Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @param  \Modules\Asset\Models\AssetDisincorporation  $disincorporation (Datos de la Desincorporación de un Bien)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function update(Request $request)
+    public function update(Request $request, AssetDisincorporation $disincorporation)
     {
+        $this->validate($request, [
+
+            'type' => 'required',
+            'category' => 'required',
+            'subcategory' => 'required',
+            'specific_category' => 'required',
+            'asset' => 'required',
+            //'ubication' => 'required',
+            //'staff' => 'required',
+            'motive' => 'required',
+            'observation' => 'required'
+
+        ]);
+
+        $disincorporation->asset_id = $request->asset;
+        $disincorporation->date = $request->date;
+        $disincorporation->motive = $request->motive;
+        $disincorporation->observation = $request->observation;
+
+        $disincorporation->save();
+        return redirect()->route('asset.disincorporation.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina una Asignación de un Bien Institucional
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\AssetDisincorporation $disincorporation (Datos de la Desincorporación de un Bien)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function destroy()
+    public function destroy(AssetDisincorporation $disincorporation)
     {
+        $disincorporation->delete();
+        return back()->with('info', 'Fue eliminado exitosamente');
     }
 }

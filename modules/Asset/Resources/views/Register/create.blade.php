@@ -174,7 +174,7 @@
 							<div class="form-group  {{ $errors->has('use') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('use_label', 'Función de Uso', []) !!}
-								{!! Form::select('use', (isset($use))?$use:[], (isset($asset))?$asset->use_id:null, [		
+								{!! Form::select('use', (isset($uses))?$uses:[], (isset($asset))?$asset->use_id:null, [		
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la función de uso del bien'
