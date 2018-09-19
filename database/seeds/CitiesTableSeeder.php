@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use Illuminate\Database\Eloquent\Model;
+use Ultraware\Roles\Models\Role;
+use Ultraware\Roles\Models\Permission;
 use App\Models\Estate;
 use App\Models\City;
 
@@ -14,6 +17,8 @@ class CitiesTableSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
+
         $estates_cities = [
         	"01" => [
         		"Caracas"
@@ -384,6 +389,53 @@ class CitiesTableSeeder extends Seeder
         	foreach ($cities as $city) {
     			City::updateOrCreate(['name' => $city, 'estate_id' => $edo->id],[]);
         	}
+        }
+
+        $adminRole = Role::where('slug', 'admin')->first();
+
+        /**
+         * Permisos disponibles para la gestión de ciudades
+         */
+
+        $permissions = [
+            [
+                'name' => 'Crear Ciudades', 'slug' => 'city.create',
+                'description' => 'Acceso al registro de ciudades', 
+                'model' => 'App\Models\City', 'model_prefix' => '0general',
+                'slug_alt' => 'ciudad.crear', 'short_description' => 'agregar ciudad'
+            ],
+            [
+                'name' => 'Editar Ciudades', 'slug' => 'city.edit',
+                'description' => 'Acceso para editar ciudades', 
+                'model' => 'App\Models\City', 'model_prefix' => '0general',
+                'slug_alt' => 'ciudad.editar', 'short_description' => 'editar ciudad'
+            ],
+            [
+                'name' => 'Eliminar Ciudades', 'slug' => 'city.delete',
+                'description' => 'Acceso para eliminar ciudades', 
+                'model' => 'App\Models\City', 'model_prefix' => '0general',
+                'slug_alt' => 'ciudad.eliminar', 'short_description' => 'eliminar ciudad'
+            ],
+            [
+                'name' => 'Ver Ciudades', 'slug' => 'city.list',
+                'description' => 'Acceso para ver ciudades', 
+                'model' => 'App\Models\City', 'model_prefix' => '0general',
+                'slug_alt' => 'ciudad.ver', 'short_description' => 'ver ciudades'
+            ],
+        ];
+
+        foreach ($permissions as $permission) {
+            $per = Permission::updateOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'], 'description' => $permission['description'],
+                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                ]
+            );
+            if ($adminRole) {
+                $adminRole->attachPermission($per);
+            }
         }
     }
 }

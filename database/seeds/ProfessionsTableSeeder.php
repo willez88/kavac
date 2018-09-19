@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use Illuminate\Database\Eloquent\Model;
+use Ultraware\Roles\Models\Role;
+use Ultraware\Roles\Models\Permission;
 use App\Models\Profession;
 
 class ProfessionsTableSeeder extends Seeder
@@ -13,6 +16,8 @@ class ProfessionsTableSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
+
         $professions = [
         	['name' => 'Abogado(a)', 'acronym' => 'Abg'],
         	['name' => 'Arquitecto(a)', 'acronym' => 'Arq'],
@@ -48,6 +53,53 @@ class ProfessionsTableSeeder extends Seeder
         		['name' => $profession['name']],
         		['acronym' => ($profession['acronym'])?$profession['acronym']:null]
         	);
+        }
+
+        $adminRole = Role::where('slug', 'admin')->first();
+
+        /**
+         * Permisos disponibles para la gestión de profesiones
+         */
+
+        $permissions = [
+            [
+                'name' => 'Crear Profesiones', 'slug' => 'profession.create',
+                'description' => 'Acceso al registro de profesiones', 
+                'model' => 'App\Models\Profession', 'model_prefix' => '0general',
+                'slug_alt' => 'profesion.crear', 'short_description' => 'agregar profesión'
+            ],
+            [
+                'name' => 'Editar Profesiones', 'slug' => 'profession.edit',
+                'description' => 'Acceso para editar profesiones', 
+                'model' => 'App\Models\Profession', 'model_prefix' => '0general',
+                'slug_alt' => 'profesion.editar', 'short_description' => 'editar profesión'
+            ],
+            [
+                'name' => 'Eliminar Profesiones', 'slug' => 'profession.delete',
+                'description' => 'Acceso para eliminar profesiones', 
+                'model' => 'App\Models\Profession', 'model_prefix' => '0general',
+                'slug_alt' => 'profesion.eliminar', 'short_description' => 'eliminar profesión'
+            ],
+            [
+                'name' => 'Ver Profesiones', 'slug' => 'profession.list',
+                'description' => 'Acceso para ver profesiones', 
+                'model' => 'App\Models\Profession', 'model_prefix' => '0general',
+                'slug_alt' => 'profesion.ver', 'short_description' => 'ver profesiones'
+            ],
+        ];
+
+        foreach ($permissions as $permission) {
+            $per = Permission::updateOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'], 'description' => $permission['description'],
+                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                ]
+            );
+            if ($adminRole) {
+                $adminRole->attachPermission($per);
+            }
         }
     }
 }

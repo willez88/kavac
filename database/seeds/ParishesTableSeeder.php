@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use Illuminate\Database\Eloquent\Model;
+use Ultraware\Roles\Models\Role;
+use Ultraware\Roles\Models\Permission;
 use App\Models\Municipality;
 use App\Models\Parish;
 
@@ -14,6 +17,8 @@ class ParishesTableSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
+
         $municipalities_parishes = [
             '0101' => [
                 '010101' => 'Altagracia',
@@ -1883,6 +1888,53 @@ class ParishesTableSeeder extends Seeder
 			        );
         		}
         	}
+        }
+
+        $adminRole = Role::where('slug', 'admin')->first();
+
+        /**
+         * Permisos disponibles para la gestión de parroquías
+         */
+
+        $permissions = [
+            [
+                'name' => 'Crear Parroquías', 'slug' => 'parish.create',
+                'description' => 'Acceso al registro de parroquías', 
+                'model' => 'App\Models\Parish', 'model_prefix' => '0general',
+                'slug_alt' => 'parroquia.crear', 'short_description' => 'agregar parroquia'
+            ],
+            [
+                'name' => 'Editar Parroquías', 'slug' => 'parish.edit',
+                'description' => 'Acceso para editar parroquías', 
+                'model' => 'App\Models\Parish', 'model_prefix' => '0general',
+                'slug_alt' => 'parroquia.editar', 'short_description' => 'editar parroquia'
+            ],
+            [
+                'name' => 'Eliminar Parroquías', 'slug' => 'parish.delete',
+                'description' => 'Acceso para eliminar parroquías', 
+                'model' => 'App\Models\Parish', 'model_prefix' => '0general',
+                'slug_alt' => 'parroquia.eliminar', 'short_description' => 'eliminar parroquia'
+            ],
+            [
+                'name' => 'Ver Parroquías', 'slug' => 'parish.list',
+                'description' => 'Acceso para ver parroquías', 
+                'model' => 'App\Models\Parish', 'model_prefix' => '0general',
+                'slug_alt' => 'parroquia.ver', 'short_description' => 'ver parroquías'
+            ],
+        ];
+
+        foreach ($permissions as $permission) {
+            $per = Permission::updateOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'], 'description' => $permission['description'],
+                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                ]
+            );
+            if ($adminRole) {
+                $adminRole->attachPermission($per);
+            }
         }
     }
 }
