@@ -39,7 +39,7 @@ class AssetRequest extends Model
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['id'];
+    protected $fillable = ['type','motive', 'delivery_date','user_id','agent_name','agent_telf','agent_email'];
 
     /**
      *

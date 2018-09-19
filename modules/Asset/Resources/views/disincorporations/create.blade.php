@@ -37,11 +37,14 @@
 					<div class="row">
 
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group   {{ $errors->has('type') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('type_label', 'Tipo de Bien', []) !!}
-								{!! Form::select('asset_type', (isset($types))?$types:[], null, [		
-									'class' => 'form-control select2', 'data-toggle' => 'tooltip',
+								{!! Form::select('type', (isset($types))?$types:[], (isset($asset))?$asset->type_id:null, [		
+									'id' => 'type',
+									'class' => 'form-control select2',
+									'onchange' => 'mostrar(this.value);',
+									'data-toggle' => 'tooltip',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el tipo de bien a registrar',
 									
@@ -49,13 +52,12 @@
 								
 							</div>
 						</div>
-
-
+											
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group  {{ $errors->has('category') ? ' has-error' : '' }} is-required">
 
 								{!! Form::label('category_label', 'Categoria General', []) !!}
-								{!! Form::select('asset_category', (isset($categories))?$categories:[], null, [
+								{!! Form::select('category', (isset($categories))?$categories:[],  (isset($asset))?$asset->category_id:null, [
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la categoria general del bien'
@@ -64,10 +66,10 @@
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group  {{ $errors->has('subcategory') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('subcategory_label', 'Subcategoria', []) !!}
-								{!! Form::select('asset_subcategory', (isset($subcategories))?$subcategories:[], null, [
+								{!! Form::select('subcategory', (isset($subcategories))?$subcategories:[],  (isset($asset))?$asset->subcategory_id:null, [
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la subcategoria del bien'
@@ -77,10 +79,10 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group  {{ $errors->has('specific_category') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('specific_category_label', 'Categoria Específica', []) !!}
-								{!! Form::select('asset_specific_category', (isset($specific_categories))?$specific_categories:[], null, [
+								{!! Form::select('specific_category', (isset($specific_categories))?$specific_categories:[],  (isset($asset))?$asset->specific_category_id:null, [
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la categoria específica del bien'
@@ -90,23 +92,23 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group{{ $errors->has('asset') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('asset_label', 'Descripción del Bien', []) !!}
 								{!! Form::select('asset', (isset($assets))?$assets:[], (isset($disincorporation))?$disincorporation->asset_id:null, [
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
-									'title' => 'Indique el bien a desincorporar'
+									'title' => 'Indique el bien a ser asignado'
 								]) !!}
 
 							</div>
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group{{ $errors->has('ubication') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('ubication_label', 'Ubicación', []) !!}
-								{!! Form::select('asset_ubication', (isset($dependencias))?$dependencias:[], null, [
+								{!! Form::select('ubication', (isset($dependencias))?$dependencias:[], null, [
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la dependencia del trabajador al que se le asigna el bien'
@@ -116,7 +118,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group{{ $errors->has('staff') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('staff_label', 'Trabajador', []) !!}
 								{!! Form::select('staff', (isset($staffs))?$staffs:[], null, [
@@ -147,7 +149,7 @@
     					    </div>
     					</div>
     					<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group{{ $errors->has('motive') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('motive_label', 'Motivo de la Desincorporación', []) !!}
 								{!! Form::select('motive', (isset($motive))?$motive:[
@@ -159,7 +161,7 @@
 									'En Desuso',
 									'Venta',
 									'Donación',
-									], null, [		
+									], (isset($disincorporation))?$disincorporation->motive:null, [		
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el motivo de la desincorporación del bien'
@@ -170,7 +172,7 @@
 					    <div class="col-md-6">
 					        <div class="form-group{{ $errors->has('observation') ? ' has-error' : '' }} is-required">
 					            {!! Form::label('observation_label', 'Observaciones generales', []) !!}
-					            {!! Form::text('observation',(isset($observation))?$observation:null,
+					            {!! Form::text('observation',(isset($disincorporation))?$disincorporation->observation:old('observation'),
 					                [
 					                    'class' => 'form-control input-sm',
 					                    'data-toggle' => 'tooltip',

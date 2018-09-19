@@ -57,7 +57,7 @@
 							@foreach($asset_asignations as $asignation)
 								<tr>
 									<td>{{ $asignation->id }}</td>
-									<td>{{ $asignation->asset_id }}</td>
+									<td>{{ $asignation->asset->serial }}</td>
 									<td></td>
 									<td>{{ $asignation->staff_id }}</td>
 									<td class="text-center">{{ $asignation->created_at }}</td>

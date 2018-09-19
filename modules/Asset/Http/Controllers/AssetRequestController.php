@@ -54,46 +54,140 @@ class AssetRequestController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y Registra una nueva Solicitud de Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+
+            'type' => 'required',
+            'motive' => 'required',
+
+        ]);
+        if ($request->type == 1){
+            $this->validate($request,[
+                'delivery_date' => 'required',
+                'ubication'  => 'required',
+
+            ]);
+        }
+        if ($request->type == 2){
+            $this->validate($request,[
+                'delivery_date' => 'required',
+                'ubication'  => 'required',
+                'agent_name' => 'required',
+                'agent_telf' => 'required',
+                'agent_email' => 'required',
+
+            ]);
+        }
+        $data = new AssetRequest;
+
+        
+        $data->type = $request->type;
+        $data->motive = $request->motive;
+        $data->delivery_date = $request->delivery_date;
+        $data->ubication = $request->ubication;
+        $data->agent_name = $request->agent_name;
+        $data->agent_telf = $request->agent_telf;
+        $data->agent_email = $request->agent_email;
+
+        
+
+        
+
+        $data->save();
+        return redirect()->route('asset.request.index');
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
+     * Muestra los datos de las Solicitudes de Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\AssetRequest  $request (Datos de la solicitud de un Bien)
+     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
-    public function show()
-    {
-        return view('asset::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('asset::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
+    public function show(AssetRequest $request)
     {
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
+     * Muestra el formulario para actualizar la información de las Solicitudes de Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\AssetRequest  $request (Datos de la Solicitud de un Bien)
+     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
+     */    public function edit(AssetRequest $request)
     {
+        $header = [
+            'route' => 'asset.request.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
+        ];
+        $assets = Asset::all();
+        return view('asset::requests.create',compact('header','assets','request'));
+    }
+
+    /**
+     * Actualiza la información de las Solicitudes de Bienes Institucionales
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @param  \Modules\Asset\Models\AssetRequest  $data (Datos de la solicitud de un Bien)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    public function update(Request $request, AssetRequest $data)
+    {
+        $this->validate($request, [
+
+            'type' => 'required',
+            'motive' => 'required',
+
+        ]);
+        if ($request->type == 1){
+            $this->validate($request,[
+                'delivery_date' => 'required',
+                'ubication'  => 'required',
+
+            ]);
+        }
+        if ($request->type == 2){
+            $this->validate($request,[
+                'delivery_date' => 'required',
+                'ubication'  => 'required',
+                'agent_name' => 'required',
+                'agent_telf' => 'required',
+                'agent_email' => 'required',
+
+            ]);
+        }
+
+        $data->type = $request->type;
+        $data->motive = $request->motive;
+        $data->delivery_date = $request->delivery_date;
+        $data->ubication = $request->ubication;
+        $data->agent_name = $request->agent_name;
+        $data->agent_telf = $request->agent_telf;
+        $data->agent_email = $request->agent_email;
+
+        
+
+        $data->save();
+        return redirect()->route('asset.request.index');
+    }
+
+    /**
+     * Elimina una Solicitud de un Bien Institucional
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\AssetRequest $request (Datos de la Solicitud de un Bien)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    public function destroy(AssetRequest $request)
+    {
+        $request->delete();
+        return back()->with('info', 'Fue eliminado exitosamente');
     }
 }

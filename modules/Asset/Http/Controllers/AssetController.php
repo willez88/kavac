@@ -16,6 +16,7 @@ use Modules\Asset\Models\AssetSpecificCategory;
 use Modules\Asset\Models\AssetPurchase;
 use Modules\Asset\Models\AssetCondition;
 use Modules\Asset\Models\AssetStatus;
+use Modules\Asset\Models\AssetUse;
 
 /**
  * @class AssetController
@@ -63,8 +64,9 @@ class AssetController extends Controller
         $purchases = AssetPurchase::template_choices();
         $conditions = AssetCondition::template_choices();
         $status = AssetStatus::template_choices();
+        $uses =AssetUse::template_choices();
 
-        return view('asset::Register.create', compact('header','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status'));
+        return view('asset::Register.create', compact('header','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status','uses'));
     }
 
     /**
@@ -83,7 +85,7 @@ class AssetController extends Controller
             'category' => 'required',
             'subcategory' => 'required',
             'specific_category' => 'required',
-            //'asset_institution' => 'required',
+            //'institution' => 'required',
             //'proveedor' => 'required',
             'purchase' => 'required',
             'purchase_year' => 'required',
@@ -128,6 +130,9 @@ class AssetController extends Controller
         $asset->model = $request->model;
         $asset->serial_inventario = $asset->getCode();
         $asset->value = $request->value;
+        $asset->use_id = $request->use;
+        $asset->quantity = $request->quantity;
+
         $asset->save();
         return redirect()->route('asset.index');
     }
@@ -164,8 +169,9 @@ class AssetController extends Controller
         $purchases = AssetPurchase::template_choices();
         $conditions = AssetCondition::template_choices();
         $status = AssetStatus::template_choices();
+        $uses = AssetUse::template_choices();
 
-        return view('asset::Register.create', compact('header','asset','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status'));
+        return view('asset::Register.create', compact('header','asset','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status','uses'));
     }
 
     /**
@@ -229,6 +235,8 @@ class AssetController extends Controller
         $asset->model = $request->model;
         $asset->serial_inventario = $asset->getCode();
         $asset->value = $request->value;
+        $asset->use_id = $request->use;
+        $asset->quantity = $request->quantity;
         $asset->save();
         return redirect()->route('asset.index');
     }
