@@ -103,7 +103,7 @@
 		created() {
 			this.table_options.headings = {
 				'country.name': 'Pais',
-				'name': 'Nombre',
+				'name': 'Estado',
 				'code': 'Código',
 				'id': 'Acción'
 			};

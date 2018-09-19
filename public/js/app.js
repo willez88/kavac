@@ -73149,7 +73149,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	created: function created() {
 		this.table_options.headings = {
 			'country.name': 'Pais',
-			'name': 'Nombre',
+			'name': 'Estado',
 			'code': 'Código',
 			'id': 'Acción'
 		};
@@ -73632,7 +73632,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	created: function created() {
 		this.table_options.headings = {
 			'estate.name': 'Estado',
-			'name': 'Nombre',
+			'name': 'Municipio',
 			'code': 'Código',
 			'id': 'Acción'
 		};
@@ -74149,7 +74149,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	created: function created() {
 		this.table_options.headings = {
 			'estate.name': 'Estado',
-			'name': 'Nombre',
+			'name': 'Ciudad',
 			'id': 'Acción'
 		};
 		this.table_options.sortable = ['estate.name', 'name'];
@@ -74625,20 +74625,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -74655,25 +74641,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: [],
 			countries: [],
 			estates: [],
-			municipalities: []
+			municipalities: [],
+			columns: ['municipality.name', 'name', 'code', 'id']
 		};
 	},
-	mounted: function mounted() {},
+	created: function created() {
+		this.table_options.headings = {
+			'municipality.name': 'Estado',
+			'name': 'Parroquia',
+			'code': 'Código',
+			'id': 'Acción'
+		};
+		this.table_options.sortable = ['municipality.name', 'name', 'code'];
+		this.table_options.filterable = ['municipality.name', 'name', 'code'];
+	},
+	mounted: function mounted() {
+		var _this = this;
+
+		axios.get('/get-countries').then(function (response) {
+			_this.countries = response.data;
+		});
+	},
 
 	methods: {
-		/**
-   * Inicializa los registros base del formulario
-   *
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-   */
-		initRecords: function initRecords() {
-			var _this = this;
-
-			axios.get('/get-countries').then(function (response) {
-				_this.countries = response.data;
-			});
-		},
-
 		/**
    * Obtiene los Estados del Pais seleccionado
    * 
@@ -74921,80 +74911,68 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body modal-table" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-hover table-striped dt-responsive nowrap datatable"
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.records, function(rec, index) {
-                        return _c("tr", [
-                          _c("td"),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(rec.name))]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(rec.code))
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass: "text-center",
-                              attrs: { width: "10%" }
-                            },
-                            [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Modificar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.initUpdate(index, $event)
-                                    }
-                                  }
+              _c(
+                "div",
+                { staticClass: "modal-body modal-table" },
+                [
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("v-client-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      data: _vm.records,
+                      options: _vm.table_options
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "id",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Modificar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-danger btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Eliminar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteRecord(index, "parishes")
-                                    }
+                                on: {
+                                  click: function($event) {
+                                    _vm.initUpdate(props.index, $event)
                                   }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Eliminar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-trash-o" })]
-                              )
-                            ]
-                          )
-                        ])
-                      })
-                    )
-                  ]
-                )
-              ]),
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteRecord(props.index, "parishes")
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash-o" })]
+                            )
+                          ])
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -75051,22 +75029,6 @@ var staticRenderFns = [
       _c("h6", [
         _c("i", { staticClass: "icofont icofont-map-pins inline-block" }),
         _vm._v(" \n\t\t\t\t\t\tParroquias\n\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "text-center" }, [
-        _c("th", [_vm._v("Municipio")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Parroquia")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Código")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
       ])
     ])
   }

@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class ParishController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:parish.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:parish.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:parish.delete', ['only' => 'destroy']);
+        $this->middleware('permission:parish.list', ['only' => 'index']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

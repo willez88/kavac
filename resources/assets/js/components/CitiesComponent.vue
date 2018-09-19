@@ -103,7 +103,7 @@
 		created() {
 			this.table_options.headings = {
 				'estate.name': 'Estado',
-				'name': 'Nombre',
+				'name': 'Ciudad',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['estate.name', 'name'];

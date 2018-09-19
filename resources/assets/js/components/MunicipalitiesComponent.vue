@@ -112,7 +112,7 @@
 		created() {
 			this.table_options.headings = {
 				'estate.name': 'Estado',
-				'name': 'Nombre',
+				'name': 'Municipio',
 				'code': 'Código',
 				'id': 'Acción'
 			};
