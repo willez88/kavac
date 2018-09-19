@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class MaritalStatusController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:marital.status.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:marital.status.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:marital.status.delete', ['only' => 'destroy']);
+        $this->middleware('permission:marital.status.list', ['only' => 'index']);
+    }
+
+    /**
      * Muestra todos los registros de estados civiles
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
@@ -39,10 +53,10 @@ class MaritalStatusController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'marital_status_name' => 'required|max:100'
         ]);
 
-        $maritalStatus = MaritalStatus::create(['name' => $request->input('name')]);
+        $maritalStatus = MaritalStatus::create(['name' => $request->input('marital_status_name')]);
 
         return response()->json(['record' => $maritalStatus, 'message' => 'Success'], 200);
     }
@@ -82,10 +96,10 @@ class MaritalStatusController extends Controller
     public function update(Request $request, MaritalStatus $maritalStatus)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'marital_status_name' => 'required|max:100'
         ]);
  
-        $maritalStatus->name = $request->input('name');
+        $maritalStatus->name = $request->input('marital_status_name');
         $maritalStatus->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

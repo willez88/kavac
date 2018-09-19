@@ -117,7 +117,7 @@ require('./modules');
 Vue.mixin({
 	data() {
 		return {
-			options: {
+			table_options: {
 				pagination: { edge: true },
 				texts: {
                     filter: "Buscar:",
@@ -130,7 +130,7 @@ Vue.mixin({
                     noResults: 'No existen registros',
 
 				},
-			}
+			},
 		}
 	},
 	props: ['route_list', 'route_create', 'route_edit', 'route_update', 'route_delete'],
@@ -234,7 +234,7 @@ Vue.mixin({
 		 */
 		initUpdate(index, event) {
 			this.errors = [];
-			this.record = this.records[index];
+			this.record = this.records[index - 1];
 			event.preventDefault();
 		},
 		/**

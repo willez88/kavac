@@ -28,37 +28,29 @@
 						</div>
 						<div class="form-group is-required">
 							<label for="marital_status_name">Nombre:</label>
-							<input type="text" name="marital_status_name" id="marital_status_name" placeholder="Estado Civil" 
+							<input type="text" id="marital_status_name" placeholder="Estado Civil" 
 								   class="form-control input-sm" v-model="record.marital_status_name" data-toggle="tooltip" 
 								   title="Indique el nombre del estado civil (requerido)">
 							<input type="hidden" name="marital_status_id" id="marital_status_id" v-model="record.marital_status_id">
 	                    </div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<th>Nombre</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<td>{{ rec.name }}</td>
-									<td class="text-center" width="10%">
-										<button @click="initUpdate(index, $event)" 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button @click="deleteRecord(index, 'marital-status')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+	                	<hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'document-status')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
@@ -83,11 +75,17 @@
 					marital_status_name: ''
 				},
 				errors: [],
-				records: []
+				records: [],
+				columns: ['name', 'id'],
 			}
 		},
-		mounted() {
-
+		created() {
+			this.table_options.headings = {
+				'name': 'Nombre',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['name'];
+			this.table_options.filterable = ['name'];
 		},
-	}
+	};
 </script>
