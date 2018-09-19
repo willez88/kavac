@@ -34390,22 +34390,25 @@ __webpack_require__(284);
  * @param  {object} methods Métodos generales a implementar en CRUDS
  */
 Vue.mixin({
-	/*data() {
- 	return {
- 		dataSelect: {
- 			opt_one: [],
- 			opt_two: [],
- 			opt_three: [],
- 			opt_four: [],
- 			opt_five: [],
- 			opt_six: [],
- 			opt_seven: [],
- 			opt_eight: [],
- 			opt_nine: [],
- 			opt_ten: []
- 		}
- 	}
- },*/
+	data: function data() {
+		return {
+			options: {
+				pagination: { edge: true },
+				texts: {
+					filter: "Buscar:",
+					filterBy: 'Buscar por {column}',
+					count: 'Página {page}',
+					first: 'PRIMERO',
+					last: 'ÚLTIMO',
+					limit: 'Registros',
+					//page: 'Página:',
+					noResults: 'No existen registros'
+
+				}
+			}
+		};
+	},
+
 	props: ['route_list', 'route_create', 'route_edit', 'route_update', 'route_delete'],
 	methods: {
 		/**
@@ -75473,32 +75476,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			errors: [],
 			/** @type {Array} Inicialización de atributo que cargara información registrada */
 			records: [],
-			columns: ['name', 'description', 'id'],
-			options: {
-				headings: {
-					'name': 'Nombre',
-					'description': 'Descripción',
-					'id': 'Acción'
-				},
-				sortable: ['name', 'description'],
-				filterable: ['name', 'description'],
-				perPage: 3,
-				pagination: { edge: true },
-				texts: {
-					filter: "Buscar:",
-					filterBy: 'Buscar por {column}',
-					count: 'Página {page}',
-					first: 'PRIMERO',
-					last: 'ÚLTIMO',
-					limit: 'Registros',
-					//page: 'Página:',
-					noResults: 'No existen registros'
-
-				}
-			}
+			columns: ['name', 'description', 'id']
 		};
 	},
-	mounted: function mounted() {}
+	mounted: function mounted() {
+		this.options.headings = {
+			'name': 'Nombre',
+			'description': 'Descripción',
+			'id': 'Acción'
+		};
+		this.options.sortable = ['name', 'description'];
+		this.options.filterable = ['name', 'description'];
+	}
 });
 
 /***/ }),

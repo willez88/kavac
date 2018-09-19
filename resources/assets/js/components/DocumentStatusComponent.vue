@@ -136,32 +136,16 @@
 				/** @type {Array} Inicialización de atributo que cargara información registrada */
 				records: [],
 				columns: ['name', 'description', 'id'],
-				options: {
-					headings: {
-						'name': 'Nombre',
-						'description': 'Descripción',
-						'id': 'Acción'
-					},
-					sortable: ['name', 'description'],
-					filterable: ['name', 'description'],
-					perPage: 3,
-					pagination: { edge: true },
-					texts: {
-                        filter: "Buscar:",
-                        filterBy: 'Buscar por {column}',
-                        count:'Página {page}',
-                        first: 'PRIMERO',
-                        last: 'ÚLTIMO',
-                        limit: 'Registros',
-                        //page: 'Página:',
-                        noResults: 'No existen registros',
-
-					},
-				}
 			}
 		},
 		mounted() {
-			
+			this.options.headings = {
+				'name': 'Nombre',
+				'description': 'Descripción',
+				'id': 'Acción'
+			};
+			this.options.sortable = ['name', 'description'];
+			this.options.filterable = ['name', 'description'];
 		}
 	}
 </script>
