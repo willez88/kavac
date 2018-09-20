@@ -119,6 +119,16 @@
 					</div>
 				</div>
 				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<a href="#" 
+							   class="btn btn-sm btn-primary btn-custom float-right" 
+							   title="Crear nuevo registro" data-toggle="tooltip">
+								<i class="fa fa-plus-circle"></i>
+								<span>Nuevo</span>
+							</a>
+						</div>
+					</div>
 					<table class="table table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
 							<tr>
@@ -148,6 +158,16 @@
 					</div>
 				</div>
 				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<a href="#" 
+							   class="btn btn-sm btn-primary btn-custom float-right" 
+							   title="Crear nuevo registro" data-toggle="tooltip">
+								<i class="fa fa-plus-circle"></i>
+								<span>Nuevo</span>
+							</a>
+						</div>
+					</div>
 					<table class="table table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
 							<tr>
@@ -177,6 +197,16 @@
 					</div>
 				</div>
 				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<a href="#" 
+							   class="btn btn-sm btn-primary btn-custom float-right" 
+							   title="Crear nuevo registro" data-toggle="tooltip">
+								<i class="fa fa-plus-circle"></i>
+								<span>Nuevo</span>
+							</a>
+						</div>
+					</div>
 					<table class="table table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
 							<tr>
@@ -206,6 +236,16 @@
 					</div>
 				</div>
 				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<a href="#" 
+							   class="btn btn-sm btn-primary btn-custom float-right" 
+							   title="Crear nuevo registro" data-toggle="tooltip">
+								<i class="fa fa-plus-circle"></i>
+								<span>Nuevo</span>
+							</a>
+						</div>
+					</div>
 					<table class="table table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
 							<tr>
