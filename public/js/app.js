@@ -75723,6 +75723,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -75737,10 +75755,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				percentage: ''
 			},
 			errors: [],
-			records: []
+			records: [],
+			columns: ['name', 'description', 'histories.operation_date', 'histories.percentage', 'active', 'id']
 		};
 	},
-	mounted: function mounted() {}
+	created: function created() {
+		this.table_options.headings = {
+			'name': 'Nombre',
+			'description': 'Descripción',
+			'histories.operation_date': 'Fecha de Vigencia',
+			'histories.percentage': 'Porcentage',
+			'active': 'Activo',
+			'id': 'Acción'
+		};
+		this.table_options.sortable = ['name', 'description', 'histories.operation_date', 'histories.percentage'];
+		this.table_options.filterable = ['name', 'description', 'histories.operation_date', 'histories.percentage'];
+	}
 });
 
 /***/ }),
@@ -75990,11 +76020,12 @@ var render = function() {
                           title:
                             "Indique si el impuesto afecta la cuenta presupuestaria de IVA",
                           "data-on-label": "SI",
-                          "data-off-label": "NO"
+                          "data-off-label": "NO",
+                          value: "true"
                         },
                         domProps: {
                           checked: Array.isArray(_vm.record.affect_tax)
-                            ? _vm._i(_vm.record.affect_tax, null) > -1
+                            ? _vm._i(_vm.record.affect_tax, "true") > -1
                             : _vm.record.affect_tax
                         },
                         on: {
@@ -76003,7 +76034,7 @@ var render = function() {
                               $$el = $event.target,
                               $$c = $$el.checked ? true : false
                             if (Array.isArray($$a)) {
-                              var $$v = null,
+                              var $$v = "true",
                                 $$i = _vm._i($$a, $$v)
                               if ($$el.checked) {
                                 $$i < 0 &&
@@ -76048,11 +76079,12 @@ var render = function() {
                           "data-toggle": "tooltip",
                           title: "Indique si el impuesta esta o no activo",
                           "data-on-label": "SI",
-                          "data-off-label": "NO"
+                          "data-off-label": "NO",
+                          value: "true"
                         },
                         domProps: {
                           checked: Array.isArray(_vm.record.active)
-                            ? _vm._i(_vm.record.active, null) > -1
+                            ? _vm._i(_vm.record.active, "true") > -1
                             : _vm.record.active
                         },
                         on: {
@@ -76061,7 +76093,7 @@ var render = function() {
                               $$el = $event.target,
                               $$c = $$el.checked ? true : false
                             if (Array.isArray($$a)) {
-                              var $$v = null,
+                              var $$v = "true",
                                 $$i = _vm._i($$a, $$v)
                               if ($$el.checked) {
                                 $$i < 0 &&
@@ -76089,86 +76121,68 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body modal-table" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-hover table-striped dt-responsive nowrap datatable"
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.records, function(rec, index) {
-                        return _c("tr", [
-                          _c("td", [_vm._v(_vm._s(rec.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(rec.description))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(rec.histories.operation_date))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(rec.histories.percentage))]),
-                          _vm._v(" "),
-                          rec.active
-                            ? _c("td", [_vm._v("Activo")])
-                            : _c("td", [_vm._v("Inactivo")]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass: "text-center",
-                              attrs: { width: "10%" }
-                            },
-                            [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Modificar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.initUpdate(index, $event)
-                                    }
-                                  }
+              _c(
+                "div",
+                { staticClass: "modal-body modal-table" },
+                [
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("v-client-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      data: _vm.records,
+                      options: _vm.table_options
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "id",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Modificar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-danger btn-xs btn-icon btn-round",
-                                  attrs: {
-                                    title: "Eliminar registro",
-                                    "data-toggle": "tooltip",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteRecord(index, "taxes")
-                                    }
+                                on: {
+                                  click: function($event) {
+                                    _vm.initUpdate(props.index, $event)
                                   }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                attrs: {
+                                  title: "Eliminar registro",
+                                  "data-toggle": "tooltip",
+                                  type: "button"
                                 },
-                                [_c("i", { staticClass: "fa fa-trash-o" })]
-                              )
-                            ]
-                          )
-                        ])
-                      })
-                    )
-                  ]
-                )
-              ]),
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteRecord(props.index, "taxes")
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash-o" })]
+                            )
+                          ])
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -76225,26 +76239,6 @@ var staticRenderFns = [
       _c("h6", [
         _c("i", { staticClass: "icofont icofont-deal inline-block" }),
         _vm._v(" \n\t\t\t\t\t\tImpuestos\n\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "text-center" }, [
-        _c("th", [_vm._v("Nombre")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Descripción")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha Vigencia")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Porcentaje")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Activo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
       ])
     ])
   }

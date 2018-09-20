@@ -61,25 +61,43 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Afecta cuenta de IVA:</label>
-									<input type="checkbox" class="form-control bootstrap-switch" data-toggle="tooltip" 
+									<input type="checkbox" class="form-control bootstrap-switch" 
+										   data-toggle="tooltip" 
 										   title="Indique si el impuesto afecta la cuenta presupuestaria de IVA" 
 										   data-on-label="SI" data-off-label="NO" 
-										   v-model="record.affect_tax">
+										   v-model="record.affect_tax" value="true">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Activo:</label>
-									<input type="checkbox" class="form-control bootstrap-switch" data-toggle="tooltip" 
+									<input type="checkbox" class="form-control bootstrap-switch" 
+										   data-toggle="tooltip" 
 										   title="Indique si el impuesta esta o no activo" 
 										   data-on-label="SI" data-off-label="NO" 
-										   v-model="record.active">
+										   v-model="record.active" value="true">
 			                    </div>
 							</div>
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
+	                	<hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'taxes')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
+	                    <!--<table class="table table-hover table-striped dt-responsive nowrap datatable">
 							<thead>
 								<tr class="text-center">
 									<th>Nombre</th>
@@ -111,7 +129,7 @@
 									</td>
 								</tr>
 							</tbody>
-						</table>
+						</table>-->
 	                </div>
 	                <div class="modal-footer">
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
@@ -144,10 +162,27 @@
 				},
 				errors: [],
 				records: [],
+				columns: [
+					'name', 'description', 'histories.operation_date', 'histories.percentage', 
+					'active', 'id'
+				],
 			}
 		},
-		mounted() {
-
+		created() {
+			this.table_options.headings = {
+				'name': 'Nombre',
+				'description': 'Descripción',
+				'histories.operation_date': 'Fecha de Vigencia',
+				'histories.percentage': 'Porcentage',
+				'active': 'Activo',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = [
+				'name', 'description', 'histories.operation_date', 'histories.percentage'
+			];
+			this.table_options.filterable = [
+				'name', 'description', 'histories.operation_date', 'histories.percentage'
+			];
 		},
-	}
+	};
 </script>
