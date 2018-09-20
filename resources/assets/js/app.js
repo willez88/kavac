@@ -117,6 +117,10 @@ require('./modules');
 Vue.mixin({
 	data() {
 		return {
+			/**
+			 * Opciones generales a implementar en tablas
+			 * @type {JSON}
+			 */
 			table_options: {
 				pagination: { edge: true },
 				texts: {
