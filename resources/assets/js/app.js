@@ -273,15 +273,36 @@ Vue.mixin({
 		 * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
 		 */
     	deleteRecord(index, url) {
-			let conf = confirm("Esta seguro de eliminar este registro?");
-			
-			if (conf === true) {
-				url = (url)?url:this.route_delete;
-				axios.delete('/' + url + '/' + this.records[index].id).then(response => {
-					this.records.splice(index, 1);
-					this.showMessage('destroy');
-				}).catch(error => {});
-			}
+    		var url = (url)?url:this.route_delete;
+    		var records = this.records;
+    		var confirmated = false;
+    		var index = index - 1;
+
+    		bootbox.confirm({
+    			title: "Eliminar registro?",
+    			message: "Esta seguro de eliminar este registro?",
+    			buttons: {
+    				cancel: {
+    					label: '<i class="fa fa-times"></i> Cancelar'
+    				},
+    				confirm: {
+    					label: '<i class="fa fa-check"></i> Confirmar'
+    				}
+    			},
+    			callback: function (result) {
+    				if (result) {
+    					confirmated = true;			
+						axios.delete('/' + url + '/' + records[index].id).then(response => {
+							records.splice(index, 1);
+						}).catch(error => {});
+    				}
+    			}
+    		});
+
+    		if (confirmated) {
+    			this.records = records;
+    			this.showMessage('destroy');
+    		}
 		},
 		/**
 		 * Método que muestra un mensaje al usuario sobre el resultado de una acción

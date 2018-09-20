@@ -34559,16 +34559,35 @@ Vue.mixin({
    * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
    */
 		deleteRecord: function deleteRecord(index, url) {
-			var _this5 = this;
+			var url = url ? url : this.route_delete;
+			var records = this.records;
+			var confirmated = false;
+			var index = index - 1;
 
-			var conf = confirm("Esta seguro de eliminar este registro?");
+			bootbox.confirm({
+				title: "Eliminar registro?",
+				message: "Esta seguro de eliminar este registro?",
+				buttons: {
+					cancel: {
+						label: '<i class="fa fa-times"></i> Cancelar'
+					},
+					confirm: {
+						label: '<i class="fa fa-check"></i> Confirmar'
+					}
+				},
+				callback: function callback(result) {
+					if (result) {
+						confirmated = true;
+						axios.delete('/' + url + '/' + records[index].id).then(function (response) {
+							records.splice(index, 1);
+						}).catch(function (error) {});
+					}
+				}
+			});
 
-			if (conf === true) {
-				url = url ? url : this.route_delete;
-				axios.delete('/' + url + '/' + this.records[index].id).then(function (response) {
-					_this5.records.splice(index, 1);
-					_this5.showMessage('destroy');
-				}).catch(function (error) {});
+			if (confirmated) {
+				this.records = records;
+				this.showMessage('destroy');
 			}
 		},
 
