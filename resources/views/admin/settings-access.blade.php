@@ -70,15 +70,22 @@
 									@endif
 									@if ($perm->slug_alt)
 										<tr>
-											<td title="{{ $perm->description }}" data-toggle="tooltip" class="border-right" style="width: 20%">
-												{{ (!empty($perm->short_description))?$perm->short_description:$perm->name }}
+											<td title="{{ $perm->description }}" data-toggle="tooltip" 
+												class="border-right" style="width: 20%">
+												{{ (!empty($perm->short_description))
+													?strtoupper($perm->short_description)
+													:strtoupper($perm->name) }}
 											</td>
 											@foreach ($roles as $role)
 												<td class="text-center bootstrap-switch-mini">
 													{!! Form::checkbox(
-														'perm[]', $role->id . ":" . $perm->id, 
-														($role->permissions()->where('permission_id', $perm->id)->first()), [
-															'class' => 'form-control bootstrap-switch bootstrap-switch-mini',
+														'perm[]', $role->id . ":" . $perm->id, (
+															$role->permissions()
+																 ->where('permission_id', $perm->id)
+																 ->first()),
+														[
+															'class' => 'form-control bootstrap-switch ' . 
+																	   'bootstrap-switch-mini',
 															'data-on-label' => 'SI', 
 															'data-off-label' => 'NO'
 														]
