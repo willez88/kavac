@@ -52,7 +52,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Activo:</label>
+									<label class="col-12">Activo:</label>
 									<input type="checkbox" class="form-control bootstrap-switch" data-toggle="tooltip" 
 										   title="Indique si la unidad tributaria esta o no activa"
 										   data-on-label="SI" data-off-label="NO" 
