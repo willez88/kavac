@@ -101,7 +101,7 @@ class ProfessionController extends Controller
     public function update(Request $request, Profession $profession)
     {
         $this->validate($request, [
-            'name' => 'required|max:100|unique:profession,name,' . $profession->id,
+            'name' => 'required|max:100|unique:professions,name,' . $profession->id,
             'acronym' => 'max:10'
         ]);
  
