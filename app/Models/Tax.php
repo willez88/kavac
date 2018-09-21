@@ -48,6 +48,6 @@ class Tax extends Model
      */
     public function histories()
     {
-        return $this->hasMany('App\Models\HistoryTax');
+        return $this->hasMany(HistoryTax::class);
     }
 }

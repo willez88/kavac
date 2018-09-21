@@ -39,8 +39,8 @@ class Institution extends Model
     protected $fillable = [
     	'onapre_code', 'rif', 'acronym', 'name', 'business_name', 'start_operations_date', 'legal_base',
     	'legal_form', 'main_activity', 'mission', 'vision', 'legal_address', 'web', 'composition_assets',
-    	'postal_code', 'active', 'default', 'retention_agent', 'institution_sector_id', 'institution_type_id',
-    	'municipality_id', 'city_id', 'logo_id', 'banner_id'
+    	'postal_code', 'active', 'default', 'retention_agent', 'institution_sector_id', 
+        'institution_type_id', 'municipality_id', 'city_id', 'logo_id', 'banner_id'
     ];
 
     /**
@@ -51,7 +51,7 @@ class Institution extends Model
      */
     public function logo()
     {
-        return $this->belongsTo('App\Models\Image', 'logo_id');
+        return $this->belongsTo(Image::class, 'logo_id');
     }
 
     /**
@@ -62,6 +62,28 @@ class Institution extends Model
      */
     public function banner()
     {
-        return $this->belongsTo('App\Models\Image', 'banner_id');
+        return $this->belongsTo(Image::class, 'banner_id');
+    }
+
+    /**
+     * Método que obtiene el sector de la Institución
+     *
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return Objeto con el registro relacionado al modelo InstitutionSector
+     */
+    public function sector()
+    {
+        return $this->belongsTo(InstitutionSector::class);
+    }
+
+    /**
+     * Método que obtiene el tipo de la Institución
+     *
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return Objeto con el registro relacionado al modelo InstitutionType
+     */
+    public function type()
+    {
+        return $this->belongsTo(InstitutionType::class);
     }
 }

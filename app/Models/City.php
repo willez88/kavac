@@ -46,7 +46,7 @@ class City extends Model
      */
 	public function estate()
     {
-        return $this->belongsTo('App\Models\Estate', 'estate_id');
+        return $this->belongsTo(Estate::class);
     }
 
     /**

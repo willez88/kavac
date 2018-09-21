@@ -39,6 +39,17 @@ class InstitutionType extends Model
     protected $fillable = ['name', 'acronym'];
 
     /**
+     * Método que obtiene las instituciones asociadas a un tipo
+     *
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return Objeto con los registros relacionados al modelo InstitutionType
+     */
+    public function institutions()
+    {
+        return $this->hasMany(Institution::class);
+    }
+
+    /**
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)

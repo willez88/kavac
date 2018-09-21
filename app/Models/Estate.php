@@ -46,7 +46,7 @@ class Estate extends Model
      */
 	public function country()
     {
-        return $this->belongsTo('App\Models\Country', 'country_id');
+        return $this->belongsTo(Country::class);
     }
 
     /**
@@ -57,7 +57,7 @@ class Estate extends Model
      */
     public function municipalities()
     {
-    	return $this->hasMany('App\Models\Municipality');
+    	return $this->hasMany(Municipality::class);
     }
 
     /**
@@ -68,7 +68,7 @@ class Estate extends Model
      */
     public function cities()
     {
-        return $this->hasMany('App\Models\City');
+        return $this->hasMany(City::class);
     }
 
     /**
