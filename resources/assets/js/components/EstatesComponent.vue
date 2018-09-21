@@ -109,11 +109,8 @@
 			};
 			this.table_options.sortable = ['country.name', 'name', 'code'];
 			this.table_options.filterable = ['country.name', 'name', 'code'];
+
+			this.getCountries();
 		},
-		mounted() {
-			axios.get('/get-countries').then(response => {
-				this.countries = response.data;
-			});
-		}
 	};
 </script>

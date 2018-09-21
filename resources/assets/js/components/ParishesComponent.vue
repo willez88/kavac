@@ -114,8 +114,8 @@
 				errors: [],
 				records: [],
 				countries: [],
-				estates: [],
-				municipalities: [],
+				estates: ['0'],
+				municipalities: ['0'],
 				columns: ['municipality.name', 'name', 'code', 'id'],
 			}
 		},
@@ -128,37 +128,8 @@
 			};
 			this.table_options.sortable = ['municipality.name', 'name', 'code'];
 			this.table_options.filterable = ['municipality.name', 'name', 'code'];
-		},
-		mounted() {
-			axios.get('/get-countries').then(response => {
-				this.countries = response.data;
-			});
-		},
-		methods: {
-			/**
-			 * Obtiene los Estados del Pais seleccionado
-			 * 
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-			 */
-			getEstates() {
-				if (this.record.country_id) {
-					axios.get('/get-estates/' + this.record.country_id).then(response => {
-						this.estates = response.data;
-					});
-				}
-			},
-			/**
-			 * Obtiene los Municipios del Estado seleccionado
-			 * 
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-			 */
-			getMunicipalities() {
-				if (this.record.estate_id) {
-					axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
-						this.municipalities = response.data;
-					});
-				}
-			}
+
+			this.getCountries();
 		}
 	};
 </script>

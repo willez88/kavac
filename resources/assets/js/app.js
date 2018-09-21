@@ -347,6 +347,40 @@ Vue.mixin({
 		        time: 1500
 		    });
 		},
+		/**
+		 * Método que obtiene los países registrados
+		 * 
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 */
+		getCountries() {
+			axios.get('/get-countries').then(response => {
+				this.countries = response.data;
+			});
+		},
+		/**
+		 * Obtiene los Estados del Pais seleccionado
+		 * 
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 */
+		getEstates() {
+			if (this.record.country_id) {
+				axios.get('/get-estates/' + this.record.country_id).then(response => {
+					this.estates = response.data;
+				});
+			}
+		},
+		/**
+		 * Obtiene los Municipios del Estado seleccionado
+		 * 
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 */
+		getMunicipalities() {
+			if (this.record.estate_id) {
+				axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
+					this.municipalities = response.data;
+				});
+			}
+		}
 		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
 			var target_url = (typeof(target_url) !== "undefined")?target_url:false;

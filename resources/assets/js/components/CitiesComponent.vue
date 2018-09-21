@@ -96,7 +96,7 @@
 				errors: [],
 				records: [],
 				countries: [],
-				estates: [],
+				estates: ['0'],
 				columns: ['estate.name', 'name', 'id'],
 			}
 		},
@@ -108,25 +108,8 @@
 			};
 			this.table_options.sortable = ['estate.name', 'name'];
 			this.table_options.filterable = ['estate.name', 'name'];
+
+			this.getCountries();
 		},
-		mounted() {
-			axios.get('/get-countries').then(response => {
-				this.countries = response.data;
-			});
-		},
-		methods: {
-			/**
-			 * Obtiene los Estados del Pais seleccionado
-			 * 
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-			 */
-			getEstates() {
-				if (this.record.country_id) {
-					axios.get('/get-estates/' + this.record.country_id).then(response => {
-						this.estates = response.data;
-					});
-				}
-			}
-		}
 	};
 </script>
