@@ -24,9 +24,10 @@
 					<institution-sectors></institution-sectors>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de unidades o departamentos" data-toggle="tooltip">
+						   href="#" title="Registros de unidades, departamentos o dependencias" 
+						   data-toggle="tooltip">
 							<i class="icofont icofont-architecture-alt ico-3x"></i>
-							<span>Unidades / Departamentos</span>
+							<span>Unidades / Dependencias</span>
 						</a>
 					</div>
 					{{-- <div class="col-md-2 text-center">
