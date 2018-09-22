@@ -240,6 +240,11 @@ Vue.mixin({
 		initUpdate(index, event) {
 			this.errors = [];
 			this.record = this.records[index - 1];
+
+			/*if (typeof(this.record.estate) !== "undefined") {
+				this.record.country_id = this.record.estate.country_id;
+			}*/
+
 			event.preventDefault();
 		},
 		/**

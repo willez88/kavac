@@ -34522,6 +34522,11 @@ Vue.mixin({
 		initUpdate: function initUpdate(index, event) {
 			this.errors = [];
 			this.record = this.records[index - 1];
+
+			if (typeof this.record.estate !== "undefined") {
+				this.record.country_id = this.record.estate.country_id;
+			}
+
 			event.preventDefault();
 		},
 
@@ -34656,6 +34661,9 @@ Vue.mixin({
 			if (this.record.country_id) {
 				axios.get('/get-estates/' + this.record.country_id).then(function (response) {
 					_this6.estates = response.data;
+					if (typeof _this6.record.estate !== "undefined") {
+						_this6.record.estate_id = _this6.record.estate.id;
+					}
 				});
 			}
 		},
