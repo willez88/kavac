@@ -86,4 +86,14 @@ class Institution extends Model
     {
         return $this->belongsTo(InstitutionType::class);
     }
+
+    /**
+     * Institution has many Departments.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function departments()
+    {
+        return $this->hasMany(Department::class);
+    }
 }

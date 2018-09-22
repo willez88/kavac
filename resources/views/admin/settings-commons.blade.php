@@ -22,14 +22,7 @@
 					<institution-types></institution-types>
 					{{-- Configuración de sectores de instituciones --}}
 					<institution-sectors></institution-sectors>
-					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de unidades, departamentos o dependencias" 
-						   data-toggle="tooltip">
-							<i class="icofont icofont-architecture-alt ico-3x"></i>
-							<span>Unidades / Dependencias</span>
-						</a>
-					</div>
+					<departments></departments>
 					{{-- <div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de clasificador de bienes" 

@@ -130,8 +130,14 @@ Route::group(['middleware' => 'auth'], function() {
     /** Rutas para la gestión de Unidades Tributarias */
     Route::resource('tax-units', 'TaxUnitController');
 
+    /** Rutas para la gestión de unidades, departamentos o dependencias */
+    Route::resource('departments', 'DepartmentController');
+
     /** Ruta para obtener datos de selecs dependientes dinámicamente */
     Route::get('get-select-data/{parent_id}/{model}/{module_name}', 'CommonController@getSelectData');
+
+    /** Ruta para obtener datos de los departamentos */
+    Route::get('/get-departments/{institution_id}', 'DepartmentController@getDepartments');
 });
 
 /**
@@ -190,9 +196,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
             'except' => ['create', 'edit', 'show', 'update', 'destroy']
         ]);
         /** Ruta para la gestión de información sobre la(s) institución(es) */
-        Route::resource('institution', 'InstitutionController', [
-            'except', 'index', 'create', 'show'
-        ]);
+        Route::resource('institutions', 'InstitutionController');
 
         /** Rutas para gestionar respaldos de la aplicación */
         Route::get('backup', 'BackupController@index')->name('backup.index');
@@ -200,6 +204,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
         Route::get('backup/download/{file_name}', 'BackupController@download')
              ->name('backup.download');
         Route::get('backup/delete/{file_name}', 'BackupController@delete')->name('backup.delete');
+
+        /** Obtiene las instituciones registradas */
+        Route::get('get-institutions', 'InstitutionController@getInstitutions');
     });
     
     /**

@@ -105,6 +105,8 @@ Vue.component('taxes', require('./components/TaxesComponent.vue'));
  */
 Vue.component('tax-units', require('./components/TaxUnitsComponent.vue'));
 
+Vue.component('departments', require('./components/DepartmentsComponent.vue'));
+
 /** Incorpora requerimientos de componentes de los módulos de la aplicación */
 require('./modules');
 

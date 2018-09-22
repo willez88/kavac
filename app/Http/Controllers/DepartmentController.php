@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+    /** @var array Lista de elementos a mostrar */
+    protected $data = [];
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['records' => Department::all()], 200);
     }
 
     /**
@@ -81,5 +84,17 @@ class DepartmentController extends Controller
     public function destroy(Department $department)
     {
         //
+    }
+
+    public function getDepartments($institution_id)
+    {
+        foreach (Department::where('institution_id', $institution_id)->get() as $department) {
+            $this->data[] = [
+                'id' => $department->id,
+                'text' => $department->name
+            ];
+        }
+
+        return response()->json($this->data);
     }
 }

@@ -17,22 +17,29 @@ class CreateDepartmentsTable extends Migration
             Schema::create('departments', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->comment('Nombre de la unidad, departamento o dependencia');
-                $table->string('acronym', 4)
+                $table->string('acronym', 4)->nullable()
                       ->comment('Siglas de la unidad, departamento o dependencia');
-                $table->integer('hierarchy')
+                $table->integer('hierarchy')->default(0)
                       ->comment('Jerarquía de la unidad, departamento o dependencia');
-                $table->boolean('requisition')->default(true)
-                      ->comment('Establece si puede generar requisiones de compras');
+                $table->boolean('issue_requests')->default(true)
+                      ->comment('Establece si puede emitir solicitudes de almacén');
                 $table->boolean('active')->default(true)
                       ->comment('Indica si se encuentra activa');
                 $table->boolean('administrative')->default(false)
                       ->comment('Es una unidad, departamento o dependencia administrativa');
+                $table->integer('parent_id')->unsigned()->nullable()
+                      ->comment('Unidad, departamento o dependencia a la cual esta subordinado');
                 $table->integer('institution_id')->unsigned()
                       ->comment('Identificador del Pais al que pertenece el Estado');
                 $table->foreign('institution_id')->references('id')
                       ->on('institutions')->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+
+            Schema::table('departments', function (Blueprint $table) {
+                $table->foreign('parent_id')->references('id')
+                      ->on('departments')->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }
@@ -44,6 +51,9 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
+        Schema::table('departments', function(Blueprint $table) {
+            $table->dropForeign('parent_id');
+        });
         Schema::dropIfExists('departments');
     }
 }

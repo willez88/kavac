@@ -10,6 +10,9 @@ use App\Models\Setting;
 
 class InstitutionController extends Controller
 {
+    /** @var array Lista de elementos a mostrar */
+    protected $data = [];
+    
     /**
      * Muesta todos los registros de las Instituciones
      *
@@ -18,7 +21,7 @@ class InstitutionController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['records' => Institution::all()], 200);
     }
 
     /**
@@ -154,5 +157,17 @@ class InstitutionController extends Controller
     public function destroy(Institution $institution)
     {
         //
+    }
+
+    public function getInstitutions()
+    {
+        foreach (Institution::all() as $institution) {
+            $this->data[] = [
+                'id' => $institution->id,
+                'text' => $institution->name
+            ];
+        }
+
+        return response()->json($this->data);
     }
 }
