@@ -70903,7 +70903,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			$(this.$el).val(_value).trigger('change');
 		},
 		options: function options(_options) {
-			$(this.$el).empty().trigger('change').select2({ data: _options });
+			try {
+				$(this.$el).empty().trigger('change').select2({ data: _options });
+			} catch (err) {}
 		}
 	},
 	destroyed: function destroyed() {
@@ -76992,7 +76994,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -77115,6 +77116,7 @@ var render = function() {
                             title: "Institución a la cual pertenece",
                             "data-toggle": "tooltip"
                           },
+                          on: { input: _vm.getDepartments },
                           model: {
                             value: _vm.record.institution_id,
                             callback: function($$v) {

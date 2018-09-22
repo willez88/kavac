@@ -29,10 +29,9 @@
 								<div class="form-group is-required">
 									<label>Institución:</label>
 									<select2 :options="institutions" v-model="record.institution_id" 
-											 title="Institución a la cual pertenece" 
+											 title="Institución a la cual pertenece" @input="getDepartments"
 											 data-toggle="tooltip"></select2>
 									<input type="hidden" v-model="record.id">
-									<!--@input="getDepartments"-->
 			                    </div>
 							</div>
 							<div class="col-md-6">
@@ -134,7 +133,7 @@
 			return {
 				record: {
 					id: '',
-					institution_id: '',
+					institution_id: '0',
 					department_id: '',
 					acronym: '',
 					name: '',

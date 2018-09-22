@@ -29,7 +29,10 @@
 				$(this.$el).val(value).trigger('change');
 			},
 			options: function(options) {
-				$(this.$el).empty().trigger('change').select2({data: options});
+				try {
+					$(this.$el).empty().trigger('change').select2({data: options});
+				}
+				catch(err) {}
 			}
 		},
 		destroyed: function() {

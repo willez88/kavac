@@ -9,7 +9,7 @@ class DepartmentController extends Controller
 {
     /** @var array Lista de elementos a mostrar */
     protected $data = [];
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +17,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => Department::all()], 200);
+        //return response()->json(['records' => Department::all()], 200);
     }
 
     /**
