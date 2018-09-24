@@ -28,7 +28,7 @@ class CreateAssetStatusesTable extends Migration
             Schema::create('asset_statuses', function (Blueprint $table) {
                 
                 $table->increments('id')->comment('Identificador único del registro');
-                $table->string('name',100)->comment('Nombre de la forma de adquisición');
+                $table->string('name',100)->comment('Nombre del Estatus de uso');
 
                 $table->timestamps();
             });

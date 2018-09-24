@@ -43,8 +43,16 @@
         <li>
             <a href="#">Reportes</a>
             <ul class="submenu">
-                <li><a href="#">Reporte 1</a></li>
-                <li><a href="#">Reporte 2</a></li>
+                <li title="Reportes de bienes institucionales" data-toggle="tooltip"
+            data-placement="right"
+            class='{!! ($current_url=='asset.report.index')?'active':'' !!}'>
+                    <a href="{{ route('asset.report.index',1) }}">General</a>
+                </li>
+                <li title="Reportes de bienes institucionales" data-toggle="tooltip"
+            data-placement="right"
+            class='{!! ($current_url=='asset.report.index')?'active':'' !!}'>
+                    <a href="{{ route('asset.report.index',2) }}">Por Clasificación</a>
+                </li>
             </ul>
         </li>
     </ul>

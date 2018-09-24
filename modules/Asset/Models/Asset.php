@@ -192,4 +192,84 @@ class Asset extends Model
     }
 
 
+    public function scopeNameClasification($query, $type, $category, $subcategory, $specific){
+        if($type != ""){
+            if ($category != "") {
+                if ($subcategory != "") {
+                    if ($specific != "") {
+                        return $query->where('type_id',$type)
+                                     ->where('category_id',$category)
+                                     ->where('subcategory_id',$subcategory)
+                                     ->where('specific_category_id',$specific);
+                    }
+                    return $query->where('type_id',$type)
+                             ->where('category_id',$category)
+                              ->where('subcategory_id',$subcategory);
+                }
+                return $query->where('type_id',$type)
+                             ->where('category_id',$category);
+            }
+            return $query->where('type_id',$type);
+        }
+    }
+
+    public function scopeRequest($query, $model, $marca, $serial){
+        if(trim($serial) != ""){
+            if(trim($marca) != ""){
+                if(trim($model) != ""){
+                    $query->where('serial','like',"%$serial%")
+                          ->where('marca','like',"%$marca%")
+                          ->where('model','like',"%$model%");   
+                }
+                $query->where('serial','like',"%$serial%")
+                      ->where('marca','like',"%$marca%");
+            }
+            if(trim($model) != ""){
+                    $query->where('serial','like',"%$serial%")
+                          ->where('marca','like',"%$marca%")
+                          ->where('model','like',"%$model%");   
+            }
+            $query->where('serial','like',"%$serial%");
+        }
+        else if(trim($marca) != ""){
+            if(trim($model) != ""){
+                if(trim($serial) != ""){
+                    $query->where('marca','like',"%$marca%")
+                          ->where('model','like',"%$model%")
+                          ->where('serial','like',"%serial%");
+
+                }
+                $query->where('marca','like',"%$marca%")
+                      ->where('model','like',"%$model%");
+            }
+            if(trim($serial) != ""){
+                    $query->where('marca','like',"%$marca%")
+                          ->where('model','like',"%$model%")
+                          ->where('serial','like',"%serial%");
+
+            }
+            $query->where('marca','like',"%$marca%");
+        }
+        else if(trim($model) != ""){
+            if(trim($serial) != ""){
+                if(trim($marca) != ""){
+                    $query->where('model','like',"%$model%")
+                          ->where('serial','like',"%serial%")
+                          ->where('marca','like',"%$marca%");
+
+                }
+                $query->where('model','like',"%$model%")
+                      ->where('serial','like',"%$serial%");
+            }
+            if(trim($marca) != ""){
+                    $query->where('model','like',"%$model%")
+                          ->where('serial','like',"%serial%")
+                          ->where('marca','like',"%$marca%");
+
+            }
+            $query->where('model','like',"%$model%");
+        }
+    }
+
+
 }

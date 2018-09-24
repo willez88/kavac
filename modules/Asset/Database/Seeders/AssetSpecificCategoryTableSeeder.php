@@ -8,21 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
 
-/**
- * @class AssetSpecificCategoryTableSeeder
- * @brief Inicializa Categorias Especificas de un Bien
- * 
- * 
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
- */
-
-class AssetSpecificCategoryTableSeeder extends Seeder
+class AssetSpecificcategoryTableSeeder extends Seeder
 {
     /**
-     * Método que registra los valores iniciales de Categorias Generales de un Bien
+     * Run the database seeds.
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
      * @return void
      */
     public function run()
