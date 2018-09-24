@@ -10,6 +10,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import {ServerTable, ClientTable, Event} from 'vue-tables-2';
+
+Vue.use(ClientTable);
+
 /**
  * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
  *
@@ -111,22 +115,29 @@ require('./modules');
  * @param  {object} methods Métodos generales a implementar en CRUDS
  */
 Vue.mixin({
-	/*data() {
+	data() {
 		return {
-			dataSelect: {
-				opt_one: [],
-				opt_two: [],
-				opt_three: [],
-				opt_four: [],
-				opt_five: [],
-				opt_six: [],
-				opt_seven: [],
-				opt_eight: [],
-				opt_nine: [],
-				opt_ten: []
-			}
+			/**
+			 * Opciones generales a implementar en tablas
+			 * @type {JSON}
+			 */
+			table_options: {
+				pagination: { edge: true },
+				texts: {
+                    filter: "Buscar:",
+                    filterBy: 'Buscar por {column}',
+                    //count:'Página {page}',
+                    count: ' ',
+                    first: 'PRIMERO',
+                    last: 'ÚLTIMO',
+                    limit: 'Registros',
+                    //page: 'Página:',
+                    noResults: 'No existen registros',
+
+				},
+			},
 		}
-	},*/
+	},
 	props: ['route_list', 'route_create', 'route_edit', 'route_update', 'route_delete'],
 	methods: {
 		/**
@@ -136,6 +147,34 @@ Vue.mixin({
 		 */
 		reset() {
 			this.record = [];
+		},
+		/**
+		 * Inicializa los registros base del formulario
+		 *
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 */
+		initRecords(url, modal_id) {
+			this.errors = [];
+			this.reset();
+			var records = [];
+			axios.get(url).then(response => {
+				records = response.data.records;
+				if ($("#" + modal_id).length) {
+					$("#" + modal_id).modal('show');
+				}
+			}).catch(error => {
+				if (error.response.status == 403) {
+					this.showMessage(
+						'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+					);
+				}
+				else {
+					console.log(error.response);
+				}
+			});
+
+			this.records = records;
+			this.readRecords(url);
 		},
 		/**
 		 * Método que obtiene los registros a mostrar
@@ -157,15 +196,7 @@ Vue.mixin({
 		 */
 		addRecord(modal_id, url, event) {
 			event.preventDefault();
-			this.errors = [];
-			this.reset();
-
-			if ($("#" + modal_id).length) {
-				$("#" + modal_id).modal('show');
-			}
-			
-			this.initRecords();
-			this.readRecords(url);
+			this.initRecords(url, modal_id);
 		},
 		/**
 		 * Método que permite crear o actualizar un registro
@@ -208,7 +239,12 @@ Vue.mixin({
 		 */
 		initUpdate(index, event) {
 			this.errors = [];
-			this.record = this.records[index];
+			this.record = this.records[index - 1];
+
+			/*if (typeof(this.record.estate) !== "undefined") {
+				this.record.country_id = this.record.estate.country_id;
+			}*/
+
 			event.preventDefault();
 		},
 		/**
@@ -246,15 +282,36 @@ Vue.mixin({
 		 * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
 		 */
     	deleteRecord(index, url) {
-			let conf = confirm("Esta seguro de eliminar este registro?");
-			
-			if (conf === true) {
-				url = (url)?url:this.route_delete;
-				axios.delete('/' + url + '/' + this.records[index].id).then(response => {
-					this.records.splice(index, 1);
-					this.showMessage('destroy');
-				}).catch(error => {});
-			}
+    		var url = (url)?url:this.route_delete;
+    		var records = this.records;
+    		var confirmated = false;
+    		var index = index - 1;
+
+    		bootbox.confirm({
+    			title: "Eliminar registro?",
+    			message: "Esta seguro de eliminar este registro?",
+    			buttons: {
+    				cancel: {
+    					label: '<i class="fa fa-times"></i> Cancelar'
+    				},
+    				confirm: {
+    					label: '<i class="fa fa-check"></i> Confirmar'
+    				}
+    			},
+    			callback: function (result) {
+    				if (result) {
+    					confirmated = true;			
+						axios.delete('/' + url + '/' + records[index].id).then(response => {
+							records.splice(index, 1);
+						}).catch(error => {});
+    				}
+    			}
+    		});
+
+    		if (confirmated) {
+    			this.records = records;
+    			this.showMessage('destroy');
+    		}
 		},
 		/**
 		 * Método que muestra un mensaje al usuario sobre el resultado de una acción
@@ -267,7 +324,7 @@ Vue.mixin({
 		 */
 		showMessage(type, msg_title, msg_class, msg_icon, custom_text) {
 			msg_title = (!msg_title)?'Éxito':msg_title;
-		    msg_class = (!msg_class)?'growl-success':'glowl-'+msg_class;
+		    msg_class = (!msg_class)?'growl-success':'growl-'+msg_class;
 		    msg_icon = (!msg_icon)?'screen-ok':msg_icon;
 		    custom_text = (typeof(custom_text)!=="undefined")?custom_text:'';
 
@@ -292,10 +349,44 @@ Vue.mixin({
 		        class_name: msg_class,
 		        image: "/images/" + msg_icon + ".png",
 		        sticky: false,
-		        time: ''
+		        time: 1500
 		    });
-		}/*,
-		loadRelationalSelect(parent_id, target_url) {
+		},
+		/**
+		 * Método que obtiene los países registrados
+		 * 
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 */
+		getCountries() {
+			axios.get('/get-countries').then(response => {
+				this.countries = response.data;
+			});
+		},
+		/**
+		 * Obtiene los Estados del Pais seleccionado
+		 * 
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 */
+		getEstates() {
+			if (this.record.country_id) {
+				axios.get('/get-estates/' + this.record.country_id).then(response => {
+					this.estates = response.data;
+				});
+			}
+		},
+		/**
+		 * Obtiene los Municipios del Estado seleccionado
+		 * 
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 */
+		getMunicipalities() {
+			if (this.record.estate_id) {
+				axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
+					this.municipalities = response.data;
+				});
+			}
+		}
+		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
 			var target_url = (typeof(target_url) !== "undefined")?target_url:false;
 

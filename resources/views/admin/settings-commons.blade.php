@@ -24,19 +24,20 @@
 					<institution-sectors></institution-sectors>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de unidades administrativas o departamentos" data-toggle="tooltip">
+						   href="#" title="Registros de unidades, departamentos o dependencias" 
+						   data-toggle="tooltip">
 							<i class="icofont icofont-architecture-alt ico-3x"></i>
-							<span>Unidades<br>Administrativas</span>
+							<span>Unidades / Dependencias</span>
 						</a>
 					</div>
-					<div class="col-md-2 text-center">
+					{{-- <div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de clasificador de bienes" 
 						   data-toggle="tooltip">
 							<i class="icofont icofont-read-book ico-3x"></i>
 							<span>Clasificador<br>Bienes</span>
 						</a>
-					</div>
+					</div> --}}
 					{{-- Configuración de Países --}}
 					<countries></countries>
 					{{-- Configuración de Estados --}}

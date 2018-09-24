@@ -3,10 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tax;
+use App\Models\HistoryTax;
 use Illuminate\Http\Request;
 
 class TaxController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        /*$this->middleware('permission:tax.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:tax.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:tax.delete', ['only' => 'destroy']);
+        $this->middleware('permission:tax.list', ['only' => 'index']);*/
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,10 +61,14 @@ class TaxController extends Controller
         $tax = Tax::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'operation_date' => $request->input('operation_date'),
-            'percentage' => $request->input('percentage'),
             'affect_tax' => ($request->input('affect_tax')!==null),
             'active' => ($request->input('active')!==null),
+        ]);
+
+        HistoryTax::create([
+            'operation_date' => $request->input('operation_date'),
+            'percentage' => $request->input('percentage'),
+            'tax_id' => $tax->id
         ]);
 
         return response()->json(['record' => $tax, 'message' => 'Success'], 200);

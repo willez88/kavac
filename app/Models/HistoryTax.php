@@ -48,6 +48,6 @@ class HistoryTax extends Model
      */
     public function tax()
     {
-        return $this->belongsTo('App\Models\Tax', 'tax_id');
+        return $this->belongsTo(Tax::class);
     }
 }

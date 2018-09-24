@@ -22,13 +22,15 @@ class CreatePayrollPositionTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('payroll_position_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100)->comment('Nombre del tipo de cargo');
-            $table->string('description', 200)->comment('Descripción del tipo de cargo');
-            $table->timestamps();
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-        });
+        if (!Schema::hasTable('payroll_position_types')) {
+            Schema::create('payroll_position_types', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name', 100)->comment('Nombre del tipo de cargo');
+                $table->string('description', 200)->comment('Descripción del tipo de cargo');
+                $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+        }
     }
 
     /**

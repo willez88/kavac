@@ -44,32 +44,22 @@
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<th>Acrónimo</th>
-									<th>Nombre</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<td>{{ rec.acronym }}</td>
-									<td>{{ rec.name }}</td>
-									<td class="text-center" width="10%">
-										<button @click="initUpdate(index, $event)" 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button @click="deleteRecord(index, 'institution-types')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+	                    <hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'institution-types')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
@@ -96,11 +86,18 @@
 					name: ''
 				},
 				errors: [],
-				records: []
+				records: [],
+				columns: ['acronym', 'name', 'id'],
 			}
 		},
-		mounted() {
-			
+		created() {
+			this.table_options.headings = {
+				'acronym': 'Acrónimo',
+				'name': 'Nombre',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['name', 'acronym'];
+			this.table_options.filterable = ['name', 'acronym'];
 		},
-	}
+	};
 </script>

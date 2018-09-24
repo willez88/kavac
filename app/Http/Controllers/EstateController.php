@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class EstateController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:estate.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:estate.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:estate.delete', ['only' => 'destroy']);
+        $this->middleware('permission:estate.list', ['only' => 'index']);
+    }
+
+    /**
      * Muesta todos los registros de los Estados
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>

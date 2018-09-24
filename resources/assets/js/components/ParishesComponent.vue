@@ -66,36 +66,22 @@
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<!--<th>Pais</th>-->
-									<th>Municipio</th>
-									<th>Parroquia</th>
-									<th>Código</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<!--<td>{{ rec.estate.country.name }}</td>-->
-									<td><!-- {{ rec.municipality.name }} --></td>
-									<td>{{ rec.name }}</td>
-									<td class="text-center">{{ rec.code }}</td>
-									<td class="text-center" width="10%">
-										<button @click="initUpdate(index, $event)" 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button @click="deleteRecord(index, 'parishes')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+	                	<hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'parishes')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
@@ -128,48 +114,22 @@
 				errors: [],
 				records: [],
 				countries: [],
-				estates: [],
-				municipalities: []
+				estates: ['0'],
+				municipalities: ['0'],
+				columns: ['municipality.name', 'name', 'code', 'id'],
 			}
 		},
-		mounted() {
+		created() {
+			this.table_options.headings = {
+				'municipality.name': 'Estado',
+				'name': 'Parroquia',
+				'code': 'Código',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['municipality.name', 'name', 'code'];
+			this.table_options.filterable = ['municipality.name', 'name', 'code'];
 
-		},
-		methods: {
-			/**
-			 * Inicializa los registros base del formulario
-			 *
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-			 */
-			initRecords() {
-				axios.get('/get-countries').then(response => {
-					this.countries = response.data;
-				});
-			},
-			/**
-			 * Obtiene los Estados del Pais seleccionado
-			 * 
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-			 */
-			getEstates() {
-				if (this.record.country_id) {
-					axios.get('/get-estates/' + this.record.country_id).then(response => {
-						this.estates = response.data;
-					});
-				}
-			},
-			/**
-			 * Obtiene los Municipios del Estado seleccionado
-			 * 
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-			 */
-			getMunicipalities() {
-				if (this.record.estate_id) {
-					axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
-						this.municipalities = response.data;
-					});
-				}
-			}
+			this.getCountries();
 		}
-	}
+	};
 </script>

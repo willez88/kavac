@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class MunicipalityController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:municipality.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:municipality.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:municipality.delete', ['only' => 'destroy']);
+        $this->middleware('permission:municipality.list', ['only' => 'index']);
+    }
+
+    /**
      * Muesta todos los registros de los Municipios
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>

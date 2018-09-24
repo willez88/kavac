@@ -23,6 +23,8 @@ try {
     require('jquery.complexify');
     /** Required for select list element */
     require('select2');
+    /** Requerido para el uso del componente vue-tables-2 */
+    require('vue-tables-2');
 } catch (e) {}
 
 /**

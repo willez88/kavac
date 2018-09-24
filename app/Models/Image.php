@@ -39,13 +39,24 @@ class Image extends Model
     protected $fillable = ['file', 'url', 'max_width', 'max_height', 'min_width', 'min_height'];
 
     /**
-     * Método que obtiene las instituciones de las imágenes
+     * Método que obtiene los logos de las instituciones
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
      * @return Objeto con los registros relacionados al modelo Institution
      */
-    public function institutions()
+    public function institution_logos()
     {
-        return $this->hasMany('App\Models\Institution');
+        return $this->hasMany(Institution::class, 'logo_id');
+    }
+
+    /**
+     * Método que obtiene los banners de las instituciones
+     *
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return Objeto con los registros relacionados al modelo Institution
+     */
+    public function institution_banners()
+    {
+        return $this->hasMany(Institution::class, 'banner_id');
     }
 }

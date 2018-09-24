@@ -50,34 +50,22 @@
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<!--<th>Pais</th>-->
-									<th>Estado</th>
-									<th>Ciudad</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<!--<td>{{ rec.estate.country.name }}</td>-->
-									<td>{{ rec.estate.name }}</td>
-									<td>{{ rec.name }}</td>
-									<td class="text-center" width="10%">
-										<button @click="initUpdate(index, $event)" 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button @click="deleteRecord(index, 'cities')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+	                	<hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'cities')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
@@ -108,35 +96,20 @@
 				errors: [],
 				records: [],
 				countries: [],
-				estates: []
+				estates: ['0'],
+				columns: ['estate.name', 'name', 'id'],
 			}
 		},
-		mounted() {
-			
+		created() {
+			this.table_options.headings = {
+				'estate.name': 'Estado',
+				'name': 'Ciudad',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['estate.name', 'name'];
+			this.table_options.filterable = ['estate.name', 'name'];
+
+			this.getCountries();
 		},
-		methods: {
-			/**
-			 * Inicializa los registros base del formulario
-			 *
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-			 */
-			initRecords() {
-				axios.get('/get-countries').then(response => {
-					this.countries = response.data;
-				});
-			},
-			/**
-			 * Obtiene los Estados del Pais seleccionado
-			 * 
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-			 */
-			getEstates() {
-				if (this.record.country_id) {
-					axios.get('/get-estates/' + this.record.country_id).then(response => {
-						this.estates = response.data;
-					});
-				}
-			}
-		}
-	}
+	};
 </script>

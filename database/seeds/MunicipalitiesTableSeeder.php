@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use Illuminate\Database\Eloquent\Model;
+use Ultraware\Roles\Models\Role;
+use Ultraware\Roles\Models\Permission;
 use App\Models\Estate;
 use App\Models\Municipality;
 
@@ -14,6 +17,8 @@ class MunicipalitiesTableSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
+
         $estates_municipalities = [
         	"01" => [
         		"0101" => "Libertador"
@@ -410,6 +415,53 @@ class MunicipalitiesTableSeeder extends Seeder
 			        );
         		}
         	}
+        }
+
+        $adminRole = Role::where('slug', 'admin')->first();
+
+        /**
+         * Permisos disponibles para la gestión de municipios
+         */
+
+        $permissions = [
+            [
+                'name' => 'Crear Municipios', 'slug' => 'municipality.create',
+                'description' => 'Acceso al registro de municipios', 
+                'model' => 'App\Models\Municipality', 'model_prefix' => '0general',
+                'slug_alt' => 'municipio.crear', 'short_description' => 'agregar municipio'
+            ],
+            [
+                'name' => 'Editar Municipios', 'slug' => 'municipality.edit',
+                'description' => 'Acceso para editar municipios', 
+                'model' => 'App\Models\Municipality', 'model_prefix' => '0general',
+                'slug_alt' => 'municipio.editar', 'short_description' => 'editar municipio'
+            ],
+            [
+                'name' => 'Eliminar Municipios', 'slug' => 'municipality.delete',
+                'description' => 'Acceso para eliminar municipios', 
+                'model' => 'App\Models\Municipality', 'model_prefix' => '0general',
+                'slug_alt' => 'municipio.eliminar', 'short_description' => 'eliminar municipio'
+            ],
+            [
+                'name' => 'Ver Municipios', 'slug' => 'municipality.list',
+                'description' => 'Acceso para ver municipios', 
+                'model' => 'App\Models\Municipality', 'model_prefix' => '0general',
+                'slug_alt' => 'municipio.ver', 'short_description' => 'ver municipios'
+            ],
+        ];
+
+        foreach ($permissions as $permission) {
+            $per = Permission::updateOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'], 'description' => $permission['description'],
+                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                ]
+            );
+            if ($adminRole) {
+                $adminRole->attachPermission($per);
+            }
         }
     }
 }

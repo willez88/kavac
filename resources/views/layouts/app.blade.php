@@ -21,6 +21,10 @@
         {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
         {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css') !!}
 
+        <script>
+            window.access = true;
+        </script>
+
         {{-- Sección para estilos extras dispuestos por las plantillas según requerimientos particulares --}}
         @yield('extra-css')
     </head>

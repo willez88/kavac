@@ -53,40 +53,22 @@
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<th>Nombre</th>
-									<th>Descripción</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<td>
-										<span class="badge" 
-											  v-bind:style="{ background: rec.color, border: rec.color, color: '#fff' }">
-											{{ rec.name }}
-										</span>
-									</td>
-									<td>{{ rec.description }}</td>
-									<td class="text-center" width="10%">
-										<button @click="initUpdate(index, $event)" 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" 
-												type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button @click="deleteRecord(index, 'document-status')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" 
-												title="Eliminar registro" data-toggle="tooltip" 
-												type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+	                	<hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'document-status')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
@@ -118,11 +100,18 @@
 				/** @type {Array} Inicialización de errores a mostrar */
 				errors: [],
 				/** @type {Array} Inicialización de atributo que cargara información registrada */
-				records: []
+				records: [],
+				columns: ['name', 'description', 'id'],
 			}
 		},
-		mounted() {
-			
+		created() {
+			this.table_options.headings = {
+				name: 'Nombre',
+				description: 'Descripción',
+				id: 'Acción'
+			};
+			this.table_options.sortable = ['name', 'description'];
+			this.table_options.filterable = ['name', 'description'];
 		}
-	}
+	};
 </script>

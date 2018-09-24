@@ -46,7 +46,7 @@ class Municipality extends Model
      */
 	public function estate()
     {
-        return $this->belongsTo('App\Models\Estate', 'estate_id');
+        return $this->belongsTo(Estate::class);
     }
 
     /**
@@ -57,7 +57,7 @@ class Municipality extends Model
      */
     public function parish()
     {
-    	return $this->hasMany('App\Models\Parish');
+    	return $this->hasMany(Parish::class);
     }
 
     /**

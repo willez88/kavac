@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use Illuminate\Database\Eloquent\Model;
+use Ultraware\Roles\Models\Role;
+use Ultraware\Roles\Models\Permission;
 use App\Models\DocumentStatus;
 
 class DocumentStatusTableSeeder extends Seeder
@@ -13,6 +16,8 @@ class DocumentStatusTableSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
+
         $doc_status = [
         	[
         		'name' => 'Aprobado(a)',
@@ -47,6 +52,53 @@ class DocumentStatusTableSeeder extends Seeder
         		['name' => $doc['name']],
         		['description' => $doc['description'], 'color' => $doc['color']]
         	);
+        }
+
+        $adminRole = Role::where('slug', 'admin')->first();
+        
+        /**
+         * Permisos disponibles para la gestión de estatus de documentos
+         */
+
+        $permissions = [
+            [
+                'name' => 'Crear Estatus de Documento', 'slug' => 'document.status.create',
+                'description' => 'Acceso al registro de estatus de documentos', 
+                'model' => 'App\Models\DocumentStatus', 'model_prefix' => '0general',
+                'slug_alt' => 'estatus.documentos.crear', 'short_description' => 'agregar estatus de documentos'
+            ],
+            [
+                'name' => 'Editar Estatus de Documento', 'slug' => 'document.status.edit',
+                'description' => 'Acceso para editar estatus de documentos', 
+                'model' => 'App\Models\DocumentStatus', 'model_prefix' => '0general',
+                'slug_alt' => 'estatus.documentos.editar', 'short_description' => 'editar estatus de documentos'
+            ],
+            [
+                'name' => 'Eliminar Estatus de Documento', 'slug' => 'document.status.delete',
+                'description' => 'Acceso para eliminar estatus de documentos', 
+                'model' => 'App\Models\DocumentStatus', 'model_prefix' => '0general',
+                'slug_alt' => 'estatus.documentos.eliminar', 'short_description' => 'eliminar estatus de documentos'
+            ],
+            [
+                'name' => 'Ver Estatus de Documento', 'slug' => 'document.status.list',
+                'description' => 'Acceso para ver estatus de documentos', 
+                'model' => 'App\Models\DocumentStatus', 'model_prefix' => '0general',
+                'slug_alt' => 'estatus.documentos.ver', 'short_description' => 'ver estatus de documentos'
+            ],
+        ];
+
+        foreach ($permissions as $permission) {
+            $per = Permission::updateOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'], 'description' => $permission['description'],
+                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                ]
+            );
+            if ($adminRole) {
+                $adminRole->attachPermission($per);
+            }
         }
     }
 }

@@ -46,7 +46,7 @@ class Country extends Model
      */
     public function estates()
     {
-    	return $this->hasMany('App\Models\Estate');
+    	return $this->hasMany(Estate::class);
     }
 
     /**

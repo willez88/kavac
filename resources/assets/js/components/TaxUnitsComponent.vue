@@ -52,7 +52,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Activo:</label>
+									<label class="col-12">Activo:</label>
 									<input type="checkbox" class="form-control bootstrap-switch" data-toggle="tooltip" 
 										   title="Indique si la unidad tributaria esta o no activa"
 										   data-on-label="SI" data-off-label="NO" 
@@ -62,38 +62,22 @@
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<th>Vigencia</th>
-									<th>Valor</th>
-									<th>Activo</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<td>
-										{{ rec.start_date }} - 
-										{{ (rec.end_date)?rec.end_date:'Actual' }}
-									</td>
-									<td>{{ rec.value }}</td>
-									<td v-if="rec.active">Activo</td>
-									<td v-else>Inactivo</td>
-									<td class="text-center" width="10%">
-										<button @click="initUpdate(index, $event)" 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button @click="deleteRecord(index, 'taxes')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+	                	<hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'tax-units')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
@@ -124,10 +108,19 @@
 				},
 				errors: [],
 				records: [],
+				columns: ['start_date', 'end_date', 'value', 'active', 'id'],
 			}
 		},
-		mounted() {
-
+		created() {
+			this.table_options.headings = {
+				'start_date': 'Fecha de Inicio',
+				'end_date': 'Fecha Final',
+				'value': 'Valor',
+				'active': 'Activo',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['start_date', 'end_date', 'value'];
+			this.table_options.filterable = ['start_date', 'end_date', 'value'];
 		},
-	}
+	};
 </script>

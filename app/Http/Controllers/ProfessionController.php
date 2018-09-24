@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class ProfessionController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:profession.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:profession.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:profession.delete', ['only' => 'destroy']);
+        $this->middleware('permission:profession.list', ['only' => 'index']);
+    }
+
+    /**
      * Muesta todos los registros de profesiones
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
@@ -87,7 +101,7 @@ class ProfessionController extends Controller
     public function update(Request $request, Profession $profession)
     {
         $this->validate($request, [
-            'name' => 'required|max:100|unique:profession,name,' . $profession->id,
+            'name' => 'required|max:100|unique:professions,name,' . $profession->id,
             'acronym' => 'max:10'
         ]);
  

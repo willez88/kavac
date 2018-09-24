@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class TaxUnitController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        /*$this->middleware('permission:tax.unit.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:tax.unit.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:tax.unit.delete', ['only' => 'destroy']);
+        $this->middleware('permission:tax.unit.list', ['only' => 'index']);*/
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
