@@ -96,6 +96,16 @@
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+							<div slot="parent.name" slot-scope="props">
+								<span v-if="typeof(props.parent) !== 'undefined'">
+									{{ props.parent.name }}
+								</span>
+								<span v-else>N/A</span>
+							</div>
+							<div slot="active" slot-scope="props">
+								<span v-if="props.active">SI</span>
+								<span v-else>NO</span>
+							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
 		                				class="btn btn-warning btn-xs btn-icon btn-round" 
@@ -133,7 +143,7 @@
 			return {
 				record: {
 					id: '',
-					institution_id: '0',
+					institution_id: '',
 					department_id: '',
 					acronym: '',
 					name: '',
@@ -162,15 +172,20 @@
 			this.table_options.sortable = ['institution.name', 'parent.name', 'acronym', 'name'];
 			this.table_options.filterable = ['institution.name', 'parent.name', 'acronym', 'name'];
 
-			axios.get('/get-institutions').then(response => {
-				this.institutions = response.data;
-			});
+			this.getInstitutions();
 		},
 		methods: {
-			getDepartments() {
-				axios.get('/get-departments/' + this.record.institution_id).then(response => {
-					this.departments = response.data;
+			getInstitutions() {
+				axios.get('/get-institutions').then(response => {
+					this.institutions = response.data;
 				});
+			},
+			getDepartments() {
+				if (this.record.institution_id !== '') {
+					axios.get('/get-departments/' + this.record.institution_id).then(response => {
+						this.departments = response.data;
+					});
+				}
 			},
 		}
 	};

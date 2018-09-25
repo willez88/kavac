@@ -34437,9 +34437,11 @@ Vue.mixin({
 
 			this.errors = [];
 			this.reset();
-			var records = [];
+			//var records = [];
 			axios.get(url).then(function (response) {
-				records = response.data.records;
+				if (typeof response.data.records !== "undefined") {
+					_this.records = response.data.records;
+				}
 				if ($("#" + modal_id).length) {
 					$("#" + modal_id).modal('show');
 				}
@@ -34451,8 +34453,8 @@ Vue.mixin({
 				}
 			});
 
-			this.records = records;
-			this.readRecords(url);
+			//this.records = records;
+			//this.readRecords(url);
 		},
 
 		/**
@@ -34465,7 +34467,9 @@ Vue.mixin({
 			var _this2 = this;
 
 			axios.get('/' + url).then(function (response) {
-				_this2.records = response.data.records;
+				if (typeof response.data.records !== "undefined") {
+					_this2.records = response.data.records;
+				}
 			});
 		},
 
@@ -34524,10 +34528,6 @@ Vue.mixin({
 		initUpdate: function initUpdate(index, event) {
 			this.errors = [];
 			this.record = this.records[index - 1];
-
-			/*if (typeof(this.record.estate) !== "undefined") {
-   	this.record.country_id = this.record.estate.country_id;
-   }*/
 
 			event.preventDefault();
 		},
@@ -76994,6 +76994,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -77016,8 +77026,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	created: function created() {
-		var _this = this;
-
 		this.table_options.headings = {
 			'institution.name': 'Institución',
 			'parent.name': 'Depende de',
@@ -77029,18 +77037,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.table_options.sortable = ['institution.name', 'parent.name', 'acronym', 'name'];
 		this.table_options.filterable = ['institution.name', 'parent.name', 'acronym', 'name'];
 
-		axios.get('/get-institutions').then(function (response) {
-			_this.institutions = response.data;
-		});
+		this.getInstitutions();
 	},
 
 	methods: {
+		getInstitutions: function getInstitutions() {
+			var _this = this;
+
+			axios.get('/get-institutions').then(function (response) {
+				_this.institutions = response.data;
+			});
+		},
 		getDepartments: function getDepartments() {
 			var _this2 = this;
 
-			axios.get('/get-departments/' + this.record.institution_id).then(function (response) {
-				_this2.departments = response.data;
-			});
+			if (this.record.institution_id !== '') {
+				axios.get('/get-departments/' + this.record.institution_id).then(function (response) {
+					_this2.departments = response.data;
+				});
+			}
 		}
 	}
 });
@@ -77451,6 +77466,32 @@ var render = function() {
                       options: _vm.table_options
                     },
                     scopedSlots: _vm._u([
+                      {
+                        key: "parent.name",
+                        fn: function(props) {
+                          return _c("div", {}, [
+                            typeof props.parent !== "undefined"
+                              ? _c("span", [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t\t" +
+                                      _vm._s(props.parent.name) +
+                                      "\n\t\t\t\t\t\t\t"
+                                  )
+                                ])
+                              : _c("span", [_vm._v("N/A")])
+                          ])
+                        }
+                      },
+                      {
+                        key: "active",
+                        fn: function(props) {
+                          return _c("div", {}, [
+                            props.active
+                              ? _c("span", [_vm._v("SI")])
+                              : _c("span", [_vm._v("NO")])
+                          ])
+                        }
+                      },
                       {
                         key: "id",
                         fn: function(props) {

@@ -158,9 +158,11 @@ Vue.mixin({
 		initRecords(url, modal_id) {
 			this.errors = [];
 			this.reset();
-			var records = [];
+			//var records = [];
 			axios.get(url).then(response => {
-				records = response.data.records;
+				if (typeof(response.data.records) !== "undefined") {
+					this.records = response.data.records;
+				}
 				if ($("#" + modal_id).length) {
 					$("#" + modal_id).modal('show');
 				}
@@ -175,8 +177,8 @@ Vue.mixin({
 				}
 			});
 
-			this.records = records;
-			this.readRecords(url);
+			//this.records = records;
+			//this.readRecords(url);
 		},
 		/**
 		 * Método que obtiene los registros a mostrar
@@ -186,7 +188,9 @@ Vue.mixin({
 		 */
 		readRecords(url) {
 			axios.get('/' + url).then(response => {
-				this.records = response.data.records;
+				if (typeof(response.data.records) !== "undefined") {
+					this.records = response.data.records;
+				}
 			});
 		},
 		/**
@@ -242,10 +246,6 @@ Vue.mixin({
 		initUpdate(index, event) {
 			this.errors = [];
 			this.record = this.records[index - 1];
-
-			/*if (typeof(this.record.estate) !== "undefined") {
-				this.record.country_id = this.record.estate.country_id;
-			}*/
 
 			event.preventDefault();
 		},

@@ -12,6 +12,18 @@ class InstitutionController extends Controller
 {
     /** @var array Lista de elementos a mostrar */
     protected $data = [];
+
+    /**
+     * Método constructor de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct() {
+        $this->data[0] = [
+            'id' => '',
+            'text' => 'Seleccione...'
+        ];
+    }
     
     /**
      * Muesta todos los registros de las Instituciones

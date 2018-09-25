@@ -101,5 +101,5 @@
 			this.table_options.sortable = ['name', 'prefix'];
 			this.table_options.filterable = ['name', 'prefix'];
 		},
-	}
+	};
 </script>

@@ -11,13 +11,25 @@ class DepartmentController extends Controller
     protected $data = [];
 
     /**
+     * Método constructor de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct() {
+        $this->data[0] = [
+            'id' => '',
+            'text' => 'Seleccione...'
+        ];
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //return response()->json(['records' => Department::all()], 200);
+        return response()->json(['records' => Department::with(['institution', 'parent'])->get()], 200);
     }
 
     /**
@@ -38,7 +50,32 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'institution_id' => 'required'
+        ]);
+
+        $hierarchy = 0;
+
+        if (!is_null($request->input('department_id')) || !empty($request->input('department_id'))) {
+            $dto = Department::where('department_id', $request->input('department_id'))->first();
+            if ($dto) {
+                $hierarchy = $dto->hierarchy + 1;
+            }
+        }
+
+        $department = Department::create([
+            'name' => $request->input('name'),
+            'acronym' => ($request->input('acronym'))?$request->input('acronym'):null,
+            'hierarchy' => $hierarchy,
+            'issue_requests' => (!is_null($request->input('issue_requests'))),
+            'active' => (!is_null($request->input('active'))),
+            'administrative' => (!is_null($request->input('administrative'))),
+            'parent_id' => ($request->input('department_id'))?$request->input('department_id'):null,
+            'institution_id' => $request->input('institution_id')
+        ]);
+        
+        return response()->json(['record' => $department, 'message' => 'Success'], 200);
     }
 
     /**
@@ -86,9 +123,10 @@ class DepartmentController extends Controller
         //
     }
 
-    public function getDepartments($institution_id)
+    public function getDepartments(Request $request, $institution_id)
     {
-        foreach (Department::where('institution_id', $institution_id)->get() as $department) {
+        //foreach (Department::where('institution_id', $institution_id)->get() as $department) {
+        foreach (Department::all() as $department) {
             $this->data[] = [
                 'id' => $department->id,
                 'text' => $department->name
