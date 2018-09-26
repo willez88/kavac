@@ -24,3 +24,6 @@ require('../../../modules/Purchase/Resources/assets/js/_all.js');
 
 /** Compilación de componentes y configuración vuejs para el módulo de almacén */
 require('../../../modules/Warehouse/Resources/assets/js/_all.js');
+
+/** Compilación de componentes y configuración vuejs para el módulo de finanza */
+require('../../../modules/Finance/Resources/assets/js/_all.js');

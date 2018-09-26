@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Registros Generales</h6>
+					<h6 class="card-title">Configuración General</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 						   data-toggle="tooltip">
@@ -31,14 +31,7 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-							   href="#" title="Registros de entidades bancarias" 
-							   data-toggle="tooltip">
-								<i class="icofont icofont-bank-alt ico-3x"></i>
-								<span>Bancos</span>
-							</a>
-						</div>
+						<finance-banks></finance-banks>
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 							   href="#" title="Registros de agencias bancarias" 
