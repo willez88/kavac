@@ -4,7 +4,7 @@
        data-placement="right">
         <i class="ion-ios-list-outline"></i><span>Almacén</span>
     </a>
-    <ul class="submenu">
+    <ul class="submenu" style="{!! (strpos($current_url, 'warehouse') !== false)?'display:block;':'' !!}">
         <li>
             <a href="#">Apertura / Cierre</a>
         </li>

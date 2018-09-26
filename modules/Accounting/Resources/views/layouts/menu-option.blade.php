@@ -3,7 +3,7 @@
     <a href="#" title="Gestión de asientos contables" data-toggle="tooltip" data-placement="right">
         <i class="ion-social-buffer-outline"></i><span>Contabilidad</span>
     </a>
-    <ul class="submenu">
+    <ul class="submenu" style="{!! (strpos($current_url, 'accounting') !== false)?'display:block;':'' !!}">
         <li>
             <a href="#">Cuentas Patrimoniales</a>
         </li>

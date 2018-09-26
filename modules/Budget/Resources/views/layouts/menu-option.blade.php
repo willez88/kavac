@@ -4,10 +4,7 @@
        data-placement="right">
         <i class="ion-arrow-graph-up-right"></i><span>Presupuesto</span>
     </a>
-    <ul class="submenu" 
-        @if ($current_url=='budget.accounts.index')
-            style="display:block;"
-        @endif>
+    <ul class="submenu" style="{!! (strpos($current_url, 'budget') !== false)?'display:block;':'' !!}">
         <li class="{!! ($current_url=='budget.settings.index')?'active':'' !!}">
             <a href="{{ route('budget.settings.index') }}" data-toggle="tooltip" data-placement="right" 
                title="Configuración de presupuesto">Configuración</a>

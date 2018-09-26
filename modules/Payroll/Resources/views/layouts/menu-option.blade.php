@@ -3,7 +3,7 @@
     <a href="#" title="Datos de personal y nómina" data-toggle="tooltip" data-placement="right">
         <i class="ion-ios-folder-outline"></i><span>Nómina</span>
     </a>
-    <ul class="submenu" @if ($current_url=='payroll.index') style="display:block;" @endif>
+    <ul class="submenu" style="{!! (strpos($current_url, 'payroll') !== false)?'display:block;':'' !!}">
         <li class="{!! ($current_url=='payroll.settings.index')?'active':'' !!}">
             <a href="{{ route('payroll.settings.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Configuración de nómina">Configuración</a>
