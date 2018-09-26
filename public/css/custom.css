@@ -548,6 +548,12 @@ table td {
   color: #fff;
 }
 
+@media screen and (max-width: 1366px) {
+  .navbar > .container-left {
+    width: 275px;
+  }
+}
+
 .nav-tabs.custom-tabs > .nav-item > .nav-link {
   border-radius: 0;
 }

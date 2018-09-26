@@ -72,3 +72,12 @@
 .navbar-toggler {
 	color:#fff;
 }
+
+
+@media screen and (max-width: 1366px) {
+	.navbar {
+		> .container-left {
+			width:275px;
+		}
+	}
+}
