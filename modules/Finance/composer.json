@@ -1,0 +1,25 @@
+{
+    "name": "kavac/finance",
+    "description": "Finance resource management",
+    "authors": [
+        {
+            "name": "Ing. Roldan Vargas",
+            "email": "roldandvg@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Finance\\Providers\\FinanceServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Finance\\": ""
+        }
+    }
+}
