@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Subcategorías de Bienes" data-toggle="tooltip" 
-		   @click="addRecord('add_subcategory', 'asset/subcategories', $event)">
+		   @click="addRecord('add_subcategory', 'subcategories', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Subcategorías</span>
 		</a>
@@ -54,34 +54,24 @@
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<th>Código</th>
-									<th>Categoría General</th>
-									<th>Subcategoría</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<td>{{ rec.code }}</td>
-									<td>{{ rec.asset_category_id }}</td>
-									<td>{{ rec.name }}</td>
-									<td class="text-center" width="10%">
-										<button 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button @click="deleteRecord(index, 'asset/subcategories/delete')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+
+	                	<hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'subcategories')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
+
 	                </div>
 
 	                <div class="modal-footer">
@@ -92,7 +82,7 @@
 	                			<i class="fa fa-ban"></i>
 	                	</button>
 
-	                	<button type="button" @click="createRecord('asset/subcategories/store')" 
+	                	<button type="button" @click="createRecord('subcategories')" 
 	                			class="btn btn-success btn-icon btn-round btn-modal-save"
 	                			title="Guardar registro">
 	                		<i class="fa fa-save"></i>
@@ -110,18 +100,28 @@
 			return {
 				record: {
 					id: '',
-					type_id: '',
-					category_id: '',
+					type_id: '0',
+					category_id: '0',
 					subcategory: ''
 				},
 				errors: [],
 				records: [],
 				types: [],
-				categories: []
+				categories: [],
+				columns: ['category.name', 'name', 'code', 'id'],
 			}
 		},
-		mounted() {
-			
+		created() {
+			this.table_options.headings = {
+				'category.name': 'Categoria General',
+				'name': 'Subcategoria',
+				'code': 'Código',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['category.name','name', 'code'];
+			this.table_options.filterable = ['category.name','name', 'code'];
+
+			this.getTypes();
 		},
 		methods: {
 			/**
@@ -129,7 +129,7 @@
 			 *
 			 * @author Henry Paredes (henryp2804@gmail.com)
 			 */
-			initRecords() {
+			getTypes() {
 				axios.get('/asset/get-types').then(response => {
 					this.types = response.data;
 				});

@@ -31,7 +31,7 @@ class AssetSubcategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => AssetSubcategory::all()], 200);
+        return response()->json(['records' => AssetSubcategory::with('category')->get()], 200);
     }
 
     /**
@@ -57,6 +57,7 @@ class AssetSubcategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
+            'asset_category_id' => 'required',
         ]);
 
 
@@ -105,7 +106,8 @@ class AssetSubcategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'code' => 'required|max:10'
+            'code' => 'required|max:10',
+            'asset_category_id' => 'required',
         ]);
  
         $subcategory->name = $request->input('name');

@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de Clasificador de Bienes" 
-		   data-toggle="tooltip" @click="addRecord('add_clasification', 'asset/clasifications', $event)">
+		   data-toggle="tooltip" @click="addRecord('add_clasification', 'clasifications', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Clasificador<br>Bienes</span>
 		</a>
@@ -90,38 +90,26 @@
 	                </div>
 	                
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<th>Código</th>
-									<th>Tipo de Bienes</th>
-									<th>Categoría General</th>
-									<th>Subcategoría</th>
-									<th>Categoría Específica</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<td>{{ rec.id }}</td>
-									<td>{{ rec.type }}</td>
-									<td>{{ rec.category }}</td>
-									<td>{{ rec.subcategory }}</td>
-									<td>{{ rec.specific_category }}</td>
-									<td class="text-center" width="10%">
-										<button @click="initUpdate(index, $event)" 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button @click="deleteRecord(index, 'asset/clasifications')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+	                    
+
+	                	<hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'clasifications')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
+
+
 	                </div>
 
 	                <div class="modal-footer">
@@ -132,7 +120,7 @@
 	                			<i class="fa fa-ban"></i>
 	                	</button>
 
-	                	<button type="button" @click="createRecord('asset/clasifications')" 
+	                	<button type="button" @click="createRecord('clasifications')" 
 	                			class="btn btn-success btn-icon btn-round btn-modal-save"
 	                			title="Guardar registro">
 	                		<i class="fa fa-save"></i>
@@ -160,13 +148,25 @@
 				},
 				errors: [],
 				records: [],
-				types: [],
-				categories: [],
-				subcategories: []
+				types: ['0'],
+				categories: ['0'],
+				subcategories: ['0'],
+				columns: ['subcategory.category.type.name','subcategory.category.name','subcategory.name', 'name', 'code', 'id'],
 			}
 		},
-		mounted() {
+		created() {
+			this.table_options.headings = {
+				'subcategory.category.type.name': 'Tipo de Bien',
+				'subcategory.category.name': 'Categoria General',
+				'subcategory.name': 'Subcategoria',
+				'name': 'Categoria Especifica',
+				'code': 'Código',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['subcategory.category.type.name', 'subcategory.category.name','subcategory.name','name', 'code'];
+			this.table_options.filterable = ['type.name','name', 'code'];
 
+			this.getTypes();
 		},
 		methods: {
 			/**
@@ -174,7 +174,7 @@
 			 *
 			 * @author Henry Paredes (henryp2804@gmail.com)
 			 */
-			initRecords() {
+			getTypes() {
 				axios.get('/asset/get-types').then(response => {
 					this.types = response.data;
 				});

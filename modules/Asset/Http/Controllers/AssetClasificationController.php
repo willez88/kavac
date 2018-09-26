@@ -8,10 +8,10 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Asset\Models\AssetClasification;
-use Modules\Asset\Models\Type;
-use Modules\Asset\Models\Category;
-use Modules\Asset\Models\Subcategory;
-use Modules\Asset\Models\SpecificCategory;
+use Modules\Asset\Models\AssetType;
+use Modules\Asset\Models\AssetCategory;
+use Modules\Asset\Models\AssetSubcategory;
+use Modules\Asset\Models\AssetSpecificCategory;
 use Auth;
 
 class AssetClasificationController extends Controller
@@ -24,8 +24,7 @@ class AssetClasificationController extends Controller
      */
     public function index()
     {
-        $records = AssetClasification::all();
-        return view('asset::clasification.list', compact('records'));
+        return response()->json(['records' => AssetSpecificCategory::with('subcategory')->get()], 200);
     }
 
     /**
@@ -33,18 +32,8 @@ class AssetClasificationController extends Controller
      * @return Response
      */
     public function create()
-    {
-        $header_asset = [
-            'route'  => 'asset.clasification.store', 
-            'method' => 'POST', 
-            'role' => 'form', 
-            'class' => 'form-horizontal',
-        ];
-        $asset_type = Type::template_choices();
-        $categories = Category::template_choices();
-        $subcategories = Subcategory::template_choices();
-        $specifics = SpecificCategory::template_choices();
-        return view('asset::clasification.create', compact('header_asset','asset_type','categories','subcategories','specifics'));
+    {   
+        //
     }
 
     /**
@@ -54,28 +43,7 @@ class AssetClasificationController extends Controller
      */
     public function store(Request $request)
     {
-       $this->validate($request, [
-            
-            //Validar los campos del formulario
-
-
-            'Asset_type' => 'required'
-            
-        ]);
-       $category = new Category;
-        if ( $request->Asset_category == '0'){
-
-            $category->asset_type_id = $request->Asset_type;
-            $category->code = $request->Asset_type;
-            $category->name = $request->New_category;
-            $category->save();
-            return redirect()->route('asset.clasification.index');
-
-        }else
-        {
-            return redirect()->route('asset.clasification.index');
-        }
-
+        //
     }
 
     /**

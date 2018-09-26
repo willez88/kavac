@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Categorias Generales de Bienes" data-toggle="tooltip" 
-		   @click="addRecord('add_category', 'asset/categories', $event)">
+		   @click="addRecord('add_category', 'categories', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Categorias<br>Generales</span>
 		</a>
@@ -29,7 +29,6 @@
 								<div class="form-group">
 									<label>Tipo de Bien:</label>
 									<select2 :options="types"
-											id="types_id"
 											 v-model="record.type_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -38,7 +37,7 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Código de la Categoría General:</label>
-									<input type="text" id = "code_id" placeholder="Código de Categoría General" data-toggle="tooltip" 
+									<input type="text" placeholder="Código de Categoría General" data-toggle="tooltip" 
 										   title="Indique el código de la nueva Categoría General (requerido)" 
 										   class="form-control input-sm" v-model="record.code">
 			                    </div>
@@ -46,7 +45,7 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Categoría General:</label>
-									<input type="text" id = "category_id" placeholder="Nueva Categoría General" data-toggle="tooltip" 
+									<input type="text" placeholder="Nueva Categoría General" data-toggle="tooltip" 
 										   title="Indique la nueva Categoría General (requerido)" 
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
@@ -55,34 +54,23 @@
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                    <table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<th>Código</th>
-									<th>Tipo de Bien</th>
-									<th>Categoría General</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<td>{{ rec.code }}</td>
-									<td>{{ rec.asset_type_id }}</td>
-									<td>{{ rec.name }}</td>
-									<td class="text-center" width="10%">
-										<button 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button  @click="deleteRecord(index, 'asset/categories/delete')"
-												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+
+	                	<hr>
+	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="id" slot-scope="props" class="text-center">
+	                			<button @click="initUpdate(props.index, $event)" 
+		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                			<i class="fa fa-edit"></i>
+		                		</button>
+		                		<button @click="deleteRecord(props.index, 'categories')" 
+										class="btn btn-danger btn-xs btn-icon btn-round" 
+										title="Eliminar registro" data-toggle="tooltip" 
+										type="button">
+									<i class="fa fa-trash-o"></i>
+								</button>
+	                		</div>
+	                	</v-client-table>
 	                </div>
 
 	                <div class="modal-footer">
@@ -93,7 +81,7 @@
 	                			<i class="fa fa-ban"></i>
 	                	</button>
 
-	                	<button type="button"  @click="createRecord('asset/categories/store')"
+	                	<button type="button"  @click="createRecord('categories')"
 	                			class="btn btn-success btn-icon btn-round btn-modal-save"
 	                			title="Guardar registro">
 	                		<i class="fa fa-save"></i>
@@ -104,25 +92,33 @@
 		</div>
 	</div>
 </template>
-
 <script>
 	export default {
 		data() {
 			return {
 				record: {
 					id: '',
-					type_id: '',
+					type_id: '0',
 					name: '',
 					code: ''
 				},
 				errors: [],
 				records: [],
-				types: []
+				types: ['0'],
+				columns: ['type.name', 'name', 'code', 'id'],
 			}
 		},
-		mounted() {
-		
+		created() {
+			this.table_options.headings = {
+				'type.name': 'Tipo de Bien',
+				'name': 'Categoria General',
+				'code': 'Código',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['type.name','name', 'code'];
+			this.table_options.filterable = ['type.name','name', 'code'];
 
+			this.getTypes();
 		},
 		methods: {
 			/**
@@ -130,12 +126,12 @@
 			 *
 			 * @author Henry Paredes (henryp2804@gmail.com)
 			 */
-			initRecords() {
+			getTypes() {
 				axios.get('/asset/get-types').then(response => {
 					this.types = response.data;
 				});
 			}
 
 		}
-	}
+	};
 </script>

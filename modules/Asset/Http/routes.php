@@ -101,52 +101,54 @@ Route::group(['middleware' => 'web', 'prefix' => 'asset', 'namespace' => 'Module
 
 
     /**
+     * Rutas para mostrar los componentes vue
+     */
+    
+    Route::get('types', 'AssetTypeController@index');
+    Route::get('categories', 'AssetCategoryController@index');
+    Route::get('subcategories', 'AssetSubcategoryController@index');
+    Route::get('specific', 'AssetSpecificCategoryController@index');
+    Route::get('clasifications', 'AssetClasificationController@index');
+   
+    
+});
+
+
+/**
+ * -----------------------------------------------------------------------
+ * Grupo de rutas para la gestión de componentes vue
+ * -----------------------------------------------------------------------
+ *
+ * Permite gestionar los distintos modelos de uso común en el modulo de bienes
+ *  de la aplicación
+ */
+
+Route::group(['middleware' => 'web', 'namespace' => 'Modules\Asset\Http\Controllers'], function()
+{
+
+    /**
+     * Rutas para gestionar el clasificador de bienes
+     */
+    Route::resource('clasifications', 'AssetClasificationController', ['except' => ['show']]);
+
+    /**
      * Rutas para gestionar los tipos de bienes
      */
-
-    Route::get('types', 'AssetTypeController@index');
-    Route::post('types/store', 'AssetTypeController@store');
-    Route::put('types/edit/{type}', 'AssetTypeController@update');
-    Route::delete('types/delete/{type}', 'AssetTypeController@destroy');
-
+    Route::resource('types', 'AssetTypeController', ['except' => ['show']]);
+    
     /**
      * Rutas para gestionar las categorias de bienes
      */
-    
-    Route::get('categories', 'AssetCategoryController@index');
-    Route::post('categories/store', 'AssetCategoryController@store');
-    Route::put('categories/edit/{category}', 'AssetCategoryController@update');
-    Route::delete('categories/delete/{category}', 'AssetCategoryController@destroy');
+    Route::resource('categories', 'AssetCategoryController', ['except' => ['show']]);
 
     /**
      * Rutas para gestionar las subcategorias de bienes
      */
-    
-    Route::get('subcategories', 'AssetSubcategoryController@index');
-    Route::post('subcategories/store', 'AssetSubcategoryController@store');
-    Route::put('subcategories/edit/{subcategory}', 'AssetSubcategoryController@update');
-    Route::delete('subcategories/delete/{subcategory}', 'AssetSubcategoryController@destroy');
+    Route::resource('subcategories', 'AssetSubcategoryController', ['except' => ['show']]);
 
     /**
-     * Rutas para gestionar las categorias especificas de bienes
+     * Rutas para gestionar las Categorias Especificas de bienes
      */
+    Route::resource('specific', 'AssetSpecificCategoryController', ['except' => ['show']]);
 
-    Route::get('specific', 'AssetSpecificCategoryController@index');
-    Route::post('specific/store', 'AssetSpecificCategoryController@store');
-    Route::put('specific/edit/{specific}', 'AssetSpecificCategoryController@update');
-    Route::delete('specific/delete/{specific}', 'AssetSpecificCategoryController@destroy');
-
-    /**
-     * Rutas para gestionar las clasificacion de bienes (Configuración principal)
-     */
-
-    Route::get('clasifications', 'AssetCategoryController@index');
-    Route::post('clasifications/store', 'AssetCategoryController@store');
-    Route::put('clasifications/edit/{clasification}', 'AssetCategoryController@update');
-    Route::delete('clasifications/delete/{clasification}', 'AssetCategoryController@destroy');
-
-
-    
-   
-    
 });
