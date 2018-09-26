@@ -44,12 +44,12 @@ class AssetRequestController extends Controller
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function create()
+    public function create(Request $request)
     {
         $header = [
             'route' => 'asset.request.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
         ];
-        $assets = Asset::all();
+        $assets= Asset::request($request->model,$request->marca,$request->serial)->get();
         return view('asset::requests.create',compact('header','assets'));
     }
 

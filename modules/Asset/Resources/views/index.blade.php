@@ -6,4 +6,4 @@
     <p>
         This view is loaded from module: {!! config('asset.name') !!}
     </p>
-@stop
+

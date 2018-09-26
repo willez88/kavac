@@ -74,7 +74,7 @@
 						            <span class="input-group-addon">
 						                <i class="now-ui-icons ui-1_calendar-60"></i>
 						            </span>
-						            {!! Form::date('date',(isset($date))?$asset_request->created_at:old('created_at'),
+						            {!! Form::date('date',\Carbon\Carbon::now(),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'disabled' => 'true',
@@ -90,7 +90,7 @@
 						<div class="col-md-6">
 						    <div class="form-group{{ $errors->has('motivo') ? ' has-error' : '' }} is-required">
 						        {!! Form::label('motivo_label', 'Motivo de la solicitud', []) !!}
-						        {!! Form::text('motivo',(isset($request_motivo))?$request_motivo->motivo:old('motivo'),
+						        {!! Form::text('motive',(isset($request_motivo))?$request_motivo->motivo:old('motivo'),
 						           [
 						                'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
@@ -145,7 +145,7 @@
 						<div class="col-md-4">
 							<div class="form-group {{ $errors->has('external_agent_name') ? ' has-error' : '' }}">
 						        {!! Form::label('external_agent_name_label', 'Nombre del Agente Externo', []) !!}
-						        {!! Form::text('external_agent_name',(isset($asset_request))?$asset_request->agent_name:old('agent_name'),
+						        {!! Form::text('agent_name',(isset($asset_request))?$asset_request->agent_name:old('agent_name'),
 						            [
 						            	'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
@@ -159,7 +159,7 @@
 						<div class="col-md-4">
 						    <div class="form-group {{ $errors->has('external_agent_telf') ? ' has-error' : '' }}">
 						    	{!! Form::label('external_agent_telf_label', 'Teléfono del Agente Externo', []) !!}
-						        {!! Form::text('external_agent_telf',(isset($asset_request))?$asset_request->agent_telf:old('agent_telf'),
+						        {!! Form::text('agent_telf',(isset($asset_request))?$asset_request->agent_telf:old('agent_telf'),
 						            [
 						            	'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
@@ -173,7 +173,7 @@
 						<div class="col-md-4">
 							<div class="form-group {{ $errors->has('external_agent_email') ? ' has-error' : '' }}">
 						    	{!! Form::label('external_agent_email_label', 'Correo del Agente Externo', []) !!}
-						        {!! Form::text('external_agent_email',(isset($asset_request))?$asset_request->agent_email:old('agent_email'),
+						        {!! Form::text('agent_email',(isset($asset_request))?$asset_request->agent_email:old('agent_email'),
 						        	[
 						            	'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
@@ -199,6 +199,7 @@
 						        </span>
 						        {!! Form::text('model',(isset($asset))?$asset->model:old('model'),
 						            [
+						                'id' => 'model',
 						                'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
 						                'placeholder' => 'Modelo',
@@ -215,6 +216,7 @@
 						        </span>
 						        {!! Form::text('marca',(isset($asset))?$asset->marca:old('marca'),
 						            [
+						                'id' => 'marca',
 						                'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
 						                'placeholder' => 'Marca',
@@ -242,13 +244,16 @@
 						</div>
 						    
 						<div class="form-group col-md-2">
-						    {!! Form::button('Buscar <i class="fa fa-search"></i>', 
-						    	[
-						            'class' => 'btn btn-sm btn-info',
-						            'data-toggle' => 'tooltip', 'onclick' => 'Buscar();',
-						            'title' => 'Buscar registros eliminados',
-						        ]
-						    ) !!}
+						    <button type="Submit" 
+						    		formaction ="../../asset/request/create"
+						    		formmethod="GET" 
+						    		class='btn btn-sm btn-info' 
+						    		data-toggle="tooltip"
+						    		title="Buscar registros">
+								<i class="fa fa-search"></i>
+								<span>	Buscar	</span>
+							</button>
+
 						</div>
 					</div>
 
@@ -326,11 +331,10 @@
 @section('extra-js')
 <script>
 $('#document').ready(function(){
-	$('#request').hide();
-	$('#request-2').hide();
-	$('#request-3').hide();
-	$('#filtros').hide();
-	$('#table').hide();
+	if ($("#type").val() != null)
+		mostrar($("#type").val());
+	else
+		mostrar(-1);
 
 });
 function mostrar(form_request) {

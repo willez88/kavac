@@ -75,6 +75,18 @@ Route::group(['middleware' => 'web', 'prefix' => 'asset', 'namespace' => 'Module
     Route::put('requests/edit/{request}', 'AssetRequestController@update')->name('asset.request.edit');
     Route::delete('requests/delete/{request}', 'AssetRequestController@destroy')->name('asset.request.delete');
 
+    /**
+     * Rutas para gestionar la generación de Solicitudes en pdf
+     */
+
+    Route::get('pdf', 'PDFController@create');
+
+
+    /**
+     * Rutas para gestionar la generación de Reportes
+     */
+
+    Route::get('report/{type}', 'AssetReportController@index')->name('asset.report.index');
 
 
 
@@ -132,6 +144,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'asset', 'namespace' => 'Module
     Route::post('clasifications/store', 'AssetCategoryController@store');
     Route::put('clasifications/edit/{clasification}', 'AssetCategoryController@update');
     Route::delete('clasifications/delete/{clasification}', 'AssetCategoryController@destroy');
+
+
     
    
     

@@ -40,45 +40,51 @@
 							</a>	
 						</div>
 					</div>
-					<table class="table table-hover table-striped dt-responsive datatable">
-						<thead>
-							<tr class="text-center">			
-								<th>Tipo de Solicitud</th>
-								<th>Motivo</th>
-								<th>Fecha de la Solicitud</th>
-								<th>Estado de la Solicitud</th>
-								<th width="10%">Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($asset_requests as $request)
-								<tr>
-									
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td width="10%" class="text-center">
-										<div class="d-inline-flex">
-											
-											<button class="btn btn-info btn-xs btn-icon btn-round"  
-											data-toggle="tooltip" title="Visualizar Solicitud">
-												<i class="fa fa-filter"></i>
-											</button>
 
-											<button class="btn btn-warning btn-xs btn-icon btn-round"  
-											data-toggle="tooltip" title="Editar Solicitud">
-												<i class="icofont icofont-edit"></i>
-											</button>
-
-												<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar Solicitud"><i class="fa fa-trash"></i></button>
-	
-										</div>
-									</td>
+					<div class="col-md-12">
+						<table class="table table-hover table-striped dt-responsive datatable">
+							<thead>
+								<tr class="text-center">			
+									<th>Tipo de Solicitud</th>
+									<th>Motivo</th>
+									<th>Fecha de la Solicitud</th>
+									<th>Estado de la Solicitud</th>
+									<th width="10%">Acciones</th>
 								</tr>
-							@endforeach
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								@foreach($asset_requests as $request)
+									<tr>
+										
+										<td>{{ $request->type }}</td>
+										<td>{{ $request->motive }}</td>
+										<td>{{ $request->created_at }}</td>
+										<td></td>
+										<td width="10%" class="text-center">
+											<div class="d-inline-flex">
+												
+												<button class="btn btn-info btn-xs btn-icon btn-round"  
+												data-toggle="tooltip" title="Visualizar Solicitud">
+													<i class="fa fa-filter"></i>
+												</button>
+
+												<button class="btn btn-warning btn-xs btn-icon btn-round"  
+												data-toggle="tooltip" title="Editar Solicitud">
+													<i class="icofont icofont-edit"></i>
+												</button>
+
+													<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar Solicitud"><i class="fa fa-trash"></i></button>
+		
+											</div>
+										</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+						
+					</div>
+					
+					
 				</div>
 			</div>
 		</div>

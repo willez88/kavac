@@ -41,50 +41,53 @@
 							</a>	
 						</div>
 					</div>
-					
-					<table class="table table-hover table-striped dt-responsive datatable">
-						<thead>
-							<tr class="text-center">
-								<th>Código</th>						
-								<th>Descripción del Bien</th>
-								<th>Ubicación</th>
-								<th>Trabajador Activo</th>
-								<th>Motivo</th>
-								<th>Observación</th>
-								<th>Fecha de la Desincorporación</th>
-								<th width="10%">Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($asset_disincorporations as $disincorporation)
-								<tr>
-									<td>{{ $disincorporation->id }}</td>
-									<td>{{ $disincorporation->asset->serial }}</td>
-									<td></td>
-									<td></td>
-									<td>{{ $disincorporation->motive }}</td>
-									<td>{{ $disincorporation->observation }}</td>
-									<td class="text-center">{{ $disincorporation->created_at }}</td>
-									<td width="10%" class="text-center">
-										<div class="d-inline-flex">
 
-											{!! Form::open(['route' => ['asset.disincorporation.edit', $disincorporation], 'method' => 'GET']) !!}
-											<button class="btn btn-warning btn-xs btn-icon btn-round"  
-											data-toggle="tooltip" title="Editar registro">
-												<i class="icofont icofont-edit"></i>
-											</button>
-											{!! Form::close() !!}
-
-											{!! Form::open(['route' => ['asset.disincorporation.destroy', $disincorporation], 'method' => 'DELETE']) !!}
-											<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar registro"><i class="fa fa-trash"></i></button>
-											{!! Form::close() !!}
-										
-										</div>
-									</td>
+					<div class="col-md-12">
+						<table class="table table-hover table-striped dt-responsive datatable">
+							<thead>
+								<tr class="text-center">
+									<th>Código</th>						
+									<th>Descripción del Bien</th>
+									<th>Ubicación</th>
+									<th>Trabajador Activo</th>
+									<th>Motivo</th>
+									<th>Observación</th>
+									<th>Fecha de la Desincorporación</th>
+									<th width="10%">Acciones</th>
 								</tr>
-							@endforeach
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								@foreach($asset_disincorporations as $disincorporation)
+									<tr>
+										<td>{{ $disincorporation->id }}</td>
+										<td>{{ $disincorporation->asset->serial }}</td>
+										<td></td>
+										<td></td>
+										<td>{{ $disincorporation->motive }}</td>
+										<td>{{ $disincorporation->observation }}</td>
+										<td class="text-center">{{ $disincorporation->created_at }}</td>
+										<td width="10%" class="text-center">
+											<div class="d-inline-flex">
+
+												{!! Form::open(['route' => ['asset.disincorporation.edit', $disincorporation], 'method' => 'GET']) !!}
+												<button class="btn btn-warning btn-xs btn-icon btn-round"  
+												data-toggle="tooltip" title="Editar registro">
+													<i class="icofont icofont-edit"></i>
+												</button>
+												{!! Form::close() !!}
+
+												{!! Form::open(['route' => ['asset.disincorporation.destroy', $disincorporation], 'method' => 'DELETE']) !!}
+												<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar registro"><i class="fa fa-trash"></i></button>
+												{!! Form::close() !!}
+											
+											</div>
+										</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+					
 				</div>
 			</div>
 		</div>
