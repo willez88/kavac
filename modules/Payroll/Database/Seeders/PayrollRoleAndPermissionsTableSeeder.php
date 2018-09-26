@@ -21,7 +21,7 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
         $adminRole = Role::where('slug', 'admin')->first();
 
         $payrollRole = Role::updateOrCreate(
-            ['slug' => 'Payroll'],
+            ['slug' => 'payroll'],
             ['name' => 'Nómina', 'description' => 'Coordinador de nómina']
         );
 
@@ -33,25 +33,25 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'configuracion.ver'
             ],
             [
-                'name' => 'Ver tipos de personal', 'slug' => 'payroll.staff-type.index',
+                'name' => 'Ver tipos de personal', 'slug' => 'payroll.staff.type.index',
                 'description' => 'Acceso para ver tipos de personal',
                 'model' => 'Modules\Payroll\Models\PayrollStaffType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo_personal.ver'
             ],
             [
-                'name' => 'Crear tipos de personal', 'slug' => 'payroll.staff-type.create',
+                'name' => 'Crear tipos de personal', 'slug' => 'payroll.staff.type.create',
                 'description' => 'Acceso para crear tipos de personal',
                 'model' => 'Modules\Payroll\Models\PayrollStaffType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo_personal.crear'
             ],
             [
-                'name' => 'Editar tipos de personal', 'slug' => 'payroll.staff-type.edit',
+                'name' => 'Editar tipos de personal', 'slug' => 'payroll.staff.type.edit',
                 'description' => 'Acceso para editar los tipos de personal',
                 'model' => 'Modules\Payroll\Models\PayrollStaffType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo_personal.editar'
             ],
             [
-                'name' => 'Eliminar tipos de personal', 'slug' => 'payroll.staff-type.delete',
+                'name' => 'Eliminar tipos de personal', 'slug' => 'payroll.staff.type.delete',
                 'description' => 'Acceso para eliminar tipos de personal',
                 'model' => 'Modules\Payroll\Models\PayrollStaffType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo_personal.eliminar'
