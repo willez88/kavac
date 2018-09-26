@@ -106,7 +106,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	{{-- <div class="row">
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
@@ -144,7 +144,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -171,7 +171,10 @@
 					<table class="table table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
 							<tr>
-								<th></th>
+								<th>Período</th>
+								<th>Código</th>
+								<th>Proyecto / Acción Central</th>
+								<th>Responsable</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -188,7 +191,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Proyecto - Acciones Específicas</h6>
+					<h6 class="card-title">Acciones Específicas</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 						   data-toggle="tooltip">
@@ -210,7 +213,10 @@
 					<table class="table table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
 							<tr>
-								<th></th>
+								<th>Período</th>
+								<th>Proyecto / Acción Central</th>
+								<th>Acción Específica</th>
+								<th>Responsable</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -223,7 +229,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	{{-- <div class="row">
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
@@ -261,5 +267,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 @stop
