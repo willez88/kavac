@@ -376,11 +376,11 @@
 					<table class="table table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
 							<tr>
-								<th>Logo</th>
-								<th>R.I.F</th>
-								<th>Código ONAPRE</th>
-								<th>Nombre</th>
-								<th>Activa</th>
+								<th class="col-md-1">Logo</th>
+								<th class="col-md-1">R.I.F</th>
+								<th class="col-md-1">Código ONAPRE</th>
+								<th class="col-md-8">Nombre</th>
+								<th class="col-md-1">Activa</th>
 							</tr>
 						</thead>
 						<tbody>
