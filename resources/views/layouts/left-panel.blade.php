@@ -67,27 +67,9 @@
                 @include('warehouse::layouts.menu-option')
                 {{-- Menú de opciones del módulo de bienes --}}
                 @include('asset::layouts.menu-option')
-                {{-- Gestión de finanzas --}}
-                <li>
-                    <a href="#" title="Gestión de bancos y finanzas" data-toggle="tooltip" data-placement="right">
-                        <i class="ion-ios-calculator-outline"></i><span>Finanzas</span>
-                    </a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="#">Banco</a>
-                        </li>
-                        <li>
-                            <a href="#">Emisión de Cheques</a>
-                        </li>
-                        <li>
-                            <a href="#">Reportes</a>
-                            <ul class="submenu">
-                                <li><a href="#">Reporte 1</a></li>
-                                <li><a href="#">Reporte 2</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                {{-- Menú de opciones del módulo de finanzas --}}
+                @include('finance::layouts.menu-option')
+                {{-- Menú de opciones del módulo de contabilidad --}}
                 @include('accounting::layouts.menu-option')
                 {{-- Gestión de cuentas por pagar --}}
                 <li>
