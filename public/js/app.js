@@ -81318,7 +81318,7 @@ var render = function() {
                                   click: function($event) {
                                     _vm.deleteRecord(
                                       props.index,
-                                      "/finance/banks"
+                                      "finance/banks"
                                     )
                                   }
                                 }
