@@ -33,7 +33,7 @@ class AssetSpecificCategoryController extends Controller
     {
         
 
-        return response()->json(['records' => AssetSpecificCategory::all()], 200); 
+        return response()->json(['records' => AssetSpecificCategory::with('subcategory')->get()], 200); 
     }
 
     /**
@@ -59,6 +59,7 @@ class AssetSpecificCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
+            'asset_subcategory_id' => 'required',
         ]);
 
 
@@ -107,7 +108,8 @@ class AssetSpecificCategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'code' => 'required|max:10'
+            'code' => 'required|max:10',
+            'asset_subcategory_id' => 'required',
         ]);
  
         $specific_category->name = $request->input('name');
