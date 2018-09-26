@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class FinanceController extends Controller
+class FinanceBankController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -68,10 +68,5 @@ class FinanceController extends Controller
      */
     public function destroy()
     {
-    }
-
-    public function setting()
-    {
-        return view('finance::settings');
     }
 }

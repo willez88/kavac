@@ -16,6 +16,8 @@ class FinanceDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        $this->call(FinanceRoleAndPermissionsTableSeeder::class);
+
         $this->call(FinanceBanksTableSeeder::class);
     }
 }

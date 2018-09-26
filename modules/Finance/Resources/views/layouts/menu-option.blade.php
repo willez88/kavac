@@ -5,7 +5,7 @@
     </a>
     <ul class="submenu" style="{!! (strpos($current_url, 'finance') !== false)?'display:block;':'' !!}">
         <li>
-            <a href="#">Banco</a>
+            <a href="{{ route('finance.setting.index') }}">Configuración</a>
         </li>
         <li>
             <a href="#">Emisión de Cheques</a>
