@@ -50,6 +50,17 @@ class City extends Model
     }
 
     /**
+     * City morphs to models in citiable_type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function citiable()
+    {
+        return $this->morphTo();
+    }
+
+
+    /**
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)

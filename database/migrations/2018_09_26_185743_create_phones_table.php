@@ -19,6 +19,7 @@ class CreatePhonesTable extends Migration
             $table->string('number')->comment('Número telefónico');
             $table->enum('type', ['M', 'T', 'F'])->default('T')->comment('Tipo de teléfono: (M)óvil, (T)eléfono, (F)ax');
             $table->string('extension')->nullable()->comment('Número de extensión (si posee)');
+            $table->morphs('phoneable');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });

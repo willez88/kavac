@@ -20,4 +20,14 @@ class FinanceBank extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['code', 'name', 'short_name', 'website'];
+
+    /**
+     * FinanceBank has many Agencies.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function agencies()
+    {
+        return $this->hasMany(FinanceBankingAgency::class);
+    }
 }

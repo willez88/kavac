@@ -12,5 +12,7 @@ Route::group([
     	Route::get('settings', 'FinanceController@setting')->name('finance.setting.index');
 	    /** Rutas para la gestión de entidades bancarias */
 	    Route::resource('banks', 'FinanceBankController', ['as' => 'finance']);
+	    /** Rutas para la gestión de agencias bancarias */
+	    Route::resource('bank-agencies', 'FinanceBankingAgencyController', ['as' => 'finance']);
 	});
 });

@@ -28,4 +28,15 @@ class Phone extends Model
      * @var array $fillable
      */
     protected $fillable = ['area_code', 'number', 'type', 'extension'];
+
+    /**
+     * Phone morphs to models in phonetable_type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function phoneable()
+    {
+        return $this->morphTo();
+    }
+
 }

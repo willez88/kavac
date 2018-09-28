@@ -32,14 +32,7 @@
 				<div class="card-body">
 					<div class="row">
 						<finance-banks></finance-banks>
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-							   href="#" title="Registros de agencias bancarias" 
-							   data-toggle="tooltip">
-								<i class="icofont icofont-business-man ico-3x"></i>
-								<span>Agencias<br>Bancarias</span>
-							</a>
-						</div>
+						<finance-banking-agencies></finance-banking-agencies>
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 							   href="#" title="Registros de tipos de cuenta bancaria" 
