@@ -159,7 +159,7 @@ Vue.mixin({
 			this.errors = [];
 			this.reset();
 			//var records = [];
-			axios.get(url).then(response => {
+			axios.get('/' + url).then(response => {
 				if (typeof(response.data.records) !== "undefined") {
 					this.records = response.data.records;
 				}
