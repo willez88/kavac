@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de entidades bancarias" 
-		   data-toggle="tooltip" @click="addRecord('add_bank', '/finance/banks', $event)">
+		   data-toggle="tooltip" @click="addRecord('add_bank', 'finance/banks', $event)">
 			<i class="icofont icofont-bank-alt ico-3x"></i>
 			<span>Bancos</span>
 		</a>

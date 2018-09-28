@@ -34438,7 +34438,7 @@ Vue.mixin({
 			this.errors = [];
 			this.reset();
 			//var records = [];
-			axios.get(url).then(function (response) {
+			axios.get('/' + url).then(function (response) {
 				if (typeof response.data.records !== "undefined") {
 					_this.records = response.data.records;
 				}
@@ -81044,7 +81044,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.addRecord("add_bank", "/finance/banks", $event)
+            _vm.addRecord("add_bank", "finance/banks", $event)
           }
         }
       },
