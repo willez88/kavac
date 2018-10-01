@@ -15,7 +15,8 @@
         "nwidart/laravel-modules": "^3.0",
         "spatie/laravel-backup": "^5.6",
         "ultraware/roles": "^5.5",
-        "venturecraft/revisionable": "^1.28"
+        "venturecraft/revisionable": "^1.28",
+        "elibyy/tcpdf-laravel": "5.5.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
