@@ -39,15 +39,6 @@
 								<span>Tipos de<br>Personal</span>
 							</a>
 						</div>
-						{{-- Configuración de cargos --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('positions.index') }}" title="Registro de cargos"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
-								<span>Cargos</span>
-							</a>
-						</div>
 						{{-- Configuración de tipos de cargos --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
@@ -55,6 +46,15 @@
 							   data-toggle="tooltip">
 								<i class="icofont icofont-contact-add ico-3x"></i>
 								<span>Tipos de<br>Cargos</span>
+							</a>
+						</div>
+						{{-- Configuración de cargos --}}
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('positions.index') }}" title="Registro de cargos"
+							   data-toggle="tooltip">
+								<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
+								<span>Cargos</span>
 							</a>
 						</div>
 						{{-- Configuración de clasificación del personal --}}
