@@ -22,6 +22,16 @@ use Modules\Asset\Models\AssetSubcategory;
 
 class AssetSubcategoryController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:asset.setting.subcategory');
+    }
     use ValidatesRequests;
     /**
      * Muestra un listado de las Subcategorias de una categoria de Bien
@@ -57,15 +67,17 @@ class AssetSubcategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'asset_category_id' => 'required',
+            'category_id' => 'required'
         ]);
 
 
-        $subcategory = AssetSubcategory::create([
-            'name' => $request->input('name'),
-            'code' => $request->input('code'),
-            'asset_category_id' => $request->input('category_id')
-        ]);
+        $subcategory = new AssetSubcategory;
+
+        $subcategory->name = $request->input('name');
+        $subcategory->code = $request->input('code');
+        $subcategory->asset_category_id = $request->category_id;
+
+        $subcategory->save();
 
         return response()->json(['record' => $subcategory, 'message' => 'Success'], 200);
     }
@@ -107,12 +119,12 @@ class AssetSubcategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'asset_category_id' => 'required',
+            'category_id' => 'required'
         ]);
  
         $subcategory->name = $request->input('name');
         $subcategory->code = $request->input('code');
-        $subcategory->asset_category_id = $request->input('category_id');
+        $subcategory->asset_category_id = $request->category_id;
 
         $subcategory->save();
  

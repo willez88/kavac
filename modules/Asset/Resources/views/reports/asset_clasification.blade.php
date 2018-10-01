@@ -29,7 +29,7 @@
 						</a>
 					</div>
 				</div>
-				{!! Form::open(['route' => ['asset.report.index',2], 'id' => 'form1','method' => 'GET', 'role' =>'form']) !!}
+				{!! Form::open(['route' => ['asset.report.create',2], 'id' => 'form1','method' => 'GET', 'role' =>'form']) !!}
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-6">
@@ -117,40 +117,24 @@
 								<tr class="text-center">
 
 									<th>Código</th>
-									<th>Tipo</th>
-									<th>Categoria</th>
-									<th>Subcategoria</th>
-									<th>Categoria Específica</th>
 									<th>Ubicación</th>
-									<th>Proveedor</th>
 									<th>Condición Física</th>
-									<th>Forma de Adquisición</th>
-									<th>Año de Adquisición</th>
 									<th>Estatus de uso</th>
 									<th>Serial</th>
 									<th>Marca</th>
 									<th>Modelo</th>
-									<th>Valor</th>
 								</tr>
 							</thead>
 							<tbody>
 								@foreach($assets as $asset)
 									<tr>
 										<td> {{ $asset->serial_inventario }} </td>
-										<td> {{ $asset->type->name }} </td>
-								        <td> {{ $asset->category->name }} </td>
-								        <td> {{ $asset->subcategory->name }} </td>
-								        <td> {{ $asset->specific->name }} </td>
 								        <td> {{ $asset->institution_id }} </td>
-								        <td> {{ $asset->proveedor_id }} </td>
 								        <td> {{ $asset->condition->name }} </td>
-								        <td> {{ $asset->purchase->name }} </td>
-								        <td> {{ $asset->purchase_year }} </td>
 								        <td> {{ $asset->status->name }} </td>
 								        <td> {{ $asset->serial }} </td>
 								        <td> {{ $asset->marca }} </td>
 										<td> {{ $asset->model }} </td>
-										<td> {{ $asset->value }} </td>
 										
 									</tr>
 								@endforeach

@@ -65,9 +65,13 @@
 										<td width="10%" class="text-center">
 											<div class="d-inline-flex">
 												
+												<button class="btn btn-info btn-xs btn-icon btn-round"  
+												data-toggle="tooltip" title="Ver información de la Asignación">
+													<i class="fa fa-info-circle"></i>
+												</button>
 												{!! Form::open(['route' => ['asset.disincorporation.asset_disassign', $asignation->asset_id], 'method' => 'GET']) !!}
 												<button class="btn btn-primary btn-xs btn-icon btn-round"  
-												data-toggle="tooltip" title="Desincorporar bien">
+												data-toggle="tooltip" title="Desincorporar Bien">
 													<i class="fa fa-filter"></i>
 												</button>
 												{!! Form::close() !!}
@@ -75,13 +79,13 @@
 
 												{!! Form::open(['route' => ['asset.asignation.edit', $asignation], 'method' => 'GET']) !!}
 												<button class="btn btn-warning btn-xs btn-icon btn-round"  
-												data-toggle="tooltip" title="Reasignar bien">
+												data-toggle="tooltip" title="Editar información de la Asignación">
 													<i class="icofont icofont-edit"></i>
 												</button>
 												{!! Form::close() !!}
 
 												{!! Form::open(['route' => ['asset.asignation.destroy', $asignation], 'method' => 'DELETE']) !!}
-												<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar registro"><i class="fa fa-trash"></i></button>
+												<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar Asignación"><i class="fa fa-trash"></i></button>
 												{!! Form::close() !!}
 		
 											</div>

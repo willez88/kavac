@@ -22,6 +22,16 @@ use Modules\Asset\Models\AssetCategory;
 
 class AssetCategoryController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:asset.setting.category');
+    }
     use ValidatesRequests;
     /**
      * Muestra un listado de las Categorias de un Tipo de Bien
@@ -57,7 +67,7 @@ class AssetCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'asset_type_id' => 'required'
+            'type_id' => 'required'
         ]);
 
 
@@ -65,6 +75,7 @@ class AssetCategoryController extends Controller
         $category->name = $request->input('name');
         $category->code = $request->input('code');
         $category->asset_type_id = $request->type_id;
+        $category->save();
 
         return response()->json(['record' => $category, 'message' => 'Success'], 200);
     }
@@ -107,7 +118,7 @@ class AssetCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'asset_type_id' => 'required'
+            'type_id' => 'required'
         ]);
  
         

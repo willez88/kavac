@@ -59,7 +59,11 @@ class CreateAssetsTable extends Migration
                 
                 $table->foreign('institution_id')->references('id')->on('institutions')
                      ->onDelete('restrict')->onUpdate('cascade');
-                
+
+                /**
+                 *$table->foreign('institution_id')->references('id')->on('departments');
+                 *     ->onDelete('restrict')->onUpdate('cascade');
+                **/
 
                 $table->integer('proveedor_id')->nullable()->unsigned()
                       ->comment('Identificador único del proveedor al que se compró el bien en la tabla proveedor');

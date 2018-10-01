@@ -24,6 +24,19 @@ use Modules\Asset\Models\Asset;
 
 class AssetRequestController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:asset.request.list', ['only' => 'index']);
+        $this->middleware('permission:asset.request.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:asset.request.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:asset.request.delete', ['only' => 'destroy']);
+    }
     use ValidatesRequests;
 
     /**

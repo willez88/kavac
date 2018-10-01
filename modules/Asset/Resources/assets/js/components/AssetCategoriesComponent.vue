@@ -98,13 +98,13 @@
 			return {
 				record: {
 					id: '',
-					type_id: '0',
+					type_id: '',
 					name: '',
 					code: ''
 				},
 				errors: [],
 				records: [],
-				types: ['0'],
+				types: [],
 				columns: ['type.name', 'name', 'code', 'id'],
 			}
 		},
