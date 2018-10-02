@@ -107,6 +107,56 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollPosition', 'model_prefix' => 'nomina',
                 'slug_alt' => 'cargo.eliminar'
             ],
+            // Staff Classifications
+            [
+                'name' => 'Ver la clasificación del personal', 'slug' => 'payroll.staff.classifications.index',
+                'description' => 'Acceso para ver la clasificación del personal',
+                'model' => 'Modules\Payroll\Models\PayrollStaffClassification', 'model_prefix' => 'nomina',
+                'slug_alt' => 'clasificacion.personal.ver'
+            ],
+            [
+                'name' => 'Crear la clasificación del personal', 'slug' => 'payroll.staff.classifications.create',
+                'description' => 'Acceso para crear la clasificación del personal',
+                'model' => 'Modules\Payroll\Models\PayrollStaffClassification', 'model_prefix' => 'nomina',
+                'slug_alt' => 'clasificacion.personal.crear'
+            ],
+            [
+                'name' => 'Editar la clasificación del personal', 'slug' => 'payroll.staff.classifications.edit',
+                'description' => 'Acceso para editar la clasificación del personal',
+                'model' => 'Modules\Payroll\Models\PayrollStaffClassification', 'model_prefix' => 'nomina',
+                'slug_alt' => 'clasificacion.personal.editar'
+            ],
+            [
+                'name' => 'Eliminar la clasificación del personal', 'slug' => 'payroll.staff.classifications.delete',
+                'description' => 'Acceso para eliminar la clasificación del personal',
+                'model' => 'Modules\Payroll\Models\PayrollStaffClassification', 'model_prefix' => 'nomina',
+                'slug_alt' => 'clasificacion.personal.eliminar'
+            ],
+            // Staffs
+            [
+                'name' => 'Ver el personal', 'slug' => 'payroll.staffs.index',
+                'description' => 'Acceso para ver el personal',
+                'model' => 'Modules\Payroll\Models\PayrollStaff', 'model_prefix' => 'nomina',
+                'slug_alt' => 'personal.ver'
+            ],
+            [
+                'name' => 'Crear el personal', 'slug' => 'payroll.staffs.create',
+                'description' => 'Acceso para crear el personal',
+                'model' => 'Modules\Payroll\Models\PayrollStaff', 'model_prefix' => 'nomina',
+                'slug_alt' => 'personal.crear'
+            ],
+            [
+                'name' => 'Editar el personal', 'slug' => 'payroll.staffs.edit',
+                'description' => 'Acceso para editar el personal',
+                'model' => 'Modules\Payroll\Models\PayrollStaff', 'model_prefix' => 'nomina',
+                'slug_alt' => 'personal.editar'
+            ],
+            [
+                'name' => 'Eliminar el personal', 'slug' => 'payroll.staffs.delete',
+                'description' => 'Acceso para eliminar el personal',
+                'model' => 'Modules\Payroll\Models\PayrollStaff', 'model_prefix' => 'nomina',
+                'slug_alt' => 'personal.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {
