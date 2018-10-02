@@ -22,6 +22,16 @@ use Modules\Asset\Models\AssetSpecificCategory;
 
 class AssetSpecificCategoryController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:asset.setting.specific');
+    }
     use ValidatesRequests;
     /**
      * Muestra un listado de las Subcategorias de una categoria de Bien
@@ -59,7 +69,7 @@ class AssetSpecificCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'asset_subcategory_id' => 'required',
+            'subcategory_id' => 'required',
         ]);
 
 
@@ -109,7 +119,7 @@ class AssetSpecificCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'asset_subcategory_id' => 'required',
+            'subcategory_id' => 'required',
         ]);
  
         $specific_category->name = $request->input('name');

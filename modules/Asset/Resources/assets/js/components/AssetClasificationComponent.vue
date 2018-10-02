@@ -148,9 +148,9 @@
 				},
 				errors: [],
 				records: [],
-				types: ['0'],
-				categories: ['0'],
-				subcategories: ['0'],
+				types: [],
+				categories: [],
+				subcategories: [],
 				columns: ['subcategory.category.type.name','subcategory.category.name','subcategory.name', 'name', 'code', 'id'],
 			}
 		},

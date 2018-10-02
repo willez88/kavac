@@ -119,13 +119,13 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group  {{ $errors->has('institution') ? ' has-error' : '' }} is-required">
+							<div class="form-group  {{ $errors->has('department') ? ' has-error' : '' }} is-required">
 								
-								{!! Form::label('institution_label', 'Ubicación', []) !!}
-								{!! Form::select('institution', (isset($institutions))?$institutions:[],  (isset($asset))?$asset->institution_id:null, [
+								{!! Form::label('department_label', 'Ubicación', []) !!}
+								{!! Form::select('departament', (isset($departments))?$departments:[],  (isset($asset))?$asset->institution_id:null, [
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
-									'title' => 'Indique la institucion donde recide el bien'
+									'title' => 'Indique el nombre de la unidad, departamento o dependencia en la que recide el bien'
 								]) !!}
 
 							</div>

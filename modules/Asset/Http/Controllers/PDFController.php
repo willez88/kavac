@@ -12,6 +12,17 @@ use App\Models\Institution;
 
 class PDFController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:asset.report.print', ['only' => 'create']);
+    }
+
     public function create(Request $request)
     {
         $assets = Asset::nameclasification($request->type,$request->category,$request->subcategory,$request->specific_category)->get();

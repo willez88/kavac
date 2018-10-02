@@ -10,23 +10,16 @@
  * config/filesystems.php
  */
 
-Route::group(['middleware' => 'web', 'prefix' => 'asset', 'namespace' => 'Modules\Asset\Http\Controllers'], function()
+Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' => 'Modules\Asset\Http\Controllers'], function()
 {
-    Route::get('/', 'AssetController@index');
-
     Route::get('settings', 'AssetSettingController@index')->name('asset.setting.index');
 
 	/**
-	 * Rutas para gestionar el Ingreso de Bienes Institucionales 
+	 * Ruta para el Home de Bienes Institucionales 
 	 */
 
-    Route::get('index', 'AssetController@index')->name('asset.index');
-    Route::get('create', 'AssetController@create')->name('asset.create');
-    Route::post('store', 'AssetController@store')->name('asset.store');
-    Route::get('edit/{asset}', 'AssetController@edit')->name('asset.edit');
-    Route::put('update/{asset}', 'AssetController@update')->name('asset.update');
-    Route::delete('delete/{asset}', 'AssetController@destroy')->name('asset.destroy');
-
+    //Route::get('/', 'AssetSettingController@index');
+    
     /**
      * Rutas para gestionar las Asignaciones de Bienes Institucionales 
      */
@@ -86,7 +79,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'asset', 'namespace' => 'Module
      * Rutas para gestionar la generación de Reportes
      */
 
-    Route::get('report/{type}', 'AssetReportController@index')->name('asset.report.index');
+    Route::get('report/{type}', 'AssetReportController@create')->name('asset.report.create');
 
 
 
@@ -100,15 +93,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'asset', 'namespace' => 'Module
     Route::get('get-subcategories/{category}', 'ServiceController@GetSubcategories')->name('asset.services.subcategories');
 
 
-    /**
-     * Rutas para mostrar los componentes vue
-     */
     
-    Route::get('types', 'AssetTypeController@index');
-    Route::get('categories', 'AssetCategoryController@index');
-    Route::get('subcategories', 'AssetSubcategoryController@index');
-    Route::get('specific', 'AssetSpecificCategoryController@index');
-    Route::get('clasifications', 'AssetClasificationController@index');
    
     
 });
@@ -123,8 +108,12 @@ Route::group(['middleware' => 'web', 'prefix' => 'asset', 'namespace' => 'Module
  *  de la aplicación
  */
 
-Route::group(['middleware' => 'web', 'namespace' => 'Modules\Asset\Http\Controllers'], function()
+Route::group(['middleware' => ['web','auth'], 'namespace' => 'Modules\Asset\Http\Controllers'], function()
 {
+    /**
+     * Rutas para gestionar los registros de bienes
+     */
+    Route::resource('asset', 'AssetController', ['except' => ['show']]);
 
     /**
      * Rutas para gestionar el clasificador de bienes

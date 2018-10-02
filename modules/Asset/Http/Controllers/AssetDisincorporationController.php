@@ -27,6 +27,19 @@ use Modules\Asset\Models\AssetSpecificCategory;
 
 class AssetDisincorporationController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:asset.disincorporation.list', ['only' => 'index']);
+        $this->middleware('permission:asset.disincorporation.create', ['only' => ['create', 'Asset_Disassign', 'store']]);
+        $this->middleware('permission:asset.disincorporation.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:asset.disincorporation.delete', ['only' => 'destroy']);
+    }
     use ValidatesRequests;
 
     /**

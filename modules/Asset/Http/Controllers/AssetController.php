@@ -17,6 +17,7 @@ use Modules\Asset\Models\AssetPurchase;
 use Modules\Asset\Models\AssetCondition;
 use Modules\Asset\Models\AssetStatus;
 use Modules\Asset\Models\AssetUse;
+use App\Models\Department;
 
 /**
  * @class AssetController
@@ -30,6 +31,19 @@ use Modules\Asset\Models\AssetUse;
 
 class AssetController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:asset.list', ['only' => 'index']);
+        $this->middleware('permission:asset.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:asset.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:asset.delete', ['only' => 'destroy']);
+    }
     use ValidatesRequests;
 
     /**
@@ -61,6 +75,7 @@ class AssetController extends Controller
         $subcategories = AssetSubcategory::template_choices();
         $specific_categories = AssetSpecificCategory::template_choices();
 
+        $departments = Department::all();
         $purchases = AssetPurchase::template_choices();
         $conditions = AssetCondition::template_choices();
         $status = AssetStatus::template_choices();
@@ -85,7 +100,7 @@ class AssetController extends Controller
             'category' => 'required',
             'subcategory' => 'required',
             'specific_category' => 'required',
-            //'institution' => 'required',
+            //'department' => 'required',
             //'proveedor' => 'required',
             'purchase' => 'required',
             'purchase_year' => 'required',
@@ -119,7 +134,7 @@ class AssetController extends Controller
         $asset->category_id = $request->category;
         $asset->subcategory_id = $request->subcategory;
         $asset->specific_category_id = $request->specific_category;
-        $asset->institution_id = $request->institution;
+        $asset->institution_id = $request->department;
         $asset->proveedor_id = $request->proveedor;
         $asset->condition_id = $request->condition;
         $asset->purchase_id = $request->purchase;
@@ -166,6 +181,7 @@ class AssetController extends Controller
         $subcategories = AssetSubcategory::template_choices();
         $specific_categories = AssetSpecificCategory::template_choices();
 
+        $departments = Department::all();
         $purchases = AssetPurchase::template_choices();
         $conditions = AssetCondition::template_choices();
         $status = AssetStatus::template_choices();
@@ -191,7 +207,7 @@ class AssetController extends Controller
             'category' => 'required',
             'subcategory' => 'required',
             'specific_category' => 'required',
-            //'asset_institution' => 'required',
+            //'department' => 'required',
             //'proveedor' => 'required',
             'purchase' => 'required',
             'purchase_year' => 'required',
@@ -224,7 +240,7 @@ class AssetController extends Controller
         $asset->category_id = $request->category;
         $asset->subcategory_id = $request->subcategory;
         $asset->specific_category_id = $request->specific_category;
-        $asset->institution_id = $request->institution;
+        $asset->institution_id = $request->department;
         $asset->proveedor_id = $request->proveedor;
         $asset->condition_id = $request->condition;
         $asset->purchase_id = $request->purchase;

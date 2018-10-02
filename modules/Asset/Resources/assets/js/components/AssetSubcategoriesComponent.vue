@@ -45,10 +45,18 @@
 					
 							<div class="col-md-6">
 								<div class="form-group is-required">
+									<label>Código de la Subcategoría:</label>
+									<input type="text" placeholder="Código de Subcategoría" data-toggle="tooltip" 
+										   title="Indique el código de la nueva Subcategoría (requerido)" 
+										   class="form-control input-sm" v-model="record.code">
+			                    </div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group is-required">
 									<label>Subcategoría:</label>
 									<input type="text" placeholder="Nueva SubCategoría" data-toggle="tooltip" 
 										   title="Indique la nueva Subcategoría(requerido)" 
-										   class="form-control input-sm" v-model="record.subcategory">
+										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
 						</div>
@@ -100,9 +108,10 @@
 			return {
 				record: {
 					id: '',
-					type_id: '0',
-					category_id: '0',
-					subcategory: ''
+					type_id: '',
+					category_id: '',
+					code: '',
+					name: ''
 				},
 				errors: [],
 				records: [],

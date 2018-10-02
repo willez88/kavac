@@ -22,6 +22,16 @@ use Modules\Asset\Models\AssetType;
 
 class AssetTypeController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:asset.setting.type');
+    }
     use ValidatesRequests;
     /**
      * Muestra un listado de los Tipos de Bienes

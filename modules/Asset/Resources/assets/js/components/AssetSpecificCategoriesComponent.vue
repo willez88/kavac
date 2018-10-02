@@ -52,10 +52,18 @@
 
 							<div class="col-md-6">
 								<div class="form-group is-required">
+									<label>Código de la Categoría Específica:</label>
+									<input type="text" placeholder="Código de la Categoría Específica" data-toggle="tooltip" 
+										   title="Indique el código de la nueva Categoría Específica (requerido)" 
+										   class="form-control input-sm" v-model="record.code">
+			                    </div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group is-required">
 									<label>Categoría Especifica:</label>
 									<input type="text" placeholder="Nueva Categoría Específica" data-toggle="tooltip" 
 										   title="Indique la nueva Categoría Específica (requerido)" 
-										   class="form-control input-sm" v-model="record.specific_category">
+										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
 						</div>
@@ -107,16 +115,17 @@
 			return {
 				record: {
 					id: '',
-					type_id: '0',
+					type_id: '',
 					category_id: '',
 					subcategory_id: '',
-					specific_category: ''
+					name: '',
+					code: ''
 				},
 				errors: [],
 				records: [],
-				types: ['0'],
-				categories: ['0'],
-				subcategories: ['0'],
+				types: [],
+				categories: [],
+				subcategories: [],
 				columns: ['subcategory.name', 'name', 'code', 'id'],
 			}
 		},

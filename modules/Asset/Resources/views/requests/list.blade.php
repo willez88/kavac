@@ -64,8 +64,8 @@
 											<div class="d-inline-flex">
 												
 												<button class="btn btn-info btn-xs btn-icon btn-round"  
-												data-toggle="tooltip" title="Visualizar Solicitud">
-													<i class="fa fa-filter"></i>
+												data-toggle="tooltip" title="Ver información de la Solicitud">
+													<i class="fa fa-info-circle"></i>
 												</button>
 
 												<button class="btn btn-warning btn-xs btn-icon btn-round"  
@@ -73,7 +73,7 @@
 													<i class="icofont icofont-edit"></i>
 												</button>
 
-													<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar Solicitud"><i class="fa fa-trash"></i></button>
+												<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar Solicitud"><i class="fa fa-trash"></i></button>
 		
 											</div>
 										</td>

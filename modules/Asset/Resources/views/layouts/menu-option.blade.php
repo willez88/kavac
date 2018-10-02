@@ -22,36 +22,36 @@
         <li title="Gestión de registros de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
             class='{!! ($current_url=='asset.index')?'active':'' !!}'>
-            <a href="{{ route('asset.index') }}">Registrar</a>
+            <a href="{{ route('asset.index') }}">Registros</a>
         </li>
         <li title="Gestión de asignaciones de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
             class='{!! ($current_url=='asset.asignation.index')?'active':'' !!}'>
-            <a href="{{ route('asset.asignation.index') }}">Asignar</a>
+            <a href="{{ route('asset.asignation.index') }}">Asignaciones</a>
         </li>
         <li title="Gestión de Desincorporaciones de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
             class='{!! ($current_url=='asset.disincorporation.index')?'active':'' !!}'>
-            <a href="{{ route('asset.disincorporation.index') }}">Desincorporación</a>
+            <a href="{{ route('asset.disincorporation.index') }}">Desincorporaciones</a>
         </li>
         
         <li title="Gestión de asignaciones de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
             class='{!! ($current_url=='asset.request.index')?'active':'' !!}'>
-            <a href="{{ route('asset.request.index') }}">Solicitud</a>
+            <a href="{{ route('asset.request.index') }}">Solicitudes</a>
         </li>
         <li>
             <a href="#">Reportes</a>
             <ul class="submenu">
                 <li title="Reportes de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
-            class='{!! ($current_url=='asset.report.index')?'active':'' !!}'>
-                    <a href="{{ route('asset.report.index',1) }}">General</a>
+            class='{!! ($current_url=='asset.report.create')?'active':'' !!}'>
+                    <a href="{{ route('asset.report.create',1) }}">General</a>
                 </li>
                 <li title="Reportes de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
-            class='{!! ($current_url=='asset.report.index')?'active':'' !!}'>
-                    <a href="{{ route('asset.report.index',2) }}">Por Clasificación</a>
+            class='{!! ($current_url=='asset.report.create')?'active':'' !!}'>
+                    <a href="{{ route('asset.report.create',2) }}">Por Clasificación</a>
                 </li>
             </ul>
         </li>

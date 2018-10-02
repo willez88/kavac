@@ -29,6 +29,19 @@ use Modules\Asset\Models\AssetSpecificCategory;
 
 class AssetAsignationController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:asset.asignation.list', ['only' => 'index']);
+        $this->middleware('permission:asset.asignation.create', ['only' => ['create', 'Asset_Assign', 'store']]);
+        $this->middleware('permission:asset.asignation.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:asset.asignation.delete', ['only' => 'destroy']);
+    }
     use ValidatesRequests;
 
     /**
