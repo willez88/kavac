@@ -13,6 +13,8 @@ Route::group([
 	    /** Rutas para la gestión de entidades bancarias */
 	    Route::resource('banks', 'FinanceBankController', ['as' => 'finance']);
 	    /** Rutas para la gestión de agencias bancarias */
-	    Route::resource('bank-agencies', 'FinanceBankingAgencyController', ['as' => 'finance']);
+	    Route::resource('banking-agencies', 'FinanceBankingAgencyController', ['as' => 'finance']);
 	});
+
+	Route::get('get-banks', 'FinanceBankController@getBanks');
 });

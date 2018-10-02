@@ -27,7 +27,7 @@ class FinanceBankingAgencyController extends Controller
      */
     public function create()
     {
-        return view('finance::create');
+
     }
 
     /**
@@ -37,6 +37,27 @@ class FinanceBankingAgencyController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'direction' => 'required',
+            'city_id' => 'required',
+            'finance_bank_id' => 'required'
+        ]);
+
+        $bankingAgency = FinanceBankingAgency::create([
+            'name' => $request->input('name'),
+            'direction' => $request->input('direction'),
+            'finance_bank_id' => $request->input('finance_bank_id'),
+            'contact_person' => (!empty($request->input('contact_person')))?$request->input('contact_person'):null,
+            'contact_email' => (!empty($request->input('contact_email')))?$request->input('contact_email'):null,
+            'headquarters' => (!is_null($request->input('headquarters')))
+        ]);
+
+        if ($request->input('phones')) {
+            // Guardar número telefónicos
+        }
+
+        return response()->json(['record' => $bankingAgency, 'message' => 'Success'], 200);
     }
 
     /**

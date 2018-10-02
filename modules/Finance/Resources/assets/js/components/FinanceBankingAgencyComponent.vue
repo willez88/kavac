@@ -1,4 +1,4 @@
-<tamplate>
+<template>
 	<div class="col-md-2 text-center">
 		<div class="col-md-2 text-center">
 			<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
@@ -20,48 +20,97 @@
 							Agencias Bancarias
 						</h6>
 					</div>
-					<!--<div class="modal-body">
+					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>
 								<li v-for="error in errors">{{ error }}</li>
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-md-4">
 								<div class="form-group is-required">
-									<label>Código</label>
-									<input type="text" placeholder="0000" maxlength="4" data-toggle="tooltip" 
-										   title="Indique el código de la entidad bancaria (requerido)" 
-										   class="form-control input-sm" v-model="record.code" autofocus>
+									<label>País</label>
+									<select2 :options="countries" @input="getEstates" 
+											 v-model="record.country_id"></select2>
 									<input type="hidden" v-model="record.id">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
-									<label>Nonmbre Abreviado</label>
-									<input type="text" placeholder="Nombre corto" data-toggle="tooltip" 
-										   title="Indique el nombre abreviado de la entidad bancaria (requerido)" 
-										   class="form-control input-sm" v-model="record.short_name">
+									<label>Estado</label>
+									<select2 :options="estates" @input="getCities" 
+											 v-model="record.estate_id"></select2>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group is-required">
-									<label>Nombre:</label>
-									<input type="text" placeholder="Nombre del Banco" data-toggle="tooltip" 
-										   title="Indique el nombre del banco (requerido)" 
-										   class="form-control input-sm" v-model="record.name">
-			                    </div>
+									<label>Ciudad</label>
+									<select2 :options="cities" v-model="record.city_id"></select2>
+								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
+								<div class="form-group is-required">
+									<label>Banco</label>
+									<select2 :options="banks" v-model="record.finance_bank_id"></select2>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group is-required">
+									<label>Nombre de Agencia</label>
+									<input type="text" placeholder="Nombre agencia" data-toggle="tooltip" 
+										   title="Indique el nombre de la agencia bancaria (requerido)" 
+										   class="form-control input-sm" v-model="record.name">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group is-required">
+									<label>Dirección</label>
+									<textarea class="form-control input-sm" rows="3" data-toggle="tooltip" 
+											  title="Indique la dirección de la agencia bancaria" 
+											  v-model="record.direction" 
+											  placeholder="Dirección de la agencia bancaria"></textarea>
+								</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label>Sitio Web:</label>
-									<input type="url" placeholder="Sitio Web" data-toggle="tooltip" 
-										   title="Indique el sitio web de la entidad bancaria" 
-										   class="form-control input-sm" v-model="record.website">
+									<label>Persona de contacto</label>
+									<input type="text" placeholder="Nombre contacto" data-toggle="tooltip" 
+										   title="Indique el nombre de la persona de contacto" 
+										   class="form-control input-sm" v-model="record.contact_name">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>Correo de contacto</label>
+									<input type="text" placeholder="Nombre contacto" data-toggle="tooltip" 
+										   title="Indique el correo de la persona de contacto" 
+										   class="form-control input-sm" v-model="record.contact_email">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>Sede principal</label>
+									<div class="col-md-12">
+										<input type="checkbox" class="form-control bootstrap-switch" 
+											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO" 
+											   title="Indique si es la sede principal del banco" 
+											   v-model="record.headquarters" value="true">
+									</div>
 			                    </div>
 							</div>
 						</div>
-	                </div>-->
+						<hr>
+						<h6 class="card-title">
+							Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
+						</h6>
+						<div class="row" v-for="(index, phone) in record.phones">
+							<div class="col-3">a</div>
+							<div class="col-2">b</div>
+							<div class="col-4">c</div>
+							<div class="col-2">d</div>
+							<div class="col-1">e</div>
+						</div>
+	                </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
@@ -94,7 +143,7 @@
 		    </div>
 		</div>
 	</div>
-</tamplate>
+</template>
 
 <script>
 	export default {
@@ -108,12 +157,39 @@
 					contact_person: '',
 					contact_email: '',
 					finance_bank_id: '',
+					country_id: '',
+					estate_id: '',
 					city_id: '',
-					phones: []
+					phones: [{
+						type: '',
+						area_code: '',
+						number: '',
+						extension: '',
+					}],
 				},
 				errors: [],
 				records: [],
+				banks: [],
+				countries: [],
+				estates: ['0'],
+				cities: ['0'],
 				columns: ['bank.name', 'citiable.name', 'name', 'direction', 'headquarters', 'phones', 'id'],
+			}
+		},
+		methods: {
+			getBanks: function() {
+				axios.get('/finance/get-banks').then(response => {
+					this.banks = response.data;
+				});
+			},
+			addPhone: function() {
+				console.log(this.record);
+				this.record.phones.push({
+					type: '',
+					area_code: '',
+					number: '',
+					extension: ''
+				});
 			}
 		},
 		created() {
@@ -128,7 +204,8 @@
 			};
 			this.table_options.sortable = ['bank.name', 'citiable.name', 'name'];
 			this.table_options.filterable = ['bank.name', 'citiable.name', 'name'];
-
+			this.getCountries();
+			this.getBanks();
 		},
 	};
 </script>

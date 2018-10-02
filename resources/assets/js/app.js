@@ -387,6 +387,18 @@ Vue.mixin({
 					this.municipalities = response.data;
 				});
 			}
+		},
+		/**
+		 * Obtiene los Municipios del Estado seleccionado
+		 * 
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 */
+		getCities() {
+			if (this.record.estate_id) {
+				axios.get('/get-cities/' + this.record.estate_id).then(response => {
+					this.cities = response.data;
+				});
+			}
 		}
 		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;

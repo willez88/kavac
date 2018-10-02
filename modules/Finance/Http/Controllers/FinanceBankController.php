@@ -12,6 +12,21 @@ class FinanceBankController extends Controller
 {
     use ValidatesRequests;
 
+    /** @var array Lista de elementos a mostrar */
+    protected $data = [];
+
+    /**
+     * Método constructor de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     */
+    public function __construct() {
+        $this->data[0] = [
+            'id' => '',
+            'text' => 'Seleccione...'
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -104,5 +119,17 @@ class FinanceBankController extends Controller
         $financeBank = FinanceBank::find($id);
         $financeBank->delete();
         return response()->json(['record' => $financeBank, 'message' => 'Success'], 200);
+    }
+
+    public function getBanks()
+    {
+        foreach (FinanceBank::all() as $bank) {
+            $this->data[] = [
+                'id' => $bank->id,
+                'text' => $bank->name
+            ];
+        }
+
+        return response()->json($this->data);
     }
 }
