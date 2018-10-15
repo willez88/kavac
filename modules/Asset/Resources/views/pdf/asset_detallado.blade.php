@@ -1,3 +1,5 @@
+@php  $total=0;
+@endphp
 
 <table cellspacing="0" cellpadding="1" border="1">
     <tr align="C">
@@ -23,15 +25,15 @@
             <td> {{ $asset->marca }} </td>
             <td> {{ $asset->model }} </td>
             <td> {{ $asset->value }} </td>
-            {{$tot +=$asset->value}}
-            
+            @php $total +=$asset->value
+            @endphp
         
         </tr>
     @endforeach
     <tr align="R">
 
         <th width="87.5%">Total</th>
-        <th>{{$tot}}</th>
+        <th>{{$total}}</th>
     </tr>
 
 

@@ -5,26 +5,16 @@ namespace Modules\Asset\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use Modules\Asset\Models\AssetClasification;
-use Modules\Asset\Models\AssetType;
-use Modules\Asset\Models\AssetCategory;
-use Modules\Asset\Models\AssetSubcategory;
-use Modules\Asset\Models\AssetSpecificCategory;
-use Auth;
-
-class AssetClasificationController extends Controller
+class AssetInventaryController extends Controller
 {
-    
-    use ValidatesRequests;
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return response()->json(['records' => AssetSpecificCategory::with('subcategory')->get()], 200);
+        return view('asset::index');
     }
 
     /**
@@ -32,8 +22,8 @@ class AssetClasificationController extends Controller
      * @return Response
      */
     public function create()
-    {   
-        //
+    {
+        return view('asset::create');
     }
 
     /**
@@ -43,7 +33,6 @@ class AssetClasificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

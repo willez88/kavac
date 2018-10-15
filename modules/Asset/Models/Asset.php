@@ -192,7 +192,7 @@ class Asset extends Model
     }
 
 
-    public function scopeNameClasification($query, $type, $category, $subcategory, $specific){
+    public function scopeCodeClasification($query, $type, $category, $subcategory, $specific){
         if($type != ""){
             if ($category != "") {
                 if ($subcategory != "") {
@@ -211,6 +211,11 @@ class Asset extends Model
             }
             return $query->where('type_id',$type);
         }
+    }
+
+    public function scopeDateClasification($query, $start, $end){
+        
+        return $query->whereBetween("created_at",[$start,$end]);
     }
 
     public function scopeRequest($query, $model, $marca, $serial){

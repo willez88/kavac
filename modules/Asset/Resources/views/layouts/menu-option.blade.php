@@ -35,7 +35,7 @@
             <a href="{{ route('asset.disincorporation.index') }}">Desincorporaciones</a>
         </li>
         
-        <li title="Gestión de asignaciones de bienes institucionales" data-toggle="tooltip"
+        <li title="Gestión de solicitudes de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
             class='{!! ($current_url=='asset.request.index')?'active':'' !!}'>
             <a href="{{ route('asset.request.index') }}">Solicitudes</a>
@@ -43,12 +43,12 @@
         <li>
             <a href="#">Reportes</a>
             <ul class="submenu">
-                <li title="Reportes de bienes institucionales" data-toggle="tooltip"
+                <li title="Reportes Generales de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
             class='{!! ($current_url=='asset.report.create')?'active':'' !!}'>
                     <a href="{{ route('asset.report.create',1) }}">General</a>
                 </li>
-                <li title="Reportes de bienes institucionales" data-toggle="tooltip"
+                <li title="Reportes por clasificación de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
             class='{!! ($current_url=='asset.report.create')?'active':'' !!}'>
                     <a href="{{ route('asset.report.create',2) }}">Por Clasificación</a>

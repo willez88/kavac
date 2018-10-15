@@ -12,7 +12,7 @@
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
-Vue.component('asset-clasifications-list', require('./components/AssetClasificationListComponent.vue'));
+//Vue.component('asset-clasifications-list', require('./components/AssetClasificationListComponent.vue'));
 
 /**
  * Componente para mostrar listado del clasificador de Bienes
@@ -48,3 +48,10 @@ Vue.component('asset-subcategories', require('./components/AssetSubcategoriesCom
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 Vue.component('asset-specific-categories', require('./components/AssetSpecificCategoriesComponent.vue'));
+
+/**
+ * Componente para mostrar la información de un Bien Registrado
+ *
+ * @author Henry Paredes (henryp2804@gmail.com)
+ */
+Vue.component('asset-info', require('./components/AssetInfoComponent.vue'));

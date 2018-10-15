@@ -24,19 +24,35 @@ class AssetReportController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.report.create', ['only' => 'create']);
     }
-    public function create(Request $request, $tipo){
-        $assets= Asset::nameclasification($request->type,$request->category,$request->subcategory,$request->specific_category)->get();
-
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
+    public function create($tipo,Request $request){
+        $request = ($request) ? $request:NULL;
 
         if ($tipo ==1){
-            return view('asset::reports.asset_general', compact('assets','types','categories','subcategories','specific_categories'));
+            if (is_null($request)){
+                $assets = Asset::all();
+            }
+            else{
+                $assets= Asset::dateclasification($request->start_date,$request->end_date)->get();    
+            }
+            return view('asset::reports.asset_general', compact('assets'));
         }
-        elseif ($tipo ==2) {
+
+        elseif ($tipo == 2) {
+            if (is_null($request)){
+                $assets = Asset::all();
+            }
+            else{
+                $assets= Asset::codeclasification($request->type,$request->category,$request->subcategory,$request->specific_category)->get();
+            }
+            $types = AssetType::template_choices();
+            $categories = AssetCategory::template_choices();
+            $subcategories = AssetSubcategory::template_choices();
+            $specific_categories = AssetSpecificCategory::template_choices();
+            
             return view('asset::reports.asset_clasification', compact('assets','types','categories','subcategories','specific_categories'));
         }
+
+        
+        
     }
 }

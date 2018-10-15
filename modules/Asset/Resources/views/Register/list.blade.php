@@ -69,10 +69,13 @@
 										<td width="10%" class="text-center">
 											<div class="d-inline-flex">
 												
-												<button class="btn btn-info btn-xs btn-icon btn-round"  
-												data-toggle="tooltip" title="Ver información del Bien">
-													<i class="fa fa-info-circle"></i>
-												</button>
+												
+												<button onclick="openmodal( <?php echo($asset->id) ?> );" 
+                                                        class="btn btn-info btn-xs btn-icon btn-round"  
+                                                data-toggle="tooltip" title="Informacion Bien">
+                                                    <i class="fa fa-info-circle"></i>
+                                                </button>
+												
 												{!! Form::open(['route' => ['asset.asignation.asset_assign', $asset], 'method' => 'GET']) !!}
 												<button class="btn btn-primary btn-xs btn-icon btn-round"  
 												data-toggle="tooltip" title="Asignar Bien">
@@ -102,4 +105,261 @@
 			</div>
 		</div>
 	</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="add_asset">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h6>
+					<i class="icofont icofont-read-book ico-2x"></i> 
+					Información del Bien Registrado
+				</h6>
+			</div>
+					
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Tipo</label>
+							<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_type"
+								disabled="true">
+						</div>			        	
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Categoria</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_category"
+								disabled="true">
+			            </div>
+			        </div>
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Subcategoria</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_subcategory"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Categoria Especifica</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_specific"
+								disabled="true">
+						</div>
+					</div>
+			                
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Código</label>
+							<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_codigo"
+								disabled="true">
+						</div>
+					</div>
+			                
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Forma de Adquisición</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_purchase"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Año de Adquisición</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_purchase_year"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Ubicación</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_ubication"
+								disabled="true">
+						</div>
+					</div>
+			                
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Proveedor</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_proveedor"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Condición Física</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_condition"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Estatus de Uso</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_status"
+								disabled="true">
+						</div>
+					</div>
+			                
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Función de Uso</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_use"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Serial de Fábrica</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_serial"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Marca</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_marca"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Modelo</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_model"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Valor</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_value"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			    </div>
+			</div>
+
+	    	<div class="modal-footer">
+	        	<button type="button" 
+	            	    class="btn btn-warning btn-icon btn-round btn-modal-close" 
+	                	data-dismiss="modal"
+	                	title="Cancelar y regresar">
+	            	<i class="fa fa-ban"></i>
+	        	</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+@stop
+
+@section('extra-js')
+<script type="text/javascript">
+
+var records;
+function openmodal($asset) {
+	axios.get("asset/info/" + $asset).then(response => {
+			
+		records = response.data.record;
+		$(".modal-body #asset_type").val( records.type );
+		$(".modal-body #asset_category").val( records.category );
+		$(".modal-body #asset_subcategory").val( records.subcategory );
+		$(".modal-body #asset_specific").val( records.supecific );
+		$(".modal-body #asset_codigo").val( records.code );
+
+		$(".modal-body #asset_purchase").val( records.purchase );
+		$(".modal-body #asset_purchase_year").val( records.year );
+		$(".modal-body #asset_ubication").val( records.ubication );
+		$(".modal-body #asset_proveedor").val( records.proveedor );
+		$(".modal-body #asset_condition").val( records.condition );
+		$(".modal-body #asset_status").val( records.status );
+
+		$(".modal-body #asset_use").val( records.use );
+		$(".modal-body #asset_serial").val( records.serial );
+		$(".modal-body #asset_marca").val( records.marca );
+		$(".modal-body #asset_model").val( records.model );
+		$(".modal-body #asset_value").val( records.value );
+		$("#add_asset").modal("show");
+
+	})
+			
+}
+</script>
 @stop

@@ -38,32 +38,6 @@
 					<div class="row">
 
 						<div class="col-md-12">
-							<div class="form-group   {{ $errors->has('type') ? ' has-error' : '' }} is-required">
-								
-								{!! Form::label('type_label', 'Tipo de Solicitud', []) !!}
-								{!! Form::select('type', (isset($types))?$types:[
-
-									'Prestamo de Equipos (Uso Interno)',
-									'Prestamo de Equipos (Uso Externo)',
-									'Prestamo de Equipos para Agentes Externos',
-
-								], (isset($request))?$request->type:null, [		
-									'id' => 'type',
-									'class' => 'form-control select2',
-									'onchange' => 'mostrar(this.value);',
-									'data-toggle' => 'tooltip',
-									'placeholder' => 'Seleccione...',
-									'title' => 'Indique el tipo de solicitud a realizar',
-									
-								]) !!}
-								
-							</div>
-						</div>
-					</div>
-
-					<div class="row" id="request">
-
-						<div class="col-md-12">
 							<b>Datos de la Solicitud</b>
 						</div>
 
@@ -99,6 +73,34 @@
 						        ) !!}
 						    </div>
 						</div>
+
+						<div class="col-md-6">
+							<div class="form-group   {{ $errors->has('type') ? ' has-error' : '' }} is-required">
+								
+								{!! Form::label('type_label', 'Tipo de Solicitud', []) !!}
+								{!! Form::select('type', (isset($types))?$types:[
+
+									'Prestamo de Equipos (Uso Interno)',
+									'Prestamo de Equipos (Uso Externo)',
+									'Prestamo de Equipos para Agentes Externos',
+
+								], (isset($request))?$request->type:null, [		
+									'id' => 'type',
+									'class' => 'form-control select2',
+									'onchange' => 'mostrar(this.value);',
+									'data-toggle' => 'tooltip',
+									'placeholder' => 'Seleccione...',
+									'title' => 'Indique el tipo de solicitud a realizar',
+									
+								]) !!}
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="row" id="request">
+
+						
 					</div>
 
 					<div class="row" id="request-2">
@@ -187,7 +189,9 @@
 						
 					<div class="row" id= "filtros">
 							
-						
+						<div class="col-md-12">
+							<b>Seleccione los Bienes a ingresar en la solicitud</b>
+						</div>
 						<div class="col-md-2">
 							<b>Filtros</b>
 						</div>
@@ -258,25 +262,17 @@
 					</div>
 
 					<div id ="table" class="col-md-12">
-						<table class="table table-hover table-striped dt-responsive datatable">
+						<table id="table_id" class="table table-hover table-striped dt-responsive">
 							<thead>
 							    <tr class="text-center">
 
 							        <th>Código</th>
-							        <th>Tipo</th>
-							        <th>Categoria</th>
-							        <th>Subcategoria</th>
-							        <th>Categoria Específica</th>
-							        <th>Ubicación</th>
-							        <th>Proveedor</th>
-							        <th>Condición Física</th>
-							        <th>Forma de Adquisición</th>
-							        <th>Año de Adquisición</th>
-							        <th>Estatus de uso</th>
-							        <th>Serial</th>
-							        <th>Marca</th>
-							        <th>Modelo</th>
-							        <th>Valor</th>
+									<th>Ubicación</th>
+									<th>Condición Física</th>
+									<th>Estatus de uso</th>
+									<th>Serial</th>
+									<th>Marca</th>
+									<th>Modelo</th>
 
 							    </tr>
 							</thead>
@@ -285,20 +281,12 @@
 							    @foreach($assets as $asset)
 							        <tr>
 							            <td> {{ $asset->serial_inventario }} </td>
-										<td> {{ $asset->type->name }} </td>
-								        <td> {{ $asset->category->name }} </td>
-								        <td> {{ $asset->subcategory->name }} </td>
-								        <td> {{ $asset->specific->name }} </td>
 								        <td> {{ $asset->institution_id }} </td>
-								        <td> {{ $asset->proveedor_id }} </td>
 								        <td> {{ $asset->condition->name }} </td>
-								        <td> {{ $asset->purchase->name }} </td>
-								        <td> {{ $asset->purchase_year }} </td>
 								        <td> {{ $asset->status->name }} </td>
 								        <td> {{ $asset->serial }} </td>
 								        <td> {{ $asset->marca }} </td>
 										<td> {{ $asset->model }} </td>
-										<td> {{ $asset->value }} </td>
 							                                    
 							        </tr>
 							    @endforeach
@@ -330,13 +318,63 @@
 
 @section('extra-js')
 <script>
-$('#document').ready(function(){
+	var seleccionados=[];
+$(document).ready(function(){
+	var table = $('#table_id').DataTable({
+		dom: 'Bfrtip',
+		select: {
+			style: 'multi'
+		},
+		buttons: [
+			{
+				text: 'Select All',
+				action: function (){
+					table.rows().select();
+				}
+			},
+			{
+				text: 'Select None',
+				action: function (){
+					table.rows().deselect();
+				}
+			},
+		]
+
+	});
+    
+    $('#table_id tbody').on( 'click', 'tr', function () {
+        dato = $(this).find("td:eq(0)").text();
+
+        if (seleccionados.indexOf(dato) === -1) {
+        seleccionados.push(dato);
+    } else if (seleccionados.indexOf(dato) > -1) {
+        seleccionados.splice(seleccionados.indexOf(dato), 1);
+    }
+    } );
 	if ($("#type").val() != null)
 		mostrar($("#type").val());
 	else
 		mostrar(-1);
 
 });
+$("#save").on("click", function(event){
+
+console.log(seleccionados);
+	if(!seleccionados.length)
+        alert("No ha seleccionado ningún elemento");
+    else{
+            $('<input>', {
+                type: 'hidden',
+                value:seleccionados,
+                name: 'ids',
+                id: 'ids'
+            }).appendTo('#form');
+         $("#form").submit();
+ 
+        
+};
+});
+	
 function mostrar(form_request) {
     if (form_request == "0") {
 		$("#request").show();
