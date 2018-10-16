@@ -985,6 +985,8 @@ table td {
 input[type="color"] {
   min-height: 36px;
   color: #ffffff;
+  width: 60px;
+  cursor: pointer;
 }
 
 textarea.form-control {

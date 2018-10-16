@@ -78301,9 +78301,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			},
 			errors: [],
 			records: [],
-			types: ['0'],
-			categories: ['0'],
-			subcategories: ['0'],
+			types: [],
+			categories: [],
+			subcategories: [],
 			columns: ['subcategory.category.type.name', 'subcategory.category.name', 'subcategory.name', 'name', 'code', 'id']
 		};
 	},
@@ -79373,13 +79373,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			record: {
 				id: '',
-				type_id: '0',
+				type_id: '',
 				name: '',
 				code: ''
 			},
 			errors: [],
 			records: [],
-			types: ['0'],
+			types: [],
 			columns: ['type.name', 'name', 'code', 'id']
 		};
 	},
@@ -79878,15 +79878,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			record: {
 				id: '',
-				type_id: '0',
-				category_id: '0',
-				subcategory: ''
+				type_id: '',
+				category_id: '',
+				code: '',
+				name: ''
 			},
 			errors: [],
 			records: [],
@@ -80065,6 +80074,40 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Código de la Subcategoría:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.code,
+                            expression: "record.code"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Código de Subcategoría",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique el código de la nueva Subcategoría (requerido)"
+                        },
+                        domProps: { value: _vm.record.code },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.record, "code", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
                       _c("label", [_vm._v("Subcategoría:")]),
                       _vm._v(" "),
                       _c("input", {
@@ -80072,8 +80115,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.record.subcategory,
-                            expression: "record.subcategory"
+                            value: _vm.record.name,
+                            expression: "record.name"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -80083,17 +80126,13 @@ var render = function() {
                           "data-toggle": "tooltip",
                           title: "Indique la nueva Subcategoría(requerido)"
                         },
-                        domProps: { value: _vm.record.subcategory },
+                        domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(
-                              _vm.record,
-                              "subcategory",
-                              $event.target.value
-                            )
+                            _vm.$set(_vm.record, "name", $event.target.value)
                           }
                         }
                       })
@@ -80401,22 +80440,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			record: {
 				id: '',
-				type_id: '0',
+				type_id: '',
 				category_id: '',
 				subcategory_id: '',
-				specific_category: ''
+				name: '',
+				code: ''
 			},
 			errors: [],
 			records: [],
-			types: ['0'],
-			categories: ['0'],
-			subcategories: ['0'],
+			types: [],
+			categories: [],
+			subcategories: [],
 			columns: ['subcategory.name', 'name', 'code', 'id']
 		};
 	},
@@ -80628,6 +80676,42 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [
+                        _vm._v("Código de la Categoría Específica:")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.code,
+                            expression: "record.code"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Código de la Categoría Específica",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique el código de la nueva Categoría Específica (requerido)"
+                        },
+                        domProps: { value: _vm.record.code },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.record, "code", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
                       _c("label", [_vm._v("Categoría Especifica:")]),
                       _vm._v(" "),
                       _c("input", {
@@ -80635,8 +80719,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.record.specific_category,
-                            expression: "record.specific_category"
+                            value: _vm.record.name,
+                            expression: "record.name"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -80647,17 +80731,13 @@ var render = function() {
                           title:
                             "Indique la nueva Categoría Específica (requerido)"
                         },
-                        domProps: { value: _vm.record.specific_category },
+                        domProps: { value: _vm.record.name },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(
-                              _vm.record,
-                              "specific_category",
-                              $event.target.value
-                            )
+                            _vm.$set(_vm.record, "name", $event.target.value)
                           }
                         }
                       })
