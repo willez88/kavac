@@ -83,6 +83,19 @@
 				columns: ['name', 'id'],
 			}
 		},
+		methods: {
+			/**
+			 * Método que borra todos los datos del formulario
+			 * 
+			 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
+			reset() {
+				this.record = {
+					id: '',
+					name: ''
+				};
+			},
+		},
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',

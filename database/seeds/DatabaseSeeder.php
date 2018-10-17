@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfessionsTableSeeder::class);
         $this->call(DocumentStatusTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
+        $this->call(CurrenciesTableSeeder::class);
     }
 }

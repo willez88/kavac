@@ -38,6 +38,7 @@
 					<municipalities></municipalities>
 					<parishes></parishes>
 					<cities></cities>
+					<currencies></currencies>
 					<taxes></taxes>
 					<tax-units></tax-units>
 					<div class="col-md-2 text-center">

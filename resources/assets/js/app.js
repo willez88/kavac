@@ -6,10 +6,13 @@
 * Scripts a compilar por la aplicación
 */
 
+/** Requerimiento del paquete bootstrap 4 para el diseño de la aplicación */
 require('./bootstrap');
 
+/** @type {object} Requerimiento del paquete vue para la reactividad de la aplicación */
 window.Vue = require('vue');
 
+/** Requerimiento del paquete vue-table-2 para la representación de consultas en tablas con vue */
 import {ServerTable, ClientTable, Event} from 'vue-tables-2';
 
 Vue.use(ClientTable);
@@ -17,95 +20,107 @@ Vue.use(ClientTable);
 /**
  * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('select2', require('./components/SelectsComponent.vue'));
 
 /**
  * Componente para la gestión de estados civiles
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('marital-status', require('./components/MaritalStatusComponent.vue'));
 
 /**
  * Componente para la gestión de profesiones
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('professions', require('./components/ProfessionsComponent.vue'));
 
 /**
  * Componente para la gestión de tipos de instituciones
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('institution-types', require('./components/InstitutionTypesComponent.vue'));
 
 /**
  * Componente para la configuración y gestión de sectores de instituciones
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('institution-sectors', require('./components/InstitutionSectorsComponent.vue'));
 
 /**
  * Componente para la gestión de Países
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('countries', require('./components/CountriesComponent.vue'));
 
 /**
  * Componente para la gestión de Estados
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('estates', require('./components/EstatesComponent.vue'));
 
 /**
  * Componente para la gestión de Municipio
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('municipalities', require('./components/MunicipalitiesComponent.vue'));
 
 /**
  * Componente para la gestión de Ciudades
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('cities', require('./components/CitiesComponent.vue'));
 
 /**
  * Componente para la gestión de Parroquias
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('parishes', require('./components/ParishesComponent.vue'));
 
 /**
  * Componente para la gestión de estatus de documentos
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('document-status', require('./components/DocumentStatusComponent.vue'));
 
 /**
  * Componente para la gestión de impuestos
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('taxes', require('./components/TaxesComponent.vue'));
 
 /**
  * Componente para la gestión de unidades tributarias
  *
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('tax-units', require('./components/TaxUnitsComponent.vue'));
 
+/**
+ * Componente para la gestión de departamentos
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
 Vue.component('departments', require('./components/DepartmentsComponent.vue'));
+
+/**
+ * Componente para la gestión de monedas
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('currencies', require('./components/CurrenciesComponent.vue'));
 
 /** Incorpora requerimientos de componentes de los módulos de la aplicación */
 require('./modules');
@@ -113,7 +128,7 @@ require('./modules');
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
  * 
- * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
  * @param  {object} methods Métodos generales a implementar en CRUDS
  */
 Vue.mixin({
@@ -143,17 +158,9 @@ Vue.mixin({
 	props: ['route_list', 'route_create', 'route_edit', 'route_update', 'route_delete'],
 	methods: {
 		/**
-		 * Método que borra todos los datos del formulario
-		 * 
-		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-		 */
-		reset() {
-			this.record = [];
-		},
-		/**
 		 * Inicializa los registros base del formulario
 		 *
-		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 */
 		initRecords(url, modal_id) {
 			this.errors = [];
@@ -183,7 +190,7 @@ Vue.mixin({
 		/**
 		 * Método que obtiene los registros a mostrar
 		 * 
-		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 * @param  {string} url Ruta que obtiene todos los registros solicitados
 		 */
 		readRecords(url) {
@@ -197,7 +204,7 @@ Vue.mixin({
 		 * Método que permite mostrar una ventana emergente con la información registrada 
 		 * y la nueva a registrar
 		 * 
-		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 * @param {string} modal_id Identificador de la ventana modal
 		 */
 		addRecord(modal_id, url, event) {
@@ -207,7 +214,7 @@ Vue.mixin({
 		/**
 		 * Método que permite crear o actualizar un registro
 		 * 
-		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 * @param  {string} url Ruta de la acción a ejecutar para la creación o actualización de datos
 		 */
 		createRecord(url) {
@@ -240,7 +247,7 @@ Vue.mixin({
 		/**
 		 * Método que carga el formulario con los datos a modificar
 		 * 
-		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 * @param  {integer} index Identificador del registro a ser modificado
 		 */
 		initUpdate(index, event) {
@@ -252,7 +259,7 @@ Vue.mixin({
 		/**
 		 * Método que permite actualizar información
 		 * 
-		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 * @param  {string} url Ruta de la acci´on que modificará los datos
 		 */
 		updateRecord(url) {
@@ -279,7 +286,7 @@ Vue.mixin({
 		/**
 		 * Método para la eliminación de registros
 		 * 
-		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 * @param  {integer} index Elemento seleccionado para su eliminación
 		 * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
 		 */
@@ -318,7 +325,7 @@ Vue.mixin({
 		/**
 		 * Método que muestra un mensaje al usuario sobre el resultado de una acción
 		 * 
-		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 * @param  {string} type      Tipo de mensaje a mostrar
 		 * @param  {string} msg_title Título del mensaje (opcional)
 		 * @param  {string} msg_class Clase CSS a utilizar en el mensaje (opcional)
@@ -357,7 +364,7 @@ Vue.mixin({
 		/**
 		 * Método que obtiene los países registrados
 		 * 
-		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 */
 		getCountries() {
 			axios.get('/get-countries').then(response => {
@@ -367,7 +374,7 @@ Vue.mixin({
 		/**
 		 * Obtiene los Estados del Pais seleccionado
 		 * 
-		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 */
 		getEstates() {
 			if (this.record.country_id) {
@@ -379,7 +386,7 @@ Vue.mixin({
 		/**
 		 * Obtiene los Municipios del Estado seleccionado
 		 * 
-		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 */
 		getMunicipalities() {
 			if (this.record.estate_id) {
@@ -391,7 +398,7 @@ Vue.mixin({
 		/**
 		 * Obtiene los Municipios del Estado seleccionado
 		 * 
-		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+		 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 		 */
 		getCities() {
 			if (this.record.estate_id) {

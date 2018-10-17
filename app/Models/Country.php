@@ -50,6 +50,16 @@ class Country extends Model
     }
 
     /**
+     * Country has many Currencies.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function currencies()
+    {
+        return $this->hasMany(Currency::class);
+    }
+
+    /**
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)

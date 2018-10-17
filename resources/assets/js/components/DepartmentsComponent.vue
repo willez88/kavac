@@ -175,6 +175,23 @@
 			this.getInstitutions();
 		},
 		methods: {
+			/**
+			 * Método que borra todos los datos del formulario
+			 * 
+			 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
+			reset() {
+				this.record = {
+					id: '',
+					institution_id: '',
+					department_id: '',
+					acronym: '',
+					name: '',
+					issue_requests: false,
+					active: false,
+					administrative: false
+				};
+			},
 			getInstitutions() {
 				axios.get('/get-institutions').then(response => {
 					this.institutions = response.data;
