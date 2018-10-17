@@ -57,7 +57,7 @@
                                     <td class="text-right">{{ $backup['file_size'] }}</td>
                                     <td class="text-center">
                                         {{--{{ formatTimeStamp($backup['last_modified'], 'F jS, Y, g:ia (T)') }}--}}
-                                        {{ $backup['last_modified'] }}
+                                        {{ date('d-m-Y', $backup['last_modified']) }}
                                     </td>
                                     <td class="text-center">
                                         {!! Form::button('<i class="fa fa-cloud-download"></i>', [
@@ -98,7 +98,7 @@
                 if (result) {
                     location.href="/backup/delete/" + filename;
                 }
-                event.preventDefault();
+                //event.preventDefault();
             });
         }
     </script>
