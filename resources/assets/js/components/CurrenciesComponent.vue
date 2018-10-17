@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-cur-dollar inline-block"></i> 
-							País
+							Moneda
 						</h6>
 					</div>
 					<div class="modal-body">
