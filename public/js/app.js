@@ -34712,6 +34712,11 @@ Vue.mixin({
   	}
   }*/
 
+	},
+	mounted: function mounted() {
+		$('.bootstrap-switch').on('change', function () {
+			console.log($(this).val());
+		});
 	}
 });
 
@@ -71096,6 +71101,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			columns: ['name', 'id']
 		};
 	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				marital_status_id: '',
+				marital_status_name: ''
+			};
+		}
+	},
 	created: function created() {
 		this.table_options.headings = {
 			'name': 'Nombre',
@@ -71956,6 +71975,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			columns: ['acronym', 'name', 'id']
 		};
 	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				acronym: '',
+				name: ''
+			};
+		}
+	},
 	created: function created() {
 		this.table_options.headings = {
 			'acronym': 'Acrónimo',
@@ -72393,6 +72427,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			columns: ['name', 'id']
 		};
 	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				name: ''
+			};
+		}
+	},
 	created: function created() {
 		this.table_options.headings = {
 			'name': 'Nombre',
@@ -72807,6 +72855,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: [],
 			columns: ['prefix', 'name', 'id']
 		};
+	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				prefix: '',
+				name: ''
+			};
+		}
 	},
 	created: function created() {
 		this.table_options.headings = {
@@ -73251,6 +73314,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			countries: [],
 			columns: ['country.name', 'name', 'code', 'id']
 		};
+	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				country_id: '',
+				name: '',
+				code: ''
+			};
+		}
 	},
 	created: function created() {
 		this.table_options.headings = {
@@ -74224,6 +74303,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			estates: ['0'],
 			columns: ['estate.name', 'name', 'id']
 		};
+	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				country_id: '0',
+				estate_id: '',
+				name: ''
+			};
+		}
 	},
 	created: function created() {
 		this.table_options.headings = {
@@ -75220,6 +75315,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: [],
 			columns: ['name', 'description', 'id']
 		};
+	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				description: '',
+				name: '',
+				color: ''
+			};
+		}
 	},
 	created: function created() {
 		this.table_options.headings = {
@@ -77062,6 +77173,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				institution_id: '',
+				department_id: '',
+				acronym: '',
+				name: '',
+				issue_requests: false,
+				active: false,
+				administrative: false
+			};
+		},
 		getInstitutions: function getInstitutions() {
 			var _this = this;
 
@@ -78195,7 +78323,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("h6", [
         _c("i", { staticClass: "icofont icofont-cur-dollar inline-block" }),
-        _vm._v(" \n\t\t\t\t\t\tPaís\n\t\t\t\t\t")
+        _vm._v(" \n\t\t\t\t\t\tMoneda\n\t\t\t\t\t")
       ])
     ])
   }

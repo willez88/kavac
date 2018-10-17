@@ -417,6 +417,11 @@ Vue.mixin({
 				});
 			}
 		}*/
+    },
+    mounted() {
+    	$('.bootstrap-switch').on('change', function() {
+    		console.log($(this).val());
+    	});
     }
 });
 
