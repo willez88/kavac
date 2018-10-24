@@ -18,10 +18,10 @@
     export default {
         data() {
             return {
-            record: {
-                    id: '',
-                    type_id: ''
-                },
+                record: {
+                        id: '',
+                        type_id: ''
+                    },
                 errors: [],
                 records: [],
                 types: []
@@ -30,7 +30,17 @@
         mounted() {
         },
         methods: {
-
+            /**
+             * Método que borra todos los datos del formulario
+             * 
+             * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+             */
+            reset() {
+                this.record = {
+                    id: '',
+                    type_id: ''
+                };
+            },
             initRecords() {
                 axios.get('/asset/vue-list').then(response => {
                     this.types = response.data;

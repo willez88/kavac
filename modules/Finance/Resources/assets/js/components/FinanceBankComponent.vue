@@ -114,6 +114,22 @@
 				columns: ['code', 'short_name', 'name', 'website', 'id'],
 			}
 		},
+		methods: {
+			/**
+			 * Método que borra todos los datos del formulario
+			 * 
+			 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
+			reset() {
+				this.record = {
+					id: '',
+					code: '',
+					name: '',
+					short_name: '',
+					website: ''
+				};
+			},
+		},
 		created() {
 			this.table_options.headings = {
 				'code': 'Código',

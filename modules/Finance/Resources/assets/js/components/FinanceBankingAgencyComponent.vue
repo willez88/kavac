@@ -177,6 +177,31 @@
 			}
 		},
 		methods: {
+			/**
+			 * Método que borra todos los datos del formulario
+			 * 
+			 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
+			reset() {
+				this.record = {
+					id: '',
+					name: '',
+					direction: '',
+					headquarters: false,
+					contact_person: '',
+					contact_email: '',
+					finance_bank_id: '',
+					country_id: '',
+					estate_id: '',
+					city_id: '',
+					phones: [{
+						type: '',
+						area_code: '',
+						number: '',
+						extension: '',
+					}],
+				};
+			},
 			getBanks: function() {
 				axios.get('/finance/get-banks').then(response => {
 					this.banks = response.data;

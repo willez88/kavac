@@ -170,6 +170,23 @@
 		},
 		methods: {
 			/**
+			 * Método que borra todos los datos del formulario
+			 * 
+			 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
+			reset() {
+				this.record = {
+					id: '',
+					type_id: '',
+					category_id: '',
+					subcategory_id: '',
+					type: '',
+					category: '',
+					subcategory: '',
+					specific_category: ''
+				};
+			},
+			/**
 			 * Inicializa los registros base del formulario
 			 *
 			 * @author Henry Paredes (henryp2804@gmail.com)

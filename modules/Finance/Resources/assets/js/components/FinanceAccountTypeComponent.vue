@@ -1,1 +1,0 @@
-FinanceAccountTypeComponent.vue

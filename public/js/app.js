@@ -71541,6 +71541,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			columns: ['acronym', 'name', 'id']
 		};
 	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				acronym: '',
+				name: ''
+			};
+		}
+	},
 	created: function created() {
 		this.table_options.headings = {
 			'acronym': 'Acrónimo',
@@ -73809,6 +73824,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			columns: ['estate.name', 'name', 'code', 'id']
 		};
 	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				country_id: '',
+				estate_id: '',
+				name: '',
+				code: ''
+			};
+		}
+	},
 	created: function created() {
 		this.table_options.headings = {
 			'estate.name': 'Estado',
@@ -74796,6 +74828,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			municipalities: ['0'],
 			columns: ['municipality.name', 'name', 'code', 'id']
 		};
+	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				country_id: '',
+				estate_id: '',
+				municipality_id: '',
+				name: '',
+				code: ''
+			};
+		}
 	},
 	created: function created() {
 		this.table_options.headings = {
@@ -75890,6 +75940,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			columns: ['name', 'description', 'histories.operation_date', 'histories.percentage', 'active', 'id']
 		};
 	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				name: '',
+				description: '',
+				affect_tax: false,
+				active: false,
+				operation_date: '',
+				percentage: ''
+			};
+		}
+	},
 	created: function created() {
 		this.table_options.headings = {
 			'name': 'Nombre',
@@ -76548,6 +76617,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: [],
 			columns: ['start_date', 'end_date', 'value', 'active', 'id']
 		};
+	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				value: '',
+				start_date: '',
+				end_date: '',
+				active: true
+			};
+		}
 	},
 	created: function created() {
 		this.table_options.headings = {
@@ -78621,42 +78707,49 @@ if (false) {
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
-Vue.component('asset-clasifications-list', __webpack_require__(296));
+//Vue.component('asset-clasifications-list', require('./components/AssetClasificationListComponent.vue'));
 
 /**
  * Componente para mostrar listado del clasificador de Bienes
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
-Vue.component('asset-clasification', __webpack_require__(299));
+Vue.component('asset-clasification', __webpack_require__(296));
 
 /**
  * Componente para la gestión de Tipos de Bienes
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
-Vue.component('asset-types', __webpack_require__(302));
+Vue.component('asset-types', __webpack_require__(299));
 
 /**
  * Componente para la gestión de las Categorías de Bienes
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
-Vue.component('asset-categories', __webpack_require__(305));
+Vue.component('asset-categories', __webpack_require__(302));
 
 /**
  * Componente para la gestión de las Subcategorías de Bienes
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
-Vue.component('asset-subcategories', __webpack_require__(308));
+Vue.component('asset-subcategories', __webpack_require__(305));
 
 /**
  * Componente para la gestión de las Categorías Específicas de Bienes
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
-Vue.component('asset-specific-categories', __webpack_require__(311));
+Vue.component('asset-specific-categories', __webpack_require__(308));
+
+/**
+ * Componente para mostrar la información de un Bien Registrado
+ *
+ * @author Henry Paredes (henryp2804@gmail.com)
+ */
+Vue.component('asset-info', __webpack_require__(311));
 
 /***/ }),
 /* 296 */
@@ -78668,156 +78761,6 @@ var normalizeComponent = __webpack_require__(0)
 var __vue_script__ = __webpack_require__(297)
 /* template */
 var __vue_template__ = __webpack_require__(298)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "modules/Asset/Resources/assets/js/components/AssetClasificationListComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-15a6cd4c", Component.options)
-  } else {
-    hotAPI.reload("data-v-15a6cd4c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 297 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            record: {
-                id: '',
-                type_id: ''
-            },
-            errors: [],
-            records: [],
-            types: []
-        };
-    },
-    mounted: function mounted() {},
-
-    methods: {
-        initRecords: function initRecords() {
-            var _this = this;
-
-            axios.get('/asset/vue-list').then(function (response) {
-                _this.types = response.data;
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 298 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-6" }, [
-    _c(
-      "div",
-      { staticClass: "form-group" },
-      [
-        _c("label", [_vm._v("Tipo de Bien:")]),
-        _vm._v(" "),
-        _c("select2", {
-          attrs: { options: _vm.types },
-          model: {
-            value: _vm.record.type_id,
-            callback: function($$v) {
-              _vm.$set(_vm.record, "type_id", $$v)
-            },
-            expression: "record.type_id"
-          }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.record.id,
-              expression: "record.id"
-            }
-          ],
-          attrs: { type: "hidden" },
-          domProps: { value: _vm.record.id },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.record, "id", $event.target.value)
-            }
-          }
-        })
-      ],
-      1
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-15a6cd4c", module.exports)
-  }
-}
-
-/***/ }),
-/* 299 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(300)
-/* template */
-var __vue_template__ = __webpack_require__(301)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -78856,7 +78799,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 300 */
+/* 297 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79034,6 +78977,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				type_id: '',
+				category_id: '',
+				subcategory_id: '',
+				type: '',
+				category: '',
+				subcategory: '',
+				specific_category: ''
+			};
+		},
+
+		/**
    * Inicializa los registros base del formulario
    *
    * @author Henry Paredes (henryp2804@gmail.com)
@@ -79079,7 +79040,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 301 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -79523,15 +79484,15 @@ if (false) {
 }
 
 /***/ }),
-/* 302 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(303)
+var __vue_script__ = __webpack_require__(300)
 /* template */
-var __vue_template__ = __webpack_require__(304)
+var __vue_template__ = __webpack_require__(301)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -79570,7 +79531,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 303 */
+/* 300 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79665,6 +79626,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			columns: ['name', 'id']
 		};
 	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				name: ''
+			};
+		}
+	},
 	created: function created() {
 		this.table_options.headings = {
 			'name': 'Nombre',
@@ -79676,7 +79651,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 304 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -79931,15 +79906,15 @@ if (false) {
 }
 
 /***/ }),
-/* 305 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(306)
+var __vue_script__ = __webpack_require__(303)
 /* template */
-var __vue_template__ = __webpack_require__(307)
+var __vue_template__ = __webpack_require__(304)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -79978,7 +79953,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 306 */
+/* 303 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80108,6 +80083,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				type_id: '',
+				name: '',
+				code: ''
+			};
+		},
+
+		/**
    * Inicializa los registros base del formulario
    *
    * @author Henry Paredes (henryp2804@gmail.com)
@@ -80123,7 +80112,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 307 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -80440,15 +80429,15 @@ if (false) {
 }
 
 /***/ }),
-/* 308 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(309)
+var __vue_script__ = __webpack_require__(306)
 /* template */
-var __vue_template__ = __webpack_require__(310)
+var __vue_template__ = __webpack_require__(307)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -80487,7 +80476,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 309 */
+/* 306 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80629,6 +80618,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		/**
+            * Método que borra todos los datos del formulario
+            * 
+            * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+            */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				type_id: '',
+				category_id: '',
+				code: '',
+				name: ''
+			};
+		},
+
+		/**
    * Inicializa los registros base del formulario
    *
    * @author Henry Paredes (henryp2804@gmail.com)
@@ -80659,7 +80663,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 310 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -80995,15 +80999,15 @@ if (false) {
 }
 
 /***/ }),
-/* 311 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(312)
+var __vue_script__ = __webpack_require__(309)
 /* template */
-var __vue_template__ = __webpack_require__(313)
+var __vue_template__ = __webpack_require__(310)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -81042,7 +81046,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 312 */
+/* 309 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81193,6 +81197,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		/**
+            * Método que borra todos los datos del formulario
+            * 
+            * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+            */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				type_id: '',
+				category_id: '',
+				subcategory_id: '',
+				name: '',
+				code: ''
+			};
+		},
+
+		/**
    * Inicializa los registros base del formulario
    *
    * @author Henry Paredes (henryp2804@gmail.com)
@@ -81238,7 +81258,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 313 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -81605,6 +81625,709 @@ if (false) {
 }
 
 /***/ }),
+/* 311 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(312)
+/* template */
+var __vue_template__ = __webpack_require__(313)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "modules/Asset/Resources/assets/js/components/AssetInfoComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-bb2a78a2", Component.options)
+  } else {
+    hotAPI.reload("data-v-bb2a78a2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 312 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			record: {
+				id: '',
+				type: ''
+			},
+			errors: [],
+			records: []
+		};
+	},
+	created: function created() {
+		this.getAsset();
+	},
+
+	methods: {
+		/**
+            * Método que borra todos los datos del formulario
+            * 
+            * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+            */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				type: ''
+			};
+		},
+
+		/**
+   * Inicializa los registros base del formulario
+   *
+   * @author Henry Paredes (henryp2804@gmail.com)
+   */
+		getAsset: function getAsset() {
+			var _this = this;
+
+			axios.get(this.route_list).then(function (response) {
+				_this.records = response.data.record;
+				_this.record.type = _this.records.type;
+				$(".modal-body #asset_type").val(_this.records.type);
+				$(".modal-body #asset_category").val(_this.records.category);
+				$(".modal-body #asset_subcategory").val(_this.records.subcategory);
+				$(".modal-body #asset_specific").val(_this.records.specific);
+				$(".modal-body #asset_codigo").val(_this.records.code);
+
+				$(".modal-body #asset_purchase").val(_this.records.purchase);
+				$(".modal-body #asset_purchase_year").val(_this.records.year);
+				$(".modal-body #asset_ubication").val(_this.records.ubication);
+				$(".modal-body #asset_proveedor").val(_this.records.proveedor);
+				$(".modal-body #asset_condition").val(_this.records.condition);
+				$(".modal-body #asset_status").val(_this.records.status);
+
+				$(".modal-body #asset_use").val(_this.records.use);
+				$(".modal-body #asset_serial").val(_this.records.serial);
+				$(".modal-body #asset_marca").val(_this.records.marca);
+				$(".modal-body #asset_model").val(_this.records.model);
+				$(".modal-body #asset_value").val(_this.records.value);
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 313 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "a",
+      {
+        staticClass: "btn btn-info btn-xs btn-icon btn-round",
+        attrs: {
+          href: "#",
+          title: "Ver información del Bien",
+          "data-toggle": "tooltip"
+        },
+        on: {
+          click: function($event) {
+            _vm.addRecord("add_asset", _vm.route_list, $event)
+          }
+        }
+      },
+      [_c("i", { staticClass: "fa fa-info-circle" })]
+    ),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "modal fade text-left",
+        attrs: { tabindex: "-1", role: "dialog", id: "add_asset" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "modal",
+                    "aria-label": "Close"
+                  }
+                },
+                [
+                  _c("span", { attrs: { "aria-hidden": "true" } }, [
+                    _vm._v("×")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("h6", [
+                _c("i", { staticClass: "icofont icofont-read-book ico-2x" }),
+                _vm._v(
+                  " \n\t\t\t\t\t\tInformación del Bien Registrado\n\t\t\t\t\t"
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Tipo")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_type",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Categoria")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_category",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Subcategoria")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_subcategory",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Categoria Especifica")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_specific",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Código")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_codigo",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Forma de Adquisición")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_purchase",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Año de Adquisición")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_purchase_year",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Ubicación")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_ubication",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Proveedor")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_proveedor",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Condición Física")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_condition",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Estatus de Uso")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_status",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Función de Uso")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_use",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Serial de Fábrica")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_serial",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Marca")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_marca",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Modelo")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_model",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Valor")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "data-toggle": "tooltip",
+                        id: "asset_value",
+                        disabled: "true"
+                      }
+                    })
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-warning btn-icon btn-round btn-modal-close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "modal",
+                    title: "Cancelar y regresar"
+                  }
+                },
+                [_c("i", { staticClass: "fa fa-ban" })]
+              )
+            ])
+          ])
+        ])
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-bb2a78a2", module.exports)
+  }
+}
+
+/***/ }),
 /* 314 */
 /***/ (function(module, exports) {
 
@@ -81841,6 +82564,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			records: [],
 			columns: ['code', 'short_name', 'name', 'website', 'id']
 		};
+	},
+
+	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				code: '',
+				name: '',
+				short_name: '',
+				website: ''
+			};
+		}
 	},
 	created: function created() {
 		this.table_options.headings = {
@@ -82466,6 +83206,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
+		/**
+   * Método que borra todos los datos del formulario
+   * 
+   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
+		reset: function reset() {
+			this.record = {
+				id: '',
+				name: '',
+				direction: '',
+				headquarters: false,
+				contact_person: '',
+				contact_email: '',
+				finance_bank_id: '',
+				country_id: '',
+				estate_id: '',
+				city_id: '',
+				phones: [{
+					type: '',
+					area_code: '',
+					number: '',
+					extension: ''
+				}]
+			};
+		},
+
 		getBanks: function getBanks() {
 			var _this = this;
 
