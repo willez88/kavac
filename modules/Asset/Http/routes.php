@@ -114,6 +114,7 @@ Route::group(['middleware' => ['web','auth'], 'namespace' => 'Modules\Asset\Http
      * Rutas para gestionar los registros de bienes
      */
     Route::resource('asset', 'AssetController', ['except' => ['show']]);
+    Route::get('asset/info/{asset}', 'AssetController@info');
 
     /**
      * Rutas para gestionar el clasificador de bienes

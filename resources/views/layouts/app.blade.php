@@ -17,6 +17,9 @@
         {{-- Estilos de Plugins --}}
         {{-- Datatable --}}
         {!! Html::style('vendor/datatable/css/dataTables.bootstrap4.min.css') !!}
+        {!! Html::style('vendor/datatable/css/jquery.dataTables.min.css') !!}
+        {!! Html::style('vendor/datatable/css/select.dataTables.min.css') !!}
+        {!! Html::style('vendor/datatable/css/buttons.dataTables.min.css') !!}
         {!! Html::style('vendor/datatable/responsive/css/responsive.bootstrap4.min.css') !!}
         {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
         {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css') !!}
@@ -64,6 +67,8 @@
         {!! Html::script('js/bootbox.min.js') !!}
         {{-- Plugin Datatable --}}
         {!! Html::script('vendor/datatable/js/jquery.dataTables.min.js') !!}
+        {!! Html::script('vendor/datatable/js/dataTables.select.min.js') !!}
+        {!! Html::script('vendor/datatable/js/dataTables.buttons.min.js') !!}
         {!! Html::script('vendor/datatable/js/dataTables.bootstrap4.min.js') !!}
         {!! Html::script('vendor/datatable/js/dataTables.responsive.min.js') !!}
         {!! Html::script('vendor/datatable/js/responsive.bootstrap4.min.js') !!}

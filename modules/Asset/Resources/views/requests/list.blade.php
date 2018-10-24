@@ -68,12 +68,29 @@
 													<i class="fa fa-info-circle"></i>
 												</button>
 
+												<button class="btn btn-default btn-xs btn-icon btn-round"  
+												data-toggle="tooltip" title="Solicitar Prorroga">
+													<i class="fa fa-calendar"></i>
+												</button>
+
+												<button class="btn btn-success btn-xs btn-icon btn-round"  
+												data-toggle="tooltip" title="Reportar Suceso">
+													<i class=""></i>
+												</button>
+
+												<button class="btn btn-primary btn-xs btn-icon btn-round"  
+												data-toggle="tooltip" title="Entregar Equipos">
+													<i class="icofont icofont-computer"></i>
+												</button>
+												
 												<button class="btn btn-warning btn-xs btn-icon btn-round"  
 												data-toggle="tooltip" title="Editar Solicitud">
 													<i class="icofont icofont-edit"></i>
 												</button>
 
-												<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar Solicitud"><i class="fa fa-trash"></i></button>
+												<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar Solicitud">
+													<i class="fa fa-trash"></i>
+												</button>
 		
 											</div>
 										</td>

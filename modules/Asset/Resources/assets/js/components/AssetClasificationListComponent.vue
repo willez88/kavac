@@ -6,6 +6,12 @@
                 <input type="hidden" v-model="record.id">
             </div>
         </div>
+
+                                                <button onclick="openmodal( <?php echo($asset->id) ?> );" 
+                                                        class="btn btn-info btn-xs btn-icon btn-round"  
+                                                data-toggle="tooltip" title="Informacion Bien">
+                                                    <i class="fa fa-info-circle"></i>
+                                                </button>
 </template>
 
 <script>

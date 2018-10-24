@@ -39,6 +39,7 @@
 			                        <i class="now-ui-icons ui-1_calendar-60"></i>
 			                    </span>
 			                    {!! Form::date('start_date', old('start_date'), [
+			                    	'id' => 'start_date',
 			                        'class' => 'form-control', 'placeholder' => 'Fecha',
 			                        'title' => 'Desde la fecha', 'data-toggle' => 'tooltip'
 			                    ]) !!}
@@ -50,6 +51,7 @@
 			                        <i class="now-ui-icons ui-1_calendar-60"></i>
 			                    </span>
 			                    {!! Form::date('end_date', old('end_date'), [
+			                        'id' => 'end_date',
 			                        'class' => 'form-control', 'placeholder' => 'Fecha',
 			                        'title' => 'Hasta la fecha', 'data-toggle' => 'tooltip'
 			                    ]) !!}

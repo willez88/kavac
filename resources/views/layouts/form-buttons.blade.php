@@ -8,5 +8,5 @@
 ]) !!}
 {!! Form::button('<i class="fa fa-save"></i>', [
 	'class' => 'btn btn-success btn-icon btn-round', 'data-toggle' => 'tooltip',
-	'title' => 'Guardar registro', 'type' => 'submit'
+	'id' => 'save','title' => 'Guardar registro', 'type' => 'submit'
 ]) !!}

@@ -60,7 +60,7 @@ class AssetRequestController extends Controller
     public function create(Request $request)
     {
         $header = [
-            'route' => 'asset.request.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
+            'route' => 'asset.request.store', 'method' => 'POST', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
         ];
         $assets= Asset::request($request->model,$request->marca,$request->serial)->get();
         return view('asset::requests.create',compact('header','assets'));
@@ -75,6 +75,8 @@ class AssetRequestController extends Controller
      */
     public function store(Request $request)
     {
+         $datos = explode(',',$request->ids);
+        dd(count($datos), trim($datos[1]));
         $this->validate($request, [
 
             'type' => 'required',

@@ -19,6 +19,8 @@ use Modules\Asset\Models\AssetStatus;
 use Modules\Asset\Models\AssetUse;
 use App\Models\Department;
 
+use Modules\Asset\Models\AssetInventary;
+
 /**
  * @class AssetController
  * @brief Controlador de Bienes Institucionales
@@ -31,6 +33,9 @@ use App\Models\Department;
 
 class AssetController extends Controller
 {
+    /** @var array Lista de elementos a mostrar */
+    protected $data = [];
+
     /**
      * Define la configuración de la clase
      *
@@ -79,7 +84,7 @@ class AssetController extends Controller
         $purchases = AssetPurchase::template_choices();
         $conditions = AssetCondition::template_choices();
         $status = AssetStatus::template_choices();
-        $uses =AssetUse::template_choices();
+        $uses = AssetUse::template_choices();
 
         return view('asset::Register.create', compact('header','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status','uses'));
     }
@@ -149,6 +154,7 @@ class AssetController extends Controller
         $asset->quantity = $request->quantity;
 
         $asset->save();
+
         return redirect()->route('asset.index');
     }
 
@@ -268,5 +274,35 @@ class AssetController extends Controller
     {
         $asset->delete();
         return back()->with('info', 'Fue eliminado exitosamente');
+    }
+
+    public function info(Asset $asset)
+    {
+
+        $dato = Asset::findorfail($asset->id);
+        $this->data[] = [
+            'id' => $dato->id,
+            'type' => $dato->type->name,
+            'category' => $dato->category->name,
+            'subcategory' => $dato->subcategory->name,
+            'specific' => $dato->specific->name,
+            'code' => $dato->serial_inventario,
+            'purchase' => $dato->purchase->name,
+            'year' => $dato->purchase_year,
+            'ubication' => $dato->institution_id,
+            'proveedor' => $dato->serial_proveedor_id,
+            'condition' => $dato->condition->name,
+            'status' => $dato->status->name,
+            'use' => isset(($dato->use))?$dato->use->name:"No Aplica",
+            'serial' => $dato->serial,
+            'marca' => $dato->marca,
+            'model' => $dato->model,
+            'value' => $dato->value
+                
+        ];
+
+
+        return response()->json(['record' => $this->data[0]]);
+        
     }
 }
