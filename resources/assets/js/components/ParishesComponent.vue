@@ -119,6 +119,23 @@
 				columns: ['municipality.name', 'name', 'code', 'id'],
 			}
 		},
+		methods: {
+			/**
+			 * Método que borra todos los datos del formulario
+			 * 
+			 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
+			reset() {
+				this.record = {
+					id: '',
+					country_id: '',
+					estate_id: '',
+					municipality_id: '',
+					name: '',
+					code: ''
+				};
+			},
+		},
 		created() {
 			this.table_options.headings = {
 				'municipality.name': 'Estado',

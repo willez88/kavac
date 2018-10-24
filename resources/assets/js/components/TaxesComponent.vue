@@ -168,6 +168,24 @@
 				],
 			}
 		},
+		methods: {
+			/**
+			 * Método que borra todos los datos del formulario
+			 * 
+			 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
+			reset() {
+				this.record = {
+					id: '',
+					name: '',
+					description: '',
+					affect_tax: false,
+					active: false,
+					operation_date: '',
+					percentage: ''
+				};
+			},
+		},
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',

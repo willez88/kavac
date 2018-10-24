@@ -111,6 +111,22 @@
 				columns: ['start_date', 'end_date', 'value', 'active', 'id'],
 			}
 		},
+		methods: {
+			/**
+			 * Método que borra todos los datos del formulario
+			 * 
+			 * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
+			reset() {
+				this.record = {
+					id: '',
+					value: '',
+					start_date: '',
+					end_date: '',
+					active: true
+				};
+			},
+		},
 		created() {
 			this.table_options.headings = {
 				'start_date': 'Fecha de Inicio',
