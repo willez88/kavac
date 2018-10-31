@@ -25,7 +25,7 @@ class AssetReportController extends Controller
         $this->middleware('permission:asset.report.create', ['only' => 'create']);
     }
     public function create($tipo,Request $request){
-        $request = ($request) ? $request:NULL;
+        
 
         if ($tipo ==1){
             if (is_null($request)){

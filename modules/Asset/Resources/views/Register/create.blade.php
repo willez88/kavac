@@ -77,7 +77,7 @@
 
 							</div>
 						</div>
-
+						
 						<div class="col-md-6">
 							<div class="form-group  {{ $errors->has('specific_category') ? ' has-error' : '' }} is-required">
 								
@@ -275,6 +275,7 @@
 @section('extra-js')
 <script>
 $("#document").ready(function(){
+	
 	$("#use_id").hide();
 	$("#quantity_id").hide();
 });

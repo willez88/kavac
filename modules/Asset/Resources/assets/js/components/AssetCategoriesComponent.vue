@@ -74,6 +74,12 @@
 	                </div>
 
 	                <div class="modal-footer">
+	                	<button type="button" @click="reset()"
+								class="btn btn-default btn-icon btn-round"
+								title ="Borrar datos del formulario">
+								<i class="fa fa-eraser"></i>
+						</button>
+						
 	                	<button type="button" 
 	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
 	                			data-dismiss="modal"

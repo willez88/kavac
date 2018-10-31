@@ -14,8 +14,6 @@
 
 # Configuracion de Tipos de Bienes
 
-## Es necesario codigo del tipo de un bien?
-
 
 ### Registro de Bienes
 	Gestiona todos los bienes institucionales adquiridos por la institucion 
@@ -30,11 +28,7 @@
 # En el controlador de Bienes: (AssetController)
 
 		- Falta validar orden de compra
-		- Falta validar Serial de Inventario (Institucion-Clasificacion-AñodeAdquisicion-NumerodeInventario)
-
-
-		- Falta cambiar en metodo template_choices el (reg->serial) por una descripcion del bien, por ejemplo (Serial_Inventario-Marca-Modelo) para elementos del tipo select
-
+		
 # En la vista de registro de bienes: (register/create)
 
 		- Falta definir select dependientes
@@ -54,7 +48,6 @@
 
 # En la vista de crear asignacion de bienes: (asignations/create)
 		
-		- Falta actualizar descripcion de bien (Serial_Inventario-Marca-Modelo)
 		- Falta incluir los registros del trabajador en elementos del tipo select
 
 
@@ -64,5 +57,5 @@
 
 ### Reportes de Bienes:
 		
-		- Agregar (Footer)
-		- Validar Modelo de reportes con y sin [logo,banner] institucional (Header)
+		- Falta funcion de formato de valor para reportes de bienes
+		- Modificar scoope para integrar la busqueda por mes especifico 

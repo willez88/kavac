@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
 
+use Modules\Asset\Models\Asset;
+
 /**
  * @class AssetInventary
  * @brief Datos del Inventario de Bienes
@@ -38,6 +40,23 @@ class AssetInventary extends Model
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['exist','reserved','asset_id','unit_value'];
+    protected $fillable = ['exist','reserved','unit_value'];
+
+    /**
+     *
+     * @brief Método que genera un listado de elementos registrados en almacen para ser implementados en plantillas blade
+     * 
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return [array] Listado de bienes institucionales en inventario
+     */
+    public static function template_choices()
+    {
+        $options = [];
+        foreach (Asset::all() as $reg) {
+            if($reg->inventary_id > 0)
+                $options[$reg->id] = $reg->getDescription();
+        }
+        return $options;
+    }
 
 }

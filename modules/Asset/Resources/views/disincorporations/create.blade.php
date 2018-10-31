@@ -131,16 +131,15 @@
 						</div>
 
 						<div class="col-md-6">
-        					<div class="form-group{{ $errors->has('date') ? ' has-error' : '' }} is-required">
+        					<div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
             					{!! Form::label('date_label', 'Fecha de la Desincorporación', []) !!}
             					<div class="input-group input-sm">
                                 	<span class="input-group-addon">
                                     	<i class="now-ui-icons ui-1_calendar-60"></i>
                                 	</span>
-                                	{!! Form::date('date',(isset($date))?$date:null,
+                                	{!! Form::date('date',(isset($date))?$date:\Carbon\Carbon::now(),
 		            					[
 		                					'class' => 'form-control input-sm',
-		                					'disabled' => 'true',
 		                					'data-toggle' => 'tooltip',
 		                					'title' => 'Fecha de la desincorporación'
 		            					]
@@ -152,16 +151,8 @@
 							<div class="form-group{{ $errors->has('motive') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('motive_label', 'Motivo de la Desincorporación', []) !!}
-								{!! Form::select('motive', (isset($motive))?$motive:[
-									'Obsolescencia',
-									'Inservibilidad',
-									'Reparación',
-									'Reparación Antiecónomica',
-									'Pérdida',
-									'En Desuso',
-									'Venta',
-									'Donación',
-									], (isset($disincorporation))?$disincorporation->motive:null, [		
+								{!! Form::select('motive', (isset($motive))?$motive:[],
+								(isset($disincorporation))?$disincorporation->motive_id:null, [		
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el motivo de la desincorporación del bien'

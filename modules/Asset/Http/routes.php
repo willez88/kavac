@@ -26,6 +26,10 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
 
     Route::get('asignations', 'AssetAsignationController@index')
                 ->name('asset.asignation.index');
+
+    Route::get('asignations/info/{asignation}', 'AssetAsignationController@info')
+                ->name('asset.asignation.info');
+
     Route::get('asignations/create', 'AssetAsignationController@create')
                 ->name('asset.asignation.create');
     Route::get('asignations/asset/{asset}', 'AssetAsignationController@asset_assign')
@@ -45,6 +49,10 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
 
     Route::get('disincorporations', 'AssetDisincorporationController@index')
                 ->name('asset.disincorporation.index');
+
+    Route::get('disincorporations/info/{disincorporation}', 'AssetDisincorporationController@info')
+                ->name('asset.disincorporation.info');
+
     Route::get('disincorporations/create', 'AssetDisincorporationController@create')
                 ->name('asset.disincorporation.create');
     Route::get('disincorporations/asset/{asset}', 'AssetDisincorporationController@asset_disassign')
@@ -63,16 +71,21 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
      */
 
     Route::get('requests', 'AssetRequestController@index')->name('asset.request.index');
+    Route::get('requests/info/{request}', 'AssetRequestController@info')
+                ->name('asset.request.info');
+
     Route::get('request/create', 'AssetRequestController@create')->name('asset.request.create');
     Route::post('requests/store', 'AssetRequestController@store')->name('asset.request.store');
-    Route::put('requests/edit/{request}', 'AssetRequestController@update')->name('asset.request.edit');
-    Route::delete('requests/delete/{request}', 'AssetRequestController@destroy')->name('asset.request.delete');
+    Route::get('requests/edit/{request}', 'AssetRequestController@edit')->name('asset.request.edit');
+    Route::put('requests/update/{request}', 'AssetRequestController@update')->name('asset.request.update');
+    Route::delete('requests/delete/{request}', 'AssetRequestController@destroy')->name('asset.request.destroy');
 
     /**
      * Rutas para gestionar la generación de Solicitudes en pdf
      */
 
     Route::get('pdf', 'PDFController@create');
+    Route::get('pdf2', 'PDFController@create_general');
 
 
     /**

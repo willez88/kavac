@@ -31,9 +31,88 @@
 				</div>
 				{!! Form::open(['route' => ['asset.report.create',1], 'id' => 'form1','method' => 'GET', 'role' =>'form']) !!}
 				<div class="card-body">
-
 					<div class="row">
-						<div class="form-group col-md-6">
+						<div class="col-md-12">
+							<b>Seleccione el Tipo de Busqueda</b>
+						</div>
+						<div class="form-group col-md-2">
+							<label>Busqueda por Periodo </label>
+							<div>
+								{!! Form::radio('search_type', 'search_date', true,
+								[
+									'id' => 'search_type',
+									'class' => 'form-control bootstrap-switch',
+									'data-on-label' => 'SI',
+									'data-off-label' => 'NO'
+								]) !!}
+							</div>
+						</div>
+						<div class="form-group col-md-2">
+							<label>Busqueda por Mes</label>
+							<div>
+								{!! Form::radio('search_type', 'search_mes', false,
+								[
+									'id' => 'search_type',
+									'class' => 'form-control bootstrap-switch',
+									'data-on-label' => 'SI',
+									'data-off-label' => 'NO'
+								]) !!}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<b>Fecha de Adquisición</b>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								{!! Form::label('mes_label', 'Mes:', []) !!}
+								{!! Form::select('mes', (isset($mes))?$mes:
+								[
+									'Enero',
+									'Febrero',
+									'Marzo',
+									'Abril',
+									'Mayo',
+									'Junio',
+									'Julio',
+									'Agosto',
+									'Septiembre',
+									'Octubre',
+									'Noviembre',
+									'Diciembre',
+
+								], null, 
+								[		
+									'id' => 'mes_id',
+									'class' => 'form-control select2',
+									'data-toggle' => 'tooltip',
+									'placeholder' => 'Todos',
+									'title' => 'Indique el mes a buscar',
+									
+								]) !!}
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								{!! Form::label('anual_label', 'Año:', []) !!}
+								{!! Form::select('anual', (isset($anual))?$anual:
+								[], null, 
+								[		
+									'id' => 'anual_id',
+									'class' => 'form-control select2',
+									'data-toggle' => 'tooltip',
+									'placeholder' => 'Todos',
+									'title' => 'Indique el Año a buscar',
+									
+								]) !!}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label>Desde: </label>
 							<div class="input-group input-sm">
 			                    <span class="input-group-addon">
 			                        <i class="now-ui-icons ui-1_calendar-60"></i>
@@ -41,11 +120,12 @@
 			                    {!! Form::date('start_date', old('start_date'), [
 			                    	'id' => 'start_date',
 			                        'class' => 'form-control', 'placeholder' => 'Fecha',
-			                        'title' => 'Desde la fecha', 'data-toggle' => 'tooltip'
+			                        'title' => 'Fecha mínima de búsqueda', 'data-toggle' => 'tooltip'
 			                    ]) !!}
 			                </div>
 						</div>
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
+							<label>Hasta: </label>
 							<div class="input-group input-sm">
 			                    <span class="input-group-addon">
 			                        <i class="now-ui-icons ui-1_calendar-60"></i>
@@ -53,12 +133,12 @@
 			                    {!! Form::date('end_date', old('end_date'), [
 			                        'id' => 'end_date',
 			                        'class' => 'form-control', 'placeholder' => 'Fecha',
-			                        'title' => 'Hasta la fecha', 'data-toggle' => 'tooltip'
+			                        'title' => 'Fecha maxima de búsqueda', 'data-toggle' => 'tooltip'
 			                    ]) !!}
 			                </div>
 						</div>
 					</div>
-
+					
 					<div class="row">
 						<div class="col-12">
 							<button type="Submit" class='btn btn-sm btn-primary btn-custom float-right'>
@@ -69,7 +149,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12" align="left">
-							<button type="Submit" formaction ="../../asset/pdf" class='btn btn-sm btn-primary btn-custom'>
+							<button type="Submit" formaction ="../../asset/pdf2" class='btn btn-sm btn-primary btn-custom'>
 								<i class="fa fa-plus-circle"></i>
 								<span>	Imprimir Resultados	</span>
 							</button>
@@ -83,24 +163,24 @@
 								<tr class="text-center">
 
 									<th>Código</th>
-									<th>Ubicación</th>
 									<th>Condición Física</th>
 									<th>Estatus de uso</th>
 									<th>Serial</th>
 									<th>Marca</th>
 									<th>Modelo</th>
+									<th>Fecha de Registro</th>
 								</tr>
 							</thead>
 							<tbody>
 								@foreach($assets as $asset)
 									<tr>
 										<td> {{ $asset->serial_inventario }} </td>
-								        <td> {{ $asset->institution_id }} </td>
 								        <td> {{ $asset->condition->name }} </td>
 								        <td> {{ $asset->status->name }} </td>
 								        <td> {{ $asset->serial }} </td>
 								        <td> {{ $asset->marca }} </td>
 										<td> {{ $asset->model }} </td>
+										<td> {{ $asset->created_at->format('d-m-Y') }} </td>
 										
 									</tr>
 								@endforeach

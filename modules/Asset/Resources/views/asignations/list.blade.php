@@ -58,17 +58,18 @@
 								@foreach($asset_asignations as $asignation)
 									<tr>
 										<td>{{ $asignation->id }}</td>
-										<td>{{ $asignation->asset->serial }}</td>
+										<td>{{ $asignation->asset->getDescription() }}</td>
 										<td></td>
 										<td>{{ $asignation->staff_id }}</td>
 										<td class="text-center">{{ $asignation->created_at }}</td>
 										<td width="10%" class="text-center">
 											<div class="d-inline-flex">
 												
-												<button class="btn btn-info btn-xs btn-icon btn-round"  
-												data-toggle="tooltip" title="Ver información de la Asignación">
-													<i class="fa fa-info-circle"></i>
-												</button>
+												<button onclick="openmodal( <?php echo($asignation->id) ?> );" 
+                                                        class="btn btn-info btn-xs btn-icon btn-round"  
+                                                data-toggle="tooltip" title="Ver información de la asignación">
+                                                    <i class="fa fa-info-circle"></i>
+                                                </button>
 												{!! Form::open(['route' => ['asset.disincorporation.asset_disassign', $asignation->asset_id], 'method' => 'GET']) !!}
 												<button class="btn btn-primary btn-xs btn-icon btn-round"  
 												data-toggle="tooltip" title="Desincorporar Bien">
@@ -100,4 +101,143 @@
 			</div>
 		</div>
 	</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="add_asignation">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h6>
+					<i class="icofont icofont-read-book ico-2x"></i> 
+					Información del Bien Registrado
+				</h6>
+			</div>
+					
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Tipo</label>
+							<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_type"
+								disabled="true">
+						</div>			        	
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Categoria</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_category"
+								disabled="true">
+			            </div>
+			        </div>
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Subcategoria</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_subcategory"
+								disabled="true">
+						</div>
+					</div>
+			                
+
+			        <div class="col-md-6">
+						<div class="form-group">
+							<label>Categoria Especifica</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_specific"
+								disabled="true">
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Descripción del Bien</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_descrip"
+								disabled="true">
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Ubicación</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_ubication"
+								disabled="true">
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Trabajador Activo Responsable del Bien</label>
+			        		<input type="text"
+								data-toggle="tooltip" 
+								class="form-control"
+								id="asset_staff"
+								disabled="true">
+						</div>
+					</div>
+			                
+					
+			                
+
+			    </div>
+			</div>
+
+	    	<div class="modal-footer">
+	        	<button type="button" 
+	            	    class="btn btn-warning btn-icon btn-round btn-modal-close" 
+	                	data-dismiss="modal"
+	                	title="Cancelar y regresar">
+	            	<i class="fa fa-ban"></i>
+	        	</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@stop
+
+
+@section('extra-js')
+<script type="text/javascript">
+
+var records;
+function openmodal($asignation) {
+	axios.get("asignations/info/" + $asignation).then(response => {
+			
+		records = response.data.record;
+		$(".modal-body #asset_type").val( records.type );
+		$(".modal-body #asset_category").val( records.category );
+		$(".modal-body #asset_subcategory").val( records.subcategory );
+		$(".modal-body #asset_specific").val( records.specific );
+		
+		$(".modal-body #asset_descrip").val( records.description );
+		$(".modal-body #asset_ubication").val( records.ubication );
+		$(".modal-body #asset_staff").val( records.staff );
+		$("#add_asignation").modal("show");
+
+	})
+			
+}
+</script>
 @stop

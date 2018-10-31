@@ -35,9 +35,6 @@ class CreateAssetsTable extends Migration
                  *       ->onDelete('restrict')->onUpdate('cascade');
                  */
 
-                
-                $table->string('disposicion')->nullable()->comment('Disposición a la que pertenece el bien (01-Activo)');
-
                 $table->integer('type_id')->unsigned()->comment('Identificador único del tipo de bien (1 Mueble, 2 Inmueble)');
                 $table->foreign('type_id')->references('id')->on('asset_types')
                       ->onDelete('restrict')->onUpdate('cascade');
@@ -107,6 +104,10 @@ class CreateAssetsTable extends Migration
 
                 $table->integer('quantity')->nullable()->unsigned()
                       ->comment('Cantidad del bien (Solo para bienes inmuebles)');
+
+                $table->integer('inventary_id')->nullable()->comment('Identificador único del registro de inventario al que pertenece el bien (solo para bienes registrados en inventario, es decir, con estatus_id en almacén o depósito para su asignación)');
+                $table->foreign('inventary_id')->references('id')->on('asset_inventaries')
+                      ->onDelete('restrict')->onUpdate('cascade');
                 
                 /**
                  *

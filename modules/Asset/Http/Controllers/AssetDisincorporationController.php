@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetDisincorporation;
+use Modules\Asset\Models\AssetMotiveDisincorporation;
 use Modules\Asset\Models\Asset;
 
 use Modules\Asset\Models\AssetType;
@@ -72,8 +73,9 @@ class AssetDisincorporationController extends Controller
         $categories = AssetCategory::template_choices();
         $subcategories = AssetSubcategory::template_choices();
         $specific_categories = AssetSpecificCategory::template_choices();
+        $motive = AssetMotiveDisincorporation::template_choices();
 
-        return view('asset::disincorporations.create', compact('header','assets','types','categories','subcategories','specific_categories'));
+        return view('asset::disincorporations.create', compact('header','assets','types','categories','subcategories','specific_categories','motive'));
     }
 
      /**
@@ -102,7 +104,7 @@ class AssetDisincorporationController extends Controller
 
         $disincorporation->asset_id = $request->asset;
         $disincorporation->date = $request->date;
-        $disincorporation->motive = $request->motive;
+        $disincorporation->motive_id = $request->motive;
         $disincorporation->observation = $request->observation;
 
         $disincorporation->save();
@@ -195,7 +197,7 @@ class AssetDisincorporationController extends Controller
 
         $disincorporation->asset_id = $request->asset;
         $disincorporation->date = $request->date;
-        $disincorporation->motive = $request->motive;
+        $disincorporation->motive_id = $request->motive;
         $disincorporation->observation = $request->observation;
 
         $disincorporation->save();
@@ -213,5 +215,35 @@ class AssetDisincorporationController extends Controller
     {
         $disincorporation->delete();
         return back()->with('info', 'Fue eliminado exitosamente');
+    }
+
+    /**
+     * Vizualiza la Información de la Desincorporación de un Bien Institucional
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\AssetDisincorporation $disincorporation (Datos de la Desincorporación de un Bien)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    public function info(AssetDisincorporation $disincorporation){
+
+        $dato = AssetDisincorporation::findorfail($disincorporation->id);
+        $this->data[] = [
+            'id' => $dato->id,
+            'type' => $dato->asset->type->name,
+            'category' => $dato->asset->category->name,
+            'subcategory' => $dato->asset->subcategory->name,
+            'specific' => $dato->asset->specific->name,
+            'description' => $dato->asset->getDescription(),
+            'ubication' => $dato->asset->institution_id,
+            'staff' => $dato->asset->staff_id,
+            'date' => $dato->date,
+            'motive' => $dato->motive,
+            'observe' => $dato->observation
+            
+                
+        ];
+
+        return response()->json(['record' => $this->data[0]]);
+
     }
 }

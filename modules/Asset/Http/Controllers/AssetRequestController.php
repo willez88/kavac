@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetRequest;
+use Modules\Asset\Models\AssetRequested;
 use Modules\Asset\Models\Asset;
 
 
@@ -75,8 +76,8 @@ class AssetRequestController extends Controller
      */
     public function store(Request $request)
     {
-         $datos = explode(',',$request->ids);
-        dd(count($datos), trim($datos[1]));
+        
+
         $this->validate($request, [
 
             'type' => 'required',
@@ -100,9 +101,12 @@ class AssetRequestController extends Controller
 
             ]);
         }
+        $datos = explode(',',$request->ids);
+        $cantidad = 0;
+
         $data = new AssetRequest;
 
-        
+
         $data->type = $request->type;
         $data->motive = $request->motive;
         $data->delivery_date = $request->delivery_date;
@@ -110,12 +114,22 @@ class AssetRequestController extends Controller
         $data->agent_name = $request->agent_name;
         $data->agent_telf = $request->agent_telf;
         $data->agent_email = $request->agent_email;
-
-        
-
-        
-
         $data->save();
+
+        while ($cantidad < count($datos)) {
+            $seleccionados = new AssetRequested;
+            $asset = Asset::where('serial_inventario',trim($datos[$cantidad]))->first();
+            $asset->status_id = 6;
+            $seleccionados->inventary_id = $asset->inventary_id;
+            $seleccionados->request_id = $data->id;
+            
+            $seleccionados->save();
+            $asset->save();
+            $cantidad++;
+
+        }
+
+        
         return redirect()->route('asset.request.index');
     }
 
@@ -142,7 +156,10 @@ class AssetRequestController extends Controller
             'route' => 'asset.request.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
         ];
         $assets = Asset::all();
-        return view('asset::requests.create',compact('header','assets','request'));
+        $select = AssetRequested::where('request_id',$request->id)->get();
+        
+
+        return view('asset::requests.create',compact('header','assets','request','select'));
     }
 
     /**
@@ -202,7 +219,31 @@ class AssetRequestController extends Controller
      */
     public function destroy(AssetRequest $request)
     {
+        $assets_requested = AssetRequested::where('request_id', $request->request_id);
+        foreach ($assets_requested as $asset) {
+            dd($asset);
+        }
         $request->delete();
         return back()->with('info', 'Fue eliminado exitosamente');
+    }
+
+
+    public function info(AssetRequest $request){
+
+        $dato = AssetRequest::findorfail($request->id);
+        $this->data[] = [
+            'id' => $dato->id,
+            'type' => $dato->type,
+            'date_init' => isset($dato->created_at)?$dato->created_at->format('d-m-Y'):null,
+            'motive' => $dato->motive,
+            'delivery_date' => isset($dato->delivery_date)?$dato->delivery_date->format('d-m-Y'):'No Aplica',
+            'ubication' => $dato->ubication,
+            'agent_name' => $dato->agent_name,
+            'agent_telf' => $dato->agent_telf,
+            'agent_email' => $dato->agent_email
+        ];
+
+        return response()->json(['record' => $this->data[0]]);
+
     }
 }

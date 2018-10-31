@@ -35,5 +35,6 @@ class AssetDatabaseSeeder extends Seeder
         $this->call(AssetConditionTableSeeder::class);
         $this->call(AssetStatusTableSeeder::class);
         $this->call(AssetUseTableSeeder::class);
+        $this->call(AssetMotiveDisincorporationTableSeeder::class);
     }
 }

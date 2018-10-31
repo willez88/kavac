@@ -341,7 +341,7 @@ function openmodal($asset) {
 		$(".modal-body #asset_type").val( records.type );
 		$(".modal-body #asset_category").val( records.category );
 		$(".modal-body #asset_subcategory").val( records.subcategory );
-		$(".modal-body #asset_specific").val( records.supecific );
+		$(".modal-body #asset_specific").val( records.specific );
 		$(".modal-body #asset_codigo").val( records.code );
 
 		$(".modal-body #asset_purchase").val( records.purchase );

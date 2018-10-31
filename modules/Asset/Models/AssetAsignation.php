@@ -52,19 +52,4 @@ class AssetAsignation extends Model
         return $this->belongsTo('Modules\Asset\Models\Asset', 'asset_id');
     }
 
-     /**
-     *
-     * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
-     * 
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return [array] Listado de asignaciones de bienes institucionales
-     */
-     public static function template_choices()
-    {
-        $options = [];
-        foreach (self::all() as $reg) {
-            $options[$reg->id] = $reg->name;
-        }
-        return $options;
-    }
 }

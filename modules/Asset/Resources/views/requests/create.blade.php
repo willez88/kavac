@@ -48,10 +48,9 @@
 						            <span class="input-group-addon">
 						                <i class="now-ui-icons ui-1_calendar-60"></i>
 						            </span>
-						            {!! Form::date('date',\Carbon\Carbon::now(),
+						            {!! Form::date('date',(isset($date))?$date:\Carbon\Carbon::now(),
 						                [
 						                    'class' => 'form-control input-sm',
-						                    'disabled' => 'true',
 						                    'data-toggle' => 'tooltip',
 						                    'title' => 'Fecha de la solicitud'
 						                ]
@@ -61,10 +60,11 @@
 						    </div>
 						</div>
 
+					
 						<div class="col-md-6">
 						    <div class="form-group{{ $errors->has('motivo') ? ' has-error' : '' }} is-required">
 						        {!! Form::label('motivo_label', 'Motivo de la solicitud', []) !!}
-						        {!! Form::text('motive',(isset($request_motivo))?$request_motivo->motivo:old('motivo'),
+						        {!! Form::text('motive',(isset($request))?$request->motive:old('motive'),
 						           [
 						                'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
@@ -103,6 +103,7 @@
 						
 					</div>
 
+					
 					<div class="row" id="request-2">
 						<div class="col-md-6">
 					        <div class="form-group {{ $errors->has('delivery_date') ? ' has-error' : '' }}">
@@ -266,6 +267,7 @@
 							<thead>
 							    <tr class="text-center">
 
+							        <th><input type="checkbox" name="select_all" id ="select_all"></th>
 							        <th>Código</th>
 									<th>Ubicación</th>
 									<th>Condición Física</th>
@@ -273,13 +275,16 @@
 									<th>Serial</th>
 									<th>Marca</th>
 									<th>Modelo</th>
+									<th>Numero de Bienes</th>
 
 							    </tr>
 							</thead>
 							
 							<tbody>
 							    @foreach($assets as $asset)
+							    @if($asset->status_id != 6)
 							        <tr>
+							            <td></td>
 							            <td> {{ $asset->serial_inventario }} </td>
 								        <td> {{ $asset->institution_id }} </td>
 								        <td> {{ $asset->condition->name }} </td>
@@ -287,20 +292,15 @@
 								        <td> {{ $asset->serial }} </td>
 								        <td> {{ $asset->marca }} </td>
 										<td> {{ $asset->model }} </td>
+										<td></td>
 							                                    
 							        </tr>
+							    @endif
 							    @endforeach
 							</tbody>
 						</table>
 					</div>
 			
-
-
-
-
-
-
-
 
 				</div>
 		
@@ -321,6 +321,11 @@
 	var seleccionados=[];
 $(document).ready(function(){
 	var table = $('#table_id').DataTable({
+		columnDefs: [ {
+            orderable: false,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
 		dom: 'Bfrtip',
 		select: {
 			style: 'multi'
@@ -343,7 +348,7 @@ $(document).ready(function(){
 	});
     
     $('#table_id tbody').on( 'click', 'tr', function () {
-        dato = $(this).find("td:eq(0)").text();
+        dato = $(this).find("td:eq(1)").text();
 
         if (seleccionados.indexOf(dato) === -1) {
         seleccionados.push(dato);
@@ -357,11 +362,16 @@ $(document).ready(function(){
 		mostrar(-1);
 
 });
+
+
 $("#save").on("click", function(event){
 
 console.log(seleccionados);
-	if(!seleccionados.length)
-        alert("No ha seleccionado ningún elemento");
+
+	if(!seleccionados.length){
+	    alert("No ha seleccionado ningún elemento");
+	    return false;
+	}
     else{
             $('<input>', {
                 type: 'hidden',

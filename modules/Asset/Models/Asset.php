@@ -40,7 +40,7 @@ class Asset extends Model
      * @var array $fillable
      */
     protected $fillable = [
-        'orden_compra', 'disposicion', 'type_id', 'category_id', 'subcategory_id', 'specific_category_id', 'institution_id', 'proveedor_id','condition_id','purchase_id','purchase_year','status_id', 'serial', 'marca',
+        'orden_compra', 'type_id', 'category_id', 'subcategory_id', 'specific_category_id', 'institution_id', 'proveedor_id','condition_id','purchase_id','purchase_year','status_id', 'serial', 'marca',
         'model', 'serial_inventario', 'value','use_id','quantity'
     ];
 
@@ -55,6 +55,15 @@ class Asset extends Model
         $code = $this->type_id .'-'. $this->category_id .'-'. $this->subcategory_id .'-'. $this->specific_category_id .'-'. $this->purchase_year;
 
         return $code;
+    }
+
+    public function getDescription()
+    {
+        $description = 'Código: '.$this->getCode() .'. Marca: '. $this->marca .'. Modelo: '. $this->model;
+        if ($this->type_id == 2){
+            $description = $description . ". Serial: ". $this->serial;
+        }
+        return $description;
     }
     
     /**
@@ -186,7 +195,7 @@ class Asset extends Model
         }
         $options = [];
         foreach ($records as $rec) {
-            $options[$rec->id] = $rec->serial;
+            $options[$rec->id] = $rec->getDescription();
         }
         return $options;
     }
@@ -215,7 +224,15 @@ class Asset extends Model
 
     public function scopeDateClasification($query, $start, $end){
         
-        return $query->whereBetween("created_at",[$start,$end]);
+        if (!is_null($start)){
+            if (!is_null($end)){
+                return $query->whereBetween("created_at",[$start,$end]); 
+            }
+            else{
+                return $query->whereBetween("created_at",[$start,now()]);
+            }
+        }
+        
     }
 
     public function scopeRequest($query, $model, $marca, $serial){

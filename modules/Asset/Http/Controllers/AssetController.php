@@ -114,6 +114,7 @@ class AssetController extends Controller
             'value' => 'required',
 
         ]);
+        
         if ($request->type == 1){
             $this->validate($request,[
                 'serial' => 'required|max:50',
@@ -121,20 +122,25 @@ class AssetController extends Controller
                 'model' => 'required|max:50',
 
             ]);
+            
+            
         }
-        if ($request->type == 2){
+        else if ($request->type == 2){
             $this->validate($request,[
                 'use' => 'required|max:50',
                 'quantity'  => 'required|max:50',
 
             ]);
-        }
 
+        }
+        
+
+        
         $asset = new Asset;
         /*
          * $asset->orden_compra = $request->orden_compra; 
-        **/
-        $asset->disposicion = "01-Activo";    
+         **/
+
         $asset->type_id = $request->type;
         $asset->category_id = $request->category;
         $asset->subcategory_id = $request->subcategory;
@@ -152,6 +158,17 @@ class AssetController extends Controller
         $asset->value = $request->value;
         $asset->use_id = $request->use;
         $asset->quantity = $request->quantity;
+
+        if ($request->status == 10){
+            $asset_inventary = new AssetInventary;
+            $asset_inventary->unit_value = $asset->value;
+
+            if ($request->type == 2){
+                $asset_inventary->exist = $request->quantity;
+            }
+            $asset_inventary->save();
+            $asset->inventary_id = $asset_inventary->id;
+        }
 
         $asset->save();
 
@@ -241,7 +258,7 @@ class AssetController extends Controller
         /*
          * $asset->orden_compra = $request->orden_compra; 
         **/
-        $asset->disposicion = "01-Activo";    
+        
         $asset->type_id = $request->type;
         $asset->category_id = $request->category;
         $asset->subcategory_id = $request->subcategory;
@@ -251,7 +268,6 @@ class AssetController extends Controller
         $asset->condition_id = $request->condition;
         $asset->purchase_id = $request->purchase;
         $asset->purchase_year = $request->purchase_year;
-        $asset->status_id = $request->status;
         $asset->serial = $request->serial;
         $asset->marca = $request->marca;
         $asset->model = $request->model;
@@ -259,6 +275,49 @@ class AssetController extends Controller
         $asset->value = $request->value;
         $asset->use_id = $request->use;
         $asset->quantity = $request->quantity;
+
+
+        // Si el bien registrado estaba en el alamacen
+        if ($asset->status_id == 10)    {
+
+                // Si despues de realizar cambios sigue en almacen
+            if ($request->status == 10)    {
+                $asset_inventary = AssetInventary::find($inventary_id);
+                $asset_inventary->unit_value = $asset->value;
+
+                // Si es un bien inmueble la cantidad puede ser diferente de 1
+                if ($request->type == 2)
+                    $asset_inventary->exist = $request->quantity;
+
+                $asset_inventary->save();
+                $asset->inventary_id = $asset_inventary->id;
+
+            // Si despues de realizar los cambios el bien no esta en almacen
+            }else if ($request->status != 10)  {
+
+                $asset->inventary_id = null;
+                $asset_inventary->delete();
+            }
+        
+        // Si el bien registrado no estaba en el almacen antes de realizar los cambios
+        }else if ($asset->status_id != 10)   {
+
+            // Si se quiere guardar en el almacen
+            if ($request->status == 10)    {
+            
+                $asset_inventary = new AssetInventary;
+                $asset_inventary->unit_value = $asset->value;
+
+                // Si es un bien inmueble la cantidad puede ser diferente de 1
+                if ($request->type == 2)
+                    $asset_inventary->exist = $request->quantity;
+
+                $asset_inventary->save();
+                $asset->inventary_id = $asset_inventary->id;
+            }
+        }
+
+        $asset->status_id = $request->status;
         $asset->save();
         return redirect()->route('asset.index');
     }
@@ -305,4 +364,7 @@ class AssetController extends Controller
         return response()->json(['record' => $this->data[0]]);
         
     }
+
+
+
 }

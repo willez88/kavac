@@ -36,6 +36,9 @@
 					<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div>
 					<div class="row">
 
+						<div class="col-md-12">
+							<b>Información del Bien</b>
+						</div>
 						<div class="col-md-6">
 							<div class="form-group   {{ $errors->has('type') ? ' has-error' : '' }} is-required">
 								
@@ -112,6 +115,36 @@
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la dependencia del trabajador al que se le asigna el bien'
+								]) !!}
+
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<b>Información del Trabajador Responsable del bien</b>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group{{ $errors->has('puesto') ? ' has-error' : '' }} is-required">
+								
+								{!! Form::label('puesto_work_label', 'Puesto de Trabajo', []) !!}
+								{!! Form::select('puesto', (isset($puestos))?$puestos:[], null, [
+									'class' => 'form-control select2',
+									'placeholder' => 'Seleccione...',
+									'title' => 'Indique el puesto del trabajador activo'
+								]) !!}
+
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group{{ $errors->has('cargo') ? ' has-error' : '' }} is-required">
+								
+								{!! Form::label('cargo_label', 'Cargo', []) !!}
+								{!! Form::select('cargo', (isset($cargos))?$cargos:[], null, [
+									'class' => 'form-control select2',
+									'placeholder' => 'Seleccione...',
+									'title' => 'Indique el cargo del trabajador activo'
 								]) !!}
 
 							</div>

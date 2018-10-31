@@ -32,7 +32,8 @@ class CreateAssetDisincorporationsTable extends Migration
                       ->comment('Identificador único de la asignación de un bien');
                 $table->foreign('asset_id')->references('id')->on('assets');
 
-                $table->string('motive')->nullable()->comment('Motivo de la desincorporación del bien');
+                $table->integer('motive_id')->nullable()->unsigned()->comment('Identificador único del Motivo de la desincorporación del bien');
+                $table->foreign('motive_id')->references('id')->on('asset_motive_disincorporations');
 
                 $table->date('date')->nullable()->comment('Fecha de la desincorporación del bien');
 

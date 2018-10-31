@@ -16,6 +16,7 @@ use Modules\Asset\Models\AssetType;
 use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
+use Modules\Asset\Models\AssetInventary;
 
 /**
  * @class AssetAsignationController
@@ -69,7 +70,7 @@ class AssetAsignationController extends Controller
             'route' => 'asset.asignation.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
         ];
 
-        $assets = Asset::template_choices();
+        $assets = AssetInventary::template_choices();
         $types = AssetType::template_choices();
         $categories = AssetCategory::template_choices();
         $subcategories = AssetSubcategory::template_choices();
@@ -91,8 +92,7 @@ class AssetAsignationController extends Controller
             'route' => 'asset.asignation.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
         ];
 
-        $asignation = new AssetAsignation;
-        $asignation->asset_id = $asset->id;
+        
         $assets = Asset::template_choices(['id' => $asset->id]);
         $types = AssetType::template_choices(['id' => $asset->type_id]);
         $categories = AssetCategory::template_choices(['id' => $asset->category_id]);
@@ -125,9 +125,12 @@ class AssetAsignationController extends Controller
         $asignation = new AssetAsignation;
 
         $asignation->asset_id = $request->asset;
+        $asset = Asset::find($request->asset);
+        $asset->status_id = 1;
         $asignation->staff_id = $request->staff;
 
         $asignation->save();
+        $asset->save();
         return redirect()->route('asset.asignation.index');
 
     }
@@ -205,7 +208,39 @@ class AssetAsignationController extends Controller
      */
     public function destroy(AssetAsignation $asignation)
     {
+        $asset = Asset::findorfail($asignation->asset_id);
+        $asset->status_id = 10;
+        $asset->save();
+
         $asignation->delete();
         return back()->with('info', 'Fue eliminado exitosamente');
+
+    }
+
+    /**
+     * Vizualizar Información de la Asignación de un Bien Institucional
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\AssetAsignation $asignation (Datos de la Asignación de un Bien)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    public function info(AssetAsignation $asignation){
+
+        $dato = AssetAsignation::findorfail($asignation->id);
+        $this->data[] = [
+            'id' => $dato->id,
+            'type' => $dato->asset->type->name,
+            'category' => $dato->asset->category->name,
+            'subcategory' => $dato->asset->subcategory->name,
+            'specific' => $dato->asset->specific->name,
+            'description' => $dato->asset->getDescription(),
+            'ubication' => $dato->asset->institution_id,
+            'staff' => $dato->asset->staff_id
+            
+                
+        ];
+
+        return response()->json(['record' => $this->data[0]]);
+
     }
 }

@@ -28,15 +28,11 @@ class CreateAssetInventariesTable extends Migration
             Schema::create('asset_inventaries', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
 
-                $table->integer('exist')->unsigned()->comment('Cantidad de artículos en existencia actualmente (Incluye a los reservados por solicitudes de bienes)');
+                $table->integer('exist')->unsigned()->default(1)->comment('Cantidad de artículos en existencia actualmente (Incluye a los reservados por solicitudes de bienes)');
 
-                $table->integer('reserved')->unsigned()->nullable()->comment('Cantidad de artículos reservados por solicitudes de bienes que se han registrado en el sistema');
+                $table->integer('reserved')->unsigned()->default(0)->comment('Cantidad de artículos reservados por solicitudes de bienes que se han registrado en el sistema');
 
-                $table->integer('asset_id')->unsigned()->comment('Identificador del bien en la tabla assets');
-                $table->foreign('asset_id')->references('id')->on('assets')
-                      ->onDelete('restrict')->onUpdate('cascade');
-                 
-                $table->integer('unit_value')->unsigned()->comment('Precio por unidad del bien');
+                $table->integer('unit_value')->nullable()->unsigned()->comment('Precio por unidad del bien');
 
                 /**
                  * Fecha en la que se registra el bien en el inventario de bienes
