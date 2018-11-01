@@ -21,7 +21,7 @@ class Session extends Model
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
      * @param integer $user_id Identificador del usuario 
-     * @return object          Objeto con los datos de la sessión activa del usuario autenticado en el sistema
+     * @return mixed          Objeto con los datos de la sessión activa del usuario autenticado en el sistema
      */
     public static function getSessionData($user_id)
     {

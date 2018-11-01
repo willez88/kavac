@@ -5,6 +5,7 @@ use Artisan;
 use Log;
 use Storage;
 use Session;
+use Exception;
 
 class BackupRepository
 {

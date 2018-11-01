@@ -52,7 +52,7 @@ class CodeSetting extends Model
      * @param  string $field  Nombre del campo
      * @param  string $model  Ruta del Modelo
      * @param  string $module Nombre del módulo
-     * @return string         Nuevo código a insertar
+     * @return int|string         Nuevo código a insertar
      */
     public static function codeNextValue($table, $field, $model, $formulation_year, $module = null)
     {
