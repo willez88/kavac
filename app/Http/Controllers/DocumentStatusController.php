@@ -25,7 +25,7 @@ class DocumentStatusController extends Controller
      * Muesta todos los registros de estatus de documentos
      * 
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -48,7 +48,7 @@ class DocumentStatusController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -98,7 +98,7 @@ class DocumentStatusController extends Controller
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\DocumentStatus  $documentStatus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, DocumentStatus $documentStatus)
     {
@@ -121,7 +121,7 @@ class DocumentStatusController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\DocumentStatus  $documentStatus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(DocumentStatus $documentStatus)
     {

@@ -29,7 +29,7 @@ class InstitutionController extends Controller
      * Muesta todos los registros de las Instituciones
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -52,7 +52,7 @@ class InstitutionController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, UploadImageRepository $up)
     {

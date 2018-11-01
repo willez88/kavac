@@ -25,7 +25,7 @@ class InstitutionTypeController extends Controller
      * Muesta todos los registros de los tipos de institución
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -48,7 +48,7 @@ class InstitutionTypeController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -96,7 +96,7 @@ class InstitutionTypeController extends Controller
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\InstitutionType  $institutionType
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, InstitutionType $institutionType)
     {
@@ -117,7 +117,7 @@ class InstitutionTypeController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\InstitutionType  $institutionType
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(InstitutionType $institutionType)
     {

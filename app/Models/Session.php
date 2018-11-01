@@ -20,8 +20,8 @@ class Session extends Model
      * Método que obtiene los datos de sessión del usuario autenticado
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @param[in] $user_id [<b>integer</b>] Identificador del usuario 
-     * @return Objeto con los datos de la sessión activa del usuario autenticado en el sistema
+     * @param integer $user_id Identificador del usuario 
+     * @return object          Objeto con los datos de la sessión activa del usuario autenticado en el sistema
      */
     public static function getSessionData($user_id)
     {

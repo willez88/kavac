@@ -35,8 +35,8 @@ class CodeSetting extends Model
      * Método que permite dividir el formato del código
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @param  [string] $code Formato del código a configurar
-     * @return [array]       Arreglo con las partes que conforman el código
+     * @param  string $code Formato del código a configurar
+     * @return array       Arreglo con las partes que conforman el código
      */
     public static function divideCode($code) {
     	
@@ -48,11 +48,11 @@ class CodeSetting extends Model
      * Método que permite obtener el prócimo valor a registrar del código
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @param  [string] $table  Nombre de la tabla
-     * @param  [string] $field  Nombre del campo
-     * @param  [string] $model  Ruta del Modelo
-     * @param  [string] $module Nombre del módulo
-     * @return [string]         Nuevo código a insertar
+     * @param  string $table  Nombre de la tabla
+     * @param  string $field  Nombre del campo
+     * @param  string $model  Ruta del Modelo
+     * @param  string $module Nombre del módulo
+     * @return string         Nuevo código a insertar
      */
     public static function codeNextValue($table, $field, $model, $formulation_year, $module = null)
     {
@@ -63,7 +63,7 @@ class CodeSetting extends Model
 
     	if ($configCode && $model->whereNotNull($field)->get()) {
     		// Agregar validación para el año de ejecución presupuestaria
-    		$lastCode = $model->->whereYear('created_at', date('Y'))->orderBy('created_at', 'desc')->first();
+    		$lastCode = $model->whereYear('created_at', date('Y'))->orderBy('created_at', 'desc')->first();
 
     		if ($lastCode) {
     			list($prefix, $digits, $sufix) = explode('-', $lastCode);

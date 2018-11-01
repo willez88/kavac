@@ -44,7 +44,7 @@ class Tax extends Model
      * Método que obtiene los históricos de los impuestos
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo HistoryTax
+     * @return object Objeto con los registros relacionados al modelo HistoryTax
      */
     public function histories()
     {

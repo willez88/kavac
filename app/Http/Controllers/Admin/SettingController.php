@@ -20,7 +20,7 @@ class SettingController extends Controller
      * Muesta todos los registros de los parámetros de configuración de la aplicación
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -56,7 +56,7 @@ class SettingController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {

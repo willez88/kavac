@@ -28,7 +28,7 @@ class DocumentStatus extends Model
 
     /**
      * Nombre de la tabla a usar en la base de datos
-     * @var array $table
+     * @var string $table
      */
     protected $table = 'document_status';
 

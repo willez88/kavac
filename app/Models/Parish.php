@@ -42,7 +42,7 @@ class Parish extends Model
      * Método que obtiene el Municipio de una Parroquia
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo Municipality
+     * @return object Objeto con los registros relacionados al modelo Municipality
      */
 	public function municipality()
     {
@@ -53,7 +53,7 @@ class Parish extends Model
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Listado de Parroquias registradas para ser implementadas en plantillas
+     * @return array Listado de Parroquias registradas para ser implementadas en plantillas
      */
     public static function template_choices()
     {

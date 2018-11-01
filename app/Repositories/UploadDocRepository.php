@@ -19,12 +19,12 @@ class UploadDocRepository
 
 	/**
 	 * Instrucciones para verificar y subir un documento a la ruta indicada en el servidor
-	 * @param  [object]  $file         Objeto con el archivo a subir
-	 * @param  [string]  $store        Ruta en la que se va a almacenar el archivo
-	 * @param  boolean $sign           Indica si el archivo a subir será firmado digitalmente
-	 * @param  boolean $originalName   Indica si el archivo a subir es con el nombre original del mismo
-	 * @param  boolean $checkAllowed   Indica si se va a verificar el tipo de archivo permitido para subir
-	 * @return [boolean]               Retorna falso en caso de cualquier error, de lo contrario retorna verdadero
+	 * @param  object  $file 		 Objeto con el archivo a subir
+	 * @param  string  $store        Ruta en la que se va a almacenar el archivo
+	 * @param  boolean $sign         Indica si el archivo a subir será firmado digitalmente
+	 * @param  boolean $originalName Indica si el archivo a subir es con el nombre original del mismo
+	 * @param  boolean $checkAllowed Indica si se va a verificar el tipo de archivo permitido para subir
+	 * @return boolean               Retorna falso en caso de cualquier error, de lo contrario retorna verdadero
 	 */
 	public function uploadDoc($file, $store, $sign=false, $originalName=false, $checkAllowed=false)
 	{
@@ -67,7 +67,7 @@ class UploadDocRepository
 
 	/**
 	 * Obtiene el nombre del documento
-	 * @return [string] Retorna el nombre del documento
+	 * @return string Retorna el nombre del documento
 	 */
 	public function getDocName()
 	{
@@ -76,7 +76,7 @@ class UploadDocRepository
 
 	/**
 	 * Obtiene la extensión del documento
-	 * @return [string] Retorna la extensión del documento
+	 * @return string Retorna la extensión del documento
 	 */
 	public function getDocExtension()
 	{
@@ -85,7 +85,7 @@ class UploadDocRepository
 
 	/**
 	 * Obtiene el mensaje de error a mostrar al usuario
-	 * @return [string] Devuelve un mensaje con el error si existe, en caso contrario retorna una cadena vacia
+	 * @return string Devuelve un mensaje con el error si existe, en caso contrario retorna una cadena vacia
 	 */
 	public function getErrorMessage()
 	{
@@ -94,7 +94,7 @@ class UploadDocRepository
 
 	/**
 	 * Obtiene el objeto del documento guardado
-	 * @return [object] Devuelve el objeto del documento guardado
+	 * @return object Devuelve el objeto del documento guardado
 	 */
 	public function getDocStored()
 	{
@@ -103,8 +103,8 @@ class UploadDocRepository
 
 	/**
 	 * Verifica la existencia de un documento y lo elimina del disco
-	 * @param  [string] $doc   Contiene el nombre del documento a eliminar
-	 * @param  [string] $store Contiene la ruta en la que se encuentra almacenado el documento
+	 * @param  string $doc   Contiene el nombre del documento a eliminar
+	 * @param  string $store Contiene la ruta en la que se encuentra almacenado el documento
 	 */
 	public function deleteDoc($doc, $store)
 	{

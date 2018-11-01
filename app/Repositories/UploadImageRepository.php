@@ -22,11 +22,11 @@ class UploadImageRepository
 
 	/**
 	 * Instrucciones para verificar y subir una imagen a la ruta indicada en el servidor
-	 * @param  [object]  $file       Objeto con el archivo a subir
-	 * @param  [string]  $store      Ruta en la que se va a almacenar el archivo
-	 * @param  [boolean] $originalName Indica si el archivo a subir es con el nombre original del mismo
-	 * @param  [boolean] $verifySize Indica si será verificado o no el tamaño de la imagen
-	 * @return [boolean]             Retorna falso en caso de cualquier error, de lo contrario retorna verdadero
+	 * @param  object  $file       Objeto con el archivo a subir
+	 * @param  string  $store      Ruta en la que se va a almacenar el archivo
+	 * @param  boolean $originalName Indica si el archivo a subir es con el nombre original del mismo
+	 * @param  boolean $verifySize Indica si será verificado o no el tamaño de la imagen
+	 * @return boolean             Retorna falso en caso de cualquier error, de lo contrario retorna verdadero
 	 */
 	public function uploadImage($file, $store, $originalName=false, $verifySize=false, $checkAllowed=false)
 	{
@@ -68,7 +68,7 @@ class UploadImageRepository
 
 	/**
 	 * Obtiene el nombre de la image
-	 * @return [string] Retorna el nombra de la imagen
+	 * @return string Retorna el nombra de la imagen
 	 */
 	public function getImageName()
 	{
@@ -77,7 +77,7 @@ class UploadImageRepository
 
 	/**
 	 * Obtiene la extensión de la imagen
-	 * @return [string] Retorna la extensión de la imagen
+	 * @return string Retorna la extensión de la imagen
 	 */
 	public function getImageExtension()
 	{
@@ -86,7 +86,7 @@ class UploadImageRepository
 
 	/**
 	 * Obtiene el mensaje de error a mostrar al usuario
-	 * @return [string] Devuelve un mensaje con el error si existe, en caso contrario retorna una cadena vacia
+	 * @return string Devuelve un mensaje con el error si existe, en caso contrario retorna una cadena vacia
 	 */
 	public function getErrorMessage()
 	{
@@ -95,7 +95,7 @@ class UploadImageRepository
 
 	/**
 	 * Obtiene el objeto de la imagen guardada
-	 * @return [object] Devuelve el objeto de la imagen guardada
+	 * @return object Devuelve el objeto de la imagen guardada
 	 */
 	public function getImageStored()
 	{
@@ -104,8 +104,8 @@ class UploadImageRepository
 
 	/**
 	 * Verifica la existencia de una imagen y la elimina del disco
-	 * @param  [string] $img   Contiene el nombre de la imagen a eliminar
-	 * @param  [string] $store Contiene la ruta en la que se encuentra almacenada la imagen
+	 * @param  string $img   Contiene el nombre de la imagen a eliminar
+	 * @param  string $store Contiene la ruta en la que se encuentra almacenada la imagen
 	 */
 	public function deleteImage($img, $store)
 	{
@@ -116,8 +116,9 @@ class UploadImageRepository
 
 	/**
 	 * Verifica que el tamaño de la imagen corresponda con el mínimo y máximo permitido
-	 * @param  [object] $image Objeto que contiene la imagen a procesar
-	 * @return [boolean]       Devuelve verdadero si el tamaño de la imagen corresponde con el permitido, de lo contrario retorna falso
+	 * @param  object   $image Objeto que contiene la imagen a procesar
+	 * @return boolean	Devuelve verdadero si el tamaño de la imagen corresponde con el permitido, 
+	 * de lo contrario retorna falso
 	 */
 	public function verifySize($image) {
 		$size = getimagesize($image);

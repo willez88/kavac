@@ -25,7 +25,7 @@ class InstitutionSectorController extends Controller
      * Muesta todos los registros de los sectores de institución
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -48,7 +48,7 @@ class InstitutionSectorController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -94,7 +94,7 @@ class InstitutionSectorController extends Controller
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\InstitutionSector  $institutionSector
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, InstitutionSector $institutionSector)
     {
@@ -113,7 +113,7 @@ class InstitutionSectorController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\InstitutionSector  $institutionSector
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(InstitutionSector $institutionSector)
     {

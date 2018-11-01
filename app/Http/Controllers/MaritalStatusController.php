@@ -25,7 +25,7 @@ class MaritalStatusController extends Controller
      * Muestra todos los registros de estados civiles
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -48,7 +48,7 @@ class MaritalStatusController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -66,7 +66,7 @@ class MaritalStatusController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\MaritalStatus  $maritalStatus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(MaritalStatus $maritalStatus)
     {
@@ -91,7 +91,7 @@ class MaritalStatusController extends Controller
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\MaritalStatus  $maritalStatus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, MaritalStatus $maritalStatus)
     {
@@ -110,7 +110,7 @@ class MaritalStatusController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\MaritalStatus  $maritalStatus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(MaritalStatus $maritalStatus)
     {

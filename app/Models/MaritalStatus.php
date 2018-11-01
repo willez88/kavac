@@ -28,7 +28,7 @@ class MaritalStatus extends Model
 
     /**
      * Nombre de la tabla a usar en la base de datos
-     * @var array $table
+     * @var string $table
      */
     protected $table = 'marital_status';
 
@@ -48,7 +48,7 @@ class MaritalStatus extends Model
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  William Páez (wpaez@cenditel.gob.ve)
-     * @return [<b>List</b>] $options Estados civiles registrados para ser implementados en plantillas
+     * @return array $options Estados civiles registrados para ser implementados en plantillas
      */
     public static function template_choices()
     {

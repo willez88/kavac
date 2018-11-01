@@ -39,10 +39,10 @@ class Country extends Model
     protected $fillable = ['name', 'prefix'];
 
     /**
-     * Método que obtiene el Estado de un Pais
+     * Método que obtiene los Estados de un Pais
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo Estate
+     * @return object Objeto con los registros relacionados al modelo Estate
      */
     public function estates()
     {
@@ -50,9 +50,10 @@ class Country extends Model
     }
 
     /**
-     * Country has many Currencies.
+     * Método que obtiene las monedas de un País
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return object Objeto con los registros relacionados al modelo Currency
      */
     public function currencies()
     {
@@ -63,7 +64,7 @@ class Country extends Model
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Listado de Países registrados para ser implementados en plantillas
+     * @return array Listado de Países registrados para ser implementados en plantillas
      */
     public static function template_choices()
     {

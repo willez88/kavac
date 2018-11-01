@@ -47,7 +47,7 @@ class Institution extends Model
      * Método que obtiene el logotipo de la Institución
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con el registro relacionado al modelo Image
+     * @return object Objeto con el registro relacionado al modelo Image
      */
     public function logo()
     {
@@ -58,7 +58,7 @@ class Institution extends Model
      * Método que obtiene el banner de la Institución
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con el registro relacionado al modelo Image
+     * @return object Objeto con el registro relacionado al modelo Image
      */
     public function banner()
     {
@@ -69,7 +69,7 @@ class Institution extends Model
      * Método que obtiene el sector de la Institución
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con el registro relacionado al modelo InstitutionSector
+     * @return object Objeto con el registro relacionado al modelo InstitutionSector
      */
     public function sector()
     {
@@ -80,7 +80,7 @@ class Institution extends Model
      * Método que obtiene el tipo de la Institución
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con el registro relacionado al modelo InstitutionType
+     * @return object Objeto con el registro relacionado al modelo InstitutionType
      */
     public function type()
     {
@@ -88,9 +88,10 @@ class Institution extends Model
     }
 
     /**
-     * Institution has many Departments.
+     * Método que obtiene los departamentos asociados a la intitución.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return object Objeto con los registros relacionados al modelo Institution
      */
     public function departments()
     {

@@ -44,7 +44,7 @@ class HistoryTax extends Model
      * Método que obtiene el Impuesto asociado
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con el registro relacionado al modelo Tax
+     * @return object Objeto con el registro relacionado al modelo Tax
      */
     public function tax()
     {

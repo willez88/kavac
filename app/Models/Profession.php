@@ -42,7 +42,7 @@ class Profession extends Model
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  William Páez (wpaez@cenditel.gob.ve)
-     * @return [<b>List</b>] $options Profesiones registradas para ser implementados en plantillas
+     * @return array Profesiones registradas para ser implementados en plantillas
      */
      public static function template_choices()
      {

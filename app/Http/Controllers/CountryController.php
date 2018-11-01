@@ -25,7 +25,7 @@ class CountryController extends Controller
      * Muesta todos los registros de los Países
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return JSON con los registros de Países
+     * @return \Illuminate\Http\JsonResponse con los registros de Países
      */
     public function index()
     {
@@ -36,7 +36,7 @@ class CountryController extends Controller
      * Muestra el formulario para crear un nuevo registro de Pais
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create()
     {
@@ -48,7 +48,7 @@ class CountryController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -96,7 +96,7 @@ class CountryController extends Controller
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Country $country)
     {
@@ -117,7 +117,7 @@ class CountryController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Country $country)
     {

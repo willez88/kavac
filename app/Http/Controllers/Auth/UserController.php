@@ -14,7 +14,7 @@ class UserController extends Controller
      * Muesta todos los registros de los usuarios
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -49,7 +49,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(User $user)
     {
@@ -78,7 +78,7 @@ class UserController extends Controller
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, User $user)
     {
@@ -123,7 +123,7 @@ class UserController extends Controller
      * 
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
      * @param \Illuminate\Http\Request  $request
-     * @return Retorna la vista que ejecuta la acción junto con el mensaje al usuario
+     * @return \Illuminate\Http\RedirectResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
      */
     public function setRolesAndPermissions(Request $request)
     {
@@ -145,7 +145,9 @@ class UserController extends Controller
                 $roleConsult = $role_id;
             }
             $perm = Permission::find($perm_id);
-            $role->attachPermission($perm);
+            if (isset($role)) {
+                $role->attachPermission($perm);
+            }
         }
 
         $request->session()->flash('message', ['type' => 'store']);

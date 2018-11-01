@@ -42,7 +42,7 @@ class Estate extends Model
      * Método que obtiene el Pais de un Estado
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con el registro relacionado al modelo Country
+     * @return object Objeto con el registro relacionado al modelo Country
      */
 	public function country()
     {
@@ -53,7 +53,7 @@ class Estate extends Model
      * Método que obtiene los Municipios de un Estado
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo Minicipality
+     * @return object Objeto con los registros relacionados al modelo Minicipality
      */
     public function municipalities()
     {
@@ -64,7 +64,7 @@ class Estate extends Model
      * Método que obtiene las Ciudades de un Pais
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo City
+     * @return object Objeto con los registros relacionados al modelo City
      */
     public function cities()
     {
@@ -75,7 +75,7 @@ class Estate extends Model
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Listado de Estados registrados para ser implementados en plantillas
+     * @return array Listado de Estados registrados para ser implementados en plantillas
      */
     public static function template_choices()
     {

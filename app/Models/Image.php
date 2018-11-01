@@ -42,7 +42,7 @@ class Image extends Model
      * Método que obtiene los logos de las instituciones
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo Institution
+     * @return object Objeto con los registros relacionados al modelo Institution
      */
     public function institution_logos()
     {
@@ -53,7 +53,7 @@ class Image extends Model
      * Método que obtiene los banners de las instituciones
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo Institution
+     * @return object Objeto con los registros relacionados al modelo Institution
      */
     public function institution_banners()
     {

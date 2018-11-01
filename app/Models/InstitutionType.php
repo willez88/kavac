@@ -42,7 +42,7 @@ class InstitutionType extends Model
      * Método que obtiene las instituciones asociadas a un tipo
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo InstitutionType
+     * @return object Objeto con los registros relacionados al modelo InstitutionType
      */
     public function institutions()
     {
@@ -53,7 +53,7 @@ class InstitutionType extends Model
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Listado de tipos de instituciones registrados para ser implementados en plantillas
+     * @return array Listado de tipos de instituciones registrados para ser implementados en plantillas
      */
     public static function template_choices()
     {

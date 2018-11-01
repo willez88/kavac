@@ -32,7 +32,7 @@ class LocatesController extends Controller
 	 * Obtiene todos los Países registrados
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-	 * @return [json] JSON con los datos de los Países registrados
+	 * @return \Illuminate\Http\JsonResponse JSON con los datos de los Países registrados
 	 */
     public function getCountries()
     {
@@ -50,8 +50,8 @@ class LocatesController extends Controller
      * Obtiene los Estados asociados al País indicado
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @param  [integer] $country_id Identificador del País
-     * @return [json]             	JSON con los datos de los Estados asociados al País indicado
+     * @param  integer $country_id Identificador del País
+     * @return \Illuminate\Http\JsonResponse   	JSON con los datos de los Estados asociados al País indicado
      */
     public function getEstates($country_id)
     {
@@ -69,8 +69,8 @@ class LocatesController extends Controller
      * Obtiene los Municipios de un Estado
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @param  [integer] $estate_id Identificador del Estado
-     * @return [json]            	JSON con los datos de los Municipios asociados al Estado indicado
+     * @param  integer $estate_id Identificador del Estado
+     * @return \Illuminate\Http\JsonResponse    JSON con los datos de los Municipios asociados al Estado indicado
      */
     public function getMunicipalities($estate_id)
     {
@@ -88,8 +88,8 @@ class LocatesController extends Controller
      * Obtiene las Ciudades asociadas a un Estado
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @param  [integer] $estate_id Identificador del Estado
-     * @return [json]            	JSON con los datos de las Ciudades asociadas al Estado indicado
+     * @param  integer $estate_id Identificador del Estado
+     * @return \Illuminate\Http\JsonResponse 	JSON con los datos de las Ciudades asociadas al Estado indicado
      */
     public function getCities($estate_id)
     {
@@ -107,8 +107,8 @@ class LocatesController extends Controller
      * Obtiene las Parroquias de un Municipio
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @param  [integer] $municipality_id Identificador del Municipio
-     * @return [json]                  	  JSON con los datos de las Parroquias asociadas a un Municipio
+     * @param  integer $municipality_id Identificador del Municipio
+     * @return \Illuminate\Http\JsonResponse   	  JSON con los datos de las Parroquias asociadas a un Municipio
      */
     public function getParishes($municipality_id)
     {

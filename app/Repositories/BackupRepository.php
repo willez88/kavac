@@ -38,9 +38,9 @@ class BackupRepository
 
 	/**
 	 * Show list for backup files
-	 * @param  [string] $disk Filesystem disk name
-	 * @param  [string] $dir  Filesystem directory
-	 * @return [array]        Return array with the files
+	 * @param  string $disk Filesystem disk name
+	 * @param  string $dir  Filesystem directory
+	 * @return array        Return array with the files
 	 */
 	public function getList($disk, $dir)
 	{
@@ -65,10 +65,10 @@ class BackupRepository
 
 	/**
 	 * Get the file
-	 * @param  [string] $disk      Disk name
-	 * @param  [string] $dir       Directory name
-	 * @param  [string] $file_name File name
-	 * @return [type]            [description]
+	 * @param  string $disk      Disk name
+	 * @param  string $dir       Directory name
+	 * @param  string $file_name File name
+	 * @return array             File data
 	 */
 	public function getFile($disk, $dir, $file_name)
 	{
@@ -97,9 +97,9 @@ class BackupRepository
 
 	/**
 	 * Show readeable human file size
-	 * @param  [float]  $size      File size to convert
+	 * @param  float   $size       File size to convert
 	 * @param  integer $precision  Precision for the file size
-	 * @return [string]            Return readeable human file size
+	 * @return string              Return readeable human file size
 	 */
 	public function humanFileSize($size, $precision = 2) {
 	    $units = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');

@@ -42,7 +42,7 @@ class Municipality extends Model
      * Método que obtiene el Estado de un Municipio
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo Estate
+     * @return object Objeto con los registros relacionados al modelo Estate
      */
 	public function estate()
     {
@@ -53,7 +53,7 @@ class Municipality extends Model
      * Método que obtiene las Parroquias asociadas a un Municipio
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo Parish
+     * @return object Objeto con los registros relacionados al modelo Parish
      */
     public function parish()
     {
@@ -64,7 +64,7 @@ class Municipality extends Model
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Listado de Municipios registrados para ser implementados en plantillas
+     * @return array Listado de Municipios registrados para ser implementados en plantillas
      */
     public static function template_choices()
     {

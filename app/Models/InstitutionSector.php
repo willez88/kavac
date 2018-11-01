@@ -42,7 +42,7 @@ class InstitutionSector extends Model
      * Método que obtiene las instituciones asociadas a un sector
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Objeto con los registros relacionados al modelo InstitutionSector
+     * @return object Objeto con los registros relacionados al modelo InstitutionSector
      */
     public function institutions()
     {
@@ -53,7 +53,7 @@ class InstitutionSector extends Model
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
      * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return Listado de sectores institucionales registrados para ser implementadas en plantillas
+     * @return array Listado de sectores institucionales registrados para ser implementadas en plantillas
      */
     public static function template_choices()
     {
