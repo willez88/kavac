@@ -225,13 +225,18 @@ $(document).ready(function() {
             '<h6 class="card-title">Repositorio</h6>' +
             '<ul>' +
                 '<li class="no-list-symbol">' +
-                    '<a href="#" target="_blank">Repositorio</a>' +
+                    '<a href="https://gestion.cenditel.gob.ve/trac/browser/kavac" target="_blank">' + 
+                        'https://gestion.cenditel.gob.ve/trac/browser/kavac' + 
+                    '</a>' +
                 '</li>' +
             '</ul>' +
             '<h6 class="card-title">Documentación</h6>' +
             '<ul>' +
                 '<li class="no-list-symbol">' +
-                    '<a href="#" target="_blank">Documentación</a>' +
+                    '<a href="#" target="_blank">Manual Técnico / Desarrolladores</a>' +
+                '</li>' +
+                '<li class="no-list-symbol">' +
+                    '<a href="#" target="_blank">Manual de Usuarios</a>' +
                 '</li>' +
             '</ul>'    
         );
