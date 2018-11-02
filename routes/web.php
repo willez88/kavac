@@ -20,16 +20,7 @@
  * autenticado en el sistema, si lo está, redirecciona a la página principal 
  * de lo contrario muestra la interfaz de autenticación
  */
-Route::get('/', function () {
-    if (Auth::check()) {
-		/** Si el usuario esta autenticado redirecciona a la página del panel de control */
-        return view('dashboard.index');
-    }
-    else {
-    	/** Si el usuario no está autenticado muestra la página de acceso */
-        return view('auth.login');
-    }
-})->name('index');
+Route::get('/', 'DashboardController@index')->name('index');
 
 /**
  * -----------------------------------------------------------------------
