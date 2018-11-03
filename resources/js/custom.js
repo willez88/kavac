@@ -268,7 +268,7 @@ $(document).ready(function() {
                 'soberanía nacional.' +
             '</p>' +
             '<p class="text-justify">' +
-                'Cada vez que copie y distribuya el SOFTWARE XYZ debe acompañarlo de una copia de la licencia. Para más información sobre los ' + 
+                'Cada vez que copie y distribuya el SOFTWARE KAVAC debe acompañarlo de una copia de la licencia. Para más información sobre los ' + 
                 'términos y condiciones de la licencia visite la siguiente dirección electrónica: ' +
             '</p>' +
             '<p class="text-right">' +
