@@ -33,7 +33,7 @@ trait ModelsTrait
 		}
 		
 		/** Escanea los directorios de módulos para obtener los correspondientes modelos */
-		/*$results_modules = scandir($modules_path);
+		$results_modules = scandir($modules_path);
 		foreach ($results_modules as $result_module) {
 			if ($result_module === '.' or $result_module === '..') {
 				continue;
@@ -44,7 +44,7 @@ trait ModelsTrait
 			$r = scandir(base_path() . '/modules/' . $filename_module . '/Models');
 			
 			foreach ($r as $model) {
-				if ($model === '.' or $model === '..' or $model === '.gitkeep') {
+				if ($model === '.' or $model === '..' or $model === '.gitkeep' or $model === 'AssetClasification.php') {
 					continue;
 				}
 				$filename_m = $model;
@@ -55,8 +55,13 @@ trait ModelsTrait
 					$out[] = 'Modules\\' . $filename_module . '\\Models\\' . substr($filename_m,0,-4);
 				}
 			}
-		}*/
+		}
 		
 		return $out;
+	}
+
+	public function isModelSoftDelete($model)
+	{
+		return in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model));
 	}
 }

@@ -118,7 +118,7 @@ return [
     'drivers' => [
         'database' => [
             'table'      => 'audits',
-            'connection' => null,
+            'connection' => env('DB_CONNECTION', null),
         ],
     ],
 

@@ -75348,6 +75348,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -75363,7 +75367,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			errors: [],
 			/** @type {Array} Inicialización de atributo que cargara información registrada */
 			records: [],
-			columns: ['name', 'description', 'id']
+			columns: ['color', 'name', 'description', 'id']
 		};
 	},
 
@@ -75384,6 +75388,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	created: function created() {
 		this.table_options.headings = {
+			color: 'Color',
 			name: 'Nombre',
 			description: 'Descripción',
 			id: 'Acción'
@@ -75593,6 +75598,22 @@ var render = function() {
                       options: _vm.table_options
                     },
                     scopedSlots: _vm._u([
+                      {
+                        key: "color",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _c("i", {
+                              staticClass: "ion-android-checkbox-blank",
+                              style: "color:" + props.color
+                            }),
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\t" +
+                                _vm._s(props.color) +
+                                "\n\t\t\t\t\t\t"
+                            )
+                          ])
+                        }
+                      },
                       {
                         key: "id",
                         fn: function(props) {

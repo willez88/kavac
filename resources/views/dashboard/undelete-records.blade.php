@@ -61,13 +61,41 @@
 				<table class="table table-hover table-striped dt-responsive nowrap datatable">
 					<thead>
 						<tr class="text-center">
-							<th>Fecha</th>
-							<th>Módulo</th>
-							<th>Registro</th>
-							<th>Acción</th>
+							<th class="col-md-2">Fecha</th>
+							<th class="col-md-4">Módulo</th>
+							<th class="col-md-4">Registro</th>
+							<th class="col-md-2">Acción</th>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						@foreach ($trashed as $model => $trash)
+							@foreach ($trash as $reg)
+								<tr>
+									<td>{{ $reg->deleted_at->format('d-m-Y') }}</td>
+									<td>{{ $model }}</td>
+									<td>
+										@foreach ($reg->getAttributes() as $attr => $value)
+											@if ($attr !== 'created_at' && $attr !== 'updated_at' && $attr !== 'deleted_at' && $attr !== 'id')
+												<p>{{ $value }}</p>
+											@endif
+										@endforeach
+									</td>
+									<td class="text-center">
+										{!! Form::button('<i class="fa fa-check"></i>', [
+	                                        'class' => 'btn btn-success btn-xs btn-icon btn-round',
+	                                        'data-toggle' => 'tooltip', 'onclick' => '#',
+	                                        'title' => 'Restaurar registro',
+	                                    ]) !!}
+	                                    {!! Form::button('<i class="fa fa-times"></i>', [
+	                                        'class' => 'btn btn-danger btn-xs btn-icon btn-round',
+	                                        'data-toggle' => 'tooltip', 'onclick' => '#',
+	                                        'title' => 'Eliminar registro permanentemente',
+	                                    ]) !!}
+									</td>
+								</tr>
+							@endforeach
+						@endforeach
+					</tbody>
 				</table>
 			</div>
 		</div>

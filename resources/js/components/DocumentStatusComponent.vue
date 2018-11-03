@@ -55,6 +55,10 @@
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="color" slot-scope="props" class="text-center">
+								<i class="ion-android-checkbox-blank" :style="'color:' + props.color"></i>
+								{{ props.color }}
+							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
 		                				class="btn btn-warning btn-xs btn-icon btn-round" 
@@ -101,7 +105,7 @@
 				errors: [],
 				/** @type {Array} Inicialización de atributo que cargara información registrada */
 				records: [],
-				columns: ['name', 'description', 'id'],
+				columns: ['color', 'name', 'description', 'id'],
 			}
 		},
 		methods: {
@@ -121,6 +125,7 @@
 		},
 		created() {
 			this.table_options.headings = {
+				color: 'Color',
 				name: 'Nombre',
 				description: 'Descripción',
 				id: 'Acción'
