@@ -86345,6 +86345,10 @@ function delete_record(url) {
     });
 }
 
+var undelete_record = function undelete_record(url) {
+    alert('hola');
+};
+
 /***/ }),
 /* 334 */
 /***/ (function(module, exports) {

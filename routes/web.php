@@ -179,6 +179,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
  */
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
+    Route::get('restore/{model}/{id}', 'DashboardController@restore');
+
     /**
      * ------------------------------------------------------------------
      * Grupo de rutas del namespace Admin

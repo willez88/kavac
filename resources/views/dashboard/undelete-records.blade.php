@@ -83,7 +83,8 @@
 									<td class="text-center">
 										{!! Form::button('<i class="fa fa-check"></i>', [
 	                                        'class' => 'btn btn-success btn-xs btn-icon btn-round',
-	                                        'data-toggle' => 'tooltip', 'onclick' => '#',
+	                                        'data-toggle' => 'tooltip', 
+	                                        'onclick' => 'undelete_record("restore/' . Illuminate\Support\Facades\Crypt::encryptString($model) . '/' . $reg->id . '")',
 	                                        'title' => 'Restaurar registro',
 	                                    ]) !!}
 	                                    {!! Form::button('<i class="fa fa-times"></i>', [

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use App\Traits\ModelsTrait;
 
 class DashboardController extends Controller
@@ -99,5 +100,14 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function restore($model, $id)
+    {
+        $model = '\\' . Crypt::decryptString($model);
+        $model::withTrashed()->find($id)->restore();
+        request()->session()->flash('message', ['type' => 'restore']);
+
+        return response()->json(['result' => true, 'message' => 'Success'], 200);
     }
 }

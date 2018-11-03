@@ -74,7 +74,6 @@
         {!! Html::script('vendor/datatable/js/responsive.bootstrap4.min.js') !!}
         {{-- Plugin Gritter --}}
         {!! Html::script('vendor/jquery.gritter/js/jquery.gritter.min.js') !!}
-
         <script>
             $(document).ready(function() {
                 @if (session('message'))
@@ -89,6 +88,8 @@
                         msg_text = 'Registro actualizado con éxito';
                     @elseif (session('message')['type'] == 'destroy')
                         msg_text = 'Registro eliminado con éxito';
+                    @elseif (session('message')['type'] == 'restore')
+                        msg_text = 'Registro restaurado con éxito';
                     @elseif (session('message')['type'] == 'deny')
                         msg_title = 'Acceso Denegado';
                         msg_icon = 'screen-error';
@@ -182,6 +183,37 @@
                                 results: data.items
                             }
                         }*/
+                    }
+                });
+            }
+
+            function undelete_record(url) {
+                bootbox.confirm('Esta seguro de querer restaurar este registro?', function (result) {
+                    if (result) {
+                        /** Ajax config csrf token */
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        /** Ajax undelete record */
+                        $.ajax({
+                            type: 'GET',
+                            cache: false,
+                            dataType: 'JSON',
+                            url: url,
+                            data: {},
+                            success: function success(data) {
+                                if (data.result) {
+                                    location.reload();
+                                }
+                            },
+                            error: function error(jqxhr, textStatus, _error) {
+                                var err = textStatus + ", " + _error;
+                                bootbox.alert('Error interno del servidor al restaurar el registro.');
+                                console.log('Error con la petición solicitada. Detalles: ' + err);
+                            }
+                        });
                     }
                 });
             }
