@@ -3,6 +3,7 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ModelsTrait;
 
 /**
  * @class AssetUse
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AssetMotiveDisincorporation extends Model
 {
+    use ModelsTrait;
+
     /**
      * Lista de atributos que pueden ser asignados masivamente
      *
@@ -32,21 +35,6 @@ class AssetMotiveDisincorporation extends Model
     public function disincorporation()
     {
         return $this->hasMany('Modules\Asset\Models\AssetDisincorporation');
-    }
-
-    /**
-     * Método que genera un listado de opciones a implementar en elementos tipo select
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Listado de tipos de bien registrados para ser implementados en plantillas
-     */
-    public static function template_choices()
-    {
-        $options = [];
-        foreach (self::all() as $reg) {
-            $options[$reg->id] = $reg->name;
-        }
-        return $options;
     }
 }
 

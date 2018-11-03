@@ -87,11 +87,6 @@
 	                                        'onclick' => 'undelete_record("restore/' . Illuminate\Support\Facades\Crypt::encryptString($model) . '/' . $reg->id . '")',
 	                                        'title' => 'Restaurar registro',
 	                                    ]) !!}
-	                                    {!! Form::button('<i class="fa fa-times"></i>', [
-	                                        'class' => 'btn btn-danger btn-xs btn-icon btn-round',
-	                                        'data-toggle' => 'tooltip', 'onclick' => '#',
-	                                        'title' => 'Eliminar registro permanentemente',
-	                                    ]) !!}
 									</td>
 								</tr>
 							@endforeach

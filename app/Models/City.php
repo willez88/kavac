@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
+use App\Traits\ModelsTrait;
 
 /**
  * @class City
@@ -19,6 +20,7 @@ class City extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
+    use ModelsTrait;
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
@@ -57,21 +59,5 @@ class City extends Model
     public function citiable()
     {
         return $this->morphTo();
-    }
-
-
-    /**
-     * Método que genera un listado de opciones a implementar en elementos tipo select
-     *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
-     * @return array Listado de Ciudades registradas para ser implementadas en plantillas
-     */
-    public static function template_choices()
-    {
-        $options = [];
-        foreach (self::all() as $reg) {
-            $options[$reg->id] = $reg->name;
-        }
-        return $options;
     }
 }

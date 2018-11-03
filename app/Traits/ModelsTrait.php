@@ -64,4 +64,19 @@ trait ModelsTrait
 	{
 		return in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model));
 	}
+
+	/**
+     * Método que genera un listado de opciones a implementar en elementos tipo select
+     *
+     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @return array Listado de registros para ser implementados en plantillas
+     */
+    public static function template_choices($field = 'name')
+    {
+        $options = [];
+        foreach (self::all() as $reg) {
+            $options[$reg->id] = $reg->$field;
+        }
+        return $options;
+    }
 }

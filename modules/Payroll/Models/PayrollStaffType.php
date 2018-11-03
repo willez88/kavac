@@ -5,6 +5,7 @@ namespace Modules\Payroll\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
+use App\Traits\ModelsTrait;
 
 /**
  * @class StaffType
@@ -19,6 +20,7 @@ class PayrollStaffType extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
+    use ModelsTrait;
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
@@ -40,19 +42,4 @@ class PayrollStaffType extends Model
     protected $fillable = [
         'name','description',
     ];
-
-    /**
-     * Método que genera un listado de opciones a implementar en elementos tipo select
-     *
-     * @author  William Páez (wpaez at cenditel.gob.ve)
-     * @return [<b>List</b>] Listado de tipos de personal registrados para ser implementados en plantillas
-     */
-    public static function template_choices()
-    {
-        $options = [];
-        foreach (self::all() as $reg) {
-            $options[$reg->id] = $reg->name;
-        }
-        return $options;
-    }
 }
