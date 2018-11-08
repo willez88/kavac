@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use App\Traits\ModelsTrait;
 
 class DashboardController extends Controller
@@ -20,13 +21,14 @@ class DashboardController extends Controller
             $trashed = [];
             foreach ($this->getModels() as $model_name) {
                 $model = app($model_name);
-                if (count($model->onlyTrashed()->get()) > 0) {
+                
+                if ($this->isModelSoftDelete($model) && count($model->onlyTrashed()->get()) > 0) {
                     $trashed[$model_name] = $model->onlyTrashed()->get();
                 }
             }
 
             /** Si el usuario esta autenticado redirecciona a la página del panel de control */
-            return view('dashboard.index');
+            return view('dashboard.index', compact('trashed'));
         }
         else {
             /** Si el usuario no está autenticado muestra la página de acceso */
@@ -98,5 +100,14 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function restore($model, $id)
+    {
+        $model = '\\' . Crypt::decryptString($model);
+        $model::withTrashed()->find($id)->restore();
+        request()->session()->flash('message', ['type' => 'restore']);
+
+        return response()->json(['result' => true, 'message' => 'Success'], 200);
     }
 }

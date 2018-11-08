@@ -99,7 +99,7 @@
 						</table>
 					</div>
 					<div class="card-footer text-right">
-						@include('layouts.form-buttons')
+						@include('layouts.form-buttons', ['hide_clear' => true, 'hide_previous' => true])
 					</div>
 				{!! Form::close() !!}
 			</div>
@@ -147,9 +147,6 @@
 							@endforeach
 						</tbody>
 					</table>
-				</div>
-				<div class="card-footer text-right">
-					@include('layouts.form-buttons')
 				</div>
 			</div>
 		</div>

@@ -75348,6 +75348,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -75363,7 +75367,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			errors: [],
 			/** @type {Array} Inicialización de atributo que cargara información registrada */
 			records: [],
-			columns: ['name', 'description', 'id']
+			columns: ['color', 'name', 'description', 'id']
 		};
 	},
 
@@ -75384,6 +75388,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	created: function created() {
 		this.table_options.headings = {
+			color: 'Color',
 			name: 'Nombre',
 			description: 'Descripción',
 			id: 'Acción'
@@ -75593,6 +75598,22 @@ var render = function() {
                       options: _vm.table_options
                     },
                     scopedSlots: _vm._u([
+                      {
+                        key: "color",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _c("i", {
+                              staticClass: "ion-android-checkbox-blank",
+                              style: "color:" + props.color
+                            }),
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\t" +
+                                _vm._s(props.color) +
+                                "\n\t\t\t\t\t\t"
+                            )
+                          ])
+                        }
+                      },
                       {
                         key: "id",
                         fn: function(props) {
@@ -86220,7 +86241,7 @@ $(document).ready(function () {
         e.preventDefault();
         var now = new Date().getFullYear();
         year = now > 2018 ? ' - ' + now : '';
-        bootbox.alert('<h6 class="text-center">LICENCIA RESUMIDA</h6>' + '<ul>' + '<li><b>Nombre del Software:</b> KAVAC</li>' + '<li><b>Descripción:</b>Control y seguimiento de todas las etapas en la gestión administrativa de entes públicos</li>' + '<li><b>Nombre del licenciante:</b> Fundación CENDITEL (2018' + year + ')</li>' + '<li><b>Autores:</b> Roldan Vargas, Julie Vera, William Paéz, María González</li>' + '</ul>' + '<p class="text-justify">' + 'La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ' + 'ente adscrito al Ministerio del Poder Popular para Educación Universitaria, Ciencia y Tecnología (MPPEUCT), ' + 'concede permiso para usar, copiar, modificar y distribuir libremente y sin fines comerciales el SOFTWARE KAVAC, ' + 'sin garantía alguna, preservando el reconocimiento moral de los autores y manteniendo los mismos principios para las ' + 'obras derivadas, de conformidad con los términos y condiciones de la licencia de software de la Fundación CENDITEL.' + '</p>' + '<p class="text-justify">' + 'El software es una creación intelectual necesaria para el desarrollo económico y social de la nación, por tanto, ' + 'esta licencia tiene la pretensión de preservar la libertad de este conocimiento para que contribuya a la consolidación de la ' + 'soberanía nacional.' + '</p>' + '<p class="text-justify">' + 'Cada vez que copie y distribuya el SOFTWARE XYZ debe acompañarlo de una copia de la licencia. Para más información sobre los ' + 'términos y condiciones de la licencia visite la siguiente dirección electrónica: ' + '</p>' + '<p class="text-right">' + '<a href="http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3" target="_blank" title="Licencia de Software"><img src="/images/license-icon.png" class="img-fluid" style="max-width:100px;"></a>' + '</p>');
+        bootbox.alert('<h6 class="text-center">LICENCIA RESUMIDA</h6>' + '<ul>' + '<li><b>Nombre del Software:</b> KAVAC</li>' + '<li><b>Descripción:</b>Control y seguimiento de todas las etapas en la gestión administrativa de entes públicos</li>' + '<li><b>Nombre del licenciante:</b> Fundación CENDITEL (2018' + year + ')</li>' + '<li><b>Autores:</b> Roldan Vargas, Julie Vera, William Paéz, María González</li>' + '</ul>' + '<p class="text-justify">' + 'La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ' + 'ente adscrito al Ministerio del Poder Popular para Educación Universitaria, Ciencia y Tecnología (MPPEUCT), ' + 'concede permiso para usar, copiar, modificar y distribuir libremente y sin fines comerciales el SOFTWARE KAVAC, ' + 'sin garantía alguna, preservando el reconocimiento moral de los autores y manteniendo los mismos principios para las ' + 'obras derivadas, de conformidad con los términos y condiciones de la licencia de software de la Fundación CENDITEL.' + '</p>' + '<p class="text-justify">' + 'El software es una creación intelectual necesaria para el desarrollo económico y social de la nación, por tanto, ' + 'esta licencia tiene la pretensión de preservar la libertad de este conocimiento para que contribuya a la consolidación de la ' + 'soberanía nacional.' + '</p>' + '<p class="text-justify">' + 'Cada vez que copie y distribuya el SOFTWARE KAVAC debe acompañarlo de una copia de la licencia. Para más información sobre los ' + 'términos y condiciones de la licencia visite la siguiente dirección electrónica: ' + '</p>' + '<p class="text-right">' + '<a href="http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3" target="_blank" title="Licencia de Software"><img src="/images/license-icon.png" class="img-fluid" style="max-width:100px;"></a>' + '</p>');
     });
 });
 

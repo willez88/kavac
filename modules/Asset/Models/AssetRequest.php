@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
+use App\Traits\ModelsTrait;
 
 /**
  * @class AssetRequest
@@ -21,6 +22,7 @@ class AssetRequest extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
+    use ModelsTrait;
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
@@ -40,20 +42,4 @@ class AssetRequest extends Model
      * @var array $fillable
      */
     protected $fillable = ['type','motive', 'delivery_date','user_id','agent_name','agent_telf','agent_email'];
-
-    /**
-     *
-     * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
-     * 
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return [array] Listado de asignaciones de bienes institucionales
-     */
-     public static function template_choices()
-    {
-        $options = [];
-        foreach (self::all() as $reg) {
-            $options[$reg->id] = $reg->name;
-        }
-        return $options;
-    }
 }

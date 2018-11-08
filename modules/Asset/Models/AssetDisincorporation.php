@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Venturecraft\Revisionable\RevisionableTrait;
+use App\Traits\ModelsTrait;
 
 /**
  * @class AssetDisincorṕoration
@@ -21,6 +22,7 @@ class AssetDisincorporation extends Model
 {
     use SoftDeletes;
     use RevisionableTrait;
+    use ModelsTrait;
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
@@ -61,21 +63,5 @@ class AssetDisincorporation extends Model
     public function motive()
     {
         return $this->belongsTo('Modules\Asset\Models\AssetMotiveDisincorporation', 'motive_id');
-    }
-
-    /**
-     *
-     * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
-     * 
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return [array] Listado de asignaciones de bienes institucionales
-     */
-     public static function template_choices()
-    {
-        $options = [];
-        foreach (self::all() as $reg) {
-            $options[$reg->id] = $reg->name;
-        }
-        return $options;
     }
 }

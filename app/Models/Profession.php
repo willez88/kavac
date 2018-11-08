@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Traits\ModelsTrait;
 
 /**
  * @class Profession
@@ -22,6 +23,7 @@ class Profession extends Model implements Auditable
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
+    use ModelsTrait;
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
@@ -40,19 +42,4 @@ class Profession extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['name', 'acronym'];
-
-    /**
-     * Método que genera un listado de opciones a implementar en elementos tipo select
-     *
-     * @author  William Páez (wpaez@cenditel.gob.ve)
-     * @return array Profesiones registradas para ser implementados en plantillas
-     */
-     public static function template_choices()
-     {
-         $options = [];
-         foreach (self::all() as $reg) {
-             $options[$reg->id] = $reg->name;
-         }
-         return $options;
-     }
 }
