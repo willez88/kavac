@@ -2,7 +2,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title">Bitácora de registros</h6>
+				<h6 class="card-title">Auditoria de Registros</h6>
 				<div class="card-btns">
 					<a href="#" class="card-minimize btn btn-card-action btn-round" 
 					   title="Minimizar" data-toggle="tooltip">
@@ -106,13 +106,15 @@
 					</div>
 				</div>
 				@php 
-                	$revisions = \Venturecraft\Revisionable\Revision::where(
+                	/*$auditables = \Venturecraft\Revisionable\Revision::where(
                 		'key', '<>', 'last_login'
-                	)->take(40)->get();
+                	)->take(40)->get();*/
+                	$auditables = OwenIt\Auditing\Models\Audit::take(60)->get();
                 @endphp
 				<table class="table table-hover table-striped dt-responsive nowrap datatable">
 					<thead>
 						<tr class="text-center">
+							<th></th>
 							<th>Fecha - Hora</th>
 							<th>Módulo</th>
 							<th>ID</th>
@@ -122,54 +124,41 @@
 						</tr>
 					</thead>
 					<tbody>
-						@if ($revisions->count())
-							@foreach ($revisions as $history)
-								@if($history->fieldName()!="remember_token")
+						@foreach ($auditables as $audit)
+							@php
+								$registro_class = ($audit->event == 'created')?'text-success':'';
+								$registro_class = ($audit->event == 'deleted')?'text-danger':$registro_class;
+								$registro_class = ($audit->event == 'restored')?'text-info':$registro_class;
+								$registro_class = ($audit->event == 'updated')?'text-warning':$registro_class;
+							@endphp
+							<tr>
+								<th>
+									<i class="ion-android-checkbox-blank {{ $registro_class }}"></i>
+								</th>
+								<td>{{ $audit->created_at->format('d-m-Y h:i:s A') }}</td>
+								<td>{{ $audit->auditable_type }}</td>
+								<td>{{ $audit->auditable_id }}</td>
+								<td>
 									@php
-										$registro_class = '';
-
-										if ($history->key == 'created_at' && !$history->old_value) {
-											$registro_class = 'text-success';
-										}
-										elseif ($history->key == 'deleted_at' && !$history->old_value) {
-											$registro_class = 'text-danger';
-										}
-										elseif ($history->key == 'deleted_at' && !$history->new_value) {
-											$registro_class = 'text-info';
-										}
-										elseif ($history->key == 'updated_at') {
-											$registro_class = 'text-warning';
-										}
+										$model_user = $audit->user_type;
+										$user = $model_user::find($audit->user_id);
 									@endphp
-		                            <tr>
-		                                <td class="{{ $registro_class }}">
-		                                    {{ $history->created_at->format('d/m/Y') }}
-		                                     - 
-		                                    {{ $history->created_at->format('H:i:s') }}
-		                                </td>
-		                                <td class="{!! $registro_class !!}">{{ $history->revisionable_type }}</td>
-		                                <td class="{!! $registro_class !!}">{{ $history->revisionable_id }}</td>
-		                                <td class="{!! $registro_class !!}">
-		                                	{{ ($history->userResponsible())?$history->userResponsible()->username:'' }}
-		                                </td>
-		                                <td class="{!! $registro_class !!}">
-		                                    @if ($history->oldValue())
-		                                    	@if ($history->fieldName()=="password")
-		                                    		El usuario modificó la contraseña
-		                                    	@else
-		                                        	<b>{{ $history->fieldName() }}:</b> {{ $history->oldValue() }}
-		                                        @endif
-		                                    @endif
-		                                </td>
-		                                <td class="{!! $registro_class !!}">
-		                                	@if (!$history->fieldName()=="password")
-		                                		<b>{{ $history->fieldName() }}:</b> {{ $history->newValue() }}
-		                                	@endif
-		                                </td>
-		                            </tr>
-	                            @endif
-	                        @endforeach
-						@endif
+									<b>Nombre:</b> {{ $user->name }}<br>
+									<b>Usuario:</b> {{ $user->username }}
+								</td>
+								<td>
+									@if (empty($audit->old_values))
+										N/A
+									@else
+										@foreach ($audit->old_values as $key => $value)
+											<b>{{ $key }}:</b> {{ $value }}
+											@if (!$loop->last) <br> @endif
+										@endforeach
+									@endif
+								</td>
+								<td></td>
+							</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>
