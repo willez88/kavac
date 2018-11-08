@@ -3,6 +3,8 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
@@ -15,8 +17,9 @@ use App\Traits\ModelsTrait;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class AssetStatus extends Model
+class AssetStatus extends Model implements Auditable
 {
+    use AuditableTrait;
     use ModelsTrait;
 
     /**

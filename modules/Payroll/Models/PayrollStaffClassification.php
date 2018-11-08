@@ -4,7 +4,9 @@ namespace Modules\Payroll\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use \Venturecraft\Revisionable\RevisionableTrait;
+use Venturecraft\Revisionable\RevisionableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
@@ -16,10 +18,11 @@ use App\Traits\ModelsTrait;
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PayrollStaffClassification extends Model
+class PayrollStaffClassification extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
+    use AuditableTrait;
     use ModelsTrait;
 
     /**

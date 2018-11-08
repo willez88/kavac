@@ -3,6 +3,8 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
@@ -16,9 +18,10 @@ use App\Traits\ModelsTrait;
  */
 
 
-class AssetPurchase extends Model
+class AssetPurchase extends Model implements Auditable
 {
     use ModelsTrait;
+    use AuditableTrait;
 
     /**
      * Lista de atributos que pueden ser asignados masivamente

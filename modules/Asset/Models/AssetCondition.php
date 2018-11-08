@@ -4,6 +4,8 @@ namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ModelsTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class AssetPurchase
@@ -15,9 +17,10 @@ use App\Traits\ModelsTrait;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class AssetCondition extends Model
+class AssetCondition extends Model implements Auditable
 {
     use ModelsTrait;
+    use AuditableTrait;
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
