@@ -221,6 +221,7 @@ $(document).ready(function() {
                 '<li>María Gónzalez (mgonzalez@cenditel.gob.ve)</li>' +
                 '<li class="special-title">Desarrolladores</li>' +
                 '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' +
+                '<li>Henry Paredes (henryp2804@gmail.com)</li>' +
             '</ul>' +
             '<h6 class="card-title">Repositorio</h6>' +
             '<ul>' +
