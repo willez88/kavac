@@ -5,15 +5,19 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use \Venturecraft\Revisionable\RevisionableTrait;
+use Venturecraft\Revisionable\RevisionableTrait;
 use Ultraware\Roles\Traits\HasRoleAndPermission;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
     use Notifiable;
     use SoftDeletes;
     use RevisionableTrait;
     use HasRoleAndPermission;
+    use AuditableTrait;
+
     protected $revisionCreationsEnabled = true;
 
     /**

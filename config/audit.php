@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'strict' => false,
+    'strict' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ return [
     'drivers' => [
         'database' => [
             'table'      => 'audits',
-            'connection' => null,
+            'connection' => env('DB_CONNECTION', 'pgsql'),
         ],
     ],
 
