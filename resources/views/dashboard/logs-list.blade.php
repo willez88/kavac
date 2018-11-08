@@ -156,7 +156,16 @@
 										@endforeach
 									@endif
 								</td>
-								<td></td>
+								<td>
+									@if (empty($audit->new_values))
+										N/A
+									@else
+										@foreach ($audit->new_values as $key => $value)
+											<b>{{ $key }}:</b> {{ $value }}
+											@if (!$loop->last) <br> @endif
+										@endforeach
+									@endif
+								</td>
 							</tr>
 						@endforeach
 					</tbody>
