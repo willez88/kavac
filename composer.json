@@ -17,6 +17,7 @@
         "nwidart/laravel-modules": "^4.0",
         "owen-it/laravel-auditing": "^8.0",
         "spatie/laravel-backup": "~5.6",
+        "thecodework/two-factor-authentication": "0.1.7.1",
         "ultraware/roles": "^5.7",
         "venturecraft/revisionable": "^1.28"
     },
