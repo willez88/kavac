@@ -11,7 +11,7 @@
                                  class="img-profile">
                         </div>
                         <div class="col-12 text-center">
-                            <h4>Nombre</h4>
+                            <h4>{{ auth()->user()->name }}</h4>
                             <h5>Cargo</h5>
                         </div>
                     </div>
