@@ -34452,10 +34452,12 @@ Vue.mixin({
 					$("#" + modal_id).modal('show');
 				}
 			}).catch(function (error) {
-				if (error.response.status == 403) {
-					_this.showMessage('custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message);
-				} else {
-					console.log(error.response);
+				if (typeof error.response !== "undefined") {
+					if (error.response.status == 403) {
+						_this.showMessage('custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message);
+					} else {
+						console.log(error.response);
+					}
 				}
 			});
 
@@ -78576,18 +78578,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			records: []
+			records: [],
+			columns: ['code', 'denomination', 'original', 'id']
 		};
 	},
+	created: function created() {
+		this.table_options.headings = {
+			'code': 'Código',
+			'denomination': 'Denominación',
+			'original': 'Original',
+			'id': 'Acción'
+		};
+		this.table_options.sortable = ['code', 'denomination', 'original'];
+		this.table_options.filterable = ['code', 'denomination', 'original'];
+	},
 	mounted: function mounted() {
-		this.readRecords(this.route_list);
+		this.initRecords(this.route_list, '');
+		//this.readRecords(this.route_list);
 	},
 
 	methods: {
+		reset: function reset() {},
 		editForm: function editForm(id) {
 			location.href = this.route_edit + '/' + id;
 		}
@@ -78602,46 +78634,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "table",
-    {
-      staticClass:
-        "table table-big table-hover table-striped dt-responsive nowrap datatable"
+  return _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns,
+      data: _vm.records,
+      options: _vm.table_options
     },
-    [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.records, function(rec, index) {
-          return _c("tr", [
-            _c("td", { attrs: { width: "20%" } }, [
-              _vm._v(
-                "\n\t\t\t\t" +
-                  _vm._s(
-                    rec.group +
-                      "." +
-                      rec.item +
-                      "." +
-                      rec.generic +
-                      "." +
-                      rec.specific +
-                      "." +
-                      rec.subspecific
-                  ) +
-                  "\n\t\t\t"
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "wrapping", attrs: { width: "60%" } }, [
-              _vm._v(_vm._s(rec.denomination))
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center", attrs: { width: "10%" } }, [
-              _vm._v(_vm._s(rec.original ? "SI" : "NO"))
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center", attrs: { width: "10%" } }, [
+    scopedSlots: _vm._u([
+      {
+        key: "id",
+        fn: function(props) {
+          return _c(
+            "div",
+            {
+              staticClass: "text-center",
+              scopedSlots: _vm._u([
+                {
+                  key: "original",
+                  fn: function(props) {
+                    return _c("div", { staticClass: "text-center" })
+                  }
+                }
+              ])
+            },
+            [
               _c(
                 "button",
                 {
@@ -78653,7 +78669,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.editForm(rec.id)
+                      _vm.editForm(props.row.id)
                     }
                   }
                 },
@@ -78671,37 +78687,20 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.deleteRecord(index, "")
+                      _vm.deleteRecord(props.index, "")
                     }
                   }
                 },
                 [_c("i", { staticClass: "fa fa-trash-o" })]
               )
-            ])
-          ])
-        })
-      )
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "text-center" }, [
-        _c("th", [_vm._v("Código")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Denominación")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Original")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
-      ])
+            ]
+          )
+        }
+      }
     ])
-  }
-]
+  })
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -86233,7 +86232,7 @@ $(document).ready(function () {
     /** Evento que permite mostrar datos sobre la aplicación (acerca de) */
     $('.about_app').on('click', function (e) {
         e.preventDefault();
-        bootbox.alert('<h6>SISTEMA DE GESTION ADMINISTRATIVA | KAVAC</h6>' + '<p class="text-justify">Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública. Registra y controla el presupuesto de la institución.</p>' + '<h6 class="card-title">Créditos</h6>' + '<ul>' + '<li class="special-title">Lider de proyecto / Diseño / Desarrollo</li>' + '<li>Roldan Vargas (rvargas@cenditel.gob.ve)</li>' + '<li class="special-title">Analistas</li>' + '<li>Julie Vera (jvera@cenditel.gob.ve)</li>' + '<li>María Gónzalez (mgonzalez@cenditel.gob.ve)</li>' + '<li class="special-title">Desarrolladores</li>' + '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' + '</ul>' + '<h6 class="card-title">Repositorio</h6>' + '<ul>' + '<li class="no-list-symbol">' + '<a href="https://gestion.cenditel.gob.ve/trac/browser/kavac" target="_blank">' + 'https://gestion.cenditel.gob.ve/trac/browser/kavac' + '</a>' + '</li>' + '</ul>' + '<h6 class="card-title">Documentación</h6>' + '<ul>' + '<li class="no-list-symbol">' + '<a href="#" target="_blank">Manual Técnico / Desarrolladores</a>' + '</li>' + '<li class="no-list-symbol">' + '<a href="#" target="_blank">Manual de Usuarios</a>' + '</li>' + '</ul>');
+        bootbox.alert('<h6>SISTEMA DE GESTION ADMINISTRATIVA | KAVAC</h6>' + '<p class="text-justify">Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública. Registra y controla el presupuesto de la institución.</p>' + '<h6 class="card-title">Créditos</h6>' + '<ul>' + '<li class="special-title">Lider de proyecto / Diseño / Desarrollo</li>' + '<li>Roldan Vargas (rvargas@cenditel.gob.ve)</li>' + '<li class="special-title">Analistas</li>' + '<li>Julie Vera (jvera@cenditel.gob.ve)</li>' + '<li>María Gónzalez (mgonzalez@cenditel.gob.ve)</li>' + '<li class="special-title">Desarrolladores</li>' + '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' + '<li>Henry Paredes (henryp2804@gmail.com)</li>' + '</ul>' + '<h6 class="card-title">Repositorio</h6>' + '<ul>' + '<li class="no-list-symbol">' + '<a href="https://gestion.cenditel.gob.ve/trac/browser/kavac" target="_blank">' + 'https://gestion.cenditel.gob.ve/trac/browser/kavac' + '</a>' + '</li>' + '</ul>' + '<h6 class="card-title">Documentación</h6>' + '<ul>' + '<li class="no-list-symbol">' + '<a href="#" target="_blank">Manual Técnico / Desarrolladores</a>' + '</li>' + '<li class="no-list-symbol">' + '<a href="#" target="_blank">Manual de Usuarios</a>' + '</li>' + '</ul>');
     });
 
     /** Evento que permite mostrar datos sobre el licenciamiento de la aplicación */

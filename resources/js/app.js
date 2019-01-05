@@ -174,13 +174,15 @@ Vue.mixin({
 					$("#" + modal_id).modal('show');
 				}
 			}).catch(error => {
-				if (error.response.status == 403) {
-					this.showMessage(
-						'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
-					);
-				}
-				else {
-					console.log(error.response);
+				if (typeof(error.response) !== "undefined") {
+					if (error.response.status == 403) {
+						this.showMessage(
+							'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+						);
+					}
+					else {
+						console.log(error.response);
+					}
 				}
 			});
 

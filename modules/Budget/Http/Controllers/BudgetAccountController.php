@@ -169,6 +169,13 @@ class BudgetAccountController extends Controller
 
     public function vueList()
     {
-        return response()->json(['records' => BudgetAccount::all()], 200);
+        $budgetAccounts = [];
+        foreach (BudgetAccount::all() as $budgetAccount) {
+            array_push($budgetAccounts, [
+                'code' => $budgetAccount->getCode(), 'denomination' => $budgetAccount->denomination,
+                'original' => $budgetAccount->original?'SI':'NO', 'id' => $budgetAccount->id
+            ]);
+        }
+        return response()->json(['records' => $budgetAccounts], 200);
     }
 }
