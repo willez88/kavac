@@ -83,6 +83,30 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Budget\Models\BudgetAccount', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'clasificador.ver', 'short_description' => 'ver clasificador'
             ],
+            [
+                'name' => 'Crear formulación de presupuesto', 'slug' => 'budget.formulation.create',
+                'description' => 'Acceso para crear formulación de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'formulacion',
+                'slug_alt' => 'formulacion.crear', 'short_description' => 'agregar formulación'
+            ],
+            [
+                'name' => 'Editar cuenta presupuestaria', 'slug' => 'budget.formulation.edit',
+                'description' => 'Acceso para editar cuenta presupuestaria', 
+                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'formulacion',
+                'slug_alt' => 'formulacion.editar', 'short_description' => 'editar formulación'
+            ],
+            [
+                'name' => 'Eliminar cuenta presupuestaria', 'slug' => 'budget.formulation.delete',
+                'description' => 'Acceso para eliminar cuenta presupuestaria', 
+                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'formulacion',
+                'slug_alt' => 'formulacion.eliminar', 'short_description' => 'eliminar formulación'
+            ],
+            [
+                'name' => 'Ver cuentas presupuestarias', 'slug' => 'budget.formulation.list',
+                'description' => 'Acceso para ver cuentas presupuestarias', 
+                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'formulacion',
+                'slug_alt' => 'formulacion.ver', 'short_description' => 'ver formulación'
+            ],
         ];
 
         $budgetRole->detachAllPermissions();
