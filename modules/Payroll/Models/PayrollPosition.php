@@ -45,4 +45,14 @@ class PayrollPosition extends Model implements Auditable
     protected $fillable = [
         'name', 'description'
     ];
+
+    /**
+     * PayrollPosition has many BudgetProjects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budget_projects()
+    {
+        return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetProject::class):[];
+    }
 }

@@ -47,4 +47,14 @@ class PayrollStaff extends Model implements Auditable
         'sons', 'start_date_public_adm', 'start_date', 'end_date', 'id_number', 'nationality', 'passport',
         'marital_status_id', 'professions_id', 'cities_id'
     ];
+
+    /**
+     * PayrollPosition has many BudgetProjects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budget_projects()
+    {
+        return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetProject::class):[];
+    }
 }

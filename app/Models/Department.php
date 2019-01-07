@@ -8,6 +8,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+use Module;
+
 /**
  * @class Department
  * @brief Datos de las Unidades, Departamentos o Dependencias
@@ -72,5 +74,15 @@ class Department extends Model implements Auditable
     public function institution()
     {
     	return $this->belongsTo(Institution::class);
+    }
+
+    /**
+     * Department has many BudgetProjects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budget_projects()
+    {
+        return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetProject::class):[];
     }
 }

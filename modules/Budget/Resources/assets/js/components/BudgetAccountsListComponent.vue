@@ -43,7 +43,12 @@
 				
 			},
 			editForm(id) {
-				location.href = this.route_edit + '/' + id;
+				if (this.route_edit.indexOf("{id}") >= 0) {
+					location.href = this.route_edit.replace("{id}", id);
+				}
+				else {
+					location.href = this.route_edit + '/' + id;
+				}
 			}
 		}
 	};

@@ -4,7 +4,7 @@
         <i class="ion-ios-calculator-outline"></i><span>Finanzas</span>
     </a>
     <ul class="submenu" style="{!! (strpos($current_url, 'finance') !== false)?'display:block;':'' !!}">
-        <li>
+        <li class="{!! set_active_menu($current_url, 'finance.setting.index') !!}">
             <a href="{{ route('finance.setting.index') }}">Configuración</a>
         </li>
         <li>

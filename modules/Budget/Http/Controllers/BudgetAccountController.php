@@ -14,6 +14,20 @@ class BudgetAccountController extends Controller
     use ValidatesRequests;
 
     /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:budget.account.list', ['only' => 'index', 'vueList']);
+        $this->middleware('permission:budget.account.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:budget.account.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:budget.account.delete', ['only' => 'destroy']);
+    }
+
+    /**
      * Display a listing of the resource.
      * @return Response
      */
