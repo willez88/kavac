@@ -34444,7 +34444,7 @@ Vue.mixin({
 			this.errors = [];
 			this.reset();
 			//var records = [];
-			axios.get('/' + url).then(function (response) {
+			axios.get(url).then(function (response) {
 				if (typeof response.data.records !== "undefined") {
 					_this.records = response.data.records;
 				}
@@ -78563,38 +78563,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -78621,7 +78589,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	methods: {
 		reset: function reset() {},
 		editForm: function editForm(id) {
-			location.href = this.route_edit + '/' + id;
+			if (this.route_edit.indexOf("{id}") >= 0) {
+				location.href = this.route_edit.replace("{id}", id);
+			} else {
+				location.href = this.route_edit + '/' + id;
+			}
 		}
 	}
 });
@@ -78644,57 +78616,43 @@ var render = function() {
       {
         key: "id",
         fn: function(props) {
-          return _c(
-            "div",
-            {
-              staticClass: "text-center",
-              scopedSlots: _vm._u([
-                {
-                  key: "original",
-                  fn: function(props) {
-                    return _c("div", { staticClass: "text-center" })
+          return _c("div", { staticClass: "text-center" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-warning btn-xs btn-icon btn-round",
+                attrs: {
+                  title: "Modificar registro",
+                  "data-toggle": "tooltip",
+                  type: "button"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.editForm(props.row.id)
                   }
                 }
-              ])
-            },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning btn-xs btn-icon btn-round",
-                  attrs: {
-                    title: "Modificar registro",
-                    "data-toggle": "tooltip",
-                    type: "button"
-                  },
-                  on: {
-                    click: function($event) {
-                      _vm.editForm(props.row.id)
-                    }
-                  }
+              },
+              [_c("i", { staticClass: "fa fa-edit" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger btn-xs btn-icon btn-round",
+                attrs: {
+                  title: "Eliminar registro",
+                  "data-toggle": "tooltip",
+                  type: "button"
                 },
-                [_c("i", { staticClass: "fa fa-edit" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger btn-xs btn-icon btn-round",
-                  attrs: {
-                    title: "Eliminar registro",
-                    "data-toggle": "tooltip",
-                    type: "button"
-                  },
-                  on: {
-                    click: function($event) {
-                      _vm.deleteRecord(props.index, "")
-                    }
+                on: {
+                  click: function($event) {
+                    _vm.deleteRecord(props.index, "")
                   }
-                },
-                [_c("i", { staticClass: "fa fa-trash-o" })]
-              )
-            ]
-          )
+                }
+              },
+              [_c("i", { staticClass: "fa fa-trash-o" })]
+            )
+          ])
         }
       }
     ])
