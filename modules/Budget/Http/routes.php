@@ -22,17 +22,11 @@ Route::group([
         Route::post('settings', 'BudgetSettingController@store')->name('budget.settings.store');
     });
     
-
+    /** Rutas para la gestión del clasificador presupuestario */
     Route::resource('accounts', 'BudgetAccountController', ['as' => 'budget', 'except' => ['index', 'show']]);
-    /*Route::get('accounts/create', 'BudgetAccountController@create')->name('budget.accounts.create')
-         ->middleware('permission:budget.account.create');
-    Route::post('accounts/store', 'BudgetAccountController@store')->name('budget.accounts.store')
-         ->middleware('permission:budget.account.create');
-    Route::get('accounts/edit/{account}', 'BudgetAccountController@edit')->name('budget.accounts.edit')
-         ->middleware('permission:budget.account.edit');
-    Route::put('accounts/update/{account}', 'BudgetAccountController@update')->name('budget.accounts.update')
-         ->middleware('permission:budget.account.edit');
-    Route::delete('accounts/delete/{account}', 'BudgetAccountController@destroy')->name('budget.accounts.destroy')
-         ->middleware('permission:budget.account.delete');*/
     Route::get('accounts/vue-list', 'BudgetAccountController@vueList')->name('budget.accounts.vuelist');
+
+    /** Rutas para la gestión de proyectos */
+    Route::resource('projects', 'BudgetProjectController', ['as' => 'budget', 'except' => ['index', 'show']]);
+    Route::get('projects/vue-list', 'BudgetProjectController@vueList')->name('budget.projects.vuelist');
 });

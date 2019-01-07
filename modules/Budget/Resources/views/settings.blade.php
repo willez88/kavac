@@ -149,7 +149,46 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Proyectos / Acciones Centralizadas</h6>
+					<h6 class="card-title">Proyectos</h6>
+					<div class="card-btns">
+						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
+						   data-toggle="tooltip">
+	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
+	    				</a>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<a href="{{ route('budget.projects.create') }}" 
+							   class="btn btn-sm btn-primary btn-custom float-right" 
+							   title="Crear nuevo registro" data-toggle="tooltip">
+								<i class="fa fa-plus-circle"></i>
+								<span>Nuevo</span>
+							</a>
+						</div>
+					</div>
+					<table class="table table-hover table-striped dt-responsive nowrap datatable">
+						<thead>
+							<tr>
+								<th>Período</th>
+								<th>Código</th>
+								<th>Proyecto</th>
+								<th>Responsable</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Acciones Centralizadas</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 						   data-toggle="tooltip">
@@ -173,16 +212,13 @@
 							<tr>
 								<th>Período</th>
 								<th>Código</th>
-								<th>Proyecto / Acción Central</th>
+								<th>Acción Central</th>
 								<th>Responsable</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
 						<tbody></tbody>
 					</table>
-				</div>
-				<div class="card-footer text-right">
-					@include('layouts.form-buttons')
 				</div>
 			</div>
 		</div>
@@ -222,9 +258,6 @@
 						</thead>
 						<tbody></tbody>
 					</table>
-				</div>
-				<div class="card-footer text-right">
-					@include('layouts.form-buttons')
 				</div>
 			</div>
 		</div>
