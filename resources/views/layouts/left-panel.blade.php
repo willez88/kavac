@@ -16,7 +16,7 @@
                 $current_url = Route::current()->getName();
             @endphp
             {{-- Acceso al panel de control del usuario --}}
-			<li class="{!! ($current_url=='index')?'active':'' !!}">
+			<li class="{!! set_active_menu($current_url, 'index') !!}">
                 <a href="{{ route('index') }}" title="Panel de control del usuario" 
                    data-toggle="tooltip" data-placement="right">
                     <i class="ion-ios-speedometer-outline"></i><span>Panel de control</span>
@@ -32,13 +32,13 @@
                         @if ($current_url=='settings.index' || $current_url=='access.settings')
                             style="display:block;"
                         @endif>
-                        <li class="{!! ($current_url=='settings.index')?'active':'' !!}">
+                        <li class="{!! set_active_menu($current_url, 'settings.index') !!}">
                             <a href="{{ route('settings.index') }}" title="Configuración general de la aplicación" 
                                data-toggle="tooltip" data-placement="right">
                                 General
                             </a>
                         </li>
-                        <li class="{!! ($current_url=='access.settings')?'active':'' !!}">
+                        <li class="{!! set_active_menu($current_url, 'access.settings') !!}">
                             <a href="{{ route('access.settings') }}" title="Gestión de usuarios, roles y permisos" 
                                data-toggle="tooltip" data-placement="right">
                                 Acceso

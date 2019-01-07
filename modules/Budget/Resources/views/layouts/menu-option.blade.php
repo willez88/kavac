@@ -5,23 +5,11 @@
         <i class="ion-arrow-graph-up-right"></i><span>Presupuesto</span>
     </a>
     <ul class="submenu" style="{!! (strpos($current_url, 'budget') !== false)?'display:block;':'' !!}">
-        @php
-            $accountUrls = [
-                'budget.accounts.index', 'budget.accounts.create', 'budget.accounts.edit'
-            ];
-            $activeAccount = '';
-            foreach ($accountUrls as $url) {
-                if ($current_url == $url) {
-                    $activeAccount = 'active';
-                    break;
-                }
-            }
-        @endphp
-        <li class="{!! ($current_url=='budget.settings.index')?'active':'' !!}">
+        <li class="{!! set_active_menu($current_url, 'budget.settings.index') !!}">
             <a href="{{ route('budget.settings.index') }}" data-toggle="tooltip" data-placement="right" 
                title="Configuración de presupuesto">Configuración</a>
         </li>
-        <li class="{!! $activeAccount !!}">
+        <li class="{!! set_active_menu($current_url, ['budget.accounts.index', 'budget.accounts.create', 'budget.accounts.edit']) !!}">
             <a href="{{ route('budget.accounts.index') }}" data-toggle="tooltip" data-placement="right" 
                title="Gestión del clasificador de cuentas presupuestarias">
                 Clasificador Presupuestario
