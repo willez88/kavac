@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use App\Models\CodeSetting;
 
+use Modules\Budget\Models\BudgetProject;
+
 class BudgetSettingController extends Controller
 {
     /**
@@ -15,7 +17,8 @@ class BudgetSettingController extends Controller
      */
     public function index()
     {
-        return view('budget::settings');
+        $projects = BudgetProject::all();
+        return view('budget::settings', compact('projects'));
     }
 
     /**

@@ -8,7 +8,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class BudgetProject extends Model
+class BudgetProject extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;

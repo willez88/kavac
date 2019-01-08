@@ -57,4 +57,32 @@ class PayrollStaff extends Model implements Auditable
     {
         return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetProject::class):[];
     }
+
+    /**
+     * Construye un arreglo de elementos para usar en plantillas blade
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @return [array] Arreglo con los registros
+     */
+    public static function template_choices($filters = [])
+    {
+        $records = self::all();
+        if ($filters) {
+            $records = self::where('active', true);
+            foreach ($filters as $key => $value) {
+                $records = $records->where($key, $value);
+            }
+            $records = $records->get();
+        }
+        $options = [];
+        foreach ($records as $rec) {
+            $options[$rec->id] = $rec->id_number . " - " . $rec->first_name . " " . $rec->last_name;
+        }
+        return $options;
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->attrubute['first_name'] . " " . $this->attribute['last_name'];
+    }
 }

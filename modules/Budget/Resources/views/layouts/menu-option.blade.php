@@ -15,8 +15,8 @@
                 Clasificador Presupuestario
             </a>
         </li>
-        <li class="{!! ($current_url=='budget.formulations.index')?'active':'' !!}">
-            <a href="{{ route('budget.formulations.index') }}" data-toggle="tooltip" data-placement="right" 
+        <li class="">
+            <a href="#" data-toggle="tooltip" data-placement="right" 
                title="Gestión en la formulación de presupesto">
                 Formulación
             </a>

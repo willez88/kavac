@@ -55,4 +55,19 @@ class PayrollPosition extends Model implements Auditable
     {
         return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetProject::class):[];
     }
+
+    /**
+     * Construye un arreglo de elementos para usar en plantillas blade
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @return [array] Arreglo con los registros
+     */
+    public static function template_choices($filters = [])
+    {
+        $options = [];
+        foreach (self::all() as $rec) {
+            $options[$rec->id] = $rec->name;
+        }
+        return $options;
+    }
 }

@@ -5,11 +5,18 @@ namespace Modules\Budget\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use Modules\Budget\Models\BudgetAccount;
+use App\Models\Institution;
+use App\Models\Department;
+use Modules\Payroll\Models\PayrollPosition;
+use Modules\Payroll\Models\PayrollStaff;
+use Modules\Budget\Models\BudgetProject;
 
 class BudgetProjectController extends Controller
 {
+    use ValidatesRequests;
+    
     /**
      * Display a listing of the resource.
      * @return Response
@@ -31,7 +38,13 @@ class BudgetProjectController extends Controller
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
-        return view('budget::projects.create-edit-form', compact('header'));
+        $institutions = Institution::template_choices();
+        $departments = Department::template_choices();
+        $positions = PayrollPosition::template_choices();
+        $staffs = PayrollStaff::template_choices();
+        return view('budget::projects.create-edit-form', compact(
+            'header', 'institutions', 'departments', 'positions', 'staffs'
+        ));
     }
 
     /**
@@ -41,6 +54,31 @@ class BudgetProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'institution_id' => 'required',
+            'department_id' => 'required',
+            'payroll_position_id' => 'required',
+            'payroll_staff_id' => 'required',
+            'code' => 'required',
+            'onapre_code' => 'required',
+            'name' => 'required',
+        ]);
+
+        /**
+         * Registra la nueva cuenta presupuestaria
+         */
+        BudgetProject::create([
+            'name' => $request->name,
+            'code' => $request->code,
+            'onapre_code' => $request->onapre_code,
+            'active' => ($request->active!==null),
+            'department_id' => $request->department_id,
+            'payroll_position_id' => $request->payroll_position_id,
+            'payroll_staff_id' => $request->payroll_staff_id
+        ]);
+
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('budget.settings.index');
     }
 
     /**
@@ -87,6 +125,8 @@ class BudgetProjectController extends Controller
 
     public function vueList()
     {
-        return response()->json(['records' => BudgetAccount::where('active', true)->get()], 200);
+        return response()->json([
+            'records' => BudgetProject::where('active', true)->with('payroll_staff')->get()
+        ], 200);
     }
 }

@@ -168,18 +168,10 @@
 							</a>
 						</div>
 					</div>
-					<table class="table table-hover table-striped dt-responsive nowrap datatable">
-						<thead>
-							<tr>
-								<th>Período</th>
-								<th>Código</th>
-								<th>Proyecto</th>
-								<th>Responsable</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
+					<budget-projects-list route_list='{{ url('budget/projects/vue-list') }}' 
+										  route_delete="{{ url('budget/projects/delete') }}" 
+										  route_edit="{{ url('budget/projects/{id}/edit') }}">
+					</budget-projects-list>
 				</div>
 			</div>
 		</div>

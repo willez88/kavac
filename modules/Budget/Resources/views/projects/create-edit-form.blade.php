@@ -36,7 +36,7 @@
 							<div class="col-3">
 								<div class="form-group">
 									{!! Form::label('institution_id', 'Institución', ['class' => 'control-label']) !!}
-									{!! Form::select('institution_id', [], null, [
+									{!! Form::select('institution_id', $institutions, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip',
 										'title' => 'Seleccione una institución'
 									]) !!}
@@ -45,7 +45,7 @@
 							<div class="col-3">
 								<div class="form-group">
 									{!! Form::label('department_id', 'Dependencia', ['class' => 'control-label']) !!}
-									{!! Form::select('department_id', [], null, [
+									{!! Form::select('department_id', $departments, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip',
 										'title' => 'Seleccione un departamento o dependencia'
 									]) !!}
@@ -56,7 +56,7 @@
 									{!! Form::label('payroll_position_id', 'Cargo de Responsable', [
 										'class' => 'control-label'
 									]) !!}
-									{!! Form::select('payroll_position_id', [], null, [
+									{!! Form::select('payroll_position_id', $positions, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip',
 										'title' => 'Seleccione el cargo de la persona responsable del proyecto'
 									]) !!}
@@ -65,7 +65,7 @@
 							<div class="col-3">
 								<div class="form-group">
 									{!! Form::label('payroll_staff_id', 'Responsable', ['class' => 'control-label']) !!}
-									{!! Form::select('payroll_staff_id', [], null, [
+									{!! Form::select('payroll_staff_id', $staffs, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip',
 										'title' => 'Seleccione una persona responsable del proyecto'
 									]) !!}
