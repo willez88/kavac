@@ -65,7 +65,7 @@ class BudgetProjectController extends Controller
         ]);
 
         /**
-         * Registra la nueva cuenta presupuestaria
+         * Registra el nuevo proyecto
          */
         BudgetProject::create([
             'name' => $request->name,
@@ -94,9 +94,22 @@ class BudgetProjectController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('budget::edit');
+        $budgetProject = BudgetProject::find($id);
+        $header = [
+            'route' => ['budget.projects.update', $budgetProject->id], 
+            'method' => 'PUT', 
+            'role' => 'form'
+        ];
+        $model = $budgetProject;
+        $institutions = Institution::template_choices();
+        $departments = Department::template_choices();
+        $positions = PayrollPosition::template_choices();
+        $staffs = PayrollStaff::template_choices();
+        return view('budget::projects.create-edit-form', compact(
+            'header', 'model', 'institutions', 'departments', 'positions', 'staffs'
+        ));
     }
 
     /**
@@ -104,8 +117,24 @@ class BudgetProjectController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'institution_id' => 'required',
+            'department_id' => 'required',
+            'payroll_position_id' => 'required',
+            'payroll_staff_id' => 'required',
+            'code' => 'required',
+            'onapre_code' => 'required',
+            'name' => 'required',
+        ]);
+
+        $budgetProject = BudgetProject::find($id);
+        $budgetProject->fill($request->all());
+        $budgetProject->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return redirect()->route('budget.settings.index');
     }
 
     /**

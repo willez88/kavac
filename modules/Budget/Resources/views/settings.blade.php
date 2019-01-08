@@ -169,7 +169,7 @@
 						</div>
 					</div>
 					<budget-projects-list route_list='{{ url('budget/projects/vue-list') }}' 
-										  route_delete="{{ url('budget/projects/delete') }}" 
+										  route_delete="{{ url('budget/projects') }}" 
 										  route_edit="{{ url('budget/projects/{id}/edit') }}">
 					</budget-projects-list>
 				</div>

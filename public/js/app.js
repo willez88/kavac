@@ -34595,10 +34595,13 @@ Vue.mixin({
 					}
 				},
 				callback: function callback(result) {
+					var _this5 = this;
+
 					if (result) {
 						confirmated = true;
-						axios.delete('/' + url + '/' + records[index].id).then(function (response) {
+						axios.delete(url + '/' + records[index].id).then(function (response) {
 							records.splice(index, 1);
+							_this5.showMessage('destroy');
 						}).catch(function (error) {});
 					}
 				}
@@ -34653,10 +34656,10 @@ Vue.mixin({
    * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
    */
 		getCountries: function getCountries() {
-			var _this5 = this;
+			var _this6 = this;
 
 			axios.get('/get-countries').then(function (response) {
-				_this5.countries = response.data;
+				_this6.countries = response.data;
 			});
 		},
 
@@ -34666,11 +34669,11 @@ Vue.mixin({
    * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
    */
 		getEstates: function getEstates() {
-			var _this6 = this;
+			var _this7 = this;
 
 			if (this.record.country_id) {
 				axios.get('/get-estates/' + this.record.country_id).then(function (response) {
-					_this6.estates = response.data;
+					_this7.estates = response.data;
 				});
 			}
 		},
@@ -34681,11 +34684,11 @@ Vue.mixin({
    * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
    */
 		getMunicipalities: function getMunicipalities() {
-			var _this7 = this;
+			var _this8 = this;
 
 			if (this.record.estate_id) {
 				axios.get('/get-municipalities/' + this.record.estate_id).then(function (response) {
-					_this7.municipalities = response.data;
+					_this8.municipalities = response.data;
 				});
 			}
 		},
@@ -34696,11 +34699,11 @@ Vue.mixin({
    * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
    */
 		getCities: function getCities() {
-			var _this8 = this;
+			var _this9 = this;
 
 			if (this.record.estate_id) {
 				axios.get('/get-cities/' + this.record.estate_id).then(function (response) {
-					_this8.cities = response.data;
+					_this9.cities = response.data;
 				});
 			}
 		}

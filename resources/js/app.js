@@ -312,8 +312,9 @@ Vue.mixin({
     			callback: function (result) {
     				if (result) {
     					confirmated = true;			
-						axios.delete('/' + url + '/' + records[index].id).then(response => {
+						axios.delete(url + '/' + records[index].id).then(response => {
 							records.splice(index, 1);
+							this.showMessage('destroy');
 						}).catch(error => {});
     				}
     			}
@@ -334,9 +335,9 @@ Vue.mixin({
 		 * @param  {string} msg_icon  Ícono a mostrar en el mensaje (opcional)
 		 */
 		showMessage(type, msg_title, msg_class, msg_icon, custom_text) {
-			msg_title = (!msg_title)?'Éxito':msg_title;
-		    msg_class = (!msg_class)?'growl-success':'growl-'+msg_class;
-		    msg_icon = (!msg_icon)?'screen-ok':msg_icon;
+			msg_title = (typeof(msg_title) == "undefined" || !msg_title)?'Éxito':msg_title;
+		    msg_class = (typeof(msg_class) == "undefined" || !msg_class)?'growl-success':'growl-'+msg_class;
+		    msg_icon = (typeof(msg_icon) == "undefined" || !msg_icon)?'screen-ok':msg_icon;
 		    custom_text = (typeof(custom_text)!=="undefined")?custom_text:'';
 
 		    var msg_text;
