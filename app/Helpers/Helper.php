@@ -43,8 +43,8 @@ if (! function_exists('generate_registration_code')) {
 		$currentCode = 0;
 		$newCode = 1;
 
-		$targetModel = $model::select($field)->where($field, 'like', "{$prefix}-%")
-							 ->where($field, 'like', "%-{$year}")->orderBy($field, 'desc')->first();
+		$targetModel = $model::select($field)->where($field, 'like', "{$prefix}-%-{$year}")->withTrashed()
+							 ->orderBy($field, 'desc')->first();
 
 		if ($targetModel) {
 			$currentCode = (int)explode('-', $targetModel->$field)[1];
