@@ -133,6 +133,30 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'accion_centralizada.ver', 'short_description' => 'ver acción centralizada'
             ],
             [
+                'name' => 'Crear acción específica', 'slug' => 'budget.specificaction.create',
+                'description' => 'Acceso para crear acción específica', 
+                'model' => 'Modules\Budget\Models\BudgetSpecificAction', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'accion_especifica.crear', 'short_description' => 'agregar acción específica'
+            ],
+            [
+                'name' => 'Editar acción específica', 'slug' => 'budget.specificaction.edit',
+                'description' => 'Acceso para editar acciones específicas', 
+                'model' => 'Modules\Budget\Models\BudgetSpecificAction', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'accion_especifica.editar', 'short_description' => 'editar acción específica'
+            ],
+            [
+                'name' => 'Eliminar acción específica', 'slug' => 'budget.specificaction.delete',
+                'description' => 'Acceso para eliminar acciones específicas', 
+                'model' => 'Modules\Budget\Models\BudgetSpecificAction', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'accion_especifica.eliminar', 'short_description' => 'eliminar acción específica'
+            ],
+            [
+                'name' => 'Ver acciones específicas', 'slug' => 'budget.specificaction.list',
+                'description' => 'Acceso para ver acciones específicas', 
+                'model' => 'Modules\Budget\Models\BudgetSpecificAction', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'accion_especifica.ver', 'short_description' => 'ver acción específica'
+            ],
+            [
                 'name' => 'Crear formulación de presupuesto', 'slug' => 'budget.formulation.create',
                 'description' => 'Acceso para crear formulación de presupuesto', 
                 'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'presupuesto',

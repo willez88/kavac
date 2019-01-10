@@ -222,7 +222,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-12">
-							<a href="#" 
+							<a href="{{ route('budget.specific-actions.create') }}" 
 							   class="btn btn-sm btn-primary btn-custom float-right" 
 							   title="Crear nuevo registro" data-toggle="tooltip">
 								<i class="fa fa-plus-circle"></i>
@@ -230,18 +230,10 @@
 							</a>
 						</div>
 					</div>
-					<table class="table table-hover table-striped dt-responsive nowrap datatable">
-						<thead>
-							<tr>
-								<th>Período</th>
-								<th>Proyecto / Acción Central</th>
-								<th>Acción Específica</th>
-								<th>Responsable</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
+					<budget-specific-actions-list route_list='{{ url('budget/specific-actions/vue-list') }}' 
+										  route_delete="{{ url('budget/specific-actions') }}" 
+										  route_edit="{{ url('budget/specific-actions/{id}/edit') }}">
+					</budget-specific-actions-list>
 				</div>
 			</div>
 		</div>

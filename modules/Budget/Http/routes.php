@@ -41,5 +41,12 @@ Route::group([
         'as' => 'budget', 'except' => ['index', 'show']
     ]);
     Route::get('centralized-actions/vue-list', 'BudgetCentralizedActionController@vueList')
-         ->name('budget.projects.vuelist');
+         ->name('budget.centralized-actions.vuelist');
+
+    /** Rutas para la gestión de acciones especificas */
+    Route::resource('specific-actions', 'BudgetSpecificActionController', [
+        'as' => 'budget', 'except' => ['index', 'show']
+    ]);
+    Route::get('specific-actions/vue-list', 'BudgetSpecificActionController@vueList')
+         ->name('budget.specific-actions.vuelist');
 });
