@@ -39,25 +39,17 @@ if (! function_exists('generate_registration_code')) {
 	 */
 	function generate_registration_code($prefix, $code_length, $year, $model, $field)
 	{
-		$code = '';
-		$currentCode = 0;
 		$newCode = 1;
 
 		$targetModel = $model::select($field)->where($field, 'like', "{$prefix}-%-{$year}")->withTrashed()
 							 ->orderBy($field, 'desc')->first();
 
-		if ($targetModel) {
-			$currentCode = (int)explode('-', $targetModel->$field)[1];
-		}
-
-		$newCode += $currentCode;
+		$newCode += ($targetModel) ? (int)explode('-', $targetModel->$field)[1] : 0;
 
 		if (strlen((string)$newCode) > $code_length) {
 			return ["error" => "El nuevo código excede la longitud permitida"];
 		}
 
-		$code = "{$prefix}-{$newCode}-{$year}";
-
-		return $code;
+		return "{$prefix}-{$newCode}-{$year}";
 	}
 }
