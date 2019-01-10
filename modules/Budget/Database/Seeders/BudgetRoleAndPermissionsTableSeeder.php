@@ -84,6 +84,30 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'clasificador.ver', 'short_description' => 'ver clasificador'
             ],
             [
+                'name' => 'Crear proyecto', 'slug' => 'budget.project.create',
+                'description' => 'Acceso para crear proyecto', 
+                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'proyecto',
+                'slug_alt' => 'proyecto.crear', 'short_description' => 'agregar proyecto'
+            ],
+            [
+                'name' => 'Editar cuenta presupuestaria', 'slug' => 'budget.project.edit',
+                'description' => 'Acceso para editar cuenta presupuestaria', 
+                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'proyecto',
+                'slug_alt' => 'proyecto.editar', 'short_description' => 'editar proyecto'
+            ],
+            [
+                'name' => 'Eliminar cuenta presupuestaria', 'slug' => 'budget.project.delete',
+                'description' => 'Acceso para eliminar cuenta presupuestaria', 
+                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'proyecto',
+                'slug_alt' => 'proyecto.eliminar', 'short_description' => 'eliminar proyecto'
+            ],
+            [
+                'name' => 'Ver cuentas presupuestarias', 'slug' => 'budget.project.list',
+                'description' => 'Acceso para ver cuentas presupuestarias', 
+                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'proyecto',
+                'slug_alt' => 'proyecto.ver', 'short_description' => 'ver proyecto'
+            ],
+            [
                 'name' => 'Crear formulación de presupuesto', 'slug' => 'budget.formulation.create',
                 'description' => 'Acceso para crear formulación de presupuesto', 
                 'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'formulacion',

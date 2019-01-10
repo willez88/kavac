@@ -16,6 +16,20 @@ use Modules\Budget\Models\BudgetProject;
 class BudgetProjectController extends Controller
 {
     use ValidatesRequests;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:budget.project.list', ['only' => 'index', 'vueList']);
+        $this->middleware('permission:budget.project.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:budget.project.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:budget.project.delete', ['only' => 'destroy']);
+    }
     
     /**
      * Display a listing of the resource.
