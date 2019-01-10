@@ -38,15 +38,16 @@
 									{!! Form::label('project', 'Proyecto') !!}
 									<div class="col-12">
 										{!! Form::radio('project_centralized_action', true, null, [
-											'id' => 'support', 'class' => 'form-control bootstrap-switch',
-											'data-on-label' => 'SI', 'data-off-label' => 'NO'
+											'class' => 'form-control bootstrap-switch sel_project_centralized_action',
+											'data-on-label' => 'SI', 'data-off-label' => 'NO', 
+											'id' => 'sel_project'
 										]) !!}
 									</div>
 								</div>
 								<div class="form-group">
 									{!! Form::select('project_id', $projects, null, [
-										'class' => 'select2', 'data-toggle' => 'tooltip',
-										'title' => 'Seleccione un proyecto'
+										'class' => 'select2', 'data-toggle' => 'tooltip', 'id' => 'project_id',
+										'title' => 'Seleccione un proyecto', 'disabled' => 'disabled'
 									]) !!}
 								</div>
 							</div>
@@ -55,15 +56,17 @@
 									{!! Form::label('centralized_action', 'Acción Centralizada') !!}
 									<div class="col-12">
 										{!! Form::radio('project_centralized_action', true, null, [
-											'id' => 'support', 'class' => 'form-control bootstrap-switch',
-											'data-on-label' => 'SI', 'data-off-label' => 'NO'
+											'class' => 'form-control bootstrap-switch sel_project_centralized_action',
+											'data-on-label' => 'SI', 'data-off-label' => 'NO', 
+											'id' => 'sel_centralized_action'
 										]) !!}
 									</div>
 								</div>
 								<div class="form-group">
 									{!! Form::select('centralized_action_id', $centralized_actions, null, [
-										'class' => 'select2', 'data-toggle' => 'tooltip',
-										'title' => 'Seleccione una acción centralizada'
+										'class' => 'select2', 'data-toggle' => 'tooltip', 
+										'id' => 'centralized_action_id',
+										'title' => 'Seleccione una acción centralizada', 'disabled' => 'disabled'
 									]) !!}
 								</div>
 							</div>
@@ -132,3 +135,15 @@
 		</div>
 	</div>
 @stop
+
+@section('extra-js')
+	@parent
+	<script>
+		$(document).ready(function() {
+			$('.sel_project_centralized_action').on('switchChange.bootstrapSwitch', function(e) {
+				$('#project_id').attr('disabled', (e.target.id!=="sel_project"));
+				$('#centralized_action_id').attr('disabled', (e.target.id!=="sel_centralized_action"));
+			});
+		});
+	</script>
+@endsection

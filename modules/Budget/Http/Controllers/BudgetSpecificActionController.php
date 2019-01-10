@@ -77,9 +77,20 @@ class BudgetSpecificActionController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('budget::edit');
+        $BudgetSpecificAction = BudgetSpecificAction::find($id);
+        $header = [
+            'route' => ['budget.specific-actions.update', $BudgetSpecificAction->id], 
+            'method' => 'PUT', 
+            'role' => 'form'
+        ];
+        $model = $BudgetSpecificAction;
+        $projects = BudgetProject::template_choices();
+        $centralized_actions = BudgetCentralizedAction::template_choices();
+        return view('budget::projects.create-edit-form', compact(
+            'header', 'model', 'projects', 'centralized_actions'
+        ));
     }
 
     /**
@@ -95,8 +106,15 @@ class BudgetSpecificActionController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $budgetSpecificAction = BudgetSpecificAction::find($id);
+
+        if ($budgetSpecificAction) {
+            $budgetSpecificAction->delete();
+        }
+        
+        return response()->json(['record' => $budgetSpecificAction, 'message' => 'Success'], 200);
     }
 
     public function vueList()
