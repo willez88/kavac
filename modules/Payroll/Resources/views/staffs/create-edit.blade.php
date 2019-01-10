@@ -98,7 +98,7 @@
 						        </div>
 						    </div>
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('passport') ? ' has-error' : '' }} is-required">
+						        <div class="form-group {{ $errors->has('passport') ? ' has-error' : '' }}">
 						            {!! Form::label('passport', 'Pasaporte', []) !!}
 						            {!! Form::text('passport',(isset($staff))?$staff->passport:old('passport'),
 						                [
@@ -112,7 +112,7 @@
 						</div>
 						<div class="row">
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }} is-required">
+						        <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
 						            {!! Form::label('email', 'Correo Electrónico', []) !!}
 						            {!! Form::email('email',(isset($staff))?$staff->email:old('email'),
 						                [
@@ -136,7 +136,7 @@
 						        </div>
 						    </div>
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('sex') ? ' has-error' : '' }}">
+						        <div class="form-group {{ $errors->has('sex') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('sex', 'Sexo', []) !!}
 						            {!! Form::select('sex', ['' => 'Seleccione...', 'M' => 'Masculino', 'F' => 'Femenino'],
 						            (isset($staff))?$staff->sex:old('sex'),
@@ -151,7 +151,7 @@
 						</div>
 						<div class="row">
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('marital_status_id') ? ' has-error' : '' }}">
+						        <div class="form-group {{ $errors->has('marital_status_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('marital_status_id', 'Estado Civil', []) !!}
 						            {!! Form::select('marital_status_id',(isset($marital_status))?$marital_status:[], null,
 						                [
@@ -164,7 +164,7 @@
 						        </div>
 						    </div>
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('profession_id') ? ' has-error' : '' }}">
+						        <div class="form-group {{ $errors->has('profession_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('profession_id', 'Profesión', []) !!}
 						            {!! Form::select('profession_id',(isset($professions))?$professions:[], null,
 						                [
@@ -240,7 +240,7 @@
 						        </div>
 						    </div>
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('end_date') ? ' has-error' : '' }} is-required">
+						        <div class="form-group {{ $errors->has('end_date') ? ' has-error' : '' }}">
 						            {!! Form::label('end_date', 'Fecha de Egreso de la Institución', []) !!}
 						            {!! Form::date('end_date',(isset($staff))?$staff->end_date:old('end_date'),
 						                [
@@ -252,7 +252,7 @@
 						        </div>
 						    </div>
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('country_id') ? ' has-error' : '' }}">
+						        <div class="form-group {{ $errors->has('country_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('country_id', 'País', []) !!}
 						            {!! Form::select('country_id',(isset($countries))?$countries:[], null,
 						                [
@@ -269,7 +269,7 @@
 						</div>
 						<div class="row">
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('estate_id') ? ' has-error' : '' }}">
+						        <div class="form-group {{ $errors->has('estate_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('estate_id', 'Estado', []) !!}
 						            {!! Form::select('estate_id',(isset($estates))?$estates:[], null,
 						                [
@@ -282,7 +282,7 @@
 						        </div>
 						    </div>
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('city_id') ? ' has-error' : '' }}">
+						        <div class="form-group {{ $errors->has('city_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('city_id', 'Ciudad', []) !!}
 						            {!! Form::select('city_id',(isset($cities))?$cities:[], null,
 						                [
