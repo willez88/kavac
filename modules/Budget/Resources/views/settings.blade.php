@@ -191,7 +191,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-12">
-							<a href="#" 
+							<a href="{{ route('budget.centralized-actions.create') }}" 
 							   class="btn btn-sm btn-primary btn-custom float-right" 
 							   title="Crear nuevo registro" data-toggle="tooltip">
 								<i class="fa fa-plus-circle"></i>
@@ -199,18 +199,10 @@
 							</a>
 						</div>
 					</div>
-					<table class="table table-hover table-striped dt-responsive nowrap datatable">
-						<thead>
-							<tr>
-								<th>Período</th>
-								<th>Código</th>
-								<th>Acción Central</th>
-								<th>Responsable</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
+					<budget-centralized-actions-list route_list='{{ url('budget/centralized-actions/vue-list') }}' 
+										  route_delete="{{ url('budget/centralized-actions') }}" 
+										  route_edit="{{ url('budget/centralized-actions/{id}/edit') }}">
+					</budget-centralized-actions-list>
 				</div>
 			</div>
 		</div>

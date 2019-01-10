@@ -12,3 +12,10 @@ Vue.component('budget-accounts-list', require('./components/BudgetAccountsListCo
  * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
  */
 Vue.component('budget-projects-list', require('./components/BudgetProjectsListComponent.vue'));
+
+/**
+ * Componente para mostrar listado de acciones centralizadas
+ *
+ * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+ */
+Vue.component('budget-centralized-actions-list', require('./components/BudgetCentralizedActionsListComponent.vue'));

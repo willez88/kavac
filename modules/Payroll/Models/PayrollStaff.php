@@ -59,6 +59,16 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
+     * PayrollPosition has many BudgetCentralizedAction.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budget_centralized_actions()
+    {
+        return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetCentralizedAction::class):[];
+    }
+
+    /**
      * Construye un arreglo de elementos para usar en plantillas blade
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>

@@ -86,49 +86,74 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
             [
                 'name' => 'Crear proyecto', 'slug' => 'budget.project.create',
                 'description' => 'Acceso para crear proyecto', 
-                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'proyecto',
+                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'proyecto.crear', 'short_description' => 'agregar proyecto'
             ],
             [
-                'name' => 'Editar cuenta presupuestaria', 'slug' => 'budget.project.edit',
-                'description' => 'Acceso para editar cuenta presupuestaria', 
-                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'proyecto',
+                'name' => 'Editar proyecto', 'slug' => 'budget.project.edit',
+                'description' => 'Acceso para editar proyectos', 
+                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'proyecto.editar', 'short_description' => 'editar proyecto'
             ],
             [
-                'name' => 'Eliminar cuenta presupuestaria', 'slug' => 'budget.project.delete',
-                'description' => 'Acceso para eliminar cuenta presupuestaria', 
-                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'proyecto',
+                'name' => 'Eliminar proyecto', 'slug' => 'budget.project.delete',
+                'description' => 'Acceso para eliminar proyectos', 
+                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'proyecto.eliminar', 'short_description' => 'eliminar proyecto'
             ],
             [
-                'name' => 'Ver cuentas presupuestarias', 'slug' => 'budget.project.list',
-                'description' => 'Acceso para ver cuentas presupuestarias', 
-                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'proyecto',
+                'name' => 'Ver proyectos', 'slug' => 'budget.project.list',
+                'description' => 'Acceso para ver proyectos', 
+                'model' => 'Modules\Budget\Models\BudgetProject', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'proyecto.ver', 'short_description' => 'ver proyecto'
+            ],
+
+            [
+                'name' => 'Crear acción centralizada', 'slug' => 'budget.centralizedaction.create',
+                'description' => 'Acceso para crear acción centralizada', 
+                'model' => 'Modules\Budget\Models\BudgetCentralizedAction', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'accion_centralizada.crear', 'short_description' => 'agregar acción centralizada'
+            ],
+            [
+                'name' => 'Editar acción centralizada', 'slug' => 'budget.centralizedaction.edit',
+                'description' => 'Acceso para editar acción centralizada', 
+                'model' => 'Modules\Budget\Models\BudgetCentralizedAction', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'accion_centralizada.editar', 'short_description' => 'editar acción centralizada'
+            ],
+            [
+                'name' => 'Eliminar acción centralizada', 'slug' => 'budget.centralizedaction.delete',
+                'description' => 'Acceso para eliminar acción centralizada', 
+                'model' => 'Modules\Budget\Models\BudgetCentralizedAction', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'accion_centralizada.eliminar', 'short_description' => 'eliminar acción centralizada'
+            ],
+            [
+                'name' => 'Ver acciones centralizadas', 'slug' => 'budget.centralizedaction.list',
+                'description' => 'Acceso para ver acciones centralizadas', 
+                'model' => 'Modules\Budget\Models\BudgetCentralizedAction', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'accion_centralizada.ver', 'short_description' => 'ver acción centralizada'
             ],
             [
                 'name' => 'Crear formulación de presupuesto', 'slug' => 'budget.formulation.create',
                 'description' => 'Acceso para crear formulación de presupuesto', 
-                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'formulacion',
+                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'formulacion.crear', 'short_description' => 'agregar formulación'
             ],
             [
-                'name' => 'Editar cuenta presupuestaria', 'slug' => 'budget.formulation.edit',
-                'description' => 'Acceso para editar cuenta presupuestaria', 
-                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'formulacion',
+                'name' => 'Editar formulación de presupuesto', 'slug' => 'budget.formulation.edit',
+                'description' => 'Acceso para editar formulaciones de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'formulacion.editar', 'short_description' => 'editar formulación'
             ],
             [
-                'name' => 'Eliminar cuenta presupuestaria', 'slug' => 'budget.formulation.delete',
-                'description' => 'Acceso para eliminar cuenta presupuestaria', 
-                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'formulacion',
+                'name' => 'Eliminar formulación de presupuesto', 'slug' => 'budget.formulation.delete',
+                'description' => 'Acceso para eliminar formulaciones de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'formulacion.eliminar', 'short_description' => 'eliminar formulación'
             ],
             [
-                'name' => 'Ver cuentas presupuestarias', 'slug' => 'budget.formulation.list',
-                'description' => 'Acceso para ver cuentas presupuestarias', 
-                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'formulacion',
+                'name' => 'Ver formulaciones de presupuesto', 'slug' => 'budget.formulation.list',
+                'description' => 'Acceso para ver formulaciones de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'formulacion.ver', 'short_description' => 'ver formulación'
             ],
         ];
