@@ -31,6 +31,8 @@ Route::group([
     /** Rutas para la gestión del clasificador presupuestario */
     Route::resource('accounts', 'BudgetAccountController', ['as' => 'budget', 'except' => ['index', 'show']]);
     Route::get('accounts/vue-list', 'BudgetAccountController@vueList')->name('budget.accounts.vuelist');
+    Route::get('accounts/egress-list', 'BudgetAccountController@egressAccounts')
+         ->name('budget.accounts.egresslist');
 
     /** Rutas para la gestión de proyectos */
     Route::resource('projects', 'BudgetProjectController', ['as' => 'budget', 'except' => ['index', 'show']]);

@@ -196,4 +196,21 @@ class BudgetAccountController extends Controller
         }
         return response()->json(['records' => $budgetAccounts], 200);
     }
+
+    public function egressAccounts()
+    {
+        $records = [];
+        $accounts = BudgetAccount::where(['active' => true, 'egress' => 'true'])->get();
+
+        foreach ($accounts as $account) {
+            array_push($records, [
+                'id' => $account->id, 'code' => $account->code, 'denomination' => $account->denomination,
+                'group' => $account->group, 'item' => $account->item, 'generic' => $account->generic, 
+                'specific' => $account->specific, 'subspecific' => $account->subspecific, 
+                'tax_id' => $account->tax_id
+            ]);
+        }
+
+        return response()->json(['records' => $records], 200);
+    }
 }
