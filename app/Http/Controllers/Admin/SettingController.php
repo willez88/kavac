@@ -34,13 +34,13 @@ class SettingController extends Controller
             'enctype' => 'multipart/form-data'
         ];
         $institutions = Institution::all();
-        $countries = Country::template_choices();
-        $estates = Estate::template_choices();
-        $municipalities = Municipality::template_choices();
-        $parishes = Parish::template_choices();
-        $cities = City::template_choices();
-        $sectors = InstitutionSector::template_choices();
-        $types = InstitutionType::template_choices();
+        $countries = template_choices('App\Models\Country');
+        $estates = template_choices('App\Models\Estate');
+        $municipalities = template_choices('App\Models\Municipality');
+        $parishes = template_choices('App\Models\Parish');
+        $cities = template_choices('App\Models\City');
+        $sectors = template_choices('App\Models\InstitutionSector');
+        $types = template_choices('App\Models\InstitutionType');
 
         return view(
             'admin.settings',

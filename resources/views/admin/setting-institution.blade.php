@@ -159,7 +159,7 @@
 									'country_id', 'Pais', []
 								) !!}
 								{!! Form::select('country_id', (isset($countries))?$countries:[], null, [
-									'class' => 'form-control select2', 'placeholder' => 'Seleccione...',
+									'class' => 'form-control select2',
 									'onchange' => 'updateSelect($(this).val(), $("#estate_id"), "Estate")'
 								]) !!}
 								{{-- <i class="fa fa-plus-circle btn-add-record"></i> --}}
@@ -171,8 +171,7 @@
 							<div class="form-group">
 								{!! Form::label('estate_id', 'Estado', []) !!}
 								{!! Form::select('estate_id', (isset($estates))?$estates:[], null, [
-									'class' => 'form-control select2', 'placeholder' => 'Seleccione...',
-									'id' => 'estate_id'
+									'class' => 'form-control select2', 'id' => 'estate_id'
 								]) !!}
 							</div>
 						</div>
@@ -181,7 +180,7 @@
 								{!! Form::label('municipality_id', 'Municipio', []) !!}
 								{!! Form::select(
 									'municipality_id', (isset($municipalities))?$municipalities:[], null, [
-										'class' => 'form-control select2', 'placeholder' => 'Seleccione...'
+										'class' => 'form-control select2'
 									]
 								) !!}
 							</div>
@@ -190,7 +189,7 @@
 							<div class="form-group">
 								{!! Form::label('city_id', 'Ciudad', []) !!}
 								{!! Form::select('city_id', (isset($cities))?$cities:[], null, [
-									'class' => 'form-control select2', 'placeholder' => 'Seleccione...'
+									'class' => 'form-control select2'
 								]) !!}
 							</div>
 						</div>
@@ -200,7 +199,7 @@
 							<div class="form-group">
 								{!! Form::label('parish_id', 'Parroquia', []) !!}
 								{!! Form::select('parish_id', (isset($parishes))?$parishes:[], null, [
-									'class' => 'form-control select2', 'placeholder' => 'Seleccione...'
+									'class' => 'form-control select2'
 								]) !!}
 							</div>
 						</div>
@@ -236,7 +235,7 @@
 								{!! Form::select(
 									'organism_adscript_id', 
 									(isset($organism_adscripts))?$organism_adscripts:[], null, [
-										'class' => 'form-control select2', 'placeholder' => 'Seleccione...'
+										'class' => 'form-control select2'
 									]
 								) !!}
 							</div>
@@ -245,7 +244,7 @@
 							<div class="form-group">
 								{!! Form::label('institution_sector_id', 'Sector', []) !!}
 								{!! Form::select('institution_sector_id', (isset($sectors))?$sectors:[], null, [
-									'class' => 'form-control select2', 'placeholder' => 'Seleccione...'
+									'class' => 'form-control select2'
 								]) !!}
 							</div>
 						</div>
@@ -253,7 +252,7 @@
 							<div class="form-group">
 								{!! Form::label('institution_type_id', 'Tipo', []) !!}
 								{!! Form::select('institution_type_id', (isset($types))?$types:[], null, [
-									'class' => 'form-control select2', 'placeholder' => 'Seleccione...'
+									'class' => 'form-control select2'
 								]) !!}
 							</div>
 						</div>

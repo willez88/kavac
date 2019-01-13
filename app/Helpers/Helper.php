@@ -64,7 +64,7 @@ if (!function_exists('template_choices')) {
 	 * @param  array 		$filters Arreglo con los filtros a ser aplicados en la consulta
 	 * @return array          		 Arreglo con las opciones a mostrar
 	 */
-	function template_choices($model, $fields, $filters)
+	function template_choices($model, $fields = 'name', $filters = [])
 	{
 		$records = $model::all();
         if ($filters) {
@@ -82,7 +82,7 @@ if (!function_exists('template_choices')) {
         		}
         	}
         	else {
-        		$text = $rec->$field;
+        		$text = $rec->$fields;
         	}
             $options[$rec->id] = $text;
         }

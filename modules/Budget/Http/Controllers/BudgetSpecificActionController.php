@@ -50,9 +50,15 @@ class BudgetSpecificActionController extends Controller
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
-        $projects = BudgetProject::template_choices();
-        $centralized_actions = BudgetCentralizedAction::template_choices();
-        return view('budget::specific_actions.create-edit-form', compact('header', 'projects', 'centralized_actions'));
+        $projects = template_choices(
+            'Modules\Budget\Models\BudgetProject', ['code', '-', 'name'], ['active' => true]
+        );
+        $centralized_actions = template_choices(
+            'Modules\Budget\Models\BudgetCentralizedAction', ['code', '-', 'name'], ['active' => true]
+        );
+        return view('budget::specific_actions.create-edit-form', compact(
+            'header', 'projects', 'centralized_actions'
+        ));
     }
 
     /**
@@ -86,8 +92,12 @@ class BudgetSpecificActionController extends Controller
             'role' => 'form'
         ];
         $model = $BudgetSpecificAction;
-        $projects = BudgetProject::template_choices();
-        $centralized_actions = BudgetCentralizedAction::template_choices();
+        $projects = template_choices(
+            'Modules\Budget\Models\BudgetProject', ['code', '-', 'name'], ['active' => true]
+        );
+        $centralized_actions = template_choices(
+            'Modules\Budget\Models\BudgetCentralizedAction', ['code', '-', 'name'], ['active' => true]
+        );
         return view('budget::projects.create-edit-form', compact(
             'header', 'model', 'projects', 'centralized_actions'
         ));

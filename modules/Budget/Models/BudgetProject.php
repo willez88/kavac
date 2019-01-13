@@ -69,26 +69,4 @@ class BudgetProject extends Model implements Auditable
     {
         return $this->morphMany(BudgetSpecificAction::class, 'specificable');
     }
-
-    /**
-     * Construye un arreglo de elementos para usar en plantillas blade
-     *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return [array] Arreglo con los registros
-     */
-    public static function template_choices($filters = [])
-    {
-        $records = self::where('active', true)->get();
-        if ($filters) {
-            foreach ($filters as $key => $value) {
-                $records = $records->where($key, $value);
-            }
-            $records = $records->get();
-        }
-        $options = [];
-        foreach ($records as $rec) {
-            $options[$rec->id] = $rec->code . " - " . $rec->name;
-        }
-        return $options;
-    }
 }

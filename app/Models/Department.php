@@ -95,27 +95,4 @@ class Department extends Model implements Auditable
     {
         return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetCentralizedAction::class):[];
     }
-
-    /**
-     * Construye un arreglo de elementos para usar en plantillas blade
-     *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return [array] Arreglo con los registros
-     */
-    public static function template_choices($filters = [])
-    {
-        $records = self::all();
-        if ($filters) {
-            $records = self::where('active', true);
-            foreach ($filters as $key => $value) {
-                $records = $records->where($key, $value);
-            }
-            $records = $records->get();
-        }
-        $options = [];
-        foreach ($records as $rec) {
-            $options[$rec->id] = $rec->acronym . " - " . $rec->name;
-        }
-        return $options;
-    }
 }

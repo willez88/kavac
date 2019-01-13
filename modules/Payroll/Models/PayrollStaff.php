@@ -69,30 +69,13 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * Construye un arreglo de elementos para usar en plantillas blade
+     * Obtiene el nombre completo de la persona
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
-     * @return [array] Arreglo con los registros
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return string Nombre completo de la persona
      */
-    public static function template_choices($filters = [])
-    {
-        $records = self::all();
-        if ($filters) {
-            $records = self::where('active', true);
-            foreach ($filters as $key => $value) {
-                $records = $records->where($key, $value);
-            }
-            $records = $records->get();
-        }
-        $options = [];
-        foreach ($records as $rec) {
-            $options[$rec->id] = $rec->id_number . " - " . $rec->first_name . " " . $rec->last_name;
-        }
-        return $options;
-    }
-
     public function getFullNameAttribute()
     {
-        return $this->attrubute['first_name'] . " " . $this->attribute['last_name'];
+        return "{$this->first_name} {$this->last_name}";
     }
 }

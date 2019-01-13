@@ -49,7 +49,9 @@ class BudgetAccountController extends Controller
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
-        $budget_accounts = BudgetAccount::template_choices(['subspecific' => '00']);
+        $budget_accounts = template_choices(
+            'Modules\Budget\Models\BudgetAccount', ['code', '-', 'denomination'], ['subspecific' => '00']
+        );
         return view('budget::accounts.create-edit-form', compact('header', 'budget_accounts'));
     }
 
@@ -136,7 +138,9 @@ class BudgetAccountController extends Controller
             'method' => 'PUT', 
             'role' => 'form'
         ];
-        $budget_accounts = BudgetAccount::template_choices(['subspecific' => '00']);
+        $budget_accounts = template_choices(
+            'Modules\Budget\Models\BudgetAccount', ['code', '-', 'denomination'], ['subspecific' => '00']
+        );
         $model = $budgetAccount;
         return view('budget::accounts.create-edit-form', compact('header', 'budget_accounts', 'model'));
     }
@@ -186,7 +190,7 @@ class BudgetAccountController extends Controller
         $budgetAccounts = [];
         foreach (BudgetAccount::all() as $budgetAccount) {
             array_push($budgetAccounts, [
-                'code' => $budgetAccount->getCode(), 'denomination' => $budgetAccount->denomination,
+                'code' => $budgetAccount->code, 'denomination' => $budgetAccount->denomination,
                 'original' => $budgetAccount->original?'SI':'NO', 'id' => $budgetAccount->id
             ]);
         }

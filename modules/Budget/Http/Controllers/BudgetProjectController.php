@@ -52,10 +52,12 @@ class BudgetProjectController extends Controller
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
-        $institutions = Institution::template_choices();
-        $departments = Department::template_choices();
-        $positions = PayrollPosition::template_choices();
-        $staffs = PayrollStaff::template_choices();
+        $institutions = template_choices('App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]);
+        $departments = template_choices('App\Models\Department', ['acronym', '-', 'name'], ['active' => true]);
+        $positions = template_choices('Modules\Payroll\Models\PayrollPosition', 'name');
+        $staffs = template_choices(
+            'Modules\Payroll\Models\PayrollStaff', ['id_number', '-', 'full_name'], ['active' => true]
+        );
         return view('budget::projects.create-edit-form', compact(
             'header', 'institutions', 'departments', 'positions', 'staffs'
         ));
@@ -117,10 +119,12 @@ class BudgetProjectController extends Controller
             'role' => 'form'
         ];
         $model = $budgetProject;
-        $institutions = Institution::template_choices();
-        $departments = Department::template_choices();
-        $positions = PayrollPosition::template_choices();
-        $staffs = PayrollStaff::template_choices();
+        $institutions = template_choices('App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]);
+        $departments = template_choices('App\Models\Department', ['acronym', '-', 'name'], ['active' => true]);
+        $positions = template_choices('Modules\Payroll\Models\PayrollPosition', 'name');
+        $staffs = template_choices(
+            'Modules\Payroll\Models\PayrollStaff', ['id_number', '-', 'full_name'], ['active' => true]
+        );
         return view('budget::projects.create-edit-form', compact(
             'header', 'model', 'institutions', 'departments', 'positions', 'staffs'
         ));

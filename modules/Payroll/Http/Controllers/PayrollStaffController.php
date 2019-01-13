@@ -50,12 +50,14 @@ class PayrollStaffController extends Controller
         $header = [
             'route' => 'staffs.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        $marital_status = MaritalStatus::template_choices();
-        $professions = Profession::template_choices();
-        $countries = Country::template_choices();
-        $estates = Estate::template_choices();
-        $cities = City::template_choices();
-        return view('payroll::staffs.create-edit', compact('header','marital_status','professions','countries','estates','cities'));
+        $marital_status = template_choices('App\Models\MaritalStatus');
+        $professions = template_choices('App\Models\Profession');
+        $countries = template_choices('App\Models\Country');
+        $estates = template_choices('App\Models\Estate');
+        $cities = template_choices('App\Models\City');
+        return view('payroll::staffs.create-edit', compact(
+            'header','marital_status','professions','countries','estates','cities'
+        ));
     }
 
     /**
@@ -127,12 +129,14 @@ class PayrollStaffController extends Controller
         $header = [
             'route' => ['staffs.update', $staff], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        $marital_status = MaritalStatus::template_choices();
-        $professions = Profession::template_choices();
-        $countries = Country::template_choices();
-        $estates = Estate::template_choices();
-        $cities = City::template_choices();
-        return view('payroll::staffs.create-edit', compact('staff','header','marital_status','professions','countries','estates','cities'));
+        $marital_status = template_choices('App\Models\MaritalStatus');
+        $professions = template_choices('App\Models\Profession');
+        $countries = template_choices('App\Models\Country');
+        $estates = template_choices('App\Models\Estate');
+        $cities = template_choices('App\Models\City');
+        return view('payroll::staffs.create-edit', compact(
+            'staff','header','marital_status','professions','countries','estates','cities'
+        ));
     }
 
     /**
