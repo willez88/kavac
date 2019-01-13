@@ -32,4 +32,14 @@ class BudgetSpecificAction extends Model implements Auditable
     {
         return $this->morphTo();
     }
+
+    /**
+     * BudgetSpecificAction has many BudgetSubSpecificFormulation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sub_specific_formulations()
+    {
+        return $this->hasMany(BudgetSubSpecificFormulation::class);
+    }
 }

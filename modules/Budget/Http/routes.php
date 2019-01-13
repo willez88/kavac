@@ -49,4 +49,11 @@ Route::group([
     ]);
     Route::get('specific-actions/vue-list', 'BudgetSpecificActionController@vueList')
          ->name('budget.specific-actions.vuelist');
+
+    /** Rutas para la gestión de formulación por subespecifica */
+    Route::resource('subspecific-formulations', 'BudgetSubSpecificFormulationController', [
+        'as' => 'budget', 'except' => ['index', 'show']
+    ]);
+    Route::get('subspecific-formulations/vue-list', 'BudgetSubSpecificFormulationController@vueList')
+         ->name('budget.subspecific-formulations.vuelist');
 });
