@@ -53,3 +53,39 @@ if (! function_exists('generate_registration_code')) {
 		return "{$prefix}-{$newCode}-{$year}";
 	}
 }
+
+if (!function_exists('template_choices')) {
+	/**
+	 * Construye un arreglo de elementos para usar en plantillas blade
+	 *
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  string 		$model   Nombre de la clase del modelo al cual generar el listado de opciones
+	 * @param  string|array $fields  Campo(s) a utilizar para mostrar en el listado de opciones
+	 * @param  array 		$filters Arreglo con los filtros a ser aplicados en la consulta
+	 * @return array          		 Arreglo con las opciones a mostrar
+	 */
+	function template_choices($model, $fields, $filters)
+	{
+		$records = $model::all();
+        if ($filters) {
+            foreach ($filters as $key => $value) {
+                $records = $records->where($key, $value);
+            }
+            //$records = $records->get();
+        }
+        $options = ['' => 'Seleccione...'];
+        foreach ($records as $rec) {
+        	if (is_array($fields)) {
+        		$text = '';
+        		foreach ($fields as $field) {
+        			$text .= ($field !== "-") ? $rec->$field : " {$field} ";
+        		}
+        	}
+        	else {
+        		$text = $rec->$field;
+        	}
+            $options[$rec->id] = $text;
+        }
+        return $options;
+	}
+}
