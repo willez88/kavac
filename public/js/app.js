@@ -79161,25 +79161,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			records: [],
-			columns: ['code', 'name', 'id']
+			columns: ['code', 'name', 'specificable_type', 'id']
 		};
 	},
 	created: function created() {
 		this.table_options.headings = {
 			'code': 'Código',
 			'name': 'Acción Específica',
+			'specificable_type': 'Proyecto / Acc. Centralizada',
 			'id': 'Acción'
 		};
-		this.table_options.sortable = ['code', 'name'];
-		this.table_options.filterable = ['code', 'name'];
+		this.table_options.sortable = ['code', 'name', 'specificable_type'];
+		this.table_options.filterable = ['code', 'name', 'specificable_type'];
 		this.table_options.columnsClasses = {
 			'code': 'col-md-2',
-			'name': 'col-md-8',
+			'name': 'col-md-5',
+			'specificable_type': 'col-md-3',
 			'id': 'col-md-2'
 		};
 	},
@@ -79253,6 +79259,17 @@ var render = function() {
               },
               [_c("i", { staticClass: "fa fa-trash-o" })]
             )
+          ])
+        }
+      },
+      {
+        key: "specificable_type",
+        fn: function(props) {
+          return _c("div", {}, [
+            props.row.specificable_type ==
+            "Modules\\Budget\\Models\\BudgetProject"
+              ? _c("span", [_vm._v("Proyecto")])
+              : _c("span", [_vm._v("Acción Centralizada")])
           ])
         }
       }

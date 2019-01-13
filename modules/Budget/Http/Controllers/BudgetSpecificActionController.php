@@ -68,6 +68,35 @@ class BudgetSpecificActionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'from_date' => 'required|date',
+            'to_date' => 'required|date',
+            'code' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'project_centralized_action' => 'required',
+            'project_id' => 'required_if:project_centralized_action,project',
+            'centralized_action_id' => 'required_if:project_centralized_action,centralized_action',
+        ]);
+
+        $budgetSpecificAction = new BudgetSpecificAction([
+            'from_date' => $request->from_date,
+            'to_date' => $request->to_date,
+            'code' => $request->code,
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        if ($request->project_centralized_action === "project") {
+            $pry_acc = BudgetProject::find($request->project_id);
+        }
+        elseif ($request->project_centralized_action === "centralized_action") {
+            $pry_acc = BudgetCentralizedAction::find($request->centralized_action_id);
+        }
+        $pry_acc->specific_actions()->save($budgetSpecificAction);
+
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('budget.settings.index');
     }
 
     /**
@@ -98,7 +127,7 @@ class BudgetSpecificActionController extends Controller
         $centralized_actions = template_choices(
             'Modules\Budget\Models\BudgetCentralizedAction', ['code', '-', 'name'], ['active' => true]
         );
-        return view('budget::projects.create-edit-form', compact(
+        return view('budget::specific_actions.create-edit-form', compact(
             'header', 'model', 'projects', 'centralized_actions'
         ));
     }
@@ -108,8 +137,35 @@ class BudgetSpecificActionController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'from_date' => 'required|date',
+            'to_date' => 'required|date',
+            'code' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'project_centralized_action' => 'required',
+            'project_id' => 'required_if:project_centralized_action,project',
+            'centralized_action_id' => 'required_if:project_centralized_action,centralized_action',
+        ]);
+
+        if ($request->project_centralized_action === "project") {
+            $pry_acc = BudgetProject::find($request->project_id);
+            $specificable_type = "Modules\Budget\Models\BudgetProject";
+        }
+        elseif ($request->project_centralized_action === "centralized_action") {
+            $pry_acc = BudgetCentralizedAction::find($request->centralized_action_id);
+            $specificable_type = "Modules\Budget\Models\BudgetCentralizedAction";
+        }
+        $budgetSpecificAction = BudgetSpecificAction::find($id);
+        $budgetSpecificAction->fill($request->all());
+        $budgetSpecificAction->specificable_type = $specificable_type;
+        $budgetSpecificAction->specificable_id = $pry_acc->id;
+        $budgetSpecificAction->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return redirect()->route('budget.settings.index');
     }
 
     /**

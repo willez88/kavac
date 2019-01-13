@@ -34,7 +34,7 @@
 						@include('layouts.form-errors')
 						<div class="row">
 							<div class="col-3">
-								<div class="form-group">
+								<div class="form-group is-required">
 									{!! Form::label('institution_id', 'Institución', ['class' => 'control-label']) !!}
 									{!! Form::select('institution_id', $institutions, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip',
@@ -43,7 +43,7 @@
 								</div>
 							</div>
 							<div class="col-3">
-								<div class="form-group">
+								<div class="form-group is-required">
 									{!! Form::label('department_id', 'Dependencia', ['class' => 'control-label']) !!}
 									{!! Form::select('department_id', $departments, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip',
@@ -52,7 +52,7 @@
 								</div>
 							</div>
 							<div class="col-3">
-								<div class="form-group">
+								<div class="form-group is-required">
 									{!! Form::label('payroll_position_id', 'Cargo de Responsable', [
 										'class' => 'control-label'
 									]) !!}
@@ -63,7 +63,7 @@
 								</div>
 							</div>
 							<div class="col-3">
-								<div class="form-group">
+								<div class="form-group is-required">
 									{!! Form::label('payroll_staff_id', 'Responsable', ['class' => 'control-label']) !!}
 									{!! Form::select('payroll_staff_id', $staffs, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip',
@@ -74,7 +74,7 @@
 						</div>
 						<div class="row">
 							<div class="col-3">
-								<div class="form-group">
+								<div class="form-group is-required">
 									{!! Form::label('custom_date', 'Fecha de creación', ['class' => 'control-label']) !!}
 									{!! Form::date('custom_date', old('custom_date'), [
 										'class' => 'form-control', 'placeholder' => 'dd/mm/YY',
@@ -84,7 +84,7 @@
 								</div>
 							</div>
 							<div class="col-3">
-								<div class="form-group">
+								<div class="form-group is-required">
 									{!! Form::label('code', 'Código', ['class' => 'control-label']) !!}
 									{!! Form::text('code', old('code'), [
 										'class' => 'form-control', 'placeholder' => 'Código de proyecto',
@@ -93,7 +93,7 @@
 								</div>
 							</div>
 							<div class="col-6">
-								<div class="form-group">
+								<div class="form-group is-required">
 									{!! Form::label('name', 'Nombre', ['class' => 'control-label']) !!}
 									{!! Form::text('name', old('name'), [
 										'class' => 'form-control', 'placeholder' => 'Nombre del proyecto',

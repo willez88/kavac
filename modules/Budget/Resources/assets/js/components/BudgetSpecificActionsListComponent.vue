@@ -13,6 +13,10 @@
 				<i class="fa fa-trash-o"></i>
 			</button>
 		</div>
+		<div slot="specificable_type" slot-scope="props">
+			<span v-if="props.row.specificable_type=='Modules\\Budget\\Models\\BudgetProject'">Proyecto</span>
+			<span v-else>Acción Centralizada</span>
+		</div>
 	</v-client-table>
 </template>
 
@@ -21,20 +25,22 @@
 		data() {
 			return {
 				records: [],
-				columns: ['code', 'name', 'id']
+				columns: ['code', 'name', 'specificable_type', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
 				'code': 'Código',
 				'name': 'Acción Específica',
+				'specificable_type': 'Proyecto / Acc. Centralizada',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['code', 'name'];
-			this.table_options.filterable = ['code', 'name'];
+			this.table_options.sortable = ['code', 'name', 'specificable_type'];
+			this.table_options.filterable = ['code', 'name', 'specificable_type'];
 			this.table_options.columnsClasses = {
 				'code': 'col-md-2',
-				'name': 'col-md-8',
+				'name': 'col-md-5',
+				'specificable_type': 'col-md-3',
 				'id': 'col-md-2'
 			};
 		},
