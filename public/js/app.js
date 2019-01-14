@@ -79379,7 +79379,7 @@ exports = module.exports = __webpack_require__(44)(false);
 
 
 // module
-exports.push([module.i, "\n.table-formulation {\n\tfont-size: .58rem;\n}\n.table-formulation .form-control {\n\tborder-radius:.25rem !important;\n\tpadding: .375rem .1rem;\n    font-size: .6rem;\n    text-align: right;\n}\n.table-formulation tbody tr.disable-row {\n\tbackground-color: #d1d1d1;\n}\n.btn-import {\n\tfont-size: .639rem;\n\tfont-weight: bold;\n}\n", ""]);
+exports.push([module.i, "\n.table-formulation {\n\tfont-size: .58rem;\n}\n.table-formulation .form-control {\n\tborder-radius:.25rem !important;\n\tpadding: .375rem .1rem;\n    font-size: .6rem;\n    text-align: right;\n}\n.table-formulation tbody tr.disable-row {\n\tbackground-color: #d1d1d1;\n}\n.table-formulation tbody tr td.td-with-border {\n\tborder-right: 1px solid #d1d1d1;\n\tborder-left: 1px solid #d1d1d1;\n}\n.btn-import {\n\tfont-size: .639rem;\n\tfont-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -79390,6 +79390,16 @@ exports.push([module.i, "\n.table-formulation {\n\tfont-size: .58rem;\n}\n.table
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -79712,7 +79722,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(account.denomination))]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79732,7 +79742,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79752,7 +79762,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79772,7 +79782,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79792,7 +79802,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79812,7 +79822,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79832,7 +79842,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79852,7 +79862,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79872,7 +79882,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79892,7 +79902,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79912,7 +79922,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79932,7 +79942,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79952,7 +79962,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79972,7 +79982,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -79992,7 +80002,7 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c("td", { staticClass: "td-with-border" }, [
                   _c("input", {
                     directives: [
                       {
@@ -80094,7 +80104,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-3" }, [
+      _c("div", { staticClass: "col-6" }, [
         _c("label", { attrs: { for: "" } }, [
           _c("input", {
             staticClass: "form-control bootstrap-switch bootstrap-switch-mini",
@@ -80107,10 +80117,14 @@ var staticRenderFns = [
             }
           }),
           _vm._v("\n\t\t\t\t\tProyecto\n\t\t\t\t")
+        ]),
+        _vm._v(" "),
+        _c("select", { staticClass: "select2", attrs: { name: "", id: "" } }, [
+          _c("option", { attrs: { value: "" } })
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-3" }, [
+      _c("div", { staticClass: "col-6" }, [
         _c("label", { attrs: { for: "" } }, [
           _c("input", {
             staticClass: "form-control bootstrap-switch bootstrap-switch-mini",
@@ -80123,6 +80137,10 @@ var staticRenderFns = [
             }
           }),
           _vm._v("\n\t\t\t\t\tAcción Centralizada\n\t\t\t\t")
+        ]),
+        _vm._v(" "),
+        _c("select", { staticClass: "select2", attrs: { name: "", id: "" } }, [
+          _c("option", { attrs: { value: "" } })
         ])
       ])
     ])

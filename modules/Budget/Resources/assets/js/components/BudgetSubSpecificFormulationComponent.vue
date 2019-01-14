@@ -26,21 +26,27 @@
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-3">
+				<div class="col-6">
 					<label for="">
 						<input type="radio" name="project_centralized_action" value="project" 
 							   class="form-control bootstrap-switch bootstrap-switch-mini" 
 							   data-on-label="SI" data-off-label="NO">
 						Proyecto
 					</label>
+					<select name="" id="" class="select2">
+						<option value=""></option>
+					</select>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<label for="">
 						<input type="radio" name="project_centralized_action" value="project" 
 							   class="form-control bootstrap-switch bootstrap-switch-mini" 
 							   data-on-label="SI" data-off-label="NO">
 						Acción Centralizada
 					</label>
+					<select name="" id="" class="select2">
+						<option value=""></option>
+					</select>
 				</div>
 			</div>
 			<div class="row">
@@ -101,77 +107,77 @@
 							{{ account.code }}
 						</td>
 						<td>{{ account.denomination }}</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00" :readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00" :readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
 						</td>
-						<td>
+						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
 							       value="0.00":readonly="(account.specific==='00')" 
 							       v-show="(account.specific==='00')">
@@ -209,6 +215,10 @@
 	}
 	.table-formulation tbody tr.disable-row {
 		background-color: #d1d1d1;
+	}
+	.table-formulation tbody tr td.td-with-border {
+		border-right: 1px solid #d1d1d1;
+		border-left: 1px solid #d1d1d1;
 	}
 	.btn-import {
 		font-size: .639rem;
