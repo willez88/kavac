@@ -79379,7 +79379,7 @@ exports = module.exports = __webpack_require__(44)(false);
 
 
 // module
-exports.push([module.i, "\n.table-formulation, .td-code .btn {\n\tfont-size: .58rem;\n}\n.table-formulation .form-control {\n\tborder-radius:.25rem !important;\n\tpadding: .375rem .1rem;\n    font-size: .6rem;\n    text-align: right;\n}\n.table-formulation tbody tr.disable-row {\n\tbackground-color: #d1d1d1;\n}\n.td-code .btn {\n\tbackground-color: #FFFFFF;\n\tcolor: #636E7B;\n}\n.td-code .btn, .td-code span {\n\tpadding: 5px !important;\n}\n", ""]);
+exports.push([module.i, "\n.table-formulation {\n\tfont-size: .58rem;\n}\n.table-formulation .form-control {\n\tborder-radius:.25rem !important;\n\tpadding: .375rem .1rem;\n    font-size: .6rem;\n    text-align: right;\n}\n.table-formulation tbody tr.disable-row {\n\tbackground-color: #d1d1d1;\n}\n.btn-import {\n\tfont-size: .639rem;\n\tfont-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -79390,6 +79390,17 @@ exports.push([module.i, "\n.table-formulation, .td-code .btn {\n\tfont-size: .58
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -79611,7 +79622,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		reset: function reset() {}
+		reset: function reset() {},
+		showAccountInputs: function showAccountInputs(account_id) {
+			var add_account = $("#add_account_" + account_id);
+			var input_row = $(".input_" + account_id);
+
+			if (add_account.hasClass('fa-eye')) {
+				add_account.removeClass('fa-eye');
+				add_account.addClass('fa-eye-slash');
+				add_account.removeClass('text-blue');
+				add_account.addClass('text-red');
+				input_row.show();
+			} else if (add_account.hasClass('fa-eye-slash')) {
+				add_account.addClass('fa-eye');
+				add_account.removeClass('fa-eye-slash');
+				add_account.addClass('text-blue');
+				add_account.removeClass('text-red');
+				input_row.hide();
+			}
+		}
 	},
 	mounted: function mounted() {
 		this.initRecords('/budget/accounts/egress-list', '');
@@ -79650,30 +79679,51 @@ var render = function() {
               "tr",
               { class: account.specific === "00" ? "disable-row" : "" },
               [
-                _c("td", { staticClass: "td-code" }, [
-                  account.specific !== "00"
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
+                _c("td", [
+                  account.specific === "00"
+                    ? _c("i", {
+                        staticClass: "fa fa-ban text-white",
+                        attrs: {
+                          title: "Elemento bloqueado, de solo lectura",
+                          "data-toggle": "tooltip"
+                        }
+                      })
+                    : _c("i", {
+                        staticClass: "fa fa-eye text-blue cursor-pointer",
+                        attrs: {
+                          title:
+                            "Pulse para agregar esta cuenta presupuestaria a la formulación",
+                          "data-toggle": "tooltip",
+                          id: "add_account_" + account.id
                         },
-                        [
-                          _vm._v(
-                            "\n\t\t\t\t\t\t\t" +
-                              _vm._s(account.code) +
-                              "\n\t\t\t\t\t\t"
-                          )
-                        ]
-                      )
-                    : _c("span", [_vm._v(_vm._s(account.code))])
+                        on: {
+                          click: function($event) {
+                            _vm.showAccountInputs(account.id)
+                          }
+                        }
+                      })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-code" }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t\t" + _vm._s(account.code) + "\n\t\t\t\t\t"
+                  )
                 ]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(account.denomination))]),
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79684,7 +79734,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79695,7 +79754,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79706,7 +79774,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79717,7 +79794,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79728,7 +79814,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79739,7 +79834,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79750,7 +79854,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79761,7 +79874,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79772,7 +79894,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79783,7 +79914,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79794,7 +79934,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79805,7 +79954,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79816,7 +79974,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79827,7 +79994,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.specific === "00",
+                        expression: "(account.specific==='00')"
+                      }
+                    ],
                     staticClass: "form-control input-sm",
+                    class: "input_" + account.id,
                     attrs: {
                       type: "text",
                       value: "0.00",
@@ -79956,19 +80132,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-6" }, [
+      _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
             _vm._v("Acción Específica")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-            _vm._v("Denominación")
-          ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            { staticClass: "select2", attrs: { name: "", id: "" } },
+            [_c("option", { attrs: { value: "" } })]
+          )
         ])
       ])
     ])
@@ -79978,20 +80152,24 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            { staticClass: "select2", attrs: { name: "", id: "" } },
-            [_c("option", { attrs: { value: "" } })]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } })
-        ])
+      _c("div", { staticClass: "col-4 offset-md-8" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "btn btn-sm btn-success btn-import text-uppercase float-right",
+            attrs: {
+              type: "button",
+              title:
+                "Presione para importar la información a partir de un archivo .csv",
+              "data-toggle": "tooltip"
+            }
+          },
+          [
+            _c("i", { staticClass: "fa fa-file-excel-o" }),
+            _vm._v("\n\t\t\t\t\tImportar CSV\n\t\t\t\t")
+          ]
+        )
       ])
     ])
   },
@@ -80001,6 +80179,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th"),
+        _vm._v(" "),
         _c("th", { staticClass: "text-uppercase" }, [_vm._v("Código")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-uppercase" }, [_vm._v("Denominación")]),

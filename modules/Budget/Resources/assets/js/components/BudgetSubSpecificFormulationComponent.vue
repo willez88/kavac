@@ -44,35 +44,30 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-6">
+				<div class="col-12">
 					<div class="form-group">
 						<label for="" class="control-label">Acción Específica</label>
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="form-group">
-						<label for="" class="control-label">Denominación</label>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-6">
-					<div class="form-group">
 						<select name="" id="" class="select2">
 							<option value=""></option>
 						</select>
 					</div>
 				</div>
-				<div class="col-6">
-					<div class="form-group">
-						<label for=""></label>
-					</div>
+			</div>
+			<div class="row">
+				<div class="col-4 offset-md-8">
+					<button type="button" class="btn btn-sm btn-success btn-import text-uppercase float-right" 
+							title="Presione para importar la información a partir de un archivo .csv" 
+							data-toggle="tooltip">
+						<i class="fa fa-file-excel-o"></i>
+						Importar CSV
+					</button>
 				</div>
 			</div>
 			<!-- Tabla para la formulación del presupuesto -->
 			<table class="table table-formulation">
 				<thead>
 					<tr>
+						<th></th>
 						<th class="text-uppercase">Código</th>
 						<th class="text-uppercase">Denominación</th>
 						<th class="text-uppercase">Real</th>
@@ -94,73 +89,92 @@
 				</thead>
 				<tbody>
 					<tr v-for="account in records" :class="(account.specific==='00')?'disable-row':''">
+						<td>
+							<i class="fa fa-ban text-white" v-if="(account.specific==='00')" 
+							   title="Elemento bloqueado, de solo lectura" data-toggle="tooltip"></i>
+							<i class="fa fa-eye text-blue cursor-pointer" v-else 
+							   title="Pulse para agregar esta cuenta presupuestaria a la formulación" 
+							   data-toggle="tooltip" @click="showAccountInputs(account.id)" 
+							   :id="'add_account_'+account.id"></i>
+						</td>
 						<td class="td-code">
-							<button type="button" class="btn btn-default btn-sm" 
-									v-if="account.specific!=='00'">
-								{{ account.code }}
-							</button>
-							<span v-else>{{ account.code }}</span>
+							{{ account.code }}
 						</td>
 						<td>{{ account.denomination }}</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00" 
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00" :readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00" 
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00" :readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 						<td>
-							<input type="text" class="form-control input-sm" value="0.00"
-								   :readonly="(account.specific==='00')">
+							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
+							       value="0.00":readonly="(account.specific==='00')" 
+							       v-show="(account.specific==='00')">
 						</td>
 					</tr>
 				</tbody>
@@ -184,7 +198,7 @@
 </template>
 
 <style>
-	.table-formulation, .td-code .btn {
+	.table-formulation {
 		font-size: .58rem;
 	}
 	.table-formulation .form-control {
@@ -196,12 +210,9 @@
 	.table-formulation tbody tr.disable-row {
 		background-color: #d1d1d1;
 	}
-	.td-code .btn {
-		background-color: #FFFFFF;
-		color: #636E7B;
-	}
-	.td-code .btn, .td-code span {
-		padding: 5px !important;
+	.btn-import {
+		font-size: .639rem;
+		font-weight: bold;
 	}
 </style>
 
@@ -221,6 +232,25 @@
 			reset: function() {
 
 			},
+			showAccountInputs: function(account_id) {
+				let add_account = $("#add_account_" + account_id);
+				let input_row = $(".input_" + account_id);
+				
+				if (add_account.hasClass('fa-eye')) {
+					add_account.removeClass('fa-eye');
+					add_account.addClass('fa-eye-slash');
+					add_account.removeClass('text-blue');
+					add_account.addClass('text-red')
+					input_row.show();
+				}
+				else if (add_account.hasClass('fa-eye-slash')) {
+					add_account.addClass('fa-eye');
+					add_account.removeClass('fa-eye-slash');
+					add_account.addClass('text-blue')
+					add_account.removeClass('text-red');
+					input_row.hide();
+				}
+			}
 		},
 		mounted() {
 			this.initRecords('/budget/accounts/egress-list', '');
