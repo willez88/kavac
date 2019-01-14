@@ -34,6 +34,16 @@ class BudgetAccount extends Model implements Auditable
     ];
 
     /**
+     * BudgetAccount has many BudgetAccountOpen.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function account_opens()
+    {
+        return $this->hasMany(BudgetAccountOpen::class);
+    }
+
+    /**
      * Método que permite obtener la cuenta asociada de nivel superior
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>

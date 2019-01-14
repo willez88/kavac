@@ -34,4 +34,14 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     {
     	return $this->belongsTo(BudgetSpecificAction::class);
     }
+
+    /**
+     * BudgetSubSpecificFormulation has many BudgetAccountOpen.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function account_opens()
+    {
+        return $this->hasMany(BudgetAccountOpen::class);
+    }
 }

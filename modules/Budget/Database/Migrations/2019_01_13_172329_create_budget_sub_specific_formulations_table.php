@@ -17,6 +17,9 @@ class CreateBudgetSubSpecificFormulationsTable extends Migration
             Schema::create('budget_sub_specific_formulations', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('year', 4)->comment('Año de formulación');
+                $table->float('total_formulated', 30, 10)->comment('Monto total formulado');
+                $table->boolean('assigned')->default(false)
+                      ->comment('Establece si la formulación fue asignada para su ejecución');
                 $table->integer('budget_specific_action_id')->unsigned()
                       ->comment('Identificador asociado a la acción específica de la formulación');
                 $table->timestamps();
