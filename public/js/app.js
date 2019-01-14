@@ -79618,6 +79618,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -80089,7 +80101,25 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "form-group is-required" }, [
+          _c(
+            "select",
+            { staticClass: "select2", attrs: { name: "", id: "" } },
+            [_c("option", { attrs: { value: "" } }, [_vm._v("Seleccione...")])]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-2" }, [
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+            _vm._v("Moneda")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "form-group is-required" }, [
           _c(
             "select",
             { staticClass: "select2", attrs: { name: "", id: "" } },
@@ -80151,7 +80181,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "form-group is-required" }, [
           _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
             _vm._v("Acción Específica")
           ]),

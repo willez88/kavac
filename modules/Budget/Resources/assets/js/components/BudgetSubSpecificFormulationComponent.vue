@@ -17,7 +17,19 @@
 					</div>
 				</div>
 				<div class="col-4">
+					<div class="form-group is-required">
+						<select name="" id="" class="select2">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-2">
 					<div class="form-group">
+						<label for="" class="control-label">Moneda</label>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="form-group is-required">
 						<select name="" id="" class="select2">
 							<option value="">Seleccione...</option>
 						</select>
@@ -51,7 +63,7 @@
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<div class="form-group">
+					<div class="form-group is-required">
 						<label for="" class="control-label">Acción Específica</label>
 						<select name="" id="" class="select2">
 							<option value=""></option>
