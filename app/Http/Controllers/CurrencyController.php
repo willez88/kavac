@@ -125,4 +125,25 @@ class CurrencyController extends Controller
         $currency->delete();
         return response()->json(['record' => $currency, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Obtiene las monedas registradas
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la moneda a buscar, este parámetro es opcional
+     * @return JSON        JSON con los datos de las monedas
+     */
+    public function getCurrencies($id = null)
+    {
+        $data = [];
+        $currencies = ($id) ? Currency::where('id', $id)->get() : Currency::all();
+        foreach ($currencies as $currency) {
+            array_push($data, [
+                'id' => $currency->id,
+                'text' => $currency->symbol . " - " . $currency->name
+            ]);
+        }
+
+        return response()->json($data);
+    }
 }

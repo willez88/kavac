@@ -131,7 +131,16 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('get-select-data/{parent_id}/{model}/{module_name}', 'CommonController@getSelectData');
 
     /** Ruta para obtener datos de los departamentos */
-    Route::get('/get-departments/{institution_id}', 'DepartmentController@getDepartments');
+    Route::get('/get-departments/{institution_id}', 'DepartmentController@getDepartments')
+         ->name('get-departments');
+
+    /** Ruta para obtener datos de instituciones */
+    Route::get('/get-institutions/{institution_id?}', 'InstitutionController@getInstitutions')
+         ->name('get-institutions');
+
+    /** Ruta para obtener datos de monedas */
+    Route::get('/get-currencies/{currency_id?}', 'CurrencyController@getCurrencies')
+         ->name('get-currencies');
 });
 
 /**

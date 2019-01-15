@@ -409,7 +409,31 @@ Vue.mixin({
 					this.cities = response.data;
 				});
 			}
-		}
+		},
+		/**
+		 * Obtiene un arreglo con las instituciones registradas
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {integer} id Identificador de la institución a buscar, este parámetro es opcional
+		 */
+		getInstitutions(id) {
+			var institution_id = (typeof(id)!=="undefined")?'/'+id:'';
+			axios.get('/get-institutions' + institution_id).then(response => {
+				this.institutions = response.data;
+			});
+		},
+		/**
+		 * Obtiene un arreglo con las monedas registradas
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {integer} id Identificador de la moneda a buscar, este parámetro es opcional
+		 */
+		getCurrencies(id) {
+			var currency_id = (typeof(id)!=="undefined")?'/'+id:'';
+			axios.get('/get-currencies' + currency_id).then(response => {
+				this.currencies = response.data;
+			});
+		},
 		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
 			var target_url = (typeof(target_url) !== "undefined")?target_url:false;

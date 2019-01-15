@@ -35016,17 +35016,37 @@ Vue.mixin({
 					_this9.cities = response.data;
 				});
 			}
-		}
-		/*loadRelationalSelect(parent_id, target_url) {
-  	var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
-  	var target_url = (typeof(target_url) !== "undefined")?target_url:false;
-  		if (parent_id) {
-  		axios.get('/' + target_url + '/' + parent_id).then(response => {
-  			this.estates = response.data;
-  		});
-  	}
-  }*/
+		},
 
+		/**
+   * Obtiene un arreglo con las instituciones registradas
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {integer} id Identificador de la institución a buscar, este parámetro es opcional
+   */
+		getInstitutions: function getInstitutions(id) {
+			var _this10 = this;
+
+			var institution_id = typeof id !== "undefined" ? '/' + id : '';
+			axios.get('/get-institutions' + institution_id).then(function (response) {
+				_this10.institutions = response.data;
+			});
+		},
+
+		/**
+   * Obtiene un arreglo con las monedas registradas
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {integer} id Identificador de la moneda a buscar, este parámetro es opcional
+   */
+		getCurrencies: function getCurrencies(id) {
+			var _this11 = this;
+
+			var currency_id = typeof id !== "undefined" ? '/' + id : '';
+			axios.get('/get-currencies' + currency_id).then(function (response) {
+				_this11.currencies = response.data;
+			});
+		}
 	},
 	mounted: function mounted() {
 		$('.bootstrap-switch').on('change', function () {
@@ -79624,27 +79644,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			record: {
 				year: '',
+				institution_id: '',
+				currency_id: '',
+				project_id: '',
+				centralized_action_id: '',
 				specific_action_id: ''
 			},
 			errors: [],
-			records: []
+			records: [],
+			institutions: [],
+			currencies: [],
+			projects: [],
+			centralized_actions: [],
+			specific_actions: []
 		};
 	},
 
 	methods: {
+		/**
+   * Reinicia los valores de los elementos del formulario
+   *
+   * @author  In- Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @return {[type]} [description]
+   */
 		reset: function reset() {},
+		/**
+   * Muestra u oculta los campos de texto para ingresar información sobre los montos 
+   * a formular para una cuenta presupuestaria
+   *
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {integer} account_id Identificador de la cuenta presupuestaria
+   */
 		showAccountInputs: function showAccountInputs(account_id) {
 			var add_account = $("#add_account_" + account_id);
 			var input_row = $(".input_" + account_id);
@@ -79662,10 +79698,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				add_account.removeClass('text-red');
 				input_row.hide();
 			}
+		},
+		/**
+   * Obtiene un arreglo con los proyectos
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {integer} id Identificador del proyecto a buscar, este parámetro es opcional
+   */
+		getProjects: function getProjects(id) {
+			var _this = this;
+
+			var project_id = typeof id !== "undefined" ? '/' + id : '';
+			axios.get('/budget/get-projects' + project_id).then(function (response) {
+				_this.projects = response.data;
+			});
+		},
+
+		/**
+   * Obtiene un arreglo con las acciones centralizadas
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {integer} id Identificador de la acción centralizada a buscar, este parámetro es opcional
+   */
+		getCentralizedActions: function getCentralizedActions(id) {
+			var _this2 = this;
+
+			var centralized_action_id = typeof id !== "undefined" ? '/' + id : '';
+			axios.get('/budget/get-centralized-actions' + centralized_action_id).then(function (response) {
+				_this2.centralized_actions = response.data;
+			});
+		},
+
+		/**
+   * Obtiene las Acciones Específicas
+   * 
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @param {string} type Tipo de registro
+   */
+		getSpecificActions: function getSpecificActions(type) {
+			var _this3 = this;
+
+			var id = type === 'Project' ? this.record.project_id : this.record.centralized_action_id;
+
+			this.specific_actions = [];
+
+			if (id) {
+				axios.get('/budget/get-specific-actions/' + type + "/" + id).then(function (response) {
+					_this3.specific_actions = response.data;
+				});
+			}
+
+			var len = this.specific_actions.length;
+			$("#specific_action_id").attr('disabled', len == 0);
 		}
 	},
 	mounted: function mounted() {
 		this.initRecords('/budget/accounts/egress-list', '');
+		this.getInstitutions();
+		this.getCurrencies();
+		this.getProjects();
+		this.getCentralizedActions();
+
+		$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function (e) {
+			$('#project_id').attr('disabled', e.target.id !== "sel_project");
+			$('#centralized_action_id').attr('disabled', e.target.id !== "sel_centralized_action");
+
+			if (e.target.id === "sel_project") {
+				$("#centralized_action_id").closest('.form-group').removeClass('is-required');
+				$("#project_id").closest('.form-group').addClass('is-required');
+			} else if (e.target.id === "sel_centralized_action") {
+				$("#centralized_action_id").closest('.form-group').addClass('is-required');
+				$("#project_id").closest('.form-group').removeClass('is-required');
+			}
+		});
 	}
 });
 
@@ -79681,18 +79786,146 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _vm._m(1),
+      _c("div", { staticClass: "row" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-4" }, [
+          _c(
+            "div",
+            { staticClass: "form-group is-required" },
+            [
+              _c("select2", {
+                attrs: { options: _vm.institutions },
+                model: {
+                  value: _vm.record.institution_id,
+                  callback: function($$v) {
+                    _vm.$set(_vm.record, "institution_id", $$v)
+                  },
+                  expression: "record.institution_id"
+                }
+              })
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-4" }, [
+          _c(
+            "div",
+            { staticClass: "form-group is-required" },
+            [
+              _c("select2", {
+                attrs: { options: _vm.currencies },
+                model: {
+                  value: _vm.record.currency_id,
+                  callback: function($$v) {
+                    _vm.$set(_vm.record, "currency_id", $$v)
+                  },
+                  expression: "record.currency_id"
+                }
+              })
+            ],
+            1
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _vm._m(2),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-6" },
+          [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("select2", {
+              attrs: { options: _vm.projects, id: "project_id", disabled: "" },
+              on: {
+                input: function($event) {
+                  _vm.getSpecificActions("Project")
+                }
+              },
+              model: {
+                value: _vm.record.project_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.record, "project_id", $$v)
+                },
+                expression: "record.project_id"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-6" },
+          [
+            _vm._m(4),
+            _vm._v(" "),
+            _c("select2", {
+              attrs: {
+                options: _vm.centralized_actions,
+                id: "centralized_action_id",
+                disabled: ""
+              },
+              on: {
+                input: function($event) {
+                  _vm.getSpecificActions("CentralizedAction")
+                }
+              },
+              model: {
+                value: _vm.record.centralized_action_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.record, "centralized_action_id", $$v)
+                },
+                expression: "record.centralized_action_id"
+              }
+            })
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
-      _vm._m(3),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c(
+            "div",
+            { staticClass: "form-group is-required" },
+            [
+              _c(
+                "label",
+                { staticClass: "control-label", attrs: { for: "" } },
+                [_vm._v("Acción Específica")]
+              ),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: {
+                  options: _vm.specific_actions,
+                  id: "specific_action_id",
+                  disabled: ""
+                },
+                model: {
+                  value: _vm.record.specific_action_id,
+                  callback: function($$v) {
+                    _vm.$set(_vm.record, "specific_action_id", $$v)
+                  },
+                  expression: "record.specific_action_id"
+                }
+              })
+            ],
+            1
+          )
+        ])
+      ]),
       _vm._v(" "),
-      _vm._m(4),
+      _vm._m(5),
       _vm._v(" "),
       _c("table", { staticClass: "table table-formulation" }, [
-        _vm._m(5),
+        _vm._m(6),
         _vm._v(" "),
         _c(
           "tbody",
@@ -80041,9 +80274,9 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-right" }, [
-      _vm._m(6),
-      _vm._v(" "),
       _vm._m(7),
+      _vm._v(" "),
+      _vm._m(8),
       _vm._v(" "),
       _c(
         "button",
@@ -80091,40 +80324,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-2" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-            _vm._v("Institución")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-4" }, [
-        _c("div", { staticClass: "form-group is-required" }, [
-          _c(
-            "select",
-            { staticClass: "select2", attrs: { name: "", id: "" } },
-            [_c("option", { attrs: { value: "" } }, [_vm._v("Seleccione...")])]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-            _vm._v("Moneda")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-4" }, [
-        _c("div", { staticClass: "form-group is-required" }, [
-          _c(
-            "select",
-            { staticClass: "select2", attrs: { name: "", id: "" } },
-            [_c("option", { attrs: { value: "" } }, [_vm._v("Seleccione...")])]
-          )
+    return _c("div", { staticClass: "col-2" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Institución")
         ])
       ])
     ])
@@ -80133,44 +80336,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-6" }, [
-        _c("label", { attrs: { for: "" } }, [
-          _c("input", {
-            staticClass: "form-control bootstrap-switch bootstrap-switch-mini",
-            attrs: {
-              type: "radio",
-              name: "project_centralized_action",
-              value: "project",
-              "data-on-label": "SI",
-              "data-off-label": "NO"
-            }
-          }),
-          _vm._v("\n\t\t\t\t\tProyecto\n\t\t\t\t")
-        ]),
-        _vm._v(" "),
-        _c("select", { staticClass: "select2", attrs: { name: "", id: "" } }, [
-          _c("option", { attrs: { value: "" } })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-6" }, [
-        _c("label", { attrs: { for: "" } }, [
-          _c("input", {
-            staticClass: "form-control bootstrap-switch bootstrap-switch-mini",
-            attrs: {
-              type: "radio",
-              name: "project_centralized_action",
-              value: "project",
-              "data-on-label": "SI",
-              "data-off-label": "NO"
-            }
-          }),
-          _vm._v("\n\t\t\t\t\tAcción Centralizada\n\t\t\t\t")
-        ]),
-        _vm._v(" "),
-        _c("select", { staticClass: "select2", attrs: { name: "", id: "" } }, [
-          _c("option", { attrs: { value: "" } })
+    return _c("div", { staticClass: "col-2" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Moneda")
         ])
       ])
     ])
@@ -80179,20 +80348,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "form-group is-required" }, [
-          _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-            _vm._v("Acción Específica")
-          ]),
-          _vm._v(" "),
-          _c(
-            "select",
-            { staticClass: "select2", attrs: { name: "", id: "" } },
-            [_c("option", { attrs: { value: "" } })]
-          )
-        ])
-      ])
+    return _c("label", { attrs: { for: "" } }, [
+      _c("input", {
+        staticClass:
+          "form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc",
+        attrs: {
+          type: "radio",
+          name: "project_centralized_action",
+          value: "project",
+          id: "sel_project",
+          "data-on-label": "SI",
+          "data-off-label": "NO"
+        }
+      }),
+      _vm._v("\n\t\t\t\t\tProyecto\n\t\t\t\t")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "" } }, [
+      _c("input", {
+        staticClass:
+          "form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc",
+        attrs: {
+          type: "radio",
+          name: "project_centralized_action",
+          value: "project",
+          id: "sel_centralized_action",
+          "data-on-label": "SI",
+          "data-off-label": "NO"
+        }
+      }),
+      _vm._v("\n\t\t\t\t\tAcción Centralizada\n\t\t\t\t")
     ])
   },
   function() {

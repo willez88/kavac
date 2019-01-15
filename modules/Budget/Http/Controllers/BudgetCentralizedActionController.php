@@ -177,4 +177,26 @@ class BudgetCentralizedActionController extends Controller
             'records' => BudgetCentralizedAction::where('active', true)->with('payroll_staff')->get()
         ], 200);
     }
+
+    /**
+     * Obtiene las acciones centralizadas registradas
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la acción centralizada a buscar, este parámetro es opcional
+     * @return JSON        JSON con los datos de las acciones centralizadas
+     */
+    public function getCentralizedActions($id = null)
+    {
+        $data = [];
+        $centralizedActions = ($id) ? BudgetCentralizedAction::where('id', $id)->get() 
+                              : BudgetCentralizedAction::all();
+        foreach ($centralizedActions as $centralizedAction) {
+            array_push($data, [
+                'id' => $centralizedAction->id,
+                'text' => $centralizedAction->code . " - " . $centralizedAction->name
+            ]);
+        }
+
+        return response()->json($data);
+    }
 }

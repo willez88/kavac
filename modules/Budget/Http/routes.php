@@ -37,6 +37,7 @@ Route::group([
     /** Rutas para la gestión de proyectos */
     Route::resource('projects', 'BudgetProjectController', ['as' => 'budget', 'except' => ['index', 'show']]);
     Route::get('projects/vue-list', 'BudgetProjectController@vueList')->name('budget.projects.vuelist');
+    Route::get('get-projects/{project_id?}', 'BudgetProjectController@getProjects')->name('budget.get-projects');
 
     /** Rutas para la gestión de acciones centralizadas */
     Route::resource('centralized-actions', 'BudgetCentralizedActionController', [
@@ -44,6 +45,10 @@ Route::group([
     ]);
     Route::get('centralized-actions/vue-list', 'BudgetCentralizedActionController@vueList')
          ->name('budget.centralized-actions.vuelist');
+    Route::get(
+        'get-centralized-actions/{centralized_action_id?}', 
+        'BudgetCentralizedActionController@getCentralizedActions'
+    )->name('budget.get-centralized-actions');
 
     /** Rutas para la gestión de acciones especificas */
     Route::resource('specific-actions', 'BudgetSpecificActionController', [
@@ -51,6 +56,8 @@ Route::group([
     ]);
     Route::get('specific-actions/vue-list', 'BudgetSpecificActionController@vueList')
          ->name('budget.specific-actions.vuelist');
+    Route::get('get-specific-actions/{type}/{id}', 'BudgetSpecificActionController@getSpecificActions')
+         ->name('budget.get-specific-actions');
 
     /** Rutas para la gestión de formulación por subespecifica */
     Route::resource('subspecific-formulations', 'BudgetSubSpecificFormulationController', [

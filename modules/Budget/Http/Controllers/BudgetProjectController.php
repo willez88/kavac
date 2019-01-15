@@ -176,4 +176,25 @@ class BudgetProjectController extends Controller
             'records' => BudgetProject::where('active', true)->with('payroll_staff')->get()
         ], 200);
     }
+
+    /**
+     * Obtiene los proyectos registrados
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador del proyecto a buscar, este parámetro es opcional
+     * @return JSON        JSON con los datos de los proyectos
+     */
+    public function getProjects($id = null)
+    {
+        $data = [];
+        $projects = ($id) ? BudgetProject::where('id', $id)->get() : BudgetProject::all();
+        foreach ($projects as $project) {
+            array_push($data, [
+                'id' => $project->id,
+                'text' => $project->code . " - " . $project->name
+            ]);
+        }
+
+        return response()->json($data);
+    }
 }

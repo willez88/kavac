@@ -189,4 +189,31 @@ class BudgetSpecificActionController extends Controller
             'records' => BudgetSpecificAction::where('active', true)->with('specificable')->get()
         ], 200);
     }
+
+    /**
+     * Obtiene las acciones específicas registradas
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la acción centralizada a buscar, este parámetro es opcional
+     * @return JSON        JSON con los datos de las acciones específicas
+     */
+    public function getSpecificActions($type, $id)
+    {
+        $data = [];
+        if ($type==="Project") {
+            $specificActions = BudgetProject::find($id)->specific_actions()->get();
+        }
+        else if ($type == "CentralizedAction") {
+            $specificActions = BudgetCentralizedAction::find($id)->specific_actions()->get();
+        }
+        
+        foreach ($specificActions as $specificAction) {
+            array_push($data, [
+                'id' => $specificAction->id,
+                'text' => $specificAction->code . " - " . $specificAction->name
+            ]);
+        }
+
+        return response()->json($data);
+    }
 }

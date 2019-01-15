@@ -18,9 +18,7 @@
 				</div>
 				<div class="col-4">
 					<div class="form-group is-required">
-						<select name="" id="" class="select2">
-							<option value="">Seleccione...</option>
-						</select>
+						<select2 :options="institutions" v-model="record.institution_id"></select2>
 					</div>
 				</div>
 				<div class="col-2">
@@ -30,9 +28,7 @@
 				</div>
 				<div class="col-4">
 					<div class="form-group is-required">
-						<select name="" id="" class="select2">
-							<option value="">Seleccione...</option>
-						</select>
+						<select2 :options="currencies" v-model="record.currency_id"></select2>
 					</div>
 				</div>
 			</div>
@@ -40,34 +36,32 @@
 			<div class="row">
 				<div class="col-6">
 					<label for="">
-						<input type="radio" name="project_centralized_action" value="project" 
-							   class="form-control bootstrap-switch bootstrap-switch-mini" 
+						<input type="radio" name="project_centralized_action" value="project" id="sel_project" 
+							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc" 
 							   data-on-label="SI" data-off-label="NO">
 						Proyecto
 					</label>
-					<select name="" id="" class="select2">
-						<option value=""></option>
-					</select>
+					<select2 :options="projects" v-model="record.project_id" id="project_id" 
+							 @input="getSpecificActions('Project')" disabled></select2>
 				</div>
 				<div class="col-6">
 					<label for="">
 						<input type="radio" name="project_centralized_action" value="project" 
-							   class="form-control bootstrap-switch bootstrap-switch-mini" 
-							   data-on-label="SI" data-off-label="NO">
+							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc" 
+							   id="sel_centralized_action" data-on-label="SI" data-off-label="NO">
 						Acción Centralizada
 					</label>
-					<select name="" id="" class="select2">
-						<option value=""></option>
-					</select>
+					<select2 :options="centralized_actions" v-model="record.centralized_action_id" 
+							 @input="getSpecificActions('CentralizedAction')" 
+							 id="centralized_action_id" disabled></select2>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-12">
 					<div class="form-group is-required">
 						<label for="" class="control-label">Acción Específica</label>
-						<select name="" id="" class="select2">
-							<option value=""></option>
-						</select>
+						<select2 :options="specific_actions" v-model="record.specific_action_id" 
+								 id="specific_action_id" disabled></select2>
 					</div>
 				</div>
 			</div>
@@ -244,16 +238,38 @@
 			return {
 				record: {
 					year: '',
+					institution_id: '',
+					currency_id: '',
+					project_id: '',
+					centralized_action_id: '',
 					specific_action_id: '',
 				},
 				errors: [],
 				records: [],
+				institutions: [],
+				currencies: [],
+				projects: [],
+				centralized_actions: [],
+				specific_actions: [],
 			}
 		},
 		methods: {
+			/**
+			 * Reinicia los valores de los elementos del formulario
+			 *
+			 * @author  In- Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @return {[type]} [description]
+			 */
 			reset: function() {
 
 			},
+			/**
+			 * Muestra u oculta los campos de texto para ingresar información sobre los montos 
+			 * a formular para una cuenta presupuestaria
+			 *
+			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @param  {integer} account_id Identificador de la cuenta presupuestaria
+			 */
 			showAccountInputs: function(account_id) {
 				let add_account = $("#add_account_" + account_id);
 				let input_row = $(".input_" + account_id);
@@ -262,20 +278,82 @@
 					add_account.removeClass('fa-eye');
 					add_account.addClass('fa-eye-slash');
 					add_account.removeClass('text-blue');
-					add_account.addClass('text-red')
+					add_account.addClass('text-red');
 					input_row.show();
 				}
 				else if (add_account.hasClass('fa-eye-slash')) {
 					add_account.addClass('fa-eye');
 					add_account.removeClass('fa-eye-slash');
-					add_account.addClass('text-blue')
+					add_account.addClass('text-blue');
 					add_account.removeClass('text-red');
 					input_row.hide();
 				}
-			}
+			},
+			/**
+			 * Obtiene un arreglo con los proyectos
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @param  {integer} id Identificador del proyecto a buscar, este parámetro es opcional
+			 */
+			getProjects(id) {
+				var project_id = (typeof(id)!=="undefined")?'/'+id:'';
+				axios.get('/budget/get-projects' + project_id).then(response => {
+					this.projects = response.data;
+				});
+			},
+			/**
+			 * Obtiene un arreglo con las acciones centralizadas
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @param  {integer} id Identificador de la acción centralizada a buscar, este parámetro es opcional
+			 */
+			getCentralizedActions(id) {
+				var centralized_action_id = (typeof(id)!=="undefined")?'/'+id:'';
+				axios.get('/budget/get-centralized-actions' + centralized_action_id).then(response => {
+					this.centralized_actions = response.data;
+				});
+			},
+			/**
+			 * Obtiene las Acciones Específicas
+			 * 
+			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 * @param {string} type Tipo de registro
+			 */
+			getSpecificActions(type) {
+				let id = (type==='Project')?this.record.project_id:this.record.centralized_action_id;
+
+				this.specific_actions = [];
+
+				if (id) {
+					axios.get('/budget/get-specific-actions/' + type + "/" + id).then(response => {
+						this.specific_actions = response.data;
+					});
+				}
+
+				var len = this.specific_actions.length;
+				$("#specific_action_id").attr('disabled', (len == 0));
+			},
 		},
 		mounted() {
 			this.initRecords('/budget/accounts/egress-list', '');
+			this.getInstitutions();
+			this.getCurrencies();
+			this.getProjects();
+			this.getCentralizedActions();
+
+			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
+				$('#project_id').attr('disabled', (e.target.id!=="sel_project"));
+				$('#centralized_action_id').attr('disabled', (e.target.id!=="sel_centralized_action"));
+				
+				if (e.target.id === "sel_project") {
+					$("#centralized_action_id").closest('.form-group').removeClass('is-required');
+					$("#project_id").closest('.form-group').addClass('is-required');
+				}
+				else if (e.target.id === "sel_centralized_action") {
+					$("#centralized_action_id").closest('.form-group').addClass('is-required');
+					$("#project_id").closest('.form-group').removeClass('is-required');
+				}
+			});
 		},
 	};
 </script>
