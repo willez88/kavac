@@ -45,7 +45,7 @@ class PayrollStaff extends Model implements Auditable
     protected $fillable = [
         'code', 'first_name', 'last_name', 'birthdate', 'sex', 'email', 'active', 'website', 'direction',
         'sons', 'start_date_public_adm', 'start_date', 'end_date', 'id_number', 'nationality', 'passport',
-        'marital_status_id', 'professions_id', 'cities_id'
+        'marital_status_id', 'profession_id', 'city_id'
     ];
 
     /**
@@ -84,5 +84,38 @@ class PayrollStaff extends Model implements Auditable
     public function getFullNameAttribute()
     {
         return $this->attrubute['first_name'] . " " . $this->attribute['last_name'];
+    }
+
+    /**
+     * Método que obtiene la Ciudad
+     *
+     * @author  William Páez (wpaez@cenditel.gob.ve)
+     * @return object Objeto con los registros relacionados al modelo City
+     */
+	public function city()
+    {
+        return $this->belongsTo('App\Models\City');
+    }
+
+    /**
+     * Método que obtiene el Estado Civil
+     *
+     * @author  William Páez (wpaez@cenditel.gob.ve)
+     * @return object Objeto con los registros relacionados al modelo MaritalStatus
+     */
+	public function marital_status()
+    {
+        return $this->belongsTo('App\Models\MaritalStatus');
+    }
+
+    /**
+     * Método que obtiene la Profesión
+     *
+     * @author  William Páez (wpaez@cenditel.gob.ve)
+     * @return object Objeto con los registros relacionados al modelo Profession
+     */
+	public function profession()
+    {
+        return $this->belongsTo('App\Models\Profession');
     }
 }

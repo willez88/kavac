@@ -148,16 +148,16 @@ class PayrollStaffController extends Controller
             'last_name' => 'required|max:100',
             'birthdate' => 'required|date',
             'sex' => 'required|max:1',
-            'email' => 'email',
-            'website' => 'max:255',
+            'email' => 'nullable|email',
+            'website' => 'nullable|max:255',
             'direction' => 'required',
             'sons' => 'required|integer',
             'start_date_public_adm' => 'required|date',
             'start_date' => 'required|date',
-            'end_date' => 'date',
+            'end_date' => 'nullable|date',
             'id_number' => 'required|max:12',
             'nationality' => 'required|max:100',
-            'passport' => 'max:20',
+            'passport' => 'nullable|max:20',
             'marital_status_id' => 'required',
             'profession_id' => 'required',
             'city_id' => 'required'
@@ -197,5 +197,39 @@ class PayrollStaffController extends Controller
             return response()->json(['result' => true]);
         }
         return redirect()->route('staffs.index');
+    }
+
+    /**
+     * Muesta el detalle completo de los datos de un personal
+     *
+     * @author William Páez (wpaez at cenditel.gob.ve)
+     * @return [<b>\Illuminate\Http\Response</b>] $response Retorna el json de un registro de personal
+     */
+    public function info(PayrollStaff $staff)
+    {
+
+        $staff = PayrollStaff::findorfail($staff->id);
+        $this->data[] = [
+            'code' => $staff->code,
+            'first_name' => $staff->first_name,
+            'last_name' => $staff->last_name,
+            'birthdate' => $staff->birthdate,
+            'sex' => $staff->sex,
+            'email' => $staff->email,
+            'active' => $staff->active,
+            'website' => $staff->website,
+            'direction' => $staff->direction,
+            'sons' => $staff->sons,
+            'start_date_public_adm' => $staff->start_date_public_adm,
+            'start_date' => $staff->start_date,
+            'end_date' => $staff->end_date,
+            'id_number' => $staff->id_number,
+            'nationality' => $staff->nationality,
+            'passport' => $staff->passport,
+            'marital_status' => $staff->marital_status->name,
+            'profession' => $staff->profession->name,
+            'city' => $staff->city->name
+        ];
+        return response()->json(['record' => $this->data[0]]);
     }
 }
