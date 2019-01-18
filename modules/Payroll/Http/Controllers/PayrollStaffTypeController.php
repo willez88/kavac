@@ -20,6 +20,20 @@ use Modules\Payroll\Models\PayrollStaffType;
  */
 class PayrollStaffTypeController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:payroll.staff.types.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.staff.types.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:payroll.staff.types.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:payroll.staff.types.delete', ['only' => 'destroy']);
+    }
+
     use ValidatesRequests;
 
     /**

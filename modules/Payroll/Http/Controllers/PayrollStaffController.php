@@ -25,6 +25,20 @@ use App\Models\City;
  */
 class PayrollStaffController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:payroll.staffs.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.staffs.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:payroll.staffs.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:payroll.staffs.delete', ['only' => 'destroy']);
+    }
+
     use ValidatesRequests;
 
     /**
@@ -66,7 +80,6 @@ class PayrollStaffController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required|max:20',
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'birthdate' => 'required|date',
@@ -86,7 +99,7 @@ class PayrollStaffController extends Controller
             'city_id' => 'required'
         ]);
         $staff = new PayrollStaff;
-        $staff->code  = $request->code;
+        $staff->code  = 'prueba';
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;
         $staff->birthdate = $request->birthdate;
@@ -143,7 +156,6 @@ class PayrollStaffController extends Controller
     public function update(Request $request, PayrollStaff $staff)
     {
         $this->validate($request, [
-            'code' => 'required|max:20',
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'birthdate' => 'required|date',
@@ -162,7 +174,6 @@ class PayrollStaffController extends Controller
             'profession_id' => 'required',
             'city_id' => 'required'
         ]);
-        $staff->code  = $request->code;
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;
         $staff->birthdate = $request->birthdate;

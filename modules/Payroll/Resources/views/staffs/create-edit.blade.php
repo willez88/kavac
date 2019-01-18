@@ -36,18 +36,6 @@
 						<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div>
 						<div class="row">
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('code') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('code', 'Código', []) !!}
-						            {!! Form::text('code',(isset($staff))?$staff->code:old('code'),
-						                [
-						                    'class' => 'form-control input-sm',
-						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el código del personal'
-						                ]
-						            ) !!}
-						        </div>
-						    </div>
-						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('first_name') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('first_name', 'Nombres', []) !!}
 						            {!! Form::text('first_name',(isset($staff))?$staff->first_name:old('first_name'),
@@ -71,9 +59,7 @@
 						            ) !!}
 						        </div>
 						    </div>
-						</div>
-						<div class="row">
-						    <div class="col-md-4">
+							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('nacionality') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('nationality', 'Nacionalidad', []) !!}
 						            {!! Form::text('nationality',(isset($staff))?$staff->nationality:old('nationality'),
@@ -85,6 +71,8 @@
 						            ) !!}
 						        </div>
 						    </div>
+						</div>
+						<div class="row">
 						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('id_number') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('id_number', 'Cédula de Identidad', []) !!}
@@ -109,9 +97,7 @@
 						            ) !!}
 						        </div>
 						    </div>
-						</div>
-						<div class="row">
-						    <div class="col-md-4">
+							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
 						            {!! Form::label('email', 'Correo Electrónico', []) !!}
 						            {!! Form::email('email',(isset($staff))?$staff->email:old('email'),
@@ -123,6 +109,8 @@
 						            ) !!}
 						        </div>
 						    </div>
+						</div>
+						<div class="row">
 						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('birthdate') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('birthdate', 'Fecha de Nacimiento', []) !!}
@@ -148,9 +136,7 @@
 						            ) !!}
 						        </div>
 						    </div>
-						</div>
-						<div class="row">
-						    <div class="col-md-4">
+							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('marital_status_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('marital_status_id', 'Estado Civil', []) !!}
 						            {!! Form::select('marital_status_id',(isset($marital_status))?$marital_status:[], null,
@@ -163,6 +149,8 @@
 						            ) !!}
 						        </div>
 						    </div>
+						</div>
+						<div class="row">
 						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('profession_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('profession_id', 'Profesión', []) !!}
@@ -187,9 +175,7 @@
 						            </div>
 						        </div>
 						    </div>
-						</div>
-						<div class="row">
-						    <div class="col-md-4">
+							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('website') ? ' has-error' : '' }}">
 						            {!! Form::label('website', 'Sitio Web', []) !!}
 						            {!! Form::text('website',(isset($staff))?$staff->website:old('website'),
@@ -201,6 +187,8 @@
 						            ) !!}
 						        </div>
 						    </div>
+						</div>
+						<div class="row">
 						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('sons') ? ' has-error' : '' }}">
 						            {!! Form::label('sons', 'Número de hijos', []) !!}
@@ -225,9 +213,7 @@
 						            ) !!}
 						        </div>
 						    </div>
-						</div>
-						<div class="row">
-						    <div class="col-md-4">
+							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('start_date') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('start_date', 'Fecha de Ingreso a la Institución', []) !!}
 						            {!! Form::date('start_date',(isset($staff))?$staff->start_date:old('start_date'),
@@ -239,6 +225,8 @@
 						            ) !!}
 						        </div>
 						    </div>
+						</div>
+						<div class="row">
 						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('end_date') ? ' has-error' : '' }}">
 						            {!! Form::label('end_date', 'Fecha de Egreso de la Institución', []) !!}
@@ -266,9 +254,7 @@
 						            ) !!}
 						        </div>
 						    </div>
-						</div>
-						<div class="row">
-						    <div class="col-md-4">
+							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('estate_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('estate_id', 'Estado', []) !!}
 						            {!! Form::select('estate_id',(isset($estates))?$estates:[], null,
@@ -281,6 +267,8 @@
 						            ) !!}
 						        </div>
 						    </div>
+						</div>
+						<div class="row">
 						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('city_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('city_id', 'Ciudad', []) !!}
@@ -315,26 +303,4 @@
 			</div>
 		</div>
 	</div>
-@stop
-
-@section('extra-js')
-	<script>
-		var app = new Vue({
-			el: '#example',
-			data() {
-				return {
-					country_id: '',
-				}
-			},
-			methods: {
-				getEstates() {
-					if (this.country_id) {
-						axios.get('/get-estates/' + this.country_id).then(response => {
-							this.estates = response.data;
-						});
-					}
-				},
-			}
-		})
-	</script>
 @stop
