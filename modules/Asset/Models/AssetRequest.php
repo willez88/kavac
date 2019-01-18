@@ -44,5 +44,26 @@ class AssetRequest extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['type','motive', 'delivery_date','user_id','agent_name','agent_telf','agent_email'];
+    protected $fillable = ['type','motive', 'state','delivery_date','agent_name','agent_telf','agent_email'];
+
+    /**
+     * Método que obtiene los bienes solicitados
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetRequested
+     */
+    public function assets()
+    {
+        return $this->hasMany('Modules\Asset\Models\AssetRequested');
+    }
+
+    public function events()
+    {
+        return $this->hasMany('Modules\Asset\Models\AssetRequestEvent');
+    }
+
+    public function prorroga()
+    {
+        return $this->hasMany('Modules\Asset\Models\AssetRequestProrroga');
+    }
 }

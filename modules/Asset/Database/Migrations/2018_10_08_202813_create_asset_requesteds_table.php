@@ -20,6 +20,9 @@ class CreateAssetRequestedsTable extends Migration
                 $table->integer('inventary_id')->unsigned()->comment('Identificador único del bien en la tabla de inventario de bienes');
                 $table->foreign('inventary_id')->references('id')->on('asset_inventaries')->onDelete('restrict')->onUpdate('cascade');
 
+                $table->integer('asset_id')->unsigned()->comment('Identificador único del bien en la tabla de bienes');
+                $table->foreign('asset_id')->references('id')->on('assets')->onDelete('restrict')->onUpdate('cascade');
+
                 $table->integer('request_id')->unsigned()->comment('Identificador único de la solicitud generada');
                 $table->foreign('request_id')->references('id')->on('asset_requests')->onDelete('restrict')->onUpdate('cascade');
 

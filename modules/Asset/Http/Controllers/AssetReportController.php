@@ -25,16 +25,17 @@ class AssetReportController extends Controller
         $this->middleware('permission:asset.report.create', ['only' => 'create']);
     }
     public function create($tipo,Request $request){
+        $mes_id = 1+$request->mes;
+        $year_id = $request->year;
         
-
         if ($tipo ==1){
             if (is_null($request)){
                 $assets = Asset::all();
             }
             else{
-                $assets= Asset::dateclasification($request->start_date,$request->end_date)->get();    
+                $assets= Asset::dateclasification($request->start_date,$request->end_date,$request->mes_id,$request->year_id)->get();   
             }
-            return view('asset::reports.asset_general', compact('assets'));
+            return view('asset::reports.asset_general', compact('assets','mes_id','year_id'));
         }
 
         elseif ($tipo == 2) {

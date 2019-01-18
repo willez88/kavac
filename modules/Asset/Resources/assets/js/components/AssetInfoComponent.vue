@@ -2,7 +2,7 @@
 	<div>
 		<a class="btn btn-info btn-xs btn-icon btn-round" 
 		   href="#" title="Ver información del Bien" data-toggle="tooltip" 
-		   @click="addRecord('add_asset', route_list, $event)">
+		   @click="addRecord('add_asset', route_list+id, $event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_asset">
@@ -237,6 +237,7 @@
 				records: []
 			}
 		},
+		props: ['id'],
 		created() {
 			this.getAsset();
 		},

@@ -46,6 +46,28 @@ class AssetInventary extends Model implements Auditable
     protected $fillable = ['exist','reserved','unit_value'];
 
     /**
+     * Método que obtiene los bienes de un registro de inventario
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo Asset
+     */
+    public function assets()
+    {
+        return $this->hasOne('Modules\Asset\Models\Asset');
+    }
+
+    /**
+     * Método que obtiene los bienes solicitados de un registro de inventario
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetRequest
+     */
+    public function assetsrequested()
+    {
+        return $this->hasMany('Modules\Asset\Models\AssetRequested');
+    }
+
+    /**
      *
      * @brief Método que genera un listado de elementos registrados en almacen para ser implementados en plantillas blade
      * 

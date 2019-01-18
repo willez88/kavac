@@ -58,7 +58,7 @@ class CreateAssetsTable extends Migration
                      ->onDelete('restrict')->onUpdate('cascade');
 
                 /**
-                 *$table->foreign('institution_id')->references('id')->on('departments');
+                 * $table->foreign('institution_id')->references('id')->on('departments');
                  *     ->onDelete('restrict')->onUpdate('cascade');
                 **/
 
@@ -101,9 +101,6 @@ class CreateAssetsTable extends Migration
 
                 $table->integer('value')->nullable()->unsigned()
                       ->comment('Valor en libros del artículo (BsS.)');
-
-                $table->integer('quantity')->nullable()->unsigned()
-                      ->comment('Cantidad del bien (Solo para bienes inmuebles)');
 
                 $table->integer('inventary_id')->nullable()->comment('Identificador único del registro de inventario al que pertenece el bien (solo para bienes registrados en inventario, es decir, con estatus_id en almacén o depósito para su asignación)');
                 $table->foreign('inventary_id')->references('id')->on('asset_inventaries')

@@ -2,7 +2,8 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="" title="Registros de Clasificador de Bienes" 
-		   data-toggle="tooltip" @click="addRecord('add_clasification', 'clasifications', $event)">
+		   data-toggle="tooltip" 
+		   @click="initRequest('clasifications',$event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Clasificador<br>Bienes</span>
 		</a>
@@ -126,7 +127,7 @@
 	                			title="Cancelar y regresar">
 	                			<i class="fa fa-ban"></i>
 	                	</button>
-	                	<button type="button" @click="createRecord('clasifications')" 
+	                	<button type="button" @click="createRecord('asset/clasifications')" 
 	                			class="btn btn-success btn-icon btn-round btn-modal-save"
 	                			title="Guardar registro">
 	                		<i class="fa fa-save"></i>
@@ -172,7 +173,6 @@
 			this.table_options.sortable = ['subcategory.category.type.name', 'subcategory.category.name','subcategory.name','name', 'code'];
 			this.table_options.filterable = ['type.name','name', 'code'];
 
-			this.getTypes();
 		},
 		methods: {
 			/**
@@ -191,6 +191,10 @@
 					subcategory: '',
 					specific_category: ''
 				};
+			},
+			initRequest(url,event){
+				this.getTypes();
+				this.addRecord('add_clasification', url, event);
 			},
 			/**
 			 * Inicializa los registros base del formulario

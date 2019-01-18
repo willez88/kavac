@@ -48,11 +48,12 @@
 						            <span class="input-group-addon">
 						                <i class="now-ui-icons ui-1_calendar-60"></i>
 						            </span>
-						            {!! Form::date('date',(isset($date))?$date:\Carbon\Carbon::now(),
+						            {!! Form::date('date',(isset($request->created_at))?$request->created_at:\Carbon\Carbon::now(),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Fecha de la solicitud'
+						                    'title' => 'Fecha de la solicitud',
+						                    'readonly' => 'readonly',
 						                ]
 						            ) !!}
 						        </div>
@@ -80,16 +81,16 @@
 								{!! Form::label('type_label', 'Tipo de Solicitud', []) !!}
 								{!! Form::select('type', (isset($types))?$types:[
 
+									'Seleccione...',
 									'Prestamo de Equipos (Uso Interno)',
 									'Prestamo de Equipos (Uso Externo)',
 									'Prestamo de Equipos para Agentes Externos',
 
-								], (isset($request))?$request->type:null, [		
+								], (isset($request))?$request->type:$type, [		
 									'id' => 'type',
 									'class' => 'form-control select2',
 									'onchange' => 'mostrar(this.value);',
 									'data-toggle' => 'tooltip',
-									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el tipo de solicitud a realizar',
 									
 								]) !!}
@@ -97,13 +98,7 @@
 							</div>
 						</div>
 					</div>
-
-					<div class="row" id="request">
-
-						
-					</div>
-
-					
+					@if(($type==2) ||($type==3))
 					<div class="row" id="request-2">
 						<div class="col-md-6">
 					        <div class="form-group {{ $errors->has('delivery_date') ? ' has-error' : '' }}">
@@ -112,14 +107,14 @@
 					                <span class="input-group-addon">
 										<i class="now-ui-icons ui-1_calendar-60"></i>
 					                </span>
-					                {!! Form::date('delivery_date',(isset($asset_request))?$asset_request->delivery_date:old('delivery_date'),
+					                {!! Form::date('delivery_date',(isset($request))?$request->delivery_date:old('delivery_date'),
 					                [
 					                    'class' => 'form-control input-sm',
 					                    'data-toggle' => 'tooltip',
 					                    'title' => 'Indique la fecha de entrega del bien'
 					                ]
 					            ) !!}
-					                            </div>
+					            </div>
 					            
 					        </div>
 					    </div>
@@ -127,7 +122,7 @@
 					    <div class="col-md-6">
 					        <div class="form-group {{ $errors->has('ubication') ? ' has-error' : '' }}">
 					            {!! Form::label('ubication_label', 'Ubicación', []) !!}
-					            {!! Form::text('ubication',(isset($asset_request))?$asset_request->ubication:old('ubication'),
+					            {!! Form::text('ubication',(isset($request))?$request->ubication:old('ubication'),
 					                [
 					                    'class' => 'form-control input-sm',
 					                    'data-toggle' => 'tooltip',
@@ -139,7 +134,9 @@
 					    </div>
 						
 					</div>
+					@endif
 
+					@if($type == 3)
 					<div class="row" id="request-3">
 						<div class="col-md-12">
 						    <b>Información de Contacto</b>    
@@ -148,7 +145,7 @@
 						<div class="col-md-4">
 							<div class="form-group {{ $errors->has('external_agent_name') ? ' has-error' : '' }}">
 						        {!! Form::label('external_agent_name_label', 'Nombre del Agente Externo', []) !!}
-						        {!! Form::text('agent_name',(isset($asset_request))?$asset_request->agent_name:old('agent_name'),
+						        {!! Form::text('agent_name',(isset($request))?$request->agent_name:old('agent_name'),
 						            [
 						            	'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
@@ -162,7 +159,7 @@
 						<div class="col-md-4">
 						    <div class="form-group {{ $errors->has('external_agent_telf') ? ' has-error' : '' }}">
 						    	{!! Form::label('external_agent_telf_label', 'Teléfono del Agente Externo', []) !!}
-						        {!! Form::text('agent_telf',(isset($asset_request))?$asset_request->agent_telf:old('agent_telf'),
+						        {!! Form::text('agent_telf',(isset($request))?$request->agent_telf:old('agent_telf'),
 						            [
 						            	'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
@@ -176,7 +173,7 @@
 						<div class="col-md-4">
 							<div class="form-group {{ $errors->has('external_agent_email') ? ' has-error' : '' }}">
 						    	{!! Form::label('external_agent_email_label', 'Correo del Agente Externo', []) !!}
-						        {!! Form::text('agent_email',(isset($asset_request))?$asset_request->agent_email:old('agent_email'),
+						        {!! Form::text('agent_email',(isset($request))?$request->agent_email:old('agent_email'),
 						        	[
 						            	'class' => 'form-control input-sm',
 						                'data-toggle' => 'tooltip',
@@ -187,6 +184,7 @@
 						    </div>
 						</div>
 					</div>
+					@endif
 						
 					<div class="row" id= "filtros">
 							
@@ -250,7 +248,7 @@
 						    
 						<div class="form-group col-md-2">
 						    <button type="Submit" 
-						    		formaction ="../../asset/request/create"
+						    		formaction ="../../../asset/requests/create/{{$type}}"
 						    		formmethod="GET" 
 						    		class='btn btn-sm btn-info' 
 						    		data-toggle="tooltip"
@@ -275,27 +273,24 @@
 									<th>Serial</th>
 									<th>Marca</th>
 									<th>Modelo</th>
-									<th>Numero de Bienes</th>
 
 							    </tr>
 							</thead>
 							
 							<tbody>
 							    @foreach($assets as $asset)
-							    @if($asset->status_id != 6)
-							        <tr>
-							            <td></td>
-							            <td> {{ $asset->serial_inventario }} </td>
-								        <td> {{ $asset->institution_id }} </td>
-								        <td> {{ $asset->condition->name }} </td>
-								        <td> {{ $asset->status->name }} </td>
-								        <td> {{ $asset->serial }} </td>
-								        <td> {{ $asset->marca }} </td>
-										<td> {{ $asset->model }} </td>
-										<td></td>
+							    <tr>
+							        
+							        <td></td>
+							        <td> {{ $asset->serial_inventario }} </td>
+								    <td> {{ $asset->institution_id }} </td>
+								    <td> {{ $asset->condition->name }} </td>
+								    <td> {{ $asset->status->name }} </td>
+								    <td> {{ $asset->serial }} </td>
+								    <td> {{ $asset->marca }} </td>
+									<td> {{ $asset->model }} </td>
 							                                    
-							        </tr>
-							    @endif
+							    </tr>
 							    @endforeach
 							</tbody>
 						</table>
@@ -313,6 +308,7 @@
 		</div>
 
 	</div>
+
 @stop
 				
 
@@ -322,53 +318,56 @@
 $(document).ready(function(){
 	var table = $('#table_id').DataTable({
 		columnDefs: [ {
-            orderable: false,
+            orderable: true,
             className: 'select-checkbox',
             targets:   0
         } ],
-		dom: 'Bfrtip',
+		dom: 'frtip',
 		select: {
 			style: 'multi'
 		},
-		buttons: [
-			{
-				text: 'Select All',
-				action: function (){
-					table.rows().select();
-				}
-			},
-			{
-				text: 'Select None',
-				action: function (){
-					table.rows().deselect();
-				}
-			},
-		]
+		
 
 	});
+	@if(isset($select))
+		prueba = [<?php echo ($select); ?>]
+		prueba[0].forEach( function(valor, indice, array) {
+			$('#table_id').DataTable().rows().iterator('row',function(context,index){
+				dato = $(this.row(index).node()).find("td:eq(1)").text();
+
+			    if (dato.trim() === valor.trim()){
+			    	$(this.row(index).node()).addClass('selected');
+		
+					if (seleccionados.indexOf(dato) === -1) {
+			        	seleccionados.push(dato);
+				    }else if (seleccionados.indexOf(dato) > -1) {
+				        seleccionados.splice(seleccionados.indexOf(dato), 1);
+				    }
+			    
+			    }
+			});
+		});	
+	@endif
     
     $('#table_id tbody').on( 'click', 'tr', function () {
         dato = $(this).find("td:eq(1)").text();
 
         if (seleccionados.indexOf(dato) === -1) {
-        seleccionados.push(dato);
-    } else if (seleccionados.indexOf(dato) > -1) {
-        seleccionados.splice(seleccionados.indexOf(dato), 1);
-    }
+        	seleccionados.push(dato);
+	    } else if (seleccionados.indexOf(dato) > -1) {
+	        seleccionados.splice(seleccionados.indexOf(dato), 1);
+	    }
+
     } );
-	if ($("#type").val() != null)
-		mostrar($("#type").val());
-	else
-		mostrar(-1);
+
+    
 
 });
 
 
 $("#save").on("click", function(event){
-
-console.log(seleccionados);
-
-	if(!seleccionados.length){
+	alert(seleccionados.length);
+	if(seleccionados.length == 0){
 	    alert("No ha seleccionado ningún elemento");
 	    return false;
 	}
@@ -382,57 +381,15 @@ console.log(seleccionados);
          $("#form").submit();
  
         
-};
+	};
 });
 	
-function mostrar(form_request) {
-    if (form_request == "0") {
-		$("#request").show();
-		$('#request-2').hide();
-		$('#request-3').hide();
-        $("#filtros").show();
-        $("#table").show();
-    }
-    else if (form_request == "1") {
-    	$("#request").show();
-    	$('#request-2').show();
-    	$('#request-3').hide();
-        $("#filtros").show();
-        $("#table").show();
-        
-    }
-
-    else if (form_request == "2") {
-        $("#request").show();
-        $('#request-2').show();
-        $('#request-3').show();
-        $("#filtros").show();
-        $("#table").show();
-    }
-    else {
-    	$('#request').hide();
-    	$('#request-2').hide();
-    	$('#request-3').hide();
-    	$("#filtros").hide();
-    	$("#table").hide();
-
-
-    }
+function mostrar($form_request) {
+	if($form_request>0)
+    	window.location.href='/asset/requests/create/'+$form_request;
 };
+
+
 
 </script>
 @stop
-
-
-
-
-
-
-
-
-
-
-
-
-
-

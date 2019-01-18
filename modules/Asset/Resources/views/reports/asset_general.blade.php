@@ -38,21 +38,22 @@
 						<div class="form-group col-md-2">
 							<label>Busqueda por Periodo </label>
 							<div>
-								{!! Form::radio('search_type', 'search_date', true,
+								{!! Form::radio('search_type', 0, true,
 								[
-									'id' => 'search_type',
+									'id' => 'search_date',
 									'class' => 'form-control bootstrap-switch',
 									'data-on-label' => 'SI',
-									'data-off-label' => 'NO'
+									'data-off-label' => 'NO',
+									'onchange' => 'updateStatus()'
 								]) !!}
 							</div>
 						</div>
 						<div class="form-group col-md-2">
 							<label>Busqueda por Mes</label>
 							<div>
-								{!! Form::radio('search_type', 'search_mes', false,
+								{!! Form::radio('search_type', 1, false,
 								[
-									'id' => 'search_type',
+									'id' => 'search_mes',
 									'class' => 'form-control bootstrap-switch',
 									'data-on-label' => 'SI',
 									'data-off-label' => 'NO'
@@ -90,6 +91,7 @@
 									'data-toggle' => 'tooltip',
 									'placeholder' => 'Todos',
 									'title' => 'Indique el mes a buscar',
+									'disabled'
 									
 								]) !!}
 							</div>
@@ -97,14 +99,15 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('anual_label', 'Año:', []) !!}
-								{!! Form::select('anual', (isset($anual))?$anual:
+								{!! Form::select('year', (isset($year))?$year:
 								[], null, 
 								[		
-									'id' => 'anual_id',
+									'id' => 'year_id',
 									'class' => 'form-control select2',
 									'data-toggle' => 'tooltip',
 									'placeholder' => 'Todos',
 									'title' => 'Indique el Año a buscar',
+									'disabled'
 									
 								]) !!}
 							</div>
@@ -120,7 +123,8 @@
 			                    {!! Form::date('start_date', old('start_date'), [
 			                    	'id' => 'start_date',
 			                        'class' => 'form-control', 'placeholder' => 'Fecha',
-			                        'title' => 'Fecha mínima de búsqueda', 'data-toggle' => 'tooltip'
+			                        'title' => 'Fecha mínima de búsqueda', 
+			                        'data-toggle' => 'tooltip',
 			                    ]) !!}
 			                </div>
 						</div>
@@ -191,4 +195,31 @@
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('extra-js')
+<script type="text/javascript">
+	var search_mes = document.getElementById('search_date');
+	var search_periodo = document.getElementById('search_mes');
+
+	var periodo_init = document.getElementById('start_date');
+	var periodo_end = document.getElementById('end_date');
+
+	var meses = document.getElementById('mes_id');
+	var years = document.getElementById('year_id');
+
+	function updateStatus(){
+		if (search_mes.checked){
+			meses.disabled =true;
+			years.disabled =true;
+			periodo_end.disabled=false;
+			periodo_init.disabled=false;
+		}else{
+			meses.disabled =false;
+			years.disabled =false;
+			periodo_end.disabled=true;
+			periodo_init.disabled=true;
+		}
+	}
+</script>
 @stop

@@ -133,44 +133,57 @@ class AssetController extends Controller
             ]);
 
         }
-        
-
-        
-        $asset = new Asset;
-        /*
-         * $asset->orden_compra = $request->orden_compra; 
-         **/
-
-        $asset->type_id = $request->type;
-        $asset->category_id = $request->category;
-        $asset->subcategory_id = $request->subcategory;
-        $asset->specific_category_id = $request->specific_category;
-        $asset->institution_id = $request->department;
-        $asset->proveedor_id = $request->proveedor;
-        $asset->condition_id = $request->condition;
-        $asset->purchase_id = $request->purchase;
-        $asset->purchase_year = $request->purchase_year;
-        $asset->status_id = $request->status;
-        $asset->serial = $request->serial;
-        $asset->marca = $request->marca;
-        $asset->model = $request->model;
-        $asset->serial_inventario = $asset->getCode();
-        $asset->value = $request->value;
-        $asset->use_id = $request->use;
-        $asset->quantity = $request->quantity;
+        if ($request->type == 1)
+            $cantidad = 1;
+        else if ($request->type == 2)
+            $cantidad = $request->quantity;
 
         if ($request->status == 10){
             $asset_inventary = new AssetInventary;
-            $asset_inventary->unit_value = $asset->value;
-
-            if ($request->type == 2){
-                $asset_inventary->exist = $request->quantity;
-            }
-            $asset_inventary->save();
-            $asset->inventary_id = $asset_inventary->id;
         }
 
-        $asset->save();
+        while ($cantidad > 0) {
+        
+            $cantidad--;
+            $asset = new Asset;
+            /*
+             * $asset->orden_compra = $request->orden_compra; 
+             **/
+
+            $asset->type_id = $request->type;
+            $asset->category_id = $request->category;
+            $asset->subcategory_id = $request->subcategory;
+            $asset->specific_category_id = $request->specific_category;
+            $asset->institution_id = $request->department;
+            $asset->proveedor_id = $request->proveedor;
+            $asset->condition_id = $request->condition;
+            $asset->purchase_id = $request->purchase;
+            $asset->purchase_year = $request->purchase_year;
+            $asset->status_id = $request->status;
+            $asset->serial = $request->serial;
+            $asset->marca = $request->marca;
+            $asset->model = $request->model;
+            $asset->value = $request->value;
+            $asset->use_id = $request->use;
+
+            if ($request->status == 10){
+
+
+                    if ($request->type == 2){
+                        $asset_inventary->exist = $request->quantity;
+                    }
+                    
+                    $asset_inventary->unit_value = $asset->value;
+                    $asset_inventary->save();
+
+                $asset->inventary_id = $asset_inventary->id;
+                
+            }
+
+            $asset->save();
+            $asset->serial_inventario = $asset->getCode();
+            $asset->save();
+        }
 
         return redirect()->route('asset.index');
     }
@@ -274,30 +287,28 @@ class AssetController extends Controller
         $asset->serial_inventario = $asset->getCode();
         $asset->value = $request->value;
         $asset->use_id = $request->use;
-        $asset->quantity = $request->quantity;
-
 
         // Si el bien registrado estaba en el alamacen
         if ($asset->status_id == 10)    {
-
-                // Si despues de realizar cambios sigue en almacen
+            $asset_inventary = AssetInventary::find($asset->inventary_id);
+            
+            // Si despues de realizar cambios sigue en almacen
             if ($request->status == 10)    {
-                $asset_inventary = AssetInventary::find($inventary_id);
+                
                 $asset_inventary->unit_value = $asset->value;
-
-                // Si es un bien inmueble la cantidad puede ser diferente de 1
-                if ($request->type == 2)
-                    $asset_inventary->exist = $request->quantity;
-
                 $asset_inventary->save();
-                $asset->inventary_id = $asset_inventary->id;
 
             // Si despues de realizar los cambios el bien no esta en almacen
+                
             }else if ($request->status != 10)  {
 
-                $asset->inventary_id = null;
-                $asset_inventary->delete();
+                if($asset_inventary->exist > 0)
+                    $asset_inventary->exist--;
+                
+                $asset_inventary->unit_value = $asset->value;
+                $asset_inventary->save();
             }
+
         
         // Si el bien registrado no estaba en el almacen antes de realizar los cambios
         }else if ($asset->status_id != 10)   {
@@ -305,19 +316,21 @@ class AssetController extends Controller
             // Si se quiere guardar en el almacen
             if ($request->status == 10)    {
             
-                $asset_inventary = new AssetInventary;
+                if( !is_null($asset->inventary_id) ){
+                    $asset_inventary = AssetInventary::find($asset->inventary_id);
+                    $asset_inventary->exist++;
+                }
+                else
+                    $asset_inventary = new AssetInventary;
+
                 $asset_inventary->unit_value = $asset->value;
-
-                // Si es un bien inmueble la cantidad puede ser diferente de 1
-                if ($request->type == 2)
-                    $asset_inventary->exist = $request->quantity;
-
                 $asset_inventary->save();
                 $asset->inventary_id = $asset_inventary->id;
             }
         }
 
         $asset->status_id = $request->status;
+
         $asset->save();
         return redirect()->route('asset.index');
     }
@@ -363,6 +376,11 @@ class AssetController extends Controller
 
         return response()->json(['record' => $this->data[0]]);
         
+    }
+
+    public function vueList()
+    {
+        return response()->json(['records' => Asset::where('status_id',10)->with('condition','status')->get()], 200);
     }
 
 

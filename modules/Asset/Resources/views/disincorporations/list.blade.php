@@ -58,7 +58,7 @@
 									<tr>
 										<td>{{ $disincorporation->id }}</td>
 										<td>{{ $disincorporation->asset->serial }}</td>
-										<td>{{ $disincorporation->motive }}</td>
+										<td>{{ $disincorporation->motive->name }}</td>
 										<td class="text-center">{{ $disincorporation->created_at }}</td>
 										<td width="10%" class="text-center">
 											<div class="d-inline-flex">

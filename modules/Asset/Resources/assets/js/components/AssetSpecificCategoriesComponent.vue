@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Categorias Específicas de Bienes" data-toggle="tooltip" 
-		   @click="addRecord('add_specific_category', 'specific', $event)">
+		   @click="initRequest('specific',$event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Categorias<br>Específicas</span>
 		</a>
@@ -103,7 +103,7 @@
 	                			<i class="fa fa-ban"></i>
 	                	</button>
 
-	                	<button type="button" @click="createRecord('specific')" 
+	                	<button type="button" @click="createRecord('asset/specific')" 
 	                			class="btn btn-success btn-icon btn-round btn-modal-save"
 	                			title="Guardar registro">
 	                		<i class="fa fa-save"></i>
@@ -145,7 +145,6 @@
 			this.table_options.sortable = ['subcategory.name','name', 'code'];
 			this.table_options.filterable = ['subcategory.name','name', 'code'];
 
-			this.getTypes();
 		},
 		methods: {
 			/**
@@ -163,6 +162,10 @@
 					code: ''
                 };
             },
+            initRequest(url,event){
+				this.getTypes();
+				this.addRecord('add_specific_category', url, event);
+			},
 			/**
 			 * Inicializa los registros base del formulario
 			 *

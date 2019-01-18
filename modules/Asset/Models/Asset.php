@@ -44,7 +44,7 @@ class Asset extends Model implements Auditable
      */
     protected $fillable = [
         'orden_compra', 'type_id', 'category_id', 'subcategory_id', 'specific_category_id', 'institution_id', 'proveedor_id','condition_id','purchase_id','purchase_year','status_id', 'serial', 'marca',
-        'model', 'serial_inventario', 'value','use_id','quantity'
+        'model', 'serial_inventario', 'value','use_id'
     ];
 
     /**
@@ -55,7 +55,7 @@ class Asset extends Model implements Auditable
      */
     public function getCode()
     {
-        $code = $this->type_id .'-'. $this->category_id .'-'. $this->subcategory_id .'-'. $this->specific_category_id .'-'. $this->purchase_year;
+        $code = $this->type_id .'-'. $this->category_id .'-'. $this->subcategory_id .'-'. $this->specific_category_id .'-'. $this->purchase_year .'-'. $this->id;
 
         return $code;
     }
@@ -136,7 +136,7 @@ class Asset extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene el Staus de uso del bien
+     * Método que obtiene el Status de uso del bien
      *
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return Objeto con el registro relacionado al modelo AssetCategory
@@ -177,6 +177,28 @@ class Asset extends Model implements Auditable
     public function disasig()
     {
         return $this->hasMany('Modules\Asset\Models\AssetDisincorporation');
+    }
+
+    /**
+     * Método que obtiene el registro en inventario del bien
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetInventary
+     */
+    public function inventary()
+    {
+        return $this->belongsTo('Modules\Asset\Models\AssetInventary', 'inventary_id');
+    }
+
+     /**
+     * Método que obtiene los bienes de un registro de inventario
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo Asset
+     */
+    public function assetRequested()
+    {
+        return $this->hasOne('Modules\Asset\Models\AssetRequested');
     }
 
 
@@ -225,8 +247,7 @@ class Asset extends Model implements Auditable
         }
     }
 
-    public function scopeDateClasification($query, $start, $end){
-        
+    public function scopeDateClasification($query, $start, $end, $mes, $year){
         if (!is_null($start)){
             if (!is_null($end)){
                 return $query->whereBetween("created_at",[$start,$end]); 
@@ -235,65 +256,85 @@ class Asset extends Model implements Auditable
                 return $query->whereBetween("created_at",[$start,now()]);
             }
         }
-        
+
+        if (!is_null($mes)){
+            if (!is_null($year)){
+                return $query->whereMonth('created_at', $mes)
+                            ->whereYear('created_at', $year);
+            }else
+                return $query->whereMonth('created_at', $mes);
+        }
     }
 
-    public function scopeRequest($query, $model, $marca, $serial){
+    public function scopeRequest($query, $model, $marca, $serial, $id=10){
         if(trim($serial) != ""){
             if(trim($marca) != ""){
                 if(trim($model) != ""){
                     $query->where('serial','like',"%$serial%")
                           ->where('marca','like',"%$marca%")
-                          ->where('model','like',"%$model%");   
+                          ->where('model','like',"%$model%")
+                          ->where('status_id','=',$id);
                 }
                 $query->where('serial','like',"%$serial%")
-                      ->where('marca','like',"%$marca%");
+                      ->where('marca','like',"%$marca%")
+                      ->where('status_id','=',$id);
             }
             if(trim($model) != ""){
                     $query->where('serial','like',"%$serial%")
                           ->where('marca','like',"%$marca%")
-                          ->where('model','like',"%$model%");   
+                          ->where('model','like',"%$model%")
+                          ->where('status_id','=',$id);
             }
-            $query->where('serial','like',"%$serial%");
+            $query->where('serial','like',"%$serial%")
+                  ->where('status_id','=',$id);
         }
         else if(trim($marca) != ""){
             if(trim($model) != ""){
                 if(trim($serial) != ""){
                     $query->where('marca','like',"%$marca%")
                           ->where('model','like',"%$model%")
-                          ->where('serial','like',"%serial%");
+                          ->where('serial','like',"%serial%")
+                          ->where('status_id','=',$id);
 
                 }
                 $query->where('marca','like',"%$marca%")
-                      ->where('model','like',"%$model%");
+                      ->where('model','like',"%$model%")
+                      ->where('status_id','=',$id);
             }
             if(trim($serial) != ""){
                     $query->where('marca','like',"%$marca%")
                           ->where('model','like',"%$model%")
-                          ->where('serial','like',"%serial%");
+                          ->where('serial','like',"%serial%")
+                          ->where('status_id','=',$id);
 
             }
-            $query->where('marca','like',"%$marca%");
+            $query->where('marca','like',"%$marca%")
+            ->where('status_id','=',$id);
         }
         else if(trim($model) != ""){
             if(trim($serial) != ""){
                 if(trim($marca) != ""){
                     $query->where('model','like',"%$model%")
                           ->where('serial','like',"%serial%")
-                          ->where('marca','like',"%$marca%");
+                          ->where('marca','like',"%$marca%")
+                          ->where('status_id','=',$id);
 
                 }
                 $query->where('model','like',"%$model%")
-                      ->where('serial','like',"%$serial%");
+                      ->where('serial','like',"%$serial%")
+                      ->where('status_id','=',$id);
             }
             if(trim($marca) != ""){
                     $query->where('model','like',"%$model%")
                           ->where('serial','like',"%serial%")
-                          ->where('marca','like',"%$marca%");
+                          ->where('marca','like',"%$marca%")
+                          ->where('status_id','=',$id);
 
             }
-            $query->where('model','like',"%$model%");
+            $query->where('model','like',"%$model%")
+                  ->where('status_id','=',$id);
         }
+        $query->where('status_id','=',$id);
     }
 
 

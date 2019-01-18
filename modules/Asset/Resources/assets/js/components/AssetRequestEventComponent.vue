@@ -1,12 +1,11 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de Categorias Generales de Bienes" data-toggle="tooltip" 
-		   @click="initRequest('categories',$event)">
-			<i class="icofont icofont-read-book ico-3x"></i>
-			<span>Categorias<br>Generales</span>
+	<div>
+		<a class="btn btn-success btn-xs btn-icon btn-round" 
+		   href="#" title="Registros de Eventos" data-toggle="tooltip" 
+		   @click="addRecord('add_event', 'requests/request-event', $event)">
+		   <i class=""></i>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_category">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_event">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -15,7 +14,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-read-book ico-2x"></i> 
-							Nueva Categoria General de Bienes
+							Nuevo Evento
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -25,36 +24,31 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Tipo de Bien:</label>
+							<div class="col-md-6">
+								<div class="form-group is-required">
+									<label>Tipo de Evento:</label>
 									<select2 :options="types"
-											 v-model="record.type_id"></select2>
+										v-model="record.type_id">
+									</select2>
+
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-					
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Código de la Categoría General:</label>
-									<input type="text" placeholder="Código de Categoría General" data-toggle="tooltip" 
-										   title="Indique el código de la nueva Categoría General (requerido)" 
-										   class="form-control input-sm" v-model="record.code">
-			                    </div>
+									<label>Descripción del Evento</label>
+									<input  type="text" 
+											data-toggle="tooltip" 
+											class="form-control input-sm"
+											v-model="record.description"
+											id="description_event">
+								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group is-required">
-									<label>Categoría General:</label>
-									<input type="text" placeholder="Nueva Categoría General" data-toggle="tooltip" 
-										   title="Indique la nueva Categoría General (requerido)" 
-										   class="form-control input-sm" v-model="record.name">
-			                    </div>
-							</div>
-
 						</div>
-	                </div>
-	                <div class="modal-body modal-table">
 
+	                </div>
+
+	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
@@ -63,7 +57,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'categories')" 
+		                		<button @click="deleteRecord(props.index, 'requests/request-event')" 
 										class="btn btn-danger btn-xs btn-icon btn-round" 
 										title="Eliminar registro" data-toggle="tooltip" 
 										type="button">
@@ -74,12 +68,13 @@
 	                </div>
 
 	                <div class="modal-footer">
+
 	                	<button type="button" @click="reset()"
 								class="btn btn-default btn-icon btn-round"
 								title ="Borrar datos del formulario">
 								<i class="fa fa-eraser"></i>
 						</button>
-						
+	                	
 	                	<button type="button" 
 	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
 	                			data-dismiss="modal"
@@ -87,7 +82,7 @@
 	                			<i class="fa fa-ban"></i>
 	                	</button>
 
-	                	<button type="button"  @click="createRecord('asset/categories')"
+	                	<button type="button" @click="createRequest('asset/requests/request-event')" 
 	                			class="btn btn-success btn-icon btn-round btn-modal-save"
 	                			title="Guardar registro">
 	                		<i class="fa fa-save"></i>
@@ -98,34 +93,25 @@
 		</div>
 	</div>
 </template>
+
 <script>
 	export default {
 		data() {
 			return {
 				record: {
-					id: '',
+					id:'',
 					type_id: '',
-					name: '',
-					code: ''
+					request_id: '',
+					description: '',
+
 				},
-				errors: [],
-				records: [],
 				types: [],
-				columns: ['type.name', 'name', 'code', 'id'],
+				records: [],
+				errors: [],
+				columns: ['type', 'description', 'id'],
 			}
 		},
-		created() {
-			this.table_options.headings = {
-				'type.name': 'Tipo de Bien',
-				'name': 'Categoria General',
-				'code': 'Código',
-				'id': 'Acción'
-			};
-			this.table_options.sortable = ['type.name','name', 'code'];
-			this.table_options.filterable = ['type.name','name', 'code'];
-
-			
-		},
+		props: ['id'],
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
@@ -134,27 +120,33 @@
 			 */
 			reset() {
 				this.record = {
-					id: '',
+					id:'',
 					type_id: '',
-					name: '',
-					code: ''
+					request_id: '',
+					description: '',
 				};
 			},
-			initRequest(url,event){
-				this.getTypes();
-				this.addRecord('add_category', url, event);
+			createRequest(url){
+				this.record.request_id = this.id;
+				this.createRecord(url);
 			},
-			/**
-			 * Inicializa los registros base del formulario
-			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
-			 */
+
 			getTypes() {
-				axios.get('/asset/get-types').then(response => {
+				axios.get('/asset/get-request-types').then(response => {
 					this.types = response.data;
 				});
 			}
+		},
+		created() {
+			this.table_options.headings = {
+				'type': 'Tipo',
+				'description': 'Descripción',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['type'];
+			this.table_options.filterable = ['type'];
 
-		}
-	};
+			this.getTypes();
+		},
+	}
 </script>

@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Subcategorías de Bienes" data-toggle="tooltip" 
-		   @click="addRecord('add_subcategory', 'subcategories', $event)">
+		   @click="initRequest('subcategories',$event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Subcategorías</span>
 		</a>
@@ -97,7 +97,7 @@
 	                			<i class="fa fa-ban"></i>
 	                	</button>
 
-	                	<button type="button" @click="createRecord('subcategories')" 
+	                	<button type="button" @click="createRecord('asset/subcategories')" 
 	                			class="btn btn-success btn-icon btn-round btn-modal-save"
 	                			title="Guardar registro">
 	                		<i class="fa fa-save"></i>
@@ -137,7 +137,6 @@
 			this.table_options.sortable = ['category.name','name', 'code'];
 			this.table_options.filterable = ['category.name','name', 'code'];
 
-			this.getTypes();
 		},
 		methods: {
 			/**
@@ -154,6 +153,10 @@
 					name: ''
                 };
             },
+            initRequest(url,event){
+				this.getTypes();
+				this.addRecord('add_subcategory', url, event);
+			},
 			/**
 			 * Inicializa los registros base del formulario
 			 *

@@ -55,6 +55,21 @@ class ServiceController extends Controller
         return response()->json($this->data);
         
     }
+    public function GetRequestTypes()
+    {
+        $this->data[1] = [
+            'id' => 1,
+            'text' => 'AVERIADO'
+        ];
+        $this->data[2] = [
+            'id' => 2,
+            'text' => 'PERDIDO'
+        ];
+        
+
+        return response()->json($this->data);
+        
+    }
     /**
      * Obtiene todos las Categorias registradas al tipo de Bien seleccionado
      *
@@ -91,15 +106,5 @@ class ServiceController extends Controller
         }
 
         return response()->json($this->data);
-    }
-    /**
-     * Obtiene todos los Tipos de Bienes Registrados
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
-     */
-    public function vueListTypes()
-    {
-        return response()->json(['records' => AssetType::all()], 200);
     }
 }

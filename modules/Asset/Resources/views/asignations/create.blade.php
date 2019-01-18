@@ -46,7 +46,6 @@
 								{!! Form::select('type', (isset($types))?$types:[], (isset($asset))?$asset->type_id:null, [		
 									'id' => 'type',
 									'class' => 'form-control select2',
-									'onchange' => 'mostrar(this.value);',
 									'data-toggle' => 'tooltip',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el tipo de bien a registrar',

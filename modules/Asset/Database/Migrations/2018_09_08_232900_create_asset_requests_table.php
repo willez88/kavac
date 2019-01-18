@@ -29,6 +29,7 @@ class CreateAssetRequestsTable extends Migration
                 $table->increments('id')->comment('Identificador único del registro');
                 $table->integer('type')->nullable()->comment('Identificador único del tipo de solicitud');
                 $table->string('motive')->nullable()->comment('Motivo de la solicitud');
+                $table->string('state')->nullable()->comment('Estado de la solicitud');
                 $table->date('delivery_date')->nullable()->comment('Fecha de entrega');
                 $table->string('ubication')->nullable()->comment('Ubicación del solicitante');
                 $table->string('agent_name')->nullable()->comment('Nombre del Agente Externo');

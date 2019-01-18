@@ -24,6 +24,39 @@ class AssetRequested extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['inventary_id','request_id'];
+    protected $fillable = ['inventary_id','asset_id','request_id'];
+
+    /**
+     * Método que obtiene la solicitud a la que pertenece el bien
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetRequest
+     */
+    public function request()
+    {
+        return $this->belongsTo('Modules\Asset\Models\AssetRequest', 'request_id');
+    }
+
+    /**
+     * Método que obtiene el registro de inventario al que pertenece el bien solicitado
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetInventary
+     */
+    public function inventary()
+    {
+        return $this->belongsTo('Modules\Asset\Models\AssetInventary', 'inventary_id');
+    }
+
+    /**
+     * Método que obtiene el registro del bien solicitado
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo Asset
+     */
+    public function asset()
+    {
+        return $this->belongsTo('Modules\Asset\Models\Asset', 'asset_id');
+    }
 
 }

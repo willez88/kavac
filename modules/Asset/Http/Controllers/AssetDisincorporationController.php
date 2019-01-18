@@ -132,8 +132,9 @@ class AssetDisincorporationController extends Controller
         $categories = AssetCategory::template_choices(['id' => $asset->category_id]);
         $subcategories = AssetSubcategory::template_choices(['id' => $asset->subcategory_id]);
         $specific_categories = AssetSpecificCategory::template_choices(['id' => $asset->specific_category_id]);
+        $motive = AssetMotiveDisincorporation::template_choices();
 
-        return view('asset::disincorporations.create', compact('header','disincorporation','assets','asset','types','categories','subcategories','specific_categories'));
+        return view('asset::disincorporations.create', compact('header','disincorporation','assets','asset','types','categories','subcategories','specific_categories','motive'));
         }
 
     /**
@@ -167,8 +168,9 @@ class AssetDisincorporationController extends Controller
         $categories = AssetCategory::template_choices(['id' => $asset->category_id]);
         $subcategories = AssetSubcategory::template_choices(['id' => $asset->subcategory_id]);
         $specific_categories = AssetSpecificCategory::template_choices(['id' => $asset->specific_category_id]);
+        $motive = AssetMotiveDisincorporation::template_choices();
 
-        return view('asset::disincorporations.create', compact('header', 'disincorporation', 'assets', 'types', 'categories', 'subcategories', 'specific_categories','asset'));
+        return view('asset::disincorporations.create', compact('header', 'disincorporation', 'assets', 'types', 'categories', 'subcategories', 'specific_categories','asset','motive'));
     }
 
     /**
@@ -237,7 +239,7 @@ class AssetDisincorporationController extends Controller
             'ubication' => $dato->asset->institution_id,
             'staff' => $dato->asset->staff_id,
             'date' => $dato->date,
-            'motive' => $dato->motive,
+            'motive' => $dato->motive->name,
             'observe' => $dato->observation
             
                 
