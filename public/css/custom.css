@@ -785,6 +785,10 @@ table td {
   display: none;
 }
 
+.content-wrapper.collapsed .submenu {
+  display: none !important;
+}
+
 /** Estilos de panel izquierdo (opciones del menú) */
 
 .left-panel {
