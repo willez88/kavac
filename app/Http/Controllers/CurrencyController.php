@@ -135,15 +135,6 @@ class CurrencyController extends Controller
      */
     public function getCurrencies($id = null)
     {
-        $data = [];
-        $currencies = ($id) ? Currency::where('id', $id)->get() : Currency::all();
-        foreach ($currencies as $currency) {
-            array_push($data, [
-                'id' => $currency->id,
-                'text' => $currency->symbol . " - " . $currency->name
-            ]);
-        }
-
-        return response()->json($data);
+        return response()->json(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
     }
 }

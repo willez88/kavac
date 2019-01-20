@@ -93,15 +93,6 @@ class InstitutionController extends Controller
      */
     public function getInstitutions($id = null)
     {
-        $data = [];
-        $institutions = ($id) ? Institution::where('id', $id)->get() : Institution::all();
-        foreach ($institutions as $institution) {
-            array_push($data, [
-                'id' => $institution->id,
-                'text' => $institution->name
-            ]);
-        }
-
-        return response()->json($data);
+        return response()->json(template_choices('App\Models\Institution', 'name', [], true));
     }
 }
