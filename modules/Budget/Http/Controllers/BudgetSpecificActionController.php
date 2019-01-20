@@ -199,7 +199,7 @@ class BudgetSpecificActionController extends Controller
      */
     public function getSpecificActions($type, $id)
     {
-        $data = [];
+        $data = [['id' => '', 'text' => 'Seleccione...']];
         if ($type==="Project") {
             $specificActions = BudgetProject::find($id)->specific_actions()->get();
         }

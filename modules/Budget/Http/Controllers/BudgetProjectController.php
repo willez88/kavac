@@ -186,15 +186,8 @@ class BudgetProjectController extends Controller
      */
     public function getProjects($id = null)
     {
-        $data = [];
-        $projects = ($id) ? BudgetProject::where('id', $id)->get() : BudgetProject::all();
-        foreach ($projects as $project) {
-            array_push($data, [
-                'id' => $project->id,
-                'text' => $project->code . " - " . $project->name
-            ]);
-        }
-
-        return response()->json($data);
+        return response()->json(template_choices(
+            'Modules\Budget\Models\BudgetProject', ['code', '-', 'name'], ($id) ? ['id' => $id] : [], true
+        ));
     }
 }

@@ -187,16 +187,9 @@ class BudgetCentralizedActionController extends Controller
      */
     public function getCentralizedActions($id = null)
     {
-        $data = [];
-        $centralizedActions = ($id) ? BudgetCentralizedAction::where('id', $id)->get() 
-                              : BudgetCentralizedAction::all();
-        foreach ($centralizedActions as $centralizedAction) {
-            array_push($data, [
-                'id' => $centralizedAction->id,
-                'text' => $centralizedAction->code . " - " . $centralizedAction->name
-            ]);
-        }
-
-        return response()->json($data);
+        return response()->json(template_choices(
+            'Modules\Budget\Models\BudgetCentralizedAction', 
+            ['code', '-', 'name'], ($id) ? ['id' => $id] : [], true
+        ));
     }
 }
