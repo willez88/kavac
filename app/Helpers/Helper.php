@@ -62,18 +62,21 @@ if (!function_exists('template_choices')) {
 	 * @param  string 		$model   Nombre de la clase del modelo al cual generar el listado de opciones
 	 * @param  string|array $fields  Campo(s) a utilizar para mostrar en el listado de opciones
 	 * @param  array 		$filters Arreglo con los filtros a ser aplicados en la consulta
+	 * @param  boolean      $vuejs   Indica si las opciones a mostrar son para una plantilla normal o para VueJS
 	 * @return array          		 Arreglo con las opciones a mostrar
 	 */
-	function template_choices($model, $fields = 'name', $filters = [])
+	function template_choices($model, $fields = 'name', $filters = [], $vuejs = false)
 	{
 		$records = $model::all();
         if ($filters) {
             foreach ($filters as $key => $value) {
                 $records = $records->where($key, $value);
             }
-            //$records = $records->get();
         }
-        $options = ['' => 'Seleccione...'];
+
+        /** Inicia la opción vacia por defecto */
+        $options = ($vuejs) ? [['id' => '', 'text' => 'Seleccione...']] : ['' => 'Seleccione...'];
+
         foreach ($records as $rec) {
         	if (is_array($fields)) {
         		$text = '';
@@ -84,7 +87,10 @@ if (!function_exists('template_choices')) {
         	else {
         		$text = $rec->$fields;
         	}
-            $options[$rec->id] = $text;
+
+        	/** Carga el listado según el tipo de plantilla en el cual se va a implementar (normal o con VueJS) */
+        	($vuejs) ? array_push($options, ['id' => $rec->id, 'text' => $text]) : $options[$rec->id] = $text;
+
         }
         return $options;
 	}
