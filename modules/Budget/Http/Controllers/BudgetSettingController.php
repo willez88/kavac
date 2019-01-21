@@ -25,7 +25,11 @@ class BudgetSettingController extends Controller
         $tCode = $codeSettings->where('table', 'budget_transfers')->first();
         $rCode = $codeSettings->where('table', 'budget_reductions')->first();
         $crCode = $codeSettings->where('table', 'budget_credits')->first();
-        return view('budget::settings', compact('projects', 'fCode', 'cCode', 'tCode', 'rCode', 'crCode'));
+        $caCode = $codeSettings->where('table', 'budget_caused')->first();
+        $pCode = $codeSettings->where('table', 'budget_payed')->first();
+        return view('budget::settings', compact(
+            'projects', 'fCode', 'cCode', 'tCode', 'rCode', 'crCode', 'caCode', 'pCode'
+        ));
     }
 
     /**

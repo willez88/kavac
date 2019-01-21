@@ -55,9 +55,9 @@
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-	                		<div slot="color" slot-scope="props" class="text-center">
-								<i class="ion-android-checkbox-blank" :style="'color:' + props.color"></i>
-								{{ props.color }}
+	                		<div slot="color" slot-scope="props" class="text-left">
+								<i class="ion-android-checkbox-blank" :style="'color:' + props.row.color"></i>
+								<span style="margin-left:5px">{{ props.row.color }}</span>
 							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
@@ -99,7 +99,7 @@
 					id: '',
 					description: '',
 					name: '',
-					color: ''
+					color: '#FFFFFF'
 				},
 				/** @type {Array} Inicialización de errores a mostrar */
 				errors: [],
@@ -119,7 +119,7 @@
 					id: '',
 					description: '',
 					name: '',
-					color: ''
+					color: '#FFFFFF'
 				};
 			},
 		},

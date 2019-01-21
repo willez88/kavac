@@ -125,6 +125,7 @@
 			this.table_options.filterable = ['estate.name', 'name'];
 
 			this.getCountries();
+
 		},
 	};
 </script>

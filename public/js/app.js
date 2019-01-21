@@ -75386,7 +75386,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				id: '',
 				description: '',
 				name: '',
-				color: ''
+				color: '#FFFFFF'
 			},
 			/** @type {Array} Inicialización de errores a mostrar */
 			errors: [],
@@ -75407,7 +75407,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				id: '',
 				description: '',
 				name: '',
-				color: ''
+				color: '#FFFFFF'
 			};
 		}
 	},
@@ -75626,15 +75626,16 @@ var render = function() {
                       {
                         key: "color",
                         fn: function(props) {
-                          return _c("div", { staticClass: "text-center" }, [
+                          return _c("div", { staticClass: "text-left" }, [
                             _c("i", {
                               staticClass: "ion-android-checkbox-blank",
-                              style: "color:" + props.color
+                              style: "color:" + props.row.color
                             }),
-                            _vm._v(
-                              "\n\t\t\t\t\t\t\t" +
-                                _vm._s(props.color) +
-                                "\n\t\t\t\t\t\t"
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              { staticStyle: { "margin-left": "5px" } },
+                              [_vm._v(_vm._s(props.row.color))]
                             )
                           ])
                         }

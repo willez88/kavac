@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Parámetros Generales</h6>
+					<h6 class="card-title">Formatos de Códigos</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 						   data-toggle="tooltip">
@@ -44,7 +44,8 @@
 									{!! Form::text('formulations_code', ($fCode) ? $fCode->format_code : old('formulations_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de la formulación de presupuesto',
-										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+										'placeholder' => 'Ej. XXX-0000000000-YYYY', 
+										'readonly' => ($fCode) ? true : false
 									]) !!}
 								</div>
 							</div>
@@ -61,8 +62,31 @@
 									{!! Form::label('commitments_code', 'Código de Compromiso', []) !!}
 									{!! Form::text('commitments_code', ($cCode) ? $cCode->format_code : old('commitments_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código del compromiso',
+										'placeholder' => 'Ej. XXX-0000000000-YYYY',
+										'readonly' => ($cCode) ? true : false
+									]) !!}
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('caused_code', 'Código de Causado', []) !!}
+									{!! Form::text('caused_code', ($caCode) ? $caCode->format_code : old('caused_code'), [
+										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código del causado',
-										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+										'placeholder' => 'Ej. XXX-0000000000-YYYY',
+										'readonly' => ($caCode) ? true : false
+									]) !!}
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('payed_code', 'Código de Pagado', []) !!}
+									{!! Form::text('payed_code', ($pCode) ? $pCode->format_code : old('payed_code'), [
+										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código del pagado',
+										'placeholder' => 'Ej. XXX-0000000000-YYYY',
+										'readonly' => ($pCode) ? true : false
 									]) !!}
 								</div>
 							</div>
@@ -72,7 +96,8 @@
 									{!! Form::text('transfers_code', ($tCode) ? $tCode->format_code : old('transfers_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código del traspaso',
-										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+										'placeholder' => 'Ej. XXX-0000000000-YYYY',
+										'readonly' => ($tCode) ? true : false
 									]) !!}
 								</div>
 							</div>
@@ -82,7 +107,8 @@
 									{!! Form::text('reductions_code', ($rCode) ? $rCode->format_code : old('reductions_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de reducciones',
-										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+										'placeholder' => 'Ej. XXX-0000000000-YYYY',
+										'readonly' => ($rCode) ? true : false
 									]) !!}
 								</div>
 							</div>
@@ -92,7 +118,8 @@
 									{!! Form::text('credits_code', ($crCode) ? $crCode->format_code : old('credits_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de créditos adicionales',
-										'placeholder' => 'Ej. XXX-0000000000-YYYY'
+										'placeholder' => 'Ej. XXX-0000000000-YYYY',
+										'readonly' => ($crCode) ? true : false
 									]) !!}
 								</div>
 							</div>
