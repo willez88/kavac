@@ -126,6 +126,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     /** Rutas para la gestión de monedas y tipos de cambio */
     Route::resource('currencies', 'CurrencyController');
+    Route::get('currencies/info/{currency_id}', 'CurrencyController@getCurrencyInfo')->name('currency.info');
 
     /** Ruta para obtener datos de selecs dependientes dinámicamente */
     Route::get('get-select-data/{parent_id}/{model}/{module_name}', 'CommonController@getSelectData');

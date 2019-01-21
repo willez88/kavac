@@ -137,4 +137,9 @@ class CurrencyController extends Controller
     {
         return response()->json(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
     }
+
+    public function getCurrencyInfo($id)
+    {
+        return response()->json(['result' => true, 'currency' => Currency::find($id)], 200);
+    }
 }

@@ -30,7 +30,7 @@ class Currency extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['symbol', 'name', 'country_id', 'default'];
+    protected $fillable = ['symbol', 'name', 'country_id', 'default', 'decimal_places'];
 
     /**
      * Currency belongs to Country.
