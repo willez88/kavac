@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use App\Models\CodeSetting;
 
 use Modules\Budget\Models\BudgetProject;
+use Modules\Budget\Models\BudgetSubSpecificFormulation;
 
 class BudgetSettingController extends Controller
 {
@@ -18,7 +19,13 @@ class BudgetSettingController extends Controller
     public function index()
     {
         $projects = BudgetProject::all();
-        return view('budget::settings', compact('projects'));
+        $codeSettings = CodeSetting::where('module', 'budget')->get();
+        $fCode = $codeSettings->where('table', 'budget_formulations')->first();
+        $cCode = $codeSettings->where('table', 'budget_commitments')->first();
+        $tCode = $codeSettings->where('table', 'budget_transfers')->first();
+        $rCode = $codeSettings->where('table', 'budget_reductions')->first();
+        $crCode = $codeSettings->where('table', 'budget_credits')->first();
+        return view('budget::settings', compact('projects', 'fCode', 'cCode', 'tCode', 'rCode', 'crCode'));
     }
 
     /**
@@ -39,22 +46,39 @@ class BudgetSettingController extends Controller
     {
         $codes = $request->input();
         $saved = false;
-
+        
         foreach ($codes as $key => $value) {
+            $model = '';
+
             if ($key !== '_token' && !is_null($value)) {
                 list($table, $field) = explode("_", $key);
-                
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
-                CodeSetting::codeNextValue('budget_' . $table, $field, 'Modules\Budget\Models\BudgetAccount');
+                
+                if ($table === "formulations") {
+                    $model = BudgetSubSpecificFormulation::class;
+                }
+                else if ($table === "commitments") {
+                    $model .= "Commitment";
+                }
+                else if ($table === "transfers") {
+                    $model .= "Transfer";
+                }
+                else if ($table === "reductions") {
+                    $model .= "Reduction";
+                }
+                else if ($table === "credits") {
+                    $model .= "Credit";
+                }
+
                 CodeSetting::updateOrCreate([
                     'module' => 'budget',
                     'table' => 'budget_' . $table,
                     'field' => $field,
+                ], [
                     'format_prefix' => $prefix,
                     'format_digits' => $digits,
                     'format_year' => $sufix,
-                ], [
-                    'model' => 'Modules\Budget\Models\BudgetAccount',
+                    'model' => $model,
                 ]);
 
                 $saved = true;

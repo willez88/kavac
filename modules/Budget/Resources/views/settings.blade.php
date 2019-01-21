@@ -41,7 +41,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('formulations_code', 'Código de Formulación', []) !!}
-									{!! Form::text('formulations_code', old('formulations_code'), [
+									{!! Form::text('formulations_code', ($fCode) ? $fCode->format_code : old('formulations_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de la formulación de presupuesto',
 										'placeholder' => 'Ej. XXX-0000000000-YYYY'
@@ -59,7 +59,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('commitments_code', 'Código de Compromiso', []) !!}
-									{!! Form::text('commitments_code', old('commitments_code'), [
+									{!! Form::text('commitments_code', ($cCode) ? $cCode->format_code : old('commitments_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código del causado',
 										'placeholder' => 'Ej. XXX-0000000000-YYYY'
@@ -69,7 +69,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('transfers_code', 'Código de Traspaso', []) !!}
-									{!! Form::text('transfers_code', old('transfers_code'), [
+									{!! Form::text('transfers_code', ($tCode) ? $tCode->format_code : old('transfers_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código del traspaso',
 										'placeholder' => 'Ej. XXX-0000000000-YYYY'
@@ -79,7 +79,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('reductions_code', 'Código de Reducción', []) !!}
-									{!! Form::text('reductions_code', old('reductions_code'), [
+									{!! Form::text('reductions_code', ($rCode) ? $rCode->format_code : old('reductions_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de reducciones',
 										'placeholder' => 'Ej. XXX-0000000000-YYYY'
@@ -89,7 +89,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('credits_code', 'Código de Crédito Adicional', []) !!}
-									{!! Form::text('credits_code', old('credits_code'), [
+									{!! Form::text('credits_code', ($crCode) ? $crCode->format_code : old('credits_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de créditos adicionales',
 										'placeholder' => 'Ej. XXX-0000000000-YYYY'

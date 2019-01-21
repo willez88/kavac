@@ -35,6 +35,17 @@ class CodeSetting extends Model implements Auditable
     ];
 
     /**
+     * Método que permite obtener el formato configurado para el código
+     *
+     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @return [string] Retorna el formato del código configurado
+     */
+    public function getFormatCodeAttribute()
+    {
+        return "{$this->format_prefix}-{$this->format_digits}-{$this->format_year}";
+    }
+
+    /**
      * Método que permite dividir el formato del código
      *
      * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
