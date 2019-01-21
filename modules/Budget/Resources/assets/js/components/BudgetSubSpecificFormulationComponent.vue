@@ -85,22 +85,12 @@
 						<th class="text-uppercase">Real</th>
 						<th class="text-uppercase">Estimado</th>
 						<th class="text-uppercase">Total año</th>
-						<th class="text-uppercase">Ene</th>
-						<th class="text-uppercase">Feb</th>
-						<th class="text-uppercase">Mar</th>
-						<th class="text-uppercase">Abr</th>
-						<th class="text-uppercase">May</th>
-						<th class="text-uppercase">Jun</th>
-						<th class="text-uppercase">Jul</th>
-						<th class="text-uppercase">Ago</th>
-						<th class="text-uppercase">Sep</th>
-						<th class="text-uppercase">Oct</th>
-						<th class="text-uppercase">Nov</th>
-						<th class="text-uppercase">Dic</th>
+						<th class="text-uppercase" v-for="month in months">{{ month }}</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="account in records" :class="(account.specific==='00')?'disable-row':''">
+					<tr v-for="account in records" :class="(account.specific==='00')?'disable-row':''" 
+						:id="account.id" data-formulated="false">
 						<td>
 							<i class="fa fa-ban text-white" v-if="(account.specific==='00')" 
 							   title="Elemento bloqueado, de solo lectura" data-toggle="tooltip"></i>
@@ -114,79 +104,40 @@
 						</td>
 						<td>{{ account.denomination }}</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00" :readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
+							<input type="text" class="form-control input-sm input-to-calc" 
+								   :class="'input_'+account.id" value="0.00" 
+								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
+							       :data-group="account.group" :data-item="account.item" 
+							       :data-generic="account.generic" :data-specific="account.specific" 
+							       :data-subspecific="account.subspecific" data-type='real' 
+							       data-toggle="tooltip">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00" :readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
+							<input type="text" class="form-control input-sm input-to-calc" 
+								   :class="'input_'+account.id" value="0.00" 
+								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
+								   :data-group="account.group" :data-item="account.item" 
+								   :data-generic="account.generic" :data-specific="account.specific" 
+								   :data-subspecific="account.subspecific" data-type="estimated" 
+								   data-toggle="tooltip">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
+							<input type="text" class="form-control input-sm input-to-calc" 
+								   :class="'input_'+account.id" value="0.00" 
+								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
+								   :data-group="account.group" :data-item="account.item" 
+								   :data-generic="account.generic" :data-specific="account.specific" 
+								   :data-subspecific="account.subspecific" data-type="total" 
+								   data-toggle="tooltip">
 						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
-						</td>
-						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" :class="'input_'+account.id" 
-							       value="0.00":readonly="(account.specific==='00')" 
-							       v-show="(account.specific==='00')">
+						<td class="td-with-border" v-for="month in months">
+							<input type="text" class="form-control input-sm input-to-calc" 
+								   :class="'input_'+account.id" value="0.00" 
+								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
+								   :data-group="account.group" :data-item="account.item" 
+								   :data-generic="account.generic" :data-specific="account.specific" 
+								   :data-subspecific="account.subspecific" data-type="month" :data-month="month"
+								   data-toggle="tooltip">
 						</td>
 					</tr>
 				</tbody>
@@ -202,7 +153,7 @@
 				<i class="fa fa-ban"></i>
 			</button>
 			<button type="button" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 
-					title="Guardar registro" @click="createRecord('budget/subspecific-formulations')">
+					title="Guardar registro" @click="createFormulation">
 				<i class="fa fa-save"></i>
 			</button>
 		</div>
@@ -243,14 +194,17 @@
 					project_id: '',
 					centralized_action_id: '',
 					specific_action_id: '',
+					formulated_accounts: []
 				},
 				errors: [],
 				records: [],
 				institutions: [],
 				currencies: [],
+				decimals: 2,
 				projects: [],
 				centralized_actions: [],
 				specific_actions: [],
+				months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
 			}
 		},
 		methods: {
@@ -258,9 +212,33 @@
 			 * Reinicia los valores de los elementos del formulario
 			 *
 			 * @author  In- Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-			 * @return {[type]} [description]
 			 */
 			reset: function() {
+				this.record.year = '';
+				this.record.institution_id = '';
+				this.record.currency_id = '';
+				this.record.project_id = '';
+				this.record.centralized_action_id = '';
+				this.record.specific_action_id = '';
+				this.record.formulated_accounts = [];
+				this.errors = [];
+			},
+			/**
+			 * Calcula los montos de las cuentas presupuestarias formuladas
+			 *
+			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 * @param  {string} input   Nombre de la clase
+			 * @param  {string} type    Tipo de campo
+			 */
+			calculateAmounts(input, type) {
+				if (type === "total") {
+					/*var month_values = parseFloat($("." + input).data('total').val()) / 12;
+					$.each($("." + input), function() {
+						if ($(this).data('type') === "month") {
+							$(this).val(month_values);
+						}
+					});*/
+				}
 
 			},
 			/**
@@ -271,14 +249,20 @@
 			 * @param  {integer} account_id Identificador de la cuenta presupuestaria
 			 */
 			showAccountInputs: function(account_id) {
+				let vm = this;
 				let add_account = $("#add_account_" + account_id);
 				let input_row = $(".input_" + account_id);
 				
 				if (add_account.hasClass('fa-eye')) {
+					if (!this.record.currency_id) {
+						bootbox.alert("Debe seleccionar primero un tipo de moneda");
+						return false;
+					}
 					add_account.removeClass('fa-eye');
 					add_account.addClass('fa-eye-slash');
 					add_account.removeClass('text-blue');
 					add_account.addClass('text-red');
+					$("tr#"+account_id).attr('data-formulated', 'true');
 					input_row.show();
 				}
 				else if (add_account.hasClass('fa-eye-slash')) {
@@ -286,8 +270,71 @@
 					add_account.removeClass('fa-eye-slash');
 					add_account.addClass('text-blue');
 					add_account.removeClass('text-red');
+					$("tr#"+account_id).attr('data-formulated', 'false');
 					input_row.hide();
 				}
+
+				input_row.on('change', function() {
+					let group = $(this).data('group'), item = $(this).data('item'), 
+						generic = $(this).data('generic'), specific = $(this).data('specific'), 
+						subspecific = $(this).data('subspecific');
+
+					if ($(this).data('type') === "total") {
+						let total = $(this).val();
+						let porcion = parseFloat(total / 12).toFixed(vm.decimals);
+
+						$.each(input_row.filter("[data-type='month']"), function() {
+							$(this).val(porcion);
+							$(this).attr('title', 'formulado: ' + $(this).val());
+						});
+					}
+					else if ($(this).data('type') === "month") {
+						let total_by_months = 0;
+						$.each(input_row.filter("[data-type='month']"), function() {
+							total_by_months += parseFloat($(this).val());
+						});
+						input_row.filter("[data-type='total']").val(parseFloat(total_by_months).toFixed(vm.decimals));
+					}
+
+					/** Calculo en cuentas de nivel superior */
+					let el_generic = $("[data-specific='00']").filter("[data-generic='" + generic + "']");
+					let el_item = $("[data-generic='00']").filter("[data-item='" + item + "']");
+					let el_group = $("[data-item='00']").filter("[data-group='" + group + "']");
+					
+					$.each([el_generic, el_item, el_group], function() {
+						var element = $(this);
+						element.closest('tr').attr("data-formulated", "true");
+						$.each(element, function() {
+							var el_to_calc = $(this);
+							var el_total = parseFloat($(this).filter("[data-type='total']").val());
+							var months = [
+								'ene', 'feb', 'mar', 'abr', 'may', 'jun',
+								'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+							];
+
+							$(this).filter("[data-type='total']").val(
+								parseFloat(
+									el_total + parseFloat(input_row.filter("[data-type='total']").val())
+								).toFixed(vm.decimals)
+							);
+							
+
+							$.each(months, function() {
+								var month_element = el_to_calc.filter("[data-month='" + this + "']");
+								month_element.val(
+									parseFloat(
+										parseFloat(month_element.val()) + 
+										parseFloat(input_row.filter("[data-month='" + this + "']").val())
+									).toFixed(vm.decimals)
+								);
+								month_element.attr('title', 'formulado: ' + month_element.val());
+							});
+						});
+					});
+
+					/** Asigna los valores decimales al elemento actual */
+					$(this).val(parseFloat($(this).val()).toFixed(vm.decimals));
+				});
 			},
 			/**
 			 * Obtiene un arreglo con los proyectos
@@ -333,14 +380,76 @@
 				var len = this.specific_actions.length;
 				$("#specific_action_id").attr('disabled', (len == 0));
 			},
+			/**
+			 * Crea o actualiza la formulación de presupuesto
+			 *
+			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
+			createFormulation() {
+				let vm = this;
+				vm.record.formulated_accounts = [];
+
+				/** 
+				 * Crea el listado de cuentas formuladas antes de proceder a registrar la formulación 
+				 * del presupuesto
+				 */
+				$.each($("[data-formulated='true']"), function() {
+					vm.record.formulated_accounts.push({
+						budget_account_id: $(this).attr("id"),
+						total_real_amount: $(this).find("[data-type='real']").val(),
+						total_estimated_amount: $(this).find("[data-type='estimated']").val(),
+						total_year_amount: $(this).find("[data-type='total']").val(),
+						jan_amount: $(this).find("[data-month='ene']").val(),
+						feb_amount: $(this).find("[data-month='feb']").val(),
+						mar_amount: $(this).find("[data-month='mar']").val(),
+						apr_amount: $(this).find("[data-month='abr']").val(),
+						may_amount: $(this).find("[data-month='may']").val(),
+						jun_amount: $(this).find("[data-month='jun']").val(),
+						jul_amount: $(this).find("[data-month='jul']").val(),
+						aug_amount: $(this).find("[data-month='ago']").val(),
+						sep_amount: $(this).find("[data-month='sep']").val(),
+						oct_amount: $(this).find("[data-month='oct']").val(),
+						nov_amount: $(this).find("[data-month='nov']").val(),
+						dec_amount: $(this).find("[data-month='dic']").val(),
+					});
+				});
+				//this.createRecord('budget/subspecific-formulations');
+			}
+		},
+		watch: {
+			/**
+			 * Función que permite monitorear modificaciones en el campo specific_actions
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 */
+			specific_actions: function() {
+				$("#specific_action_id").attr('disabled', (this.specific_actions.length <= 1));
+			},
+			record: {
+                deep: true,
+                handler: function(newValue, oldValue) {
+                	this.decimals = 2;
+                	if (newValue.currency_id) {
+                		axios.get('/currencies/info/' + newValue.currency_id).then(response => {
+                			if (response.data.result) {
+                				this.decimals = response.data.currency.decimal_places;
+                			}
+						});
+                	}
+                }
+            }
 		},
 		mounted() {
-			this.initRecords('/budget/accounts/egress-list', '');
 			this.getInstitutions();
 			this.getCurrencies();
 			this.getProjects();
 			this.getCentralizedActions();
+			this.initRecords('/budget/accounts/egress-list', '');
 
+			/** 
+			 * Evento para determinar los datos a requerir según el tipo de formulación 
+			 * (por proyecto o acción centralizada)
+			 */
 			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
 				$('#project_id').attr('disabled', (e.target.id!=="sel_project"));
 				$('#centralized_action_id').attr('disabled', (e.target.id!=="sel_centralized_action"));
