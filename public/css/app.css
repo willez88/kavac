@@ -26574,11 +26574,21 @@ table td {
   background-color: #d2d5d8;
 }
 
+/** Estilo de tamaño en campos del formulario */
+
+.input-sm {
+  height: 28px;
+}
+
 /** Estilos personalizados en campos con imágenes agrupadas en formularios */
+
+.input-group.input-sm .input-group-addon {
+  padding: 5px 0 10px 18px;
+}
 
 .input-group.input-sm .input-group-addon,
 .input-group.input-sm input {
-  max-height: 35px;
+  max-height: 28px;
 }
 
 .input-group input[type=date] {
@@ -26668,12 +26678,13 @@ textarea.form-control:active {
   content: "\F314";
   display: inline-block;
   position: absolute;
-  right: 12px;
+  right: 22px;
   bottom: 10px;
   color: #FF3636;
   font-size: 8px;
   margin: 2px 0;
   z-index: 99;
+  bottom: 3.75px;
 }
 
 .form-group.has_error label {
