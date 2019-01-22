@@ -13,6 +13,7 @@ use App\Models\Profession;
 use App\Models\Country;
 use App\Models\Estate;
 use App\Models\City;
+use App\Helpers\Helper;
 
 /**
  * @class PayrollStaffController
@@ -101,7 +102,7 @@ class PayrollStaffController extends Controller
             'city_id' => 'required'
         ]);
         $staff = new PayrollStaff;
-        $staff->code  = 'prueba';
+        $staff->code  = generate_registration_code('STA', 15, date('y'), 'Modules\Payroll\Models\PayrollStaff', 'code');
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;
         $staff->birthdate = $request->birthdate;

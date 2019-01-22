@@ -142,7 +142,6 @@
 						            {!! Form::select('marital_status_id',(isset($marital_status))?$marital_status:[], null,
 						                [
 						                    'class' => 'form-control select2',
-						                    'placeholder' => 'Seleccione...',
 						                    'data-toggle' => 'tooltip',
 						                    'title' => 'Indique el estado civil'
 						                ]
@@ -157,7 +156,6 @@
 						            {!! Form::select('profession_id',(isset($professions))?$professions:[], null,
 						                [
 						                    'class' => 'form-control select2',
-						                    'placeholder' => 'Seleccione...',
 						                    'data-toggle' => 'tooltip',
 						                    'title' => 'Indique la profesión'
 						                ]
@@ -247,7 +245,6 @@
 											'v-model' => 'country_id',
 											'@change' => 'getEstates()',
 						                    'class' => 'form-control select2',
-						                    'placeholder' => 'Seleccione...',
 						                    'data-toggle' => 'tooltip',
 						                    'title' => 'Indique el país donde vive'
 						                ]
@@ -260,7 +257,6 @@
 						            {!! Form::select('estate_id',(isset($estates))?$estates:[], null,
 						                [
 						                    'class' => 'form-control select2',
-						                    'placeholder' => 'Seleccione...',
 						                    'data-toggle' => 'tooltip',
 						                    'title' => 'Indique el estado donde vive'
 						                ]
@@ -275,7 +271,6 @@
 						            {!! Form::select('city_id',(isset($cities))?$cities:[], null,
 						                [
 						                    'class' => 'form-control select2',
-						                    'placeholder' => 'Seleccione...',
 						                    'data-toggle' => 'tooltip',
 						                    'title' => 'Indique la ciudad donde vive'
 						                ]
