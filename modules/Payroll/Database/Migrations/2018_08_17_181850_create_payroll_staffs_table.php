@@ -16,7 +16,7 @@ class CreatePayrollStaffsTable extends Migration
         if (!Schema::hasTable('payroll_staffs')) {
             Schema::create('payroll_staffs', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('code', 20)->comment('Código identificador del personal');
+                $table->string('code', 20)->unique()->comment('Código identificador del personal');
                 $table->string('first_name', 100)->comment('Nombres del personal');
                 $table->string('last_name', 100)->comment('Apellidos del personal');
                 $table->date('birthdate')->comment('Fecha de nacimiento del personal');

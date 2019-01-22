@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use App\Models\CodeSetting;
+use Modules\Payroll\Models\PayrollStaff;
+
 class PayrollSettingController extends Controller
 {
     /**
@@ -14,7 +17,9 @@ class PayrollSettingController extends Controller
      */
     public function index()
     {
-        return view('payroll::settings');
+        $codeSettings = CodeSetting::where('module', 'payroll')->get();
+        $sCode = $codeSettings->where('table', 'payroll_staffs')->first();
+        return view('payroll::settings', compact('codeSettings', 'sCode'));
     }
 
     /**
@@ -33,6 +38,21 @@ class PayrollSettingController extends Controller
      */
     public function store(Request $request)
     {
+        $staffs_code = $request->staffs_code;
+        $model = PayrollStaff::class;
+        list($prefix, $digits, $sufix) = CodeSetting::divideCode($staffs_code);
+        CodeSetting::updateOrCreate([
+            'module' => 'payroll',
+            'table' => 'payroll_staffs',
+            'field' => 'code',
+        ], [
+            'format_prefix' => $prefix,
+            'format_digits' => $digits,
+            'format_year' => $sufix,
+            'model' => $model,
+        ]);
+
+        return redirect()->back();
     }
 
     /**

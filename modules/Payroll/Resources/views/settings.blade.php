@@ -21,6 +21,48 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
+					<h6 class="card-title">Formatos de Códigos</h6>
+					<div class="card-btns">
+						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
+						   data-toggle="tooltip">
+							<i class="now-ui-icons arrows-1_minimal-up"></i>
+						</a>
+					</div>
+				</div>
+				{!! Form::open(['route' => 'payroll.settings.store', 'method' => 'post']) !!}
+					{!! Form::token() !!}
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12">
+								<h6>Personal</h6>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('staffs_code', 'Código de Formulación', []) !!}
+									{!! Form::text('staffs_code', ($sCode) ? $sCode->format_code : old('staffs_code'), [
+										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código del personal',
+										'placeholder' => 'Ej. XXX-0000000000-YYYY',
+										'readonly' => ($sCode) ? true : false
+									]) !!}
+								</div>
+							</div>
+						</div>
+						@include('layouts.help-text', ['codeSetting' => true])
+					</div>
+					<div class="card-footer text-right">
+						@include('layouts.form-buttons')
+					</div>
+				{!! Form::close() !!}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
 					<h6 class="card-title">Registros Comúnes</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
