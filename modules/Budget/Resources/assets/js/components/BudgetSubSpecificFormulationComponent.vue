@@ -444,7 +444,7 @@
 			this.getCurrencies();
 			this.getProjects();
 			this.getCentralizedActions();
-			this.initRecords('/budget/accounts/egress-list', '');
+			this.initRecords('/budget/accounts/egress-list/true', '');
 
 			/** 
 			 * Evento para determinar los datos a requerir según el tipo de formulación 

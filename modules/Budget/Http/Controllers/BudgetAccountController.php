@@ -197,18 +197,27 @@ class BudgetAccountController extends Controller
         return response()->json(['records' => $budgetAccounts], 200);
     }
 
-    public function egressAccounts()
+    public function egressAccounts($to_formulate = false)
     {
         $records = [];
         $accounts = BudgetAccount::where(['active' => true, 'egress' => 'true'])->get();
 
         foreach ($accounts as $account) {
-            array_push($records, [
+            $account_data = [
                 'id' => $account->id, 'code' => $account->code, 'denomination' => $account->denomination,
                 'group' => $account->group, 'item' => $account->item, 'generic' => $account->generic, 
                 'specific' => $account->specific, 'subspecific' => $account->subspecific, 
                 'tax_id' => $account->tax_id
-            ]);
+            ];
+            if ($to_formulate) {
+                $account_data = array_merge($account_data, [
+                    'formulated' => false, 'locked' => ($account->specific==='00'),
+                    'total_real' => 0, 'total_estimated' => 0, 'total_year' => 0,
+                    'ene' => 0, 'feb' => 0, 'mar' => 0, 'abr' => 0, 'may' => 0, 'jun' => 0,
+                    'jul' => 0, 'ago' => 0, 'sep' => 0, 'oct' => 0, 'nov' => 0, 'dic' => 0
+                ]);
+            }
+            array_push($records, $account_data);
         }
 
         return response()->json(['records' => $records], 200);
