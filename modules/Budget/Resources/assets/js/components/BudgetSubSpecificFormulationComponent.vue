@@ -114,49 +114,19 @@
 								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
 								   :readonly="account.locked"  @change="calculateAmounts(index, 'real')" 
 								   onfocus="this.select()">
-							<!--<input type="text" class="form-control input-sm input-to-calc" 
-								   :class="'input_'+account.id" value="0.00" 
-								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
-							       :data-group="account.group" :data-item="account.item" 
-							       :data-generic="account.generic" :data-specific="account.specific" 
-							       :data-subspecific="account.subspecific" data-type='real' 
-							       data-toggle="tooltip">-->
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" data-toggle="tolltip" 
 								   v-model="account.total_estimated_amount" 
 								   v-show="account.locked || account.formulated" :readonly="account.locked" 
 								   @change="calculateAmounts(index, 'estimated')" onfocus="this.select()">
-							<!--<input type="text" class="form-control input-sm input-to-calc" 
-								   :class="'input_'+account.id" value="0.00" 
-								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
-								   :data-group="account.group" :data-item="account.item" 
-								   :data-generic="account.generic" :data-specific="account.specific" 
-								   :data-subspecific="account.subspecific" data-type="estimated" 
-								   data-toggle="tooltip">-->
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.total_year_amount" 
 								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'year')" 
 								   onfocus="this.select()">
-							<!--<input type="text" class="form-control input-sm input-to-calc" 
-								   :class="'input_'+account.id" value="0.00" 
-								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
-								   :data-group="account.group" :data-item="account.item" 
-								   :data-generic="account.generic" :data-specific="account.specific" 
-								   :data-subspecific="account.subspecific" data-type="total" 
-								   data-toggle="tooltip">-->
 						</td>
-						<!--<td class="td-with-border" v-for="month in months">
-							<input type="text" class="form-control input-sm input-to-calc" 
-								   :class="'input_'+account.id" value="0.00" 
-								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
-								   :data-group="account.group" :data-item="account.item" 
-								   :data-generic="account.generic" :data-specific="account.specific" 
-								   :data-subspecific="account.subspecific" data-type="month" :data-month="month"
-								   data-toggle="tooltip">
-						</td>-->
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.jan_amount" 
 								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
@@ -579,6 +549,16 @@
 			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 			 */
 			createFormulation() {
+				/** Filtra las cuentas bloqueadas para solo lectura (cuentas de nivel superior) */
+				const lock_acc = vm.records.filter((account) => {
+					return account.locked;
+				});
+				$.each(lock_acc, function() {
+					this.formulated = (parseFloat(this.total_year_amount) > 0);
+				});
+				this.record.formulated_accounts = vm.records.filter((account) => {
+					return account.formulated;
+				});
 				//this.createRecord('budget/subspecific-formulations');
 			}
 		},
