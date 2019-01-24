@@ -23,7 +23,9 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      */
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['year', 'total_formulated', 'assigned', 'budget_specific_action_id', 'currencies_id'];
+    protected $fillable = [
+        'code', 'year', 'total_formulated', 'assigned', 'budget_specific_action_id', 'currencies_id'
+    ];
 
     /**
      * BudgetSubSpecificFormulation belongs to BudgetSpecificAction.

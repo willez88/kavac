@@ -79596,6 +79596,90 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -79617,7 +79701,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			projects: [],
 			centralized_actions: [],
 			specific_actions: [],
-			months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+			months: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 		};
 	},
 
@@ -79641,18 +79725,215 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    * Calcula los montos de las cuentas presupuestarias formuladas
    *
    * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
-   * @param  {string} input   Nombre de la clase
-   * @param  {string} type    Tipo de campo
+   * @param  {integer} index Indice del elemento
+   * @param  {string}  input Nombre del campo que activó el evento
    */
-		calculateAmounts: function calculateAmounts(input, type) {
-			if (type === "total") {
-				/*var month_values = parseFloat($("." + input).data('total').val()) / 12;
-    $.each($("." + input), function() {
-    	if ($(this).data('type') === "month") {
-    		$(this).val(month_values);
-    	}
-    });*/
+		calculateAmounts: function calculateAmounts(index, input) {
+			var vm = this;
+
+			if (input === 'year') {
+				/** Asigna los montos mensuales equitativamente */
+				var partial_ammount = parseFloat(parseFloat(vm.records[index].total_year_amount) / 12).toFixed(vm.decimals);
+				$.each(vm.months, function () {
+					vm.records[index][this + '_amount'] = partial_ammount;
+				});
+			} else if (input === 'month') {
+				/** Asigna el monto total para la cuenta a formular */
+				var total_year = 0;
+				$.each(vm.months, function () {
+					total_year += parseFloat(vm.records[index][this + '_amount']);
+				});
+				vm.records[index].total_year_amount = parseFloat(total_year).toFixed(2);
 			}
+
+			/** Filtra las cuentas bloqueadas para solo lectura (cuentas de nivel superior) */
+			var lock_acc = vm.records.filter(function (account) {
+				return account.locked;
+			});
+			/** Filtra las cuentas agregadas para la formulación del presupuesto */
+			var form_acc = vm.records.filter(function (account) {
+				return !account.locked && account.formulated;
+			});
+			/** Filtra las cuentas de grupo */
+			var group_acc = vm.records.filter(function (acc) {
+				return acc.item === "00" && acc.generic === "00" && acc.specific === "00" && acc.subspecific === "00";
+			});
+			/** Filtra las cuentas de ítems */
+			var item_acc = vm.records.filter(function (acc) {
+				return acc.item !== "00" && acc.generic === "00" && acc.specific === "00" && acc.subspecific === "00";
+			});
+			/** Filtra las cuentas genéricas */
+			var generic_acc = vm.records.filter(function (acc) {
+				return acc.generic !== "00" && acc.specific === "00" && acc.subspecific === "00";
+			});
+
+			/** Calcula los montos de la cuenta genérica */
+			$.each(generic_acc, function () {
+				var g = this,
+				    total_year = 0,
+				    total_estimated = 0,
+				    total_real = 0;
+				var total_jan = 0,
+				    total_feb = 0,
+				    total_mar = 0,
+				    total_apr = 0,
+				    total_may = 0,
+				    total_jun = 0,
+				    total_jul = 0,
+				    total_aug = 0,
+				    total_sep = 0,
+				    total_oct = 0,
+				    total_nov = 0,
+				    total_dec = 0;
+				$.each(form_acc, function () {
+					if (this.group === g.group && this.item === g.item && this.generic === g.generic) {
+						total_year += parseFloat(this.total_year_amount);
+						total_estimated += parseFloat(this.total_estimated_amount);
+						total_real += parseFloat(this.total_real_amount);
+						total_jan += parseFloat(this.jan_amount);
+						total_feb += parseFloat(this.feb_amount);
+						total_mar += parseFloat(this.mar_amount);
+						total_apr += parseFloat(this.apr_amount);
+						total_may += parseFloat(this.may_amount);
+						total_jun += parseFloat(this.jun_amount);
+						total_jul += parseFloat(this.jul_amount);
+						total_aug += parseFloat(this.aug_amount);
+						total_sep += parseFloat(this.sep_amount);
+						total_oct += parseFloat(this.oct_amount);
+						total_nov += parseFloat(this.nov_amount);
+						total_dec += parseFloat(this.dec_amount);
+					}
+				});
+				if (parseFloat(total_year) > 0) {
+					g.total_year_amount = parseFloat(total_year).toFixed(vm.decimals);
+					g.total_estimated_amount = parseFloat(total_estimated).toFixed(vm.decimals);
+					g.total_real_amount = parseFloat(total_real).toFixed(vm.decimals);
+					g.jan_amount = parseFloat(total_jan).toFixed(vm.decimals);
+					g.feb_amount = parseFloat(total_feb).toFixed(vm.decimals);
+					g.mar_amount = parseFloat(total_mar).toFixed(vm.decimals);
+					g.apr_amount = parseFloat(total_apr).toFixed(vm.decimals);
+					g.may_amount = parseFloat(total_may).toFixed(vm.decimals);
+					g.jun_amount = parseFloat(total_jun).toFixed(vm.decimals);
+					g.jul_amount = parseFloat(total_jul).toFixed(vm.decimals);
+					g.aug_amount = parseFloat(total_aug).toFixed(vm.decimals);
+					g.sep_amount = parseFloat(total_sep).toFixed(vm.decimals);
+					g.oct_amount = parseFloat(total_oct).toFixed(vm.decimals);
+					g.nov_amount = parseFloat(total_nov).toFixed(vm.decimals);
+					g.dec_amount = parseFloat(total_dec).toFixed(vm.decimals);
+				}
+			});
+
+			/** Calcula los montos de la cuenta ítems */
+			$.each(item_acc, function () {
+				var i = this,
+				    total_year = 0,
+				    total_estimated = 0,
+				    total_real = 0;
+				var total_jan = 0,
+				    total_feb = 0,
+				    total_mar = 0,
+				    total_apr = 0,
+				    total_may = 0,
+				    total_jun = 0,
+				    total_jul = 0,
+				    total_aug = 0,
+				    total_sep = 0,
+				    total_oct = 0,
+				    total_nov = 0,
+				    total_dec = 0;
+				$.each(generic_acc, function () {
+					if (this.group === i.group && this.item === i.item) {
+						total_year += parseFloat(this.total_year_amount);
+						total_estimated += parseFloat(this.total_estimated_amount);
+						total_real += parseFloat(this.total_real_amount);
+						total_jan += parseFloat(this.jan_amount);
+						total_feb += parseFloat(this.feb_amount);
+						total_mar += parseFloat(this.mar_amount);
+						total_apr += parseFloat(this.apr_amount);
+						total_may += parseFloat(this.may_amount);
+						total_jun += parseFloat(this.jun_amount);
+						total_jul += parseFloat(this.jul_amount);
+						total_aug += parseFloat(this.aug_amount);
+						total_sep += parseFloat(this.sep_amount);
+						total_oct += parseFloat(this.oct_amount);
+						total_nov += parseFloat(this.nov_amount);
+						total_dec += parseFloat(this.dec_amount);
+					}
+				});
+				if (parseFloat(total_year) > 0) {
+					i.total_year_amount = parseFloat(total_year).toFixed(vm.decimals);
+					i.total_estimated_amount = parseFloat(total_estimated).toFixed(vm.decimals);
+					i.total_real_amount = parseFloat(total_real).toFixed(vm.decimals);
+					i.jan_amount = parseFloat(total_jan).toFixed(vm.decimals);
+					i.feb_amount = parseFloat(total_feb).toFixed(vm.decimals);
+					i.mar_amount = parseFloat(total_mar).toFixed(vm.decimals);
+					i.apr_amount = parseFloat(total_apr).toFixed(vm.decimals);
+					i.may_amount = parseFloat(total_may).toFixed(vm.decimals);
+					i.jun_amount = parseFloat(total_jun).toFixed(vm.decimals);
+					i.jul_amount = parseFloat(total_jul).toFixed(vm.decimals);
+					i.aug_amount = parseFloat(total_aug).toFixed(vm.decimals);
+					i.sep_amount = parseFloat(total_sep).toFixed(vm.decimals);
+					i.oct_amount = parseFloat(total_oct).toFixed(vm.decimals);
+					i.nov_amount = parseFloat(total_nov).toFixed(vm.decimals);
+					i.dec_amount = parseFloat(total_dec).toFixed(vm.decimals);
+				}
+			});
+
+			/** Calcula los montos de la cuenta de grupo */
+			$.each(group_acc, function () {
+				var gr = this,
+				    total_year = 0,
+				    total_estimated = 0,
+				    total_real = 0;
+				var total_jan = 0,
+				    total_feb = 0,
+				    total_mar = 0,
+				    total_apr = 0,
+				    total_may = 0,
+				    total_jun = 0,
+				    total_jul = 0,
+				    total_aug = 0,
+				    total_sep = 0,
+				    total_oct = 0,
+				    total_nov = 0,
+				    total_dec = 0;
+				$.each(item_acc, function () {
+					if (this.group === gr.group) {
+						total_year += parseFloat(this.total_year_amount);
+						total_estimated += parseFloat(this.total_estimated_amount);
+						total_real += parseFloat(this.total_real_amount);
+						total_jan += parseFloat(this.jan_amount);
+						total_feb += parseFloat(this.feb_amount);
+						total_mar += parseFloat(this.mar_amount);
+						total_apr += parseFloat(this.apr_amount);
+						total_may += parseFloat(this.may_amount);
+						total_jun += parseFloat(this.jun_amount);
+						total_jul += parseFloat(this.jul_amount);
+						total_aug += parseFloat(this.aug_amount);
+						total_sep += parseFloat(this.sep_amount);
+						total_oct += parseFloat(this.oct_amount);
+						total_nov += parseFloat(this.nov_amount);
+						total_dec += parseFloat(this.dec_amount);
+					}
+				});
+				if (parseFloat(total_year) > 0) {
+					gr.total_year_amount = parseFloat(total_year).toFixed(vm.decimals);
+					gr.total_estimated_amount = parseFloat(total_estimated).toFixed(vm.decimals);
+					gr.total_real_amount = parseFloat(total_real).toFixed(vm.decimals);
+					gr.jan_amount = parseFloat(total_jan).toFixed(vm.decimals);
+					gr.feb_amount = parseFloat(total_feb).toFixed(vm.decimals);
+					gr.mar_amount = parseFloat(total_mar).toFixed(vm.decimals);
+					gr.apr_amount = parseFloat(total_apr).toFixed(vm.decimals);
+					gr.may_amount = parseFloat(total_may).toFixed(vm.decimals);
+					gr.jun_amount = parseFloat(total_jun).toFixed(vm.decimals);
+					gr.jul_amount = parseFloat(total_jul).toFixed(vm.decimals);
+					gr.aug_amount = parseFloat(total_aug).toFixed(vm.decimals);
+					gr.sep_amount = parseFloat(total_sep).toFixed(vm.decimals);
+					gr.oct_amount = parseFloat(total_oct).toFixed(vm.decimals);
+					gr.nov_amount = parseFloat(total_nov).toFixed(vm.decimals);
+					gr.dec_amount = parseFloat(total_dec).toFixed(vm.decimals);
+				}
+			});
 		},
 
 		/**
@@ -79660,82 +79941,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    * a formular para una cuenta presupuestaria
    *
    * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-   * @param  {integer} account_id Identificador de la cuenta presupuestaria
+   * @param  {integer} index Indice del registro a mostrar u ocultar
    */
-		showAccountInputs: function showAccountInputs(account_id) {
-			var vm = this;
-			var add_account = $("#add_account_" + account_id);
-			var input_row = $(".input_" + account_id);
+		showAccountInputs: function showAccountInputs(index) {
+			if (!this.record.currency_id) {
+				bootbox.alert("Debe seleccionar primero un tipo de moneda");
+				return false;
+			}
+
+			this.records[index].formulated = !this.records[index].formulated;
+			var add_account = $("#add_account_" + this.records[index].id);
 
 			if (add_account.hasClass('fa-eye')) {
-				if (!this.record.currency_id) {
-					bootbox.alert("Debe seleccionar primero un tipo de moneda");
-					return false;
-				}
 				add_account.removeClass('fa-eye');
 				add_account.addClass('fa-eye-slash');
 				add_account.removeClass('text-blue');
 				add_account.addClass('text-red');
-				$("tr#" + account_id).attr('data-formulated', 'true');
-				input_row.show();
 			} else if (add_account.hasClass('fa-eye-slash')) {
 				add_account.addClass('fa-eye');
 				add_account.removeClass('fa-eye-slash');
 				add_account.addClass('text-blue');
 				add_account.removeClass('text-red');
-				$("tr#" + account_id).attr('data-formulated', 'false');
-				input_row.hide();
 			}
-
-			input_row.on('change', function () {
-				var group = $(this).data('group'),
-				    item = $(this).data('item'),
-				    generic = $(this).data('generic'),
-				    specific = $(this).data('specific'),
-				    subspecific = $(this).data('subspecific');
-
-				if ($(this).data('type') === "total") {
-					var total = $(this).val();
-					var porcion = parseFloat(total / 12).toFixed(vm.decimals);
-
-					$.each(input_row.filter("[data-type='month']"), function () {
-						$(this).val(porcion);
-						$(this).attr('title', 'formulado: ' + $(this).val());
-					});
-				} else if ($(this).data('type') === "month") {
-					var total_by_months = 0;
-					$.each(input_row.filter("[data-type='month']"), function () {
-						total_by_months += parseFloat($(this).val());
-					});
-					input_row.filter("[data-type='total']").val(parseFloat(total_by_months).toFixed(vm.decimals));
-				}
-
-				/** Calculo en cuentas de nivel superior */
-				var el_generic = $("[data-specific='00']").filter("[data-generic='" + generic + "']");
-				var el_item = $("[data-generic='00']").filter("[data-item='" + item + "']");
-				var el_group = $("[data-item='00']").filter("[data-group='" + group + "']");
-
-				$.each([el_generic, el_item, el_group], function () {
-					var element = $(this);
-					element.closest('tr').attr("data-formulated", "true");
-					$.each(element, function () {
-						var el_to_calc = $(this);
-						var el_total = parseFloat($(this).filter("[data-type='total']").val());
-						var months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
-
-						$(this).filter("[data-type='total']").val(parseFloat(el_total + parseFloat(input_row.filter("[data-type='total']").val())).toFixed(vm.decimals));
-
-						$.each(months, function () {
-							var month_element = el_to_calc.filter("[data-month='" + this + "']");
-							month_element.val(parseFloat(parseFloat(month_element.val()) + parseFloat(input_row.filter("[data-month='" + this + "']").val())).toFixed(vm.decimals));
-							month_element.attr('title', 'formulado: ' + month_element.val());
-						});
-					});
-				});
-
-				/** Asigna los valores decimales al elemento actual */
-				$(this).val(parseFloat($(this).val()).toFixed(vm.decimals));
-			});
 		},
 		/**
    * Obtiene un arreglo con los proyectos
@@ -79796,33 +80023,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
    */
 		createFormulation: function createFormulation() {
-			var vm = this;
-			vm.record.formulated_accounts = [];
-
-			/** 
-    * Crea el listado de cuentas formuladas antes de proceder a registrar la formulación 
-    * del presupuesto
-    */
-			$.each($("[data-formulated='true']"), function () {
-				vm.record.formulated_accounts.push({
-					budget_account_id: $(this).attr("id"),
-					total_real_amount: $(this).find("[data-type='real']").val(),
-					total_estimated_amount: $(this).find("[data-type='estimated']").val(),
-					total_year_amount: $(this).find("[data-type='total']").val(),
-					jan_amount: $(this).find("[data-month='ene']").val(),
-					feb_amount: $(this).find("[data-month='feb']").val(),
-					mar_amount: $(this).find("[data-month='mar']").val(),
-					apr_amount: $(this).find("[data-month='abr']").val(),
-					may_amount: $(this).find("[data-month='may']").val(),
-					jun_amount: $(this).find("[data-month='jun']").val(),
-					jul_amount: $(this).find("[data-month='jul']").val(),
-					aug_amount: $(this).find("[data-month='ago']").val(),
-					sep_amount: $(this).find("[data-month='sep']").val(),
-					oct_amount: $(this).find("[data-month='oct']").val(),
-					nov_amount: $(this).find("[data-month='nov']").val(),
-					dec_amount: $(this).find("[data-month='dic']").val()
-				});
-			});
 			//this.createRecord('budget/subspecific-formulations');
 		}
 	},
@@ -80060,7 +80260,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.records, function(account) {
+          _vm._l(_vm.records, function(account, index) {
             return _c(
               "tr",
               {
@@ -80069,7 +80269,7 @@ var render = function() {
               },
               [
                 _c("td", [
-                  account.specific === "00"
+                  account.locked
                     ? _c("i", {
                         staticClass: "fa fa-ban text-white",
                         attrs: {
@@ -80087,7 +80287,7 @@ var render = function() {
                         },
                         on: {
                           click: function($event) {
-                            _vm.showAccountInputs(account.id)
+                            _vm.showAccountInputs(index)
                           }
                         }
                       })
@@ -80105,114 +80305,584 @@ var render = function() {
                   _c("input", {
                     directives: [
                       {
-                        name: "show",
-                        rawName: "v-show",
-                        value: account.specific === "00",
-                        expression: "(account.specific==='00')"
-                      }
-                    ],
-                    staticClass: "form-control input-sm input-to-calc",
-                    class: "input_" + account.id,
-                    attrs: {
-                      type: "text",
-                      value: "0.00",
-                      readonly: account.specific === "00",
-                      "data-group": account.group,
-                      "data-item": account.item,
-                      "data-generic": account.generic,
-                      "data-specific": account.specific,
-                      "data-subspecific": account.subspecific,
-                      "data-type": "real",
-                      "data-toggle": "tooltip"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "td-with-border" }, [
-                  _c("input", {
-                    directives: [
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.total_real_amount,
+                        expression: "account.total_real_amount"
+                      },
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: account.specific === "00",
-                        expression: "(account.specific==='00')"
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
                       }
                     ],
-                    staticClass: "form-control input-sm input-to-calc",
-                    class: "input_" + account.id,
+                    staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      value: "0.00",
-                      readonly: account.specific === "00",
-                      "data-group": account.group,
-                      "data-item": account.item,
-                      "data-generic": account.generic,
-                      "data-specific": account.specific,
-                      "data-subspecific": account.subspecific,
-                      "data-type": "estimated",
-                      "data-toggle": "tooltip"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "td-with-border" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: account.specific === "00",
-                        expression: "(account.specific==='00')"
-                      }
-                    ],
-                    staticClass: "form-control input-sm input-to-calc",
-                    class: "input_" + account.id,
-                    attrs: {
-                      type: "text",
-                      value: "0.00",
-                      readonly: account.specific === "00",
-                      "data-group": account.group,
-                      "data-item": account.item,
-                      "data-generic": account.generic,
-                      "data-specific": account.specific,
-                      "data-subspecific": account.subspecific,
-                      "data-type": "total",
-                      "data-toggle": "tooltip"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.months, function(month) {
-                  return _c("td", { staticClass: "td-with-border" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: account.specific === "00",
-                          expression: "(account.specific==='00')"
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.total_real_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "real")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
                         }
-                      ],
-                      staticClass: "form-control input-sm input-to-calc",
-                      class: "input_" + account.id,
-                      attrs: {
-                        type: "text",
-                        value: "0.00",
-                        readonly: account.specific === "00",
-                        "data-group": account.group,
-                        "data-item": account.item,
-                        "data-generic": account.generic,
-                        "data-specific": account.specific,
-                        "data-subspecific": account.subspecific,
-                        "data-type": "month",
-                        "data-month": month,
-                        "data-toggle": "tooltip"
+                        _vm.$set(
+                          account,
+                          "total_real_amount",
+                          $event.target.value
+                        )
                       }
-                    })
-                  ])
-                })
-              ],
-              2
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.total_estimated_amount,
+                        expression: "account.total_estimated_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.total_estimated_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "estimated")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          account,
+                          "total_estimated_amount",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.total_year_amount,
+                        expression: "account.total_year_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.total_year_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "year")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          account,
+                          "total_year_amount",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.jan_amount,
+                        expression: "account.jan_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.jan_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "jan_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.feb_amount,
+                        expression: "account.feb_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.feb_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "feb_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.mar_amount,
+                        expression: "account.mar_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.mar_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "mar_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.apr_amount,
+                        expression: "account.apr_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.apr_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "apr_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.may_amount,
+                        expression: "account.may_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.may_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "may_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.jun_amount,
+                        expression: "account.jun_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.jun_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "jun_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.jul_amount,
+                        expression: "account.jul_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.jul_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "jul_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.aug_amount,
+                        expression: "account.aug_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.aug_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "aug_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.sep_amount,
+                        expression: "account.sep_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.sep_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "sep_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.oct_amount,
+                        expression: "account.oct_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.oct_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "oct_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.nov_amount,
+                        expression: "account.nov_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.nov_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "nov_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "td-with-border" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: account.dec_amount,
+                        expression: "account.dec_amount"
+                      },
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: account.locked || account.formulated,
+                        expression: "account.locked || account.formulated"
+                      }
+                    ],
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tolltip",
+                      readonly: account.locked,
+                      onfocus: "this.select()"
+                    },
+                    domProps: { value: account.dec_amount },
+                    on: {
+                      change: function($event) {
+                        _vm.calculateAmounts(index, "month")
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(account, "dec_amount", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]
             )
           })
         )

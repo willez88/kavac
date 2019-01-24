@@ -212,9 +212,10 @@ class BudgetAccountController extends Controller
             if ($to_formulate) {
                 $account_data = array_merge($account_data, [
                     'formulated' => false, 'locked' => ($account->specific==='00'),
-                    'total_real' => 0, 'total_estimated' => 0, 'total_year' => 0,
-                    'ene' => 0, 'feb' => 0, 'mar' => 0, 'abr' => 0, 'may' => 0, 'jun' => 0,
-                    'jul' => 0, 'ago' => 0, 'sep' => 0, 'oct' => 0, 'nov' => 0, 'dic' => 0
+                    'total_real_amount' => 0, 'total_estimated_amount' => 0, 'total_year_amount' => 0,
+                    'jan_amount' => 0, 'feb_amount' => 0, 'mar_amount' => 0, 'apr_amount' => 0, 
+                    'may_amount' => 0, 'jun_amount' => 0, 'jul_amount' => 0, 'aug_amount' => 0, 
+                    'sep_amount' => 0, 'oct_amount' => 0, 'nov_amount' => 0, 'dec_amount' => 0
                 ]);
             }
             array_push($records, $account_data);

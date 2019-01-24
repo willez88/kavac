@@ -89,14 +89,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="account in records" :class="(account.specific==='00')?'disable-row':''" 
+					<tr v-for="(account, index) in records" :class="(account.specific==='00')?'disable-row':''" 
 						:id="account.id" data-formulated="false">
 						<td>
-							<i class="fa fa-ban text-white" v-if="(account.specific==='00')" 
+							<i class="fa fa-ban text-white" v-if="account.locked" 
 							   title="Elemento bloqueado, de solo lectura" data-toggle="tooltip"></i>
 							<i class="fa fa-eye text-blue cursor-pointer" v-else 
 							   title="Pulse para agregar esta cuenta presupuestaria a la formulación" 
-							   data-toggle="tooltip" @click="showAccountInputs(account.id)" 
+							   data-toggle="tooltip" @click="showAccountInputs(index)" 
 							   :id="'add_account_'+account.id"></i>
 						</td>
 						<td class="td-code">
@@ -104,33 +104,45 @@
 						</td>
 						<td>{{ account.denomination }}</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm input-to-calc" 
+							<input type="text" class="form-control input-sm" v-model="account.total_real_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked"  @change="calculateAmounts(index, 'real')" 
+								   onfocus="this.select()">
+							<!--<input type="text" class="form-control input-sm input-to-calc" 
 								   :class="'input_'+account.id" value="0.00" 
 								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
 							       :data-group="account.group" :data-item="account.item" 
 							       :data-generic="account.generic" :data-specific="account.specific" 
 							       :data-subspecific="account.subspecific" data-type='real' 
-							       data-toggle="tooltip">
+							       data-toggle="tooltip">-->
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm input-to-calc" 
+							<input type="text" class="form-control input-sm" data-toggle="tolltip" 
+								   v-model="account.total_estimated_amount" 
+								   v-show="account.locked || account.formulated" :readonly="account.locked" 
+								   @change="calculateAmounts(index, 'estimated')" onfocus="this.select()">
+							<!--<input type="text" class="form-control input-sm input-to-calc" 
 								   :class="'input_'+account.id" value="0.00" 
 								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
 								   :data-group="account.group" :data-item="account.item" 
 								   :data-generic="account.generic" :data-specific="account.specific" 
 								   :data-subspecific="account.subspecific" data-type="estimated" 
-								   data-toggle="tooltip">
+								   data-toggle="tooltip">-->
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm input-to-calc" 
+							<input type="text" class="form-control input-sm" v-model="account.total_year_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'year')" 
+								   onfocus="this.select()">
+							<!--<input type="text" class="form-control input-sm input-to-calc" 
 								   :class="'input_'+account.id" value="0.00" 
 								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
 								   :data-group="account.group" :data-item="account.item" 
 								   :data-generic="account.generic" :data-specific="account.specific" 
 								   :data-subspecific="account.subspecific" data-type="total" 
-								   data-toggle="tooltip">
+								   data-toggle="tooltip">-->
 						</td>
-						<td class="td-with-border" v-for="month in months">
+						<!--<td class="td-with-border" v-for="month in months">
 							<input type="text" class="form-control input-sm input-to-calc" 
 								   :class="'input_'+account.id" value="0.00" 
 								   :readonly="(account.specific==='00')" v-show="(account.specific==='00')" 
@@ -138,6 +150,78 @@
 								   :data-generic="account.generic" :data-specific="account.specific" 
 								   :data-subspecific="account.subspecific" data-type="month" :data-month="month"
 								   data-toggle="tooltip">
+						</td>-->
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.jan_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.feb_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.mar_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.apr_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.may_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.jun_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.jul_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.aug_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.sep_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.oct_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.nov_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
+						</td>
+						<td class="td-with-border">
+							<input type="text" class="form-control input-sm" v-model="account.dec_amount" 
+								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
+								   onfocus="this.select()">
 						</td>
 					</tr>
 				</tbody>
@@ -204,7 +288,7 @@
 				projects: [],
 				centralized_actions: [],
 				specific_actions: [],
-				months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+				months: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 			}
 		},
 		methods: {
@@ -227,114 +311,217 @@
 			 * Calcula los montos de las cuentas presupuestarias formuladas
 			 *
 			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
-			 * @param  {string} input   Nombre de la clase
-			 * @param  {string} type    Tipo de campo
+			 * @param  {integer} index Indice del elemento
+			 * @param  {string}  input Nombre del campo que activó el evento
 			 */
-			calculateAmounts(input, type) {
-				if (type === "total") {
-					/*var month_values = parseFloat($("." + input).data('total').val()) / 12;
-					$.each($("." + input), function() {
-						if ($(this).data('type') === "month") {
-							$(this).val(month_values);
-						}
-					});*/
+			calculateAmounts(index, input) {
+				let vm = this;
+				
+				if (input === 'year') {
+					/** Asigna los montos mensuales equitativamente */
+					let partial_ammount = parseFloat(
+						parseFloat(vm.records[index].total_year_amount) / 12
+					).toFixed(vm.decimals);
+					$.each(vm.months, function() {
+						vm.records[index][this + '_amount'] = partial_ammount;
+					});
+				}
+				else if (input === 'month') {
+					/** Asigna el monto total para la cuenta a formular */
+					let total_year = 0;
+					$.each(vm.months, function() {
+						total_year += parseFloat(vm.records[index][this + '_amount']);
+					});
+					vm.records[index].total_year_amount = parseFloat(total_year).toFixed(2);
 				}
 
+				/** Filtra las cuentas bloqueadas para solo lectura (cuentas de nivel superior) */
+				const lock_acc = vm.records.filter((account) => {
+					return account.locked;
+				});
+				/** Filtra las cuentas agregadas para la formulación del presupuesto */
+				const form_acc = vm.records.filter((account) => {
+					return !account.locked && account.formulated;
+				});
+				/** Filtra las cuentas de grupo */
+				const group_acc = vm.records.filter((acc) => {
+					return (
+						acc.item === "00" && acc.generic === "00" && acc.specific === "00" 
+						&& acc.subspecific === "00"
+					);
+				});
+				/** Filtra las cuentas de ítems */
+				const item_acc = vm.records.filter((acc) => {
+					return (
+						acc.item !== "00" && acc.generic === "00" && acc.specific === "00" 
+						&& acc.subspecific === "00"
+					);
+				});
+				/** Filtra las cuentas genéricas */
+				const generic_acc = vm.records.filter((acc) => {
+					return (acc.generic !== "00" && acc.specific === "00" && acc.subspecific === "00");
+				});
+				
+				/** Calcula los montos de la cuenta genérica */
+				$.each(generic_acc, function() {
+					let g = this, total_year = 0, total_estimated = 0, total_real = 0;
+					let total_jan = 0, total_feb = 0, total_mar = 0, total_apr = 0, total_may = 0, 
+						total_jun = 0, total_jul = 0, total_aug = 0, total_sep = 0, total_oct = 0,
+						total_nov = 0, total_dec = 0;
+					$.each(form_acc, function() {
+						if (this.group === g.group && this.item === g.item && this.generic === g.generic) {
+							total_year += parseFloat(this.total_year_amount);
+							total_estimated += parseFloat(this.total_estimated_amount);
+							total_real += parseFloat(this.total_real_amount);
+							total_jan += parseFloat(this.jan_amount);
+							total_feb += parseFloat(this.feb_amount);
+							total_mar += parseFloat(this.mar_amount);
+							total_apr += parseFloat(this.apr_amount);
+							total_may += parseFloat(this.may_amount);
+							total_jun += parseFloat(this.jun_amount);
+							total_jul += parseFloat(this.jul_amount);
+							total_aug += parseFloat(this.aug_amount);
+							total_sep += parseFloat(this.sep_amount);
+							total_oct += parseFloat(this.oct_amount);
+							total_nov += parseFloat(this.nov_amount);
+							total_dec += parseFloat(this.dec_amount);
+						}
+					});
+					if (parseFloat(total_year) > 0) {
+						g.total_year_amount = parseFloat(total_year).toFixed(vm.decimals);
+						g.total_estimated_amount = parseFloat(total_estimated).toFixed(vm.decimals);
+						g.total_real_amount = parseFloat(total_real).toFixed(vm.decimals);
+						g.jan_amount = parseFloat(total_jan).toFixed(vm.decimals);
+						g.feb_amount = parseFloat(total_feb).toFixed(vm.decimals);
+						g.mar_amount = parseFloat(total_mar).toFixed(vm.decimals);
+						g.apr_amount = parseFloat(total_apr).toFixed(vm.decimals);
+						g.may_amount = parseFloat(total_may).toFixed(vm.decimals);
+						g.jun_amount = parseFloat(total_jun).toFixed(vm.decimals);
+						g.jul_amount = parseFloat(total_jul).toFixed(vm.decimals);
+						g.aug_amount = parseFloat(total_aug).toFixed(vm.decimals);
+						g.sep_amount = parseFloat(total_sep).toFixed(vm.decimals);
+						g.oct_amount = parseFloat(total_oct).toFixed(vm.decimals);
+						g.nov_amount = parseFloat(total_nov).toFixed(vm.decimals);
+						g.dec_amount = parseFloat(total_dec).toFixed(vm.decimals);
+					}
+				});
+
+				/** Calcula los montos de la cuenta ítems */
+				$.each(item_acc, function() {
+					let i = this, total_year = 0, total_estimated = 0, total_real = 0;
+					let total_jan = 0, total_feb = 0, total_mar = 0, total_apr = 0, total_may = 0, 
+						total_jun = 0, total_jul = 0, total_aug = 0, total_sep = 0, total_oct = 0,
+						total_nov = 0, total_dec = 0;
+					$.each(generic_acc, function() {
+						if (this.group === i.group && this.item === i.item) {
+							total_year += parseFloat(this.total_year_amount);
+							total_estimated += parseFloat(this.total_estimated_amount);
+							total_real += parseFloat(this.total_real_amount);
+							total_jan += parseFloat(this.jan_amount);
+							total_feb += parseFloat(this.feb_amount);
+							total_mar += parseFloat(this.mar_amount);
+							total_apr += parseFloat(this.apr_amount);
+							total_may += parseFloat(this.may_amount);
+							total_jun += parseFloat(this.jun_amount);
+							total_jul += parseFloat(this.jul_amount);
+							total_aug += parseFloat(this.aug_amount);
+							total_sep += parseFloat(this.sep_amount);
+							total_oct += parseFloat(this.oct_amount);
+							total_nov += parseFloat(this.nov_amount);
+							total_dec += parseFloat(this.dec_amount);
+						}
+					});
+					if (parseFloat(total_year) > 0) {
+						i.total_year_amount = parseFloat(total_year).toFixed(vm.decimals);
+						i.total_estimated_amount = parseFloat(total_estimated).toFixed(vm.decimals);
+						i.total_real_amount = parseFloat(total_real).toFixed(vm.decimals);
+						i.jan_amount = parseFloat(total_jan).toFixed(vm.decimals);
+						i.feb_amount = parseFloat(total_feb).toFixed(vm.decimals);
+						i.mar_amount = parseFloat(total_mar).toFixed(vm.decimals);
+						i.apr_amount = parseFloat(total_apr).toFixed(vm.decimals);
+						i.may_amount = parseFloat(total_may).toFixed(vm.decimals);
+						i.jun_amount = parseFloat(total_jun).toFixed(vm.decimals);
+						i.jul_amount = parseFloat(total_jul).toFixed(vm.decimals);
+						i.aug_amount = parseFloat(total_aug).toFixed(vm.decimals);
+						i.sep_amount = parseFloat(total_sep).toFixed(vm.decimals);
+						i.oct_amount = parseFloat(total_oct).toFixed(vm.decimals);
+						i.nov_amount = parseFloat(total_nov).toFixed(vm.decimals);
+						i.dec_amount = parseFloat(total_dec).toFixed(vm.decimals);
+					}
+				});
+
+				/** Calcula los montos de la cuenta de grupo */
+				$.each(group_acc, function() {
+					let gr = this, total_year = 0, total_estimated = 0, total_real = 0;
+					let total_jan = 0, total_feb = 0, total_mar = 0, total_apr = 0, total_may = 0, 
+						total_jun = 0, total_jul = 0, total_aug = 0, total_sep = 0, total_oct = 0,
+						total_nov = 0, total_dec = 0;
+					$.each(item_acc, function() {
+						if (this.group === gr.group) {
+							total_year += parseFloat(this.total_year_amount);
+							total_estimated += parseFloat(this.total_estimated_amount);
+							total_real += parseFloat(this.total_real_amount);
+							total_jan += parseFloat(this.jan_amount);
+							total_feb += parseFloat(this.feb_amount);
+							total_mar += parseFloat(this.mar_amount);
+							total_apr += parseFloat(this.apr_amount);
+							total_may += parseFloat(this.may_amount);
+							total_jun += parseFloat(this.jun_amount);
+							total_jul += parseFloat(this.jul_amount);
+							total_aug += parseFloat(this.aug_amount);
+							total_sep += parseFloat(this.sep_amount);
+							total_oct += parseFloat(this.oct_amount);
+							total_nov += parseFloat(this.nov_amount);
+							total_dec += parseFloat(this.dec_amount);
+						}
+					});
+					if (parseFloat(total_year) > 0) {
+						gr.total_year_amount = parseFloat(total_year).toFixed(vm.decimals);
+						gr.total_estimated_amount = parseFloat(total_estimated).toFixed(vm.decimals);
+						gr.total_real_amount = parseFloat(total_real).toFixed(vm.decimals);
+						gr.jan_amount = parseFloat(total_jan).toFixed(vm.decimals);
+						gr.feb_amount = parseFloat(total_feb).toFixed(vm.decimals);
+						gr.mar_amount = parseFloat(total_mar).toFixed(vm.decimals);
+						gr.apr_amount = parseFloat(total_apr).toFixed(vm.decimals);
+						gr.may_amount = parseFloat(total_may).toFixed(vm.decimals);
+						gr.jun_amount = parseFloat(total_jun).toFixed(vm.decimals);
+						gr.jul_amount = parseFloat(total_jul).toFixed(vm.decimals);
+						gr.aug_amount = parseFloat(total_aug).toFixed(vm.decimals);
+						gr.sep_amount = parseFloat(total_sep).toFixed(vm.decimals);
+						gr.oct_amount = parseFloat(total_oct).toFixed(vm.decimals);
+						gr.nov_amount = parseFloat(total_nov).toFixed(vm.decimals);
+						gr.dec_amount = parseFloat(total_dec).toFixed(vm.decimals);
+					}
+				});
 			},
 			/**
 			 * Muestra u oculta los campos de texto para ingresar información sobre los montos 
 			 * a formular para una cuenta presupuestaria
 			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-			 * @param  {integer} account_id Identificador de la cuenta presupuestaria
+			 * @param  {integer} index Indice del registro a mostrar u ocultar
 			 */
-			showAccountInputs: function(account_id) {
-				let vm = this;
-				let add_account = $("#add_account_" + account_id);
-				let input_row = $(".input_" + account_id);
+			showAccountInputs: function(index) {
+				if (!this.record.currency_id) {
+					bootbox.alert("Debe seleccionar primero un tipo de moneda");
+					return false;
+				}
+
+				this.records[index].formulated = !(this.records[index].formulated);
+				let add_account = $("#add_account_" + this.records[index].id);
 				
 				if (add_account.hasClass('fa-eye')) {
-					if (!this.record.currency_id) {
-						bootbox.alert("Debe seleccionar primero un tipo de moneda");
-						return false;
-					}
 					add_account.removeClass('fa-eye');
 					add_account.addClass('fa-eye-slash');
 					add_account.removeClass('text-blue');
 					add_account.addClass('text-red');
-					$("tr#"+account_id).attr('data-formulated', 'true');
-					input_row.show();
 				}
 				else if (add_account.hasClass('fa-eye-slash')) {
 					add_account.addClass('fa-eye');
 					add_account.removeClass('fa-eye-slash');
 					add_account.addClass('text-blue');
 					add_account.removeClass('text-red');
-					$("tr#"+account_id).attr('data-formulated', 'false');
-					input_row.hide();
 				}
-
-				input_row.on('change', function() {
-					let group = $(this).data('group'), item = $(this).data('item'), 
-						generic = $(this).data('generic'), specific = $(this).data('specific'), 
-						subspecific = $(this).data('subspecific');
-
-					if ($(this).data('type') === "total") {
-						let total = $(this).val();
-						let porcion = parseFloat(total / 12).toFixed(vm.decimals);
-
-						$.each(input_row.filter("[data-type='month']"), function() {
-							$(this).val(porcion);
-							$(this).attr('title', 'formulado: ' + $(this).val());
-						});
-					}
-					else if ($(this).data('type') === "month") {
-						let total_by_months = 0;
-						$.each(input_row.filter("[data-type='month']"), function() {
-							total_by_months += parseFloat($(this).val());
-						});
-						input_row.filter("[data-type='total']").val(parseFloat(total_by_months).toFixed(vm.decimals));
-					}
-
-					/** Calculo en cuentas de nivel superior */
-					let el_generic = $("[data-specific='00']").filter("[data-generic='" + generic + "']");
-					let el_item = $("[data-generic='00']").filter("[data-item='" + item + "']");
-					let el_group = $("[data-item='00']").filter("[data-group='" + group + "']");
-					
-					$.each([el_generic, el_item, el_group], function() {
-						var element = $(this);
-						element.closest('tr').attr("data-formulated", "true");
-						$.each(element, function() {
-							var el_to_calc = $(this);
-							var el_total = parseFloat($(this).filter("[data-type='total']").val());
-							var months = [
-								'ene', 'feb', 'mar', 'abr', 'may', 'jun',
-								'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
-							];
-
-							$(this).filter("[data-type='total']").val(
-								parseFloat(
-									el_total + parseFloat(input_row.filter("[data-type='total']").val())
-								).toFixed(vm.decimals)
-							);
-							
-
-							$.each(months, function() {
-								var month_element = el_to_calc.filter("[data-month='" + this + "']");
-								month_element.val(
-									parseFloat(
-										parseFloat(month_element.val()) + 
-										parseFloat(input_row.filter("[data-month='" + this + "']").val())
-									).toFixed(vm.decimals)
-								);
-								month_element.attr('title', 'formulado: ' + month_element.val());
-							});
-						});
-					});
-
-					/** Asigna los valores decimales al elemento actual */
-					$(this).val(parseFloat($(this).val()).toFixed(vm.decimals));
-				});
 			},
 			/**
 			 * Obtiene un arreglo con los proyectos
@@ -386,33 +573,6 @@
 			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 			 */
 			createFormulation() {
-				let vm = this;
-				vm.record.formulated_accounts = [];
-
-				/** 
-				 * Crea el listado de cuentas formuladas antes de proceder a registrar la formulación 
-				 * del presupuesto
-				 */
-				$.each($("[data-formulated='true']"), function() {
-					vm.record.formulated_accounts.push({
-						budget_account_id: $(this).attr("id"),
-						total_real_amount: $(this).find("[data-type='real']").val(),
-						total_estimated_amount: $(this).find("[data-type='estimated']").val(),
-						total_year_amount: $(this).find("[data-type='total']").val(),
-						jan_amount: $(this).find("[data-month='ene']").val(),
-						feb_amount: $(this).find("[data-month='feb']").val(),
-						mar_amount: $(this).find("[data-month='mar']").val(),
-						apr_amount: $(this).find("[data-month='abr']").val(),
-						may_amount: $(this).find("[data-month='may']").val(),
-						jun_amount: $(this).find("[data-month='jun']").val(),
-						jul_amount: $(this).find("[data-month='jul']").val(),
-						aug_amount: $(this).find("[data-month='ago']").val(),
-						sep_amount: $(this).find("[data-month='sep']").val(),
-						oct_amount: $(this).find("[data-month='oct']").val(),
-						nov_amount: $(this).find("[data-month='nov']").val(),
-						dec_amount: $(this).find("[data-month='dic']").val(),
-					});
-				});
 				//this.createRecord('budget/subspecific-formulations');
 			}
 		},
@@ -437,7 +597,7 @@
 						});
                 	}
                 }
-            }
+            },
 		},
 		mounted() {
 			this.getInstitutions();
@@ -463,6 +623,7 @@
 					$("#project_id").closest('.form-group').removeClass('is-required');
 				}
 			});
+
 		},
 	};
 </script>
