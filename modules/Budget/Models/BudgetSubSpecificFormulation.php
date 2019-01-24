@@ -24,7 +24,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'code', 'year', 'total_formulated', 'assigned', 'budget_specific_action_id', 'currencies_id'
+        'code', 'year', 'total_formulated', 'assigned', 'budget_specific_action_id', 'currency_id'
     ];
 
     /**
@@ -55,5 +55,16 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     public function account_opens()
     {
         return $this->hasMany(BudgetAccountOpen::class);
+    }
+
+    public static function validateStore($data = [])
+    {
+        if (is_array($data) && !empty($data)) {
+            $exists = self::where('budget_specific_action_id', $data['budget_specific_action_id'])
+                          ->where('currency_id', $data['currency_id'])->where('year', $data['year'])->first();
+            return (!$exists);
+        }
+
+        return true;
     }
 }

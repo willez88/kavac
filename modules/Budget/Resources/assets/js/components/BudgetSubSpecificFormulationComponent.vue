@@ -10,6 +10,11 @@
 			</div>
 		</div>
 		<div class="card-body">
+			<div class="alert alert-danger" v-if="errors.length > 0">
+				<ul>
+					<li v-for="error in errors">{{ error }}</li>
+				</ul>
+			</div>
 			<div class="row">
 				<div class="col-2">
 					<div class="form-group">
@@ -572,7 +577,13 @@
 						fields[index] = this.record[index];
 					}
 					axios.post('/budget/subspecific-formulations', fields).then(response => {
-						this.showMessage('store');
+						if (response.data.result) {
+							this.showMessage('store');
+						}
+						else {
+							let msg = response.data.message;
+							this.showMessage(msg.type, msg.title, msg.class, msg.icon, msg.text);
+						}
 					}).catch(error => {
 						this.errors = [];
 						if (typeof(error.response) !="undefined") {
@@ -585,13 +596,24 @@
 					});
 				}
 			},
+			/**
+			 * Ejecuta la acción para actualizar datos de la formulación
+			 *
+			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 */
 			updateFormulation() {
 				var fields = {};
 				for (var index in this.record) {
 					fields[index] = this.record[index];
 				}
 				axios.patch('/budget/subspecific-formulations/' + this.record.id, fields).then(response => {
-					this.showMessage('update');
+					if (response.data.result) {
+						this.showMessage('update');
+					}
+					else {
+						let msg = response.data.message;
+						this.showMessage(msg.type, msg.title, msg.class, msg.icon, msg.text);
+					}
 				}).catch(error => {
 					this.errors = [];
 					if (typeof(error.response) !="undefined") {

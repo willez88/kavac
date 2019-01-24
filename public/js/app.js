@@ -79657,6 +79657,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -80023,7 +80028,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					fields[index] = this.record[index];
 				}
 				axios.post('/budget/subspecific-formulations', fields).then(function (response) {
-					_this4.showMessage('store');
+					if (response.data.result) {
+						_this4.showMessage('store');
+					} else {
+						var msg = response.data.message;
+						_this4.showMessage(msg.type, msg.title, msg.class, msg.icon, msg.text);
+					}
 				}).catch(function (error) {
 					_this4.errors = [];
 					if (typeof error.response != "undefined") {
@@ -80036,6 +80046,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				});
 			}
 		},
+
+		/**
+   * Ejecuta la acción para actualizar datos de la formulación
+   *
+   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   */
 		updateFormulation: function updateFormulation() {
 			var _this5 = this;
 
@@ -80044,7 +80060,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				fields[index] = this.record[index];
 			}
 			axios.patch('/budget/subspecific-formulations/' + this.record.id, fields).then(function (response) {
-				_this5.showMessage('update');
+				if (response.data.result) {
+					_this5.showMessage('update');
+				} else {
+					var msg = response.data.message;
+					_this5.showMessage(msg.type, msg.title, msg.class, msg.icon, msg.text);
+				}
 			}).catch(function (error) {
 				_this5.errors = [];
 				if (typeof error.response != "undefined") {
@@ -80120,6 +80141,17 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
+      _vm.errors.length > 0
+        ? _c("div", { staticClass: "alert alert-danger" }, [
+            _c(
+              "ul",
+              _vm._l(_vm.errors, function(error) {
+                return _c("li", [_vm._v(_vm._s(error))])
+              })
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _vm._m(1),
         _vm._v(" "),
