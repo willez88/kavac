@@ -50,6 +50,8 @@ class BudgetSubSpecificFormulationController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->input());
+        $this->validate($request, []);
     }
 
     /**

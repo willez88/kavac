@@ -79657,40 +79657,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			record: {
+				id: '',
 				year: '',
 				institution_id: '',
 				currency_id: '',
@@ -80029,7 +80001,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
    */
 		createFormulation: function createFormulation() {
-			//this.createRecord('budget/subspecific-formulations');
+			var _this4 = this;
+
+			var vm = this;
+			/** Filtra las cuentas bloqueadas para solo lectura (cuentas de nivel superior) */
+			var lock_acc = vm.records.filter(function (account) {
+				return account.locked;
+			});
+			$.each(lock_acc, function () {
+				this.formulated = parseFloat(this.total_year_amount) > 0;
+			});
+			vm.record.formulated_accounts = vm.records.filter(function (account) {
+				return account.formulated;
+			});
+
+			if (this.record.id) {
+				this.updateFormulation();
+			} else {
+				var fields = {};
+				for (var index in this.record) {
+					fields[index] = this.record[index];
+				}
+				axios.post('/budget/subspecific-formulations', fields).then(function (response) {
+					_this4.showMessage('store');
+				}).catch(function (error) {
+					_this4.errors = [];
+					if (typeof error.response != "undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								_this4.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
+				});
+			}
+		},
+		updateFormulation: function updateFormulation() {
+			var _this5 = this;
+
+			var fields = {};
+			for (var index in this.record) {
+				fields[index] = this.record[index];
+			}
+			axios.patch('/budget/subspecific-formulations/' + this.record.id, fields).then(function (response) {
+				_this5.showMessage('update');
+			}).catch(function (error) {
+				_this5.errors = [];
+				if (typeof error.response != "undefined") {
+					for (var index in error.response.data.errors) {
+						if (error.response.data.errors[index]) {
+							_this5.errors.push(error.response.data.errors[index][0]);
+						}
+					}
+				}
+			});
 		}
 	},
 	watch: {
@@ -80044,13 +80069,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		record: {
 			deep: true,
 			handler: function handler(newValue, oldValue) {
-				var _this4 = this;
+				var _this6 = this;
 
 				this.decimals = 2;
 				if (newValue.currency_id) {
 					axios.get('/currencies/info/' + newValue.currency_id).then(function (response) {
 						if (response.data.result) {
-							_this4.decimals = response.data.currency.decimal_places;
+							_this6.decimals = response.data.currency.decimal_places;
 						}
 					});
 				}
@@ -80111,6 +80136,27 @@ var render = function() {
                     _vm.$set(_vm.record, "institution_id", $$v)
                   },
                   expression: "record.institution_id"
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.record.id,
+                    expression: "record.id"
+                  }
+                ],
+                attrs: { type: "hidden" },
+                domProps: { value: _vm.record.id },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.record, "id", $event.target.value)
+                  }
                 }
               })
             ],

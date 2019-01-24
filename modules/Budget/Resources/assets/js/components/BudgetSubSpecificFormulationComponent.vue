@@ -19,6 +19,7 @@
 				<div class="col-4">
 					<div class="form-group is-required">
 						<select2 :options="institutions" v-model="record.institution_id"></select2>
+						<input type="hidden" v-model="record.id">
 					</div>
 				</div>
 				<div class="col-2">
@@ -248,6 +249,7 @@
 		data() {
 			return {
 				record: {
+					id: '',
 					year: '',
 					institution_id: '',
 					currency_id: '',
@@ -549,6 +551,7 @@
 			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
 			 */
 			createFormulation() {
+				let vm = this;
 				/** Filtra las cuentas bloqueadas para solo lectura (cuentas de nivel superior) */
 				const lock_acc = vm.records.filter((account) => {
 					return account.locked;
@@ -556,10 +559,49 @@
 				$.each(lock_acc, function() {
 					this.formulated = (parseFloat(this.total_year_amount) > 0);
 				});
-				this.record.formulated_accounts = vm.records.filter((account) => {
+				vm.record.formulated_accounts = vm.records.filter((account) => {
 					return account.formulated;
 				});
-				//this.createRecord('budget/subspecific-formulations');
+
+				if (this.record.id) {
+					this.updateFormulation();
+				}
+				else {
+					var fields = {};
+					for (var index in this.record) {
+						fields[index] = this.record[index];
+					}
+					axios.post('/budget/subspecific-formulations', fields).then(response => {
+						this.showMessage('store');
+					}).catch(error => {
+						this.errors = [];
+						if (typeof(error.response) !="undefined") {
+							for (var index in error.response.data.errors) {
+								if (error.response.data.errors[index]) {
+									this.errors.push(error.response.data.errors[index][0]);
+								}
+							}
+						}
+					});
+				}
+			},
+			updateFormulation() {
+				var fields = {};
+				for (var index in this.record) {
+					fields[index] = this.record[index];
+				}
+				axios.patch('/budget/subspecific-formulations/' + this.record.id, fields).then(response => {
+					this.showMessage('update');
+				}).catch(error => {
+					this.errors = [];
+					if (typeof(error.response) !="undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								this.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
+				});
 			}
 		},
 		watch: {
