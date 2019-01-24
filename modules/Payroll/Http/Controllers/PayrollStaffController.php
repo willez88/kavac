@@ -13,6 +13,7 @@ use App\Models\Profession;
 use App\Models\Country;
 use App\Models\Estate;
 use App\Models\City;
+use App\Models\CodeSetting;
 use App\Helpers\Helper;
 
 /**
@@ -101,8 +102,10 @@ class PayrollStaffController extends Controller
             'profession_id' => 'required',
             'city_id' => 'required'
         ]);
+        $codeSetting = CodeSetting::where('table', 'payroll_staffs')->first();
         $staff = new PayrollStaff;
-        $staff->code  = generate_registration_code('STA', 15, date('y'), 'Modules\Payroll\Models\PayrollStaff', 'code');
+        $staff->code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
+        (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;
         $staff->birthdate = $request->birthdate;
