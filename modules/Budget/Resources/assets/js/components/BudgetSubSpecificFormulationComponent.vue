@@ -85,7 +85,13 @@
 						<th class="text-uppercase">Real</th>
 						<th class="text-uppercase">Estimado</th>
 						<th class="text-uppercase">Total año</th>
-						<th class="text-uppercase" v-for="month in months">{{ month }}</th>
+						<th class="text-uppercase" v-for="month in months">
+							<span v-if="month === 'jan'">Ene</span>
+							<span v-else-if="month === 'apr'">Abr</span>
+							<span v-else-if="month === 'aug'">Ago</span>
+							<span v-else-if="month === 'dec'">Dic</span>
+							<span v-else>{{ month }}</span>
+						</th>
 					</tr>
 				</thead>
 				<tbody>

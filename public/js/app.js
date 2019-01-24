@@ -79680,6 +79680,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -80250,7 +80256,15 @@ var render = function() {
               _vm._v(" "),
               _vm._l(_vm.months, function(month) {
                 return _c("th", { staticClass: "text-uppercase" }, [
-                  _vm._v(_vm._s(month))
+                  month === "jan"
+                    ? _c("span", [_vm._v("Ene")])
+                    : month === "apr"
+                      ? _c("span", [_vm._v("Abr")])
+                      : month === "aug"
+                        ? _c("span", [_vm._v("Ago")])
+                        : month === "dec"
+                          ? _c("span", [_vm._v("Dic")])
+                          : _c("span", [_vm._v(_vm._s(month))])
                 ])
               })
             ],
