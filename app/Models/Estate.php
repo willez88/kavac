@@ -15,7 +15,7 @@ use App\Traits\ModelsTrait;
  * 
  * Gestiona el modelo de datos para los Estados
  * 
- * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class Estate extends Model implements Auditable
@@ -46,7 +46,7 @@ class Estate extends Model implements Auditable
     /**
      * Método que obtiene el Pais de un Estado
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con el registro relacionado al modelo Country
      */
 	public function country()
@@ -57,7 +57,7 @@ class Estate extends Model implements Auditable
     /**
      * Método que obtiene los Municipios de un Estado
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Minicipality
      */
     public function municipalities()
@@ -68,7 +68,7 @@ class Estate extends Model implements Auditable
     /**
      * Método que obtiene las Ciudades de un Pais
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo City
      */
     public function cities()

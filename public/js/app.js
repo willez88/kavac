@@ -34605,91 +34605,91 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_tables_2__["ClientTable"]);
 /**
  * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('select2', __webpack_require__(242));
 
 /**
  * Componente para la gestión de estados civiles
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('marital-status', __webpack_require__(248));
 
 /**
  * Componente para la gestión de profesiones
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('professions', __webpack_require__(251));
 
 /**
  * Componente para la gestión de tipos de instituciones
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('institution-types', __webpack_require__(254));
 
 /**
  * Componente para la configuración y gestión de sectores de instituciones
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('institution-sectors', __webpack_require__(257));
 
 /**
  * Componente para la gestión de Países
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('countries', __webpack_require__(260));
 
 /**
  * Componente para la gestión de Estados
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('estates', __webpack_require__(263));
 
 /**
  * Componente para la gestión de Municipio
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('municipalities', __webpack_require__(266));
 
 /**
  * Componente para la gestión de Ciudades
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('cities', __webpack_require__(269));
 
 /**
  * Componente para la gestión de Parroquias
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('parishes', __webpack_require__(272));
 
 /**
  * Componente para la gestión de estatus de documentos
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('document-status', __webpack_require__(275));
 
 /**
  * Componente para la gestión de impuestos
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('taxes', __webpack_require__(278));
 
 /**
  * Componente para la gestión de unidades tributarias
  *
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('tax-units', __webpack_require__(281));
 
@@ -34713,7 +34713,7 @@ __webpack_require__(290);
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
  * 
- * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  * @param  {object} methods Métodos generales a implementar en CRUDS
  */
 Vue.mixin({
@@ -34746,7 +34746,7 @@ Vue.mixin({
 		/**
    * Inicializa los registros base del formulario
    *
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		initRecords: function initRecords(url, modal_id) {
 			var _this = this;
@@ -34778,7 +34778,7 @@ Vue.mixin({
 		/**
    * Método que obtiene los registros a mostrar
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    * @param  {string} url Ruta que obtiene todos los registros solicitados
    */
 		readRecords: function readRecords(url) {
@@ -34795,7 +34795,7 @@ Vue.mixin({
    * Método que permite mostrar una ventana emergente con la información registrada 
    * y la nueva a registrar
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    * @param {string} modal_id Identificador de la ventana modal
    */
 		addRecord: function addRecord(modal_id, url, event) {
@@ -34806,7 +34806,7 @@ Vue.mixin({
 		/**
    * Método que permite crear o actualizar un registro
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    * @param  {string} url Ruta de la acción a ejecutar para la creación o actualización de datos
    */
 		createRecord: function createRecord(url) {
@@ -34840,7 +34840,7 @@ Vue.mixin({
 		/**
    * Método que carga el formulario con los datos a modificar
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    * @param  {integer} index Identificador del registro a ser modificado
    */
 		initUpdate: function initUpdate(index, event) {
@@ -34853,7 +34853,7 @@ Vue.mixin({
 		/**
    * Método que permite actualizar información
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    * @param  {string} url Ruta de la acci´on que modificará los datos
    */
 		updateRecord: function updateRecord(url) {
@@ -34883,7 +34883,7 @@ Vue.mixin({
 		/**
    * Método para la eliminación de registros
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    * @param  {integer} index Elemento seleccionado para su eliminación
    * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
    */
@@ -34926,7 +34926,7 @@ Vue.mixin({
 		/**
    * Método que muestra un mensaje al usuario sobre el resultado de una acción
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    * @param  {string} type      Tipo de mensaje a mostrar
    * @param  {string} msg_title Título del mensaje (opcional)
    * @param  {string} msg_class Clase CSS a utilizar en el mensaje (opcional)
@@ -34963,7 +34963,7 @@ Vue.mixin({
 		/**
    * Método que obtiene los países registrados
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		getCountries: function getCountries() {
 			var _this6 = this;
@@ -34976,7 +34976,7 @@ Vue.mixin({
 		/**
    * Obtiene los Estados del Pais seleccionado
    * 
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		getEstates: function getEstates() {
 			var _this7 = this;
@@ -34991,7 +34991,7 @@ Vue.mixin({
 		/**
    * Obtiene los Municipios del Estado seleccionado
    * 
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		getMunicipalities: function getMunicipalities() {
 			var _this8 = this;
@@ -35006,7 +35006,7 @@ Vue.mixin({
 		/**
    * Obtiene los Municipios del Estado seleccionado
    * 
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		getCities: function getCities() {
 			var _this9 = this;
@@ -71131,7 +71131,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -71571,7 +71571,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -72020,7 +72020,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -72472,7 +72472,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -72901,7 +72901,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -73360,7 +73360,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -73854,7 +73854,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -74366,7 +74366,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -74859,7 +74859,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -75400,7 +75400,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -75992,7 +75992,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -76670,7 +76670,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -77309,7 +77309,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -78070,7 +78070,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -79707,7 +79707,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Calcula los montos de las cuentas presupuestarias formuladas
    *
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    * @param  {integer} index Indice del elemento
    * @param  {string}  input Nombre del campo que activó el evento
    */
@@ -79980,7 +79980,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Obtiene las Acciones Específicas
    * 
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    * @param {string} type Tipo de registro
    */
 		getSpecificActions: function getSpecificActions(type) {
@@ -80003,7 +80003,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Crea o actualiza la formulación de presupuesto
    *
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		createFormulation: function createFormulation() {
 			var _this4 = this;
@@ -80050,7 +80050,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Ejecuta la acción para actualizar datos de la formulación
    *
-   * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		updateFormulation: function updateFormulation() {
 			var _this5 = this;
@@ -81474,7 +81474,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -82154,7 +82154,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -82629,7 +82629,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -83190,7 +83190,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
             * Método que borra todos los datos del formulario
             * 
-            * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+            * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
             */
 		reset: function reset() {
 			this.record = {
@@ -83794,7 +83794,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
             * Método que borra todos los datos del formulario
             * 
-            * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+            * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
             */
 		reset: function reset() {
 			this.record = {
@@ -85206,7 +85206,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
             * Método que borra todos los datos del formulario
             * 
-            * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+            * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
             */
 		reset: function reset() {
 			this.record = {
@@ -85752,7 +85752,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
             * Método que borra todos los datos del formulario
             * 
-            * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+            * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
             */
 		reset: function reset() {
 			this.record = {
@@ -86176,7 +86176,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -87167,7 +87167,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {
@@ -87806,7 +87806,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Método que borra todos los datos del formulario
    * 
-   * @author  Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+   * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		reset: function reset() {
 			this.record = {

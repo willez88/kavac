@@ -10,7 +10,7 @@ class TaxUnitController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      */
     public function __construct()
     {

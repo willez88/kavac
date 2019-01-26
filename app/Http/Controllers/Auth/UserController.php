@@ -13,7 +13,7 @@ class UserController extends Controller
     /**
      * Muesta todos los registros de los usuarios
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\View\View
      */
     public function index()
@@ -24,7 +24,7 @@ class UserController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de usuario
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -35,7 +35,7 @@ class UserController extends Controller
     /**
      * Valida y registra un nuevo usuario
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -47,7 +47,7 @@ class UserController extends Controller
     /**
      * Muestra información acerca del usuario
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\User  $user
      * @return \Illuminate\View\View
      */
@@ -63,7 +63,7 @@ class UserController extends Controller
     /**
      * Muestra el formulario para actualizar información de un usuario
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
@@ -75,7 +75,7 @@ class UserController extends Controller
     /**
      * Actualiza la información del usuario
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\RedirectResponse
@@ -109,7 +109,7 @@ class UserController extends Controller
     /**
      * Elimina el usuario
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
@@ -121,7 +121,7 @@ class UserController extends Controller
     /**
      * Configuración de permisos asociados a roles de usuarios
      * 
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
      */
@@ -158,7 +158,7 @@ class UserController extends Controller
     /**
      * Assigna roles y permisos de acceso a los usuarios del sistema
      * 
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param Request $request Objeto con los datos de la petición
      */
     public function setAccess(Request $request)

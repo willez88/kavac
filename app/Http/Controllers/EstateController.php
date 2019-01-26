@@ -10,7 +10,7 @@ class EstateController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -24,7 +24,7 @@ class EstateController extends Controller
     /**
      * Muesta todos los registros de los Estados
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -35,7 +35,7 @@ class EstateController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de Estado
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -46,7 +46,7 @@ class EstateController extends Controller
     /**
      * Valida y registra un nuevo Estado
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -71,7 +71,7 @@ class EstateController extends Controller
     /**
      * Muestra información acerca del Estado
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\Estate  $estate
      * @return \Illuminate\Http\Response
      */
@@ -83,7 +83,7 @@ class EstateController extends Controller
     /**
      * Muestra el formulario para actualizar información de un Estado
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\Estate  $estate
      * @return \Illuminate\Http\Response
      */
@@ -95,7 +95,7 @@ class EstateController extends Controller
     /**
      * Actualiza la información del Estado
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Estate  $estate
      * @return \Illuminate\Http\JsonResponse
@@ -119,7 +119,7 @@ class EstateController extends Controller
     /**
      * Elimina el Estado
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\Estate  $estate
      * @return \Illuminate\Http\JsonResponse
      */

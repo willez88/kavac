@@ -15,7 +15,7 @@ use App\Traits\ModelsTrait;
  * 
  * Gestiona el modelo de datos para los Municipios
  * 
- * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class Municipality extends Model implements Auditable
@@ -46,7 +46,7 @@ class Municipality extends Model implements Auditable
     /**
      * Método que obtiene el Estado de un Municipio
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Estate
      */
 	public function estate()
@@ -57,7 +57,7 @@ class Municipality extends Model implements Auditable
     /**
      * Método que obtiene las Parroquias asociadas a un Municipio
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Parish
      */
     public function parish()

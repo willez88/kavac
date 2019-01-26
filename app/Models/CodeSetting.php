@@ -37,7 +37,7 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método que permite obtener el formato configurado para el código
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return [string] Retorna el formato del código configurado
      */
     public function getFormatCodeAttribute()
@@ -48,7 +48,7 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método que permite dividir el formato del código
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  string $code Formato del código a configurar
      * @return array       Arreglo con las partes que conforman el código
      */
@@ -61,7 +61,7 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método que permite obtener el prócimo valor a registrar del código
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  string $table  Nombre de la tabla
      * @param  string $field  Nombre del campo
      * @param  string $model  Ruta del Modelo

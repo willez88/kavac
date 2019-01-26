@@ -6,7 +6,7 @@ trait ModelsTrait
 	/**
 	 * Método que escanea todos los modelos presentes en la aplicación
 	 *
-	 * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @return array                Retorna un arreglo con los módulos
 	 */
 	function getModels() {
@@ -68,7 +68,7 @@ trait ModelsTrait
 	/**
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return array Listado de registros para ser implementados en plantillas
      */
     public static function template_choices($field = 'name')

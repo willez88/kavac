@@ -10,7 +10,7 @@ class DocumentStatusController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -24,7 +24,7 @@ class DocumentStatusController extends Controller
     /**
      * Muesta todos los registros de estatus de documentos
      * 
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -35,7 +35,7 @@ class DocumentStatusController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de estatus de documentos
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -46,7 +46,7 @@ class DocumentStatusController extends Controller
     /**
      * Valida y registra un nuevo estatus de documento
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -71,7 +71,7 @@ class DocumentStatusController extends Controller
     /**
      * Muestra información acerca del estatus de documento
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\DocumentStatus  $documentStatus
      * @return \Illuminate\Http\Response
      */
@@ -83,7 +83,7 @@ class DocumentStatusController extends Controller
     /**
      * Muestra el formulario para actualizar información de un estatus de documento
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\DocumentStatus  $documentStatus
      * @return \Illuminate\Http\Response
      */
@@ -95,7 +95,7 @@ class DocumentStatusController extends Controller
     /**
      * Actualiza la información del estatus de documento
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\DocumentStatus  $documentStatus
      * @return \Illuminate\Http\JsonResponse
@@ -119,7 +119,7 @@ class DocumentStatusController extends Controller
     /**
      * Elimina el estatus de documento
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\DocumentStatus  $documentStatus
      * @return \Illuminate\Http\JsonResponse
      */

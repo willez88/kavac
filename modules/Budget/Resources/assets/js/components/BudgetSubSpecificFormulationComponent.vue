@@ -293,7 +293,7 @@
 			/**
 			 * Calcula los montos de las cuentas presupuestarias formuladas
 			 *
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 * @param  {integer} index Indice del elemento
 			 * @param  {string}  input Nombre del campo que activó el evento
 			 */
@@ -533,7 +533,7 @@
 			/**
 			 * Obtiene las Acciones Específicas
 			 * 
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 * @param {string} type Tipo de registro
 			 */
 			getSpecificActions(type) {
@@ -553,7 +553,7 @@
 			/**
 			 * Crea o actualiza la formulación de presupuesto
 			 *
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 */
 			createFormulation() {
 				let vm = this;
@@ -599,7 +599,7 @@
 			/**
 			 * Ejecuta la acción para actualizar datos de la formulación
 			 *
-			 * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve / roldandvg@gmail.com)
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 */
 			updateFormulation() {
 				var fields = {};

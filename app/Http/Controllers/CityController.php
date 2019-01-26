@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
  * 
  * Clase que gestiona las Ciudades
  * 
- * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class CityController extends Controller
@@ -19,7 +19,7 @@ class CityController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class CityController extends Controller
     /**
      * Muestra un listado de Ciudades
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse con los registros a mostrar
      */
     public function index()
@@ -44,7 +44,7 @@ class CityController extends Controller
     /**
      * Muestra el formulario para crear una nueva Ciudad
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse Objeto con los datos a mostrar en el formulario
      */
     public function create()
@@ -55,7 +55,7 @@ class CityController extends Controller
     /**
      * Registra una nueva Ciudad
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param \Illuminate\Http\Request $request Datos de la petición
      * @return \Illuminate\Http\JsonResponse con el resultado de la petición
      */
@@ -77,7 +77,7 @@ class CityController extends Controller
     /**
      * Muestra los datos de una Ciudad
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param \App\Models\City $city Datos de la Ciudad
      * @return \Illuminate\Http\JsonResponse Objeto con los datos a mostrar
      */
@@ -89,7 +89,7 @@ class CityController extends Controller
     /**
      * Muestra el formulario con los datos a modificar de una Ciudad
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param \App\Models\City $city Datos de la Ciudad
      * @return \Illuminate\Http\JsonResponse Objeto con los datos a mostrar en el formulario de edición
      */
@@ -101,7 +101,7 @@ class CityController extends Controller
     /**
      * Muestra los datos de una Ciudad
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param \Illuminate\Http\Request $request Datos de la petición
      * @param \App\Models\City $city Datos de la Ciudad
      * @return \Illuminate\Http\JsonResponse con el resultado de la petición
@@ -123,7 +123,7 @@ class CityController extends Controller
     /**
      * Elimina una Ciudad específica
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param \App\Models\City $city Datos de la Ciudad
      * @return \Illuminate\Http\JsonResponse con el resultado de la petición
      */

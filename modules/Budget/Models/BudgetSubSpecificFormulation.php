@@ -57,10 +57,19 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
         return $this->hasMany(BudgetAccountOpen::class);
     }
 
+    /**
+     * Método que permite validar si una formulación ya existe con los mismos datos a registrar, en cuyo caso 
+     * retorna verdadero
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  array  $data Campos a filtrar en la consulta
+     * @return boolean      Devuelve verdadero si la formulación existe, de lo contrario retorna falso
+     */
     public static function validateStore($data = [])
     {
         if (is_array($data) && !empty($data)) {
-            $exists = self::where('budget_specific_action_id', $data['budget_specific_action_id'])
+            $exists = self::where('institution_id', $data['institution_id'])
+                          ->where('budget_specific_action_id', $data['budget_specific_action_id'])
                           ->where('currency_id', $data['currency_id'])->where('year', $data['year'])->first();
             return (!$exists);
         }

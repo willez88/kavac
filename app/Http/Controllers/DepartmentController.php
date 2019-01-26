@@ -13,7 +13,7 @@ class DepartmentController extends Controller
     /**
      * Método constructor de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      */
     public function __construct() {
         $this->data[0] = [

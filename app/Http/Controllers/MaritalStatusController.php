@@ -10,7 +10,7 @@ class MaritalStatusController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -24,7 +24,7 @@ class MaritalStatusController extends Controller
     /**
      * Muestra todos los registros de estados civiles
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -35,7 +35,7 @@ class MaritalStatusController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de estados civiles
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -46,7 +46,7 @@ class MaritalStatusController extends Controller
     /**
      * Valida y registra un nuevo estado civil
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -64,7 +64,7 @@ class MaritalStatusController extends Controller
     /**
      * Muestra información acerca del estado civil
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\MaritalStatus  $maritalStatus
      * @return \Illuminate\Http\JsonResponse
      */
@@ -76,7 +76,7 @@ class MaritalStatusController extends Controller
     /**
      * Muestra el formulario para actualizar información de un estado civil
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\MaritalStatus  $maritalStatus
      * @return \Illuminate\Http\Response
      */
@@ -88,7 +88,7 @@ class MaritalStatusController extends Controller
     /**
      * Actualiza la información del estado civil
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\MaritalStatus  $maritalStatus
      * @return \Illuminate\Http\JsonResponse
@@ -108,7 +108,7 @@ class MaritalStatusController extends Controller
     /**
      * Elimina el estado civil
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\MaritalStatus  $maritalStatus
      * @return \Illuminate\Http\JsonResponse
      */

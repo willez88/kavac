@@ -124,7 +124,7 @@
 
             /*
              * Función que permite eliminar registros mediante ajax
-             * @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
              * @param {string} url URL del controlador que realiza la acción de eliminación
              * @return Un mensaje al usuario solicitando confirmación de la eliminación del registro
              */

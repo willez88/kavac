@@ -18,7 +18,7 @@ class BackupController extends Controller
     /**
      * Muestra un listado de respaldos del sistema
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Repositories\BackupRepository $backup Objeto con los métodos a implementar para la 
      *                                                    gestión de respaldos
      * @return \Illuminate\View\View    Devuelve la vista con los datos a mostrar
@@ -35,7 +35,7 @@ class BackupController extends Controller
     /**
      * Crea un nuevo respaldo
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Repositories\BackupRepository $backup Objeto con los métodos a implementar para la gestión 
      *                                                   de respaldos
      * @return \Illuminate\Http\RedirectResponse         Redirecciona a la página anterior después de realizar 
@@ -51,7 +51,7 @@ class BackupController extends Controller
     /**
      * Descarga un respaldo solicitado
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  string           $file_name Nombre del archivo a descargar
      * @param  \App\Repositories\BackupRepository   $backup    Objeto con los métodos para la gestión de respaldos
      * @return \Symfony\Component\HttpFoundation\StreamedResponse    Retorna el response para la descarga del archivo

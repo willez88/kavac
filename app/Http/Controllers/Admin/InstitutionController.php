@@ -16,7 +16,7 @@ class InstitutionController extends Controller
     /**
      * Método constructor de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      */
     public function __construct() {
         $this->data[0] = [
@@ -28,7 +28,7 @@ class InstitutionController extends Controller
     /**
      * Muesta todos los registros de las Instituciones
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -39,7 +39,7 @@ class InstitutionController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de Institución
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -50,7 +50,7 @@ class InstitutionController extends Controller
     /**
      * Valida y registra una nueva Institución
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -125,7 +125,7 @@ class InstitutionController extends Controller
     /**
      * Muestra información acerca de la Institución
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\Institution  $institution
      * @return \Illuminate\Http\Response
      */
@@ -137,7 +137,7 @@ class InstitutionController extends Controller
     /**
      * Muestra el formulario para actualizar información de una Institución
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\Institution  $institution
      * @return \Illuminate\Http\Response
      */
@@ -149,7 +149,7 @@ class InstitutionController extends Controller
     /**
      * Actualiza la información de la Institución
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Institution  $institution
      * @return \Illuminate\Http\Response
@@ -162,7 +162,7 @@ class InstitutionController extends Controller
     /**
      * Elimina la Institución seleccionada
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\Models\Institution  $institution
      * @return \Illuminate\Http\Response
      */

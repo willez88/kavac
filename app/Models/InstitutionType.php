@@ -15,7 +15,7 @@ use App\Traits\ModelsTrait;
  * 
  * Gestiona el modelo de datos para los tipos de Instituciones
  * 
- * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class InstitutionType extends Model implements Auditable
@@ -46,7 +46,7 @@ class InstitutionType extends Model implements Auditable
     /**
      * Método que obtiene las instituciones asociadas a un tipo
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo InstitutionType
      */
     public function institutions()

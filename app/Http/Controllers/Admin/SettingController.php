@@ -19,7 +19,7 @@ class SettingController extends Controller
     /**
      * Muesta todos los registros de los parámetros de configuración de la aplicación
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\View\View
      */
     public function index()
@@ -54,7 +54,7 @@ class SettingController extends Controller
     /**
      * Valida y registra los parámetros de configuración de la aplicación
      *
-     * @author  Ing. Roldan Vargas <rvargas at cenditel.gob.ve>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */

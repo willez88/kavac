@@ -14,7 +14,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * 
  * Gestiona el modelo de datos para las Instituciones
  * 
- * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class Institution extends Model implements Auditable
@@ -49,7 +49,7 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene el logotipo de la Institución
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con el registro relacionado al modelo Image
      */
     public function logo()
@@ -60,7 +60,7 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene el banner de la Institución
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con el registro relacionado al modelo Image
      */
     public function banner()
@@ -71,7 +71,7 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene el sector de la Institución
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con el registro relacionado al modelo InstitutionSector
      */
     public function sector()
@@ -82,7 +82,7 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene el tipo de la Institución
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con el registro relacionado al modelo InstitutionType
      */
     public function type()
@@ -93,7 +93,7 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene los departamentos asociados a la intitución.
      *
-     * @author  Ing. Roldan Vargas (rvargas@cenditel.gob.ve)
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Institution
      */
     public function departments()
