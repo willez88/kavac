@@ -75,7 +75,8 @@ if (!function_exists('template_choices')) {
         }
 
         /** Inicia la opción vacia por defecto */
-        $options = ($vuejs) ? [['id' => '', 'text' => 'Seleccione...']] : ['' => 'Seleccione...'];
+        $options = ($vuejs) ? ((count($records) > 1) ? [['id' => '', 'text' => 'Seleccione...']] : []) 
+        		   : ((count($records) > 1) ? ['' => 'Seleccione...'] : []);
 
         foreach ($records as $rec) {
         	if (is_array($fields)) {
