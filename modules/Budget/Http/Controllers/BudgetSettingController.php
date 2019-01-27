@@ -10,6 +10,15 @@ use App\Models\CodeSetting;
 use Modules\Budget\Models\BudgetProject;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
 
+/**
+ * @class BudgetSettingController
+ * @brief Controlador de configuraciones en el módulo de Presupuesto
+ * 
+ * Clase que gestiona las configuraciones en el módulo de Presupuesto
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetSettingController extends Controller
 {
     /**

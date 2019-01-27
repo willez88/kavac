@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Ultraware\Roles\Models\Role;
 use Ultraware\Roles\Models\Permission;
 
+/**
+ * @class BudgetRoleAndPermissionsTableSeeder
+ * @brief Información por defecto para Roles y Permisos del módulo de presupuesto
+ * 
+ * Gestiona la información por defecto a registrar inicialmente para los Roles y Permisos del módulo de presupuesto
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetRoleAndPermissionsTableSeeder extends Seeder
 {
     /**

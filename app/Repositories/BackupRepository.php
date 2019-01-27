@@ -7,6 +7,15 @@ use Storage;
 use Session;
 use Exception;
 
+/**
+ * @class BackupRepository
+ * @brief Gestiona las acciones a ejecutar en los respaldos del sistema
+ * 
+ * Gestiona las acciones que se deben realizar en el respaldo de información
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BackupRepository
 {
 	/**

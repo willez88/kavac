@@ -60,6 +60,14 @@ trait ModelsTrait
 		return $out;
 	}
 
+	/**
+	 * Identifica si un modelo esta establecido para una eliminación lógica
+	 *
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  string  $model Nombre del modelo a evaluar
+	 * @return boolean        Devuelve verdadero si el modelo esta establecido para una eliminación lógica, 
+	 *                        de lo contrario devuelve falso
+	 */
 	public function isModelSoftDelete($model)
 	{
 		return in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model));

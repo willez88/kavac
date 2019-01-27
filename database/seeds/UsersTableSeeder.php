@@ -6,6 +6,15 @@ use Ultraware\Roles\Models\Role;
 use App\User;
 use Carbon\Carbon;
 
+/**
+ * @class UsersTableSeeder
+ * @brief Información por defecto para Usuarios
+ * 
+ * Gestiona la información por defecto a registrar inicialmente para los Usuarios
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class UsersTableSeeder extends Seeder
 {
     /**

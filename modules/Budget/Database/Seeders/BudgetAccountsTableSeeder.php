@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Budget\Models\BudgetAccount;
 
+/**
+ * @class BudgetAccountsTableSeeder
+ * @brief Información por defecto para cuentas presupuestarias
+ * 
+ * Gestiona la información por defecto a registrar inicialmente para las cuentas presupuestarias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetAccountsTableSeeder extends Seeder
 {
     /**

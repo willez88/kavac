@@ -8,6 +8,15 @@ use App\Repositories\UploadImageRepository;
 use App\Models\Institution;
 use App\Models\Setting;
 
+/**
+ * @class InstitutionController
+ * @brief Gestiona información de Instituciones
+ * 
+ * Controlador para gestionar Instituciones
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class InstitutionController extends Controller
 {
     /** @var array Lista de elementos a mostrar */
@@ -91,28 +100,28 @@ class InstitutionController extends Controller
         $institution = Institution::updateOrCreate(
             ['active' => true, 'default' => true],
             [
-                'onapre_code' => $request->input('onapre_code'),
-                'rif' => $request->input('rif'),
-                'acronym' => $request->input('acronym'),
-                'name' => $request->input('name'),
-                'business_name' => $request->input('business_name'),
-                'start_operations_date' => $request->input('start_operations_date'),
-                'legal_address' => $request->input('legal_address'),
-                'postal_code' => $request->input('postal_code'),
-                'institution_sector_id' => $request->input('institution_sector_id'),
-                'institution_type_id' => $request->input('institution_type_id'),
-                'municipality_id' => $request->input('municipality_id'),
-                'city_id' => $request->input('city_id'),
+                'onapre_code' => $request->onapre_code,
+                'rif' => $request->rif,
+                'acronym' => $request->acronym,
+                'name' => $request->name,
+                'business_name' => $request->business_name,
+                'start_operations_date' => $request->start_operations_date,
+                'legal_address' => $request->legal_address,
+                'postal_code' => $request->postal_code,
+                'institution_sector_id' => $request->institution_sector_id,
+                'institution_type_id' => $request->institution_type_id,
+                'municipality_id' => $request->municipality_id,
+                'city_id' => $request->city_id,
                 'default' => true,
-                'active' => ($request->input('active')!==null),
-                'legal_base' => ($request->input('legal_base'))?$request->input('legal_base'):null,
-                'legal_form' => ($request->input('legal_form'))?$request->input('legal_form'):null,
-                'main_activity' => ($request->input('main_activity'))?$request->input('main_activity'):null,
-                'mission' => ($request->input('mission'))?$request->input('mission'):null,
-                'vision' => ($request->input('vision'))?$request->input('vision'):null,
-                'web' => ($request->input('web'))?$request->input('web'):null,
-                'composition_assets' => ($request->input('composition_assets'))?$request->input('composition_assets'):null,
-                'retention_agent' => ($request->input('retention_agent')!==null),
+                'active' => ($request->active!==null),
+                'legal_base' => ($request->legal_base)?$request->legal_base:null,
+                'legal_form' => ($request->legal_form)?$request->legal_form:null,
+                'main_activity' => ($request->main_activity)?$request->main_activity:null,
+                'mission' => ($request->mission)?$request->mission:null,
+                'vision' => ($request->vision)?$request->vision:null,
+                'web' => ($request->web)?$request->web:null,
+                'composition_assets' => ($request->composition_assets)?$request->composition_assets:null,
+                'retention_agent' => ($request->retention_agent!==null),
                 'logo_id' => $logo,
                 'banner_id' => $banner,
             ]

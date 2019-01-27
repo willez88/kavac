@@ -11,6 +11,15 @@ use Modules\Budget\Models\BudgetProject;
 use Modules\Budget\Models\BudgetCentralizedAction;
 use Modules\Budget\Models\BudgetSpecificAction;
 
+/**
+ * @class BudgetSpecificActionController
+ * @brief Controlador de Acciones Específicas
+ * 
+ * Clase que gestiona las Acciones Específicas
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetSpecificActionController extends Controller
 {
     use ValidatesRequests;
@@ -183,6 +192,12 @@ class BudgetSpecificActionController extends Controller
         return response()->json(['record' => $budgetSpecificAction, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene listado de registros
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function vueList()
     {
         return response()->json([

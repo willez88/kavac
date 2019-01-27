@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use Illuminate\Http\Request;
 
+/**
+ * @class ImageController
+ * @brief Gestiona información de Imágenes
+ * 
+ * Controlador para gestionar Imágenes
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class ImageController extends Controller
 {
     /**

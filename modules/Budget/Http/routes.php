@@ -1,5 +1,5 @@
 <?php
-
+/** Grupo de rutas para el módulo de presupuesto */
 Route::group([
 	'middleware' => ['web', 'auth'],
     'prefix' => 'budget', 

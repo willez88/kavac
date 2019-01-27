@@ -8,6 +8,15 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+/**
+ * @class BudgetAccount
+ * @brief Datos de cuentas del Clasificador Presupuestario
+ * 
+ * Gestiona el modelo de datos para las cuentas del Clasificador Presupuestario
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetAccount extends Model implements Auditable
 {
 	use SoftDeletes;

@@ -6,6 +6,15 @@ use App\Models\Tax;
 use App\Models\HistoryTax;
 use Illuminate\Http\Request;
 
+/**
+ * @class TaxController
+ * @brief Gestiona información de Impuestos
+ * 
+ * Controlador para gestionar Impuestos
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class TaxController extends Controller
 {
     /**
@@ -16,10 +25,10 @@ class TaxController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        /*$this->middleware('permission:tax.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:tax.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:tax.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:tax.delete', ['only' => 'destroy']);
-        $this->middleware('permission:tax.list', ['only' => 'index']);*/
+        $this->middleware('permission:tax.list', ['only' => 'index']);
     }
 
     /**
@@ -59,15 +68,15 @@ class TaxController extends Controller
 
 
         $tax = Tax::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'affect_tax' => ($request->input('affect_tax')!==null),
-            'active' => ($request->input('active')!==null),
+            'name' => $request->name,
+            'description' => $request->description,
+            'affect_tax' => ($request->affect_tax!==null),
+            'active' => ($request->active!==null),
         ]);
 
         HistoryTax::create([
-            'operation_date' => $request->input('operation_date'),
-            'percentage' => $request->input('percentage'),
+            'operation_date' => $request->operation_date,
+            'percentage' => $request->percentage,
             'tax_id' => $tax->id
         ]);
 
@@ -112,12 +121,12 @@ class TaxController extends Controller
             'percentage' => 'required'
         ]);
 
-        $tax->name = $request->input('name');
-        $tax->description = $request->input('description');
-        $tax->operation_date = $request->input('operation_date');
-        $tax->percentage = $request->input('percentage');
-        $tax->affect_tax = ($request->input('affect_tax'));
-        $tax->active = ($request->input('active'));
+        $tax->name = $request->name;
+        $tax->description = $request->description;
+        $tax->operation_date = $request->operation_date;
+        $tax->percentage = $request->percentage;
+        $tax->affect_tax = ($request->affect_tax);
+        $tax->active = ($request->active);
         $tax->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

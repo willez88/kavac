@@ -9,6 +9,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Budget\Models\BudgetAccount;
 use Auth;
 
+/**
+ * @class BudgetAccountController
+ * @brief Controlador de Cuentas Presupuestarias
+ * 
+ * Clase que gestiona las Cuentas Presupuestarias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetAccountController extends Controller
 {
     use ValidatesRequests;
@@ -72,7 +81,7 @@ class BudgetAccountController extends Controller
             'account_type' => 'required',
         ]);
 
-        /** @var [object] Obtiene los datos de la cuenta ya registrada si existe */
+        /** Obtiene los datos de la cuenta ya registrada si existe */
         $budgetAccount = BudgetAccount::where('group', request('group'))
                                       ->where('item', request('item'))
                                       ->where('generic', request('generic'))
@@ -84,7 +93,7 @@ class BudgetAccountController extends Controller
          * Si la cuenta a registrar ya existe en la base de datos y la nueva cuenta se indica como activa, 
          * se desactiva la cuenta anterior
          */
-        if ($budgetAccount && $request->input('active')!==null) {
+        if ($budgetAccount && $request->active!==null) {
             $budgetAccount->active = false;
             $budgetAccount->save();
         }
@@ -100,16 +109,16 @@ class BudgetAccountController extends Controller
          * Registra la nueva cuenta presupuestaria
          */
         BudgetAccount::create([
-            'group' => $request->input('group'),
-            'item' => $request->input('item'),
-            'generic' => $request->input('generic'),
-            'specific' => $request->input('specific'),
-            'subspecific' => $request->input('subspecific'),
-            'denomination' => $request->input('denomination'),
-            'resource' => ($request->input('account_type')=="resource"),
-            'egress' => ($request->input('account_type')=="egress"),
-            'active' => ($request->input('active')!==null),
-            'original' => ($request->input('original')!==null),
+            'group' => $request->group,
+            'item' => $request->item,
+            'generic' => $request->generic,
+            'specific' => $request->specific,
+            'subspecific' => $request->subspecific,
+            'denomination' => $request->denomination,
+            'resource' => ($request->account_type=="resource"),
+            'egress' => ($request->account_type=="egress"),
+            'active' => ($request->active!==null),
+            'original' => ($request->original!==null),
             'parent_id' => ($parent == false)?null:$parent->id
         ]);
         
@@ -185,6 +194,12 @@ class BudgetAccountController extends Controller
         return response()->json(['record' => $budgetAccount, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene listado de registros
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function vueList()
     {
         $budgetAccounts = [];
@@ -197,6 +212,12 @@ class BudgetAccountController extends Controller
         return response()->json(['records' => $budgetAccounts], 200);
     }
 
+    /**
+     * Obtiene un listado de cuentas de egreso
+     * @param  boolean $to_formulate Indica si las cuentas a retornar son para formulación, 
+     *                               en cuyo caso incluye la inicialización de variables para cada cuenta
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function egressAccounts($to_formulate = false)
     {
         $records = [];

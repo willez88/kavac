@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\InstitutionType;
 use Illuminate\Http\Request;
 
+/**
+ * @class InstitutionTypeController
+ * @brief Gestiona información de los tipos de Instituciones
+ * 
+ * Controlador para gestionar los tipos de Instituciones
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class InstitutionTypeController extends Controller
 {
     /**
@@ -59,8 +68,8 @@ class InstitutionTypeController extends Controller
 
 
         $institutionType = InstitutionType::create([
-            'name' => $request->input('name'),
-            'acronym' => ($request->input('acronym'))?$request->input('acronym'):null
+            'name' => $request->name,
+            'acronym' => ($request->acronym)?$request->acronym:null
         ]);
 
         return response()->json(['record' => $institutionType, 'message' => 'Success'], 200);
@@ -105,8 +114,8 @@ class InstitutionTypeController extends Controller
             'acronym' => 'max:10'
         ]);
  
-        $institutionType->name = $request->input('name');
-        $institutionType->acronym = ($request->input('acronym'))?$request->input('acronym'):null;
+        $institutionType->name = $request->name;
+        $institutionType->acronym = ($request->acronym)?$request->acronym:null;
         $institutionType->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

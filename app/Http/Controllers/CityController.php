@@ -67,8 +67,8 @@ class CityController extends Controller
         ]);
 
         $city = City::create([
-            'name' => $request->input('name'),
-            'estate_id' => $request->input('estate_id')
+            'name' => $request->name,
+            'estate_id' => $request->estate_id
         ]);
 
         return response()->json(['record' => $city, 'message' => 'Success'], 200);
@@ -113,8 +113,8 @@ class CityController extends Controller
             'estate_id' => 'required'
         ]);
  
-        $city->name = $request->input('name');
-        $city->estate_id = $request->input('estate_id');
+        $city->name = $request->name;
+        $city->estate_id = $request->estate_id;
         $city->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

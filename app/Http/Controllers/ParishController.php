@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Parish;
 use Illuminate\Http\Request;
 
+/**
+ * @class ParishController
+ * @brief Gestiona información de Parroquias
+ * 
+ * Controlador para gestionar Parroquias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class ParishController extends Controller
 {
     /**
@@ -57,9 +66,9 @@ class ParishController extends Controller
 
 
         $parish = Parish::create([
-            'name' => $request->input('name'),
-            'code' => $request->input('code'),
-            'municipality_id' => $request->input('municipality_id')
+            'name' => $request->name,
+            'code' => $request->code,
+            'municipality_id' => $request->municipality_id
         ]);
 
         return response()->json(['record' => $parish, 'message' => 'Success'], 200);
@@ -102,9 +111,9 @@ class ParishController extends Controller
             'municipality_id' => 'required'
         ]);
  
-        $parish->name = $request->input('name');
-        $parish->code = $request->input('code');
-        $parish->municipality_id = $request->input('municipality_id');
+        $parish->name = $request->name;
+        $parish->code = $request->code;
+        $parish->municipality_id = $request->municipality_id;
         $parish->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

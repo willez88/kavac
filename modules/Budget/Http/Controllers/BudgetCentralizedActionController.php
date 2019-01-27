@@ -14,6 +14,15 @@ use Modules\Payroll\Models\PayrollPosition;
 use Modules\Payroll\Models\PayrollStaff;
 use Modules\Budget\Models\BudgetCentralizedAction;
 
+/**
+ * @class BudgetCentralizedActionController
+ * @brief Controlador de Acciones Centralizadas
+ * 
+ * Clase que gestiona las Acciones Centralizadas
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetCentralizedActionController extends Controller
 {
     use ValidatesRequests;
@@ -171,6 +180,12 @@ class BudgetCentralizedActionController extends Controller
         return response()->json(['record' => $budgetCentralizedAction, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene listado de registros
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function vueList()
     {
         return response()->json([

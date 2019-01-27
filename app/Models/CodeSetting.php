@@ -8,6 +8,15 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+/**
+ * @class CodeSetting
+ * @brief Datos para la configuración de códigos de registro
+ * 
+ * Gestiona el modelo de datos para las configuraciones de códigos
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class CodeSetting extends Model implements Auditable
 {
     use SoftDeletes;

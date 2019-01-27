@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\InstitutionSector;
 use Illuminate\Http\Request;
 
+/**
+ * @class InstitutionSectorController
+ * @brief Gestiona información de los sectores de Instituciones
+ * 
+ * Controlador para gestionar sectores de Instituciones
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class InstitutionSectorController extends Controller
 {
     /**
@@ -58,7 +67,7 @@ class InstitutionSectorController extends Controller
 
 
         $institutionSector = InstitutionSector::create([
-            'name' => $request->input('name')
+            'name' => $request->name
         ]);
 
         return response()->json(['record' => $institutionSector, 'message' => 'Success'], 200);
@@ -102,7 +111,7 @@ class InstitutionSectorController extends Controller
             'name' => 'required|max:100',
         ]);
  
-        $institutionSector->name = $request->input('name');
+        $institutionSector->name = $request->name;
         $institutionSector->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

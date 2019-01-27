@@ -48,17 +48,14 @@
 			this.initRecords(this.route_list, '');
 		},
 		methods: {
+			/**
+			 * Inicializa los datos del formulario
+			 * 
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 */
 			reset() {
 				
 			},
-			editForm(id) {
-				if (this.route_edit.indexOf("{id}") >= 0) {
-					location.href = this.route_edit.replace("{id}", id);
-				}
-				else {
-					location.href = this.route_edit + '/' + id;
-				}
-			}
 		}
 	};
 </script>

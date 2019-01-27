@@ -8,6 +8,15 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+/**
+ * @class BudgetSubSpecificFormulation
+ * @brief Datos de las formulaciones de presupuesto por sub específicas
+ * 
+ * Gestiona el modelo de datos para las formulaciones de presupuesto por sub específicas
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetSubSpecificFormulation extends Model implements Auditable
 {
 	use SoftDeletes;

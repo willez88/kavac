@@ -8,6 +8,15 @@ use Ultraware\Roles\Models\Permission;
 use App\Models\Estate;
 use App\Models\Municipality;
 
+/**
+ * @class MunicipalitiesTableSeeder
+ * @brief Información por defecto para Municipios
+ * 
+ * Gestiona la información por defecto a registrar inicialmente para los Municipios
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class MunicipalitiesTableSeeder extends Seeder
 {
     /**

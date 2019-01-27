@@ -11,6 +11,15 @@ use App\Models\Municipality;
 use App\Models\Parish;
 use App\Models\City;
 
+/**
+ * @class LocatesController
+ * @brief Gestiona información de servicios de localización
+ * 
+ * Controlador para gestionar servicios de localización (Países, Estados, Municipios, Parroquias, Ciudades, etc...)
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class LocatesController extends Controller
 {
     /** @var array Lista de elementos a mostrar */

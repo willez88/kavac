@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Municipality;
 use Illuminate\Http\Request;
 
+/**
+ * @class MunicipalityController
+ * @brief Gestiona información de Municipios
+ * 
+ * Controlador para gestionar Municipios
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class MunicipalityController extends Controller
 {
     /**
@@ -60,9 +69,9 @@ class MunicipalityController extends Controller
 
 
         $municipality = Municipality::create([
-            'name' => $request->input('name'),
-            'code' => $request->input('code'),
-            'estate_id' => $request->input('estate_id')
+            'name' => $request->name,
+            'code' => $request->code,
+            'estate_id' => $request->estate_id
         ]);
 
         return response()->json(['record' => $municipality, 'message' => 'Success'], 200);
@@ -108,9 +117,9 @@ class MunicipalityController extends Controller
             'estate_id' => 'required'
         ]);
  
-        $municipality->name = $request->input('name');
-        $municipality->code = $request->input('code');
-        $municipality->estate_id = $request->input('estate_id');
+        $municipality->name = $request->name;
+        $municipality->code = $request->code;
+        $municipality->estate_id = $request->estate_id;
         $municipality->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

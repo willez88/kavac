@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use Illuminate\Http\Request;
 
+/**
+ * @class CountryController
+ * @brief Gestiona información de Países
+ * 
+ * Controlador para gestionar Países
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class CountryController extends Controller
 {
     /**
@@ -59,8 +68,8 @@ class CountryController extends Controller
 
 
         $country = Country::create([
-            'name' => $request->input('name'),
-            'prefix' => $request->input('prefix')
+            'name' => $request->name,
+            'prefix' => $request->prefix
         ]);
 
         return response()->json(['record' => $country, 'message' => 'Success'], 200);
@@ -105,8 +114,8 @@ class CountryController extends Controller
             'prefix' => 'required|max:3'
         ]);
  
-        $country->name = $request->input('name');
-        $country->prefix = $request->input('prefix');
+        $country->name = $request->name;
+        $country->prefix = $request->prefix;
         $country->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

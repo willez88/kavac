@@ -13,6 +13,15 @@ use Modules\Payroll\Models\PayrollPosition;
 use Modules\Payroll\Models\PayrollStaff;
 use Modules\Budget\Models\BudgetProject;
 
+/**
+ * @class BudgetProjectController
+ * @brief Controlador de Proyectos
+ * 
+ * Clase que gestiona los Proyectos
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetProjectController extends Controller
 {
     use ValidatesRequests;
@@ -170,6 +179,12 @@ class BudgetProjectController extends Controller
         return response()->json(['record' => $budgetProject, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene listado de registros
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function vueList()
     {
         return response()->json([

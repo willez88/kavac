@@ -253,6 +253,17 @@ Vue.mixin({
 			
 		},
 		/**
+		 * Redirecciona al formulario de actualización de datos
+		 * 
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {integer} id Identificador del registro a actualizar
+		 */
+		editForm(id) {
+			location.href = (this.route_edit.indexOf("{id}") >= 0) 
+							? this.route_edit.replace("{id}", id) 
+							: this.route_edit + '/' + id;
+		},
+		/**
 		 * Método que carga el formulario con los datos a modificar
 		 * 
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>

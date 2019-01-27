@@ -11,6 +11,15 @@ use App\Models\CodeSetting;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
 use Modules\Budget\Models\BudgetAccountOpen;
 
+/**
+ * @class BudgetSubSpecificFormulationController
+ * @brief Controlador de formulaciones de presupuesto por sub específicas
+ * 
+ * Clase que gestiona las formulaciones de presupuesto por sub específicas
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetSubSpecificFormulationController extends Controller
 {
     use ValidatesRequests;

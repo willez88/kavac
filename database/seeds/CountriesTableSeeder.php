@@ -7,6 +7,15 @@ use Ultraware\Roles\Models\Role;
 use Ultraware\Roles\Models\Permission;
 use App\Models\Country;
 
+/**
+ * @class CountriesTableSeeder
+ * @brief Información por defecto para Países
+ * 
+ * Gestiona la información por defecto a registrar inicialmente para los Países
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class CountriesTableSeeder extends Seeder
 {
     /**

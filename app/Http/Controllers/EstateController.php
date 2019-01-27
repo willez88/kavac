@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Estate;
 use Illuminate\Http\Request;
 
+/**
+ * @class EstateController
+ * @brief Gestiona información de Estados
+ * 
+ * Controlador para gestionar Estados
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class EstateController extends Controller
 {
     /**
@@ -60,9 +69,9 @@ class EstateController extends Controller
 
 
         $estate = Estate::create([
-            'name' => $request->input('name'),
-            'code' => $request->input('code'),
-            'country_id' => $request->input('country_id')
+            'name' => $request->name,
+            'code' => $request->code,
+            'country_id' => $request->country_id
         ]);
 
         return response()->json(['record' => $estate, 'message' => 'Success'], 200);
@@ -108,9 +117,9 @@ class EstateController extends Controller
             'country_id' => 'required'
         ]);
  
-        $estate->name = $request->input('name');
-        $estate->code = $request->input('code');
-        $estate->country_id = $request->input('country_id');
+        $estate->name = $request->name;
+        $estate->code = $request->code;
+        $estate->country_id = $request->country_id;
         $estate->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

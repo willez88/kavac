@@ -4,6 +4,15 @@ namespace App\Repositories;
 use \Illuminate\Support\Facades\Storage;
 use \Illuminate\Support\Facades\Session;
 
+/**
+ * @class UploadDocRepository
+ * @brief Gestiona las acciones a ejecutar en la carga de documentos al servidor
+ * 
+ * Gestiona las acciones que se deben realizar en la carga de documentos al servidor
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class UploadDocRepository
 {
 	private $doc_name;
@@ -19,6 +28,8 @@ class UploadDocRepository
 
 	/**
 	 * Instrucciones para verificar y subir un documento a la ruta indicada en el servidor
+	 *
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @param  object  $file 		 Objeto con el archivo a subir
 	 * @param  string  $store        Ruta en la que se va a almacenar el archivo
 	 * @param  boolean $sign         Indica si el archivo a subir será firmado digitalmente
@@ -67,6 +78,8 @@ class UploadDocRepository
 
 	/**
 	 * Obtiene el nombre del documento
+	 *
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @return string Retorna el nombre del documento
 	 */
 	public function getDocName()
@@ -76,6 +89,8 @@ class UploadDocRepository
 
 	/**
 	 * Obtiene la extensión del documento
+	 *
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @return string Retorna la extensión del documento
 	 */
 	public function getDocExtension()
@@ -85,6 +100,8 @@ class UploadDocRepository
 
 	/**
 	 * Obtiene el mensaje de error a mostrar al usuario
+	 *
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @return string Devuelve un mensaje con el error si existe, en caso contrario retorna una cadena vacia
 	 */
 	public function getErrorMessage()
@@ -94,6 +111,8 @@ class UploadDocRepository
 
 	/**
 	 * Obtiene el objeto del documento guardado
+	 *
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @return object Devuelve el objeto del documento guardado
 	 */
 	public function getDocStored()
@@ -103,6 +122,8 @@ class UploadDocRepository
 
 	/**
 	 * Verifica la existencia de un documento y lo elimina del disco
+	 *
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @param  string $doc   Contiene el nombre del documento a eliminar
 	 * @param  string $store Contiene la ruta en la que se encuentra almacenado el documento
 	 */

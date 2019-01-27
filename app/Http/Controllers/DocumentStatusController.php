@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\DocumentStatus;
 use Illuminate\Http\Request;
 
+/**
+ * @class DocumentStatusController
+ * @brief Gestiona información de los estados de documentos
+ * 
+ * Controlador para gestionar los estados de documentos
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class DocumentStatusController extends Controller
 {
     /**
@@ -60,9 +69,9 @@ class DocumentStatusController extends Controller
 
 
         $documentStatus = DocumentStatus::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'color' => $request->input('color')
+            'name' => $request->name,
+            'description' => $request->description,
+            'color' => $request->color
         ]);
 
         return response()->json(['record' => $documentStatus, 'message' => 'Success'], 200);
@@ -108,9 +117,9 @@ class DocumentStatusController extends Controller
             'color' => 'required|min:4|max:30|unique:document_status,color,' . $documentStatus->id
         ]);
  
-        $documentStatus->name = $request->input('name');
-        $documentStatus->description = $request->input('description');
-        $documentStatus->color = $request->input('color');
+        $documentStatus->name = $request->name;
+        $documentStatus->description = $request->description;
+        $documentStatus->color = $request->color;
         $documentStatus->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

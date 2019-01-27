@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\TaxUnit;
 use Illuminate\Http\Request;
 
+/**
+ * @class TaxUnitController
+ * @brief Gestiona información de Unidades Tributarias (U.T.)
+ * 
+ * Controlador para gestionar Unidades Tributarias (U.T.)
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class TaxUnitController extends Controller
 {
     /**
@@ -15,10 +24,10 @@ class TaxUnitController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        /*$this->middleware('permission:tax.unit.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:tax.unit.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:tax.unit.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:tax.unit.delete', ['only' => 'destroy']);
-        $this->middleware('permission:tax.unit.list', ['only' => 'index']);*/
+        $this->middleware('permission:tax.unit.list', ['only' => 'index']);
     }
 
     /**
@@ -58,10 +67,10 @@ class TaxUnitController extends Controller
 
 
         $taxUnit = TaxUnit::create([
-            'value' => $request->input('value'),
-            'start_date' => $request->input('start_date'),
-            'end_date' => ($request->input('end_date')!==null)?$request->input('end_date'):null,
-            'active' => ($request->input('active')!==null)
+            'value' => $request->value,
+            'start_date' => $request->start_date,
+            'end_date' => ($request->end_date!==null)?$request->end_date:null,
+            'active' => ($request->active!==null)
         ]);
 
         return response()->json(['record' => $taxUnit, 'message' => 'Success'], 200);
@@ -104,10 +113,10 @@ class TaxUnitController extends Controller
             'end_date' => 'date'
         ]);
 
-        $taxUnit->value = $request->input('value');
-        $taxUnit->start_date = $request->input('start_date');
-        $taxUnit->end_date = ($request->input('end_date')!==null)?$request->input('end_date'):null;
-        $taxUnit->active = ($request->input('active'));
+        $taxUnit->value = $request->value;
+        $taxUnit->start_date = $request->start_date;
+        $taxUnit->end_date = ($request->end_date!==null)?$request->end_date:null;
+        $taxUnit->active = ($request->active);
         $taxUnit->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

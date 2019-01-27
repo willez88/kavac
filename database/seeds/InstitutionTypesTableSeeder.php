@@ -7,6 +7,15 @@ use Ultraware\Roles\Models\Role;
 use Ultraware\Roles\Models\Permission;
 use App\Models\InstitutionType;
 
+/**
+ * @class InstitutionTypesTableSeeder
+ * @brief Información por defecto para tipos de Instituciones
+ * 
+ * Gestiona la información por defecto a registrar inicialmente para los tipos de Instituciones
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class InstitutionTypesTableSeeder extends Seeder
 {
     /**

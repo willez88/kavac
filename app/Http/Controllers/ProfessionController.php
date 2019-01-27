@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 
+/**
+ * @class ProfessionController
+ * @brief Gestiona información de Profesiones
+ * 
+ * Controlador para gestionar Profesiones
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class ProfessionController extends Controller
 {
     /**
@@ -59,8 +68,8 @@ class ProfessionController extends Controller
 
 
         $profession = Profession::create([
-            'name' => $request->input('name'),
-            'acronym' => ($request->input('acronym'))?$request->input('acronym'):null
+            'name' => $request->name,
+            'acronym' => ($request->acronym)?$request->acronym:null
         ]);
 
         return response()->json(['record' => $profession, 'message' => 'Success'], 200);
@@ -105,8 +114,8 @@ class ProfessionController extends Controller
             'acronym' => 'max:10'
         ]);
  
-        $profession->name = $request->input('name');
-        $profession->acronym = ($request->input('acronym'))?$request->input('acronym'):null;
+        $profession->name = $request->name;
+        $profession->acronym = ($request->acronym)?$request->acronym:null;
         $profession->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

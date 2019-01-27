@@ -8,6 +8,15 @@ use App\Http\Controllers\Controller;
 use Ultraware\Roles\Models\Role;
 use Ultraware\Roles\Models\Permission;
 
+/**
+ * @class UserController
+ * @brief Gestiona información de usuarios
+ * 
+ * Controlador para gestionar usuarios
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class UserController extends Controller
 {
     /**

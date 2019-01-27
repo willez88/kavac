@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\MaritalStatus;
 use Illuminate\Http\Request;
 
+/**
+ * @class MaritalStatusController
+ * @brief Gestiona información de Estados Civiles
+ * 
+ * Controlador para gestionar Estados Civiles
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class MaritalStatusController extends Controller
 {
     /**
@@ -56,7 +65,7 @@ class MaritalStatusController extends Controller
             'marital_status_name' => 'required|max:100'
         ]);
 
-        $maritalStatus = MaritalStatus::create(['name' => $request->input('marital_status_name')]);
+        $maritalStatus = MaritalStatus::create(['name' => $request->marital_status_name]);
 
         return response()->json(['record' => $maritalStatus, 'message' => 'Success'], 200);
     }
@@ -99,7 +108,7 @@ class MaritalStatusController extends Controller
             'marital_status_name' => 'required|max:100'
         ]);
  
-        $maritalStatus->name = $request->input('marital_status_name');
+        $maritalStatus->name = $request->marital_status_name;
         $maritalStatus->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

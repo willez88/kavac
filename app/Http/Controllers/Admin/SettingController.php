@@ -14,6 +14,15 @@ use App\Models\InstitutionType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * @class SettingController
+ * @brief Gestiona información de configuración general
+ * 
+ * Controlador para gestionar configuraciones
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class SettingController extends Controller
 {
     /**
@@ -63,12 +72,12 @@ class SettingController extends Controller
         $setting = Setting::updateOrCreate(
             ['active' => true],
             [
-                'support' => ($request->input('support')!==null),
-                'chat' => ($request->input('chat')!==null),
-                'notify' => ($request->input('notify')!==null),
-                'report_banner' => ($request->input('report_banner')!==null),
-                'multi_institution' => ($request->input('multi_institution')!==null),
-                'digital_sign' => ($request->input('digital_sign')!==null)
+                'support' => ($request->support!==null),
+                'chat' => ($request->chat!==null),
+                'notify' => ($request->notify!==null),
+                'report_banner' => ($request->report_banner!==null),
+                'multi_institution' => ($request->multi_institution!==null),
+                'digital_sign' => ($request->digital_sign!==null)
             ]
         );
         

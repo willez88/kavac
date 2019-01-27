@@ -7,6 +7,15 @@ use Ultraware\Roles\Models\Role;
 use Ultraware\Roles\Models\Permission;
 use App\Models\DocumentStatus;
 
+/**
+ * @class DocumentStatusTableSeeder
+ * @brief Información por defecto para estados de Documentos
+ * 
+ * Gestiona la información por defecto a registrar inicialmente para las estados de Documentos
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class DocumentStatusTableSeeder extends Seeder
 {
     /**

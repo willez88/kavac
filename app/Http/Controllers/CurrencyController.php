@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 
+/**
+ * @class CurrencyController
+ * @brief Gestiona información de Monedas
+ * 
+ * Controlador para gestionar Monedas
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class CurrencyController extends Controller
 {
     /**
@@ -142,6 +151,13 @@ class CurrencyController extends Controller
         return response()->json(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
     }
 
+    /**
+     * Obtiene información de una moneda
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la moneda de la cual se va a obtener información
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getCurrencyInfo($id)
     {
         return response()->json(['result' => true, 'currency' => Currency::find($id)], 200);
