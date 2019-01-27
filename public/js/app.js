@@ -78056,6 +78056,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -78065,7 +78075,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				country_id: '',
 				symbol: '',
 				default: false,
-				name: ''
+				name: '',
+				decimal_places: 0
 			},
 			errors: [],
 			records: [],
@@ -78218,7 +78229,7 @@ var render = function() {
                             expression: "record.symbol"
                           }
                         ],
-                        staticClass: "form-control input-sm",
+                        staticClass: "form-control",
                         attrs: {
                           type: "text",
                           placeholder: "Símbolo",
@@ -78251,7 +78262,7 @@ var render = function() {
                             expression: "record.name"
                           }
                         ],
-                        staticClass: "form-control input-sm",
+                        staticClass: "form-control",
                         attrs: {
                           type: "text",
                           placeholder: "Nombre de la moneda",
@@ -78271,6 +78282,48 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Decimales")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.decimal_places,
+                            expression: "record.decimal_places"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "number",
+                          placeholder: "Cantidad de decimales",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique la cantidad de decimales para la moneda a registrar",
+                          step: "1",
+                          min: "2"
+                        },
+                        domProps: { value: _vm.record.decimal_places },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.record,
+                              "decimal_places",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-2" }, [
                     _c("div", { staticClass: "form-group is-required" }, [
                       _c("label", [_vm._v("Por defecto:")]),
@@ -80276,9 +80329,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var lock_acc = vm.records.filter(function (account) {
 				return account.locked;
 			});
+
+			/** Asigna las cuentas de solo lectura que hayan sido formuladas */
 			$.each(lock_acc, function () {
 				this.formulated = parseFloat(this.total_year_amount) > 0;
 			});
+			/** Filtra todas las cuentas que hayan sido marcadas como formuladas */
 			vm.record.formulated_accounts = vm.records.filter(function (account) {
 				return account.formulated;
 			});

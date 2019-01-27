@@ -52,15 +52,17 @@ class CurrencyController extends Controller
         $this->validate($request, [
             'name' => 'required|max:40',
             'symbol' => 'required|max:4',
-            'country_id' => 'required'
+            'country_id' => 'required',
+            'decimal_places' => 'required|numeric|min:2|max:10'
         ]);
 
 
         $currency = Currency::create([
-            'name' => $request->input('name'),
-            'symbol' => $request->input('symbol'),
-            'default' => ($request->input('default') || !empty($request->input('default'))),
-            'country_id' => $request->input('country_id')
+            'name' => $request->name,
+            'symbol' => $request->symbol,
+            'default' => ($request->default || !empty($request->default)),
+            'country_id' => $request->country_id,
+            'decimal_places' => $request->decimal_places
         ]);
 
         return response()->json(['record' => $currency, 'message' => 'Success'], 200);
@@ -100,12 +102,14 @@ class CurrencyController extends Controller
         $this->validate($request, [
             'name' => 'required|max:40',
             'symbol' => 'required|max:4',
-            'country_id' => 'required'
+            'country_id' => 'required',
+            'decimal_places' => 'required|numeric|min:2|max:10'
         ]);
  
-        $currency->name = $request->input('name');
-        $currency->symbol = $request->input('symbol');
+        $currency->name = $request->name;
+        $currency->symbol = $request->symbol;
         $currency->country_id = $request->country_id;
+        $currency->decimal_places = $request->decimal_places;
         if ($request->default) {
             $currency->default = $request->default;
         }
