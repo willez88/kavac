@@ -100,4 +100,16 @@ class Institution extends Model implements Auditable
     {
         return $this->hasMany(Department::class);
     }
+
+    /**
+     * Department has many BudgetSubSpecificFormulations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budget_sub_specific_formulations()
+    {
+        return (Module::has('Budget')) 
+               ? $this->hasMany(\Modules\Budget\Models\BudgetSubSpecificFormulation::class) 
+               : [];
+    }
 }

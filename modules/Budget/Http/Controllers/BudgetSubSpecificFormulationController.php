@@ -23,7 +23,7 @@ class BudgetSubSpecificFormulationController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:budget.formulation.list', ['only' => 'index', 'vueList']);
+        $this->middleware('permission:budget.formulation.list', ['only' => 'index', 'vueList', 'show']);
         $this->middleware('permission:budget.formulation.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:budget.formulation.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:budget.formulation.delete', ['only' => 'destroy']);
@@ -35,7 +35,8 @@ class BudgetSubSpecificFormulationController extends Controller
      */
     public function index()
     {
-        return view('budget::index');
+        $records = BudgetSubSpecificFormulation::all();
+        return view('budget::formulations.list');
     }
 
     /**
@@ -73,7 +74,8 @@ class BudgetSubSpecificFormulationController extends Controller
 
         $validateStore = BudgetSubSpecificFormulation::validateStore([
             'budget_specific_action_id' => $request->specific_action_id,
-            'currency_id' => $request->currency_id, 'year' => $year
+            'currency_id' => $request->currency_id, 'year' => $year, 
+            'institution_id' => $request->institution_id
         ]);
         if (!$validateStore) {
             return response()->json(['result' => false, 'message' => [
@@ -92,7 +94,8 @@ class BudgetSubSpecificFormulationController extends Controller
             'code' => $code, 'year' => $year, 
             'total_formulated' => (float)$request->formulated_accounts[0]['total_year_amount'],
             'budget_specific_action_id' => $request->specific_action_id,
-            'currency_id' => $request->currency_id
+            'currency_id' => $request->currency_id,
+            'institution_id' => $request->institution_id
         ]);
 
         foreach ($request->formulated_accounts as $formulated_account) {
@@ -121,16 +124,18 @@ class BudgetSubSpecificFormulationController extends Controller
      */
     public function show()
     {
-        return view('budget::show');
+        dd("mostrar formulación");
+        //return view('budget::formulations.list');
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('budget::edit');
+        $formulation = BudgetSubSpecificFormulation::find($id);
+        return view('budget::formulations.create-edit-form', compact("formulation"));
     }
 
     /**
@@ -146,7 +151,25 @@ class BudgetSubSpecificFormulationController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $budgetFormulation = BudgetSubSpecificFormulation::find($id);
+
+        if ($budgetFormulation) {
+            $budgetFormulation->delete();
+        }
+        
+        return response()->json(['record' => $budgetFormulation, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Obtiene los registros a mostrar en listados de componente Vue
+     * @return [type] [description]
+     */
+    public function vueList()
+    {
+        return response()->json([
+            'records' => BudgetSubSpecificFormulation::with('currency')->with('specific_action')->get()
+        ], 200);
     }
 }
