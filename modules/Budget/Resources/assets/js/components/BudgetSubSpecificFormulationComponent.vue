@@ -274,6 +274,7 @@
 				months: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 			}
 		},
+		props: ['formulationId'],
 		methods: {
 			/**
 			 * Reinicia los valores de los elementos del formulario
@@ -556,14 +557,17 @@
 			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 */
 			createFormulation() {
-				let vm = this;
+				const vm = this;
 				/** Filtra las cuentas bloqueadas para solo lectura (cuentas de nivel superior) */
 				const lock_acc = vm.records.filter((account) => {
 					return account.locked;
 				});
+
+				/** Asigna las cuentas de solo lectura que hayan sido formuladas */
 				$.each(lock_acc, function() {
 					this.formulated = (parseFloat(this.total_year_amount) > 0);
 				});
+				/** Filtra todas las cuentas que hayan sido marcadas como formuladas */
 				vm.record.formulated_accounts = vm.records.filter((account) => {
 					return account.formulated;
 				});
@@ -578,23 +582,49 @@
 					}
 					axios.post('/budget/subspecific-formulations', fields).then(response => {
 						if (response.data.result) {
-							this.showMessage('store');
+							vm.showMessage('store');
+							bootbox.confirm({
+								title: "Agregar nuevo registro",
+								message: "Desea registrar otra formulación de presupuesto?",
+								buttons: {
+									cancel: {
+										label: '<i class="fa fa-times"></i> Cancelar'
+									},
+									confirm: {
+										label: '<i class="fa fa-check"></i> Confirmar'
+									}
+								},
+								callback: function (result) {
+									location.href = (result) 
+													? vm.route_create 
+													: '/budget/subspecific-formulations';
+    							}
+    						});
 						}
 						else {
 							let msg = response.data.message;
-							this.showMessage(msg.type, msg.title, msg.class, msg.icon, msg.text);
+							vm.showMessage(msg.type, msg.title, msg.class, msg.icon, msg.text);
 						}
 					}).catch(error => {
-						this.errors = [];
+						vm.errors = [];
 						if (typeof(error.response) !="undefined") {
 							for (var index in error.response.data.errors) {
 								if (error.response.data.errors[index]) {
-									this.errors.push(error.response.data.errors[index][0]);
+									vm.errors.push(error.response.data.errors[index][0]);
 								}
 							}
 						}
 					});
 				}
+			},
+			/**
+			 * Carga los datos de la formulación
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @param {integer} id Identificador de la formulación a cargar
+			 */
+			loadFormulation(id) {
+				this.record.id = id;
 			},
 			/**
 			 * Ejecuta la acción para actualizar datos de la formulación
@@ -655,6 +685,10 @@
 			this.getProjects();
 			this.getCentralizedActions();
 			this.initRecords('/budget/accounts/egress-list/true', '');
+			
+			if (this.formulationId) {
+				this.loadFormulation(this.formulationId);
+			}
 
 			/** 
 			 * Evento para determinar los datos a requerir según el tipo de formulación 

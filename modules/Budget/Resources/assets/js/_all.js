@@ -28,6 +28,13 @@ Vue.component('budget-centralized-actions-list', require('./components/BudgetCen
 Vue.component('budget-specific-actions-list', require('./components/BudgetSpecificActionsListComponent.vue'));
 
 /**
+ * Componente para mostrar listado de formulaciones de presupuesto
+ *
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ */
+Vue.component('budget-formulation-list', require('./components/BudgetSubSpecificFormulationListComponent.vue'));
+
+/**
  * Componente para mostrar formulario de formulación de presupuesto por sub específica
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>

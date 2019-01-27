@@ -155,20 +155,25 @@ Vue.mixin({
 			},
 		}
 	},
-	props: ['route_list', 'route_create', 'route_edit', 'route_update', 'route_delete'],
+	props: [
+		'route_list', 'route_create', 'route_edit', 'route_update', 'route_delete', 'route_show'
+	],
 	methods: {
 		/**
 		 * Inicializa los registros base del formulario
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param {string} url 		Ruta que obtiene los datos a ser mostrado en listados
+		 * @param {string} modal_id Identificador del modal a mostrar con la información solicitada
 		 */
 		initRecords(url, modal_id) {
 			this.errors = [];
 			this.reset();
-			//var records = [];
+			const vm = this;
+
 			axios.get(url).then(response => {
 				if (typeof(response.data.records) !== "undefined") {
-					this.records = response.data.records;
+					vm.records = response.data.records;
 				}
 				if ($("#" + modal_id).length) {
 					$("#" + modal_id).modal('show');
@@ -176,7 +181,7 @@ Vue.mixin({
 			}).catch(error => {
 				if (typeof(error.response) !== "undefined") {
 					if (error.response.status == 403) {
-						this.showMessage(
+						vm.showMessage(
 							'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
 						);
 					}
@@ -185,9 +190,6 @@ Vue.mixin({
 					}
 				}
 			});
-
-			//this.records = records;
-			//this.readRecords(url);
 		},
 		/**
 		 * Método que obtiene los registros a mostrar
@@ -196,9 +198,10 @@ Vue.mixin({
 		 * @param  {string} url Ruta que obtiene todos los registros solicitados
 		 */
 		readRecords(url) {
+			const vm = this;
 			axios.get('/' + url).then(response => {
 				if (typeof(response.data.records) !== "undefined") {
-					this.records = response.data.records;
+					vm.records = response.data.records;
 				}
 			});
 		},
@@ -208,6 +211,8 @@ Vue.mixin({
 		 * 
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 		 * @param {string} modal_id Identificador de la ventana modal
+		 * @param {string} url 		Ruta para acceder a los datos solicitados
+		 * @param {object} event 	Objeto que gestiona los eventos
 		 */
 		addRecord(modal_id, url, event) {
 			event.preventDefault();
@@ -220,6 +225,7 @@ Vue.mixin({
 		 * @param  {string} url Ruta de la acción a ejecutar para la creación o actualización de datos
 		 */
 		createRecord(url) {
+			const vm = this;
 			if (this.record.id) {
 				this.updateRecord(url);
 			}
@@ -229,16 +235,16 @@ Vue.mixin({
 					fields[index] = this.record[index];
 				}
 				axios.post('/' + url, fields).then(response => {
-					this.reset();
-					this.readRecords(url);
-					this.showMessage('store');
+					vm.reset();
+					vm.readRecords(url);
+					vm.showMessage('store');
 				}).catch(error => {
-					this.errors = [];
+					vm.errors = [];
 
 					if (typeof(error.response) !="undefined") {
 						for (var index in error.response.data.errors) {
 							if (error.response.data.errors[index]) {
-								this.errors.push(error.response.data.errors[index][0]);
+								vm.errors.push(error.response.data.errors[index][0]);
 							}
 						}
 					}
@@ -251,6 +257,7 @@ Vue.mixin({
 		 * 
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 		 * @param  {integer} index Identificador del registro a ser modificado
+		 * @param {object} event   Objeto que gestiona los eventos
 		 */
 		initUpdate(index, event) {
 			this.errors = [];
@@ -265,25 +272,42 @@ Vue.mixin({
 		 * @param  {string} url Ruta de la acci´on que modificará los datos
 		 */
 		updateRecord(url) {
+			const vm = this;
 			var fields = {};
 			for (var index in this.record) {
 				fields[index] = this.record[index];
 			}
 			axios.patch('/' + url + '/' + this.record.id, fields).then(response => {
-				this.readRecords(url);
-				this.reset();
-				this.showMessage('update');
+				vm.readRecords(url);
+				vm.reset();
+				vm.showMessage('update');
 			}).catch(error => {
-				this.errors = [];
+				vm.errors = [];
 
 				if (typeof(error.response) !="undefined") {
 					for (var index in error.response.data.errors) {
 						if (error.response.data.errors[index]) {
-							this.errors.push(error.response.data.errors[index][0]);
+							vm.errors.push(error.response.data.errors[index][0]);
 						}
 					}
 				}
 			});
+	    },
+	    /**
+	     * Método que muestra datos de un registro seleccionado
+	     *
+	     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	     * @param  {integer} id Identificador del registro a mostrar
+	     */
+	    showRecord(id) {
+	    	if (typeof(this.route_show) !== "undefined" && this.route_show) {
+	    		if (this.route_show.indexOf("{id}") >= 0) {
+					location.href = this.route_show.replace("{id}", id);
+				}
+				else {
+					location.href = this.route_show + '/' + id;
+				}
+	    	}
 	    },
 		/**
 		 * Método para la eliminación de registros
@@ -297,6 +321,7 @@ Vue.mixin({
     		var records = this.records;
     		var confirmated = false;
     		var index = index - 1;
+    		const vm = this;
 
     		bootbox.confirm({
     			title: "Eliminar registro?",
@@ -314,7 +339,7 @@ Vue.mixin({
     					confirmated = true;			
 						axios.delete(url + '/' + records[index].id).then(response => {
 							records.splice(index, 1);
-							this.showMessage('destroy');
+							vm.showMessage('destroy');
 						}).catch(error => {});
     				}
     			}
@@ -329,10 +354,11 @@ Vue.mixin({
 		 * Método que muestra un mensaje al usuario sobre el resultado de una acción
 		 * 
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-		 * @param  {string} type      Tipo de mensaje a mostrar
-		 * @param  {string} msg_title Título del mensaje (opcional)
-		 * @param  {string} msg_class Clase CSS a utilizar en el mensaje (opcional)
-		 * @param  {string} msg_icon  Ícono a mostrar en el mensaje (opcional)
+		 * @param  {string} type      	Tipo de mensaje a mostrar
+		 * @param  {string} msg_title 	Título del mensaje (opcional)
+		 * @param  {string} msg_class 	Clase CSS a utilizar en el mensaje (opcional)
+		 * @param  {string} msg_icon  	Ícono a mostrar en el mensaje (opcional)
+		 * @param  {string} custom_text Texto personalizado para el mensaje (opcional)
 		 */
 		showMessage(type, msg_title, msg_class, msg_icon, custom_text) {
 			msg_title = (typeof(msg_title) == "undefined" || !msg_title)?'Éxito':msg_title;
@@ -370,8 +396,9 @@ Vue.mixin({
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 		 */
 		getCountries() {
+			const vm = this;
 			axios.get('/get-countries').then(response => {
-				this.countries = response.data;
+				vm.countries = response.data;
 			});
 		},
 		/**
@@ -380,9 +407,10 @@ Vue.mixin({
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 		 */
 		getEstates() {
+			const vm = this;
 			if (this.record.country_id) {
 				axios.get('/get-estates/' + this.record.country_id).then(response => {
-					this.estates = response.data;
+					vm.estates = response.data;
 				});
 			}
 		},
@@ -392,9 +420,10 @@ Vue.mixin({
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 		 */
 		getMunicipalities() {
+			const vm = this;
 			if (this.record.estate_id) {
 				axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
-					this.municipalities = response.data;
+					vm.municipalities = response.data;
 				});
 			}
 		},
@@ -404,9 +433,10 @@ Vue.mixin({
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 		 */
 		getCities() {
+			const vm = this;
 			if (this.record.estate_id) {
 				axios.get('/get-cities/' + this.record.estate_id).then(response => {
-					this.cities = response.data;
+					vm.cities = response.data;
 				});
 			}
 		},
@@ -417,9 +447,10 @@ Vue.mixin({
 		 * @param  {integer} id Identificador de la institución a buscar, este parámetro es opcional
 		 */
 		getInstitutions(id) {
+			const vm = this;
 			var institution_id = (typeof(id)!=="undefined")?'/'+id:'';
 			axios.get('/get-institutions' + institution_id).then(response => {
-				this.institutions = response.data;
+				vm.institutions = response.data;
 			});
 		},
 		/**
@@ -429,9 +460,10 @@ Vue.mixin({
 		 * @param  {integer} id Identificador de la moneda a buscar, este parámetro es opcional
 		 */
 		getCurrencies(id) {
+			const vm = this;
 			var currency_id = (typeof(id)!=="undefined")?'/'+id:'';
 			axios.get('/get-currencies' + currency_id).then(response => {
-				this.currencies = response.data;
+				vm.currencies = response.data;
 			});
 		},
 		/*loadRelationalSelect(parent_id, target_url) {

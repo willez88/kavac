@@ -40,6 +40,6 @@ class BudgetSpecificAction extends Model implements Auditable
      */
     public function sub_specific_formulations()
     {
-        return $this->hasMany(BudgetSubSpecificFormulation::class);
+        return $this->hasMany(BudgetSubSpecificFormulation::class, 'budget_specific_action_id');
     }
 }
