@@ -16,7 +16,7 @@
             </a>
         </li>
         <li class="">
-            <a href="{{ route('budget.subspecific-formulations.create') }}" data-toggle="tooltip" 
+            <a href="{{ route('budget.subspecific-formulations.index') }}" data-toggle="tooltip" 
                data-placement="right" title="Gestión para la formulación de presupesto">
                 Formulación
             </a>
