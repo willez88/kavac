@@ -1,12 +1,12 @@
 <template>
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de Almacenes" data-toggle="tooltip" 
-		   @click="addRecord('add_warehouse', 'warehouses', $event)">
+		   href="#" title="Registros de Productos de Almacén" data-toggle="tooltip" 
+		   @click="addRecord('add_product', 'products', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
-			<span>Almacenes</span>
+			<span>Productos</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_warehouse">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_product">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-read-book ico-2x"></i> 
-							Nuevo Almacén
+							Nuevo Producto
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -27,56 +27,22 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Nombre del Almacén:</label>
-									<input type="text" placeholder="Nombre del Almacén" data-toggle="tooltip" 
-										   title="Indique el nombre del Nuevo almacén (requerido)" 
+									<label>Nombre del Producto:</label>
+									<input type="text" placeholder="Nombre del Producto" data-toggle="tooltip" 
+										   title="Indique el nombre del Nuevo producto (requerido)" 
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-							<div class="col-md-6">
-								<label for="">
-									<input type="checkbox" name="main" id="main" 
-										   class="form-control bootstrap-switch bootstrap-switch-mini" 
-										   data-on-label="SI" data-off-label="NO">
-									Principal
-								</label>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12">
-								<b>Ubicación del Almacén</b>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Pais:</label>
-									<select2 :options="countries" @input="getEstates" 
-											 v-model="record.country_id"></select2>
-			                    </div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Estado:</label>
-									<select2 :options="estates" v-model="record.estate_id"></select2>
-			                    </div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Ciudad:</label>
-									<select2 :options="cities" v-model="record.city_id"></select2>
-			                    </div>
-							</div>
 
 							<div class="col-md-6">
-								<div class="form-group">
-									<label>Dirección:</label>
-									<input type="text" placeholder="Dirección del Almacén" data-toggle="tooltip" 
-										   title="Indique una breve dirección del Nuevo almacén (requerido)" 
-										   class="form-control input-sm" v-model="record.address">
+								<div class="form-group is-required">
+									<label>Descripción:</label>
+									<input type="text" placeholder="Descripción del Producto" data-toggle="tooltip" 
+										   title="Indique una breve descripción del Nuevo producto (requerido)" 
+										   class="form-control input-sm" v-model="record.description">
 			                    </div>
 							</div>
-
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -88,7 +54,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'warehouses')" 
+		                		<button @click="deleteRecord(props.index, 'products')" 
 										class="btn btn-danger btn-xs btn-icon btn-round" 
 										title="Eliminar registro" data-toggle="tooltip" 
 										type="button">
@@ -113,7 +79,7 @@
 	                			<i class="fa fa-ban"></i>
 	                	</button>
 
-	                	<button type="button" @click="createRecord('warehouse/warehouses')" 
+	                	<button type="button" @click="createRecord('warehouse/products')" 
 	                			class="btn btn-success btn-icon btn-round btn-modal-save"
 	                			title="Guardar registro">
 	                		<i class="fa fa-save"></i>
@@ -132,18 +98,11 @@
 				record: {
 					id:'',
 					name: '',
-					address: '',
-					country_id:'',
-					estate_id:'',
-					city_id:'',
-
+					description: ''
 				},
 				errors: [],
 				records: [],
-				columns: ['name', 'country.name','estate.name','city.name','address','id'],
-				countries: [],
-				estates: [],
-				cities: [],
+				columns: ['name', 'description','unit.name','id'],
 			}
 		},
 		methods: {
@@ -156,26 +115,19 @@
 				this.record = {
 					id: '',
 					name: '',
-					address: '',
-					country_id:'',
-					estate_id:'',
-					city_id:'',
+					description: ''
 				};
 			},
 		},
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
-				'country.name': 'Pais',
-				'estate.name': 'Estado',
-				'city.name': 'Ciudad',
+				'description': 'Descripción',
+				'unit.name': 'Unidad',
 				'id': 'Acción'
 			};
-			
-			this.table_options.sortable = ['name', 'country.name','estate.name','city.name','address'];
-			this.table_options.filterable = ['name', 'country.name','estate.name','city.name','address'];
-
-			this.getCountries();
+			this.table_options.sortable = ['name','unit.name'];
+			this.table_options.filterable = ['name','unit.name'];
 		},
 	}
 </script>

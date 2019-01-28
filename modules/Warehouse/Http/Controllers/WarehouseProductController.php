@@ -7,28 +7,23 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Warehouse\Models\Warehouse;
-
-use App\Models\Country;
-use App\Models\Estate;
-use App\Models\City;
-
+use Modules\Warehouse\Models\WarehouseProduct;
 
 
 /**
- * @class WarehouseController
- * @brief Controlador de los Almacenes
+ * @class WarehouseProductController
+ * @brief Controlador de los productos de almacén
  * 
- * Clase que gestiona los almacenes
+ * Clase que gestiona los Productos almacenables
  * 
  * @author Henry Paredes (henryp2804@gmail.com)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class WarehouseController extends Controller
+class WarehouseProductController extends Controller
 {
     use ValidatesRequests;
-
+    
     /**
      * Define la configuración de la clase
      *
@@ -37,7 +32,7 @@ class WarehouseController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:warehouse.setting.warehouse');
+        $this->middleware('permission:warehouse.setting.product');
     }
 
     /**
@@ -46,7 +41,7 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => Warehouse::with('country_id','estate_id','city_id')->get()], 200);
+        return response()->json(['records' => WarehouseProduct::with('unit_id')->get()], 200);
     }
 
     /**
@@ -65,22 +60,6 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:100',
-            'country_id' => 'required',
-            'estate_id' => 'required',
-            
-        ]);
-
-        $warehouse = new Warehouse;
-        $warehouse->name = $request->input('name');
-        $warehouse->address = $request->input('address');
-        $warehouse->country_id = $request->country_id;
-        $warehouse->estate_id = $request->estate_id;
-        $warehouse->city_id = 1;
-        $warehouse->save();
-
-        return response()->json(['record' => $warehouse, 'message' => 'Success'], 200);
     }
 
     /**
