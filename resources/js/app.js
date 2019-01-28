@@ -477,6 +477,25 @@ Vue.mixin({
 				vm.currencies = response.data;
 			});
 		},
+		/**
+		 * Obtiene los departamentos o unidades de la institución
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {integer} id Identificador del departamento a filtrar (opcional)
+		 */
+		getDepartments(id) {
+			const vm = this;
+			if (typeof(this.record.institution_id) !== "undefined" && this.record.institution_id !== '') {
+				axios.get('/get-departments/' + this.record.institution_id).then(response => {
+					/** Obtiene los departamentos */
+					vm.departments = (typeof(id) === "undefined" || !id) 
+									 ? response.data 
+									 : response.data.filter((department) => {
+									 	return department.id === id;
+									 });
+				});
+			}
+		},
 		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
 			var target_url = (typeof(target_url) !== "undefined")?target_url:false;

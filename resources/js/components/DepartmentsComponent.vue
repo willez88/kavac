@@ -173,6 +173,7 @@
 			this.table_options.filterable = ['institution.name', 'parent.name', 'acronym', 'name'];
 
 			this.getInstitutions();
+			this.getDepartments();
 		},
 		methods: {
 			/**
@@ -191,18 +192,6 @@
 					active: false,
 					administrative: false
 				};
-			},
-			getInstitutions() {
-				axios.get('/get-institutions').then(response => {
-					this.institutions = response.data;
-				});
-			},
-			getDepartments() {
-				if (this.record.institution_id !== '') {
-					axios.get('/get-departments/' + this.record.institution_id).then(response => {
-						this.departments = response.data;
-					});
-				}
 			},
 		}
 	};

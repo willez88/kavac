@@ -34836,6 +34836,16 @@ Vue.mixin({
 		},
 
 		/**
+   * Redirecciona al formulario de actualización de datos
+   * 
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {integer} id Identificador del registro a actualizar
+   */
+		editForm: function editForm(id) {
+			location.href = this.route_edit.indexOf("{id}") >= 0 ? this.route_edit.replace("{id}", id) : this.route_edit + '/' + id;
+		},
+
+		/**
    * Método que carga el formulario con los datos a modificar
    * 
    * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
@@ -35054,6 +35064,24 @@ Vue.mixin({
 			axios.get('/get-currencies' + currency_id).then(function (response) {
 				vm.currencies = response.data;
 			});
+		},
+
+		/**
+   * Obtiene los departamentos o unidades de la institución
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {integer} id Identificador del departamento a filtrar (opcional)
+   */
+		getDepartments: function getDepartments(id) {
+			var vm = this;
+			if (typeof this.record.institution_id !== "undefined" && this.record.institution_id !== '') {
+				axios.get('/get-departments/' + this.record.institution_id).then(function (response) {
+					/** Obtiene los departamentos */
+					vm.departments = typeof id === "undefined" || !id ? response.data : response.data.filter(function (department) {
+						return department.id === id;
+					});
+				});
+			}
 		}
 	},
 	mounted: function mounted() {
@@ -77311,6 +77339,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.table_options.filterable = ['institution.name', 'parent.name', 'acronym', 'name'];
 
 		this.getInstitutions();
+		this.getDepartments();
 	},
 
 	methods: {
@@ -77330,22 +77359,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				active: false,
 				administrative: false
 			};
-		},
-		getInstitutions: function getInstitutions() {
-			var _this = this;
-
-			axios.get('/get-institutions').then(function (response) {
-				_this.institutions = response.data;
-			});
-		},
-		getDepartments: function getDepartments() {
-			var _this2 = this;
-
-			if (this.record.institution_id !== '') {
-				axios.get('/get-departments/' + this.record.institution_id).then(function (response) {
-					_this2.departments = response.data;
-				});
-			}
 		}
 	}
 });
@@ -78707,14 +78720,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		reset: function reset() {},
-		editForm: function editForm(id) {
-			if (this.route_edit.indexOf("{id}") >= 0) {
-				location.href = this.route_edit.replace("{id}", id);
-			} else {
-				location.href = this.route_edit + '/' + id;
-			}
-		}
+		/**
+   * Inicializa los datos del formulario
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   */
+		reset: function reset() {}
 	}
 });
 
@@ -78891,14 +78902,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		reset: function reset() {},
-		editForm: function editForm(id) {
-			if (this.route_edit.indexOf("{id}") >= 0) {
-				location.href = this.route_edit.replace("{id}", id);
-			} else {
-				location.href = this.route_edit + '/' + id;
-			}
-		}
+		/**
+   * Inicializa los datos del formulario
+   * 
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   */
+		reset: function reset() {}
 	}
 });
 
@@ -79091,14 +79100,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		reset: function reset() {},
-		editForm: function editForm(id) {
-			if (this.route_edit.indexOf("{id}") >= 0) {
-				location.href = this.route_edit.replace("{id}", id);
-			} else {
-				location.href = this.route_edit + '/' + id;
-			}
-		}
+		/**
+   * Inicializa datos del formulario
+   * 
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   */
+		reset: function reset() {}
 	}
 });
 
@@ -79290,14 +79297,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		reset: function reset() {},
-		editForm: function editForm(id) {
-			if (this.route_edit.indexOf("{id}") >= 0) {
-				location.href = this.route_edit.replace("{id}", id);
-			} else {
-				location.href = this.route_edit + '/' + id;
-			}
-		}
+		/**
+   * Inicializa los datos del formulario
+   * 
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   */
+		reset: function reset() {}
 	}
 });
 
@@ -79498,14 +79503,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		reset: function reset() {},
-		editForm: function editForm(id) {
-			if (this.route_edit.indexOf("{id}") >= 0) {
-				location.href = this.route_edit.replace("{id}", id);
-			} else {
-				location.href = this.route_edit + '/' + id;
-			}
-		}
+		/**
+   * Inicializa los datos del formulario
+   * 
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   */
+		reset: function reset() {}
 	}
 });
 
