@@ -44,7 +44,7 @@ class AssetDisincorporation extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['asset_id', 'motive_id', 'date', 'observation'];
+    protected $fillable = ['motive_id', 'date', 'observation'];
 
      /**
      * Método que obtiene el tipo al que pertenece el bien

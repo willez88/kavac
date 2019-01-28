@@ -76,12 +76,23 @@
                                                     <i class="fa fa-info-circle"></i>
                                                 </button>
 												
+												@if ($asset->status_id == 10)
 												{!! Form::open(['route' => ['asset.asignation.asset_assign', $asset], 'method' => 'GET']) !!}
 												<button class="btn btn-primary btn-xs btn-icon btn-round"  
 												data-toggle="tooltip" title="Asignar Bien">
 													<i class="fa fa-filter"></i>
 												</button>
 												{!! Form::close() !!}
+												@endif
+
+												@if (($asset->status_id < 6) || ($asset->status_id > 9))
+												{!! Form::open(['route' => ['asset.disincorporation.asset_disassign', $asset->id], 'method' => 'GET']) !!}
+												<button class="btn btn-primary btn-xs btn-icon btn-round"  
+												data-toggle="tooltip" title="Desincorporar Bien">
+													<i class="fa fa-filter"></i>
+												</button>
+												{!! Form::close() !!}
+												@endif
 
 												{!! Form::open(['route' => ['asset.edit', $asset], 'method' => 'GET']) !!}
 

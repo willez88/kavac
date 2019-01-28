@@ -22,9 +22,6 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     Route::get('asignations', 'AssetAsignationController@index')
                 ->name('asset.asignation.index');
 
-    Route::get('asignations/info/{asignation}', 'AssetAsignationController@info')
-                ->name('asset.asignation.info');
-
     Route::get('asignations/create', 'AssetAsignationController@create')
                 ->name('asset.asignation.create');
     Route::get('asignations/asset/{asset}', 'AssetAsignationController@asset_assign')
@@ -38,15 +35,14 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     Route::delete('asignations/delete/{asignation}', 'AssetAsignationController@destroy')
                 ->name('asset.asignation.destroy');
 
+    Route::get('asignations/vue-info/{asignation}', 'AssetAsignationController@vueInfo');
+
     /**
      * Rutas para gestionar las Desincorporaciones de Bienes Institucionales 
      */
 
     Route::get('disincorporations', 'AssetDisincorporationController@index')
                 ->name('asset.disincorporation.index');
-
-    Route::get('disincorporations/info/{disincorporation}', 'AssetDisincorporationController@info')
-                ->name('asset.disincorporation.info');
 
     Route::get('disincorporations/create', 'AssetDisincorporationController@create')
                 ->name('asset.disincorporation.create');
@@ -60,7 +56,8 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
                 ->name('asset.disincorporation.update');
     Route::delete('disincorporations/delete/{disincorporation}', 'AssetDisincorporationController@destroy')
                 ->name('asset.disincorporation.destroy');
-
+    
+    Route::get('disincorporations/vue-info/{disincorporation}', 'AssetDisincorporationController@vueInfo');
     /**
      * Rutas para gestionar las Solicitudes de Bienes Institucionales 
      */
@@ -165,6 +162,8 @@ Route::group(['middleware' => ['web','auth'], 'namespace' => 'Modules\Asset\Http
      * Rutas para gestionar los registros de bienes
      */
     Route::resource('asset', 'AssetController', ['except' => ['show']]);
+    
+    Route::get('asset/create/{type?}', 'AssetController@create');
     Route::get('asset/info/{asset}', 'AssetController@info');
     Route::get('asset/vue-list', 'AssetController@vueList')->name('asset.vuelist');
 

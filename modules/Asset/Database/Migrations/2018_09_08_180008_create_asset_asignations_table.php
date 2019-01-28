@@ -28,10 +28,6 @@ class CreateAssetAsignationsTable extends Migration
             Schema::create('asset_asignations', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
 
-                $table->integer('asset_id')->nullable()->unsigned()
-                      ->comment('Identificador único de la asignación de un bien');
-                $table->foreign('asset_id')->references('id')->on('assets');
-
                 $table->integer('staff_id')->nullable()->unsigned()
                       ->comment('Identificador único del trabajador responsable del bien');
                 /**

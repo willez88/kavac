@@ -48,6 +48,9 @@ Vue.component('asset-specific-categories', require('./components/AssetSpecificCa
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 Vue.component('request-info', require('./components/AssetRequestInfoComponent.vue'));
+Vue.component('asignation-info', require('./components/AssetAsignationInfoComponent.vue'));
+Vue.component('asignation-create', require('./components/AssetAsignationCreateComponent.vue'));
+Vue.component('disincorporation-info', require('./components/AssetDisincorporationInfoComponent.vue'));
 Vue.component('asset-info', require('./components/AssetInfoComponent.vue'));
 
 /**

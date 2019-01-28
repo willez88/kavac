@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<a class="btn btn-info btn-xs btn-icon btn-round" 
-		   href="#" title="Ver información de la Solicitud" data-toggle="tooltip" 
-		   @click="initRequest('view_request',$event)">
+		   href="#" title="Ver información de la Desincorporación" data-toggle="tooltip" 
+		   @click="initRequest('view_disincorporation',$event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="view_request">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="view_disincorporation">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -14,7 +14,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-read-book ico-2x"></i> 
-							Información de la Solicitud Registrada
+							Información de la Desincorporación Registrada
 						</h6>
 					</div>
 					
@@ -31,14 +31,10 @@
 	                                <i class="ion-android-person"></i> Información General
 	                            </a>
 	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" data-toggle="tab" href="#contact" role="tab">
-	                                <i class="ion-android-person"></i> Información de Contacto
-	                            </a>
-	                        </li>
+	                        
 	                        <li class="nav-item">
 	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadRequest()">
-	                                <i class="ion-arrow-swap"></i> Equipos Solicitados
+	                                <i class="ion-arrow-swap"></i> Equipos Desincorporados
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -47,108 +43,47 @@
 	                    	<div class="tab-pane active" id="general" role="tabpanel">
 	                    		<div class="row">        
 									<div class="col-md-12">
-										<b>Datos de la Solicitud</b>
+										<b>Datos de la Desincorporados</b>
 									</div>
 
 							        <div class="col-md-6">
 										<div class="form-group">
-											<label>Fecha de la Solicitud</label>
+											<label>Fecha de la Desincorporación</label>
 							        		<input type="text"
 												data-toggle="tooltip" 
-												class="form-control input-sm" 
-												id="date_init"
-												readonly="readonly">
-											<input type="hidden" id="id">
+												class="form-control"
+												id="date"
+												disabled="true">
+												<input type="hidden" id="id">
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Motivo de la Solicitud</label>
+											<label>Motivo de la Desincorporación</label>
 							        		<input type="text"
 												data-toggle="tooltip" 
-												class="form-control input-sm" 
+												class="form-control"
 												id="motive"
-												readonly="readonly">
+												disabled="true">
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Tipo de Solicitud</label>
+											<label>Observaciones Generales</label>
 							        		<input type="text"
 												data-toggle="tooltip" 
-												class="form-control input-sm" 
-												id="type"
-												readonly="readonly">
+												class="form-control"
+												id="observe"
+												disabled="true">
 										</div>
 									</div>
 
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Fecha de Entrega de los Bienes</label>
-							        		<input type="text"
-												data-toggle="tooltip" 
-												class="form-control input-sm" 
-												id="delivery_date"
-												readonly="readonly">
-										</div>
-										
-									</div>
-
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Ubicación de los Bienes</label>
-							        		<input type="text"
-												data-toggle="tooltip" 
-												class="form-control input-sm" 
-												id="ubication"
-												readonly="readonly">
-										</div>
-									</div>
 							    </div>
 	                    	</div>
-	                    	<div class="tab-pane" id="contact" role="tabpanel">
-	                    		<div class="row">
-	                    			<div class="col-md-12">
-										<b>Información de Contacto del Responsable del Bien</b>    
-									</div>
-
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Nombre</label>
-							        		<input type="text"
-												data-toggle="tooltip" 
-												class="form-control input-sm" 
-												id="agent_name"
-												readonly="readonly">
-										</div>
-									</div>
-
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Teléfono</label>
-							        		<input type="text"
-												data-toggle="tooltip" 
-												class="form-control input-sm" 
-												id="agent_telf"
-												readonly="readonly">
-										</div>
-									</div>
-
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Correo</label>
-							        		<input type="text"
-												data-toggle="tooltip" 
-												class="form-control input-sm" 
-												id="agent_email"
-												readonly="readonly">
-										</div>
-									</div>
-	                    		</div>
-	                    	</div>
-	                    	<div class="tab-pane" id="equipment" role="tabpanel">            
+	                    	
+	                    	<div class="tab-pane" id="equipment" role="tabpanel">
 	                    		<div class="row">
 									<div class="col-12">
 										<a class='btn btn-sm btn-info float-right'
@@ -160,7 +95,6 @@
 										</a>	
 									</div>
 								</div>	
-								
 	                    		<div class="row">
 	                    			<div class="col-md-12">
 										<hr>
@@ -197,16 +131,10 @@
 				records: [],
 				errors: [],
 				columns: ['asset.serial_inventario','asset.serial','asset.marca','asset.model','asset.id'],
-				type_id:'',
-				types: [
-                'Seleccione...',
-                'Prestamo de Equipos (Uso Interno)',
-                'Prestamo de Equipos (Uso Externo)',
-                'Prestamo de Equipos para Agentes Externos']
 			}
 		},
 		props: {
-		request: Object, 
+		disincorporation: Object, 
 		},
 		created() {
 			this.table_options.headings = {
@@ -223,16 +151,10 @@
 		methods: {
 
             fillRequest(){         
-            	this.type_id = this.request.type;
-            	$(".modal-body #id").val( this.request.id );
-            	$(".modal-body #date_init").val( this.request.created_at );
-				$(".modal-body #motive").val( this.request.motive );
-				$(".modal-body #type").val( this.types[this.type_id] );
-				$(".modal-body #delivery_date").val( this.request.delivery_date );
-				$(".modal-body #ubication").val( this.request.ubication );
-				$(".modal-body #agent_name").val( this.request.agent_name );
-				$(".modal-body #agent_telf").val( this.request.agent_telf );
-				$(".modal-body #agent_email").val( this.request.agent_email );
+            	$(".modal-body #id").val( this.disincorporation.id );
+            	$(".modal-body #date").val( this.disincorporation.date );
+            	$(".modal-body #motive").val( this.disincorporation.motive.name );
+            	$(".modal-body #observe").val( this.disincorporation.observation );
             },
 
 			initRequest(modal_id,event) {

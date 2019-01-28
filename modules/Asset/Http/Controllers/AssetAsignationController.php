@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetAsignation;
+use Modules\Asset\Models\AssetAsignationAsset;
 use Modules\Asset\Models\Asset;
 /*
  * use Modules\Payroll\Models\PayrollStaff
@@ -64,19 +65,19 @@ class AssetAsignationController extends Controller
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function create()
+    public function create(Request $request)
     {
         $header = [
-            'route' => 'asset.asignation.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
+            'route' => 'asset.asignation.store', 'method' => 'POST', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
         ];
-
-        $assets = AssetInventary::template_choices();
+        $case=1;//New Asignation
+        $assets = Asset::AssetClasification($case,$request->type,$request->category,$request->subcategory,$request->specific_category)->get();
         $types = AssetType::template_choices();
         $categories = AssetCategory::template_choices();
         $subcategories = AssetSubcategory::template_choices();
         $specific_categories = AssetSpecificCategory::template_choices();
 
-        return view('asset::asignations.create', compact('header','assets','types','categories','subcategories','specific_categories'));
+        return view('asset::asignations.create', compact('header','assets','types','categories','subcategories','specific_categories','request'));
     }
 
     /**
@@ -89,17 +90,21 @@ class AssetAsignationController extends Controller
     public function Asset_Assign(Asset $asset)
     {
         $header = [
-            'route' => 'asset.asignation.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
+            'route' => 'asset.asignation.store', 'method' => 'POST', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
         ];
 
         
-        $assets = Asset::template_choices(['id' => $asset->id]);
-        $types = AssetType::template_choices(['id' => $asset->type_id]);
-        $categories = AssetCategory::template_choices(['id' => $asset->category_id]);
-        $subcategories = AssetSubcategory::template_choices(['id' => $asset->subcategory_id]);
-        $specific_categories = AssetSpecificCategory::template_choices(['id' => $asset->specific_category_id]);
+        $assets = Asset::where('status_id', 10)->get();
+        $types = AssetType::template_choices();
+        $categories = AssetCategory::template_choices();
+        $subcategories = AssetSubcategory::template_choices();
+        $specific_categories = AssetSpecificCategory::template_choices();
 
-        return view('asset::asignations.create', compact('header','asignation','assets','asset','types','categories','subcategories','specific_categories'));
+        $data[0]= $asset->serial_inventario;
+        $select = json_encode($data);
+
+
+        return view('asset::asignations.create', compact('header','asignation','assets','types','categories','subcategories','specific_categories','select'));
         }
 
     /**
@@ -113,24 +118,30 @@ class AssetAsignationController extends Controller
     {
         $this->validate($request, [
 
-            'type' => 'required',
-            'category' => 'required',
-            'subcategory' => 'required',
-            'specific_category' => 'required',
-            'asset' => 'required',
             //'ubication' => 'required',
             //'staff' => 'required',
 
         ]);
+        $datos = explode(',',$request->ids);
+        $cantidad = 0;
+
         $asignation = new AssetAsignation;
 
-        $asignation->asset_id = $request->asset;
-        $asset = Asset::find($request->asset);
-        $asset->status_id = 1;
         $asignation->staff_id = $request->staff;
-
         $asignation->save();
-        $asset->save();
+
+        while ($cantidad < count($datos)) {
+            $seleccionados = new AssetAsignationAsset;
+            $asset = Asset::where('serial_inventario',trim($datos[$cantidad]))->first();
+            $asset->status_id = 1;
+            $seleccionados->asset_id = $asset->id;
+            $seleccionados->asignation_id = $asignation->id;
+
+            $seleccionados->save();
+            $asset->save();
+            $cantidad++;
+
+        }
         return redirect()->route('asset.asignation.index');
 
     }
@@ -154,20 +165,29 @@ class AssetAsignationController extends Controller
      * @param  \Modules\Asset\Models\AssetAsignation  $asignation (Datos de la Asignación de un Bien)
      * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
-    public function edit(AssetAsignation $asignation)
+    public function edit(Request $request,AssetAsignation $asignation)
     {
         $header = [
-            'route' => ['asset.asignation.update', $asignation], 'method' => 'PUT', 'role'=> 'form', 'class' => 'form',
+            'route' => ['asset.asignation.update', $asignation], 'method' => 'PUT', 'role'=> 'form', 'id' => 'form','class' => 'form-horizontal',
         ];
         
-        $asset = $asignation->asset;
-        $assets = Asset::template_choices(['id' => $asset->id]);
-        $types = AssetType::template_choices(['id' => $asset->type_id]);
-        $categories = AssetCategory::template_choices(['id' => $asset->category_id]);
-        $subcategories = AssetSubcategory::template_choices(['id' => $asset->subcategory_id]);
-        $specific_categories = AssetSpecificCategory::template_choices(['id' => $asset->specific_category_id]);
+        $case=2; //Edit Asignation
+        $assets = Asset::AssetClasification($case,$request->type,$request->category,$request->subcategory,$request->specific_category)->get();
+        $types = AssetType::template_choices();
+        $categories = AssetCategory::template_choices();
+        $subcategories = AssetSubcategory::template_choices();
+        $specific_categories = AssetSpecificCategory::template_choices();
+        $select = AssetAsignationAsset::where('asignation_id',$asignation->id)->get();
+        $data = [];
+        $index=0;
+        foreach ($select as $key) {            
+            $asset = Asset::find($key->asset_id);
+            $data[$index]= $asset->serial_inventario;
+            $index++;
+        }
+        $select =json_encode($data);
 
-        return view('asset::asignations.create', compact('header', 'asignation', 'assets', 'types', 'categories', 'subcategories', 'specific_categories','asset'));
+        return view('asset::asignations.create', compact('header', 'asignation', 'assets','types','categories','subcategories','specific_categories','select'));
     }
 
     /**
@@ -182,20 +202,48 @@ class AssetAsignationController extends Controller
     {
         $this->validate($request, [
 
-            'type' => 'required',
-            'category' => 'required',
-            'subcategory' => 'required',
-            'specific_category' => 'required',
-            'asset' => 'required',
             //'ubication' => 'required',
             //'staff' => 'required',
 
         ]);
 
-        $asignation->asset_id = $request->asset;
         $asignation->staff_id = $request->staff;
-
         $asignation->save();
+
+        $datos = explode(' , ',$request->ids);
+        $cantidad = 0;
+
+        $seleccionados = AssetAsignationAsset::where('asignation_id',$asignation->id)->get();
+
+        /* Recorro la vieja lista para verificar si hay elementos eliminados en la nueva lista */
+        
+        foreach ($seleccionados as $asset_asignation) {
+            $old_asset = $asset_asignation->asset()->first();
+            $serial = $old_asset->serial_inventario;
+            $clave = in_array($serial, $datos);
+            if ($clave == false){
+                $old_asset->status_id = 10;
+                $asset_asignation->delete();
+                $old_asset->save();
+            }
+        }
+        
+        /* Recorro la nueva lista para verificar si hay nuevos elementos a ser insertados */
+
+        while ($cantidad < count($datos)) {          
+            $asset = Asset::where('serial_inventario',trim($datos[$cantidad]))->first();
+            $new_asset = $seleccionados->where('asset_id',$asset->id)->first();
+            if (is_null($new_asset)){
+                $new_asset = new AssetAsignationAsset;
+                $asset->status_id = 1;
+                $new_asset->asset_id = $asset->id;
+                $new_asset->asignation_id = $asignation->id;        
+                $new_asset->save();
+                $asset->save();
+            }                
+            $cantidad++;
+
+        }
         return redirect()->route('asset.asignation.index');
     }
 
@@ -208,11 +256,7 @@ class AssetAsignationController extends Controller
      */
     public function destroy(AssetAsignation $asignation)
     {
-        $asset = Asset::findorfail($asignation->asset_id);
-        $asset->status_id = 10;
-        $asset->save();
-
-        $asignation->delete();
+        
         return back()->with('info', 'Fue eliminado exitosamente');
 
     }
@@ -224,23 +268,10 @@ class AssetAsignationController extends Controller
      * @param  \Modules\Asset\Models\AssetAsignation $asignation (Datos de la Asignación de un Bien)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function info(AssetAsignation $asignation){
+    
+    public function vueInfo($id){
+        $asset_request = AssetAsignationAsset::where('asignation_id',$id)->with('asset')->get();
 
-        $dato = AssetAsignation::findorfail($asignation->id);
-        $this->data[] = [
-            'id' => $dato->id,
-            'type' => $dato->asset->type->name,
-            'category' => $dato->asset->category->name,
-            'subcategory' => $dato->asset->subcategory->name,
-            'specific' => $dato->asset->specific->name,
-            'description' => $dato->asset->getDescription(),
-            'ubication' => $dato->asset->institution_id,
-            'staff' => $dato->asset->staff_id
-            
-                
-        ];
-
-        return response()->json(['record' => $this->data[0]]);
-
+        return response()->json(['records' => $asset_request], 200);
     }
 }

@@ -170,6 +170,7 @@
 							</div>
 						</div>
 
+						@if((($edit==true)and($type==2))||(($edit==false)and($type==2)))
 						<div id="use_id" class="col-md-6">
 							<div class="form-group  {{ $errors->has('use') ? ' has-error' : '' }} is-required">
 								
@@ -182,6 +183,7 @@
 								
 							</div>
 						</div>
+						@endif
 						
 						<div class="col-md-6">
 							<div class="form-group  {{ $errors->has('serial') ? ' has-error' : '' }} is-required">
@@ -244,6 +246,7 @@
 							</div>
 						</div>
 
+						@if(($edit==false)and($type==2))
 						<div id="quantity_id" class="col-md-6">
 							<div class="form-group  {{ $errors->has('quantity') ? ' has-error' : '' }} is-required">
 								
@@ -257,6 +260,7 @@
 								
 							</div>
 						</div>
+						@endif
 
 					</div>
 				</div>
@@ -274,24 +278,11 @@
 
 @section('extra-js')
 <script>
-$("#document").ready(function(){
-	
-	$("#use_id").hide();
-	$("#quantity_id").hide();
-});
 
-function mostrar(form_type) {
-    if (form_type == "2") {
-        $("#use_id").show();
-        $("#quantity_id").show();
-        
-    }
-    else{
-        $("#use_id").hide();
-        $("#quantity_id").hide();
-        
-    }
-}
+function mostrar($type) {
+	if($type>0)
+    	window.location.href='/asset/create/'+$type;
+};
 
 </script>
 @stop

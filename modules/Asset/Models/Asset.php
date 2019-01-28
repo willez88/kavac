@@ -157,28 +157,7 @@ class Asset extends Model implements Auditable
         return $this->belongsTo('Modules\Asset\Models\AssetUse', 'use_id');
     }
 
-    /**
-     * Método que obtiene el tipo al que pertenece el bien
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
-     */
-    public function asig()
-    {
-        return $this->hasMany('Modules\Asset\Models\AssetAsignation');
-    }
-
-    /**
-     * Método que obtiene el tipo al que pertenece el bien
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
-     */
-    public function disasig()
-    {
-        return $this->hasMany('Modules\Asset\Models\AssetDisincorporation');
-    }
-
+    
     /**
      * Método que obtiene el registro en inventario del bien
      *
@@ -200,8 +179,6 @@ class Asset extends Model implements Auditable
     {
         return $this->hasOne('Modules\Asset\Models\AssetRequested');
     }
-
-
 
     /**
      *
@@ -335,6 +312,43 @@ class Asset extends Model implements Auditable
                   ->where('status_id','=',$id);
         }
         $query->where('status_id','=',$id);
+    }
+
+    public function scopeAssetClasification($query, $case, $type=null, $category=null,$subcategory=null,$specific=null){
+        if($case == 1)  //New Asignation
+            $query->where('status_id','=',10);
+        elseif ($case == 2) //Edit Asignation
+            $query->whereIn('status_id',array(1,10));
+        elseif ($case == 3) //New Request
+            $query->where('status_id',10);
+        elseif ($case == 4) //Edit Request
+            $query->whereIn('status_id',array(6,10));
+        elseif ($case == 5) //New Disincorporation
+            $query->whereNotIn('status_id',array(6,7,8,9));
+        elseif ($case == 6) //Edit Disincorporation
+            $query->whereNotIn('status_id',array(6));
+
+        if(!is_null($type)){
+            if(!is_null($category)){
+                if(!is_null($subcategory)){
+                    if(!is_null($specific)){
+                        $query->where('type_id','=',$type)
+                              ->where('category_id','=',$category)
+                              ->where('subcategory_id','=',$subcategory)
+                              ->where('specific_category_id','=',$specific);
+                    }
+                    else
+                        $query->where('type_id','=',$type)
+                              ->where('category_id','=',$category)
+                              ->where('subcategory_id','=',$subcategory);
+                }
+                else
+                    $query->where('type_id','=',$type)
+                              ->where('category_id','=',$category);
+            }
+            else
+                $query->where('type_id','=',$type);
+        }
     }
 
 

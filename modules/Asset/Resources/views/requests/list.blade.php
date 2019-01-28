@@ -99,6 +99,11 @@
 													<i class="fa fa-trash"></i>
 												</button>
 												{!! Form::close() !!}
+
+												<request-info 
+													route_list="asset/requests/vue-info/"
+													:request="{{$request}}">
+												</request-info>
 												
 											</div>
 										</td>

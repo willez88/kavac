@@ -25,8 +25,6 @@ use Modules\Asset\Models\Asset;
 
 class AssetRequestController extends Controller
 {
-    /** @var array Lista de elementos a mostrar */
-    protected $data_list = [];
 
     /**
      * Define la configuración de la clase
@@ -200,7 +198,6 @@ class AssetRequestController extends Controller
     public function update(Request $request, $id)
     {
         //Validar que no se realizaron cambios
-        return response()->json($request);
         $data = AssetRequest::find($id);
         $this->validate($request, [
 
@@ -245,8 +242,8 @@ class AssetRequestController extends Controller
         foreach ($seleccionados as $requested) {
             $old_asset = $requested->asset()->first();
             $serial = $old_asset->serial_inventario;
-            $clave = array_search($serial, $datos);
-            if ($clave == false){
+            $clave = in_array($serial, $datos);
+            if ($clave === false ){
                 $old_asset->status_id = 10;
                 $requested->delete();
                 $old_asset->save();

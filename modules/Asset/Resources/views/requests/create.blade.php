@@ -265,7 +265,7 @@
 							<thead>
 							    <tr class="text-center">
 
-							        <th><input type="checkbox" name="select_all" id ="select_all"></th>
+							        <th><input type="checkbox" name="select_all" id ="select_all" onclick="change()"></th>
 							        <th>Código</th>
 									<th>Ubicación</th>
 									<th>Condición Física</th>
@@ -315,6 +315,7 @@
 @section('extra-js')
 <script>
 	var seleccionados=[];
+	var selecAll=false;
 $(document).ready(function(){
 	var table = $('#table_id').DataTable({
 		columnDefs: [ {
@@ -384,6 +385,27 @@ $("#save").on("click", function(event){
 	};
 });
 	
+function change(){
+	$('#table_id').DataTable().rows().iterator('row',function(context,index){
+		dato = $(this.row(index).node()).find("td:eq(1)").text();
+
+	    if (selecAll == false){
+	    	$(this.row(index).node()).addClass('selected');
+
+			if (seleccionados.indexOf(dato) === -1) {
+	        	seleccionados.push(dato);
+		    }	    
+	    }
+	    else{
+	    	$(this.row(index).node()).removeClass('selected');
+	    	if (seleccionados.indexOf(dato) > -1) {
+		        seleccionados.splice(seleccionados.indexOf(dato), 1);
+		    }
+	    }
+	});
+	selecAll = !selecAll;
+}
+
 function mostrar($form_request) {
 	if($form_request>0)
     	window.location.href='/asset/requests/create/'+$form_request;

@@ -42,17 +42,8 @@ class AssetAsignation extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['asset_id', 'staff_id'];
+    protected $fillable = ['staff_id'];
 
-    /**
-     * Método que obtiene el tipo al que pertenece el bien
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
-     */
-    public function asset()
-    {
-        return $this->belongsTo('Modules\Asset\Models\Asset', 'asset_id');
-    }
+    
 
 }

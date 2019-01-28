@@ -69,7 +69,7 @@ class AssetController extends Controller
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function create()
+    public function create($type=0)
     {
         $header = [
             'route' => 'asset.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal',
@@ -85,8 +85,9 @@ class AssetController extends Controller
         $conditions = AssetCondition::template_choices();
         $status = AssetStatus::template_choices();
         $uses = AssetUse::template_choices();
+        $edit=false;
 
-        return view('asset::Register.create', compact('header','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status','uses'));
+        return view('asset::Register.create', compact('header','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status','uses','edit','type'));
     }
 
     /**
@@ -125,23 +126,15 @@ class AssetController extends Controller
             
             
         }
-        else if ($request->type == 2){
-            $this->validate($request,[
-                'use' => 'required|max:50',
-                'quantity'  => 'required|max:50',
-
-            ]);
-
-        }
-        if ($request->type == 1)
-            $cantidad = 1;
-        else if ($request->type == 2)
+        
+        $cantidad = 1;
+        if ($request->type == 2)
             $cantidad = $request->quantity;
-
+        if(is_null($cantidad))
+            $cantidad = 1;
         if ($request->status == 10){
             $asset_inventary = new AssetInventary;
         }
-
         while ($cantidad > 0) {
         
             $cantidad--;
@@ -170,7 +163,7 @@ class AssetController extends Controller
 
 
                     if ($request->type == 2){
-                        $asset_inventary->exist = $request->quantity;
+                        $asset_inventary->exist = $cantidad;
                     }
                     
                     $asset_inventary->unit_value = $asset->value;
@@ -207,7 +200,7 @@ class AssetController extends Controller
      * @param  \Modules\Asset\Models\Asset  $asset (Datos del Bien)
      * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
-    public function edit(Asset $asset)
+    public function edit(Asset $asset,$type=0)
     {
         $header = [
             'route' => ['asset.update', $asset], 'method' => 'PUT', 'role'=> 'form', 'class' => 'form',
@@ -222,8 +215,10 @@ class AssetController extends Controller
         $conditions = AssetCondition::template_choices();
         $status = AssetStatus::template_choices();
         $uses = AssetUse::template_choices();
+        $edit=true;
+        $type=$asset->type_id;
 
-        return view('asset::Register.create', compact('header','asset','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status','uses'));
+        return view('asset::Register.create', compact('header','asset','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status','uses','edit','type'));
     }
 
     /**
@@ -257,13 +252,6 @@ class AssetController extends Controller
                 'serial' => 'required|max:50',
                 'marca'  => 'required|max:50',
                 'model' => 'required|max:50',
-
-            ]);
-        }
-        if ($request->type == 2){
-            $this->validate($request,[
-                'use' => 'required|max:50',
-                'quantity'  => 'required|max:50',
 
             ]);
         }

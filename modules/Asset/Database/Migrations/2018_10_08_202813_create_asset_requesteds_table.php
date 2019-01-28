@@ -17,14 +17,17 @@ class CreateAssetRequestedsTable extends Migration
             Schema::create('asset_requesteds', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
 
-                $table->integer('inventary_id')->unsigned()->comment('Identificador único del bien en la tabla de inventario de bienes');
+                $table->integer('inventary_id')->unsigned()->nullable()->comment('Identificador único del bien en la tabla de inventario de bienes');
                 $table->foreign('inventary_id')->references('id')->on('asset_inventaries')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('asset_id')->unsigned()->comment('Identificador único del bien en la tabla de bienes');
+                $table->integer('asset_id')->unsigned()->nullable()->comment('Identificador único del bien en la tabla de bienes');
                 $table->foreign('asset_id')->references('id')->on('assets')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('request_id')->unsigned()->comment('Identificador único de la solicitud generada');
+                $table->integer('request_id')->unsigned()->nullable()->comment('Identificador único de la solicitud generada');
                 $table->foreign('request_id')->references('id')->on('asset_requests')->onDelete('restrict')->onUpdate('cascade');
+
+                $table->integer('disincorporation_id')->unsigned()->nullable()->comment('Identificador único de la desincorporación generada');
+                $table->foreign('disincorporation_id')->references('id')->on('asset_disincorporations')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
             });

@@ -28,10 +28,6 @@ class CreateAssetDisincorporationsTable extends Migration
             Schema::create('asset_disincorporations', function (Blueprint $table) {
                 $table->increments('id');
 
-                $table->integer('asset_id')->nullable()->unsigned()
-                      ->comment('Identificador único de la asignación de un bien');
-                $table->foreign('asset_id')->references('id')->on('assets');
-
                 $table->integer('motive_id')->nullable()->unsigned()->comment('Identificador único del Motivo de la desincorporación del bien');
                 $table->foreign('motive_id')->references('id')->on('asset_motive_disincorporations');
 
