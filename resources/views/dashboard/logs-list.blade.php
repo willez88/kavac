@@ -125,48 +125,50 @@
 					</thead>
 					<tbody>
 						@foreach ($auditables as $audit)
-							@php
-								$registro_class = ($audit->event == 'created')?'text-success':'';
-								$registro_class = ($audit->event == 'deleted')?'text-danger':$registro_class;
-								$registro_class = ($audit->event == 'restored')?'text-info':$registro_class;
-								$registro_class = ($audit->event == 'updated')?'text-warning':$registro_class;
-							@endphp
-							<tr>
-								<th>
-									<i class="ion-android-checkbox-blank {{ $registro_class }}"></i>
-								</th>
-								<td>{{ $audit->created_at->format('d-m-Y h:i:s A') }}</td>
-								<td>{{ $audit->auditable_type }}</td>
-								<td>{{ $audit->auditable_id }}</td>
-								<td>
-									@php
-										$model_user = $audit->user_type;
-										$user = $model_user::find($audit->user_id);
-									@endphp
-									<b>Nombre:</b> {{ $user->name }}<br>
-									<b>Usuario:</b> {{ $user->username }}
-								</td>
-								<td>
-									@if (empty($audit->old_values))
-										N/A
-									@else
-										@foreach ($audit->old_values as $key => $value)
-											<b>{{ $key }}:</b> {{ $value }}
-											@if (!$loop->last) <br> @endif
-										@endforeach
-									@endif
-								</td>
-								<td>
-									@if (empty($audit->new_values))
-										N/A
-									@else
-										@foreach ($audit->new_values as $key => $value)
-											<b>{{ $key }}:</b> {{ $value }}
-											@if (!$loop->last) <br> @endif
-										@endforeach
-									@endif
-								</td>
-							</tr>
+							@if ($audit->user_id !== null)
+								@php
+									$registro_class = ($audit->event == 'created')?'text-success':'';
+									$registro_class = ($audit->event == 'deleted')?'text-danger':$registro_class;
+									$registro_class = ($audit->event == 'restored')?'text-info':$registro_class;
+									$registro_class = ($audit->event == 'updated')?'text-warning':$registro_class;
+								@endphp
+								<tr>
+									<th>
+										<i class="ion-android-checkbox-blank {{ $registro_class }}"></i>
+									</th>
+									<td>{{ $audit->created_at->format('d-m-Y h:i:s A') }}</td>
+									<td>{{ $audit->auditable_type }}</td>
+									<td>{{ $audit->auditable_id }}</td>
+									<td>
+										@php
+											$model_user = $audit->user_type;
+											$user = $model_user::find($audit->user_id);
+										@endphp
+										<b>Nombre:</b> {{ $user->name }}<br>
+										<b>Usuario:</b> {{ $user->username }}
+									</td>
+									<td>
+										@if (empty($audit->old_values))
+											N/A
+										@else
+											@foreach ($audit->old_values as $key => $value)
+												<b>{{ $key }}:</b> {{ $value }}
+												@if (!$loop->last) <br> @endif
+											@endforeach
+										@endif
+									</td>
+									<td>
+										@if (empty($audit->new_values))
+											N/A
+										@else
+											@foreach ($audit->new_values as $key => $value)
+												<b>{{ $key }}:</b> {{ $value }}
+												@if (!$loop->last) <br> @endif
+											@endforeach
+										@endif
+									</td>
+								</tr>
+							@endif
 						@endforeach
 					</tbody>
 				</table>
