@@ -41,6 +41,11 @@ class Currency extends Model implements Auditable
      */
     protected $fillable = ['symbol', 'name', 'country_id', 'default', 'decimal_places'];
 
+    public function getDescriptionAttribute()
+    {
+        return "{$this->symbol} - {$this->name}";
+    }
+
     /**
      * Currency belongs to Country.
      *

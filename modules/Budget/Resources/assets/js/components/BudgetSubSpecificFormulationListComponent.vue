@@ -6,7 +6,7 @@
     				title="Ver registro" data-toggle="tooltip" type="button">
     			<i class="fa fa-eye"></i>
     		</button>
-			<button @click="editForm(props.row.id)" 
+			<button @click="editForm(props.row.id)" v-if="!props.row.assigned" 
     				class="btn btn-warning btn-xs btn-icon btn-round" 
     				title="Modificar registro" data-toggle="tooltip" type="button">
     			<i class="fa fa-edit"></i>
@@ -35,7 +35,7 @@
 		data() {
 			return {
 				records: [],
-				columns: ['code', 'year', 'specific_action', 'id']
+				columns: ['code', 'year', 'specific_action', 'total_formulated', 'assigned', 'id']
 			}
 		},
 		created() {
@@ -43,6 +43,7 @@
 				'code': 'Código',
 				'year': 'Año',
 				'specific_action': 'Acc. Especifica',
+				'total_formulated': 'Total Formulado',
 				'assigned': 'Asignado',
 				'id': 'Acción'
 			};
@@ -51,7 +52,9 @@
 			this.table_options.columnsClasses = {
 				'code': 'col-md-2',
 				'name': 'col-md-1',
-				'specific_action': 'col-md-7',
+				'specific_action': 'col-md-4',
+				'total_formulated': 'col-md-2 text-right',
+				'assigned': 'col-md-1 text-center',
 				'id': 'col-md-2'
 			};
 		},

@@ -22,6 +22,10 @@ footer nav ul {
   text-align: center;
 }
 
+.text-bold {
+  font-weight: bold;
+}
+
 /** Perfil de usuario */
 
 .img-profile {

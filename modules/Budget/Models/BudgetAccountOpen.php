@@ -49,7 +49,7 @@ class BudgetAccountOpen extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function account()
+    public function budget_account()
     {
     	return $this->belongsTo(BudgetAccount::class);
     }

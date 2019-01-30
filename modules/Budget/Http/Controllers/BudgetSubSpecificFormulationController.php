@@ -131,10 +131,10 @@ class BudgetSubSpecificFormulationController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        dd("mostrar formulación");
-        //return view('budget::formulations.list');
+        $formulation = BudgetSubSpecificFormulation::find($id);
+        return view('budget::formulations.show', compact('formulation'));
     }
 
     /**
@@ -152,8 +152,21 @@ class BudgetSubSpecificFormulationController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $formulation = BudgetSubSpecificFormulation::find($id);
+
+        if (isset($request->assigned) && $request->assigned) {
+            $formulation->assigned = $request->assigned;
+            $formulation->save();
+
+            $request->session()->flash('message', [
+                'type' => 'other', 'icon' => 'screen-ok', 
+                'text' => 'La formulación de presupuesto fue asignada y no puede ser modificada'
+            ]);
+        }
+
+        return redirect()->back();
     }
 
     /**

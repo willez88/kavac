@@ -34,6 +34,23 @@ class BudgetSpecificAction extends Model implements Auditable
 
     protected $fillable = ['from_date', 'to_date', 'code', 'name', 'description', 'active'];
 
+    public function getInstitutionAttribute()
+    {
+        return $this->specificable->department->institution->name;
+    }
+
+    public function getTypeAttribute()
+    {
+        $type = str_replace("Modules\Budget\Models\\", "", $this->specificable_type);
+
+        return ($type === "BudgetCentralizedAction") ? "Acción Centralizada" : "Proyecto";
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return "{$this->code} - {$this->name}";
+    }
+
     /**
      * Get all of the owning specificable models.
      */

@@ -41,6 +41,11 @@ class BudgetCentralizedAction extends Model implements Auditable
     	'name', 'code', 'custom_date', 'active', 'department_id', 'payroll_position_id', 'payroll_staff_id'
     ];
 
+    public function getDescriptionAttribute()
+    {
+        return "{$this->code} - {$this->name}";
+    }
+
     /**
      * BudgetProject belongs to Department.
      *
