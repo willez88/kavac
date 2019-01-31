@@ -219,6 +219,7 @@ $(document).ready(function() {
                 '<li class="special-title">Analistas</li>' +
                 '<li>Julie Vera (jvera@cenditel.gob.ve)</li>' +
                 '<li>María Gónzalez (mgonzalez@cenditel.gob.ve)</li>' +
+                '<li>Francisco Berbesí (fberbesi@cenditel.gob.ve)</li>' +
                 '<li class="special-title">Desarrolladores</li>' +
                 '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' +
                 '<li>Henry Paredes (henryp2804@gmail.com)</li>' +
