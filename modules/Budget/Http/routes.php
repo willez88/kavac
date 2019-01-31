@@ -61,4 +61,6 @@ Route::group([
          ->name('budget.subspecific-formulations.vuelist');
     Route::get('subspecific-formulations/show/{id}', 'BudgetSubSpecificFormulationController@show')
          ->name('budget.subspecific-formulations.show');
+    Route::get('get-subspecific-formulation/{id}', 'BudgetSubSpecificFormulationController@getFormulation')
+         ->name('get-formulation');
 });

@@ -41,6 +41,12 @@ class BudgetCentralizedAction extends Model implements Auditable
     	'name', 'code', 'custom_date', 'active', 'department_id', 'payroll_position_id', 'payroll_staff_id'
     ];
 
+    /**
+     * Crea un campo para obtener datos de la acción centralizada
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return string Devuelve el código y nombre de la acción centralizada
+     */
     public function getDescriptionAttribute()
     {
         return "{$this->code} - {$this->name}";

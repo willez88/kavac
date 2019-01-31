@@ -23,6 +23,12 @@
         </li>
         <li>
             <a href="#">Ejecución</a>
+            <ul class="submenu">
+                <li><a href="#">Compromisos</a></li>
+                <li><a href="#">Cŕeditos Adicionales</a></li>
+                <li><a href="#">Reducciones</a></li>
+                <li><a href="#">Traspasos</a></li>
+            </ul>
         </li>
         <li>
             <a href="#">Reportes</a>

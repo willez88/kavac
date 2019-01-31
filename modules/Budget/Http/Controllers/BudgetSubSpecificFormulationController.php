@@ -165,6 +165,46 @@ class BudgetSubSpecificFormulationController extends Controller
                 'text' => 'La formulación de presupuesto fue asignada y no puede ser modificada'
             ]);
         }
+        elseif ($formulation->assigned) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'icon' => 'screen-ok', 
+                'text' => 'La formulación de presupuesto ya se encuentra asignada y no puede ser modificada'
+            ]);
+        }
+        else {
+            $this->validate($request, [
+                'institution_id' => 'required',
+                'specific_action_id' => 'required',
+                'currency_id' => 'required',
+                'formulated_accounts.*' => 'required'
+            ]);
+            $formulation->total_formulated = (float)$request->formulated_accounts[0]['total_year_amount'];
+            $formulation->budget_specific_action_id = $request->specific_action_id;
+            $formulation->currency_id = $request->currency_id;
+            $formulation->institution_id = $request->institution_id;
+            $formulation->save();
+
+            $formulation->account_opens()->delete();
+
+            foreach ($request->formulated_accounts as $formulated_account) {
+                $f_acc = (object)$formulated_account;
+                BudgetAccountOpen::create([
+                    'jan_amount' => (float)$f_acc->jan_amount, 'feb_amount' => (float)$f_acc->feb_amount, 
+                    'mar_amount' => (float)$f_acc->mar_amount, 'apr_amount' => (float)$f_acc->apr_amount, 
+                    'may_amount' => (float)$f_acc->may_amount, 'jun_amount' => (float)$f_acc->jun_amount, 
+                    'jul_amount' => (float)$f_acc->jul_amount, 'aug_amount' => (float)$f_acc->aug_amount, 
+                    'sep_amount' => (float)$f_acc->sep_amount, 'oct_amount' => (float)$f_acc->oct_amount, 
+                    'nov_amount' => (float)$f_acc->nov_amount, 'dec_amount' => (float)$f_acc->dec_amount,
+                    'total_year_amount' => (float)$f_acc->total_year_amount, 
+                    'total_real_amount' => (float)$f_acc->total_real_amount, 
+                    'total_estimated_amount' => (float)$f_acc->total_estimated_amount, 
+                    'budget_account_id' => $f_acc->id,
+                    'budget_sub_specific_formulation_id' => $formulation->id
+                ]);
+            }
+
+            return response()->json(['result' => true], 200);
+        }
 
         return redirect()->back();
     }
@@ -193,5 +233,17 @@ class BudgetSubSpecificFormulationController extends Controller
         return response()->json([
             'records' => BudgetSubSpecificFormulation::with('currency')->with('specific_action')->get()
         ], 200);
+    }
+
+    public function getFormulation($id)
+    {
+        $formulation = BudgetSubSpecificFormulation::where('id', $id)
+                       ->with(['currency', 'account_opens', 'specific_action' => function($specifiAction) {
+                            return $specifiAction->with(['specificable' => function($specificable) {
+                                return $specificable->with('department');
+                            }]);
+                       }])->first();
+
+        return response()->json(['result' => true, 'formulation' => $formulation], 200);
     }
 }

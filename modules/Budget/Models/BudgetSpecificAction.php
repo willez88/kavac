@@ -34,11 +34,24 @@ class BudgetSpecificAction extends Model implements Auditable
 
     protected $fillable = ['from_date', 'to_date', 'code', 'name', 'description', 'active'];
 
+
+    /**
+     * Crea un campo para obtener el nombre de la institución
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return string Devuelve el nombre de la institución asociada a la acción específica
+     */
     public function getInstitutionAttribute()
     {
         return $this->specificable->department->institution->name;
     }
 
+    /**
+     * Crea un campo para obtener el tipo de registro asociado (Proyecto o Acción Centralizada)
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return string Devuelve el tipo de registro asociado
+     */
     public function getTypeAttribute()
     {
         $type = str_replace("Modules\Budget\Models\\", "", $this->specificable_type);
@@ -46,6 +59,12 @@ class BudgetSpecificAction extends Model implements Auditable
         return ($type === "BudgetCentralizedAction") ? "Acción Centralizada" : "Proyecto";
     }
 
+    /**
+     * Crea un campo para obtener información del código y nombre de la acción específica
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return string Devuelve el código y nombre de la acción específica
+     */
     public function getDescriptionAttribute()
     {
         return "{$this->code} - {$this->name}";

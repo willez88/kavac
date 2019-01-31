@@ -79472,6 +79472,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -79499,6 +79500,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			'assigned': 'col-md-1 text-center',
 			'id': 'col-md-2'
 		};
+		this.table_options.orderBy = { 'column': 'code' };
 	},
 	mounted: function mounted() {
 		this.initRecords(this.route_list, '');
@@ -79620,9 +79622,13 @@ var render = function() {
         key: "assigned",
         fn: function(props) {
           return _c("div", {}, [
-            _vm._v(
-              "\n\t\t\t" + _vm._s(props.row.assigned ? "SI" : "NO") + "\n\t\t"
-            )
+            !props.row.assigned
+              ? _c("span", { staticClass: "text-danger text-bold" }, [
+                  _vm._v("NO")
+                ])
+              : _c("span", { staticClass: "text-success text-bold" }, [
+                  _vm._v("SI")
+                ])
           ])
         }
       }
@@ -80396,7 +80402,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    * @param {integer} id Identificador de la formulación a cargar
    */
 		loadFormulation: function loadFormulation(id) {
+			var _this4 = this;
+
+			var vm = this;
 			this.record.id = id;
+			axios.get('/budget/get-subspecific-formulation/' + id).then(function (response) {
+				var pry_acc_id = response.data.formulation.specific_action.specificable.id;
+				var pry_acc_type = response.data.formulation.specific_action.type;
+				var formulation = response.data.formulation;
+
+				vm.record.currency_id = formulation.currency_id;
+				vm.record.institution_id = formulation.specific_action.specificable.department.institution_id;
+				vm.record.year = formulation.year;
+				vm.record.project_id = pry_acc_type === "Proyecto" ? pry_acc_id : '';
+				vm.record.centralized_action_id = !(pry_acc_type === "Proyecto") ? pry_acc_id : '';
+				$("#centralized_action_id").attr('disabled', pry_acc_type === "Proyecto");
+				$("#project_id").attr('disabled', !(pry_acc_type === "Proyecto"));
+				if (pry_acc_type === "Proyecto") {
+					$("#project_id").click();
+				} else {
+					$("#centralized_action_id").click();
+				}
+
+				vm.record.specific_action_id = formulation.budget_specific_action_id.toString();
+
+				/** Carga los datos de las partidas presupuestarias formuladas */
+				$.each(_this4.records, function (index, el) {
+					$.each(formulation.account_opens, function () {
+						if (el.id === this.budget_account_id) {
+							vm.showAccountInputs(index);
+							vm.records[index].total_year_amount = this.total_year_amount;
+							vm.records[index].total_real_amount = this.total_real_amount;
+							vm.records[index].total_estimated_amount = this.total_estimated_amount;
+							vm.records[index].jan_amount = this.jan_amount;
+							vm.records[index].feb_amount = this.feb_amount;
+							vm.records[index].mar_amount = this.mar_amount;
+							vm.records[index].apr_amount = this.apr_amount;
+							vm.records[index].may_amount = this.may_amount;
+							vm.records[index].jun_amount = this.jun_amount;
+							vm.records[index].jul_amount = this.jul_amount;
+							vm.records[index].aug_amount = this.aug_amount;
+							vm.records[index].sep_amount = this.sep_amount;
+							vm.records[index].oct_amount = this.oct_amount;
+							vm.records[index].nov_amount = this.nov_amount;
+							vm.records[index].dec_amount = this.dec_amount;
+						}
+					});
+				});
+			}).catch(function (error) {
+				console.log(error);
+			});
 		},
 
 		/**
@@ -80405,7 +80460,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
 		updateFormulation: function updateFormulation() {
-			var _this4 = this;
+			var _this5 = this;
 
 			var fields = {};
 			for (var index in this.record) {
@@ -80413,17 +80468,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 			axios.patch('/budget/subspecific-formulations/' + this.record.id, fields).then(function (response) {
 				if (response.data.result) {
-					_this4.showMessage('update');
+					_this5.showMessage('update');
+					setTimeout(function () {
+						location.href = '/budget/subspecific-formulations/';
+					}, 2000);
 				} else {
 					var msg = response.data.message;
-					_this4.showMessage(msg.type, msg.title, msg.class, msg.icon, msg.text);
+					_this5.showMessage(msg.type, msg.title, msg.class, msg.icon, msg.text);
 				}
 			}).catch(function (error) {
-				_this4.errors = [];
+				_this5.errors = [];
 				if (typeof error.response != "undefined") {
 					for (var index in error.response.data.errors) {
 						if (error.response.data.errors[index]) {
-							_this4.errors.push(error.response.data.errors[index][0]);
+							_this5.errors.push(error.response.data.errors[index][0]);
 						}
 					}
 				}
@@ -80442,13 +80500,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		record: {
 			deep: true,
 			handler: function handler(newValue, oldValue) {
-				var _this5 = this;
+				var _this6 = this;
 
 				this.decimals = 2;
 				if (newValue.currency_id) {
 					axios.get('/currencies/info/' + newValue.currency_id).then(function (response) {
 						if (response.data.result) {
-							_this5.decimals = response.data.currency.decimal_places;
+							_this6.decimals = response.data.currency.decimal_places;
 						}
 					});
 				}
@@ -80768,7 +80826,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -80810,7 +80868,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -80852,7 +80910,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -80894,7 +80952,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -80932,7 +80990,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -80970,7 +81028,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -81008,7 +81066,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -81046,7 +81104,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -81084,7 +81142,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -81122,7 +81180,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -81160,7 +81218,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -81198,7 +81256,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -81236,7 +81294,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -81274,7 +81332,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },
@@ -81312,7 +81370,7 @@ var render = function() {
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      "data-toggle": "tolltip",
+                      "data-toggle": "tooltip",
                       readonly: account.locked,
                       onfocus: "this.select()"
                     },

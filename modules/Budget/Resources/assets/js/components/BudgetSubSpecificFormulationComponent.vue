@@ -117,91 +117,91 @@
 						<td>{{ account.denomination }}</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.total_real_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked"  @change="calculateAmounts(index, 'real')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm" data-toggle="tolltip" 
+							<input type="text" class="form-control input-sm" data-toggle="tooltip" 
 								   v-model="account.total_estimated_amount" 
 								   v-show="account.locked || account.formulated" :readonly="account.locked" 
 								   @change="calculateAmounts(index, 'estimated')" onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.total_year_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'year')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.jan_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.feb_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.mar_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.apr_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.may_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.jun_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.jul_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.aug_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.sep_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.oct_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.nov_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
 							<input type="text" class="form-control input-sm" v-model="account.dec_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tolltip" 
+								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
 								   :readonly="account.locked" @change="calculateAmounts(index, 'month')" 
 								   onfocus="this.select()">
 						</td>
@@ -624,7 +624,56 @@
 			 * @param {integer} id Identificador de la formulación a cargar
 			 */
 			loadFormulation(id) {
+				const vm = this;
 				this.record.id = id;
+				axios.get('/budget/get-subspecific-formulation/' + id).then(response => {
+					var pry_acc_id = response.data.formulation.specific_action.specificable.id;
+					var pry_acc_type = response.data.formulation.specific_action.type;
+					var formulation = response.data.formulation;
+					
+					vm.record.currency_id = formulation.currency_id;
+					vm.record.institution_id = formulation.specific_action.specificable.department.institution_id;
+					vm.record.year = formulation.year;
+					vm.record.project_id = (pry_acc_type === "Proyecto")?pry_acc_id:'';
+					vm.record.centralized_action_id = !(pry_acc_type === "Proyecto")?pry_acc_id:'';
+					$("#centralized_action_id").attr('disabled', (pry_acc_type === "Proyecto"));
+					$("#project_id").attr('disabled', !(pry_acc_type === "Proyecto"));
+					if (pry_acc_type === "Proyecto") {
+						$("#project_id").click();
+					}
+					else {
+						$("#centralized_action_id").click();
+					}
+
+					vm.record.specific_action_id = formulation.budget_specific_action_id.toString();
+					
+					/** Carga los datos de las partidas presupuestarias formuladas */
+					$.each(this.records, function(index, el) {
+						$.each(formulation.account_opens, function() {
+							if (el.id === this.budget_account_id) {
+								vm.showAccountInputs(index);
+								vm.records[index].total_year_amount = this.total_year_amount;
+								vm.records[index].total_real_amount = this.total_real_amount;
+								vm.records[index].total_estimated_amount = this.total_estimated_amount;
+								vm.records[index].jan_amount = this.jan_amount;
+								vm.records[index].feb_amount = this.feb_amount;
+								vm.records[index].mar_amount = this.mar_amount;
+								vm.records[index].apr_amount = this.apr_amount;
+								vm.records[index].may_amount = this.may_amount;
+								vm.records[index].jun_amount = this.jun_amount;
+								vm.records[index].jul_amount = this.jul_amount;
+								vm.records[index].aug_amount = this.aug_amount;
+								vm.records[index].sep_amount = this.sep_amount;
+								vm.records[index].oct_amount = this.oct_amount;
+								vm.records[index].nov_amount = this.nov_amount;
+								vm.records[index].dec_amount = this.dec_amount;
+							}
+						});
+					});
+					
+				}).catch(error => {
+					console.log(error);
+				});
 			},
 			/**
 			 * Ejecuta la acción para actualizar datos de la formulación
@@ -639,6 +688,9 @@
 				axios.patch('/budget/subspecific-formulations/' + this.record.id, fields).then(response => {
 					if (response.data.result) {
 						this.showMessage('update');
+						setTimeout(function() {
+							location.href = '/budget/subspecific-formulations/';
+						}, 2000);
 					}
 					else {
 						let msg = response.data.message;

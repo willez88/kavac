@@ -25,7 +25,8 @@
 			{{ props.row.specific_action.code }} - {{ props.row.specific_action.name }}
 		</div>
 		<div slot="assigned" slot-scope="props">
-			{{ (props.row.assigned)?'SI':'NO' }}
+			<span class="text-danger text-bold" v-if="!(props.row.assigned)">NO</span>
+			<span class="text-success text-bold" v-else>SI</span>
 		</div>
 	</v-client-table>
 </template>
@@ -57,6 +58,7 @@
 				'assigned': 'col-md-1 text-center',
 				'id': 'col-md-2'
 			};
+			this.table_options.orderBy = { 'column': 'code'};
 		},
 		mounted() {
 			this.initRecords(this.route_list, '');

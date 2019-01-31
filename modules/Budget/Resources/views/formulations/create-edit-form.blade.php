@@ -19,7 +19,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-12">
-			<budget-sub-specific-formulation></budget-sub-specific-formulation>
+			<budget-sub-specific-formulation :formulation-id="{!! (isset($formulation)) ? $formulation->id : "null" !!}"></budget-sub-specific-formulation>
 		</div>
 	</div>
 @stop

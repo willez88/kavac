@@ -71,6 +71,14 @@
 						<div class="col-3 text-bold text-uppercase">Acción Específica:</div>
 						<div class="col-9">{{ $formulation->specific_action->description }}</div>
 					</div>
+					<div class="row form-group">
+						<div class="col-3 text-bold text-uppercase">Total Formulado:</div>
+						<div class="col-9">
+							{{ $formulation->currency->symbol }}&#160;
+							{{ number_format(
+								$formulation->total_formulated, $formulation->currency->decimal_places, ",", "."
+							) }}</div>
+					</div>
 					<table class="table table-bordered table-hover">
 						<thead>
 							<tr>
@@ -91,7 +99,12 @@
 									<td>{{ $account_open->budget_account->denomination }}</td>
 									{{-- <td>{{ $account_open->total_real_amount }}</td>
 									<td>{{ $account_open->total_estimated_amount }}</td> --}}
-									<td class="text-right">{{ $account_open->total_year_amount }}</td>
+									<td class="text-right">
+										{{ number_format(
+											$account_open->total_year_amount, 
+											$formulation->currency->decimal_places, ",", "."
+										) }}
+									</td>
 									{{-- <td>{{ $account_open->jan_amount }}</td>
 									<td>{{ $account_open->feb_amount }}</td>
 									<td>{{ $account_open->mar_amount }}</td>
