@@ -25,7 +25,7 @@
             <a href="#">Ejecución</a>
             <ul class="submenu">
                 <li><a href="#">Compromisos</a></li>
-                <li><a href="#">Cŕeditos Adicionales</a></li>
+                <li><a href="{{ route('budget.aditional-credits.index') }}">Cŕeditos Adicionales</a></li>
                 <li><a href="#">Reducciones</a></li>
                 <li><a href="#">Traspasos</a></li>
             </ul>
