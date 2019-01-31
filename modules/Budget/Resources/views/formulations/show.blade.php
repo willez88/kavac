@@ -30,10 +30,16 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						<div class="col-12 text-right">
+					{{-- Inclusión de botones para acciones --}}
+					@include('layouts.action-buttons', ['print' => []])
+					<h5 class="card-title text-center">Oficina de programación y Presupuesto</h5>
+					<h6 class="card-title text-center">Presupuesto de Gastos por Sub Específicas</h6>
+					<div class="row form-group">
+						<div class="col-3 text-bold text-uppercase">
+							{{ ($formulation->assigned)?'Presupuesto Asignado':'Asignar Presupuesto' }}:
+						</div>
+						<div class="col-9">
 							<label>
-								<b>Asignar:</b>&#160;
 								{!! Form::open([
 									'route' => ['budget.subspecific-formulations.update', $formulation->id], 
 									'method' => 'PUT', 'id' => 'form_assign'
@@ -49,8 +55,6 @@
 							</label>
 						</div>
 					</div>
-					<h5 class="card-title text-center">Oficina de programación y Presupuesto</h5>
-					<h6 class="card-title text-center">Presupuesto de Gastos por Sub Específicas</h6>
 					<div class="row form-group">
 						<div class="col-3 text-bold text-uppercase">Institución:</div>
 						<div class="col-9">{{ $formulation->specific_action->institution }}</div>
