@@ -53,6 +53,16 @@ class BudgetAccount extends Model implements Auditable
     }
 
     /**
+     * BudgetAccount has many BudgetAditionalCreditAccounts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function aditional_credit_accounts()
+    {
+        return $this->hasMany(BudgetAditionalCreditAccount::class);
+    }
+
+    /**
      * Método que permite obtener la cuenta asociada de nivel superior
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>

@@ -63,4 +63,9 @@ Route::group([
          ->name('budget.subspecific-formulations.show');
     Route::get('get-subspecific-formulation/{id}', 'BudgetSubSpecificFormulationController@getFormulation')
          ->name('get-formulation');
+
+    /** Rutas para la gestión de créditos adicionales */
+    Route::resource('aditional-credits', 'BudgetAditionalCreditController', ['as' => 'budget', 'except' => ['show']]);
+    Route::get('aditional-credits/vue-list', 'BudgetAditionalCreditController@vueList')
+         ->name('budget.aditional-credits.vuelist');
 });

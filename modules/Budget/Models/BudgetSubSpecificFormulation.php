@@ -77,6 +77,16 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     }
 
     /**
+     * BudgetSubSpecificFormulation has many BudgetAditionalCreditAccounts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function aditional_credit_accounts()
+    {
+        return $this->hasMany(BudgetAditionalCreditAccount::class);
+    }
+
+    /**
      * Método que permite validar si una formulación ya existe con los mismos datos a registrar, en cuyo caso 
      * retorna verdadero
      *

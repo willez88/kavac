@@ -102,7 +102,7 @@ class Institution extends Model implements Auditable
     }
 
     /**
-     * Department has many BudgetSubSpecificFormulations.
+     * Institution has many BudgetSubSpecificFormulations.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -110,6 +110,18 @@ class Institution extends Model implements Auditable
     {
         return (Module::has('Budget')) 
                ? $this->hasMany(\Modules\Budget\Models\BudgetSubSpecificFormulation::class) 
+               : [];
+    }
+
+    /**
+     * Institution has many BudgetAditionalCredits.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budget_aditional_credits()
+    {
+        return (Module::has('Budget')) 
+               ? $this->hasMany(\Modules\Budget\Models\BudgetAditionalCredit::class) 
                : [];
     }
 }

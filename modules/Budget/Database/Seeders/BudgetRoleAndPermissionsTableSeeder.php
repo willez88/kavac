@@ -189,6 +189,30 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Budget\Models\BudgetFormulation', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'formulacion.ver', 'short_description' => 'ver formulación'
             ],
+            [
+                'name' => 'Crear crédito adicional', 'slug' => 'budget.aditionalcredit.create',
+                'description' => 'Acceso para crear crédito adicional', 
+                'model' => 'Modules\Budget\Models\BudgetAditionalCredit', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'credito_adicional.crear', 'short_description' => 'agregar crédito adicional'
+            ],
+            [
+                'name' => 'Editar crédito adicional', 'slug' => 'budget.aditionalcredit.edit',
+                'description' => 'Acceso para editar créditos adicionales', 
+                'model' => 'Modules\Budget\Models\BudgetAditionalCredit', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'credito_adicional.editar', 'short_description' => 'editar crédito adicional'
+            ],
+            [
+                'name' => 'Eliminar crédito adicional', 'slug' => 'budget.aditionalcredit.delete',
+                'description' => 'Acceso para eliminar créditos adicionales', 
+                'model' => 'Modules\Budget\Models\BudgetAditionalCredit', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'credito_adicional.eliminar', 'short_description' => 'eliminar crédito adicional'
+            ],
+            [
+                'name' => 'Ver créditos adicionales', 'slug' => 'budget.aditionalcredit.list',
+                'description' => 'Acceso para ver créditos adicionales', 
+                'model' => 'Modules\Budget\Models\BudgetAditionalCredit', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'credito_adicional.ver', 'short_description' => 'ver crédito adicional'
+            ],
         ];
 
         $budgetRole->detachAllPermissions();
