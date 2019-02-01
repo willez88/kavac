@@ -52,7 +52,17 @@ class BudgetAditionalCreditController extends Controller
      */
     public function create()
     {
-        return view('budget::aditional_credits.create-edit-form');
+        $header = [
+            'route' => 'budget.aditional-credits.store', 
+            'method' => 'POST', 
+            'role' => 'form',
+            'class' => 'form-horizontal',
+        ];
+        $institutions = template_choices(
+            'App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]
+        );
+
+        return view('budget::aditional_credits.create-edit-form', compact('header', 'institutions'));
     }
 
     /**

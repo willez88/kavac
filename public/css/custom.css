@@ -732,6 +732,13 @@ table td {
   margin-left: 5px;
 }
 
+.btn-action {
+  font-size: 10px !important;
+  padding: 5px 10px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+}
+
 .btn-add-record {
   color: #2CA8FF;
   cursor: pointer;

@@ -15,3 +15,101 @@
 @section('maproute-title')
 	Créditos Adicionales
 @stop
+
+@section('content')
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Crédito Adicional</h6>
+					<div class="card-btns">
+						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
+						   data-toggle="tooltip">
+	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
+	    				</a>
+					</div>
+				</div>
+				{!! (!isset($model))?Form::open($header):Form::model($model, $header) !!}
+					<div class="card-body">
+						@include('layouts.form-errors')
+						<div class="row">
+							<div class="col-md-2">
+								<div class="form-group is-required">
+									{!! Form::label('credit_date', 'Fecha de creación', [
+										'class' => 'control-label'
+									]) !!}
+									{!! Form::date('credit_date', old('credit_date'), [
+										'class' => 'form-control input-sm', 'placeholder' => 'dd/mm/YY',
+										'data-toggle' => 'tooltip', 
+										'title' => 'Fecha en la que se otorgó el crédito adicional'
+									]) !!}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group is-required">
+									<div class="form-group is-required">
+									{!! Form::label('institution_id', 'Institución', ['class' => 'control-label']) !!}
+									{!! Form::select('institution_id', $institutions, null, [
+										'class' => 'select2', 'data-toggle' => 'tooltip',
+										'title' => 'Seleccione una institución'
+									]) !!}
+								</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group is-required">
+									{!! Form::label('document', 'Documento', ['class' => 'control-label']) !!}
+									{!! Form::text('document', old('document'), [
+										'class' => 'form-control input-sm', 'placeholder' => 'Nro. Documento',
+										'data-toggle' => 'tooltip', 
+										'title' => 'Número del documento, decreto o misiva que avala ' . 
+												   'el crédito adicional'
+									]) !!}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group is-required">
+									{!! Form::label('description', 'Descripción', [
+										'class' => 'control-label'
+									]) !!}
+									{!! Form::text('description', old('description'), [
+										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip', 
+										'placeholder' => 'Descripción / Detalles',
+										'title' => 'Descripción o detalle del crédito adicional'
+									]) !!}
+								</div>
+							</div>
+						</div>
+						<h6 class="text-center card-title">Cuentas presupuestarias</h6>
+						<div class="row">
+							<div class="col-12">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Acción Específica</th>
+											<th>Cuenta</th>
+											<th>Descripción</th>
+											<th>Monto</th>
+											<th>
+												<button type="button" class="btn btn-info btn-sm btn-action" 
+														title="Agregar nuevo registro" data-toggle="tooltip">
+													<i class="fa fa-plus"></i>
+												</button>
+											</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer text-right">
+						@include('layouts.form-buttons')
+					</div>
+				{!! Form::close() !!}
+			</div>
+		</div>
+	</div>
+@stop

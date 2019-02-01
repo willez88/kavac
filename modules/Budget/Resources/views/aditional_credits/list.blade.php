@@ -32,7 +32,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-12">
-							<a href="{{ route('budget.accounts.create') }}" 
+							<a href="{{ route('budget.aditional-credits.create') }}" 
 							   class="btn btn-sm btn-primary btn-custom float-right" 
 							   title="Crear nuevo registro" data-toggle="tooltip">
 								<i class="fa fa-plus-circle"></i>
@@ -40,6 +40,9 @@
 							</a>
 						</div>
 					</div>
+					<budget-aditional-credit-list route_list='{{ url('budget/aditional-credits/vue-list') }}' 
+												  route_delete="{{ url('budget/aditional-credits/delete') }}" 
+												  route_edit="{{ url('budget/aditional-credits/{id}/edit') }}"/>
 				</div>
 			</div>
 		</div>
