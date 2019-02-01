@@ -19,9 +19,6 @@ class CreateWarehouseProductsTable extends Migration
                 $table->increments('id')->comment('Identificador único del registro');
                 $table->text('name')->nullable()->comment('Nombre del producto');
                 $table->text('description')->nullable()->comment('Descripción del producto');
-                
-                $table->integer('unit_id')->unsigned()->comment('Unidad de medida del producto en la tabla unidades');
-                $table->foreign('unit_id')->references('id')->on('warehouse_product_units')->onDelete('restrict')->onUpdate('cascade');            
 
                 /**
                  * Fecha en la que se registra el Producto

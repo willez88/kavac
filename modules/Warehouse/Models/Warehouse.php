@@ -19,7 +19,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class Warehouse extends Model
+class Warehouse extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -76,4 +76,10 @@ class Warehouse extends Model
     {
         return $this->belongsTo('App\Models\City', 'city_id');
     }
+
+    public function pivot()
+    {
+        return $this->hasMany('Modules\Warehouse\Models\WarehouseInstitutionWarehouse')->with('institution');
+    }
+
 }

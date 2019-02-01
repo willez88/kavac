@@ -5,12 +5,9 @@
         <i class="ion-ios-list-outline"></i><span>Almacén</span>
     </a>
     <ul class="submenu" style="{!! (strpos($current_url, 'warehouse') !== false)?'display:block;':'' !!}">
-        <li class="{!! set_active_menu($current_url, 'warehouse.settings.index') !!}">
+        <li class="{!! set_active_menu($current_url, 'warehouse.setting.index') !!}">
             <a href="{{ route('warehouse.setting.index') }}" data-toggle="tooltip" data-placement="right" 
                title="Configuración de almacén">Configuración</a>
-        </li>
-        <li>
-            <a href="#">Apertura / Cierre</a>
         </li>
         <li>
             <a href="#">Solicitud</a>

@@ -10,17 +10,16 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
- * @class WarehouseClose
- * @brief Datos de los Cierres de Almacenes
+ * @class WarehouseInventaryRule
+ * @brief Datos de las reglas del inventario 
  * 
- * Gestiona el modelo de datos para los Almacenes
+ * Gestiona el modelo de datos de las reglas del inventario de los productos por almacén
  * 
  * @author Henry Paredes (henryp2804@gmail.com)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-
-class WarehouseClose extends Model implements Auditable
+class WarehouseInventaryRule extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -43,38 +42,29 @@ class WarehouseClose extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['date_init','date_end','user_init','user_end','warehouse_id','observation'];
+    protected $fillable = ['min','inventary_id','user_id'];
 
-     /**
-     * Método que obtiene el usuario que inicio el cierre del almacén
+    /**
+     * Método que obtiene el usuario que realiza el cambio de regla
      *
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return Objeto con el registro relacionado al modelo User
      */
-    public function start_user()
+
+    public function user()
     {
-        return $this->belongsTo('App\User','user_init');
+        return $this->belongsTo('App\User','user_id');
     }
 
     /**
-     * Método que obtiene el usuario que finalizó el cierre del almacén
+     * Método que obtiene el registro del producto en el inventario
      *
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo User
+     * @return Objeto con el registro relacionado al modelo WarehouseInventaryProduct
      */
-    public function end_user()
-    {
-        return $this->belongsTo('App\User','user_end');
-    }
 
-    /**
-     * Método que obtiene el almacén involucrado el en cierre de funciones
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Warehouse
-     */
-    public function warehouse()
+    public function inventary()
     {
-        return $this->belongsTo('Modules\Warehouse\Models\Warehouse','warehouse_id');
+        return $this->belongsTo('Modules\Warehouse\Models\WarehouseInventaryProduct','inventary_id');
     }
 }

@@ -19,7 +19,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class WarehouseInventaryProduct extends Model
+class WarehouseInventaryProduct extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -42,5 +42,41 @@ class WarehouseInventaryProduct extends Model
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['exist','reserved','product_id','warehouse_id','unit_value'];
+    protected $fillable = ['exist','reserved','product_id','unit_id','warehouse_id','unit_value'];
+
+    /**
+     * Método que obtiene el producto gestionado
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo WarehouseProduct
+     */
+
+    public function product()
+    {
+        return $this->belongsTo('Modules\Warehouse\Models\WarehouseProduct','product_id');
+    }
+
+    /**
+     * Método que obtiene la unidad métrica del producto gestionado
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo WarehouseProductUnit
+     */
+
+    public function unit()
+    {
+        return $this->belongsTo('Modules\Warehouse\Models\WarehouseProductUnit','unit_id');
+    }
+
+    /**
+     * Método que obtiene el almacen donde se está inventariando el producto
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo Warehouse
+     */
+
+    public function warehouse()
+    {
+        return $this->belongsTo('Modules\Warehouse\Models\Warehouse','warehouse_id');
+    }
 }

@@ -19,7 +19,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class WarehouseProduct extends Model
+class WarehouseProduct extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -42,17 +42,6 @@ class WarehouseProduct extends Model
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','description','unit_id'];
+    protected $fillable = ['name','description'];
 
-
-    /**
-     * Método que obtiene la unidad métrica del producto
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo WarehouseProductUnit
-     */
-    public function unit()
-    {
-        return $this->belongsTo('Modules\Warehouse\Models\WarehouseProductUnit', 'unit_id');
-    }
 }

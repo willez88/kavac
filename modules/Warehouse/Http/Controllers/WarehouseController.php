@@ -8,11 +8,9 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Warehouse\Models\Warehouse;
+use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
 
-use App\Models\Country;
-use App\Models\Estate;
-use App\Models\City;
-
+use App\Models\Setting;
 
 
 /**
@@ -46,16 +44,8 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => Warehouse::with('country_id','estate_id','city_id')->get()], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('warehouse::create');
+        //WarehouseInstitutionWarehouse::with('institution','warehouse')->get()
+        return response()->json(['records' => Warehouse::with('pivot','country','estate','city')->get()], 200);
     }
 
     /**
@@ -67,54 +57,73 @@ class WarehouseController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
+            'address' => 'required|max:100',
             'country_id' => 'required',
             'estate_id' => 'required',
             
         ]);
 
-        $warehouse = new Warehouse;
-        $warehouse->name = $request->input('name');
-        $warehouse->address = $request->input('address');
-        $warehouse->country_id = $request->country_id;
-        $warehouse->estate_id = $request->estate_id;
-        $warehouse->city_id = 1;
-        $warehouse->save();
+        $warehouse = Warehouse::create([
+            'name' => $request->input('name'),
+            'address' => $request->input('address'),
+            'country_id' => $request->input('country_id'),
+            'estate_id' => $request->input('estate_id'),
+            'city_id' => 1,
+            //'main' => $request->input('main'),
+        ]);
+        $warehouse_institution = WarehouseInstitutionWarehouse::create([
+            'institution_id' => 1,
+            'warehouse_id' => $warehouse->id,
+        ]);
 
         return response()->json(['record' => $warehouse, 'message' => 'Success'], 200);
     }
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('warehouse::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('warehouse::edit');
-    }
 
     /**
      * Update the specified resource in storage.
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request,Warehouse $warehouse)
     {
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'address' => 'required|max:100',
+            'country_id' => 'required',
+            'estate_id' => 'required',
+            //'city_id' => 'required',
+        ]);
+ 
+        $warehouse->name = $request->input('name');
+        $warehouse->address = $request->input('address');
+        $warehouse->country_id = $request->input('country_id');
+        $warehouse->estate_id = $request->input('estate_id');
+        $warehouse->city_id = 1;
+        $warehouse->save();
+ 
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy(WarehouseInstitutionWarehouse $warehouse)
     {
+        $warehouse->delete();
+        return response()->json(['record' => $warehouse, 'message' => 'Success'], 200);
+    }
+
+    public function vueList(){
+        return template_choices('Modules\Warehouse\Models\Warehouse','name','',true);
+    }
+
+    public function checkInst(){
+        return response()->json(['record' => Setting::first()], 200);
+    }
+
+    public function manage(){
+        return response()->json(['records' => WarehouseInstitutionWarehouse::all()] , 200);
     }
 }

@@ -20,7 +20,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  */
 
 
-class WarehouseProductUnit extends Model
+class WarehouseProductUnit extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -45,14 +45,4 @@ class WarehouseProductUnit extends Model
      */
     protected $fillable = ['name','description'];
 
-    /**
-     * Método que obtiene los productos asociados a una determinada unidad métrica
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo WarehouseProduct
-     */
-    public function products()
-    {
-        return $this->hasMany('Modules\Warehouse\Models\WarehouseProduct');
-    }
 }

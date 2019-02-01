@@ -20,6 +20,7 @@ class CreateWarehousesTable extends Migration
                 
                 $table->boolean('main')->default(false)
                       ->comment('Define si es el almacen principal.');
+                
                 $table->string('address')->comment('Dirección física del almacen');
                 
                 $table->integer('country_id')->comment('Pais donde está ubicado el almacen');
@@ -35,6 +36,10 @@ class CreateWarehousesTable extends Migration
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
+
+                /*
+                 * Fecha y hora en la que fue elimidado el registro
+                 */
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }
