@@ -40,7 +40,7 @@
 							<div class="form-group   {{ $errors->has('type') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('type_label', 'Tipo de Bien', []) !!}
-								{!! Form::select('type', (isset($types))?$types:[], (isset($asset))?$asset->type_id:null, [		
+								{!! Form::select('type', (isset($types))?$types:[], (isset($asset))?$asset->type_id:$type, [		
 									'id' => 'type',
 									'class' => 'form-control select2',
 									'onchange' => 'mostrar(this.value);',
