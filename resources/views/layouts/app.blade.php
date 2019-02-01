@@ -120,6 +120,19 @@
                         time: 1500
                     });
                 @endif
+
+                @role('admin')
+                    @if (App\Models\Institution::all()->isEmpty())
+                        $.gritter.add({
+                            title: 'Alerta!',
+                            text: "Para comenzar a utilizar la aplicación debe configurar una Institución",
+                            class_name: 'growl-danger',
+                            image: "{{ asset('images/screen-error.png') }}",
+                            sticky: false,
+                            time: 2500
+                        });
+                    @endif
+                @endrole
             });
 
             /*
