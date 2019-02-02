@@ -52,6 +52,12 @@ Route::group([
          ->name('budget.specific-actions.vuelist');
     Route::get('get-specific-actions/{type}/{id}', 'BudgetSpecificActionController@getSpecificActions')
          ->name('budget.get-specific-actions');
+    Route::get(
+        'get-group-specific-actions/{formulated_year?}',
+        'BudgetSpecificActionController@getGroupAllSpecificActions'
+    )->name('budget.get-specific-actions.groups');
+    Route::get('detail-specific-actions/{id}', 'BudgetSpecificActionController@getDetail')
+         ->name('budget.specific-actions.detail');
 
     /** Rutas para la gestión de formulación por subespecifica */
     Route::resource('subspecific-formulations', 'BudgetSubSpecificFormulationController', [

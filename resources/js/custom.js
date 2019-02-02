@@ -132,6 +132,9 @@ $(document).ready(function() {
         });
         $('.btn-add-record').tooltip();
     }
+    if ($('.btn-tooltip').length) {
+        $('.btn-tooltip').tooltip();
+    }
 
     if ($('.btn-file').length) {
         $('.btn-file').attr({

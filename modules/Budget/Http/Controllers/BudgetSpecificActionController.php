@@ -231,4 +231,66 @@ class BudgetSpecificActionController extends Controller
 
         return response()->json($data);
     }
+
+    /**
+     * Obtiene todas las acciones específicas agrupadas por Proyectos y Acciones Centralizadas
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param string $formulated_year Año de formulación por el cual filtrar la información
+     * @return JSON                   JSON con los datos de las acciones específicas
+     */
+    public function getGroupAllSpecificActions($formulated_year = '')
+    {
+        /** Inicializa los grupos a los cuales asignar las acciones específicas */
+        $dataProjects = ['text' => 'Proyectos', 'children' => []];
+        $dataCentralizedActions = ['text' => 'Acciones Centralizadas', 'children' => []];
+        $data = [['id' => '', 'text' => 'Seleccione...']];
+
+        $sp_accs = ($formulated_year) ? BudgetSpecificAction::whereYear('from_date', $formulated_year)
+                                                            ->orWhereYear('to_date', $formulated_year)
+                                                            ->with('specificable')
+                                                            ->get()
+                                      : BudgetSpecificAction::with('specificable')->get();
+
+        /** Agrega las acciones específicas para cada grupo */
+        foreach ($sp_accs as $sp_acc) {
+            if (str_contains($sp_acc->specificable_type, 'BudgetProject')) {
+                array_push($dataProjects['children'], [
+                    'id' => $sp_acc->id,
+                    'text' => "{$sp_acc->specificable->code} - {$sp_acc->code} | {$sp_acc->name}"
+                ]);
+            }
+            else if (str_contains($sp_acc->specificable_type, 'BudgetCentralizedAction')) {
+                array_push($dataCentralizedActions['children'], [
+                    'id' => $sp_acc->id,
+                    'text' => "{$sp_acc->specificable->code} - {$sp_acc->code} | {$sp_acc->name}"
+                ]);
+            }
+        }
+
+        /** Si el grupo Proyectos contiene registros los agrega a la lista */
+        if (count($dataProjects['children']) > 0) {
+            array_push($data, $dataProjects);
+        }
+        /** Si el grupo Acciones Centralizadas contiene registros los agrega a la lista */
+        if (count($dataCentralizedActions['children']) > 0) {
+            array_push($data, $dataCentralizedActions);
+        }
+
+        return response()->json($data);
+    }
+
+    /**
+     * Obtiene detalles de una acción específica
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificar de la acción específica de la cual se requiere información
+     * @return JSON        JSON con los datos de la acción específica
+     */
+    public function getDetail($id)
+    {
+        return response()->json([
+            'result' => true, 'record' => BudgetSpecificAction::where('id', $id)->with('specificable')->first()
+        ], 200);
+    }
 }

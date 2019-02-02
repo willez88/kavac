@@ -82,28 +82,7 @@
 								</div>
 							</div>
 						</div>
-						<h6 class="text-center card-title">Cuentas presupuestarias</h6>
-						<div class="row">
-							<div class="col-12">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Acción Específica</th>
-											<th>Cuenta</th>
-											<th>Descripción</th>
-											<th>Monto</th>
-											<th>
-												<button type="button" class="btn btn-info btn-sm btn-action" 
-														title="Agregar nuevo registro" data-toggle="tooltip">
-													<i class="fa fa-plus"></i>
-												</button>
-											</th>
-										</tr>
-									</thead>
-									<tbody></tbody>
-								</table>
-							</div>
-						</div>
+						<budget-aditional-credit-add/>
 					</div>
 					<div class="card-footer text-right">
 						@include('layouts.form-buttons')
