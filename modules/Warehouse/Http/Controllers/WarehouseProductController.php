@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Warehouse\Models\WarehouseProduct;
+use Modules\Warehouse\Models\WarehouseProductAttribute;
+use Modules\Warehouse\Models\WarehouseProductValue;
 
 
 /**
@@ -41,16 +43,7 @@ class WarehouseProductController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => WarehouseProduct::with('unit_id')->get()], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('warehouse::create');
+        return response()->json(['records' => WarehouseProduct::all()], 200);
     }
 
     /**
@@ -60,24 +53,18 @@ class WarehouseProductController extends Controller
      */
     public function store(Request $request)
     {
-    }
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'description' => 'required|max:100',
+            
+        ]);
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('warehouse::show');
-    }
+        $product = WarehouseProduct::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('warehouse::edit');
+        return response()->json(['record' => $product, 'message' => 'Success'], 200);
     }
 
     /**
@@ -85,15 +72,38 @@ class WarehouseProductController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, WarehouseProduct $product)
     {
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'description' => 'required|max:100',
+            
+        ]);
+
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->save();
+
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy(WarehouseProduct $product)
     {
+        $product->delete();
+        return response()->json(['record' => $product, 'message' => 'Success'], 200);
+    }
+
+    public function newAttribute(Request $request){
+
+        $attribute = WarehouseProductAttribute::create([
+            'name' => $request->input('name'),
+            'product_id' => $request->input('product_id'),
+        ]);
+        
+        return response()->json(['records' => WarehouseProductAttribute::where('product_id','=',$attribute->product_id)->get()], 200);
     }
 }

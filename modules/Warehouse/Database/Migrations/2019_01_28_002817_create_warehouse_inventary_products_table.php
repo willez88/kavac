@@ -21,8 +21,11 @@ class CreateWarehouseInventaryProductsTable extends Migration
 
                 $table->integer('reserved')->unsigned()->nullable()->comment('Cantidad de artículos reservados por solicitudes de almacen que se han registrado en el sistema');
 
-                $table->integer('product_id')->unsigned()->comment('Identificador del artículo en la tabla producto');
+                $table->integer('product_id')->unsigned()->comment('Identificador del registro en la tabla producto');
                 $table->foreign('product_id')->references('id')->on('warehouse_products')->onDelete('restrict')->onUpdate('cascade');
+
+                $table->integer('unit_id')->unsigned()->comment('Identificador de la unidad métrica del producto en la tabla warehouse_units');
+                $table->foreign('unit_id')->references('id')->on('warehouse_product_units')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->integer('warehouse_id')->unsigned()->comment('Identificador del almacen en el que esta inventariado el producto');
                 $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('restrict')->onUpdate('cascade');

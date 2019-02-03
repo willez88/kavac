@@ -34,8 +34,14 @@
 						{{-- Configuración de Almacenes --}}
 						<warehouse></warehouse>
 
-						{{-- Configuración de Productos de Almacén --}}
+						{{-- Configuración de Productos Almacenables --}}
 						<warehouse-product></warehouse-product>
+
+						{{-- Configuración de Unidades Métricas de Productos --}}
+						<warehouse-unit></warehouse-unit>
+
+						{{-- Configuración de Cierres de Almacén --}}
+						<warehouse-close></warehouse-close>
 
 					</div>
 				</div>
