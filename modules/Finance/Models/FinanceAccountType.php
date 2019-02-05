@@ -24,4 +24,14 @@ class FinanceAccountType extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['name'];
+
+    /**
+     * FinanceAccountType has many FinanceBankAccount.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bank_accounts()
+    {
+        return $this->hasMany(FinanceBankAccount::class);
+    }
 }

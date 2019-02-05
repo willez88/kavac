@@ -56,4 +56,14 @@ class FinanceBankingAgency extends Model implements Auditable
     {
     	return $this->morphMany(\App\Models\Phone::class, 'phoneable');
     }
+
+    /**
+     * FinanceBankingAgency has many FinanceBankAccount.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bank_accounts()
+    {
+        return $this->hasMany(FinanceBankAccount::class);
+    }
 }
