@@ -50,5 +50,4 @@ class Phone extends Model implements Auditable
     {
         return $this->morphTo();
     }
-
 }

@@ -93422,6 +93422,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -93437,12 +93446,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				country_id: '',
 				estate_id: '',
 				city_id: '',
-				phones: [{
-					type: '',
-					area_code: '',
-					number: '',
-					extension: ''
-				}]
+				phones: []
 			},
 			errors: [],
 			records: [],
@@ -93472,12 +93476,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				country_id: '',
 				estate_id: '',
 				city_id: '',
-				phones: [{
-					type: '',
-					area_code: '',
-					number: '',
-					extension: ''
-				}]
+				phones: []
 			};
 		}
 	},
@@ -93896,7 +93895,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _vm._l(_vm.record.phones, function(index, phone) {
+                  _vm._l(_vm.record.phones, function(phone, index) {
                     return _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-3" }, [
                         _c("div", { staticClass: "form-group is-required" }, [
@@ -93939,7 +93938,7 @@ var render = function() {
                             },
                             [
                               _c("option", { attrs: { value: "" } }, [
-                                _vm._v("Seleccione")
+                                _vm._v("Seleccione...")
                               ]),
                               _vm._v(" "),
                               _c("option", { attrs: { value: "M" } }, [
@@ -94137,7 +94136,7 @@ var render = function() {
                                   click: function($event) {
                                     _vm.deleteRecord(
                                       props.index,
-                                      "finance/banking-agencies"
+                                      "/finance/banking-agencies"
                                     )
                                   }
                                 }
@@ -94155,6 +94154,34 @@ var render = function() {
                               ? _c("span", [_vm._v("SI")])
                               : _c("span", [_vm._v("NO")])
                           ])
+                        }
+                      },
+                      {
+                        key: "phones",
+                        fn: function(props) {
+                          return _c(
+                            "div",
+                            { staticClass: "text-center" },
+                            _vm._l(props.row.phones, function(phone) {
+                              return _c("span", [
+                                _c("div", [
+                                  _vm._v(
+                                    "\n                \t\t\t\t\t" +
+                                      _vm._s(phone.area_code) +
+                                      " " +
+                                      _vm._s(phone.number) +
+                                      "\n\t                \t\t\t\t" +
+                                      _vm._s(
+                                        phone.extension
+                                          ? " - " + phone.extension
+                                          : ""
+                                      ) +
+                                      "\n                \t\t\t\t"
+                                  )
+                                ])
+                              ])
+                            })
+                          )
                         }
                       }
                     ])

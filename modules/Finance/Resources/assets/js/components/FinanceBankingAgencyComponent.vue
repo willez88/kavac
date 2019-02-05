@@ -101,12 +101,13 @@
 						<h6 class="card-title">
 							Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
 						</h6>
-						<div class="row" v-for="(index, phone) in record.phones">
+						<div class="row" v-for="(phone, index) in record.phones">
 							<div class="col-3">
 								<div class="form-group is-required">
-									<select data-toggle="tooltip" v-model="phone.type" class="select2" 
+									<select data-toggle="tooltip" v-model="phone.type" 
+											class="select2" 
 											title="Seleccione el tipo de número telefónico">
-										<option value="">Seleccione</option>
+										<option value="">Seleccione...</option>
 										<option value="M">Móvil</option>
 										<option value="T">Teléfono</option>
 										<option value="F">Fax</option>
@@ -154,7 +155,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'finance/banking-agencies')" 
+		                		<button @click="deleteRecord(props.index, '/finance/banking-agencies')" 
 										class="btn btn-danger btn-xs btn-icon btn-round" 
 										title="Eliminar registro" data-toggle="tooltip" 
 										type="button">
@@ -164,6 +165,14 @@
 	                		<div slot="headquarters" slot-scope="props" class="text-center">
 	                			<span v-if="props.row.headquarters">SI</span>
 	                			<span v-else>NO</span>
+	                		</div>
+	                		<div slot="phones" slot-scope="props" class="text-center">
+	                			<span v-for="phone in props.row.phones">
+	                				<div>
+	                					{{ phone.area_code }} {{ phone.number }}
+		                				{{ (phone.extension) ? ' - ' + phone.extension : '' }}
+	                				</div>
+	                			</span>
 	                		</div>
 	                	</v-client-table>
 	                </div>
@@ -198,12 +207,7 @@
 					country_id: '',
 					estate_id: '',
 					city_id: '',
-					phones: [{
-						type: '',
-						area_code: '',
-						number: '',
-						extension: '',
-					}],
+					phones: [],
 				},
 				errors: [],
 				records: [],
@@ -232,12 +236,7 @@
 					country_id: '',
 					estate_id: '',
 					city_id: '',
-					phones: [{
-						type: '',
-						area_code: '',
-						number: '',
-						extension: '',
-					}],
+					phones: [],
 				};
 			},
 		},

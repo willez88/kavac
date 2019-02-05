@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Finance\Models\FinanceBankingAgency;
 use App\Models\City;
+use App\Models\Phone;
 
 class FinanceBankingAgencyController extends Controller
 {
@@ -75,8 +76,15 @@ class FinanceBankingAgencyController extends Controller
         ]);
 
 
-        if ($request->input('phones')) {
-            // Guardar número telefónicos
+        if ($request->phones && !empty($request->phones)) {
+            foreach ($request->phones as $phone) {
+                $bankingAgency->phones()->save(new Phone([
+                    'type' => $phone['type'],
+                    'area_code' => $phone['area_code'],
+                    'number' => $phone['number'],
+                    'extension' => $phone['extension']
+                ]));
+            }
         }
 
         return response()->json(['record' => $bankingAgency, 'message' => 'Success'], 200);
@@ -125,6 +133,17 @@ class FinanceBankingAgencyController extends Controller
         $financeBankingAgency->headquarters = (!is_null($request->headquarters));
         $financeBankingAgency->save();
 
+        if ($request->phones && !empty($request->phones)) {
+            foreach ($request->phones as $phone) {
+                $financeBankingAgency->phones()->save(new Phone([
+                    'type' => $phone['type'],
+                    'area_code' => $phone['area_code'],
+                    'number' => $phone['number'],
+                    'extension' => $phone['extension']
+                ]));
+            }
+        }
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
 
     }
@@ -133,8 +152,11 @@ class FinanceBankingAgencyController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $financeBankingAgency = FinanceBankingAgency::find($id);
+        $financeBankingAgency->delete();
+        return response()->json(['record' => $financeBankingAgency, 'message' => 'Success'], 200);
     }
 
     /**

@@ -48,16 +48,6 @@ class FinanceBankingAgency extends Model implements Auditable
     }
 
     /**
-     * FinanceBankingAgency morphs many Phones
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function phones()
-    {
-    	return $this->morphMany(\App\Models\Phone::class, 'phoneable');
-    }
-
-    /**
      * FinanceBankingAgency has many FinanceBankAccount.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -65,5 +55,13 @@ class FinanceBankingAgency extends Model implements Auditable
     public function bank_accounts()
     {
         return $this->hasMany(FinanceBankAccount::class);
+    }
+
+    /**
+     * Get all of the budget project's specific actions.
+     */
+    public function phones()
+    {
+        return $this->morphMany(\App\Models\Phone::class, 'phoneable');
     }
 }
