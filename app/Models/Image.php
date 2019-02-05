@@ -62,4 +62,16 @@ class Image extends Model implements Auditable
     {
         return $this->hasMany(Institution::class, 'banner_id');
     }
+
+    /**
+     * Image has many FinanceBank.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function finance_banks()
+    {
+        return (Module::has('Finance')) 
+               ? $this->hasMany(\Modules\Finance\Models\FinanceBank::class, 'logo_id') 
+               : [];
+    }
 }
