@@ -108,7 +108,7 @@
                             <a href="#">Clientes</a>
                         </li>
                         <li>
-                            <a href="#">Pacturas</a>
+                            <a href="#">Facturas</a>
                         </li>
                         <li>
                             <a href="#">Reportes</a>

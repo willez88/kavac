@@ -111,7 +111,7 @@
 						   title="Actualizar datos de perfil del usuario" 
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-person"></i>Mi Perfil</a>
-						<a class="dropdown-item" href="#" title="Ver actividad en la aplicación" 
+						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}#activity" title="Ver actividad en la aplicación" 
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-ios-star"></i>Registro de Actividad</a>
 						<a class="dropdown-item" href="#" title="Bloquear pantalla de la aplicación" 
