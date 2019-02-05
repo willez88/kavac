@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Finance\Models\FinanceBank;
+use Modules\Finance\Models\FinanceBankAccount;
 
 class FinanceBankAccountController extends Controller
 {

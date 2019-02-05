@@ -32,3 +32,35 @@ Vue.component('finance-bank-accounts', require('./components/FinanceBankAccountC
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.component('finance-checkbooks', require('./components/FinanceCheckbookComponent.vue'));
+
+/**
+ * Opciones de configuración global del módulo de presupuesto
+ * 
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ */
+Vue.mixin({
+	data() {
+		return {
+			execution_year: ''
+		}
+	},
+	methods: {
+		getBanks: function() {
+			axios.get('/finance/get-banks').then(response => {
+				this.banks = response.data;
+			});
+		},
+		getAgencies() {
+			const vm = this;
+			bank_id = this.record.finance_bank_id;
+			if (bank_id) {
+				axios.get('/finance/get-agencies/' + bank_id).then(response => {
+					vm.agencies = response.data;
+				});
+			}
+		}
+	},
+	mounted() {
+		// Agregar instrucciones para determinar el año de ejecución
+	}
+});

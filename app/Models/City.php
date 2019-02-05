@@ -9,6 +9,9 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
+use Module;
+use Modules\Finance\Models\FinanceBankingAgency;
+
 /**
  * @class City
  * @brief Datos de Ciudades
@@ -54,13 +57,9 @@ class City extends Model implements Auditable
         return $this->belongsTo(Estate::class);
     }
 
-    /**
-     * City morphs to models in citiable_type.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
-    public function citiable()
+    public function banking_agencies()
     {
-        return $this->morphTo();
+        return (Module::has('Finance'))
+               ? $this->hasMany(FinanceBankingAgency::class) : [];
     }
 }

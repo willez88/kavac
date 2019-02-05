@@ -24,7 +24,7 @@ class FinanceBankingAgency extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-    	'name', 'direction', 'headquarters', 'contact_person', 'contact_email', 'finance_bank_id'
+    	'name', 'direction', 'headquarters', 'contact_person', 'contact_email', 'finance_bank_id', 'city_id'
     ];
 
     /**
@@ -34,7 +34,7 @@ class FinanceBankingAgency extends Model implements Auditable
      */
     public function bank()
     {
-    	return $this->belongsTo(FinanceBank::class);
+    	return $this->belongsTo(FinanceBank::class, 'finance_bank_id');
     }
 
     /**
@@ -44,7 +44,7 @@ class FinanceBankingAgency extends Model implements Auditable
      */
     public function city()
     {
-    	return $this->morphOne(\App\Models\City::class, 'citiable');
+    	return $this->belongsTo(\App\Models\City::class);
     }
 
     /**

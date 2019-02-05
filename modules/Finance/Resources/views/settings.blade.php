@@ -34,14 +34,7 @@
 						<finance-banks></finance-banks>
 						<finance-banking-agencies></finance-banking-agencies>
 						<finance-account-types></finance-account-types>
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-							   href="#" title="Registros de cuentas bancarias" 
-							   data-toggle="tooltip">
-								<i class="icofont icofont-law-document ico-3x"></i>
-								<span>Cuentas<br>Bancarias</span>
-							</a>
-						</div>
+						<finance-bank-accounts></finance-bank-accounts>
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 							   href="#" title="Registros de chequeras" data-toggle="tooltip">

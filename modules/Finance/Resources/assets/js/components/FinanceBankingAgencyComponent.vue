@@ -63,7 +63,7 @@
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Dirección</label>
-									<textarea class="form-control input-sm" rows="3" data-toggle="tooltip" 
+									<textarea class="form-control input-sm" rows="3" style="min-height:100px" data-toggle="tooltip" 
 											  title="Indique la dirección de la agencia bancaria" 
 											  v-model="record.direction" 
 											  placeholder="Dirección de la agencia bancaria"></textarea>
@@ -74,7 +74,7 @@
 									<label>Persona de contacto</label>
 									<input type="text" placeholder="Nombre contacto" data-toggle="tooltip" 
 										   title="Indique el nombre de la persona de contacto" 
-										   class="form-control input-sm" v-model="record.contact_name">
+										   class="form-control input-sm" v-model="record.contact_person">
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -102,11 +102,47 @@
 							Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
 						</h6>
 						<div class="row" v-for="(index, phone) in record.phones">
-							<div class="col-3">a</div>
-							<div class="col-2">b</div>
-							<div class="col-4">c</div>
-							<div class="col-2">d</div>
-							<div class="col-1">e</div>
+							<div class="col-3">
+								<div class="form-group is-required">
+									<select data-toggle="tooltip" v-model="phone.type" class="select2" 
+											title="Seleccione el tipo de número telefónico">
+										<option value="">Seleccione</option>
+										<option value="M">Móvil</option>
+										<option value="T">Teléfono</option>
+										<option value="F">Fax</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-2">
+								<div class="form-group is-required">
+									<input type="text" placeholder="Cod. Area" data-toggle="tooltip" 
+										   title="Indique el código de área" v-model="phone.area_code" 
+										   class="form-control input-sm">
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="form-group is-required">
+									<input type="text" placeholder="Número" data-toggle="tooltip" 
+										   title="Indique el número telefónico" 
+										   v-model="phone.number" class="form-control input-sm">
+								</div>
+							</div>
+							<div class="col-2">
+								<div class="form-group is-required">
+									<input type="text" placeholder="Extensión" data-toggle="tooltip" 
+										   title="Indique la extención telefónica (opcional)" 
+										   v-model="phone.extension" class="form-control input-sm">
+								</div>
+							</div>
+							<div class="col-1">
+								<div class="form-group">
+									<button class="btn btn-sm btn-danger btn-action" type="button" 
+											@click="removeRow(index, record.phones)" 
+											title="Eliminar este dato" data-toggle="tooltip">
+										<i class="fa fa-minus-circle"></i>
+									</button>
+								</div>
+							</div>
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -124,6 +160,10 @@
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
+	                		</div>
+	                		<div slot="headquarters" slot-scope="props" class="text-center">
+	                			<span v-if="props.row.headquarters">SI</span>
+	                			<span v-else>NO</span>
 	                		</div>
 	                	</v-client-table>
 	                </div>
@@ -171,7 +211,7 @@
 				countries: [],
 				estates: ['0'],
 				cities: ['0'],
-				columns: ['bank.name', 'citiable.name', 'name', 'direction', 'headquarters', 'phones', 'id'],
+				columns: ['bank.name', 'city.name', 'name', 'direction', 'headquarters', 'phones', 'id'],
 			}
 		},
 		methods: {
@@ -200,33 +240,19 @@
 					}],
 				};
 			},
-			getBanks: function() {
-				axios.get('/finance/get-banks').then(response => {
-					this.banks = response.data;
-				});
-			},
-			addPhone: function() {
-				console.log(this.record);
-				this.record.phones.push({
-					type: '',
-					area_code: '',
-					number: '',
-					extension: ''
-				});
-			}
 		},
 		created() {
 			this.table_options.headings = {
 				'bank.name': 'Banco',
-				'citiable.name': 'Ciudad',
+				'city.name': 'Ciudad',
 				'name': 'Agencia Bancaria',
 				'direction': 'Dirección',
 				'headquarters': 'Sede Principal',
 				'phones': 'Números Telefónicos',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['bank.name', 'citiable.name', 'name'];
-			this.table_options.filterable = ['bank.name', 'citiable.name', 'name'];
+			this.table_options.sortable = ['bank.name', 'city.name', 'name'];
+			this.table_options.filterable = ['bank.name', 'city.name', 'name'];
 			this.getCountries();
 			this.getBanks();
 		},

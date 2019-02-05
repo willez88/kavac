@@ -496,6 +496,29 @@ Vue.mixin({
 				});
 			}
 		},
+		/**
+		 * Agrega una nueva columna para el registro de número telefónicos
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 */
+		addPhone: function() {
+			this.record.phones.push({
+				type: '',
+				area_code: '',
+				number: '',
+				extension: ''
+			});
+		},
+		/**
+		 * Elimina la fila del elemento indicado
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {integer}      index Indice del elemento a eliminar
+		 * @param  {object|array} el    Elemento del cual se va a eliminar un elemento
+		 */
+		removeRow: function(index, el) {
+			el.splice(index, 1);
+		}
 		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
 			var target_url = (typeof(target_url) !== "undefined")?target_url:false;

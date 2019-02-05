@@ -7,10 +7,26 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Finance\Models\FinanceBankingAgency;
+use App\Models\City;
 
 class FinanceBankingAgencyController extends Controller
 {
     use ValidatesRequests;
+
+    /** @var array Lista de elementos a mostrar */
+    protected $data = [];
+
+    /**
+     * Método constructor de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     */
+    public function __construct() {
+        $this->data[0] = [
+            'id' => '',
+            'text' => 'Seleccione...'
+        ];
+    }
 
     /**
      * Display a listing of the resource.
@@ -18,7 +34,7 @@ class FinanceBankingAgencyController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => FinanceBankingAgency::with(['city', 'phones'])->get()], 200);
+        return response()->json(['records' => FinanceBankingAgency::with(['bank', 'city', 'phones'])->get()], 200);
     }
 
     /**
@@ -45,13 +61,19 @@ class FinanceBankingAgencyController extends Controller
         ]);
 
         $bankingAgency = FinanceBankingAgency::create([
-            'name' => $request->input('name'),
-            'direction' => $request->input('direction'),
-            'finance_bank_id' => $request->input('finance_bank_id'),
-            'contact_person' => (!empty($request->input('contact_person')))?$request->input('contact_person'):null,
-            'contact_email' => (!empty($request->input('contact_email')))?$request->input('contact_email'):null,
-            'headquarters' => (!is_null($request->input('headquarters')))
+            'name' => $request->name,
+            'direction' => $request->direction,
+            'finance_bank_id' => $request->finance_bank_id,
+            'contact_person' => (!empty($request->contact_person)) 
+                                ? $request->contact_person 
+                                : null,
+            'contact_email' => (!empty($request->contact_email)) 
+                               ? $request->contact_email 
+                               : null,
+            'headquarters' => (!is_null($request->headquarters)),
+            'city_id' => $request->city_id,
         ]);
+
 
         if ($request->input('phones')) {
             // Guardar número telefónicos
@@ -83,8 +105,28 @@ class FinanceBankingAgencyController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'direction' => 'required',
+            'city_id' => 'required',
+            'finance_bank_id' => 'required'
+        ]);
+
+        $financeBankingAgency = FinanceBankingAgency::find($id);
+        $financeBankingAgency->fill($request->all());
+        $financeBankingAgency->contact_person = (!empty($request->contact_person)) 
+                                                ? $request->contact_person 
+                                                : null;
+        $financeBankingAgency->contact_email = (!empty($request->contact_email)) 
+                                               ? $request->contact_email 
+                                               : null;
+        $financeBankingAgency->headquarters = (!is_null($request->headquarters));
+        $financeBankingAgency->save();
+
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+
     }
 
     /**
@@ -93,5 +135,26 @@ class FinanceBankingAgencyController extends Controller
      */
     public function destroy()
     {
+    }
+
+    /**
+     * Obtiene las agencias bancarias registradas
+     * @param  integer $bank_id Identificador del banco
+     * @return Response         JSON con el listado de las agencias bancarias
+     */
+    public function getAgencies($bank_id = null)
+    {
+        $agencies = ($bank_id) 
+                    ? FinanceBankingAgency::where('finance_bank_id', $bank_id)->get() 
+                    : FinanceBankingAgency::all();
+
+        foreach ($agencies as $agency) {
+            $this->data[] = [
+                'id' => $agency->id,
+                'text' => $agency->name
+            ];
+        }
+
+        return response()->json($this->data);
     }
 }

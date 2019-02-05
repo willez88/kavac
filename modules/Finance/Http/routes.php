@@ -21,4 +21,5 @@ Route::group([
 	});
 
 	Route::get('get-banks', 'FinanceBankController@getBanks');
+	Route::get('get-agencies/{bank_id?}', 'FinanceBankingAgencyController@getAgencies');
 });
