@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de entidades bancarias" 
-		   data-toggle="tooltip" @click="addRecord('add_bank', 'finance/banks', $event)">
+		   data-toggle="tooltip" @click="addRecord('add_bank', '/finance/banks', $event)">
 			<i class="icofont icofont-bank-alt ico-3x"></i>
 			<span>Bancos</span>
 		</a>
@@ -23,6 +23,17 @@
 							<ul>
 								<li v-for="error in errors">{{ error }}</li>
 							</ul>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>Logo</label>
+									<input type="file" placeholder="cargar archivo" 
+										   v-on:change="record.logo_id" data-toggle="tooltip" 
+										   class="form-control input-sm" 
+										   title="Seleccione la imagen del banco">
+								</div>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-2">
@@ -104,6 +115,7 @@
 			return {
 				record: {
 					id: '',
+					logo_id: '',
 					code: '',
 					name: '',
 					short_name: '',
@@ -111,7 +123,7 @@
 				},
 				errors: [],
 				records: [],
-				columns: ['code', 'short_name', 'name', 'website', 'id'],
+				columns: ['logo_id', 'code', 'short_name', 'name', 'website', 'id'],
 			}
 		},
 		methods: {
@@ -126,12 +138,14 @@
 					code: '',
 					name: '',
 					short_name: '',
-					website: ''
+					website: '',
+					logo_id: ''
 				};
 			},
 		},
 		created() {
 			this.table_options.headings = {
+				'logo_id': 'Logo',
 				'code': 'Código',
 				'short_name': 'Nombre',
 				'name': 'Descripción',

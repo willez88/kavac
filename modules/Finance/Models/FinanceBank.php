@@ -23,7 +23,7 @@ class FinanceBank extends Model implements Auditable
      */
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['code', 'name', 'short_name', 'website'];
+    protected $fillable = ['code', 'name', 'short_name', 'website', 'logo_id'];
 
     /**
      * FinanceBank has many Agencies.
@@ -33,5 +33,16 @@ class FinanceBank extends Model implements Auditable
     public function agencies()
     {
         return $this->hasMany(FinanceBankingAgency::class);
+    }
+
+    /**
+     * Método que obtiene el logotipo de la Entidad Bancaria
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return object Objeto con el registro relacionado al modelo Image
+     */
+    public function logo()
+    {
+        return $this->belongsTo(\App\Models\Image::class, 'logo_id');
     }
 }

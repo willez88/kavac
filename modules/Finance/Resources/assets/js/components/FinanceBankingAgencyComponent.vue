@@ -1,13 +1,11 @@
 <template>
 	<div class="col-md-2 text-center">
-		<div class="col-md-2 text-center">
-			<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-			   href="#" title="Registros de agencias bancarias" 
-			   data-toggle="tooltip" @click="addRecord('add_banking_agency', 'finance/banking-agencies', $event)">
-				<i class="icofont icofont-business-man ico-3x"></i>
-				<span>Agencias<br>Bancarias</span>
-			</a>
-		</div>
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
+		   href="#" title="Registros de agencias bancarias" 
+		   data-toggle="tooltip" @click="addRecord('add_banking_agency', '/finance/banking-agencies', $event)">
+			<i class="icofont icofont-business-man ico-3x"></i>
+			<span>Agencias<br>Bancarias</span>
+		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_banking_agency">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">

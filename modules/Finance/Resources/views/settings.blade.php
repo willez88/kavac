@@ -33,14 +33,7 @@
 					<div class="row">
 						<finance-banks></finance-banks>
 						<finance-banking-agencies></finance-banking-agencies>
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-							   href="#" title="Registros de tipos de cuenta bancaria" 
-							   data-toggle="tooltip">
-								<i class="icofont icofont-mathematical ico-3x"></i>
-								<span>Tipos<br>Cuenta</span>
-							</a>
-						</div>
+						<finance-account-types></finance-account-types>
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 							   href="#" title="Registros de cuentas bancarias" 
