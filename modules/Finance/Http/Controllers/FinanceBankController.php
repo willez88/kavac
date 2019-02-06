@@ -132,4 +132,9 @@ class FinanceBankController extends Controller
 
         return response()->json($this->data);
     }
+
+    public function getBankInfo($bank_id)
+    {
+        return response()->json(['result' => true, 'bank' => FinanceBank::find($bank_id)], 200);
+    }
 }

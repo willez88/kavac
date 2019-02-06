@@ -92545,33 +92545,53 @@ Vue.component('finance-checkbooks', __webpack_require__(391));
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.mixin({
-  data: function data() {
-    return {
-      execution_year: ''
-    };
-  },
+	data: function data() {
+		return {
+			execution_year: ''
+		};
+	},
 
-  methods: {
-    getBanks: function getBanks() {
-      var _this = this;
+	methods: {
+		getBanks: function getBanks() {
+			var _this = this;
 
-      axios.get('/finance/get-banks').then(function (response) {
-        _this.banks = response.data;
-      });
-    },
-    getAgencies: function getAgencies() {
-      var vm = this;
-      bank_id = this.record.finance_bank_id;
-      if (bank_id) {
-        axios.get('/finance/get-agencies/' + bank_id).then(function (response) {
-          vm.agencies = response.data;
-        });
-      }
-    }
-  },
-  mounted: function mounted() {
-    // Agregar instrucciones para determinar el año de ejecución
-  }
+			axios.get('/finance/get-banks').then(function (response) {
+				_this.banks = response.data;
+			});
+		},
+		getAgencies: function getAgencies() {
+			var vm = this;
+			bank_id = this.record.finance_bank_id;
+			if (bank_id) {
+				axios.get('/finance/get-agencies/' + bank_id).then(function (response) {
+					vm.agencies = response.data;
+				}).catch(function (error) {
+					console.log(error);
+				});
+
+				if ($("#bank_code").length) {
+					axios.get('/finance/get-bank-info/' + bank_id).then(function (response) {
+						if (response.data.result) {
+							$("#bank_code").val(response.data.bank.code);
+						}
+					}).catch(function (error) {
+						console.log(error);
+					});
+				}
+			}
+		},
+
+		getAccountTypes: function getAccountTypes() {
+			var _this2 = this;
+
+			axios.get('/finance/get-account-types').then(function (response) {
+				_this2.account_types = response.data;
+			});
+		}
+	},
+	mounted: function mounted() {
+		// Agregar instrucciones para determinar el año de ejecución
+	}
 });
 
 /***/ }),
@@ -94796,6 +94816,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -94803,12 +94869,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			record: {
 				id: '',
 				finance_bank_id: '',
-				finance_banking_agency_id: ''
+				finance_banking_agency_id: '',
+				finance_account_type_id: '',
+				ccc_number: '',
+				bank_code: '',
+				description: '',
+				opened_at: ''
 			},
 			errors: [],
 			records: [],
 			banks: [],
-			agencies: ['0'],
+			agencies: [],
+			account_types: [],
 			columns: ['finance_bank_id', 'ccc_number', 'opened_at', 'id']
 		};
 	},
@@ -94823,7 +94895,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.record = {
 				id: '',
 				finance_bank_id: '',
-				finance_banking_agency_id: ''
+				finance_banking_agency_id: '',
+				finance_account_type_id: '',
+				ccc_number: '',
+				bank_code: '',
+				description: '',
+				opened_at: ''
 			};
 		}
 	},
@@ -94842,6 +94919,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			'id': 'col-md-2'
 		};
 		this.getBanks();
+		this.getAccountTypes();
 	}
 });
 
@@ -94901,6 +94979,45 @@ var render = function() {
                       )
                     ])
                   : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Fecha de apertura")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.opened_at,
+                            expression: "record.opened_at"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "date",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique la fecha en la que se aperturó la cuenta"
+                        },
+                        domProps: { value: _vm.record.opened_at },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.record,
+                              "opened_at",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
@@ -94972,6 +95089,147 @@ var render = function() {
                       1
                     )
                   ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group is-required" },
+                      [
+                        _c("label", [_vm._v("Tipo de Cuenta:")]),
+                        _vm._v(" "),
+                        _c("select2", {
+                          attrs: { options: _vm.account_types },
+                          model: {
+                            value: _vm.record.finance_account_type_id,
+                            callback: function($$v) {
+                              _vm.$set(
+                                _vm.record,
+                                "finance_account_type_id",
+                                $$v
+                              )
+                            },
+                            expression: "record.finance_account_type_id"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Código Cuenta Cliente")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-3" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.record.bank_code,
+                                expression: "record.bank_code"
+                              }
+                            ],
+                            staticClass: "form-control input-sm",
+                            attrs: {
+                              type: "text",
+                              id: "bank_code",
+                              readonly: ""
+                            },
+                            domProps: { value: _vm.record.bank_code },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.record,
+                                  "bank_code",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-9" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.record.ccc_number,
+                                expression: "record.ccc_number"
+                              }
+                            ],
+                            staticClass: "form-control input-sm",
+                            attrs: {
+                              type: "text",
+                              "data-toggle": "tooltip",
+                              title:
+                                "Indique el número de cuenta sin guiones o espacios",
+                              maxlength: "16"
+                            },
+                            domProps: { value: _vm.record.ccc_number },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.record,
+                                  "ccc_number",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "form-group is-required" }, [
+                      _c("label", [_vm._v("Descripción")]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.record.description,
+                            expression: "record.description"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          rows: "3",
+                          "data-toggle": "tooltip",
+                          title:
+                            "Indique la descripción u objetivo de la cuenta"
+                        },
+                        domProps: { value: _vm.record.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.record,
+                              "description",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
                 ])
               ]),
               _vm._v(" "),
@@ -95025,7 +95283,7 @@ var render = function() {
                                   click: function($event) {
                                     _vm.deleteRecord(
                                       props.index,
-                                      "/finance/account-types"
+                                      "/finance/bank-accounts"
                                     )
                                   }
                                 }
@@ -95060,7 +95318,7 @@ var render = function() {
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
-                        _vm.createRecord("finance/account-types")
+                        _vm.createRecord("finance/bank-accounts")
                       }
                     }
                   },

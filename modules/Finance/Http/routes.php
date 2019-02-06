@@ -20,6 +20,8 @@ Route::group([
 	    Route::resource('bank-accounts', 'FinanceBankAccountController', ['as' => 'finance']);
 	});
 
-	Route::get('get-banks', 'FinanceBankController@getBanks');
+	Route::get('get-banks/', 'FinanceBankController@getBanks');
+	Route::get('get-bank-info/{bank_id}', 'FinanceBankController@getBankInfo');
 	Route::get('get-agencies/{bank_id?}', 'FinanceBankingAgencyController@getAgencies');
+	Route::get('get-account-types', 'FinanceAccountTypeController@getAccountTypes');
 });

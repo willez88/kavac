@@ -21,7 +21,7 @@ class FinanceBankAccount extends Model implements Auditable
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'opened_at'];
 
     protected $fillable = [
     	'ccc_number', 'description', 'opened_at', 'finance_banking_agency_id', 'finance_account_type_id'

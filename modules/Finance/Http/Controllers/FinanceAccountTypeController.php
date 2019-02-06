@@ -13,6 +13,21 @@ class FinanceAccountTypeController extends Controller
 {
     use ValidatesRequests;
 
+    /** @var array Lista de elementos a mostrar */
+    protected $data = [];
+
+    /**
+     * Método constructor de la clase
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     */
+    public function __construct() {
+        $this->data[0] = [
+            'id' => '',
+            'text' => 'Seleccione...'
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -95,5 +110,17 @@ class FinanceAccountTypeController extends Controller
         $financeAccountType = FinanceAccountType::find($id);
         $financeAccountType->delete();
         return response()->json(['record' => $financeAccountType, 'message' => 'Success'], 200);
+    }
+
+    public function getAccountTypes()
+    {
+        foreach (FinanceAccountType::all() as $account_type) {
+            $this->data[] = [
+                'id' => $account_type->id,
+                'text' => $account_type->name
+            ];
+        }
+
+        return response()->json($this->data);
     }
 }

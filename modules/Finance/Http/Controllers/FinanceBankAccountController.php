@@ -18,7 +18,9 @@ class FinanceBankAccountController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => FinanceBankAccount::orderBy('ccc_number')->get()], 200);
+        return response()->json([
+            'records' => FinanceBankAccount::with('banking_agency')->orderBy('ccc_number')->get()
+        ], 200);
     }
 
     /**
@@ -46,9 +48,9 @@ class FinanceBankAccountController extends Controller
         ]);
 
         $financeBankAccount = FinanceBankAccount::create([
-            'ccc_number' => $request->ccc_number,
+            'ccc_number' => $request->bank_code . $request->ccc_number,
             'description' => $request->description,
-            'opened_at' => $requestopened_at,
+            'opened_at' => $request->opened_at,
             'finance_banking_agency_id' => $request->finance_banking_agency_id,
             'finance_account_type_id' => $request->finance_account_type_id
         ]);
@@ -84,14 +86,14 @@ class FinanceBankAccountController extends Controller
         $bankAccount = FinanceBankAccount::find($id);
 
         $this->validate($request, [
-            'ccc_number' => 'required|max:20|unique:finance_bank_accounts,ccc_number,' . $bankAccount->ccc_number,
+            'ccc_number' => 'required|max:20|unique:finance_bank_accounts,ccc_number,' . substr($bankAccount->ccc_number, 4),
             'description' => 'required',
             'opened_at' => 'required|date',
             'finance_banking_agency_id' => 'required',
             'finance_account_type_id' => 'required'
         ]);
  
-        $bankAccount->ccc_number = $request->ccc_number;
+        $bankAccount->ccc_number = $request->bank_code . $request->ccc_number;
         $bankAccount->description = $request->description;
         $bankAccount->opened_at = $request->opened_at;
         $bankAccount->finance_banking_agency_id = $request->finance_banking_agency_id;

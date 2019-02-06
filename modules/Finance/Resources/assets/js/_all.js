@@ -56,9 +56,26 @@ Vue.mixin({
 			if (bank_id) {
 				axios.get('/finance/get-agencies/' + bank_id).then(response => {
 					vm.agencies = response.data;
+				}).catch(error => {
+					console.log(error);
 				});
+
+				if ($("#bank_code").length) {
+					axios.get('/finance/get-bank-info/' + bank_id).then(response => {
+						if (response.data.result) {
+							$("#bank_code").val(response.data.bank.code);
+						}
+					}).catch(error => {
+						console.log(error);
+					});
+				}
 			}
-		}
+		},
+		getAccountTypes: function() {
+			axios.get('/finance/get-account-types').then(response => {
+				this.account_types = response.data;
+			});
+		},
 	},
 	mounted() {
 		// Agregar instrucciones para determinar el año de ejecución

@@ -25,6 +25,16 @@
 							</ul>
 						</div>
 						<div class="row">
+							<div class="col-md-2">
+								<div class="form-group is-required">
+									<label>Fecha de apertura</label>
+									<input type="date" v-model="record.opened_at" class="form-control input-sm" 
+										   data-toggle="tooltip" 
+										   title="Indique la fecha en la que se aperturó la cuenta">
+								</div>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Banco:</label>
@@ -41,6 +51,42 @@
 			                    </div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group is-required">
+									<label>Tipo de Cuenta:</label>
+									<select2 :options="account_types" 
+											 v-model="record.finance_account_type_id"></select2>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group is-required">
+									<label>Código Cuenta Cliente</label>
+									<div class="row">
+										<div class="col-3">
+											<input type="text" class="form-control input-sm" 
+												   id="bank_code" v-model="record.bank_code" readonly>
+										</div>
+										<div class="col-md-9">
+											<input type="text" class="form-control input-sm" 
+												   data-toggle="tooltip" v-model="record.ccc_number" 
+												   title="Indique el número de cuenta sin guiones o espacios" 
+												   maxlength="16">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group is-required">
+									<label>Descripción</label>
+									<textarea class="form-control" rows="3" v-model="record.description" 
+											  data-toggle="tooltip" 
+											  title="Indique la descripción u objetivo de la cuenta"></textarea>
+								</div>
+							</div>
+						</div>
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
@@ -51,7 +97,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, '/finance/account-types')" 
+		                		<button @click="deleteRecord(props.index, '/finance/bank-accounts')" 
 										class="btn btn-danger btn-xs btn-icon btn-round" 
 										title="Eliminar registro" data-toggle="tooltip" 
 										type="button">
@@ -65,7 +111,7 @@
 	                			class="btn btn-default btn-sm btn-round btn-modal-close">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('finance/account-types')" 
+	                	<button type="button" @click="createRecord('finance/bank-accounts')" 
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -83,12 +129,18 @@
 				record: {
 					id: '',
 					finance_bank_id: '',
-					finance_banking_agency_id: ''
+					finance_banking_agency_id: '',
+					finance_account_type_id: '',
+					ccc_number: '',
+					bank_code: '',
+					description: '',
+					opened_at: '',
 				},
 				errors: [],
 				records: [],
 				banks: [],
-				agencies: ['0'],
+				agencies: [],
+				account_types: [],
 				columns: ['finance_bank_id', 'ccc_number', 'opened_at', 'id'],
 			}
 		},
@@ -102,7 +154,12 @@
 				this.record = {
 					id: '',
 					finance_bank_id: '',
-					finance_banking_agency_id: ''
+					finance_banking_agency_id: '',
+					finance_account_type_id: '',
+					ccc_number: '',
+					bank_code: '',
+					description: '',
+					opened_at: ''
 				};
 			},
 		},
@@ -121,6 +178,7 @@
 				'id': 'col-md-2'
 			};
 			this.getBanks();
+			this.getAccountTypes();
 		},
 	};
 </script>
