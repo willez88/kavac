@@ -51,6 +51,57 @@
 			                    </div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group is-required">
+									<label>Acción a ejecutar:</label>
+			                    </div>
+			                    <div class="form-group">
+			                    	<div class="row">
+			                    		<div class="col-md-4">
+				                    		<label for="">
+					                    		<input type="radio" class="form-control bootstrap-switch" 
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si aprueba procesos" 
+													   v-model="record.action" value="AP">
+				                    			Aprueba procesos
+				                    		</label>
+				                    	</div>
+				                    	<div class="col-md-4">
+				                    		<label for="">
+					                    		<input type="radio" class="form-control bootstrap-switch" 
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si rechaza procesos" 
+													   v-model="record.action" value="RE">
+				                    			Rechaza procesos
+				                    		</label>
+				                    	</div>
+				                    	<div class="col-md-4">
+				                    		<label for="">
+					                    		<input type="radio" class="form-control bootstrap-switch" 
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si elimina procesos" 
+													   v-model="record.action" value="EL">
+				                    			Elimina procesos
+				                    		</label>
+				                    	</div>
+				                    	<div class="col-md-4">
+				                    		<label for="">
+					                    		<input type="radio" class="form-control bootstrap-switch" 
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si inicia procesos" 
+													   v-model="record.action" value="PR">
+				                    			Inicia procesos
+				                    		</label>
+				                    	</div>
+				                    	<div class="col-md-4">
+				                    		<label for="">
+					                    		<input type="radio" class="form-control bootstrap-switch" 
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si anula procesos" 
+													   v-model="record.action" value="AN">
+				                    			Anula procesos
+				                    		</label>
+				                    	</div>
+			                    	</div>
+			                    </div>
+							</div>
+						</div>
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
@@ -58,6 +109,13 @@
 	                		<div slot="color" slot-scope="props" class="text-left">
 								<i class="ion-android-checkbox-blank" :style="'color:' + props.row.color"></i>
 								<span style="margin-left:5px">{{ props.row.color }}</span>
+							</div>
+							<div slot="action" slot-scope="props" class="text-left">
+								<span v-if="props.row.action === 'AP'">Aprobación de procesos</span>
+								<span v-if="props.row.action === 'RE'">Rechaza procesos</span>
+								<span v-if="props.row.action === 'EL'">Eliminación de procesos</span>
+								<span v-if="props.row.action === 'PR'">Inicia Procesos</span>
+								<span v-if="props.row.action === 'AN'">Anulación de procesos</span>
 							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
@@ -99,13 +157,14 @@
 					id: '',
 					description: '',
 					name: '',
-					color: '#FFFFFF'
+					color: '#FFFFFF',
+					action: '',
 				},
 				/** @type {Array} Inicialización de errores a mostrar */
 				errors: [],
 				/** @type {Array} Inicialización de atributo que cargara información registrada */
 				records: [],
-				columns: ['color', 'name', 'description', 'id'],
+				columns: ['color', 'name', 'description', 'action', 'id'],
 			}
 		},
 		methods: {
@@ -119,7 +178,8 @@
 					id: '',
 					description: '',
 					name: '',
-					color: '#FFFFFF'
+					color: '#FFFFFF',
+					action: '',
 				};
 			},
 		},
@@ -128,10 +188,18 @@
 				color: 'Color',
 				name: 'Nombre',
 				description: 'Descripción',
+				action: 'Ejecuta',
 				id: 'Acción'
 			};
 			this.table_options.sortable = ['name', 'description'];
 			this.table_options.filterable = ['name', 'description'];
+			this.table_options.columnsClasses = {
+				'color': 'col-md-2',
+				'name': 'col-md-2',
+				'description': 'col-md-4',
+				'action': 'col-md-2',
+				'id': 'col-md-2'
+			};
 		}
 	};
 </script>
