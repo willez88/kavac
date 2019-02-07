@@ -10,15 +10,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollLaborData
- * @brief Datos laborales
+ * @class PayrollStudyType
+ * @brief Datos de tipos de estudio
  *
- * Gestiona el modelo de datos laborales
+ * Gestiona el modelo de tipos de estudio
  *
  * @author William Páez (wpaez at cenditel.gob.ve)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PayrollLaborData extends Model implements Auditable
+class PayrollStudyType extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -43,7 +43,6 @@ class PayrollLaborData extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'payroll_staff_type_id', 'payroll_position_type_id', 'payroll_position_id', 'department_id',
-        'payroll_staff_id', 'appointment_date', 'vigency_date'
+        'name', 'description'
     ];
 }

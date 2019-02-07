@@ -37,8 +37,6 @@ class CreatePayrollLaborDataTable extends Migration
                   ->onDelete('restrict')->onUpdate('cascade');
             $table->date('appointment_date')->comment('Fecha de nombramiento');
             $table->date('vigency_date')->comment('Fecha de entrada en vigencia');
-            $table->string('item')->comment('Rubro');
-            $table->string('subitem')->comment('Sub rubro');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });
