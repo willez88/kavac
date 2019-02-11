@@ -10,10 +10,27 @@
                title="Configuración de almacén">Configuración</a>
         </li>
         <li>
-            <a href="#">Solicitud</a>
+            <a href="{{ route('warehouse.request.index') }}" data-toggle="tooltip" data-placement="right" 
+               title="Solicitudes de almacén">Solicitud</a>
         </li>
         <li>
             <a href="#">Inventario</a>
+            <ul class="submenu">
+                <li>
+                    <a  href="{{ route('warehouse.reception.index') }}" 
+                        data-toggle="tooltip" data-placement="right"
+                        title="Gestión de las Recepciones de Almacén">
+                        Recepciones de Almacén
+                    </a>
+                </li>
+                <li>
+                    <a  href="#" 
+                        data-toggle="tooltip" data-placement="right"
+                        title="Gestión de los Movimiento entre Almacenes">
+                        Movimientos de Almacén
+                    </a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="#">Reportes</a>

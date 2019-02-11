@@ -167,9 +167,9 @@
 			},
 			warehouseClose(index){
 				var id = this.records[index-1].id;
-				var url = 'warehouse/closes/end/';
+				var url = '/warehouse/closes/finish';
 
-				axios.patch('/' + url + id).then(response => {
+				axios.put(url +'/'+ id).then(response => {
 					this.records = response.data.records;
 					this.reset();
 				});

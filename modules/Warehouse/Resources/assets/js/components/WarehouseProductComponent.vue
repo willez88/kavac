@@ -1,4 +1,4 @@
-<template>
+	<template>
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Productos de Almacén" data-toggle="tooltip" 
@@ -14,8 +14,8 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-cube ico-2x"></i> 
-							Nuevo Producto
+							<i class="icofont icofont-cubes ico-2x"></i> 
+							Registros de Productos de Almacén
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -27,21 +27,22 @@
 
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
 	                        <li class="nav-item">
-	                            <a class="nav-link active" data-toggle="tab" href="#general" role="tab">
-	                                <i class="ion-information-circled"></i> Información General
+	                            <a class="nav-link active" data-toggle="tab" href="#products" role="tab" @click="change()">
+	                                <i class="icofont icofont-cubes"></i> Productos
 	                            </a>
+
 	                        </li>
 	                        
-	                        <li class="nav-item" v-if="checkProduct()">
-	                            <a class="nav-link" data-toggle="tab" href="#specific" role="tab">
-	                                <i class="ion-ios-search-strong"> Información Detallada</i> 
+	                        <li class="nav-item">
+	                            <a class="nav-link" data-toggle="tab" href="#details" role="tab" @click="setTable(true)" v-if="record.id > 0">
+	                                <i class="ion-arrow-swap"></i> Detalles del Producto
 	                            </a>
 	                        </li>
 	                    </ul>
 
-						<div class="tab-content">
-	                    	<div class="tab-pane active" id="general" role="tabpanel">
-	                    		<div class="row">        
+	                    <div class="tab-content">
+	                    	<div class="tab-pane active" id="products" role="tabpanel">
+								<div class="row">        
 									<div class="col-md-12">
 										<b>Datos del Producto</b>
 									</div>
@@ -65,88 +66,127 @@
 					                    </div>
 									</div>
 								</div>
-			                </div>
-	                    	<div class="tab-pane" id="specific" role="tabpanel">
-	                    		<div class="row">        
+							</div>
+
+							<div class="tab-pane" id="details" role="tabpanel">
+								<div class="row">        
 									<div class="col-md-12">
-										<b>Carateristícas del Producto</b>
+										<b>Características del Producto</b>
 									</div>
 
-									<div class="col-md-12">
-										<table class="table table-hover table-striped dt-responsive datatable">
-											<thead>
-												<tr class="text-center">
-
-													<th>Característica</th>
-													<th width="20%">Acciones</th>
-												</tr>
-											</thead>
-											<tbody>
-											<tr v-for="(item, index) in attributes">
-												<td>
-													{{item.name ,index}}
-												</td>									
-												<td width="20%" class="text-center">
-													<div class="d-inline-flex">
-														<button @click="itemSave(index)" 
-							                					class="btn btn-success btn-xs btn-icon btn-round" 
-							                					title="Guardar registro" data-toggle="tooltip" type="button">
-								                			<i class="fa fa-save"></i>
-								                		</button>
-														<button @click="" 
-							                					class="btn btn-warning btn-xs btn-icon btn-round" 
-							                					title="Modificar registro" data-toggle="tooltip" type="button">
-								                			<i class="fa fa-edit"></i>
-								                		</button>
-								                		<button @click="" 
-																class="btn btn-danger btn-xs btn-icon btn-round" 
-																title="Eliminar registro" data-toggle="tooltip" 
-																type="button">
-															<i class="fa fa-trash-o"></i>
-														</button>
-													</div>
-												</td>
-											</tr>
-											</tbody>
-										</table>
+									<div class="col-md-6">
+										<div class="form-group is-required">
+											<label>Característica:</label>
+											<input type="text" placeholder="Característica del Producto" data-toggle="tooltip" 
+												   title="Indique el una nueva característica particular del producto (requerido)" 
+												   class="form-control input-sm" v-model="attribute.name">
+											<input type="hidden" v-model="attribute.id">
+					                    </div>
 									</div>
+									
 								</div>
-								<div class="row">
-									<div class="col-12">
-										<a class='btn btn-sm btn-primary btn-custom float-right'
-															 title="Agregar Nueva Característica"
-															 data-toggle="tooltip"
-															 @click="itemAdd()">
-											<i class="fa fa-plus-circle"></i>
-											<span>Nueva</span>
-										</a>	
-									</div>
-								</div>	
-			                </div>
-			            </div>
+							</div>
 
+						</div>
 
 			        </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
-	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
-		                				title="Modificar registro" data-toggle="tooltip" type="button">
-		                			<i class="fa fa-edit"></i>
-		                		</button>
-		                		<button @click="deleteRecord(props.index, 'products')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
-										title="Eliminar registro" data-toggle="tooltip" 
-										type="button">
-									<i class="fa fa-trash-o"></i>
-								</button>
-	                		</div>
-	                	</v-client-table>
+	                	<table class="table table-hover table-striped dt-responsive datatable"  v-if="tableAtt">
+							<thead>
+								<tr class="text-center">			
+									<th>Caractrística</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+
+
+							<tbody>
+								<tr v-for="(attribute, index) in attributes">
+
+									<td>
+										{{ attribute.name }}
+									</td>
+									<td>
+										<button @click="attributeUpdate(index,$event)" 
+				                				class="btn btn-warning btn-xs btn-icon btn-round" 
+				                				title="Modificar registro" data-toggle="tooltip" type="button">
+				                			<i class="fa fa-edit"></i>
+				                		</button>
+				                		<button @click="deleteAttribute(index, 'attributes')" 
+												class="btn btn-danger btn-xs btn-icon btn-round" 
+												title="Eliminar registro" data-toggle="tooltip" 
+												type="button">
+											<i class="fa fa-trash-o"></i>
+										</button>
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+
+	                	<table class="table table-hover table-striped dt-responsive datatable" v-else>
+							<thead>
+								<tr class="text-center">			
+
+									<th>Producto</th>									
+									<th>Descripción</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+
+
+							<tbody>
+								<tr v-for="(product, index) in records">
+
+									<td>
+										{{ product.name }}
+									</td>
+									<td>
+										{{ product.description }}
+									</td>									
+									<td>
+										<button @click="productUpdate(index,$event)" 
+				                				class="btn btn-warning btn-xs btn-icon btn-round" 
+				                				title="Modificar registro" data-toggle="tooltip" type="button">
+				                			<i class="fa fa-edit"></i>
+				                		</button>
+				                		<button @click="deleteRecord(index+1, 'products')" 
+												class="btn btn-danger btn-xs btn-icon btn-round" 
+												title="Eliminar registro" data-toggle="tooltip" 
+												type="button">
+											<i class="fa fa-trash-o"></i>
+										</button>
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
 	                </div>
 
-	                <div class="modal-footer">
+	                <div class="modal-footer" v-if="tableAtt">
+
+	                	<button type="button" @click="resetAtt()"
+								class="btn btn-default btn-icon btn-round"
+								title ="Borrar datos del formulario">
+								<i class="fa fa-eraser"></i>
+						</button>
+	                	
+	                	<button type="button" 
+	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
+	                			data-dismiss="modal"
+	                			title="Cancelar y regresar">
+	                			<i class="fa fa-ban"></i>
+	                	</button>
+
+	                	<button type="button" @click="createAttribute('warehouse/attributes')" 
+	                			class="btn btn-success btn-icon btn-round btn-modal-save"
+	                			title="Guardar registro">
+	                		<i class="fa fa-save"></i>
+		                </button>
+		            </div>
+
+	                <div class="modal-footer" v-else>
 
 	                	<button type="button" @click="reset()"
 								class="btn btn-default btn-icon btn-round"
@@ -183,14 +223,15 @@
 					description: ''
 				},
 				attribute: {
-					id: '',
+					id:'',
 					name: '',
 					product_id: '',
 				},
 				errors: [],
 				records: [],
 				attributes: [],
-				columns: ['name', 'description','id'],
+				tableAtt: false,
+				
 			}
 		},
 		methods: {
@@ -206,39 +247,110 @@
 					description: ''
 				};
 			},
-
-			checkProduct(){
-				if (this.record.id >= 1)
-					return true;
-				else
-					return false;
+			resetAtt() {
+				this.attribute = {
+					id: '',
+					name: '',
+				};
 			},
-			itemAdd(){
-				this.attribute.name = 'Nuevo Campo';
+			getAttributes() {
 				this.attribute.product_id = this.record.id;
-				this.attributes.push(this.attribute);
+				var id = this.record.id;
+				var url = "attributes";
+				if (id !== '')
+					axios.get(url +'/product/'+ id).then(response => {
+						if (typeof response.data.records !== "undefined") {
+							this.attributes = response.data.records;
+						}
+					});
 			},
-			itemSave(index){
-				var url = "products/attribute";
-				var field= {};
-			    for (var index in this.attribute) {
-			    	field[index] = this.attribute[index];
-			    }
-				axios.post(url,field).then(response => {
-					if (typeof(response.data.records) !== "undefined") {
+			createAttribute(url) {
+
+				if (this.attribute.id) {
+					this.updateAttribute(url);
+				}
+				else {
+					var fields = {};
+					for (var index in this.attribute) {
+						fields[index] = this.attribute[index];
+					}
+
+					axios.post('/' + url, fields).then(response => {
+						if (typeof response.data.records !== "undefined") {
+							this.attributes = response.data.records;
+							this.resetAtt();
+							this.showMessage('store');
+						}
+					});
+				}
+				
+			},
+			updateAttribute(url) {
+				
+				var fields = {};
+				for (var index in this.attribute) {
+					fields[index] = this.attribute[index];
+				}
+				
+				axios.patch('/' + url + '/' + this.attribute.id, fields).then(response => {
+					if (typeof response.data.records !== "undefined") {
 						this.attributes = response.data.records;
+						this.resetAtt();
+						this.showMessage('update');
 					}
 				});
+		    },
+		    attributeUpdate(index,event){
+		    	this.errors = [];
+				this.attribute = this.attributes[index];
+
+				event.preventDefault();
+		    },
+		    deleteAttribute(index,url){
+
+	    		var attributes = this.attributes;
+	    		var confirmated = false;
+
+	    		bootbox.confirm({
+	    			title: "Eliminar registro?",
+	    			message: "Esta seguro de eliminar este registro?",
+	    			buttons: {
+	    				cancel: {
+	    					label: '<i class="fa fa-times"></i> Cancelar'
+	    				},
+	    				confirm: {
+	    					label: '<i class="fa fa-check"></i> Confirmar'
+	    				}
+	    			},
+	    			callback: function (result) {
+	    				if (result) {
+	    					confirmated = true;			
+							axios.delete(url + '/' + attributes[index].id).then(response => {
+								attributes.splice(index, 1);
+								this.showMessage('destroy');
+							}).catch(error => {});
+	    				}
+	    			}
+	    		});
+
+	    		if (confirmated) {
+	    			this.attributes = attributes;
+	    			this.showMessage('destroy');
+	    		}
 			},
-		},
-		created() {
-			this.table_options.headings = {
-				'name': 'Nombre',
-				'description': 'Descripción',
-				'id': 'Acción'
-			};
-			this.table_options.sortable = ['name'];
-			this.table_options.filterable = ['name'];
+			productUpdate(index,event){
+				this.initUpdate(index+1,event);
+				this.getAttributes();
+			},
+			setTable(value){
+				this.tableAtt = value;
+				this.resetAtt();
+			},
+			change(){
+				this.reset();
+				this.attribute.prduct_id ='';
+				this.setTable(false);
+			}
 		},
 	}
 </script>
