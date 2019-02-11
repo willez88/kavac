@@ -97,13 +97,9 @@ class WarehouseProductController extends Controller
         return response()->json(['record' => $product, 'message' => 'Success'], 200);
     }
 
-    public function newAttribute(Request $request){
-
-        $attribute = WarehouseProductAttribute::create([
-            'name' => $request->input('name'),
-            'product_id' => $request->input('product_id'),
-        ]);
-        
-        return response()->json(['records' => WarehouseProductAttribute::where('product_id','=',$attribute->product_id)->get()], 200);
+    public function vueList()
+    {
+        return template_choices('Modules\Warehouse\Models\WarehouseProduct','name','',true);
     }
+
 }

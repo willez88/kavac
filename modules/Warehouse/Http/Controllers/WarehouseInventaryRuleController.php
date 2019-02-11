@@ -24,6 +24,17 @@ class WarehouseInventaryRuleController extends Controller
     use ValidatesRequests;
     
     /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:warehouse.setting.rule');
+    }
+
+    /**
      * Display a listing of the resource.
      * @return Response
      */

@@ -71,8 +71,10 @@ class WarehouseController extends Controller
             'city_id' => 1,
             //'main' => $request->input('main'),
         ]);
+        ($request->institution_id > 0)?$institution = $request->institution_id:$request = 1;
+            
         $warehouse_institution = WarehouseInstitutionWarehouse::create([
-            'institution_id' => 1,
+            'institution_id' => $institution,
             'warehouse_id' => $warehouse->id,
         ]);
 
@@ -100,6 +102,8 @@ class WarehouseController extends Controller
         $warehouse->country_id = $request->input('country_id');
         $warehouse->estate_id = $request->input('estate_id');
         $warehouse->city_id = 1;
+
+        $warehouse->main = $request->input('main');
         $warehouse->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
