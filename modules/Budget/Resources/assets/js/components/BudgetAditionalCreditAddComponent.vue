@@ -13,7 +13,7 @@
 							<th>
 								<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#" 
 								   data-original-title="Agregar nuevo registro" data-toggle="modal"  
-								   data-target="#add_account">
+								   data-target="#add_account" v-if="credit_date">
 									<i class="fa fa-plus-circle"></i>
 								</a>
 							</th>
@@ -76,7 +76,7 @@
 							<div class="col-md-3">
 								<div class="form-group is-required">
 									<label>Monto:</label>
-									<input type="number" class="form-control input-sm" data-toggle="tooltip" 
+									<input type="number" class="form-control" data-toggle="tooltip" 
 										   title="Indique el monto a asignar para la cuenta seleccionada" v-model="amount">
 								</div>
 							</div>
@@ -102,6 +102,7 @@
 	export default {
 		data() {
 			return {
+				credit_date: '',
 				specific_actions: [],
 				accounts: [{
 					id: '',
@@ -127,26 +128,81 @@
 			}).catch(error => {
 				console.log(error);
 			});
+
+			vm.reset();
+
+			$("#credit_date").on('change', function() {
+				vm.credit_date = $(this).val();
+			});
 		},
 		watch: {
 		},
 		methods: {
 			reset: function() {
-
+				this.budget_specific_action_id = '';
+				this.budget_account_id = '';
+				this.amount = 0;
 			},
 			addAccount: function() {
 				const vm = this;
+				var to_add = {
+					spac_description: '',
+					code: '',
+					description: '',
+					amount: 0
+				};
+
+				if (!vm.budget_specific_action_id) {
+					vm.showMessage(
+						'custom', 'Alerta!', 'danger', 'screen-error', 
+						'Debe seleccionar una acción específica'
+					);
+					return false;
+				}
+				if (!vm.budget_account_id) {
+					vm.showMessage(
+						'custom', 'Alerta!', 'danger', 'screen-error', 
+						'Debe seleccionar una cuenta presupuestaria'
+					);
+					return false;
+				}
+				if (vm.amount <= 0) {
+					vm.showMessage(
+						'custom', 'Alerta!', 'danger', 'screen-error', 
+						'Debe indicar un monto'
+					);
+					return false;
+				}
+
+				
+				/** Obtiene datos de la acción específica seleccionada */
 				axios.get('/budget/detail-specific-actions/' + vm.budget_specific_action_id).then(response => {
 					if (response.data.result) {
-						var record = response.data.record;
-						vm.aditional_credit_accounts.push({
-							spac_description: record.specificable.code + " - " + record.code + " | " + record.name,
-							code: '',
-							description: '',
-							amount: vm.amount
-						});
+						let record = response.data.record;
+						to_add.spac_description = record.specificable.code + " - " + record.code + 
+													 " | " + record.name;
 					}
-				}).catch(error => {});
+				}).catch(error => {
+					console.log(error);
+				});
+
+				/** Obtiene datos de la cuenta presupuestaria */
+				axios.get('/budget/detail-accounts/' + vm.budget_account_id).then(response => {
+					if (response.data.result) {
+						let record = response.data.record;
+						to_add.code = record.group + "." + record.item + "." + record.generic + "." + 
+										 record.specific + "." + record.subspecific;
+						to_add.description = response.data.record.denomination;
+					}
+				}).catch(error => {
+					console.log(error);
+				});
+				
+				to_add.amount = vm.amount;
+				
+				vm.aditional_credit_accounts.push(to_add);
+				$('.close').click();
+				vm.reset();
 			},
 			deleteAccount(index) {
 

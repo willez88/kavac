@@ -27,6 +27,8 @@ Route::group([
     Route::get('accounts/vue-list', 'BudgetAccountController@vueList')->name('budget.accounts.vuelist');
     Route::get('accounts/egress-list/{to_formulate?}', 'BudgetAccountController@egressAccounts')
          ->name('budget.accounts.egresslist');
+    Route::get('detail-accounts/{id}', 'BudgetAccountController@getDetail')
+         ->name('budget.accounts.detail');
 
     /** Rutas para la gestión de proyectos */
     Route::resource('projects', 'BudgetProjectController', ['as' => 'budget', 'except' => ['index', 'show']]);

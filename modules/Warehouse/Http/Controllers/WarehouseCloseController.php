@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Auth;
 class WarehouseCloseController extends Controller
 {
     use ValidatesRequests;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:warehouse.setting.close');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -93,11 +105,11 @@ class WarehouseCloseController extends Controller
         return response()->json(['record' => $close, 'message' => 'Success'], 200);
     }
 
-    public function endClose($id)
-    {
-        $close = WarehouseClose::find($id);
-        $close->date_end = now();
+    public function close_warehouse($id)
+    {        
+        $close = WarehouseClose::findorfail($id);
         $close->user_end = Auth::id();
+        $close->date_end = now();
         $close->save();
         return response()->json(['records' => WarehouseClose::with('start_user','end_user','warehouse')->get()], 200);
     }

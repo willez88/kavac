@@ -87,4 +87,9 @@ class WarehouseProductUnitController extends Controller
         $unit->delete();
         return response()->json(['record' => $unit, 'message' => 'Success'], 200);
     }
+
+    public function vueList()
+    {
+        return template_choices('Modules\Warehouse\Models\WarehouseProductUnit','name','',true);
+    }
 }

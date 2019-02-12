@@ -9,20 +9,19 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\WarehouseProductAttribute;
-use Modules\Warehouse\Models\WarehouseProductValue;
 
 
 /**
- * @class WarehouseProductController
- * @brief Controlador de los productos de almacén
+ * @class WarehouseProductAttributeController
+ * @brief Controlador de los atributos de los productos de almacén
  * 
- * Clase que gestiona los Productos almacenables
+ * Clase que gestiona los atributos de productos almacenables
  * 
  * @author Henry Paredes (henryp2804@gmail.com)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class WarehouseProductController extends Controller
+class WarehouseProductAttributeController extends Controller
 {
     use ValidatesRequests;
     
@@ -34,7 +33,7 @@ class WarehouseProductController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:warehouse.setting.product');
+        $this->middleware('permission:warehouse.setting.attribute');
     }
 
     /**
@@ -43,7 +42,12 @@ class WarehouseProductController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => WarehouseProduct::all()], 200);
+        return response()->json(['records' => []], 200);
+    }
+
+    public function product($id)
+    {
+        return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=',$id)->get()], 200);
     }
 
     /**
@@ -55,16 +59,17 @@ class WarehouseProductController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'required|max:100',
-            
+            'product_id' => 'required',
         ]);
+        
+        $id = $request->input('product_id');
 
-        $product = WarehouseProduct::create([
+        $attribute = WarehouseProductAttribute::create([
             'name' => $request->input('name'),
-            'description' => $request->input('description'),
+            'product_id' => $request->input('product_id'),
         ]);
-
-        return response()->json(['record' => $product, 'message' => 'Success'], 200);
+        
+        return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=',$id)->get()], 200);
     }
 
     /**
@@ -72,34 +77,29 @@ class WarehouseProductController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, WarehouseProduct $product)
+    public function update(Request $request, WarehouseProductAttribute $attribute)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'required|max:100',
-            
+            'product_id' => 'required',
         ]);
+ 
+        $attribute->name = $request->input('name');
+        $attribute->product_id = $request->input('product_id');
+        $attribute->save();
 
-        $product->name = $request->input('name');
-        $product->description = $request->input('description');
-        $product->save();
-
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        $id = $attribute->product_id;
+ 
+        return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=',$id)->get()], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy(WarehouseProduct $product)
+    public function destroy(WarehouseProductAttribute $attribute)
     {
-        $product->delete();
-        return response()->json(['record' => $product, 'message' => 'Success'], 200);
+        $attribute->delete();
+        return response()->json(['record' => $attribute, 'message' => 'Success'], 200);
     }
-
-    public function vueList()
-    {
-        return template_choices('Modules\Warehouse\Models\WarehouseProduct','name','',true);
-    }
-
 }

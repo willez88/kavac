@@ -64,14 +64,16 @@ class DocumentStatusController extends Controller
         $this->validate($request, [
             'name' => 'required|max:20|unique:document_status,name',
             'description' => 'required',
-            'color' => 'required|min:4|max:30|unique:document_status,color'
+            'color' => 'required|min:4|max:30|unique:document_status,color',
+            'action' => 'required'
         ]);
 
 
         $documentStatus = DocumentStatus::create([
             'name' => $request->name,
             'description' => $request->description,
-            'color' => $request->color
+            'color' => $request->color,
+            'action' => $request->action
         ]);
 
         return response()->json(['record' => $documentStatus, 'message' => 'Success'], 200);
@@ -114,12 +116,14 @@ class DocumentStatusController extends Controller
         $this->validate($request, [
             'name' => 'required|max:20|unique:document_status,name,' . $documentStatus->id,
             'description' => 'required',
-            'color' => 'required|min:4|max:30|unique:document_status,color,' . $documentStatus->id
+            'color' => 'required|min:4|max:30|unique:document_status,color,' . $documentStatus->id,
+            'action' => 'required',
         ]);
  
         $documentStatus->name = $request->name;
         $documentStatus->description = $request->description;
         $documentStatus->color = $request->color;
+        $documentStatus->action = $request->action;
         $documentStatus->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

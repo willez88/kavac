@@ -66,6 +66,17 @@ class WarehouseInstitutionWarehouse extends Model implements Auditable
         return $this->belongsTo('Modules\Warehouse\Models\Warehouse','warehouse_id')->with('country','estate','city');
     }
 
+    /**
+     * Método que obtiene los Movimiento realizados por un almacén y/o una institución dada
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo WarehouseMovement
+     */
+    public function movement()
+    {
+        return $this->hasMany('Modules\Warehouse\Models\WarehouseMovement');
+    }
+
     public function scopeInstitutionManageWarehouse($query,$warehouse,$institution){
         $query->where('institution_id','=',$institution)
               ->where('warehouse_id','=',$warehouse);

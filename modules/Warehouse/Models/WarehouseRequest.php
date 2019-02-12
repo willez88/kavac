@@ -1,27 +1,31 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Warehouse\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Traits\ModelsTrait;
 
 /**
- * @class DocumentStatus
- * @brief Datos de estatus de documentos
+ * @class WarehouseRequest
+ * @brief Datos de las solicitudes de Articulos de Amacén
  * 
- * Gestiona el modelo de datos para los estados de documentos
+ * Gestiona el modelo de datos para las solicitudes de los artículos de almacén
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Henry Paredes (henryp2804@gmail.com)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class DocumentStatus extends Model implements Auditable
+
+class WarehouseRequest extends Model implements Auditable
 {
-    use SoftDeletes;
+	use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
+    use ModelsTrait;
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
@@ -30,13 +34,8 @@ class DocumentStatus extends Model implements Auditable
     protected $revisionCreationsEnabled = true;
 
     /**
-     * Nombre de la tabla a usar en la base de datos
-     * @var string $table
-     */
-    protected $table = 'document_status';
-
-    /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
@@ -45,5 +44,5 @@ class DocumentStatus extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name', 'description', 'color', 'action'];
+    protected $fillable = ['state','observation','delivered','delivery_date','activity_id','project_id','centralized_action_id','specific_action_id','dependence_id'];
 }

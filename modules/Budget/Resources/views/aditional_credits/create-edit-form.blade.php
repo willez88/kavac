@@ -40,7 +40,7 @@
 									]) !!}
 									{!! Form::date('credit_date', old('credit_date'), [
 										'class' => 'form-control input-sm', 'placeholder' => 'dd/mm/YY',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip', 'id' => 'credit_date',
 										'title' => 'Fecha en la que se otorgó el crédito adicional'
 									]) !!}
 								</div>

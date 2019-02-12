@@ -13,10 +13,18 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
-						<h6>
-							<i class="icofont icofont-building ico-2x"></i> 
-							Nuevo Almacén
-						</h6>
+						<div v-if="checkMultiInst()">
+							<h6>
+								<i class="icofont icofont-building-alt ico-2x"></i> 
+								Gestión de Almacenes
+							</h6>
+						</div>
+						<div v-else>
+							<h6>
+								<i class="icofont icofont-building ico-2x"></i> 
+								Nuevo Almacén
+							</h6>
+						</div>
 					</div>
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
@@ -25,6 +33,41 @@
 							</ul>
 						</div>
 
+						<div class="row">
+		                	<div class="col-md-4">
+								<label for="">									
+									Registrar Almacenes
+								</label>
+								<input  type="radio" id="sel_register" value="register" 
+										name="checked"
+										class="form-control bootstrap-switch bootstrap-switch-mini"
+										data-on-label="Si" data-off-label="No">
+							</div>
+
+							<div class="col-md-4">
+								<label for="">
+									Gestionar Almacenes
+								</label>
+								<input type="radio" id="sel_manage" value="manage"
+										name="checked"
+										class="form-control bootstrap-switch bootstrap-switch-mini"
+										data-on-label="Si" data-off-label="No">
+							</div>
+
+						</div>
+
+						<div class="row" v-if="checkMultiInst()">
+							<div class="col-md-4">
+								<div class="form-group is-required">
+									<label>Institución que gestiona el Almacén:</label>
+									<select2 :options="institutions"
+											 id="institutions_id"
+											 v-model="record.institution_id">
+									</select2>
+			                    </div>
+							</div>							
+						</div>
+						<hr>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group is-required">
@@ -38,7 +81,8 @@
 							<div class="col-md-2">
 								<div class="form-group">
 									<label>	Principal </label>
-									<input type="checkbox" v-model="record.main"
+									<input type="checkbox" id="main_id"
+										v-model="record.main"									
 										class="form-control bootstrap-switch bootstrap-switch-mini"
 										data-on-label="Si" data-off-label="No">
 								</div>
@@ -69,26 +113,20 @@
 			                    </div>
 							</div>
 
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label>Dirección:</label>
-									<input type="text" placeholder="Dirección del Almacén" data-toggle="tooltip" 
-										   title="Indique una breve dirección del Nuevo almacén (requerido)" 
-										   class="form-control input-sm" v-model="record.address">
+									<textarea  data-toggle="tooltip"
+												placeholder="Dirección del Almacén"
+											    title="Indique una breve dirección del Nuevo almacén (requerido)" 
+										   		class="form-control" v-model="record.address">
+								   </textarea>
+									
 			                    </div>
 							</div>
 
 						</div>
-
-						<div class="row" v-if="checkMultiInst()">
-							<div class="col-md-4">
-								<div class="form-group is-required">
-									<label>Institución que gestiona el Almacén:</label>
-									<select2 :options="institutions"
-											 v-model="record.institution_id"></select2>
-			                    </div>
-							</div>							
-						</div>
+						
 		                <div class="modal-body modal-table">
 		                	<hr>
 		                	<v-client-table :columns="columns" :data="records" :options="table_options">
@@ -97,28 +135,30 @@
 			                			<button @click="warehouseAdd(props.index,$event)" 
 				                				class="btn btn-success btn-xs btn-icon btn-round" 
 				                				title="Gestionar Almacén" data-toggle="tooltip" type="button"
-				                				v-if="checkAdd(props.row.id)">
+				                				v-if="checkAdd(props.index)">
 				                			<i class="fa fa-plus-circle"></i>
 				                		</button>
 				                		<button @click="warehouseMinus(props.index, $event)" 
 												class="btn btn-danger btn-xs btn-icon btn-round" 
 												title="Dejar de Gestionar Almacén" data-toggle="tooltip" 
 												type="button"
-												v-if="checkMinus(props.row.id)">
+												v-else>
 											<i class="fa fa-times-circle"></i>
 										</button>
 									</div>
-		                			<button @click="initUpdate(props.index, $event)" 
-			                				class="btn btn-warning btn-xs btn-icon btn-round" 
-			                				title="Modificar registro" data-toggle="tooltip" type="button">
-			                			<i class="fa fa-edit"></i>
-			                		</button>
-			                		<button @click="deleteRecord(props.index, 'warehouses')" 
-											class="btn btn-danger btn-xs btn-icon btn-round" 
-											title="Eliminar registro" data-toggle="tooltip" 
-											type="button">
-										<i class="fa fa-trash-o"></i>
-									</button>
+									<div v-else>
+			                			<button @click="initUpdate(props.index, $event)" 
+				                				class="btn btn-warning btn-xs btn-icon btn-round" 
+				                				title="Modificar registro" data-toggle="tooltip" type="button">
+				                			<i class="fa fa-edit"></i>
+				                		</button>
+				                		<button @click="deleteRecord(props.index, 'warehouses')" 
+												class="btn btn-danger btn-xs btn-icon btn-round" 
+												title="Eliminar registro" data-toggle="tooltip" 
+												type="button">
+											<i class="fa fa-trash-o"></i>
+										</button>
+									</div>
 		                		</div>
 		                	</v-client-table>
 		                </div>
@@ -166,6 +206,7 @@
 					city_id:'',
 
 				},
+
 				errors: [],
 				records: [],
 				columns: ['name', 'country.name', 'estate.name', 'city.name', 'address', 'id'],
@@ -212,21 +253,19 @@
 			},
 			warehouseAdd(index,event){
 				this.errors = [];
-				this.record = this.records[index-1];
-								
+				var field = {}
+				field = this.records[index-1];								
 				event.preventDefault();
+
 			},
 			warehouseMinus(index,event){
 				this.errors = [];
-				this.record = this.records[index-1];
-								
+				var field = {}
+				field = this.records[index-1];								
 				event.preventDefault();
+				
 			},
-			checkAdd(id){
-				console.log(id,this.warehouses[1]);
-				return true;
-			},
-			checkMinus(id){
+			checkAdd(index){
 				return true;
 			},
 			checkInstitution(){
@@ -244,7 +283,6 @@
 					}
 				});
 			},
-
 		},
 		created() {
 			this.table_options.headings = {
@@ -264,5 +302,25 @@
 			this.getInstitutions();
 			this.getWarehouses('/warehouse/manage');
 		},
+		watch: {
+			checked: function(){
+				$("#institution_id").attr('disabled', this.checked);
+			}
+		},
+		mounted() {
+			/** 
+			 * Evento para determinar los datos a requerir
+			 */
+			$('.sel_multi_inst').on('switchChange.bootstrapSwitch', function(e) {
+				$('#institution_id').attr('disabled', (e.target.id!=="sel_register"));			
+				
+				if (e.target.id === "sel_register") {					
+					$("#institution_id").closest('.form-group').addClass('is-required');
+				}
+				else if (e.target.id === "sel_manage") {
+					$("#institution_id").closest('.form-group').removeClass('is-required');
+				}
+			});
+		}
 	}
 </script>

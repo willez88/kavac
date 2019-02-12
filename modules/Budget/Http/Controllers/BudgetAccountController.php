@@ -244,4 +244,18 @@ class BudgetAccountController extends Controller
 
         return response()->json(['records' => $records], 200);
     }
+
+    /**
+     * Obtiene detalles de una cuenta presupuestaria
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificar de la cuenta presupuestaria de la cual se requiere información
+     * @return JSON        JSON con los datos de la cuenta presupuestaria
+     */
+    public function getDetail($id)
+    {
+        return response()->json([
+            'result' => true, 'record' => BudgetAccount::find($id)
+        ], 200);
+    }
 }

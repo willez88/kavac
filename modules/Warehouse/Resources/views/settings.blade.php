@@ -40,6 +40,9 @@
 						{{-- Configuración de Unidades Métricas de Productos --}}
 						<warehouse-unit></warehouse-unit>
 
+						{{-- Configuración de Reglas de Almacén --}}
+						{{-- <warehouse-rule></warehouse-rule> --}}
+
 						{{-- Configuración de Cierres de Almacén --}}
 						<warehouse-close></warehouse-close>
 

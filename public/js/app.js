@@ -75446,6 +75446,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -75455,13 +75513,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				id: '',
 				description: '',
 				name: '',
-				color: '#FFFFFF'
+				color: '#FFFFFF',
+				action: ''
 			},
 			/** @type {Array} Inicialización de errores a mostrar */
 			errors: [],
 			/** @type {Array} Inicialización de atributo que cargara información registrada */
 			records: [],
-			columns: ['color', 'name', 'description', 'id']
+			columns: ['color', 'name', 'description', 'action', 'id']
 		};
 	},
 
@@ -75476,7 +75535,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				id: '',
 				description: '',
 				name: '',
-				color: '#FFFFFF'
+				color: '#FFFFFF',
+				action: ''
 			};
 		}
 	},
@@ -75485,10 +75545,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			color: 'Color',
 			name: 'Nombre',
 			description: 'Descripción',
+			action: 'Ejecuta',
 			id: 'Acción'
 		};
 		this.table_options.sortable = ['name', 'description'];
 		this.table_options.filterable = ['name', 'description'];
+		this.table_options.columnsClasses = {
+			'color': 'col-md-2',
+			'name': 'col-md-2',
+			'description': 'col-md-4',
+			'action': 'col-md-2',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -75676,6 +75744,196 @@ var render = function() {
                       })
                     ])
                   ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("label", { attrs: { for: "" } }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.record.action,
+                                  expression: "record.action"
+                                }
+                              ],
+                              staticClass: "form-control bootstrap-switch",
+                              attrs: {
+                                type: "radio",
+                                name: "action",
+                                "data-toggle": "tooltip",
+                                "data-on-label": "SI",
+                                "data-off-label": "NO",
+                                title: "Indique si aprueba procesos",
+                                value: "AP"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.record.action, "AP")
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.$set(_vm.record, "action", "AP")
+                                }
+                              }
+                            }),
+                            _vm._v(
+                              "\n\t\t\t                    \t\t\tAprueba procesos\n\t\t\t                    \t\t"
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("label", { attrs: { for: "" } }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.record.action,
+                                  expression: "record.action"
+                                }
+                              ],
+                              staticClass: "form-control bootstrap-switch",
+                              attrs: {
+                                type: "radio",
+                                name: "action",
+                                "data-toggle": "tooltip",
+                                "data-on-label": "SI",
+                                "data-off-label": "NO",
+                                title: "Indique si rechaza procesos",
+                                value: "RE"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.record.action, "RE")
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.$set(_vm.record, "action", "RE")
+                                }
+                              }
+                            }),
+                            _vm._v(
+                              "\n\t\t\t                    \t\t\tRechaza procesos\n\t\t\t                    \t\t"
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("label", { attrs: { for: "" } }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.record.action,
+                                  expression: "record.action"
+                                }
+                              ],
+                              staticClass: "form-control bootstrap-switch",
+                              attrs: {
+                                type: "radio",
+                                name: "action",
+                                "data-toggle": "tooltip",
+                                "data-on-label": "SI",
+                                "data-off-label": "NO",
+                                title: "Indique si elimina procesos",
+                                value: "EL"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.record.action, "EL")
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.$set(_vm.record, "action", "EL")
+                                }
+                              }
+                            }),
+                            _vm._v(
+                              "\n\t\t\t                    \t\t\tElimina procesos\n\t\t\t                    \t\t"
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("label", { attrs: { for: "" } }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.record.action,
+                                  expression: "record.action"
+                                }
+                              ],
+                              staticClass: "form-control bootstrap-switch",
+                              attrs: {
+                                type: "radio",
+                                name: "action",
+                                "data-toggle": "tooltip",
+                                "data-on-label": "SI",
+                                "data-off-label": "NO",
+                                title: "Indique si inicia procesos",
+                                value: "PR"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.record.action, "PR")
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.$set(_vm.record, "action", "PR")
+                                }
+                              }
+                            }),
+                            _vm._v(
+                              "\n\t\t\t                    \t\t\tInicia procesos\n\t\t\t                    \t\t"
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("label", { attrs: { for: "" } }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.record.action,
+                                  expression: "record.action"
+                                }
+                              ],
+                              staticClass: "form-control bootstrap-switch",
+                              attrs: {
+                                type: "radio",
+                                name: "action",
+                                "data-toggle": "tooltip",
+                                "data-on-label": "SI",
+                                "data-off-label": "NO",
+                                title: "Indique si anula procesos",
+                                value: "AN"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.record.action, "AN")
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.$set(_vm.record, "action", "AN")
+                                }
+                              }
+                            }),
+                            _vm._v(
+                              "\n\t\t\t                    \t\t\tAnula procesos\n\t\t\t                    \t\t"
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
                 ])
               ]),
               _vm._v(" "),
@@ -75706,6 +75964,32 @@ var render = function() {
                               { staticStyle: { "margin-left": "5px" } },
                               [_vm._v(_vm._s(props.row.color))]
                             )
+                          ])
+                        }
+                      },
+                      {
+                        key: "action",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-left" }, [
+                            props.row.action === "AP"
+                              ? _c("span", [_vm._v("Aprobación de procesos")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            props.row.action === "RE"
+                              ? _c("span", [_vm._v("Rechaza procesos")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            props.row.action === "EL"
+                              ? _c("span", [_vm._v("Eliminación de procesos")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            props.row.action === "PR"
+                              ? _c("span", [_vm._v("Inicia Procesos")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            props.row.action === "AN"
+                              ? _c("span", [_vm._v("Anulación de procesos")])
+                              : _vm._e()
                           ])
                         }
                       },
@@ -75824,6 +76108,14 @@ var staticRenderFns = [
         _c("i", { staticClass: "icofont icofont-ui-copy inline-block" }),
         _vm._v(" \n\t\t\t\t\t\tEstatus de Documento\n\t\t\t\t\t")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group is-required" }, [
+      _c("label", [_vm._v("Acción a ejecutar:")])
     ])
   }
 ]
@@ -81967,6 +82259,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			credit_date: '',
 			specific_actions: [],
 			accounts: [{
 				id: '',
@@ -81991,24 +82284,69 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}).catch(function (error) {
 			console.log(error);
 		});
+
+		vm.reset();
+
+		$("#credit_date").on('change', function () {
+			vm.credit_date = $(this).val();
+		});
 	},
 
 	watch: {},
 	methods: {
-		reset: function reset() {},
+		reset: function reset() {
+			this.budget_specific_action_id = '';
+			this.budget_account_id = '';
+			this.amount = 0;
+		},
 		addAccount: function addAccount() {
 			var vm = this;
+			var to_add = {
+				spac_description: '',
+				code: '',
+				description: '',
+				amount: 0
+			};
+
+			if (!vm.budget_specific_action_id) {
+				vm.showMessage('custom', 'Alerta!', 'danger', 'screen-error', 'Debe seleccionar una acción específica');
+				return false;
+			}
+			if (!vm.budget_account_id) {
+				vm.showMessage('custom', 'Alerta!', 'danger', 'screen-error', 'Debe seleccionar una cuenta presupuestaria');
+				return false;
+			}
+			if (vm.amount <= 0) {
+				vm.showMessage('custom', 'Alerta!', 'danger', 'screen-error', 'Debe indicar un monto');
+				return false;
+			}
+
+			/** Obtiene datos de la acción específica seleccionada */
 			axios.get('/budget/detail-specific-actions/' + vm.budget_specific_action_id).then(function (response) {
 				if (response.data.result) {
 					var record = response.data.record;
-					vm.aditional_credit_accounts.push({
-						spac_description: record.specificable.code + " - " + record.code + " | " + record.name,
-						code: '',
-						description: '',
-						amount: vm.amount
-					});
+					to_add.spac_description = record.specificable.code + " - " + record.code + " | " + record.name;
 				}
-			}).catch(function (error) {});
+			}).catch(function (error) {
+				console.log(error);
+			});
+
+			/** Obtiene datos de la cuenta presupuestaria */
+			axios.get('/budget/detail-accounts/' + vm.budget_account_id).then(function (response) {
+				if (response.data.result) {
+					var record = response.data.record;
+					to_add.code = record.group + "." + record.item + "." + record.generic + "." + record.specific + "." + record.subspecific;
+					to_add.description = response.data.record.denomination;
+				}
+			}).catch(function (error) {
+				console.log(error);
+			});
+
+			to_add.amount = vm.amount;
+
+			vm.aditional_credit_accounts.push(to_add);
+			$('.close').click();
+			vm.reset();
 		},
 		deleteAccount: function deleteAccount(index) {},
 
@@ -82053,7 +82391,36 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12 pad-top-20" }, [
         _c("table", { staticClass: "table" }, [
-          _vm._m(0),
+          _c("thead", [
+            _c("tr", [
+              _c("th", [_vm._v("Acción Específica")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Cuenta")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Descripción")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Monto")]),
+              _vm._v(" "),
+              _c("th", [
+                _vm.credit_date
+                  ? _c(
+                      "a",
+                      {
+                        staticClass:
+                          "btn btn-sm btn-info btn-action btn-tooltip",
+                        attrs: {
+                          href: "#",
+                          "data-original-title": "Agregar nuevo registro",
+                          "data-toggle": "modal",
+                          "data-target": "#add_account"
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-plus-circle" })]
+                    )
+                  : _vm._e()
+              ])
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "tbody",
@@ -82107,7 +82474,7 @@ var render = function() {
           { staticClass: "modal-dialog vue-crud", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm.errors.length > 0
@@ -82184,7 +82551,7 @@ var render = function() {
                             expression: "amount"
                           }
                         ],
-                        staticClass: "form-control input-sm",
+                        staticClass: "form-control",
                         attrs: {
                           type: "number",
                           "data-toggle": "tooltip",
@@ -82236,38 +82603,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Acción Específica")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Cuenta")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Descripción")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Monto")]),
-        _vm._v(" "),
-        _c("th", [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-sm btn-info btn-action btn-tooltip",
-              attrs: {
-                href: "#",
-                "data-original-title": "Agregar nuevo registro",
-                "data-toggle": "modal",
-                "data-target": "#add_account"
-              }
-            },
-            [_c("i", { staticClass: "fa fa-plus-circle" })]
-          )
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

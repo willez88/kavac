@@ -37,3 +37,27 @@ Vue.component('warehouse-unit', require('./components/WarehouseProductUnitCompon
  */
 
 Vue.component('warehouse-close', require('./components/WarehouseCloseComponent.vue'));
+
+/**
+ * Componente para la gestión de las reglas del almacén
+ *
+ * @author Henry Paredes (henryp2804@gmail.com)
+ */
+
+Vue.component('warehouse-rule', require('./components/WarehouseProductRuleComponent.vue'));
+
+/**
+ * Componente para crear y editar solicitudes de almacén
+ *
+ * @author Henry Paredes (henryp2804@gmail.com)
+ */
+
+Vue.component('warehouse-request', require('./components/WarehouseRequestCreateComponent.vue'));
+
+/**
+ * Componente para crear y editar las recepciones de almacén
+ *
+ * @author Henry Paredes (henryp2804@gmail.com)
+ */
+
+Vue.component('warehouse-reception', require('./components/WarehouseReceptionCreateComponent.vue'));
