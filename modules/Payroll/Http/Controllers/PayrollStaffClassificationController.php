@@ -73,7 +73,7 @@ class PayrollStaffClassificationController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'required|max:200'
+            'description' => 'nullable|max:200'
         ]);
         $staff_classification = new PayrollStaffClassification;
         $staff_classification->name  = $request->name;
@@ -118,7 +118,7 @@ class PayrollStaffClassificationController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'required|max:200'
+            'description' => 'nullable|max:200'
         ]);
         $staff_classification->name  = $request->name;
         $staff_classification->description = $request->description;

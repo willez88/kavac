@@ -111,10 +111,19 @@
 						{{-- Configuración del grado de instrucción --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="#" title="Registro del grado de instrucción"
+							   href="{{ route('instruction-degrees.index') }}" title="Registro del grado de instrucción"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-graduate-alt ico-3x"></i>
 								<span>Grado de<br>Instrucción</span>
+							</a>
+						</div>
+						{{-- Configuración del tipo de estudio --}}
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('study-types.index') }}" title="Registro del tipo de estudio"
+							   data-toggle="tooltip">
+								<i class="icofont icofont-education ico-3x"></i>
+								<span>Tipo de<br>Estudio</span>
 							</a>
 						</div>
 					</div>

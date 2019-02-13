@@ -26,7 +26,7 @@ class CreatePayrollStaffClassificationsTable extends Migration
             Schema::create('payroll_staff_classifications', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name', 100)->comment('Nombre de la clasificación del personal');
-                $table->string('description', 200)->comment('Descripción de la clasificación del personal');
+                $table->string('description', 200)->nullable()->comment('Descripción de la clasificación del personal');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
