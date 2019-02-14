@@ -73,7 +73,7 @@ class PayrollPositionTypeController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'required|max:200'
+            'description' => 'nullable|max:200'
         ]);
         $position_type = new PayrollPositionType;
         $position_type->name  = $request->name;
@@ -118,7 +118,7 @@ class PayrollPositionTypeController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'required|max:200'
+            'description' => 'nullable|max:200'
         ]);
         $position_type->name  = $request->name;
         $position_type->description = $request->description;

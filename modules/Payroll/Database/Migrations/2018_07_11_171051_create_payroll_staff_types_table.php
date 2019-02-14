@@ -26,7 +26,7 @@ class CreatePayrollStaffTypesTable extends Migration
             Schema::create('payroll_staff_types', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name', 100)->comment('Nombre del tipo de personal');
-                $table->string('description', 200)->comment('Descripción del tipo de personal');
+                $table->string('description', 200)->nullable()->comment('Descripción del tipo de personal');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

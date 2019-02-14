@@ -73,7 +73,7 @@ class PayrollPositionController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'required|max:200'
+            'description' => 'nullable|max:200'
         ]);
         $position = new PayrollPosition;
         $position->name  = $request->name;
@@ -118,7 +118,7 @@ class PayrollPositionController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'required|max:200'
+            'description' => 'nullable|max:200'
         ]);
         $position->name  = $request->name;
         $position->description = $request->description;
@@ -133,7 +133,7 @@ class PayrollPositionController extends Controller
      * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
      * @return [<b>Route</<b>] ruta hacia la vista de listar cargos
      */
-    public function destroy(Request $request,PayrollPosition $position)
+    public function destroy(Request $request, PayrollPosition $position)
     {
         if ($request->ajax())
         {

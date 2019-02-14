@@ -32,7 +32,34 @@
 				{!! (!isset($staff_type))?Form::open($header):Form::model($staff_type, $header) !!}
 					<div class="card-body">
 						@include('layouts.form-errors')
-						@include('payroll::layouts.form-fields')
+						<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
+						<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div>
+						<div class="row">
+						    <div class="col-md-6">
+						        <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} is-required">
+						            {!! Form::label('name', 'Nombre', []) !!}
+						            {!! Form::text('name',(isset($staff_type))?$staff_type->name:old('name'),
+						                [
+						                    'class' => 'form-control input-sm',
+						                    'data-toggle' => 'tooltip',
+						                    'title' => 'Indique el nombre del tipo de personal'
+						                ]
+						            ) !!}
+						        </div>
+						    </div>
+						    <div class="col-md-6">
+						        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+						            {!! Form::label('description', 'Descripción', []) !!}
+						            {!! Form::text('description',(isset($staff_type))?$staff_type->description:old('description'),
+						                [
+						                    'class' => 'form-control input-sm',
+						                    'data-toggle' => 'tooltip',
+						                    'title' => 'Indique la descripción del tipo del personal'
+						                ]
+						            ) !!}
+						        </div>
+						    </div>
+						</div>
 					</div>
 					<div class="card-footer text-right">
 						@include('layouts.form-buttons')

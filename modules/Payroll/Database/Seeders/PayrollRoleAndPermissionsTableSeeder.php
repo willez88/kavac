@@ -157,6 +157,56 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollStaff', 'model_prefix' => 'nomina',
                 'slug_alt' => 'personal.eliminar'
             ],
+            // instruction degrees
+            [
+                'name' => 'Ver el grado de instrucción', 'slug' => 'payroll.instruction.degrees.index',
+                'description' => 'Acceso para ver el grado de instrucción',
+                'model' => 'Modules\Payroll\Models\PayrollInstructionDegree', 'model_prefix' => 'nomina',
+                'slug_alt' => 'grado.instruccion.ver'
+            ],
+            [
+                'name' => 'Crear el grado de instrucción', 'slug' => 'payroll.instruction.degrees.create',
+                'description' => 'Acceso para crear el grado de instrucción',
+                'model' => 'Modules\Payroll\Models\PayrollInstructionDegree', 'model_prefix' => 'nomina',
+                'slug_alt' => 'grado.instruccion.crear'
+            ],
+            [
+                'name' => 'Editar el grado de instrucción', 'slug' => 'payroll.instruction.degrees.edit',
+                'description' => 'Acceso para editar el grado de instrucción',
+                'model' => 'Modules\Payroll\Models\PayrollInstructionDegree', 'model_prefix' => 'nomina',
+                'slug_alt' => 'grado.instruccion.editar'
+            ],
+            [
+                'name' => 'Eliminar el grado de instrucción', 'slug' => 'payroll.instruction.degrees.delete',
+                'description' => 'Acceso para eliminar el grado de instrucción',
+                'model' => 'Modules\Payroll\Models\PayrollInstructionDegree', 'model_prefix' => 'nomina',
+                'slug_alt' => 'grado.instruccion.eliminar'
+            ],
+            // study types
+            [
+                'name' => 'Ver el tipo de estudio', 'slug' => 'payroll.study.types.index',
+                'description' => 'Acceso para ver el tipo de estudio',
+                'model' => 'Modules\Payroll\Models\PayrollStudyType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.estudio.ver'
+            ],
+            [
+                'name' => 'Crear el tipo de estudio', 'slug' => 'payroll.study.types.create',
+                'description' => 'Acceso para crear el tipo de estudio',
+                'model' => 'Modules\Payroll\Models\PayrollStudyType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.estudio.crear'
+            ],
+            [
+                'name' => 'Editar el tipo de estudio', 'slug' => 'payroll.study.types.edit',
+                'description' => 'Acceso para editar el tipo de estudio',
+                'model' => 'Modules\Payroll\Models\PayrollStudyType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.estudio.editar'
+            ],
+            [
+                'name' => 'Eliminar el tipo de estudio', 'slug' => 'payroll.study.types.delete',
+                'description' => 'Acceso para eliminar el tipo de estudio',
+                'model' => 'Modules\Payroll\Models\PayrollStudyType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.estudio.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {
