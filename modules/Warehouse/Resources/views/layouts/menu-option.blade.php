@@ -19,14 +19,14 @@
                 <li>
                     <a  href="{{ route('warehouse.reception.index') }}" 
                         data-toggle="tooltip" data-placement="right"
-                        title="Gestión de las Recepciones de Almacén">
+                        title="Gestión de los Ingresos de artículos al Almacén">
                         Recepciones de Almacén
                     </a>
                 </li>
                 <li>
                     <a  href="#" 
                         data-toggle="tooltip" data-placement="right"
-                        title="Gestión de los Movimiento entre Almacenes">
+                        title="Gestión de los Movimientos de artículos entre Almacenes">
                         Movimientos de Almacén
                     </a>
                 </li>

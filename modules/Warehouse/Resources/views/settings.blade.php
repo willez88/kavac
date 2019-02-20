@@ -37,6 +37,9 @@
 						{{-- Configuración de Productos Almacenables --}}
 						<warehouse-product></warehouse-product>
 
+						{{-- Configuración de Productos Almacenables --}}
+						<warehouse-attribute></warehouse-attribute>
+
 						{{-- Configuración de Unidades Métricas de Productos --}}
 						<warehouse-unit></warehouse-unit>
 

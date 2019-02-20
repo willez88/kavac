@@ -21,6 +21,7 @@ Vue.component('warehouse', require('./components/WarehouseComponent.vue'));
  */
 
 Vue.component('warehouse-product', require('./components/WarehouseProductComponent.vue'));
+Vue.component('warehouse-attribute', require('./components/WarehouseProductAttributeComponent.vue'));
 
 /**
  * Componente para la gestión de unidades métricas de productos

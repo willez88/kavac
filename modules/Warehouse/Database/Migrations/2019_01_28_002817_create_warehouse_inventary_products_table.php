@@ -17,7 +17,7 @@ class CreateWarehouseInventaryProductsTable extends Migration
             Schema::create('warehouse_inventary_products', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
 
-                $table->integer('exist')->unsigned()->comment('Cantidad de artículos en existencia en el almacen actualmente (Incluye a los reservados por solicitudes almacen)');
+                $table->integer('exist')->unsigned()->nullable()->comment('Cantidad de artículos en existencia en el almacen actualmente (Incluye a los reservados por solicitudes almacen)');
 
                 $table->integer('reserved')->unsigned()->nullable()->comment('Cantidad de artículos reservados por solicitudes de almacen que se han registrado en el sistema');
 
@@ -30,7 +30,7 @@ class CreateWarehouseInventaryProductsTable extends Migration
                 $table->integer('warehouse_id')->unsigned()->comment('Identificador del almacen en el que esta inventariado el producto');
                 $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('restrict')->onUpdate('cascade');
                  
-                $table->integer('unit_value')->unsigned()->comment('Precio por unidad del artículo en el almacen');
+                $table->integer('unit_value')->unsigned()->nullable()->comment('Precio por unidad del artículo en el almacen');
 
                 /**
                  * Fecha en la que se registra el articulo en el inventario de almacen

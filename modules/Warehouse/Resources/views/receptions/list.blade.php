@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Recepciones de Almacén</h6>
+					<h6 class="card-title">Ingresos de Almacén</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 						   data-toggle="tooltip">
@@ -45,22 +45,22 @@
 						<table class="table table-hover table-striped dt-responsive datatable">
 							<thead>
 								<tr class="text-center">			
-									<th>Tipo de Operación</th>
-									<th>Motivo</th>
-									<th>Almacén de Destino</th>
-									<th>Fecha de la Solicitud</th>
-									<th>Estado de la Solicitud</th>
+									<th>Código</th>
+									<th>Descripción</th>
+									<th>Almacén</th>
+									<th>Fecha de Ingreso</th>
+									<th>Estado</th>
 									<th width="10%">Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
 								@foreach($receptions as $reception)
 									<tr>
-										<td>{{ $reception->type }}</td>
-										<td>{{ $reception->motive }}</td>
-										<td>{{ $reception->warehouse_id }}</td>
+										<td>{{ $reception->id }}</td>
+										<td>{{ $reception->observation }}</td>
+										<td>{{ $reception->finish->warehouse->name }}</td>
 										<td>{{ $reception->created_at }}</td>
-										<td>{{ $reception->state }}</td>
+										<td>{{ ($reception->complete)?'Completado':'Pendiente' }}</td>
 
 										<td width="10%" class="text-center">
 											<div class="d-inline-flex">

@@ -44,7 +44,7 @@ class WarehouseMovement extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['type', 'observation', 'complete', 'warehouse_inst_start_id', 'warehouse__inst_finish_id','user_id'];
+    protected $fillable = ['type', 'observation', 'complete', 'warehouse_inst_start_id', 'warehouse_inst_finish_id','user_id'];
 
 
     /**
@@ -66,7 +66,7 @@ class WarehouseMovement extends Model implements Auditable
      */
     public function finish()
     {
-        return $this->belongsTo('Modules\Warehouse\Models\WarehouseInstitutionWarehouse','warehouse_inst_finish_id');
+        return $this->belongsTo('Modules\Warehouse\Models\WarehouseInstitutionWarehouse','warehouse_inst_finish_id')->with('warehouse','institution');
     }
 
     /**

@@ -55,6 +55,15 @@ class WarehouseRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'configuracion.almacen.producto', 'short_description' => 'configuración de los productos almacenables'
             ],
             /**
+             * Configuración de los atributos de los productos almacenables
+            **/
+            [
+                'name' => 'Configuración de los atributos de los productos almacenables', 'slug' => 'warehouse.setting.attribute',
+                'description' => 'Acceso a la configuración de los atributos de los productos almacenables', 
+                'model' => 'Modules\Warehouse\Models\WarehouseProductAttribute', 'model_prefix' => 'almacen',
+                'slug_alt' => 'configuracion.producto.atributo', 'short_description' => 'configuración de los atributos de los productos almacenables'
+            ],
+            /**
              * Configuración de las unidades métricas de productos almacenables
             **/
             [
@@ -110,31 +119,31 @@ class WarehouseRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'almacen.solicitud.eliminar', 'short_description' => 'eliminar solicitud de bienes'
             ],
             /**
-             * Recepciones de Almacén
+             * Movimientos de Almacén
             **/
             [
-                'name' => 'Ver recepción de almacén', 'slug' => 'warehouse.reception.list',
-                'description' => 'Acceso para ver las recepciones de almacén', 
-                'model' => 'Modules\Warehouse\Models\WarehouseReception', 'model_prefix' => 'almacen',
-                'slug_alt' => 'almacen.recepcion.ver', 'short_description' => 'ver recepción de almacén'
-            ],
-            /*[
-                'name' => 'Crear recepción de almacén', 'slug' => 'warehouse.reception.create',
-                'description' => 'Acceso para crear recepción de almacén', 
-                'model' => 'Modules\Warehouse\Models\WarehouseReception', 'model_prefix' => 'almacen',
-                'slug_alt' => 'almacen.recepcion.crear', 'short_description' => 'agregar recepción de almacén'
-            ],*/
-            [
-                'name' => 'Editar recepción de almacén', 'slug' => 'warehouse.reception.edit',
-                'description' => 'Acceso para editar las recepciones de almacén', 
-                'model' => 'Modules\Warehouse\Models\WarehouseReception', 'model_prefix' => 'almacen',
-                'slug_alt' => 'almacen.recepcion.editar', 'short_description' => 'editar recepción de almacén'
+                'name' => 'Ver movimiento de artículos de almacén', 'slug' => 'warehouse.movement.list',
+                'description' => 'Acceso para ver los movimientos de artículos de almacén', 
+                'model' => 'Modules\Warehouse\Models\WarehouseMovement', 'model_prefix' => 'almacen',
+                'slug_alt' => 'almacen.movimiento.ver', 'short_description' => 'ver movimiento de artículos de almacén'
             ],
             [
-                'name' => 'Eliminar recepción de almacén', 'slug' => 'warehouse.reception.delete',
-                'description' => 'Acceso para eliminar recepción de almacén', 
-                'model' => 'Modules\Warehouse\Models\WarehouseReception', 'model_prefix' => 'almacen',
-                'slug_alt' => 'almacen.reception.eliminar', 'short_description' => 'eliminar receción de bienes'
+                'name' => 'Crear movimiento de artículos de almacén', 'slug' => 'warehouse.movement.create',
+                'description' => 'Acceso para crear movimientos de artículos de almacén', 
+                'model' => 'Modules\Warehouse\Models\WarehouseMovement', 'model_prefix' => 'almacen',
+                'slug_alt' => 'almacen.movimiento.crear', 'short_description' => 'agregar movimiento de artículos de almacén'
+            ],
+            [
+                'name' => 'Editar movimiento de artículos de almacén', 'slug' => 'warehouse.movement.edit',
+                'description' => 'Acceso para editar los movimientos de artículos de almacén', 
+                'model' => 'Modules\Warehouse\Models\WarehouseMovement', 'model_prefix' => 'almacen',
+                'slug_alt' => 'almacen.movimiento.editar', 'short_description' => 'editar movimiento de artículos de almacén'
+            ],
+            [
+                'name' => 'Eliminar movimiento de artículos de almacén', 'slug' => 'warehouse.movement.delete',
+                'description' => 'Acceso para eliminar los movimientos de artículos de almacén', 
+                'model' => 'Modules\Warehouse\Models\WarehouseMovement', 'model_prefix' => 'almacen',
+                'slug_alt' => 'almacen.movement.eliminar', 'short_description' => 'eliminar movimiento de artículos de almacén'
             ],
         ];
         

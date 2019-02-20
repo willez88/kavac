@@ -32,6 +32,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
      */
 
     Route::get('vue-list', 'WarehouseController@vueList');
+    Route::get('institution/{institution?}', 'WarehouseController@getWarehouse');
     Route::get('products-list', 'WarehouseProductController@vueList');
     Route::get('units-list', 'WarehouseProductUnitController@vueList');
 
@@ -41,12 +42,12 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
      * ------------------------------------------------------------
      */
 
+
+    Route::resource('receptions', 'WarehouseReceptionController');
     Route::get('receptions', 'WarehouseReceptionController@index')->name('warehouse.reception.index');
     Route::get('receptions/create', 'WarehouseReceptionController@create')->name('warehouse.reception.create');
-    Route::post('receptions/store', 'WarehouseReceptionController@store')->name('warehouse.reception.store');
-    Route::get('receptions/edit/{reception}', 'WarehouseReceptionController@edit')->name('warehouse.reception.edit');
-    Route::put('receptions/update/{reception}', 'WarehouseReceptionController@update')->name('warehouse.reception.update');
-    Route::delete('receptions/delete/{reception}', 'WarehouseReceptionController@destroy')->name('warehouse.reception.destroy');
+    Route::get('reception/edit/{reception}', 'WarehouseReceptionController@edit')->name('warehouse.reception.edit');
+    Route::delete('reception/delete/{reception}', 'WarehouseReceptionController@destroy')->name('warehouse.reception.destroy');
 
     /**
      * ------------------------------------------------------------

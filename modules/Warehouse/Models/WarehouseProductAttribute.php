@@ -9,7 +9,7 @@ class WarehouseProductAttribute extends Model
     protected $fillable = ['name','product_id'];
 
 
-    public function product()
+    public function value()
     {
     	return $this->belongsTo('Modules\Warehouse\Models\WarehouseProduct','product_id');
     }

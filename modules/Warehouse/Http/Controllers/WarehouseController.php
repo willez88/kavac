@@ -10,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Warehouse\Models\Warehouse;
 use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
 
+use App\Models\Institution;
 use App\Models\Setting;
 
 
@@ -71,8 +72,8 @@ class WarehouseController extends Controller
             'city_id' => 1,
             //'main' => $request->input('main'),
         ]);
-        ($request->institution_id > 0)?$institution = $request->institution_id:$request = 1;
-            
+        //($request->institution_id > 0)?$institution = $request->institution_id:$request = 1;
+        $institution = 1;
         $warehouse_institution = WarehouseInstitutionWarehouse::create([
             'institution_id' => $institution,
             'warehouse_id' => $warehouse->id,
@@ -129,5 +130,34 @@ class WarehouseController extends Controller
 
     public function manage(){
         return response()->json(['records' => WarehouseInstitutionWarehouse::all()] , 200);
+    }
+
+    /**
+     * Construye un arreglo de elementos para usar en plantillas blade
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $institution   Institucion que gestiona los almacenes a ser buscados
+     * @return array   Arreglo con las opciones a mostrar
+     */
+
+    public function getWarehouse($institution = null){
+        /*
+         *  Si no hay datos sobre la institución de gestión se retornan los almacenes de la institucion por defecto y activa según la configuración del sistema
+         */
+        if (is_null($institution)){
+            $institution = Institution::where('active',true)->where('default',true)->first();
+            $institution = $institution->id;
+        }
+        $records = WarehouseInstitutionWarehouse::where('institution_id', $institution)->with('warehouse')->get();
+
+        /** Inicia la opción vacia por defecto */
+        $options = (count($records) >= 1) ? [['id' => '', 'text' => 'Seleccione...']] : [];
+
+        foreach ($records as $rec) {            
+            $text = $rec->warehouse->name;
+            array_push($options, ['id' => $rec->id, 'text' => $text]);
+        }
+        return $options;
+  
     }
 }

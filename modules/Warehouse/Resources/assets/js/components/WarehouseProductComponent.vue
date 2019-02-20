@@ -270,10 +270,11 @@
 					this.updateAttribute(url);
 				}
 				else {
-					var fields = {};
-					for (var index in this.attribute) {
-						fields[index] = this.attribute[index];
-					}
+					var fields = {
+			          id: this.attribute.id,
+			          name: this.attribute.name,
+			          product_id: this.record.id,
+			        };
 
 					axios.post('/' + url, fields).then(response => {
 						if (typeof response.data.records !== "undefined") {
