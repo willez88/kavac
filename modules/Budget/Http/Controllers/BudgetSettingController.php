@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use App\Models\CodeSetting;
+use App\Rules\CodeSetting as CodeSettingRule;
 
 use Modules\Budget\Models\BudgetProject;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
@@ -57,6 +58,17 @@ class BudgetSettingController extends Controller
      */
     public function store(Request $request)
     {
+        /** Reglas de validación para la configuración de códigos */
+        $request->validate([
+            'formulations_code' => [new CodeSettingRule],
+            'commitments_code' => [new CodeSettingRule],
+            'caused_code' => [new CodeSettingRule],
+            'payed_code' => [new CodeSettingRule],
+            'transfers_code' => [new CodeSettingRule],
+            'reductions_code' => [new CodeSettingRule],
+            'credits_code' => [new CodeSettingRule],
+        ]);
+
         $codes = $request->input();
         $saved = false;
         

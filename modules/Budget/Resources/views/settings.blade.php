@@ -32,6 +32,7 @@
 				{!! Form::open(['route' => 'budget.settings.store', 'method' => 'post']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
+						@include('layouts.form-errors')
 						<div class="row">
 							<div class="col-12">
 								<h6>Formulación</h6>
