@@ -35118,13 +35118,14 @@ Vue.mixin({
 			var other_model = typeof other_model !== "undefined" ? other_model : null;
 			var vm = this;
 			$('input[name=' + elementName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function () {
+				var value = $(this).val().toLowerCase() === "true" ? true : $(this).val().toLowerCase() === "false" ? false : $(this).val();
 				/** Asigna el valor del elemento radio o checkbox seleccionado */
 				if (other_model) {
 					/** en caso de asignar el valor a otro objeto de modelo */
-					other_model = $(this).is(':checked') ? $(this).val() : '';
+					other_model = $(this).is(':checked') ? value : '';
 				} else {
 					/** objeto de registros por defecto */
-					vm.record[model] = $(this).is(':checked') ? $(this).val() : '';
+					vm.record[model] = $(this).is(':checked') ? value : '';
 				}
 			});
 		}
@@ -77711,6 +77712,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				administrative: false
 			};
 		}
+	},
+	mounted: function mounted() {
+		this.switchHandler('issue_requests', 'issue_requests');
+		this.switchHandler('active', 'active');
+		this.switchHandler('administrative', 'administrative');
 	}
 });
 
@@ -77931,6 +77937,7 @@ var render = function() {
                           staticClass: "form-control bootstrap-switch",
                           attrs: {
                             type: "checkbox",
+                            name: "issue_requests",
                             "data-toggle": "tooltip",
                             "data-on-label": "SI",
                             "data-off-label": "NO",
@@ -77995,6 +78002,7 @@ var render = function() {
                           staticClass: "form-control bootstrap-switch",
                           attrs: {
                             type: "checkbox",
+                            name: "active",
                             "data-toggle": "tooltip",
                             title: "Indique si se encuentra activo",
                             "data-on-label": "SI",
@@ -78061,6 +78069,7 @@ var render = function() {
                             "data-toggle": "tooltip",
                             title:
                               "Indique si la unidad, departamento o dependencia es del área administrativa",
+                            name: "administrative",
                             "data-on-label": "SI",
                             "data-off-label": "NO",
                             value: "true"

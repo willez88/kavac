@@ -62,7 +62,7 @@
 								<div class="form-group is-required">
 									<label>Solicita almacén:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch" 
+										<input type="checkbox" class="form-control bootstrap-switch" name="issue_requests" 
 											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO" 
 											   title="Indique si puede emitir solicitudes de almacén" 
 											   v-model="record.issue_requests" value="true">
@@ -73,7 +73,7 @@
 								<div class="form-group is-required">
 									<label>Activo:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch" 
+										<input type="checkbox" class="form-control bootstrap-switch" name="active" 
 											   data-toggle="tooltip" title="Indique si se encuentra activo" 
 											   data-on-label="SI" data-off-label="NO" value="true" 
 											   v-model="record.active">
@@ -85,7 +85,7 @@
 									<label>Administrativo:</label>
 									<div class="col-md-12">
 										<input type="checkbox" class="form-control bootstrap-switch" 
-											   data-toggle="tooltip" title="Indique si la unidad, departamento o dependencia es del área administrativa" 
+											   data-toggle="tooltip" title="Indique si la unidad, departamento o dependencia es del área administrativa" name="administrative"
 											   data-on-label="SI" data-off-label="NO" value="true" 
 											   v-model="record.administrative">
 									</div>
@@ -193,6 +193,11 @@
 					administrative: false
 				};
 			},
+		},
+		mounted() {
+			this.switchHandler('issue_requests', 'issue_requests');
+			this.switchHandler('active', 'active');
+			this.switchHandler('administrative', 'administrative');
 		}
 	};
 </script>
