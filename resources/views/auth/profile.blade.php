@@ -7,8 +7,21 @@
                 <div class="col-md-3 col-right-border">
                     <div class="row">
                         <div class="col-12 text-center">
-                            <img src="{{ asset('images/default-avatar.png') }}" alt="" 
-                                 class="img-profile">
+                            {!! Form::open([
+                                'id' => 'formImgProfile', 'method' => 'POST', 'route' => 'upload-image.store', 
+                                'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
+                            ]) !!}
+                                @php
+                                    $prf = auth()->user()->profile;
+                                    $img_profile = ($prf && $prf->image_id) ? $prf->image->url : null;
+                                @endphp
+                                <img src="{{ asset($img_profile ?? 'images/default-avatar.png') }}" 
+                                     alt="{{ $model->name ?? auth()->user()->name }}" 
+                                     class="img-profile" style="cursor:pointer" title="Click para modificar imagen de perfil" 
+                                     data-toggle="tooltip" onclick="$('input[name=profile_image]').click()">
+                                <input type="file" id="profile_image" name="profile_image" style="display:none" 
+                                       onchange="uploadProfileImage()">
+                            {!! Form::close() !!}
                         </div>
                         <div class="col-12 text-center">
                             <h4>{{ auth()->user()->name }}</h4>
@@ -61,7 +74,7 @@
                                                 </span>
                                                 {!! Form::text('name', $model->name, [
                                                     'class' => 'form-control input-sm', 
-                                                    'readonly' => 'readonly',
+                                                    'readonly' => 'readonly', 'id' => 'first_name',
                                                     'data-toggle' => 'tooltip',
                                                     'title' => 'Nombre y Apellido. Este dato solo ' . 
                                                                'puede ser modificado por personal ' . 
@@ -730,3 +743,50 @@
         </div>
     </div>
 @stop
+
+@section('extra-js')
+    @parent
+    <script>
+        function uploadProfileImage() {
+            var url = $("#formImgProfile").attr('action');
+            var formData = new FormData();
+            var imageFile = document.querySelector('#profile_image');
+            formData.append("image", imageFile.files[0]);
+            axios.post(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                var up = response.data;
+                if (up.result) {
+                    $.gritter.add({
+                        title: 'Exito!',
+                        text: "La imagen de perfil ha sido actualizada",
+                        class_name: 'growl-success',
+                        image: "{{ asset('images/screen-ok.png') }}",
+                        sticky: false,
+                        time: 2500
+                    });
+                    axios.get('/get-image/' + up.image_id).then(response => {
+                        var image = response.data.image;
+                        $(".img-profile").attr('src', "/" + image.url);
+                        $(".img-profile-mini").attr('src', "/" + image.url);
+                        axios.post('{{ route('profiles.store') }}', {
+                            first_name: $("#first_name").val(),
+                            user_id: {{ auth()->user()->id }},
+                            image_id:  image.id
+                        }).then(response => {
+
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                }
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+    </script>
+@endsection

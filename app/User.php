@@ -53,4 +53,9 @@ class User extends Authenticatable implements Auditable
      * @var array
      */
     protected $dates = ['deleted_at', 'last_login'];
+
+    public function profile()
+    {
+        return $this->hasOne(Models\Profile::class);
+    }
 }

@@ -62,7 +62,7 @@
 								<label for="">Logotipo Institucional</label>
 								<div class="kv-avatar">
 					                <div class="file-loading">
-					                    <input id="logo_id" name="logo_id" type="file">
+					                    <input id="logo_id" name="logo_id" type="file" class="file-element">
 					                </div>
 					            </div>
 								@if ($model_institution!==null && $model_institution->logo_id)
@@ -77,7 +77,7 @@
 								<label for="">Banner Institucional</label>
 								<div class="kv-avatar">
 					                <div class="file-loading">
-					                    <input id="banner_id" name="banner_id" type="file">
+					                    <input id="banner_id" name="banner_id" type="file" class="file-element input-sm">
 					                </div>
 					            </div>
 								@if ($model_institution!==null && $model_institution->banner_id)

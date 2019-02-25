@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Repositories\UploadImageRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -42,9 +43,16 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadImageRepository $up)
     {
-        //
+        if ($request->file('image')) {
+            
+            if ($up->uploadImage($request->file('image'), 'pictures')) {
+                $image_id = $up->getImageStored()->id;
+                return response()->json(['result' => true, 'image_id' => $image_id], 200);
+            }
+        }
+        return response()->json(['result' => false, 'message' => 'No se pudo subir la imagen'], 200);
     }
 
     /**
@@ -90,5 +98,10 @@ class ImageController extends Controller
     public function destroy(Image $image)
     {
         //
+    }
+
+    public function getImage(Request $request, Image $image)
+    {
+        return response()->json(['result' => true, 'image' => $image], 200);
     }
 }

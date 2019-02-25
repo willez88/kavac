@@ -64,6 +64,17 @@ class Image extends Model implements Auditable
     }
 
     /**
+     * Método que obtiene el perfil de una imagen
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return object Objeto con el registro relacionado al modelo Profile
+     */
+    public function profile()
+    {
+        return $this->hasMany(Institution::class);
+    }
+
+    /**
      * Image has many FinanceBank.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

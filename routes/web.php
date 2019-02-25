@@ -142,6 +142,15 @@ Route::group(['middleware' => 'auth'], function() {
     /** Ruta para obtener datos de monedas */
     Route::get('/get-currencies/{currency_id?}', 'CurrencyController@getCurrencies')
          ->name('get-currencies');
+
+    /** Ruta para la gestión de imágenes */
+    Route::resource('upload-image', 'ImageController', [
+        'except' => ['index', 'create', 'show', 'edit', 'update', 'destroy']
+    ]);
+    Route::get('get-image/{image}', 'ImageController@getImage')->name('get-image');
+
+    /** Rutas para la gestión de perfiles */
+    Route::resource('profiles', 'ProfileController');
 });
 
 /**

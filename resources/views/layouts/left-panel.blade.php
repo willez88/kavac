@@ -1,7 +1,13 @@
 <div class="left-panel">
 	<div class="media profile-left">
+            @php
+                $prf = auth()->user()->profile;
+                $img_profile = ($prf && $prf->image_id) ? $prf->image->url : null;
+            @endphp
             <a class="float-left profile-thumb" href="{{ url('users') . "/" . Auth::user()->id }}">
-                <img class="img-circle" src="{{ asset('images/default-avatar.png') }}" alt="">
+                <img class="img-circle img-profile-mini" 
+                     src="{{ asset($img_profile ?? 'images/default-avatar.png') }}" 
+                     alt="{{ auth()->user()->name }}">
             </a>
             <div class="media-body">
                 <h4 class="media-heading">{{ Auth::user()->name }}</h4>

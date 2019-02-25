@@ -12,7 +12,13 @@ footer nav ul {
 }
 /** Perfil de usuario */
 .img-profile {
-	border:3px solid #519BF6; padding:15px; border-radius: 50%;
+	border:3px solid #519BF6; padding:15px; border-radius: 50%;height:250px;width: 250px;
+}
+.img-profile-mini {
+	height:50px; width:50px;
+}
+.content-wrapper.collapsed .profile-left .profile-thumb img {
+	height:30px;
 }
 
 /** Estilos para el contenido de la aplicación */
