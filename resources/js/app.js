@@ -530,14 +530,16 @@ Vue.mixin({
 			var other_model = (typeof(other_model) !== "undefined") ? other_model: null;
 			let vm = this;
 			$('input[name=' + elementName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {
+				var value = ($(this).val().toLowerCase() === "true") 
+							? true : (($(this).val().toLowerCase() === "false") ? false : $(this).val());
 				/** Asigna el valor del elemento radio o checkbox seleccionado */
 				if (other_model) {
 					/** en caso de asignar el valor a otro objeto de modelo */
-					other_model = ($(this).is(':checked')) ? $(this).val() : '';
+					other_model = ($(this).is(':checked')) ? value : '';
 				}
 				else {
 					/** objeto de registros por defecto */
-					vm.record[model] = ($(this).is(':checked')) ? $(this).val() : '';
+					vm.record[model] = ($(this).is(':checked')) ? value : '';
 				}
 			});
 		}
