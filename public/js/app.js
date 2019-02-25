@@ -35106,6 +35106,27 @@ Vue.mixin({
    */
 		removeRow: function removeRow(index, el) {
 			el.splice(index, 1);
+		},
+		/**
+   * Gestiona el evento del elemento switch en radio y checkbox
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {string} elementName Nombre del elemento
+   * @param  {string} model       Nombre del modelo
+   */
+		switchHandler: function switchHandler(elementName, model, other_model) {
+			var other_model = typeof other_model !== "undefined" ? other_model : null;
+			var vm = this;
+			$('input[name=' + elementName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function () {
+				/** Asigna el valor del elemento radio o checkbox seleccionado */
+				if (other_model) {
+					/** en caso de asignar el valor a otro objeto de modelo */
+					other_model = $(this).is(':checked') ? $(this).val() : '';
+				} else {
+					/** objeto de registros por defecto */
+					vm.record[model] = $(this).is(':checked') ? $(this).val() : '';
+				}
+			});
 		}
 		/*loadRelationalSelect(parent_id, target_url) {
   	var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
@@ -35117,11 +35138,7 @@ Vue.mixin({
   	}
   }*/
 	},
-	mounted: function mounted() {
-		$('.bootstrap-switch').on('change', function () {
-			console.log($(this).val());
-		});
-	}
+	mounted: function mounted() {}
 });
 
 /** @type {object} Constante que crea el elemento Vue */
@@ -75557,6 +75574,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			'action': 'col-md-2',
 			'id': 'col-md-2'
 		};
+	},
+	mounted: function mounted() {
+		this.switchHandler('action', 'action');
 	}
 });
 
@@ -75758,9 +75778,10 @@ var render = function() {
                               directives: [
                                 {
                                   name: "model",
-                                  rawName: "v-model",
+                                  rawName: "v-model.lazy",
                                   value: _vm.record.action,
-                                  expression: "record.action"
+                                  expression: "record.action",
+                                  modifiers: { lazy: true }
                                 }
                               ],
                               staticClass: "form-control bootstrap-switch",
@@ -75771,7 +75792,8 @@ var render = function() {
                                 "data-on-label": "SI",
                                 "data-off-label": "NO",
                                 title: "Indique si aprueba procesos",
-                                value: "AP"
+                                value: "AP",
+                                "data-record": "action"
                               },
                               domProps: {
                                 checked: _vm._q(_vm.record.action, "AP")
@@ -75807,7 +75829,8 @@ var render = function() {
                                 "data-on-label": "SI",
                                 "data-off-label": "NO",
                                 title: "Indique si rechaza procesos",
-                                value: "RE"
+                                value: "RE",
+                                "data-record": "action"
                               },
                               domProps: {
                                 checked: _vm._q(_vm.record.action, "RE")
@@ -75843,7 +75866,8 @@ var render = function() {
                                 "data-on-label": "SI",
                                 "data-off-label": "NO",
                                 title: "Indique si elimina procesos",
-                                value: "EL"
+                                value: "EL",
+                                "data-record": "action"
                               },
                               domProps: {
                                 checked: _vm._q(_vm.record.action, "EL")
@@ -75879,7 +75903,8 @@ var render = function() {
                                 "data-on-label": "SI",
                                 "data-off-label": "NO",
                                 title: "Indique si inicia procesos",
-                                value: "PR"
+                                value: "PR",
+                                "data-record": "action"
                               },
                               domProps: {
                                 checked: _vm._q(_vm.record.action, "PR")
@@ -75915,7 +75940,8 @@ var render = function() {
                                 "data-on-label": "SI",
                                 "data-off-label": "NO",
                                 title: "Indique si anula procesos",
-                                value: "AN"
+                                value: "AN",
+                                "data-record": "action"
                               },
                               domProps: {
                                 checked: _vm._q(_vm.record.action, "AN")

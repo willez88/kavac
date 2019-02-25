@@ -62,7 +62,7 @@
 				                    		<label for="">
 					                    		<input type="radio" class="form-control bootstrap-switch" 
 					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si aprueba procesos" 
-													   v-model="record.action" value="AP">
+													   v-model.lazy="record.action" value="AP" data-record="action">
 				                    			Aprueba procesos
 				                    		</label>
 				                    	</div>
@@ -70,7 +70,7 @@
 				                    		<label for="">
 					                    		<input type="radio" class="form-control bootstrap-switch" 
 					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si rechaza procesos" 
-													   v-model="record.action" value="RE">
+													   v-model="record.action" value="RE" data-record="action">
 				                    			Rechaza procesos
 				                    		</label>
 				                    	</div>
@@ -78,7 +78,7 @@
 				                    		<label for="">
 					                    		<input type="radio" class="form-control bootstrap-switch" 
 					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si elimina procesos" 
-													   v-model="record.action" value="EL">
+													   v-model="record.action" value="EL" data-record="action">
 				                    			Elimina procesos
 				                    		</label>
 				                    	</div>
@@ -86,7 +86,7 @@
 				                    		<label for="">
 					                    		<input type="radio" class="form-control bootstrap-switch" 
 					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si inicia procesos" 
-													   v-model="record.action" value="PR">
+													   v-model="record.action" value="PR" data-record="action">
 				                    			Inicia procesos
 				                    		</label>
 				                    	</div>
@@ -94,7 +94,7 @@
 				                    		<label for="">
 					                    		<input type="radio" class="form-control bootstrap-switch" 
 					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si anula procesos" 
-													   v-model="record.action" value="AN">
+													   v-model="record.action" value="AN" data-record="action">
 				                    			Anula procesos
 				                    		</label>
 				                    	</div>
@@ -181,7 +181,7 @@
 					color: '#FFFFFF',
 					action: '',
 				};
-			},
+			}
 		},
 		created() {
 			this.table_options.headings = {
@@ -200,6 +200,9 @@
 				'action': 'col-md-2',
 				'id': 'col-md-2'
 			};
+		},
+		mounted() {
+			this.switchHandler('action', 'action');
 		}
 	};
 </script>
