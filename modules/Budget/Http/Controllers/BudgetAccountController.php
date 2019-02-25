@@ -185,6 +185,7 @@ class BudgetAccountController extends Controller
      */
     public function destroy($id)
     {
+        dd($id);
         $budgetAccount = BudgetAccount::find($id);
 
         if ($budgetAccount) {
