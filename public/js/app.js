@@ -78485,6 +78485,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.table_options.sortable = ['name', 'symbol', 'country.name'];
 		this.table_options.filterable = ['name', 'symbol', 'country.name'];
 		this.getCountries();
+	},
+	mounted: function mounted() {
+		this.switchHandler('default', 'default');
 	}
 });
 
@@ -78719,7 +78722,8 @@ var render = function() {
                             "data-off-label": "NO",
                             value: "true",
                             title:
-                              "Indique si es la moneda por defecto en la aplicación"
+                              "Indique si es la moneda por defecto en la aplicación",
+                            name: "default"
                           },
                           domProps: {
                             checked: Array.isArray(_vm.record.default)

@@ -65,7 +65,7 @@
 										<input type="checkbox" class="form-control bootstrap-switch" 
 											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO" value="true" 
 											   title="Indique si es la moneda por defecto en la aplicación" 
-											   v-model="record.default">
+											   v-model="record.default" name="default">
 									</div>
 			                    </div>
 							</div>
@@ -155,5 +155,8 @@
 			this.table_options.filterable = ['name', 'symbol', 'country.name'];
 			this.getCountries();
 		},
+		mounted() {
+			this.switchHandler('default', 'default');
+		}
 	};
 </script>
