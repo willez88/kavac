@@ -518,6 +518,28 @@ Vue.mixin({
 		 */
 		removeRow: function(index, el) {
 			el.splice(index, 1);
+		},
+		/**
+		 * Gestiona el evento del elemento switch en radio y checkbox
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {string} elementName Nombre del elemento
+		 * @param  {string} model       Nombre del modelo
+		 */
+		switchHandler: function(elementName, model, other_model) {
+			var other_model = (typeof(other_model) !== "undefined") ? other_model: null;
+			let vm = this;
+			$('input[name=' + elementName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {
+				/** Asigna el valor del elemento radio o checkbox seleccionado */
+				if (other_model) {
+					/** en caso de asignar el valor a otro objeto de modelo */
+					other_model = ($(this).is(':checked')) ? $(this).val() : '';
+				}
+				else {
+					/** objeto de registros por defecto */
+					vm.record[model] = ($(this).is(':checked')) ? $(this).val() : '';
+				}
+			});
 		}
 		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
@@ -531,9 +553,7 @@ Vue.mixin({
 		}*/
     },
     mounted() {
-    	$('.bootstrap-switch').on('change', function() {
-    		console.log($(this).val());
-    	});
+    	
     }
 });
 
