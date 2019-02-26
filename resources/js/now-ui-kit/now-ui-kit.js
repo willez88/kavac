@@ -27,7 +27,17 @@ var navbar_initialized,
 
 $(document).ready(function() {
     //  Activate the Tooltips
-    $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip({
+        //delay: { show: 100, hide: 100 }
+        trigger:"hover", delay:{hide:200}
+    });
+    /*$(document).on('click', function() {
+        $('.tooltip').hide();
+    });*/
+    /*$('[data-toggle="tooltip"], [rel="tooltip"]').on('show.bs.tooltip', function() {
+        // Only one tooltip should ever be open at a time
+        $('.tooltip').not(this).hide();
+    });*/
 
     // Activate Popovers and set color for popovers
     $('[data-toggle="popover"]').each(function() {

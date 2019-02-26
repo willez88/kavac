@@ -523,13 +523,13 @@ Vue.mixin({
 		 * Gestiona el evento del elemento switch en radio y checkbox
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-		 * @param  {string} elementName Nombre del elemento
-		 * @param  {string} model       Nombre del modelo
+		 * @param  {string} elName Nombre del elemento
+		 * @param  {string} model  Nombre del modelo
 		 */
-		switchHandler: function(elementName, model, other_model) {
+		switchHandler: function(elName, model, other_model) {
 			var other_model = (typeof(other_model) !== "undefined") ? other_model: null;
 			let vm = this;
-			$('input[name=' + elementName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {
+			$('input[name=' + elName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {
 				var value = ($(this).val().toLowerCase() === "true") 
 							? true : (($(this).val().toLowerCase() === "false") ? false : $(this).val());
 				/** Asigna el valor del elemento radio o checkbox seleccionado */
@@ -542,6 +542,24 @@ Vue.mixin({
 					vm.record[model] = ($(this).is(':checked')) ? value : '';
 				}
 			});
+		},
+		/**
+		 * Agrega mensajes tooltip a elementos bootstrap switch
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {string}  elName    Nombre del elemento
+		 * @param  {string}  text      Texto a mostrar en el tooltip
+		 * @param  {integer} delayHide Tiempo en milisegundos para ocultar la ventana tooltip
+		 */
+		switchTooltip: function(elName, text, delayHide) {
+			var delayHide = (typeof(delayHide) !== "undefined") ? delayHide : 200;
+			$('input[name=' + elName + ']').closest('.bootstrap-switch-wrapper').attr({
+	            'title': text,
+	            'data-toggle': 'tooltip'
+	        }).tooltip({
+	        	trigger:"hover",
+	        	delay: {hide: delayHide}
+	        });
 		}
 		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;

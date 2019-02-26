@@ -35111,13 +35111,13 @@ Vue.mixin({
    * Gestiona el evento del elemento switch en radio y checkbox
    *
    * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-   * @param  {string} elementName Nombre del elemento
-   * @param  {string} model       Nombre del modelo
+   * @param  {string} elName Nombre del elemento
+   * @param  {string} model  Nombre del modelo
    */
-		switchHandler: function switchHandler(elementName, model, other_model) {
+		switchHandler: function switchHandler(elName, model, other_model) {
 			var other_model = typeof other_model !== "undefined" ? other_model : null;
 			var vm = this;
-			$('input[name=' + elementName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function () {
+			$('input[name=' + elName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function () {
 				var value = $(this).val().toLowerCase() === "true" ? true : $(this).val().toLowerCase() === "false" ? false : $(this).val();
 				/** Asigna el valor del elemento radio o checkbox seleccionado */
 				if (other_model) {
@@ -35127,6 +35127,16 @@ Vue.mixin({
 					/** objeto de registros por defecto */
 					vm.record[model] = $(this).is(':checked') ? value : '';
 				}
+			});
+		},
+		switchTooltip: function switchTooltip(elName, text, delayHide) {
+			var delayHide = typeof delayHide !== "undefined" ? delayHide : 200;
+			$('input[name=' + elName + ']').closest('.bootstrap-switch-wrapper').attr({
+				'title': text,
+				'data-toggle': 'tooltip'
+			}).tooltip({
+				trigger: "hover",
+				delay: { hide: delayHide }
 			});
 		}
 		/*loadRelationalSelect(parent_id, target_url) {
@@ -76409,6 +76419,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	mounted: function mounted() {
 		this.switchHandler('affect_tax', 'affect_tax');
 		this.switchHandler('active', 'active');
+		this.switchTooltip('affect_tax', 'Seleccione si afecta la cuenta de IVA');
+		this.switchTooltip('active', 'Seleccione si el impuesto esta activo, esto reemplazará cualquier otro impuesto registrado');
 	}
 });
 
@@ -99367,7 +99379,17 @@ var navbar_initialized,
 
 $(document).ready(function () {
     //  Activate the Tooltips
-    $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip({
+        //delay: { show: 100, hide: 100 }
+        trigger: "hover", delay: { hide: 200 }
+    });
+    /*$(document).on('click', function() {
+        $('.tooltip').hide();
+    });*/
+    /*$('[data-toggle="tooltip"], [rel="tooltip"]').on('show.bs.tooltip', function() {
+        // Only one tooltip should ever be open at a time
+        $('.tooltip').not(this).hide();
+    });*/
 
     // Activate Popovers and set color for popovers
     $('[data-toggle="popover"]').each(function () {
