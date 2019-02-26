@@ -116,6 +116,54 @@ class PermissionsTableSeeder extends Seeder
         		'slug_alt' => 'institucion.configurar', 
         		'short_description' => 'configurar instituciones'
         	],
+            [
+                'name' => 'Crear Impuestos', 'slug' => 'tax.create',
+                'description' => 'Acceso al registro de impuestos', 
+                'model' => 'App\Models\Tax', 'model_prefix' => '0general',
+                'slug_alt' => 'impuesto.crear', 'short_description' => 'agregar impuesto'
+            ],
+            [
+                'name' => 'Editar Impuestos', 'slug' => 'tax.edit',
+                'description' => 'Acceso para editar impuestos', 
+                'model' => 'App\Models\Tax', 'model_prefix' => '0general',
+                'slug_alt' => 'impuesto.editar', 'short_description' => 'editar impuesto'
+            ],
+            [
+                'name' => 'Eliminar Impuestos', 'slug' => 'tax.delete',
+                'description' => 'Acceso para eliminar impuestos', 
+                'model' => 'App\Models\Tax', 'model_prefix' => '0general',
+                'slug_alt' => 'impuesto.eliminar', 'short_description' => 'eliminar impuesto'
+            ],
+            [
+                'name' => 'Ver Impuestos', 'slug' => 'tax.list',
+                'description' => 'Acceso para ver impuestos', 
+                'model' => 'App\Models\Tax', 'model_prefix' => '0general',
+                'slug_alt' => 'impuesto.ver', 'short_description' => 'ver impuestos'
+            ],
+            [
+                'name' => 'Crear Unidades Tributarias', 'slug' => 'tax.unit.create',
+                'description' => 'Acceso al registro de unidades tributarias', 
+                'model' => 'App\Models\TaxUnit', 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.tributaria.crear', 'short_description' => 'agregar unidad tributaria'
+            ],
+            [
+                'name' => 'Editar Unidades Tributarias', 'slug' => 'tax.unit.edit',
+                'description' => 'Acceso para editar unidades tributarias', 
+                'model' => 'App\Models\TaxUnit', 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.tributaria.editar', 'short_description' => 'editar unidad tributaria'
+            ],
+            [
+                'name' => 'Eliminar Unidades Tributarias', 'slug' => 'tax.unit.delete',
+                'description' => 'Acceso para eliminar unidades tributarias', 
+                'model' => 'App\Models\TaxUnit', 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.tributaria.eliminar', 'short_description' => 'eliminar unidad tributaria'
+            ],
+            [
+                'name' => 'Ver Unidades Tributarias', 'slug' => 'tax.unit.list',
+                'description' => 'Acceso para ver unidades tributarias', 
+                'model' => 'App\Models\TaxUnit', 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.tributaria.ver', 'short_description' => 'ver unidades tributarias'
+            ],
         ];
 
         foreach ($permissions as $permission) {
