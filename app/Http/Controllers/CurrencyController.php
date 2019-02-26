@@ -65,6 +65,13 @@ class CurrencyController extends Controller
             'decimal_places' => 'required|numeric|min:2|max:10'
         ]);
 
+        if ($request->default || !empty($request->default)) {
+            /** Si se ha indicado la moneda por defecto, se deshabilita esta condición en las ya registradas */
+            foreach (Currency::all() as $curr) {
+                $curr->default = false;
+                $curr->save();
+            }
+        }
 
         $currency = Currency::create([
             'name' => $request->name,
@@ -114,12 +121,18 @@ class CurrencyController extends Controller
             'country_id' => 'required',
             'decimal_places' => 'required|numeric|min:2|max:10'
         ]);
- 
+
         $currency->name = $request->name;
         $currency->symbol = $request->symbol;
         $currency->country_id = $request->country_id;
         $currency->decimal_places = $request->decimal_places;
         if ($request->default) {
+            /** Si se ha indicado la moneda por defecto, se deshabilita esta condición en las ya registradas */
+            foreach (Currency::all() as $curr) {
+                $curr->default = false;
+                $curr->save();
+            }
+
             $currency->default = $request->default;
         }
         $currency->save();

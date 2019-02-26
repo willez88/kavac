@@ -88,7 +88,7 @@
 								</button>
 	                		</div>
 	                		<div slot="default" slot-scope="props">
-								<span v-if="props.default">SI</span>
+								<span v-if="props.row.default">SI</span>
 								<span v-else>NO</span>
 							</div>
 	                	</v-client-table>

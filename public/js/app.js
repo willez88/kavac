@@ -78868,7 +78868,7 @@ var render = function() {
                         key: "default",
                         fn: function(props) {
                           return _c("div", {}, [
-                            props.default
+                            props.row.default
                               ? _c("span", [_vm._v("SI")])
                               : _c("span", [_vm._v("NO")])
                           ])
