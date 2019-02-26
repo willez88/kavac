@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollNationality;
+use App\Models\Country;
 
 /**
  * @class PayrollNationalityController
@@ -29,10 +30,10 @@ class PayrollNationalityController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.nationality.index', ['only' => 'index']);
-        $this->middleware('permission:payroll.nationality.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:payroll.nationality.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:payroll.nationality.delete', ['only' => 'destroy']);
+        $this->middleware('permission:payroll.nationalities.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.nationalities.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:payroll.nationalities.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:payroll.nationalities.delete', ['only' => 'destroy']);
     }
 
     use ValidatesRequests;
@@ -44,7 +45,7 @@ class PayrollNationalityController extends Controller
     public function index()
     {
         $nationalities = PayrollNationality::all();
-        return view('payroll::nationality.index', compact('nationalities'));
+        return view('payroll::nationalities.index', compact('nationalities'));
     }
 
     /**
@@ -53,7 +54,11 @@ class PayrollNationalityController extends Controller
      */
     public function create()
     {
-        return view('payroll::create');
+        $header = [
+            'route' => 'nationalities.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+        ];
+        $countries = template_choices('App\Models\Country');
+        return view('payroll::nationalities.create-edit', compact('header','countries'));
     }
 
     /**
@@ -63,6 +68,15 @@ class PayrollNationalityController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'demonym' => 'required|max:100',
+            'country_id' => 'required|unique:payroll_nationalities'
+        ]);
+        $nationality = new PayrollNationality;
+        $nationality->demonym = $request->demonym;
+        $nationality->country_id = $request->country_id;
+        $nationality->save();
+        return redirect()->route('nationalities.index');
     }
 
     /**
@@ -78,9 +92,13 @@ class PayrollNationalityController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit(PayrollNationality $nationality)
     {
-        return view('payroll::edit');
+        $header = [
+            'route' => ['nationalities.update', $nationality], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+        ];
+        $countries = template_choices('App\Models\Country');
+        return view('payroll::nationalities.create-edit', compact('nationality','header','countries'));
     }
 
     /**
@@ -88,15 +106,30 @@ class PayrollNationalityController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, PayrollNationality $nationality)
     {
+        $this->validate($request, [
+            'demonym' => 'required|max:100',
+            'country_id' => 'required|unique:payroll_nationalities'
+        ]);
+        $nationality = new PayrollNationality;
+        $nationality->demonym = $request->demonym;
+        $nationality->country_id = $request->country_id;
+        $nationality->save();
+        return redirect()->route('nationalities.index');
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy(Request $request, PayrollNationality $nationality)
     {
+        if ($request->ajax()) {
+            $nationality->delete();
+            $request->session()->flash('message', ['type' => 'destroy']);
+            return response()->json(['result' => true]);
+        }
+        return redirect()->route('nationalities.index');
     }
 }

@@ -46,4 +46,15 @@ class PayrollNationality extends Model implements Auditable
     protected $fillable = [
         'demonym', 'country_id'
     ];
+
+    /**
+     * Método que obtiene el país
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return object Objeto con los registros relacionados al modelo Country
+     */
+	public function country()
+    {
+        return $this->belongsTo('App\Models\Country');
+    }
 }

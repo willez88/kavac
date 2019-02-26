@@ -126,6 +126,15 @@
 								<span>Tipo de<br>Estudio</span>
 							</a>
 						</div>
+						{{-- Configuración de la nacionalidad --}}
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('nationalities.index') }}" title="Registro de nacionalidades"
+							   data-toggle="tooltip">
+								<i class="icofont icofont-id-card ico-3x"></i>
+								<span>Nacionalidad</span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

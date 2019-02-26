@@ -13,6 +13,7 @@ use App\Models\Profession;
 use App\Models\Country;
 use App\Models\Estate;
 use App\Models\City;
+use Modules\Payroll\Models\PayrollNationality;
 use App\Models\CodeSetting;
 use App\Helpers\Helper;
 
@@ -71,8 +72,9 @@ class PayrollStaffController extends Controller
         $countries = template_choices('App\Models\Country');
         $estates = template_choices('App\Models\Estate');
         $cities = template_choices('App\Models\City');
+        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality');
         return view('payroll::staffs.create-edit', compact(
-            'header','marital_status','professions','countries','estates','cities'
+            'header','marital_status','professions','countries','estates','cities', 'nationalities'
         ));
     }
 
@@ -243,7 +245,7 @@ class PayrollStaffController extends Controller
             'start_date' => $staff->start_date,
             'end_date' => $staff->end_date,
             'id_number' => $staff->id_number,
-            'nationality' => $staff->nationality,
+            'nationality' => $staff->nationality->demonym,
             'passport' => $staff->passport,
             'marital_status' => $staff->marital_status->name,
             'profession' => $staff->profession->name,

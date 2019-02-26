@@ -16,7 +16,7 @@ class CreatePayrollNationalitiesTable extends Migration
         Schema::create('payroll_nationalities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('demonym', 100)->comment('Nacionalidad');
-            $table->integer('country_id')->unsigned();
+            $table->integer('country_id')->unsigned()
                   ->comment('identificador del país al que pertenece la nacionalidad');
             $table->unique('country_id')->comment('Clave única para el registro');
             $table->timestamps();

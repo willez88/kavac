@@ -30,8 +30,11 @@ class CreatePayrollStaffsTable extends Migration
                 $table->date('start_date')->comment('Fecha de inicio a la institución');
                 $table->date('end_date')->nullable()->comment('fecha de egreso de la institución');
                 $table->string('id_number', 12)->unique()->comment('Cédula de identidad del personal');
-                $table->string('nationality', 100)->comment('Nacionalidad del personal');
                 $table->string('passport', 20)->unique()->nullable()->comment('Número de pasaporte del personal');
+                $table->integer('nationality_id')->unsigned()
+                      ->comment('identificador de nacionalidad que pertenece al personal');
+                $table->foreign('nationality_id')->references('id')->on('nationalities')
+                      ->onDelete('restrict')->onUpdate('cascade');
                 $table->integer('marital_status_id')->unsigned()
                       ->comment('identificador del estado civil al que pertenece el personal');
                 $table->foreign('marital_status_id')->references('id')->on('marital_status')
