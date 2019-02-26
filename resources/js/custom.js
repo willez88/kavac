@@ -109,12 +109,25 @@ $(document).ready(function() {
     }
 
     /** Tooltips personalizados */
+    if ($('.close').length) {
+        $('.close').attr({
+            'title': 'Presione para cerrar la ventana',
+            'data-toggle': 'tooltip',
+            'data-placement': 'left',
+        });
+        $('.close').tooltip({
+            trigger:"hover", delay:{hide:200}
+        });
+    }
+
     if ($('.btn-modal-close').length) {
         $('.btn-modal-close').attr({
             'title': 'Presione para cerrar la ventana',
             'data-toggle': 'tooltip'
         });
-        $('.btn-modal-close').tooltip();
+        $('.btn-modal-close').tooltip({
+            trigger:"hover", delay:{hide:200}
+        });
     }
 
     if ($('.btn-modal-save').length) {
@@ -122,7 +135,9 @@ $(document).ready(function() {
             'title': 'Presione para guardar el registro',
             'data-toggle': 'tooltip'
         });
-        $('.btn-modal-save').tooltip();
+        $('.btn-modal-save').tooltip({
+            trigger:"hover", delay:{hide:200}
+        });
     }
 
     if ($('.btn-add-record').length) {
@@ -130,10 +145,14 @@ $(document).ready(function() {
             'title': 'Agregar un nuevo registro',
             'data-toggle': 'tooltip'
         });
-        $('.btn-add-record').tooltip();
+        $('.btn-add-record').tooltip({
+            trigger:"hover", delay:{hide:200}
+        });
     }
     if ($('.btn-tooltip').length) {
-        $('.btn-tooltip').tooltip();
+        $('.btn-tooltip').tooltip({
+            trigger:"hover", delay:{hide:200}
+        });
     }
 
     if ($('.btn-file').length) {
@@ -141,7 +160,9 @@ $(document).ready(function() {
             'title': 'Seleccione un archivo a cargar',
             'data-toggle': 'tooltip'
         });
-        $('.btn-file').tooltip();
+        $('.btn-file').tooltip({
+            trigger:"hover", delay:{hide:200}
+        });
     }
 
     /** Reemplazo de icono indicador en el menú del panel izquierdo */
@@ -150,9 +171,25 @@ $(document).ready(function() {
     /** Acciones para ocultar los mensajes tooltip cuando se posiciona o se hace clic en otro elemento */
     $('a').on('hover, click', function() {
         $('.tooltip:last').remove();
-        $('.tooltip:last').tooltip();
+        $('.tooltip:last').tooltip({
+            trigger:"hover", delay:{hide:200}
+        });
     });
 
+    /** Formularios */
+    $('form').each(function() {
+        if ($(this).find('.is-required').length) {
+            $(this).find('.card-body').prepend(
+                "<div class='row' style='margin:10px 0'>" + 
+                    "<div class='col-12 form-group'>" + 
+                        "<span class='text-muted'>" + 
+                            "Los campos con <span class='text-required'>*</span> son obligatorios" +
+                        "</span>" + 
+                    "</div>" + 
+                "</div>"
+            );
+        }
+    });
 
     if ($('.datatable').length) {
         /** Configuración de atributos para tablas con datatable */

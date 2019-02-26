@@ -26005,6 +26005,10 @@ table td {
   color: #dd4b39 !important;
 }
 
+.text-required {
+  color: #FF3636;
+}
+
 .text-blue {
   color: #0073b7 !important;
 }
