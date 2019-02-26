@@ -62,10 +62,9 @@ class ProfessionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100|unique:profession,name',
+            'name' => 'required|max:100|unique:professions,name',
             'acronym' => 'max:10'
         ]);
-
 
         $profession = Profession::create([
             'name' => $request->name,
