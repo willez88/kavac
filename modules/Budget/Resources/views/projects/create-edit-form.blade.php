@@ -76,7 +76,7 @@
 							<div class="col-3">
 								<div class="form-group is-required">
 									{!! Form::label('code', 'Código', ['class' => 'control-label']) !!}
-									{!! Form::text('code', old('code'), [
+									{!! Form::text('code', (isset($model)) ? $model->code : old('code'), [
 										'class' => 'form-control', 'placeholder' => 'Código de proyecto',
 										'data-toggle' => 'tooltip', 'title' => 'Código que identifica el proyecto'
 									]) !!}
@@ -85,7 +85,7 @@
 							<div class="col-3">
 								<div class="form-group is-required">
 									{!! Form::label('onapre_code', 'Código ONAPRE', ['class' => 'control-label']) !!}
-									{!! Form::text('onapre_code', old('onapre_code'), [
+									{!! Form::text('onapre_code', (isset($model)) ? $model->onapre_code : old('onapre_code'), [
 										'class' => 'form-control', 'placeholder' => 'Código de la ONAPRE',
 										'data-toggle' => 'tooltip', 
 										'title' => 'Código asignado por la Oficina Nacional de Presupuesto (ONAPRE)'
@@ -95,7 +95,7 @@
 							<div class="col-6">
 								<div class="form-group is-required">
 									{!! Form::label('name', 'Nombre', ['class' => 'control-label']) !!}
-									{!! Form::text('name', old('name'), [
+									{!! Form::text('name', (isset($model)) ? $model->name : old('name'), [
 										'class' => 'form-control', 'placeholder' => 'Nombre del proyecto',
 										'data-toggle' => 'tooltip', 
 										'title' => 'Nombre que identifica el proyecto'
@@ -108,7 +108,7 @@
 								<div class="form-group">
 									<label for="" class="control-label">Activo</label>
 									<div class="col-12">
-										{!! Form::checkbox('active', true, (isset($model))?$model->active:true, [
+										{!! Form::checkbox('active', true, (isset($model))?$model->active:null, [
 											'id' => 'active', 'class' => 'form-control bootstrap-switch',
 											'data-on-label' => 'SI', 'data-off-label' => 'NO'
 										]) !!}

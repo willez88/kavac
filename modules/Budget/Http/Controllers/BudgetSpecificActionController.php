@@ -196,13 +196,16 @@ class BudgetSpecificActionController extends Controller
      * Obtiene listado de registros
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false, este parámetro es opcional.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function vueList()
+    public function vueList($active = null)
     {
-        return response()->json([
-            'records' => BudgetSpecificAction::where('active', true)->with('specificable')->get()
-        ], 200);
+        $specificActions = ($active !== null) 
+                           ? BudgetSpecificAction::where('active', $active)->with('specificable')->get() 
+                           : BudgetSpecificAction::with('specificable')->get();
+
+        return response()->json(['records' => $specificActions], 200);
     }
 
     /**

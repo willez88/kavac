@@ -32,14 +32,14 @@ Route::group([
 
     /** Rutas para la gestión de proyectos */
     Route::resource('projects', 'BudgetProjectController', ['as' => 'budget', 'except' => ['index', 'show']]);
-    Route::get('projects/vue-list', 'BudgetProjectController@vueList')->name('budget.projects.vuelist');
+    Route::get('projects/vue-list/{active?}', 'BudgetProjectController@vueList')->name('budget.projects.vuelist');
     Route::get('get-projects/{project_id?}', 'BudgetProjectController@getProjects')->name('budget.get-projects');
 
     /** Rutas para la gestión de acciones centralizadas */
     Route::resource('centralized-actions', 'BudgetCentralizedActionController', [
         'as' => 'budget', 'except' => ['index', 'show']
     ]);
-    Route::get('centralized-actions/vue-list', 'BudgetCentralizedActionController@vueList')
+    Route::get('centralized-actions/vue-list/{active?}', 'BudgetCentralizedActionController@vueList')
          ->name('budget.centralized-actions.vuelist');
     Route::get(
         'get-centralized-actions/{centralized_action_id?}', 
@@ -50,7 +50,7 @@ Route::group([
     Route::resource('specific-actions', 'BudgetSpecificActionController', [
         'as' => 'budget', 'except' => ['index', 'show']
     ]);
-    Route::get('specific-actions/vue-list', 'BudgetSpecificActionController@vueList')
+    Route::get('specific-actions/vue-list/{active?}', 'BudgetSpecificActionController@vueList')
          ->name('budget.specific-actions.vuelist');
     Route::get('get-specific-actions/{type}/{id}', 'BudgetSpecificActionController@getSpecificActions')
          ->name('budget.get-specific-actions');

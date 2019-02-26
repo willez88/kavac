@@ -139,7 +139,6 @@ $(document).ready(function() {
             trigger:"hover", delay:{hide:200}
         });
     }
-
     if ($('.btn-add-record').length) {
         $('.btn-add-record').attr({
             'title': 'Agregar un nuevo registro',
@@ -154,7 +153,6 @@ $(document).ready(function() {
             trigger:"hover", delay:{hide:200}
         });
     }
-
     if ($('.btn-file').length) {
         $('.btn-file').attr({
             'title': 'Seleccione un archivo a cargar',

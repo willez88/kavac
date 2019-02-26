@@ -16,6 +16,10 @@
 		<div slot="payroll_staff.first_name" slot-scope="props">
 			{{ props.row.payroll_staff.first_name }} {{ props.row.payroll_staff.last_name }}
 		</div>
+		<div slot="active" slot-scope="props" class="text-center">
+			<span v-if="props.row.active">SI</span>
+			<span v-else>NO</span>
+		</div>
 	</v-client-table>
 </template>
 
@@ -24,7 +28,7 @@
 		data() {
 			return {
 				records: [],
-				columns: ['custom_date', 'code', 'name', 'payroll_staff.first_name', 'id']
+				columns: ['custom_date', 'code', 'name', 'payroll_staff.first_name', 'active', 'id']
 			}
 		},
 		created() {
@@ -33,6 +37,7 @@
 				'code': 'Código',
 				'name': 'Acción Centralizada',
 				'payroll_staff.first_name': 'Responsable',
+				'active': 'Activa',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['custom_date', 'code', 'name', 'payroll_staff.first_name'];
@@ -41,7 +46,8 @@
 				'custom_date': 'col-md-2',
 				'code': 'col-md-2',
 				'name': 'col-md-3',
-				'payroll_staff.first_name': 'col-md-3',
+				'payroll_staff.first_name': 'col-md-2',
+				'active': 'col-md-1',
 				'id': 'col-md-2'
 			};
 		},

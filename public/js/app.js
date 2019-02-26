@@ -79307,12 +79307,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			records: [],
-			columns: ['code', 'name', 'payroll_staff.first_name', 'id']
+			columns: ['code', 'name', 'payroll_staff.first_name', 'active', 'id']
 		};
 	},
 	created: function created() {
@@ -79320,6 +79324,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			'code': 'Código',
 			'name': 'Proyecto',
 			'payroll_staff.first_name': 'Responsable',
+			'active': 'Activo',
 			'id': 'Acción'
 		};
 		this.table_options.sortable = ['code', 'name', 'payroll_staff.first_name'];
@@ -79327,7 +79332,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.table_options.columnsClasses = {
 			'code': 'col-md-2',
 			'name': 'col-md-4',
-			'payroll_staff.first_name': 'col-md-4',
+			'payroll_staff.first_name': 'col-md-3',
+			'active': 'col-md-1',
 			'id': 'col-md-2'
 		};
 	},
@@ -79413,6 +79419,16 @@ var render = function() {
                 _vm._s(props.row.payroll_staff.last_name) +
                 "\n\t\t"
             )
+          ])
+        }
+      },
+      {
+        key: "active",
+        fn: function(props) {
+          return _c("div", { staticClass: "text-center" }, [
+            props.row.active
+              ? _c("span", [_vm._v("SI")])
+              : _c("span", [_vm._v("NO")])
           ])
         }
       }
@@ -79503,12 +79519,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			records: [],
-			columns: ['custom_date', 'code', 'name', 'payroll_staff.first_name', 'id']
+			columns: ['custom_date', 'code', 'name', 'payroll_staff.first_name', 'active', 'id']
 		};
 	},
 	created: function created() {
@@ -79517,6 +79537,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			'code': 'Código',
 			'name': 'Acción Centralizada',
 			'payroll_staff.first_name': 'Responsable',
+			'active': 'Activa',
 			'id': 'Acción'
 		};
 		this.table_options.sortable = ['custom_date', 'code', 'name', 'payroll_staff.first_name'];
@@ -79525,7 +79546,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			'custom_date': 'col-md-2',
 			'code': 'col-md-2',
 			'name': 'col-md-3',
-			'payroll_staff.first_name': 'col-md-3',
+			'payroll_staff.first_name': 'col-md-2',
+			'active': 'col-md-1',
 			'id': 'col-md-2'
 		};
 	},
@@ -79611,6 +79633,16 @@ var render = function() {
                 _vm._s(props.row.payroll_staff.last_name) +
                 "\n\t\t"
             )
+          ])
+        }
+      },
+      {
+        key: "active",
+        fn: function(props) {
+          return _c("div", { staticClass: "text-center" }, [
+            props.row.active
+              ? _c("span", [_vm._v("SI")])
+              : _c("span", [_vm._v("NO")])
           ])
         }
       }
@@ -79702,12 +79734,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			records: [],
-			columns: ['code', 'name', 'specificable_type', 'id']
+			columns: ['code', 'name', 'specificable_type', 'active', 'id']
 		};
 	},
 	created: function created() {
@@ -79715,14 +79751,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			'code': 'Código',
 			'name': 'Acción Específica',
 			'specificable_type': 'Proyecto / Acc. Centralizada',
+			'active': 'Activa',
 			'id': 'Acción'
 		};
 		this.table_options.sortable = ['code', 'name', 'specificable_type'];
 		this.table_options.filterable = ['code', 'name', 'specificable_type'];
 		this.table_options.columnsClasses = {
 			'code': 'col-md-2',
-			'name': 'col-md-5',
+			'name': 'col-md-4',
 			'specificable_type': 'col-md-3',
+			'active': 'col-md-1',
 			'id': 'col-md-2'
 		};
 	},
@@ -79805,6 +79843,16 @@ var render = function() {
             "Modules\\Budget\\Models\\BudgetProject"
               ? _c("span", [_vm._v("Proyecto")])
               : _c("span", [_vm._v("Acción Centralizada")])
+          ])
+        }
+      },
+      {
+        key: "active",
+        fn: function(props) {
+          return _c("div", { staticClass: "text-center" }, [
+            props.row.active
+              ? _c("span", [_vm._v("SI")])
+              : _c("span", [_vm._v("NO")])
           ])
         }
       }
@@ -100537,7 +100585,6 @@ $(document).ready(function () {
             trigger: "hover", delay: { hide: 200 }
         });
     }
-
     if ($('.btn-add-record').length) {
         $('.btn-add-record').attr({
             'title': 'Agregar un nuevo registro',
@@ -100552,7 +100599,6 @@ $(document).ready(function () {
             trigger: "hover", delay: { hide: 200 }
         });
     }
-
     if ($('.btn-file').length) {
         $('.btn-file').attr({
             'title': 'Seleccione un archivo a cargar',
@@ -100561,6 +100607,9 @@ $(document).ready(function () {
         $('.btn-file').tooltip({
             trigger: "hover", delay: { hide: 200 }
         });
+    }
+    if ($('.VueTables').length) {
+        $('.VueTables').find('[data-toggle="tooltip"]').tooltip({ trigger: "hover", delay: { hide: 200 } });
     }
 
     /** Reemplazo de icono indicador en el menú del panel izquierdo */

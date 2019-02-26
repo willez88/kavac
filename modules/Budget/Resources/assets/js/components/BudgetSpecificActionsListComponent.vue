@@ -17,6 +17,10 @@
 			<span v-if="props.row.specificable_type=='Modules\\Budget\\Models\\BudgetProject'">Proyecto</span>
 			<span v-else>Acción Centralizada</span>
 		</div>
+		<div slot="active" slot-scope="props" class="text-center">
+			<span v-if="props.row.active">SI</span>
+			<span v-else>NO</span>
+		</div>
 	</v-client-table>
 </template>
 
@@ -25,7 +29,7 @@
 		data() {
 			return {
 				records: [],
-				columns: ['code', 'name', 'specificable_type', 'id']
+				columns: ['code', 'name', 'specificable_type', 'active', 'id']
 			}
 		},
 		created() {
@@ -33,14 +37,16 @@
 				'code': 'Código',
 				'name': 'Acción Específica',
 				'specificable_type': 'Proyecto / Acc. Centralizada',
+				'active': 'Activa',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['code', 'name', 'specificable_type'];
 			this.table_options.filterable = ['code', 'name', 'specificable_type'];
 			this.table_options.columnsClasses = {
 				'code': 'col-md-2',
-				'name': 'col-md-5',
+				'name': 'col-md-4',
 				'specificable_type': 'col-md-3',
+				'active': 'col-md-1',
 				'id': 'col-md-2'
 			};
 		},

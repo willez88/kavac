@@ -184,13 +184,16 @@ class BudgetCentralizedActionController extends Controller
      * Obtiene listado de registros
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false, este parámetro es opcional.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function vueList()
+    public function vueList($active = null)
     {
-        return response()->json([
-            'records' => BudgetCentralizedAction::where('active', true)->with('payroll_staff')->get()
-        ], 200);
+        $centralizedActions = ($active !== null) 
+                              ? BudgetCentralizedAction::where('active', $active)->with('payroll_staff')->get() 
+                              : BudgetCentralizedAction::with('payroll_staff')->get();
+        
+        return response()->json(['records' => $centralizedActions], 200);
     }
 
     /**

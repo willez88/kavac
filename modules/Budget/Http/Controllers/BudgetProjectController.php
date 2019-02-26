@@ -128,12 +128,10 @@ class BudgetProjectController extends Controller
             'role' => 'form'
         ];
         $model = $budgetProject;
-        $institutions = template_choices('App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]);
-        $departments = template_choices('App\Models\Department', ['acronym', '-', 'name'], ['active' => true]);
-        $positions = template_choices('Modules\Payroll\Models\PayrollPosition', 'name');
-        $staffs = template_choices(
-            'Modules\Payroll\Models\PayrollStaff', ['id_number', '-', 'full_name'], ['active' => true]
-        );
+        $institutions = template_choices(Institution::class, ['acronym', '-', 'name'], ['active' => true]);
+        $departments = template_choices(Department::class, ['acronym', '-', 'name'], ['active' => true]);
+        $positions = template_choices(PayrollPosition::class, 'name');
+        $staffs = template_choices(PayrollStaff::class, ['id_number', '-', 'full_name'], ['active' => true]);
         return view('budget::projects.create-edit-form', compact(
             'header', 'model', 'institutions', 'departments', 'positions', 'staffs'
         ));
@@ -155,9 +153,9 @@ class BudgetProjectController extends Controller
             'onapre_code' => 'required',
             'name' => 'required',
         ]);
-
         $budgetProject = BudgetProject::find($id);
         $budgetProject->fill($request->all());
+        $budgetProject->active = $request->active ?? false;
         $budgetProject->save();
 
         $request->session()->flash('message', ['type' => 'update']);
@@ -183,13 +181,15 @@ class BudgetProjectController extends Controller
      * Obtiene listado de registros
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false, este parámetro es opcional.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function vueList()
+    public function vueList($active = null)
     {
-        return response()->json([
-            'records' => BudgetProject::where('active', true)->with('payroll_staff')->get()
-        ], 200);
+        $budgetProjects = ($active !== null) 
+                          ? BudgetProject::where('active', $active)->with('payroll_staff')->get() 
+                          : BudgetProject::with('payroll_staff')->get();
+        return response()->json(['records' => $budgetProjects], 200);
     }
 
     /**
