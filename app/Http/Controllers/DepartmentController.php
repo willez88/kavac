@@ -77,9 +77,9 @@ class DepartmentController extends Controller
             'name' => $request->name,
             'acronym' => ($request->acronym)?$request->acronym:null,
             'hierarchy' => $hierarchy,
-            'issue_requests' => (!is_null($request->issue_requests)),
-            'active' => (!is_null($request->active)),
-            'administrative' => (!is_null($request->administrative)),
+            'issue_requests' => $request->issue_requests ?? false,
+            'active' => $request->active ?? false,
+            'administrative' => $request->administrative ?? false,
             'parent_id' => ($request->department_id)?$request->department_id:null,
             'institution_id' => $request->institution_id
         ]);
@@ -118,7 +118,31 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'institution_id' => 'required'
+        ]);
+
+        $hierarchy = 0;
+
+        if (!is_null($request->department_id) || !empty($request->department_id)) {
+            $dto = Department::where('department_id', $request->department_id)->first();
+            if ($dto) {
+                $hierarchy = $dto->hierarchy + 1;
+            }
+        }
+
+        $department->name = $request->name;
+        $department->acronym = ($request->acronym)?$request->acronym:null;
+        $department->hierarchy = $hierarchy;
+        $department->issue_requests = $request->issue_requests ?? false;
+        $department->active = $request->active ?? false;
+        $department->administrative = $request->administrative ?? false;
+        $department->parent_id = ($request->department_id)?$request->department_id:null;
+        $department->institution_id = $request->institution_id;
+        $department->save();
+
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**

@@ -271,9 +271,22 @@ Vue.mixin({
 		 * @param {object} event   Objeto que gestiona los eventos
 		 */
 		initUpdate(index, event) {
-			this.errors = [];
-			console.log(this.records[index - 1]);
-			this.record = this.records[index - 1];
+			let vm = this;
+			vm.errors = [];
+			vm.record = vm.records[index - 1];
+
+			/**
+			 * Recorre todos los campos para determinar si existe un elemento booleano para, posteriormente, 
+			 * seleccionarlo en el formulario en el caso de que se encuentre activado en BD
+			 */
+			$.each(vm.record, function(el, value) {
+				if (value === true || value === false) {
+					$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true); 
+				}
+				/*if (el.substring(el.length - 3, el.length) === "_id") {
+					$("#" + el + ".select2").val(value);
+				}*/
+			});
 
 			event.preventDefault();
 		},

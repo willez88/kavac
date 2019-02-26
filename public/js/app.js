@@ -34853,9 +34853,22 @@ Vue.mixin({
    * @param {object} event   Objeto que gestiona los eventos
    */
 		initUpdate: function initUpdate(index, event) {
-			this.errors = [];
-			console.log(this.records[index - 1]);
-			this.record = this.records[index - 1];
+			var vm = this;
+			vm.errors = [];
+			vm.record = vm.records[index - 1];
+
+			/**
+    * Recorre todos los campos para determinar si existe un elemento booleano para, posteriormente, 
+    * seleccionarlo en el formulario en el caso de que se encuentre activado en BD
+    */
+			$.each(vm.record, function (el, value) {
+				if (value === true || value === false) {
+					$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
+				}
+				/*if (el.substring(el.length - 3, el.length) === "_id") {
+    	$("#" + el + ".select2").val(value);
+    }*/
+			});
 
 			event.preventDefault();
 		},
@@ -78160,11 +78173,11 @@ var render = function() {
                         key: "parent.name",
                         fn: function(props) {
                           return _c("div", {}, [
-                            typeof props.parent !== "undefined"
+                            props.row.parent
                               ? _c("span", [
                                   _vm._v(
                                     "\n\t\t\t\t\t\t\t\t" +
-                                      _vm._s(props.parent.name) +
+                                      _vm._s(props.row.parent.name) +
                                       "\n\t\t\t\t\t\t\t"
                                   )
                                 ])
@@ -78176,7 +78189,7 @@ var render = function() {
                         key: "active",
                         fn: function(props) {
                           return _c("div", {}, [
-                            props.active
+                            props.row.active
                               ? _c("span", [_vm._v("SI")])
                               : _c("span", [_vm._v("NO")])
                           ])

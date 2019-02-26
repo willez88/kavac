@@ -97,13 +97,13 @@
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 							<div slot="parent.name" slot-scope="props">
-								<span v-if="typeof(props.parent) !== 'undefined'">
-									{{ props.parent.name }}
+								<span v-if="props.row.parent">
+									{{ props.row.parent.name }}
 								</span>
 								<span v-else>N/A</span>
 							</div>
 							<div slot="active" slot-scope="props">
-								<span v-if="props.active">SI</span>
+								<span v-if="props.row.active">SI</span>
 								<span v-else>NO</span>
 							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
