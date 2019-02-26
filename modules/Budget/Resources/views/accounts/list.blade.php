@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<budget-accounts-list route_list='{{ url('budget/accounts/vue-list') }}' 
-										  route_delete="{{ url('budget/accounts/delete') }}" 
+										  route_delete="{{ url('budget/accounts') }}" 
 										  route_edit="{{ url('budget/accounts/{id}/edit') }}"/>
 				</div>
 			</div>

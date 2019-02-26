@@ -63,6 +63,22 @@ class BudgetAccount extends Model implements Auditable
     }
 
     /**
+     * Restringe la eliminación de un registro si el mismo esta relacionado a otro modelo o posee campos 
+     * que determinan la imposibilidad de su eliminación
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return [type] [description]
+     */
+    public function restrictDelete()
+    {
+        // Se debe agregar a esta comprobación todos los métodos con relación a otro modelo
+        return (
+            $this->has('account_opens')->get() || $this->has('aditional_credit_accounts')->get() || 
+            $this->parent_id !== null || $this->original
+        );
+    }
+
+    /**
      * Método que permite obtener la cuenta asociada de nivel superior
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>

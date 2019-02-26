@@ -185,10 +185,12 @@ class BudgetAccountController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
         $budgetAccount = BudgetAccount::find($id);
 
         if ($budgetAccount) {
+            if ($budgetAccount->restrictDelete()) {
+                return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar'], 200);
+            }
             $budgetAccount->delete();
         }
         

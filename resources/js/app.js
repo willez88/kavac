@@ -360,9 +360,14 @@ Vue.mixin({
     				}
     			},
     			callback: function (result) {
-    				if (result) {
+					if (result) {
     					confirmated = true;			
 						axios.delete(url + '/' + records[index].id).then(response => {
+							if (typeof(response.data.error) !== "undefined") {
+								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
+    							vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
+    							return false;
+							}
 							records.splice(index, 1);
 							vm.showMessage('destroy');
 						}).catch(error => {});
@@ -412,7 +417,7 @@ Vue.mixin({
 		        class_name: msg_class,
 		        image: "/images/" + msg_icon + ".png",
 		        sticky: false,
-		        time: 1500
+		        time: 3500
 		    });
 		},
 		/**

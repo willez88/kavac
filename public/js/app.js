@@ -34947,6 +34947,11 @@ Vue.mixin({
 					if (result) {
 						confirmated = true;
 						axios.delete(url + '/' + records[index].id).then(function (response) {
+							if (typeof response.data.error !== "undefined") {
+								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
+								vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
+								return false;
+							}
 							records.splice(index, 1);
 							vm.showMessage('destroy');
 						}).catch(function (error) {});
@@ -34994,7 +34999,7 @@ Vue.mixin({
 				class_name: msg_class,
 				image: "/images/" + msg_icon + ".png",
 				sticky: false,
-				time: 1500
+				time: 3500
 			});
 		},
 
@@ -100607,9 +100612,6 @@ $(document).ready(function () {
         $('.btn-file').tooltip({
             trigger: "hover", delay: { hide: 200 }
         });
-    }
-    if ($('.VueTables').length) {
-        $('.VueTables').find('[data-toggle="tooltip"]').tooltip({ trigger: "hover", delay: { hide: 200 } });
     }
 
     /** Reemplazo de icono indicador en el menú del panel izquierdo */
