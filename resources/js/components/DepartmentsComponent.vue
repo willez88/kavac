@@ -195,9 +195,9 @@
 			},
 		},
 		mounted() {
-			this.switchHandler('issue_requests', 'issue_requests');
-			this.switchHandler('active', 'active');
-			this.switchHandler('administrative', 'administrative');
+			this.switchHandler('issue_requests');
+			this.switchHandler('active');
+			this.switchHandler('administrative');
 		}
 	};
 </script>

@@ -523,10 +523,14 @@ Vue.mixin({
 		 * Gestiona el evento del elemento switch en radio y checkbox
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-		 * @param  {string} elName Nombre del elemento
-		 * @param  {string} model  Nombre del modelo
+		 * @param  {string} elName 		 Nombre del elemento switch
+		 * @param  {string} model  		 Nombre del modelo al cual asignar el valor del switch
+		 * @param  {string} other_model  Nombre de otro modelo al cual asignar el valor del switch
 		 */
 		switchHandler: function(elName, model, other_model) {
+			/** Si no se ha indicado el modelo se asigna como valor por defecto el del nombre del elemento */
+			var model = (typeof(model) !== "undefined") ? model: elName;
+			/** Si se ha especificado otro modelo al cual asignar el valor */
 			var other_model = (typeof(other_model) !== "undefined") ? other_model: null;
 			let vm = this;
 			$('input[name=' + elName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {

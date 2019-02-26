@@ -35111,10 +35111,14 @@ Vue.mixin({
    * Gestiona el evento del elemento switch en radio y checkbox
    *
    * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-   * @param  {string} elName Nombre del elemento
-   * @param  {string} model  Nombre del modelo
+   * @param  {string} elName 		 Nombre del elemento switch
+   * @param  {string} model  		 Nombre del modelo al cual asignar el valor del switch
+   * @param  {string} other_model  Nombre de otro modelo al cual asignar el valor del switch
    */
 		switchHandler: function switchHandler(elName, model, other_model) {
+			/** Si no se ha indicado el modelo se asigna como valor por defecto el del nombre del elemento */
+			var model = typeof model !== "undefined" ? model : elName;
+			/** Si se ha especificado otro modelo al cual asignar el valor */
 			var other_model = typeof other_model !== "undefined" ? other_model : null;
 			var vm = this;
 			$('input[name=' + elName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function () {
@@ -75595,7 +75599,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
-		this.switchHandler('action', 'action');
+		this.switchHandler('action');
 	}
 });
 
@@ -76425,8 +76429,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.table_options.filterable = ['name', 'description', 'histories.operation_date', 'histories.percentage'];
 	},
 	mounted: function mounted() {
-		this.switchHandler('affect_tax', 'affect_tax');
-		this.switchHandler('active', 'active');
+		this.switchHandler('affect_tax');
+		this.switchHandler('active');
 	}
 });
 
@@ -77107,7 +77111,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.table_options.filterable = ['start_date', 'end_date', 'value'];
 	},
 	mounted: function mounted() {
-		this.switchHandler('active', 'active');
+		this.switchHandler('active');
 	}
 });
 
@@ -77744,9 +77748,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}
 	},
 	mounted: function mounted() {
-		this.switchHandler('issue_requests', 'issue_requests');
-		this.switchHandler('active', 'active');
-		this.switchHandler('administrative', 'administrative');
+		this.switchHandler('issue_requests');
+		this.switchHandler('active');
+		this.switchHandler('administrative');
 	}
 });
 
@@ -78517,7 +78521,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.getCountries();
 	},
 	mounted: function mounted() {
-		this.switchHandler('default', 'default');
+		this.switchHandler('default');
 	}
 });
 

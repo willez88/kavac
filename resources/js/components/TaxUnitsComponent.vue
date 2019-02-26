@@ -140,7 +140,7 @@
 			this.table_options.filterable = ['start_date', 'end_date', 'value'];
 		},
 		mounted() {
-			this.switchHandler('active', 'active');
+			this.switchHandler('active');
 		}
 	};
 </script>

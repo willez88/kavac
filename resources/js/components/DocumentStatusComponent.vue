@@ -202,7 +202,7 @@
 			};
 		},
 		mounted() {
-			this.switchHandler('action', 'action');
+			this.switchHandler('action');
 		}
 	};
 </script>

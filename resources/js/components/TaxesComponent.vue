@@ -203,8 +203,8 @@
 			];
 		},
 		mounted() {
-			this.switchHandler('affect_tax', 'affect_tax');
-			this.switchHandler('active', 'active');
+			this.switchHandler('affect_tax');
+			this.switchHandler('active');
 		}
 	};
 </script>

@@ -156,7 +156,7 @@
 			this.getCountries();
 		},
 		mounted() {
-			this.switchHandler('default', 'default');
+			this.switchHandler('default');
 		}
 	};
 </script>
