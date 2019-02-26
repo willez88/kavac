@@ -1,3 +1,7 @@
+/** Corrige el uso del campo de búsqueda en elementos select2 en ventanas modales con el uso de bootstrap 4 */
+$.fn.modal.Constructor.prototype._enforceFocus = function() {};
+
+/** Instrucciones a ejecutar una vez se haya cargado la página */
 $(document).ready(function() {
 	/** Tooltip para opciones de la barra de navegación superior */
 	$('.dropdown-toggle').tooltip();

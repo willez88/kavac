@@ -11,6 +11,7 @@
 		props: ['options', 'value'],
 		mounted: function() {
 			var vm = this;
+			this.options.slice(0).unshift({id: '', text: 'Seleccione...'});
 			$(this.$el).select2({data: this.options})
 					   .val(this.value)
 					   .trigger('change')
@@ -30,6 +31,7 @@
 			},
 			options: function(options) {
 				try {
+					options.slice(0).unshift({id: '', text: 'Seleccione...'});
 					$(this.$el).empty().trigger('change').select2({data: options});
 				}
 				catch(err) {}

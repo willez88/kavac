@@ -438,6 +438,7 @@ Vue.mixin({
 		 */
 		getEstates() {
 			const vm = this;
+			vm.estates = [];
 			if (this.record.country_id) {
 				axios.get('/get-estates/' + this.record.country_id).then(response => {
 					vm.estates = response.data;
@@ -451,6 +452,7 @@ Vue.mixin({
 		 */
 		getMunicipalities() {
 			const vm = this;
+			vm.municipalities = [];
 			if (this.record.estate_id) {
 				axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
 					vm.municipalities = response.data;
@@ -464,6 +466,7 @@ Vue.mixin({
 		 */
 		getCities() {
 			const vm = this;
+			vm.cities = [];
 			if (this.record.estate_id) {
 				axios.get('/get-cities/' + this.record.estate_id).then(response => {
 					vm.cities = response.data;
@@ -478,6 +481,7 @@ Vue.mixin({
 		 */
 		getInstitutions(id) {
 			const vm = this;
+			vm.institutions = [];
 			var institution_id = (typeof(id)!=="undefined")?'/'+id:'';
 			axios.get('/get-institutions' + institution_id).then(response => {
 				vm.institutions = response.data;
@@ -491,6 +495,7 @@ Vue.mixin({
 		 */
 		getCurrencies(id) {
 			const vm = this;
+			vm.currencies = [];
 			var currency_id = (typeof(id)!=="undefined")?'/'+id:'';
 			axios.get('/get-currencies' + currency_id).then(response => {
 				vm.currencies = response.data;
@@ -504,6 +509,7 @@ Vue.mixin({
 		 */
 		getDepartments(id) {
 			const vm = this;
+			vm.departments = [];
 			if (typeof(this.record.institution_id) !== "undefined" && this.record.institution_id !== '') {
 				axios.get('/get-departments/' + this.record.institution_id).then(response => {
 					/** Obtiene los departamentos */

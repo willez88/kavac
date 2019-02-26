@@ -35022,6 +35022,7 @@ Vue.mixin({
    */
 		getEstates: function getEstates() {
 			var vm = this;
+			vm.estates = [];
 			if (this.record.country_id) {
 				axios.get('/get-estates/' + this.record.country_id).then(function (response) {
 					vm.estates = response.data;
@@ -71067,6 +71068,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	props: ['options', 'value'],
 	mounted: function mounted() {
 		var vm = this;
+		this.options.slice(0).unshift({ id: '', text: 'Seleccione...' });
 		$(this.$el).select2({ data: this.options }).val(this.value).trigger('change').on('change', function () {
 			vm.$emit('input', this.value);
 		});
@@ -71083,6 +71085,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		options: function options(_options) {
 			try {
+				_options.slice(0).unshift({ id: '', text: 'Seleccione...' });
 				$(this.$el).empty().trigger('change').select2({ data: _options });
 			} catch (err) {}
 		}
@@ -100450,6 +100453,10 @@ eval(function (p, a, c, k, e, d) {
 /* 408 */
 /***/ (function(module, exports) {
 
+/** Corrige el uso del campo de búsqueda en elementos select2 en ventanas modales con el uso de bootstrap 4 */
+$.fn.modal.Constructor.prototype._enforceFocus = function () {};
+
+/** Instrucciones a ejecutar una vez se haya cargado la página */
 $(document).ready(function () {
     /** Tooltip para opciones de la barra de navegación superior */
     $('.dropdown-toggle').tooltip();
