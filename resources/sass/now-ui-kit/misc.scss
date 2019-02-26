@@ -21,7 +21,7 @@ body{
 //transition for dropdown caret
 .dropdown-toggle:after,
 .bootstrap-switch-label:before{
-    @include transition($fast-transition-time, $transition-ease);
+    /*@include transition($fast-transition-time, $transition-ease);*/
 }
 
 .dropdown-toggle[aria-expanded="true"]:after{

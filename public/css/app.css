@@ -18177,15 +18177,14 @@ input[type=file].file-loading {
   background-color: rgba(23, 23, 23, 0.4);
 }
 
-.bootstrap-switch.bootstrap-switch-on:hover .bootstrap-switch-label {
-  width: 27px !important;
-  margin-left: -16px;
+/*.bootstrap-switch.bootstrap-switch-on:hover .bootstrap-switch-label{
+    width: 27px !important;
+    margin-left: -16px;
 }
-
-.bootstrap-switch.bootstrap-switch-off:hover .bootstrap-switch-label {
-  width: 27px !important;
-  margin-left: -11px;
-}
+.bootstrap-switch.bootstrap-switch-off:hover .bootstrap-switch-label{
+    width: 27px !important;
+    margin-left: -11px;
+}*/
 
 .bootstrap-switch .bootstrap-switch-handle-on {
   border-bottom-left-radius: 3px;
@@ -21333,8 +21332,7 @@ body {
 
 .dropdown-toggle:after,
 .bootstrap-switch-label:before {
-  -webkit-transition: all 150ms ease 0s;
-  transition: all 150ms ease 0s;
+  /*@include transition($fast-transition-time, $transition-ease);*/
 }
 
 .dropdown-toggle[aria-expanded="true"]:after {
@@ -28541,7 +28539,7 @@ table th {
 }
 
 .bootstrap-switch.bootstrap-switch-mini {
-  heught: 16px !important;
+  height: 16px !important;
   width: 46px !important;
 }
 
@@ -28555,6 +28553,11 @@ table th {
 
 .bootstrap-switch.bootstrap-switch-mini.bootstrap-switch-mini .bootstrap-switch-container {
   width: 72px !important;
+}
+
+.bootstrap-switch.bootstrap-switch-on:hover .bootstrap-switch-label,
+.bootstrap-switch.bootstrap-switch-off:hover .bootstrap-switch-label {
+  width: 22px !important;
 }
 
 @-webkit-keyframes wrench {

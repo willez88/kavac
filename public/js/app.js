@@ -35037,6 +35037,7 @@ Vue.mixin({
    */
 		getMunicipalities: function getMunicipalities() {
 			var vm = this;
+			vm.municipalities = [];
 			if (this.record.estate_id) {
 				axios.get('/get-municipalities/' + this.record.estate_id).then(function (response) {
 					vm.municipalities = response.data;
@@ -35051,6 +35052,7 @@ Vue.mixin({
    */
 		getCities: function getCities() {
 			var vm = this;
+			vm.cities = [];
 			if (this.record.estate_id) {
 				axios.get('/get-cities/' + this.record.estate_id).then(function (response) {
 					vm.cities = response.data;
@@ -35066,6 +35068,7 @@ Vue.mixin({
    */
 		getInstitutions: function getInstitutions(id) {
 			var vm = this;
+			vm.institutions = [];
 			var institution_id = typeof id !== "undefined" ? '/' + id : '';
 			axios.get('/get-institutions' + institution_id).then(function (response) {
 				vm.institutions = response.data;
@@ -35080,6 +35083,7 @@ Vue.mixin({
    */
 		getCurrencies: function getCurrencies(id) {
 			var vm = this;
+			vm.currencies = [];
 			var currency_id = typeof id !== "undefined" ? '/' + id : '';
 			axios.get('/get-currencies' + currency_id).then(function (response) {
 				vm.currencies = response.data;
@@ -35094,6 +35098,7 @@ Vue.mixin({
    */
 		getDepartments: function getDepartments(id) {
 			var vm = this;
+			vm.departments = [];
 			if (typeof this.record.institution_id !== "undefined" && this.record.institution_id !== '') {
 				axios.get('/get-departments/' + this.record.institution_id).then(function (response) {
 					/** Obtiene los departamentos */

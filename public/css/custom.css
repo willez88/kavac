@@ -3028,7 +3028,7 @@ table th {
 }
 
 .bootstrap-switch.bootstrap-switch-mini {
-  heught: 16px !important;
+  height: 16px !important;
   width: 46px !important;
 }
 
@@ -3042,6 +3042,11 @@ table th {
 
 .bootstrap-switch.bootstrap-switch-mini.bootstrap-switch-mini .bootstrap-switch-container {
   width: 72px !important;
+}
+
+.bootstrap-switch.bootstrap-switch-on:hover .bootstrap-switch-label,
+.bootstrap-switch.bootstrap-switch-off:hover .bootstrap-switch-label {
+  width: 22px !important;
 }
 
 @-webkit-keyframes wrench {
