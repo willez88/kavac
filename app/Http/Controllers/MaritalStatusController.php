@@ -62,10 +62,10 @@ class MaritalStatusController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'marital_status_name' => 'required|max:100'
+            'name' => 'required|max:100'
         ]);
 
-        $maritalStatus = MaritalStatus::create(['name' => $request->marital_status_name]);
+        $maritalStatus = MaritalStatus::create(['name' => $request->name]);
 
         return response()->json(['record' => $maritalStatus, 'message' => 'Success'], 200);
     }
@@ -105,10 +105,10 @@ class MaritalStatusController extends Controller
     public function update(Request $request, MaritalStatus $maritalStatus)
     {
         $this->validate($request, [
-            'marital_status_name' => 'required|max:100'
+            'name' => 'required|max:100'
         ]);
  
-        $maritalStatus->name = $request->marital_status_name;
+        $maritalStatus->name = $request->name;
         $maritalStatus->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

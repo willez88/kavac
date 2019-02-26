@@ -28,10 +28,10 @@
 						</div>
 						<div class="form-group is-required">
 							<label for="marital_status_name">Nombre:</label>
-							<input type="text" id="marital_status_name" placeholder="Estado Civil" 
-								   class="form-control input-sm" v-model="record.marital_status_name" data-toggle="tooltip" 
+							<input type="text" id="name" placeholder="Estado Civil" 
+								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip" 
 								   title="Indique el nombre del estado civil (requerido)">
-							<input type="hidden" name="marital_status_id" id="marital_status_id" v-model="record.marital_status_id">
+							<input type="hidden" name="id" id="id" v-model="record.id">
 	                    </div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -71,8 +71,8 @@
 		data() {
 			return {
 				record: {
-					marital_status_id: '',
-					marital_status_name: ''
+					id: '',
+					name: ''
 				},
 				errors: [],
 				records: [],
@@ -87,8 +87,8 @@
 			 */
 			reset() {
 				this.record = {
-					marital_status_id: '',
-					marital_status_name: ''
+					id: '',
+					name: ''
 				};
 			},
 		},
@@ -99,6 +99,10 @@
 			};
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
+			this.table_options.columnsClasses = {
+				'name': 'col-md-10',
+				'id': 'col-md-2'
+			};
 		},
 	};
 </script>

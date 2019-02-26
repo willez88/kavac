@@ -34854,6 +34854,7 @@ Vue.mixin({
    */
 		initUpdate: function initUpdate(index, event) {
 			this.errors = [];
+			console.log(this.records[index - 1]);
 			this.record = this.records[index - 1];
 
 			event.preventDefault();
@@ -71227,8 +71228,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			record: {
-				marital_status_id: '',
-				marital_status_name: ''
+				id: '',
+				name: ''
 			},
 			errors: [],
 			records: [],
@@ -71244,8 +71245,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    */
 		reset: function reset() {
 			this.record = {
-				marital_status_id: '',
-				marital_status_name: ''
+				id: '',
+				name: ''
 			};
 		}
 	},
@@ -71256,6 +71257,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name'];
 		this.table_options.filterable = ['name'];
+		this.table_options.columnsClasses = {
+			'name': 'col-md-10',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -71328,29 +71333,25 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.record.marital_status_name,
-                        expression: "record.marital_status_name"
+                        value: _vm.record.name,
+                        expression: "record.name"
                       }
                     ],
                     staticClass: "form-control input-sm",
                     attrs: {
                       type: "text",
-                      id: "marital_status_name",
+                      id: "name",
                       placeholder: "Estado Civil",
                       "data-toggle": "tooltip",
                       title: "Indique el nombre del estado civil (requerido)"
                     },
-                    domProps: { value: _vm.record.marital_status_name },
+                    domProps: { value: _vm.record.name },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(
-                          _vm.record,
-                          "marital_status_name",
-                          $event.target.value
-                        )
+                        _vm.$set(_vm.record, "name", $event.target.value)
                       }
                     }
                   }),
@@ -71360,26 +71361,18 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.record.marital_status_id,
-                        expression: "record.marital_status_id"
+                        value: _vm.record.id,
+                        expression: "record.id"
                       }
                     ],
-                    attrs: {
-                      type: "hidden",
-                      name: "marital_status_id",
-                      id: "marital_status_id"
-                    },
-                    domProps: { value: _vm.record.marital_status_id },
+                    attrs: { type: "hidden", name: "id", id: "id" },
+                    domProps: { value: _vm.record.id },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(
-                          _vm.record,
-                          "marital_status_id",
-                          $event.target.value
-                        )
+                        _vm.$set(_vm.record, "id", $event.target.value)
                       }
                     }
                   })

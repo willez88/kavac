@@ -272,6 +272,7 @@ Vue.mixin({
 		 */
 		initUpdate(index, event) {
 			this.errors = [];
+			console.log(this.records[index - 1]);
 			this.record = this.records[index - 1];
 
 			event.preventDefault();
