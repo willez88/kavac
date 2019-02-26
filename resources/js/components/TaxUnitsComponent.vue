@@ -53,10 +53,11 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label class="col-12">Activo:</label>
-									<input type="checkbox" class="form-control bootstrap-switch" data-toggle="tooltip" 
+									<input type="checkbox" class="form-control bootstrap-switch" 
+										   data-toggle="tooltip" name="active" 
 										   title="Indique si la unidad tributaria esta o no activa"
 										   data-on-label="SI" data-off-label="NO" 
-										   v-model="record.active">
+										   v-model="record.active" value="true">
 			                    </div>
 							</div>
 						</div>
@@ -138,5 +139,8 @@
 			this.table_options.sortable = ['start_date', 'end_date', 'value'];
 			this.table_options.filterable = ['start_date', 'end_date', 'value'];
 		},
+		mounted() {
+			this.switchHandler('active', 'active');
+		}
 	};
 </script>

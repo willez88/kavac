@@ -76405,6 +76405,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'description', 'histories.operation_date', 'histories.percentage'];
 		this.table_options.filterable = ['name', 'description', 'histories.operation_date', 'histories.percentage'];
+	},
+	mounted: function mounted() {
+		this.switchHandler('affect_tax', 'affect_tax');
+		this.switchHandler('active', 'active');
 	}
 });
 
@@ -76652,8 +76656,9 @@ var render = function() {
                         attrs: {
                           type: "checkbox",
                           "data-toggle": "tooltip",
+                          name: "affect_tax",
                           title:
-                            "Indique si el impuesto afecta la cuenta presupuestaria de IVA",
+                            "Indique si afecta la cuenta presupuestaria de IVA",
                           "data-on-label": "SI",
                           "data-off-label": "NO",
                           value: "true"
@@ -76712,6 +76717,7 @@ var render = function() {
                         attrs: {
                           type: "checkbox",
                           "data-toggle": "tooltip",
+                          name: "active",
                           title: "Indique si el impuesta esta o no activo",
                           "data-on-label": "SI",
                           "data-off-label": "NO",
@@ -77037,6 +77043,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -77080,6 +77087,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['start_date', 'end_date', 'value'];
 		this.table_options.filterable = ['start_date', 'end_date', 'value'];
+	},
+	mounted: function mounted() {
+		this.switchHandler('active', 'active');
 	}
 });
 
@@ -77290,14 +77300,16 @@ var render = function() {
                         attrs: {
                           type: "checkbox",
                           "data-toggle": "tooltip",
+                          name: "active",
                           title:
                             "Indique si la unidad tributaria esta o no activa",
                           "data-on-label": "SI",
-                          "data-off-label": "NO"
+                          "data-off-label": "NO",
+                          value: "true"
                         },
                         domProps: {
                           checked: Array.isArray(_vm.record.active)
-                            ? _vm._i(_vm.record.active, null) > -1
+                            ? _vm._i(_vm.record.active, "true") > -1
                             : _vm.record.active
                         },
                         on: {
@@ -77306,7 +77318,7 @@ var render = function() {
                               $$el = $event.target,
                               $$c = $$el.checked ? true : false
                             if (Array.isArray($$a)) {
-                              var $$v = null,
+                              var $$v = "true",
                                 $$i = _vm._i($$a, $$v)
                               if ($$el.checked) {
                                 $$i < 0 &&

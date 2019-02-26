@@ -62,8 +62,8 @@
 								<div class="form-group is-required">
 									<label>Afecta cuenta de IVA:</label>
 									<input type="checkbox" class="form-control bootstrap-switch" 
-										   data-toggle="tooltip" 
-										   title="Indique si el impuesto afecta la cuenta presupuestaria de IVA" 
+										   data-toggle="tooltip" name="affect_tax" 
+										   title="Indique si afecta la cuenta presupuestaria de IVA" 
 										   data-on-label="SI" data-off-label="NO" 
 										   v-model="record.affect_tax" value="true">
 			                    </div>
@@ -72,7 +72,7 @@
 								<div class="form-group is-required">
 									<label>Activo:</label>
 									<input type="checkbox" class="form-control bootstrap-switch" 
-										   data-toggle="tooltip" 
+										   data-toggle="tooltip" name="active" 
 										   title="Indique si el impuesta esta o no activo" 
 										   data-on-label="SI" data-off-label="NO" 
 										   v-model="record.active" value="true">
@@ -202,5 +202,9 @@
 				'name', 'description', 'histories.operation_date', 'histories.percentage'
 			];
 		},
+		mounted() {
+			this.switchHandler('affect_tax', 'affect_tax');
+			this.switchHandler('active', 'active');
+		}
 	};
 </script>
