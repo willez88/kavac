@@ -1,8 +1,7 @@
 <?php
 /**
- * Class Tax | app/Models/tax.php
+ * Class Tax | app/Models/Tax.php
  *
- * @package     app\Models
  * @copyright   Copyright (c) 2018-2019, CENDITEL
  * @version     v.1.0.0
  */
@@ -19,7 +18,6 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * Datos de Impuestos
  * 
  * Gestiona el modelo de datos para los impuestos
- * 
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL
