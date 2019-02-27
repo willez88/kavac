@@ -45,7 +45,7 @@ class PayrollStaff extends Model implements Auditable
     protected $fillable = [
         'code', 'first_name', 'last_name', 'birthdate', 'sex', 'email', 'active', 'website', 'direction',
         'sons', 'start_date_public_adm', 'start_date', 'end_date', 'id_number', 'nationality', 'passport',
-        'marital_status_id', 'profession_id', 'city_id'
+        'marital_status_id', 'profession_id', 'city_id', 'nationality_id'
     ];
 
     /**

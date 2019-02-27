@@ -16,6 +16,7 @@ use App\Models\City;
 use Modules\Payroll\Models\PayrollNationality;
 use App\Models\CodeSetting;
 use App\Helpers\Helper;
+use App\Rules\CodeSetting as CodeSettingRule;
 
 /**
  * @class PayrollStaffController
@@ -72,7 +73,9 @@ class PayrollStaffController extends Controller
         $countries = template_choices('App\Models\Country');
         $estates = template_choices('App\Models\Estate');
         $cities = template_choices('App\Models\City');
-        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality');
+        $nationalities = template_choices(
+            'Modules\Payroll\Models\PayrollNationality', ['demonym']
+        );
         return view('payroll::staffs.create-edit', compact(
             'header','marital_status','professions','countries','estates','cities', 'nationalities'
         ));
@@ -86,6 +89,7 @@ class PayrollStaffController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'code' => [new CodeSettingRule],
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'birthdate' => 'required|date',
@@ -98,7 +102,7 @@ class PayrollStaffController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
             'id_number' => 'required|max:12',
-            'nationality' => 'required|max:100',
+            'nationality_id' => 'required',
             'passport' => 'max:20',
             'marital_status_id' => 'required',
             'profession_id' => 'required',
@@ -121,7 +125,7 @@ class PayrollStaffController extends Controller
         $staff->start_date = $request->start_date;
         $staff->end_date = $request->end_date;
         $staff->id_number = $request->id_number;
-        $staff->nationality = $request->nationality;
+        $staff->nationality_id = $request->nationality_id;
         $staff->passport = $request->passport;
         $staff->marital_status_id = $request->marital_status_id;
         $staff->profession_id = $request->profession_id;
@@ -153,8 +157,9 @@ class PayrollStaffController extends Controller
         $countries = template_choices('App\Models\Country');
         $estates = template_choices('App\Models\Estate');
         $cities = template_choices('App\Models\City');
+        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality');
         return view('payroll::staffs.create-edit', compact(
-            'staff','header','marital_status','professions','countries','estates','cities'
+            'staff','header','marital_status','professions','countries','estates','cities','nationalities'
         ));
     }
 
@@ -178,7 +183,7 @@ class PayrollStaffController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
             'id_number' => 'required|max:12',
-            'nationality' => 'required|max:100',
+            'nationality_id' => 'required',
             'passport' => 'nullable|max:20',
             'marital_status_id' => 'required',
             'profession_id' => 'required',
@@ -197,7 +202,7 @@ class PayrollStaffController extends Controller
         $staff->start_date = $request->start_date;
         $staff->end_date = $request->end_date;
         $staff->id_number = $request->id_number;
-        $staff->nationality = $request->nationality;
+        $staff->nationality_id = $request->nationality_id;
         $staff->passport = $request->passport;
         $staff->marital_status_id = $request->marital_status_id;
         $staff->profession_id = $request->profession_id;
