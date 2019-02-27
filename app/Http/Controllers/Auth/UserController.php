@@ -180,22 +180,36 @@ class UserController extends Controller
     public function setAccess(Request $request)
     {
         $rules = [
-            'role' => 'required_without:permission|array|max:1',
+            'user' => 'required',
+            'role' => 'required_without:permission|array',
             'permission' => 'required_without:role|array|min:1'
         ];
         $messages = [
+            'user.required' => 'Se requiere de un usuario para asignar roles y permisos',
             'role.max' => 'Solo puede asignar un rol al usuario',
             'permission.min' => 'Se requiere al menos un permiso asignado al usuario'
         ];
+        
+        $user = User::find($request->user);
 
-        if (isset($request->role) && count($request->role) === 1 && Role::find($request->role[0])->permissions->isEmpty()) {
-            $rules['permission'] = str_replace('required_without:role', 'required', $rules['permission']);
-            $messages['permission.required'] = 'El rol seleccionado no tiene permisos asignados, debe indicar los permisos de acceso';
+        if (isset($request->role)) {
+            foreach ($request->role as $role) {
+                if (Role::find($role)->permissions->isEmpty()) {
+                    $rules['permission'] = str_replace('required_without:role', 'required', $rules['permission']);
+                    if (count($request->role) > 1) {
+                        $msg = 'Uno de los roles seleccionados no tiene permisos asignados, debe indicar los permisos de acceso';
+                    }
+                    else {
+                        $msg = 'El rol seleccionado no tiene permisos asignados, debe indicar los permisos de acceso';
+                    }
+                    $messages['permission.required'] = $msg;
+                    break;
+                }
+            }
         }
 
         $this->validate($request, $rules, $messages);
 
-        $user = User::find($request->user);
         $user->detachAllRoles();
         $user->detachAllPermissions();
 
