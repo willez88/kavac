@@ -1,4 +1,11 @@
 <?php
+/**
+ * Class Tax | app/Models/tax.php
+ *
+ * @package     app\Models
+ * @copyright   Copyright (c) 2018-2019, CENDITEL
+ * @version     v.1.0.0
+ */
 
 namespace App\Models;
 
@@ -9,13 +16,14 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
- * @class Tax
- * @brief Datos de Impuestos
+ * Datos de Impuestos
  * 
  * Gestiona el modelo de datos para los impuestos
  * 
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Tax extends Model implements Auditable
 {
@@ -24,20 +32,17 @@ class Tax extends Model implements Auditable
     use AuditableTrait;
 
     /**
-     * Establece el uso o no de bitácora de registros para este modelo
-     * @var boolean $revisionCreationsEnabled
+     * @var boolean $revisionCreationsEnabled Establece el uso o no de bitácora de registros para este modelo
      */
     protected $revisionCreationsEnabled = true;
 
     /**
-     * Lista de atributos para la gestión de fechas
-     * @var array $dates
+     * @var array $dates Lista de atributos para la gestión de fechas
      */
     protected $dates = ['deleted_at'];
 
     /**
-     * Lista de atributos que pueden ser asignados masivamente
-     * @var array $fillable
+     * @var array $fillable Lista de atributos que pueden ser asignados masivamente
      */
     protected $fillable = [
     	'name', 'description', 'affect_tax', 'active'
