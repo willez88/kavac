@@ -109,7 +109,7 @@
                 	/*$auditables = \Venturecraft\Revisionable\Revision::where(
                 		'key', '<>', 'last_login'
                 	)->take(40)->get();*/
-                	$auditables = OwenIt\Auditing\Models\Audit::take(60)->get();
+                	$auditables = OwenIt\Auditing\Models\Audit::orderBy('id', 'desc')->take(40)->get();
                 @endphp
 				<table class="table table-hover table-striped dt-responsive nowrap datatable">
 					<thead>
