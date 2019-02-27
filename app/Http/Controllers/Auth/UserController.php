@@ -164,8 +164,15 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function assignAccess(User $user)
+    {
+        $roles = Role::all();
+        $permissions = Permission::orderBy('model_prefix')->get();
+        return view('admin.setting-user-access', compact('user', 'roles', 'permissions'));
+    }
+
     /**
-     * Assigna roles y permisos de acceso a los usuarios del sistema
+     * Assigna permisos de acceso a los usuarios del sistema
      * 
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param Request $request Objeto con los datos de la petición

@@ -98,7 +98,10 @@
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-filter"></i>', [
                                         'class' => 'btn btn-warning btn-xs btn-icon btn-round',
-                                        'data-toggle' => 'tooltip', 'onclick' => '#',
+                                        'data-toggle' => 'tooltip', 
+                                        'onclick' => 'location="' . route('assign.access', [
+                                        	'user' => $user->id
+                                        ]) . '"',
                                         'title' => 'Asignar permisos de acceso',
                                     ]) !!}
 								</td>

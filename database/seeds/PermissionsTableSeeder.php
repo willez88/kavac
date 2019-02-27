@@ -28,7 +28,7 @@ class PermissionsTableSeeder extends Seeder
         $adminRole = Role::where('slug', 'admin')->first();
         
         /**
-         * Permisos disponibles para la gestión de estatus de documentos
+         * Permisos disponibles para la gestión de registros comúnes
          */
 
         $permissions = [
