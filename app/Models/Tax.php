@@ -30,7 +30,8 @@ class Tax extends Model implements Auditable
     use AuditableTrait;
 
     /**
-     * @var boolean $revisionCreationsEnabled Establece el uso o no de bitácora de registros para este modelo
+     * Establece el uso o no de bitácora de registros para este modelo
+     * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
 

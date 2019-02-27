@@ -1,5 +1,6 @@
 /.phpintel
 /node_modules
+/doc
 /public/hot
 /public/storage
 /storage/*.key

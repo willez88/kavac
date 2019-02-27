@@ -31,6 +31,7 @@
 				</div>
 				{!! Form::open(['route' => 'roles.permissions.assign', 'method' => 'POST']) !!}
 					{!! Form::token() !!}
+					{!! Form::hidden('user', $user->id) !!}
 					<div class="card-body">
 						@include('layouts.form-errors')
 						<h5 class="card-title text-center">Roles</h5>
