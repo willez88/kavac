@@ -83,7 +83,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $header = [
+            'route' => ['users.update', $user->id], 
+            'method' => 'PUT', 
+            'role' => 'form'
+        ];
+        $model = $user;
+        return view('auth.register', compact('header', 'model'));
     }
 
     /**

@@ -44,9 +44,13 @@
 	                        @endphp
 							<tr>
 								<td class="">
-									<a href="{{ route('users.edit', $user->id) }}">
+									@if ($user->id !== auth()->user()->id)
+										<a href="{{ route('users.edit', $user->id) }}">
+											{{ $user->username }}
+										</a>
+									@else
 										{{ $user->username }}
-									</a>
+									@endif
 								</td>
 								<td class="">
 									@if($user->employee_id)
