@@ -38,7 +38,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $header = [
+            'route' => 'users.store', 
+            'method' => 'POST', 
+            'role' => 'form',
+        ];
+        return view('auth.register', compact('header'));
     }
 
     /**
@@ -164,11 +169,16 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Muestra el formulario para la asignación de roles y permisos a usuarios
+     * 
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  User   $user Modelo de Usuario
+     * @return \Illuminate\Http\Response
+     */
     public function assignAccess(User $user)
     {
-        $roles = Role::all();
-        $permissions = Permission::orderBy('model_prefix')->get();
-        return view('admin.setting-user-access', compact('user', 'roles', 'permissions'));
+        return view('admin.setting-user-access', compact('user'));
     }
 
     /**

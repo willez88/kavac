@@ -11,6 +11,9 @@
 				</div>
 			</div>
 			<div class="card-body">
+				@include('layouts.button-new-register', [
+					'url' => route('users.create')
+				])
 				<div class="row">
 					<div class="col-md-4 panel-legend">
 						<i class="fa fa-user text-success" title="Los usuarios con este estatus se encuentran conectados a la aplicación" data-toggle="tooltip"></i>
@@ -41,7 +44,9 @@
 	                        @endphp
 							<tr>
 								<td class="">
-									<a href="#">{{ $user->username }}</a>
+									<a href="{{ route('users.edit', $user->id) }}">
+										{{ $user->username }}
+									</a>
 								</td>
 								<td class="">
 									@if($user->employee_id)

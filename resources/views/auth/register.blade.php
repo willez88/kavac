@@ -1,7 +1,76 @@
 @extends('layouts.app')
 
+@section('maproute-icon')
+    <i class="fa fa-user"></i>
+@stop
+
+@section('maproute-icon-mini')
+    <i class="fa fa-user"></i>
+@stop
+
+@section('maproute-actual')
+    Usuarios
+@stop
+
+@section('maproute-title')
+    Usuarios
+@stop
+
 @section('content')
-<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h6 class="card-title">Gestión de usuario</h6>
+            <div class="card-btns">
+                <a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
+                   data-toggle="tooltip">
+                    <i class="now-ui-icons arrows-1_minimal-up"></i>
+                </a>
+            </div>
+        </div>
+        @if (!isset($model)) {!! Form::open($header) !!} @else {!! Form::model($model, $header) !!} @endif
+            {!! Form::token() !!}
+            <div class="card-body">
+                @include('layouts.form-errors')
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            {!! Form::label('staff', 'Empleado', []) !!}
+                            {!! Form::select(
+                                'staff', (isset($staff))?$staff:[], null, [
+                                    'class' => 'form-control select2'
+                                ]
+                            ) !!}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            {!! Form::label('email', 'Correo electrónico', []) !!}
+                            {!! Form::text('email', (isset($model))?$model->email:old('email'), [
+                                'class' => 'form-control input-sm', 
+                                'data-toggle' => 'tooltip',
+                                'title' => 'Indique el correo electrónico al cual envíar los datos de acceso'
+                            ]) !!}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            {!! Form::label('username', 'Usuario', []) !!}
+                            {!! Form::text('username', (isset($model))?$model->username:old('username'), [
+                                'class' => 'form-control input-sm', 
+                                'data-toggle' => 'tooltip',
+                                'title' => 'Indique el nombre de usuario'
+                            ]) !!}
+                        </div>
+                    </div>
+                </div>
+                @include('auth.roles-permissions', ['user' => $model ?? null])
+            </div>
+            <div class="card-footer text-right">
+                @include('layouts.form-buttons')
+            </div>
+        {!! Form::close() !!}
+    </div>
+{{--<div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -73,5 +142,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>--}}
 @endsection
