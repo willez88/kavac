@@ -41,7 +41,7 @@
 									<div class="form-group">
 										<label for="" class="control-label">{{ $role->name }}</label>
 										<div class="col-12 bootstrap-switch-mini">
-											{!! Form::checkbox('role[]', $role->id, null, [
+											{!! Form::checkbox('role[]', $role->id, $user->hasRole($role->id), [
 												'class' => 'form-control bootstrap-switch bootstrap-switch-mini role',
 												'data-on-label' => 'SI', 'data-off-label' => 'NO'
 											]) !!}
@@ -72,10 +72,13 @@
 									<div class="form-group">
 										<label for="" class="control-label">{{ $permission->name }}</label>
 										<div class="col-12 bootstrap-switch-mini">
-											{!! Form::checkbox('permission[]', $permission->id, null, [
-												'class' => 'form-control bootstrap-switch bootstrap-switch-mini permission',
-												'data-on-label' => 'SI', 'data-off-label' => 'NO'
-											]) !!}
+											{!! Form::checkbox(
+												'permission[]', $permission->id, 
+												$user->hasPermission($permission->id), [
+													'class' => 'form-control bootstrap-switch bootstrap-switch-mini permission',
+													'data-on-label' => 'SI', 'data-off-label' => 'NO'
+												]
+											) !!}
 										</div>
 									</div>
 								</div>
