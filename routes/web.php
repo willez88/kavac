@@ -164,6 +164,7 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {
     /** Ruta de recursos para la gestión de usuarios */
     Route::resource('users', 'UserController');
+    Route::get('user-info/{user}', 'UserController@info')->name('user-info');
 });
 
 /**

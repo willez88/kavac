@@ -102,7 +102,8 @@
                                     ]) !!}
                                 	{!! Form::button('<i class="fa fa-info-circle"></i>', [
                                         'class' => 'btn btn-info btn-xs btn-icon btn-round',
-                                        'data-toggle' => 'tooltip', 'onclick' => '#',
+                                        'data-toggle' => 'tooltip', 
+                                        'onclick' => 'view_user_info('.$user->id.')',
                                         'title' => 'Ver información del usuario',
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-filter"></i>', [

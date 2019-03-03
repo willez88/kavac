@@ -137,6 +137,7 @@
 
             /*
              * Función que permite eliminar registros mediante ajax
+             * 
              * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
              * @param {string} url URL del controlador que realiza la acción de eliminación
              * @return Un mensaje al usuario solicitando confirmación de la eliminación del registro
@@ -172,6 +173,15 @@
                 });
             }
 
+            /**
+             * Actualiza información de un select a partir de otro
+             *
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             * @param  {integer} parent_id      Identificador del select padre que ejecuta la acción
+             * @param  {object}  target_element Objeto que se cargara con la información
+             * @param  {string}  target_model   Modelo en el cual se va a realizar la consulta
+             * @param  {string}  module_name    Nombre del módulo que ejecuta la acción
+             */
             function updateSelect(parent_id, target_element, target_model, module_name) {
                 var module_name = (typeof(module_name) !== "undefined")?'/' + module_name:'';
                 
@@ -200,6 +210,12 @@
                 });
             }
 
+            /**
+             * Permite restaurar registros eliminados del sistema
+             *
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             * @param  {string} url URL que recibe la petición y ejecuta la acción
+             */
             function undelete_record(url) {
                 bootbox.confirm('Esta seguro de querer restaurar este registro?', function (result) {
                     if (result) {
@@ -230,6 +246,62 @@
                     }
                 });
             }
+
+            @role('admin')
+                /**
+                 * Muestra información relacionada a un usuario
+                 *
+                 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+                 * @param  {integer} id Identificador del usuario del cual se desea obtener información
+                 */
+                var view_user_info = function(id) {
+                    axios.get('/user-info/' + id).then(response => {
+                        let user = response.data.user;
+                        let roles = '', permissions = '';
+                        if (typeof(user.roles) !== "undefined") {
+                            roles += '<div class="row"><div class="col-12"><div class="form-group">' +
+                                     '<label class="col-12"><b>Roles</b></label>';
+                             $.each(user.roles, function() {
+                                roles +=    '<span class="badge badge-primary" style="margin-right:10px">' + 
+                                                this.name + 
+                                            '</span>';
+                            });
+                            roles += '</div></div></div>';
+                        }
+                        if (typeof(user.permissions) !== "undefined") {
+                            permissions += '<div class="row"><div class="col-12"><div class="form-group">' +
+                                     '<label class="col-12"><b>Permisos</b></label>';
+                             $.each(user.permissions, function() {
+                                permissions += '<span class="badge badge-primary" style="margin-right:10px">' + 
+                                                    this.name + 
+                                                '</span>';
+                            });
+                            permissions += '</div></div></div>';
+                        }
+                        
+                        bootbox.alert(
+                            '<h6 class="text-center">' + user.name + '</h6>' +
+                            '<div class="row">'+
+                                '<div class="col-6">' +
+                                    '<div class="form-group">' +
+                                        '<label class="col-12"><b>Usuario</b></label>' +
+                                        '<label class="col-12">' + user.username + '</label>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="col-6">' +
+                                    '<div class="form-group">' +
+                                        '<label class="col-12"><b>Correo</b></label>' +
+                                        '<label class="col-12">' + user.email + '</label>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                            roles + permissions
+                        );
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                };
+            @endrole
         </script>
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}

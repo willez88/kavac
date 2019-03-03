@@ -55,7 +55,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'staff' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'username' => 'required|string|max:25',
+            'role' => 'required_without:permission|array',
+            'permission' => 'required_without:role|array'
+        ]);
+
+        /**
+         * TODO:
+         * - Extraer nombre de  la persona desde los datos personales mediante el campo staff
+         * - Generar contraseña aleatoria
+         * - Enviar datos de acceso por correo electrónico
+         */
+
+        return redirect()->route('index');
     }
 
     /**
@@ -239,5 +254,32 @@ class UserController extends Controller
         $request->session()->flash('message', ['type' => 'store']);
 
         return redirect()->route('index');
+    }
+
+    /**
+     * Muestra información del usuario
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  User   $user Objero que abstrae información del usuario
+     * @return JSON         Devuelve los datos asociados al usuario
+     */
+    public function info(User $user)
+    {
+        $with = [];
+        if ($user->profile !== null) {
+            $with[] = 'profile';
+        }
+        if ($user->roles !== null) {
+            $with[] = 'roles';
+        }
+        if ($user->permissions !== null) {
+            $with[] = 'permissions';
+        }
+
+        if (count($with) > 0) {
+            $user->with($with);
+        }
+        
+        return response()->json(['result' => true, 'user' => $user], 200);
     }
 }

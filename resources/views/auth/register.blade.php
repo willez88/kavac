@@ -35,9 +35,9 @@
                     <div class="col-4">
                         <div class="form-group">
                             {!! Form::label('staff', 'Empleado', []) !!}
-                            {!! Form::select(
-                                'staff', (isset($staff))?$staff:[], null, [
-                                    'class' => 'form-control select2'
+                            {!! Form::select('staff', (isset($staff))?$staff:[], null, [
+                                    'class' => 'form-control select2', 
+                                    'onchange' => '' // En el evento onchange agregar instrucción para obtener datos de la persona configurada en expediente de nómina (Ej. correo)
                                 ]
                             ) !!}
                         </div>
