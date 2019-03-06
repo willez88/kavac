@@ -34744,6 +34744,15 @@ Vue.mixin({
 	props: ['route_list', 'route_create', 'route_edit', 'route_update', 'route_delete', 'route_show'],
 	methods: {
 		/**
+   * Redirecciona a una url esecífica si fue suministrada
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {string} url URL a redireccionar.
+   */
+		redirect_back: function redirect_back(url) {
+			location.href = url;
+		},
+		/**
    * Inicializa los registros base del formulario
    *
    * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
@@ -80488,6 +80497,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -81049,7 +81062,29 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "card-header" }, [
+      _c("h6", { staticClass: "card-title text-uppercase" }, [
+        _vm._v("Formulación de presupuesto de gastos por sub específica")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-btns" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-sm btn-primary btn-custom",
+            attrs: { href: "#", title: "Ir atrás", "data-toggle": "tooltip" },
+            on: {
+              click: function($event) {
+                _vm.redirect_back(_vm.route_list)
+              }
+            }
+          },
+          [_c("i", { staticClass: "fa fa-reply" })]
+        ),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _vm.errors.length > 0
@@ -81893,9 +81928,37 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-right" }, [
-      _vm._m(6),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default btn-icon btn-round",
+          attrs: {
+            type: "reset",
+            "data-toggle": "tooltip",
+            title: "Borrar datos del formulario"
+          },
+          on: { click: _vm.reset }
+        },
+        [_c("i", { staticClass: "fa fa-eraser" })]
+      ),
       _vm._v(" "),
-      _vm._m(7),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-warning btn-icon btn-round",
+          attrs: {
+            type: "button",
+            "data-toggle": "tooltip",
+            title: "Cancelar y regresar"
+          },
+          on: {
+            click: function($event) {
+              _vm.redirect_back(_vm.route_list)
+            }
+          }
+        },
+        [_c("i", { staticClass: "fa fa-ban" })]
+      ),
       _vm._v(" "),
       _c(
         "button",
@@ -81918,22 +81981,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h6", { staticClass: "card-title text-uppercase" }, [
-        _vm._v("Formulación de presupuesto de gastos por sub específica")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-btns" }, [
-        _c(
-          "a",
-          {
-            staticClass: "card-minimize btn btn-card-action btn-round",
-            attrs: { href: "#", title: "Minimizar", "data-toggle": "tooltip" }
-          },
-          [_c("i", { staticClass: "now-ui-icons arrows-1_minimal-up" })]
-        )
-      ])
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "card-minimize btn btn-card-action btn-round",
+        attrs: { href: "#", title: "Minimizar", "data-toggle": "tooltip" }
+      },
+      [_c("i", { staticClass: "now-ui-icons arrows-1_minimal-up" })]
+    )
   },
   function() {
     var _vm = this
@@ -82024,40 +82079,6 @@ var staticRenderFns = [
         )
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-default btn-icon btn-round",
-        attrs: {
-          type: "reset",
-          "data-toggle": "tooltip",
-          title: "Borrar datos del formulario"
-        }
-      },
-      [_c("i", { staticClass: "fa fa-eraser" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-warning btn-icon btn-round",
-        attrs: {
-          type: "button",
-          "data-toggle": "tooltip",
-          title: "Cancelar y regresar"
-        }
-      },
-      [_c("i", { staticClass: "fa fa-ban" })]
-    )
   }
 ]
 render._withStripped = true

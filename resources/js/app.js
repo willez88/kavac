@@ -160,6 +160,15 @@ Vue.mixin({
 	],
 	methods: {
 		/**
+		 * Redirecciona a una url esecífica si fue suministrada
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {string} url URL a redireccionar.
+		 */
+		redirect_back: function(url) {
+			location.href = url;
+		},
+		/**
 		 * Inicializa los registros base del formulario
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>

@@ -26641,6 +26641,10 @@ table td {
   background-color: #d2d5d8;
 }
 
+.card-minimize {
+  margin-bottom: 20px;
+}
+
 /** Estilo de tamaño en campos del formulario */
 
 .input-sm {
