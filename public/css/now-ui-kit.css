@@ -151,14 +151,15 @@
   background-color: rgba(23, 23, 23, 0.4);
 }
 
-/*.bootstrap-switch.bootstrap-switch-on:hover .bootstrap-switch-label{
-    width: 27px !important;
-    margin-left: -16px;
+.bootstrap-switch.bootstrap-switch-on:hover .bootstrap-switch-label {
+  width: 27px !important;
+  margin-left: -16px;
 }
-.bootstrap-switch.bootstrap-switch-off:hover .bootstrap-switch-label{
-    width: 27px !important;
-    margin-left: -11px;
-}*/
+
+.bootstrap-switch.bootstrap-switch-off:hover .bootstrap-switch-label {
+  width: 27px !important;
+  margin-left: -11px;
+}
 
 .bootstrap-switch .bootstrap-switch-handle-on {
   border-bottom-left-radius: 3px;

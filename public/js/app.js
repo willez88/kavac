@@ -81007,6 +81007,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}
 			}
 		}
+
 	},
 	mounted: function mounted() {
 		this.getInstitutions();
@@ -81018,6 +81019,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		if (this.formulationId) {
 			this.loadFormulation(this.formulationId);
 		}
+		//this.record.institution_id = 
 
 		/** 
    * Evento para determinar los datos a requerir según el tipo de formulación 

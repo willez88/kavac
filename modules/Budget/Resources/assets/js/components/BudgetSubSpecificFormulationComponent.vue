@@ -730,6 +730,7 @@
                 	}
                 }
             },
+
 		},
 		mounted() {
 			this.getInstitutions();
@@ -741,6 +742,7 @@
 			if (this.formulationId) {
 				this.loadFormulation(this.formulationId);
 			}
+			//this.record.institution_id = 
 
 			/** 
 			 * Evento para determinar los datos a requerir según el tipo de formulación 

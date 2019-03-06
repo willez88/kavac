@@ -74,6 +74,7 @@ class BudgetSubSpecificFormulationController extends Controller
         $year = date("Y");
         
         $codeSetting = CodeSetting::where("model", BudgetSubSpecificFormulation::class)->first();
+        
         if (!$codeSetting) {
             return response()->json(['result' => false, 'message' => [
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
