@@ -23,10 +23,8 @@
 				<div class="card-header">
 					<h6 class="card-title">Formatos de Códigos</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-						   data-toggle="tooltip">
-	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-	    				</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				{!! Form::open(['route' => 'budget.settings.store', 'method' => 'post']) !!}
@@ -179,23 +177,12 @@
 				<div class="card-header">
 					<h6 class="card-title">Proyectos</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-						   data-toggle="tooltip">
-	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-	    				</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.new', ['route' => route('budget.projects.create')])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						<div class="col-12">
-							<a href="{{ route('budget.projects.create') }}" 
-							   class="btn btn-sm btn-primary btn-custom float-right" 
-							   title="Crear nuevo registro" data-toggle="tooltip">
-								<i class="fa fa-plus-circle"></i>
-								<span>Nuevo</span>
-							</a>
-						</div>
-					</div>
 					<budget-projects-list route_list='{{ url('budget/projects/vue-list') }}' 
 										  route_delete="{{ url('budget/projects') }}" 
 										  route_edit="{{ url('budget/projects/{id}/edit') }}">
@@ -210,23 +197,12 @@
 				<div class="card-header">
 					<h6 class="card-title">Acciones Centralizadas</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-						   data-toggle="tooltip">
-	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-	    				</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.new', ['route' => route('budget.centralized-actions.create')])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						<div class="col-12">
-							<a href="{{ route('budget.centralized-actions.create') }}" 
-							   class="btn btn-sm btn-primary btn-custom float-right" 
-							   title="Crear nuevo registro" data-toggle="tooltip">
-								<i class="fa fa-plus-circle"></i>
-								<span>Nuevo</span>
-							</a>
-						</div>
-					</div>
 					<budget-centralized-actions-list route_list='{{ url('budget/centralized-actions/vue-list') }}' 
 										  route_delete="{{ url('budget/centralized-actions') }}" 
 										  route_edit="{{ url('budget/centralized-actions/{id}/edit') }}">
@@ -241,23 +217,12 @@
 				<div class="card-header">
 					<h6 class="card-title">Acciones Específicas</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-						   data-toggle="tooltip">
-	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-	    				</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.new', ['route' => route('budget.specific-actions.create')])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						<div class="col-12">
-							<a href="{{ route('budget.specific-actions.create') }}" 
-							   class="btn btn-sm btn-primary btn-custom float-right" 
-							   title="Crear nuevo registro" data-toggle="tooltip">
-								<i class="fa fa-plus-circle"></i>
-								<span>Nuevo</span>
-							</a>
-						</div>
-					</div>
 					<budget-specific-actions-list route_list='{{ url('budget/specific-actions/vue-list') }}' 
 										  route_delete="{{ url('budget/specific-actions') }}" 
 										  route_edit="{{ url('budget/specific-actions/{id}/edit') }}">
