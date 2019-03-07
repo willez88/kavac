@@ -2,6 +2,7 @@
 
 namespace Modules\Budget\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -41,6 +42,24 @@ class BudgetAccount extends Model implements Auditable
     	'group', 'item', 'generic', 'specific', 'subspecific', 'denomination', 'active', 'resource',
     	'egress', 'tax_id', 'parent_id', 'original'
     ];
+
+    /**
+     * Reescribe el método boot para establecer comportamientos por defecto en la consulta del modelo
+     * 
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('group', 'asc')
+                    ->orderBy('item', 'asc')
+                    ->orderBy('generic', 'asc')
+                    ->orderBy('specific', 'asc')
+                    ->orderBy('subspecific', 'asc');
+        });
+    }
 
     /**
      * BudgetAccount has many BudgetAccountOpen.
