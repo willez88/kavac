@@ -35,9 +35,8 @@
 								<div class="form-group">
 									<label for="" class="control-label">Cuenta</label>
 									{!! Form::select('parent_id', $budget_accounts, null, [
-										'class' => 'select2', 'data-toggle' => 'tooltip',
-										'title' => 'Seleccione una cuenta presupuestaria',
-										'onclick' => 'genBudgetAccount($(this).val())'
+										'class' => 'select2', 'data-toggle' => 'tooltip', 'id' => 'parent_id',
+										'title' => 'Seleccione una cuenta presupuestaria'
 									]) !!}
 								</div>
 							</div>
@@ -148,4 +147,47 @@
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('extra-js')
+	@parent
+	<script>
+		$(document).ready(function() {
+			/** Genera una nueva cuenta a partir de la cuenta seleccionada */
+			$("#parent_id").on('change', function() {
+				$("input[name=group]").val("");
+				$("input[name=item]").val("");
+				$("input[name=generic]").val("");
+				$("input[name=specific]").val("");
+				$("input[name=subspecific]").val("");
+
+				if ($(this).val()) {
+					axios.get('/budget/detail-accounts/' + $(this).val()).then(response => {
+						let record = response.data.record;
+						let resource = record.resource;
+						let egress = record.egress;
+						if (response.data.result) {
+							$('input[name=account_type]').each(function() {
+								if ($(this).val() === 'resource') {
+									$(this).attr('checked', resource);
+								}
+								else if ($(this).val() === 'egress') {
+									$(this).attr('checked', egress);
+								}
+							});
+
+							/** Genera las nuevas cuentas */
+							$("input[name=group]").val(record.group);
+							$("input[name=item]").val();
+							$("input[name=generic]").val();
+							$("input[name=specific]").val();
+							$("input[name=subspecific]").val();
+						}
+					}).catch(error => {
+						console.log('error')
+					});
+				}
+			});
+		});
+	</script>
 @stop
