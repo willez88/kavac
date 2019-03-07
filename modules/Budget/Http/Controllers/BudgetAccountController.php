@@ -261,4 +261,57 @@ class BudgetAccountController extends Controller
             'result' => true, 'record' => BudgetAccount::find($id)
         ], 200);
     }
+
+    /**
+     * Determina el próximo valor disponible para la cuenta a ser agregada
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param [integer] $parent_id Identificador de la cuenta padre de la cual se va a generar el nuevo código
+     * @return JSON                JSON con los datos del nuevo código generado
+     */
+    public function setChildrenAccount($parent_id)
+    {
+        $parent = BudgetAccount::find($parent_id);
+        $item = $parent->item;
+        $generic = $parent->generic;
+        $specific = $parent->specific;
+        $subspecific = $parent->subspecific;
+
+        if ($parent->item === "00") {
+            $currentItem = BudgetAccount::where(['group' => $parent->group])->orderBy('item', 'desc')->first();
+            $item = (strlen(intval($currentItem->item)) < 2|| intval($currentItem->item) < 99) 
+                    ? (intval($currentItem->item) + 1) : $currentItem->item;
+            $item = (strlen($item) === 1) ? "0$item" : $item;
+        }
+        else if ($parent->generic === "00") {
+            $currentGeneric = BudgetAccount::where(['group' => $parent->group, 'item' => $parent->item])->orderBy('generic', 'desc')->first();
+            $generic = (strlen(intval($currentGeneric->generic)) < 2 || intval($currentGeneric->generic) < 99) 
+                       ? (intval($currentGeneric->generic) + 1) : $currentGeneric->generic;
+            $generic = (strlen($generic) === 1) ? "0$generic" : $generic;
+        }
+        else if ($parent->specific === "00") {
+            $currentSpecific = BudgetAccount::where([
+                'group' => $parent->group, 'item' => $parent->item, 'generic' => $parent->generic
+            ])->orderBy('specific', 'desc')->first();
+            $specific = (strlen(intval($currentSpecific->specific)) < 2 || intval($currentSpecific->specific) < 99) 
+                        ? (intval($currentSpecific->specific) + 1) : $currentSpecific->specific;
+            $specific = (strlen($specific) === 1) ? "0$specific" : $specific;
+        }
+        else if ($parent->subspecific === "00") {
+            $currentSubSpecific = BudgetAccount::where([
+                'group' => $parent->group, 'item' => $parent->item, 'generic' => $parent->generic, 'specific' => $parent->specific
+            ])->orderBy('subspecific', 'desc')->first();
+            $subspecific = (strlen(intval($currentSubSpecific->subspecific)) < 2 || intval($currentSubSpecific->subspecific) < 99) 
+                        ? (intval($currentSubSpecific->subspecific) + 1) : $currentSubSpecific->subspecific;
+            $subspecific = (strlen($subspecific) === 1) ? "0$subspecific" : $subspecific;
+        }
+
+        $newAccount = [
+            'group' => $parent->group, 'item' => (string)$item, 'generic' => (string)$generic, 
+            'specific' => (string)$specific, 'subspecific' => (string)$subspecific,
+            'denomination' => $parent->denomination, 'resource' => $parent->resource, 'egress' => $parent->egress
+        ];
+
+        return response()->json(['result' => true, 'new_account' => $newAccount], 200);
+    }
 }

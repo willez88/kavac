@@ -155,33 +155,30 @@
 		$(document).ready(function() {
 			/** Genera una nueva cuenta a partir de la cuenta seleccionada */
 			$("#parent_id").on('change', function() {
-				$("input[name=group]").val("");
-				$("input[name=item]").val("");
-				$("input[name=generic]").val("");
-				$("input[name=specific]").val("");
-				$("input[name=subspecific]").val("");
-
+				$("input[type=text]").each(function() {
+					$(this).val("");
+				});
+				
 				if ($(this).val()) {
-					axios.get('/budget/detail-accounts/' + $(this).val()).then(response => {
-						let record = response.data.record;
-						let resource = record.resource;
-						let egress = record.egress;
+					axios.get('/budget/set-children-account/' + $(this).val()).then(response => {
 						if (response.data.result) {
-							$('input[name=account_type]').each(function() {
+							let new_account = response.data.new_account;
+							/*$('input[name=account_type]').each(function() {
 								if ($(this).val() === 'resource') {
 									$(this).attr('checked', resource);
 								}
 								else if ($(this).val() === 'egress') {
 									$(this).attr('checked', egress);
 								}
-							});
+							});*/
 
 							/** Genera las nuevas cuentas */
-							$("input[name=group]").val(record.group);
-							$("input[name=item]").val();
-							$("input[name=generic]").val();
-							$("input[name=specific]").val();
-							$("input[name=subspecific]").val();
+							$("input[name=group]").val(new_account.group);
+							$("input[name=item]").val(new_account.item);
+							$("input[name=generic]").val(new_account.generic);
+							$("input[name=specific]").val(new_account.specific);
+							$("input[name=subspecific]").val(new_account.subspecific);
+							$("input[name=denomination]").val(new_account.denomination);
 						}
 					}).catch(error => {
 						console.log('error')
