@@ -327,7 +327,7 @@
 	<script type="text/javascript">
 		var records;
 		function openmodal($staff) {
-			axios.get("/payroll/staffs/info/" + $staff).then(response => {
+			axios.get("/payroll/staffs/" + $staff).then(response => {
 				records = response.data.record;
 				$(".modal-body #code").val( records.code );
 				$(".modal-body #first_name").val( records.first_name );

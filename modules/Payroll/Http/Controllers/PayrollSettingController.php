@@ -6,11 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\CodeSetting;
 use Modules\Payroll\Models\PayrollStaff;
+use App\Rules\CodeSetting as CodeSettingRule;
 
 class PayrollSettingController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -38,19 +42,27 @@ class PayrollSettingController extends Controller
      */
     public function store(Request $request)
     {
-        $staffs_code = $request->staffs_code;
-        $model = PayrollStaff::class;
-        list($prefix, $digits, $sufix) = CodeSetting::divideCode($staffs_code);
-        CodeSetting::updateOrCreate([
-            'module' => 'payroll',
-            'table' => 'payroll_staffs',
-            'field' => 'code',
-        ], [
-            'format_prefix' => $prefix,
-            'format_digits' => $digits,
-            'format_year' => $sufix,
-            'model' => $model,
+        $this->validate($request, [
+            'staffs_code' => [new CodeSettingRule]
         ]);
+
+        $staffs_code = $request->staffs_code;
+        if( !is_null($staffs_code))
+        {
+            $model = PayrollStaff::class;
+            list($prefix, $digits, $sufix) = CodeSetting::divideCode($staffs_code);
+            CodeSetting::updateOrCreate([
+                'module' => 'payroll',
+                'table' => 'payroll_staffs',
+                'field' => 'code',
+            ], [
+                'format_prefix' => $prefix,
+                'format_digits' => $digits,
+                'format_year' => $sufix,
+                'model' => $model,
+            ]);
+            $request->session()->flash('message', ['type' => 'store']);
+        }
 
         return redirect()->back();
     }

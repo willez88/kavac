@@ -97,18 +97,26 @@ class PayrollStaffController extends Controller
             'email' => 'nullable|email',
             'website' => 'max:255',
             'direction' => 'required',
-            'sons' => 'required|integer',
+            'sons' => 'required|integer|min:0',
             'start_date_public_adm' => 'required|date',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
-            'id_number' => 'required|max:12',
+            'id_number' => 'required|regex:/^[\d]{8}$/u',
             'nationality_id' => 'required',
             'passport' => 'max:20',
             'marital_status_id' => 'required',
             'profession_id' => 'required',
             'city_id' => 'required'
         ]);
+
         $codeSetting = CodeSetting::where('table', 'payroll_staffs')->first();
+        if (!$codeSetting) {
+            return response()->json(['result' => false, 'message' => [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]], 200);
+        }
+
         $staff = new PayrollStaff;
         $staff->code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
         (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
@@ -125,7 +133,7 @@ class PayrollStaffController extends Controller
         $staff->start_date = $request->start_date;
         $staff->end_date = $request->end_date;
         $staff->id_number = $request->id_number;
-        $staff->nationality_id = $request->nationality_id;
+        $staff->payroll_nationality_id = $request->nationality_id;
         $staff->passport = $request->passport;
         $staff->marital_status_id = $request->marital_status_id;
         $staff->profession_id = $request->profession_id;
@@ -135,12 +143,36 @@ class PayrollStaffController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
+     * Muesta el detalle completo de los datos de un personal
+     *
+     * @author William Páez (wpaez at cenditel.gob.ve)
+     * @return [<b>\Illuminate\Http\Response</b>] $response Retorna el json de un registro de personal
      */
-    public function show()
+    public function show(PayrollStaff $staff)
     {
-        return view('payroll::show');
+        $staff = PayrollStaff::findorfail($staff->id);
+        $this->data[] = [
+            'code' => $staff->code,
+            'first_name' => $staff->first_name,
+            'last_name' => $staff->last_name,
+            'birthdate' => $staff->birthdate,
+            'sex' => $staff->sex,
+            'email' => $staff->email,
+            'active' => $staff->active,
+            'website' => $staff->website,
+            'direction' => $staff->direction,
+            'sons' => $staff->sons,
+            'start_date_public_adm' => $staff->start_date_public_adm,
+            'start_date' => $staff->start_date,
+            'end_date' => $staff->end_date,
+            'id_number' => $staff->id_number,
+            'nationality' => $staff->payroll_nationality->demonym,
+            'passport' => $staff->passport,
+            'marital_status' => $staff->marital_status->name,
+            'profession' => $staff->profession->name,
+            'city' => $staff->city->name
+        ];
+        return response()->json(['record' => $this->data[0]]);
     }
 
     /**
@@ -178,11 +210,11 @@ class PayrollStaffController extends Controller
             'email' => 'nullable|email',
             'website' => 'nullable|max:255',
             'direction' => 'required',
-            'sons' => 'required|integer',
+            'sons' => 'required|integer|min:0',
             'start_date_public_adm' => 'required|date',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
-            'id_number' => 'required|max:12',
+            'id_number' => 'required|regex:/^[\d]{8}$/u',
             'nationality_id' => 'required',
             'passport' => 'nullable|max:20',
             'marital_status_id' => 'required',
@@ -202,7 +234,7 @@ class PayrollStaffController extends Controller
         $staff->start_date = $request->start_date;
         $staff->end_date = $request->end_date;
         $staff->id_number = $request->id_number;
-        $staff->nationality_id = $request->nationality_id;
+        $staff->payroll_nationality_id = $request->nationality_id;
         $staff->passport = $request->passport;
         $staff->marital_status_id = $request->marital_status_id;
         $staff->profession_id = $request->profession_id;
@@ -250,7 +282,7 @@ class PayrollStaffController extends Controller
             'start_date' => $staff->start_date,
             'end_date' => $staff->end_date,
             'id_number' => $staff->id_number,
-            'nationality' => $staff->nationality->demonym,
+            'nationality' => $staff->payroll_nationality->demonym,
             'passport' => $staff->passport,
             'marital_status' => $staff->marital_status->name,
             'profession' => $staff->profession->name,
