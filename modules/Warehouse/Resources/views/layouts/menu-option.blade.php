@@ -4,7 +4,7 @@
        data-placement="right">
         <i class="ion-ios-list-outline"></i><span>Almacén</span>
     </a>
-    <ul class="submenu" style="{!! (strpos(Route::current()->getName(), 'warehouse') !== false)?'display:block;':'' !!}">
+    <ul class="submenu" style="{!! display_submenu('warehouse') !!}">
         <li class="{!! set_active_menu('warehouse.setting.index') !!}">
             <a href="{{ route('warehouse.setting.index') }}" data-toggle="tooltip" data-placement="right" 
                title="Configuración de almacén">Configuración</a>

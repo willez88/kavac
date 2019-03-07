@@ -4,7 +4,7 @@
        data-placement="right">
         <i class="ion-arrow-graph-up-right"></i><span>Presupuesto</span>
     </a>
-    <ul class="submenu" style="{!! (strpos(Route::current()->getName(), 'budget') !== false)?'display:block;':'' !!}">
+    <ul class="submenu" style="{!! display_submenu('budget') !!}">
         <li class="{!! set_active_menu('budget.settings.index') !!}">
             <a href="{{ route('budget.settings.index') }}" data-toggle="tooltip" data-placement="right" 
                title="Configuración de presupuesto">Configuración</a>

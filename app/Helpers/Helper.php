@@ -25,6 +25,21 @@ if (! function_exists('set_active_menu')) {
 	}
 }
 
+if (! function_exists('display_submenu')) {
+	/**
+	 * Define si se expande o contrae las opciones de un submenÚ
+	 *
+	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  string $submenu Nombre del submenu a mostrar u ocultar
+	 * @return string          RetOrna una cadena vacia para contraer las opciones del submenú, 
+	 *                         de lo contrario retorna el css para mostrar el bloque de opciones
+	 */
+	function display_submenu($submenu)
+	{
+		return (strpos(Route::current()->getName(), $submenu) !== false) ? 'display:block;' : '';
+	}
+}
+
 if (! function_exists('generate_registration_code')) {
 	/**
 	 * Genera códigos a implementar en los diferentes registros del sistema

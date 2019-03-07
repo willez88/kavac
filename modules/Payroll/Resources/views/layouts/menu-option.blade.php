@@ -3,7 +3,7 @@
     <a href="#" title="Datos de personal y nómina" data-toggle="tooltip" data-placement="right">
         <i class="ion-ios-folder-outline"></i><span>Nómina</span>
     </a>
-    <ul class="submenu" style="{!! (strpos(Route::current()->getName(), 'payroll') !== false)?'display:block;':'' !!}">
+    <ul class="submenu" style="{!! display_submenu('payroll') !!}">
         <li class="{!! set_active_menu('payroll.settings.index') !!}">
             <a href="{{ route('payroll.settings.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Configuración de nómina">Configuración</a>
