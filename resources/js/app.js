@@ -25,6 +25,13 @@ Vue.use(ClientTable);
 Vue.component('select2', require('./components/SelectsComponent.vue'));
 
 /**
+ * Componente genérico para mostrar motones de limpiar, cancelar o guardar registros cuando la altura del formulario es muy alta
+ *
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ */
+Vue.component('buttons-display', require('./components/ButtonsFormDisplayComponent.vue'));
+
+/**
  * Componente para la gestión de estados civiles
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>

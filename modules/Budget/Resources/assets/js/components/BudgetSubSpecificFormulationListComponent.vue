@@ -2,18 +2,18 @@
 	<v-client-table :columns="columns" :data="records" :options="table_options">
 		<div slot="id" slot-scope="props" class="text-center">
 			<button @click="showRecord(props.row.id)" v-if="route_show" 
-    				class="btn btn-info btn-xs btn-icon btn-round" 
-    				title="Ver registro" data-toggle="tooltip" type="button">
+    				class="btn btn-info btn-xs btn-icon btn-action btn-tooltip" 
+    				title="Ver registro" data-toggle="tooltip" data-placement="top" type="button">
     			<i class="fa fa-eye"></i>
     		</button>
 			<button @click="editForm(props.row.id)" v-if="!props.row.assigned" 
-    				class="btn btn-warning btn-xs btn-icon btn-round" 
-    				title="Modificar registro" data-toggle="tooltip" type="button">
+    				class="btn btn-warning btn-xs btn-icon btn-action btn-tooltip" 
+    				title="Modificar registro" data-toggle="tooltip" data-placement="top" type="button">
     			<i class="fa fa-edit"></i>
     		</button>
     		<button @click="deleteRecord(props.index, '')" 
-					class="btn btn-danger btn-xs btn-icon btn-round" 
-					title="Eliminar registro" data-toggle="tooltip" 
+					class="btn btn-danger btn-xs btn-icon btn-action btn-tooltip" 
+					title="Eliminar registro" data-toggle="tooltip" data-placement="top"
 					type="button">
 				<i class="fa fa-trash-o"></i>
 			</button>
@@ -62,7 +62,6 @@
 		},
 		mounted() {
 			this.initRecords(this.route_list, '');
-			//this.readRecords(this.route_list);
 		},
 		methods: {
 			/**

@@ -15,7 +15,9 @@
                 Clasificador Presupuestario
             </a>
         </li>
-        <li class="">
+        <li class="{!! set_active_menu([
+            'budget.subspecific-formulations.index', 'budget.subspecific-formulations.create', 'budget.subspecific-formulations.edit'
+        ]) !!}">
             <a href="{{ route('budget.subspecific-formulations.index') }}" data-toggle="tooltip" 
                data-placement="right" title="Gestión para la formulación de presupesto">
                 Formulación
@@ -23,8 +25,12 @@
         </li>
         <li>
             <a href="#" title="Gestiona las modificaciones presupuestarias (créditos adicionales, reducciones, traspasos, etc.)" data-toggle="tooltip" data-placement="right">Modificaciones</a>
-            <ul class="submenu">
-                <li><a href="{{ route('budget.aditional-credits.index') }}">Cŕeditos Adicionales</a></li>
+            <ul class="submenu" style="{!! display_submenu('aditional-credits') !!}">
+                <li class="{!! set_active_menu([
+                    'budget.aditional-credits.index', 'budget.aditional-credits.create', 'budget.aditional-credits.edit'
+                ]) !!}">
+                    <a href="{{ route('budget.aditional-credits.index') }}">Cŕeditos Adicionales</a>
+                </li>
                 <li><a href="#">Reducciones</a></li>
                 <li><a href="#">Traspasos</a></li>
             </ul>

@@ -77,7 +77,7 @@ class BudgetSubSpecificFormulationController extends Controller
         
         if (!$codeSetting) {
             return response()->json(['result' => false, 'message' => [
-                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'type' => 'custom', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'danger',
                 'text' => 'Debe configurar previamente el formato para el código a generar'
             ]], 200);
         }
@@ -89,7 +89,7 @@ class BudgetSubSpecificFormulationController extends Controller
         ]);
         if (!$validateStore) {
             return response()->json(['result' => false, 'message' => [
-                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'type' => 'custom', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'danger',
                 'text' => 'Ya existe una formulación con los datos suministrados'
             ]], 200);
         }

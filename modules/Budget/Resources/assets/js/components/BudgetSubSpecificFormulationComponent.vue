@@ -212,6 +212,7 @@
 					</tr>
 				</tbody>
 			</table>
+			<buttons-display></buttons-display>
 		</div>
 		<div class="card-footer text-right">
 			<button type="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
