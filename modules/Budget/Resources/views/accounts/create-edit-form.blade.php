@@ -131,7 +131,7 @@
 											<div class="col-12">
 												{!! Form::checkbox('active', true, (isset($model) && $model->active), [
 													'id' => 'active', 'class' => 'form-control bootstrap-switch',
-													'data-on-label' => 'SI', 'data-off-label' => 'NO'
+													'data-on-label' => 'SI', 'data-off-label' => 'NO', 'checked' => true
 												]) !!}
 											</div>
 										</div>
@@ -163,15 +163,6 @@
 					axios.get('/budget/set-children-account/' + $(this).val()).then(response => {
 						if (response.data.result) {
 							let new_account = response.data.new_account;
-							/*$('input[name=account_type]').each(function() {
-								if ($(this).val() === 'resource') {
-									$(this).attr('checked', resource);
-								}
-								else if ($(this).val() === 'egress') {
-									$(this).attr('checked', egress);
-								}
-							});*/
-
 							/** Genera las nuevas cuentas */
 							$("input[name=group]").val(new_account.group);
 							$("input[name=item]").val(new_account.item);
@@ -179,9 +170,11 @@
 							$("input[name=specific]").val(new_account.specific);
 							$("input[name=subspecific]").val(new_account.subspecific);
 							$("input[name=denomination]").val(new_account.denomination);
+							$("input[value=egress]").bootstrapSwitch("state", new_account.egress);
+							$("input[value=resource]").bootstrapSwitch("state", new_account.resource);
 						}
 					}).catch(error => {
-						console.log('error')
+						console.log(error);
 					});
 				}
 			});
