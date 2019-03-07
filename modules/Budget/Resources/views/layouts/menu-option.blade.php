@@ -4,12 +4,12 @@
        data-placement="right">
         <i class="ion-arrow-graph-up-right"></i><span>Presupuesto</span>
     </a>
-    <ul class="submenu" style="{!! (strpos($current_url, 'budget') !== false)?'display:block;':'' !!}">
-        <li class="{!! set_active_menu($current_url, 'budget.settings.index') !!}">
+    <ul class="submenu" style="{!! (strpos(Route::current()->getName(), 'budget') !== false)?'display:block;':'' !!}">
+        <li class="{!! set_active_menu('budget.settings.index') !!}">
             <a href="{{ route('budget.settings.index') }}" data-toggle="tooltip" data-placement="right" 
                title="Configuración de presupuesto">Configuración</a>
         </li>
-        <li class="{!! set_active_menu($current_url, ['budget.accounts.index', 'budget.accounts.create', 'budget.accounts.edit']) !!}">
+        <li class="{!! set_active_menu(['budget.accounts.index', 'budget.accounts.create', 'budget.accounts.edit']) !!}">
             <a href="{{ route('budget.accounts.index') }}" data-toggle="tooltip" data-placement="right" 
                title="Gestión del clasificador de cuentas presupuestarias">
                 Clasificador Presupuestario
