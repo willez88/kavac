@@ -165,6 +165,16 @@
                                 if (data.result) {
                                     location.reload();
                                 }
+                                else {
+                                    $.gritter.add({
+                                        title: 'Alerta!',
+                                        text: data.message,
+                                        class_name: 'growl-danger',
+                                        image: "{{ asset('images/screen-error.png') }}",
+                                        sticky: false,
+                                        time: 2500
+                                    });
+                                }
                             },
                             error: function error(jqxhr, textStatus, _error) {
                                 var err = textStatus + ", " + _error;

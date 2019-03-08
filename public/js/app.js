@@ -34614,7 +34614,7 @@ Vue.component('select2', __webpack_require__(242));
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('buttons-display', __webpack_require__(248));
+Vue.component('buttonsDisplay', __webpack_require__(248));
 
 /**
  * Componente para la gestión de estados civiles
@@ -71216,18 +71216,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
-    reset: function reset() {}
-  },
-  mounted: function mounted() {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 50) {
-        $('.btn-display').fadeIn();
-      } else {
-        $('.btn-display').fadeOut();
-      }
-    });
-  }
+    mounted: function mounted() {
+        /** 
+         * Muestra los botones cuando se baja el scroll de la pantalla a una altura predeterminada y 
+         * los oculta cuando dicha altura es menor a la indicada
+         */
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('.btn-display').fadeIn();
+            } else {
+                $('.btn-display').fadeOut();
+            }
+        });
+        console.log(this.$parent);
+    }
 });
 
 /***/ }),
@@ -71248,7 +71250,7 @@ var render = function() {
           "data-toggle": "tooltip",
           title: "Borrar datos del formulario"
         },
-        on: { click: _vm.reset }
+        on: { click: _vm.$parent.reset }
       },
       [_c("i", { staticClass: "fa fa-eraser" })]
     ),
@@ -71264,7 +71266,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.redirect_back(_vm.route_list)
+            _vm.$parent.redirect_back(_vm.$parent.route_list)
           }
         }
       },
@@ -71280,11 +71282,7 @@ var render = function() {
           "data-toggle": "tooltip",
           title: "Guardar registro"
         },
-        on: {
-          click: function($event) {
-            _vm.createRecord(_vm.route_create)
-          }
-        }
+        on: { click: _vm.$parent.createRecord }
       },
       [_c("i", { staticClass: "fa fa-save" })]
     )
@@ -76241,7 +76239,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -76260,7 +76258,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -80211,7 +80209,7 @@ var render = function() {
                     attrs: {
                       title: "Ver registro",
                       "data-toggle": "tooltip",
-                      "data-placement": "top",
+                      "data-placement": "bottom",
                       type: "button"
                     },
                     on: {
@@ -80233,7 +80231,7 @@ var render = function() {
                     attrs: {
                       title: "Modificar registro",
                       "data-toggle": "tooltip",
-                      "data-placement": "top",
+                      "data-placement": "bottom",
                       type: "button"
                     },
                     on: {
@@ -80254,7 +80252,7 @@ var render = function() {
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
-                  "data-placement": "top",
+                  "data-placement": "bottom",
                   type: "button"
                 },
                 on: {
@@ -81014,7 +81012,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    *
    * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
-		createFormulation: function createFormulation() {
+		createRecord: function createRecord() {
 			var vm = this;
 			/** Filtra las cuentas bloqueadas para solo lectura (cuentas de nivel superior) */
 			var lock_acc = vm.records.filter(function (account) {
@@ -82104,7 +82102,9 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("buttons-display")
+        _c("buttonsDisplay", {
+          attrs: { route_list: "/budget/subspecific-formulations" }
+        })
       ],
       1
     ),
@@ -82151,7 +82151,7 @@ var render = function() {
             "data-toggle": "tooltip",
             title: "Guardar registro"
           },
-          on: { click: _vm.createFormulation }
+          on: { click: _vm.createRecord }
         },
         [_c("i", { staticClass: "fa fa-save" })]
       )
@@ -84431,7 +84431,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			record: {
 				id: '',
-				type_id: '',
+				asset_type_id: '',
 				name: '',
 				code: ''
 			},
@@ -84461,7 +84461,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		reset: function reset() {
 			this.record = {
 				id: '',
-				type_id: '',
+				asset_type_id: '',
 				name: '',
 				code: ''
 			};
@@ -84554,11 +84554,11 @@ var render = function() {
                         _c("select2", {
                           attrs: { options: _vm.types },
                           model: {
-                            value: _vm.record.type_id,
+                            value: _vm.record.asset_type_id,
                             callback: function($$v) {
-                              _vm.$set(_vm.record, "type_id", $$v)
+                              _vm.$set(_vm.record, "asset_type_id", $$v)
                             },
-                            expression: "record.type_id"
+                            expression: "record.asset_type_id"
                           }
                         }),
                         _vm._v(" "),
@@ -84990,8 +84990,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			record: {
 				id: '',
-				type_id: '',
-				category_id: '',
+				asset_type_id: '',
+				asset_category_id: '',
 				code: '',
 				name: ''
 			},
@@ -85022,11 +85022,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		reset: function reset() {
 			this.record = {
 				id: '',
-				type_id: '',
-				category_id: '',
+				asset_type_id: '',
+				asset_category_id: '',
 				code: '',
 				name: ''
 			};
+		},
+		initUpdate: function initUpdate(index, event) {
+			this.errors = [];
+			var field = this.records[index - 1];
+			this.record = {
+				id: field.id,
+				asset_type_id: field.category.asset_type_id,
+				asset_category_id: field.asset_category_id,
+				code: field.code,
+				name: field.name
+			};
+			event.preventDefault();
 		},
 		initRequest: function initRequest(url, event) {
 			this.getTypes();
@@ -85054,8 +85066,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getCategories: function getCategories() {
 			var _this2 = this;
 
-			if (this.record.type_id) {
-				axios.get('/asset/get-categories/' + this.record.type_id).then(function (response) {
+			if (this.record.asset_type_id) {
+				axios.get('/asset/get-categories/' + this.record.asset_type_id).then(function (response) {
 					_this2.categories = response.data;
 				});
 			}
@@ -85132,11 +85144,11 @@ var render = function() {
                           attrs: { options: _vm.types },
                           on: { input: _vm.getCategories },
                           model: {
-                            value: _vm.record.type_id,
+                            value: _vm.record.asset_type_id,
                             callback: function($$v) {
-                              _vm.$set(_vm.record, "type_id", $$v)
+                              _vm.$set(_vm.record, "asset_type_id", $$v)
                             },
-                            expression: "record.type_id"
+                            expression: "record.asset_type_id"
                           }
                         }),
                         _vm._v(" "),
@@ -85175,11 +85187,11 @@ var render = function() {
                         _c("select2", {
                           attrs: { options: _vm.categories },
                           model: {
-                            value: _vm.record.category_id,
+                            value: _vm.record.asset_category_id,
                             callback: function($$v) {
-                              _vm.$set(_vm.record, "category_id", $$v)
+                              _vm.$set(_vm.record, "asset_category_id", $$v)
                             },
-                            expression: "record.category_id"
+                            expression: "record.asset_category_id"
                           }
                         })
                       ],
@@ -85592,9 +85604,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			record: {
 				id: '',
-				type_id: '',
-				category_id: '',
-				subcategory_id: '',
+				asset_type_id: '',
+				asset_category_id: '',
+				asset_subcategory_id: '',
 				name: '',
 				code: ''
 			},
@@ -85626,12 +85638,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		reset: function reset() {
 			this.record = {
 				id: '',
-				type_id: '',
-				category_id: '',
-				subcategory_id: '',
+				asset_type_id: '',
+				asset_category_id: '',
+				asset_subcategory_id: '',
 				name: '',
 				code: ''
 			};
+		},
+		initUpdate: function initUpdate(index, event) {
+			this.errors = [];
+			var field = this.records[index - 1];
+			this.record = {
+				id: field.id,
+				asset_type_id: field.subcategory.category.asset_type_id,
+				asset_category_id: field.subcategory.asset_category_id,
+				asset_subcategory_id: field.asset_subcategory_id,
+				code: field.code,
+				name: field.name
+			};
+			event.preventDefault();
 		},
 		initRequest: function initRequest(url, event) {
 			this.getTypes();
@@ -85659,8 +85684,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getCategories: function getCategories() {
 			var _this2 = this;
 
-			if (this.record.type_id) {
-				axios.get('/asset/get-categories/' + this.record.type_id).then(function (response) {
+			if (this.record.asset_type_id) {
+				axios.get('/asset/get-categories/' + this.record.asset_type_id).then(function (response) {
 					_this2.categories = response.data;
 				});
 			}
@@ -85674,8 +85699,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getSubcategories: function getSubcategories() {
 			var _this3 = this;
 
-			if (this.record.category_id) {
-				axios.get('/asset/get-subcategories/' + this.record.category_id).then(function (response) {
+			if (this.record.asset_category_id) {
+				axios.get('/asset/get-subcategories/' + this.record.asset_category_id).then(function (response) {
 					_this3.subcategories = response.data;
 				});
 			}
@@ -85752,11 +85777,11 @@ var render = function() {
                           attrs: { options: _vm.types },
                           on: { input: _vm.getCategories },
                           model: {
-                            value: _vm.record.type_id,
+                            value: _vm.record.asset_type_id,
                             callback: function($$v) {
-                              _vm.$set(_vm.record, "type_id", $$v)
+                              _vm.$set(_vm.record, "asset_type_id", $$v)
                             },
-                            expression: "record.type_id"
+                            expression: "record.asset_type_id"
                           }
                         }),
                         _vm._v(" "),
@@ -85796,11 +85821,11 @@ var render = function() {
                           attrs: { options: _vm.categories },
                           on: { input: _vm.getSubcategories },
                           model: {
-                            value: _vm.record.category_id,
+                            value: _vm.record.asset_category_id,
                             callback: function($$v) {
-                              _vm.$set(_vm.record, "category_id", $$v)
+                              _vm.$set(_vm.record, "asset_category_id", $$v)
                             },
-                            expression: "record.category_id"
+                            expression: "record.asset_category_id"
                           }
                         })
                       ],
@@ -85818,11 +85843,11 @@ var render = function() {
                         _c("select2", {
                           attrs: { options: _vm.subcategories },
                           model: {
-                            value: _vm.record.subcategory_id,
+                            value: _vm.record.asset_subcategory_id,
                             callback: function($$v) {
-                              _vm.$set(_vm.record, "subcategory_id", $$v)
+                              _vm.$set(_vm.record, "asset_subcategory_id", $$v)
                             },
-                            expression: "record.subcategory_id"
+                            expression: "record.asset_subcategory_id"
                           }
                         })
                       ],

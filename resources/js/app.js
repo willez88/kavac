@@ -29,7 +29,7 @@ Vue.component('select2', require('./components/SelectsComponent.vue'));
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('buttons-display', require('./components/ButtonsFormDisplayComponent.vue'));
+Vue.component('buttonsDisplay', require('./components/ButtonsFormDisplayComponent.vue'));
 
 /**
  * Componente para la gestión de estados civiles

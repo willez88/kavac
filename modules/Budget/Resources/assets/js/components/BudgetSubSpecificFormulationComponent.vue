@@ -212,7 +212,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<buttons-display></buttons-display>
+			<buttonsDisplay route_list="/budget/subspecific-formulations"></buttonsDisplay>
 		</div>
 		<div class="card-footer text-right">
 			<button type="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
@@ -224,7 +224,7 @@
 				<i class="fa fa-ban"></i>
 			</button>
 			<button type="button" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 
-					title="Guardar registro" @click="createFormulation">
+					title="Guardar registro" @click="createRecord">
 				<i class="fa fa-save"></i>
 			</button>
 		</div>
@@ -561,7 +561,7 @@
 			 *
 			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 */
-			createFormulation() {
+			createRecord() {
 				const vm = this;
 				/** Filtra las cuentas bloqueadas para solo lectura (cuentas de nivel superior) */
 				const lock_acc = vm.records.filter((account) => {
