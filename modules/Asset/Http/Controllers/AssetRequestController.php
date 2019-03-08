@@ -290,7 +290,7 @@ class AssetRequestController extends Controller
             $requested->delete();
         }
         $request->delete();
-        return back()->with('info', 'Fue eliminado exitosamente');
+        return back()->with(['message' => ['type' => 'destroy']]);
     }
 
     public function info(AssetRequest $request){

@@ -101,7 +101,7 @@
 					@if(($type==2) ||($type==3))
 					<div class="row" id="request-2">
 						<div class="col-md-6">
-					        <div class="form-group {{ $errors->has('delivery_date') ? ' has-error' : '' }}">
+					        <div class="form-group {{ $errors->has('delivery_date') ? ' has-error' : '' }} is-required">
 					            {!! Form::label('delivery_date_label', 'Fecha de Entrega', []) !!}
 					            <div class="input-group input-sm">
 					                <span class="input-group-addon">
@@ -120,7 +120,7 @@
 					    </div>
 
 					    <div class="col-md-6">
-					        <div class="form-group {{ $errors->has('ubication') ? ' has-error' : '' }}">
+					        <div class="form-group {{ $errors->has('ubication') ? ' has-error' : '' }} is-required">
 					            {!! Form::label('ubication_label', 'Ubicación', []) !!}
 					            {!! Form::text('ubication',(isset($request))?$request->ubication:old('ubication'),
 					                [
@@ -143,7 +143,7 @@
 						</div>
 						    
 						<div class="col-md-4">
-							<div class="form-group {{ $errors->has('external_agent_name') ? ' has-error' : '' }}">
+							<div class="form-group {{ $errors->has('external_agent_name') ? ' has-error' : '' }} is-required">
 						        {!! Form::label('external_agent_name_label', 'Nombre del Agente Externo', []) !!}
 						        {!! Form::text('agent_name',(isset($request))?$request->agent_name:old('agent_name'),
 						            [
@@ -157,7 +157,7 @@
 						</div>
 						
 						<div class="col-md-4">
-						    <div class="form-group {{ $errors->has('external_agent_telf') ? ' has-error' : '' }}">
+						    <div class="form-group {{ $errors->has('external_agent_telf') ? ' has-error' : '' }} is-required">
 						    	{!! Form::label('external_agent_telf_label', 'Teléfono del Agente Externo', []) !!}
 						        {!! Form::text('agent_telf',(isset($request))?$request->agent_telf:old('agent_telf'),
 						            [
@@ -171,7 +171,7 @@
 						</div>
 						
 						<div class="col-md-4">
-							<div class="form-group {{ $errors->has('external_agent_email') ? ' has-error' : '' }}">
+							<div class="form-group {{ $errors->has('external_agent_email') ? ' has-error' : '' }} is-required">
 						    	{!! Form::label('external_agent_email_label', 'Correo del Agente Externo', []) !!}
 						        {!! Form::text('agent_email',(isset($request))?$request->agent_email:old('agent_email'),
 						        	[
@@ -184,17 +184,20 @@
 						    </div>
 						</div>
 					</div>
-					@endif
+					@endif						
 						
-					<div class="row" id= "filtros">
-							
+					<div class="row">
 						<div class="col-md-12">
 							<b>Seleccione los Bienes a ingresar en la solicitud</b>
 						</div>
+					</div>
+					<div class="row"style="margin: 10px 0">
 						<div class="col-md-2">
 							<b>Filtros</b>
 						</div>
+					</div>
 
+					<div class="row">
 						<div class="form-group col-md-2">
 						    <div class="input-group input-sm">
 						        <span class="input-group-addon">
@@ -367,9 +370,8 @@ $(document).ready(function(){
 
 
 $("#save").on("click", function(event){
-	alert(seleccionados.length);
 	if(seleccionados.length == 0){
-	    alert("No ha seleccionado ningún elemento");
+	    bootbox.alert("Debe seleccionar almenos un elemento para procesar la solicitud");
 	    return false;
 	}
     else{
