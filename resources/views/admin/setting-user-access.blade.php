@@ -34,6 +34,7 @@
 						@include('auth.roles-permissions', ['user' => $user])
 					</div>
 					<div class="card-footer text-right">
+						@include('buttons.form-display')
 						@include('layouts.form-buttons')
 					</div>
 				{!! Form::close() !!}

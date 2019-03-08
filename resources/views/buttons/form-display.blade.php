@@ -13,15 +13,18 @@
 	]) !!}
 </div>
 
-<script>
-	$(document).ready(function() {
-		$(window).scroll(function () {
-            if ($(this).scrollTop() > 50) {
-                $('.btn-display').fadeIn();
-            }
-            else {
-                $('.btn-display').fadeOut();
-            }
-        });
-	});
-</script>
+@section('extra-js')
+	@parent
+	<script>
+		$(document).ready(function() {
+			$(window).scroll(function () {
+	            if ($(this).scrollTop() > 50) {
+	                $('.btn-display').fadeIn();
+	            }
+	            else {
+	                $('.btn-display').fadeOut();
+	            }
+	        });
+		});
+	</script>
+@endsection
