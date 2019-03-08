@@ -1,5 +1,8 @@
 .bootbox {
 	&.modal {
+		.modal-title {
+			margin-top: 0px !important;
+		}
 		.modal-footer {
 			button {
 				margin: 0 5px;

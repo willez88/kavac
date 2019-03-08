@@ -34878,14 +34878,13 @@ Vue.mixin({
     * seleccionarlo en el formulario en el caso de que se encuentre activado en BD
     */
 			$.each(vm.record, function (el, value) {
-				//console.log(el)
 				if ($("input[name=" + el + "]").hasClass('bootstrap-switch')) {
+					/** verifica los elementos bootstrap-switch para seleccionar el que corresponda según los registros del sistema */
 					$("input[name=" + el + "]").each(function () {
 						if ($(this).val() === value) {
 							$(this).bootstrapSwitch('state', value, true);
 						}
 					});
-					//$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
 				}
 				if (value === true || value === false) {
 					$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
@@ -76290,7 +76289,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -76309,7 +76308,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -79449,7 +79448,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-warning btn-xs btn-icon btn-round",
+                staticClass: "btn btn-warning btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Modificar registro",
                   "data-toggle": "tooltip",
@@ -79467,7 +79466,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-danger btn-xs btn-icon btn-round",
+                staticClass: "btn btn-danger btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
@@ -79637,7 +79636,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-warning btn-xs btn-icon btn-round",
+                staticClass: "btn btn-warning btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Modificar registro",
                   "data-toggle": "tooltip",
@@ -79655,7 +79654,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-danger btn-xs btn-icon btn-round",
+                staticClass: "btn btn-danger btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
@@ -79851,7 +79850,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-warning btn-xs btn-icon btn-round",
+                staticClass: "btn btn-warning btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Modificar registro",
                   "data-toggle": "tooltip",
@@ -79869,7 +79868,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-danger btn-xs btn-icon btn-round",
+                staticClass: "btn btn-danger btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
@@ -80064,7 +80063,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-warning btn-xs btn-icon btn-round",
+                staticClass: "btn btn-warning btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Modificar registro",
                   "data-toggle": "tooltip",
@@ -80082,7 +80081,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-danger btn-xs btn-icon btn-round",
+                staticClass: "btn btn-danger btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
@@ -82774,7 +82773,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			$('.close').click();
 			vm.reset();
 		},
-		deleteAccount: function deleteAccount(index) {},
+		deleteAccount: function deleteAccount(index) {
+			var vm = this;
+			bootbox.confirm({
+				title: "Eliminar cuenta?",
+				message: "Esta seguro de eliminar esta cuenta para el registro del crédito adicional?",
+				buttons: {
+					cancel: {
+						label: '<i class="fa fa-times"></i> Cancelar'
+					},
+					confirm: {
+						label: '<i class="fa fa-check"></i> Confirmar'
+					}
+				},
+				callback: function callback(result) {
+					if (result) {
+						vm.aditional_credit_accounts.splice(index, 1);
+					}
+				}
+			});
+		},
 
 		getAccounts: function getAccounts() {
 			var vm = this;

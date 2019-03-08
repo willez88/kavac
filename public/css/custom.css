@@ -2676,6 +2676,10 @@ a .btn-simplex:hover {
   margin-bottom: 5px;
 }
 
+.bootbox.modal .modal-title {
+  margin-top: 0px !important;
+}
+
 .bootbox.modal .modal-footer button {
   margin: 0 5px;
 }
