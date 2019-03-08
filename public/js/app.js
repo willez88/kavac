@@ -34878,6 +34878,15 @@ Vue.mixin({
     * seleccionarlo en el formulario en el caso de que se encuentre activado en BD
     */
 			$.each(vm.record, function (el, value) {
+				//console.log(el)
+				if ($("input[name=" + el + "]").hasClass('bootstrap-switch')) {
+					$("input[name=" + el + "]").each(function () {
+						if ($(this).val() === value) {
+							$(this).bootstrapSwitch('state', value, true);
+						}
+					});
+					//$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
+				}
 				if (value === true || value === false) {
 					$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
 				}
@@ -76281,7 +76290,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-action",
+                                  "btn btn-warning btn-xs btn-icon btn-round",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -76300,7 +76309,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-action",
+                                  "btn btn-danger btn-xs btn-icon btn-round",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
