@@ -29,7 +29,7 @@
 								<div class="form-group">
 									<label>Tipo de Bien:</label>
 									<select2 :options="types" @input="getCategories" 
-											 v-model="record.type_id"></select2>
+											 v-model="record.asset_type_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
@@ -38,7 +38,7 @@
 								<div class="form-group">
 									<label>Categoría General:</label>
 									<select2 :options="categories" @input="getSubcategories" 
-											 v-model="record.category_id"></select2>
+											 v-model="record.asset_category_id"></select2>
 			                    </div>
 							</div>
 
@@ -46,7 +46,7 @@
 								<div class="form-group">
 									<label>Subcategoría:</label>
 									<select2 :options="subcategories"
-											 v-model="record.subcategory_id"></select2>
+											 v-model="record.asset_subcategory_id"></select2>
 			                    </div>
 							</div>						
 
@@ -121,9 +121,9 @@
 			return {
 				record: {
 					id: '',
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
 					name: '',
 					code: ''
 				},
@@ -155,13 +155,26 @@
             reset() {
                 this.record = {
                     id: '',
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
 					name: '',
 					code: ''
                 };
             },
+            initUpdate(index, event) {
+				this.errors = [];
+				var field = this.records[index - 1];
+				this.record = {
+					id: field.id,
+					asset_type_id: field.subcategory.category.asset_type_id,
+					asset_category_id: field.subcategory.asset_category_id,
+					asset_subcategory_id: field.asset_subcategory_id,
+					code: field.code,
+					name: field.name,
+				};
+				event.preventDefault();
+			},
             initRequest(url,event){
 				this.getTypes();
 				this.addRecord('add_specific_category', url, event);
@@ -182,8 +195,8 @@
 			 * @author Henry Paredes (henryp2804@gmail.com)
 			 */
 			getCategories() {
-				if (this.record.type_id) {
-					axios.get('/asset/get-categories/' + this.record.type_id).then(response => {
+				if (this.record.asset_type_id) {
+					axios.get('/asset/get-categories/' + this.record.asset_type_id).then(response => {
 						this.categories = response.data;
 					});
 				}
@@ -194,8 +207,8 @@
 			 * @author Henry Paredes (henryp2804@gmail.com)
 			 */
 			getSubcategories() {
-				if (this.record.category_id) {
-					axios.get('/asset/get-subcategories/' + this.record.category_id).then(response => {
+				if (this.record.asset_category_id) {
+					axios.get('/asset/get-subcategories/' + this.record.asset_category_id).then(response => {
 						this.subcategories = response.data;
 					});
 				}
