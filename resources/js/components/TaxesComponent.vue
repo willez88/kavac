@@ -85,12 +85,12 @@
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				class="btn btn-warning btn-xs btn-icon btn-action" 
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
 		                		<button @click="deleteRecord(props.index, 'taxes')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
+										class="btn btn-danger btn-xs btn-icon btn-action" 
 										title="Eliminar registro" data-toggle="tooltip" 
 										type="button">
 									<i class="fa fa-trash-o"></i>
@@ -201,6 +201,14 @@
 			this.table_options.filterable = [
 				'name', 'description', 'histories.operation_date', 'histories.percentage'
 			];
+			this.table_options.columnsClasses = {
+				'name': 'col-md-2',
+				'description': 'col-md-3',
+				'histories.operation_date': 'col-md-2',
+				'histories.percentage': 'col-md-2',
+				'active': 'col-md-1',
+				'id': 'col-md-2'
+			};
 		},
 		mounted() {
 			this.switchHandler('affect_tax');

@@ -71596,7 +71596,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -71615,7 +71615,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -71887,6 +71887,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'acronym'];
 		this.table_options.filterable = ['name', 'acronym'];
+		this.table_options.columnsClasses = {
+			'acronym': 'col-md-2',
+			'name': 'col-md-8',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -72058,7 +72063,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -72077,7 +72082,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -72336,6 +72341,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'acronym'];
 		this.table_options.filterable = ['name', 'acronym'];
+		this.table_options.columnsClasses = {
+			'acronym': 'col-md-2',
+			'name': 'col-md-8',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -72508,7 +72518,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -72527,7 +72537,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -72786,6 +72796,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name'];
 		this.table_options.filterable = ['name'];
+		this.table_options.columnsClasses = {
+			'name': 'col-md-10',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -72928,7 +72942,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -72947,7 +72961,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -73217,6 +73231,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'prefix'];
 		this.table_options.filterable = ['name', 'prefix'];
+		this.table_options.columnsClasses = {
+			'prefix': 'col-md-1',
+			'name': 'col-md-9',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -73388,7 +73407,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -73407,7 +73426,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -73678,6 +73697,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['country.name', 'name', 'code'];
 		this.table_options.filterable = ['country.name', 'name', 'code'];
+		this.table_options.columnsClasses = {
+			'country.name': 'col-md-3',
+			'name': 'col-md-6',
+			'code': 'col-md-1',
+			'id': 'col-md-2'
+		};
 
 		this.getCountries();
 	}
@@ -73873,7 +73898,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -73892,7 +73917,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -74173,6 +74198,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['estate.name', 'name', 'code'];
 		this.table_options.filterable = ['estate.name', 'name', 'code'];
+		this.table_options.columnsClasses = {
+			'estate.name': 'col-md-3',
+			'name': 'col-md-6',
+			'code': 'col-md-1',
+			'id': 'col-md-2'
+		};
 
 		this.getCountries();
 	}
@@ -74391,7 +74422,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -74410,7 +74441,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -74683,6 +74714,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['estate.name', 'name'];
 		this.table_options.filterable = ['estate.name', 'name'];
+		this.table_options.columnsClasses = {
+			'estate.name': 'col-md-3',
+			'name': 'col-md-7',
+			'id': 'col-md-2'
+		};
 
 		this.getCountries();
 	}
@@ -74868,7 +74904,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -74887,7 +74923,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -75179,6 +75215,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['municipality.name', 'name', 'code'];
 		this.table_options.filterable = ['municipality.name', 'name', 'code'];
+		this.table_options.columnsClasses = {
+			'municipality.name': 'col-md-3',
+			'name': 'col-md-6',
+			'code': 'col-md-1',
+			'id': 'col-md-2'
+		};
 
 		this.getCountries();
 	}
@@ -75420,7 +75462,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -75439,7 +75481,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -76616,6 +76658,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'description', 'histories.operation_date', 'histories.percentage'];
 		this.table_options.filterable = ['name', 'description', 'histories.operation_date', 'histories.percentage'];
+		this.table_options.columnsClasses = {
+			'name': 'col-md-2',
+			'description': 'col-md-3',
+			'histories.operation_date': 'col-md-2',
+			'histories.percentage': 'col-md-2',
+			'active': 'col-md-1',
+			'id': 'col-md-2'
+		};
 	},
 	mounted: function mounted() {
 		this.switchHandler('affect_tax');
@@ -76994,7 +77044,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -77013,7 +77063,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -77298,6 +77348,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['start_date', 'end_date', 'value'];
 		this.table_options.filterable = ['start_date', 'end_date', 'value'];
+		this.table_options.columnsClasses = {
+			'start_date': 'col-md-2',
+			'end_date': 'col-md-2',
+			'value': 'col-md-4',
+			'active': 'col-md-2',
+			'id': 'col-md-2'
+		};
 	},
 	mounted: function mounted() {
 		this.switchHandler('active');
@@ -77578,7 +77635,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -77597,7 +77654,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -77912,6 +77969,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['institution.name', 'parent.name', 'acronym', 'name'];
 		this.table_options.filterable = ['institution.name', 'parent.name', 'acronym', 'name'];
+		this.table_options.columnsClasses = {
+			'institution.name': 'col-md-2',
+			'parent.name': 'col-md-2',
+			'acronym': 'col-md-2',
+			'name': 'col-md-3',
+			'active': 'col-md-1',
+			'id': 'col-md-2'
+		};
 
 		this.getInstitutions();
 		this.getDepartments();
@@ -78386,7 +78451,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -78405,7 +78470,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -78707,6 +78772,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'symbol', 'country.name'];
 		this.table_options.filterable = ['name', 'symbol', 'country.name'];
+		this.table_options.columnsClasses = {
+			'country.name': 'col-md-3',
+			'symbol': 'col-md-1',
+			'name': 'col-md-5',
+			'default': 'col-md-1',
+			'id': 'col-md-2'
+		};
 		this.getCountries();
 	},
 	mounted: function mounted() {
@@ -79011,7 +79083,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -79030,7 +79102,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
