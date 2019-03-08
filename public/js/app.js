@@ -82678,8 +82678,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -82933,7 +82931,7 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "col-6" }, [
                     _c(
                       "div",
                       { staticClass: "form-group is-required" },
@@ -82954,11 +82952,9 @@ var render = function() {
                       ],
                       1
                     )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6" }, [
                     _c(
                       "div",
                       { staticClass: "form-group is-required" },

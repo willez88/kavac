@@ -55,16 +55,14 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-12">
+							<div class="col-6">
 								<div class="form-group is-required">
 									<label>Acción Específica:</label>
 									<select2 :options="specific_actions" @input="getAccounts" 
 											 v-model="budget_specific_action_id"/>
 			                    </div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-12">
+							<div class="col-6">
 								<div class="form-group is-required">
 									<label>Cuenta:</label>
 									<select2 :options="accounts" 
