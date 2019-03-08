@@ -67,7 +67,7 @@ class AssetSubcategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'category_id' => 'required'
+            'asset_category_id' => 'required'
         ]);
 
 
@@ -75,7 +75,7 @@ class AssetSubcategoryController extends Controller
 
         $subcategory->name = $request->input('name');
         $subcategory->code = $request->input('code');
-        $subcategory->asset_category_id = $request->category_id;
+        $subcategory->asset_category_id = $request->asset_category_id;
 
         $subcategory->save();
 
@@ -119,12 +119,12 @@ class AssetSubcategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'category_id' => 'required'
+            'asset_category_id' => 'required'
         ]);
  
         $subcategory->name = $request->input('name');
         $subcategory->code = $request->input('code');
-        $subcategory->asset_category_id = $request->category_id;
+        $subcategory->asset_category_id = $request->asset_category_id;
 
         $subcategory->save();
  
