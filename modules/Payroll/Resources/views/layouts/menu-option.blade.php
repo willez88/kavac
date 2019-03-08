@@ -3,12 +3,12 @@
     <a href="#" title="Datos de personal y nómina" data-toggle="tooltip" data-placement="right">
         <i class="ion-ios-folder-outline"></i><span>Nómina</span>
     </a>
-    <ul class="submenu" style="{!! (strpos($current_url, 'payroll') !== false)?'display:block;':'' !!}">
-        <li class="{!! ($current_url=='payroll.settings.index')?'active':'' !!}">
+    <ul class="submenu" style="{!! display_submenu('payroll') !!}">
+        <li class="{!! set_active_menu('payroll.settings.index') !!}">
             <a href="{{ route('payroll.settings.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Configuración de nómina">Configuración</a>
         </li>
-        <li class="{!! ($current_url=='staff.index')?'active':'' !!}">
+        <li class="{!! set_active_menu('staff.index') !!}">
             <a href="{{ route('staffs.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Expediente del personal">Expediente</a>
         </li>

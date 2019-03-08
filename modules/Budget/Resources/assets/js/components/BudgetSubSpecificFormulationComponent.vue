@@ -3,6 +3,10 @@
 		<div class="card-header">
 			<h6 class="card-title text-uppercase">Formulación de presupuesto de gastos por sub específica</h6>
 			<div class="card-btns">
+				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
+				   title="Ir atrás" data-toggle="tooltip">
+					<i class="fa fa-reply"></i>
+				</a>
 				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 				   data-toggle="tooltip">
 					<i class="now-ui-icons arrows-1_minimal-up"></i>
@@ -208,14 +212,15 @@
 					</tr>
 				</tbody>
 			</table>
+			<buttons-display></buttons-display>
 		</div>
 		<div class="card-footer text-right">
 			<button type="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
-					title="Borrar datos del formulario">
+					title="Borrar datos del formulario" @click='reset'>
 				<i class="fa fa-eraser"></i>
 			</button>
 			<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip" 
-					title="Cancelar y regresar">
+					title="Cancelar y regresar" @click="redirect_back(route_list)">
 				<i class="fa fa-ban"></i>
 			</button>
 			<button type="button" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 

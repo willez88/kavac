@@ -4,7 +4,7 @@
        data-placement="right">
         <i class="ion-social-dropbox-outline"></i><span>Compras</span>
     </a>
-    <ul class="submenu" style="{!! (strpos($current_url, 'purchase') !== false)?'display:block;':'' !!}">
+    <ul class="submenu" style="{!! display_submenu('purchase') !!}">
         <li>
             <a href="#">Configuración</a>
         </li>

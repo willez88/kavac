@@ -67,14 +67,14 @@ class AssetCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'type_id' => 'required'
+            'asset_type_id' => 'required'
         ]);
 
 
         $category = new AssetCategory;
         $category->name = $request->input('name');
         $category->code = $request->input('code');
-        $category->asset_type_id = $request->type_id;
+        $category->asset_type_id = $request->asset_type_id;
         $category->save();
 
         return response()->json(['record' => $category, 'message' => 'Success'], 200);
@@ -118,13 +118,13 @@ class AssetCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'type_id' => 'required'
+            'asset_type_id' => 'required'
         ]);
  
         
         $category->name = $request->input('name');
         $category->code = $request->input('code');
-        $category->asset_type_id = $request->type_id;
+        $category->asset_type_id = $request->asset_type_id;
 
 
         $category->save();

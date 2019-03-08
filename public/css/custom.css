@@ -818,6 +818,22 @@ table td {
   font-size: 12px;
 }
 
+.back-to-top {
+  cursor: pointer;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  display: none;
+}
+
+.btn-display {
+  cursor: pointer;
+  position: fixed;
+  bottom: 10px;
+  right: 80px;
+  display: none;
+}
+
 /** Efectos para mostrar u ocultar las opciones del menú del panel izquierdo */
 
 .content-wrapper {
@@ -1127,6 +1143,10 @@ table td {
 
 .card-footer .btn-default {
   background-color: #d2d5d8;
+}
+
+.card-minimize {
+  margin-bottom: 20px;
 }
 
 /** Estilo de tamaño en campos del formulario */

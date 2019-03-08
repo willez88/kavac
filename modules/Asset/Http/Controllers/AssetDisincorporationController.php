@@ -271,8 +271,8 @@ class AssetDisincorporationController extends Controller
      */
     public function destroy(AssetDisincorporation $disincorporation)
     {
-        
-        return back()->with('info', 'Fue eliminado exitosamente');
+        $disincorporation->delete();
+        return back()->with(['message' => ['type' => 'destroy']]);
     }
 
     /**

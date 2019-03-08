@@ -43,7 +43,15 @@ class AssetSpecificCategoryController extends Controller
     {
         
 
-        return response()->json(['records' => AssetSpecificCategory::with('subcategory')->get()], 200); 
+        return response()->json(['records' => AssetSpecificCategory::with(['subcategory' => 
+
+            function($query){
+                $query->with(['category' => 
+                function($query){
+                    $query->with('type');
+                }]);
+            }]
+        )->get()], 200); 
     }
 
     /**
@@ -69,14 +77,14 @@ class AssetSpecificCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'subcategory_id' => 'required',
+            'asset_subcategory_id' => 'required',
         ]);
 
 
         $specific_category = AssetSpecificCategory::create([
             'name' => $request->input('name'),
             'code' => $request->input('code'),
-            'asset_subcategory_id' => $request->input('subcategory_id'),
+            'asset_subcategory_id' => $request->input('asset_subcategory_id'),
         ]);
 
         return response()->json(['record' => $specific_category, 'message' => 'Success'], 200);
@@ -119,12 +127,13 @@ class AssetSpecificCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'code' => 'required|max:10',
-            'subcategory_id' => 'required',
+            'asset_subcategory_id' => 'required',
         ]);
+        $specific_category = AssetSpecificCategory::find($request->id);
  
         $specific_category->name = $request->input('name');
         $specific_category->code = $request->input('code');
-        $specific_category->asset_subcategory_id = $request->input('subcategory_id');
+        $specific_category->asset_subcategory_id = $request->input('asset_subcategory_id');
 
         $specific_category->save();
  

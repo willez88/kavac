@@ -5,12 +5,12 @@ if (! function_exists('set_active_menu')) {
 	 * Define la opción activa del menú según la URL actual
 	 *
 	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-	 * @param string $currentUrl  URL actual
 	 * @param array|string $compareUrls Nombre o lista de nombres de las URL a comparar
 	 * @return Si la URL a comparar es igual a la actual retorna active de lo contrario retorna vacio
 	 */
-	function set_active_menu($currentUrl, $compareUrls)
+	function set_active_menu($compareUrls)
 	{
+		$currentUrl = Route::current()->getName();
 		if (is_array($compareUrls)) {
 			$active = '';
             foreach ($compareUrls as $url) {
@@ -22,6 +22,21 @@ if (! function_exists('set_active_menu')) {
 		}
 
 		return ($currentUrl == $compareUrls) ? 'active' : '';
+	}
+}
+
+if (! function_exists('display_submenu')) {
+	/**
+	 * Define si se expande o contrae las opciones de un submenÚ
+	 *
+	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  string $submenu Nombre del submenu a mostrar u ocultar
+	 * @return string          RetOrna una cadena vacia para contraer las opciones del submenú, 
+	 *                         de lo contrario retorna el css para mostrar el bloque de opciones
+	 */
+	function display_submenu($submenu)
+	{
+		return (strpos(Route::current()->getName(), $submenu) !== false) ? 'display:block;' : '';
 	}
 }
 

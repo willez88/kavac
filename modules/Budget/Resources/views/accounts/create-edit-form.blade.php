@@ -23,10 +23,8 @@
 				<div class="card-header">
 					<h6 class="card-title">Cuenta Presupuestaria</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-						   data-toggle="tooltip">
-	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-	    				</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				{!! (!isset($model))?Form::open($header):Form::model($model, $header) !!}
@@ -37,9 +35,8 @@
 								<div class="form-group">
 									<label for="" class="control-label">Cuenta</label>
 									{!! Form::select('parent_id', $budget_accounts, null, [
-										'class' => 'select2', 'data-toggle' => 'tooltip',
-										'title' => 'Seleccione una cuenta presupuestaria',
-										'onclick' => 'genBudgetAccount($(this).val())'
+										'class' => 'select2', 'data-toggle' => 'tooltip', 'id' => 'parent_id',
+										'title' => 'Seleccione una cuenta presupuestaria'
 									]) !!}
 								</div>
 							</div>
@@ -134,7 +131,7 @@
 											<div class="col-12">
 												{!! Form::checkbox('active', true, (isset($model) && $model->active), [
 													'id' => 'active', 'class' => 'form-control bootstrap-switch',
-													'data-on-label' => 'SI', 'data-off-label' => 'NO'
+													'data-on-label' => 'SI', 'data-off-label' => 'NO', 'checked' => true
 												]) !!}
 											</div>
 										</div>
@@ -150,4 +147,37 @@
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('extra-js')
+	@parent
+	<script>
+		$(document).ready(function() {
+			/** Genera una nueva cuenta a partir de la cuenta seleccionada */
+			$("#parent_id").on('change', function() {
+				$("input[type=text]").each(function() {
+					$(this).val("");
+				});
+				
+				if ($(this).val()) {
+					axios.get('/budget/set-children-account/' + $(this).val()).then(response => {
+						if (response.data.result) {
+							let new_account = response.data.new_account;
+							/** Genera las nuevas cuentas */
+							$("input[name=group]").val(new_account.group);
+							$("input[name=item]").val(new_account.item);
+							$("input[name=generic]").val(new_account.generic);
+							$("input[name=specific]").val(new_account.specific);
+							$("input[name=subspecific]").val(new_account.subspecific);
+							$("input[name=denomination]").val(new_account.denomination);
+							$("input[value=egress]").bootstrapSwitch("state", new_account.egress);
+							$("input[value=resource]").bootstrapSwitch("state", new_account.resource);
+						}
+					}).catch(error => {
+						console.log(error);
+					});
+				}
+			});
+		});
+	</script>
 @stop

@@ -35,6 +35,7 @@ class CreateAssetCategoriesTable extends Migration
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+                $table->unique(array('asset_type_id', 'code','name'))->comment('Clave única para el registro');
             });
 
         }

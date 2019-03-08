@@ -29,7 +29,7 @@
 								<div class="form-group">
 									<label>Tipo de Bien:</label>
 									<select2 :options="types"
-											 v-model="record.type_id"></select2>
+											 v-model="record.asset_type_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
@@ -104,7 +104,7 @@
 			return {
 				record: {
 					id: '',
-					type_id: '',
+					asset_type_id: '',
 					name: '',
 					code: ''
 				},
@@ -135,7 +135,7 @@
 			reset() {
 				this.record = {
 					id: '',
-					type_id: '',
+					asset_type_id: '',
 					name: '',
 					code: ''
 				};

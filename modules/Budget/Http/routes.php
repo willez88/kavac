@@ -29,6 +29,7 @@ Route::group([
          ->name('budget.accounts.egresslist');
     Route::get('detail-accounts/{id}', 'BudgetAccountController@getDetail')
          ->name('budget.accounts.detail');
+    Route::get('set-children-account/{parent_id}', 'BudgetAccountController@setChildrenAccount')->name('budget.set-parent-account');
 
     /** Rutas para la gestión de proyectos */
     Route::resource('projects', 'BudgetProjectController', ['as' => 'budget', 'except' => ['index', 'show']]);

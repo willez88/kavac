@@ -82,12 +82,19 @@
 					</div>
 
 					<div class="row">
-
 						<div class="col-md-12">
 							<b>Información de los Bienes a ser Desincorporados</b>
 						</div>
+					</div>
+					<div class="row"style="margin: 10px 0">
+						<div class="col-md-12">
+							<b>Filtros</b>
+						</div>
+					</div>
+						
+					<div class="row">						
 						<div class="col-md-4">
-							<div class="form-group   {{ $errors->has('type') ? ' has-error' : '' }} is-required">
+							<div class="form-group">
 								
 								{!! Form::label('type_label', 'Tipo de Bien', []) !!}
 								{!! Form::select('type', (isset($types))?$types:[], (isset($request))?$request->type:null, [		
@@ -103,7 +110,7 @@
 						</div>
 											
 						<div class="col-md-4">
-							<div class="form-group  {{ $errors->has('category') ? ' has-error' : '' }} is-required">
+							<div class="form-group">
 
 								{!! Form::label('category_label', 'Categoria General', []) !!}
 								{!! Form::select('category', (isset($categories))?$categories:[],  (isset($request))?$request->category:null, [
@@ -115,7 +122,7 @@
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group  {{ $errors->has('subcategory') ? ' has-error' : '' }} is-required">
+							<div class="form-group">
 								
 								{!! Form::label('subcategory_label', 'Subcategoria', []) !!}
 								{!! Form::select('subcategory', (isset($subcategories))?$subcategories:[],  (isset($request))?$request->subcategory:null, [
@@ -128,7 +135,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group  {{ $errors->has('specific_category') ? ' has-error' : '' }} is-required">
+							<div class="form-group">
 								
 								{!! Form::label('specific_category_label', 'Categoria Específica', []) !!}
 								{!! Form::select('specific_category', (isset($specific_categories))?$specific_categories:[],  (isset($request))?$request->specific_category:null, [
@@ -266,9 +273,8 @@ $(document).ready(function(){
 
 
 $("#save").on("click", function(event){
-	alert(seleccionados.length);
 	if(seleccionados.length == 0){
-	    alert("No ha seleccionado ningún elemento");
+	    bootbox.alert("Debe seleccionar almenos un elemento para procesar la solicitud");
 	    return false;
 	}
     else{

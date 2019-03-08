@@ -4,16 +4,10 @@
 			<div class="card-header">
 				<h6 class="card-title">Acceso a la Aplicación</h6>
 				<div class="card-btns">
-					<a href="#" class="card-minimize btn btn-card-action btn-round" 
-					   title="Minimizar" data-toggle="tooltip">
-    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-    				</a>
+					@include('buttons.minimize')
 				</div>
 			</div>
 			<div class="card-body">
-				@include('layouts.button-new-register', [
-					'url' => route('users.create')
-				])
 				<div class="row">
 					<div class="col-md-4 panel-legend">
 						<i class="fa fa-user text-success" title="Los usuarios con este estatus se encuentran conectados a la aplicación" data-toggle="tooltip"></i>

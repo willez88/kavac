@@ -3,7 +3,7 @@
     <a href="#" title="Gestión de firma electrónica" data-toggle="tooltip" data-placement="right">
         <i class="ion-ios-compose-outline"></i><span>Firma Electrónica</span>
     </a>
-    <ul class="submenu" style="{!! (strpos($current_url, 'digitalsignature') !== false)?'display:block;':'' !!}">
+    <ul class="submenu" style="{!! display_submenu('digitalsignature') !!}">
     	@role('admin')
 	        <li>
 	            <a href="#">Configuración</a>
