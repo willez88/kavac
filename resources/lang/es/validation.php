@@ -87,6 +87,7 @@ return [
     'unique' => ':attribute ya ha sido registrado.',
     'uploaded' => 'Subir :attribute ha fallado.',
     'url' => 'El formato :attribute es inválido.',
+    'captcha' => 'El captcha es incorrecto',
 
     /*
     |--------------------------------------------------------------------------
