@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\CodeSetting;
+use App\Models\DocumentStatus;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
 use Modules\Budget\Models\BudgetAccountOpen;
 
@@ -73,6 +74,7 @@ class BudgetSubSpecificFormulationController extends Controller
 
         $year = date("Y");
         
+        $documentStatus = DocumentStatus::where('action', 'EL')->first();
         $codeSetting = CodeSetting::where("model", BudgetSubSpecificFormulation::class)->first();
         
         if (!$codeSetting) {
@@ -105,7 +107,8 @@ class BudgetSubSpecificFormulationController extends Controller
             'total_formulated' => (float)$request->formulated_accounts[0]['total_year_amount'],
             'budget_specific_action_id' => $request->specific_action_id,
             'currency_id' => $request->currency_id,
-            'institution_id' => $request->institution_id
+            'institution_id' => $request->institution_id,
+            'document_status_id' => $documentStatus->id
         ]);
 
         foreach ($request->formulated_accounts as $formulated_account) {
@@ -159,6 +162,7 @@ class BudgetSubSpecificFormulationController extends Controller
 
         if (isset($request->assigned) && $request->assigned) {
             $formulation->assigned = $request->assigned;
+            $documentStatus = DocumentStatus::where('action', 'AP')->first();
             $formulation->save();
 
             $request->session()->flash('message', [

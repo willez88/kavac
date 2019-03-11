@@ -46,4 +46,16 @@ class DocumentStatus extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['name', 'description', 'color', 'action'];
+
+    /**
+     * DocumentStatus has many BudgetSubSpecificFormulations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budget_sub_specific_formulations()
+    {
+        return (Module::has('Budget')) 
+               ? $this->hasMany(\Modules\Budget\Models\BudgetSubSpecificFormulation::class) 
+               : [];
+    }
 }

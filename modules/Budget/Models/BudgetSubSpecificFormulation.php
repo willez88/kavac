@@ -33,7 +33,8 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'code', 'year', 'total_formulated', 'assigned', 'budget_specific_action_id', 'currency_id', 'institution_id'
+        'code', 'year', 'total_formulated', 'assigned', 'budget_specific_action_id', 
+        'currency_id', 'institution_id', 'document_status_id'
     ];
 
     /**
@@ -64,6 +65,17 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     public function institution()
     {
         return $this->belongsTo(\App\Models\Institution::class);
+    }
+
+    /**
+     * BudgetSubSpecificFormulation belongs to DocumentStatus.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function document_status()
+    {
+        // belongsTo(RelatedModel, foreignKey = document_status_id, keyOnRelatedModel = id)
+        return $this->belongsTo(\App\Models\DocumentStatus::class);
     }
 
     /**
