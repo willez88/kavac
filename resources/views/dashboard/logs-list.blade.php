@@ -108,13 +108,15 @@
 				<table class="table table-hover table-striped dt-responsive nowrap datatable">
 					<thead>
 						<tr class="text-center">
-							<th></th>
-							<th>Fecha - Hora</th>
-							<th>Módulo</th>
-							<th>ID</th>
-							<th>Usuario</th>
+							<th class="col-1"></th>
+							<th class="col-2">Fecha - Hora</th>
+							<th class="col-1">IP</th>
+							<th class="col-4">Módulo</th>
+							<th class="col-2">Usuario</th>
+							<th class="col-2">Acción</th>
+							<!--<th>URL</th>
 							<th>Datos anteriores</th>
-							<th>Datos nuevos</th>
+							<th>Datos nuevos</th>-->
 						</tr>
 					</thead>
 					<tbody>
@@ -131,8 +133,9 @@
 										<i class="ion-android-checkbox-blank {{ $registro_class }}"></i>
 									</th>
 									<td>{{ $audit->created_at->format('d-m-Y h:i:s A') }}</td>
+									<td>{{ $audit->ip_address }}</td>
 									<td>{{ $audit->auditable_type }}</td>
-									<td>{{ $audit->auditable_id }}</td>
+									{{-- <td>{{ trim($audit->url, "?") }}</td> --}}
 									<td>
 										@php
 											$model_user = $audit->user_type;
@@ -141,7 +144,7 @@
 										<b>Nombre:</b> {{ $user->name }}<br>
 										<b>Usuario:</b> {{ $user->username }}
 									</td>
-									<td>
+									{{-- <td>
 										@if (empty($audit->old_values))
 											N/A
 										@else
@@ -160,6 +163,65 @@
 												@if (!$loop->last) <br> @endif
 											@endforeach
 										@endif
+									</td> --}}
+									<td class="text-center">
+										{!! Form::button('<i class="fa fa-eye"></i>', [
+	                                        'class' => 'btn btn-info btn-xs btn-icon btn-action',
+	                                        'data-toggle' => 'tooltip', 
+	                                        'onclick' => '$("#modalAudit' . $audit->id . '").modal("show")',
+	                                        'title' => 'Ver detalles del registro',
+	                                    ]) !!}
+	                                    <div class="modal fade" id="modalAudit{{ $audit->id }}" tabindex="-1" 
+	                                    	 role="dialog" aria-hidden="true">
+	                                    	<div class="modal-dialog" role="document">
+	                                    		<div class="modal-content">
+	                                    			<div class="modal-header">
+	                                    				<h4 style="margin-top:0">Registro</h4>
+	                                    				<button type="button" class="close btn btn-default" 
+	                                    						data-dismiss="modal" aria-label="Close">
+	                                    					<span aria-hidden="true">&times;</span>
+	                                    				</button>
+	                                    			</div>
+	                                    			<div class="modal-body">
+	                                    				<div class="row">
+	                                    					<div class="col-md-6 text-left">
+	                                    						<h5>Datos Anteriores</h5>
+	                                    						<div>
+	                                    							@if (empty($audit->old_values))
+		                                    							N/A
+		                                    						@else
+		                                    							@foreach ($audit->old_values as $key => $value)
+		                                    								<b>{{ $key }}:</b> {{ $value }}
+		                                    								@if (!$loop->last) <br> @endif
+		                                    							@endforeach
+		                                    						@endif
+	                                    						</div>
+	                                    					</div>
+	                                    					<div class="col-md-6 text-left">
+	                                    						<h5>Datos nuevos</h5>
+	                                    						<div>
+	                                    							@if (empty($audit->new_values))
+																		N/A
+																	@else
+																		@foreach ($audit->new_values as $key => $value)
+																			<b>{{ $key }}:</b> {{ $value }}
+																			@if (!$loop->last) <br> @endif
+																		@endforeach
+																	@endif
+	                                    						</div>
+	                                    					</div>
+	                                    				</div>
+	                                    				<div class="modal-footer">
+	                                    					<button class="btn btn-primary" 
+	                                    							data-dismiss="modal" 
+	                                    							aria-label="Close">
+	                                    						Cerrar
+	                                    					</button>
+	                                    				</div>
+	                                    			</div>
+	                                    		</div>
+	                                    	</div>
+	                                    </div>
 									</td>
 								</tr>
 							@endif
