@@ -65,7 +65,7 @@ class DocumentStatusController extends Controller
             'name' => 'required|max:20|unique:document_status,name',
             'description' => 'required',
             'color' => 'required|min:4|max:30|unique:document_status,color',
-            'action' => 'required'
+            'action' => 'required|unique:document_status,action'
         ]);
 
 
@@ -117,7 +117,7 @@ class DocumentStatusController extends Controller
             'name' => 'required|max:20|unique:document_status,name,' . $documentStatus->id,
             'description' => 'required',
             'color' => 'required|min:4|max:30|unique:document_status,color,' . $documentStatus->id,
-            'action' => 'required',
+            'action' => 'required|unique:document_status,action,' . $documentStatus->id,
         ]);
  
         $documentStatus->name = $request->name;
