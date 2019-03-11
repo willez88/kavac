@@ -10,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Budget\Models\BudgetProject;
 use Modules\Budget\Models\BudgetCentralizedAction;
 use Modules\Budget\Models\BudgetSpecificAction;
+use Modules\Budget\Models\BudgetSubSpecificFormulation;
 
 /**
  * @class BudgetSpecificActionController
@@ -212,10 +213,12 @@ class BudgetSpecificActionController extends Controller
      * Obtiene las acciones específicas registradas
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @param  integer $id Identificador de la acción centralizada a buscar, este parámetro es opcional
+     * @param  string  $type   Identifica si la acción a buscar es por proyecto o acción centralizada
+     * @param  integer $id     Identificador de la acción centralizada a buscar, este parámetro es opcional
+     * @param  string  $source Fuente de donde se realiza la consulta
      * @return JSON        JSON con los datos de las acciones específicas
      */
-    public function getSpecificActions($type, $id)
+    public function getSpecificActions($type, $id, $source = null)
     {
         $data = [['id' => '', 'text' => 'Seleccione...']];
         if ($type==="Project") {
@@ -224,12 +227,19 @@ class BudgetSpecificActionController extends Controller
         else if ($type == "CentralizedAction") {
             $specificActions = BudgetCentralizedAction::find($id)->specific_actions()->get();
         }
-        
+
         foreach ($specificActions as $specificAction) {
-            array_push($data, [
-                'id' => $specificAction->id,
-                'text' => $specificAction->code . " - " . $specificAction->name
-            ]);
+            /** Valida si la acción específica ya fue formulada para el último presupuesto */
+            $existsFormulation = BudgetSubSpecificFormulation::where([
+                'budget_specific_action_id' => $specificAction->id
+            ])->orderBy('year', 'desc')->first();
+
+            if (!$existsFormulation) {
+                array_push($data, [
+                    'id' => $specificAction->id,
+                    'text' => $specificAction->code . " - " . $specificAction->name
+                ]);
+            }
         }
 
         return response()->json($data);

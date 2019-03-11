@@ -548,8 +548,10 @@
 				this.specific_actions = [];
 
 				if (id) {
-					axios.get('/budget/get-specific-actions/' + type + "/" + id).then(response => {
+					axios.get('/budget/get-specific-actions/' + type + "/" + id + "/formulation").then(response => {
 						this.specific_actions = response.data;
+					}).catch(error => {
+						console.log(error);
 					});
 				}
 
