@@ -9,11 +9,12 @@ class AccountingAccount extends Model
     protected $fillable = [
 		'group',
 		'sub_group',
-		'rubro',
+		'item',
 		'account',
 		'first_sub_account',
 		'second_sub_account',
 		'denomination',
-		'active'
+		'active',
+		'inactivity_date'
 	];
 }

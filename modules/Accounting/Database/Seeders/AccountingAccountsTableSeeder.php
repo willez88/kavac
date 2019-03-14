@@ -4421,25 +4421,18 @@ class AccountingAccountsTableSeeder extends Seeder
 
         DB::transaction(function() use ($accounting_acounts) {
             foreach ($accounting_acounts as $account) {
-                //$parent = BudgetAccount::getParent(
-                //    $account["group"], $account["item"], $account["generic"], $account["specific"], $account["subspecific"]
-                //);
-
-                AccountingAccounts::updateOrCreate(
-                    [
+                DB::table('accounting_accounts')->insert([
                         "group" => $account["group"],
                         "sub_group" => $account["sub_group"],
-                        "item" => $account["item"], "account" => $account["account"],
+                        "item" => $account["item"],
+                        "account" => $account["account"],
                         "first_sub_account" => $account["first_sub_account"],
                         "second_sub_account" => $account["second_sub_account"],
                         "denomination" => $account["denomination"],
                         "active" => $account["active"],
                         "inactivity_date" => (!$account["active"])?date("Y-m-d"):null,
-                    ]
-                );
+                ]);
             }
         });
-
-        // $this->call("OthersTableSeeder");
     }
 }

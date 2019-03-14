@@ -17,7 +17,7 @@ class CreateAccountingAccountsTable extends Migration
             $table->increments('id');
             $table->char('group', 1)->comment('Grupo al que pertenece la cuenta');
             $table->char('sub_group', 1)->comment('SubGrupo al que pertenece la cuenta');
-            $table->char('rubro', 1)->comment('Rubro al que pertenece la cuenta');
+            $table->char('item', 1)->comment('Rubro al que pertenece la cuenta');
             $table->char('account', 2)->comment('Numero de cuenta al que pertenece');
             $table->char('first_sub_account', 2)->comment('Numero de subcuenta de primer orden');
             $table->char('second_sub_account', 2)->comment('Numero de subcuenta de segundo orden');

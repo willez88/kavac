@@ -11,18 +11,20 @@
     },
     "devDependencies": {
         "axios": "^0.17",
-        "bootstrap": "^4.0.0",
-        "cross-env": "^5.1",
+        "bootstrap": "^4.3.1",
+        "cross-env": "^5.2.0",
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
-        "lodash": "^4.17.4",
-        "popper.js": "^1.14.1",
-        "vue": "^2.5.7"
+        "lodash": "^4.17.11",
+        "popper.js": "^1.14.7",
+        "vue": "^2.6.9"
     },
     "dependencies": {
         "bootbox": "^4.4.0",
-        "bootstrap-fileinput": "^4.4.7",
+        "bootstrap-fileinput": "^4.5.2",
         "jquery.complexify": "^0.5.2",
+        "node-sass": "^4.11.0",
+        "now-ui-kit": "^1.1.0",
         "select2": "^4.0.6-rc.1",
         "vue-tables-2": "^1.4.70"
     }
