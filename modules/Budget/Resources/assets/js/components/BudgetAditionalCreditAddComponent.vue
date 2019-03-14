@@ -55,16 +55,14 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-12">
+							<div class="col-6">
 								<div class="form-group is-required">
 									<label>Acción Específica:</label>
 									<select2 :options="specific_actions" @input="getAccounts" 
 											 v-model="budget_specific_action_id"/>
 			                    </div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-12">
+							<div class="col-6">
 								<div class="form-group is-required">
 									<label>Cuenta:</label>
 									<select2 :options="accounts" 
@@ -205,7 +203,24 @@
 				vm.reset();
 			},
 			deleteAccount(index) {
-
+				let vm = this;
+				bootbox.confirm({
+					title: "Eliminar cuenta?",
+					message: "Esta seguro de eliminar esta cuenta para el registro del crédito adicional?",
+					buttons: {
+						cancel: {
+							label: '<i class="fa fa-times"></i> Cancelar'
+						},
+						confirm: {
+							label: '<i class="fa fa-check"></i> Confirmar'
+						}
+					},
+					callback: function (result) {
+						if (result) {
+							vm.aditional_credit_accounts.splice(index, 1);
+						}
+					}
+				});
 			},
 			getAccounts: function() {
 				const vm = this;

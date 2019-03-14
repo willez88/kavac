@@ -24,12 +24,11 @@
 					<h6 class="card-title">Formulación de Presupuesto</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.print', ['print' => []])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					{{-- Inclusión de botones para acciones --}}
-					@include('layouts.action-buttons', ['print' => []])
 					<h5 class="card-title text-center">Oficina de programación y Presupuesto</h5>
 					<h6 class="card-title text-center">Presupuesto de Gastos por Sub Específicas</h6>
 					<div class="row form-group">

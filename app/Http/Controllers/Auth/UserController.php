@@ -150,7 +150,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        if (auth()->user()->id === $user->id) {
+            return response()->json(['result' => false, 'message' => 'Usted no puede eliminarse a si mismo'], 200);
+        }
+
+        $user->delete();
+        return response()->json(['record' => $tax, 'message' => 'Success'], 200);
     }
 
     /**

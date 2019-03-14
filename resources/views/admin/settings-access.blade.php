@@ -97,6 +97,7 @@
 						</table>
 					</div>
 					<div class="card-footer text-right">
+						@include('buttons.form-display', ['hide_clear' => true, 'hide_previous' => true])
 						@include('layouts.form-buttons', ['hide_clear' => true, 'hide_previous' => true])
 					</div>
 				{!! Form::close() !!}
@@ -119,9 +120,9 @@
 					<table class="table table-hover table-striped dt-responsive datatable">
 						<thead>
 							<tr class="text-center">
-								<th>Usuario</th>
-								<th>Unidad / Departamento</th>
-								<th>Acciones</th>
+								<th class="col-md-3">Usuario</th>
+								<th class="col-md-7">Unidad / Departamento</th>
+								<th class="col-md-2">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -129,7 +130,16 @@
 								<tr>
 									<td>{{ $user->username }}</td>
 									<td></td>
-									<td></td>
+									<td class="text-center">
+										{!! Form::button('<i class="fa fa-info-circle"></i>', [
+	                                        'class' => 'btn btn-info btn-xs btn-icon btn-action',
+	                                        'data-toggle' => 'tooltip', 'type' => 'button', 
+	                                        'onclick' => 'view_user_info('.$user->id.')',
+	                                        'title' => 'Ver información del usuario',
+	                                    ]) !!}
+	                                    @include('buttons.edit', ['route' => route('users.edit', $user->id)])
+	                                    @include('buttons.delete', ['route' => route('users.destroy', $user->id)])
+									</td>
 								</tr>
 							@endforeach
 						</tbody>

@@ -58,22 +58,22 @@
 				<table class="table table-hover table-striped dt-responsive nowrap datatable">
 					<thead>
 						<tr class="text-center">
-							<th class="col-md-2">Fecha</th>
+							<th class="col-md-1">Fecha</th>
 							<th class="col-md-4">Módulo</th>
-							<th class="col-md-4">Registro</th>
-							<th class="col-md-2">Acción</th>
+							<th class="col-md-6">Registro</th>
+							<th class="col-md-1">Acción</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach ($trashed as $model => $trash)
 							@foreach ($trash as $reg)
 								<tr>
-									<td>{{ $reg->deleted_at->format('d-m-Y') }}</td>
+									<td class="text-center">{{ $reg->deleted_at->format('d-m-Y') }}</td>
 									<td>{{ $model }}</td>
 									<td>
 										@foreach ($reg->getAttributes() as $attr => $value)
 											@if ($attr !== 'created_at' && $attr !== 'updated_at' && $attr !== 'deleted_at' && $attr !== 'id')
-												<p>{{ $value }}</p>
+												<div class="col-12"><b>{{ $attr }}:</b> {{ $value }}</div>
 											@endif
 										@endforeach
 									</td>
@@ -81,7 +81,8 @@
 										{!! Form::button('<i class="fa fa-check"></i>', [
 	                                        'class' => 'btn btn-success btn-xs btn-icon btn-round',
 	                                        'data-toggle' => 'tooltip', 
-	                                        'onclick' => 'undelete_record("restore/' . Illuminate\Support\Facades\Crypt::encryptString($model) . '/' . $reg->id . '")',
+	                                        'onclick' => 'undelete_record("restore/' . 
+	                                        			 Illuminate\Support\Facades\Crypt::encryptString($model) . '/' . $reg->id . '")',
 	                                        'title' => 'Restaurar registro',
 	                                    ]) !!}
 									</td>

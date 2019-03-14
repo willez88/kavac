@@ -23,6 +23,7 @@
 				<div class="card-header">
 					<h6 class="card-title">Usuario ({{ $user->name }}) - Roles y Permisos</h6>
 					<div class="card-btns">
+						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -34,6 +35,7 @@
 						@include('auth.roles-permissions', ['user' => $user])
 					</div>
 					<div class="card-footer text-right">
+						@include('buttons.form-display')
 						@include('layouts.form-buttons')
 					</div>
 				{!! Form::close() !!}

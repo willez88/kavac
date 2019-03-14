@@ -54,12 +54,12 @@
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				class="btn btn-warning btn-xs btn-icon btn-action" 
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
 		                		<button @click="deleteRecord(props.index, 'cities')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
+										class="btn btn-danger btn-xs btn-icon btn-action" 
 										title="Eliminar registro" data-toggle="tooltip" 
 										type="button">
 									<i class="fa fa-trash-o"></i>
@@ -123,6 +123,11 @@
 			};
 			this.table_options.sortable = ['estate.name', 'name'];
 			this.table_options.filterable = ['estate.name', 'name'];
+			this.table_options.columnsClasses = {
+				'estate.name': 'col-md-3',
+				'name': 'col-md-7',
+				'id': 'col-md-2'
+			};
 
 			this.getCountries();
 

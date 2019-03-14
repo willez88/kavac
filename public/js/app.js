@@ -34614,7 +34614,7 @@ Vue.component('select2', __webpack_require__(242));
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('buttons-display', __webpack_require__(248));
+Vue.component('buttonsDisplay', __webpack_require__(248));
 
 /**
  * Componente para la gestión de estados civiles
@@ -34878,6 +34878,14 @@ Vue.mixin({
     * seleccionarlo en el formulario en el caso de que se encuentre activado en BD
     */
 			$.each(vm.record, function (el, value) {
+				if ($("input[name=" + el + "]").hasClass('bootstrap-switch')) {
+					/** verifica los elementos bootstrap-switch para seleccionar el que corresponda según los registros del sistema */
+					$("input[name=" + el + "]").each(function () {
+						if ($(this).val() === value) {
+							$(this).bootstrapSwitch('state', value, true);
+						}
+					});
+				}
 				if (value === true || value === false) {
 					$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
 				}
@@ -71216,18 +71224,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
-    reset: function reset() {}
-  },
-  mounted: function mounted() {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 50) {
-        $('.btn-display').fadeIn();
-      } else {
-        $('.btn-display').fadeOut();
-      }
-    });
-  }
+    mounted: function mounted() {
+        /** 
+         * Muestra los botones cuando se baja el scroll de la pantalla a una altura predeterminada y 
+         * los oculta cuando dicha altura es menor a la indicada
+         */
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('.btn-display').fadeIn();
+            } else {
+                $('.btn-display').fadeOut();
+            }
+        });
+        console.log(this.$parent);
+    }
 });
 
 /***/ }),
@@ -71248,7 +71258,7 @@ var render = function() {
           "data-toggle": "tooltip",
           title: "Borrar datos del formulario"
         },
-        on: { click: _vm.reset }
+        on: { click: _vm.$parent.reset }
       },
       [_c("i", { staticClass: "fa fa-eraser" })]
     ),
@@ -71264,7 +71274,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            _vm.redirect_back(_vm.route_list)
+            _vm.$parent.redirect_back(_vm.$parent.route_list)
           }
         }
       },
@@ -71280,11 +71290,7 @@ var render = function() {
           "data-toggle": "tooltip",
           title: "Guardar registro"
         },
-        on: {
-          click: function($event) {
-            _vm.createRecord(_vm.route_create)
-          }
-        }
+        on: { click: _vm.$parent.createRecord }
       },
       [_c("i", { staticClass: "fa fa-save" })]
     )
@@ -71598,7 +71604,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -71617,7 +71623,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -71889,6 +71895,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'acronym'];
 		this.table_options.filterable = ['name', 'acronym'];
+		this.table_options.columnsClasses = {
+			'acronym': 'col-md-2',
+			'name': 'col-md-8',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -72060,7 +72071,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -72079,7 +72090,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -72338,6 +72349,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'acronym'];
 		this.table_options.filterable = ['name', 'acronym'];
+		this.table_options.columnsClasses = {
+			'acronym': 'col-md-2',
+			'name': 'col-md-8',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -72510,7 +72526,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -72529,7 +72545,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -72788,6 +72804,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name'];
 		this.table_options.filterable = ['name'];
+		this.table_options.columnsClasses = {
+			'name': 'col-md-10',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -72930,7 +72950,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -72949,7 +72969,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -73219,6 +73239,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'prefix'];
 		this.table_options.filterable = ['name', 'prefix'];
+		this.table_options.columnsClasses = {
+			'prefix': 'col-md-1',
+			'name': 'col-md-9',
+			'id': 'col-md-2'
+		};
 	}
 });
 
@@ -73390,7 +73415,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -73409,7 +73434,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -73680,6 +73705,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['country.name', 'name', 'code'];
 		this.table_options.filterable = ['country.name', 'name', 'code'];
+		this.table_options.columnsClasses = {
+			'country.name': 'col-md-3',
+			'name': 'col-md-6',
+			'code': 'col-md-1',
+			'id': 'col-md-2'
+		};
 
 		this.getCountries();
 	}
@@ -73875,7 +73906,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -73894,7 +73925,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -74175,6 +74206,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['estate.name', 'name', 'code'];
 		this.table_options.filterable = ['estate.name', 'name', 'code'];
+		this.table_options.columnsClasses = {
+			'estate.name': 'col-md-3',
+			'name': 'col-md-6',
+			'code': 'col-md-1',
+			'id': 'col-md-2'
+		};
 
 		this.getCountries();
 	}
@@ -74393,7 +74430,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -74412,7 +74449,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -74685,6 +74722,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['estate.name', 'name'];
 		this.table_options.filterable = ['estate.name', 'name'];
+		this.table_options.columnsClasses = {
+			'estate.name': 'col-md-3',
+			'name': 'col-md-7',
+			'id': 'col-md-2'
+		};
 
 		this.getCountries();
 	}
@@ -74870,7 +74912,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -74889,7 +74931,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -75181,6 +75223,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['municipality.name', 'name', 'code'];
 		this.table_options.filterable = ['municipality.name', 'name', 'code'];
+		this.table_options.columnsClasses = {
+			'municipality.name': 'col-md-3',
+			'name': 'col-md-6',
+			'code': 'col-md-1',
+			'id': 'col-md-2'
+		};
 
 		this.getCountries();
 	}
@@ -75422,7 +75470,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -75441,7 +75489,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -76241,7 +76289,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -76260,7 +76308,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -76618,6 +76666,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'description', 'histories.operation_date', 'histories.percentage'];
 		this.table_options.filterable = ['name', 'description', 'histories.operation_date', 'histories.percentage'];
+		this.table_options.columnsClasses = {
+			'name': 'col-md-2',
+			'description': 'col-md-3',
+			'histories.operation_date': 'col-md-2',
+			'histories.percentage': 'col-md-2',
+			'active': 'col-md-1',
+			'id': 'col-md-2'
+		};
 	},
 	mounted: function mounted() {
 		this.switchHandler('affect_tax');
@@ -76996,7 +77052,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -77015,7 +77071,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -77300,6 +77356,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['start_date', 'end_date', 'value'];
 		this.table_options.filterable = ['start_date', 'end_date', 'value'];
+		this.table_options.columnsClasses = {
+			'start_date': 'col-md-2',
+			'end_date': 'col-md-2',
+			'value': 'col-md-4',
+			'active': 'col-md-2',
+			'id': 'col-md-2'
+		};
 	},
 	mounted: function mounted() {
 		this.switchHandler('active');
@@ -77580,7 +77643,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -77599,7 +77662,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -77914,6 +77977,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['institution.name', 'parent.name', 'acronym', 'name'];
 		this.table_options.filterable = ['institution.name', 'parent.name', 'acronym', 'name'];
+		this.table_options.columnsClasses = {
+			'institution.name': 'col-md-2',
+			'parent.name': 'col-md-2',
+			'acronym': 'col-md-2',
+			'name': 'col-md-3',
+			'active': 'col-md-1',
+			'id': 'col-md-2'
+		};
 
 		this.getInstitutions();
 		this.getDepartments();
@@ -78388,7 +78459,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -78407,7 +78478,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -78709,6 +78780,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 		this.table_options.sortable = ['name', 'symbol', 'country.name'];
 		this.table_options.filterable = ['name', 'symbol', 'country.name'];
+		this.table_options.columnsClasses = {
+			'country.name': 'col-md-3',
+			'symbol': 'col-md-1',
+			'name': 'col-md-5',
+			'default': 'col-md-1',
+			'id': 'col-md-2'
+		};
 		this.getCountries();
 	},
 	mounted: function mounted() {
@@ -79013,7 +79091,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-warning btn-xs btn-icon btn-round",
+                                  "btn btn-warning btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Modificar registro",
                                   "data-toggle": "tooltip",
@@ -79032,7 +79110,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn-xs btn-icon btn-round",
+                                  "btn btn-danger btn-xs btn-icon btn-action",
                                 attrs: {
                                   title: "Eliminar registro",
                                   "data-toggle": "tooltip",
@@ -79370,7 +79448,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-warning btn-xs btn-icon btn-round",
+                staticClass: "btn btn-warning btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Modificar registro",
                   "data-toggle": "tooltip",
@@ -79388,7 +79466,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-danger btn-xs btn-icon btn-round",
+                staticClass: "btn btn-danger btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
@@ -79558,7 +79636,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-warning btn-xs btn-icon btn-round",
+                staticClass: "btn btn-warning btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Modificar registro",
                   "data-toggle": "tooltip",
@@ -79576,7 +79654,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-danger btn-xs btn-icon btn-round",
+                staticClass: "btn btn-danger btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
@@ -79772,7 +79850,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-warning btn-xs btn-icon btn-round",
+                staticClass: "btn btn-warning btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Modificar registro",
                   "data-toggle": "tooltip",
@@ -79790,7 +79868,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-danger btn-xs btn-icon btn-round",
+                staticClass: "btn btn-danger btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
@@ -79985,7 +80063,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-warning btn-xs btn-icon btn-round",
+                staticClass: "btn btn-warning btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Modificar registro",
                   "data-toggle": "tooltip",
@@ -80003,7 +80081,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-danger btn-xs btn-icon btn-round",
+                staticClass: "btn btn-danger btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
@@ -80211,7 +80289,7 @@ var render = function() {
                     attrs: {
                       title: "Ver registro",
                       "data-toggle": "tooltip",
-                      "data-placement": "top",
+                      "data-placement": "bottom",
                       type: "button"
                     },
                     on: {
@@ -80233,7 +80311,7 @@ var render = function() {
                     attrs: {
                       title: "Modificar registro",
                       "data-toggle": "tooltip",
-                      "data-placement": "top",
+                      "data-placement": "bottom",
                       type: "button"
                     },
                     on: {
@@ -80254,7 +80332,7 @@ var render = function() {
                 attrs: {
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
-                  "data-placement": "top",
+                  "data-placement": "bottom",
                   type: "button"
                 },
                 on: {
@@ -81014,7 +81092,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    *
    * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
    */
-		createFormulation: function createFormulation() {
+		createRecord: function createRecord() {
 			var vm = this;
 			/** Filtra las cuentas bloqueadas para solo lectura (cuentas de nivel superior) */
 			var lock_acc = vm.records.filter(function (account) {
@@ -82104,7 +82182,9 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("buttons-display")
+        _c("buttonsDisplay", {
+          attrs: { route_list: "/budget/subspecific-formulations" }
+        })
       ],
       1
     ),
@@ -82151,7 +82231,7 @@ var render = function() {
             "data-toggle": "tooltip",
             title: "Guardar registro"
           },
-          on: { click: _vm.createFormulation }
+          on: { click: _vm.createRecord }
         },
         [_c("i", { staticClass: "fa fa-save" })]
       )
@@ -82598,8 +82678,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -82693,7 +82771,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			$('.close').click();
 			vm.reset();
 		},
-		deleteAccount: function deleteAccount(index) {},
+		deleteAccount: function deleteAccount(index) {
+			var vm = this;
+			bootbox.confirm({
+				title: "Eliminar cuenta?",
+				message: "Esta seguro de eliminar esta cuenta para el registro del crédito adicional?",
+				buttons: {
+					cancel: {
+						label: '<i class="fa fa-times"></i> Cancelar'
+					},
+					confirm: {
+						label: '<i class="fa fa-check"></i> Confirmar'
+					}
+				},
+				callback: function callback(result) {
+					if (result) {
+						vm.aditional_credit_accounts.splice(index, 1);
+					}
+				}
+			});
+		},
 
 		getAccounts: function getAccounts() {
 			var vm = this;
@@ -82834,7 +82931,7 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "col-6" }, [
                     _c(
                       "div",
                       { staticClass: "form-group is-required" },
@@ -82855,11 +82952,9 @@ var render = function() {
                       ],
                       1
                     )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6" }, [
                     _c(
                       "div",
                       { staticClass: "form-group is-required" },

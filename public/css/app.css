@@ -26344,6 +26344,7 @@ table td {
   bottom: 10px;
   right: 80px;
   display: none;
+  z-index: 99;
 }
 
 /** Efectos para mostrar u ocultar las opciones del menú del panel izquierdo */
@@ -28185,6 +28186,10 @@ a .btn-simplex:hover {
   display: inline-block;
   min-width: 200px;
   margin-bottom: 5px;
+}
+
+.bootbox.modal .modal-title {
+  margin-top: 0px !important;
 }
 
 .bootbox.modal .modal-footer button {

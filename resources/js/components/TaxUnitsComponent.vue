@@ -67,12 +67,12 @@
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				class="btn btn-warning btn-xs btn-icon btn-action" 
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
 		                		<button @click="deleteRecord(props.index, 'tax-units')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
+										class="btn btn-danger btn-xs btn-icon btn-action" 
 										title="Eliminar registro" data-toggle="tooltip" 
 										type="button">
 									<i class="fa fa-trash-o"></i>
@@ -138,6 +138,13 @@
 			};
 			this.table_options.sortable = ['start_date', 'end_date', 'value'];
 			this.table_options.filterable = ['start_date', 'end_date', 'value'];
+			this.table_options.columnsClasses = {
+				'start_date': 'col-md-2',
+				'end_date': 'col-md-2',
+				'value': 'col-md-4',
+				'active': 'col-md-2',
+				'id': 'col-md-2'
+			};
 		},
 		mounted() {
 			this.switchHandler('active');

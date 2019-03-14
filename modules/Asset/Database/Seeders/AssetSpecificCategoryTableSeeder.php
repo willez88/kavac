@@ -1678,7 +1678,7 @@ class AssetSpecificcategoryTableSeeder extends Seeder
 
             $asset_subcategory = AssetSubcategory::where('id',$key)->first();
             foreach ($specific_categories as $code => $specific_cat) {
-                AssetSpecificCategory::UpdateorCreate([
+                AssetSpecificCategory::updateOrCreate([
                     'code' => $code,
                     'name' => $specific_cat,
                     'asset_subcategory_id' => $asset_subcategory->id],[]);
