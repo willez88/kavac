@@ -10,9 +10,13 @@ use Modules\Accounting\Models\AccountingAccounts;
 class AccountingAccountsTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * @class AccountingAccountsTableSeeder
+     * @brief Información por defecto para cuentas patrimoniales
+     * 
+     * Gestiona la información por defecto y la registra inicialmente para las cuentas patrimoniales
+     * 
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
      */
     public function run()
     {
