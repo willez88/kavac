@@ -9,7 +9,7 @@
 @stop
 
 @section('maproute-actual')
-	Patrimoniales
+	Contabilidad
 @stop
 
 @section('maproute-title')
@@ -21,15 +21,14 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Catálogo de Cuentas Presupuestarias</h6>
+					<h6 class="card-title">Catálogo de Cuentas Patrimoniales</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						<!-- @include('buttons.new', ['route' => route('budget.accounts.create')]) -->
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-acounts-list :account_list = "{{ $account_list }}" />
+					<accounting-accounts-list :accountslist="{{$accounts_list}}"/>
 				</div>
 			</div>
 		</div>

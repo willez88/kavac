@@ -16,11 +16,11 @@ class CreateAccountingAccountsTable extends Migration
         Schema::create('accounting_accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->char('group', 1)->comment('Grupo al que pertenece la cuenta');
-            $table->char('sub_group', 1)->comment('SubGrupo al que pertenece la cuenta');
+            $table->char('subgroup', 1)->comment('SubGrupo al que pertenece la cuenta');
             $table->char('item', 1)->comment('Rubro al que pertenece la cuenta');
-            $table->char('account', 2)->comment('Numero de cuenta al que pertenece');
-            $table->char('first_sub_account', 2)->comment('Numero de subcuenta de primer orden');
-            $table->char('second_sub_account', 2)->comment('Numero de subcuenta de segundo orden');
+            $table->char('generic', 2)->comment('Numero de cuenta al que pertenece');
+            $table->char('specific', 2)->comment('Numero de subcuenta de primer orden');
+            $table->char('subspecific', 2)->comment('Numero de subcuenta de segundo orden');
             $table->text('denomination')->comment('Descripción de la cuenta');
 
             $table->boolean('active')->default(true)->comment('Indica si la cuenta esta activa');

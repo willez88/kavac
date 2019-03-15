@@ -22,9 +22,11 @@
     "dependencies": {
         "bootbox": "^4.4.0",
         "bootstrap-fileinput": "^4.5.2",
+        "gifsicle": "^4.0.1",
         "jquery.complexify": "^0.5.2",
         "node-sass": "^4.11.0",
         "select2": "^4.0.6-rc.1",
-        "vue-tables-2": "^1.4.70"
+        "vue-tables-2": "^1.4.70",
+        "vue-template-compiler": "^2.6.9"
     }
 }

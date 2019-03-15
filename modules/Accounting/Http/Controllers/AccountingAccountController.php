@@ -24,9 +24,18 @@ class AccountingAccountController extends Controller
      */
     public function index()
     {
-        $account_list = AccountingAccount::all();
-        return view('accounting::index',
-               compact('account_list', 'account_list'));
+        $accounts_list = [];
+
+        foreach (AccountingAccount::all() as $AccountingAccount) {
+            array_push($accounts_list, [
+                'code' => $AccountingAccount->code,
+                'denomination' => $AccountingAccount->denomination,
+                'active'=> $AccountingAccount->active,
+            ]);
+        }
+        $accounts_list = json_encode($accounts_list);
+        return view('accounting::accounts.index',
+               compact('accounts_list'));
     }
 
     /**
