@@ -163,15 +163,8 @@
 
 				        <div class="col-md-6">
 							<div class="form-group">
-								<!--<label>Activo</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="active"
-									disabled="true">-->
-
-									<label for="active">Activo</label>
-									<input id="active" class="form-control bootstrap-switch" name="active" type="checkbox" disabled>
+								<label for="active">Activo</label>
+								<input id="active" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO" name="active" type="checkbox">
 							</div>
 						</div>
 
@@ -334,15 +327,22 @@
 	<script type="text/javascript">
 		var records;
 		function openmodal($staff) {
-			axios.get("/payroll/staffs/info/" + $staff).then(response => {
+			axios.get("/payroll/staffs/" + $staff).then(response => {
 				records = response.data.record;
 				$(".modal-body #code").val( records.code );
 				$(".modal-body #first_name").val( records.first_name );
 				$(".modal-body #last_name").val( records.last_name );
 				$(".modal-body #birthdate").val( records.birthdate );
 				$(".modal-body #sex").val( records.sex );
-				$(".modal-body #email").val( records.email );;
-				$(".modal-body #active").val( records.active );
+				$(".modal-body #email").val( records.email );
+				if(records.active)
+				{
+					$('#active').bootstrapSwitch('state', true);
+				}
+				else
+				{
+					$('#active').bootstrapSwitch('state', false);
+				}
 				$(".modal-body #website").val( records.website );
 				$(".modal-body #direction").val( records.direction );
 				$(".modal-body #sons").val( records.sons );

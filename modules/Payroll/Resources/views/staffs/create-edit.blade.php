@@ -60,11 +60,11 @@
 						        </div>
 						    </div>
 							<div class="col-md-4">
-						        <div class="form-group {{ $errors->has('nacionality') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('nationality', 'Nacionalidad', []) !!}
-						            {!! Form::text('nationality',(isset($staff))?$staff->nationality:old('nationality'),
+						        <div class="form-group {{ $errors->has('nationality_id') ? ' has-error' : '' }} is-required">
+									{!! Form::label('nationality_id', 'Nacionalidad', []) !!}
+						            {!! Form::select('nationality_id',(isset($nationalities))?$nationalities:[], null,
 						                [
-						                    'class' => 'form-control input-sm',
+						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
 						                    'title' => 'Indique la nacionalidad'
 						                ]
@@ -242,8 +242,6 @@
 						            {!! Form::label('country_id', 'País', []) !!}
 						            {!! Form::select('country_id',(isset($countries))?$countries:[], null,
 						                [
-											'v-model' => 'country_id',
-											'onchange' => 'updateSelect(country_id, estate_id, Estate)',
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
 						                    'title' => 'Indique el país donde vive'

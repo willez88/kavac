@@ -11,9 +11,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('positions', 'PayrollPositionController', ['except' => ['show']]);
     Route::resource('position-types', 'PayrollPositionTypeController', ['except' => ['show']]);
     Route::resource('staff-classifications', 'PayrollStaffClassificationController', ['except' => ['show']]);
-    Route::resource('staffs', 'PayrollStaffController', ['except' => ['show']]);
-    Route::get('staffs/info/{staff}', 'PayrollStaffController@info');
+    Route::resource('staffs', 'PayrollStaffController');
 
     Route::resource('instruction-degrees', 'PayrollInstructionDegreeController', ['except' => ['show']]);
     Route::resource('study-types', 'PayrollStudyTypeController', ['except' => ['show']]);
+    Route::resource('nationalities', 'PayrollNationalityController', ['except' => ['show']]);
 });

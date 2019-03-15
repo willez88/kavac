@@ -45,7 +45,7 @@ class PayrollStaff extends Model implements Auditable
     protected $fillable = [
         'code', 'first_name', 'last_name', 'birthdate', 'sex', 'email', 'active', 'website', 'direction',
         'sons', 'start_date_public_adm', 'start_date', 'end_date', 'id_number', 'nationality', 'passport',
-        'marital_status_id', 'profession_id', 'city_id'
+        'marital_status_id', 'profession_id', 'city_id', 'nationality_id'
     ];
 
     /**
@@ -110,5 +110,16 @@ class PayrollStaff extends Model implements Auditable
 	public function profession()
     {
         return $this->belongsTo('App\Models\Profession');
+    }
+
+    /**
+     * Método que obtiene la nacionalidad
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return object Objeto con los registros relacionados al modelo PayrollNationality
+     */
+	public function payroll_nationality()
+    {
+        return $this->belongsTo('Modules\Payroll\Models\PayrollNationality');
     }
 }
