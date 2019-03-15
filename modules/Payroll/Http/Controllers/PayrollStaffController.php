@@ -16,7 +16,6 @@ use App\Models\City;
 use Modules\Payroll\Models\PayrollNationality;
 use App\Models\CodeSetting;
 use App\Helpers\Helper;
-use App\Rules\CodeSetting as CodeSettingRule;
 
 /**
  * @class PayrollStaffController
@@ -89,7 +88,7 @@ class PayrollStaffController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code' => [new CodeSettingRule],
+            'code' => 'required',
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'birthdate' => 'required|date',
@@ -255,39 +254,5 @@ class PayrollStaffController extends Controller
             return response()->json(['result' => true]);
         }
         return redirect()->route('staffs.index');
-    }
-
-    /**
-     * Muesta el detalle completo de los datos de un personal
-     *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return [<b>\Illuminate\Http\Response</b>] $response Retorna el json de un registro de personal
-     */
-    public function info(PayrollStaff $staff)
-    {
-
-        $staff = PayrollStaff::findorfail($staff->id);
-        $this->data[] = [
-            'code' => $staff->code,
-            'first_name' => $staff->first_name,
-            'last_name' => $staff->last_name,
-            'birthdate' => $staff->birthdate,
-            'sex' => $staff->sex,
-            'email' => $staff->email,
-            'active' => $staff->active,
-            'website' => $staff->website,
-            'direction' => $staff->direction,
-            'sons' => $staff->sons,
-            'start_date_public_adm' => $staff->start_date_public_adm,
-            'start_date' => $staff->start_date,
-            'end_date' => $staff->end_date,
-            'id_number' => $staff->id_number,
-            'nationality' => $staff->payroll_nationality->demonym,
-            'passport' => $staff->passport,
-            'marital_status' => $staff->marital_status->name,
-            'profession' => $staff->profession->name,
-            'city' => $staff->city->name
-        ];
-        return response()->json(['record' => $this->data[0]]);
     }
 }

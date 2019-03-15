@@ -242,8 +242,6 @@
 						            {!! Form::label('country_id', 'País', []) !!}
 						            {!! Form::select('country_id',(isset($countries))?$countries:[], null,
 						                [
-											'v-model' => 'country_id',
-											'@change' => 'getEstates()',
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
 						                    'title' => 'Indique el país donde vive'
