@@ -32,6 +32,7 @@
 				{!! Form::open(['route' => 'payroll.settings.store', 'method' => 'post']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
+						@include('layouts.form-errors')
 						<div class="row">
 							<div class="col-12">
 								<h6>Personal</h6>
@@ -124,6 +125,15 @@
 							   data-toggle="tooltip">
 								<i class="icofont icofont-education ico-3x"></i>
 								<span>Tipo de<br>Estudio</span>
+							</a>
+						</div>
+						{{-- Configuración de la nacionalidad --}}
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('nationalities.index') }}" title="Registro de nacionalidades"
+							   data-toggle="tooltip">
+								<i class="icofont icofont-id-card ico-3x"></i>
+								<span>Nacionalidad</span>
 							</a>
 						</div>
 					</div>

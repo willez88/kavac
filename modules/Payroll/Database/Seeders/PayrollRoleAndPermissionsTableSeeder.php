@@ -207,6 +207,31 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollStudyType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.estudio.eliminar'
             ],
+            // nationalities
+            [
+                'name' => 'Ver la nacionalidad', 'slug' => 'payroll.nationalities.index',
+                'description' => 'Acceso para ver la nacionalidad',
+                'model' => 'Modules\Payroll\Models\PayrollNationality', 'model_prefix' => 'nomina',
+                'slug_alt' => 'nacionalidad.ver'
+            ],
+            [
+                'name' => 'Crear la nacionalidad', 'slug' => 'payroll.nationalities.create',
+                'description' => 'Acceso para crear la nacionalidad',
+                'model' => 'Modules\Payroll\Models\PayrollNationality', 'model_prefix' => 'nomina',
+                'slug_alt' => 'nacionalidad.crear'
+            ],
+            [
+                'name' => 'Editar la nacionalidad', 'slug' => 'payroll.nationalities.edit',
+                'description' => 'Acceso para editar la nacionalidad',
+                'model' => 'Modules\Payroll\Models\PayrollNationality', 'model_prefix' => 'nomina',
+                'slug_alt' => 'nacionalidad.editar'
+            ],
+            [
+                'name' => 'Eliminar la nacionalidad', 'slug' => 'payroll.nationalities.delete',
+                'description' => 'Acceso para eliminar la nacionalidad',
+                'model' => 'Modules\Payroll\Models\PayrollNationality', 'model_prefix' => 'nomina',
+                'slug_alt' => 'nacionalidad.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {

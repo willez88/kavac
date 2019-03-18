@@ -10,7 +10,8 @@
             </a>
         </li>
         <li>
-            <a href="#">Cuentas Patrimoniales</a>
+            <a href="{{ route('accounts.index') }}" data-toggle="tooltip" data-placement="right" 
+               title="Gestión del clasificador de cuentas patrimoniales">Cuentas Patrimoniales</a>
         </li>
         <li>
             <a href="#">Convertidor de Cuentas</a>
