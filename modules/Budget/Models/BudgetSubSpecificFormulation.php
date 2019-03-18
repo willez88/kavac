@@ -93,9 +93,9 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function aditional_credit_accounts()
+    public function modification_accounts()
     {
-        return $this->hasMany(BudgetAditionalCreditAccount::class);
+        return $this->hasMany(BudgetModificationAccount::class);
     }
 
     /**

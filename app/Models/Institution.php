@@ -114,14 +114,14 @@ class Institution extends Model implements Auditable
     }
 
     /**
-     * Institution has many BudgetAditionalCredits.
+     * Institution has many BudgetModification.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_aditional_credits()
+    public function budget_modifications()
     {
         return (Module::has('Budget')) 
-               ? $this->hasMany(\Modules\Budget\Models\BudgetAditionalCredit::class) 
+               ? $this->hasMany(\Modules\Budget\Models\BudgetModification::class) 
                : [];
     }
 }

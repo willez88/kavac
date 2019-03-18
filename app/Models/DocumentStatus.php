@@ -58,4 +58,16 @@ class DocumentStatus extends Model implements Auditable
                ? $this->hasMany(\Modules\Budget\Models\BudgetSubSpecificFormulation::class) 
                : [];
     }
+
+    /**
+     * DocumentStatus has many BudgetModifications.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budget_modifications()
+    {
+        return (Module::has('Budget')) 
+               ? $this->hasMany(\Modules\Budget\Models\BudgetModification::class) 
+               : [];
+    }
 }

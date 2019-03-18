@@ -72,13 +72,13 @@ class BudgetAccount extends Model implements Auditable
     }
 
     /**
-     * BudgetAccount has many BudgetAditionalCreditAccounts.
+     * BudgetAccount has many BudgetModificationAccounts.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function aditional_credit_accounts()
+    public function budget_modification_accounts()
     {
-        return $this->hasMany(BudgetAditionalCreditAccount::class);
+        return $this->hasMany(BudgetModificationAccount::class);
     }
 
     /**
