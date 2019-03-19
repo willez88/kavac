@@ -46,7 +46,7 @@ Vue.component('budget-sub-specific-formulation', require('./components/BudgetSub
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('budget-aditional-credit-list', require('./components/BudgetAditionalCreditListComponent.vue'));
+Vue.component('budget-modification-list', require('./components/BudgetModificationListComponent.vue'));
 
 /**
  * Componente para agregar cuentas al registro o actualización de créditos adicionales

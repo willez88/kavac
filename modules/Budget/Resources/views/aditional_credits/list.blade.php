@@ -29,9 +29,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-aditional-credit-list route_list='{{ url('budget/aditional-credits/vue-list') }}' 
-												  route_delete="{{ url('budget/aditional-credits/delete') }}" 
-												  route_edit="{{ url('budget/aditional-credits/{id}/edit') }}"/>
+					<budget-modification-list route_list='{{ url('budget/aditional-credits/vue-list') }}' 
+											  route_delete="{{ url('budget/aditional-credits/delete') }}" 
+											  route_edit="{{ url('budget/aditional-credits/{id}/edit') }}"/>
 				</div>
 			</div>
 		</div>
