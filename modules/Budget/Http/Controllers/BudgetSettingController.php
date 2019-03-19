@@ -10,6 +10,7 @@ use App\Rules\CodeSetting as CodeSettingRule;
 
 use Modules\Budget\Models\BudgetProject;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
+use Modules\Budget\Models\BudgetModification;
 
 /**
  * @class BudgetSettingController
@@ -32,11 +33,13 @@ class BudgetSettingController extends Controller
         $codeSettings = CodeSetting::where('module', 'budget')->get();
         $fCode = $codeSettings->where('table', 'budget_formulations')->first();
         $cCode = $codeSettings->where('table', 'budget_commitments')->first();
-        $tCode = $codeSettings->where('table', 'budget_transfers')->first();
-        $rCode = $codeSettings->where('table', 'budget_reductions')->first();
-        $crCode = $codeSettings->where('table', 'budget_credits')->first();
+
+        $crCode = $codeSettings->where('table', 'budget_modifications')->where('type', 'budget.aditional-credits')->first();
+        $rCode = $codeSettings->where('table', 'budget_modifications')->where('type', 'budget.reductions')->first();
+        $tCode = $codeSettings->where('table', 'budget_modifications')->where('type', 'budget.transfers')->first();
         $caCode = $codeSettings->where('table', 'budget_caused')->first();
         $pCode = $codeSettings->where('table', 'budget_payed')->first();
+        
         return view('budget::settings', compact(
             'projects', 'fCode', 'cCode', 'tCode', 'rCode', 'crCode', 'caCode', 'pCode'
         ));
@@ -82,23 +85,28 @@ class BudgetSettingController extends Controller
                 if ($table === "formulations") {
                     $model = BudgetSubSpecificFormulation::class;
                 }
+                else if (in_array($key, ['transfers_code', 'reductions_code', 'credits_code'])) {
+                    $model = BudgetModification::class;
+                    $table = 'modifications';
+                    if ($key === 'transfers_code') {
+                        $type = 'budget.transfers';
+                    }
+                    else if ($key === 'reductions_code') {
+                        $type = 'budget.reductions';
+                    }
+                    else if ($key === 'credits_code') {
+                        $type = 'budget.aditional-credits';
+                    }
+                }
                 else if ($table === "commitments") {
                     $model .= "Commitment";
-                }
-                else if ($table === "transfers") {
-                    $model .= "Transfer";
-                }
-                else if ($table === "reductions") {
-                    $model .= "Reduction";
-                }
-                else if ($table === "credits") {
-                    $model .= "Credit";
                 }
 
                 CodeSetting::updateOrCreate([
                     'module' => 'budget',
                     'table' => 'budget_' . $table,
                     'field' => $field,
+                    'type' => (isset($type)) ? $type : null
                 ], [
                     'format_prefix' => $prefix,
                     'format_digits' => $digits,

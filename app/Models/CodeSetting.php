@@ -40,7 +40,7 @@ class CodeSetting extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-    	'module', 'model', 'table', 'field', 'active', 'format_prefix', 'format_digits', 'format_year', 'description'
+    	'module', 'model', 'table', 'field', 'active', 'format_prefix', 'format_digits', 'format_year', 'description', 'type'
     ];
 
     /**
