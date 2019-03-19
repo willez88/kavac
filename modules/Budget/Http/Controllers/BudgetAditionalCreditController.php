@@ -112,6 +112,8 @@ class BudgetAditionalCreditController extends Controller
             'document_status_id' => $documentStatus->id
         ]);
 
+        // Buscar la última formulación que contenga la acción específica (budget_specific_action_id)
+
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('budget.aditional-credits.index');
     }

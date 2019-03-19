@@ -26,7 +26,8 @@
 							<td>{{ account.description }}</td>
 							<td class="text-right">{{ account.amount }}</td>
 							<td class="text-center">
-								<input type="hidden" name="budget_account_id[]" :value="account.budget_account_id" readonly>
+								<input type="hidden" name="budget_account_id[]" readonly 
+									   :value="account.budget_specific_action_id + '|' + account.budget_account_id">
 								<a class="btn btn-sm btn-danger btn-action" href="#" @click="deleteAccount(index)"
 								   title="Eliminar este registro" data-toggle="tooltip">
 									<i class="fa fa-minus-circle"></i>
@@ -162,7 +163,8 @@
 					code: '',
 					description: '',
 					amount: 0,
-					budget_account_id: ''
+					budget_account_id: '',
+					budget_specific_action_id: ''
 				};
 
 				if (!vm.budget_specific_action_id) {
@@ -214,6 +216,7 @@
 				
 				to_add.amount = vm.amount;
 				to_add.budget_account_id = vm.budget_account_id;
+				to_add.budget_specific_action_id = vm.budget_specific_action_id;
 				
 				vm.aditional_credit_accounts.push(to_add);
 				$('.close').click();
