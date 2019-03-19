@@ -77,4 +77,12 @@ Route::group([
     Route::resource('aditional-credits', 'BudgetAditionalCreditController', ['as' => 'budget', 'except' => ['show']]);
     Route::get('aditional-credits/vue-list', 'BudgetAditionalCreditController@vueList')
          ->name('budget.aditional-credits.vuelist');
+    /** Rutas para la gestión de reducciones presupuestarias */
+    Route::resource('reductions', 'BudgetReductionController', ['as' => 'budget', 'except' => ['show']]);
+    Route::get('reductions/vue-list', 'BudgetReductionController@vueList')
+         ->name('budget.reductions.vuelist');
+    /** Rutas para la gestión de traspasos presupuestarias */
+    Route::resource('transfers', 'BudgetTransferController', ['as' => 'budget', 'except' => ['show']]);
+    Route::get('transfers/vue-list', 'BudgetTransferController@vueList')
+         ->name('budget.transfers.vuelist');
 });

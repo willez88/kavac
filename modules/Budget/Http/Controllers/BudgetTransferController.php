@@ -9,19 +9,10 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Budget\Models\BudgetModification;
 
-/**
- * @class BudgetAditionalCreditController
- * @brief Controlador de Créditos Adicionales
- * 
- * Clase que gestiona las Créditos Adicionales
- * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
- */
-class BudgetAditionalCreditController extends Controller
+class BudgetTransferController extends Controller
 {
     use ValidatesRequests;
-
+    
     /**
      * Define la configuración de la clase
      *
@@ -30,10 +21,10 @@ class BudgetAditionalCreditController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:budget.aditionalcredit.list', ['only' => 'index', 'vueList']);
-        $this->middleware('permission:budget.aditionalcredit.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:budget.aditionalcredit.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:budget.aditionalcredit.delete', ['only' => 'destroy']);
+        $this->middleware('permission:budget.transfer.list', ['only' => 'index', 'vueList']);
+        $this->middleware('permission:budget.transfer.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:budget.transfer.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:budget.transfer.delete', ['only' => 'destroy']);
     }
 
     /**
@@ -42,8 +33,8 @@ class BudgetAditionalCreditController extends Controller
      */
     public function index()
     {
-        $records = BudgetModification::where('type', 'C')->get();
-        return view('budget::aditional_credits.list');
+        $records = BudgetModification::where('type', 'T')->get();
+        return view('budget::transfers.list');
     }
 
     /**
@@ -53,7 +44,7 @@ class BudgetAditionalCreditController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'budget.aditional-credits.store', 
+            'route' => 'budget.transfers.store', 
             'method' => 'POST', 
             'role' => 'form',
             'class' => 'form-horizontal',
@@ -62,58 +53,64 @@ class BudgetAditionalCreditController extends Controller
             'App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]
         );
 
-        return view('budget::aditional_credits.create-edit-form', compact('header', 'institutions'));
+        return view('budget::transfers.create-edit-form', compact('header', 'institutions'));
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
      * Show the specified resource.
+     * @param int $id
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
         return view('budget::show');
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @param int $id
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('budget::aditional_credits.create-edit-form');
+        return view('budget::edit');
     }
 
     /**
      * Update the specified resource in storage.
-     * @param  Request $request
+     * @param Request $request
+     * @param int $id
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param int $id
      * @return Response
      */
     public function destroy($id)
     {
-        $BudgetAditionalCredit = BudgetModification::find($id);
+        $BudgetTransfer = BudgetModification::find($id);
 
-        if ($BudgetAditionalCredit) {
-            $BudgetAditionalCredit->delete();
+        if ($BudgetTransfer) {
+            $BudgetTransfer->delete();
         }
         
-        return response()->json(['record' => $BudgetAditionalCredit, 'message' => 'Success'], 200);
+        return response()->json(['record' => $BudgetTransfer, 'message' => 'Success'], 200);
     }
 
     /**
@@ -123,7 +120,7 @@ class BudgetAditionalCreditController extends Controller
     public function vueList()
     {
         return response()->json([
-            'records' => BudgetModification::where('type', 'C')->with(['institution', 'budget_modificacion_accounts'])->get()
+            'records' => BudgetModification::where('type', 'T')->with(['institution', 'budget_modificacion_accounts'])->get()
         ], 200);
     }
 }

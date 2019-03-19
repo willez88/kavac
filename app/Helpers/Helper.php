@@ -30,12 +30,20 @@ if (! function_exists('display_submenu')) {
 	 * Define si se expande o contrae las opciones de un submenÚ
 	 *
 	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-	 * @param  string $submenu Nombre del submenu a mostrar u ocultar
-	 * @return string          RetOrna una cadena vacia para contraer las opciones del submenú, 
-	 *                         de lo contrario retorna el css para mostrar el bloque de opciones
+	 * @param  string|array $submenu Nombre del submenu a mostrar u ocultar
+	 * @return string          		 Retorna una cadena vacia para contraer las opciones del submenú, 
+	 *                               de lo contrario retorna el css para mostrar el bloque de opciones
 	 */
 	function display_submenu($submenu)
 	{
+		if (is_array($submenu)) {
+			foreach ($submenu as $sb) {
+				if (strpos(Route::current()->getName(), $sb) !== false) {
+
+					return 'display:block';
+				}
+			}
+		}
 		return (strpos(Route::current()->getName(), $submenu) !== false) ? 'display:block;' : '';
 	}
 }
