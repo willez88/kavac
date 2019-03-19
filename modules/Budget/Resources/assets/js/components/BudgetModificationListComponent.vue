@@ -1,5 +1,11 @@
 <template>
 	<v-client-table :columns="columns" :data="records" :options="table_options">
+		<div slot="institution" slot-scope="props">
+			{{ props.row.institution.acronym }}
+		</div>
+		<div slot="approved_at" slot-scope="props">
+			{{ format_date(props.row.approved_at) }}
+		</div>
 		<div slot="id" slot-scope="props" class="text-center">
 			<button @click="editForm(props.row.id)" 
     				class="btn btn-warning btn-xs btn-icon btn-round" 
@@ -21,20 +27,28 @@
 		data() {
 			return {
 				records: [],
-				columns: ['code', 'credit_date', 'description', 'document', 'institution', 'id']
+				columns: ['code', 'approved_at', 'description', 'document', 'institution', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
-				'credit_date': 'Fecha',
+				'approved_at': 'Fecha',
 				'code': 'Código',
 				'description': 'Descripción',
 				'document': 'Documento',
 				'institution': 'Institución',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['code', 'credit_date', 'description', 'document', 'institution'];
-			this.table_options.filterable = ['code', 'credit_date', 'description', 'document', 'institution'];
+			this.table_options.sortable = ['code', 'approved_at', 'description', 'document', 'institution'];
+			this.table_options.filterable = ['code', 'approved_at', 'description', 'document', 'institution'];
+			this.table_options.columnsClasses = {
+				'approved_at': 'col-md-1',
+				'code': 'col-md-1',
+				'description': 'col-md-4',
+				'document': 'col-md-2',
+				'institution': 'col-md-2',
+				'id': 'col-md-2'
+			};
 		},
 		mounted() {
 			this.initRecords(this.route_list, '');
