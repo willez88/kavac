@@ -13,7 +13,7 @@
 							<th>
 								<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#" 
 								   data-original-title="Agregar nuevo registro" data-toggle="modal"  
-								   data-target="#add_account" v-if="credit_date">
+								   data-target="#add_account" v-if="approved_at">
 									<i class="fa fa-plus-circle"></i>
 								</a>
 							</th>
@@ -26,6 +26,7 @@
 							<td>{{ account.description }}</td>
 							<td class="text-right">{{ account.amount }}</td>
 							<td class="text-center">
+								<input type="hidden" name="budget_account_id[]" :value="account.budget_account_id" readonly>
 								<a class="btn btn-sm btn-danger btn-action" href="#" @click="deleteAccount(index)"
 								   title="Eliminar este registro" data-toggle="tooltip">
 									<i class="fa fa-minus-circle"></i>
@@ -100,7 +101,7 @@
 	export default {
 		data() {
 			return {
-				credit_date: '',
+				approved_at: document.querySelector('#approved_at').value,
 				specific_actions: [],
 				accounts: [{
 					id: '',
@@ -109,7 +110,8 @@
 				budget_specific_action_id: '',
 				budget_account_id: '',
 				amount: 0,
-				aditional_credit_accounts: [],
+				aditional_credit_accounts: (localStorage.aditional_credit_accounts) 
+										   ? JSON.parse(localStorage.aditional_credit_accounts) : [],
 				errors: [],
 			}
 		},
@@ -129,11 +131,23 @@
 
 			vm.reset();
 
-			$("#credit_date").on('change', function() {
-				vm.credit_date = $(this).val();
+			$("#approved_at").on('change', function() {
+				vm.approved_at = $(this).val();
 			});
 		},
 		watch: {
+			/** Monitorea modificaciones a las cuentas agregadas para guardarlas temporalmente en un localStorage */
+			aditional_credit_accounts: {
+				deep: true,
+				handler: function() {
+					if (this.aditional_credit_accounts.length === 0) {
+						localStorage.removeItem('aditional_credit_accounts');
+					}
+					else {
+						localStorage.aditional_credit_accounts = JSON.stringify(this.aditional_credit_accounts);
+					}
+				}
+			}
 		},
 		methods: {
 			reset: function() {
@@ -143,11 +157,12 @@
 			},
 			addAccount: function() {
 				const vm = this;
-				var to_add = {
+				let to_add = {
 					spac_description: '',
 					code: '',
 					description: '',
-					amount: 0
+					amount: 0,
+					budget_account_id: ''
 				};
 
 				if (!vm.budget_specific_action_id) {
@@ -186,6 +201,7 @@
 
 				/** Obtiene datos de la cuenta presupuestaria */
 				axios.get('/budget/detail-accounts/' + vm.budget_account_id).then(response => {
+					console.log(response.data.result)
 					if (response.data.result) {
 						let record = response.data.record;
 						to_add.code = record.group + "." + record.item + "." + record.generic + "." + 
@@ -197,6 +213,7 @@
 				});
 				
 				to_add.amount = vm.amount;
+				to_add.budget_account_id = vm.budget_account_id;
 				
 				vm.aditional_credit_accounts.push(to_add);
 				$('.close').click();

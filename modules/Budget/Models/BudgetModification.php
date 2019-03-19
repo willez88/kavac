@@ -32,7 +32,7 @@ class BudgetModification extends Model implements Auditable
      */
     public function budget_modificacion_accounts()
     {
-    	return $this->hasMany(BudgetModificacionAccount::class);
+    	return $this->hasMany(BudgetModificationAccount::class);
     }
 
     /**

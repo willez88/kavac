@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Budget\Models\BudgetModification;
+use App\Models\DocumentStatus;
+use App\Models\CodeSetting;
 
 /**
  * @class BudgetAditionalCreditController
@@ -72,6 +74,46 @@ class BudgetAditionalCreditController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'approved_at' => 'required|date',
+            'description' => 'required',
+            'document' => 'required',
+            'institution_id' => 'required',
+            'budget_account_id' => 'required|array|min:1'
+        ];
+
+        $messages = [
+            'budget_account_id.required' => 'Las cuentas presupestarias son obligatorias.',
+        ];
+
+        $codeSetting = CodeSetting::where("model", BudgetModification::class)
+                                  ->where('type', 'budget.aditional-credits')->first();
+        if (!$codeSetting) {
+            $rules['code'] = 'required';
+            $message['code.required'] = 'Debe configurar previamente el formato para el código a generar';
+        }
+
+        $this->validate($request, $rules, $messages);
+
+        $documentStatus = DocumentStatus::where('action', 'AP')->first();
+        $code = generate_registration_code(
+            $codeSetting->format_prefix, strlen($codeSetting->format_digits), 
+            (strlen($codeSetting->format_year) === 2) ? date("y") : $year,
+            BudgetModification::class, 'code'
+        );
+
+        $budgetModification = BudgetModification::create([
+            'type' => 'C',
+            'code' => $code,
+            'approved_at' => $request->approved_at,
+            'description' => $request->description,
+            'document' => $request->document,
+            'institution_id' => $request->institution_id,
+            'document_status_id' => $documentStatus->id
+        ]);
+
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('budget.aditional-credits.index');
     }
 
     /**

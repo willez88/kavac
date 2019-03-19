@@ -33,12 +33,12 @@
 						<div class="row">
 							<div class="col-md-2">
 								<div class="form-group is-required">
-									{!! Form::label('credit_date', 'Fecha de creación', [
+									{!! Form::label('approved_at', 'Fecha de creación', [
 										'class' => 'control-label'
 									]) !!}
-									{!! Form::date('credit_date', old('credit_date'), [
+									{!! Form::date('approved_at', old('approved_at'), [
 										'class' => 'form-control input-sm', 'placeholder' => 'dd/mm/YY',
-										'data-toggle' => 'tooltip', 'id' => 'credit_date',
+										'data-toggle' => 'tooltip', 'id' => 'approved_at',
 										'title' => 'Fecha en la que se otorgó el crédito adicional'
 									]) !!}
 								</div>
