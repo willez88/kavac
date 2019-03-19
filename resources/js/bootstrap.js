@@ -25,6 +25,8 @@ try {
     require('select2');
     /** Requerido para el uso del componente vue-tables-2 */
     require('vue-tables-2');
+    /** Requerido para la gestión de fechas y horas */
+    require('moment');
 } catch (e) {}
 
 /**

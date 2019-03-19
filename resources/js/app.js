@@ -131,6 +131,7 @@ Vue.component('currencies', require('./components/CurrenciesComponent.vue'));
 
 /** Incorpora requerimientos de componentes de los módulos de la aplicación */
 require('./modules');
+import moment from 'moment';
 
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
@@ -174,6 +175,26 @@ Vue.mixin({
 		 */
 		redirect_back: function(url) {
 			location.href = url;
+		},
+		/**
+		 * Método que permite dar formato a una fecha
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {string} value Fecha ser formateada
+		 * @return {string}       Fecha con el formato establecido
+		 */
+		format_date: function(value) {
+			return moment(String(value)).format('DD/MM/YYYY');
+		},
+		/**
+		 * Método que permite dar formato con marca de tiempo a una fecha
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {string} value Fecha ser formateada
+		 * @return {string}       Fecha con el formato establecido
+		 */
+		format_timestamp: function(value) {
+			return moment(String(value)).format('DD/MM/YYYY hh:mm:ss');
 		},
 		/**
 		 * Inicializa los registros base del formulario
