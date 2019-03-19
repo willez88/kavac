@@ -8,6 +8,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+use App\Models\DocumentStatus;
+
 /**
  * @class BudgetSubSpecificFormulation
  * @brief Datos de las formulaciones de presupuesto por sub específicas
@@ -116,5 +118,26 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
         }
 
         return true;
+    }
+
+    /**
+     * Scope para obtener la formulación de presupuesto vigente
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  [object] $query               Consulta del modelo
+     * @param  [integer] $specific_action_id Identificador de la acción específica por la cual realizar el filtro
+     * @return [object]                      Objeto con la consulta solicitada
+     */
+    public function scopeCurrentFormulation($query, $specific_action_id)
+    {
+        $documentStatus = [];
+
+        foreach (DocumentStatus::where('action', '<>', 'AN')->get() as $ds) {
+            $documentStatus[] = $ds->id;
+        }
+
+        return $query->where('budget_specific_action_id', $specific_action_id)
+                     ->whereIn('document_status_id', $documentStatus)
+                     ->orderBy('year', 'desc')->first();
     }
 }
