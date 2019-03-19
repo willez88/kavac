@@ -192,26 +192,74 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
             [
                 'name' => 'Crear crédito adicional', 'slug' => 'budget.aditionalcredit.create',
                 'description' => 'Acceso para crear crédito adicional', 
-                'model' => 'Modules\Budget\Models\BudgetAditionalCredit', 'model_prefix' => 'presupuesto',
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'credito_adicional.crear', 'short_description' => 'agregar crédito adicional'
             ],
             [
                 'name' => 'Editar crédito adicional', 'slug' => 'budget.aditionalcredit.edit',
                 'description' => 'Acceso para editar créditos adicionales', 
-                'model' => 'Modules\Budget\Models\BudgetAditionalCredit', 'model_prefix' => 'presupuesto',
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'credito_adicional.editar', 'short_description' => 'editar crédito adicional'
             ],
             [
                 'name' => 'Eliminar crédito adicional', 'slug' => 'budget.aditionalcredit.delete',
                 'description' => 'Acceso para eliminar créditos adicionales', 
-                'model' => 'Modules\Budget\Models\BudgetAditionalCredit', 'model_prefix' => 'presupuesto',
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'credito_adicional.eliminar', 'short_description' => 'eliminar crédito adicional'
             ],
             [
                 'name' => 'Ver créditos adicionales', 'slug' => 'budget.aditionalcredit.list',
                 'description' => 'Acceso para ver créditos adicionales', 
-                'model' => 'Modules\Budget\Models\BudgetAditionalCredit', 'model_prefix' => 'presupuesto',
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'credito_adicional.ver', 'short_description' => 'ver crédito adicional'
+            ],
+            [
+                'name' => 'Crear reducción de presupuesto', 'slug' => 'budget.reduction.create',
+                'description' => 'Acceso para crear reducción de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'reduccion.crear', 'short_description' => 'agregar reducción de presupuesto'
+            ],
+            [
+                'name' => 'Editar reducción de presupuesto', 'slug' => 'budget.reduction.edit',
+                'description' => 'Acceso para editar reducciones de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'reduccion.editar', 'short_description' => 'editar reducción de presupuesto'
+            ],
+            [
+                'name' => 'Eliminar reducción de presupuesto', 'slug' => 'budget.reduction.delete',
+                'description' => 'Acceso para eliminar reducciones de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'reduccion.eliminar', 'short_description' => 'eliminar reducción de presupuesto'
+            ],
+            [
+                'name' => 'Ver reducciones de presupuesto', 'slug' => 'budget.reduction.list',
+                'description' => 'Acceso para ver reducciones de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'reduccion.ver', 'short_description' => 'ver reducción de presupuesto'
+            ],
+            [
+                'name' => 'Crear traspaso de presupuesto', 'slug' => 'budget.transfer.create',
+                'description' => 'Acceso para crear traspaso de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'traspaso.crear', 'short_description' => 'agregar traspaso de presupuesto'
+            ],
+            [
+                'name' => 'Editar traspaso de presupuesto', 'slug' => 'budget.transfer.edit',
+                'description' => 'Acceso para editar traspasos de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'traspaso.editar', 'short_description' => 'editar traspaso de presupuesto'
+            ],
+            [
+                'name' => 'Eliminar traspaso de presupuesto', 'slug' => 'budget.transfer.delete',
+                'description' => 'Acceso para eliminar traspasos de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'traspaso.eliminar', 'short_description' => 'eliminar traspaso de presupuesto'
+            ],
+            [
+                'name' => 'Ver traspasos de presupuesto', 'slug' => 'budget.transfer.list',
+                'description' => 'Acceso para ver traspasos de presupuesto', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'traspaso.ver', 'short_description' => 'ver traspaso de presupuesto'
             ],
         ];
 
