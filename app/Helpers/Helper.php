@@ -44,7 +44,7 @@ if (! function_exists('display_submenu')) {
 				}
 			}
 		}
-		return (strpos(Route::current()->getName(), $submenu) !== false) ? 'display:block;' : '';
+		return (!is_array($submenu) && strpos(Route::current()->getName(), $submenu) !== false) ? 'display:block;' : '';
 	}
 }
 
