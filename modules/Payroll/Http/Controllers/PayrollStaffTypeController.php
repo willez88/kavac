@@ -28,7 +28,7 @@ class PayrollStaffTypeController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.staff.types.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.staff.types.list', ['only' => 'index']);
         $this->middleware('permission:payroll.staff.types.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.staff.types.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staff.types.delete', ['only' => 'destroy']);
@@ -80,6 +80,7 @@ class PayrollStaffTypeController extends Controller
         $staff_type->name  = $request->name;
         $staff_type->description = $request->description;
         $staff_type->save();
+        $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('staff-types.index');
     }
 
@@ -124,6 +125,7 @@ class PayrollStaffTypeController extends Controller
         $staff_type->name  = $request->name;
         $staff_type->description = $request->description;
         $staff_type->save();
+        $request->session()->flash('message', ['type' => 'update']);
         return redirect()->route('staff-types.index');
     }
 

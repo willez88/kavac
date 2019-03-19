@@ -36,7 +36,7 @@ class PayrollStaffController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.staffs.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.staffs.list', ['only' => 'index']);
         $this->middleware('permission:payroll.staffs.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.staffs.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staffs.delete', ['only' => 'destroy']);
@@ -138,6 +138,7 @@ class PayrollStaffController extends Controller
         $staff->profession_id = $request->profession_id;
         $staff->city_id = $request->city_id;
         $staff->save();
+        $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('staffs.index');
     }
 
@@ -239,6 +240,7 @@ class PayrollStaffController extends Controller
         $staff->profession_id = $request->profession_id;
         $staff->city_id = $request->city_id;
         $staff->save();
+        $request->session()->flash('message', ['type' => 'update']);
         return redirect()->route('staffs.index');
     }
 

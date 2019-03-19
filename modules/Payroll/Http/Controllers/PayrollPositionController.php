@@ -28,7 +28,7 @@ class PayrollPositionController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.positions.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.positions.list', ['only' => 'index']);
         $this->middleware('permission:payroll.positions.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.positions.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.positions.delete', ['only' => 'destroy']);
@@ -79,6 +79,7 @@ class PayrollPositionController extends Controller
         $position->name  = $request->name;
         $position->description = $request->description;
         $position->save();
+        $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('positions.index');
     }
 
@@ -123,6 +124,7 @@ class PayrollPositionController extends Controller
         $position->name  = $request->name;
         $position->description = $request->description;
         $position->save();
+        $request->session()->flash('message', ['type' => 'update']);
         return redirect()->route('positions.index');
     }
 

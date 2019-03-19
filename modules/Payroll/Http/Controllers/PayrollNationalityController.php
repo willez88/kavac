@@ -30,7 +30,7 @@ class PayrollNationalityController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.nationalities.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.nationalities.list', ['only' => 'index']);
         $this->middleware('permission:payroll.nationalities.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.nationalities.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.nationalities.delete', ['only' => 'destroy']);
@@ -76,6 +76,7 @@ class PayrollNationalityController extends Controller
         $nationality->demonym = $request->demonym;
         $nationality->country_id = $request->country_id;
         $nationality->save();
+        $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('nationalities.index');
     }
 
@@ -116,6 +117,7 @@ class PayrollNationalityController extends Controller
         $nationality->demonym = $request->demonym;
         $nationality->country_id = $request->country_id;
         $nationality->save();
+        $request->session()->flash('message', ['type' => 'update']);
         return redirect()->route('nationalities.index');
     }
 

@@ -29,7 +29,7 @@ class PayrollStudyTypeController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.study.types.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.study.types.list', ['only' => 'index']);
         $this->middleware('permission:payroll.study.types.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.study.types.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.study.types.delete', ['only' => 'destroy']);
@@ -74,6 +74,7 @@ class PayrollStudyTypeController extends Controller
         $study_type->name  = $request->name;
         $study_type->description = $request->description;
         $study_type->save();
+        $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('study-types.index');
     }
 
@@ -112,6 +113,7 @@ class PayrollStudyTypeController extends Controller
         $study_type->name  = $request->name;
         $study_type->description = $request->description;
         $study_type->save();
+        $request->session()->flash('message', ['type' => 'update']);
         return redirect()->route('study-types.index');
     }
 

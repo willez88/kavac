@@ -28,7 +28,7 @@ class PayrollStaffClassificationController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.staff.classifications.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.staff.classifications.list', ['only' => 'index']);
         $this->middleware('permission:payroll.staff.classifications.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.staff.classifications.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staff.classifications.delete', ['only' => 'destroy']);
@@ -79,6 +79,7 @@ class PayrollStaffClassificationController extends Controller
         $staff_classification->name  = $request->name;
         $staff_classification->description = $request->description;
         $staff_classification->save();
+        $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('staff-classifications.index');
     }
 
@@ -123,6 +124,7 @@ class PayrollStaffClassificationController extends Controller
         $staff_classification->name  = $request->name;
         $staff_classification->description = $request->description;
         $staff_classification->save();
+        $request->session()->flash('message', ['type' => 'update']);
         return redirect()->route('staff-classifications.index');
     }
 

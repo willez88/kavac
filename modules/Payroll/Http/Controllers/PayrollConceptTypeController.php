@@ -7,18 +7,18 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\PayrollInstructionDegree;
+use Modules\Payroll\Models\PayrollConceptType;
 
 /**
- * @class PayrollInstructionDegreeController
- * @brief Controlador de grado de instrucción
+ * @class PayrollConceptTypeController
+ * @brief Controlador de tipo de concepto
  *
- * Clase que gestiona los grados de instrucción
+ * Clase que gestiona los tipos de concepto
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez at cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PayrollInstructionDegreeController extends Controller
+class PayrollConceptTypeController extends Controller
 {
     /**
      * Define la configuración de la clase
@@ -28,10 +28,10 @@ class PayrollInstructionDegreeController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.instruction.degrees.list', ['only' => 'index']);
-        $this->middleware('permission:payroll.instruction.degrees.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:payroll.instruction.degrees.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:payroll.instruction.degrees.delete', ['only' => 'destroy']);
+        $this->middleware('permission:payroll.concept.types.list', ['only' => 'index']);
+        $this->middleware('permission:payroll.concept.types.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:payroll.concept.types.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:payroll.concept.types.delete', ['only' => 'destroy']);
     }
 
     use ValidatesRequests;
@@ -42,8 +42,8 @@ class PayrollInstructionDegreeController extends Controller
      */
     public function index()
     {
-        $instruction_degrees = PayrollInstructionDegree::all();
-        return view('payroll::instruction-degrees.index', compact('instruction_degrees'));
+        $concept_types = PayrollConceptType::all();
+        return view('payroll::concept-types.index', compact('concept_types'));
     }
 
     /**
@@ -53,9 +53,9 @@ class PayrollInstructionDegreeController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'instruction-degrees.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'concept-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::instruction-degrees.create-edit', compact('header'));
+        return view('payroll::concept-types.create-edit', compact('header'));
     }
 
     /**
@@ -67,14 +67,16 @@ class PayrollInstructionDegreeController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'nullable|max:200'
+            'description' => 'nullable|max:200',
+            'sign' => 'required|max:1'
         ]);
-        $instruction_degree = new PayrollInstructionDegree;
-        $instruction_degree->name  = $request->name;
-        $instruction_degree->description = $request->description;
-        $instruction_degree->save();
+        $concept_type = new PayrollConceptType;
+        $concept_type->name  = $request->name;
+        $concept_type->description = $request->description;
+        $concep_type->sign = $request->sign;
+        $concep_type->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('instruction-degrees.index');
+        return redirect()->route('concept-types.index');
     }
 
     /**
@@ -90,12 +92,12 @@ class PayrollInstructionDegreeController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollInstructionDegree $instruction_degree)
+    public function edit(PayrollConceptType $concep_type)
     {
         $header = [
-            'route' => ['instruction-degrees.update', $instruction_degree], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['concept-types.update', $concep_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::instruction-degrees.create-edit', compact('instruction_degree','header'));
+        return view('payroll::concept-types.create-edit', compact('concep_type','header'));
     }
 
     /**
@@ -103,31 +105,32 @@ class PayrollInstructionDegreeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, PayrollInstructionDegree $instruction_degree)
+    public function update(Request $request, PayrollConceptType $concep_type)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'nullable|max:200'
+            'description' => 'nullable|max:200',
+            'sign' => 'required|max:1'
         ]);
         $instruction_degree->name  = $request->name;
         $instruction_degree->description = $request->description;
         $instruction_degree->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('instruction-degrees.index');
+        return redirect()->route('concept-types.index');
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy(Request $request, PayrollInstructionDegree $instruction_degree)
+    public function destroy(Request $request, PayrollConceptType $concep_type)
     {
         if ($request->ajax())
         {
-            $instruction_degree->delete();
+            $concep_type->delete();
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('instruction-degrees.index');
+        return redirect()->route('concept-types.index');
     }
 }

@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Tipos de Estudio
+	Tipos de Concepto
 @stop
 
 @section('content')
@@ -21,15 +21,13 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Registrar Tipos de Estudio</h6>
+					<h6 class="card-title">Registrar Tipos de Concepto</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-	    				</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
-				{!! (!isset($study_type))?Form::open($header):Form::model($study_type, $header) !!}
+				{!! (!isset($concept_type))?Form::open($header):Form::model($concept_type, $header) !!}
 					<div class="card-body">
 						@include('layouts.form-errors')
 						<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
@@ -38,11 +36,11 @@
 						    <div class="col-md-6">
 						        <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('name', 'Nombre', []) !!}
-						            {!! Form::text('name',(isset($study_type))?$study_type->name:old('name'),
+						            {!! Form::text('name',(isset($concept_type))?$concept_type->name:old('name'),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el nombre del tipo de estudio'
+						                    'title' => 'Indique el nombre del tipo de concepto'
 						                ]
 						            ) !!}
 						        </div>
@@ -50,11 +48,24 @@
 						    <div class="col-md-6">
 						        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
 						            {!! Form::label('description', 'Descripción', []) !!}
-						            {!! Form::text('description',(isset($study_type))?$study_type->description:old('description'),
+						            {!! Form::text('description',(isset($concept_type))?$concept_type->description:old('description'),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique la descripción del tipo de estudio'
+						                    'title' => 'Indique la descripción del tipo de concepto'
+						                ]
+						            ) !!}
+						        </div>
+						    </div>
+							<div class="col-md-6">
+						        <div class="form-group{{ $errors->has('sign') ? ' has-error' : '' }}">
+						            {!! Form::label('sign', 'Signo', []) !!}
+						            {!! Form::select('sign',['' => 'Seleccione...', '+' => '+', '-' => '-'],
+									(isset($concept_type))?$concept_type->sign:old('sign'),
+						                [
+						                    'class' => 'form-control select2',
+						                    'data-toggle' => 'tooltip',
+						                    'title' => 'Indique el signo para el tipo de concepto'
 						                ]
 						            ) !!}
 						        </div>
