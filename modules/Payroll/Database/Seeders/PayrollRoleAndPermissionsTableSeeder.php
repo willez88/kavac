@@ -257,6 +257,31 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollConceptType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.concepto.eliminar'
             ],
+            // language levels
+            [
+                'name' => 'Ver los niveles de idioma', 'slug' => 'payroll.language.levels.list',
+                'description' => 'Acceso para ver los niveles de idioma',
+                'model' => 'Modules\Payroll\Models\PayrollLanguageLevel', 'model_prefix' => 'nomina',
+                'slug_alt' => 'nivel.idioma.ver'
+            ],
+            [
+                'name' => 'Crear el nivel de idioma', 'slug' => 'payroll.language.levels.create',
+                'description' => 'Acceso para crear el nivel de idioma',
+                'model' => 'Modules\Payroll\Models\PayrollLanguageLevel', 'model_prefix' => 'nomina',
+                'slug_alt' => 'nivel.idioma.crear'
+            ],
+            [
+                'name' => 'Editar el nivel de idioma', 'slug' => 'payroll.language.levels.edit',
+                'description' => 'Acceso para editar el nivel de idioma',
+                'model' => 'Modules\Payroll\Models\PayrollLanguageLevel', 'model_prefix' => 'nomina',
+                'slug_alt' => 'nivel.idioma.editar'
+            ],
+            [
+                'name' => 'Eliminar el nivel de idioma', 'slug' => 'payroll.language.levels.delete',
+                'description' => 'Acceso para eliminar el nivel de idioma',
+                'model' => 'Modules\Payroll\Models\PayrollLanguageLevel', 'model_prefix' => 'nomina',
+                'slug_alt' => 'nivel.idioma.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {

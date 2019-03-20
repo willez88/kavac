@@ -21,6 +21,8 @@ use Modules\Payroll\Models\PayrollStudyType;
 
 class PayrollStudyTypeController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -34,8 +36,6 @@ class PayrollStudyTypeController extends Controller
         $this->middleware('permission:payroll.study.types.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.study.types.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Display a listing of the resource.

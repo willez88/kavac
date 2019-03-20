@@ -28,6 +28,8 @@ use App\Helpers\Helper;
  */
 class PayrollStaffController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -41,8 +43,6 @@ class PayrollStaffController extends Controller
         $this->middleware('permission:payroll.staffs.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staffs.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Muesta todos los registros de cargos

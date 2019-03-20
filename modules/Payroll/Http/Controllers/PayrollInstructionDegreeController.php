@@ -20,6 +20,8 @@ use Modules\Payroll\Models\PayrollInstructionDegree;
  */
 class PayrollInstructionDegreeController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -33,8 +35,6 @@ class PayrollInstructionDegreeController extends Controller
         $this->middleware('permission:payroll.instruction.degrees.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.instruction.degrees.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Display a listing of the resource.

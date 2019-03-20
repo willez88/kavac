@@ -20,6 +20,8 @@ use Modules\Payroll\Models\PayrollPosition;
  */
 class PayrollPositionController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -33,8 +35,6 @@ class PayrollPositionController extends Controller
         $this->middleware('permission:payroll.positions.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.positions.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Muesta todos los registros de cargos

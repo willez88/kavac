@@ -20,6 +20,8 @@ use Modules\Payroll\Models\PayrollPositionType;
  */
 class PayrollPositionTypeController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -33,8 +35,6 @@ class PayrollPositionTypeController extends Controller
         $this->middleware('permission:payroll.position.types.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.position.types.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Muesta todos los registros de tipos de cargo

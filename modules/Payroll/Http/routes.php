@@ -17,4 +17,6 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('study-types', 'PayrollStudyTypeController', ['except' => ['show']]);
     Route::resource('nationalities', 'PayrollNationalityController', ['except' => ['show']]);
     Route::resource('concept-types', 'PayrollConceptTypeController', ['except' => ['show']]);
+    Route::resource('language-levels', 'PayrollLanguageLevelController', ['except' => ['show']]);
+    Route::resource('languages', 'PayrollLanguageController', ['except' => ['show']]);
 });

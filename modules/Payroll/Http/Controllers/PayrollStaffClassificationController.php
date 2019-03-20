@@ -20,6 +20,8 @@ use Modules\Payroll\Models\PayrollStaffClassification;
  */
 class PayrollStaffClassificationController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -33,8 +35,6 @@ class PayrollStaffClassificationController extends Controller
         $this->middleware('permission:payroll.staff.classifications.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staff.classifications.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Muesta todos los registros de clasificaciones del personal

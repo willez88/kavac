@@ -136,6 +136,24 @@
 								<span>Nacionalidad</span>
 							</a>
 						</div>
+						{{-- Tipo de concepto --}}
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('concept-types.index') }}" title="Registro de tipos de concepto"
+							   data-toggle="tooltip">
+								<i class="icofont icofont-plus ico-3x"></i>
+								<span>Tipos de<br>Concepto</span>
+							</a>
+						</div>
+						{{-- nivel de idioma --}}
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('language-levels.index') }}" title="Registro de nivel de idioma"
+							   data-toggle="tooltip">
+								<i class="icofont icofont-earth ico-3x"></i>
+								<span>Nivel de<br>Idioma</span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

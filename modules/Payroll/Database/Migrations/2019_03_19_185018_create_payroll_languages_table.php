@@ -13,11 +13,19 @@ class CreatePayrollLanguagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('payroll_languages', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('payroll_languages')) {
+            Schema::create('payroll_languages', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name', 100)->comment('Nombre del idioma');
+                $table->string('acronym', 10)->comment('Acrónimo del idioma');
+                $table->integer('payroll_language_level_id')->unsigned()
+                      ->comment('identificador de nivel de idioma que pertenece al idioma');
+                $table->foreign('payroll_language_level_id')->references('id')->on('payroll_language_levels')
+                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+        }
     }
 
     /**

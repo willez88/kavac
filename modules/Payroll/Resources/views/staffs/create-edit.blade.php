@@ -143,7 +143,7 @@
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el estado civil'
+						                    'title' => 'Seleccione el estado civil'
 						                ]
 						            ) !!}
 						        </div>
@@ -157,7 +157,7 @@
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique la profesión'
+						                    'title' => 'Seleccione la profesión'
 						                ]
 						            ) !!}
 						        </div>
@@ -244,7 +244,7 @@
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el país donde vive'
+						                    'title' => 'Seleccione el país donde vive'
 						                ]
 						            ) !!}
 						        </div>
@@ -256,7 +256,7 @@
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el estado donde vive'
+						                    'title' => 'Seleccione el estado donde vive'
 						                ]
 						            ) !!}
 						        </div>
@@ -270,7 +270,7 @@
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique la ciudad donde vive'
+						                    'title' => 'Seleccione la ciudad donde vive'
 						                ]
 						            ) !!}
 						        </div>

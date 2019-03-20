@@ -20,6 +20,8 @@ use Modules\Payroll\Models\PayrollStaffType;
  */
 class PayrollStaffTypeController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -33,8 +35,6 @@ class PayrollStaffTypeController extends Controller
         $this->middleware('permission:payroll.staff.types.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staff.types.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Muesta todos los registros de tipo de personal

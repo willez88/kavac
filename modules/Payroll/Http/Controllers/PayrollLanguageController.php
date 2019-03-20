@@ -7,21 +7,22 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\PayrollConceptType;
+use Modules\Payroll\Models\PayrollLanguage;
 
 /**
- * @class PayrollConceptTypeController
- * @brief Controlador de tipo de concepto
+ * @class PayrolllanguageController
+ * @brief Controlador de idioma
  *
- * Clase que gestiona los tipos de concepto
+ * Clase que gestiona los idiomas
  *
  * @author William Páez <wpaez at cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PayrollConceptTypeController extends Controller
+
+class PayrollLanguageController extends Controller
 {
     use ValidatesRequests;
-    
+
     /**
      * Define la configuración de la clase
      *
@@ -30,10 +31,10 @@ class PayrollConceptTypeController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.concept.types.list', ['only' => 'index']);
-        $this->middleware('permission:payroll.concept.types.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:payroll.concept.types.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:payroll.concept.types.delete', ['only' => 'destroy']);
+        $this->middleware('permission:payroll.languages.list', ['only' => 'index']);
+        $this->middleware('permission:payroll.languages.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:payroll.languages.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:payroll.languages.delete', ['only' => 'destroy']);
     }
 
     /**
@@ -42,8 +43,8 @@ class PayrollConceptTypeController extends Controller
      */
     public function index()
     {
-        $concept_types = PayrollConceptType::all();
-        return view('payroll::concept-types.index', compact('concept_types'));
+        $languages = PayrollLanguage::all();
+        return view('payroll::languages.index', compact('languages'));
     }
 
     /**
@@ -53,9 +54,9 @@ class PayrollConceptTypeController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'concept-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'languages.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::concept-types.create-edit', compact('header'));
+        return view('payroll::languages.create-edit', compact('header'));
     }
 
     /**
@@ -67,16 +68,16 @@ class PayrollConceptTypeController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'nullable|max:200',
-            'sign' => 'required|max:1'
+            'acronym' => 'required|10',
+            'language_level_id' => 'required'
         ]);
-        $concept_type = new PayrollConceptType;
-        $concept_type->name  = $request->name;
-        $concept_type->description = $request->description;
-        $concept_type->sign = $request->sign;
-        $concept_type->save();
+        $language = new PayrollLanguage;
+        $language->name  = $request->name;
+        $language->acronym  = $request->acronym;
+        $language->language_level_id  = $request->language_level_id;
+        $language->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('concept-types.index');
+        return redirect()->route('languages.index');
     }
 
     /**
@@ -92,12 +93,12 @@ class PayrollConceptTypeController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollConceptType $concept_type)
+    public function edit(PayrollLanguage $language)
     {
         $header = [
-            'route' => ['concept-types.update', $concept_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['languages.update', $language], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::concept-types.create-edit', compact('concept_type','header'));
+        return view('payroll::languages.create-edit', compact('language','header'));
     }
 
     /**
@@ -105,33 +106,33 @@ class PayrollConceptTypeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, PayrollConceptType $concept_type)
+    public function update(Request $request, PayrollLanguage $language)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'nullable|max:200',
-            'sign' => 'required|max:1'
+            'acronym' => 'required|10',
+            'language_level_id' => 'required'
         ]);
-        $concept_type->name  = $request->name;
-        $concept_type->description = $request->description;
-        $concept_type->sign = $request->sign;
-        $concept_type->save();
+        $language->name  = $request->name;
+        $language->acronym  = $request->acronym;
+        $language->language_level_id = $request->language_level_id;
+        $language->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('concept-types.index');
+        return redirect()->route('languages.index');
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy(Request $request, PayrollConceptType $concept_type)
+    public function destroy(Request $request, PayrollLanguage $language)
     {
         if ($request->ajax())
         {
-            $concept_type->delete();
+            $language->delete();
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('concept-types.index');
+        return redirect()->route('languages.index');
     }
 }

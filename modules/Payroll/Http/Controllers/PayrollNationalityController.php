@@ -22,6 +22,8 @@ use App\Models\Country;
 
 class PayrollNationalityController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -35,8 +37,6 @@ class PayrollNationalityController extends Controller
         $this->middleware('permission:payroll.nationalities.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.nationalities.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Display a listing of the resource.
