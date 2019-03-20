@@ -28,6 +28,7 @@ class BudgetModification extends Model implements Auditable
     /**
      * BudgetModification has many BudgetModificacionAccounts.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_modificacion_accounts()
@@ -38,6 +39,7 @@ class BudgetModification extends Model implements Auditable
     /**
      * BudgetModifications belongs to Institution.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()
