@@ -131,9 +131,21 @@ class BudgetAditionalCreditController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('budget::aditional_credits.create-edit-form');
+        $budgetModification = BudgetModification::find($id);
+        
+        $header = [
+            'route' => ['budget.aditional-credits.update', $budgetModification->id], 
+            'method' => 'PUT', 
+            'role' => 'form'
+        ];
+        
+        $institutions = template_choices(
+            'App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]
+        );
+        $model = $budgetModification;
+        return view('budget::aditional_credits.create-edit-form', compact('header', 'model', 'institutions'));
     }
 
     /**

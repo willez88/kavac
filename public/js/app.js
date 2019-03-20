@@ -40684,9 +40684,23 @@ Vue.mixin({
 		redirect_back: function redirect_back(url) {
 			location.href = url;
 		},
+		/**
+   * Método que permite dar formato a una fecha
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {string} value Fecha ser formateada
+   * @return {string}       Fecha con el formato establecido
+   */
 		format_date: function format_date(value) {
 			return __WEBPACK_IMPORTED_MODULE_1_moment___default()(String(value)).format('DD/MM/YYYY');
 		},
+		/**
+   * Método que permite dar formato con marca de tiempo a una fecha
+   *
+   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+   * @param  {string} value Fecha ser formateada
+   * @return {string}       Fecha con el formato establecido
+   */
 		format_timestamp: function format_timestamp(value) {
 			return __WEBPACK_IMPORTED_MODULE_1_moment___default()(String(value)).format('DD/MM/YYYY hh:mm:ss');
 		},
@@ -90018,6 +90032,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			try {
 				_options.slice(0).unshift({ id: '', text: 'Seleccione...' });
 				$(this.$el).empty().trigger('change').select2({ data: _options });
+				$(".select2").find('option').attr('data-toggle', 'tooltip');
 			} catch (err) {}
 		}
 	},
@@ -101468,6 +101483,7 @@ var render = function() {
               {
                 staticClass: "btn btn-warning btn-xs btn-icon btn-round",
                 attrs: {
+                  "data-placement": "bottom",
                   title: "Modificar registro",
                   "data-toggle": "tooltip",
                   type: "button"
@@ -101486,6 +101502,7 @@ var render = function() {
               {
                 staticClass: "btn btn-danger btn-xs btn-icon btn-round",
                 attrs: {
+                  "data-placement": "bottom",
                   title: "Eliminar registro",
                   "data-toggle": "tooltip",
                   type: "button"
@@ -101666,6 +101683,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -101729,7 +101747,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				code: '',
 				description: '',
 				amount: 0,
-				budget_account_id: ''
+				budget_account_id: '',
+				budget_specific_action_id: ''
 			};
 
 			if (!vm.budget_specific_action_id) {
@@ -101769,6 +101788,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			to_add.amount = vm.amount;
 			to_add.budget_account_id = vm.budget_account_id;
+			to_add.budget_specific_action_id = vm.budget_specific_action_id;
 
 			vm.aditional_credit_accounts.push(to_add);
 			$('.close').click();
@@ -101806,9 +101826,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				if (!$.isEmptyObject(response.data.records)) {
 					$.each(response.data.records, function () {
 						if (this.specific !== "00") {
+							if (vm.budget_specific_action_id) {
+								axios.get('/budget/get-availability-opened-accounts/' + vm.budget_specific_action_id + "/" + this.id).then(function (response) {
+									if (response.data.result) {
+										console.log(response.data.account);
+									}
+								}).catch(function (error) {
+									console.log(error);
+								});
+							}
 							vm.accounts.push({
 								id: this.id,
-								text: this.code + " - " + this.denomination
+								text: this.code + " - " + this.denomination,
+								title: 'Disponible: '
 							});
 						}
 					});
@@ -101888,7 +101918,12 @@ var render = function() {
                       name: "budget_account_id[]",
                       readonly: ""
                     },
-                    domProps: { value: account.budget_account_id }
+                    domProps: {
+                      value:
+                        account.budget_specific_action_id +
+                        "|" +
+                        account.budget_account_id
+                    }
                   }),
                   _vm._v(" "),
                   _c(

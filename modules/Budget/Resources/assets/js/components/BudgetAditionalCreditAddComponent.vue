@@ -253,9 +253,20 @@
 					if (!$.isEmptyObject(response.data.records)) {
 						$.each(response.data.records, function() {
 							if (this.specific !== "00") {
+								if (vm.budget_specific_action_id) {
+									axios.get('/budget/get-availability-opened-accounts/' + vm.budget_specific_action_id + "/" + this.id)
+										 .then(response => {
+										 	if (response.data.result) {
+										 		console.log(response.data.account)
+										 	}
+										 }).catch(error => {
+										 	console.log(error);
+										 });
+								}
 								vm.accounts.push({
 									id: this.id,
-									text: this.code + " - " + this.denomination
+									text: this.code + " - " + this.denomination,
+									title: 'Disponible: '
 								});
 							}
 						});

@@ -37,3 +37,11 @@
 		</div>
 	</div>
 @stop
+
+@section('extra-js')
+	@parent
+	<script>
+		/** Elimina variable temporal */
+		localStorage.removeItem('aditional_credit_accounts');
+	</script>
+@stop

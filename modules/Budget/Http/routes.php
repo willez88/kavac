@@ -72,6 +72,10 @@ Route::group([
          ->name('budget.subspecific-formulations.show');
     Route::get('get-subspecific-formulation/{id}', 'BudgetSubSpecificFormulationController@getFormulation')
          ->name('get-formulation');
+    Route::get(
+        'get-availability-opened-accounts/{specific_action_id}/{account_id}', 
+        'BudgetSubSpecificFormulationController@getAvailabilityOpenedAccounts'
+    )->name('get-availability-opened-accounts');
 
     /** Rutas para la gestión de créditos adicionales */
     Route::resource('aditional-credits', 'BudgetAditionalCreditController', ['as' => 'budget', 'except' => ['show']]);

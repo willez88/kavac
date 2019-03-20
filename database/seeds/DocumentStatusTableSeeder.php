@@ -53,7 +53,12 @@ class DocumentStatusTableSeeder extends Seeder
         		'name' => 'Anulado(a)',
         		'description' => 'Anulado(a) antes de su aprobación',
         		'color' => '#FF3636'
-        	]
+        	],
+            [
+                'name' => 'Cerrado(a)',
+                'description' => 'El documento o registro ha sido cerrado y no puede ser modificado',
+                'color' => '#b4b0aa'
+            ],
         ];
 
         foreach ($doc_status as $doc) {

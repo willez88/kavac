@@ -36,7 +36,7 @@
 									{!! Form::label('approved_at', 'Fecha de creación', [
 										'class' => 'control-label'
 									]) !!}
-									{!! Form::date('approved_at', old('approved_at'), [
+									{!! Form::date('approved_at', (isset($model) && !old('approved_at')) ? $model->approved_at : old('approved_at'), [
 										'class' => 'form-control input-sm', 'placeholder' => 'dd/mm/YY',
 										'data-toggle' => 'tooltip', 'id' => 'approved_at',
 										'title' => 'Fecha en la que se otorgó el crédito adicional'

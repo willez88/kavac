@@ -40,7 +40,9 @@ class BudgetSubSpecificFormulationController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Muestra un listado de formulaciones de presupuesto registradas
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -50,7 +52,9 @@ class BudgetSubSpecificFormulationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para el registro de datos de la formulación de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function create()
@@ -59,7 +63,9 @@ class BudgetSubSpecificFormulationController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda información para una formulación de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  Request $request
      * @return Response
      */
@@ -132,7 +138,9 @@ class BudgetSubSpecificFormulationController extends Controller
     }
 
     /**
-     * Show the specified resource.
+     * Muestra información de una formulación de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function show($id)
@@ -142,7 +150,9 @@ class BudgetSubSpecificFormulationController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario de modificación para una formulación de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function edit($id)
@@ -152,8 +162,11 @@ class BudgetSubSpecificFormulationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información de una formulación presupuestaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  Request $request
+     * @param  integer $id Identificador del registro a actualizar
      * @return Response
      */
     public function update(Request $request, $id)
@@ -215,7 +228,9 @@ class BudgetSubSpecificFormulationController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un registro en particular
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function destroy($id)
@@ -231,7 +246,9 @@ class BudgetSubSpecificFormulationController extends Controller
 
     /**
      * Obtiene los registros a mostrar en listados de componente Vue
-     * @return [type] [description]
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return JSON Devuelve un JSON con la información de las formulaciones
      */
     public function vueList()
     {
@@ -240,6 +257,13 @@ class BudgetSubSpecificFormulationController extends Controller
         ], 200);
     }
 
+    /**
+     * Obtiene los registros de presupuestos formulados
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la formulación a consultar
+     * @return JSON        Devuelve un JSON con la información consultada
+     */
     public function getFormulation($id)
     {
         $formulation = BudgetSubSpecificFormulation::where('id', $id)
@@ -250,5 +274,33 @@ class BudgetSubSpecificFormulationController extends Controller
                        }])->first();
 
         return response()->json(['result' => true, 'formulation' => $formulation], 200);
+    }
+
+    public function getAvailabilityOpenedAccounts($specific_action_id, $account_id)
+    {
+        $account_data = ['account_id' => $account_id, 'available' => 'Sin apertura'];
+        
+        $formulation = BudgetSubSpecificFormulation::currentFormulation($specific_action_id)
+                                                   ->with(['account_opens' => function($account) use ($account_id) {
+                                                        /** Devuelve, si existe, la cuenta formulada */
+                                                        return $account->where('budget_account_id', $account_id)->first();
+                                                   }, 'modification_accounts' => function($account) use ($account_id) {
+                                                        /** 
+                                                         * Devuelve, si existen, las cuentas agregadas o modificadas mediante la 
+                                                         * asignación de créditos adicionales, reducciones o traspasos
+                                                         */
+                                                        return $account->where('budget_account_id', $account_id)->get();
+                                                   }])->first();
+
+        $available = 0;
+        foreach ($formulation->modification_accounts as $modified_account) {
+            # calculo de saldo para cada una de las cuentas
+        }
+
+        if ($available > 0) {
+            $account_data['available'] = $available;
+        }
+
+        return response()->json(['result' => true, 'account' => $account_data], 200);
     }
 }
