@@ -21,9 +21,10 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Catálogo de Cuentas Patrimoniales</h6>
+					<h6 class="card-title">Catalogo de Cuentas Patrimoniales</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.new', ['route' => route('accounting.accounts.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>

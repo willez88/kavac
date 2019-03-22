@@ -4,8 +4,11 @@ Route::group(['middleware' => 'web',
 			  'prefix' => 'accounting',
 			  'namespace' => 'Modules\Accounting\Http\Controllers'
 ], function(){
-    // Route::get('/', 'AccountingController@index')->name('accounting.index');
-    Route::prefix('accounts')->group(function () {
-	    Route::get('index', 'AccountingAccountController@index')->name('accounts.index');
-	});
+	// Rutas para la gestion de cuentas patrimoniales
+	Route::get('accounts', 'AccountingAccountController@index')->name('accounting.accounts.index');
+
+	Route::resource('accounts', 'AccountingAccountController', 
+		['as' => 'accounting',
+		'except' => ['index']]);
+	Route::get('get-children-account/{parent_id}', 'AccountingAccountController@getChildrenAccount')->name('accounting.accounts.getChildrenAccount');
 });
