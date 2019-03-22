@@ -45,12 +45,7 @@ class AccountingAccountController extends Controller
         foreach (AccountingAccount::orderBy('id','desc')->get() as $AccountingAccount) {
             array_push($accounts_list, [
                 'id' => $AccountingAccount->id,
-                'code' =>   $AccountingAccount->group.'.'.
-                            $AccountingAccount->subgroup.'.'.
-                            $AccountingAccount->item.'.'.
-                            $AccountingAccount->generic.'.'.
-                            $AccountingAccount->specific.'.'.
-                            $AccountingAccount->subspecific,
+                'code' =>   $AccountingAccount->code(),
                 'denomination' => $AccountingAccount->denomination,
                 'active'=> $AccountingAccount->active
             ]);

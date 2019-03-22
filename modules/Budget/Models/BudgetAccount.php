@@ -72,13 +72,24 @@ class BudgetAccount extends Model implements Auditable
     }
 
     /**
-     * BudgetAccount has many BudgetModificationAccounts.
+     * BudgetAccount has many BudgetAditionalCreditAccounts.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_modification_accounts()
+    public function aditional_credit_accounts()
     {
-        return $this->hasMany(BudgetModificationAccount::class);
+        return $this->hasMany(BudgetAditionalCreditAccount::class);
+    }
+
+    /**
+     * BudgetAccount has many AccountingAccountConverter.
+     *
+     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function account_converters()
+    {
+        return $this->hasMany(AccountingAccountConverter::class);
     }
 
     /**

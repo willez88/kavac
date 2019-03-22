@@ -14,7 +14,7 @@
                title="Gestión del clasificador de cuentas patrimoniales">Cuentas Patrimoniales</a>
         </li>
         <li>
-            <a href="#">Convertidor de Cuentas</a>
+            <a href="{{ route('accounting.converter.index') }}">Convertidor de Cuentas</a>
         </li>
         <li>
             <a href="#">Asientos Contables</a>
