@@ -71,11 +71,13 @@
 									<td class="text-center">{{ $reg->deleted_at->format('d-m-Y') }}</td>
 									<td>{{ $model }}</td>
 									<td>
-										@foreach ($reg->getAttributes() as $attr => $value)
-											@if ($attr !== 'created_at' && $attr !== 'updated_at' && $attr !== 'deleted_at' && $attr !== 'id')
-												<div class="col-12"><b>{{ $attr }}:</b> {{ $value }}</div>
-											@endif
-										@endforeach
+										<div class="row">
+											@foreach ($reg->getAttributes() as $attr => $value)
+												@if ($attr !== 'created_at' && $attr !== 'updated_at' && $attr !== 'deleted_at')
+													<div class="col-6"><b>{{ $attr }}:</b> {{ $value }}</div>
+												@endif
+											@endforeach
+										</div>
 									</td>
 									<td class="text-center">
 										{!! Form::button('<i class="fa fa-check"></i>', [
