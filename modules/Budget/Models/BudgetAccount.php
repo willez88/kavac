@@ -20,7 +20,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  */
 class BudgetAccount extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
     
@@ -39,8 +39,8 @@ class BudgetAccount extends Model implements Auditable
      * @var array
      */
     protected $fillable = [
-    	'group', 'item', 'generic', 'specific', 'subspecific', 'denomination', 'active', 'resource',
-    	'egress', 'tax_id', 'parent_id', 'original'
+        'group', 'item', 'generic', 'specific', 'subspecific', 'denomination', 'active', 'resource',
+        'egress', 'tax_id', 'parent_id', 'original'
     ];
 
     /**
@@ -89,7 +89,7 @@ class BudgetAccount extends Model implements Auditable
      */
     public function account_converters()
     {
-        return $this->hasMany(AccountingAccountConverter::class);
+        return $this->hasOne(AccountingAccountConverter::class);
     }
 
     /**

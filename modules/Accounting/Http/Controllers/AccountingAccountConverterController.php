@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\AccountingAccountConverter;
+use Modules\Accounting\Models\AccountingAccount;
+use Modules\Budget\Models\BudgetAccount;
 
 class AccountingAccountConverterController extends Controller
 {
@@ -15,8 +17,40 @@ class AccountingAccountConverterController extends Controller
      */
     public function index()
     {
-        // $records = AccountingAccountConverter::with('accounting_account','budget_account')->orderBy('id','ASC')->get();
-        return view('accounting::account_converters.index',compact('records'));
+        $accountingAccounts = [];
+        $budgetAccounts = [];
+
+        foreach (AccountingAccount::with('account_converters')->orderBy('id','asc')->get() as $AccountingAccount) {
+            // esi la cuenta tiene una converción activa no la cargara
+            if (!$AccountingAccount->account_converters['active']) {
+                /**
+                    Se envia el campo id concatenado con el resto de informacion para
+                    que en caso convertir varias cuentas en la vista no tenga que realizar busquedas para mostrar la informacion
+                */
+
+                array_push($accountingAccounts, [
+                    'id' => "{$AccountingAccount->id}?{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}",
+                    'text' => "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}"
+                ]);
+            }
+        }
+        foreach (BudgetAccount::with('account_converters')->orderBy('id','asc')->get() as $BudgetAccount) {
+            // esi la cuenta tiene una converción activa no la cargara
+            if (!$BudgetAccount->account_converters['active']) {
+                /**
+                    Se envia el campo id concatenado con el resto de informacion para
+                    que en caso convertir varias cuentas en la vista no tenga que realizar busquedas para mostrar la informacion
+                */
+                array_push($budgetAccounts, [
+                    'id' => "{$BudgetAccount->id}?{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}",
+                    'text' => "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
+                ]);
+            }
+        }
+        $accountingAccounts = json_encode($accountingAccounts);
+        $budgetAccounts = json_encode($budgetAccounts);
+
+        return view('accounting::account_converters.index',compact('budgetAccounts','accountingAccounts'));
     }
 
     /**

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Budget\Models\BudgetAccount;
 /**
  * @class AccountingAccount
- * @brief Datos de cuentas del Clasificador Patrimoniales
  * 
  * Modelo de la tabla pivot entre budget_account y accounting_account
  * 
@@ -17,7 +16,8 @@ class AccountingAccountConverter extends Model
 {
     protected $fillable = [
     	'accounting_account_id',
-    	'budget_account_id'
+    	'budget_account_id',
+        'active'
     ];
 
     /**
@@ -39,6 +39,5 @@ class AccountingAccountConverter extends Model
     {
         return $this->belongsTo(AccountingAccount::class);
     }
-
 
 }
