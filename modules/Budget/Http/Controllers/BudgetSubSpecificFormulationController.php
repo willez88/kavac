@@ -5,6 +5,7 @@ namespace Modules\Budget\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\CodeSetting;
@@ -108,31 +109,33 @@ class BudgetSubSpecificFormulationController extends Controller
             BudgetSubSpecificFormulation::class, 'code'
         );
 
-        $formulation = BudgetSubSpecificFormulation::create([
-            'code' => $code, 'year' => $year, 
-            'total_formulated' => (float)$request->formulated_accounts[0]['total_year_amount'],
-            'budget_specific_action_id' => $request->specific_action_id,
-            'currency_id' => $request->currency_id,
-            'institution_id' => $request->institution_id,
-            'document_status_id' => $documentStatus->id
-        ]);
-
-        foreach ($request->formulated_accounts as $formulated_account) {
-            $f_acc = (object)$formulated_account;
-            BudgetAccountOpen::create([
-                'jan_amount' => (float)$f_acc->jan_amount, 'feb_amount' => (float)$f_acc->feb_amount, 
-                'mar_amount' => (float)$f_acc->mar_amount, 'apr_amount' => (float)$f_acc->apr_amount, 
-                'may_amount' => (float)$f_acc->may_amount, 'jun_amount' => (float)$f_acc->jun_amount, 
-                'jul_amount' => (float)$f_acc->jul_amount, 'aug_amount' => (float)$f_acc->aug_amount, 
-                'sep_amount' => (float)$f_acc->sep_amount, 'oct_amount' => (float)$f_acc->oct_amount, 
-                'nov_amount' => (float)$f_acc->nov_amount, 'dec_amount' => (float)$f_acc->dec_amount,
-                'total_year_amount' => (float)$f_acc->total_year_amount, 
-                'total_real_amount' => (float)$f_acc->total_real_amount, 
-                'total_estimated_amount' => (float)$f_acc->total_estimated_amount, 
-                'budget_account_id' => $f_acc->id,
-                'budget_sub_specific_formulation_id' => $formulation->id
+        DB::transaction(function() use ($request, $code, $year, $documentStatus) {
+            $formulation = BudgetSubSpecificFormulation::create([
+                'code' => $code, 'year' => $year, 
+                'total_formulated' => (float)$request->formulated_accounts[0]['total_year_amount'],
+                'budget_specific_action_id' => $request->specific_action_id,
+                'currency_id' => $request->currency_id,
+                'institution_id' => $request->institution_id,
+                'document_status_id' => $documentStatus->id
             ]);
-        }
+
+            foreach ($request->formulated_accounts as $formulated_account) {
+                $f_acc = (object)$formulated_account;
+                BudgetAccountOpen::create([
+                    'jan_amount' => (float)$f_acc->jan_amount, 'feb_amount' => (float)$f_acc->feb_amount, 
+                    'mar_amount' => (float)$f_acc->mar_amount, 'apr_amount' => (float)$f_acc->apr_amount, 
+                    'may_amount' => (float)$f_acc->may_amount, 'jun_amount' => (float)$f_acc->jun_amount, 
+                    'jul_amount' => (float)$f_acc->jul_amount, 'aug_amount' => (float)$f_acc->aug_amount, 
+                    'sep_amount' => (float)$f_acc->sep_amount, 'oct_amount' => (float)$f_acc->oct_amount, 
+                    'nov_amount' => (float)$f_acc->nov_amount, 'dec_amount' => (float)$f_acc->dec_amount,
+                    'total_year_amount' => (float)$f_acc->total_year_amount, 
+                    'total_real_amount' => (float)$f_acc->total_real_amount, 
+                    'total_estimated_amount' => (float)$f_acc->total_estimated_amount, 
+                    'budget_account_id' => $f_acc->id,
+                    'budget_sub_specific_formulation_id' => $formulation->id
+                ]);
+            }
+        });
 
         return response()->json(['result' => true], 200);
     }
@@ -196,30 +199,33 @@ class BudgetSubSpecificFormulationController extends Controller
                 'currency_id' => 'required',
                 'formulated_accounts.*' => 'required'
             ]);
-            $formulation->total_formulated = (float)$request->formulated_accounts[0]['total_year_amount'];
-            $formulation->budget_specific_action_id = $request->specific_action_id;
-            $formulation->currency_id = $request->currency_id;
-            $formulation->institution_id = $request->institution_id;
-            $formulation->save();
 
-            $formulation->account_opens()->delete();
+            DB::transaction(function() use ($request, $formulation) {
+                $formulation->total_formulated = (float)$request->formulated_accounts[0]['total_year_amount'];
+                $formulation->budget_specific_action_id = $request->specific_action_id;
+                $formulation->currency_id = $request->currency_id;
+                $formulation->institution_id = $request->institution_id;
+                $formulation->save();
 
-            foreach ($request->formulated_accounts as $formulated_account) {
-                $f_acc = (object)$formulated_account;
-                BudgetAccountOpen::create([
-                    'jan_amount' => (float)$f_acc->jan_amount, 'feb_amount' => (float)$f_acc->feb_amount, 
-                    'mar_amount' => (float)$f_acc->mar_amount, 'apr_amount' => (float)$f_acc->apr_amount, 
-                    'may_amount' => (float)$f_acc->may_amount, 'jun_amount' => (float)$f_acc->jun_amount, 
-                    'jul_amount' => (float)$f_acc->jul_amount, 'aug_amount' => (float)$f_acc->aug_amount, 
-                    'sep_amount' => (float)$f_acc->sep_amount, 'oct_amount' => (float)$f_acc->oct_amount, 
-                    'nov_amount' => (float)$f_acc->nov_amount, 'dec_amount' => (float)$f_acc->dec_amount,
-                    'total_year_amount' => (float)$f_acc->total_year_amount, 
-                    'total_real_amount' => (float)$f_acc->total_real_amount, 
-                    'total_estimated_amount' => (float)$f_acc->total_estimated_amount, 
-                    'budget_account_id' => $f_acc->id,
-                    'budget_sub_specific_formulation_id' => $formulation->id
-                ]);
-            }
+                $formulation->account_opens()->delete();
+
+                foreach ($request->formulated_accounts as $formulated_account) {
+                    $f_acc = (object)$formulated_account;
+                    BudgetAccountOpen::create([
+                        'jan_amount' => (float)$f_acc->jan_amount, 'feb_amount' => (float)$f_acc->feb_amount, 
+                        'mar_amount' => (float)$f_acc->mar_amount, 'apr_amount' => (float)$f_acc->apr_amount, 
+                        'may_amount' => (float)$f_acc->may_amount, 'jun_amount' => (float)$f_acc->jun_amount, 
+                        'jul_amount' => (float)$f_acc->jul_amount, 'aug_amount' => (float)$f_acc->aug_amount, 
+                        'sep_amount' => (float)$f_acc->sep_amount, 'oct_amount' => (float)$f_acc->oct_amount, 
+                        'nov_amount' => (float)$f_acc->nov_amount, 'dec_amount' => (float)$f_acc->dec_amount,
+                        'total_year_amount' => (float)$f_acc->total_year_amount, 
+                        'total_real_amount' => (float)$f_acc->total_real_amount, 
+                        'total_estimated_amount' => (float)$f_acc->total_estimated_amount, 
+                        'budget_account_id' => $f_acc->id,
+                        'budget_sub_specific_formulation_id' => $formulation->id
+                    ]);
+                }
+            });
 
             return response()->json(['result' => true], 200);
         }

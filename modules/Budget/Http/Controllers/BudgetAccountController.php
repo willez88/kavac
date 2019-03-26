@@ -37,36 +37,47 @@ class BudgetAccountController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Muestra un listado de cuentas presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function index()
     {
+        /** @var object Objeto que contiene todos los registros de cuentas presupuestarias */
         $records = BudgetAccount::all();
         return view('budget::accounts.list');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra un formulario ara la creación de una cuenta presupuestaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function create()
     {
+        /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
             'route' => 'budget.accounts.store', 
             'method' => 'POST', 
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
+
+        /** @var array Arreglo de opciones a representar en la plantilla para su selección */
         $budget_accounts = template_choices(
             'Modules\Budget\Models\BudgetAccount', ['code', '-', 'denomination'], ['subspecific' => '00']
         );
+
         return view('budget::accounts.create-edit-form', compact('header', 'budget_accounts'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
+     * Crea una nueva cuenta presupuestaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
     public function store(Request $request)
@@ -81,7 +92,7 @@ class BudgetAccountController extends Controller
             'account_type' => 'required',
         ]);
 
-        /** Obtiene los datos de la cuenta ya registrada si existe */
+        /** @var object Objeto que contiene los datos de la cuenta ya registrada si existe */
         $budgetAccount = BudgetAccount::where('group', request('group'))
                                       ->where('item', request('item'))
                                       ->where('generic', request('generic'))
@@ -94,13 +105,12 @@ class BudgetAccountController extends Controller
          * se desactiva la cuenta anterior
          */
         if ($budgetAccount && $request->active!==null) {
+            /** @var boolean define si la cuenta esta activa */
             $budgetAccount->active = false;
             $budgetAccount->save();
         }
 
-        /**
-         * Busca la cuenta asociada de nivel superior
-         */
+        /** @var object Objeto con información de la cuenta de nivel superior, si existe */
         $parent = BudgetAccount::getParent(
             request('group'), request('item'), request('generic'), request('specific'), request('subspecific')
         );
@@ -127,7 +137,9 @@ class BudgetAccountController extends Controller
     }
 
     /**
-     * Show the specified resource.
+     * Muestra información de la cuenta presupuestaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function show()
@@ -136,27 +148,41 @@ class BudgetAccountController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para la edición de una cuenta presupuestaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la cuenta presupuestaria a modificar
      * @return Response
      */
     public function edit($id)
     {
+        /** @var object Objeto con información de la cuenta presupuestaria a modificar */
         $budgetAccount = BudgetAccount::find($id);
+
+        /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
             'route' => ['budget.accounts.update', $budgetAccount->id], 
             'method' => 'PUT', 
             'role' => 'form'
         ];
+
+        /** @var array Arreglo de opciones a representar en la plantilla para su selección */
         $budget_accounts = template_choices(
             'Modules\Budget\Models\BudgetAccount', ['code', '-', 'denomination'], ['subspecific' => '00']
         );
+
+        /** @var object Objeto con datos del modelo a modificar */
         $model = $budgetAccount;
+
         return view('budget::accounts.create-edit-form', compact('header', 'budget_accounts', 'model'));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
+     * Actualiza los datos de la cuenta presupuestaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
+     * @param  integer $id      Identificador de la cuenta presupuestaria a modificar
      * @return Response
      */
     public function update(Request $request, $id)
@@ -171,6 +197,7 @@ class BudgetAccountController extends Controller
             'account_type' => 'required',
         ]);
 
+        /** @var object Objeto con información de la cuenta presupuestaria a modificar */
         $budgetAccount = BudgetAccount::find($id);
         $budgetAccount->fill($request->all());
         $budgetAccount->save();
@@ -180,11 +207,15 @@ class BudgetAccountController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una cuenta presupuestaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la cuenta presupuestaria a eliminar
      * @return Response
      */
     public function destroy($id)
     {
+        /** @var object Objeto con datos de la cuenta presupuestaria a eliminar */
         $budgetAccount = BudgetAccount::find($id);
 
         if ($budgetAccount) {
@@ -205,6 +236,7 @@ class BudgetAccountController extends Controller
      */
     public function vueList()
     {
+        /** @var array Arreglo con información de cuentas presupuestarias */
         $budgetAccounts = [];
         foreach (BudgetAccount::all() as $budgetAccount) {
             array_push($budgetAccounts, [
@@ -217,16 +249,22 @@ class BudgetAccountController extends Controller
 
     /**
      * Obtiene un listado de cuentas de egreso
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  boolean $to_formulate Indica si las cuentas a retornar son para formulación, 
      *                               en cuyo caso incluye la inicialización de variables para cada cuenta
      * @return \Illuminate\Http\JsonResponse
      */
     public function egressAccounts($to_formulate = false)
     {
+        /** @var array Arreglo de cuentas presupuestarias */
         $records = [];
+
+        /** @var object Objeto que contiene los datos de las cuentas presupuestarias de egreso activas */
         $accounts = BudgetAccount::where(['active' => true, 'egress' => 'true'])->get();
 
         foreach ($accounts as $account) {
+            /** @var array Arreglo con información de la cuenta presupuestaria */
             $account_data = [
                 'id' => $account->id, 'code' => $account->code, 'denomination' => $account->denomination,
                 'group' => $account->group, 'item' => $account->item, 'generic' => $account->generic, 
@@ -234,6 +272,10 @@ class BudgetAccountController extends Controller
                 'tax_id' => $account->tax_id
             ];
             if ($to_formulate) {
+                /** 
+                 * @var array Arreglo que agrega información extra a la cuenta presupuestaria en caso de que la misma 
+                 * sea para una formulación de presupuesto
+                 */
                 $account_data = array_merge($account_data, [
                     'formulated' => false, 'locked' => ($account->specific==='00'),
                     'total_real_amount' => 0, 'total_estimated_amount' => 0, 'total_year_amount' => 0,
@@ -271,41 +313,62 @@ class BudgetAccountController extends Controller
      */
     public function setChildrenAccount($parent_id)
     {
+        /** @var object Objeto con información de la cuenta presupuestaria de nivel superior */
         $parent = BudgetAccount::find($parent_id);
+
+        /** @var string Contiene el código del ítem */
         $item = $parent->item;
+        /** @var string Contiene el código de la genérica */
         $generic = $parent->generic;
+        /** @var string Contiene el código de la específica */
         $specific = $parent->specific;
+        /** @var string Contiene el código de la sub específica */
         $subspecific = $parent->subspecific;
 
         if ($parent->item === "00") {
+            /** @var object Contiene información de la cuenta presupuestaria por el código del ítem */
             $currentItem = BudgetAccount::where(['group' => $parent->group])->orderBy('item', 'desc')->first();
+            /** @var integer Contiene el código inmediatamente disponible para su registro */
             $item = (strlen(intval($currentItem->item)) < 2|| intval($currentItem->item) < 99) 
                     ? (intval($currentItem->item) + 1) : $currentItem->item;
+            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso de requerirlo */
             $item = (strlen($item) === 1) ? "0$item" : $item;
         }
         else if ($parent->generic === "00") {
-            $currentGeneric = BudgetAccount::where(['group' => $parent->group, 'item' => $parent->item])->orderBy('generic', 'desc')->first();
+            /** @var object Contiene información de la cuenta presupuestaria por el código de la genérica */
+            $currentGeneric = BudgetAccount::where(['group' => $parent->group, 'item' => $parent->item])
+                                           ->orderBy('generic', 'desc')->first();
+            /** @var integer Contiene el código inmediatamente disponible para su registro */
             $generic = (strlen(intval($currentGeneric->generic)) < 2 || intval($currentGeneric->generic) < 99) 
                        ? (intval($currentGeneric->generic) + 1) : $currentGeneric->generic;
+            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso de requerirlo */
             $generic = (strlen($generic) === 1) ? "0$generic" : $generic;
         }
         else if ($parent->specific === "00") {
+            /** @var object Contiene información de la cuenta presupuestaria por el código de la específica */
             $currentSpecific = BudgetAccount::where([
                 'group' => $parent->group, 'item' => $parent->item, 'generic' => $parent->generic
             ])->orderBy('specific', 'desc')->first();
+            /** @var integer Contiene el código inmediatamente disponible para su registro */
             $specific = (strlen(intval($currentSpecific->specific)) < 2 || intval($currentSpecific->specific) < 99) 
                         ? (intval($currentSpecific->specific) + 1) : $currentSpecific->specific;
+            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso de requerirlo */
             $specific = (strlen($specific) === 1) ? "0$specific" : $specific;
         }
         else if ($parent->subspecific === "00") {
+            /** @var object Contiene información de la cuenta presupuestaria por el código de la sub específica */
             $currentSubSpecific = BudgetAccount::where([
                 'group' => $parent->group, 'item' => $parent->item, 'generic' => $parent->generic, 'specific' => $parent->specific
             ])->orderBy('subspecific', 'desc')->first();
-            $subspecific = (strlen(intval($currentSubSpecific->subspecific)) < 2 || intval($currentSubSpecific->subspecific) < 99) 
-                        ? (intval($currentSubSpecific->subspecific) + 1) : $currentSubSpecific->subspecific;
+            /** @var integer Contiene el código inmediatamente disponible para su registro */
+            $subspecific = (
+                strlen(intval($currentSubSpecific->subspecific)) < 2 || intval($currentSubSpecific->subspecific) < 99
+            ) ? (intval($currentSubSpecific->subspecific) + 1) : $currentSubSpecific->subspecific;
+            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso de requerirlo */
             $subspecific = (strlen($subspecific) === 1) ? "0$subspecific" : $subspecific;
         }
 
+        /** @var array Arreglo con información de la nueva cuenta presupuestaria de nivel inferior disponible */
         $newAccount = [
             'group' => $parent->group, 'item' => (string)$item, 'generic' => (string)$generic, 
             'specific' => (string)$specific, 'subspecific' => (string)$subspecific,

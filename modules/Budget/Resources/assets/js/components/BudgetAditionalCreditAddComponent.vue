@@ -28,6 +28,8 @@
 							<td class="text-center">
 								<input type="hidden" name="budget_account_id[]" readonly 
 									   :value="account.budget_specific_action_id + '|' + account.budget_account_id">
+								<input type="hidden" name="budget_account_amount[]" readonly 
+									   :value="account.amount">
 								<a class="btn btn-sm btn-danger btn-action" href="#" @click="deleteAccount(index)"
 								   title="Eliminar este registro" data-toggle="tooltip">
 									<i class="fa fa-minus-circle"></i>

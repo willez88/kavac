@@ -130,14 +130,12 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      */
     public function scopeCurrentFormulation($query, $specific_action_id)
     {
-        $documentStatus = [];
-
-        foreach (DocumentStatus::where('action', '<>', 'AN')->get() as $ds) {
-            $documentStatus[] = $ds->id;
-        }
+        /** @var object Objeto con información referente al estado del documento */
+        $documentStatus = DocumentStatus::where('action', 'AP')->first();
 
         return $query->where('budget_specific_action_id', $specific_action_id)
-                     ->whereIn('document_status_id', $documentStatus)
+                     ->where('document_status_id', $documentStatus->id)
+                     ->where('assigned', true)
                      ->orderBy('year', 'desc')->first();
     }
 }

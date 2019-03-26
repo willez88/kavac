@@ -72,13 +72,13 @@ class BudgetAccount extends Model implements Auditable
     }
 
     /**
-     * BudgetAccount has many BudgetAditionalCreditAccounts.
+     * BudgetAccount has many BudgetModificationAccounts.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function aditional_credit_accounts()
+    public function modification_accounts()
     {
-        return $this->hasMany(BudgetAditionalCreditAccount::class);
+        return $this->hasMany(BudgetModificationAccount::class);
     }
 
     /**
@@ -103,7 +103,7 @@ class BudgetAccount extends Model implements Auditable
     {
         // Se debe agregar a esta comprobación todos los métodos con relación a otro modelo
         return (
-            $this->has('account_opens')->get() || $this->has('aditional_credit_accounts')->get() || 
+            $this->has('account_opens')->get() || $this->has('modification_accounts')->get() || 
             $this->parent_id !== null || $this->original
         );
     }

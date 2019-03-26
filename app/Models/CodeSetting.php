@@ -98,4 +98,9 @@ class CodeSetting extends Model implements Auditable
     	
     	return $code;
     }
+
+    public function scopeGetSetting($query, $model, $type)
+    {
+        return $query->where("model", $model)->where('type', $type)->first();
+    }
 }

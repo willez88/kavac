@@ -42,7 +42,9 @@ class BudgetCentralizedActionController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Muestra un listado de acciones centralizadas
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -51,20 +53,27 @@ class BudgetCentralizedActionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para la creación de acciones centralizadas
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function create()
     {
+        /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
             'route' => 'budget.centralized-actions.store', 
             'method' => 'POST', 
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
+        /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
         $institutions = template_choices('App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]);
+        /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices('App\Models\Department', ['acronym', '-', 'name'], ['active' => true]);
+        /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
         $positions = template_choices('Modules\Payroll\Models\PayrollPosition', 'name');
+        /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
         $staffs = template_choices(
             'Modules\Payroll\Models\PayrollStaff', ['id_number', '-', 'full_name'], ['active' => true]
         );
@@ -74,7 +83,9 @@ class BudgetCentralizedActionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra información de la acción centralizada
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  Request $request
      * @return Response
      */
@@ -108,41 +119,60 @@ class BudgetCentralizedActionController extends Controller
     }
 
     /**
-     * Show the specified resource.
+     * Muestra información de una acción centralizada
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la acción centralizada a mostrar
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
         return view('budget::show');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario de edición de acciones centralizadas
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la acción centralizada a modificar
      * @return Response
      */
     public function edit($id)
     {
+        /** @var object Objeto con información de la acción centralizada a modificar */
         $budgetCentralizedAction = BudgetCentralizedAction::find($id);
+
+        /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
             'route' => ['budget.centralized-actions.update', $budgetCentralizedAction->id], 
             'method' => 'PUT', 
             'role' => 'form'
         ];
+        /** @var object Objeto con datos del modelo a modificar */
         $model = $budgetCentralizedAction;
+
+        /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
         $institutions = template_choices('App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]);
+        /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices('App\Models\Department', ['acronym', '-', 'name'], ['active' => true]);
+        /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
         $positions = template_choices('Modules\Payroll\Models\PayrollPosition', 'name');
+        /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
         $staffs = template_choices(
             'Modules\Payroll\Models\PayrollStaff', ['id_number', '-', 'full_name'], ['active' => true]
         );
+
         return view('budget::centralized_actions.create-edit-form', compact(
             'header', 'model', 'institutions', 'departments', 'positions', 'staffs'
         ));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza información de una acción centralizada
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  Request $request
+     * @param  integer $id      Identificador de la acción centralizada a modificar
      * @return Response
      */
     public function update(Request $request, $id)
@@ -157,6 +187,7 @@ class BudgetCentralizedActionController extends Controller
             'name' => 'required',
         ]);
 
+        /** @var object Objeto con información de la acción centralizada a modificar */
         $budgetCentralizedAction = BudgetCentralizedAction::find($id);
         $budgetCentralizedAction->fill($request->all());
         $budgetCentralizedAction->save();
@@ -166,11 +197,15 @@ class BudgetCentralizedActionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una acción centralizada
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id      Identificador de la acción centralizada a eliminar
      * @return Response
      */
     public function destroy($id)
     {
+        /** @var object Objeto con información de la acción centralizada a eliminar */
         $budgetCentralizedAction = BudgetCentralizedAction::find($id);
 
         if ($budgetCentralizedAction) {
@@ -189,6 +224,7 @@ class BudgetCentralizedActionController extends Controller
      */
     public function vueList($active = null)
     {
+        /** @var object Objeto con información de las acciones centralizadas */
         $centralizedActions = ($active !== null) 
                               ? BudgetCentralizedAction::where('active', $active)->with('payroll_staff')->get() 
                               : BudgetCentralizedAction::with('payroll_staff')->get();

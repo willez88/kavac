@@ -70,4 +70,21 @@ class DocumentStatus extends Model implements Auditable
                ? $this->hasMany(\Modules\Budget\Models\BudgetModification::class) 
                : [];
     }
+
+    /**
+     * Obtiene el estatus del documento según los filtros indicados
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  object $query    Objeto que contiene la consulta del modelo
+     * @param  string $status   Estatus por el cual filtrar la información
+     * @param  string $operator Operador por el cual se va a filtrar los datos, el valor por defecto es '='
+     * @return object           Consulta filtrada
+     */
+    public function scopeGetStatus($query, $status, $operator = null)
+    {
+        /** @var string Define el operador por el cual filtrar la consulta, si no se indica el valor por defecto es '=' */
+        $operator = (!is_null($operator)) ? $operator : "=";
+
+        return $query->where('action', $operator, $status)->first();
+    }
 }
