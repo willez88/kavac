@@ -42,10 +42,10 @@ class AccountingAccountController extends Controller
     {
         $accounts_list = [];
 
-        foreach (AccountingAccount::orderBy('id','desc')->get() as $AccountingAccount) {
+        foreach (AccountingAccount::orderBy('id','asc')->get() as $AccountingAccount) {
             array_push($accounts_list, [
                 'id' => $AccountingAccount->id,
-                'code' =>   $AccountingAccount->code(),
+                'code' =>   $AccountingAccount->getCode(),
                 'denomination' => $AccountingAccount->denomination,
                 'active'=> $AccountingAccount->active
             ]);
@@ -190,7 +190,19 @@ class AccountingAccountController extends Controller
         if ($AccountingAccount) {
             $AccountingAccount->delete();
         }
-        return response()->json(['records' => $AccountingAccount, 'message' => 'Success'], 200);
+
+        $accounts_list = [];
+
+        foreach (AccountingAccount::orderBy('id','asc')->get() as $AccountingAccount) {
+            array_push($accounts_list, [
+                'id' => $AccountingAccount->id,
+                'code' =>   $AccountingAccount->getCode(),
+                'denomination' => $AccountingAccount->denomination,
+                'active'=> $AccountingAccount->active
+            ]);
+        }
+
+        return response()->json(['records' => $accounts_list, 'message' => 'Success'], 200);
     }
 
     /**

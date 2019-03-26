@@ -29,7 +29,10 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-check-records />
+					<accounting-create-convertion 
+						:budget_accounts="{{$budgetAccounts}}" 
+						:accounting_accounts="{{$accountingAccounts}}" />
+					<!-- <accounting-check-records /> -->
 				</div>
 			</div>
 		</div>
