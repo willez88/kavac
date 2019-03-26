@@ -13,6 +13,7 @@ use Modules\Budget\Models\BudgetModificationAccount;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
 use App\Models\DocumentStatus;
 use App\Models\CodeSetting;
+use App\Models\Institution;
 
 /**
  * @class BudgetAditionalCreditController
@@ -27,6 +28,9 @@ class BudgetAditionalCreditController extends Controller
 {
     use ValidatesRequests;
 
+    public $header;
+    public $institutions;
+
     /**
      * Define la configuración de la clase
      *
@@ -39,6 +43,16 @@ class BudgetAditionalCreditController extends Controller
         $this->middleware('permission:budget.aditionalcredit.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:budget.aditionalcredit.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:budget.aditionalcredit.delete', ['only' => 'destroy']);
+
+        /** @var array Arreglo de opciones a implementar en el formulario */
+        $this->header = [
+            'route' => 'budget.aditional-credits.store', 
+            'method' => 'POST', 
+            'role' => 'form',
+            'class' => 'form-horizontal',
+        ];
+
+        $this->institutions = template_choices(Institution::class, ['acronym', '-', 'name'], ['active' => true]);
     }
 
     /**
@@ -63,17 +77,10 @@ class BudgetAditionalCreditController extends Controller
     public function create()
     {
         /** @var array Arreglo de opciones a implementar en el formulario */
-        $header = [
-            'route' => 'budget.aditional-credits.store', 
-            'method' => 'POST', 
-            'role' => 'form',
-            'class' => 'form-horizontal',
-        ];
+        $header = $this->header;
 
         /** @var array Arreglo de opciones a representar en la plantilla para su selección */
-        $institutions = template_choices(
-            'App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]
-        );
+        $institutions = $this->institutions;
 
         return view('budget::aditional_credits.create-edit-form', compact('header', 'institutions'));
     }
@@ -183,20 +190,19 @@ class BudgetAditionalCreditController extends Controller
     {
         /** @var object Objeto con información de la modificación presupuestaria a actualizar */
         $budgetModification = BudgetModification::find($id);
+
+        $this->header['route'] = ['budget.aditional-credits.update', $budgetModification->id];
+        $this->header['method'] = 'PUT';
         
         /** @var array Arreglo de opciones a implementar en el formulario */
-        $header = [
-            'route' => ['budget.aditional-credits.update', $budgetModification->id], 
-            'method' => 'PUT', 
-            'role' => 'form'
-        ];
+        $header = $this->header;
         
         /** @var array Arreglo de opciones a representar en la plantilla para su selección */
-        $institutions = template_choices(
-            'App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]
-        );
+        $institutions = $this->institutions;
+
         /** @var object Objeto con datos del modelo a modificar */
         $model = $budgetModification;
+        
         return view('budget::aditional_credits.create-edit-form', compact('header', 'model', 'institutions'));
     }
 
