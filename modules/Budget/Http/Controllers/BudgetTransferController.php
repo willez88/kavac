@@ -7,8 +7,18 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use App\Models\Institution;
 use Modules\Budget\Models\BudgetModification;
 
+/**
+ * @class BudgetTransferController
+ * @brief Controlador de transferencias presupuestarias
+ * 
+ * Clase que gestiona las transferencias presupuestarias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetTransferController extends Controller
 {
     use ValidatesRequests;
@@ -28,37 +38,45 @@ class BudgetTransferController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Muestra un listado de transferencias presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function index()
     {
+        /** @var object Objeto con información de las transferencias presupuestarias */
         $records = BudgetModification::where('type', 'T')->get();
+
         return view('budget::transfers.list');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para la creación de transferencias presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function create()
     {
+        /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
             'route' => 'budget.transfers.store', 
             'method' => 'POST', 
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
-        $institutions = template_choices(
-            'App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]
-        );
+        /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
+        $institutions = template_choices(Institution::class, ['acronym', '-', 'name'], ['active' => true]);
 
         return view('budget::transfers.create-edit-form', compact('header', 'institutions'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param Request $request
+     * Guarda información de las transferencias presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param Request $request Objeto con datos de la petición realizada
      * @return Response
      */
     public function store(Request $request)
@@ -67,8 +85,10 @@ class BudgetTransferController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
+     * Muestra información de transferencias presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param int $id Identificador de la transferencia presupuesaria a mostrar
      * @return Response
      */
     public function show($id)
@@ -77,8 +97,10 @@ class BudgetTransferController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
+     * Muestra el formulario de modificación de transferencias presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param int $id Identificador de la transferencia presupuestaria a modificar
      * @return Response
      */
     public function edit($id)
@@ -87,9 +109,11 @@ class BudgetTransferController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     * Actualiza información de transferencias presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param Request $request Objeto con datos de la petición realizada
+     * @param int $id Identificador de la transferencia presupuestaria a modificar
      * @return Response
      */
     public function update(Request $request, $id)
@@ -98,12 +122,15 @@ class BudgetTransferController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
+     * Elimina transferencias presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param int $id Identificador de la transferencia presupuestaria a eliminar
      * @return Response
      */
     public function destroy($id)
     {
+        /** @var object Objeto con información de la transferencia presupuestaria a eliminar */
         $BudgetTransfer = BudgetModification::find($id);
 
         if ($BudgetTransfer) {
@@ -115,7 +142,9 @@ class BudgetTransferController extends Controller
 
     /**
      * Obtiene los registros a mostrar en listados de componente Vue
-     * @return [type] [description]
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return json JSON con información de los registros de transferencias presupuestarias
      */
     public function vueList()
     {

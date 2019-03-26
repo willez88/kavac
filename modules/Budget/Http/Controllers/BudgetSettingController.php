@@ -24,20 +24,44 @@ use Modules\Budget\Models\BudgetModification;
 class BudgetSettingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Define la configuración de la clase
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:budget.setting.list', ['only' => 'index', 'vueList']);
+        $this->middleware('permission:budget.setting.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:budget.setting.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:budget.setting.delete', ['only' => 'destroy']);
+    }
+
+    /**
+     * Muestra un listado de configuraciones de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function index()
     {
+        /** @var object Contiene los registros de proyectos */
         $projects = BudgetProject::all();
+        /** @var object Contiene los registros de configuraciones de códigos */
         $codeSettings = CodeSetting::where('module', 'budget')->get();
+        /** @var object Contiene información sobre la configuración de código para la formulación */
         $fCode = $codeSettings->where('table', 'budget_formulations')->first();
+        /** @var object Contiene información sobre la configuración de código para los compromisos */
         $cCode = $codeSettings->where('table', 'budget_commitments')->first();
-
+        /** @var object Contiene información sobre la configuración de código para los créditos adicionales */
         $crCode = $codeSettings->where('table', 'budget_modifications')->where('type', 'budget.aditional-credits')->first();
+        /** @var object Contiene información sobre la configuración de código para las reducciones presupuestarias */
         $rCode = $codeSettings->where('table', 'budget_modifications')->where('type', 'budget.reductions')->first();
+        /** @var object Contiene información sobre la configuración de código para las transferencias entre presupuestos */
         $tCode = $codeSettings->where('table', 'budget_modifications')->where('type', 'budget.transfers')->first();
+        /** @var object Contiene información sobre la configuración de código para los causados presupuestarios */
         $caCode = $codeSettings->where('table', 'budget_caused')->first();
+        /** @var object Contiene información sobre la configuración de código para los pagados presupuestarios */
         $pCode = $codeSettings->where('table', 'budget_payed')->first();
         
         return view('budget::settings', compact(
@@ -46,7 +70,9 @@ class BudgetSettingController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra un formulario para la creación de las configuraciones de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function create()
@@ -55,8 +81,10 @@ class BudgetSettingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
+     * Guarda información de las configuraciones de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
     public function store(Request $request)
@@ -72,10 +100,13 @@ class BudgetSettingController extends Controller
             'credits_code' => [new CodeSettingRule],
         ]);
 
+        /** @var array Arreglo con información de los campos de códigos configurados */
         $codes = $request->input();
+        /** @var boolean Define el estatus verdadero para indicar que no se ha registrado información */
         $saved = false;
         
         foreach ($codes as $key => $value) {
+            /** @var string Define el modelo al cual hace referencia el código */
             $model = '';
 
             if ($key !== '_token' && !is_null($value)) {
@@ -83,18 +114,24 @@ class BudgetSettingController extends Controller
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
                 
                 if ($table === "formulations") {
+                    /** @var string Define el modelo para asociado a la formulación de presupuesto */
                     $model = BudgetSubSpecificFormulation::class;
                 }
                 else if (in_array($key, ['transfers_code', 'reductions_code', 'credits_code'])) {
+                    /** @var string Define el modelo asociado a las modificaciones presupuestarias */
                     $model = BudgetModification::class;
+                    /** @var string Define la tabla asociada a las modificaciones presupuestarias */
                     $table = 'modifications';
                     if ($key === 'transfers_code') {
+                        /** @var string Define el tipo de registro como transferencia entre presupuestos */
                         $type = 'budget.transfers';
                     }
                     else if ($key === 'reductions_code') {
+                        /** @var string Define el tipo de registro como reducciones presupuestarias */
                         $type = 'budget.reductions';
                     }
                     else if ($key === 'credits_code') {
+                        /** @var string Define el tipo de registro como créditos adicionales */
                         $type = 'budget.aditional-credits';
                     }
                 }
@@ -113,7 +150,7 @@ class BudgetSettingController extends Controller
                     'format_year' => $sufix,
                     'model' => $model,
                 ]);
-
+                /** @var boolean Define el estatus verdadero para indicar que se ha registrado información */
                 $saved = true;
             }
         }
@@ -126,7 +163,9 @@ class BudgetSettingController extends Controller
     }
 
     /**
-     * Show the specified resource.
+     * Muestra información con las configuraciones de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function show()
@@ -135,7 +174,9 @@ class BudgetSettingController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar información de configuraciones de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function edit()
@@ -144,8 +185,10 @@ class BudgetSettingController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
+     * Actualiza información de configuración de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
     public function update(Request $request)
@@ -153,7 +196,9 @@ class BudgetSettingController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina configuraciones de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function destroy()

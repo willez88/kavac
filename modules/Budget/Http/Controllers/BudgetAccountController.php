@@ -22,6 +22,10 @@ class BudgetAccountController extends Controller
 {
     use ValidatesRequests;
 
+    public $budget_account_choices;
+    public $header;
+    public $validate_rules;
+
     /**
      * Define la configuración de la clase
      *
@@ -34,6 +38,30 @@ class BudgetAccountController extends Controller
         $this->middleware('permission:budget.account.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:budget.account.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:budget.account.delete', ['only' => 'destroy']);
+
+        /** @var array Arreglo de opciones a implementar en el formulario */
+        $this->header = [
+            'route' => 'budget.accounts.store', 
+            'method' => 'POST', 
+            'role' => 'form',
+            'class' => 'form-horizontal',
+        ];
+
+        /** @var array Arreglo de opciones a representar en la plantilla para su selección */
+        $this->budget_account_choices = template_choices(
+            BudgetAccount::class, ['code', '-', 'denomination'], ['subspecific' => '00']
+        );
+
+        /** @var array Define las reglas de validación para el formulario */
+        $this->validate_rules = [
+            'group' => 'required|digits:1',
+            'item' => 'required|digits:2',
+            'generic' => 'required|digits:2',
+            'specific' => 'required|digits:2',
+            'subspecific' => 'required|digits:2',
+            'denomination' => 'required',
+            'account_type' => 'required',
+        ];
     }
 
     /**
@@ -58,17 +86,10 @@ class BudgetAccountController extends Controller
     public function create()
     {
         /** @var array Arreglo de opciones a implementar en el formulario */
-        $header = [
-            'route' => 'budget.accounts.store', 
-            'method' => 'POST', 
-            'role' => 'form',
-            'class' => 'form-horizontal',
-        ];
+        $header = $this->header;
 
         /** @var array Arreglo de opciones a representar en la plantilla para su selección */
-        $budget_accounts = template_choices(
-            'Modules\Budget\Models\BudgetAccount', ['code', '-', 'denomination'], ['subspecific' => '00']
-        );
+        $budget_accounts = $this->budget_account_choices;
 
         return view('budget::accounts.create-edit-form', compact('header', 'budget_accounts'));
     }
@@ -82,22 +103,14 @@ class BudgetAccountController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'group' => 'required|digits:1',
-            'item' => 'required|digits:2',
-            'generic' => 'required|digits:2',
-            'specific' => 'required|digits:2',
-            'subspecific' => 'required|digits:2',
-            'denomination' => 'required',
-            'account_type' => 'required',
-        ]);
+        $this->validate($request, $this->validate_rules);
 
         /** @var object Objeto que contiene los datos de la cuenta ya registrada si existe */
-        $budgetAccount = BudgetAccount::where('group', request('group'))
-                                      ->where('item', request('item'))
-                                      ->where('generic', request('generic'))
-                                      ->where('specific', request('specific'))
-                                      ->where('subspecific', request('subspecific'))
+        $budgetAccount = BudgetAccount::where('group', $request->group)
+                                      ->where('item', $request->item)
+                                      ->where('generic', $request->generic)
+                                      ->where('specific', $request->specific)
+                                      ->where('subspecific', $request->subspecific)
                                       ->where('active', true)->first();
 
         /**
@@ -112,7 +125,7 @@ class BudgetAccountController extends Controller
 
         /** @var object Objeto con información de la cuenta de nivel superior, si existe */
         $parent = BudgetAccount::getParent(
-            request('group'), request('item'), request('generic'), request('specific'), request('subspecific')
+            $request->group, $request->item, $request->generic, $request->specific, $request->subspecific
         );
 
         /**
@@ -159,17 +172,13 @@ class BudgetAccountController extends Controller
         /** @var object Objeto con información de la cuenta presupuestaria a modificar */
         $budgetAccount = BudgetAccount::find($id);
 
+        $this->header['route'] = ['budget.accounts.update', $budgetAccount->id];
+        $this->header['method'] = 'PUT';
         /** @var array Arreglo de opciones a implementar en el formulario */
-        $header = [
-            'route' => ['budget.accounts.update', $budgetAccount->id], 
-            'method' => 'PUT', 
-            'role' => 'form'
-        ];
+        $header = $this->header;
 
         /** @var array Arreglo de opciones a representar en la plantilla para su selección */
-        $budget_accounts = template_choices(
-            'Modules\Budget\Models\BudgetAccount', ['code', '-', 'denomination'], ['subspecific' => '00']
-        );
+        $budget_accounts = $this->budget_account_choices;
 
         /** @var object Objeto con datos del modelo a modificar */
         $model = $budgetAccount;
@@ -187,15 +196,7 @@ class BudgetAccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'group' => 'required|digits:1',
-            'item' => 'required|digits:2',
-            'generic' => 'required|digits:2',
-            'specific' => 'required|digits:2',
-            'subspecific' => 'required|digits:2',
-            'denomination' => 'required',
-            'account_type' => 'required',
-        ]);
+        $this->validate($request, $this->validate_rules);
 
         /** @var object Objeto con información de la cuenta presupuestaria a modificar */
         $budgetAccount = BudgetAccount::find($id);

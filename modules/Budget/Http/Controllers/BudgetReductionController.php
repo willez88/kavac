@@ -7,11 +7,24 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use App\Models\Institution;
 use Modules\Budget\Models\BudgetModification;
 
+/**
+ * @class BudgetReductionController
+ * @brief Controlador de reducciones presupuestarias
+ * 
+ * Clase que gestiona las reducciones presupuestarias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetReductionController extends Controller
 {
     use ValidatesRequests;
+
+    public $header;
+    public $institution;
 
     /**
      * Define la configuración de la clase
@@ -25,40 +38,54 @@ class BudgetReductionController extends Controller
         $this->middleware('permission:budget.reduction.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:budget.reduction.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:budget.reduction.delete', ['only' => 'destroy']);
-    }
 
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
-    {
-        $records = BudgetModification::where('type', 'R')->get();
-        return view('budget::reductions.list');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        $header = [
+        /** @var array Arreglo de opciones a implementar en el formulario */
+        $this->header = [
             'route' => 'budget.reductions.store', 
             'method' => 'POST', 
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
-        $institutions = template_choices(
-            'App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]
-        );
+
+        /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
+        $this->institution = template_choices(Institution::class, ['acronym', '-', 'name'], ['active' => true]);
+    }
+
+    /**
+     * Muestra un listado de reducciones de presupuesto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return Response
+     */
+    public function index()
+    {
+        /** @var object Objeto con información de las reducciones presupuestarias */
+        $records = BudgetModification::where('type', 'R')->get();
+
+        return view('budget::reductions.list');
+    }
+
+    /**
+     * Muestra un formulario para la creación de redcciones presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return Response
+     */
+    public function create()
+    {
+        /** @var array Arreglo de opciones a implementar en el formulario */
+        $header = $this->header;
+        /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
+        $institutions = $this->institution;
 
         return view('budget::reductions.create-edit-form', compact('header', 'institutions'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param Request $request
+     * Guarda información de las reducciones presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param Request $request Objeto con datos de la petición realizada
      * @return Response
      */
     public function store(Request $request)
@@ -67,8 +94,10 @@ class BudgetReductionController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
+     * Muestra información de las reducciones presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param int $id Identificador de la reducción presupuestaria a mostrar
      * @return Response
      */
     public function show($id)
@@ -77,8 +106,10 @@ class BudgetReductionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
+     * Muestra el formulario para la edición de formulaciones presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param int $id Identificador de la reducción presupuestaria a modificar
      * @return Response
      */
     public function edit($id)
@@ -87,9 +118,11 @@ class BudgetReductionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     * Actualiza información de las reducciones presupuestarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param Request $request Objeto con datos de la petición realizada
+     * @param int $id          Identificador de la reducción presupuestaria a modificar
      * @return Response
      */
     public function update(Request $request, $id)
@@ -98,12 +131,16 @@ class BudgetReductionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
+     * Elimina una reducción presupuestaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param Request $request Objeto con datos de la petición realizada
+     * @param int $id Identificador de la reducción presupuestaria a eliminar
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        /** @var object Objeto con información de la reducción presupuestaria a eliminar */
         $BudgetReduction = BudgetModification::find($id);
 
         if ($BudgetReduction) {
@@ -115,7 +152,9 @@ class BudgetReductionController extends Controller
 
     /**
      * Obtiene los registros a mostrar en listados de componente Vue
-     * @return [type] [description]
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return json JSON con información de las reducciones presupuestarias
      */
     public function vueList()
     {

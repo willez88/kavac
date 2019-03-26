@@ -25,6 +25,9 @@ class BudgetSpecificActionController extends Controller
 {
     use ValidatesRequests;
 
+    public $projects;
+    public $centralized_actions;
+
     /**
      * Define la configuración de la clase
      *
@@ -37,10 +40,20 @@ class BudgetSpecificActionController extends Controller
         $this->middleware('permission:budget.specificaction.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:budget.specificaction.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:budget.specificaction.delete', ['only' => 'destroy']);
+
+        /** @var array Arreglo de opciones de proyectos a representar en la plantilla para su selección */
+        $this->projects = template_choices(BudgetProject::class, ['code', '-', 'name'], ['active' => true]);
+
+        /** @var array Arreglo de opciones de acciones centralizadas a representar en la plantilla para su selección */
+        $this->centralized_actions = template_choices(
+            BudgetCentralizedAction::class, ['code', '-', 'name'], ['active' => true]
+        );
     }
 
     /**
-     * Display a listing of the resource.
+     * Muestra un listado de acciones específicas
+     * 
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -49,31 +62,36 @@ class BudgetSpecificActionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear una acción específica
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function create()
     {
+        /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
             'route' => 'budget.specific-actions.store', 
             'method' => 'POST', 
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
-        $projects = template_choices(
-            'Modules\Budget\Models\BudgetProject', ['code', '-', 'name'], ['active' => true]
-        );
-        $centralized_actions = template_choices(
-            'Modules\Budget\Models\BudgetCentralizedAction', ['code', '-', 'name'], ['active' => true]
-        );
+
+        /** @var array Arreglo de opciones de proyectos a representar en la plantilla para su selección */
+        $projects = $this->projects;
+        /** @var array Arreglo de opciones de acciones centralizadas a representar en la plantilla para su selección */
+        $centralized_actions = $this->centralized_actions;
+
         return view('budget::specific_actions.create-edit-form', compact(
             'header', 'projects', 'centralized_actions'
         ));
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
+     * Registra información de la acción específica
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
     public function store(Request $request)
@@ -89,6 +107,7 @@ class BudgetSpecificActionController extends Controller
             'centralized_action_id' => 'required_if:project_centralized_action,centralized_action',
         ]);
 
+        /** @var object Crea una acción específica */
         $budgetSpecificAction = new BudgetSpecificAction([
             'from_date' => $request->from_date,
             'to_date' => $request->to_date,
@@ -98,9 +117,11 @@ class BudgetSpecificActionController extends Controller
         ]);
 
         if ($request->project_centralized_action === "project") {
+            /** @var object Objeto que contiene información de un proyecto */
             $pry_acc = BudgetProject::find($request->project_id);
         }
         elseif ($request->project_centralized_action === "centralized_action") {
+            /** @var object Objeto que contiene información de una acción centralizada */
             $pry_acc = BudgetCentralizedAction::find($request->centralized_action_id);
         }
         $pry_acc->specific_actions()->save($budgetSpecificAction);
@@ -110,7 +131,9 @@ class BudgetSpecificActionController extends Controller
     }
 
     /**
-     * Show the specified resource.
+     * Muestra información de una acción específica
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function show()
@@ -119,32 +142,41 @@ class BudgetSpecificActionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para la edición de una acción específica
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la acción específica a modificar
      * @return Response
      */
     public function edit($id)
     {
+        /** @var object Objeto con información de la acción específica a modificar */
         $BudgetSpecificAction = BudgetSpecificAction::find($id);
+
+        /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
             'route' => ['budget.specific-actions.update', $BudgetSpecificAction->id], 
             'method' => 'PUT', 
             'role' => 'form'
         ];
+        /** @var object Objeto con datos del modelo a modificar */
         $model = $BudgetSpecificAction;
-        $projects = template_choices(
-            'Modules\Budget\Models\BudgetProject', ['code', '-', 'name'], ['active' => true]
-        );
-        $centralized_actions = template_choices(
-            'Modules\Budget\Models\BudgetCentralizedAction', ['code', '-', 'name'], ['active' => true]
-        );
+        /** @var array Arreglo de opciones de proyectos a representar en la plantilla para su selección */
+        $projects = $this->projects;
+        /** @var array Arreglo de opciones de acciones centralizadas a representar en la plantilla para su selección */
+        $centralized_actions = $this->centralized_actions;
+
         return view('budget::specific_actions.create-edit-form', compact(
             'header', 'model', 'projects', 'centralized_actions'
         ));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
+     * Actualiza información de la acción específica
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
+     * @param  integer $id Identificador de la acción específica a modificar
      * @return Response
      */
     public function update(Request $request, $id)
@@ -161,13 +193,17 @@ class BudgetSpecificActionController extends Controller
         ]);
 
         if ($request->project_centralized_action === "project") {
+            /** @var object Objeto que contiene información de un proyecto */
             $pry_acc = BudgetProject::find($request->project_id);
-            $specificable_type = "Modules\Budget\Models\BudgetProject";
+            $specificable_type = BudgetProject::class;
         }
         elseif ($request->project_centralized_action === "centralized_action") {
+            /** @var object Objeto que contiene información de una acción centralizada */
             $pry_acc = BudgetCentralizedAction::find($request->centralized_action_id);
-            $specificable_type = "Modules\Budget\Models\BudgetCentralizedAction";
+            $specificable_type = BudgetCentralizedAction::class;
         }
+
+        /** @var object Objeto con información de la acción específica a modificar */
         $budgetSpecificAction = BudgetSpecificAction::find($id);
         $budgetSpecificAction->fill($request->all());
         $budgetSpecificAction->specificable_type = $specificable_type;
@@ -179,11 +215,15 @@ class BudgetSpecificActionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una acción específica
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador de la acción específica a eliminar
      * @return Response
      */
     public function destroy($id)
     {
+        /** @var object Objeto con información de la acción específica a eliminar */
         $budgetSpecificAction = BudgetSpecificAction::find($id);
 
         if ($budgetSpecificAction) {
@@ -202,6 +242,7 @@ class BudgetSpecificActionController extends Controller
      */
     public function vueList($active = null)
     {
+        /** @var object Objeto con información de las acciones específicas registradas */
         $specificActions = ($active !== null) 
                            ? BudgetSpecificAction::where('active', $active)->with('specificable')->get() 
                            : BudgetSpecificAction::with('specificable')->get();
@@ -220,16 +261,20 @@ class BudgetSpecificActionController extends Controller
      */
     public function getSpecificActions($type, $id, $source = null)
     {
+        /** @var array Arreglo con información de las acciones específicas */
         $data = [['id' => '', 'text' => 'Seleccione...']];
+
         if ($type==="Project") {
+            /** @var object Objeto con las acciones específicas asociadas a un proyecto */
             $specificActions = BudgetProject::find($id)->specific_actions()->get();
         }
         else if ($type == "CentralizedAction") {
+            /** @var object Objeto con las acciones específicas asociadas a una acción centralizada */
             $specificActions = BudgetCentralizedAction::find($id)->specific_actions()->get();
         }
 
         foreach ($specificActions as $specificAction) {
-            /** Valida si la acción específica ya fue formulada para el último presupuesto */
+            /** @var object Objeto que determina si la acción específica ya fue formulada para el último presupuesto */
             $existsFormulation = BudgetSubSpecificFormulation::where([
                 'budget_specific_action_id' => $specificAction->id
             ])->orderBy('year', 'desc')->first();
@@ -254,11 +299,15 @@ class BudgetSpecificActionController extends Controller
      */
     public function getGroupAllSpecificActions($formulated_year = '')
     {
-        /** Inicializa los grupos a los cuales asignar las acciones específicas */
+        /** @var array Arreglo que contiene las acciones específicas agrupadas por proyectos */
         $dataProjects = ['text' => 'Proyectos', 'children' => []];
+        /** @var array Arreglo que contiene las acciones específicas agrupadas por acciones centralizadas */
         $dataCentralizedActions = ['text' => 'Acciones Centralizadas', 'children' => []];
+
+        /** @var array Arreglo que contiene las acciones específicas */
         $data = [['id' => '', 'text' => 'Seleccione...']];
 
+        /** @var object Objeto que contiene información de las acciones específicas */
         $sp_accs = ($formulated_year) ? BudgetSpecificAction::whereYear('from_date', $formulated_year)
                                                             ->orWhereYear('to_date', $formulated_year)
                                                             ->with('specificable')

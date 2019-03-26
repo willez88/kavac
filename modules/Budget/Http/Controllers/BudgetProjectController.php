@@ -41,7 +41,9 @@ class BudgetProjectController extends Controller
     }
     
     /**
-     * Display a listing of the resource.
+     * Muestra un listado de proyectos
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -50,31 +52,39 @@ class BudgetProjectController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un proyecto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return Response
      */
     public function create()
     {
+        /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
             'route' => 'budget.projects.store', 
             'method' => 'POST', 
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
-        $institutions = template_choices('App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]);
-        $departments = template_choices('App\Models\Department', ['acronym', '-', 'name'], ['active' => true]);
-        $positions = template_choices('Modules\Payroll\Models\PayrollPosition', 'name');
-        $staffs = template_choices(
-            'Modules\Payroll\Models\PayrollStaff', ['id_number', '-', 'full_name'], ['active' => true]
-        );
+        /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
+        $institutions = template_choices(Institution::class, ['acronym', '-', 'name'], ['active' => true]);
+        /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
+        $departments = template_choices(Department::class, ['acronym', '-', 'name'], ['active' => true]);
+        /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
+        $positions = template_choices(PayrollPosition::class, 'name');
+        /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
+        $staffs = template_choices(PayrollStaff::class, ['id_number', '-', 'full_name'], ['active' => true]);
+
         return view('budget::projects.create-edit-form', compact(
             'header', 'institutions', 'departments', 'positions', 'staffs'
         ));
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
+     * Guarda información del nuevo proyecto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
     public function store(Request $request)
@@ -107,39 +117,57 @@ class BudgetProjectController extends Controller
     }
 
     /**
-     * Show the specified resource.
+     * Muestra información de un proyecto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador del proyecto a mostrar
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
         return view('budget::show');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un proyecto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador del proyecto a modificar
      * @return Response
      */
     public function edit($id)
     {
+        /** @var object Objeto con información del proyecto a modificar */
         $budgetProject = BudgetProject::find($id);
+        /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
             'route' => ['budget.projects.update', $budgetProject->id], 
             'method' => 'PUT', 
             'role' => 'form'
         ];
+        /** @var object Objeto con datos del modelo a modificar */
         $model = $budgetProject;
+
+        /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
         $institutions = template_choices(Institution::class, ['acronym', '-', 'name'], ['active' => true]);
+        /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices(Department::class, ['acronym', '-', 'name'], ['active' => true]);
+        /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
         $positions = template_choices(PayrollPosition::class, 'name');
+        /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
         $staffs = template_choices(PayrollStaff::class, ['id_number', '-', 'full_name'], ['active' => true]);
+
         return view('budget::projects.create-edit-form', compact(
             'header', 'model', 'institutions', 'departments', 'positions', 'staffs'
         ));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
+     * Actualiza la información de un proyecto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
+     * @param  integer $id Identificador del proyecto a modificar
      * @return Response
      */
     public function update(Request $request, $id)
@@ -153,8 +181,11 @@ class BudgetProjectController extends Controller
             'onapre_code' => 'required',
             'name' => 'required',
         ]);
+
+        /** @var object Objeto con información del proyecto a modificar */
         $budgetProject = BudgetProject::find($id);
         $budgetProject->fill($request->all());
+        /** @var boolean Establece si el proyecto esta o no activo */
         $budgetProject->active = $request->active ?? false;
         $budgetProject->save();
 
@@ -163,11 +194,15 @@ class BudgetProjectController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un proyecto específico
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $id Identificador del proyecto a eliminar
      * @return Response
      */
     public function destroy($id)
     {
+        /** @var object Objeto con información del proyecto a eliminar */
         $budgetProject = BudgetProject::find($id);
 
         if ($budgetProject) {
@@ -186,6 +221,7 @@ class BudgetProjectController extends Controller
      */
     public function vueList($active = null)
     {
+        /** @var object Objeto con información de los proyectos registrados */
         $budgetProjects = ($active !== null) 
                           ? BudgetProject::where('active', $active)->with('payroll_staff')->get() 
                           : BudgetProject::with('payroll_staff')->get();
@@ -202,7 +238,7 @@ class BudgetProjectController extends Controller
     public function getProjects($id = null)
     {
         return response()->json(template_choices(
-            'Modules\Budget\Models\BudgetProject', ['code', '-', 'name'], ($id) ? ['id' => $id] : [], true
+            BudgetProject::class, ['code', '-', 'name'], ($id) ? ['id' => $id] : [], true
         ));
     }
 }
