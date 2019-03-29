@@ -44,6 +44,6 @@ class PayrollLanguage extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'name', 'acronym', 'language_level_id'
+        'name', 'acronym'
     ];
 }

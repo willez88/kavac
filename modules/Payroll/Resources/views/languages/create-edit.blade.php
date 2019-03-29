@@ -58,20 +58,6 @@
 						        </div>
 						    </div>
 						</div>
-						<div class="row">
-						    <div class="col-md-6">
-						        <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} is-required">
-									{!! Form::label('language_level_id', 'Nivel del idioma', []) !!}
-						            {!! Form::select('language_level_id',(isset($language_levels))?$language_levels:[], null,
-						                [
-						                    'class' => 'form-control select2',
-						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Seleccione el nivel del idioma'
-						                ]
-						            ) !!}
-						        </div>
-						    </div>
-						</div>
 					</div>
 					<div class="card-footer text-right">
 						@include('layouts.form-buttons')

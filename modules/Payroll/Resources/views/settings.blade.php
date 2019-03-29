@@ -154,6 +154,15 @@
 								<span>Nivel de<br>Idioma</span>
 							</a>
 						</div>
+						{{-- idioma --}}
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('languages.index') }}" title="Registro de idioma"
+							   data-toggle="tooltip">
+								<i class="icofont icofont-flag ico-3x"></i>
+								<span>Idioma</span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -68,13 +68,11 @@ class PayrollLanguageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'acronym' => 'required|10',
-            'language_level_id' => 'required'
+            'acronym' => 'required|10'
         ]);
         $language = new PayrollLanguage;
         $language->name  = $request->name;
         $language->acronym  = $request->acronym;
-        $language->language_level_id  = $request->language_level_id;
         $language->save();
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('languages.index');
@@ -111,11 +109,9 @@ class PayrollLanguageController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'acronym' => 'required|10',
-            'language_level_id' => 'required'
         ]);
         $language->name  = $request->name;
         $language->acronym  = $request->acronym;
-        $language->language_level_id = $request->language_level_id;
         $language->save();
         $request->session()->flash('message', ['type' => 'update']);
         return redirect()->route('languages.index');
