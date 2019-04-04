@@ -42,7 +42,7 @@ class AccountingAccountController extends Controller
     {
         $accounts_list = [];
 
-        foreach (AccountingAccount::orderBy('id','desc')->get() as $AccountingAccount) {
+        foreach (AccountingAccount::orderBy('id','ASC')->get() as $AccountingAccount) {
             array_push($accounts_list, [
                 'id' => $AccountingAccount->id,
                 'code' =>   $AccountingAccount->getCode(),
@@ -61,19 +61,7 @@ class AccountingAccountController extends Controller
      */
     public function create()
     {
-        $records = [];
-        array_push($records, [
-            'id' => '',
-            'text' =>   "Seleccione..."
-        ]);
-        foreach (AccountingAccount::orderBy('id','ASC')->get() as $AccountingAccount) {
-            array_push($records, [
-                'id' => $AccountingAccount->id,
-                'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}",
-                'active'=> $AccountingAccount->active
-            ]);
-        }
-        $records = json_encode($records);
+        $records = $this->getDataAccountingAccount();
         return view('accounting::accounts.create-edit-form', compact('records'));
     }
 
@@ -99,16 +87,17 @@ class AccountingAccountController extends Controller
                               ->where('item', request('item'))
                               ->where('generic', request('generic'))
                               ->where('specific', request('specific'))
-                              ->where('subspecific', request('subspecific'))
-                              ->where('active', true)->first();
+                              ->where('subspecific', request('subspecific'))->first();
 
         /**
-         * Si la cuenta a registrar ya existe en la base de datos solo se actualiza el atributo active
+         * Si la cuenta a registrar ya existe en la base de datos solo se actualiza el atributo active y la denominación
          * De lo contrario se crea la nueva cuenta
          */
-        if ($AccountingAccount && $request->active!==null) {
+        if ($AccountingAccount) {
+            $AccountingAccount->denomination = $request->denomination;
             $AccountingAccount->active = $request->active;
             $AccountingAccount->save();
+            $request->session()->flash('message', ['type' => 'update']);
         }else{
             AccountingAccount::create([
                 'group' => $request->group,
@@ -120,9 +109,9 @@ class AccountingAccountController extends Controller
                 'denomination' => $request->denomination,
                 'active' => $request->active,
             ]);
+            $request->session()->flash('message', ['type' => 'store']);
         }
         
-        $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['message'=>'Success']);
     }
 
@@ -144,9 +133,9 @@ class AccountingAccountController extends Controller
 
     public function edit($id)
     {
-        $accounting_accounts = AccountingAccount::orderBy('group','ASC')->get();
+        $records = $this->getDataAccountingAccount();
         $account = AccountingAccount::find($id);
-        return view('accounting::accounts.create-edit-form', compact('accounting_accounts','account'));
+        return view('accounting::accounts.create-edit-form', compact('records','account'));
 
     }
 
@@ -261,6 +250,23 @@ class AccountingAccountController extends Controller
             'denomination' => $parent->denomination, 'active' => $parent->active
         ];
         return response()->json(['account'=> $account, 'message' => 'Success'], 200);
+    }
+
+    public function getDataAccountingAccount()
+    {
+        $records = [];
+        array_push($records, [
+            'id' => '',
+            'text' =>   "Seleccione..."
+        ]);
+        foreach (AccountingAccount::orderBy('id','ASC')->get() as $AccountingAccount) {
+            array_push($records, [
+                'id' => $AccountingAccount->id,
+                'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}",
+                'active'=> $AccountingAccount->active
+            ]);
+        }
+        return json_encode($records);
     }
 
 }

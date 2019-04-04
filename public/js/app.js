@@ -109995,32 +109995,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-// $(document).ready(function() {
-// 		/** Genera una nueva cuenta a partir de la cuenta seleccionada */
-// 		$("#account_id").on('change', function() {
-// 			$("input[type=text]").each(function() {
-// 				$(this).val("");
-// 			});
-
-// 			if ($(this).val()) {
-// 					axios.get('/accounting/get-children-account/' + $(this).val()).then(response => {
-// 							let account = response.data.account;
-// 							/** Selecciona en pantalla la nueva cuentas */
-// 							$("input[name=group]").val(account.group);
-// 							$("input[name=subgroup]").val(account.subgroup);
-// 							$("input[name=item]").val(account.item);
-// 							$("input[name=generic]").val(account.generic);
-// 							$("input[name=specific]").val(account.specific);
-// 							$("input[name=subspecific]").val(account.subspecific);
-// 							$("input[name=denomination]").val(account.denomination);
-// 							$("input[name=active]").bootstrapSwitch("state", account.active);
-// 					}).catch(error => {
-// 						console.log(error);
-// 					});
-// 				// }
-// 			}
-// 		});
-// 	});
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['records', 'account'],
 	data: function data() {
@@ -110053,17 +110027,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		sendData: function sendData() {
 			var _this = this;
 
-			this.data_account = {
-				group: $('#group').val(),
-				subgroup: $('#subgroup').val(),
-				item: $('#item').val(),
-				generic: $('#generic').val(),
-				specific: $('#specific').val(),
-				subspecific: $('#subspecific').val(),
-				denomination: $('#denomination').val(),
-				active: $('#active').prop('checked')
-			};
-			var url = '/accounting/accounts';
+			var url = '/accounting/accounts/';
+			this.data_account.active = $('#active').prop('checked');
 			if (this.showButton == 'create') {
 				axios.post(url, this.data_account).then(function (response) {
 					window.location.href = _this.urlPrevious;
@@ -110078,6 +110043,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				});
 			} else {
+				console.log(this.data_account);
 				axios.put(url + this.account.id, this.data_account).then(function (response) {
 					window.location.href = _this.urlPrevious;
 				}).catch(function (error) {
@@ -110095,25 +110061,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	watch: {
 		RecordBase: function RecordBase(res) {
-			for (var i = 0; i < this.records.length; i++) {
-				if (this.records[i].id == res) {
-					var code = this.records[i].text.split(' - ')[0];
-					var denomination = this.records[i].text.split(' - ')[1];
+			var _this2 = this;
 
-					this.data_account = {
-						group: code.split('.')[0],
-						subgroup: code.split('.')[1],
-						item: code.split('.')[2],
-						generic: code.split('.')[3],
-						specific: code.split('.')[4],
-						subspecific: code.split('.')[5],
-						denomination: denomination,
-						active: this.records[i].active
-					};
-
-					$("input[name=active]").bootstrapSwitch("state", this.data_account.active);
-				}
-			}
+			axios.get('/accounting/get-children-account/' + res).then(function (response) {
+				var account = response.data.account;
+				/** Selecciona en pantalla la nueva cuentas */
+				_this2.data_account = {
+					group: account.group,
+					subgroup: account.subgroup,
+					item: account.item,
+					generic: account.generic,
+					specific: account.specific,
+					subspecific: account.subspecific,
+					denomination: account.denomination,
+					active: account.active
+				};
+				$("input[name=active]").bootstrapSwitch("state", _this2.data_account.active);
+			}).catch(function (error) {
+				console.log(error);
+			});
 		}
 	}
 
@@ -110879,14 +110845,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				axios.post('/accounting/converter/get-Records', this.accountSelect).then(function (response) {
 					_this.records = [];
 					_this.records = response.data.records;
+
+					if (_this.records.length == 0) {
+						_this.errors = [];
+						_this.errors.push('No se encontraron registros de conversiones en el rango dado');
+					}
 					_this.accountSelect.init_id = '';
 					_this.accountSelect.end_id = '';
 				});
 			} else {
 				this.errors = [];
-				if (this.accountOptions[0].length == 0) {
-					this.errors.push('Debe seleccionar un tipo de cuenta');
-				}
 				this.errors.push('Los campos de selección de cuenta son obligatorios');
 			}
 		},
@@ -111477,6 +111445,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			axios.post('/accounting/converter', { 'records': this.AccountToConverters }).then(function (response) {
 				_this.AccountToConverters = [];
 				_this.showMessage('store');
+				window.location.href = 'http://' + window.location.host + '/accounting/converter';
 			});
 			// .catch(error=>{
 			// 	this.errors = [];

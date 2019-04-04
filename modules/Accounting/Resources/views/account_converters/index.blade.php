@@ -29,8 +29,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-check-records :accounting_accounts="{{ $accountingList }}"
-											:budget_accounts="{{ $budgetList }}" /> 
+					<accounting-check-records :accounting_accounts="{{ $accountingList }}" :budget_accounts="{{ $budgetList }}"/>
 				</div>
 			</div>
 		</div>

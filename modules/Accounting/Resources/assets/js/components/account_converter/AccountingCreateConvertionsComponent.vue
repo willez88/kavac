@@ -155,7 +155,8 @@
 				axios.post('/accounting/converter',{'records':this.AccountToConverters})
 				.then(response=>{
 					this.AccountToConverters = [];
-					this.showMessage('store')
+					this.showMessage('store');
+					window.location.href = 'http://'+window.location.host+'/accounting/converter';
 				})
 				// .catch(error=>{
 				// 	this.errors = [];

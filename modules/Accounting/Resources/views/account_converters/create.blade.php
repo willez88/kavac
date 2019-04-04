@@ -28,8 +28,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-create-convertions :accounting_list="{{ $accountingList }}"
-													:budget_list="{{ $budgetList }}" />
+					<accounting-create-convertions :accounting_list="{{ $accountingList }}" :budget_list="{{ $budgetList }}"/>
 
 				</div>
 			</div>

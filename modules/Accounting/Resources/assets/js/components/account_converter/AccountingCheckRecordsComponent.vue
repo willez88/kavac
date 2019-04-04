@@ -199,14 +199,16 @@
 					.then(response=>{
 						this.records = [];
 						this.records = response.data.records;
+
+						if (this.records.length == 0) {
+							this.errors = [];
+							this.errors.push('No se encontraron registros de conversiones en el rango dado');		
+						}
 						this.accountSelect.init_id = '';
 						this.accountSelect.end_id = '';
 					});
 				}else{
 					this.errors = [];
-					if (this.accountOptions[0].length == 0) {
-						this.errors.push('Debe seleccionar un tipo de cuenta');	
-					}
 					this.errors.push('Los campos de selección de cuenta son obligatorios');
 				}
 			},
