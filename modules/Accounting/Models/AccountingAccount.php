@@ -28,7 +28,7 @@ class AccountingAccount extends Model
 	];
     
     /**
-     * AccountingAccount has many AccountingAccountConverter.
+     * AccountingAccount has one AccountingAccountConverter.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -45,18 +45,6 @@ class AccountingAccount extends Model
      */
     public function getCode()
     {
-        return "{$this->group}.{$this->subgroup}.{$this->item}.{$this->generic}.{$this->specific}.{$this->subspecific}";
-    }
-    /**
-     * Verifica si la cuenta patrimonial ya tiene una converción
-     *
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
-     * @return [boolean] []
-     */
-    public function hasConvertion()
-    {
-        // Se valida si la cuenta ya tiene una converción y esta activa
-        $rel = $this->with('account_converters')->find($this->id);
-        return ($rel && $rel->account_converters['active']);
+    	return "{$this->group}.{$this->subgroup}.{$this->item}.{$this->generic}.{$this->specific}.{$this->subspecific}";
     }
 }

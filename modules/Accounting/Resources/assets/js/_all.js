@@ -14,18 +14,23 @@ Vue.component('accounting-create-edit-form', require('./components/accounts/Acco
 
 
 /**
- * Componente para la creacion de registros del convertidor de cuentas
+ * Componente para la consulta de los registros del convertidor de cuentas
  *
  * @author  Juan Rosas <JuanFBass17@gmail.com>
  */
-Vue.component('accounting-create-convertion', require('./components/account_converter/AccountingCreateConvertionComponent.vue'));
+Vue.component('accounting-check-records', require('./components/account_converter/AccountingCheckRecordsComponent.vue'));
 
+/**
+ * Componente para la creación de conversión de cuentas
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-create-convertions', require('./components/account_converter/AccountingCreateConvertionsComponent.vue'));
 
-
-// *
-//  * Componente para la consulta de los registros del convertidro de cuentas
-//  *
-//  * @author  Juan Rosas <JuanFBass17@gmail.com>
- 
-// Vue.component('accounting-check-records', require('./components/account_converter/AccountingCheckRecordsComponent.vue'));
+/**
+ * Componente para la edición de una conversión de cuentas
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-edit-convertion', require('./components/account_converter/AccountingEditConvertionComponent.vue'));
 

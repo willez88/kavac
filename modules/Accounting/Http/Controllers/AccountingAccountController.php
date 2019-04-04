@@ -42,7 +42,7 @@ class AccountingAccountController extends Controller
     {
         $accounts_list = [];
 
-        foreach (AccountingAccount::orderBy('id','asc')->get() as $AccountingAccount) {
+        foreach (AccountingAccount::orderBy('id','desc')->get() as $AccountingAccount) {
             array_push($accounts_list, [
                 'id' => $AccountingAccount->id,
                 'code' =>   $AccountingAccount->getCode(),
@@ -61,8 +61,20 @@ class AccountingAccountController extends Controller
      */
     public function create()
     {
-        $accounting_accounts = AccountingAccount::orderBy('group','ASC')->get();
-        return view('accounting::accounts.create-edit-form', compact('accounting_accounts'));
+        $records = [];
+        array_push($records, [
+            'id' => '',
+            'text' =>   "Seleccione..."
+        ]);
+        foreach (AccountingAccount::orderBy('id','ASC')->get() as $AccountingAccount) {
+            array_push($records, [
+                'id' => $AccountingAccount->id,
+                'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}",
+                'active'=> $AccountingAccount->active
+            ]);
+        }
+        $records = json_encode($records);
+        return view('accounting::accounts.create-edit-form', compact('records'));
     }
 
     /**
@@ -184,25 +196,12 @@ class AccountingAccountController extends Controller
      */
     public function destroy($id)
     {
-
         $AccountingAccount = AccountingAccount::find($id);
 
         if ($AccountingAccount) {
             $AccountingAccount->delete();
         }
-
-        $accounts_list = [];
-
-        foreach (AccountingAccount::orderBy('id','asc')->get() as $AccountingAccount) {
-            array_push($accounts_list, [
-                'id' => $AccountingAccount->id,
-                'code' =>   $AccountingAccount->getCode(),
-                'denomination' => $AccountingAccount->denomination,
-                'active'=> $AccountingAccount->active
-            ]);
-        }
-
-        return response()->json(['records' => $accounts_list, 'message' => 'Success'], 200);
+        return response()->json(['records' => $AccountingAccount, 'message' => 'Success'], 200);
     }
 
     /**

@@ -1,27 +1,27 @@
 <template>
-		<v-client-table :columns="columns" :data="records" :options="table_options">
-			<div slot="status" slot-scope="props" class="text-center">
-				<div v-if="props.row.active">
-					<span class="badge badge-success"><strong>Activa</strong></span>
-				</div>
-				<div v-else>
-					<span class="badge badge-warning"><strong>Inactiva</strong></span>
-				</div>
+	<v-client-table :columns="columns" :data="records" :options="table_options">
+		<div slot="status" slot-scope="props" class="text-center">
+			<div v-if="props.row.active">
+				<span class="badge badge-success"><strong>Activa</strong></span>
 			</div>
-			<div slot="id" slot-scope="props" class="text-center">
+			<div v-else>
+				<span class="badge badge-warning"><strong>Inactiva</strong></span>
+			</div>
+		</div>
+		<div slot="id" slot-scope="props" class="text-center">
 
-				<button @click="changeView(props.row.id, 'edit')"
-	    				class="btn btn-warning btn-xs btn-icon btn-action" 
-	    				title="Modificar registro" data-toggle="tooltip">
-	    			<i class="fa fa-edit"></i>
-	    		</button>
-	    		<button @click="deleteAccount(props.index,props.row.id)" 
-						class="btn btn-danger btn-xs btn-icon btn-action" 
-						title="Eliminar registro" data-toggle="tooltip">
-					<i class="fa fa-trash-o"></i>
-				</button>
-			</div>
-		</v-client-table>
+			<button @click="changeView(props.row.id, 'edit')"
+					class="btn btn-warning btn-xs btn-icon btn-action" 
+					title="Modificar registro" data-toggle="tooltip">
+				<i class="fa fa-edit"></i>
+			</button>
+			<button @click="deleteAccount(props.index,props.row.id)" 
+					class="btn btn-danger btn-xs btn-icon btn-action" 
+					title="Eliminar registro" data-toggle="tooltip">
+				<i class="fa fa-trash-o"></i>
+			</button>
+		</div>
+	</v-client-table>
 </template>
 
 <script>
@@ -37,14 +37,13 @@
 			this.table_options.headings = {
 				'code': 'Código',
 				'denomination': 'Denominación',
-				'status': 'Estatus',
+				'status': 'Estado de la cuenta',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['code', 'denomination', 'status'];
 			this.table_options.filterable = ['code', 'denomination', 'status'];
 		},
 		mounted(){
-			console.log(this.accountslist)
 			this.records = this.accountslist;
 		},
 		methods:{
@@ -72,15 +71,10 @@
 					if (result) {
     					confirmated = true;
 						axios.delete('/accounting/accounts/' + id).then(response => {
-
 							if (typeof(response.data.error) !== "undefined") {
 								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
     							vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
-
     							return false;
-							}else{
-    							vm.records = [];
-    							vm.records = response.data.records;
 							}
 							vm.showMessage('destroy');
 						}).catch(error => {});

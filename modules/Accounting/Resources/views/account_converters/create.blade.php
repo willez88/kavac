@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Catálogo de Cuentas
+	Convertidor
 @stop
 
 @section('content')
@@ -21,17 +21,17 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Cuentas Patrimoniales</h6>
+					<h6 class="card-title">Crear Conversión</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
 					</div>
 				</div>
-				@if(empty($account))
-					<accounting-create-edit-form :records="{{$records}}" />
-				@else
-					<accounting-create-edit-form :records="{{$records}}" 								 :account="{{$account}}" />
-				@endif
+				<div class="card-body">
+					<accounting-create-convertions :accounting_list="{{ $accountingList }}"
+													:budget_list="{{ $budgetList }}" />
+
+				</div>
 			</div>
 		</div>
 	</div>

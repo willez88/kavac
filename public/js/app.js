@@ -40485,16 +40485,16 @@ function applyToTag (styleElement, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(175);
-__webpack_require__(540);
-__webpack_require__(541);
-__webpack_require__(542);
-__webpack_require__(543);
-__webpack_require__(544);
-__webpack_require__(545);
-__webpack_require__(546);
-__webpack_require__(547);
-__webpack_require__(548);
-module.exports = __webpack_require__(549);
+__webpack_require__(552);
+__webpack_require__(553);
+__webpack_require__(554);
+__webpack_require__(555);
+__webpack_require__(556);
+__webpack_require__(557);
+__webpack_require__(558);
+__webpack_require__(559);
+__webpack_require__(560);
+module.exports = __webpack_require__(561);
 
 
 /***/ }),
@@ -98196,16 +98196,16 @@ __webpack_require__(494);
 __webpack_require__(495);
 
 /** Compilación de componentes y configuración vuejs para el módulo de firma electrónica */
-__webpack_require__(499);
+__webpack_require__(511);
 
 /** Compilación de componentes y configuración vuejs para el módulo de compras */
-__webpack_require__(500);
+__webpack_require__(512);
 
 /** Compilación de componentes y configuración vuejs para el módulo de almacén */
-__webpack_require__(501);
+__webpack_require__(513);
 
 /** Compilación de componentes y configuración vuejs para el módulo de finanza */
-__webpack_require__(526);
+__webpack_require__(538);
 
 /***/ }),
 /* 424 */
@@ -101684,6 +101684,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -101924,6 +101926,15 @@ var render = function() {
                         "|" +
                         account.budget_account_id
                     }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: {
+                      type: "hidden",
+                      name: "budget_account_amount[]",
+                      readonly: ""
+                    },
+                    domProps: { value: account.amount }
                   }),
                   _vm._v(" "),
                   _c(
@@ -109503,11 +109514,39 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
- * Componente para mostrar CRUD de cuentas patrimoniales
+ * Componente para Listar cuentas patrimoniales
  *
  * @author  Juan Rosas <JuanFBass17@gmail.com>
  */
 Vue.component('accounting-accounts-list', __webpack_require__(496));
+
+/**
+ * Componente para la creación y edición de cuentas patrimoniales
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-create-edit-form', __webpack_require__(499));
+
+/**
+ * Componente para la consulta de los registros del convertidor de cuentas
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-check-records', __webpack_require__(502));
+
+/**
+ * Componente para la creación de conversión de cuentas
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-create-convertions', __webpack_require__(505));
+
+/**
+ * Componente para la edición de una conversión de cuentas
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-edit-convertion', __webpack_require__(508));
 
 /***/ }),
 /* 496 */
@@ -109535,7 +109574,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "modules/Accounting/Resources/assets/js/components/AccountingAccountsListComponent.vue"
+Component.options.__file = "modules/Accounting/Resources/assets/js/components/accounts/AccountingAccountsListComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -109544,9 +109583,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-523f17c3", Component.options)
+    hotAPI.createRecord("data-v-11ca90a8", Component.options)
   } else {
-    hotAPI.reload("data-v-523f17c3", Component.options)
+    hotAPI.reload("data-v-11ca90a8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -109601,7 +109640,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.table_options.headings = {
 			'code': 'Código',
 			'denomination': 'Denominación',
-			'status': 'Estatus',
+			'status': 'Estado de la cuenta',
 			'id': 'Acción'
 		};
 		this.table_options.sortable = ['code', 'denomination', 'status'];
@@ -109609,6 +109648,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	mounted: function mounted() {
 		this.records = this.accountslist;
+	},
+
+	methods: {
+		changeView: function changeView(idAccount, status) {
+			window.location.href = 'http://' + window.location.host + '/accounting/accounts/' + idAccount + '/edit';
+		},
+		deleteAccount: function deleteAccount(index, id) {
+			var records = this.records;
+			var confirmated = false;
+			var index = index - 1;
+			var vm = this;
+
+			bootbox.confirm({
+				title: "Eliminar registro?",
+				message: "Esta seguro de eliminar este registro?",
+				buttons: {
+					cancel: {
+						label: '<i class="fa fa-times"></i> Cancelar'
+					},
+					confirm: {
+						label: '<i class="fa fa-check"></i> Confirmar'
+					}
+				},
+				callback: function callback(result) {
+					if (result) {
+						confirmated = true;
+						axios.delete('/accounting/accounts/' + id).then(function (response) {
+							if (typeof response.data.error !== "undefined") {
+								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
+								vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
+								return false;
+							}
+							vm.showMessage('destroy');
+						}).catch(function (error) {});
+					}
+				}
+			});
+
+			if (confirmated) {
+				this.records = records;
+				this.showMessage('destroy');
+			}
+		}
 	}
 });
 
@@ -109655,12 +109737,11 @@ var render = function() {
                 staticClass: "btn btn-warning btn-xs btn-icon btn-action",
                 attrs: {
                   title: "Modificar registro",
-                  "data-toggle": "tooltip",
-                  type: "button"
+                  "data-toggle": "tooltip"
                 },
                 on: {
                   click: function($event) {
-                    return _vm.editForm(props.row.id)
+                    return _vm.changeView(props.row.id, "edit")
                   }
                 }
               },
@@ -109671,14 +109752,10 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-danger btn-xs btn-icon btn-action",
-                attrs: {
-                  title: "Eliminar registro",
-                  "data-toggle": "tooltip",
-                  type: "button"
-                },
+                attrs: { title: "Eliminar registro", "data-toggle": "tooltip" },
                 on: {
                   click: function($event) {
-                    return _vm.deleteRecord(props.index, "")
+                    return _vm.deleteAccount(props.index, props.row.id)
                   }
                 }
               },
@@ -109696,24 +109773,2302 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-523f17c3", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-11ca90a8", module.exports)
   }
 }
 
 /***/ }),
 /* 499 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(500)
+/* template */
+var __vue_template__ = __webpack_require__(501)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "modules/Accounting/Resources/assets/js/components/accounts/AccountingCreateEditFormComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1aa97d46", Component.options)
+  } else {
+    hotAPI.reload("data-v-1aa97d46", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
 
 
 /***/ }),
 /* 500 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// $(document).ready(function() {
+// 		/** Genera una nueva cuenta a partir de la cuenta seleccionada */
+// 		$("#account_id").on('change', function() {
+// 			$("input[type=text]").each(function() {
+// 				$(this).val("");
+// 			});
+
+// 			if ($(this).val()) {
+// 					axios.get('/accounting/get-children-account/' + $(this).val()).then(response => {
+// 							let account = response.data.account;
+// 							/** Selecciona en pantalla la nueva cuentas */
+// 							$("input[name=group]").val(account.group);
+// 							$("input[name=subgroup]").val(account.subgroup);
+// 							$("input[name=item]").val(account.item);
+// 							$("input[name=generic]").val(account.generic);
+// 							$("input[name=specific]").val(account.specific);
+// 							$("input[name=subspecific]").val(account.subspecific);
+// 							$("input[name=denomination]").val(account.denomination);
+// 							$("input[name=active]").bootstrapSwitch("state", account.active);
+// 					}).catch(error => {
+// 						console.log(error);
+// 					});
+// 				// }
+// 			}
+// 		});
+// 	});
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['records', 'account'],
+	data: function data() {
+		return {
+			errors: [],
+			AccOptions: [],
+			RecordBase: '',
+			data_account: {
+				group: '',
+				subgroup: '',
+				item: '',
+				generic: '',
+				specific: '',
+				subspecific: '',
+				denomination: '',
+				active: true
+			},
+			urlPrevious: 'http://' + window.location.host + '/accounting/accounts',
+			showButton: 'create' // puede tomar valores ['create' o 'update']
+		};
+	},
+	mounted: function mounted() {
+		if (this.account != null) {
+			this.data_account = this.account;
+			this.showButton = 'update';
+		}
+	},
+
+	methods: {
+		sendData: function sendData() {
+			var _this = this;
+
+			this.data_account = {
+				group: $('#group').val(),
+				subgroup: $('#subgroup').val(),
+				item: $('#item').val(),
+				generic: $('#generic').val(),
+				specific: $('#specific').val(),
+				subspecific: $('#subspecific').val(),
+				denomination: $('#denomination').val(),
+				active: $('#active').prop('checked')
+			};
+			var url = '/accounting/accounts';
+			if (this.showButton == 'create') {
+				axios.post(url, this.data_account).then(function (response) {
+					window.location.href = _this.urlPrevious;
+				}).catch(function (error) {
+					_this.errors = [];
+					if (typeof error.response != "undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								_this.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
+				});
+			} else {
+				axios.put(url + this.account.id, this.data_account).then(function (response) {
+					window.location.href = _this.urlPrevious;
+				}).catch(function (error) {
+					_this.errors = [];
+					if (typeof error.response != "undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								_this.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
+				});
+			}
+		}
+	},
+	watch: {
+		RecordBase: function RecordBase(res) {
+			for (var i = 0; i < this.records.length; i++) {
+				if (this.records[i].id == res) {
+					var code = this.records[i].text.split(' - ')[0];
+					var denomination = this.records[i].text.split(' - ')[1];
+
+					this.data_account = {
+						group: code.split('.')[0],
+						subgroup: code.split('.')[1],
+						item: code.split('.')[2],
+						generic: code.split('.')[3],
+						specific: code.split('.')[4],
+						subspecific: code.split('.')[5],
+						denomination: denomination,
+						active: this.records[i].active
+					};
+
+					$("input[name=active]").bootstrapSwitch("state", this.data_account.active);
+				}
+			}
+		}
+	}
+
+});
+
+/***/ }),
+/* 501 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "form",
+    {
+      staticClass: "form-horizontal",
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.sendData($event)
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "card-body" }, [
+        _vm.errors.length > 0
+          ? _c(
+              "div",
+              { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+              [
+                _c("div", { staticClass: "container" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v("Cuidado!")]),
+                  _vm._v(
+                    " Debe verificar los siguientes errores antes de continuar:\n\t\t\t\t"
+                  ),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("li", [_vm._v(_vm._s(error))])
+                    }),
+                    0
+                  )
+                ])
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-6" }, [
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v("Cuenta")
+                ]),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.records },
+                  model: {
+                    value: _vm.RecordBase,
+                    callback: function($$v) {
+                      _vm.RecordBase = $$v
+                    },
+                    expression: "RecordBase"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { staticClass: "control-label" }, [_vm._v("Código")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row inline-inputs" }, [
+                _c("div", { staticClass: "col-1" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.data_account.group,
+                        expression: "data_account.group"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "group",
+                      name: "group",
+                      "data-toggle": "tooltip",
+                      title: "Grupo al que pertenece la cuenta",
+                      maxlength: "1"
+                    },
+                    domProps: { value: _vm.data_account.group },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.data_account, "group", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [_vm._v(".")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.data_account.subgroup,
+                        expression: "data_account.subgroup"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "subgroup",
+                      name: "subgroup",
+                      "data-toggle": "tooltip",
+                      title: "Sub-grupo al que pertenece la cuenta",
+                      maxlength: "1"
+                    },
+                    domProps: { value: _vm.data_account.subgroup },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.data_account,
+                          "subgroup",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [_vm._v(".")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.data_account.item,
+                        expression: "data_account.item"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "item",
+                      name: "item",
+                      "data-toggle": "tooltip",
+                      title: "Rubro al que pertenece la cuenta",
+                      maxlength: "1"
+                    },
+                    domProps: { value: _vm.data_account.item },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.data_account, "item", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [_vm._v(".")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.data_account.generic,
+                        expression: "data_account.generic"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "generic",
+                      name: "generic",
+                      "data-toggle": "tooltip",
+                      title: "identificador de cuenta a la que pertenece",
+                      maxlength: "2"
+                    },
+                    domProps: { value: _vm.data_account.generic },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.data_account,
+                          "generic",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [_vm._v(".")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.data_account.specific,
+                        expression: "data_account.specific"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "specific",
+                      name: "specific",
+                      "data-toggle": "tooltip",
+                      title: "Identificador de cuenta de 1er orden",
+                      maxlength: "2"
+                    },
+                    domProps: { value: _vm.data_account.specific },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.data_account,
+                          "specific",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [_vm._v(".")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-1" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.data_account.subspecific,
+                        expression: "data_account.subspecific"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "subspecific",
+                      name: "subspecific",
+                      "data-toggle": "tooltip",
+                      title: "Identificador de cuenta de 2do orden",
+                      maxlength: "2"
+                    },
+                    domProps: { value: _vm.data_account.subspecific },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.data_account,
+                          "subspecific",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Denominación")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data_account.denomination,
+                    expression: "data_account.denomination"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "denomination",
+                  name: "denomination",
+                  "data-toggle": "tooltip",
+                  placeholder: "Descripción de la cuenta",
+                  title: "Denominación o concepto de la cuenta"
+                },
+                domProps: { value: _vm.data_account.denomination },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.data_account,
+                      "denomination",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-3" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Activa")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.data_account.active,
+                          expression: "data_account.active"
+                        }
+                      ],
+                      staticClass: "form-control bootstrap-switch",
+                      attrs: {
+                        id: "active",
+                        "data-on-label": "SI",
+                        "data-off-label": "NO",
+                        checked: "checked",
+                        name: "active",
+                        type: "checkbox",
+                        value: "1"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.data_account.active)
+                          ? _vm._i(_vm.data_account.active, "1") > -1
+                          : _vm.data_account.active
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.data_account.active,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = "1",
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.data_account,
+                                  "active",
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.data_account,
+                                  "active",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(_vm.data_account, "active", $$c)
+                          }
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-footer text-right" }, [
+        _vm._m(2),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-warning btn-icon btn-round",
+            attrs: {
+              href: _vm.urlPrevious,
+              "data-toggle": "tooltip",
+              title: "Cancelar y regresar"
+            }
+          },
+          [_c("i", { staticClass: "fa fa-ban" })]
+        ),
+        _vm._v(" "),
+        _vm.showButton == "create"
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-icon btn-round",
+                attrs: {
+                  "data-toggle": "tooltip",
+                  title: "Guardar registro",
+                  id: "save"
+                }
+              },
+              [_c("i", { staticClass: "fa fa-save" })]
+            )
+          : _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-icon btn-round",
+                attrs: {
+                  "data-toggle": "tooltip",
+                  title: "Actualizar registro",
+                  id: "save"
+                }
+              },
+              [_c("i", { staticClass: "fa fa-save" })]
+            )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alert-icon" }, [
+      _c("i", { staticClass: "now-ui-icons objects_support-17" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [
+          _c("i", { staticClass: "now-ui-icons ui-1_simple-remove" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-default btn-icon btn-round",
+        attrs: {
+          "data-toggle": "tooltip",
+          title: "Borrar datos del formulario",
+          type: "reset"
+        }
+      },
+      [_c("i", { staticClass: "fa fa-eraser" })]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1aa97d46", module.exports)
+  }
+}
+
+/***/ }),
+/* 502 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(503)
+/* template */
+var __vue_template__ = __webpack_require__(504)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "modules/Accounting/Resources/assets/js/components/account_converter/AccountingCheckRecordsComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5ad19468", Component.options)
+  } else {
+    hotAPI.reload("data-v-5ad19468", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 503 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['budget_accounts', 'accounting_accounts'],
+	data: function data() {
+		return {
+			errors: [],
+			records: [],
+			budgetAccounts: [],
+			accountingAccounts: [],
+			columns: ['codeBudget', 'BudgetAccounts', 'codeAccounting', 'AccountingAccounts', 'status', 'id'],
+			accountOptions: [[], []],
+			accountSelect: {
+				init_id: '',
+				end_id: '',
+				type: 'budget'
+			},
+			searchActive: false,
+			searchBudgetAccount: true, //true: para cuentas presupuestales, false para cuentas patrimoniales
+			convertionId: null
+		};
+	},
+	created: function created() {
+		this.table_options.headings = {
+			'codeBudget': 'Codigó Presupuestal',
+			'BudgetAccounts': 'Denominación',
+			'codeAccounting': 'Codigó Patrimonial',
+			'AccountingAccounts': 'Denominación',
+			'status': 'Estado de la conversión',
+			'id': 'Acción'
+		};
+		this.table_options.sortable = ['codeBudget', 'BudgetAccounts', 'codeAccounting', 'AccountingAccounts'];
+		this.table_options.filterable = ['BudgetAccounts', 'AccountingAccounts'];
+	},
+	mounted: function mounted() {
+		this.budgetAccounts = this.budget_accounts;
+		this.accountingAccounts = this.accounting_accounts;
+		/** 
+   * Evento para determinar los datos a requerir segun la busqueda seleccionada
+   */
+		var vm = this;
+		$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function (e) {
+			if (e.target.id === "sel_budget_acc") {
+				// se carga la información de las cuentas presupuestales en los selects
+				vm.accountOptions = [[], []];
+				vm.accountOptions[0] = vm.budget_accounts;
+				vm.accountOptions[1] = vm.budget_accounts;
+				vm.searchBudgetAccount = true;
+				vm.accountSelect.type = 'budget';
+				vm.searchActive = true;
+			} else if (e.target.id === "sel_accounting_acc") {
+				// se carga la información de las cuentas patrimoniales en los selects
+				vm.accountOptions = [[], []];
+				vm.accountOptions[0] = vm.accounting_accounts;
+				vm.accountOptions[1] = vm.accounting_accounts;
+				vm.searchBudgetAccount = false;
+				vm.accountSelect.type = 'accounting';
+				vm.searchActive = true;
+			}
+		});
+	},
+
+	methods: {
+		getRecords: function getRecords() {
+			var _this = this;
+
+			if (this.accountSelect.init_id != '' && this.accountSelect.end_id != '') {
+				var aux1 = this.accountSelect.init_id,
+				    aux2 = this.accountSelect.end_id;
+
+				this.accountSelect.init_id = aux1 > aux2 ? aux2 : aux1;
+				this.accountSelect.end_id = aux1 > aux2 ? aux1 : aux2;
+
+				axios.post('/accounting/converter/get-Records', this.accountSelect).then(function (response) {
+					_this.records = [];
+					_this.records = response.data.records;
+					_this.accountSelect.init_id = '';
+					_this.accountSelect.end_id = '';
+				});
+			} else {
+				this.errors = [];
+				if (this.accountOptions[0].length == 0) {
+					this.errors.push('Debe seleccionar un tipo de cuenta');
+				}
+				this.errors.push('Los campos de selección de cuenta son obligatorios');
+			}
+		},
+		editConvertion: function editConvertion(convertionId) {
+			window.location.href = 'http://' + window.location.host + '/accounting/converter/' + convertionId + '/edit';
+		}
+	}
+});
+
+/***/ }),
+/* 504 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "form-horizontal" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _vm.errors.length > 0
+        ? _c(
+            "div",
+            { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+            [
+              _c("div", { staticClass: "container" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("strong", [_vm._v("Cuidado!")]),
+                _vm._v(
+                  " Debe verificar los siguientes errores antes de continuar:\n\t\t\t\t"
+                ),
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  _vm._l(_vm.errors, function(error) {
+                    return _c("li", [_vm._v(_vm._s(error))])
+                  }),
+                  0
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-3" }),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-3" }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-4" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-4" }, [
+          _vm.searchActive && _vm.searchBudgetAccount
+            ? _c("label", { staticClass: "control-label text-center" }, [
+                _c("h4", [_vm._v("Cuentas Presupuestales")])
+              ])
+            : _vm.searchActive && !_vm.searchBudgetAccount
+              ? _c("label", { staticClass: "control-label text-center" }, [
+                  _c("h4", [_vm._v("Cuentas Patrimoniales")])
+                ])
+              : _c("label", { staticClass: "control-label text-center" })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-4" }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-5" },
+          [
+            _c("span", [_vm._v("desde")]),
+            _vm._v(" "),
+            _c("select2", {
+              attrs: {
+                disabled: !_vm.searchActive,
+                options: _vm.accountOptions[0]
+              },
+              model: {
+                value: _vm.accountSelect.init_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.accountSelect, "init_id", $$v)
+                },
+                expression: "accountSelect.init_id"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-5" },
+          [
+            _c("span", [_vm._v("hasta")]),
+            _vm._v(" "),
+            _c("select2", {
+              attrs: {
+                disabled: !_vm.searchActive,
+                options: _vm.accountOptions[1]
+              },
+              model: {
+                value: _vm.accountSelect.end_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.accountSelect, "end_id", $$v)
+                },
+                expression: "accountSelect.end_id"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-2 text-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-round",
+              staticStyle: { "margin-top": "0.8rem !important" },
+              attrs: {
+                disabled: !_vm.searchActive,
+                title: "Consultar registros",
+                "data-toggle": "tooltip"
+              },
+              on: {
+                click: function($event) {
+                  return _vm.getRecords()
+                }
+              }
+            },
+            [_vm._v("Consultar")]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-12" },
+          [
+            _c("v-client-table", {
+              attrs: {
+                columns: _vm.columns,
+                data: _vm.records,
+                options: _vm.table_options
+              },
+              scopedSlots: _vm._u([
+                {
+                  key: "codeBudget",
+                  fn: function(props) {
+                    return _c("div", { staticClass: "text-center" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t" +
+                          _vm._s(
+                            props.row.budget_account.group +
+                              "." +
+                              props.row.budget_account.item +
+                              "." +
+                              props.row.budget_account.generic +
+                              "." +
+                              props.row.budget_account.specific +
+                              "." +
+                              props.row.budget_account.subspecific
+                          ) +
+                          "\n\t\t\t\t\t"
+                      )
+                    ])
+                  }
+                },
+                {
+                  key: "BudgetAccounts",
+                  fn: function(props) {
+                    return _c("div", { staticClass: "text-center" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t" +
+                          _vm._s(props.row.budget_account.denomination) +
+                          "\n\t\t\t\t\t"
+                      )
+                    ])
+                  }
+                },
+                {
+                  key: "codeAccounting",
+                  fn: function(props) {
+                    return _c("div", { staticClass: "text-center" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t" +
+                          _vm._s(
+                            props.row.accounting_account.group +
+                              "." +
+                              props.row.accounting_account.subgroup +
+                              "." +
+                              props.row.accounting_account.item +
+                              "." +
+                              props.row.accounting_account.generic +
+                              "." +
+                              props.row.accounting_account.specific +
+                              "." +
+                              props.row.accounting_account.subspecific
+                          ) +
+                          "\n\t\t\t\t\t"
+                      )
+                    ])
+                  }
+                },
+                {
+                  key: "AccountingAccounts",
+                  fn: function(props) {
+                    return _c("div", { staticClass: "text-center" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t" +
+                          _vm._s(props.row.accounting_account.denomination) +
+                          "\n\t\t\t\t\t"
+                      )
+                    ])
+                  }
+                },
+                {
+                  key: "status",
+                  fn: function(props) {
+                    return _c("div", { staticClass: "text-center" }, [
+                      props.row.active
+                        ? _c("div", [
+                            _c("span", { staticClass: "badge badge-success" }, [
+                              _c("strong", [_vm._v("Activa")])
+                            ])
+                          ])
+                        : _c("div", [
+                            _c("span", { staticClass: "badge badge-warning" }, [
+                              _c("strong", [_vm._v("Inactiva")])
+                            ])
+                          ])
+                    ])
+                  }
+                },
+                {
+                  key: "id",
+                  fn: function(props) {
+                    return _c("div", { staticClass: "text-center" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-warning btn-xs btn-icon btn-action",
+                          attrs: {
+                            title: "Modificar registro",
+                            "data-toggle": "tooltip"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.editConvertion(
+                                props.row.id,
+                                props.row.budget_account_id,
+                                props.row.accounting_account_id
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-edit" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-danger btn-xs btn-icon btn-action",
+                          attrs: {
+                            title:
+                              "Eliminar registro de la lista de cuentas a convertir",
+                            "data-toggle": "tooltip"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteRecord(
+                                props.row.id,
+                                "/accounting/converter"
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-trash-o" })]
+                      )
+                    ])
+                  }
+                }
+              ])
+            })
+          ],
+          1
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alert-icon" }, [
+      _c("i", { staticClass: "now-ui-icons objects_support-17" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [
+          _c("i", { staticClass: "now-ui-icons ui-1_simple-remove" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Por Presupuestos\n\t\t\t\t\t"),
+        _c("input", {
+          staticClass: "form-control bootstrap-switch sel_pry_acc",
+          attrs: {
+            type: "radio",
+            name: "sel_account_type",
+            id: "sel_budget_acc",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Por Patrimonial\t\t\n\t\t\t\t\t"),
+        _c("input", {
+          staticClass: "form-control bootstrap-switch sel_pry_acc",
+          attrs: {
+            type: "radio",
+            name: "sel_account_type",
+            id: "sel_accounting_acc",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5ad19468", module.exports)
+  }
+}
+
+/***/ }),
+/* 505 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(506)
+/* template */
+var __vue_template__ = __webpack_require__(507)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "modules/Accounting/Resources/assets/js/components/account_converter/AccountingCreateConvertionsComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2ae9d122", Component.options)
+  } else {
+    hotAPI.reload("data-v-2ae9d122", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 506 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['accounting_list', 'budget_list'],
+	data: function data() {
+		return {
+			errors: [],
+			columns: ['BudgetAccounts', 'AccountingAccounts', 'id'],
+			AccountToConverters: [],
+			budgetOptions: [],
+			accountingOptions: [],
+			budgetSelect: '',
+			accountingSelect: ''
+		};
+	},
+	created: function created() {
+		this.table_options.headings = {
+			'BudgetAccounts': 'Cuentas Presupuestales',
+			'AccountingAccounts': 'Cuentas Patrimoniales',
+			'id': 'Acción'
+		};
+	},
+	mounted: function mounted() {
+		this.budgetOptions = this.budget_list;
+		this.accountingOptions = this.accounting_list;
+	},
+
+	methods: {
+		addToConvertions: function addToConvertions() {
+			if (this.budgetSelect != '' && this.accountingSelect != '') {
+				var tempBudget = null;
+				var tempAccounting = null;
+
+				for (var i = 0; i < this.budgetOptions.length; i++) {
+					if (this.budgetOptions[i].id == this.budgetSelect) {
+						tempBudget = this.budgetOptions.splice(i, 1)[0];
+						break;
+					}
+				}
+				for (var i = 0; i < this.accountingOptions.length; i++) {
+					if (this.accountingOptions[i].id == this.accountingSelect) {
+						tempAccounting = this.accountingOptions.splice(i, 1)[0];
+						break;
+					}
+				}
+				this.AccountToConverters.push({
+					budget: tempBudget,
+					accounting: tempAccounting
+				});
+				this.budgetSelect = '';
+				this.accountingSelect = '';
+			} else {
+				this.errors = [];
+				this.errors.push('Los campos de selección de cuenta son obligatorios');
+			}
+		},
+		/**
+   * Remueve de la lista de cuentas a convertir
+   * @param {int} $indexToConvertion [posición en el array de cuentas a convertir]
+  */
+		removeToConvertions: function removeToConvertions(indexToConvertion) {
+			// elimina registro del listado de cuentas a convertir
+			var temp = this.AccountToConverters.splice(indexToConvertion - 1, 1);
+			// agrega las cuentas a las opciones de cuentas disponibles en los selects
+			this.budgetOptions.splice(1, 0, temp[0].budget);
+			this.accountingOptions.splice(1, 0, temp[0].accounting);
+		},
+		saveConvertions: function saveConvertions() {
+			var _this = this;
+
+			axios.post('/accounting/converter', { 'records': this.AccountToConverters }).then(function (response) {
+				_this.AccountToConverters = [];
+				_this.showMessage('store');
+			});
+			// .catch(error=>{
+			// 	this.errors = [];
+			// 	if (typeof(error.response) !="undefined") {
+			// 		for (var index in error.response.data.errors) {
+			// 			if (error.response.data.errors[index]) {
+			// 				this.errors.push(error.response.data.errors[index][0]);
+			// 			}
+			// 		}
+			// 	}
+			// });
+		}
+	}
+});
+
+/***/ }),
+/* 507 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "form-horizontal" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _vm.errors.length > 0
+        ? _c(
+            "div",
+            { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+            [
+              _c("div", { staticClass: "container" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("strong", [_vm._v("Cuidado!")]),
+                _vm._v(
+                  " Debe verificar los siguientes errores antes de continuar:\n\t\t\t\t"
+                ),
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  _vm._l(_vm.errors, function(error) {
+                    return _c("li", [_vm._v(_vm._s(error))])
+                  }),
+                  0
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("table", { staticClass: "table" }, [
+        _c("tbody", [
+          _c("tr", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-5" },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: {
+                    options: _vm.budgetOptions,
+                    title: "Seleccione una cuenta presupuestal"
+                  },
+                  model: {
+                    value: _vm.budgetSelect,
+                    callback: function($$v) {
+                      _vm.budgetSelect = $$v
+                    },
+                    expression: "budgetSelect"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-5" },
+              [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: {
+                    options: _vm.accountingOptions,
+                    title: "Seleccione una cuenta patrimonial"
+                  },
+                  model: {
+                    value: _vm.accountingSelect,
+                    callback: function($$v) {
+                      _vm.accountingSelect = $$v
+                    },
+                    expression: "accountingSelect"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-2" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success btn-sm btn-icon btn-action",
+                  staticStyle: { "margin-top": "4.5rem !important" },
+                  attrs: {
+                    title: "Agregar cuentas al listado de cuentas a convertir"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.addToConvertions()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fa fa-plus" })]
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c("v-client-table", {
+            attrs: {
+              columns: _vm.columns,
+              data: _vm.AccountToConverters,
+              options: _vm.table_options
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "BudgetAccounts",
+                fn: function(props) {
+                  return _c("div", { staticClass: "text-center" }, [
+                    _vm._v(
+                      "\n\t\t\t\t\t" +
+                        _vm._s(props.row.budget.text) +
+                        "\n\t\t\t\t"
+                    )
+                  ])
+                }
+              },
+              {
+                key: "AccountingAccounts",
+                fn: function(props) {
+                  return _c("div", { staticClass: "text-center" }, [
+                    _vm._v(
+                      "\n\t\t\t\t\t" +
+                        _vm._s(props.row.accounting.text) +
+                        "\n\t\t\t\t"
+                    )
+                  ])
+                }
+              },
+              {
+                key: "id",
+                fn: function(props) {
+                  return _c("div", { staticClass: "text-center" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn btn-danger btn-xs btn-icon btn-action",
+                        attrs: {
+                          title:
+                            "Eliminar registro de la lista de cuentas a convertir",
+                          "data-toggle": "tooltip"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.removeToConvertions(props.index)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-trash-o" })]
+                    )
+                  ])
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("div", { attrs: { align: "right" } }, [
+            _vm.AccountToConverters.length > 0
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success btn-icon btn-round",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      title: "Guardar registros"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.saveConvertions()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-save" })]
+                )
+              : _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success btn-icon btn-round",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      title: "Guardar registros",
+                      disabled: ""
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-save" })]
+                )
+          ])
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alert-icon" }, [
+      _c("i", { staticClass: "now-ui-icons objects_support-17" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [
+          _c("i", { staticClass: "now-ui-icons ui-1_simple-remove" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", [
+      _c("label", { staticClass: "control-label" }, [_vm._v("Presupuestales")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", [
+      _c("label", { staticClass: "control-label" }, [_vm._v("Patrimoniales")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2ae9d122", module.exports)
+  }
+}
+
+/***/ }),
+/* 508 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(509)
+/* template */
+var __vue_template__ = __webpack_require__(510)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "modules/Accounting/Resources/assets/js/components/account_converter/AccountingEditConvertionComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7f60b6a7", Component.options)
+  } else {
+    hotAPI.reload("data-v-7f60b6a7", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 509 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['account_to_edit', 'accounting_accounts', 'budget_accounts'],
+	data: function data() {
+		return {
+			errors: [],
+			accountOptions: [[], []],
+			accountSelect: {
+				budget_id: '',
+				accounting_id: ''
+			},
+			urlPrevious: 'http://' + window.location.host + '/accounting/converter'
+		};
+	},
+	created: function created() {
+		this.accountOptions[0] = this.budget_accounts;
+		this.accountOptions[1] = this.accounting_accounts;
+		this.accountSelect.budget_id = this.account_to_edit.budget_account_id;
+		this.accountSelect.accounting_id = this.account_to_edit.accounting_account_id;
+	},
+
+	methods: {
+		update: function update() {
+			var _this = this;
+
+			axios.put('/accounting/converter/' + this.account_to_edit.id, this.accountSelect).then(function (response) {
+				window.location.href = _this.urlPrevious;
+			});
+		}
+	}
+
+});
+
+/***/ }),
+/* 510 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "form",
+    {
+      staticClass: "form-horizontal",
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "card-body" }, [
+        _vm.errors.length > 0
+          ? _c(
+              "div",
+              { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+              [
+                _c("div", { staticClass: "container" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v("Cuidado!")]),
+                  _vm._v(
+                    " Debe verificar los siguientes errores antes de continuar:\n\t\t\t\t"
+                  ),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("li", [_vm._v(_vm._s(error))])
+                    }),
+                    0
+                  )
+                ])
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-1" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-5" },
+            [
+              _c("h4", [_vm._v("Cuentas Presupuestales")]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.accountOptions[0] },
+                model: {
+                  value: _vm.accountSelect.budget_id,
+                  callback: function($$v) {
+                    _vm.$set(_vm.accountSelect, "budget_id", $$v)
+                  },
+                  expression: "accountSelect.budget_id"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-5" },
+            [
+              _c("h4", [_vm._v("Cuentas Patrimoniales")]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.accountOptions[1] },
+                model: {
+                  value: _vm.accountSelect.accounting_id,
+                  callback: function($$v) {
+                    _vm.$set(_vm.accountSelect, "accounting_id", $$v)
+                  },
+                  expression: "accountSelect.accounting_id"
+                }
+              })
+            ],
+            1
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "card-footer text-center", attrs: { align: "rigth" } },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-warning btn-icon btn-round",
+              attrs: {
+                href: _vm.urlPrevious,
+                "data-toggle": "tooltip",
+                title: "Cancelar y regresar"
+              }
+            },
+            [_c("i", { staticClass: "fa fa-ban" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-icon btn-round",
+              attrs: {
+                title: "actualizar conversión",
+                "data-toggle": "tooltip"
+              },
+              on: {
+                click: function($event) {
+                  return _vm.update()
+                }
+              }
+            },
+            [_c("i", { staticClass: "fa fa-save" })]
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alert-icon" }, [
+      _c("i", { staticClass: "now-ui-icons objects_support-17" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [
+          _c("i", { staticClass: "now-ui-icons ui-1_simple-remove" })
+        ])
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7f60b6a7", module.exports)
+  }
+}
+
+/***/ }),
+/* 511 */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
-/* 501 */
+/* 512 */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+/* 513 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -109730,7 +112085,7 @@ if (false) {
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
-Vue.component('warehouse', __webpack_require__(502));
+Vue.component('warehouse', __webpack_require__(514));
 
 /**
  * Componente para la gestión de productos almacenables
@@ -109738,8 +112093,8 @@ Vue.component('warehouse', __webpack_require__(502));
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
-Vue.component('warehouse-product', __webpack_require__(505));
-Vue.component('warehouse-attribute', __webpack_require__(508));
+Vue.component('warehouse-product', __webpack_require__(517));
+Vue.component('warehouse-attribute', __webpack_require__(520));
 
 /**
  * Componente para la gestión de unidades métricas de productos
@@ -109747,7 +112102,7 @@ Vue.component('warehouse-attribute', __webpack_require__(508));
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
-Vue.component('warehouse-unit', __webpack_require__(511));
+Vue.component('warehouse-unit', __webpack_require__(523));
 
 /**
  * Componente para la gestión de cierres de almacén
@@ -109755,7 +112110,7 @@ Vue.component('warehouse-unit', __webpack_require__(511));
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
-Vue.component('warehouse-close', __webpack_require__(514));
+Vue.component('warehouse-close', __webpack_require__(526));
 
 /**
  * Componente para la gestión de las reglas del almacén
@@ -109763,7 +112118,7 @@ Vue.component('warehouse-close', __webpack_require__(514));
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
-Vue.component('warehouse-rule', __webpack_require__(517));
+Vue.component('warehouse-rule', __webpack_require__(529));
 
 /**
  * Componente para crear y editar solicitudes de almacén
@@ -109771,7 +112126,7 @@ Vue.component('warehouse-rule', __webpack_require__(517));
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
-Vue.component('warehouse-request', __webpack_require__(520));
+Vue.component('warehouse-request', __webpack_require__(532));
 
 /**
  * Componente para crear y editar las recepciones de almacén
@@ -109779,18 +112134,18 @@ Vue.component('warehouse-request', __webpack_require__(520));
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
-Vue.component('warehouse-reception', __webpack_require__(523));
+Vue.component('warehouse-reception', __webpack_require__(535));
 
 /***/ }),
-/* 502 */
+/* 514 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(503)
+var __vue_script__ = __webpack_require__(515)
 /* template */
-var __vue_template__ = __webpack_require__(504)
+var __vue_template__ = __webpack_require__(516)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -109829,7 +112184,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 503 */
+/* 515 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -110158,7 +112513,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 504 */
+/* 516 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -110769,15 +113124,15 @@ if (false) {
 }
 
 /***/ }),
-/* 505 */
+/* 517 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(506)
+var __vue_script__ = __webpack_require__(518)
 /* template */
-var __vue_template__ = __webpack_require__(507)
+var __vue_template__ = __webpack_require__(519)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -110816,7 +113171,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 506 */
+/* 518 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -111183,7 +113538,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 507 */
+/* 519 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -111838,15 +114193,15 @@ if (false) {
 }
 
 /***/ }),
-/* 508 */
+/* 520 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(509)
+var __vue_script__ = __webpack_require__(521)
 /* template */
-var __vue_template__ = __webpack_require__(510)
+var __vue_template__ = __webpack_require__(522)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -111885,7 +114240,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 509 */
+/* 521 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -112088,7 +114443,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 510 */
+/* 522 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -112407,15 +114762,15 @@ if (false) {
 }
 
 /***/ }),
-/* 511 */
+/* 523 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(512)
+var __vue_script__ = __webpack_require__(524)
 /* template */
-var __vue_template__ = __webpack_require__(513)
+var __vue_template__ = __webpack_require__(525)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -112454,7 +114809,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 512 */
+/* 524 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -112582,7 +114937,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 513 */
+/* 525 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -112858,15 +115213,15 @@ if (false) {
 }
 
 /***/ }),
-/* 514 */
+/* 526 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(515)
+var __vue_script__ = __webpack_require__(527)
 /* template */
-var __vue_template__ = __webpack_require__(516)
+var __vue_template__ = __webpack_require__(528)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -112905,7 +115260,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 515 */
+/* 527 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -113108,7 +115463,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 516 */
+/* 528 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -113515,15 +115870,15 @@ if (false) {
 }
 
 /***/ }),
-/* 517 */
+/* 529 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(518)
+var __vue_script__ = __webpack_require__(530)
 /* template */
-var __vue_template__ = __webpack_require__(519)
+var __vue_template__ = __webpack_require__(531)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -113562,7 +115917,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 518 */
+/* 530 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -113647,7 +116002,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 519 */
+/* 531 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -113751,15 +116106,15 @@ if (false) {
 }
 
 /***/ }),
-/* 520 */
+/* 532 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(521)
+var __vue_script__ = __webpack_require__(533)
 /* template */
-var __vue_template__ = __webpack_require__(522)
+var __vue_template__ = __webpack_require__(534)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -113798,7 +116153,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 521 */
+/* 533 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -113946,7 +116301,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 522 */
+/* 534 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -114273,15 +116628,15 @@ if (false) {
 }
 
 /***/ }),
-/* 523 */
+/* 535 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(524)
+var __vue_script__ = __webpack_require__(536)
 /* template */
-var __vue_template__ = __webpack_require__(525)
+var __vue_template__ = __webpack_require__(537)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -114320,7 +116675,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 524 */
+/* 536 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -114673,7 +117028,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 525 */
+/* 537 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -115194,7 +117549,7 @@ if (false) {
 }
 
 /***/ }),
-/* 526 */
+/* 538 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -115202,35 +117557,35 @@ if (false) {
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-banks', __webpack_require__(527));
+Vue.component('finance-banks', __webpack_require__(539));
 
 /**
  * Componente para la gestión de agencias bancarias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-banking-agencies', __webpack_require__(530));
+Vue.component('finance-banking-agencies', __webpack_require__(542));
 
 /**
  * Componente para la gestión de tipos de cuenta bancaria
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-account-types', __webpack_require__(533));
+Vue.component('finance-account-types', __webpack_require__(545));
 
 /**
  * Componente para la gestión de cuentas bancarias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-bank-accounts', __webpack_require__(536));
+Vue.component('finance-bank-accounts', __webpack_require__(548));
 
 /**
  * Componente para la gestión de chequeras
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-checkbooks', __webpack_require__(539));
+Vue.component('finance-checkbooks', __webpack_require__(551));
 
 /**
  * Opciones de configuración global del módulo de presupuesto
@@ -115288,15 +117643,15 @@ Vue.mixin({
 });
 
 /***/ }),
-/* 527 */
+/* 539 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(528)
+var __vue_script__ = __webpack_require__(540)
 /* template */
-var __vue_template__ = __webpack_require__(529)
+var __vue_template__ = __webpack_require__(541)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -115335,7 +117690,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 528 */
+/* 540 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -115501,7 +117856,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 529 */
+/* 541 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -115903,15 +118258,15 @@ if (false) {
 }
 
 /***/ }),
-/* 530 */
+/* 542 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(531)
+var __vue_script__ = __webpack_require__(543)
 /* template */
-var __vue_template__ = __webpack_require__(532)
+var __vue_template__ = __webpack_require__(544)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -115950,7 +118305,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 531 */
+/* 543 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -116216,7 +118571,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 532 */
+/* 544 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -116985,15 +119340,15 @@ if (false) {
 }
 
 /***/ }),
-/* 533 */
+/* 545 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(534)
+var __vue_script__ = __webpack_require__(546)
 /* template */
-var __vue_template__ = __webpack_require__(535)
+var __vue_template__ = __webpack_require__(547)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -117032,7 +119387,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 534 */
+/* 546 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -117152,7 +119507,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 535 */
+/* 547 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -117391,15 +119746,15 @@ if (false) {
 }
 
 /***/ }),
-/* 536 */
+/* 548 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(537)
+var __vue_script__ = __webpack_require__(549)
 /* template */
-var __vue_template__ = __webpack_require__(538)
+var __vue_template__ = __webpack_require__(550)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -117438,7 +119793,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 537 */
+/* 549 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -117629,7 +119984,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 538 */
+/* 550 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -118084,7 +120439,7 @@ if (false) {
 }
 
 /***/ }),
-/* 539 */
+/* 551 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var normalizeComponent = __webpack_require__(1)
@@ -118114,7 +120469,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 540 */
+/* 552 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -119064,7 +121419,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 });
 
 /***/ }),
-/* 541 */
+/* 553 */
 /***/ (function(module, exports) {
 
 /*!
@@ -119306,7 +121661,7 @@ nowuiKitDemo = {
 };
 
 /***/ }),
-/* 542 */
+/* 554 */
 /***/ (function(module, exports) {
 
 /* ========================================================================
@@ -120054,7 +122409,7 @@ nowuiKitDemo = {
 }).call(this);
 
 /***/ }),
-/* 543 */
+/* 555 */
 /***/ (function(module, exports) {
 
 jQuery(document).ready(function () {
@@ -120095,7 +122450,7 @@ eval(function (p, a, c, k, e, d) {
 }('94(61(54,52,50,53,51,55){51=61(50){64(50<52?\'\':51(95(50/52)))+((50=50%52)>35?68.98(50+29):50.97(36))};73(!\'\'.70(/^/,68)){71(50--){55[51(50)]=53[50]||51(50)}53=[61(51){64 55[51]}];51=61(){64\'\\\\59+\'};50=1};71(50--){73(53[50]){54=54.70(109 96(\'\\\\56\'+51(50)+\'\\\\56\',\'57\'),53[50])}}64 54}(\'86(31(54,52,50,53,51,55){51=31(50){32(50<52?\\\'\\\':51(91(50/52)))+((50=50%52)>35?34.39(50+29):50.84(36))};38(!\\\'\\\'.37(/^/,34)){33(50--){55[51(50)]=53[50]||51(50)}53=[31(51){32 55[51]}];51=31(){32\\\'\\\\\\\\59+\\\'};50=1};33(50--){38(53[50]){54=54.37(125 83(\\\'\\\\\\\\56\\\'+51(50)+\\\'\\\\\\\\56\\\',\\\'57\\\'),53[50])}}32 54}(\\\'219(63(54,52,50,53,51,55){51=63(50){60(50<52?\\\\\\\'\\\\\\\':51(220(50/52)))+((50=50%52)>218?99.217(50+29):50.22(21))};74(!\\\\\\\'\\\\\\\'.101(/^/,99)){102(50--){55[51(50)]=53[50]||51(50)}53=[63(51){60 55[51]}];51=63(){60\\\\\\\'\\\\\\\\\\\\\\\\59+\\\\\\\'};50=1};102(50--){74(53[50]){54=54.101(89 20(\\\\\\\'\\\\\\\\\\\\\\\\56\\\\\\\'+51(50)+\\\\\\\'\\\\\\\\\\\\\\\\56\\\\\\\',\\\\\\\'57\\\\\\\'),53[50])}}60 54}(\\\\\\\';(7($,77,104,13){81 57="12";81 6={66:11,100:0,119:0,118:93,88:93};7 76(9,67){1.9=9;1.221=$.103({},6,67);1.10=6;1.14=57;1.87()};$.103(76.15,{87:7(){1.92();1.106();8(6.88){1.59()}},92:7(){$(1.9).5("225").58("19").113("112 111",7(51){51.18();51.16();8($(1).5(".3").54>0){8($(1).5(".3").80("17")=="223"){$(1).5(".3").116(6.100).213(6.66);$(1).5(".3").56("52").115("3-50-65");8(6.118){$(1).56().5(".3").120(6.66);$(1).56().5(".3").56("52").72("3-50-65")}117 202}203{$(1).5(".3").116(6.119).120(6.66)}8($(1).5(".3").56("52").199("3-50-65")){$(1).5(".3").56("52").72("3-50-65")}}77.205.108=$(1).5("52").210("108")})},106:7(){8($(1.9).58(".3").54>0){$(1.9).58(".3").56("52").206("<53 124=\\\\\\\\\\\\\\\'3-50\\\\\\\\\\\\\\\'>+</53>")}},59:7(){81 4,55,79,75;$(1.9).58("52").113("112 111",7(51){$(".4").248();8($(1).5(".4").54===0){$(1).250("<53 124=\\\\\\\\\\\\\\\'4\\\\\\\\\\\\\\\'></53>")}4=$(1).58(".4");4.72("121-4");8(!4.78()&&!4.69()){55=262.260($(1).259(),$(1).257());4.80({78:55,69:55})}79=51.247-$(1).110().107-4.69()/2;75=51.237-$(1).110().105-4.78()/2;4.80({105:75+\\\\\\\\\\\\\\\'114\\\\\\\\\\\\\\\',107:79+\\\\\\\\\\\\\\\'114\\\\\\\\\\\\\\\'}).115("121-4")})}});$.242[57]=7(67){1.240(7(){8(!$.122(1,"123"+57)){$.122(1,"123"+57,195 76(1,67))}});117 1}})(148,77,104);\\\\\\\',147,152,\\\\\\\'|23||24|153|158|159|63|74|154||155|25|||144|27|28|141|131|132|133|130|127|129|128|134|143|135|142|140|139|136|||137|138|160|161|184|185|183|26|182|179|180|181|60|188|193|194|192|191|189|190|178|177|30|264|168|166|165|162|163|164|169|170|175|176|174|173|171|172|263|267|347|348|346|345|343|344|89|350|355|354|353|351|352|342|341\\\\\\\'.332(\\\\\\\'|\\\\\\\'),0,{}))\\\',82,333,\\\'||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||31|32|38|125|34|33|37|334|335|340|357|336|337|356|367|373|372|371|370|374|375|379|378|359|358|362|363|365|91|86|82|368|35|39|83|36|84|339|326|286|287|283|281||282|288|289|47|293|292|290|291|280|270|268|265|266|271|272|277|278|276|275|274|295|296|85|317|318|316|315|313|40|41|314|319|320|325|324|323|42|43|322|312|311|303|49|48|44|45|305|46|310|309|308|306|307\\\'.85(\\\'|\\\'),0,{}))\',62,284,\'|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||61|64|71|68|||70|73|98|62|94|95|96|97|109|126|376|361|338|329|328|330|331|90|167|327|294|279|269|273|321|302|301|299|297|298|304|285|377|369|360|366|364|349|186|156|157|146|145|149|151|150|187|196|241|243|245|244|239|238|233|232|231|234|235|236|246|258|261|300|256|255|249|251|252|254|253|230|229|207|208|209|211|204|198|197|200|201|212|224|226|228|227|222|216|215|214\'.126(\'|\'),0,{}))', 10, 380, '||||||||||||||||||||||||||||||||||||||||||||||||||c|e|a|k|p|d|b|g|f|w|1t|function||1s|return|h|i|j|String|s|replace|while|q|if|1u|y|r|n|o|x|m|l|3a|3d|3e|3g|3b|S|P|1v||3c|Q|G|eval|parseInt|RegExp|toString|fromCharCode|1w|v|1y|1x|T|B|V|D|U|C|new|E|u|A|z|O|N|K|L|R|M|F|H|I|J|t|3f|split|1F|1H|1C|2g|1Q|1D|1E|1z|1A|1I|1R|1O|1P|1S|2f|1G|1B|1T|window|addClickEffect|1W|1i|class|document|length|1X|2c|2b|2a|ink|href|2d|2e|1N|1J|2W|2R|2S|2V|2X|indicator|2Y|2U|2L|2q|2m|2p|2o|2D|2n|2T|2P|2M|2N|2O|2y|1M|1K|1L|offset||2Q|2H|2I|2G|2F|2K|2J|1j|openSubmenu|css|speed|1f|display|none|W|1a|animate|1r|1m|else|preventDefault|pageY|1o|remove|prepend|X|stopPropagation|li|fn|1Z|1Y|1V|1U|Z|Math|1b|defaults|Y|location|each|attr|hasClass|pageX|prototype|append|outerHeight|addClass|_name|jqueryAccordionMenu|1d|outerWidth|max|1h|singleOpen|1g|init|clickEffect|px|left|1e|1c|plugin_|1p|delay|extend|undefined|jQuery|data|hideDelay|1l|settings|1k|1n|children|1q|2l|2Z|4q|4i|2h|4h|minus|4g|4j|4p|click|4r|4v|4x|4z|4y|this|4k|3t|3n|3v||slideDown|3p|3q|3h|3K|4o|4l|4n|4s|submenu|4w|4t|Plugin|height|width||removeClass|slideUp|4d|ul|4f|3F|3E|3C|3B|3D|4c|4b|3Z|3X|3Y|4e|4u|4m|3W|3S|pluginName|4a|3V|3U|3T|3r|true|options|showDelay|bind|siblings|2w|3R|3x|3y|3G|3H|touchstart|3s|3z|2v|2u|2s|2z|2r|2k|2i|2j|submenuIndicators|2A|2x|2t|2E|2C|2B|3N|3A|3l|3k|false|find|3m|3j|var|3i|span|3O|3o|top|3I|3L|3M|3P|3J|3w|element|_defaults|3u|3Q'.split('|'), 0, {}));
 
 /***/ }),
-/* 544 */
+/* 556 */
 /***/ (function(module, exports) {
 
 /** Corrige el uso del campo de búsqueda en elementos select2 en ventanas modales con el uso de bootstrap 4 */
@@ -120454,31 +122809,31 @@ function delete_record(url) {
 }
 
 /***/ }),
-/* 545 */
+/* 557 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 546 */
+/* 558 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 547 */
+/* 559 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 548 */
+/* 560 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 549 */
+/* 561 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
