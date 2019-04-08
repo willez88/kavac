@@ -28,9 +28,9 @@
 					</div>
 				</div>
 				@if(empty($account))
-					<accounting-create-edit-form :accounts="{{$accounting_accounts}}" />
+					<accounting-create-edit-form :records="{{$records}}" />
 				@else
-					<accounting-create-edit-form :accounts="{{$accounting_accounts}}" 								 :account="{{$account}}" />
+					<accounting-create-edit-form :records="{{$records}}" 								 :account="{{$account}}" />
 				@endif
 			</div>
 		</div>

@@ -33,7 +33,7 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
 
         $budgetRole = Role::updateOrCreate(
             ['slug' => 'account'],
-            ['name' => 'Contabilidad', 'description' => 'Coordinador de presupuesto']
+            ['name' => 'Contabilidad', 'description' => 'Coordinador de cuentas Contables']
         );
 
         $permissions = [
@@ -59,6 +59,30 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 'name' => 'Eliminar cuenta patrimonial', 'slug' => 'accounting.account.delete',
                 'description' => 'Acceso para eliminar cuenta patrimonial', 
                 'model' => 'Modules\Accounting\Models\AccountingAccount', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'clasificador.eliminar', 'short_description' => 'eliminar clasificador'
+            ],
+			[
+                'name' => 'vista principal de consulta del convertidor de cuentas', 'slug' => 'accounting.converter.index',
+                'description' => 'Acceso para listar conversiones', 
+                'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'clasificador.ver', 'short_description' => 'listar clasificador'
+            ],
+            [
+                'name' => 'Crear nueva conversión', 'slug' => 'accounting.converter.create',
+                'description' => 'Acceso para crear nuevas conversiones', 
+                'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'clasificador.crear', 'short_description' => 'agregar clasificador'
+            ],
+            [
+                'name' => 'Editar conversiones', 'slug' => 'accounting.converter.edit',
+                'description' => 'Acceso para editar registro conversiones', 
+                'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'clasificador.editar', 'short_description' => 'editar clasificador'
+            ],
+            [
+                'name' => 'Eliminar conversión', 'slug' => 'accounting.converter.delete',
+                'description' => 'Acceso para eliminar registro de conversiones', 
+                'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'clasificador.eliminar', 'short_description' => 'eliminar clasificador'
             ],
         ];

@@ -2,27 +2,27 @@
 
 	<form class='form-horizontal' v-on:submit.prevent="sendData">
 		<div class='card-body'>
+			<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+				<div class="container">
+					<div class="alert-icon">
+						<i class="now-ui-icons objects_support-17"></i>
+					</div>
+					<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">
+							<i class="now-ui-icons ui-1_simple-remove"></i>
+						</span>
+					</button>
+					<ul>
+						<li v-for="error in errors">{{ error }}</li>
+					</ul>
+				</div>
+			</div>
 			<div class='row'>
-				<!-- INCLUIR COMPONENTE PARA EL MANEJO DE MENSAJES DE ERROR -->
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label'>Cuenta</label>
-						<select class='select2'
-								id="account_id"
-								name="account_id"
-								title = 'Seleccione una cuenta presupuestaria'
-								data-toggle='tooltip'>
-								<option selected value="">Selecciona una opción</option>
-								<option v-for='acc in all_accounts' :value='acc.id'>
-									{{acc.group+'.'+
-									acc.subgroup+'.'+
-									acc.item+'.'+
-									acc.generic+'.'+
-									acc.specific+'.'+
-									acc.subspecific+' - '+
-									acc.denomination}}
-								</option>
-						</select>
+						<select2 :options="records" v-model="RecordBase"></select2>
 					</div>
 				</div>
 				<div class='col-md-6'>
@@ -37,8 +37,7 @@
 										data-toggle='tooltip'
 										title='Grupo al que pertenece la cuenta'
 										maxlength='1'
-										v-model="data_account.group"
-										required>
+										v-model="data_account.group">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -49,8 +48,7 @@
 										data-toggle='tooltip'
 										title='Sub-grupo al que pertenece la cuenta'
 										maxlength='1'
-										v-model="data_account.subgroup"
-										required>
+										v-model="data_account.subgroup">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -61,8 +59,7 @@
 										data-toggle='tooltip'
 										title='Rubro al que pertenece la cuenta'
 										maxlength='1'
-										v-model="data_account.item"
-										required>
+										v-model="data_account.item">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -73,8 +70,7 @@
 										data-toggle='tooltip'
 										title='identificador de cuenta a la que pertenece'
 										maxlength='2'
-										v-model="data_account.generic"
-										required>
+										v-model="data_account.generic">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -85,8 +81,7 @@
 										data-toggle='tooltip'
 										title='Identificador de cuenta de 1er orden'
 										maxlength='2'
-										v-model="data_account.specific"
-										required>
+										v-model="data_account.specific">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -97,8 +92,7 @@
 										data-toggle='tooltip'
 										title='Identificador de cuenta de 2do orden'
 										maxlength='2'
-										v-model="data_account.subspecific"
-										required>
+										v-model="data_account.subspecific">
 							</div>
 						</div>
 					</div>
@@ -112,8 +106,7 @@
 								data-toggle='tooltip'
 								placeholder='Descripción de la cuenta'
 								title='Denominación o concepto de la cuenta'
-								v-model="data_account.denomination"
-								required>
+								v-model="data_account.denomination">
 					</div>
 				</div>
 				<div class='col-6'>
@@ -170,41 +163,13 @@
 </template>
 
 <script>
-	$(document).ready(function() {
-			/** Genera una nueva cuenta a partir de la cuenta seleccionada */
-			$("#account_id").on('change', function() {
-				$("input[type=text]").each(function() {
-					$(this).val("");
-				});
-				
-				if ($(this).val()) {
-						axios.get('/accounting/get-children-account/' + $(this).val()).then(response => {
-								let account = response.data.account;
-								// configurar funcion para que genere un nuevo codigo de cuenta disponible
-								// $("#combo option").each(function(){
-								//    alert('opcion '+$(this).text()+' valor '+ $(this).attr('value'))
-								// });
-
-								/** Selecciona en pantalla la nueva cuentas */
-								$("input[name=group]").val(account.group);
-								$("input[name=subgroup]").val(account.subgroup);
-								$("input[name=item]").val(account.item);
-								$("input[name=generic]").val(account.generic);
-								$("input[name=specific]").val(account.specific);
-								$("input[name=subspecific]").val(account.subspecific);
-								$("input[name=denomination]").val(account.denomination);
-								$("input[name=active]").bootstrapSwitch("state", account.active);
-						}).catch(error => {
-							console.log(error);
-						});
-					// }
-				}
-			});
-		});
 	export default {
-		props:['accounts','account'],
+		props:['records','account'],
 		data(){
 			return{
+				errors:[],
+				AccOptions:[],
+				RecordBase:'',
 				data_account:{
 					group:'',
 					subgroup:'',
@@ -215,13 +180,11 @@
 					denomination:'',
 					active:true,
 				},
-				all_accounts:null,
 				urlPrevious:'http://'+window.location.host+'/accounting/accounts',
 				showButton:'create', // puede tomar valores ['create' o 'update']
 			}
 		},
 		mounted(){
-			this.all_accounts = this.accounts;
 			if (this.account != null) {
 				this.data_account = this.account;
 				this.showButton = 'update';
@@ -229,33 +192,58 @@
 		},
 		methods:{
 			sendData:function(){
-				this.data_account = {
-					group:$('#group').val(),
-					subgroup:$('#subgroup').val(),
-					item:$('#item').val(),
-					generic:$('#generic').val(),
-					specific:$('#specific').val(),
-					subspecific:$('#subspecific').val(),
-					denomination:$('#denomination').val(),
-					active:$('#active').prop('checked'),
-				}
+				var url = '/accounting/accounts/';
+				this.data_account.active = $('#active').prop('checked');
 				if (this.showButton == 'create') {
-					axios.post('/accounting/accounts',this.data_account).then(response=>{
+					axios.post(url, this.data_account).then(response=>{
 						window.location.href = this.urlPrevious;
 					}).catch(error=>{
-
+						this.errors = [];
+						if (typeof(error.response) !="undefined") {
+							for (var index in error.response.data.errors) {
+								if (error.response.data.errors[index]) {
+									this.errors.push(error.response.data.errors[index][0]);
+								}
+							}
+						}
 					});
 				} else {
-					axios.put('/accounting/accounts/'+this.account.id,this.data_account).then(response=>{
+					console.log(this.data_account);
+					axios.put(url+this.account.id, this.data_account).then(response=>{
 						window.location.href = this.urlPrevious;
 					}).catch(error=>{
-
+						this.errors = [];
+						if (typeof(error.response) != "undefined") {
+							for (var index in error.response.data.errors) {
+								if (error.response.data.errors[index]) {
+									this.errors.push(error.response.data.errors[index][0]);
+								}
+							}
+						}
 					});
 				}
 			},
 		},
 		watch:{
-
+			RecordBase:function(res) {
+				axios.get('/accounting/get-children-account/' + res).then(response => {
+						var account = response.data.account;
+						/** Selecciona en pantalla la nueva cuentas */
+						this.data_account = {
+							group:account.group,
+							subgroup:account.subgroup,
+							item:account.item,
+							generic:account.generic,
+							specific:account.specific,
+							subspecific:account.subspecific,
+							denomination:account.denomination,
+							active:account.active
+						};
+						$("input[name=active]").bootstrapSwitch("state", this.data_account.active);
+				}).catch(error => {
+					console.log(error);
+				});
+			}
 		}
 
 	}

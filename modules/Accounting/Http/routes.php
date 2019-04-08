@@ -13,6 +13,8 @@ Route::group(['middleware' => 'web',
 
 
 	Route::get('converter', 'AccountingAccountConverterController@index')->name('accounting.converter.index');
+	Route::post('converter/create', 'AccountingAccountConverterController@create')->name('accounting.converter.create');
+	Route::post('converter/get-Records', 'AccountingAccountConverterController@getRecords')->name('accounting.converter.getRecords');
 	Route::resource('converter', 'AccountingAccountConverterController', 
 		['as' => 'converter',
 		'except' => ['index']]);

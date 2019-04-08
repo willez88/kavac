@@ -24,15 +24,12 @@
 					<h6 class="card-title">Convertidor de cuentas</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						<!-- @include('buttons.new', ['route' => route('accounting.accounts.create')]) -->
+						@include('buttons.new', ['route' => route('accounting.converter.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-create-convertion 
-						:budget_accounts="{{$budgetAccounts}}" 
-						:accounting_accounts="{{$accountingAccounts}}" />
-					<!-- <accounting-check-records /> -->
+					<accounting-check-records :accounting_accounts="{{ $accountingList }}" :budget_accounts="{{ $budgetList }}"/>
 				</div>
 			</div>
 		</div>

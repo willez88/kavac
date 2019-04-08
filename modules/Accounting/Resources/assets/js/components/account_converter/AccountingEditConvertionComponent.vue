@@ -1,0 +1,75 @@
+<template>
+	<form class="form-horizontal" @submit.prevent="">
+		<div class="card-body">
+			<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+				<div class="container">
+					<div class="alert-icon">
+						<i class="now-ui-icons objects_support-17"></i>
+					</div>
+					<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">
+							<i class="now-ui-icons ui-1_simple-remove"></i>
+						</span>
+					</button>
+					<ul>
+						<li v-for="error in errors">{{ error }}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-5">
+					<h4>Cuentas Presupuestales</h4>
+					<select2 :options="accountOptions[0]" v-model="accountSelect.budget_id"></select2>
+				</div>
+				<div class="col-5">
+					<h4>Cuentas Patrimoniales</h4>
+					<select2 :options="accountOptions[1]" v-model="accountSelect.accounting_id"></select2>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer text-center" align="rigth">
+			<a :href="urlPrevious" class="btn btn-warning btn-icon btn-round"
+							data-toggle="tooltip"
+							title="Cancelar y regresar">
+							<i class="fa fa-ban"></i>
+					</a>
+					<button class="btn btn-success btn-icon btn-round" 
+							title="actualizar conversión"
+							data-toggle="tooltip"
+							v-on:click="update()"><i class="fa fa-save"></i></button>
+		</div>
+	</form>
+</template>
+<script>
+	export default{
+		props:['account_to_edit', 'accounting_accounts', 'budget_accounts'],
+		data(){
+			return{
+				errors:[],
+				accountOptions:[[],[]],
+				accountSelect:{
+								budget_id:'',
+								accounting_id:''
+							 },
+				urlPrevious:'http://'+window.location.host+'/accounting/converter',
+			}
+		},
+		created(){
+			this.accountOptions[0] = this.budget_accounts;
+			this.accountOptions[1] = this.accounting_accounts;
+			this.accountSelect.budget_id = this.account_to_edit.budget_account_id;
+			this.accountSelect.accounting_id = this.account_to_edit.accounting_account_id;
+		},
+		methods:{
+			update:function(){
+				axios.put('/accounting/converter/'+this.account_to_edit.id,this.accountSelect)
+				.then(response=>{
+					window.location.href = this.urlPrevious;
+				});
+			}
+		},
+
+	}
+</script>
