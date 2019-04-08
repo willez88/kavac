@@ -255,32 +255,37 @@ $(document).ready(function() {
             {
                 name: 'Roldan Vargas', 
                 email: 'rvargas@cenditel.gob.ve | roldandvg@gmail.com', 
-                position: 'Lider de proyecto / Diseño / Desarrollo'
+                group: 'Lider de proyecto / Diseño / Desarrollo'
             },
             {
                 name: 'Julie Vera',
                 email: 'jvera@cenditel.gob.ve',
-                position: 'Analistas'
+                group: 'Analistas'
             },
             {
                 name: 'María González',
                 email: 'mgonzalez@cenditel.gob.ve',
-                position: 'Analistas'
+                group: 'Analistas'
             },
             {
                 name: 'Francisco Berbesí',
                 email: 'fberbesi@cenditel.gob.ve',
-                position: 'Analistas'
+                group: 'Analistas'
             },
             {
                 name: 'William Paéz',
                 email: 'wpaez@cenditel.gob.ve',
-                position: 'Desarrolladores'
+                group: 'Desarrolladores'
             },
             {
                 name: 'Henry Paredes',
                 email: 'henryp2804@gmail.com',
-                position: 'Desarrolladores'
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Juan Rosas',
+                email: 'JuanFBass17@gmail.com',
+                group: 'Desarrolladores'
             }
         ]);
         bootbox.alert(
@@ -297,7 +302,8 @@ $(document).ready(function() {
             {name: 'María González'},
             {name: 'Francisco Berbesí'},
             {name: 'William Paéz'},
-            {name: 'Henry Paredes'}
+            {name: 'Henry Paredes'},
+            {name: 'Juan Rosas'}
         ]);
         bootbox.alert(appInfo.showLicense());
     });

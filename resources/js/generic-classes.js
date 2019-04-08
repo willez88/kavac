@@ -121,11 +121,11 @@ class AppInfo {
 			<h6 class="card-title">Créditos</h6>
 			<ul>
 		`;
-		let position = '';
+		let group = '';
 		this.members.forEach(function(member) {
-			if (position !== member.position) {
-				credits += `<li class="special-title">${member.position}</li>`;
-				position = member.position;
+			if (group !== member.group) {
+				credits += `<li class="special-title">${member.group}</li>`;
+				group = member.group;
 			}
 			credits += `<li>${member.name} (${member.email})</li>`;
 		});
