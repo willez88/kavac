@@ -251,74 +251,55 @@ $(document).ready(function() {
     /** Evento que permite mostrar datos sobre la aplicación (acerca de) */
     $('.about_app').on('click', function(e) {
         e.preventDefault();
+        const appInfo = new AppInfo([
+            {
+                name: 'Roldan Vargas', 
+                email: 'rvargas@cenditel.gob.ve | roldandvg@gmail.com', 
+                position: 'Lider de proyecto / Diseño / Desarrollo'
+            },
+            {
+                name: 'Julie Vera',
+                email: 'jvera@cenditel.gob.ve',
+                position: 'Analistas'
+            },
+            {
+                name: 'María González',
+                email: 'mgonzalez@cenditel.gob.ve',
+                position: 'Analistas'
+            },
+            {
+                name: 'Francisco Berbesí',
+                email: 'fberbesi@cenditel.gob.ve',
+                position: 'Analistas'
+            },
+            {
+                name: 'William Paéz',
+                email: 'wpaez@cenditel.gob.ve',
+                position: 'Desarrolladores'
+            },
+            {
+                name: 'Henry Paredes',
+                email: 'henryp2804@gmail.com',
+                position: 'Desarrolladores'
+            }
+        ]);
         bootbox.alert(
-            '<h6>SISTEMA DE GESTION ADMINISTRATIVA | KAVAC</h6>' +
-            '<p class="text-justify">Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública. Registra y controla el presupuesto de la institución.</p>' +
-            '<h6 class="card-title">Créditos</h6>' +
-            '<ul>' +
-                '<li class="special-title">Lider de proyecto / Diseño / Desarrollo</li>' +
-                '<li>Roldan Vargas (rvargas@cenditel.gob.ve | roldandvg@gmail.com)</li>' +
-                '<li class="special-title">Analistas</li>' +
-                '<li>Julie Vera (jvera@cenditel.gob.ve)</li>' +
-                '<li>María Gónzalez (mgonzalez@cenditel.gob.ve)</li>' +
-                '<li>Francisco Berbesí (fberbesi@cenditel.gob.ve)</li>' +
-                '<li class="special-title">Desarrolladores</li>' +
-                '<li>William Paéz (wpaez@cenditel.gob.ve)</li>' +
-                '<li>Henry Paredes (henryp2804@gmail.com)</li>' +
-            '</ul>' +
-            '<h6 class="card-title">Repositorio</h6>' +
-            '<ul>' +
-                '<li class="no-list-symbol">' +
-                    '<a href="https://gestion.cenditel.gob.ve/trac/browser/kavac" target="_blank">' + 
-                        'https://gestion.cenditel.gob.ve/trac/browser/kavac' + 
-                    '</a>' +
-                '</li>' +
-            '</ul>' +
-            '<h6 class="card-title">Documentación</h6>' +
-            '<ul>' +
-                '<li class="no-list-symbol">' +
-                    '<a href="#" target="_blank">Manual Técnico / Desarrolladores</a>' +
-                '</li>' +
-                '<li class="no-list-symbol">' +
-                    '<a href="#" target="_blank">Manual de Usuarios</a>' +
-                '</li>' +
-            '</ul>'    
+            appInfo.showAbout()
         );
     });
 
     /** Evento que permite mostrar datos sobre el licenciamiento de la aplicación */
     $('.license_app').on('click', function(e) {
         e.preventDefault();
-        var now = new Date().getFullYear();
-        year = (now > 2018)?(' - ' + now):'';
-        bootbox.alert(
-            '<h6 class="text-center">LICENCIA RESUMIDA</h6>' +
-            '<ul>' +
-                '<li><b>Nombre del Software:</b> KAVAC</li>' +
-                '<li><b>Descripción:</b>Control y seguimiento de todas las etapas en la gestión administrativa de entes públicos</li>' +
-                '<li><b>Nombre del licenciante:</b> Fundación CENDITEL (2018' + year +')</li>' +
-                '<li><b>Autores:</b> Roldan Vargas, Julie Vera, William Paéz, María González</li>' +
-            '</ul>' +
-            '<p class="text-justify">' +
-                'La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ' + 
-                'ente adscrito al Ministerio del Poder Popular para Educación Universitaria, Ciencia y Tecnología (MPPEUCT), ' + 
-                'concede permiso para usar, copiar, modificar y distribuir libremente y sin fines comerciales el SOFTWARE KAVAC, ' + 
-                'sin garantía alguna, preservando el reconocimiento moral de los autores y manteniendo los mismos principios para las ' + 
-                'obras derivadas, de conformidad con los términos y condiciones de la licencia de software de la Fundación CENDITEL.' +
-            '</p>' +
-            '<p class="text-justify">' +
-                'El software es una creación intelectual necesaria para el desarrollo económico y social de la nación, por tanto, ' + 
-                'esta licencia tiene la pretensión de preservar la libertad de este conocimiento para que contribuya a la consolidación de la ' + 
-                'soberanía nacional.' +
-            '</p>' +
-            '<p class="text-justify">' +
-                'Cada vez que copie y distribuya el SOFTWARE KAVAC debe acompañarlo de una copia de la licencia. Para más información sobre los ' + 
-                'términos y condiciones de la licencia visite la siguiente dirección electrónica: ' +
-            '</p>' +
-            '<p class="text-right">' +
-                '<a href="http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3" target="_blank" title="Licencia de Software"><img src="/images/license-icon.png" class="img-fluid" style="max-width:100px;"></a>' +
-            '</p>'
-        );
+        const appInfo = new AppInfo([
+            {name: 'Roldan Vargas'},
+            {name: 'Julie Vera'},
+            {name: 'María González'},
+            {name: 'Francisco Berbesí'},
+            {name: 'William Paéz'},
+            {name: 'Henry Paredes'}
+        ]);
+        bootbox.alert(appInfo.showLicense());
     });
 });
 
