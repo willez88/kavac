@@ -32,7 +32,7 @@ class FinanceBankAccount extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function banking_agency()
+    public function finance_banking_agency()
     {
     	return $this->belongsTo(FinanceBankingAgency::class);
     }
