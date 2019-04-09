@@ -13,20 +13,20 @@ class CreateAccountingAccountConvertersTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounting_account_converters', function (Blueprint $table) {
-            $table->increments('id');
+        if (!Schema::hasTable('accounting_account_converters')) {
+            Schema::create('accounting_account_converters', function (Blueprint $table) {
+                $table->increments('id');
 
-            $table->integer('accounting_account_id')->unsigned();
-            $table->foreign('accounting_account_id')->references('id')->on('accounting_accounts')->onDelete('cascade')->comment('llave foranea a registro en la tabla accounting_accounts');
+                $table->integer('accounting_account_id')->unsigned();
+                $table->foreign('accounting_account_id')->references('id')->on('accounting_accounts')->onDelete('cascade')->comment('llave foranea a registro en la tabla accounting_accounts');
 
-            $table->integer('budget_account_id')->unsigned();
-            $table->foreign('budget_account_id')->references('id')->on('budget_accounts')->onDelete('cascade')->comment('llave foranea a registro en la tabla budget_accounts');
+                $table->integer('budget_account_id')->unsigned();
+                $table->foreign('budget_account_id')->references('id')->on('budget_accounts')->onDelete('cascade')->comment('llave foranea a registro en la tabla budget_accounts');
 
-            $table->boolean('active')->default(true)->comment('Indica si la converció esta activa');
-
-                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-            $table->timestamps();
-        });
+                    $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

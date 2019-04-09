@@ -42,7 +42,15 @@ class AccountingAccountController extends Controller
     {
         $accounts_list = [];
 
-        foreach (AccountingAccount::orderBy('id','ASC')->get() as $AccountingAccount) {
+        // se realiza la busqueda de manera ordenada en base al codigo
+        foreach (AccountingAccount::orderBy('group','ASC')
+                                    ->orderBy('subgroup','ASC')
+                                    ->orderBy('item','ASC')
+                                    ->orderBy('generic','ASC')
+                                    ->orderBy('specific','ASC')
+                                    ->orderBy('subspecific','ASC')
+                                    ->get() as $AccountingAccount) {
+
             array_push($accounts_list, [
                 'id' => $AccountingAccount->id,
                 'code' =>   $AccountingAccount->getCode(),
@@ -211,15 +219,13 @@ class AccountingAccountController extends Controller
         $subspecific = $parent->subspecific;
         if ($parent->subgroup === "0") {
             $currentSubgroup = AccountingAccount::where(['group' => $parent->group])->orderBy('subgroup', 'desc')->first();
-            $subgroup = (strlen(intval($currentSubgroup->subgroup)) < 2|| intval($currentSubgroup->subgroup) < 99) 
+            $subgroup = (strlen(intval($currentSubgroup->subgroup)) < 2 || intval($currentSubgroup->subgroup) < 9) 
                     ? (intval($currentSubgroup->subgroup) + 1) : $currentSubgroup->subgroup;
-            // $subgroup = (strlen($subgroup) === 1) ? "$subgroup" : $subgroup;
         }
         else if ($parent->item === "0") {
             $currentItem = AccountingAccount::where(['group' => $parent->group, 'subgroup' => $parent->subgroup])->orderBy('item', 'desc')->first();
-            $item = (strlen(intval($currentItem->item)) < 2|| intval($currentItem->item) < 99) 
+            $item = (strlen(intval($currentItem->item)) < 2 || intval($currentItem->item) < 9) 
                     ? (intval($currentItem->item) + 1) : $currentItem->item;
-            // $item = (strlen($item) === 1) ? "0$item" : $item;
         }
         else if ($parent->generic === "00") {
             $currentGeneric = AccountingAccount::where(['group' => $parent->group, 'subgroup' => $parent->subgroup, 'item' => $parent->item])->orderBy('generic', 'desc')->first();

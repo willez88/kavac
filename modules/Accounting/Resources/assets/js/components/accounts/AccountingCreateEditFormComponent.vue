@@ -8,11 +8,6 @@
 						<i class="now-ui-icons objects_support-17"></i>
 					</div>
 					<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">
-							<i class="now-ui-icons ui-1_simple-remove"></i>
-						</span>
-					</button>
 					<ul>
 						<li v-for="error in errors">{{ error }}</li>
 					</ul>
@@ -191,7 +186,25 @@
 			}
 		},
 		methods:{
+			FormatCode:function(){
+				if (this.data_account.group.length < 1 ||this.data_account.subgroup.length < 1 ||
+					this.data_account.item.length < 1 || this.data_account.generic.length < 1 ||
+					this.data_account.specific.length < 1 || this.data_account.subspecific.length < 1) {
+					this.errors = [];
+					this.errors.push('Los campos del codigó de la cuenta son obligatorios');
+					return false;
+				}
+				return true;
+			},
 			sendData:function(){
+				if (!this.FormatCode()) { return; }
+				var dt = this.data_account;
+
+				// estos ultimos 3(tres) campos del codigó deben tener 2(dos) digitos
+				this.data_account.generic = (dt.generic.length < 2) ? '0'+dt.generic : dt.generic ;
+				this.data_account.specific = (dt.specific.length < 2) ? '0'+dt.specific : dt.specific ;
+				this.data_account.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
+
 				var url = '/accounting/accounts/';
 				this.data_account.active = $('#active').prop('checked');
 				if (this.showButton == 'create') {
@@ -208,7 +221,6 @@
 						}
 					});
 				} else {
-					console.log(this.data_account);
 					axios.put(url+this.account.id, this.data_account).then(response=>{
 						window.location.href = this.urlPrevious;
 					}).catch(error=>{

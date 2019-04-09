@@ -7,11 +7,6 @@
 						<i class="now-ui-icons objects_support-17"></i>
 					</div>
 					<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">
-							<i class="now-ui-icons ui-1_simple-remove"></i>
-						</span>
-					</button>
 					<ul>
 						<li v-for="error in errors">{{ error }}</li>
 					</ul>
@@ -29,7 +24,7 @@
 					</label>
 				</div>
 				<div class="col-3">
-					<label for="" class="control-label">Por Patrimonial		
+					<label for="" class="control-label">Por Patrimonial
 						<input type="radio"
 								name="sel_account_type" 
 								id="sel_accounting_acc"

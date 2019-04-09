@@ -34,3 +34,11 @@ Vue.component('accounting-create-convertions', require('./components/account_con
  */
 Vue.component('accounting-edit-convertion', require('./components/account_converter/AccountingEditConvertionComponent.vue'));
 
+/**
+ * Componente para la creación de asientos contable
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-seat', require('./components/seating/AccountingSeatComponent.vue'));
+
+

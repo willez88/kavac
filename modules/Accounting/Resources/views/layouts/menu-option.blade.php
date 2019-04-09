@@ -17,7 +17,7 @@
             <a href="{{ route('accounting.converter.index') }}">Convertidor de Cuentas</a>
         </li>
         <li>
-            <a href="#">Asientos Contables</a>
+            <a href="{{ route('accounting.seating.index') }}">Asientos Contables</a>
         </li>
         <li>
             <a href="#">Reportes</a>

@@ -65,25 +65,25 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 'name' => 'vista principal de consulta del convertidor de cuentas', 'slug' => 'accounting.converter.index',
                 'description' => 'Acceso para listar conversiones', 
                 'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
-                'slug_alt' => 'clasificador.ver', 'short_description' => 'listar clasificador'
+                'slug_alt' => 'conversion.ver', 'short_description' => 'listar conversion'
             ],
             [
                 'name' => 'Crear nueva conversión', 'slug' => 'accounting.converter.create',
                 'description' => 'Acceso para crear nuevas conversiones', 
                 'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
-                'slug_alt' => 'clasificador.crear', 'short_description' => 'agregar clasificador'
+                'slug_alt' => 'conversion.crear', 'short_description' => 'agregar conversion'
             ],
             [
                 'name' => 'Editar conversiones', 'slug' => 'accounting.converter.edit',
                 'description' => 'Acceso para editar registro conversiones', 
                 'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
-                'slug_alt' => 'clasificador.editar', 'short_description' => 'editar clasificador'
+                'slug_alt' => 'conversion.editar', 'short_description' => 'editar conversion'
             ],
             [
                 'name' => 'Eliminar conversión', 'slug' => 'accounting.converter.delete',
                 'description' => 'Acceso para eliminar registro de conversiones', 
                 'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
-                'slug_alt' => 'clasificador.eliminar', 'short_description' => 'eliminar clasificador'
+                'slug_alt' => 'conversion.eliminar', 'short_description' => 'eliminar conversion'
             ],
         ];
 

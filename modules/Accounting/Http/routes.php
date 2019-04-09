@@ -12,10 +12,18 @@ Route::group(['middleware' => 'web',
 		'except' => ['index']]);
 
 
+	// Rutoas para las operaciones de conversión de cuentas
 	Route::get('converter', 'AccountingAccountConverterController@index')->name('accounting.converter.index');
 	Route::post('converter/create', 'AccountingAccountConverterController@create')->name('accounting.converter.create');
 	Route::post('converter/get-Records', 'AccountingAccountConverterController@getRecords')->name('accounting.converter.getRecords');
 	Route::resource('converter', 'AccountingAccountConverterController', 
 		['as' => 'converter',
+		'except' => ['index']]);
+
+
+	// rutas para la gestión de asientos contables
+	Route::get('seating', 'AccountingSeatController@index')->name('accounting.seating.index');
+	Route::resource('seating', 'AccountingSeatController', 
+		['as' => 'seating',
 		'except' => ['index']]);
 });
