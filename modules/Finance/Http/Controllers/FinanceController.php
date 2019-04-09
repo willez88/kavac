@@ -72,6 +72,7 @@ class FinanceController extends Controller
 
     public function setting()
     {
-        return view('finance::settings');
+        $checkCode = '';
+        return view('finance::settings', compact('checkCode'));
     }
 }
