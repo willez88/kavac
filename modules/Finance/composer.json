@@ -20,6 +20,9 @@
     "autoload": {
         "psr-4": {
             "Modules\\Finance\\": ""
-        }
+        },
+        "files": [
+            "Helpers/Helper.php"
+        ]
     }
 }
