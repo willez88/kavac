@@ -96,7 +96,7 @@ class FinanceController extends Controller
 
     public function setting()
     {
-        $checkCode = '';
+        $checkCode = CodeSetting::where('model', FinanceCheck::class)->first() ?? '';
         return view('finance::settings', compact('checkCode'));
     }
 }
