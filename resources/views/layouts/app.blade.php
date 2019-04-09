@@ -32,6 +32,9 @@
         @yield('extra-css')
     </head>
     <body class="@guest login-page sidebar-collapse @endguest">
+        {{-- Ventana modal para mostrar mensaje de espera mientras cargan los datos --}}
+        @include('layouts.loading-message')
+
         @section('custom-page')
             @guest
                 <div class="page-header" filter-color="orange">
@@ -56,8 +59,6 @@
             @endguest
         @show
 
-        {{-- Ventana modal para mostrar mensaje de espera mientras cargan los datos --}}
-        @include('layouts.loading-message')
         {{-- Scripts --}}
         {{-- Plugin Sliders --}}
         {!! Html::script('js/nouislider.min.js') !!}
