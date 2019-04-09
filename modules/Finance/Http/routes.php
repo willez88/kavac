@@ -27,4 +27,5 @@ Route::group([
 	Route::get('get-bank-info/{bank_id}', 'FinanceBankController@getBankInfo');
 	Route::get('get-agencies/{bank_id?}', 'FinanceBankingAgencyController@getAgencies');
 	Route::get('get-account-types', 'FinanceAccountTypeController@getAccountTypes');
+	Route::get('get-accounts/{bank_id}', 'FinanceBankAccountController@getBankAccounts');
 });

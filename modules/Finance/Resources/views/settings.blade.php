@@ -35,13 +35,7 @@
 						<finance-banking-agencies></finance-banking-agencies>
 						<finance-account-types></finance-account-types>
 						<finance-bank-accounts></finance-bank-accounts>
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-							   href="#" title="Registros de chequeras" data-toggle="tooltip">
-								<i class="icofont icofont-card ico-3x"></i>
-								<span>Chequeras</span>
-							</a>
-						</div>
+						<finance-checkbooks></finance-checkbooks>
 					</div>
 				</div>
 			</div>

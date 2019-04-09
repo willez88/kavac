@@ -35,7 +35,7 @@ class FinanceBankingAgencyController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => FinanceBankingAgency::with(['bank', 'city', 'phones'])->get()], 200);
+        return response()->json(['records' => FinanceBankingAgency::with(['finance_bank', 'city', 'phones'])->get()], 200);
     }
 
     /**

@@ -30,7 +30,7 @@ class FinanceBank extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function agencies()
+    public function finance_agencies()
     {
         return $this->hasMany(FinanceBankingAgency::class);
     }

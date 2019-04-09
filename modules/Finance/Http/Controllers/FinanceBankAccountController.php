@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Finance\Models\FinanceBank;
 use Modules\Finance\Models\FinanceBankAccount;
 
 class FinanceBankAccountController extends Controller
@@ -114,5 +115,31 @@ class FinanceBankAccountController extends Controller
         $financeBankAccount = FinanceBankAccount::find($id);
         $financeBankAccount->delete();
         return response()->json(['record' => $financeBankAccount, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Obtiene todas las cuentas bancarias asociadas a una entidad bancaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $bank_id Identificador de la entidad bancaria de la que se desean obtener las cuentas
+     * @return JSON             JSON con los datos de las cuentas bancarias asociadas al banco
+     */
+    public function getBankAccounts($bank_id)
+    {
+        $bank = FinanceBank::where('id', $bank_id)->with(['finance_agencies' => function($query) {
+            return $query->with('bank_accounts');
+        }])->first();
+
+        $accounts = [['id' => '', 'text' => 'Seleccione...']];
+        foreach ($bank->finance_agencies as $agency) {
+            foreach ($agency->bank_accounts as $bank_account) {
+                $accounts[] = [
+                    'id' => $bank_account->id,
+                    'text' => $bank->code . $bank_account->ccc_number
+                ];
+            }
+        }
+        
+        return response()->json(['result' => true, 'accounts' => $accounts], 200);
     }
 }

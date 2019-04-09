@@ -31,7 +31,7 @@ Vue.component('finance-bank-accounts', require('./components/FinanceBankAccountC
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-checkbooks', require('./components/FinanceCheckbookComponent.vue'));
+Vue.component('finance-checkbooks', require('./components/FinanceCheckBookComponent.vue'));
 
 /**
  * Opciones de configuración global del módulo de presupuesto
@@ -99,6 +99,25 @@ Vue.mixin({
 				this.account_types = response.data;
 			});
 		},
+		/**
+		 * Obtiene los datos de las cuentas asociadas a una entidad bancaria
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 */
+		getBankAccounts() {
+			const vm = this;
+			bank_id = this.record.finance_bank_id;
+
+			if (bank_id) {
+				axios.get('/finance/get-accounts/' + bank_id).then(response => {
+					if (response.data.result) {
+						vm.accounts = response.data.accounts;
+					}
+				}).catch(error => {
+					console.log(error);
+				});
+			}
+		}
 	},
 	mounted() {
 		// Agregar instrucciones para determinar el año de ejecución
