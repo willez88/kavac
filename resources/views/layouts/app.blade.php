@@ -32,6 +32,9 @@
         @yield('extra-css')
     </head>
     <body class="@guest login-page sidebar-collapse @endguest">
+        {{-- Ventana modal para mostrar mensaje de espera mientras cargan los datos --}}
+        @include('layouts.loading-message')
+
         @section('custom-page')
             @guest
                 <div class="page-header" filter-color="orange">
@@ -56,12 +59,11 @@
             @endguest
         @show
 
-        {{-- Ventana modal para mostrar mensaje de espera mientras cargan los datos --}}
-        @include('layouts.loading-message')
         {{-- Scripts --}}
         {{-- Plugin Sliders --}}
         {!! Html::script('js/nouislider.min.js') !!}
         {{-- Scripts de la aplicación --}}
+        {!! Html::script('js/generic-classes.js') !!}
         {!! Html::script('js/app.js') !!}
         {{-- Plugin Bootbox --}}
         {!! Html::script('js/bootbox.min.js') !!}
@@ -270,46 +272,21 @@
                 var view_user_info = function(id) {
                     axios.get('/user-info/' + id).then(response => {
                         let user = response.data.user;
-                        let roles = '', permissions = '';
+                        let roles = [], permissions = [];
                         if (typeof(user.roles) !== "undefined") {
-                            roles += '<div class="row"><div class="col-12"><div class="form-group">' +
-                                     '<label class="col-12"><b>Roles</b></label>';
-                             $.each(user.roles, function() {
-                                roles +=    '<span class="badge badge-primary" style="margin-right:10px">' + 
-                                                this.name + 
-                                            '</span>';
+                            $.each(user.roles, function() {
+                                roles.push(this.name);
                             });
-                            roles += '</div></div></div>';
                         }
                         if (typeof(user.permissions) !== "undefined") {
-                            permissions += '<div class="row"><div class="col-12"><div class="form-group">' +
-                                     '<label class="col-12"><b>Permisos</b></label>';
-                             $.each(user.permissions, function() {
-                                permissions += '<span class="badge badge-primary" style="margin-right:10px">' + 
-                                                    this.name + 
-                                                '</span>';
+                            $.each(user.permissions, function() {
+                                permissions.push(this.name);
                             });
-                            permissions += '</div></div></div>';
                         }
+
+                        const userDetail = new User(user.name, user.username, user.email, roles, permissions);
                         
-                        bootbox.alert(
-                            '<h6 class="text-center">' + user.name + '</h6>' +
-                            '<div class="row">'+
-                                '<div class="col-6">' +
-                                    '<div class="form-group">' +
-                                        '<label class="col-12"><b>Usuario</b></label>' +
-                                        '<label class="col-12">' + user.username + '</label>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="col-6">' +
-                                    '<div class="form-group">' +
-                                        '<label class="col-12"><b>Correo</b></label>' +
-                                        '<label class="col-12">' + user.email + '</label>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                            roles + permissions
-                        );
+                        bootbox.alert(userDetail.showInfo());
                     }).catch(error => {
                         console.log(error);
                     });

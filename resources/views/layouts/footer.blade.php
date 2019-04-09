@@ -2,16 +2,16 @@
     <nav>
         <ul>
             <li>
-                <a href="https://www.cenditel.gob.ve" target="_blank">CENDITEL</a>
+                <a href="https://www.cenditel.gob.ve" target="_blank" class="resalt-link">CENDITEL</a>
             </li>
             <li>
-                <a href="" class="about_app">Acerca de</a>
+                <a href="#" class="about_app resalt-link">Acerca de</a>
             </li>
             <li>
-                <a href="#" target="_blank">Blog</a>
+                <a href="#" target="_blank" class="resalt-link">Blog</a>
             </li>
             <li>
-                <a href="" class="license_app">Licencia</a>
+                <a href="#" class="license_app resalt-link">Licencia</a>
             </li>
         </ul>
     </nav>
