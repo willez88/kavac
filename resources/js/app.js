@@ -10,8 +10,21 @@
 require('./bootstrap');
 require('./loading-message');
 
+
 /** @type {object} Requerimiento del paquete vue para la reactividad de la aplicación */
 window.Vue = require('vue');
+
+/** @type {Date} Año de ejecución */
+window.execution_year = new Date().getFullYear();
+
+axios.get('/get-execution-year', {}).then(response => {
+	if (response.data.result) {
+		window.execution_year = response.data.year;
+	}
+}).catch(error => {
+	console.log(error);
+});
+Vue.use(window.execution_year);
 
 /** Requerimiento del paquete vue-table-2 para la representación de consultas en tablas con vue */
 import {ServerTable, ClientTable, Event} from 'vue-tables-2';
@@ -143,8 +156,6 @@ import moment from 'moment';
 Vue.mixin({
 	data() {
 		return {
-			/** @type {string} Año para la ejecución de recursos */
-			execution_year: new Date().getFullYear(),
 			/**
 			 * Opciones generales a implementar en tablas
 			 * @type {JSON}
@@ -695,15 +706,7 @@ Vue.mixin({
     	this.clearForm();
     },
     mounted() {
-    	let vm = this;
-    	// Agregar instrucciones para determinar el año de ejecución
-    	axios.get('/get-execution-year', {}).then(response => {
-    		if (response.data.result) {
-    			vm.execution_year = response.data.year;
-    		}
-    	}).catch(error => {
-    		console.log(error);
-    	});
+    	
     }
 });
 

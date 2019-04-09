@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 use App\Models\Institution;
 use App\Models\DocumentStatus;
@@ -133,6 +134,8 @@ class InstitutionController extends Controller
                       ])->first()
                       : '';
 
-        return response()->json(['result' => true, 'year' => ($execution) ? $execution->year : $year], 200);
+        $exec_year = Crypt::encrypt(($execution) ? $execution->year : $year);
+
+        return response()->json(['result' => true, 'year' => $exec_year], 200);
     }
 }
