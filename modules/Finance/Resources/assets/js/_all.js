@@ -40,6 +40,19 @@ Vue.component('finance-checkbooks', require('./components/FinanceCheckbookCompon
  */
 Vue.mixin({
 	methods: {
+		format_bank_account(account, formated) {
+			var formated = (typeof(formated) !== "undefined") ? formated : true;
+
+			var account_formated = '';
+            for (var i = 0; i < account.length; i++) {
+                if (formated && [4, 8, 10].includes(i) && account.charAt(i) !== "-") {
+                	account_formated += '-';
+                }
+            	account_formated += account.charAt(i);
+            }
+
+            return account_formated;
+		},
 		/**
 		 * Obtiene los datos de las entidades bancarias registradas
 		 *

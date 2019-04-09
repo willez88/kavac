@@ -91,6 +91,15 @@
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="finance_banking_agency" slot-scope="props">
+	                			{{ props.row.finance_banking_agency.finance_bank.short_name }}
+	                		</div>
+	                		<div slot="ccc_number" slot-scope="props" class="text-center">
+	                			{{ format_bank_account(props.row.ccc_number) }}
+	                		</div>
+	                		<div slot="opened_at" slot-scope="props" class="text-center">
+	                			{{ format_date(props.row.opened_at) }}
+	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
 		                				class="btn btn-warning btn-xs btn-icon btn-round" 
@@ -141,7 +150,7 @@
 				banks: [],
 				agencies: [],
 				account_types: [],
-				columns: ['finance_bank_id', 'ccc_number', 'opened_at', 'id'],
+				columns: ['finance_banking_agency', 'ccc_number', 'opened_at', 'id'],
 			}
 		},
 		methods: {
@@ -165,14 +174,15 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'finance_bank_id': 'Banco',
+				'finance_banking_agency': 'Banco',
 				'ccc_number': 'Código Cuenta Cliente',
+				'opened_at': 'Fecha de apertura',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['finance_bank_id', 'ccc_number'];
-			this.table_options.filterable = ['finance_bank_id', 'cc_number'];
+			this.table_options.sortable = ['finance_banking_agency', 'ccc_number'];
+			this.table_options.filterable = ['finance_banking_agency', 'cc_number'];
 			this.table_options.columnsClasses = {
-				'finance_bank_id': 'col-md-4',
+				'finance_banking_agency': 'col-md-4',
 				'ccc_number': 'col-md-4',
 				'opened_at': 'col-md-2',
 				'id': 'col-md-2'
