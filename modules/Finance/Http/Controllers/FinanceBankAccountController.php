@@ -19,7 +19,9 @@ class FinanceBankAccountController extends Controller
     public function index()
     {
         return response()->json([
-            'records' => FinanceBankAccount::with('banking_agency')->orderBy('ccc_number')->get()
+            'records' => FinanceBankAccount::with(['finance_banking_agency' => function($query) {
+                return $query->with('finance_bank');
+            }])->orderBy('ccc_number')->get()
         ], 200);
     }
 
