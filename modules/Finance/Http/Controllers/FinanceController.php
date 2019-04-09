@@ -5,6 +5,9 @@ namespace Modules\Finance\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use App\Models\CodeSetting;
+use App\Rules\CodeSetting as CodeSettingRule;
+use Modules\Finance\Models\FinanceCheck;
 
 class FinanceController extends Controller
 {
@@ -33,6 +36,27 @@ class FinanceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'checks_code' => [new CodeSettingRule]
+        ]);
+
+        list($prefix, $digits, $sufix) = CodeSetting::divideCode($request->checks_code);
+
+        CodeSetting::updateOrCreate([
+            'module' => 'finance',
+            'table' => 'finance_checks',
+            'field' => 'code',
+            'type' => (isset($type)) ? $type : null
+        ], [
+            'format_prefix' => $prefix,
+            'format_digits' => $digits,
+            'format_year' => $sufix,
+            'model' => FinanceCheck::class,
+        ]);
+
+        $request->session()->flash('message', ['type' => 'store']);
+
+        return redirect()->back();
     }
 
     /**
