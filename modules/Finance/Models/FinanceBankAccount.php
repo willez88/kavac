@@ -46,4 +46,14 @@ class FinanceBankAccount extends Model implements Auditable
     {
     	return $this->belongsTo(FinanceAccountType::class);
     }
+
+    /**
+     * FinanceBankAccount has many Finance_check_books.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function finance_check_books()
+    {
+        return $this->hasMany(FinanceCheckBook::class);
+    }
 }

@@ -19,6 +19,8 @@ Route::group([
 	    Route::resource('account-types', 'FinanceAccountTypeController', ['as' => 'finance']);
 	    /** Rutas para la gestión de cuentas bancarias */
 	    Route::resource('bank-accounts', 'FinanceBankAccountController', ['as' => 'finance']);
+	    /** Rutas para la gestión de chequeras */
+	    Route::resource('check-books', 'FinanceCheckBookController', ['as' => 'finance']);
 	});
 
 	Route::get('get-banks/', 'FinanceBankController@getBanks');
