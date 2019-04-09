@@ -143,6 +143,8 @@ import moment from 'moment';
 Vue.mixin({
 	data() {
 		return {
+			/** @type {string} Año para la ejecución de recursos */
+			execution_year: new Date().getFullYear(),
 			/**
 			 * Opciones generales a implementar en tablas
 			 * @type {JSON}
@@ -159,14 +161,42 @@ Vue.mixin({
                     limit: 'Registros',
                     //page: 'Página:',
                     noResults: 'No existen registros',
-
 				},
 			},
 		}
 	},
-	props: [
-		'route_list', 'route_create', 'route_edit', 'route_update', 'route_delete', 'route_show'
-	],
+	props: {
+		route_list: {
+			type: String,
+			required: false,
+			default: ''
+		},
+		route_create: {
+			type: String,
+			required: false,
+			default: ''
+		},
+		route_edit: {
+			type: String,
+			required: false,
+			default: ''
+		},
+		route_update: {
+			type: String,
+			required: false,
+			default: ''
+		},
+		route_delete: {
+			type: String,
+			required: false,
+			default: ''
+		},
+		route_show: {
+			type: String,
+			required: false,
+			default: ''
+		}
+	},
 	methods: {
 		/**
 		 * Redirecciona a una url esecífica si fue suministrada
@@ -665,7 +695,7 @@ Vue.mixin({
     	this.clearForm();
     },
     mounted() {
-    	
+    	// Agregar instrucciones para determinar el año de ejecución
     }
 });
 

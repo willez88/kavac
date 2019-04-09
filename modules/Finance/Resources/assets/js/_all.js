@@ -39,17 +39,22 @@ Vue.component('finance-checkbooks', require('./components/FinanceCheckbookCompon
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
 Vue.mixin({
-	data() {
-		return {
-			execution_year: ''
-		}
-	},
 	methods: {
+		/**
+		 * Obtiene los datos de las entidades bancarias registradas
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 */
 		getBanks: function() {
 			axios.get('/finance/get-banks').then(response => {
 				this.banks = response.data;
 			});
 		},
+		/**
+		 * Obtiene los datos de las cuentas bancarias
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 */
 		getAgencies() {
 			const vm = this;
 			bank_id = this.record.finance_bank_id;
@@ -63,7 +68,7 @@ Vue.mixin({
 				if ($("#bank_code").length) {
 					axios.get('/finance/get-bank-info/' + bank_id).then(response => {
 						if (response.data.result) {
-							$("#bank_code").val(response.data.bank.code);
+							vm.record.bank_code = response.data.bank.code;
 						}
 					}).catch(error => {
 						console.log(error);
@@ -71,6 +76,11 @@ Vue.mixin({
 				}
 			}
 		},
+		/**
+		 * Obtiene los datos de los tipos de cuenta bancaria
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 */
 		getAccountTypes: function() {
 			axios.get('/finance/get-account-types').then(response => {
 				this.account_types = response.data;
