@@ -138,6 +138,7 @@ Route::group(['middleware' => 'auth'], function() {
     /** Ruta para obtener datos de instituciones */
     Route::get('/get-institutions/{institution_id?}', 'InstitutionController@getInstitutions')
          ->name('get-institutions');
+    Route::get('/get-execution-year/{institution_id?}/{year?}', 'InstitutionController@getExecutionYear')->name('get-execution-year');
 
     /** Ruta para obtener datos de monedas */
     Route::get('/get-currencies/{currency_id?}', 'CurrencyController@getCurrencies')

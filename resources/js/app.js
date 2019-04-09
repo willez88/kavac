@@ -695,7 +695,15 @@ Vue.mixin({
     	this.clearForm();
     },
     mounted() {
+    	let vm = this;
     	// Agregar instrucciones para determinar el año de ejecución
+    	axios.get('/get-execution-year', {}).then(response => {
+    		if (response.data.result) {
+    			vm.execution_year = response.data.year;
+    		}
+    	}).catch(error => {
+    		console.log(error);
+    	});
     }
 });
 

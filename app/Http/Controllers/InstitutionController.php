@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Institution;
+use App\Models\DocumentStatus;
+use Carbon\Carbon;
+use Module;
 
 /**
  * @class InstitutionController
@@ -103,5 +106,33 @@ class InstitutionController extends Controller
     public function getInstitutions($id = null)
     {
         return response()->json(template_choices('App\Models\Institution', 'name', [], true));
+    }
+
+    /**
+     * Obtiene el año actual para la ejecución de recursos
+     * 
+     * @param  integer $institution_id Identificador de la institución, si no se especifica toma el valor por defecto
+     * @param  string  $year           Año de la ejecución, si no se especifica toma el año actual del sistema
+     * @return JSON                    JSON con información del año de execución
+     */
+    public function getExecutionYear($institution_id = null, $year = null)
+    {
+        $year = $year ?? Carbon::now()->format("Y");
+        
+        $filter = ['active' => true];
+        $filter[(is_null($institution_id)) ? 'default' : 'id'] = (is_null($institution_id)) ? true : $institution_id;
+        
+        $institution = Institution::where($filter)->first();
+        
+        $documentStatus = DocumentStatus::where('action', 'AP')->first();
+        
+        $execution = (Module::has('Budget')) 
+                      ? \Modules\Budget\Models\BudgetSubSpecificFormulation::where([
+                          'year' => $year, 'assigned' => true, 'document_status_id' => $documentStatus->id,
+                          'institution_id' => $institution->id
+                      ])->first()
+                      : '';
+
+        return response()->json(['result' => true, 'year' => ($execution) ? $execution->year : $year], 200);
     }
 }
