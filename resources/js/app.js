@@ -198,6 +198,19 @@ Vue.mixin({
 			return moment(String(value)).format('DD/MM/YYYY hh:mm:ss');
 		},
 		/**
+		 * Inicializa todos los campos de formularios a un valor vacío
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 */
+		clearForm() {
+			let vm = this;
+	    	if (typeof(vm.record) !== "undefined") {
+	    		for (var index in vm.record) {
+					vm.record[index] = '';
+				}
+	    	}
+		},
+		/**
 		 * Inicializa los registros base del formulario
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
@@ -647,6 +660,9 @@ Vue.mixin({
 				});
 			}
 		}*/
+    },
+    created() {
+    	this.clearForm();
     },
     mounted() {
     	
