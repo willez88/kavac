@@ -28,4 +28,7 @@ Route::group([
 	Route::get('get-agencies/{bank_id?}', 'FinanceBankingAgencyController@getAgencies');
 	Route::get('get-account-types', 'FinanceAccountTypeController@getAccountTypes');
 	Route::get('get-accounts/{bank_id}', 'FinanceBankAccountController@getBankAccounts');
+	Route::get('voucher-design', function() {
+		return view('finance::vouchers.design');
+	})->name('finance.voucher.design');
 });

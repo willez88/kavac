@@ -201,6 +201,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
     Route::get('restore/{model}/{id}', 'DashboardController@restore');
+    Route::get('pack-icons', function() {
+        return view('layouts.pack-icons');
+    });
 
     /**
      * ------------------------------------------------------------------

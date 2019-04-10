@@ -34,6 +34,13 @@ Vue.component('finance-bank-accounts', require('./components/FinanceBankAccountC
 Vue.component('finance-checkbooks', require('./components/FinanceCheckBookComponent.vue'));
 
 /**
+ * Componente para gestionar y configurar el diseño del voucher para la impresión de cheques
+ *
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ */
+Vue.component('finance-voucher-design', require('./components/FinanceVoucherDesignComponent.vue'));
+
+/**
  * Opciones de configuración global del módulo de presupuesto
  * 
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
