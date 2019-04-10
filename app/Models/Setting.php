@@ -40,6 +40,6 @@ class Setting extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-    	'support', 'chat', 'notify', 'report_banner', 'multi_institution', 'digital_sign', 'active'
+    	'support', 'chat', 'notify', 'report_banner', 'multi_institution', 'digital_sign', 'active', 'multi_warehouse'
     ];
 }

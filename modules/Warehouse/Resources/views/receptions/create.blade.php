@@ -21,7 +21,11 @@
 
 	<div class="row">
 		<div class="col-12">
-			<warehouse-reception></warehouse-reception>
+			<warehouse-reception
+				route_list='{{ url('warehouse/receptions')}}'
+				:receptionid ="{!! (isset($reception)) ? $reception->id : 'null' !!}">
+					
+				</warehouse-reception>
 		</div>
 	</div>
 
