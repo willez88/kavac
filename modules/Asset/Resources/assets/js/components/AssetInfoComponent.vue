@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<a class="btn btn-info btn-xs btn-icon btn-round" 
+		<a class="btn btn-info btn-xs btn-icon btn-action" 
 		   href="#" title="Ver información del Bien" data-toggle="tooltip" 
-		   @click="addRecord('add_asset', route_list+id, $event)">
+		   @click="initRecord('add_asset',$event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_asset">
@@ -69,6 +69,9 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Código</label>
+									<div>
+										<span>{{this.record.code}}</span>
+									</div>
 									<input type="text"
 										data-toggle="tooltip" 
 										class="form-control"
@@ -230,17 +233,29 @@
 		data() {
 			return {
 				record: {
-					id:'',
-					type: ''
+					id: '',
+                    type: '',
+                    category: '',
+                    subcategory: '',
+                    specific: '',
+                    code: '',
+                    purchase: '',
+                    year: '',
+                    ubication: '',
+                    proveedor: '',
+                    condition:'',
+                    status:'',
+                    use: '',
+                    serial: '',
+                    marca: '',
+                    model: '',
+                    value: '',
 				},
 				errors: [],
 				records: []
 			}
 		},
 		props: ['id'],
-		created() {
-			this.getAsset();
-		},
 		methods: {
 			/**
              * Método que borra todos los datos del formulario
@@ -250,8 +265,32 @@
             reset() {
                 this.record = {
                     id: '',
-                    type: ''
+                    type: '',
+                    category: '',
+                    subcategory: '',
+                    specific: '',
+                    code: '',
+                    purchase: '',
+                    year: '',
+                    ubication: '',
+                    proveedor: '',
+                    condition:'',
+                    status:'',
+                    use: '',
+                    serial: '',
+                    marca: '',
+                    model: '',
+                    value: '',
                 };
+            },
+            initRecord(modal_id,event){
+            	if(this.id > 0 ){
+            		this.getAsset();
+            		event.preventDefault();
+					if ($("#" + modal_id).length) {
+						$('#'+modal_id).modal('show');
+					}
+            	}
             },
 			/**
 			 * Inicializa los registros base del formulario
@@ -259,9 +298,10 @@
 			 * @author Henry Paredes (henryp2804@gmail.com)
 			 */
 			getAsset() {
-				axios.get(this.route_list).then(response => {
-					this.records = response.data.record;
-					this.record.type = this.records.type;
+
+				axios.get(this.route_list+"/"+this.id).then(response => {
+					this.record = response.data.record;
+/*					this.record.type = this.records.type;
 					$(".modal-body #asset_type").val( this.records.type );
 					$(".modal-body #asset_category").val( this.records.category );
 					$(".modal-body #asset_subcategory").val( this.records.subcategory );
@@ -280,6 +320,7 @@
 					$(".modal-body #asset_marca").val( this.records.marca );
 					$(".modal-body #asset_model").val( this.records.model );
 					$(".modal-body #asset_value").val( this.records.value );
+*/					
 				});
 
 			}

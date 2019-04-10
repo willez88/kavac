@@ -42,6 +42,11 @@ class WarehouseProduct extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name','description','attribute'];
+
+    public function attributes()
+    {
+        return $this->hasMany('Modules\Warehouse\Models\WarehouseProductAttribute','product_id');
+    }
 
 }

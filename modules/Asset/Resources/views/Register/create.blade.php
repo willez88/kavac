@@ -23,17 +23,13 @@
 			<div class="card-header">
 				<h6 class="card-title">Registro Manual</h6>
 				<div class="card-btns">
-					<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-					   data-toggle="tooltip">
-    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-    				</a>
-				</div>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
+					</div>
 			</div>
 			{!! (!isset($model))?Form::open($header):Form::model($model, $header) !!}
 				<div class="card-body">
 					@include('layouts.form-errors')
-					<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
-					<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div>
 					<div class="row">
 
 						<div class="col-md-6">
@@ -124,7 +120,6 @@
 								{!! Form::label('department_label', 'Ubicación', []) !!}
 								{!! Form::select('departament', (isset($departments))?$departments:[],  (isset($asset))?$asset->institution_id:null, [
 									'class' => 'form-control select2',
-									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el nombre de la unidad, departamento o dependencia en la que recide el bien'
 								]) !!}
 

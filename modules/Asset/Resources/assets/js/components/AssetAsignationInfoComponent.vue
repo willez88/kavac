@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a class="btn btn-info btn-xs btn-icon btn-round" 
+		<a class="btn btn-info btn-xs btn-icon btn-action" 
 		   href="#" title="Ver información de la Asignación" data-toggle="tooltip" 
 		   @click="initRequest('view_asignation',$event)">
 			<i class="fa fa-info-circle"></i>
@@ -27,7 +27,7 @@
 						</div>
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
 	                        <li class="nav-item">
-	                            <a class="nav-link active" data-toggle="tab" href="#general" role="tab">
+	                            <a class="nav-link active" data-toggle="tab" href="#general" id="info_general" role="tab">
 	                                <i class="ion-android-person"></i> Información General
 	                            </a>
 	                        </li>
@@ -73,17 +73,6 @@
 	                    	</div>
 	                    	
 	                    	<div class="tab-pane" id="equipment" role="tabpanel">            
-	                    		<div class="row">
-									<div class="col-12">
-										<a class='btn btn-sm btn-info float-right'
-											title="Refrescar Datos"
-											data-toggle="tooltip"
-											@click="loadRequest()">
-											<i class="fa fa-refresh"></i>
-											<span>	Actualizar	</span>
-										</a>	
-									</div>
-								</div>	
 	                    		<div class="row">
 	                    			<div class="col-md-12">
 										<hr>
@@ -148,6 +137,7 @@
 			initRequest(modal_id,event) {
 
 				event.preventDefault();
+				document.getElementById("info_general").click();
 				this.fillRequest();
 
 

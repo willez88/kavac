@@ -23,24 +23,14 @@
 				<div class="card-header">
 					<h6 class="card-title">Ingresos de Almacén</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-						   data-toggle="tooltip">
-						   <i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.new', ['route' => route('warehouse.reception.create')])
+						@include('buttons.minimize')
 					</div>
 				</div>
 
 				
 				<div class="card-body">
-					<div class="row">
-						<div class="col-12">
-							<a href="{{ route('warehouse.reception.create') }}" class='btn btn-sm btn-primary btn-custom float-right'>
-								<i class="fa fa-plus-circle"></i>
-								<span>	Nuevo	</span>
-							</a>	
-						</div>
-					</div>
-
 					<div class="col-md-12">
 						<table class="table table-hover table-striped dt-responsive datatable">
 							<thead>
@@ -65,21 +55,20 @@
 										<td width="10%" class="text-center">
 											<div class="d-inline-flex">
 												
-												<button onclick=""
-												class="btn btn-info btn-xs btn-icon btn-round"  
-												data-toggle="tooltip" title="Ver información de la Solicitud">
-													<i class="fa fa-info-circle"></i>
-												</button>
+												<warehouse-reception-info 
+													route_list="warehouse/receptions/vue-info/"
+													:reception="{{$reception}}">
+												</warehouse-reception-info>
 
 												{!! Form::open(['route' => ['warehouse.reception.edit', $reception], 'method' => 'GET']) !!}
-												<button class="btn btn-warning btn-xs btn-icon btn-round"  
+												<button class="btn btn-warning btn-xs btn-icon btn-action"  
 												data-toggle="tooltip" title="Editar Solicitud">
 													<i class="icofont icofont-edit"></i>
 												</button>
 												{!! Form::close() !!}
 
 												{!! Form::open(['route' => ['warehouse.reception.destroy', $reception], 'method' => 'DELETE']) !!}
-												<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar Solicitud">
+												<button class="btn btn-danger btn-xs btn-icon btn-action"  data-toggle="tooltip" title="Eliminar Solicitud">
 													<i class="fa fa-trash"></i>
 												</button>
 												{!! Form::close() !!}

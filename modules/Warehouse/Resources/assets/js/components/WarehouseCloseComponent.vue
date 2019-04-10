@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Cierres de Almacén" data-toggle="tooltip" 
-		   @click="addRecord('add_close', 'closes', $event)">
+		   @click="addRecordClose($event)">
 			<i class="icofont icofont-ui-unlock ico-3x"></i>
 			<span>Cierres de Almacén</span>
 		</a>
@@ -70,20 +70,20 @@
 		            
 			            		<div v-if="checkClose(props.index)">
 			            			<button @click="warehouseClose(props.index)" 
-			                				class="btn btn-success btn-xs btn-icon btn-round" 
+			                				class="btn btn-success btn-xs btn-icon btn-action" 
 			                				title="Abrir Almacén" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-check"></i>
 			                		</button>
 			                	</div>
 
 		            			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				class="btn btn-warning btn-xs btn-icon btn-action" 
 		                				title="Editar Registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
 
 		                		<button @click="deleteRecord(props.index, 'closes')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
+										class="btn btn-danger btn-xs btn-icon btn-action" 
 										title="Eliminar registro" data-toggle="tooltip" 
 										type="button">
 									<i class="fa fa-trash-o"></i>
@@ -152,14 +152,16 @@
 					observation: '',
 				};
 			},
-			getWarehouses(url){				
+			getWarehouses(url){
+				const vm =this;
 				axios.get(url).then(response => {
-					this.warehouses = response.data;
+					if(typeof(response.data) != "undefined")
+						vm.warehouses = response.data;
 				});
 			},
 			checkClose(index) {
 				var field = this.records[index-1];
-				if (typeof(field) !== "undefined")
+				if (typeof(field) != "undefined")
 			        if (field.date_end == null)			     
 			           return true;
 			        else
@@ -175,9 +177,10 @@
 				});
 
 			},
-		},
-		mounted() {
-			this.getWarehouses('/warehouse/vue-list');
+			addRecordClose(event){
+				this.addRecord('add_close', 'closes', event);
+				this.getWarehouses('/warehouse/vue-list');
+			},
 		},
 		created() {
 			this.table_options.headings = {

@@ -12,7 +12,6 @@ use Modules\Asset\Models\AssetType;
 use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
-use Auth;
 
 class AssetClasificationController extends Controller
 {
@@ -24,7 +23,15 @@ class AssetClasificationController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => AssetSpecificCategory::with('subcategory')->get()], 200);
+        return response()->json(['records' => AssetSpecificCategory::with(['subcategory' => 
+
+            function($query){
+                $query->with(['category' => 
+                function($query){
+                    $query->with('type');
+                }]);
+            }]
+        )->get()], 200);
     }
 
     /**
@@ -43,7 +50,55 @@ class AssetClasificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'type_id' => 'required',
+            'category_id' => 'required',
+            'subcategory_id' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+        ]);
+        if ($request->type_id === '-1')
+            $this->validate($request,[
+                'type.name' => 'required',
+            ]);
+        if ($request->category_id === '-1')
+            $this->validate($request,[
+                'category.code' => 'required',
+                'category.name' => 'required',
+            ]);
+        if ($request->subcategory_id === '-1')
+            $this->validate($request,[
+                'subcategory.code' => 'required',
+                'subcategory.name' => 'required',
+            ]);
+
+        if($request->type_id === '-1'){
+            $type = AssetType::create([
+                'name' => $request->input('name'),
+            ]);
+        }
+
+        if($request->category_id === '-1'){
+            $category = AssetCategory::create([
+                'code' => $request->input('category.code'),
+                'name' => $request->input('category.name'),
+                'asset_type_id' => $type->id,
+            ]);
+        }
+        if($request->subcategory_id === '-1'){
+            $subcategory = AssetSubcategory::create([
+                'code' => $request->input('subcategory.code'),
+                'name' => $request->input('subcategory.name'),
+                'asset_category_id' => $category->id,
+            ]);
+        }
+        $specific = AssetSpecificCategory::create([
+            'code' => $request->input('code'),
+            'name' => $request->input('name'),
+            'asset_subcategory_id' => ($request->subcategory_id === '-1')?$subcategory->id:$request->subcategory_id,
+        ]);
+
+        return response()->json(['records' => $specific, 'message' => 'Success'],200);
     }
 
     /**
@@ -61,7 +116,7 @@ class AssetClasificationController extends Controller
      */
     public function edit()
     {
-        return view('asset::edit');
+        //
     }
 
     /**
@@ -69,15 +124,53 @@ class AssetClasificationController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, AssetSpecificCategory $specific)
     {
+        $this->validate($request,[
+            'type_id' => 'required',
+            'category_id' => 'required',
+            'subcategory_id' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+        ]);
+        if ($request->type_id === '-1')
+            $this->validate($request,[
+                'type.name' => 'required',
+            ]);
+        if ($request->category_id === '-1')
+            $this->validate($request,[
+                'category.code' => 'required',
+                'category.name' => 'required',
+            ]);
+        if ($request->subcategory_id === '-1')
+            $this->validate($request,[
+                'subcategory.code' => 'required',
+                'subcategory.name' => 'required',
+            ]);
+
+        $specific = AssetSpecificCategory::find($request->id);
+        
+        $specific->name = $request->input('name');
+        $specific->code = $request->input('code');
+        $specific->asset_subcategory_id = $request->input('subcategory_id');
+
+        $specific->save();
+
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina la Categoria Especifica de un Bien
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Asset\Models\Assetategory  $specific_category (Datos de la categoria especifica)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $specific = AssetSpecificCategory::find($id);
+        $specific->delete();
+        return response()->json(['record' => $specific, 'message' => 'Success'], 200);
     }
 }

@@ -80,14 +80,20 @@ class WarehouseInventaryProduct extends Model implements Auditable
         return $this->belongsTo('Modules\Warehouse\Models\Warehouse','warehouse_id');
     }
 
+    public function productMovements()
+    {
+        return $this->hasMany('Modules\Warehouse\Models\WarehouseInventaryProductMovement','inventary_product_id');
+    }
+
     /**
-     * Método que obtiene el historial de cambios en inventario de un producto
+     * Método que obtiene las reglas de almacenamiento del producto en el inventario
      *
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return Objeto con el registro relacionado al modelo WarehouseInventaryProduct
      */
-    public function history()
+
+    public function rule()
     {
-        return $this->hasMany('Modules\Warehouse\Models\WarehouseInventaryProduct');
+        return $this->hasOne('Modules\Warehouse\Models\WarehouseInventaryRule','inventary_id');
     }
 }

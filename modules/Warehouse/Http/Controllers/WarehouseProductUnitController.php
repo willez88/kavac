@@ -51,11 +51,13 @@ class WarehouseProductUnitController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => 'required|max:100',
+            'name' => 'required|max:20',
+            'abbreviation' => 'required|max:4',
         ]);
 
         $unit = WarehouseProductUnit::create([
             'name' => $request->input('name'),
+            'abbreviation' => $request->input('abbreviation'),
         ]);
 
         return response()->json(['record' => $unit, 'message' => 'Success'], 200);
@@ -69,10 +71,12 @@ class WarehouseProductUnitController extends Controller
     public function update(Request $request, WarehouseProductUnit $unit)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => 'required|max:20',
+            'abbreviation' => 'required|max:4'
         ]);
  
         $unit->name = $request->input('name');
+        $unit->abbreviation = $request->input('abbreviation');
         $unit->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);

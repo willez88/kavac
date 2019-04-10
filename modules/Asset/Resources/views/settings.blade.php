@@ -23,10 +23,8 @@
 				<div class="card-header">
 					<h6 class="card-title">Registros Comúnes (Pantalla Principal - Configuración)</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
@@ -44,10 +42,8 @@
 				<div class="card-header">
 					<h6 class="card-title">Parametros Específicos del Clasificador de Bienes</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
@@ -62,7 +58,7 @@
 						<asset-subcategories></asset-subcategories>
 
 						{{-- Configuración de Categorías Específicas de Bienes --}}
-						 	<asset-specific-categories></asset-specific-categories>
+						<asset-specific-categories></asset-specific-categories>
 					</div>
 				</div>
 			</div>

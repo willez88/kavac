@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a class="btn btn-default btn-xs btn-icon btn-round" 
+		<a class="btn btn-default btn-xs btn-icon btn-action" 
 		   href="#" title="Solicitud de Prorroga" data-toggle="tooltip" 
 		   @click="initRequest('add_prorroga',$event)">
 			<i class="fa fa-calendar"></i>

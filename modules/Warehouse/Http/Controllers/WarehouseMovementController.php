@@ -46,7 +46,8 @@ class WarehouseMovementController extends Controller
      */
     public function index()
     {
-        return view('warehouse::index');
+        $movements = WarehouseMovement::with('start','finish')->get();
+        return view('warehouse::movements.list', compact('movements'));
     }
 
     /**
@@ -55,7 +56,7 @@ class WarehouseMovementController extends Controller
      */
     public function create()
     {
-        return view('warehouse::create');
+        return view('warehouse::movements.create');
     }
 
     /**
@@ -73,7 +74,7 @@ class WarehouseMovementController extends Controller
      */
     public function show()
     {
-        return view('warehouse::show');
+        //return view('warehouse::show');
     }
 
     /**
@@ -82,7 +83,7 @@ class WarehouseMovementController extends Controller
      */
     public function edit()
     {
-        return view('warehouse::edit');
+        //return view('warehouse::edit');
     }
 
     /**
@@ -90,7 +91,7 @@ class WarehouseMovementController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
     }
 
@@ -98,7 +99,11 @@ class WarehouseMovementController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $warehouse_movement = WarehouseMovement::find($id);
+        $warehouse_movement->delete();
+        return response()->json(['record' => $warehouse_movement,
+                                 'message' => 'Success'],200);
     }
 }

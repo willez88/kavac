@@ -42,7 +42,7 @@ class Warehouse extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','address','main','country_id','estate_id','city_id'];
+    protected $fillable = ['name','address','main','active','country_id','estate_id','city_id'];
 
     /**
      * Método que obtiene el pais donde esta ubicado el almacén
@@ -79,7 +79,7 @@ class Warehouse extends Model implements Auditable
 
     public function pivot()
     {
-        return $this->hasMany('Modules\Warehouse\Models\WarehouseInstitutionWarehouse')->with('institution');
+        return $this->hasMany('Modules\Warehouse\Models\WarehouseInstitutionWarehouse');
     }
 
 }

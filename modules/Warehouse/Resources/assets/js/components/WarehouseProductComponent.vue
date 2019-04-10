@@ -25,112 +25,88 @@
 							</ul>
 						</div>
 
-						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
-	                        <li class="nav-item">
-	                            <a class="nav-link active" data-toggle="tab" href="#products" role="tab" @click="change()">
-	                                <i class="icofont icofont-cubes"></i> Productos
-	                            </a>
-
-	                        </li>
-	                        
-	                        <li class="nav-item">
-	                            <a class="nav-link" data-toggle="tab" href="#details" role="tab" @click="setTable(true)" v-if="record.id > 0">
-	                                <i class="ion-arrow-swap"></i> Detalles del Producto
-	                            </a>
-	                        </li>
-	                    </ul>
-
-	                    <div class="tab-content">
-	                    	<div class="tab-pane active" id="products" role="tabpanel">
-								<div class="row">        
-									<div class="col-md-12">
-										<b>Datos del Producto</b>
-									</div>
-
-									<div class="col-md-6">
-										<div class="form-group is-required">
-											<label>Nombre del Producto:</label>
-											<input type="text" placeholder="Nombre del Producto" data-toggle="tooltip" 
-												   title="Indique el nombre del Nuevo producto (requerido)" 
-												   class="form-control input-sm" v-model="record.name">
-											<input type="hidden" v-model="record.id">
-					                    </div>
-									</div>
-
-									<div class="col-md-6">
-										<div class="form-group is-required">
-											<label>Descripción:</label>
-											<input type="text" placeholder="Descripción del Producto" data-toggle="tooltip" 
-												   title="Indique una breve descripción del Nuevo producto (requerido)" 
-												   class="form-control input-sm" v-model="record.description">
-					                    </div>
-									</div>
-								</div>
+						<div class="row">        
+							<div class="col-md-12">
+								<b>Datos del Producto</b>
 							</div>
 
-							<div class="tab-pane" id="details" role="tabpanel">
-								<div class="row">        
-									<div class="col-md-12">
-										<b>Características del Producto</b>
-									</div>
-
-									<div class="col-md-6">
-										<div class="form-group is-required">
-											<label>Característica:</label>
-											<input type="text" placeholder="Característica del Producto" data-toggle="tooltip" 
-												   title="Indique el una nueva característica particular del producto (requerido)" 
-												   class="form-control input-sm" v-model="attribute.name">
-											<input type="hidden" v-model="attribute.id">
-					                    </div>
-									</div>
-									
-								</div>
+							<div class="col-md-6">
+								<div class="form-group is-required">
+									<label>Nombre del Producto:</label>
+									<input type="text" placeholder="Nombre del Producto" data-toggle="tooltip" 
+										   title="Indique el nombre del Nuevo producto (requerido)" 
+										   class="form-control input-sm" v-model="record.name">
+									<input type="hidden" v-model="record.id">
+			                    </div>
 							</div>
 
+							<div class="col-md-6">
+								<div class="form-group is-required">
+									<label>Descripción:</label>
+									<input type="text" placeholder="Descripción del Producto" data-toggle="tooltip" 
+										   title="Indique una breve descripción del Nuevo producto (requerido)" 
+										   class="form-control input-sm" v-model="record.description">
+			                    </div>
+							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<a  data-toggle="tooltip"
+				                        title="Establecer los atributos del producto para gestionar las variantes">
+				                        <label for="" class="control-label">Atributos Perzonalizados</label>
+				                        <div class="col-12">
+										<input type="checkbox" class="form-control bootstrap-switch"
+											name="attribute" 
+											data-on-label="Si" data-off-label="No" value="true"
+											v-model="record.attribute">
+									</div>
+				                    </a>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div v-show="this.record.attribute">
+							<div class="row" style="margin: 10px 0">
+								<h6 class="card-title cursor-pointer" @click="addAttribute()" >
+									Gestionar nuevo atributo <i class="fa fa-plus-circle"></i>
+								</h6>
+							</div>
+							<div class="row" style="margin: 20px 0">
 
+								<div class="col-6" v-for="(attribute, index) in record.attributes">
+
+									<div class="d-inline-flex">
+										<div class="col-10">
+											<div class="form-group">
+												<input type="text" placeholder="Descripción del nuevo atributo" data-toggle="tooltip" 
+													   title="Indique el nombre o descripción del atributo del producto que desee hacer seguimiento (opcional)" 
+													   v-model="attribute.name" class="form-control input-sm">
+											</div>
+										</div>
+										<div class="col-2">
+											<div class="form-group">
+												<button class="btn btn-sm btn-danger btn-action" type="button" 
+														@click="removeRow(index, record.attributes)" 
+														title="Eliminar este dato" data-toggle="tooltip">
+													<i class="fa fa-minus-circle"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 			        </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
-	                	<table class="table table-hover table-striped dt-responsive datatable"  v-if="tableAtt">
-							<thead>
-								<tr class="text-center">			
-									<th>Caractrística</th>
-									<th>Acciones</th>
-								</tr>
-							</thead>
-
-
-							<tbody>
-								<tr v-for="(attribute, index) in attributes">
-
-									<td>
-										{{ attribute.name }}
-									</td>
-									<td>
-										<button @click="attributeUpdate(index,$event)" 
-				                				class="btn btn-warning btn-xs btn-icon btn-round" 
-				                				title="Modificar registro" data-toggle="tooltip" type="button">
-				                			<i class="fa fa-edit"></i>
-				                		</button>
-				                		<button @click="deleteAttribute(index, 'attributes')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" 
-												title="Eliminar registro" data-toggle="tooltip" 
-												type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-
-								</tr>
-							</tbody>
-						</table>
-
-	                	<table class="table table-hover table-striped dt-responsive datatable" v-else>
+	                	<table class="table table-hover table-striped dt-responsive datatable">
 							<thead>
 								<tr class="text-center">			
 
 									<th>Producto</th>									
 									<th>Descripción</th>
+									<th>Atributos</th>
 									<th>Acciones</th>
 								</tr>
 							</thead>
@@ -145,18 +121,30 @@
 									<td>
 										{{ product.description }}
 									</td>									
+
 									<td>
-										<button @click="productUpdate(index,$event)" 
-				                				class="btn btn-warning btn-xs btn-icon btn-round" 
-				                				title="Modificar registro" data-toggle="tooltip" type="button">
-				                			<i class="fa fa-edit"></i>
-				                		</button>
-				                		<button @click="deleteRecord(index+1, 'products')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" 
-												title="Eliminar registro" data-toggle="tooltip" 
-												type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
+										<div v-if="product.attribute" v-for="att in product.attributes">
+											{{ att.name }}
+										</div>
+										<div v-else>
+											<span>N/A</span>
+										</div>
+									</td>
+
+									<td class="text-center">
+										<div class="d-inline-flex">
+											<button @click="initUpdate(index+1,$event)"
+					                				class="btn btn-warning btn-xs btn-icon btn-action" 
+					                				title="Modificar registro" data-toggle="tooltip" type="button">
+					                			<i class="fa fa-edit"></i>
+					                		</button>
+					                		<button @click="" 
+													class="btn btn-danger btn-xs btn-icon btn-action" 
+													title="Eliminar registro" data-toggle="tooltip" 
+													type="button">
+												<i class="fa fa-trash-o"></i>
+											</button>
+										</div>
 									</td>
 
 								</tr>
@@ -164,29 +152,7 @@
 						</table>
 	                </div>
 
-	                <div class="modal-footer" v-if="tableAtt">
-
-	                	<button type="button" @click="resetAtt()"
-								class="btn btn-default btn-icon btn-round"
-								title ="Borrar datos del formulario">
-								<i class="fa fa-eraser"></i>
-						</button>
-	                	
-	                	<button type="button" 
-	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
-	                			data-dismiss="modal"
-	                			title="Cancelar y regresar">
-	                			<i class="fa fa-ban"></i>
-	                	</button>
-
-	                	<button type="button" @click="createAttribute('warehouse/attributes')" 
-	                			class="btn btn-success btn-icon btn-round btn-modal-save"
-	                			title="Guardar registro">
-	                		<i class="fa fa-save"></i>
-		                </button>
-		            </div>
-
-	                <div class="modal-footer" v-else>
+	                <div class="modal-footer">
 
 	                	<button type="button" @click="reset()"
 								class="btn btn-default btn-icon btn-round"
@@ -201,7 +167,7 @@
 	                			<i class="fa fa-ban"></i>
 	                	</button>
 
-	                	<button type="button" @click="createRecord('warehouse/products')" 
+	                	<button type="button" @click="createRecordProduct('warehouse/products')" 
 	                			class="btn btn-success btn-icon btn-round btn-modal-save"
 	                			title="Guardar registro">
 	                		<i class="fa fa-save"></i>
@@ -220,17 +186,14 @@
 				record: {
 					id:'',
 					name: '',
-					description: ''
+					description: '',
+					attribute: false,
+					attributes: [],
 				},
-				attribute: {
-					id:'',
-					name: '',
-					product_id: '',
-				},
+				editIndex: null,
 				errors: [],
 				records: [],
 				attributes: [],
-				tableAtt: false,
 				
 			}
 		},
@@ -244,114 +207,29 @@
 				this.record = {
 					id: '',
 					name: '',
-					description: ''
+					description: '',
+					attribute: false,
+					attributes: []
 				};
 			},
-			resetAtt() {
-				this.attribute = {
-					id: '',
-					name: '',
+			addAttribute(){
+				var field = {id: '', name: '', product_id: ''};
+				this.record.attributes.push(field);
+			},
+			createRecordProduct(url){
+				this.record = {
+					id: this.record.id,
+					name: this.record.name,
+					description: this.record.description,
+					attribute: this.record.attribute,
+					atts: this.record.attributes
 				};
-			},
-			getAttributes() {
-				this.attribute.product_id = this.record.id;
-				var id = this.record.id;
-				var url = "attributes";
-				if (id !== '')
-					axios.get(url +'/product/'+ id).then(response => {
-						if (typeof response.data.records !== "undefined") {
-							this.attributes = response.data.records;
-						}
-					});
-			},
-			createAttribute(url) {
-
-				if (this.attribute.id) {
-					this.updateAttribute(url);
-				}
-				else {
-					var fields = {
-			          id: this.attribute.id,
-			          name: this.attribute.name,
-			          product_id: this.record.id,
-			        };
-
-					axios.post('/' + url, fields).then(response => {
-						if (typeof response.data.records !== "undefined") {
-							this.attributes = response.data.records;
-							this.resetAtt();
-							this.showMessage('store');
-						}
-					});
-				}
-				
-			},
-			updateAttribute(url) {
-				
-				var fields = {};
-				for (var index in this.attribute) {
-					fields[index] = this.attribute[index];
-				}
-				
-				axios.patch('/' + url + '/' + this.attribute.id, fields).then(response => {
-					if (typeof response.data.records !== "undefined") {
-						this.attributes = response.data.records;
-						this.resetAtt();
-						this.showMessage('update');
-					}
-				});
-		    },
-		    attributeUpdate(index,event){
-		    	this.errors = [];
-				this.attribute = this.attributes[index];
-
-				event.preventDefault();
-		    },
-		    deleteAttribute(index,url){
-
-	    		var attributes = this.attributes;
-	    		var confirmated = false;
-
-	    		bootbox.confirm({
-	    			title: "Eliminar registro?",
-	    			message: "Esta seguro de eliminar este registro?",
-	    			buttons: {
-	    				cancel: {
-	    					label: '<i class="fa fa-times"></i> Cancelar'
-	    				},
-	    				confirm: {
-	    					label: '<i class="fa fa-check"></i> Confirmar'
-	    				}
-	    			},
-	    			callback: function (result) {
-	    				if (result) {
-	    					confirmated = true;			
-							axios.delete(url + '/' + attributes[index].id).then(response => {
-								attributes.splice(index, 1);
-								this.showMessage('destroy');
-							}).catch(error => {});
-	    				}
-	    			}
-	    		});
-
-	    		if (confirmated) {
-	    			this.attributes = attributes;
-	    			this.showMessage('destroy');
-	    		}
-			},
-			productUpdate(index,event){
-				this.initUpdate(index+1,event);
-				this.getAttributes();
-			},
-			setTable(value){
-				this.tableAtt = value;
-				this.resetAtt();
-			},
-			change(){
-				this.reset();
-				this.attribute.prduct_id ='';
-				this.setTable(false);
+				this.createRecord(url);
 			}
+
 		},
+		mounted() {
+			this.switchHandler('attribute');
+		}
 	}
 </script>

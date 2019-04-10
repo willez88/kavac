@@ -100,12 +100,12 @@ class WarehouseRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Warehouse\Models\WarehouseRequest', 'model_prefix' => 'almacen',
                 'slug_alt' => 'almacen.solicitud.ver', 'short_description' => 'ver solicitud de almacén'
             ],
-            /*[
+            [
                 'name' => 'Crear solicitud de almacén', 'slug' => 'warehouse.request.create',
                 'description' => 'Acceso para crear solicitud de almacén', 
                 'model' => 'Modules\Warehouse\Models\WarehouseRequest', 'model_prefix' => 'almacen',
                 'slug_alt' => 'almacen.solicitud.crear', 'short_description' => 'agregar solicitud de almacén'
-            ],*/
+            ],
             [
                 'name' => 'Editar solicitud de almacén', 'slug' => 'warehouse.request.edit',
                 'description' => 'Acceso para editar solicitud de almacén', 

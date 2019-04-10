@@ -23,17 +23,13 @@
 			<div class="card-header">
 				<h6 class="card-title">Asignación de Bienes Institucionales</h6>
 				<div class="card-btns">
-					<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-					   data-toggle="tooltip">
-    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-    				</a>
-				</div>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
+					</div>
 			</div>
 			{!! (!isset($model))?Form::open($header):Form::model($model, $header) !!}
 				<div class="card-body">
 					@include('layouts.form-errors')
-					<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
-					<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div>
 
 					<div class="row">
 
@@ -42,12 +38,11 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group{{ $errors->has('puesto') ? ' has-error' : '' }} is-required">
+							<div class="form-group{{ $errors->has('type_position') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('puesto_work_label', 'Puesto de Trabajo', []) !!}
-								{!! Form::select('puesto', (isset($puestos))?$puestos:[], null, [
+								{!! Form::select('type_position', (isset($type_positions))?$type_positions:[], null, [
 									'class' => 'form-control select2',
-									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el puesto del trabajador activo'
 								]) !!}
 
@@ -55,12 +50,11 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group{{ $errors->has('cargo') ? ' has-error' : '' }} is-required">
+							<div class="form-group{{ $errors->has('position') ? ' has-error' : '' }} is-required">
 								
 								{!! Form::label('cargo_label', 'Cargo', []) !!}
-								{!! Form::select('cargo', (isset($cargos))?$cargos:[], null, [
+								{!! Form::select('position', (isset($positions))?$positions:[], null, [
 									'class' => 'form-control select2',
-									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el cargo del trabajador activo'
 								]) !!}
 
@@ -73,7 +67,6 @@
 								{!! Form::label('staff_label', 'Trabajador', []) !!}
 								{!! Form::select('staff', (isset($staffs))?$staffs:[], null, [
 									'class' => 'form-control select2',
-									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el trabajador activo al que se le asigna el bien'
 								]) !!}
 
@@ -85,7 +78,6 @@
 								{!! Form::label('ubication_label', 'Ubicación', []) !!}
 								{!! Form::select('ubication', (isset($dependencias))?$dependencias:[], null, [
 									'class' => 'form-control select2',
-									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la dependencia del trabajador al que se le asigna el bien'
 								]) !!}
 
@@ -94,12 +86,19 @@
 					</div>
 
 					<div class="row">
-
 						<div class="col-md-12">
 							<b>Información de los Bienes a ser Asignados</b>
 						</div>
+					</div>
+					<div class="row" style="margin: 10px 0">
+						<div class="col-md-12">
+							<b>Filtros</b>
+						</div>
+					</div>
+
+					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group   {{ $errors->has('type') ? ' has-error' : '' }} is-required">
+							<div class="form-group">
 								
 								{!! Form::label('type_label', 'Tipo de Bien', []) !!}
 								{!! Form::select('type', (isset($types))?$types:[], (isset($request))?$request->type:null, [		
@@ -115,7 +114,7 @@
 						</div>
 											
 						<div class="col-md-4">
-							<div class="form-group  {{ $errors->has('category') ? ' has-error' : '' }} is-required">
+							<div class="form-group">
 
 								{!! Form::label('category_label', 'Categoria General', []) !!}
 								{!! Form::select('category', (isset($categories))?$categories:[],  (isset($request))?$request->category:null, [
@@ -127,7 +126,7 @@
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group  {{ $errors->has('subcategory') ? ' has-error' : '' }} is-required">
+							<div class="form-group">
 								
 								{!! Form::label('subcategory_label', 'Subcategoria', []) !!}
 								{!! Form::select('subcategory', (isset($subcategories))?$subcategories:[],  (isset($request))?$request->subcategory:null, [
@@ -140,7 +139,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group  {{ $errors->has('specific_category') ? ' has-error' : '' }} is-required">
+							<div class="form-group">
 								
 								{!! Form::label('specific_category_label', 'Categoria Específica', []) !!}
 								{!! Form::select('specific_category', (isset($specific_categories))?$specific_categories:[],  (isset($request))?$request->specific_category:null, [
@@ -275,9 +274,8 @@ $(document).ready(function(){
 
 
 $("#save").on("click", function(event){
-	alert(seleccionados.length);
 	if(seleccionados.length == 0){
-	    alert("No ha seleccionado ningún elemento");
+	    bootbox.alert("Debe seleccionar almenos un elemento para procesar la solicitud");
 	    return false;
 	}
     else{

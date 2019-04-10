@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a class="btn btn-info btn-xs btn-icon btn-round" 
+		<a class="btn btn-info btn-xs btn-icon btn-action" 
 		   href="#" title="Ver información de la Desincorporación" data-toggle="tooltip" 
 		   @click="initRequest('view_disincorporation',$event)">
 			<i class="fa fa-info-circle"></i>

@@ -23,6 +23,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
      */
 
     Route::get('settings', 'WarehouseSettingController@index')->name('warehouse.setting.index');
+    Route::post('settings', 'WarehouseSettingController@store')->name('warehouse.setting.store');
     Route::get('attributes/product/{product}', 'WarehouseProductAttributeController@product');
     
     /**
@@ -32,7 +33,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
      */
 
     Route::get('vue-list', 'WarehouseController@vueList');
-    Route::get('institution/{institution?}', 'WarehouseController@getWarehouse');
+    Route::get('institution/{institution?}', 'WarehouseController@getWarehouses');
     Route::get('products-list', 'WarehouseProductController@vueList');
     Route::get('units-list', 'WarehouseProductUnitController@vueList');
 
@@ -48,6 +49,20 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
     Route::get('receptions/create', 'WarehouseReceptionController@create')->name('warehouse.reception.create');
     Route::get('reception/edit/{reception}', 'WarehouseReceptionController@edit')->name('warehouse.reception.edit');
     Route::delete('reception/delete/{reception}', 'WarehouseReceptionController@destroy')->name('warehouse.reception.destroy');
+    Route::get('receptions/vue-info/{reception}', 'WarehouseReceptionController@vueInfo');
+
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar los Movimientos de Almacén
+     * ------------------------------------------------------------
+     */
+
+
+    Route::get('movements', 'WarehouseMovementController@index')->name('
+        warehouse.movement.index');
+    Route::get('movements/create', 'WarehouseMovementController@create')->name('warehouse.movement.create');
+    Route::get('movements/edit/{movement}', 'WarehouseMovementController@edit')->name('warehouse.movement.edit');
+    Route::get('movements/delete/{movement}', 'WarehouseMovementController@destroy')->name('warehouse.movement.destroy');
 
     /**
      * ------------------------------------------------------------
@@ -55,12 +70,17 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
      * ------------------------------------------------------------
      */
 
+    Route::resource('request', 'WarehouseRequestController', ['except' => 'show']);
     Route::get('request', 'WarehouseRequestController@index')->name('warehouse.request.index');
     Route::get('request/create', 'WarehouseRequestController@create')->name('warehouse.request.create');
     Route::post('request/store', 'WarehouseRequestController@store')->name('warehouse.request.store');
     Route::get('request/edit/{request}', 'WarehouseRequestController@edit')->name('warehouse.request.edit');
-    Route::put('request/update/{request}', 'WarehouseRequestController@update')->name('warehouse.request.update');
+    //Route::put('request/update/{request}', 'WarehouseRequestController@update')->name('warehouse.request.update');
     Route::delete('request/delete/{request}', 'WarehouseRequestController@destroy')->name('warehouse.request.destroy');
+
+    Route::get('request/vue-info/{request}', 'WarehouseRequestController@vueInfo');
+
+    Route::get('request/vue-list-products', 'WarehouseRequestController@getInventaryProduct');
 
 
     
@@ -75,14 +95,14 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
      * Ruta para consultar si esta activa la gestión de multiples instituciones en almacen
      */
 
-    Route::get('multi-institution', 'WarehouseController@checkInst');
+    Route::get('vue-setting', 'WarehouseSettingController@vueSetting');
 
     /*
      * Ruta para consultar si esta activa la administración de almacenes
      * (para multiples instituciones)
      */
 
-    Route::get('manage', 'WarehouseController@manage');
+    Route::get('manage/{warehouse?}', 'WarehouseController@manage');
     
     /**
      * ------------------------------------------------------------

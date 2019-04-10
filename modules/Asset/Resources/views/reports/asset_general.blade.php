@@ -23,10 +23,8 @@
 				<div class="card-header">
 					<h6 class="card-title">Reporte General de Bienes Institucionales</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				{!! Form::open(['route' => ['asset.report.create',1], 'id' => 'form1','method' => 'GET', 'role' =>'form']) !!}
@@ -44,7 +42,8 @@
 									'class' => 'form-control bootstrap-switch',
 									'data-on-label' => 'SI',
 									'data-off-label' => 'NO',
-									'onchange' => 'updateStatus()'
+									'onchange' => 'updateStatus()',
+									'checked' => ($request->search_type==0)?true:false
 								]) !!}
 							</div>
 						</div>
@@ -56,7 +55,8 @@
 									'id' => 'search_mes',
 									'class' => 'form-control bootstrap-switch',
 									'data-on-label' => 'SI',
-									'data-off-label' => 'NO'
+									'data-off-label' => 'NO',
+									'checked' => ($request->search_type==1)?true:false
 								]) !!}
 							</div>
 						</div>
@@ -84,14 +84,14 @@
 									'Noviembre',
 									'Diciembre',
 
-								], null, 
+								], (isset($request->mes))?$request->mes:null, 
 								[		
 									'id' => 'mes_id',
 									'class' => 'form-control select2',
 									'data-toggle' => 'tooltip',
 									'placeholder' => 'Todos',
 									'title' => 'Indique el mes a buscar',
-									'disabled'
+									'disabled' => ($request->search_type==0)?true:false
 									
 								]) !!}
 							</div>
@@ -100,14 +100,14 @@
 							<div class="form-group">
 								{!! Form::label('anual_label', 'Año:', []) !!}
 								{!! Form::select('year', (isset($year))?$year:
-								[], null, 
+								[], (isset($request->year))?$request->year:null, 
 								[		
 									'id' => 'year_id',
 									'class' => 'form-control select2',
 									'data-toggle' => 'tooltip',
 									'placeholder' => 'Todos',
 									'title' => 'Indique el Año a buscar',
-									'disabled'
+									'disabled' => ($request->search_type==0)?true:false
 									
 								]) !!}
 							</div>
@@ -125,6 +125,7 @@
 			                        'class' => 'form-control', 'placeholder' => 'Fecha',
 			                        'title' => 'Fecha mínima de búsqueda', 
 			                        'data-toggle' => 'tooltip',
+			                        'disabled' => ($request->search_type==1)?true:false
 			                    ]) !!}
 			                </div>
 						</div>
@@ -137,7 +138,9 @@
 			                    {!! Form::date('end_date', old('end_date'), [
 			                        'id' => 'end_date',
 			                        'class' => 'form-control', 'placeholder' => 'Fecha',
-			                        'title' => 'Fecha maxima de búsqueda', 'data-toggle' => 'tooltip'
+			                        'title' => 'Fecha maxima de búsqueda',
+			                        'data-toggle' => 'tooltip',
+			                        'disabled' => ($request->search_type==1)?true:false
 			                    ]) !!}
 			                </div>
 						</div>
@@ -145,18 +148,20 @@
 					
 					<div class="row">
 						<div class="col-12">
-							<button type="Submit" class='btn btn-sm btn-primary btn-custom float-right'>
-								<i class="fa fa-plus-circle"></i>
+							<button type="Submit" class='btn btn-sm btn-info float-right'>
+								<i class="fa fa-search"></i>
 								<span>	Buscar	</span>
 							</button>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12" align="left">
-							<button type="Submit" formaction ="../../asset/pdf2" class='btn btn-sm btn-primary btn-custom'>
+
+							<a type="button" href="../../asset/pdf2" target='_blank' class='btn btn-sm btn-primary btn-custom'>
 								<i class="fa fa-plus-circle"></i>
-								<span>	Imprimir Resultados	</span>
-							</button>
+								<span>	Generar Reporte	</span>
+							</a>
+							
 						</div>
 					</div>
 					{!! Form::close() !!}

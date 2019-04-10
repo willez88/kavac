@@ -25,8 +25,7 @@ class AssetReportController extends Controller
         $this->middleware('permission:asset.report.create', ['only' => 'create']);
     }
     public function create($tipo,Request $request){
-        $mes_id = 1+$request->mes;
-        $year_id = $request->year;
+        //dd($request);
         
         if ($tipo ==1){
             if (is_null($request)){
@@ -35,7 +34,7 @@ class AssetReportController extends Controller
             else{
                 $assets= Asset::dateclasification($request->start_date,$request->end_date,$request->mes_id,$request->year_id)->get();   
             }
-            return view('asset::reports.asset_general', compact('assets','mes_id','year_id'));
+            return view('asset::reports.asset_general', compact('assets','request'));
         }
 
         elseif ($tipo == 2) {
@@ -50,7 +49,7 @@ class AssetReportController extends Controller
             $subcategories = AssetSubcategory::template_choices();
             $specific_categories = AssetSpecificCategory::template_choices();
             
-            return view('asset::reports.asset_clasification', compact('assets','types','categories','subcategories','specific_categories'));
+            return view('asset::reports.asset_clasification', compact('assets','types','categories','subcategories','specific_categories','request'));
         }
 
         

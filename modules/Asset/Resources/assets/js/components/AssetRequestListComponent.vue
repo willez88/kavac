@@ -18,13 +18,13 @@
 				</request-event>
 
 				<button @click="editForm(props.row.id)" 
-						class="btn btn-warning btn-xs btn-icon btn-round"
+						class="btn btn-warning btn-xs btn-icon btn-action"
 						title="Editar Solicitud" data-toggle="tooltip" type="button">
 					<i class="icofont icofont-edit"></i>
 				</button>
 
 				<button @click="deleteRecord(props.index, '')" 
-						class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
+						class="btn btn-danger btn-xs btn-icon btn-action" title="Eliminar registro" data-toggle="tooltip" type="button">
 					<i class="fa fa-trash-o"></i>
 				</button>
 
