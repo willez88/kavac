@@ -5,9 +5,13 @@ namespace Modules\Warehouse\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+
 use Modules\Warehouse\Models\WarehouseRequest;
+use Modules\Warehouse\Models\WarehouseRequestProduct;
+use Modules\Warehouse\Models\WarehouseInventaryProduct;
+use Modules\Warehouse\Models\WarehouseInventaryRule;
 use Modules\Warehouse\Models\Warehouse;
 
 
@@ -45,7 +49,7 @@ class WarehouseRequestController extends Controller
      */
     public function index()
     {
-        $warehouse_requests = WarehouseRequest::all();
+        $warehouse_requests = WarehouseRequest::with('department')->get();
         return view('warehouse::requests.list', compact('warehouse_requests'));
     }
 
@@ -68,27 +72,50 @@ class WarehouseRequestController extends Controller
      */
     public function store(Request $request)
     {
-    }
+        $this->validate($request, [
+            'products.*' => 'required',
+            'specific_action_id' => 'required',
+            'department_id' => 'required',
+            'motive' => 'required'
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('warehouse::show');
+        ]);
+        DB::transaction(function() use ($request) {
+            $data_request = WarehouseRequest::create([
+                'state' => 'Pendiente',
+                'motive' => $request->input('motive'),
+                'specific_action_id' => $request->input('specific_action_id'),
+                'dependence_id' => $request->input('department_id')
+            ]);
+
+            foreach ($request->products as $product) {
+
+                $inventary_product = WarehouseInventaryProduct::find($product['id']);
+                if(!is_null($inventary_product)){
+                    $exist_real = $inventary_product->exist - $inventary_product->reserved;
+                    if($exist_real > $product['requested']){
+                        WarehouseRequestProduct::create([
+                            'warehouse_inventary_product_id' => $inventary_product->id,
+                            'warehouse_request_id' => $data_request->id,
+                            'quantity' => $product['requested'],
+                        ]);
+                        $inventary_product->reserved += $product['requested'];
+                        $inventary_product->save();
+                    }
+                }
+            }
+        });
+        return response()->json(['result' => true],200);
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(WarehouseRequest $request)
+    public function edit($id)
     {
-        $header = [
-            'route' => 'warehouse.request.update', 'method' => 'PUT', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
-        ];
-        return view('warehouse::requests.create', compact('header'));
+
+        $warehouse_request = WarehouseRequest::find($id);
+        return view('warehouse::requests.create', compact('warehouse_request'));
     }
 
     /**
@@ -96,17 +123,105 @@ class WarehouseRequestController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $warehouse_request = WarehouseRequest::find($id);
+        $this->validate($request, [
+            'products.*' => 'required',
+            'specific_action_id' => 'required',
+            'department_id' => 'required',
+            'motive' => 'required'
+
+        ]);
+            
+        DB::transaction(function() use ($request, $warehouse_request) {
+            
+            $warehouse_request->motive = $request->input('motive');
+            $warehouse_request->specific_action_id = $request->input('specific_action_id');
+            $warehouse_request->dependence_id = $request->input('department_id');
+            $warehouse_request->save();
+
+            foreach ($request->products as $product) {
+
+                $inventary_product = WarehouseInventaryProduct::find($product['id']);
+                if(!is_null($inventary_product)){
+                    $exist_real = $inventary_product->exist - $inventary_product->reserved;
+                    $old_request = WarehouseRequestProduct::where('warehouse_request_id', $warehouse_request->id)
+                            ->where('warehouse_inventary_product_id', $inventary_product->id)->first();
+                    if(!is_null($old_request)){
+                        if($old_request->quantity > $product['requested']){
+
+                            $inventary_product->reserved -= $old_request->quantity - $product['requested'];
+                            $old_request->quantity -= $old_request->quantity - $product['requested'];
+                        }
+                        else if($old_request->quantity < $product['requested']){
+
+                            $inventary_product->reserved += $product['requested'] - $old_request->quantity;
+                            $old_request->quantity += $product['requested'] - $old_request->quantity;
+                        }
+                        $inventary_product->save();
+                        $old_request->save();
+                    }
+                    else if($exist_real > $product['requested']){
+                        WarehouseRequestProduct::create([
+                            'warehouse_inventary_product_id' => $inventary_product->id,
+                            'warehouse_request_id' => $warehouse_request->id,
+                            'quantity' => $product['requested'],
+                        ]);
+                    }
+                }
+            }
+        });
+        return response()->json(['result' => true], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy(WarehouseRequest $request)
+    public function destroy($id)
     {
-        $request->delete();
+        $warehouse_request = WarehouseRequest::find($id);
+        $warehouse_request->delete();
         return back()->with('info', 'Fue eliminado exitosamente');
+    }
+
+    /**
+     * Obtiene la información de los productos inventariados
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    
+    public function getInventaryProduct(){
+
+        $warehouse_product = WarehouseInventaryProduct::with(['product'=>
+            function($query){
+                $query->with(['attributes'=>
+                    function($query){
+                        $query->with('value');
+                    }]);
+            },'warehouse','rule'])->get();
+
+        return response()->json(['records' => $warehouse_product], 200);
+    }
+
+    /**
+     * Vizualizar Información de una solicitud de almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  $id Identificador único de la solicitud de almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    
+    public function vueInfo($id){
+        
+        return response()->json(['records' => WarehouseRequest::where('id',$id)->with(['specificAction','department','requestProduct'=>
+                function($query){
+                    $query->with(['InventaryProduct' => 
+                        function($query){
+                            $query->with('product');
+                        }]);
+                }])->first()], 200);
     }
 }
