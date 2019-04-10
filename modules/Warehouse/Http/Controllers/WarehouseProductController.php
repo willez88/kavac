@@ -43,7 +43,7 @@ class WarehouseProductController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => WarehouseProduct::all()], 200);
+        return response()->json(['records' => WarehouseProduct::with('attributes')->get()], 200);
     }
 
     /**
@@ -62,7 +62,17 @@ class WarehouseProductController extends Controller
         $product = WarehouseProduct::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
+            'attribute' => !empty($request->attribute)?$request->input('attribute'):false,
         ]);
+
+        if ($request->atts && !empty($request->atts)) {
+            foreach ($request->atts as $att) {
+                $attribute = WarehouseProductAttribute::create([
+                    'name' => $att['name'],
+                    'product_id' => $product->id
+                ]);
+            }
+        };
 
         return response()->json(['record' => $product, 'message' => 'Success'], 200);
     }
@@ -82,7 +92,17 @@ class WarehouseProductController extends Controller
 
         $product->name = $request->input('name');
         $product->description = $request->input('description');
+        $product->attribute =  !empty($request->attribute)?$request->input('attribute'):false;
         $product->save();
+
+        if ($request->atts && !empty($request->atts)) {
+            foreach ($request->atts as $att) {
+                $attribute = WarehouseProductAttribute::create([
+                    'name' => $att['name'],
+                    'product_id' => $product->id
+                ]);
+            }
+        };
 
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }

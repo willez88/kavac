@@ -34,6 +34,14 @@
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
+							<div class="col-md-4">
+								<div class="form-group is-required">
+									<label>Abreviatura:</label>
+									<input type="text" placeholder="Simbolo o Abreviatura" data-toggle="tooltip" 
+										   title="Indique el simbolo o abreviatura de la Unidad Métrica (requerido)" 
+										   class="form-control input-sm" v-model="record.abbreviation">
+			                    </div>
+							</div>
 
 						</div>
 	                </div>
@@ -42,12 +50,12 @@
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+		                				class="btn btn-warning btn-xs btn-icon btn-action" 
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
 		                		<button @click="deleteRecord(props.index, 'units')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
+										class="btn btn-danger btn-xs btn-icon btn-action" 
 										title="Eliminar registro" data-toggle="tooltip" 
 										type="button">
 									<i class="fa fa-trash-o"></i>
@@ -90,10 +98,11 @@
 				record: {
 					id:'',
 					name: '',
+					abbreviation:''
 				},
 				errors: [],
 				records: [],
-				columns: ['name','id'],
+				columns: ['name','abbreviation','id'],
 			}
 		},
 		methods: {
@@ -106,16 +115,18 @@
 				this.record = {
 					id: '',
 					name: '',
+					abbreviation:''
 				};
 			},
 		},
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
+				'abbreviation': 'Abreviatura',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['name'];
-			this.table_options.filterable = ['name'];
+			this.table_options.sortable = ['name','abbreviation'];
+			this.table_options.filterable = ['name','abbreviation'];
 		},
 	}
 </script>

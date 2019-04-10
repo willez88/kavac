@@ -42,7 +42,7 @@ class WarehouseInstitutionWarehouse extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['institution_id','warehouse_id'];
+    protected $fillable = ['institution_id','warehouse_id','manage'];
 
     /**
      * Método que obtiene el almacén gestionado por la institucion

@@ -45,8 +45,12 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        //WarehouseInstitutionWarehouse::with('institution','warehouse')->get()
-        return response()->json(['records' => Warehouse::with('pivot','country','estate','city')->get()], 200);
+        return response()->json(['records' => Warehouse::with('country','estate','city')->with(['pivot' =>
+                function($query){
+                    $query->with('institution');
+                }])->get()],200);
+        
+        //return response()->json(['records' => Warehouse::with('pivot','country','estate','city')->get()], 200);
     }
 
     /**
@@ -61,6 +65,7 @@ class WarehouseController extends Controller
             'address' => 'required|max:100',
             'country_id' => 'required',
             'estate_id' => 'required',
+            'city_id' => 'required',
             
         ]);
 
@@ -69,13 +74,17 @@ class WarehouseController extends Controller
             'address' => $request->input('address'),
             'country_id' => $request->input('country_id'),
             'estate_id' => $request->input('estate_id'),
-            'city_id' => 1,
-            //'main' => $request->input('main'),
+            'city_id' => $request->input('city_id'),
+            'main' => !empty($request->main)?$request->input('main'):false,
+            'active' => !empty($request->active)?$request->input('active'):false,
         ]);
-        //($request->institution_id > 0)?$institution = $request->institution_id:$request = 1;
-        $institution = 1;
+        if ( empty($request->institution_id)){
+            $institution = Institution::where('active',true)->where('default',true)->first();
+        }
+        $institution_id =  empty($request->institution_id)?$institution->id:$request->institution_id;
+
         $warehouse_institution = WarehouseInstitutionWarehouse::create([
-            'institution_id' => $institution,
+            'institution_id' => $institution_id,
             'warehouse_id' => $warehouse->id,
         ]);
 
@@ -95,16 +104,17 @@ class WarehouseController extends Controller
             'address' => 'required|max:100',
             'country_id' => 'required',
             'estate_id' => 'required',
-            //'city_id' => 'required',
+            'city_id' => 'required',
         ]);
  
         $warehouse->name = $request->input('name');
         $warehouse->address = $request->input('address');
         $warehouse->country_id = $request->input('country_id');
         $warehouse->estate_id = $request->input('estate_id');
-        $warehouse->city_id = 1;
+        $warehouse->city_id = $request->input('city_id');
 
-        $warehouse->main = $request->input('main');
+        $warehouse->main = !empty($request->main)?$request->input('main'):false;
+        $warehouse->active = !empty($request->active)?$request->input('active'):false;
         $warehouse->save();
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
@@ -124,12 +134,16 @@ class WarehouseController extends Controller
         return template_choices('Modules\Warehouse\Models\Warehouse','name','',true);
     }
 
-    public function checkInst(){
-        return response()->json(['record' => Setting::first()], 200);
-    }
+    public function manage($id){
 
-    public function manage(){
-        return response()->json(['records' => WarehouseInstitutionWarehouse::all()] , 200);
+        $warehouse_inst = WarehouseInstitutionWarehouse::where('warehouse_id',$id)->first();
+        $warehouse_inst->manage = !$warehouse_inst->manage;
+        $warehouse_inst->save();
+
+        return response()->json(['records' => Warehouse::with('country','estate','city')->with(['pivot' =>
+                    function($query){
+                        $query->with('institution');
+                    }])->get(),'manage' => $warehouse_inst->manage],200);
     }
 
     /**
@@ -140,7 +154,7 @@ class WarehouseController extends Controller
      * @return array   Arreglo con las opciones a mostrar
      */
 
-    public function getWarehouse($institution = null){
+    public function getWarehouses($institution = null){
         /*
          *  Si no hay datos sobre la institución de gestión se retornan los almacenes de la institucion por defecto y activa según la configuración del sistema
          */
@@ -158,6 +172,5 @@ class WarehouseController extends Controller
             array_push($options, ['id' => $rec->id, 'text' => $text]);
         }
         return $options;
-  
     }
 }

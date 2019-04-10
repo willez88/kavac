@@ -13,7 +13,7 @@ class CreateWarehouseClosesTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('warehouses_closes')) {    
+        if (!Schema::hasTable('warehouse_closes')) {    
             Schema::create('warehouse_closes', function (Blueprint $table) {
                 
                 $table->increments('id')->comment('Identificador único del registro');

@@ -17,6 +17,7 @@ class CreateWarehouseProductUnitsTable extends Migration
             Schema::create('warehouse_product_units', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
                 $table->string('name',20)->comment('Nombre o descripción de la unidad métrica');
+                
                 /**
                  * Fecha en la que se registra la unidad métrica
                  */

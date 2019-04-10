@@ -9,7 +9,7 @@
 @stop
 
 @section('maproute-actual')
-	Bienes
+	Almacén
 @stop
 
 @section('maproute-title')
@@ -17,16 +17,15 @@
 @stop
 
 @section('content')
+	@include('warehouse::settings-parameters')
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">Configuración General de Almacén</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
@@ -38,7 +37,7 @@
 						<warehouse-product></warehouse-product>
 
 						{{-- Configuración de Productos Almacenables --}}
-						<warehouse-attribute></warehouse-attribute>
+						{{-- <warehouse-attribute></warehouse-attribute> --}}
 
 						{{-- Configuración de Unidades Métricas de Productos --}}
 						<warehouse-unit></warehouse-unit>
@@ -56,3 +55,14 @@
 	</div>
 
 @stop
+@section('extra-js')
+	@parent
+	<script>
+		$(document).ready(function() {
+			$('#multi_warehouse').closest('.bootstrap-switch-wrapper').attr({
+	            'title': 'Gestionar multiples almacenes',
+	            'data-toggle': 'tooltip'
+	        }).tooltip({delay: 4});
+		});
+	</script>
+@endsection

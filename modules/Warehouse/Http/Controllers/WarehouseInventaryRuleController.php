@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Warehouse\Models\WarehouseInventaryRule;
+use Modules\Warehouse\Models\WarehouseInventaryProduct;
 
 /**
  * @class WarehouseInventaryController
@@ -40,7 +41,11 @@ class WarehouseInventaryRuleController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => WarehouseInventaryRule::all()], 200);
+        return response()->json(['records' => WarehouseInventaryRule::with(['inventary' =>
+            function($query){
+                $query->with('product');
+            }])->get()], 200);
+
     }
 
     /**
@@ -50,6 +55,18 @@ class WarehouseInventaryRuleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'min' => 'required',
+            'product_id' => 'required',
+            'warehouse_id' => 'required',
+        ]);
+        $inventary = WarehouseInventaryProduct::where('warehouse_id',$request->warehouse_id)->where('product_id',$request->product_id)->where('unit_id',$request->unit_id)->get();
+
+        $rule = WarehouseInventaryRule::create([
+            'min' => $request->input('min'),
+            'product_id' => $inventary->id,
+        ]);
+
     }
 
     /**
