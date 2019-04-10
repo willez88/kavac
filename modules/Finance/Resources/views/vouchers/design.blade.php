@@ -30,6 +30,9 @@
 				<div class="card-body">
 					<finance-voucher-design></finance-voucher-design>
 				</div>
+				<div class="card-footer text-right">
+					@include('layouts.form-buttons')
+				</div>
 			</div>
 		</div>
 	</div>

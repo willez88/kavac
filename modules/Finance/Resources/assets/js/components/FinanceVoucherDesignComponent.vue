@@ -5,6 +5,12 @@
 		</div>
 		<div class="col-4">
 			<h6 class="text-center">Herramientas</h6>
+			<div class="row mt10">
+				<div class="col-12">
+					<hr>
+					<h6>Página</h6>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-12">
 					<div class="form-group">
@@ -38,6 +44,58 @@
 					<div class="form-group is-required">
 						<label for="">Alto</label>
 						<input type="text" class="form-control input-sm">
+					</div>
+				</div>
+			</div>
+			<div class="row mt10">
+				<div class="col-12">
+					<hr>
+					<h6>Componentes</h6>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<label for="">Logo</label>
+						<div class="col-12">
+							<img src="/images/no-image.png" alt="logo" class="img-fluid img-rounded">
+						</div>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="form-group">
+						<label for="">Cheque</label>
+						<div class="col-12">
+							<img src="/images/formato-cheque.png" alt="logo" class="img-fluid img-rounded">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<label for="">Datos Presupuestarios</label>
+						<div class="col-12">
+							<img src="/images/voucher-presupuesto.png" alt="logo" class="img-fluid img-rounded">
+						</div>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="form-group">
+						<label for="">Datos Contables</label>
+						<div class="col-12">
+							<img src="/images/voucher-contabilidad.png" alt="logo" class="img-fluid img-rounded">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<label for="">Datos Voucher</label>
+						<div class="col-12">
+							<img src="/images/voucher-data.png" alt="logo" class="img-fluid img-rounded">
+						</div>
 					</div>
 				</div>
 			</div>
