@@ -42,12 +42,46 @@
 							</div>
 						</div>
 						<div class="row">
-							
+							<div class="col-md-3">
+								<div class="form-group is-required">
+									<label>Serial / Código</label>
+									<input type="text" class="form-control input-sm" v-model="record.code" data-toggle="tooltip" 
+										   title="Número de serial o código único que identifica la chequera">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group is-required">
+									<label>Nro. de Cheques</label>
+									<input type="text" class="form-control input-sm" v-model="record.checks" data-toggle="tooltip" 
+										   title="Cantidad de cheques a registrar">
+								</div>
+							</div>
+							<div class="col-md-1">
+								<button class="btn btn-sm btn-info btn-action btn-tooltip" style="margin:30px auto" 
+										title="Asignar números de cheques" data-toggle="tooltip" @click="addChecks">
+									<i class="fa fa-plus-circle"></i>
+								</button>
+							</div>
+						</div>
+						<div class="row" v-if="record.checks && record.checks > 0">
+							<div class="col-md-3" v-for="(number, index) in record.numbers">
+								<div class="form-group is-required">
+									<label>Cheque #{{ index + 1 }}</label>
+									<input type="text" class="form-control input-sm" data-toggle="tooltip" 
+										   title="Indique el número de cheque" v-model="record.numbers[index]">
+								</div>
+							</div>
 						</div>
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="code" slot-scope="props" class="text-center">
+	                			{{ props.row.code }}
+	                		</div>
+	                		<div slot="checks" slot-scope="props" class="text-center">
+	                			{{ props.row.checks }}
+	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
 		                				class="btn btn-warning btn-xs btn-icon btn-round" 
@@ -85,15 +119,25 @@
 			return {
 				record: {
 					id: '',
+					code: '',
+					checks: '',
 					finance_bank_id: '',
-					finance_bank_account_id: ''
+					finance_bank_account_id: '',
+					numbers: [],
 				},
 				banks: [],
 				accounts: [],
 				errors: [],
 				records: [],
-				columns: ['name', 'id'],
+				columns: ['finance_bank', 'code', 'cant_checks', 'id'],
 			}
+		},
+		watch: {
+			record: {
+                deep: true,
+                handler: function(newValue, oldValue) {
+                }
+            },
 		},
 		methods: {
 			/**
@@ -104,19 +148,41 @@
 			reset() {
 				this.record = {
 					id: '',
-					name: ''
+					code: '',
+					checks: '',
+					finance_bank_id: '',
+					finance_bank_account_id: '',
+					numbers: [],
 				};
 			},
+			/**
+			 * Método que permite agregar una cantidad específica de campos para el registro de números de cheques
+			 * 
+			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 */
+			addChecks() {
+				let check_numbers = [];
+            	if (this.record.checks && this.record.checks > 0) {
+            		for (var i = 0; i < this.record.checks; i++) {
+            			check_numbers.push('');
+            		}
+            	}
+            	this.record.numbers = check_numbers;
+			}
 		},
 		created() {
 			this.table_options.headings = {
-				'name': 'Nombre',
+				'finance_bank': 'Banco',
+				'code': 'Código Chequera',
+				'cant_checks': 'Cheques',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['name'];
-			this.table_options.filterable = ['name'];
+			this.table_options.sortable = ['finance_bank', 'code', 'cant_checks'];
+			this.table_options.filterable = ['finance_bank', 'code', 'cant_checks'];
 			this.table_options.columnsClasses = {
-				'name': 'col-md-10',
+				'finance_bank': 'col-md-6',
+				'code': 'col-md-2',
+				'cant_checks': 'col-md-2',
 				'id': 'col-md-2'
 			};
 			this.getBanks();
