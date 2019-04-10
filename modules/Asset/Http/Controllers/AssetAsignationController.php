@@ -10,14 +10,17 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetAsignation;
 use Modules\Asset\Models\AssetAsignationAsset;
 use Modules\Asset\Models\Asset;
-/*
- * use Modules\Payroll\Models\PayrollStaff
- */
+
 use Modules\Asset\Models\AssetType;
 use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
 use Modules\Asset\Models\AssetInventary;
+
+use Modules\Payroll\Models\PayrollStaff;
+use Modules\Payroll\Models\PayrollPositionType;
+use Modules\Payroll\Models\PayrollPosition;
+use App\Models\Department;
 
 /**
  * @class AssetAsignationController
@@ -76,15 +79,21 @@ class AssetAsignationController extends Controller
         $categories = AssetCategory::template_choices();
         $subcategories = AssetSubcategory::template_choices();
         $specific_categories = AssetSpecificCategory::template_choices();
+        
+        $type_positions = template_choices('Modules\Payroll\Models\PayrollPositionType');
+        $positions = template_choices('Modules\Payroll\Models\PayrollPosition');
+        $staffs = template_choices('Modules\Payroll\Models\PayrollStaff');
 
-        return view('asset::asignations.create', compact('header','assets','types','categories','subcategories','specific_categories','request'));
+        $dependencias = template_choices('App\Models\Department');
+
+        return view('asset::asignations.create', compact('header','assets','types','categories','subcategories','specific_categories','request','positions','type_positions','staffs','dependencias'));
     }
 
     /**
      * Muestra el formulario para registrar una nueva Asignación de un Bien Institucional
      *
      * @author Henry Paredes (henryp2804@gmail.com)
-      * @param  \Modules\Asset\Models\Asset  $asset (Datos del Bien)
+     * @param  \Modules\Asset\Models\Asset  $asset (Datos del Bien)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function Asset_Assign(Asset $asset)
@@ -100,11 +109,17 @@ class AssetAsignationController extends Controller
         $subcategories = AssetSubcategory::template_choices();
         $specific_categories = AssetSpecificCategory::template_choices();
 
+        $type_positions = template_choices('Modules\Payroll\Models\PayrollPositionType');
+        $positions = template_choices('Modules\Payroll\Models\PayrollPosition');
+        $staffs = template_choices('Modules\Payroll\Models\PayrollStaff');
+
+        $dependencias = template_choices('App\Models\Department');
+
         $data[0]= $asset->serial_inventario;
         $select = json_encode($data);
 
 
-        return view('asset::asignations.create', compact('header','asignation','assets','types','categories','subcategories','specific_categories','select'));
+        return view('asset::asignations.create', compact('header','asignation','assets','types','categories','subcategories','specific_categories','select','type_positions','positions','staffs','dependencias'));
         }
 
     /**
@@ -178,6 +193,13 @@ class AssetAsignationController extends Controller
         $subcategories = AssetSubcategory::template_choices();
         $specific_categories = AssetSpecificCategory::template_choices();
         $select = AssetAsignationAsset::where('asignation_id',$asignation->id)->get();
+
+        $type_positions = template_choices('Modules\Payroll\Models\PayrollPositionType');
+        $positions = template_choices('Modules\Payroll\Models\PayrollPosition');
+        $staffs = template_choices('Modules\Payroll\Models\PayrollStaff');
+
+        $dependencias = template_choices('App\Models\Department');
+
         $data = [];
         $index=0;
         foreach ($select as $key) {            
@@ -187,7 +209,7 @@ class AssetAsignationController extends Controller
         }
         $select =json_encode($data);
 
-        return view('asset::asignations.create', compact('header', 'asignation', 'assets','types','categories','subcategories','specific_categories','select'));
+        return view('asset::asignations.create', compact('header', 'asignation', 'assets','types','categories','subcategories','specific_categories','select','type_positions','positions','staffs','dependencias'));
     }
 
     /**
@@ -257,7 +279,8 @@ class AssetAsignationController extends Controller
     public function destroy(AssetAsignation $asignation)
     {
         
-        return back()->with('info', 'Fue eliminado exitosamente');
+        $asignation->delete();
+        return back()->with(['message' => ['type' => 'destroy']]);
 
     }
 

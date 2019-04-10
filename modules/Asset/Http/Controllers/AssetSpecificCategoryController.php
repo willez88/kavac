@@ -147,8 +147,9 @@ class AssetSpecificCategoryController extends Controller
      * @param  \Modules\Asset\Models\AssetSpecificCategory  $specific_category (Datos de la categoria especifica)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function destroy(AssetSpecificCategory $specific_category)
+    public function destroy($id)
     {
+        $specific_category = AssetSpecificCategory::find($id);
         $specific_category->delete();
         return response()->json(['record' => $specific_category, 'message' => 'Success'], 200);
     }

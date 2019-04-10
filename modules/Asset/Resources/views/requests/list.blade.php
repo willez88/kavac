@@ -23,24 +23,12 @@
 				<div class="card-header">
 					<h6 class="card-title">Solicitudes de Bienes</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-						   data-toggle="tooltip">
-						   <i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.new', ['route' => route('asset.request.create')])
+						@include('buttons.minimize')
 					</div>
 				</div>
-
-				
 				<div class="card-body">
-					<div class="row">
-						<div class="col-12">
-							<a href="{{ route('asset.request.create') }}" class='btn btn-sm btn-primary btn-custom float-right'>
-								<i class="fa fa-plus-circle"></i>
-								<span>	Nuevo	</span>
-							</a>	
-						</div>
-					</div>
-
 					<div class="col-md-12">
 						<table class="table table-hover table-striped dt-responsive datatable">
 							<thead>
@@ -64,7 +52,7 @@
 											<div class="d-inline-flex">
 												
 												<button onclick="openmodal( <?php echo($request->id) ?> );"
-												class="btn btn-info btn-xs btn-icon btn-round"  
+												class="btn btn-info btn-xs btn-icon btn-action"  
 												data-toggle="tooltip" title="Ver información de la Solicitud">
 													<i class="fa fa-info-circle"></i>
 												</button>
@@ -81,21 +69,21 @@
 												</request-event>
 												
 												{!! Form::open(['route' => ['asset.request.deliver', $request], 'method' => 'PUT']) !!}
-												<button class="btn btn-primary btn-xs btn-icon btn-round"  
+												<button class="btn btn-primary btn-xs btn-icon btn-action"  
 												data-toggle="tooltip" title="Entregar Equipos">
 													<i class="icofont icofont-computer"></i>
 												</button>
 												{!! Form::close() !!}
 
 												{!! Form::open(['route' => ['asset.request.edit', $request], 'method' => 'GET']) !!}
-												<button class="btn btn-warning btn-xs btn-icon btn-round"  
+												<button class="btn btn-warning btn-xs btn-icon btn-action"  
 												data-toggle="tooltip" title="Editar Solicitud">
 													<i class="icofont icofont-edit"></i>
 												</button>
 												{!! Form::close() !!}
 
 												{!! Form::open(['route' => ['asset.request.destroy', $request], 'method' => 'DELETE']) !!}
-												<button class="btn btn-danger btn-xs btn-icon btn-round"  data-toggle="tooltip" title="Eliminar Solicitud">
+												<button class="btn btn-danger btn-xs btn-icon btn-action"  data-toggle="tooltip" title="Eliminar Solicitud">
 													<i class="fa fa-trash"></i>
 												</button>
 												{!! Form::close() !!}
@@ -127,10 +115,8 @@
 				<div class="card-header">
 					<h6 class="card-title">Solicitudes de Equipos Pendientes</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-						   data-toggle="tooltip">
-						   <i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
@@ -149,10 +135,8 @@
 				<div class="card-header">
 					<h6 class="card-title">Solicitudes de Prorrogas Pendientes</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-						   data-toggle="tooltip">
-						   <i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">

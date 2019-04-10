@@ -80,14 +80,14 @@ class AssetController extends Controller
         $subcategories = AssetSubcategory::template_choices();
         $specific_categories = AssetSpecificCategory::template_choices();
 
-        $departments = Department::all();
+        $departments = template_choices('App\Models\Department');
         $purchases = AssetPurchase::template_choices();
         $conditions = AssetCondition::template_choices();
         $status = AssetStatus::template_choices();
         $uses = AssetUse::template_choices();
         $edit=false;
 
-        return view('asset::Register.create', compact('header','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status','uses','edit','type'));
+        return view('asset::Register.create', compact('header','types','categories','subcategories','specific_categories', 'departments', 'purchases', 'conditions','status','uses','edit','type'));
     }
 
     /**
@@ -218,7 +218,7 @@ class AssetController extends Controller
         $edit=true;
         $type=$asset->type_id;
 
-        return view('asset::Register.create', compact('header','asset','types','categories','subcategories','specific_categories', 'purchases', 'conditions','status','uses','edit','type'));
+        return view('asset::Register.create', compact('header','asset','types','categories','subcategories','specific_categories', 'departments', 'purchases', 'conditions','status','uses','edit','type'));
     }
 
     /**
@@ -333,7 +333,7 @@ class AssetController extends Controller
     public function destroy(Asset $asset)
     {
         $asset->delete();
-        return back()->with('info', 'Fue eliminado exitosamente');
+        return back()->with(['message' => ['type' => 'destroy']]);
     }
 
     public function info(Asset $asset)

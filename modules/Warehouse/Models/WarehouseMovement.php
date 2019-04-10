@@ -55,7 +55,7 @@ class WarehouseMovement extends Model implements Auditable
      */
     public function start()
     {
-        return $this->belongsTo('Modules\Warehouse\Models\WarehouseInstitutionWarehouse','warehouse_inst_start_id');
+        return $this->belongsTo('Modules\Warehouse\Models\WarehouseInstitutionWarehouse','warehouse_inst_start_id')->with('warehouse','institution');
     }
 
     /**
@@ -86,9 +86,9 @@ class WarehouseMovement extends Model implements Auditable
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return Objeto con el registro relacionado al modelo WarehouseInventaryProduct
      */
-    public function products()
+    public function productMovements()
     {
-        return $this->hasMany('Modules\Warehouse\Models\WarehouseInventaryProduct');
+        return $this->hasMany('Modules\Warehouse\Models\WarehouseInventaryProductMovement','movement_id');
     }
 }
 

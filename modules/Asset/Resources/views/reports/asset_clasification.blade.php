@@ -23,10 +23,8 @@
 				<div class="card-header">
 					<h6 class="card-title">Reporte de Bienes Institucionales por Clasificación</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				{!! Form::open(['route' => ['asset.report.create',2], 'id' => 'form1','method' => 'GET', 'role' =>'form']) !!}
@@ -36,7 +34,7 @@
 							<div class="form-group">
 									
 								{!! Form::label('type_label', 'Tipo de Bien', []) !!}
-								{!! Form::select('type', (isset($types))?$types:[], (isset($asset))?$asset->type_id:null, [		
+								{!! Form::select('type', (isset($types))?$types:[], (isset($request->category))?$request->type:null, [		
 									'id' => 'type',
 									'class' => 'form-control select2',
 									'data-toggle' => 'tooltip',
@@ -52,7 +50,7 @@
 							<div class="form-group">
 									
 								{!! Form::label('category_label', 'Categoria General', []) !!}
-								{!! Form::select('category', (isset($categories))?$categories:[],  (isset($asset))?$asset->category_id:null, [
+								{!! Form::select('category', (isset($categories))?$categories:[],  (isset($request))?$request->category:null, [
 									'id' => 'category',
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
@@ -65,7 +63,7 @@
 							<div class="form-group">
 									
 								{!! Form::label('subcategory_label', 'Subcategoria', []) !!}
-								{!! Form::select('subcategory', (isset($subcategories))?$subcategories:[],  (isset($asset))?$asset->subcategory_id:null, [
+								{!! Form::select('subcategory', (isset($subcategories))?$subcategories:[],  (isset($request))?$request->subcategory:null, [
 									'id' => 'subcategory',
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
@@ -78,7 +76,7 @@
 							<div class="form-group">
 									
 								{!! Form::label('specific_category_label', 'Categoria Específica', []) !!}
-								{!! Form::select('specific_category', (isset($specific_categories))?$specific_categories:[],  (isset($asset))?$asset->specific_category_id:null, [
+								{!! Form::select('specific_category', (isset($specific_categories))?$specific_categories:[],  (isset($request))?$request->specific_category:null, [
 									'id' => 'specific_category',
 									'class' => 'form-control select2',
 									'placeholder' => 'Seleccione...',
@@ -96,18 +94,18 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<button type="Submit" class='btn btn-sm btn-primary btn-custom float-right'>
-								<i class="fa fa-plus-circle"></i>
+							<button type="Submit" class='btn btn-sm btn-info float-right'>
+								<i class="fa fa-search"></i>
 								<span>	Buscar	</span>
 							</button>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12" align="left">
-							<button type="Submit" formaction ="../../asset/pdf" class='btn btn-sm btn-primary btn-custom'>
+							<a type="button" href="../../asset/pdf" target='_blank' class='btn btn-sm btn-primary btn-custom'>
 								<i class="fa fa-plus-circle"></i>
-								<span>	Imprimir Resultados	</span>
-							</button>
+								<span>	Generar Reporte	</span>
+							</a>
 						</div>
 					</div>
 					{!! Form::close() !!}
