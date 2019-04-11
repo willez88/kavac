@@ -239,6 +239,22 @@ Vue.mixin({
 			return moment(String(value)).format('DD/MM/YYYY hh:mm:ss');
 		},
 		/**
+		 * Método que permite convertir elementos de medida y peso
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {float}  number Numero a convertir
+		 * @param  {string} from   Unidad de medida o peso desde la cual se desea realizar la conversión
+		 * @param  {string} to     Unidad de medida o peso a la cual se desea realizar la conversión
+		 * @return {float}         Retorna el valor numérico despues de la conversión
+		 */
+		measure_converter: function(number, from, to) {
+			let measurements = [
+				'mm', 'cm', 'mt', 'in', 'px', 'em', 'rem', 'lt', 'kg', 'tn'
+			];
+
+			return number;
+		},
+		/**
 		 * Inicializa todos los campos de formularios a un valor vacío
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
