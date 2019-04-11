@@ -88,6 +88,11 @@ textarea {
 		}
 		input[type=number] {
 			padding-right: 14px;
+
+			&.input-sm {
+				padding-top: 5px;
+				padding-bottom: 5px;
+			}
 		}
 	}
 
