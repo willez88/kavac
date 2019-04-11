@@ -248,11 +248,27 @@ Vue.mixin({
 		 * @return {float}         Retorna el valor numérico despues de la conversión
 		 */
 		measure_converter: function(number, from, to) {
+			var result = false;
 			let measurements = [
-				'mm', 'cm', 'mt', 'in', 'px', 'em', 'rem', 'lt', 'kg', 'tn'
+				'mm', 'cm', 'mt', 'km', 'in', 'ft', 'px', 'em', 'rem', 'lt', 'kg', 'tn'
 			];
+			let factors = {
+				mm: {cm: 0.1, mt: 0.001, ft: 0.00328084, in: 0.0393701, px: 3.779527559055},
+				cm: {mm: 10, mt: 0.01, ft: 0.0328084, in: 0.393701, px: 37.79527559055},
+				mt: {mm: 1000, cm: 100, km: 0.001, ft: 3.28084, in: 39.3701, px: 3779.527559055},
+				km: {mt: 1000, cm: 100000, ft: 3280.84, in: 39370.1},
+				in: {mt: 0.0254, cm: 2.54, mm: 25.4 ft: 0.0833333, px: 96},
+				ft: {km: 0.0003048, mt: 0.3048, cm: 30.48, mm: 304.8, in: 12},
+				px: {mm: 0.264583333, cm: 0.02645833333333, mt: 0.0002645833333333, em: 0.7528125},
+				em: {px: 1.421348031496}
+			};
 
-			return number;
+			if (measurements.includes(from) && measurements.includes(to) && from !== to) {
+				number = parseFloat(number * factors[from][to]);
+				result = true;
+			}
+
+			return {result: result, number: number};
 		},
 		/**
 		 * Inicializa todos los campos de formularios a un valor vacío
