@@ -24,7 +24,7 @@
 					<h6 class="card-title">Nivel de idioma</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('language-levels.create')])
+						@include('buttons.new', ['route' => route('payroll.language-levels.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -42,8 +42,8 @@
 									<td> {{ $language_level->name }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('language-levels.edit', $language_level) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('language-levels.destroy', $language_level) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+											<a href="{{ route('payroll.language-levels.edit', $language_level) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('payroll.language-levels.destroy', $language_level) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
 										</div>
 									</td>
 								</tr>

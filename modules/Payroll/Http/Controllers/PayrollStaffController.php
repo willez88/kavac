@@ -65,18 +65,18 @@ class PayrollStaffController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'staffs.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.staffs.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        $marital_status = template_choices('App\Models\MaritalStatus');
-        $professions = template_choices('App\Models\Profession');
         $countries = template_choices('App\Models\Country');
         $estates = template_choices('App\Models\Estate');
-        $cities = template_choices('App\Models\City');
+        $municipalities = template_choices('App\Models\Municipality');
+        $parishes = template_choices('App\Models\Parish');
         $nationalities = template_choices(
             'Modules\Payroll\Models\PayrollNationality', ['demonym']
         );
+        $genders = template_choices('Modules\Payroll\Models\PayrollGender');
         return view('payroll::staffs.create-edit', compact(
-            'header','marital_status','professions','countries','estates','cities', 'nationalities'
+            'header','countries','estates','municipalities','parishes','nationalities','genders'
         ));
     }
 
@@ -88,24 +88,18 @@ class PayrollStaffController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required',
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
-            'birthdate' => 'required|date',
-            'sex' => 'required|max:1',
-            'email' => 'nullable|email',
-            'website' => 'max:255',
-            'direction' => 'required',
-            'sons' => 'required|integer|min:0',
-            'start_date_public_adm' => 'required|date',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date',
-            'id_number' => 'required|regex:/^[\d]{8}$/u',
             'nationality_id' => 'required',
-            'passport' => 'max:20',
-            'marital_status_id' => 'required',
-            'profession_id' => 'required',
-            'city_id' => 'required'
+            'id_number' => 'required|regex:/^[\d]{8}$/u',
+            'passport' => 'nullable|max:20',
+            'email' => 'nullable|email',
+            'birthdate' => 'required|date',
+            'gender_id' => 'required',
+            'emergency_contact' => 'nullable',
+            'emergency_phone' => 'nullable',
+            'parish_id' => 'required',
+            'address' => 'required|max:200'
         ]);
 
         $codeSetting = CodeSetting::where('table', 'payroll_staffs')->first();
@@ -121,25 +115,19 @@ class PayrollStaffController extends Controller
         (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;
-        $staff->birthdate = $request->birthdate;
-        $staff->sex = $request->sex;
-        $staff->email = $request->email;
-        $staff->active = ($request->input('active')!==null);
-        $staff->website = $request->website;
-        $staff->direction = $request->direction;
-        $staff->sons = $request->sons;
-        $staff->start_date_public_adm = $request->start_date_public_adm;
-        $staff->start_date = $request->start_date;
-        $staff->end_date = $request->end_date;
-        $staff->id_number = $request->id_number;
         $staff->payroll_nationality_id = $request->nationality_id;
+        $staff->id_number = $request->id_number;
         $staff->passport = $request->passport;
-        $staff->marital_status_id = $request->marital_status_id;
-        $staff->profession_id = $request->profession_id;
-        $staff->city_id = $request->city_id;
+        $staff->email = $request->email;
+        $staff->birthdate = $request->birthdate;
+        $staff->payroll_gender_id = $request->gender_id;
+        $staff->emergency_contact = $request->emergency_contact;
+        $staff->emergency_phone = $request->emergency_phone;
+        $staff->parish_id = $request->parish_id;
+        $staff->address = $request->address;
         $staff->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('staffs.index');
+        return redirect()->route('payroll.staffs.index');
     }
 
     /**
@@ -155,22 +143,19 @@ class PayrollStaffController extends Controller
             'code' => $staff->code,
             'first_name' => $staff->first_name,
             'last_name' => $staff->last_name,
-            'birthdate' => $staff->birthdate,
-            'sex' => $staff->sex,
-            'email' => $staff->email,
-            'active' => $staff->active,
-            'website' => $staff->website,
-            'direction' => $staff->direction,
-            'sons' => $staff->sons,
-            'start_date_public_adm' => $staff->start_date_public_adm,
-            'start_date' => $staff->start_date,
-            'end_date' => $staff->end_date,
-            'id_number' => $staff->id_number,
             'nationality' => $staff->payroll_nationality->demonym,
+            'id_number' => $staff->id_number,
             'passport' => $staff->passport,
-            'marital_status' => $staff->marital_status->name,
-            'profession' => $staff->profession->name,
-            'city' => $staff->city->name
+            'email' => $staff->email,
+            'birthdate' => $staff->birthdate,
+            'gender' => $staff->payroll_gender->name,
+            'emergency_contact' => $staff->emergency_contact,
+            'emergency_phone' => $staff->emergency_phone,
+            'country' => $staff->parish->municipality->estate->country->name,
+            'estate' => $staff->parish->municipality->estate->name,
+            'municipality' => $staff->parish->municipality->name,
+            'parish' => $staff->parish->name,
+            'address' => $staff->address
         ];
         return response()->json(['record' => $this->data[0]]);
     }
@@ -182,16 +167,16 @@ class PayrollStaffController extends Controller
     public function edit(PayrollStaff $staff)
     {
         $header = [
-            'route' => ['staffs.update', $staff], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.staffs.update', $staff], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        $marital_status = template_choices('App\Models\MaritalStatus');
-        $professions = template_choices('App\Models\Profession');
         $countries = template_choices('App\Models\Country');
         $estates = template_choices('App\Models\Estate');
-        $cities = template_choices('App\Models\City');
-        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality');
+        $municipalities = template_choices('App\Models\Municipality');
+        $parishes = template_choices('App\Models\Parish');
+        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality', ['demonym']);
+        $genders = template_choices('Modules\Payroll\Models\PayrollGender');
         return view('payroll::staffs.create-edit', compact(
-            'staff','header','marital_status','professions','countries','estates','cities','nationalities'
+            'staff','header','countries','estates','municipalities','parishes','nationalities','genders'
         ));
     }
 
@@ -205,43 +190,32 @@ class PayrollStaffController extends Controller
         $this->validate($request, [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
-            'birthdate' => 'required|date',
-            'sex' => 'required|max:1',
-            'email' => 'nullable|email',
-            'website' => 'nullable|max:255',
-            'direction' => 'required',
-            'sons' => 'required|integer|min:0',
-            'start_date_public_adm' => 'required|date',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date',
-            'id_number' => 'required|regex:/^[\d]{8}$/u',
             'nationality_id' => 'required',
-            'passport' => 'nullable|max:20',
-            'marital_status_id' => 'required',
-            'profession_id' => 'required',
-            'city_id' => 'required'
+            'id_number' => 'required|regex:/^[\d]{8}$/u',
+            'passport' => 'max:20',
+            'email' => 'nullable|email',
+            'birthdate' => 'required|date',
+            'gender_id' => 'required',
+            'emergency_contact' => 'nullable',
+            'emergency_phone' => 'nullable',
+            'parish_id' => 'required',
+            'address' => 'required|max:200'
         ]);
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;
-        $staff->birthdate = $request->birthdate;
-        $staff->sex = $request->sex;
-        $staff->email  = $request->email;
-        $staff->active = ($request->input('active')!==null);
-        $staff->website = $request->website;
-        $staff->direction = $request->direction;
-        $staff->sons = $request->sons;
-        $staff->start_date_public_adm = $request->start_date_public_adm;
-        $staff->start_date = $request->start_date;
-        $staff->end_date = $request->end_date;
-        $staff->id_number = $request->id_number;
         $staff->payroll_nationality_id = $request->nationality_id;
+        $staff->id_number = $request->id_number;
         $staff->passport = $request->passport;
-        $staff->marital_status_id = $request->marital_status_id;
-        $staff->profession_id = $request->profession_id;
-        $staff->city_id = $request->city_id;
+        $staff->email  = $request->email;
+        $staff->birthdate = $request->birthdate;
+        $staff->payroll_gender_id = $request->gender_id;
+        $staff->emergency_contact = $request->emergency_contact;
+        $staff->emergency_phone = $request->emergency_phone;
+        $staff->parish_id = $request->parish_id;
+        $staff->address = $request->address;
         $staff->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('staffs.index');
+        return redirect()->route('payroll.staffs.index');
     }
 
     /**
@@ -255,6 +229,6 @@ class PayrollStaffController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('staffs.index');
+        return redirect()->route('payroll.staffs.index');
     }
 }

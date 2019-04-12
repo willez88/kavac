@@ -7,18 +7,18 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\PayrollLanguageLevel;
+use Modules\Payroll\Models\PayrollGender;
 
 /**
- * @class PayrollLanguageLevelController
- * @brief Controlador del nivel de idioma
+ * @class PayrollGenderController
+ * @brief Controlador del género
  *
- * Clase que gestiona los niveles de idioma
+ * Clase que gestiona los géneros
  *
  * @author William Páez <wpaez at cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PayrollLanguageLevelController extends Controller
+class PayrollGenderController extends Controller
 {
     use ValidatesRequests;
 
@@ -30,10 +30,10 @@ class PayrollLanguageLevelController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.language.levels.list', ['only' => 'index']);
-        $this->middleware('permission:payroll.language.levels.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:payroll.language.levels.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:payroll.language.levels.delete', ['only' => 'destroy']);
+        $this->middleware('permission:payroll.genders.list', ['only' => 'index']);
+        $this->middleware('permission:payroll.genders.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:payroll.genders.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:payroll.genders.delete', ['only' => 'destroy']);
     }
 
     /**
@@ -42,8 +42,8 @@ class PayrollLanguageLevelController extends Controller
      */
     public function index()
     {
-        $language_levels = PayrollLanguageLevel::all();
-        return view('payroll::language-levels.index', compact('language_levels'));
+        $genders = PayrollGender::all();
+        return view('payroll::genders.index', compact('genders'));
     }
 
     /**
@@ -53,9 +53,9 @@ class PayrollLanguageLevelController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'payroll.language-levels.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.genders.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::language-levels.create-edit', compact('header'));
+        return view('payroll::genders.create-edit', compact('header'));
     }
 
     /**
@@ -68,11 +68,11 @@ class PayrollLanguageLevelController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100'
         ]);
-        $language_level = new PayrollLanguageLevel;
-        $language_level->name  = $request->name;
-        $language_level->save();
+        $gender = new PayrollGender;
+        $gender->name  = $request->name;
+        $gender->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.language-levels.index');
+        return redirect()->route('payroll.genders.index');
     }
 
     /**
@@ -88,12 +88,12 @@ class PayrollLanguageLevelController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollLanguageLevel $language_level)
+    public function edit(PayrollGender $gender)
     {
         $header = [
-            'route' => ['payroll.language-levels.update', $language_level], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.genders.update', $gender], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::language-levels.create-edit', compact('language_level','header'));
+        return view('payroll::genders.create-edit', compact('gender','header'));
     }
 
     /**
@@ -101,29 +101,29 @@ class PayrollLanguageLevelController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, PayrollLanguageLevel $language_level)
+    public function update(Request $request, PayrollGender $gender)
     {
         $this->validate($request, [
             'name' => 'required|max:100'
         ]);
-        $language_level->name  = $request->name;
-        $language_level->save();
+        $gender->name  = $request->name;
+        $gender->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.language-levels.index');
+        return redirect()->route('payroll.genders.index');
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy(Request $request, PayrollLanguageLevel $language_level)
+    public function destroy(Request $request, PayrollGender $gender)
     {
         if ($request->ajax())
         {
-            $language_level->delete();
+            $gender->delete();
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('payroll.language-levels.index');
+        return redirect()->route('payroll.genders.index');
     }
 }

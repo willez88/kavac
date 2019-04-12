@@ -43,9 +43,8 @@ class PayrollStaff extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'first_name', 'last_name', 'birthdate', 'sex', 'email', 'active', 'website', 'direction',
-        'sons', 'start_date_public_adm', 'start_date', 'end_date', 'id_number', 'nationality', 'passport',
-        'marital_status_id', 'profession_id', 'city_id', 'nationality_id'
+        'code','first_name','last_name','nationality_id','id_number','passport','email','birthdate',
+        'gender_id','emergency_contact','emergency_phone','parish_id','address'
     ];
 
     /**
@@ -85,31 +84,20 @@ class PayrollStaff extends Model implements Auditable
      * @author  William Páez (wpaez@cenditel.gob.ve)
      * @return object Objeto con los registros relacionados al modelo City
      */
-	public function city()
+	public function parish()
     {
-        return $this->belongsTo('App\Models\City');
+        return $this->belongsTo('App\Models\Parish');
     }
 
     /**
-     * Método que obtiene el Estado Civil
+     * Método que obtiene el Género
      *
-     * @author  William Páez (wpaez@cenditel.gob.ve)
-     * @return object Objeto con los registros relacionados al modelo MaritalStatus
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return object Objeto con los registros relacionados al modelo PayrollGender
      */
-	public function marital_status()
+	public function payroll_gender()
     {
-        return $this->belongsTo('App\Models\MaritalStatus');
-    }
-
-    /**
-     * Método que obtiene la Profesión
-     *
-     * @author  William Páez (wpaez@cenditel.gob.ve)
-     * @return object Objeto con los registros relacionados al modelo Profession
-     */
-	public function profession()
-    {
-        return $this->belongsTo('App\Models\Profession');
+        return $this->belongsTo('Modules\Payroll\Models\PayrollGender');
     }
 
     /**

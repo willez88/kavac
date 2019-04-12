@@ -24,7 +24,7 @@
 					<h6 class="card-title">Tipo de Estudio</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('study-types.create')])
+						@include('buttons.new', ['route' => route('payroll.study-types.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -44,8 +44,8 @@
 									<td> {{ $study_type->description }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('study-types.edit', $study_type) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('study-types.destroy', $study_type) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+											<a href="{{ route('payroll.study-types.edit', $study_type) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('payroll.study-types.destroy', $study_type) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
 										</div>
 									</td>
 								</tr>

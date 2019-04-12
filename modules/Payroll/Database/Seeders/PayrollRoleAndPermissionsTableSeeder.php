@@ -307,6 +307,31 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollLanguage', 'model_prefix' => 'nomina',
                 'slug_alt' => 'idioma.eliminar'
             ],
+            // genders
+            [
+                'name' => 'Ver los géneros', 'slug' => 'payroll.genders.list',
+                'description' => 'Acceso para ver los géneros',
+                'model' => 'Modules\Payroll\Models\PayrollGender', 'model_prefix' => 'nomina',
+                'slug_alt' => 'genero.ver'
+            ],
+            [
+                'name' => 'Crear el género', 'slug' => 'payroll.genders.create',
+                'description' => 'Acceso para crear el género',
+                'model' => 'Modules\Payroll\Models\PayrollGender', 'model_prefix' => 'nomina',
+                'slug_alt' => 'genero.crear'
+            ],
+            [
+                'name' => 'Editar el género', 'slug' => 'payroll.genders.edit',
+                'description' => 'Acceso para editar el género',
+                'model' => 'Modules\Payroll\Models\PayrollGender', 'model_prefix' => 'nomina',
+                'slug_alt' => 'genero.editar'
+            ],
+            [
+                'name' => 'Eliminar el género', 'slug' => 'payroll.genders.delete',
+                'description' => 'Acceso para eliminar el género',
+                'model' => 'Modules\Payroll\Models\PayrollGender', 'model_prefix' => 'nomina',
+                'slug_alt' => 'genero.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {

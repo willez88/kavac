@@ -54,7 +54,7 @@ class PayrollStudyTypeController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'study-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.study-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::study-types.create-edit', compact('header'));
     }
@@ -75,7 +75,7 @@ class PayrollStudyTypeController extends Controller
         $study_type->description = $request->description;
         $study_type->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('study-types.index');
+        return redirect()->route('payroll.study-types.index');
     }
 
     /**
@@ -94,7 +94,7 @@ class PayrollStudyTypeController extends Controller
     public function edit(PayrollStudyType $study_type)
     {
         $header = [
-            'route' => ['study-types.update', $study_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.study-types.update', $study_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::study-types.create-edit', compact('study_type','header'));
     }
@@ -114,7 +114,7 @@ class PayrollStudyTypeController extends Controller
         $study_type->description = $request->description;
         $study_type->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('study-types.index');
+        return redirect()->route('payroll.study-types.index');
     }
 
     /**
@@ -129,6 +129,6 @@ class PayrollStudyTypeController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('study-types.index');
+        return redirect()->route('payroll.study-types.index');
     }
 }

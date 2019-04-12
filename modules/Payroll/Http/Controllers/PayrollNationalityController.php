@@ -55,7 +55,7 @@ class PayrollNationalityController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'nationalities.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.nationalities.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         $countries = template_choices('App\Models\Country');
         return view('payroll::nationalities.create-edit', compact('header','countries'));
@@ -77,7 +77,7 @@ class PayrollNationalityController extends Controller
         $nationality->country_id = $request->country_id;
         $nationality->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('nationalities.index');
+        return redirect()->route('payroll.nationalities.index');
     }
 
     /**
@@ -96,7 +96,7 @@ class PayrollNationalityController extends Controller
     public function edit(PayrollNationality $nationality)
     {
         $header = [
-            'route' => ['nationalities.update', $nationality], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.nationalities.update', $nationality], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         $countries = template_choices('App\Models\Country');
         return view('payroll::nationalities.create-edit', compact('nationality','header','countries'));
@@ -118,7 +118,7 @@ class PayrollNationalityController extends Controller
         $nationality->country_id = $request->country_id;
         $nationality->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('nationalities.index');
+        return redirect()->route('payroll.nationalities.index');
     }
 
     /**
@@ -132,6 +132,6 @@ class PayrollNationalityController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('nationalities.index');
+        return redirect()->route('payroll.nationalities.index');
     }
 }

@@ -21,10 +21,10 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Personal</h6>
+					<h6 class="card-title">Datos Personales</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('staffs.create')])
+						@include('buttons.new', ['route' => route('payroll.staffs.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -53,8 +53,8 @@
 												data-toggle="tooltip" title="Información">
 												<i class="fa fa-info-circle"></i>
 											</button>
-											<a href="{{ route('staffs.edit', $staff) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('staffs.destroy', $staff) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+											<a href="{{ route('payroll.staffs.edit', $staff) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('payroll.staffs.destroy', $staff) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
 										</div>
 									</td>
 								</tr>
@@ -76,7 +76,7 @@
 					</button>
 					<h6>
 						<i class="icofont icofont-read-book ico-2x"></i>
-						Información del Personal
+						Información de los Datos Personales
 					</h6>
 				</div>
 
@@ -115,25 +115,35 @@
 							</div>
 						</div>
 
-
-				        <div class="col-md-6">
+						<div class="col-md-6">
 							<div class="form-group">
-								<label>Fecha de Nacimiento</label>
+								<label>Nacionalidad</label>
 				        		<input type="text"
 									data-toggle="tooltip"
 									class="form-control"
-									id="birthdate"
+									id="nationality"
 									disabled="true">
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>Sexo</label>
-								<input type="text"
+								<label>Cédula de Identidad</label>
+				        		<input type="text"
 									data-toggle="tooltip"
 									class="form-control"
-									id="sex"
+									id="id_number"
+									disabled="true">
+							</div>
+						</div>
+
+				        <div class="col-md-6">
+							<div class="form-group">
+								<label>Pasaporte</label>
+				        		<input type="text"
+									data-toggle="tooltip"
+									class="form-control"
+									id="passport"
 									disabled="true">
 							</div>
 						</div>
@@ -149,22 +159,97 @@
 							</div>
 						</div>
 
-
 				        <div class="col-md-6">
+							<div class="form-group">
+								<label>Fecha de Nacimiento</label>
+				        		<input type="text"
+									data-toggle="tooltip"
+									class="form-control"
+									id="birthdate"
+									disabled="true">
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Género</label>
+								<input type="text"
+									data-toggle="tooltip"
+									class="form-control"
+									id="gender"
+									disabled="true">
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Nombres y apellidos de la persona de contacto</label>
+								<input type="text"
+									data-toggle="tooltip"
+									class="form-control"
+									id="emergency_contact"
+									disabled="true">
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Teléfono de la persona de contacto</label>
+								<input type="text"
+									data-toggle="tooltip"
+									class="form-control"
+									id="emergency_phone"
+									disabled="true">
+							</div>
+						</div>
+
+				        <!--<div class="col-md-6">
 							<div class="form-group">
 								<label for="active">Activo</label>
 								<input id="active" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO" name="active" type="checkbox">
 							</div>
-						</div>
+						</div>-->
 
-
-				        <div class="col-md-6">
+						<div class="col-md-6">
 							<div class="form-group">
-								<label>Página Web</label>
+								<label>Páis</label>
 				        		<input type="text"
 									data-toggle="tooltip"
 									class="form-control"
-									id="website"
+									id="country"
+									disabled="true">
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Estado</label>
+				        		<input type="text"
+									data-toggle="tooltip"
+									class="form-control"
+									id="estate"
+									disabled="true">
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Municipio</label>
+				        		<input type="text"
+									data-toggle="tooltip"
+									class="form-control"
+									id="municipality"
+									disabled="true">
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Parroquia</label>
+				        		<input type="text"
+									data-toggle="tooltip"
+									class="form-control"
+									id="parish"
 									disabled="true">
 							</div>
 						</div>
@@ -175,126 +260,10 @@
 				        		<input type="text"
 									data-toggle="tooltip"
 									class="form-control"
-									id="direction"
+									id="address"
 									disabled="true">
 							</div>
 						</div>
-
-
-				        <div class="col-md-6">
-							<div class="form-group">
-								<label>Número de Hijos</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="sons"
-									disabled="true">
-							</div>
-						</div>
-
-
-				        <div class="col-md-6">
-							<div class="form-group">
-								<label>Fecha de Ingreso en la Administración Pública</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="start_date_public_adm"
-									disabled="true">
-							</div>
-						</div>
-
-				        <div class="col-md-6">
-							<div class="form-group">
-								<label>Fecha de Ingreso</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="start_date"
-									disabled="true">
-							</div>
-						</div>
-
-
-				        <div class="col-md-6">
-							<div class="form-group">
-								<label>Fecha de Egreso</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="end_date"
-									disabled="true">
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Nacionalidad</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="nationality"
-									disabled="true">
-							</div>
-						</div>
-
-
-				        <div class="col-md-6">
-							<div class="form-group">
-								<label>Cédula de Identidad</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="id_number"
-									disabled="true">
-							</div>
-						</div>
-
-
-				        <div class="col-md-6">
-							<div class="form-group">
-								<label>Pasaporte</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="passport"
-									disabled="true">
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Estado Civil</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="marital_status_id"
-									disabled="true">
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Profesión</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="profession_id"
-									disabled="true">
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Ciudad</label>
-				        		<input type="text"
-									data-toggle="tooltip"
-									class="form-control"
-									id="city_id"
-									disabled="true">
-							</div>
-						</div>
-
 
 				    </div>
 				</div>
@@ -321,29 +290,27 @@
 				$(".modal-body #code").val( records.code );
 				$(".modal-body #first_name").val( records.first_name );
 				$(".modal-body #last_name").val( records.last_name );
-				$(".modal-body #birthdate").val( records.birthdate );
-				$(".modal-body #sex").val( records.sex );
+				$(".modal-body #nationality").val( records.nationality );
+				$(".modal-body #id_number").val( records.id_number );
+				$(".modal-body #passport").val( records.passport );
 				$(".modal-body #email").val( records.email );
-				if(records.active)
+				$(".modal-body #birthdate").val( records.birthdate );
+				$(".modal-body #gender").val( records.gender );
+				$(".modal-body #emergency_contact").val( records.emergency_contact );
+				$(".modal-body #emergency_phone").val( records.emergency_phone );
+				/*if(records.active)
 				{
 					$('#active').bootstrapSwitch('state', true);
 				}
 				else
 				{
 					$('#active').bootstrapSwitch('state', false);
-				}
-				$(".modal-body #website").val( records.website );
-				$(".modal-body #direction").val( records.direction );
-				$(".modal-body #sons").val( records.sons );
-				$(".modal-body #start_date_public_adm").val( records.start_date_public_adm );
-				$(".modal-body #start_date").val( records.start_date );
-				$(".modal-body #end_date").val( records.end_date );
-				$(".modal-body #nationality").val( records.nationality );
-				$(".modal-body #id_number").val( records.id_number );
-				$(".modal-body #passport").val( records.passport );
-				$(".modal-body #marital_status_id").val( records.marital_status );
-				$(".modal-body #profession_id").val( records.profession );
-				$(".modal-body #city_id").val( records.city );
+				}*/
+				$(".modal-body #country").val( records.country );
+				$(".modal-body #estate").val( records.estate );
+				$(".modal-body #municipality").val( records.municipality );
+				$(".modal-body #parish").val( records.parish );
+				$(".modal-body #address").val( records.address );
 				$("#show_staff").modal("show");
 			})
 		}

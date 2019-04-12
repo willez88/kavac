@@ -24,7 +24,7 @@
 					<h6 class="card-title">Tipo de Concepto</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('concept-types.create')])
+						@include('buttons.new', ['route' => route('payroll.concept-types.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -46,8 +46,8 @@
 									<td> {{ $concept_type->sign }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('concept-types.edit', $concept_type) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('concept-types.destroy', $concept_type) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+											<a href="{{ route('payroll.concept-types.edit', $concept_type) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('payroll.concept-types.destroy', $concept_type) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
 										</div>
 									</td>
 								</tr>

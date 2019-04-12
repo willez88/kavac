@@ -18,7 +18,6 @@ use Modules\Payroll\Models\PayrollLanguage;
  * @author William Páez <wpaez at cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class PayrollLanguageController extends Controller
 {
     use ValidatesRequests;
@@ -54,7 +53,7 @@ class PayrollLanguageController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'languages.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.languages.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::languages.create-edit', compact('header'));
     }
@@ -68,14 +67,14 @@ class PayrollLanguageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'acronym' => 'required|10'
+            'acronym' => 'required|max:10'
         ]);
         $language = new PayrollLanguage;
         $language->name  = $request->name;
         $language->acronym  = $request->acronym;
         $language->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('languages.index');
+        return redirect()->route('payroll.languages.index');
     }
 
     /**
@@ -94,7 +93,7 @@ class PayrollLanguageController extends Controller
     public function edit(PayrollLanguage $language)
     {
         $header = [
-            'route' => ['languages.update', $language], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.languages.update', $language], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::languages.create-edit', compact('language','header'));
     }
@@ -108,13 +107,13 @@ class PayrollLanguageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'acronym' => 'required|10',
+            'acronym' => 'required|max:10'
         ]);
         $language->name  = $request->name;
         $language->acronym  = $request->acronym;
         $language->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('languages.index');
+        return redirect()->route('payroll.languages.index');
     }
 
     /**
@@ -129,6 +128,6 @@ class PayrollLanguageController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('languages.index');
+        return redirect()->route('payroll.languages.index');
     }
 }

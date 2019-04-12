@@ -21,7 +21,7 @@ use Modules\Payroll\Models\PayrollConceptType;
 class PayrollConceptTypeController extends Controller
 {
     use ValidatesRequests;
-    
+
     /**
      * Define la configuración de la clase
      *
@@ -53,7 +53,7 @@ class PayrollConceptTypeController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'concept-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.concept-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::concept-types.create-edit', compact('header'));
     }
@@ -76,7 +76,7 @@ class PayrollConceptTypeController extends Controller
         $concept_type->sign = $request->sign;
         $concept_type->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('concept-types.index');
+        return redirect()->route('payroll.concept-types.index');
     }
 
     /**
@@ -95,7 +95,7 @@ class PayrollConceptTypeController extends Controller
     public function edit(PayrollConceptType $concept_type)
     {
         $header = [
-            'route' => ['concept-types.update', $concept_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.concept-types.update', $concept_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::concept-types.create-edit', compact('concept_type','header'));
     }
@@ -117,7 +117,7 @@ class PayrollConceptTypeController extends Controller
         $concept_type->sign = $request->sign;
         $concept_type->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('concept-types.index');
+        return redirect()->route('payroll.concept-types.index');
     }
 
     /**
@@ -132,6 +132,6 @@ class PayrollConceptTypeController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('concept-types.index');
+        return redirect()->route('payroll.concept-types.index');
     }
 }

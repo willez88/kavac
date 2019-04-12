@@ -57,7 +57,7 @@ class PayrollStaffClassificationController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'staff-classifications.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.staff-classifications.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::staff-classifications.create-edit', compact('header'));
     }
@@ -80,7 +80,7 @@ class PayrollStaffClassificationController extends Controller
         $staff_classification->description = $request->description;
         $staff_classification->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('staff-classifications.index');
+        return redirect()->route('payroll.staff-classifications.index');
     }
 
     /**
@@ -102,7 +102,7 @@ class PayrollStaffClassificationController extends Controller
     public function edit(PayrollStaffClassification $staff_classification)
     {
         $header = [
-            'route' => ['staff-classifications.update', $staff_classification], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.staff-classifications.update', $staff_classification], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::staff-classifications.create-edit', compact('staff_classification','header'));
     }
@@ -125,7 +125,7 @@ class PayrollStaffClassificationController extends Controller
         $staff_classification->description = $request->description;
         $staff_classification->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('staff-classifications.index');
+        return redirect()->route('payroll.staff-classifications.index');
     }
 
     /**
@@ -142,6 +142,6 @@ class PayrollStaffClassificationController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('staff-types.index');
+        return redirect()->route('payroll.staff-types.index');
     }
 }

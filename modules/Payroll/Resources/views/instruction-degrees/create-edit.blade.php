@@ -23,10 +23,8 @@
 				<div class="card-header">
 					<h6 class="card-title">Registrar Grados de Instrucción</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-	    				</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				{!! (!isset($instruction_degree))?Form::open($header):Form::model($instruction_degree, $header) !!}

@@ -77,7 +77,7 @@
 						{{-- Configuración de tipos de personal --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('staff-types.index') }}" title="Registro de tipos de personal" data-toggle="tooltip">
+							   href="{{ route('payroll.staff-types.index') }}" title="Registro de tipos de personal" data-toggle="tooltip">
 								<i class="icofont icofont-people ico-3x"></i>
 								<span>Tipos de<br>Personal</span>
 							</a>
@@ -85,7 +85,7 @@
 						{{-- Configuración de tipos de cargos --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('position-types.index') }}" title="Registro de tipos de cargos"
+							   href="{{ route('payroll.position-types.index') }}" title="Registro de tipos de cargos"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-contact-add ico-3x"></i>
 								<span>Tipos de<br>Cargos</span>
@@ -94,7 +94,7 @@
 						{{-- Configuración de cargos --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('positions.index') }}" title="Registro de cargos"
+							   href="{{ route('payroll.positions.index') }}" title="Registro de cargos"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
 								<span>Cargos</span>
@@ -103,7 +103,7 @@
 						{{-- Configuración de clasificación del personal --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('staff-classifications.index') }}" title="Registro de clasificación del personal"
+							   href="{{ route('payroll.staff-classifications.index') }}" title="Registro de clasificación del personal"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-company ico-3x"></i>
 								<span>Clasificación<br>del Personal</span>
@@ -112,7 +112,7 @@
 						{{-- Configuración del grado de instrucción --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('instruction-degrees.index') }}" title="Registro del grado de instrucción"
+							   href="{{ route('payroll.instruction-degrees.index') }}" title="Registro del grado de instrucción"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-graduate-alt ico-3x"></i>
 								<span>Grado de<br>Instrucción</span>
@@ -121,7 +121,7 @@
 						{{-- Configuración del tipo de estudio --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('study-types.index') }}" title="Registro del tipo de estudio"
+							   href="{{ route('payroll.study-types.index') }}" title="Registro del tipo de estudio"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-education ico-3x"></i>
 								<span>Tipo de<br>Estudio</span>
@@ -130,7 +130,7 @@
 						{{-- Configuración de la nacionalidad --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('nationalities.index') }}" title="Registro de nacionalidades"
+							   href="{{ route('payroll.nationalities.index') }}" title="Registro de nacionalidades"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-id-card ico-3x"></i>
 								<span>Nacionalidad</span>
@@ -139,7 +139,7 @@
 						{{-- Tipo de concepto --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('concept-types.index') }}" title="Registro de tipos de concepto"
+							   href="{{ route('payroll.concept-types.index') }}" title="Registro de tipos de concepto"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-plus ico-3x"></i>
 								<span>Tipos de<br>Concepto</span>
@@ -148,7 +148,7 @@
 						{{-- nivel de idioma --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('language-levels.index') }}" title="Registro de nivel de idioma"
+							   href="{{ route('payroll.language-levels.index') }}" title="Registro de nivel de idioma"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-earth ico-3x"></i>
 								<span>Nivel de<br>Idioma</span>
@@ -157,10 +157,19 @@
 						{{-- idioma --}}
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('languages.index') }}" title="Registro de idioma"
+							   href="{{ route('payroll.languages.index') }}" title="Registro de idioma"
 							   data-toggle="tooltip">
 								<i class="icofont icofont-flag ico-3x"></i>
 								<span>Idioma</span>
+							</a>
+						</div>
+						{{-- género --}}
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('payroll.genders.index') }}" title="Registro del género del trabajador"
+							   data-toggle="tooltip">
+								<i class="icofont icofont-soccer ico-3x"></i>
+								<span>Género</span>
 							</a>
 						</div>
 					</div>

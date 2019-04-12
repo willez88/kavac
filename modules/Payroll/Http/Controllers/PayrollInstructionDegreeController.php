@@ -53,7 +53,7 @@ class PayrollInstructionDegreeController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'instruction-degrees.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.instruction-degrees.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::instruction-degrees.create-edit', compact('header'));
     }
@@ -74,7 +74,7 @@ class PayrollInstructionDegreeController extends Controller
         $instruction_degree->description = $request->description;
         $instruction_degree->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('instruction-degrees.index');
+        return redirect()->route('payroll.instruction-degrees.index');
     }
 
     /**
@@ -93,7 +93,7 @@ class PayrollInstructionDegreeController extends Controller
     public function edit(PayrollInstructionDegree $instruction_degree)
     {
         $header = [
-            'route' => ['instruction-degrees.update', $instruction_degree], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.instruction-degrees.update', $instruction_degree], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::instruction-degrees.create-edit', compact('instruction_degree','header'));
     }
@@ -113,7 +113,7 @@ class PayrollInstructionDegreeController extends Controller
         $instruction_degree->description = $request->description;
         $instruction_degree->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('instruction-degrees.index');
+        return redirect()->route('payroll.instruction-degrees.index');
     }
 
     /**
@@ -128,6 +128,6 @@ class PayrollInstructionDegreeController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('instruction-degrees.index');
+        return redirect()->route('payroll.instruction-degrees.index');
     }
 }

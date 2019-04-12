@@ -24,7 +24,7 @@
 					<h6 class="card-title">Nacionalidades</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('nationalities.create')])
+						@include('buttons.new', ['route' => route('payroll.nationalities.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -44,8 +44,8 @@
 									<td> {{ $nationality->country->name }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('nationalities.edit', $nationality) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('nationalities.destroy', $nationality) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+											<a href="{{ route('payroll.nationalities.edit', $nationality) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('payroll.nationalities.destroy', $nationality) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
 										</div>
 									</td>
 								</tr>
