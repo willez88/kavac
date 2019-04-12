@@ -10,15 +10,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollInstructionDegree
- * @brief Datos de grado de instrucción
+ * @class PayrollGender
+ * @brief Datos de género
  *
- * Gestiona el modelo de grados de instruccíón
+ * Gestiona el modelo de géneros
  *
  * @author William Páez <wpaez at cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PayrollInstructionDegree extends Model implements Auditable
+class PayrollGender extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -43,6 +43,6 @@ class PayrollInstructionDegree extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'name', 'description'
+        'name'
     ];
 }

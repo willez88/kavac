@@ -1,16 +1,24 @@
 {{-- Gestión de nómina --}}
 <li>
     <a href="#" title="Datos de personal y nómina" data-toggle="tooltip" data-placement="right">
-        <i class="ion-ios-folder-outline"></i><span>Nómina</span>
+        <i class="ion-ios-folder-outline"></i><span>Talento Humano</span>
     </a>
     <ul class="submenu" style="{!! display_submenu('payroll') !!}">
-        <li class="{!! set_active_menu('payroll.settings.index') !!}">
+        <li class="{!! set_active_menu(['payroll.settings.index']) !!}">
             <a href="{{ route('payroll.settings.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Configuración de nómina">Configuración</a>
         </li>
-        <li class="{!! set_active_menu('staff.index') !!}">
-            <a href="{{ route('staffs.index') }}" data-toggle="tooltip" data-placement="right"
+        <li>
+            <a href="#" data-toggle="tooltip" data-placement="right"
                 title="Expediente del personal">Expediente</a>
+            <ul class="submenu" style="{!! display_submenu('staffs') !!}">
+                <li class="{!! set_active_menu(['payroll.staffs.index', 'payroll.staffs.create', 'payroll.staffs.edit']) !!}">
+                    <a href="{{ route('payroll.staffs.index') }}">Datos Personales</a>
+                </li>
+                <li><a href="#">Datos Profesionales</a></li>
+                <li><a href="#">Datos Socioeconómicos</a></li>
+                <li><a href="#">Datos Laborales</a></li>
+            </ul>
         </li>
         <li>
             <a href="#">Registros de Nómina</a>

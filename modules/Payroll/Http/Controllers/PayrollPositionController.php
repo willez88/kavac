@@ -20,6 +20,8 @@ use Modules\Payroll\Models\PayrollPosition;
  */
 class PayrollPositionController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -28,13 +30,11 @@ class PayrollPositionController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.positions.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.positions.list', ['only' => 'index']);
         $this->middleware('permission:payroll.positions.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.positions.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.positions.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Muesta todos los registros de cargos
@@ -57,7 +57,7 @@ class PayrollPositionController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'positions.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.positions.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::positions.create-edit', compact('header'));
     }
@@ -79,7 +79,8 @@ class PayrollPositionController extends Controller
         $position->name  = $request->name;
         $position->description = $request->description;
         $position->save();
-        return redirect()->route('positions.index');
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('payroll.positions.index');
     }
 
     /**
@@ -101,7 +102,7 @@ class PayrollPositionController extends Controller
     public function edit(PayrollPosition $position)
     {
         $header = [
-            'route' => ['positions.update', $position], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.positions.update', $position], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::positions.create-edit', compact('position','header'));
     }
@@ -123,7 +124,8 @@ class PayrollPositionController extends Controller
         $position->name  = $request->name;
         $position->description = $request->description;
         $position->save();
-        return redirect()->route('positions.index');
+        $request->session()->flash('message', ['type' => 'update']);
+        return redirect()->route('payroll.positions.index');
     }
 
     /**
@@ -141,6 +143,6 @@ class PayrollPositionController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('positions.index');
+        return redirect()->route('payroll.positions.index');
     }
 }

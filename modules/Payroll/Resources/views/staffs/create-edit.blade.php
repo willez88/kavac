@@ -21,12 +21,10 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Registrar Personal</h6>
+					<h6 class="card-title">Registrar Datos Personales</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-	    					<i class="now-ui-icons arrows-1_minimal-up"></i>
-	    				</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				{!! (!isset($staff))?Form::open($header):Form::model($staff, $header) !!}
@@ -62,7 +60,7 @@
 							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('nationality_id') ? ' has-error' : '' }} is-required">
 									{!! Form::label('nationality_id', 'Nacionalidad', []) !!}
-						            {!! Form::select('nationality_id',(isset($nationalities))?$nationalities:[], null,
+						            {!! Form::select('nationality_id',(isset($nationalities))?$nationalities:[], (isset($staff))?$staff->payroll_nationality_id:null,
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
@@ -123,128 +121,55 @@
 						            ) !!}
 						        </div>
 						    </div>
-						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('sex') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('sex', 'Sexo', []) !!}
-						            {!! Form::select('sex', ['' => 'Seleccione...', 'M' => 'Masculino', 'F' => 'Femenino'],
-						            (isset($staff))?$staff->sex:old('sex'),
+							<div class="col-md-4">
+						        <div class="form-group {{ $errors->has('gender_id') ? ' has-error' : '' }} is-required">
+									{!! Form::label('gender_id', 'Género', []) !!}
+						            {!! Form::select('gender_id',(isset($genders))?$genders:[], (isset($staff))?$staff->payroll_gender_id:null,
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el sexo'
+						                    'title' => 'Indique el género de la persona'
 						                ]
 						            ) !!}
 						        </div>
 						    </div>
 							<div class="col-md-4">
-						        <div class="form-group {{ $errors->has('marital_status_id') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('marital_status_id', 'Estado Civil', []) !!}
-						            {!! Form::select('marital_status_id',(isset($marital_status))?$marital_status:[], null,
+						        <div class="form-group {{ $errors->has('emergency_contact') ? ' has-error' : '' }}">
+						            {!! Form::label('emergency_contact', 'Nombres y apellidos de la persona de contacto', []) !!}
+						            {!! Form::text('emergency_contact',(isset($staff))?$staff->emergency_contact:old('emergency_contact'),
 						                [
-						                    'class' => 'form-control select2',
+						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el estado civil'
+						                    'title' => 'Indique nombres y apellidos de la persona de contacto'
 						                ]
 						            ) !!}
 						        </div>
 						    </div>
 						</div>
 						<div class="row">
-						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('profession_id') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('profession_id', 'Profesión', []) !!}
-						            {!! Form::select('profession_id',(isset($professions))?$professions:[], null,
-						                [
-						                    'class' => 'form-control select2',
-						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique la profesión'
-						                ]
-						            ) !!}
-						        </div>
-						    </div>
-						    <div class="col-md-4">
-						        <div class="form-group">
-						            {!! Form::label('active', 'Activo', []) !!}
-						            <div class="col-12">
-						                {!! Form::checkbox('active', true, null, [
-						                    'id' => 'active', 'class' => 'form-control bootstrap-switch',
-						                    'data-on-label' => 'SI', 'data-off-label' => 'NO'
-						                ]) !!}
-						            </div>
-						        </div>
-						    </div>
 							<div class="col-md-4">
-						        <div class="form-group {{ $errors->has('website') ? ' has-error' : '' }}">
-						            {!! Form::label('website', 'Sitio Web', []) !!}
-						            {!! Form::text('website',(isset($staff))?$staff->website:old('website'),
+						        <div class="form-group {{ $errors->has('emergency_phone') ? ' has-error' : '' }}">
+						            {!! Form::label('emergency_phone', 'Teléfono de la persona de contacto', []) !!}
+						            {!! Form::text('emergency_phone',(isset($staff))?$staff->emergency_phone:old('emergency_phone'),
 						                [
-						                    'class' => 'form-control select2',
+						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el sitio web'
+						                    'title' => 'Indique el teléfono de la persona de contacto'
 						                ]
 						            ) !!}
 						        </div>
 						    </div>
+
 						</div>
 						<div class="row">
-						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('sons') ? ' has-error' : '' }}">
-						            {!! Form::label('sons', 'Número de hijos', []) !!}
-						            {!! Form::number('sons',(isset($staff))?$staff->sons:old('sons'),
-						                [
-						                    'class' => 'form-control select2',
-						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el número de hijos'
-						                ]
-						            ) !!}
-						        </div>
-						    </div>
-						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('start_date_adm_public') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('start_date_public_adm', 'Fecha de Ingreso a la Administración Pública', []) !!}
-						            {!! Form::date('start_date_public_adm',(isset($staff))?$staff->start_date_public_adm:old('start_date_public_adm'),
-						                [
-						                    'class' => 'form-control input-sm',
-						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique la fecha de ingreso a la administración pública'
-						                ]
-						            ) !!}
-						        </div>
-						    </div>
-							<div class="col-md-4">
-						        <div class="form-group {{ $errors->has('start_date') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('start_date', 'Fecha de Ingreso a la Institución', []) !!}
-						            {!! Form::date('start_date',(isset($staff))?$staff->start_date:old('start_date'),
-						                [
-						                    'class' => 'form-control input-sm',
-						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique la fecha de ingreso a la institución'
-						                ]
-						            ) !!}
-						        </div>
-						    </div>
-						</div>
-						<div class="row">
-						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('end_date') ? ' has-error' : '' }}">
-						            {!! Form::label('end_date', 'Fecha de Egreso de la Institución', []) !!}
-						            {!! Form::date('end_date',(isset($staff))?$staff->end_date:old('end_date'),
-						                [
-						                    'class' => 'form-control input-sm',
-						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique la fecha de egreso de la institución'
-						                ]
-						            ) !!}
-						        </div>
-						    </div>
 						    <div class="col-md-4">
 						        <div class="form-group {{ $errors->has('country_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('country_id', 'País', []) !!}
-						            {!! Form::select('country_id',(isset($countries))?$countries:[], null,
+						            {!! Form::select('country_id',(isset($countries))?$countries:[], (isset($staff))?$staff->parish->municipality->estate->country_id:null,
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el país donde vive'
+						                    'title' => 'Seleccione el país donde vive'
 						                ]
 						            ) !!}
 						        </div>
@@ -252,37 +177,49 @@
 							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('estate_id') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('estate_id', 'Estado', []) !!}
-						            {!! Form::select('estate_id',(isset($estates))?$estates:[], null,
+						            {!! Form::select('estate_id',(isset($estates))?$estates:[], (isset($staff))?$staff->parish->municipality->estate_id:null,
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el estado donde vive'
+						                    'title' => 'Seleccione el estado donde vive'
+						                ]
+						            ) !!}
+						        </div>
+						    </div>
+							<div class="col-md-4">
+						        <div class="form-group {{ $errors->has('parish_id') ? ' has-error' : '' }} is-required">
+						            {!! Form::label('municipality_id', 'Municipio', []) !!}
+						            {!! Form::select('municipality_id',(isset($municipalities))?$municipalities:[], (isset($staff))?$staff->parish->municipality_id:null,
+						                [
+						                    'class' => 'form-control select2',
+						                    'data-toggle' => 'tooltip',
+						                    'title' => 'Seleccione el municipio donde vive'
 						                ]
 						            ) !!}
 						        </div>
 						    </div>
 						</div>
 						<div class="row">
-						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('city_id') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('city_id', 'Ciudad', []) !!}
-						            {!! Form::select('city_id',(isset($cities))?$cities:[], null,
+							<div class="col-md-4">
+						        <div class="form-group {{ $errors->has('parish_id') ? ' has-error' : '' }} is-required">
+						            {!! Form::label('parish_id', 'Parroquia', []) !!}
+						            {!! Form::select('parish_id',(isset($parishes))?$parishes:[], (isset($staff))?$staff->parish_id:null,
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique la ciudad donde vive'
+						                    'title' => 'Seleccione la parroquia donde vive'
 						                ]
 						            ) !!}
 						        </div>
-							</div>
+						    </div>
 						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('direction') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('direction', 'Dirección', []) !!}
-						            {!! Form::text('direction',(isset($staff))?$staff->direction:old('direction'),
+						        <div class="form-group {{ $errors->has('address') ? ' has-error' : '' }} is-required">
+						            {!! Form::label('addres', 'Dirección', []) !!}
+						            {!! Form::text('address',(isset($staff))?$staff->address:old('address'),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el país donde vive'
+						                    'title' => 'Indique la dirección donde vive'
 						                ]
 						            ) !!}
 						        </div>

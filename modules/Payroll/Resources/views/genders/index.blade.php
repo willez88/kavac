@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Grados de Instrucción
+	Géneros
 @stop
 
 @section('content')
@@ -21,10 +21,10 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Grado de Instrucción</h6>
+					<h6 class="card-title">Género</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('payroll.instruction-degrees.create')])
+						@include('buttons.new', ['route' => route('payroll.genders.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -33,19 +33,17 @@
 						<thead>
 							<tr class="text-center">
 								<th>Nombre</th>
-								<th>Descripción</th>
 								<th width="10%">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($instruction_degrees as $instruction_degree)
+							@foreach($genders as $gender)
 								<tr class="text-center">
-									<td> {{ $instruction_degree->name }} </td>
-									<td> {{ $instruction_degree->description }} </td>
+									<td> {{ $gender->name }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('payroll.instruction-degrees.edit', $instruction_degree) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('payroll.instruction-degrees.destroy', $instruction_degree) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+											<a href="{{ route('payroll.genders.edit', $gender) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('payroll.genders.destroy', $gender) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
 										</div>
 									</td>
 								</tr>

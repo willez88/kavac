@@ -20,6 +20,8 @@ use Modules\Payroll\Models\PayrollStaffClassification;
  */
 class PayrollStaffClassificationController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -28,13 +30,11 @@ class PayrollStaffClassificationController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.staff.classifications.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.staff.classifications.list', ['only' => 'index']);
         $this->middleware('permission:payroll.staff.classifications.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.staff.classifications.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staff.classifications.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Muesta todos los registros de clasificaciones del personal
@@ -57,7 +57,7 @@ class PayrollStaffClassificationController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'staff-classifications.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.staff-classifications.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::staff-classifications.create-edit', compact('header'));
     }
@@ -79,7 +79,8 @@ class PayrollStaffClassificationController extends Controller
         $staff_classification->name  = $request->name;
         $staff_classification->description = $request->description;
         $staff_classification->save();
-        return redirect()->route('staff-classifications.index');
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('payroll.staff-classifications.index');
     }
 
     /**
@@ -101,7 +102,7 @@ class PayrollStaffClassificationController extends Controller
     public function edit(PayrollStaffClassification $staff_classification)
     {
         $header = [
-            'route' => ['staff-classifications.update', $staff_classification], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.staff-classifications.update', $staff_classification], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::staff-classifications.create-edit', compact('staff_classification','header'));
     }
@@ -123,7 +124,8 @@ class PayrollStaffClassificationController extends Controller
         $staff_classification->name  = $request->name;
         $staff_classification->description = $request->description;
         $staff_classification->save();
-        return redirect()->route('staff-classifications.index');
+        $request->session()->flash('message', ['type' => 'update']);
+        return redirect()->route('payroll.staff-classifications.index');
     }
 
     /**
@@ -140,6 +142,6 @@ class PayrollStaffClassificationController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('staff-types.index');
+        return redirect()->route('payroll.staff-types.index');
     }
 }

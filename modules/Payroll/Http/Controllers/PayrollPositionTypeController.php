@@ -20,6 +20,8 @@ use Modules\Payroll\Models\PayrollPositionType;
  */
 class PayrollPositionTypeController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -28,13 +30,11 @@ class PayrollPositionTypeController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.position.types.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.position.types.list', ['only' => 'index']);
         $this->middleware('permission:payroll.position.types.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.position.types.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.position.types.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Muesta todos los registros de tipos de cargo
@@ -57,7 +57,7 @@ class PayrollPositionTypeController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'position-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.position-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::position-types.create-edit', compact('header'));
     }
@@ -79,7 +79,8 @@ class PayrollPositionTypeController extends Controller
         $position_type->name  = $request->name;
         $position_type->description = $request->description;
         $position_type->save();
-        return redirect()->route('position-types.index');
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('payroll.position-types.index');
     }
 
     /**
@@ -101,7 +102,7 @@ class PayrollPositionTypeController extends Controller
     public function edit(PayrollPositionType $position_type)
     {
         $header = [
-            'route' => ['position-types.update', $position_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.position-types.update', $position_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::position-types.create-edit', compact('position_type','header'));
     }
@@ -123,7 +124,8 @@ class PayrollPositionTypeController extends Controller
         $position_type->name  = $request->name;
         $position_type->description = $request->description;
         $position_type->save();
-        return redirect()->route('position-types.index');
+        $request->session()->flash('message', ['type' => 'update']);
+        return redirect()->route('payroll.position-types.index');
     }
 
     /**
@@ -141,6 +143,6 @@ class PayrollPositionTypeController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('position-types.index');
+        return redirect()->route('payroll.position-types.index');
     }
 }

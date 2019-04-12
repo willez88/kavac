@@ -22,6 +22,8 @@ use App\Models\Country;
 
 class PayrollNationalityController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -30,13 +32,11 @@ class PayrollNationalityController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.nationalities.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.nationalities.list', ['only' => 'index']);
         $this->middleware('permission:payroll.nationalities.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.nationalities.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.nationalities.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Display a listing of the resource.
@@ -55,7 +55,7 @@ class PayrollNationalityController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'nationalities.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.nationalities.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         $countries = template_choices('App\Models\Country');
         return view('payroll::nationalities.create-edit', compact('header','countries'));
@@ -76,7 +76,8 @@ class PayrollNationalityController extends Controller
         $nationality->demonym = $request->demonym;
         $nationality->country_id = $request->country_id;
         $nationality->save();
-        return redirect()->route('nationalities.index');
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('payroll.nationalities.index');
     }
 
     /**
@@ -95,7 +96,7 @@ class PayrollNationalityController extends Controller
     public function edit(PayrollNationality $nationality)
     {
         $header = [
-            'route' => ['nationalities.update', $nationality], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.nationalities.update', $nationality], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         $countries = template_choices('App\Models\Country');
         return view('payroll::nationalities.create-edit', compact('nationality','header','countries'));
@@ -116,7 +117,8 @@ class PayrollNationalityController extends Controller
         $nationality->demonym = $request->demonym;
         $nationality->country_id = $request->country_id;
         $nationality->save();
-        return redirect()->route('nationalities.index');
+        $request->session()->flash('message', ['type' => 'update']);
+        return redirect()->route('payroll.nationalities.index');
     }
 
     /**
@@ -130,6 +132,6 @@ class PayrollNationalityController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('nationalities.index');
+        return redirect()->route('payroll.nationalities.index');
     }
 }

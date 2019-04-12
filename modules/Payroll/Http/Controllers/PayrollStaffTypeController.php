@@ -20,6 +20,8 @@ use Modules\Payroll\Models\PayrollStaffType;
  */
 class PayrollStaffTypeController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
@@ -28,13 +30,11 @@ class PayrollStaffTypeController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.staff.types.index', ['only' => 'index']);
+        $this->middleware('permission:payroll.staff.types.list', ['only' => 'index']);
         $this->middleware('permission:payroll.staff.types.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.staff.types.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staff.types.delete', ['only' => 'destroy']);
     }
-
-    use ValidatesRequests;
 
     /**
      * Muesta todos los registros de tipo de personal
@@ -58,7 +58,7 @@ class PayrollStaffTypeController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'staff-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.staff-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::staff-types.create-edit', compact('header'));
     }
@@ -80,7 +80,8 @@ class PayrollStaffTypeController extends Controller
         $staff_type->name  = $request->name;
         $staff_type->description = $request->description;
         $staff_type->save();
-        return redirect()->route('staff-types.index');
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('payroll.staff-types.index');
     }
 
     /**
@@ -102,7 +103,7 @@ class PayrollStaffTypeController extends Controller
     public function edit(PayrollStaffType $staff_type)
     {
         $header = [
-            'route' => ['staff-types.update', $staff_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.staff-types.update', $staff_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
         return view('payroll::staff-types.create-edit', compact('staff_type','header'));
     }
@@ -124,7 +125,8 @@ class PayrollStaffTypeController extends Controller
         $staff_type->name  = $request->name;
         $staff_type->description = $request->description;
         $staff_type->save();
-        return redirect()->route('staff-types.index');
+        $request->session()->flash('message', ['type' => 'update']);
+        return redirect()->route('payroll.staff-types.index');
     }
 
     /**
@@ -141,6 +143,6 @@ class PayrollStaffTypeController extends Controller
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('staff-types.index');
+        return redirect()->route('payroll.staff-types.index');
     }
 }

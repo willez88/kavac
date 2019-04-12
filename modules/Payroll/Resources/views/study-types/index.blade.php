@@ -23,23 +23,12 @@
 				<div class="card-header">
 					<h6 class="card-title">Tipo de Estudio</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.new', ['route' => route('payroll.study-types.create')])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						<div class="col-12">
-							<a href="{{ route('study-types.create') }}"
-								class="btn btn-sm btn-primary btn-custom float-right"
-								title="Crear nuevo registro" data-toggle="tooltip">
-								<i class="fa fa-plus-circle"></i>
-								<span>Nuevo</span>
-							</a>
-						</div>
-					</div>
 					<table class="table table-big table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
 							<tr class="text-center">
@@ -55,8 +44,8 @@
 									<td> {{ $study_type->description }} </td>
 									<td>
 										<div class="d-inline-flex">
-											<a href="{{ route('study-types.edit', $study_type) }}" class="btn btn-warning btn-xs btn-icon btn-round" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
-											<button class="btn btn-danger btn-xs btn-icon btn-round" onclick="delete_record('{{ route('study-types.destroy', $study_type) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
+											<a href="{{ route('payroll.study-types.edit', $study_type) }}" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>
+											<button class="btn btn-danger btn-xs btn-icon btn-action" onclick="delete_record('{{ route('payroll.study-types.destroy', $study_type) }}')" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash-o"></i></button>
 										</div>
 									</td>
 								</tr>

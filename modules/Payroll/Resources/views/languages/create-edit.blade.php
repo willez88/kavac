@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Tipo de Personal
+	Idiomas
 @stop
 
 @section('content')
@@ -21,13 +21,13 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Registrar Tipo de Personal</h6>
+					<h6 class="card-title">Registrar Idiomas</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
 					</div>
 				</div>
-				{!! (!isset($staff_type))?Form::open($header):Form::model($staff_type, $header) !!}
+				{!! (!isset($language))?Form::open($header):Form::model($language, $header) !!}
 					<div class="card-body">
 						@include('layouts.form-errors')
 						<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
@@ -36,23 +36,23 @@
 						    <div class="col-md-6">
 						        <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} is-required">
 						            {!! Form::label('name', 'Nombre', []) !!}
-						            {!! Form::text('name',(isset($staff_type))?$staff_type->name:old('name'),
+						            {!! Form::text('name',(isset($language))?$language->name:old('name'),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el nombre del tipo de personal'
+						                    'title' => 'Indique el nombre del idioma'
 						                ]
 						            ) !!}
 						        </div>
 						    </div>
-						    <div class="col-md-6">
-						        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-						            {!! Form::label('description', 'Descripción', []) !!}
-						            {!! Form::text('description',(isset($staff_type))?$staff_type->description:old('description'),
+							<div class="col-md-6">
+						        <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} is-required">
+						            {!! Form::label('acronym', 'Acrónimo', []) !!}
+						            {!! Form::text('acronym',(isset($language))?$language->name:old('acronym'),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique la descripción del tipo del personal'
+						                    'title' => 'Indique el acrónimo'
 						                ]
 						            ) !!}
 						        </div>

@@ -7,19 +7,18 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\PayrollStudyType;
+use Modules\Payroll\Models\PayrollLanguage;
 
 /**
- * @class PayrollStudyTypeController
- * @brief Controlador de tipo de estudio
+ * @class PayrolllanguageController
+ * @brief Controlador de idioma
  *
- * Clase que gestiona los tipos de estudios
+ * Clase que gestiona los idiomas
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez at cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
-class PayrollStudyTypeController extends Controller
+class PayrollLanguageController extends Controller
 {
     use ValidatesRequests;
 
@@ -31,10 +30,10 @@ class PayrollStudyTypeController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.study.types.list', ['only' => 'index']);
-        $this->middleware('permission:payroll.study.types.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:payroll.study.types.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:payroll.study.types.delete', ['only' => 'destroy']);
+        $this->middleware('permission:payroll.languages.list', ['only' => 'index']);
+        $this->middleware('permission:payroll.languages.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:payroll.languages.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:payroll.languages.delete', ['only' => 'destroy']);
     }
 
     /**
@@ -43,8 +42,8 @@ class PayrollStudyTypeController extends Controller
      */
     public function index()
     {
-        $study_types = PayrollStudyType::all();
-        return view('payroll::study-types.index', compact('study_types'));
+        $languages = PayrollLanguage::all();
+        return view('payroll::languages.index', compact('languages'));
     }
 
     /**
@@ -54,9 +53,9 @@ class PayrollStudyTypeController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'payroll.study-types.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.languages.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::study-types.create-edit', compact('header'));
+        return view('payroll::languages.create-edit', compact('header'));
     }
 
     /**
@@ -68,14 +67,14 @@ class PayrollStudyTypeController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'nullable|max:200'
+            'acronym' => 'required|max:10'
         ]);
-        $study_type = new PayrollStudyType;
-        $study_type->name  = $request->name;
-        $study_type->description = $request->description;
-        $study_type->save();
+        $language = new PayrollLanguage;
+        $language->name  = $request->name;
+        $language->acronym  = $request->acronym;
+        $language->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.study-types.index');
+        return redirect()->route('payroll.languages.index');
     }
 
     /**
@@ -91,12 +90,12 @@ class PayrollStudyTypeController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollStudyType $study_type)
+    public function edit(PayrollLanguage $language)
     {
         $header = [
-            'route' => ['payroll.study-types.update', $study_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.languages.update', $language], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::study-types.create-edit', compact('study_type','header'));
+        return view('payroll::languages.create-edit', compact('language','header'));
     }
 
     /**
@@ -104,31 +103,31 @@ class PayrollStudyTypeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, PayrollStudyType $study_type)
+    public function update(Request $request, PayrollLanguage $language)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'nullable|max:200'
+            'acronym' => 'required|max:10'
         ]);
-        $study_type->name  = $request->name;
-        $study_type->description = $request->description;
-        $study_type->save();
+        $language->name  = $request->name;
+        $language->acronym  = $request->acronym;
+        $language->save();
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.study-types.index');
+        return redirect()->route('payroll.languages.index');
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy(Request $request, PayrollStudyType $study_type)
+    public function destroy(Request $request, PayrollLanguage $language)
     {
         if ($request->ajax())
         {
-            $study_type->delete();
+            $language->delete();
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);
         }
-        return redirect()->route('payroll.study-types.index');
+        return redirect()->route('payroll.languages.index');
     }
 }
