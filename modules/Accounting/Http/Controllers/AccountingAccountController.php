@@ -205,7 +205,7 @@ class AccountingAccountController extends Controller
     * Se obtiene el próximo codigo disponible para la cuenta que sera creada
      * @author  Juan Rosas <JuanFBass17@gmail.com>
      * @param [integer] $parent_id Identificador de la cuenta padre de la cual se va a generar el nuevo código
-     * @return JSON                JSON con los datos del nuevo código generado
+     * @return json [JSON con los datos del nuevo código generado]
     */
 
     public function getChildrenAccount($parent_id)
@@ -258,6 +258,11 @@ class AccountingAccountController extends Controller
         return response()->json(['account'=> $account, 'message' => 'Success'], 200);
     }
 
+    /**
+     * obtiene los registros de las cuentas patrimoniales
+     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @return json [JSON con la información de las cuentas formateada]
+    */
     public function getDataAccountingAccount()
     {
         $records = [];

@@ -20,14 +20,14 @@ class AccountingSeatCategoriesTableSeeder extends Seeder
         $categories = [
             [
                 'name' => 'Solicitud de pago',
-                'acronym' => 'SOP',
+                'acronym' => 'SOP.',
             ],
             [
-                'name' => 'Emisión de cheques'
-                'acronym' => 'Cheque Nro.',
+                'name' => 'Emisión de cheques',
+                'acronym' => 'CHQ.',
             ],
             [
-                'name' => 'Movimientos bancarios'
+                'name' => 'Movimientos bancarios',
                 'acronym' => 'DEP.',
             ]
         ];

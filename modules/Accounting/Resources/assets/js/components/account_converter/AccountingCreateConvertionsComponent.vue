@@ -26,7 +26,7 @@
 										title="Seleccione una cuenta patrimonial"></select2>
 						</div>
 						<div class="col-2">
-							<button class="btn btn-success btn-sm btn-icon btn-action"
+							<button class="btn btn-success btn-sm btn-icon btn-action btn-round"
 									style="margin-top:4.5rem !important;" 
 									v-on:click="addToConvertions()"
 									title="Agregar cuentas al listado de cuentas a convertir"
@@ -46,14 +46,8 @@
 						{{ props.row.accounting.text }}
 					</div>
 					<div slot="id" slot-scope="props" class="text-center">
-
-						<!-- <button @click="editConvertion(props.index)"
-								class="btn btn-warning btn-xs btn-icon btn-action"
-								title="Modificar registro" data-toggle="tooltip">
-							<i class="fa fa-edit"></i>
-						</button> -->
 						<button @click="removeToConvertions(props.index)" 
-								class="btn btn-danger btn-xs btn-icon btn-action" 
+								class="btn btn-danger btn-xs btn-icon btn-action btn-round" 
 								title="Eliminar registro de la lista de cuentas a convertir"
 								data-toggle="tooltip">
 							<i class="fa fa-trash-o"></i>
@@ -97,9 +91,9 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'BudgetAccounts': 'Cuentas Presupuestales',
-				'AccountingAccounts': 'Cuentas Patrimoniales',
-				'id': 'Acción'
+				'BudgetAccounts': 'CUENTAS PRESUPUESTALES',
+				'AccountingAccounts': 'CUENTAS PATRIMONIALES',
+				'id': 'ACCIÓN'
 			};
 		},
 		mounted(){
@@ -150,8 +144,8 @@
 				axios.post('/accounting/converter',{'records':this.AccountToConverters})
 				.then(response=>{
 					this.AccountToConverters = [];
-					this.showMessage('store');
 					window.location.href = 'http://'+window.location.host+'/accounting/converter';
+					this.showMessage('store');
 				})
 				// .catch(error=>{
 				// 	this.errors = [];

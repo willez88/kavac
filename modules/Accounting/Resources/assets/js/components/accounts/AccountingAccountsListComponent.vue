@@ -11,12 +11,12 @@
 		<div slot="id" slot-scope="props" class="text-center">
 
 			<button @click="changeView(props.row.id, 'edit')"
-					class="btn btn-warning btn-xs btn-icon btn-action" 
+					class="btn btn-warning btn-xs btn-icon btn-action btn-round" 
 					title="Modificar registro" data-toggle="tooltip">
 				<i class="fa fa-edit"></i>
 			</button>
 			<button @click="deleteAccount(props.index,props.row.id)" 
-					class="btn btn-danger btn-xs btn-icon btn-action" 
+					class="btn btn-danger btn-xs btn-icon btn-action btn-round" 
 					title="Eliminar registro" data-toggle="tooltip">
 				<i class="fa fa-trash-o"></i>
 			</button>
@@ -35,10 +35,10 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'code': 'Código',
-				'denomination': 'Denominación',
-				'status': 'Estado de la cuenta',
-				'id': 'Acción'
+				'code': 'CÓDIGO',
+				'denomination': 'DENOMINACIÓN',
+				'status': 'ESTADO DE LA CUENTA',
+				'id': 'ACCIÓN'
 			};
 			this.table_options.sortable = ['code', 'denomination', 'status'];
 			this.table_options.filterable = ['code', 'denomination', 'status'];

@@ -28,6 +28,6 @@ class AccountingDatabaseSeeder extends Seeder
         /** Seeder para registrar cuentas patrimoniales */
         $this->call(AccountingAccountsTableSeeder::class);
         /** Seeder para registrar categorias u origenes de los cuales se puede generar una asiento contable*/
-        // $this->call(AccountingSeatCategoriesTableSeeder::class);
+        $this->call(AccountingSeatCategoriesTableSeeder::class);
     }
 }

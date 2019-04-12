@@ -23,6 +23,9 @@ Route::group(['middleware' => 'web',
 
 	// rutas para la gestión de asientos contables
 	Route::get('seating', 'AccountingSeatController@index')->name('accounting.seating.index');
+	Route::post('seating/create', 'AccountingSeatController@create')->name('accounting.seating.create');
+	Route::post('seating/Filter-Records', 'AccountingSeatController@FilterRecords')->name('accounting.seating.FilterRecords');
+
 	Route::resource('seating', 'AccountingSeatController', 
 		['as' => 'seating',
 		'except' => ['index']]);

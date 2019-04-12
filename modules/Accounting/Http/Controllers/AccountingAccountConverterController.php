@@ -157,7 +157,6 @@ class AccountingAccountConverterController extends Controller
 		$convertion->save();
 
         $request->session()->flash('message', ['type' => 'update']);
-        // return response()->json(['message'=>'Success',200]);
         $this->index();
     }
 

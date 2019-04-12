@@ -24,15 +24,13 @@
 					<h6 class="card-title">Gestión de asientos contables</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('accounting.seating.create')])
-						{{-- <a href="{{ route('accounting.seating.approveSeats') }}" class="btn btn-sm btn-primary btn-custom" title="Asientos contables por aprobar" data-toggle="tooltip">
-							<i class="fa fa-list"></i>
-						</a> --}}
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-seat :categories="{{ $categories }}" />
+					{{-- <accounting-seat-create :accounting_accounts="{{ $AccountingAccounts }}"
+											:budget_accounts="{{ $BudgetAccounts }}" /> --}}
+					<accounting-seat-create :accounting_accounts="{{ $AccountingAccounts }}" />
 				</div>
 			</div>
 		</div>
