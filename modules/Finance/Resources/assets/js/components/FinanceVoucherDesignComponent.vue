@@ -8,8 +8,8 @@
 						<div class="col-12">
 							<div class="with-border with-shadow vertical-middle" 
 								 :style="{
-								 	'width':  (measure_converter(record.page.size_custom.width, 'mm', 'px')+'px'), 
-								 	'height': (measure_converter(record.page.size_custom.height, 'mm', 'px')+'px'),
+								 	'width':  record.page.size_custom.width + 'px', 
+								 	'height': (record.page.size_custom.height / 1.5) + 'px',
 								 	'max-width': '100%'
 								 }" 
 								 v-if="record.page.size_custom.width !== '0' && record.page.size_custom.height !== '0'">
@@ -70,7 +70,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="form-group">
-							<label for="">Margénes</label>
+							<label for="">Margénes (en mm)</label>
 						</div>
 					</div>
 				</div>
@@ -78,7 +78,7 @@
 					<div class="col-4 offset-4">
 						<div class="form-group is-required">
 							<input type="number" class="form-control input-sm" step="0.01" 
-								   title="margén superior" data-toggle="tooltip" v-model="record.page.margins.top">
+								   title="margén superior en milímetros" data-toggle="tooltip" v-model="record.page.margins.top">
 						</div>
 					</div>
 				</div>
@@ -86,13 +86,13 @@
 					<div class="col-4">
 						<div class="form-group is-required">
 							<input type="number" class="form-control input-sm" step="0.01" 
-								   title="margén izquierdo" data-toggle="tooltip" v-model="record.page.margins.left">
+								   title="margén izquierdo en milímetros" data-toggle="tooltip" v-model="record.page.margins.left">
 						</div>
 					</div>
 					<div class="col-4 offset-4">
 						<div class="form-group is-required">
 							<input type="number" class="form-control input-sm" step="0.01" 
-								   title="margén derecho" data-toggle="tooltip" v-model="record.page.margins.right">
+								   title="margén derecho en milímetros" data-toggle="tooltip" v-model="record.page.margins.right">
 						</div>
 					</div>
 				</div>
@@ -100,7 +100,7 @@
 					<div class="col-4 offset-4">
 						<div class="form-group is-required">
 							<input type="number" class="form-control input-sm" step="0.01" 
-								   title="margén inferior" data-toggle="tooltip" v-model="record.page.margins.bottom">
+								   title="margén inferior en milímetros" data-toggle="tooltip" v-model="record.page.margins.bottom">
 						</div>
 					</div>
 				</div>
@@ -111,62 +111,77 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
 							<label for="">1 fila</label>
 							<div class="row">
-								<div class="col-12" style="line-height: .3">
-									----
+								<div class="col-12" style="cursor:pointer;line-height: .3" id="layout-1-row">
+									<i class="fa fa-square" style="font-size:8px"></i>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
 							<label for="">2 filas</label>
 							<div class="row">
-								<div class="col-12" style="line-height: .3">
-									----<br>----
+								<div class="col-12" style="cursor:pointer;line-height: .3" id="layout-2-row">
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
 							<label for="">3 filas</label>
 							<div class="row">
-								<div class="col-12" style="line-height: .3">
-									----<br>----<br>----
+								<div class="col-12" style="cursor:pointer;line-height: .3" id="layout-3-row">
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
 							<label for="">4 filas</label>
 							<div class="row">
-								<div class="col-12" style="line-height: .3">
-									----<br>----<br>----<br>----
+								<div class="col-12" style="cursor:pointer;line-height: .3" id="layout-4-row">
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
 							<label for="">5 filas</label>
 							<div class="row">
-								<div class="col-12" style="line-height: .3">
-									----<br>----<br>----<br>----<br>----
+								<div class="col-12" style="cursor:pointer;line-height: .3" id="layout-5-row">
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
 							<label for="">6 filas</label>
 							<div class="row">
-								<div class="col-12" style="line-height: .3">
-									----<br>----<br>----<br>----<br>----<br>----
+								<div class="col-12" style="cursor:pointer;line-height: .3" id="layout-6-row">
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i><br>
+									<i class="fa fa-square" style="font-size:8px"></i>
 								</div>
 							</div>
 						</div>
@@ -177,8 +192,8 @@
 						<div class="form-group">
 							<label for="">1 columna</label>
 							<div class="row">
-								<div class="col-12" style="line-height: .3">
-									----<br>----<br>----<br>----<br>----
+								<div class="col-12" style="cursor:pointer;line-height: .3" id="layout-1-col">
+									<i class="fa fa-square" style="font-size:8px"></i>
 								</div>
 							</div>
 						</div>
@@ -187,11 +202,9 @@
 						<div class="form-group">
 							<label for="">2 columnas</label>
 							<div class="row">
-								<div class="col-6" style="line-height: .3">
-									----<br>----<br>----<br>----<br>----
-								</div>
-								<div class="col-6" style="line-height: .3">
-									----<br>----<br>----<br>----<br>----
+								<div class="col-12" style="cursor:pointer;line-height: .3" id="layout-2-col">
+									<i class="fa fa-square" style="font-size:8px"></i>
+									<i class="fa fa-square" style="font-size:8px;margin-left:5px;"></i>
 								</div>
 							</div>
 						</div>
@@ -202,14 +215,10 @@
 						<div class="form-group">
 							<label for="">3 columnas</label>
 							<div class="row">
-								<div class="col-4" style="line-height: .3">
-									----<br>----<br>----<br>----<br>----
-								</div>
-								<div class="col-4" style="line-height: .3">
-									----<br>----<br>----<br>----<br>----
-								</div>
-								<div class="col-4" style="line-height: .3">
-									----<br>----<br>----<br>----<br>----
+								<div class="col-12" style="cursor:pointer;line-height: .3" id="layout-3-col">
+									<i class="fa fa-square" style="font-size:8px"></i>
+									<i class="fa fa-square" style="font-size:8px;margin-left:5px;"></i>
+									<i class="fa fa-square" style="font-size:8px;margin-left:5px;"></i>
 								</div>
 							</div>
 						</div>
@@ -218,17 +227,11 @@
 						<div class="form-group">
 							<label for="">4 columnas</label>
 							<div class="row">
-								<div class="col-3" style="line-height: .3">
-									---<br>---<br>---<br>---<br>---
-								</div>
-								<div class="col-3" style="line-height: .3">
-									---<br>---<br>---<br>---<br>---
-								</div>
-								<div class="col-3" style="line-height: .3">
-									---<br>---<br>---<br>---<br>---
-								</div>
-								<div class="col-3" style="line-height: .3">
-									---<br>---<br>---<br>---<br>---
+								<div class="col-12" style="cursor:pointer;cursor:pointer;line-height: .3" id="layout-4-col">
+									<i class="fa fa-square" style="font-size:8px"></i>
+									<i class="fa fa-square" style="font-size:8px;margin-left:5px;"></i>
+									<i class="fa fa-square" style="font-size:8px;margin-left:5px;"></i>
+									<i class="fa fa-square" style="font-size:8px;margin-left:5px;"></i>
 								</div>
 							</div>
 						</div>
@@ -245,7 +248,8 @@
 						<div class="form-group">
 							<label for="">Logo</label>
 							<div class="col-12">
-								<img src="/images/no-image.png" alt="logo" class="img-fluid img-rounded">
+								<img src="/images/no-image.png" alt="logo" class="img-fluid img-rounded" 
+									 style="cursor:pointer;">
 							</div>
 						</div>
 					</div>
@@ -253,7 +257,8 @@
 						<div class="form-group">
 							<label for="">Cheque</label>
 							<div class="col-12">
-								<img src="/images/formato-cheque.png" alt="logo" class="img-fluid img-rounded">
+								<img src="/images/formato-cheque.png" alt="logo" class="img-fluid img-rounded" 
+									 style="cursor:pointer;">
 							</div>
 						</div>
 					</div>
@@ -263,7 +268,8 @@
 						<div class="form-group">
 							<label for="">Datos Presupuestarios</label>
 							<div class="col-12">
-								<img src="/images/voucher-presupuesto.png" alt="logo" class="img-fluid img-rounded">
+								<img src="/images/voucher-presupuesto.png" alt="logo" class="img-fluid img-rounded" 
+									 style="cursor:pointer;">
 							</div>
 						</div>
 					</div>
@@ -271,7 +277,8 @@
 						<div class="form-group">
 							<label for="">Datos Contables</label>
 							<div class="col-12">
-								<img src="/images/voucher-contabilidad.png" alt="logo" class="img-fluid img-rounded">
+								<img src="/images/voucher-contabilidad.png" alt="logo" class="img-fluid img-rounded" 
+									 style="cursor:pointer;">
 							</div>
 						</div>
 					</div>
@@ -281,7 +288,8 @@
 						<div class="form-group">
 							<label for="">Datos Voucher</label>
 							<div class="col-12">
-								<img src="/images/voucher-data.png" alt="logo" class="img-fluid img-rounded">
+								<img src="/images/voucher-data.png" alt="logo" class="img-fluid img-rounded" 
+									 style="cursor:pointer;">
 							</div>
 						</div>
 					</div>
@@ -371,8 +379,8 @@
 				];
 				sizes.forEach(function(size) {
 					if (size.type === vm.record.page.size) {
-						vm.record.page.size_custom.width = size.width;
-						vm.record.page.size_custom.height = size.height;
+						vm.record.page.size_custom.width = vm.measure_converter(size.width, 'mm', 'px').number;
+						vm.record.page.size_custom.height = vm.measure_converter(size.height, 'mm', 'px').number;
 					}
 				});
 			}

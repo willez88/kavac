@@ -257,7 +257,7 @@ Vue.mixin({
 				cm: {mm: 10, mt: 0.01, ft: 0.0328084, in: 0.393701, px: 37.79527559055},
 				mt: {mm: 1000, cm: 100, km: 0.001, ft: 3.28084, in: 39.3701, px: 3779.527559055},
 				km: {mt: 1000, cm: 100000, ft: 3280.84, in: 39370.1},
-				in: {mt: 0.0254, cm: 2.54, mm: 25.4 ft: 0.0833333, px: 96},
+				in: {mt: 0.0254, cm: 2.54, mm: 25.4, ft: 0.0833333, px: 96},
 				ft: {km: 0.0003048, mt: 0.3048, cm: 30.48, mm: 304.8, in: 12},
 				px: {mm: 0.264583333, cm: 0.02645833333333, mt: 0.0002645833333333, em: 0.7528125},
 				em: {px: 1.421348031496}
@@ -267,7 +267,6 @@ Vue.mixin({
 				number = parseFloat(number * factors[from][to]);
 				result = true;
 			}
-
 			return {result: result, number: number};
 		},
 		/**
