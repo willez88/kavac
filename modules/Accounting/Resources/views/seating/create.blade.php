@@ -28,9 +28,17 @@
 					</div>
 				</div>
 				<div class="card-body">
-					{{-- <accounting-seat-create :accounting_accounts="{{ $AccountingAccounts }}"
-											:budget_accounts="{{ $BudgetAccounts }}" /> --}}
-					<accounting-seat-create :accounting_accounts="{{ $AccountingAccounts }}" />
+					<accounting-seat-create />
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Asiento Contable</h6>
+				</div>
+				<div class="card-body">
+					<accounting-seat-create-account :accounting_accounts="{{ $AccountingAccounts }}" />
 				</div>
 			</div>
 		</div>

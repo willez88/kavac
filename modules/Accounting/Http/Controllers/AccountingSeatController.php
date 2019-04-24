@@ -32,12 +32,12 @@ class AccountingSeatController extends Controller
                 'id' => 0,
                 'text' => 'Todos'
             ]);
-        // foreach (AccountingSeatCategory::all() as $Category) {
-        //     array_push($categories, [
-        //         'id' => $Category->id,
-        //         'text' => $Category->name
-        //     ]);
-        // };
+        foreach (AccountingSeatCategory::all() as $category) {
+            array_push($categories, [
+                'id' => $category->id,
+                'text' => $category->name,
+            ]);
+        }
         $categories = json_encode($categories);
         return view('accounting::seating.index',compact('categories'));
     }
@@ -49,8 +49,6 @@ class AccountingSeatController extends Controller
     public function create()
     {
         $AccountingAccounts = $this->getAccountingAccount();
-        // $BudgetAccounts = $this->getBudgetAccountWithConvertion();
-        // return view('accounting::seating.create',compact('AccountingAccounts','BudgetAccounts'));
         return view('accounting::seating.create',compact('AccountingAccounts'));
     }
 
@@ -119,7 +117,8 @@ class AccountingSeatController extends Controller
      */
     public function destroy($id)
     {
-        //
+        AccountingSeat::find($id)->delete();
+        return response()->json(['message'=>'Success', 200]);
     }
 
     /**
@@ -132,7 +131,7 @@ class AccountingSeatController extends Controller
         $records = [];
         $FilterByOrigin = [];
         if ($request->typeSearch == 'reference') {
-            foreach (AccountingSeat::orderBy('from_date','ASC')->get() as $seating) {
+            foreach (AccountingSeat::with('accounting_accounts.account')->orderBy('from_date','ASC')->get() as $seating) {
                 if (count(explode($request->data['reference'], $seating->reference)) > 1) {
                     array_push($records, $seating);
                 }
@@ -140,7 +139,8 @@ class AccountingSeatController extends Controller
         }else if ($request->typeSearch == 'origin') {
             // todos los asientos o solo una categoria de origen
             $FilterByOrigin = ($request->data['category'] == 0) ?
-                 AccountingSeat::where('approved',true)->orderBy('from_date','ASC')->get() : AccountingSeat::where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+                 AccountingSeat::with('accounting_accounts.account')->where('approved',true)->orderBy('from_date','ASC')->get() : 
+                 AccountingSeat::with('accounting_accounts.account')->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
 
                  // Filtrado para unos meses o años en general
             if ($request->filterDate == 'generic') {
@@ -208,32 +208,32 @@ class AccountingSeatController extends Controller
         return json_encode($records);
     }
 
+
+// controladores para la gestión de asientos contable no aprobados
+
+    // Listado
+    public function unapproved()
+    {
+        $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved',false)->orderBy('from_date','ASC')->get();
+
+        return view('accounting::seating.unapproved',compact('seating'));
+    }
     /**
-     * Obtiene los registros de cuentas presupuestales que poseen una conversión activa
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
-     * @return json [JSON con la información de las cuentas formateada]
-    */
-    // public function getBudgetAccountWithConvertion()
-    // {
-    //     $records = [];
-    //     array_push($records, [
-    //             'id' => '',
-    //             'text' => 'Seleccione...'
-    //         ]);
-    //     foreach (BudgetAccount::with('account_converters')
-    //                             ->orderBy('group','ASC')
-    //                             ->orderBy('item','ASC')
-    //                             ->orderBy('generic','ASC')
-    //                             ->orderBy('specific','ASC')
-    //                             ->orderBy('subspecific','ASC')
-    //                             ->get() as $account) {
-    //         if ($account->account_converters && $account->active) {
-    //             array_push($records, [
-    //                 'id' => $account->id,
-    //                 'text' => "{$account->getCodeAttribute()} - {$account->denomination}"
-    //             ]);
-    //         }
-    //     };
-    //     return json_encode($records);
-    // }
+     * aprueba el asiento contable
+     * @param Request $request
+     * @return Response
+     */
+    public function approve($id)
+    {
+        $seating = AccountingSeat::find($id);
+        $seating->approved = true;
+        $seating->save();
+        return response()->json(['message'=>'Success', 200]);
+    }
+
+    /**
+     * elimina el asiento contable
+     * @param Request $request
+     * @return Response
+     */
 }

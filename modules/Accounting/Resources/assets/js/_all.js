@@ -18,7 +18,7 @@ Vue.component('accounting-create-edit-form', require('./components/accounts/Acco
  *
  * @author  Juan Rosas <JuanFBass17@gmail.com>
  */
-Vue.component('accounting-check-records', require('./components/account_converter/AccountingCheckRecordsComponent.vue'));
+Vue.component('accounting-index', require('./components/account_converter/AccountingIndexComponent.vue'));
 
 /**
  * Componente para la creación de conversión de cuentas
@@ -42,11 +42,29 @@ Vue.component('accounting-edit-convertion', require('./components/account_conver
 Vue.component('accounting-seat', require('./components/seating/AccountingSeatComponent.vue'));
 
 /**
+ * Componente para cargar la tabla de cuentas patrimoniales para el asiento contable
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-seat-listing', require('./components/seating/AccountingSeatListingComponent.vue'));
+
+/**
  * Componente para la creación de asientos contable
  *
  * @author  Juan Rosas <JuanFBass17@gmail.com>
  */
 Vue.component('accounting-seat-create', require('./components/seating/AccountingSeatEditCreateComponent.vue'));
+
+/**
+ * Componente para cargar la tabla de cuentas patrimoniales para el asiento contable
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-seat-create-account', require('./components/seating/AccountingAccountsInSeatingComponent.vue'));
+
+
+window.EventBus = new Vue; // Global event bus
+
 
 
 

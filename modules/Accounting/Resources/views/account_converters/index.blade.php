@@ -29,7 +29,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-check-records :accounting_accounts="{{ $accountingList }}" :budget_accounts="{{ $budgetList }}"/>
+					<accounting-index :accounting_accounts="{{ $accountingList }}" :budget_accounts="{{ $budgetList }}"
+					route_edit="{{ url('accounting/converter/{id}/edit') }}" />
 				</div>
 			</div>
 		</div>

@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Catálogo de Cuentas
+	Asientos contables
 @stop
 
 @section('content')
@@ -21,16 +21,16 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Catalogo de Cuentas Patrimoniales</h6>
+					<h6 class="card-title">Aprobar asientos contables</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('accounting.accounts.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-accounts-list :accountslist="{{$accounts_list}}"
-											  route_edit="{{ url('accounting/accounts/{id}/edit') }}"/>
+					<accounting-seat-listing :seating="{{ $seating }}" 
+									:show=" 'unapproved'" 
+									route_edit="{{ url('accounting/seating/{id}/edit') }}" />
 				</div>
 			</div>
 		</div>

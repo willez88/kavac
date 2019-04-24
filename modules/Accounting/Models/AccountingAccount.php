@@ -36,6 +36,11 @@ class AccountingAccount extends Model
     {
         return $this->hasOne(AccountingAccountConverter::class);
     }
+
+    public function seat_account()
+    {
+        return $this->hasOne(AccountingSeatAccount::class);
+    }
     /**
      * Contatena ciertos valores del registro para generar el codigo
      * correspondiente

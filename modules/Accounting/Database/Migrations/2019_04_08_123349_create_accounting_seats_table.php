@@ -20,7 +20,7 @@ class CreateAccountingSeatsTable extends Migration
 
                 $table->text('concept')->nullable()->comment('Descripción del concepto del asiento contable');
                 $table->text('observations')->nullable()->comment('Descripción de alguna observación para el asiento contable');
-                $table->text('reference')->unique()->comment('Referencia para identificar el asiento contable de forma directa');
+                $table->text('reference')->comment('Referencia para identificar el asiento contable de forma directa');
 
                 $table->float('tot_debit', 30, 2)->comment('Monto asignado al Debe total del asiento');
                 $table->float('tot_assets', 30, 2)->comment('Monto asignado al Haber total del Asiento');

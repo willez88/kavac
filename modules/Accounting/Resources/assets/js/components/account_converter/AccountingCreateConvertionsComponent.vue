@@ -141,12 +141,16 @@
 				this.accountingOptions.splice(1, 0, temp[0].accounting);
 			},
 			saveConvertions:function(){
+				const vm = this;
 				axios.post('/accounting/converter',{'records':this.AccountToConverters})
-				.then(response=>{
-					this.AccountToConverters = [];
-					window.location.href = 'http://'+window.location.host+'/accounting/converter';
-					this.showMessage('store');
-				})
+					.then(response=>{
+						this.AccountToConverters = [];
+						window.location.href = 'http://'+window.location.host+'/accounting/converter';
+						vm.showMessage('store');
+						setTimeout(function() {
+							location.href = vm.urlPrevious;
+						}, 2000);
+					})
 				// .catch(error=>{
 				// 	this.errors = [];
 				// 	if (typeof(error.response) !="undefined") {

@@ -25,14 +25,14 @@
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.new', ['route' => route('accounting.seating.create')])
-						{{-- <a href="{{ route('accounting.seating.approveSeats') }}" class="btn btn-sm btn-primary btn-custom" title="Asientos contables por aprobar" data-toggle="tooltip">
-							<i class="fa fa-list"></i>
-						</a> --}}
+						@include('buttons.listing', ['route' => route('accounting.seating.unapproved'),
+													 'title' => 'Aprobar Asientos'])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-seat :categories="{{ $categories }}" />
+					<accounting-seat :categories="{{ $categories }}"
+									route_edit="{{ url('accounting/seating/{id}/edit') }}" />
 				</div>
 			</div>
 		</div>

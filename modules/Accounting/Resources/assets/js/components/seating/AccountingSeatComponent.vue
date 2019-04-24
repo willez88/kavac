@@ -67,9 +67,8 @@
 								<select2 :options="categories" v-model="data.category"></select2>
 							</div>
 						</div>
-						<div class="col-2"></div>
 						<!-- filtrado por fechas -->
-						<div class="col-4"></div>
+						<div class="col-3"></div>
 						<div class="col-3">
 							<label for="" class="control-label">Por Período
 								<input type="radio" 
@@ -112,21 +111,16 @@
 							</div>
 							<div class="col-2"></div>					
 						</div>
-						<div class="col-12 row" v-if="filterDate == 'generic'">
-							<div class="col-2"></div>
-							<div class="col-2">
+						<div class="col-12 row" v-else>
+							<div class="col-3"></div>
+							<div class="col-3">
 								<div class="form-group">
-									<label class="control-label">Fecha general</label>
+									<select2 :disabled="!filterDate" :options="OptionMonths" v-model="data.month"></select2>
 								</div>
 							</div>
 							<div class="col-3">
 								<div class="form-group">
-									<select2 :options="OptionMonths" v-model="data.month"></select2>
-								</div>
-							</div>
-							<div class="col-3">
-								<div class="form-group">
-									<select2 :options="OptionsYears" v-model="data.year"></select2>
+									<select2 :disabled="!filterDate" :options="OptionsYears" v-model="data.year"></select2>
 								</div>
 							</div>
 							<div class="col-2"></div>
@@ -145,23 +139,9 @@
 			</div>
 		</form>
 
-		<v-client-table :columns="columns" :data="records" :options="table_options">
-			<div slot="reference" slot-scope="props" class="text-center">
-				{{ props.row.reference }}
-			</div>
-			<div slot="id" slot-scope="props" class="text-center">
-				<button @click="changeView(props.row.id, 'edit')"
-						class="btn btn-warning btn-xs btn-icon btn-action" 
-						title="Modificar registro" data-toggle="tooltip">
-					<i class="fa fa-edit"></i>
-				</button>
-				<button @click="deleteAccount(props.index,props.row.id)" 
-						class="btn btn-danger btn-xs btn-icon btn-action" 
-						title="Eliminar registro" data-toggle="tooltip">
-					<i class="fa fa-trash-o"></i>
-				</button>
-			</div>
-		</v-client-table>
+		<div v-if="records.length > 0">
+			<accounting-seat-listing :seating="records" :show="'approved'" />
+		</div>
 	</div>
 </template>
 
@@ -172,7 +152,6 @@
 			return {
 				errors:[],
 				records: [],
-				columns: ['reference', 'seating_content', 'id'],
 				typeSearch:'', //states: 'reference', 'origin'
 				filterDate:'', //states: 'generic','specific'
 				data:{
@@ -203,13 +182,6 @@
 		},
 		created(){
 			this.CalculateOptionsYears();
-			this.table_options.headings = {
-				'reference': 'REFERENCIA',
-				'seating_content': 'ASIENTO CONTABLE',
-				'id': 'ACCIÓN'
-			};
-			this.table_options.sortable = ['reference'];
-			this.table_options.filterable = ['reference'];
 		},
 		mounted(){
 			/** 
@@ -284,6 +256,7 @@
 					'data':this.data,
 				}).then(response=>{
 					console.log(response.data.records);
+					this.records = response.data.records;
 					this.errors = [];
 				});
 			},

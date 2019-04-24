@@ -18,4 +18,8 @@ class AccountingSeatAccount extends Model
     {
         return $this->belongsTo(AccountingSeat::class);
     }
+    public function account()
+    {
+        return $this->belongsTo(AccountingAccount::class,'accounting_account_id');
+    }
 }
