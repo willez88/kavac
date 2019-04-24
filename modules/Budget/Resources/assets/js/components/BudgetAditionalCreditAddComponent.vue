@@ -113,9 +113,18 @@
 				budget_specific_action_id: '',
 				budget_account_id: '',
 				amount: 0,
-				aditional_credit_accounts: (localStorage.aditional_credit_accounts) 
-										   ? JSON.parse(localStorage.aditional_credit_accounts) : [],
+				/*aditional_credit_accounts: (localStorage.aditional_credit_accounts) 
+										   ? JSON.parse(localStorage.aditional_credit_accounts) : [],*/
 				errors: [],
+				/** set localStorage aditional_credit_accounts */
+                set aditional_credit_accounts(value) {
+                    localStorage.aditional_credit_accounts = value;
+                },
+                /** get localStorage aditional_credit_accounts */
+                get aditional_credit_accounts() {
+                    let storage = JSON.parse(localStorage.aditional_credit_accounts || '[]');
+                    return storage;
+                }
 			}
 		},
 		mounted() {

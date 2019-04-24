@@ -50,7 +50,7 @@ class BudgetModificationAccount extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function budget_subspecific_formulation()
+    public function budget_sub_specific_formulation()
     {
     	return $this->belongsTo(BudgetSubSpecificFormulation::class);
     }

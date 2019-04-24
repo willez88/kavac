@@ -90,3 +90,69 @@
 		</div>
 	</div>
 @stop
+
+@section('extra-js')
+	@parent
+	<script>
+		var aditional_credit_accounts = [];
+		var to_add = {
+			spac_description: '',
+			code: '',
+			description: '',
+			amount: 0,
+			budget_account_id: '',
+			budget_specific_action_id: ''
+		};
+		@foreach ($model->budget_modificacion_accounts()->get() as $modification_account)
+			@php
+				$modAcc = $modification_account->with(['budget_sub_specific_formulation' => function($query) {
+					return $query->with(['specific_action' => function($q) {
+						return $q->with('specificable');
+					}]);
+				}])->first();
+			@endphp
+			
+			to_add = set_accounts_list({{ $modAcc->budget_sub_specific_formulation->budget_specific_action_id }}, {{ $modAcc->budget_account_id }});
+
+			aditional_credit_accounts.push(to_add);
+		@endforeach
+		localStorage.aditional_credit_accounts = JSON.stringify(aditional_credit_accounts);
+		console.log(localStorage.aditional_credit_accounts)
+
+		async function set_accounts_list(specific_action_id, account_id, amount) {
+			var to_add = {
+				spac_description: '',
+				code: '',
+				description: '',
+				amount: amount || 0,
+				budget_account_id: '',
+				budget_specific_action_id: ''
+			};
+			/** Obtiene datos de la acción específica seleccionada */
+			await axios.get('/budget/detail-specific-actions/' + specific_action_id).then(response => {
+				if (response.data.result) {
+					let record = response.data.record;
+					to_add.spac_description = record.specificable.code + " - " + record.code + " | " + record.name;
+					to_add.budget_account_id = {{ $modAcc->budget_account_id }};
+					to_add.budget_specific_action_id = {{ $modAcc->budget_sub_specific_formulation->budget_specific_action_id }};
+					/** Obtiene datos de la cuenta presupuestaria */
+					axios.get('/budget/detail-accounts/' + account_id).then(response => {
+						if (response.data.result) {
+							let record = response.data.record;
+							to_add.code = `${record.group}.${record.item}.${record.generic}.${record.specific}.${record.subspecific}`;
+							to_add.description = response.data.record.denomination;
+						}
+					}).catch(error => {
+						console.log(error);
+					});
+				}
+			}).catch(error => {
+				console.log(error);
+			});
+			return to_add;
+		}
+	</script>
+@stop
+
+
+
