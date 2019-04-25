@@ -13,6 +13,17 @@
 						</ul>
 					</div>
 				</div>
+				<div class="alert alert-warning" role="alert" v-if="warnings.length > 0">
+					<div class="container">
+						<div class="alert-icon">
+							<i class="now-ui-icons objects_support-17"></i>
+						</div>
+						<strong>Atención!</strong>
+						<ul>
+							<li v-for="warning in warnings">{{ warning }}</li>
+						</ul>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-3"></div>
 					<div class="col-3">
@@ -40,7 +51,7 @@
 					</div>
 					<div class="col-2"></div>
 					<br><br>
-					<div v-show="typeSearch == 'reference'" class="col-12 row">
+					<div class="col-12 row">
 						<div class="col-2"></div>
 						<div class="col-1">
 							<div class="form-group">
@@ -48,14 +59,14 @@
 							</div>
 						</div>
 						<div class="col-7">
-							<div class="form-group is-required">
-								<input type="text" class="form-control"
+							<div class="form-group">
+								<input :disabled="typeSearch != 'reference'" type="text" class="form-control"
 										v-model="data.reference">
 							</div>
 						</div>
 						<div class="col-2"></div>
 					</div>
-					<div v-show="typeSearch == 'origin'" class="col-12 row">
+					<div class="col-12 row">
 						<div class="col-2"></div>
 						<div class="col-1">
 							<div class="form-group">
@@ -64,7 +75,7 @@
 						</div>
 						<div class="col-7">
 							<div class="form-group">
-								<select2 :options="categories" v-model="data.category"></select2>
+								<select2 :disabled="typeSearch != 'origin'" :options="categories" v-model="data.category"></select2>
 							</div>
 						</div>
 						<!-- filtrado por fechas -->
@@ -74,7 +85,7 @@
 								<input type="radio" 
 										name="sel_filter_date"
 										id="sel_fil_date_specific"
-										data-on-label="SI" data-off-label="NO" 
+										data-on-label="SI" data-off-label="NO"
 										class="form-control bootstrap-switch sel_filterDate">
 							</label>
 						</div>
@@ -151,6 +162,7 @@
 		data(){
 			return {
 				errors:[],
+				warnings:[],
 				records: [],
 				typeSearch:'', //states: 'reference', 'origin'
 				filterDate:'', //states: 'generic','specific'
@@ -247,17 +259,21 @@
 
 				// manejo de errores
 				if (this.ErrorsInForm()) {
+					alert("error")
 					return ;
 				}
-
+				const vm = this;
 				axios.post('/accounting/seating/Filter-Records',{
 					'typeSearch':this.typeSearch,
 					'filterDate':this.filterDate,
 					'data':this.data,
 				}).then(response=>{
-					console.log(response.data.records);
+					if (response.data.records.length == 0) {
+						this.warnings = [];
+						this.warnings.push('No se encontraron registros.')
+					}
 					this.records = response.data.records;
-					this.errors = [];
+					EventBus.$emit('reload:listing',response.data.records);
 				});
 			},
 		},

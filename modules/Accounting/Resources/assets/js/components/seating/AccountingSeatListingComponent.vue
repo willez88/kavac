@@ -7,7 +7,7 @@
 							<tr>
 								<h5 class="text-left" style="display:inline; float: left; margin:0.5rem;"><strong>Referencia:</strong> {{ props.row.reference }}</h5>
 								
-								<h5 class="text-center" style="display:inline;"><strong>Asiento del {{ 		props.row.from_date.split('-')[2]+'-'+
+								<h5 class="text-center" style="display:inline;"><strong>Asiento del {{ 				props.row.from_date.split('-')[2]+'-'+
 									props.row.from_date.split('-')[1]+'-'+
 									props.row.from_date.split('-')[0] }}</strong></h5>
 								
@@ -85,12 +85,25 @@
 												<h5>{{ record.assets }}</h5>
 											</td>
 										</tr>
+										<tr>
+											<td></td>
+											<td>
+												<h5><strong>Total Debe / Haber </strong></h5>
+											</td>
+											<td>
+												<h5><strong>{{ props.row.tot_debit }}</strong> </h5>
+											</td>
+											<td>
+												<h5><strong>{{ props.row.tot_assets }}</strong> </h5>
+											</td>
+										</tr>
 									</tbody>
 								</table>	
 							</tr>
 						</tbody>
 						<br><br>
 					</table>
+
 				</div>
 			</v-client-table>
 	</div>
@@ -110,6 +123,9 @@
 				'content': 'ASIENTOS CONTABLES',
 			};
 			this.records = this.seating;
+			EventBus.$on('reload:listing',(data)=>{
+				this.records = data;
+			})
 		},
 		methods:{
 			print:function(id) {

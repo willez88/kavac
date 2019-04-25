@@ -14,6 +14,13 @@ Route::group(['middleware' => 'web',
 
 	// Rutoas para las operaciones de conversión de cuentas
 	Route::get('converter', 'AccountingAccountConverterController@index')->name('accounting.converter.index');
+
+	// retorna cuenta patrimonial asociada
+	Route::get('converter/budgetToAccount/{id}', 'AccountingAccountConverterController@budgetToAccount')->name('accounting.converter.budgetToAccount');
+
+	// retorna cuenta presupuestal asociada
+	Route::get('converter/accountToBudget/{id}', 'AccountingAccountConverterController@accountToBudget')->name('accounting.converter.accountToBudget');
+
 	Route::post('converter/create', 'AccountingAccountConverterController@create')->name('accounting.converter.create');
 	Route::post('converter/get-Records', 'AccountingAccountConverterController@getRecords')->name('accounting.converter.getRecords');
 	Route::resource('converter', 'AccountingAccountConverterController', 

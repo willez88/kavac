@@ -49,7 +49,21 @@ class AccountingSeatController extends Controller
     public function create()
     {
         $AccountingAccounts = $this->getAccountingAccount();
-        return view('accounting::seating.create',compact('AccountingAccounts'));
+
+        $categories = [];
+        array_push($categories, [
+            'id' => '',
+            'text' => 'Seleccione...'
+        ]);
+        foreach (AccountingSeatCategory::all() as $category) {
+            array_push($categories, [
+                'id' => $category->id,
+                'text' => $category->name,
+            ]);
+        }
+        $categories = json_encode($categories);
+
+        return view('accounting::seating.create-edit-form',compact('AccountingAccounts','categories'));
     }
 
     /**
@@ -64,6 +78,7 @@ class AccountingSeatController extends Controller
         $newSeating->reference = $request->data['reference'];
         $newSeating->concept = $request->data['concept'];
         $newSeating->observations = $request->data['observations'];
+        $newSeating->generated_by_id=($request->data['generated_by_id']!='')? $request->data['generated_by_id']: null;
         $newSeating->tot_debit = $request->data['totDebit'];
         $newSeating->tot_assets = $request->data['totAssets'];
         $newSeating->save();
@@ -96,7 +111,31 @@ class AccountingSeatController extends Controller
      */
     public function edit($id)
     {
-        return view('accounting::edit');
+        $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
+
+        $AccountingAccounts = $this->getAccountingAccount();
+
+        $date = $seating->from_date;
+        $reference = $seating->reference;
+        $concept = $seating->concept;
+        $observations = $seating->observations;
+
+
+        // formateo de las categorias
+        $categories = [];
+        array_push($categories, [
+            'id' => '',
+            'text' => 'Seleccione...'
+        ]);
+        foreach (AccountingSeatCategory::all() as $category) {
+            array_push($categories, [
+                'id' => $category->id,
+                'text' => $category->name,
+            ]);
+        }
+        $categories = json_encode($categories);
+
+        return view('accounting::seating.create-edit-form',compact('AccountingAccounts','seating','categories','category','date','reference','concept','observations'));
     }
 
     /**
@@ -107,7 +146,32 @@ class AccountingSeatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $seating = AccountingSeat::find($id);
+        $seating->reference = $request->data['reference'];
+        $seating->concept = $request->data['concept'];
+        $seating->observations = $request->data['observations'];
+        $seating->tot_debit = $request->data['totDebit'];
+        $seating->tot_assets = $request->data['totAssets'];
+        $seating->save();
+
+        foreach ($request->accountingAccounts as $account) {
+
+            // Actualiza el registro si ya existe, de lo contrario crea el nuevo registro de cuenta
+            if ($account['id_seatAcc']) {
+                $AccSeat = AccountingSeatAccount::find($account['id_seatAcc']);
+                $AccSeat->accounting_account_id = $account['id'];
+                $AccSeat->debit = $account['debit'];
+                $AccSeat->assets = $account['assets'];
+            }else{
+                $AccSeat = new AccountingSeatAccount();
+                $AccSeat->accounting_seat_id = $seating->id;
+                $AccSeat->accounting_account_id = $account['id'];
+                $AccSeat->debit = $account['debit'];
+                $AccSeat->assets = $account['assets'];
+            }
+            $AccSeat->save();
+        }
+        return response()->json(['message'=>'Success'],200);
     }
 
     /**
@@ -228,12 +292,7 @@ class AccountingSeatController extends Controller
         $seating = AccountingSeat::find($id);
         $seating->approved = true;
         $seating->save();
-        return response()->json(['message'=>'Success', 200]);
+        return response()->json(['message'=>'Success'], 200);
     }
 
-    /**
-     * elimina el asiento contable
-     * @param Request $request
-     * @return Response
-     */
 }

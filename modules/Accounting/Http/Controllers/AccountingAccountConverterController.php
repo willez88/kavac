@@ -262,4 +262,25 @@ class AccountingAccountConverterController extends Controller
         return json_encode($records);
     }
 
+    /**
+     * retorna la cuenta patrimonial correspondiente a la presupuestal
+     * @param int $id
+     * @return Response
+     */
+    public function budgetToAccount($id)
+    {
+        $convertion = AccountingAccountConverter::with('accounting_account')->where('budget_account_id',$id)->first();
+        return response()->json(['record'=> $convertion->accounting_account,'message'=>'Success'], 200);
+    }
+
+    /**
+     * retorna la cuenta presupuestal correspondiente a la patrimonial
+     * @param int $id
+     * @return Response
+     */
+    public function accountToBudget($id)
+    {
+        $convertion = AccountingAccountConverter::with('budget_account')->where('accounting_account_id',$id)->first();
+        return response()->json(['record'=> $convertion->budget_account,'message'=>'Success'], 200);
+    }
 }
