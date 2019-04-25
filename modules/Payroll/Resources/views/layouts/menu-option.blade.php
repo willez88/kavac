@@ -16,7 +16,9 @@
                     <a href="{{ route('payroll.staffs.index') }}">Datos Personales</a>
                 </li>
                 <li><a href="#">Datos Profesionales</a></li>
-                <li><a href="#">Datos Socioeconómicos</a></li>
+                <li class="{!! set_active_menu(['payroll.socioeconomic-informations.index']) !!}">
+                    <a href="{{ route('payroll.socioeconomic-informations.index') }}">Datos Socioeconómicos</a>
+                </li>
                 <li><a href="#">Datos Laborales</a></li>
             </ul>
         </li>
