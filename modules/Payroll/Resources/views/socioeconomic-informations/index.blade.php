@@ -41,9 +41,9 @@
 						<tbody>
 							@foreach($socioeconomic_informations as $si)
 								<tr class="text-center">
-									<td> {{ $si->payroll_staff->first_name }} {{ $si->payroll_staff->last_name }} - {{ $si->payroll_staff->id_number }} </td>
+									<td> {{ $si->payroll_staff->id_number }} - {{ $si->payroll_staff->first_name }} {{ $si->payroll_staff->last_name }} </td>
 									<td> {{ $si->marital_status->name }} </td>
-									<td> {{ $si->first_name_twosome }} {{ $si->last_name_twosome }} </td>
+									<td> {{ $si->full_name_twosome }} </td>
 									<td>
 										<div class="d-inline-flex">
 											<a href="#" class="btn btn-warning btn-xs btn-icon btn-action" data-toggle="tooltip" title="Actualizar"><i class="fa fa-edit"></i></a>

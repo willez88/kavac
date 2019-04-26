@@ -34,9 +34,9 @@
 						<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div>
 						<div class="row">
 							<div class="col-md-4">
-						        <div class="form-group {{ $errors->has('nationality_id') ? ' has-error' : '' }} is-required">
+						        <div class="form-group {{ $errors->has('staff_id') ? ' has-error' : '' }} is-required">
 									{!! Form::label('staff_id', 'Trabajador', []) !!}
-						            {!! Form::select('staff_id',(isset($staffs))?$staffs:[], (isset($staff))?$staff->first_name:null,
+						            {!! Form::select('staff_id',(isset($staffs))?$staffs:[], (isset($socioeconomic_information))?$socioeconomic_information->staff->full_name:null,
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
@@ -45,19 +45,69 @@
 						            ) !!}
 						        </div>
 						    </div>
-						    <div class="col-md-4">
-						        <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('first_name_twosome', 'Nombre', []) !!}
-						            {!! Form::text('first_name_twosome',(isset($socioeconomic_information))?$socioeconomic_information->name:old('first_name_twosome'),
+							<div class="col-md-4">
+						        <div class="form-group {{ $errors->has('marital_status_id') ? ' has-error' : '' }} is-required">
+									{!! Form::label('marital_status_id', 'Estado Civil', []) !!}
+						            {!! Form::select('marital_status_id',(isset($marital_status))?$marital_status:[], (isset($socioeconomic_information))?$socioeconomic_information->marital_status->name:null,
 						                [
-						                    'class' => 'form-control input-sm',
+						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el nombre de la pareja del trabajador'
+						                    'title' => 'Seleccione el estado civil del trabajador',
+											'onchange' => 'block_twosome_show_hide(this.value);'
 						                ]
 						            ) !!}
 						        </div>
 						    </div>
 						</div>
+
+						<div class="row d-none" id="block_twosome">
+							<div class="col-md-4">
+								<div class="form-group {{ $errors->has('full_name_twosome') ? ' has-error' : '' }} is-required">
+									{!! Form::label('full_name_twosome', 'Nombres y apellidos de la pareja del trabajador', []) !!}
+									{!! Form::text('full_name_twosome',(isset($socioeconomic_information))?$socioeconomic_information->name:old('full_name_twosome'),
+										[
+											'class' => 'form-control input-sm',
+											'data-toggle' => 'tooltip',
+											'title' => 'Indique los nombres y apellidos de la pareja del trabajador'
+										]
+									) !!}
+								</div>
+							</div>
+							<div class="col-md-4">
+						        <div class="form-group {{ $errors->has('id_number_twosome') ? ' has-error' : '' }} is-required">
+						            {!! Form::label('id_number_twosome', 'Cédula de identidad de la pareja del trabajador', []) !!}
+						            {!! Form::text('id_number_twosome',(isset($socioeconomic_information))?$socioeconomic_information->id_number:old('id_number_twosome'),
+						                [
+						                    'class' => 'form-control input-sm',
+						                    'data-toggle' => 'tooltip',
+						                    'title' => 'Indique la cédula de identidad de la pareja del trabajador'
+						                ]
+						            ) !!}
+						        </div>
+						    </div>
+							<div class="col-md-4">
+						        <div class="form-group {{ $errors->has('birthdate_twosome') ? ' has-error' : '' }} is-required">
+						            {!! Form::label('birthdate_twosome', 'Fecha de nacimiento de la pareja del trabajador', []) !!}
+						            {!! Form::date('birthdate_twosome',(isset($socioeconomic_information))?$socioeconomic_information->birthdate_twosome:old('birthdate_twosome'),
+						                [
+						                    'class' => 'form-control input-sm',
+						                    'data-toggle' => 'tooltip',
+						                    'title' => 'Indique la fecha de nacimiento de la pareja del trabajador'
+						                ]
+						            ) !!}
+						        </div>
+						    </div>
+						</div>
+
+						<hr>
+						<div class="row">
+							<div class="col-md-4">
+								<h6 class="card-title">
+									Hijos del Trabajador <i class="fa fa-plus-circle cursor-pointer"></i>
+								</h6>
+							</div>
+						</div>
+
 					</div>
 					<div class="card-footer text-right">
 						@include('layouts.form-buttons')
@@ -67,3 +117,30 @@
 		</div>
 	</div>
 @stop
+
+@section('extra-js')
+	<script>
+
+		/**
+		 * Permite ocultar los campos de la pareja del trabajador
+		 *
+		 * @author  William Páez <wpaez@cenditel.gob.ve>
+		 * @param    {integer} id ID del estado civil que indica el valor Casado(a)
+		 */
+		function block_twosome_show_hide(val)
+		{
+			if( val == 2)
+			{
+				$('#block_twosome').removeClass('d-none');
+			}
+			else
+			{
+				$('#block_twosome').addClass('d-none');
+			}
+		}
+
+
+		$('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
+
+	</script>
+@endsection

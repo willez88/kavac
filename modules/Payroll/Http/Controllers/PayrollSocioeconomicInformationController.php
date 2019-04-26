@@ -53,12 +53,13 @@ class PayrollSocioeconomicInformationController extends Controller
     public function create()
     {
         $staffs = template_choices(
-            'Modules\Payroll\Models\PayrollStaff', ['first_name','last_name']
+            'Modules\Payroll\Models\PayrollStaff', ['id_number','-','full_name']
         );
+        $marital_status = template_choices('App\Models\MaritalStatus');
         $header = [
-            'route' => 'payroll.socioeconomic-informations.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+            'route' => 'payroll.socioeconomic-informations.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form', 'id' => 'form'
         ];
-        return view('payroll::socioeconomic-informations.create-edit', compact('header','staffs'));
+        return view('payroll::socioeconomic-informations.create-edit', compact('header','staffs','marital_status'));
     }
 
     /**
@@ -69,16 +70,14 @@ class PayrollSocioeconomicInformationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'first_name_twosome' => 'nullable|max:100',
-            'last_name_twosome' => 'nullable|max:100',
+            'full_name_twosome' => 'nullable|max:200',
             'id_number_twosome' => 'nullable|max:12',
-            'birthdate_twosome' => 'required|date',
+            'birthdate_twosome' => 'nullable|date',
             'payroll_staff_id' => 'required',
             'marital_status_id' => 'required'
         ]);
         $socioeconomic_information = new PayrollSocioeconomicInformation;
-        $socioeconomic_information->first_name_twosome  = $request->first_name_twosome;
-        $socioeconomic_information->last_name_twosome  = $request->last_name_twosome;
+        $socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
         $socioeconomic_information->id_number_twosome  = $request->id_number_twosome;
         $socioeconomic_information->birthdate_twosome  = $request->birthdate_twosome;
         $socioeconomic_information->payroll_staff_id  = $request->payroll_staff_id;
@@ -117,15 +116,13 @@ class PayrollSocioeconomicInformationController extends Controller
     public function update(Request $request, PayrollSocioeconomicInformation $socioeconomic_information)
     {
         $this->validate($request, [
-            'first_name_twosome' => 'nullable|max:100',
-            'last_name_twosome' => 'nullable|max:100',
+            'full_name_twosome' => 'nullable|max:100',
             'id_number_twosome' => 'nullable|max:12',
-            'birthdate_twosome' => 'required|date',
+            'birthdate_twosome' => 'nullable|date',
             'payroll_staff_id' => 'required',
             'marital_status_id' => 'required'
         ]);
-        $socioeconomic_information->first_name_twosome  = $request->first_name_twosome;
-        $socioeconomic_information->last_name_twosome  = $request->last_name_twosome;
+        $socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
         $socioeconomic_information->id_number_twosome  = $request->id_number_twosome;
         $socioeconomic_information->birthdate_twosome  = $request->birthdate_twosome;
         $socioeconomic_information->payroll_staff_id  = $request->payroll_staff_id;
