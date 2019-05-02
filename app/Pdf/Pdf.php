@@ -10,6 +10,7 @@ class Pdf extends \TCPDF {
 
     /* Atributo que define el tipo del reporte */
     var $type_report;
+    var $title_report = '';
 
     public function Header() {
 
@@ -18,6 +19,8 @@ class Pdf extends \TCPDF {
 
         $this->SetAuthor($Institution->acronym);
         $this->SetTitle('Inventario de Bienes');
+        if($this->getTitleReport() != '')
+            $this->SetTitle($this->getTitleReport());
 
         $ancho_pag=277; //260
 
@@ -110,6 +113,8 @@ class Pdf extends \TCPDF {
             $this->Cell($ancho_pag,$tam_linea,'Inventario de Bienes por Clasificación',1,1,'C');
         else if ( $this->getType() == 2)
 	        $this->Cell($ancho_pag,$tam_linea,'Inventario de Bienes General',1,1,'C');
+        else
+            $this->Cell($ancho_pag,$tam_linea,$this->getTitleReport(),1,1,'C');
 
         $this->SetFont('Courier','',6);
 	    $this->Cell($ancho_pag,$tam_linea,"Fecha: ".date('d/m/Y'),1,1,'R');
@@ -137,10 +142,10 @@ class Pdf extends \TCPDF {
         $this->Cell($ancho_firma,$tam_linea,"APROBACION",1,0,'C');
         $this->Cell($ancho_pag-($ancho_etiqueta+3*$ancho_firma),$tam_linea,'','LRT',1,'C');
         $this->Cell($ancho_etiqueta,$tam_linea,'Nombre',1,0,'L');
-        $this->Cell($ancho_firma,$tam_linea,'SAID',1,0,'C');
-        $this->Cell($ancho_firma,$tam_linea,$Institution->name,1,0,'C');
+        $this->Cell($ancho_firma,$tam_linea,'KAVAC',1,0,'C');
+        $this->Cell($ancho_firma,$tam_linea,$Institution->acronym,1,0,'C');
 
-        $this->Cell($ancho_firma,$tam_linea,$Institution->name,1,0,'C');
+        $this->Cell($ancho_firma,$tam_linea,$Institution->acronym,1,0,'C');
         $this->Cell($ancho_pag-($ancho_etiqueta+3*$ancho_firma),$tam_linea,'','LR',1,'C');
         $this->Cell($ancho_etiqueta,$tam_linea,'Cargo',1,0,'L');
         $this->Cell($ancho_firma,$tam_linea,'Herramienta automatizada',1,0,'C');
@@ -161,6 +166,13 @@ class Pdf extends \TCPDF {
 
     public function getType(){
         return $this->type_report;
+    }
+    public function setTitleReport($title){
+        $this->title_report=$title;
+    }
+
+    public function getTitleReport(){
+        return $this->title_report;
     }
 
     public function set_Y($y){

@@ -58,11 +58,14 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
      */
 
 
+    Route::resource('movements', 'WarehouseMovementController', ['only' => 'store','update']);
     Route::get('movements', 'WarehouseMovementController@index')->name('
         warehouse.movement.index');
     Route::get('movements/create', 'WarehouseMovementController@create')->name('warehouse.movement.create');
     Route::get('movements/edit/{movement}', 'WarehouseMovementController@edit')->name('warehouse.movement.edit');
-    Route::get('movements/delete/{movement}', 'WarehouseMovementController@destroy')->name('warehouse.movement.destroy');
+    Route::delete('movements/delete/{movement}', 'WarehouseMovementController@destroy')->name('warehouse.movement.destroy');
+    Route::get('movements/vue-list-products/{warehouse}/{institution}', 'WarehouseMovementController@vueList');
+    Route::get('movements/vue-info/{movement}', 'WarehouseMovementController@vueInfo');
 
     /**
      * ------------------------------------------------------------
@@ -70,20 +73,34 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
      * ------------------------------------------------------------
      */
 
-    Route::resource('request', 'WarehouseRequestController', ['except' => 'show']);
+    Route::resource('request', 'WarehouseRequestController', ['only' => 'store', 'update']);
     Route::get('request', 'WarehouseRequestController@index')->name('warehouse.request.index');
     Route::get('request/create', 'WarehouseRequestController@create')->name('warehouse.request.create');
-    Route::post('request/store', 'WarehouseRequestController@store')->name('warehouse.request.store');
     Route::get('request/edit/{request}', 'WarehouseRequestController@edit')->name('warehouse.request.edit');
-    //Route::put('request/update/{request}', 'WarehouseRequestController@update')->name('warehouse.request.update');
     Route::delete('request/delete/{request}', 'WarehouseRequestController@destroy')->name('warehouse.request.destroy');
 
     Route::get('request/vue-info/{request}', 'WarehouseRequestController@vueInfo');
 
     Route::get('request/vue-list-products', 'WarehouseRequestController@getInventaryProduct');
 
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar la generación de solicitudes en formato pdf
+     * ------------------------------------------------------------
+     */
 
-    
+    Route::get('pdf/products/{type}/{product_ware?}', 'WarehousePDFController@createForType');
+    Route::get('pdf/{product}/{warehouse}', 'WarehousePDFController@createProduct');
+
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar la generación de reportes en el Modulo de Almacén
+     * ------------------------------------------------------------
+     */
+
+    Route::get('report/create', 'WarehouseReportController@create')->name('warehouse.report.create');
+    Route::get('report/vue-list/products/{type}/{product?}', 'WarehouseReportController@vueListProduct');
+    Route::get('report/vue-list/{product?}/{warehouse?}', 'WarehouseReportController@vueList');
 
     /**
      * ------------------------------------------------------------
@@ -113,7 +130,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
     /**
      * Rutas para gestionar los Almacenes
      */
-    Route::resource('warehouses', 'WarehouseController', ['except' => ['show']]);
+    Route::resource('warehouses', 'WarehouseController', ['except' => ['show','index']]);
+    Route::get('warehouses/{institution?}', 'WarehouseController@index');
 
     /**
      * Rutas para gestionar los Cierres de Almacenes
@@ -139,6 +157,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Mo
      * Rutas para gestionar las Reglas de Productos de Almacén
      */
     Route::resource('rules', 'WarehouseInventaryRuleController', ['except' => ['show']]);
+
+    Route::get('rules/vue-list-products/{warehouse?}/{institution?}', 'WarehouseInventaryRuleController@vueList');
 });
 
 
@@ -148,4 +168,8 @@ Route::group(['middleware' => 'web', 'namespace' => 'Modules\Warehouse\Http\Cont
      * Ruta para finalizar un cierre de almacén dado
      */
     Route::put('warehouse/closes/finish/{close}', 'WarehouseCloseController@close_warehouse');
+
+    Route::put('warehouse/movements-complete/{movement}', 'WarehouseMovementController@approved_movement');
+
+    Route::put('warehouse/request-complete/{request}', 'WarehouseRequestController@approved_request');
 });

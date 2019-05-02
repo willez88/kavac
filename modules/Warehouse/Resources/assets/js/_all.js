@@ -45,7 +45,7 @@ Vue.component('warehouse-close', require('./components/WarehouseCloseComponent.v
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
-//Vue.component('warehouse-rule', require('./components/WarehouseProductRuleComponent.vue'));
+Vue.component('warehouse-rule', require('./components/WarehouseProductRuleComponent.vue'));
 
 /**
  * Componente para crear y editar solicitudes de almacén
@@ -54,7 +54,7 @@ Vue.component('warehouse-close', require('./components/WarehouseCloseComponent.v
  */
 
 Vue.component('warehouse-request', require('./components/WarehouseRequestCreateComponent.vue'));
-
+Vue.component('warehouse-request-pending', require('./components/WarehouseRequestPendingComponent.vue'));
 /**
  * Componente para crear y editar las recepciones de almacén
  *
@@ -70,6 +70,7 @@ Vue.component('warehouse-reception', require('./components/WarehouseReceptionCre
  */
 
 Vue.component('warehouse-movement', require('./components/WarehouseMovementCreateComponent.vue'));
+Vue.component('warehouse-movement-pending', require('./components/WarehouseMovementPendingComponent.vue'));
 
 /**
  * Componente para visualizar la información de las recepciones de almacén
@@ -80,9 +81,24 @@ Vue.component('warehouse-movement', require('./components/WarehouseMovementCreat
 Vue.component('warehouse-reception-info', require('./components/WarehouseReceptionInfoComponent.vue'));
 
 /**
+ * Componente para visualizar la información de las recepciones de almacén
+ *
+ * @author Henry Paredes (henryp2804@gmail.com)
+ */
+
+Vue.component('warehouse-movement-info', require('./components/WarehouseMovementInfoComponent.vue'));
+/**
  * Componente para visualizar la información de las solicitudes de almacén
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
 Vue.component('warehouse-request-info', require('./components/WarehouseRequestInfoComponent.vue'));
+
+/**
+ * Componente para crear reportes de almacén 
+ *
+ * @author Henry Paredes (henryp2804@gmail.com)
+ */
+
+Vue.component('warehouse-reports', require('./components/WarehouseReportCreateComponent.vue'));
