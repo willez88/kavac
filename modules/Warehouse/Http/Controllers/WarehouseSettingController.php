@@ -34,6 +34,13 @@ class WarehouseSettingController extends Controller
         return view('warehouse::settings', compact('model_setting', 'header'));
     }
 
+    /**
+     * Valida y Registra en la configuracion del sistema la opcion de multi almacenes
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
     public function store(Request $request)
     {
         $setting = Setting::updateOrCreate(
@@ -46,6 +53,12 @@ class WarehouseSettingController extends Controller
         return redirect()->route('warehouse.setting.index');
     }
 
+    /**
+     * Vizualiza la configuración del sistema
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
     public function vueSetting()
     {
         $setting = Setting::where('active',true)->first();

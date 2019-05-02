@@ -223,10 +223,10 @@
 				},
 				this.editIndex = null;
 				this.attributes.map(function (campo, key) {
-				var element = document.getElementById(campo.name);
-                if(element)
-                    element.value = '';
-			});
+					var element = document.getElementById(campo.name);
+		            if(element)
+		                element.value = '';
+				});
 
 			},
 			getWarehouses(id){

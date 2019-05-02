@@ -38,8 +38,10 @@ class WarehouseProductController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de los productos almacenables registrados
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
@@ -47,9 +49,11 @@ class WarehouseProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y Registra un nuevo producto almacenable
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -78,9 +82,12 @@ class WarehouseProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de los Productos Almacenables
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @param  \Modules\Warehouse\Models\WarehouseProduct $product (Registro a ser actualizado)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function update(Request $request, WarehouseProduct $product)
     {
@@ -108,14 +115,23 @@ class WarehouseProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina un Producto Almacenable
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  $id Identificador único del movimiento de almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function destroy(WarehouseProduct $product)
     {
         $product->delete();
         return response()->json(['record' => $product, 'message' => 'Success'], 200);
     }
+    /**
+     * Muestra una lista de los productos almacenables para elementos del tipo select
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Array con los registros a mostrar
+     */
 
     public function vueList()
     {

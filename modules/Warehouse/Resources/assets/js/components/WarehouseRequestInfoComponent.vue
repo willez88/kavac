@@ -131,7 +131,7 @@
 			return {
 				records: [],
 				errors: [],
-				columns: ['inventary_product.product.name','inventary_product.product.description','inventary_product.unit_id','quantity'],
+				columns: ['inventary_product.product.name','inventary_product.product.description','inventary_product.unit.name','quantity'],
 			}
 		},
 		props: {
@@ -141,12 +141,12 @@
 			this.table_options.headings = {
 				'inventary_product.product.name': 'Nombre',
 				'inventary_product.product.description': 'Descripción',
-				'inventary_product.unit_id': 'Unidad',
+				'inventary_product.unit.name': 'Unidad',
 				'quantity': 'Solicitados'
 
 			};
-			this.table_options.sortable = ['inventary_product.product.name','inventary_product.product.description','inventary_product.unit_id'];
-			this.table_options.filterable = ['inventary_product.product.name','inventary_product.product.description','inventary_product.unit_id'];
+			this.table_options.sortable = ['inventary_product.product.name','inventary_product.product.description','inventary_product.unit.name'];
+			this.table_options.filterable = ['inventary_product.product.name','inventary_product.product.description','inventary_product.unit.name'];
 
 		},
 		methods: {

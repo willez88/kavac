@@ -30,7 +30,7 @@ class CreateWarehouseMovementsTable extends Migration
                 $table->integer('type')->nullable()->comment('Tipo de movimiento (0 => Compras,1 => Interno, 2 => Venta)');
 
                 $table->string('observation')->nullable()->comment('Observaciones sobre la operación');
-                $table->boolean('complete')->defaul(false)->comment('Indica si la operación fue realizada o completada correctamente');
+                $table->boolean('complete')->default(false)->comment('Indica si la operación fue realizada o completada correctamente');
 
 
                 /*

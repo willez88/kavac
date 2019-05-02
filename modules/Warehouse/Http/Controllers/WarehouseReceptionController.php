@@ -49,8 +49,10 @@ class WarehouseReceptionController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de las Recepciones o Ingresos de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
@@ -59,8 +61,10 @@ class WarehouseReceptionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * Muestra el formulario para registrar un nuevo Ingreso de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function create()
     {
@@ -68,9 +72,11 @@ class WarehouseReceptionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y Registra un nuevo Ingreso de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -114,7 +120,7 @@ class WarehouseReceptionController extends Controller
 
             $movement = WarehouseMovement::create([
                     'type' => 0,
-                    'observation' => 'Registro manual de productos en el inventario del almacén',
+                    'description' => 'Registro manual de productos en el inventario del almacén',
                     'complete' => true,
                     'warehouse_inst_finish_id' => $inst_ware->id,
                     'user_id' => Auth::id(),
@@ -127,11 +133,10 @@ class WarehouseReceptionController extends Controller
                 $value = $product['unit_value'];
 
                 // Se busca en el inventario por producto y unidad si existe un registro previo
-                // Para multiples instituciones cambiar en tabla warehouse_inventary_product warehouse_id por warehouse_institution_warehouse_id
 
-                $inventary = WarehouseInventaryProduct::where('product_id', $product_id)->where('unit_id',$unit)->where('warehouse_id',$request->warehouse_id)->where('unit_value',$value)->get();
+                $inventary = WarehouseInventaryProduct::where('product_id', $product_id)->where('unit_id',$unit)->where('warehouse_institution_id',$inst_ware->id)->where('unit_value',$value)->get();
                 // Si existe un registro previo se verifican los atributos del nuevo ingreso
-                if (count($inventary) > 0 ){
+                if ( count($inventary) > 0 ){
 
                     foreach ($inventary as $product_inventary) {
                         $equal = true;
@@ -168,20 +173,18 @@ class WarehouseReceptionController extends Controller
                                 'movement_id' => $movement->id,
                                 'inventary_product_id' => $product_inventary->id,
                             ]);
-                            return response()->json(['result' => true],200);
                             
                         }
                     }
                 }
                 //Si no existe un registro previo de ese producto en inventario o algún atributo es diferente (se genera un nuevo registro)
-                else if ( ( count($inventary) == 0) || ($equal === false)  ) {
-                    
+                else if ( (count($inventary) == 0) || ($equal == false)  ) {
                     $product_inventary = WarehouseInventaryProduct::create([
                         'product_id' => $product_id,
                         'exist' => $quantity,
                         'unit_id' => $unit,
                         'unit_value' => $value,
-                        'warehouse_id' => $request->warehouse_id,
+                        'warehouse_institution_id' => $inst_ware->id,
                     ]);
             
                     $inventary_movement = WarehouseInventaryProductMovement::create([
@@ -213,29 +216,25 @@ class WarehouseReceptionController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('warehouse::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * Muestra el formulario para editar un Ingreso de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  Integer $id Identificador único del ingreso de almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function edit($id)
     {
         $reception = WarehouseMovement::find($id);
-
         return view('warehouse::receptions.create', compact("reception"));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de los Ingresos de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @param  Integer $id Identificador único del ingreso de almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function update(Request $request, $id)
     {
@@ -268,9 +267,6 @@ class WarehouseReceptionController extends Controller
 
         $product_movements = WarehouseInventaryProductMovement::where('movement_id', $warehouse_movement->id)->get();
 
-        /*
-         * Validar si se desea registrar el ingreso en otra institucion u almacén. (multiple gestión*)
-         */
         $inst_ware = WarehouseInstitutionWarehouse::where('warehouse_id',$request->warehouse_id)
             ->where('institution_id',$request->institution_id)->first();
 
@@ -290,21 +286,17 @@ class WarehouseReceptionController extends Controller
 
                 // Se busca en el inventario por producto y unidad si existe un registro previo
 
-                $inventary = WarehouseInventaryProduct::where('product_id', $product_id)->where('unit_id',$unit)->where('warehouse_id',$request->warehouse_id)->where('unit_value',$value)->get();
+                $inventary = WarehouseInventaryProduct::where('product_id', $product_id)->where('unit_id',$unit)->where('warehouse_institution_id',$inst_ware->id)->where('unit_value',$value)->get();
                 // Si existe un registro previo se verifican los atributos del nuevo ingreso
 
-                if (!empty($inventary)){
+                if ( count($inventary) > 0){
 
                     foreach ($inventary as $product_inventary) {
                         $old_inventary = $product_movements->where('inventary_product_id', $product_inventary->id)->first();
 
                         # si no existe el registro se agrega un nuevo registro a la solicitud
-                        if(is_null($old_inventary)){
-                           $equal = false;
-                           break; 
-                        }
-                        else{
-                            $equal = true;
+                           $equal =  (is_null($old_inventary))?false:true;
+                        if( $equal == true){
                             //Verificamos que tengan los mismos atributos
 
                             foreach ($product['attributes'] as $attribute) {
@@ -318,18 +310,14 @@ class WarehouseReceptionController extends Controller
                                     $product_value = WarehouseProductValues::where('value', $val)->where('attribute_id',$product_att->id)->where('inventary_id', $product_inventary->id)->first();
 
                                 #si el valor de este atributo no existe, son diferentes
-                                    if(is_null($product_value)){
+                                    if(is_null($product_value))
                                         $equal =false;
-                                        break;
-                                    }
                                 }
-                                else{
+                                else
                                     $equal = false;
-                                    break;
-                                }
                             }
                             # Si todos los atributos de este producto son iguales ajustamos la existencia (**)
-                            if ($equal === true){
+                            if ($equal == true){
                                 
                                 if($old_inventary->quantity > $quantity){
                                     $product_inventary->exist -= $old_inventary->quantity - $quantity;
@@ -348,14 +336,13 @@ class WarehouseReceptionController extends Controller
                     }
                 }
                 //Si no existe un registro previo de ese producto en inventario o algún atributo es diferente (se genera un nuevo registro)
-                if ( ( count($inventary) == 0) || ($equal === false)  ) {
-                    
+                if ( ( count($inventary) == 0) || ($equal == false)  ) {
                     $product_inventary = WarehouseInventaryProduct::create([
                         'product_id' => $product_id,
                         'exist' => $quantity,
                         'unit_id' => $unit,
                         'unit_value' => $value,
-                        'warehouse_id' => $request->warehouse_id,
+                        'warehouse_institution_id' => $inst_ware->id,
                     ]);
             
                     $inventary_movement = WarehouseInventaryProductMovement::create([
@@ -388,21 +375,24 @@ class WarehouseReceptionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina un Ingreso de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  Integer $id Identificador único del ingreso de almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function destroy($id)
     {
         $reception = WarehouseMovement::find($id);
         $reception->delete();
-        return response()->json(['record' => $reception, 'message' => 'Success'], 200);
+        return back()->with('info', 'Fue eliminado exitosamente');
     }
 
     /**
-     * Vizualizar Información de una recepción de almacén
+     * Vizualiza la Información de una recepción o Ingreso de Almacén
      *
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  $id Identificador único del movimiento de almacén
+     * @param  Integer $id Identificador único del movimiento de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     

@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<a class="btn btn-info btn-xs btn-icon btn-action" 
-		   href="#" title="Ver información de la Recepción de Almacén" data-toggle="tooltip" 
-		   @click="initRequest('view_reception',$event)">
+		   href="#" title="Ver información del Movimiento de Almacén" data-toggle="tooltip" 
+		   @click="initRequest('view_movement',$event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="view_reception">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="view_movement">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -14,7 +14,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-read-book ico-2x"></i> 
-							Información de la Recepción Registrada
+							Información del Movimiento Registrado
 						</h6>
 					</div>
 					
@@ -34,7 +34,7 @@
 	                        
 	                        <li class="nav-item">
 	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadRequest()">
-	                                <i class="ion-arrow-swap"></i> Equipos Ingresados
+	                                <i class="ion-arrow-swap"></i> Equipos
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -43,7 +43,7 @@
 	                    	<div class="tab-pane active" id="general" role="tabpanel">
 	                    		<div class="row">        
 									<div class="col-md-12">
-										<b>Datos de la Recepción</b>
+										<b>Datos del Movimiento</b>
 									</div>
 
 							        <div class="col-md-6">
@@ -60,7 +60,7 @@
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Motivo</label>
+											<label>Description</label>
 											<input type="text"
 												data-toggle="tooltip" 
 												class="form-control"
@@ -71,18 +71,39 @@
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Almacén</label>
+											<label>Observation</label>
 											<input type="text"
 												data-toggle="tooltip" 
 												class="form-control"
-												id="warehouse"
+												id="observation"
 												disabled="true">
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Estado de la Solicitud</label>
+											<label>Almacén de Origen</label>
+											<input type="text"
+												data-toggle="tooltip" 
+												class="form-control"
+												id="warehouse_init"
+												disabled="true">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Almacén Destino</label>
+											<input type="text"
+												data-toggle="tooltip" 
+												class="form-control"
+												id="warehouse_finish"
+												disabled="true">
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Estado del Movimiento</label>
 											<input type="text"
 												data-toggle="tooltip" 
 												class="form-control"
@@ -131,7 +152,7 @@
 			}
 		},
 		props: {
-		reception: Object, 
+		movement: Object, 
 		},
 		created() {
 			this.table_options.headings = {
@@ -149,11 +170,13 @@
 		methods: {
 
             fillRequest(){         
-            	$(".modal-body #id").val( this.reception.id );
-            	$(".modal-body #date_init").val( this.reception.created_at );
-            	$(".modal-body #description").val( this.reception.description );
-            	$(".modal-body #warehouse").val( this.reception.finish.warehouse.name );
-            	$(".modal-body #state").val( (this.reception.complete)? "Completado":"Pendiente por Ejecutar" );
+            	$(".modal-body #id").val( this.movement.id );
+            	$(".modal-body #date_init").val( this.movement.created_at );
+				$(".modal-body #observation").val( (this.movement.observation != null)? this.movement.observation:'N/A');
+            	$(".modal-body #description").val( this.movement.description );
+            	$(".modal-body #warehouse_init").val( this.movement.start.warehouse.name );
+            	$(".modal-body #warehouse_finish").val( this.movement.finish.warehouse.name );
+            	$(".modal-body #state").val( (this.movement.complete)? "Completado":"Pendiente por Ejecutar" );
             },
 
 			initRequest(modal_id,event) {
@@ -175,8 +198,8 @@
 
 				axios.get('/' + this.route_list +index).then(response => {
 					fields = response.data.records.product_movements;
-	                vm.reception.institution_id = response.data.records.finish.institution_id;
-	                vm.reception.warehouse_id = response.data.records.finish.warehouse_id;
+	                vm.movement.institution_id = response.data.records.finish.institution_id;
+	                vm.movement.warehouse_id = response.data.records.finish.warehouse_id;
 	                vm.records = [];
 
 	                $.each(fields,function(index,campo){

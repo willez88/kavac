@@ -37,11 +37,15 @@
             </a>
         </li>
         @endif
-        <li>
+        <li data-toggle="tooltip" data-placement="right"
+                        title="Gestiona la generación de reportes del inventario de almacenes (por producto, por almacén.)">
             <a href="#">Reportes</a>
-            <ul class="submenu">
-                <li><a href="#">Reporte 1</a></li>
-                <li><a href="#">Reporte 2</a></li>
+            <ul class="submenu" style="{!! display_submenu('report') !!}">
+                <li title="Reporte de Inventario de Productos de Almacén" data-toggle="tooltip"
+            data-placement="right"
+            class='{!! set_active_menu('warehouse.report.create') !!}'>
+                    <a href="{{ route('warehouse.report.create') }}">Inventario de Productos</a>
+                </li>
             </ul>
         </li>
     </ul>

@@ -35,8 +35,10 @@ class WarehouseProductUnitController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de las Unidades Métricas Registradas
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
@@ -44,9 +46,11 @@ class WarehouseProductUnitController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y Registra una nueva Unidad Métrica
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -64,9 +68,12 @@ class WarehouseProductUnitController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de las Unidades Métricas Registradas
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @param  \Modules\Warehouse\Models\WarehouseProductUnit $unit (Registro a ser actualizado)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function update(Request $request, WarehouseProductUnit $unit)
     {
@@ -83,14 +90,24 @@ class WarehouseProductUnitController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina una Unidad Métrica Registrada
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Warehouse\Models\WarehouseProductUnit $unit (Registro a ser eliminado)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function destroy(WarehouseProductUnit $unit)
     {
         $unit->delete();
         return response()->json(['record' => $unit, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Muestra una lista de Unidades Métricas para elementos del tipo select
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Array con los registros a mostrar
+     */
 
     public function vueList()
     {

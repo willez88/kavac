@@ -47,7 +47,7 @@
 								@foreach($receptions as $reception)
 									<tr>
 										<td>{{ $reception->id }}</td>
-										<td>{{ $reception->observation }}</td>
+										<td>{{ $reception->description }}</td>
 										<td>{{ $reception->finish->warehouse->name }}</td>
 										<td>{{ $reception->created_at }}</td>
 										<td>{{ ($reception->complete)?'Completado':'Pendiente' }}</td>

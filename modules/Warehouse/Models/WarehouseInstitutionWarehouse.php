@@ -42,7 +42,7 @@ class WarehouseInstitutionWarehouse extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['institution_id','warehouse_id','manage'];
+    protected $fillable = ['institution_id','warehouse_id','manage', 'main'];
 
     /**
      * Método que obtiene el almacén gestionado por la institucion
@@ -66,6 +66,11 @@ class WarehouseInstitutionWarehouse extends Model implements Auditable
         return $this->belongsTo('Modules\Warehouse\Models\Warehouse','warehouse_id')->with('country','estate','city');
     }
 
+    public function inventaryProduct()
+    {
+        return $this->hasMany('Modules\Warehouse\Models\WarehouseInventaryProduct','warehouse_institution_id');
+    }
+
     /**
      * Método que obtiene los Movimiento realizados por un almacén y/o una institución dada
      *
@@ -77,8 +82,4 @@ class WarehouseInstitutionWarehouse extends Model implements Auditable
         return $this->hasMany('Modules\Warehouse\Models\WarehouseMovement');
     }
 
-    public function scopeInstitutionManageWarehouse($query,$warehouse,$institution){
-        $query->where('institution_id','=',$institution)
-              ->where('warehouse_id','=',$warehouse);
-    }
 }

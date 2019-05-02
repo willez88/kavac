@@ -42,7 +42,7 @@ class WarehouseInventaryProduct extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['exist','reserved','product_id','unit_id','warehouse_id','unit_value'];
+    protected $fillable = ['exist','reserved','product_id','unit_id','unit_value','warehouse_institution_id'];
 
     /**
      * Método que obtiene el producto gestionado
@@ -74,10 +74,10 @@ class WarehouseInventaryProduct extends Model implements Auditable
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return Objeto con el registro relacionado al modelo Warehouse
      */
-
-    public function warehouse()
+    
+    public function warehouseInstitution()
     {
-        return $this->belongsTo('Modules\Warehouse\Models\Warehouse','warehouse_id');
+        return $this->belongsTo('Modules\Warehouse\Models\WarehouseInstitutionWarehouse','warehouse_institution_id');
     }
 
     public function productMovements()

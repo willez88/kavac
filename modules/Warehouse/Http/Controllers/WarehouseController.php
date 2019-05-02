@@ -5,6 +5,7 @@ namespace Modules\Warehouse\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Warehouse\Models\Warehouse;
@@ -40,23 +41,41 @@ class WarehouseController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de los Almacenes Registrados
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  $institution  Identificador único de la institución que gestiona el almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function index()
+
+    public function index($institution = null)
     {
-        return response()->json(['records' => Warehouse::with('country','estate','city')->with(['pivot' =>
-                function($query){
-                    $query->with('institution');
-                }])->get()],200);
-        
-        //return response()->json(['records' => Warehouse::with('pivot','country','estate','city')->get()], 200);
+        if(!is_null($institution)){
+            return response()->json(['records' => WarehouseInstitutionWarehouse::where('institution_id', $institution)
+                ->with(['warehouse' => 
+                    function($query){
+                        $query->with('country','estate','city');
+                    },'institution']
+                )->get()], 200);
+        }
+        else{
+            $institution = Institution::where('active',true)->where('default',true)->first();
+            $institution = $institution->id;
+            return response()->json(['records' => WarehouseInstitutionWarehouse::where('institution_id', $institution)
+                ->with(['warehouse' => 
+                    function($query){
+                        $query->with('country','estate','city');
+                    },'institution']
+                )->get()], 200);
+        }
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y Registra un nuevo Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -69,35 +88,59 @@ class WarehouseController extends Controller
             
         ]);
 
-        $warehouse = Warehouse::create([
-            'name' => $request->input('name'),
-            'address' => $request->input('address'),
-            'country_id' => $request->input('country_id'),
-            'estate_id' => $request->input('estate_id'),
-            'city_id' => $request->input('city_id'),
-            'main' => !empty($request->main)?$request->input('main'):false,
-            'active' => !empty($request->active)?$request->input('active'):false,
-        ]);
-        if ( empty($request->institution_id)){
-            $institution = Institution::where('active',true)->where('default',true)->first();
-        }
-        $institution_id =  empty($request->institution_id)?$institution->id:$request->institution_id;
+            $warehouse = Warehouse::create([
+                'name' => $request->input('name'),
+                'address' => $request->input('address'),
+                'country_id' => $request->input('country_id'),
+                'estate_id' => $request->input('estate_id'),
+                'city_id' => $request->input('city_id'),
+                'active' => !empty($request->active)?$request->input('active'):false,
+            ]);
+            if ( empty($request->institution_id)){
+                $institution = Institution::where('active',true)->where('default',true)->first();
+            }
+            $institution_id =  empty($request->institution_id)?$institution->id:$request->institution_id;
 
-        $warehouse_institution = WarehouseInstitutionWarehouse::create([
-            'institution_id' => $institution_id,
-            'warehouse_id' => $warehouse->id,
-        ]);
+            $warehouse_institution = WarehouseInstitutionWarehouse::create([
+                'institution_id' => $institution_id,
+                'warehouse_id' => $warehouse->id,
+                'main' => !empty($request->main)?$request->input('main'):false,
+            ]);
+            
+
+            $setting = Setting::where('active', true)->first();
+            
+            if( is_null($setting) || ($setting->multi_warehouse == false) ){
+                $inst_wares = WarehouseInstitutionWarehouse::where('institution_id', $institution_id)->with('warehouse')->get();
+
+                foreach ($inst_wares as $inst_ware) {
+
+                    if($inst_ware->warehouse_id != $warehouse->id){
+                        
+                        $record = Warehouse::find($inst_ware->warehouse_id);
+                        $record->active = ($warehouse->active == true)?false:$record->active;
+                        $record->save();
+                        if(!empty($request->main) && ($inst_ware->main == $request->main)){
+                            $inst_ware->main = !$inst_ware->main;
+                            $inst_ware->save();
+                        }
+                    }
+                }                
+            }
 
         return response()->json(['record' => $warehouse, 'message' => 'Success'], 200);
     }
 
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de los Almacenes Registrados
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @param  \Modules\Warehouse\Models\Warehouse  $warehouse (Datos del almacén)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function update(Request $request,Warehouse $warehouse)
+    public function update(Request $request, Warehouse $warehouse)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
@@ -113,26 +156,69 @@ class WarehouseController extends Controller
         $warehouse->estate_id = $request->input('estate_id');
         $warehouse->city_id = $request->input('city_id');
 
-        $warehouse->main = !empty($request->main)?$request->input('main'):false;
         $warehouse->active = !empty($request->active)?$request->input('active'):false;
         $warehouse->save();
+
+        if ( empty($request->institution_id)){
+                $institution = Institution::where('active',true)->where('default',true)->first();
+            }
+            $institution_id =  empty($request->institution_id)?$institution->id:$request->institution_id;
+
+            $warehouse_institution = WarehouseInstitutionWarehouse::where('institution_id', $institution_id)
+                                    ->where('warehouse_id', $warehouse->id)->first();
+
+            $setting = Setting::where('active', true)->first();
+            
+            if( is_null($setting) || ($setting->multi_warehouse == false) ){
+                $inst_wares = WarehouseInstitutionWarehouse::where('institution_id', $institution_id)->with('warehouse')->get();
+
+                foreach ($inst_wares as $inst_ware) {
+
+                    if($inst_ware->warehouse_id != $warehouse->id){
+                        
+                        $record = Warehouse::find($inst_ware->warehouse_id);
+                        $record->active = ($warehouse->active == true)?false:$record->active;
+                        $record->save();
+                        if(!empty($request->main) && ($inst_ware->main == $request->main)){
+                            $inst_ware->main = !$inst_ware->main;
+                            $inst_ware->save();
+                        }
+                    }
+                }                
+            }
  
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina un Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  Integer $id Identificador único del registro
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function destroy(WarehouseInstitutionWarehouse $warehouse)
+    public function destroy($id)
     {
+        $inst_ware = WarehouseInstitutionWarehouse::find($id);
+        $warehouse = Warehouse::find($inst_ware->warehouse_id);
+        $inst_ware->delete();
         $warehouse->delete();
         return response()->json(['record' => $warehouse, 'message' => 'Success'], 200);
+
     }
+
+    /**
+     * Devuelve 
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Warehouse\Models\Warehouse $warehouse (Datos del almacén)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
 
     public function vueList(){
         return template_choices('Modules\Warehouse\Models\Warehouse','name','',true);
     }
+
 
     public function manage($id){
 
@@ -140,10 +226,12 @@ class WarehouseController extends Controller
         $warehouse_inst->manage = !$warehouse_inst->manage;
         $warehouse_inst->save();
 
-        return response()->json(['records' => Warehouse::with('country','estate','city')->with(['pivot' =>
+        return response()->json(['records' => WarehouseInstitutionWarehouse::where('institution_id', $warehouse_inst->institution_id)
+                ->with(['warehouse' => 
                     function($query){
-                        $query->with('institution');
-                    }])->get(),'manage' => $warehouse_inst->manage],200);
+                        $query->with('country','estate','city');
+                    },'institution']
+                )->get(),'manage' => $warehouse_inst->manage],200);
     }
 
     /**
@@ -155,6 +243,7 @@ class WarehouseController extends Controller
      */
 
     public function getWarehouses($institution = null){
+
         /*
          *  Si no hay datos sobre la institución de gestión se retornan los almacenes de la institucion por defecto y activa según la configuración del sistema
          */
@@ -172,5 +261,6 @@ class WarehouseController extends Controller
             array_push($options, ['id' => $rec->id, 'text' => $text]);
         }
         return $options;
+        
     }
 }

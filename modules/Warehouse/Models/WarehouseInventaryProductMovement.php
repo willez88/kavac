@@ -44,7 +44,7 @@ class WarehouseInventaryProductMovement extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['quantity', 'new_value', 'reference', 'user_id', 'movement_id','inventary_product_id'];
+    protected $fillable = ['quantity', 'new_value', 'reference', 'user_id', 'movement_id','inventary_product_id','inventary_product_init_id'];
 
     /**
      * Método que obtiene el inventario del producto

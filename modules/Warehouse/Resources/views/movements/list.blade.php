@@ -36,7 +36,7 @@
 							<thead>
 								<tr class="text-center">			
 									<th>Código</th>
-									<th>Motivo</th>
+									<th>Descripción</th>
 									<th>Origen</th>
 									<th>Destino</th>
 									<th>Estado</th>
@@ -48,7 +48,7 @@
 									@if(!is_null($movement->start))
 										<tr>
 											<td>{{ $movement->id }}</td>
-											<td>{{ $movement->motive }}</td>
+											<td>{{ $movement->description }}</td>
 											<td>{{ isset($movement->start->warehouse)?$movement->start->warehouse->name:'' }}</td>
 											<td>{{ $movement->finish->warehouse->name }}</td>
 											<td>{{ ($movement->complete)?'Completado':'Pendiente' }}</td>
@@ -56,6 +56,19 @@
 											<td width="10%" class="text-center">
 												<div class="d-inline-flex">
 													
+													<warehouse-movement-info 
+														route_list="warehouse/movements/vue-info/"
+														:movement="{{$movement}}">
+													</warehouse-movement-info>
+
+													@role(['admin','warehouse'])
+														@if(!($movement->complete == true))
+
+														<warehouse-movement-pending
+															:movementid="{{$movement->id}}">
+														</warehouse-movement-pending>
+														@endif
+													@endrole
 
 													{!! Form::open(['route' => ['warehouse.movement.edit', $movement], 'method' => 'GET']) !!}
 													<button class="btn btn-warning btn-xs btn-icon btn-action"  

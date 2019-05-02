@@ -43,9 +43,12 @@ class WarehouseRequestController extends Controller
         $this->middleware('permission:warehouse.request.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:warehouse.request.delete', ['only' => 'destroy']);
     }
+
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de las Solicitudes de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
@@ -54,8 +57,10 @@ class WarehouseRequestController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * Muestra el formulario para registrar una nueva solicitud de almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function create()
     {
@@ -66,9 +71,11 @@ class WarehouseRequestController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y Registra una nueva solicitud de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -108,8 +115,11 @@ class WarehouseRequestController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * Muestra el formulario para editar una solicitud de  almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  Integer $id Identificador único del ingreso de almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function edit($id)
     {
@@ -119,9 +129,12 @@ class WarehouseRequestController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de las Solicitudes de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function update(Request $request, $id)
     {
@@ -163,6 +176,8 @@ class WarehouseRequestController extends Controller
                         $old_request->save();
                     }
                     else if($exist_real > $product['requested']){
+                        $inventary_product->reserved += $product['requested'];
+                        $inventary_product->save();
                         WarehouseRequestProduct::create([
                             'warehouse_inventary_product_id' => $inventary_product->id,
                             'warehouse_request_id' => $warehouse_request->id,
@@ -176,8 +191,32 @@ class WarehouseRequestController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Confirma la entrega de una solicitud de almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+
+    public function approved_request(Request $request, $id){
+        $warehouse_request = WarehouseRequest::find($id);        
+        if(!is_null($warehouse_request)){
+            $warehouse_request->observation = !empty($request->observation)?$request->observation:'N/A';
+            $warehouse_request->delivered = true;
+            $warehouse_request->state = 'Entregado';
+            $warehouse_request->delivery_date = now();
+            $warehouse_request->save();
+            return response()->json(['result' => true],200);
+        }
+    }
+
+    /**
+     * Elimina una Solicitud de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function destroy($id)
     {
@@ -201,16 +240,19 @@ class WarehouseRequestController extends Controller
                     function($query){
                         $query->with('value');
                     }]);
-            },'warehouse','rule'])->get();
+            },'warehouseInstitution'=> function($query){
+                $query->with('warehouse');
+
+            },'rule'])->get();
 
         return response()->json(['records' => $warehouse_product], 200);
     }
 
     /**
-     * Vizualizar Información de una solicitud de almacén
+     * Vizualiza Información de una solicitud de almacén
      *
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  $id Identificador único de la solicitud de almacén
+     * @param  Integer $id Identificador único de la solicitud de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     
@@ -220,7 +262,7 @@ class WarehouseRequestController extends Controller
                 function($query){
                     $query->with(['InventaryProduct' => 
                         function($query){
-                            $query->with('product');
+                            $query->with('product','unit');
                         }]);
                 }])->first()], 200);
     }

@@ -10,6 +10,16 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Warehouse\Models\WarehouseClose;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @class WarehouseCloseController
+ * @brief Controlador de los Cierres de Almacén de una Institución
+ * 
+ * Clase que gestiona los Cierres de Almacén
+ * 
+ * @author Henry Paredes (henryp2804@gmail.com)
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
+
 class WarehouseCloseController extends Controller
 {
     use ValidatesRequests;
@@ -26,8 +36,10 @@ class WarehouseCloseController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de los Cierres de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
@@ -35,9 +47,11 @@ class WarehouseCloseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y Registra un nuevo Cierre de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -62,9 +76,12 @@ class WarehouseCloseController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de los Cierres de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @param  \Modules\Warehouse\Models\WarehouseClose  $close (Datos del cierre de almacén)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function update(Request $request,WarehouseClose $close)
     {
@@ -96,14 +113,25 @@ class WarehouseCloseController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina un Cierre de Almacén
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Modules\Warehouse\Models\WarehouseClose $close (Datos del Cierre de almacén)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function destroy(WarehouseClose $close)
     {
         $close->delete();
         return response()->json(['record' => $close, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Finaliza un cierre de almacén 
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  $id Identificador único del Cierre de Almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
 
     public function close_warehouse($id)
     {        

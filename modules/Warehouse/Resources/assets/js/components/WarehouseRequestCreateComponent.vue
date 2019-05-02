@@ -40,21 +40,20 @@
 				</div>
 			
 				<div class="col-md-4">
-					<div class="form-group is-required">
-						<label>Motivo de la Solicitud</label>
-						<input type="text" data-toggle="tooltip" 
-							   title="Indique el motivo de la solicitud (requerido)" 
-							   class="form-control input-sm" 
-							   v-model="record.motive">
-                    </div>
-				</div>
-
-				<div class="col-md-4">
 					<div class=" form-group is-required">
 						<label>Dependencia Solicitante</label>
 						<select2 :options="departments"
 							v-model="record.department_id"></select2>
 					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group is-required">
+						<label>Motivo de la Solicitud</label>
+						<textarea  data-toggle="tooltip" 
+											   title="Indique el motivo de la solicitud (requerido)" 
+											   class="form-control" v-model="record.motive">
+								   </textarea>
+                    </div>
 				</div>
 				<div class="col-md-6">
 					<div class=" form-group is-required">
@@ -90,12 +89,12 @@
 			</div>
 
 			<hr>
-			<table class="table table-hover table-striped dt-responsive datatable table-warehouse">
+			<table class="table table-hover table-striped dt-responsive table-warehouse">
 				<thead>
 					<tr class="text-center">			
 						<th>
 							<label class="form-checkbox">
-								<input type="checkbox" v-model="selectAll" @click="select">
+								<input type="checkbox" v-model="selectAll" @click="select()">
 							</label>
 						</th>
 						<th>Nombre</th>
@@ -109,15 +108,16 @@
 
 
 				<tbody>
-					<tr v-for="(field,index) in products">
+					<tr v-for="(field,index) in products"
+					:class="(newSelected(field.id))?'selected-row':''">
 						<td class="text-center">
 							<label class="form-checkbox">
-								<input type="checkbox" :value="field.id" v-model="selected">
+								<input type="checkbox" :value="field.id" :id="'checkbox_'+field.id" v-model="selected">
 							</label>
 						</td>
 						<td> {{ field.product.name }} </td>
 						<td> {{ field.product.description }} </td>
-						<td> {{ field.warehouse.name }} </td>
+						<td> {{ field.warehouse_institution.warehouse.name }} </td>
 						<td>
 							<b>Existencia:</b> {{ field.exist }}<br>
 							<b>Reservados:</b> {{ (field.reserved === null)? '0':field.reserved }}<br>
@@ -131,7 +131,7 @@
 						</td>
 						<td class="td-with-border" width="10%">
 							<div>
-								<input type="number" class="form-control input-sm" data-toggle="tooltip" min=0 :max="field.exist" :id="'request_product_'+field.id" onfocus="this.select()">
+								<input type="number" class="form-control input-sm" data-toggle="tooltip" min=0 :max="field.exist" :id="'request_product_'+field.id" onfocus="this.select()" @input="selectElement(field.id)">
 							</div>
 						</td>
 					</tr>
@@ -173,7 +173,7 @@
 	    font-size: .6rem;
 	    text-align: right;
 	}
-	.table-warehouse tbody tr.disable-row {
+	.table-warehouse tbody tr.selected-row {
 		background-color: #d1d1d1;
 	}
 	.table-warehouse tbody tr td.td-with-border {
@@ -239,11 +239,35 @@
 			select() {
 				const vm = this;
 				vm.selected = [];
-				if (!vm.selectAll) {
-					$.each(vm.products, function(index,campo){
+				$.each(vm.products, function(index,campo){
+					var checkbox = document.getElementById('checkbox_' + campo.id);
+					var input = document.getElementById('request_product_' + campo.id);
+					if(!vm.selectAll)
 						vm.selected.push(campo.id);
-					});
-				}
+					else if(checkbox && checkbox.checked){
+						checkbox.click();
+						if( input )
+							input.value = "";
+					}
+				});
+			},
+			selectElement(id){
+				var input = document.getElementById('request_product_' + id);
+	            var checkbox = document.getElementById('checkbox_' + id);
+	            if ((input.value == '')||(input.value == 0)){
+	                if(checkbox.checked){
+	                    checkbox.click();
+	                }
+	            }
+	            else if(!checkbox.checked){
+	                checkbox.click();
+	            }
+			},
+			newSelected(id){
+				var checkbox = document.getElementById('checkbox_' + id);
+				if(checkbox)
+					return checkbox.checked;
+				else return false;
 			},
 			initForm(url){
 				

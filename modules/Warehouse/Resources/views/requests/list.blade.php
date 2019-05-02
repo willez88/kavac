@@ -57,6 +57,15 @@
 													:request="{{$request}}">
 												</warehouse-request-info>
 
+												@role(['admin','warehouse'])
+													@if(($request->delivered == false))
+
+													<warehouse-request-pending
+														:requestid="{{$request->id}}">
+													</warehouse-request-pending>
+													@endif
+												@endrole
+
 												{!! Form::open(['route' => ['warehouse.request.edit', $request], 'method' => 'GET']) !!}
 												<button class="btn btn-warning btn-xs btn-icon btn-action"  
 												data-toggle="tooltip" title="Editar Solicitud">

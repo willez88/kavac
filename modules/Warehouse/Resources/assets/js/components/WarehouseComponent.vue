@@ -28,10 +28,10 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-4" v-if="multi_warehouse">
+							<div class="col-md-4" v-if="multi_institution">
 								<div class="form-group is-required">
 									<label>Institución que gestiona el Almacén:</label>
-									<select2 :options="institutions"
+									<select2 :options="institutions" @input="getWarehouses()"
 											 id="institutions_id"
 											 v-model="record.institution_id">
 									</select2>
@@ -113,24 +113,17 @@
 		                	<hr>
 		                	<v-client-table :columns="columns" :data="records" :options="table_options">
 		                		<div slot="active" slot-scope="props">
-		                			<span v-if="props.row.active">Activo</span>
+		                			<span v-if="props.row.warehouse.active">Activo</span>
 		                			<span v-else>Inactivo</span>
 		                		</div>
-		                		<div slot="institution" slot-scope="props">
-		                			<div v-for="field in props.row.pivot">
-		                				<span v-if="(record.institution_id == '')|(record.institution_id == field.institution.id)">
-		                				{{field.institution.acronym}}
-		                				</span>
-		                			</div>
-		                		</div>
-
+		                		
 		                		<div slot="id" slot-scope="props" class="text-center d-inline-flex">
 			                		<div v-if="multi_warehouse">
 				                		<button @click="warehouseManage(props.index, $event)" 
 												class="btn btn-danger btn-xs btn-icon btn-action" 
 												title="Dejar de Gestionar Almacén" data-toggle="tooltip" 
 												type="button"
-												v-if="manage">
+												v-if="props.row.manage">
 											<i class="fa fa-minus-circle"></i>
 										</button>
 										<button @click="warehouseManage(props.index,$event)" 
@@ -140,7 +133,7 @@
 				                			<i class="fa fa-plus-circle"></i>
 				                		</button>
 									</div>
-		                			<button @click="initUpdate(props.index, $event)" 
+		                			<button @click="editRecord(props.index, $event)" 
 			                				class="btn btn-warning btn-xs btn-icon btn-action" 
 			                				title="Modificar registro" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-edit"></i>
@@ -191,7 +184,6 @@
 					id:'',
 					name: '',
 					main: '',
-					active:'',
 					address: '',
 					institution_id:'',
 					country_id:'',
@@ -202,15 +194,13 @@
 
 				multi_warehouse: null,
 				multi_institution: null,
-				manage:'',
 				errors: [],
 				records: [],
-				columns: ['name', 'country.name', 'estate.name', 'city.name', 'address', 'institution','active', 'id'],
+				columns: ['warehouse.name', 'warehouse.country.name', 'warehouse.estate.name', 'warehouse.city.name', 'warehouse.address', 'institution.acronym','active', 'id'],
 				institutions: [],
 				countries: [],
 				estates: [],
 				cities: [],
-				warehouses: [],
 			}
 		},
 		methods: {
@@ -224,13 +214,22 @@
 					id: '',
 					name: '',
 					main: '',
-					active:'',
 					address: '',
 					institution_id: '',
 					country_id:'',
 					estate_id:'',
 					city_id:'',
 				};
+
+				this.errors = [];
+			},
+			getWarehouses(){
+				const vm = this;
+				axios.get('warehouses',vm.record.institution_id).then(response => {
+					if(typeof(response.data.records) != 'undefied')
+						vm.records = response.data.records;
+				});
+
 			},
 			getSetting(url){
 				const vm = this;
@@ -250,36 +249,51 @@
 				axios.get(url).then(response => {
 					if (typeof(response.data.records) !== "undefined") {
 						vm.records = response.data.records;
-						vm.manage = response.data.manage;
 					}
 				});
 			},
-			addMinus(index){
-				const vm = this;
-				var field = {};
-				field = this.records[index - 1];
-	            $.each(field.pivot,function(index,campo){
-	                if(campo.warehouse_id === field.id){
-	                	console.log(campo.manage);
-	                    return campo.manage;
-	                }
-	            });
+			editRecord(index, event){
+				var vm = this;
+				vm.errors = [];
+				vm.record = vm.records[index - 1].warehouse;
+				var elements = {
+					active: vm.record.active,
+					main: vm.records[index - 1].main,
+				};
+
+				$.each(elements, function (el, value) {
+					if ($("input[name=" + el + "]").hasClass('bootstrap-switch')) {
+						/** verifica los elementos bootstrap-switch para seleccionar el que corresponda según los registros del sistema */
+						$("input[name=" + el + "]").each(function () {
+							if ($(this).val() === value) {
+								$(this).bootstrapSwitch('state', value, true);
+							}
+						});
+					}
+					if (value === true || value === false) {
+						$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
+					}
+					
+				});
+
+				event.preventDefault();
+
 			},
 		},
 		created() {
 			this.table_options.headings = {
-				'name': 'Nombre',
-				'country.name': 'Pais',
-				'estate.name': 'Estado',
-				'city.name': 'Ciudad',
-				'address': 'Dirección',
-				'institution': 'Gestionado por',
+				'warehouse.name': 'Nombre',
+				'warehouse.country.name': 'Pais',
+				'warehouse.estate.name': 'Estado',
+				'warehouse.city.name': 'Ciudad',
+				'warehouse.address': 'Dirección',
+				'institution.acronym': 'Gestionado por',
 				'active': 'Estatus',
 				'id': 'Acción'
 			};
 			
-			this.table_options.sortable = ['name','country.name', 'estate.name', 'city.name', 'address', 'institution'];
-			this.table_options.filterable = ['name','country.name', 'estate.name', 'city.name', 'address', 'institution'];
+			this.table_options.sortable = ['warehouse.name', 'warehouse.country.name', 'warehouse.estate.name', 'warehouse.city.name', 'warehouse.address', 'institution.acronym'];
+			this.table_options.filterable = ['warehouse.name', 'warehouse.country.name', 'warehouse.estate.name', 'warehouse.city.name', 'warehouse.address', 'institution.acronym'];
 
 			this.getCountries();
 			this.getInstitutions();
