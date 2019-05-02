@@ -1,7 +1,7 @@
 <template>
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de las Reglas de Almacén" data-toggle="tooltip" 
+		   href="#" title="Reglas de Abastecimiento del Almacén" data-toggle="tooltip" 
 		   @click="addRecord('add_rule', 'rules', $event)">
 			<i class="icofont icofont-papper ico-3x"></i>
 			<span>Reglas de Almacén</span>
@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-papper ico-2x"></i> 
-							Reglas de Almacén
+							Reglas de Abastecimiento del Almacén
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -25,93 +25,101 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-12">
-								<b>Seleccione el almacén donde se aloja el producto</b>
-							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Institución que gestiona el Almacén:</label>
 									<select2 :options="institutions" 
-											 v-model="record.institution_id"></select2>
+											 v-model="record.institution_id"
+											 @input="getWarehouses(record.institution_id)">
+									</select2>
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Almacén:</label>
 									<select2 :options="warehouses" 
-											 v-model="record.warehouse_id"></select2>
+											 v-model="record.warehouse_id"
+											 @input="getWarehouseProducts()">
+									</select2>
 			                    </div>
 							</div>
 						</div>
 
-						<div class="row">
-							<div class="col-md-12">
-								<b>Seleccione un Producto</b>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Producto:</label>
-									<select2 :options="products" 
-											 v-model="record.product_id"></select2>
-			                    </div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Unidad Métrica:</label>
-									<select2 :options="units" 
-											 v-model="record.unit_id"></select2>
-			                    </div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group is-required">
-									<label>Cantidad Minima del Producto:</label>
-									<input type="number" placeholder="Cantidad Minima del Producto" data-toggle="tooltip" 
-										   title="Indique la cantidad minima almacenable del producto (requerido)" 
-										   class="form-control input-sm" v-model="record.min">
-									<input type="hidden" v-model="record.id">
-			                    </div>
-							</div>
-						</div>
 	                </div>
 
 	                <div class="modal-body modal-table">
 	                	<hr>
-	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="ruleUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
-		                				title="Modificar registro" data-toggle="tooltip" type="button">
-		                			<i class="fa fa-edit"></i>
-		                		</button>
-		                		<button @click="deleteRecord(props.index, 'rules')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
-										type="button">
-									<i class="fa fa-trash-o"></i>
-								</button>
-	                		</div>
-	                	</v-client-table>
+	                	<table class="table table-hover table-striped dt-responsive table-movement">
+							<thead>
+								<tr class="text-center">
+									<th>Nombre</th>
+									<th>Descripción</th>
+									<th>Inventario</th>
+									<th>Detalles</th>
+									<th>Reglas</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+
+
+							<tbody>
+								<tr v-for="(field,index) in this.products">
+									<td> {{ field.product.name }} </td>
+									<td> {{ field.product.description }} </td>
+									<td>
+										<b>Almacén:</b> {{ field.warehouse_institution.warehouse.name }}<br>
+										<b>Existencia:</b> {{ field.exist }}<br>
+										<b>Reservados:</b> {{ (field.reserved === null)? '0':field.reserved }}
+									</td>
+									<td>
+										<div v-if="field.product.attribute" v-for="att in field.product.attributes">
+											<b>{{ att.name+':'}}</b> {{ att.value.value}}
+										</div>
+										<b>Valor:</b> {{ field.unit_value }}<br>
+									</td>
+									<td class="td-with-border" width="10%">
+										<div v-if="editIndex == index">
+											<input type="number" class="form-control input-sm" data-toggle="tooltip" :id="'rule_product_'+field.id" onfocus="this.select()">
+										</div>
+										<div v-else>
+											<b>Minimo:</b> {{ (field.rule == null)? 'N/A':field.rule.min }}
+										</div>
+									</td>
+									<td class="text-center d-inline-flex">
+										<div v-if="editIndex != index">
+											<button @click="editRule(index, $event)" 
+					                				class="btn btn-warning btn-xs btn-icon btn-action" 
+					                				title="Modificar registro" data-toggle="tooltip" type="button">
+					                			<i class="fa fa-edit"></i>
+					                		</button>
+					                	</div>
+				                		<div v-else>
+				                			<button @click="saveRule(index,$event)" 
+					                				class="btn btn-success btn-xs btn-icon btn-action" 
+					                				title="Guardar Regla" data-toggle="tooltip" type="save">
+					                			<i class="fa fa-save"></i>
+					                		</button>
+					                		<button @click="cancelEdit(index, $event)" 
+					                				class="btn btn-danger btn-xs btn-icon btn-action" 
+					                				title="Modificar registro" data-toggle="tooltip" type="button">
+					                			<i class="fa fa-ban"></i>
+					                		</button>
+				                		</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+
 	                </div>
 
 	                <div class="modal-footer">
-	                	<button type="button" @click="reset()"
-								class="btn btn-default btn-icon btn-round"
-								title ="Borrar datos del formulario">
-								<i class="fa fa-eraser"></i>
-						</button>
-	                	
 	                	<button type="button" 
 	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
 	                			data-dismiss="modal"
 	                			title="Cancelar y regresar">
 	                			<i class="fa fa-ban"></i>
 	                	</button>
-
-	                	<button type="button" @click="createRecord('warehouse/rules')" 
-	                			class="btn btn-success btn-icon btn-round btn-modal-save"
-	                			title="Guardar registro">
-	                		<i class="fa fa-save"></i>
-		                </button>
 		            </div>
 		            
 		        </div>
@@ -126,19 +134,16 @@
 			return {
 				record: {
 					id:'',
-					min: '',
-					product_id: '',
+					institution_id: '',
 					warewhouse_id: '',
-					unit_id: '',
 				},
 
-				products: [],
+				editIndex: null,
 				warehouses: [],
 				institutions: [],
-				units: [],
+				products: [],
 				errors: [],
 				records: [],
-				columns: ['inventary.product.name','min','id'],
 			}
 		},
 		methods: {
@@ -150,58 +155,122 @@
 			reset() {
 				this.record = {
 					id: '',
-					min: '',
-					inventary: '',
-					product_id: '',
+					institution_id: '',
 					warehouse_id: '',
-					unit_id: '',
 				};
 			},
-			getProducts(url) {
+			getWarehouses(id){
 				const vm = this;
-				axios.get('/' + url).then(response => {
-					if (typeof(response.data) !== "undefined") {
-						vm.products = response.data;
-					}
-				});
+				var url = '/warehouse/institution/';
+				vm.warehouses = [];
+				if (id != ''){
+					axios.get(url + id).then(response => {
+						if(typeof(response.data) != "undefined")
+							vm.warehouses = response.data;
+					});
+				}
 			},
-			getWarehouses(url) {
+			getWarehouseProducts(){
 				const vm = this;
-				axios.get(url).then(response => {
-					if(typeof(response.data) !== "undefined"){
-						vm.warehouses = response.data;
-					}
-				});
+				var warehouse = vm.record.warehouse_id;
+				var institution = vm.record.institution_id;
+
+				vm.products = [];
+				if(( warehouse != '') && (institution != '')){
+					var url = "/warehouse/rules/vue-list-products/";
+					axios.get(url + warehouse + '/' + institution).then(response => {
+						if(typeof(response.data.records) != "undefined"){
+							vm.products = response.data.records;
+						}
+					});
+				}else{
+				var url = '/warehouse/rules/vue-list-products';
+					axios.get(url).then(function (response) {
+						if(typeof(response.data.records) !== "undefined")
+							vm.products = response.data.records;
+					});
+				}
 			},
-			getUnits(url) {
+			editRule(index, event){
 				const vm = this;
-				axios.get(url).then(response => {
-					if(typeof(response.data) !== "undefined"){
-						vm.units = response.data;
-					}
-				});
+				vm.editIndex = index;
+				event.preventDefault();
 			},
-			ruleUpdate(index, event){
-				this.initUpdate(index,event);
-				this.record.product_id = this.record.inventary.product_id;
-				this.record.warehouse_id = this.record.inventary.warehouse_id;
-				this.record.unit_id = this.record.inventary.unit_id;
+			cancelEdit(index, event){
+				const vm = this;
+				vm.editIndex = null;
+				event.preventDefault();
 			},
+			saveRule(index, event){
+				const vm = this;
+				var fields = vm.products[index];
+				var element = document.getElementById('rule_product_'+fields.id);
+				if(element){
+					var field = {
+						id: fields.id,
+						min: element.value
+					};
+					if(fields.rule == null){
+	                    axios.post('/warehouse/rules', field).then(function (response) {
+	                        if (response.data.result) {
+	                            vm.showMessage('store');
+	                            vm.editIndex = null;
+	                            vm.getWarehouseProducts();
+	                        }
+	                    }).catch(function (error) {
+	                        _this.errors = [];
+
+	                        if (typeof error.response != "undefined") {
+	                            for (var index in error.response.data.errors) {
+	                                if (error.response.data.errors[index]) {
+	                                    _this.errors.push(error.response.data.errors[index][0]);
+	                                }
+	                            }
+	                        }
+	                    });
+	                }
+	                else{
+	                    this.updateRule(index);
+	                }
+				}
+			},
+			updateRule(index){
+				const vm = this;
+				var fields = vm.products[index];
+				var element = document.getElementById('rule_product_'+fields.id);
+				if(element){
+					var field = {
+						id: fields.id,
+						min: element.value
+					};
+					var rule = fields.rule;
+					axios.patch('/warehouse/rules/'+rule.id, field).then(function (response) {
+	                        if (response.data.result) {
+	                            vm.showMessage('update');
+	                            vm.editIndex = null;
+	                            vm.getWarehouseProducts();
+	                        }
+	                    }).catch(function (error) {
+	                        _this.errors = [];
+
+	                        if (typeof error.response != "undefined") {
+	                            for (var index in error.response.data.errors) {
+	                                if (error.response.data.errors[index]) {
+	                                    _this.errors.push(error.response.data.errors[index][0]);
+	                                }
+	                            }
+	                        }
+	                    });
+				}
+
+			}
+			
 		},
 		created() {
-			this.table_options.headings = {
-				'inventary.product.name': 'Producto',
-				'min': 'Minimo',
-				'id': 'Acción'
-			};
-			this.table_options.sortable = ['inventary.product.name','min'];
-			this.table_options.filterable = ['inventary.product.name','min'];
 			this.getInstitutions();			
 		},
 		mounted() {
-			this.getWarehouses('/warehouse/vue-list');
-			this.getProducts('warehouse/products-list');
-			this.getUnits('/warehouse/units-list');
+			this.getWarehouseProducts();
 		},
 	}
 </script>

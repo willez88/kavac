@@ -9,6 +9,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Warehouse\Models\WarehouseInventaryRule;
 use Modules\Warehouse\Models\WarehouseInventaryProduct;
+use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @class WarehouseInventaryController
@@ -36,8 +38,10 @@ class WarehouseInventaryRuleController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de las Reglas de Inventario Registradas
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
@@ -49,40 +53,80 @@ class WarehouseInventaryRuleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra una Regla de Inventario
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
         $this->validate($request,[
             'min' => 'required',
-            'product_id' => 'required',
-            'warehouse_id' => 'required',
         ]);
-        $inventary = WarehouseInventaryProduct::where('warehouse_id',$request->warehouse_id)->where('product_id',$request->product_id)->where('unit_id',$request->unit_id)->get();
 
         $rule = WarehouseInventaryRule::create([
-            'min' => $request->input('min'),
-            'product_id' => $inventary->id,
+            'min' => $request->min,
+            'inventary_id' => $request->id,
+            'user_id' => Auth::id(),
         ]);
-
+        return response()->json(['result' => true],200);
     }
-
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de una Regla de Inventario
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @param  Integer $id (Identificador único del producto en inventario)
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $this->validate($request,[
+            'min' => 'required',
+        ]);
+        
+        $rule = WarehouseInventaryRule::where('inventary_id', $id)->first();
+        $rule->min = $request->min;
+        $rule->save();
+
+        return response()->json(['result' => true],200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
+    public function vueList($warehouse = null, $institution = null)
     {
+        if(is_null($warehouse)||is_null($institution)){
+            $warehouse_product = WarehouseInventaryProduct::with(['product'=>
+                    function($query){
+                        $query->with(['attributes'=>
+                            function($query){
+                                $query->with('value');
+                            }]);
+                    },'warehouseInstitution' =>
+                        function($query){
+                            $query->with('warehouse');
+                        },'rule'])->get();
+        }
+        else{
+            $inst_ware = WarehouseInstitutionWarehouse::where('warehouse_id',$warehouse)->where('institution_id', $institution)->first();
+
+            if($inst_ware){
+                $warehouse_product = WarehouseInventaryProduct::where('warehouse_institution_id',$inst_ware->id)
+                    ->with(['product'=>
+                        function($query){
+                            $query->with(['attributes'=>
+                                function($query){
+                                    $query->with('value');
+                                }]);
+                        },'warehouseInstitution' =>
+                            function($query){
+                                $query->with('warehouse');
+                            },'rule'])->get();
+            }
+        }
+
+        return response()->json(['records' => $warehouse_product], 200);
     }
+
+
 }
