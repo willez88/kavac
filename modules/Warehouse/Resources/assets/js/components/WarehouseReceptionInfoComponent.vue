@@ -108,11 +108,9 @@
 
 	                <div class="modal-footer">
 	                	
-	                	<button type="button" 
-	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
-	                			data-dismiss="modal"
-	                			title="Cancelar y regresar">
-	                			<i class="fa fa-ban"></i>
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                			data-dismiss="modal">
+	                		Cerrar
 	                	</button>
 		            </div>
 		        </div>

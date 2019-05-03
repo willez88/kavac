@@ -20,7 +20,7 @@
 	<div class="row">
 		<div class="col-12">
 			<warehouse-reports
-				:route_list="url()->previous()">
+				route_list="{{ url()->previous() }}">
 			</warehouse-reports>
 		</div>
 	</div>

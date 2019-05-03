@@ -70,23 +70,13 @@
 
 	                <div class="modal-footer">
 
-	                	<button type="button" @click="reset()"
-								class="btn btn-default btn-icon btn-round"
-								title ="Borrar datos del formulario">
-								<i class="fa fa-eraser"></i>
-						</button>
-	                	
-	                	<button type="button" 
-	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
-	                			data-dismiss="modal"
-	                			title="Cancelar y regresar">
-	                			<i class="fa fa-ban"></i>
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                			data-dismiss="modal">
+	                		Cerrar
 	                	</button>
-
 	                	<button type="button" @click="createAttribute('warehouse/attributes')" 
-	                			class="btn btn-success btn-icon btn-round btn-modal-save"
-	                			title="Guardar registro">
-	                		<i class="fa fa-save"></i>
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
+	                		Guardar
 		                </button>
 		            </div>
 		        </div>
