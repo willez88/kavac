@@ -259,7 +259,6 @@
 
 				// manejo de errores
 				if (this.ErrorsInForm()) {
-					alert("error")
 					return ;
 				}
 				const vm = this;

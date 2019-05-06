@@ -9,7 +9,7 @@ use Modules\Accounting\Models\AccountingSeatCategory;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
-
+use Auth;
 /**
  * @class AccountingSeatController
  * @brief Controlador de asientos contables
@@ -21,6 +21,22 @@ use Modules\Accounting\Models\AccountingAccount;
  */
 class AccountingSeatController extends Controller
 {
+    // use ValidatesRequests;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:accounting.seating.list', ['only' => 'index','unapproved']);
+        $this->middleware('permission:accounting.seating.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:accounting.seating.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:accounting.seating.delete', ['only' => 'destroy']);
+        $this->middleware('permission:accounting.seating.approve', ['only' => 'approve']);
+    }
     /**
      * Display a listing of the resource.
      * @return Response

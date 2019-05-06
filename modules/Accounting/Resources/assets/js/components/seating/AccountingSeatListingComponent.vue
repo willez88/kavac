@@ -5,12 +5,12 @@
 					<table class="table">
 						<tbody>
 							<tr>
-								<h5 class="text-left" style="display:inline; float: left; margin:0.5rem;"><strong>Referencia:</strong> {{ props.row.reference }}</h5>
+								<h6 class="text-left" style="display:inline; float: left; margin:0.5rem;"><strong>Referencia:</strong> {{ props.row.reference }}</h6>
 								
-								<h5 class="text-center" style="display:inline;"><strong>Asiento del {{ 				props.row.from_date.split('-')[2]+'-'+
+								<h6 class="text-center" style="display:inline;"><strong>Asiento Contable del {{ 				props.row.from_date.split('-')[2]+'-'+
 									props.row.from_date.split('-')[1]+'-'+
-									props.row.from_date.split('-')[0] }}</strong></h5>
-								
+									props.row.from_date.split('-')[0] }}</strong></h6>
+							
 								<button class="btn btn-danger btn-icon btn-round"
 										style="display:inline;float: right; margin: 0.5rem;"
 										@click="deleteRecord(props.index, '/accounting/seating')"
@@ -29,42 +29,43 @@
 										v-if="show=='unapproved'">
 										<i class="fa fa-check" style="text-align: center;"></i>
 								</button>
-								<button class="btn btn-info btn-icon btn-round"
+								<a class="btn btn-primary btn-icon btn-round"
 										style="display:inline;float: right; margin: 0.5rem;"
-										@click="print(props.row.id)"
+										:href="url+'/pdf/'+props.row.id"
+										target="_blank"
 										v-if="show=='approved'">
 										<i class="fa fa-print" style="text-align: center;"></i>
-								</button>
+								</a>
 							</tr>
 							<tr>
 								<td class="text-left">
-									<h5><strong>Concepto: </strong> {{ props.row.concept }}</h5>
+									<h6><strong>Concepto: </strong> {{ props.row.concept }}</h6>
 								</td>
 							</tr>
 							<tr>
 								<td class="text-left">
-									<h5><strong>Observaciones: </strong> {{ props.row.observations }}</h5>
+									<h6><strong>Observaciones: </strong> {{ props.row.observations }}</h6>
 								</td>
 							</tr>
 							<tr>
 								<td class="text-center">
-									<h5><strong>Asiento contable</strong></h5>
+									<h6><strong>Asiento contable</strong></h6>
 								</td>
 							</tr>
 							<tr>
 								<table class="table">
 									<thead>
 										<tr>
-											<td><h5><strong>CÓDIGO</strong></h5></td>
-											<td><h5><strong>DENOMINACIÓN</strong></h5></td>
-											<td><h5><strong>DEBE</strong></h5></td>
-											<td><h5><strong>HABER</strong></h5></td>
+											<td><h6><strong>CÓDIGO</strong></h6></td>
+											<td><h6><strong>DENOMINACIÓN</strong></h6></td>
+											<td><h6><strong>DEBE</strong></h6></td>
+											<td><h6><strong>HABER</strong></h6></td>
 										</tr>
 									</thead>
 									<tbody>
 										<tr v-for="record in props.row.accounting_accounts">
 											<td>
-												<h5>
+												<h6>
 													{{
 														record.account.group +'.'+
 														record.account.subgroup +'.'+
@@ -73,28 +74,28 @@
 														record.account.specific +'.'+
 														record.account.subspecific
 													}}
-												</h5>
+												</h6>
 											</td>
 											<td>
-												<h5>{{ record.account.denomination }}</h5>
+												<h6>{{ record.account.denomination }}</h6>
 											</td>
 											<td>
-												<h5>{{ record.debit }}</h5>
+												<h6>{{ record.debit }}</h6>
 											</td>
 											<td>
-												<h5>{{ record.assets }}</h5>
+												<h6>{{ record.assets }}</h6>
 											</td>
 										</tr>
 										<tr>
 											<td></td>
 											<td>
-												<h5><strong>Total Debe / Haber </strong></h5>
+												<h6><strong>Total Debe / Haber </strong></h6>
 											</td>
 											<td>
-												<h5><strong>{{ props.row.tot_debit }}</strong> </h5>
+												<h6><strong>{{ props.row.tot_debit }}</strong> </h6>
 											</td>
 											<td>
-												<h5><strong>{{ props.row.tot_assets }}</strong> </h5>
+												<h6><strong>{{ props.row.tot_assets }}</strong> </h6>
 											</td>
 										</tr>
 									</tbody>
@@ -128,14 +129,12 @@
 			})
 		},
 		methods:{
-			print:function(id) {
-				alert('print');
-			},
 			approve:function(index) {
 				var url = this.url+'/approve';
     			var records = this.records;
     			var confirmated = false;
 				var index = index - 1;
+				const vm = this;
 
 				bootbox.confirm({
 	    			title: "Aprobar Asiento?",
@@ -168,7 +167,6 @@
 	    			this.records = records;
 	    			this.showMessage('update');
 	    		}
-
 			},
 		}
 	}

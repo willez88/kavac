@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					@if(empty($seating))
+					@if(!isset($seating))
 						<accounting-seat-create :categories="{{ $categories }}" />
 					@else
 						<accounting-seat-create :categories="{{ $categories }}"
@@ -45,9 +45,12 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">Asiento Contable</h6>
+					<div class="card-btns">
+						@include('buttons.minimize')
+					</div>
 				</div>
 				<div class="card-body">
-					@if(empty($seating))
+					@if(!isset($seating))
 					<accounting-seat-create-account :accounting_accounts="{{ $AccountingAccounts }}" />
 					@else
 						<accounting-seat-create-account :accounting_accounts="{{ $AccountingAccounts }}" :seating="{{ $seating }}" route_list="{{ url('accounting/seating/unapproved') }}"/>

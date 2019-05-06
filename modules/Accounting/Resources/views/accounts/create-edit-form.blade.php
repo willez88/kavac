@@ -27,10 +27,10 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				@if(empty($account))
+				@if(!isset($account))
 					<accounting-create-edit-form :records="{{$records}}" />
 				@else
-					<accounting-create-edit-form :records="{{$records}}" 								 :account="{{$account}}" />
+					<accounting-create-edit-form :records="{{$records}}" :account="{{$account}}" />
 				@endif
 			</div>
 		</div>
