@@ -35,8 +35,8 @@
 						<div class="row">
 							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('staff_id') ? ' has-error' : '' }} is-required">
-									{!! Form::label('staff_id', 'Trabajador', []) !!}
-						            {!! Form::select('staff_id',(isset($staffs))?$staffs:[], (isset($socioeconomic_information))?$socioeconomic_information->staff->full_name:null,
+									{!! Form::label('payroll_staff_id', 'Trabajador', []) !!}
+						            {!! Form::select('payroll_staff_id',(isset($staffs))?$staffs:[], (isset($socioeconomic_information))?$socioeconomic_information->staff->full_name:null,
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
@@ -103,7 +103,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<h6 class="card-title">
-									Hijos del Trabajador <i class="fa fa-plus-circle cursor-pointer"></i>
+									Hijos del Trabajador <i class="fa fa-plus-circle cursor-pointer" onclick="add_sons();"></i>
 								</h6>
 							</div>
 						</div>
@@ -120,6 +120,10 @@
 
 @section('extra-js')
 	<script>
+
+		$(document).ready(function() {
+
+		});
 
 		/**
 		 * Permite ocultar los campos de la pareja del trabajador
@@ -139,8 +143,38 @@
 			}
 		}
 
+		var c = 0;
+		function add_sons()
+		{
+			$('#form .card-body').append(' \
+				<div class="row" id="son_'+c+'"> \
+					<div class="col-md-3"> \
+						<input type="text" name="full_name_son_'+c+'" class="form-control input-sm" placeholder="Nombres y Apellidos" required/> \
+					</div> \
+					<div class="col-md-3"> \
+						<input type="text" name="id_number_son_'+c+'" class="form-control input-sm" placeholder="Cédula de Identidad" /> \
+					</div> \
+					<div class="col-md-3"> \
+						<input type="date" name="birthdate_son_'+c+'" class="form-control input-sm" placeholder="Fecha de Nacimiento" required/> \
+					</div> \
+					<div class="col-md-3"> \
+						<button class="btn btn-sm btn-danger btn-action" type="button" \
+							title="Eliminar este dato" data-toggle="tooltip" onclick="remove_sons();"> \
+							<i class="fa fa-minus-circle"></i> \
+						</button> \
+					</div> \
+				</div>');
+			c = c + 1;
+		}
 
-		$('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
+		function remove_sons()
+		{
+			if ( c > 0 )
+			{
+				c = c - 1;
+				$('#son_'+c).remove();
+			}
+		}
 
 	</script>
 @endsection

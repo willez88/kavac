@@ -47,4 +47,26 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
         'full_name_twosome', 'id_number_twosome',
         'birthdate_twosome', 'payroll_staff_id', 'marital_status_id',
     ];
+
+    /**
+     * Método que obtiene el personal relacionado a la información socioeconómica
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return object Objeto con los registros relacionados al modelo PayrollStaff
+     */
+	public function payroll_staff()
+    {
+        return $this->belongsTo(PayrollStaff::class);
+    }
+
+    /**
+     * Método que obtiene el personal relacionado al estado civil
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return object Objeto con los registros relacionados al modelo MaritalStatus
+     */
+	public function marital_status()
+    {
+        return $this->belongsTo('App\Models\MaritalStatus');
+    }
 }

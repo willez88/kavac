@@ -43,8 +43,8 @@ class PayrollStaff extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code','first_name','last_name','nationality_id','id_number','passport','email','birthdate',
-        'gender_id','emergency_contact','emergency_phone','parish_id','address'
+        'code','first_name','last_name','payroll_nationality_id','id_number','passport','email','birthdate',
+        'payroll_gender_id','emergency_contact','emergency_phone','parish_id','address'
     ];
 
     /**
@@ -79,10 +79,10 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la Ciudad
+     * Método que obtiene la Parroquia
      *
-     * @author  William Páez (wpaez@cenditel.gob.ve)
-     * @return object Objeto con los registros relacionados al modelo City
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return object Objeto con los registros relacionados al modelo Parish
      */
 	public function parish()
     {
@@ -90,14 +90,14 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene el Género
+     * Método que obtiene el Género del personal
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return object Objeto con los registros relacionados al modelo PayrollGender
      */
 	public function payroll_gender()
     {
-        return $this->belongsTo('Modules\Payroll\Models\PayrollGender');
+        return $this->belongsTo(PayrollGender::class);
     }
 
     /**
@@ -108,6 +108,17 @@ class PayrollStaff extends Model implements Auditable
      */
 	public function payroll_nationality()
     {
-        return $this->belongsTo('Modules\Payroll\Models\PayrollNationality');
+        return $this->belongsTo(PayrollNationality::class);
+    }
+
+    /**
+     * Método que obtiene la información socioeconómica relacionada al personal
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return object Objeto con el registro relacionados al modelo PayrollSocioeconomicInformation
+     */
+    public function payroll_socioecomic_information()
+    {
+    	return $this->hasOne(PayrollSocioeconomicInformation::class);
     }
 }

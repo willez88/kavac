@@ -57,4 +57,15 @@ class PayrollNationality extends Model implements Auditable
     {
         return $this->belongsTo('App\Models\Country');
     }
+
+    /**
+     * Método que obtiene el personal relacionado a la nacionalidad
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return object Objeto con los registros relacionados al modelo Staff
+     */
+    public function payroll_staffs()
+    {
+    	return $this->hasMany(PayrollStaff::class);
+    }
 }

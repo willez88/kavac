@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePayrollEmploymentDataTable extends Migration
+class CreatePayrollEmploymentInformationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePayrollEmploymentDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('payroll_employment_data', function (Blueprint $table) {
+        Schema::create('payroll_employment_informations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('test', 100)->nullable()->comment('Esto es una prueba');
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreatePayrollEmploymentDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payroll_employment_data');
+        Schema::dropIfExists('payroll_employment_informations');
     }
 }

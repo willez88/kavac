@@ -74,7 +74,10 @@ class PayrollSocioeconomicInformationController extends Controller
             'id_number_twosome' => 'nullable|max:12',
             'birthdate_twosome' => 'nullable|date',
             'payroll_staff_id' => 'required',
-            'marital_status_id' => 'required'
+            'marital_status_id' => 'required',
+            'full_name_son.*' => 'required',
+            'id_number_son.*' => 'nullable',
+            'birthdate_son.*' => 'required|date'
         ]);
         $socioeconomic_information = new PayrollSocioeconomicInformation;
         $socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
