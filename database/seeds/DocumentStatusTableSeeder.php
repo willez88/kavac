@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Roles\Role;
-use App\Roles\Permission;
+use App\Roles\Models\Role;
+use App\Roles\Models\Permission;
 use App\Models\DocumentStatus;
 
 /**
