@@ -164,7 +164,7 @@ return [
         /**
          * Third Party Service Providers...
          */
-        Ultraware\Roles\RolesServiceProvider::class,
+        App\Roles\RolesServiceProvider::class,
 
     ],
 

@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 
 use Illuminate\Database\Eloquent\Model;
-use Ultraware\Roles\Models\Role;
-use Ultraware\Roles\Models\Permission;
+use App\Roles\Role;
+use App\Roles\Permission;
 use App\Models\Estate;
 use App\Models\Municipality;
 

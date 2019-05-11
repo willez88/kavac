@@ -60,10 +60,10 @@ class Kernel extends HttpKernel
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
 
         /**
-         * Ultraware Roles and Permissions
+         * App Roles and Permissions
          */
-        'role' => \Ultraware\Roles\Middleware\VerifyRole::class,
-        'permission' => \Ultraware\Roles\Middleware\VerifyPermission::class,
-        'level' => \Ultraware\Roles\Middleware\VerifyLevel::class,
+        'role' => \App\Roles\Middleware\VerifyRole::class,
+        'permission' => \App\Roles\Middleware\VerifyPermission::class,
+        'level' => \App\Roles\Middleware\VerifyLevel::class,
     ];
 }

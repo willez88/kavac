@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Ultraware\Roles\Models\Role;
+use App\Roles\Models\Role;
 
 use App\User;
 use Carbon\Carbon;

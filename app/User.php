@@ -6,7 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
-use Ultraware\Roles\Traits\HasRoleAndPermission;
+//use Ultraware\Roles\Traits\HasRoleAndPermission;
+use App\Roles\Traits\HasRoleAndPermission;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
