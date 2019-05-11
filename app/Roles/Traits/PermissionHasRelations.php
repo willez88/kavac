@@ -4,6 +4,11 @@ namespace App\Roles\Traits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * Trait para la gestión de permisos y sus relaciones
+ * 
+ * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
+ */
 trait PermissionHasRelations
 {
     /**

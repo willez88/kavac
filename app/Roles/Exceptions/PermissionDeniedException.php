@@ -2,6 +2,14 @@
 
 namespace App\Roles\Exceptions;
 
+/**
+ * @class PermissionDeniedException
+ * @brief Excepciones para los permisos de acceso denegados
+ * 
+ * Gestiona las excepciones para los permisos de acceso denegados
+ * 
+ * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
+ */
 class PermissionDeniedException extends AccessDeniedException
 {
     /**

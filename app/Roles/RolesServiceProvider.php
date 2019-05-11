@@ -4,6 +4,14 @@ namespace App\Roles;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @class RolesServiceProvider
+ * @brief Service Provider para la gestión de roles y permisos
+ * 
+ * Incorpora extensiones de blade para el uso de roles y permisos
+ * 
+ * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
+ */
 class RolesServiceProvider extends ServiceProvider
 {
     /**

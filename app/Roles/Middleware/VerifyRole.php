@@ -7,6 +7,14 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use App\Roles\Exceptions\RoleDeniedException;
 
+/**
+ * @class VerifyRole
+ * @brief Verifica roles de acceso
+ * 
+ * Gestiona la verificación del rol de acceso
+ * 
+ * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
+ */
 class VerifyRole
 {
     /**

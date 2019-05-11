@@ -7,6 +7,14 @@ use App\Roles\Contracts\RoleHasRelations as RoleHasRelationsContract;
 use App\Roles\Traits\RoleHasRelations;
 use App\Roles\Traits\Slugable;
 
+/**
+ * @class Role
+ * @brief Modelo para la gestión de roles
+ * 
+ * Gestiona información sobre los roles de acceso
+ * 
+ * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
+ */
 class Role extends Model implements RoleHasRelationsContract
 {
     use Slugable, RoleHasRelations;

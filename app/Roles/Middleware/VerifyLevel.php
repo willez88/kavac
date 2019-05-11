@@ -7,6 +7,14 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use App\Roles\Exceptions\LevelDeniedException;
 
+/**
+ * @class VerifyLevel
+ * @brief Verifica niveles de acceso
+ * 
+ * Gestiona la verificación del nivel de acceso
+ * 
+ * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
+ */
 class VerifyLevel
 {
     /**
