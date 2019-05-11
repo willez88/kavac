@@ -11,6 +11,11 @@ use InvalidArgumentException;
 use App\Roles\Models\Permission;
 use App\Roles\Models\Role;
 
+/**
+ * Trait para la gestión de roles y permisos
+ * 
+ * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
+ */
 trait HasRoleAndPermission
 {
     /**
