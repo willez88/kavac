@@ -41,25 +41,25 @@ class InstitutionSectorsTableSeeder extends Seeder
             [
                 'name' => 'Crear Sector de Institución', 'slug' => 'institution.sector.create',
                 'description' => 'Acceso al registro de sectores de instituciones', 
-                'model' => 'App\Models\InstitutionSector', 'model_prefix' => '0general',
+                'model' => InstitutionSector::class, 'model_prefix' => '0general',
                 'slug_alt' => 'sector.institucion.crear', 'short_description' => 'agregar sector de institución'
             ],
             [
                 'name' => 'Editar Sector de Institución', 'slug' => 'institution.sector.edit',
                 'description' => 'Acceso para editar sectores de instituciones', 
-                'model' => 'App\Models\InstitutionSector', 'model_prefix' => '0general',
+                'model' => InstitutionSector::class, 'model_prefix' => '0general',
                 'slug_alt' => 'sector.institucion.editar', 'short_description' => 'editar sector de institución'
             ],
             [
                 'name' => 'Eliminar Sector de Institución', 'slug' => 'institution.sector.delete',
                 'description' => 'Acceso para eliminar sectores de instituciones', 
-                'model' => 'App\Models\InstitutionSector', 'model_prefix' => '0general',
+                'model' => InstitutionSector::class, 'model_prefix' => '0general',
                 'slug_alt' => 'sector.institucion.eliminar', 'short_description' => 'eliminar sector de institución'
             ],
             [
                 'name' => 'Ver Sector de Institución', 'slug' => 'institution.sector.list',
                 'description' => 'Acceso para ver sectores de instituciones', 
-                'model' => 'App\Models\InstitutionSector', 'model_prefix' => '0general',
+                'model' => InstitutionSector::class, 'model_prefix' => '0general',
                 'slug_alt' => 'sector.institucion.ver', 'short_description' => 'ver sectores de instituciones'
             ],
         ];

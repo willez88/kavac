@@ -50,7 +50,7 @@ $(document).ready(function() {
         $('.select2').tooltip();
     }
 
-	/*$('.card-header').hover(function() {
+    /*$('.card-header').hover(function() {
     	$(this).find('.card-btns').fadeIn('fast');
     }, function() {
     	$(this).find('.card-btns').fadeOut('fast');

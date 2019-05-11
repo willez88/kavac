@@ -436,25 +436,25 @@ class MunicipalitiesTableSeeder extends Seeder
             [
                 'name' => 'Crear Municipios', 'slug' => 'municipality.create',
                 'description' => 'Acceso al registro de municipios', 
-                'model' => 'App\Models\Municipality', 'model_prefix' => '0general',
+                'model' => Municipality::class, 'model_prefix' => '0general',
                 'slug_alt' => 'municipio.crear', 'short_description' => 'agregar municipio'
             ],
             [
                 'name' => 'Editar Municipios', 'slug' => 'municipality.edit',
                 'description' => 'Acceso para editar municipios', 
-                'model' => 'App\Models\Municipality', 'model_prefix' => '0general',
+                'model' => Municipality::class, 'model_prefix' => '0general',
                 'slug_alt' => 'municipio.editar', 'short_description' => 'editar municipio'
             ],
             [
                 'name' => 'Eliminar Municipios', 'slug' => 'municipality.delete',
                 'description' => 'Acceso para eliminar municipios', 
-                'model' => 'App\Models\Municipality', 'model_prefix' => '0general',
+                'model' => Municipality::class, 'model_prefix' => '0general',
                 'slug_alt' => 'municipio.eliminar', 'short_description' => 'eliminar municipio'
             ],
             [
                 'name' => 'Ver Municipios', 'slug' => 'municipality.list',
                 'description' => 'Acceso para ver municipios', 
-                'model' => 'App\Models\Municipality', 'model_prefix' => '0general',
+                'model' => Municipality::class, 'model_prefix' => '0general',
                 'slug_alt' => 'municipio.ver', 'short_description' => 'ver municipios'
             ],
         ];

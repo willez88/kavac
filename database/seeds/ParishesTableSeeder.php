@@ -1909,25 +1909,25 @@ class ParishesTableSeeder extends Seeder
             [
                 'name' => 'Crear Parroquías', 'slug' => 'parish.create',
                 'description' => 'Acceso al registro de parroquías', 
-                'model' => 'App\Models\Parish', 'model_prefix' => '0general',
+                'model' => Parish::class, 'model_prefix' => '0general',
                 'slug_alt' => 'parroquia.crear', 'short_description' => 'agregar parroquia'
             ],
             [
                 'name' => 'Editar Parroquías', 'slug' => 'parish.edit',
                 'description' => 'Acceso para editar parroquías', 
-                'model' => 'App\Models\Parish', 'model_prefix' => '0general',
+                'model' => Parish::class, 'model_prefix' => '0general',
                 'slug_alt' => 'parroquia.editar', 'short_description' => 'editar parroquia'
             ],
             [
                 'name' => 'Eliminar Parroquías', 'slug' => 'parish.delete',
                 'description' => 'Acceso para eliminar parroquías', 
-                'model' => 'App\Models\Parish', 'model_prefix' => '0general',
+                'model' => Parish::class, 'model_prefix' => '0general',
                 'slug_alt' => 'parroquia.eliminar', 'short_description' => 'eliminar parroquia'
             ],
             [
                 'name' => 'Ver Parroquías', 'slug' => 'parish.list',
                 'description' => 'Acceso para ver parroquías', 
-                'model' => 'App\Models\Parish', 'model_prefix' => '0general',
+                'model' => Parish::class, 'model_prefix' => '0general',
                 'slug_alt' => 'parroquia.ver', 'short_description' => 'ver parroquías'
             ],
         ];

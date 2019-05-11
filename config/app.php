@@ -4,25 +4,25 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Name
+    | Nombre de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | This value is the name of your application. This value is used when the
-    | framework needs to place the application's name in a notification or
-    | any other location as required by the application or its packages.
+    | Este valor es el nombre de tu aplicación. El valor es usado cuando el framework 
+    | necesita colocar el nombre de la aplicación en una notificación o en cualquier otra 
+    | localización requerida por la aplicación o por los paquetes.
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'KAVAC'),
 
     /*
     |--------------------------------------------------------------------------
-    | Application Environment
+    | Entorno de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | This value determines the "environment" your application is currently
-    | running in. This may determine how you prefer to configure various
-    | services your application utilizes. Set this in your ".env" file.
+    | Este valor determina el "entorno" que actualmente se esta ejecutando en la aplicación. 
+    | Esto puede determinar como prefieres configurar varios servicios que utiliza la aplicación. 
+    | Puedes verlo en tu archivo ".env".
     |
     */
 
@@ -30,12 +30,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Debug Mode
+    | Modo de Depuración de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | When your application is in debug mode, detailed error messages with
-    | stack traces will be shown on every error that occurs within your
-    | application. If disabled, a simple generic error page is shown.
+    | Cuando la aplicación esta en modo de depuración, se mostrarán mensajes de error detallados 
+    | con información de los mismos y en que parte del sistema ocurrieron estos errores. 
+    | Si lo desabilitas, se mostrará una página sencilla con el código de error generado e 
+    | información básica del mismo.
     |
     */
 
@@ -43,12 +44,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application URL
+    | URL de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | This URL is used by the console to properly generate URLs when using
-    | the Artisan command line tool. You should set this to the root of
-    | your application so that it is used when running Artisan tasks.
+    | Esta URL es usada por la consola para generar URLs apropiadamente cuando usas 
+    | el comando artisan en la herramienta de línea de comandos. Puedes configurar esto al 
+    | root de la aplicación para ser usado cuando ejecutes tareas Artisan.
     |
     */
 
@@ -56,12 +57,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Timezone
+    | Zona Horaria de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the default timezone for your application, which
-    | will be used by the PHP date and date-time functions. We have gone
-    | ahead and set this to a sensible default for you out of the box.
+    | Aquí puedes indicar la zona horaria de la aplicación por defecto, esto puede ser 
+    | usado por las funciones "date" y "date-time" de PHP. Por defecto se ha configurado 
+    | la zona horaria a una configuración generalmente utilizada.
     |
     */
 
@@ -69,12 +70,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Locale Configuration
+    | Configuración de Localización de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | The application locale determines the default locale that will be used
-    | by the translation service provider. You are free to set this value
-    | to any of the locales which will be supported by the application.
+    | La localización de la aplicación determina el lenguaje por defecto que puede ser 
+    | usado por el service provider de traducción. Eres libre de configurar este valor 
+    | a cualquiera de las localizaciones que son soportadas por la aplicación.
     |
     */
 
@@ -82,12 +83,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Fallback Locale
+    | Localización por defecto de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | The fallback locale determines the locale to use when the current one
-    | is not available. You may change the value to correspond to any of
-    | the language folders that are provided through your application.
+    | La localización por defecto determina el lenguaje a usar cuando la configuración actual 
+    | de la variable "locale" no esta disponible. Puedes modificar este valor a cualquiera de 
+    | los que corresponda ubicados en la carpeta "language" provista para la aplicación.
     |
     */
 
@@ -95,12 +96,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Encryption Key
+    | Clave de Cifrado
     |--------------------------------------------------------------------------
     |
-    | This key is used by the Illuminate encrypter service and should be set
-    | to a random, 32 character string, otherwise these encrypted strings
-    | will not be safe. Please do this before deploying an application!
+    | Esta clave es usada por el servicio de cifrado de Illuminate y debe ser configurada a una cadena 
+    | aleatoria de 32 carácteres, de lo contrario esta cadena de cifrado puede no ser segura. 
+    | Por favor configurela antes de desplegar la aplicación!
     |
     */
 
@@ -110,19 +111,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Autoloaded Service Providers
+    | Proveedores de Servicios Autocargados
     |--------------------------------------------------------------------------
     |
-    | The service providers listed here will be automatically loaded on the
-    | request to your application. Feel free to add your own services to
-    | this array to grant expanded functionality to your applications.
+    | Los proveedores de servicios listados aquí pueden ser cargados automáticamente en las 
+    | peticiones de la aplicación. Sientete libre de agregar tú propio servicio a este arreglo 
+    | para expandir las funcionalidades de la aplicación.
     |
     */
 
     'providers' => [
 
         /*
-         * Laravel Framework Service Providers...
+         * Proveedores de Servicios del Framework Laravel...
          */
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
@@ -149,11 +150,11 @@ return [
         Elibyy\TCPDF\ServiceProvider::class,
 
         /*
-         * Package Service Providers...
+         * Proveedores de Servicios de Paquetes...
          */
 
         /*
-         * Application Service Providers...
+         * Proveedores de Servicios de la Aplicación...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -162,7 +163,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /**
-         * Third Party Service Providers...
+         * Proveedores de Servicios de Terceros...
          */
         App\Roles\RolesServiceProvider::class,
 
@@ -170,12 +171,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Class Aliases
+    | Alias de Clases
     |--------------------------------------------------------------------------
     |
-    | This array of class aliases will be registered when this application
-    | is started. However, feel free to register as many as you wish as
-    | the aliases are "lazy" loaded so they don't hinder performance.
+    | Este arreglo de alias de clases puede ser registrado cuando esta aplicación 
+    | es inicializada. Sin embargo, sientete libre de registrar tantos alias necesites 
+    | cargar ya que esto no impide el correcto desempeño de la aplicación.
     |
     */
 

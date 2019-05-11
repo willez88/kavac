@@ -54,25 +54,25 @@ class InstitutionTypesTableSeeder extends Seeder
             [
                 'name' => 'Crear Tipo de Institución', 'slug' => 'institution.type.create',
                 'description' => 'Acceso al registro de tipos de instituciones', 
-                'model' => 'App\Models\InstitutionType', 'model_prefix' => '0general',
+                'model' => InstitutionType::class, 'model_prefix' => '0general',
                 'slug_alt' => 'tipo.institucion.crear', 'short_description' => 'agregar tipo de institución'
             ],
             [
                 'name' => 'Editar Tipo de Institución', 'slug' => 'institution.type.edit',
                 'description' => 'Acceso para editar tipos de instituciones', 
-                'model' => 'App\Models\InstitutionType', 'model_prefix' => '0general',
+                'model' => InstitutionType::class, 'model_prefix' => '0general',
                 'slug_alt' => 'tipo.institucion.editar', 'short_description' => 'editar tipo de institución'
             ],
             [
                 'name' => 'Eliminar Tipo de Institución', 'slug' => 'institution.type.delete',
                 'description' => 'Acceso para eliminar tipos de instituciones', 
-                'model' => 'App\Models\InstitutionType', 'model_prefix' => '0general',
+                'model' => InstitutionType::class, 'model_prefix' => '0general',
                 'slug_alt' => 'tipo.institucion.eliminar', 'short_description' => 'eliminar tipo de institución'
             ],
             [
                 'name' => 'Ver Tipo de Institución', 'slug' => 'institution.type.list',
                 'description' => 'Acceso para ver tipos de instituciones', 
-                'model' => 'App\Models\InstitutionType', 'model_prefix' => '0general',
+                'model' => InstitutionType::class, 'model_prefix' => '0general',
                 'slug_alt' => 'tipo.institucion.ver', 'short_description' => 'ver tipos de instituciones'
             ],
         ];

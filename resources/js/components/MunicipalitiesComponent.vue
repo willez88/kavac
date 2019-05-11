@@ -142,6 +142,7 @@
 			};
 
 			this.getCountries();
+
 		}
 	};
 </script>

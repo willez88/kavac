@@ -162,6 +162,8 @@ Vue.mixin({
 			 */
 			table_options: {
 				pagination: { edge: true },
+				//filterByColumn: true,
+				highlightMatches: true,
 				texts: {
                     filter: "Buscar:",
                     filterBy: 'Buscar por {column}',
@@ -172,6 +174,12 @@ Vue.mixin({
                     limit: 'Registros',
                     //page: 'Página:',
                     noResults: 'No existen registros',
+				},
+				sortIcon: {
+					is: 'fa-sort cursor-pointer',
+					base: 'fa',
+					up: 'fa-sort-up cursor-pointer',
+					down: 'fa-sort-down cursor-pointer'
 				},
 			},
 		}

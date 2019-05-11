@@ -78,25 +78,25 @@ class DocumentStatusTableSeeder extends Seeder
             [
                 'name' => 'Crear Estatus de Documento', 'slug' => 'document.status.create',
                 'description' => 'Acceso al registro de estatus de documentos', 
-                'model' => 'App\Models\DocumentStatus', 'model_prefix' => '0general',
+                'model' => DocumentStatus::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estatus.documentos.crear', 'short_description' => 'agregar estatus de documentos'
             ],
             [
                 'name' => 'Editar Estatus de Documento', 'slug' => 'document.status.edit',
                 'description' => 'Acceso para editar estatus de documentos', 
-                'model' => 'App\Models\DocumentStatus', 'model_prefix' => '0general',
+                'model' => DocumentStatus::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estatus.documentos.editar', 'short_description' => 'editar estatus de documentos'
             ],
             [
                 'name' => 'Eliminar Estatus de Documento', 'slug' => 'document.status.delete',
                 'description' => 'Acceso para eliminar estatus de documentos', 
-                'model' => 'App\Models\DocumentStatus', 'model_prefix' => '0general',
+                'model' => DocumentStatus::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estatus.documentos.eliminar', 'short_description' => 'eliminar estatus de documentos'
             ],
             [
                 'name' => 'Ver Estatus de Documento', 'slug' => 'document.status.list',
                 'description' => 'Acceso para ver estatus de documentos', 
-                'model' => 'App\Models\DocumentStatus', 'model_prefix' => '0general',
+                'model' => DocumentStatus::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estatus.documentos.ver', 'short_description' => 'ver estatus de documentos'
             ],
         ];
