@@ -282,6 +282,14 @@ class BudgetSubSpecificFormulationController extends Controller
         return response()->json(['result' => true, 'formulation' => $formulation], 200);
     }
 
+    /**
+     * Obtiene la disponibilidad de las cuentas aperturadas
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $specific_action_id Identificador de la acción específica
+     * @param  integer $account_id         Identificador de la cuenta presupuestaria
+     * @return JSON                        Devuelve un JSON con la disponibilidad de la cuenta consultada
+     */
     public function getAvailabilityOpenedAccounts($specific_action_id, $account_id)
     {
         $account_data = ['account_id' => $account_id, 'available' => 'Sin apertura'];

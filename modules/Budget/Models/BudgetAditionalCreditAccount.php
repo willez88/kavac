@@ -39,6 +39,7 @@ class BudgetAditionalCreditAccount extends Model implements Auditable
     /**
      * BudgetAditionalCreditAccount belongs to BudgetSpecificAction.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function formulation()
@@ -49,6 +50,7 @@ class BudgetAditionalCreditAccount extends Model implements Auditable
     /**
      * BudgetAditionalCreditAccount belongs to BudgetAccount.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function account()
@@ -59,6 +61,7 @@ class BudgetAditionalCreditAccount extends Model implements Auditable
     /**
      * BudgetAditionalCreditAccount belongs to BudgetAditionalCredit.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function aditional_credit()

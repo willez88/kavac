@@ -47,6 +47,7 @@ class BudgetAccountOpen extends Model implements Auditable
     /**
      * BudgetAccountOpen belongs to BudgetAccount.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function budget_account()
@@ -57,6 +58,7 @@ class BudgetAccountOpen extends Model implements Auditable
     /**
      * BudgetAccountOpen belongs to BudgetSubSpecificFormulation.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function sub_specific_formulation()

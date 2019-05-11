@@ -162,11 +162,22 @@
 			}
 		},
 		methods: {
+			/**
+			 * Inicializa las variables de las cuentas a agregar
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 */
 			reset: function() {
 				this.budget_specific_action_id = '';
 				this.budget_account_id = '';
 				this.amount = 0;
 			},
+			/**
+			 * Agrega una cuenta para el registro del crédito adicional
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
+			 */
 			addAccount: function() {
 				const vm = this;
 				let to_add = {
@@ -233,6 +244,12 @@
 				$('.close').click();
 				vm.reset();
 			},
+			/**
+			 * Elimina una cuenta del listado de cuentas agregadas
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @param  {integer} index Índice del elemento a eliminar
+			 */
 			deleteAccount(index) {
 				let vm = this;
 				bootbox.confirm({
@@ -253,6 +270,11 @@
 					}
 				});
 			},
+			/**
+			 * Obtiene el listado de cuentas resupuestarias a mostrar para su selección
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 */
 			getAccounts: function() {
 				const vm = this;
 				vm.accounts = [{

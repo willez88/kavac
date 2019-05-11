@@ -55,6 +55,11 @@ class User extends Authenticatable implements Auditable
      */
     protected $dates = ['deleted_at', 'last_login'];
 
+    /**
+     * Método que obtiene el perfil de un usuario
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function profile()
     {
         return $this->hasOne(Models\Profile::class);

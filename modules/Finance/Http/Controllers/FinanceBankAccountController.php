@@ -9,6 +9,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Finance\Models\FinanceBank;
 use Modules\Finance\Models\FinanceBankAccount;
 
+/**
+ * @class FinanceBankAccountController
+ * @brief Controlador para las cuentas bancarias
+ * 
+ * Clase que gestiona las cuentas bancarias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class FinanceBankAccountController extends Controller
 {
     use ValidatesRequests;

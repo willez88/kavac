@@ -10,6 +10,15 @@ use Modules\Finance\Models\FinanceBankingAgency;
 use App\Models\City;
 use App\Models\Phone;
 
+/**
+ * @class FinanceBankingAgencyController
+ * @brief Controlador para las agencias bancarias
+ * 
+ * Clase que gestiona las agencias bancarias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class FinanceBankingAgencyController extends Controller
 {
     use ValidatesRequests;
@@ -31,6 +40,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Display a listing of the resource.
+     * 
      * @return Response
      */
     public function index()
@@ -40,6 +50,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * 
      * @return Response
      */
     public function create()
@@ -49,6 +60,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * 
      * @param  Request $request
      * @return Response
      */
@@ -92,6 +104,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Show the specified resource.
+     * 
      * @return Response
      */
     public function show()
@@ -101,6 +114,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * 
      * @return Response
      */
     public function edit()
@@ -110,6 +124,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * 
      * @param  Request $request
      * @return Response
      */
@@ -150,6 +165,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 
      * @return Response
      */
     public function destroy($id)
@@ -161,6 +177,8 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Obtiene las agencias bancarias registradas
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  integer $bank_id Identificador del banco
      * @return Response         JSON con el listado de las agencias bancarias
      */

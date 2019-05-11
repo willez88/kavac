@@ -44,6 +44,7 @@ class BudgetProject extends Model implements Auditable
     /**
      * BudgetProject belongs to Department.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function department()
@@ -72,7 +73,10 @@ class BudgetProject extends Model implements Auditable
     }
 
     /**
-     * Get all of the budget project's specific actions.
+     * Obtiene información de las acciones específicas asociadas a un proyecto
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function specific_actions()
     {

@@ -37,6 +37,7 @@ class BudgetAditionalCredit extends Model implements Auditable
     /**
      * BudgetAditionalCredits belongs to Institution.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()
@@ -47,6 +48,7 @@ class BudgetAditionalCredit extends Model implements Auditable
     /**
      * BudgetAditionalCredit has many BudgetAditionalCreditAccounts.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function aditional_credit_accounts()

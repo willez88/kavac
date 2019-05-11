@@ -104,6 +104,7 @@ class Institution extends Model implements Auditable
     /**
      * Institution has many BudgetSubSpecificFormulations.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_sub_specific_formulations()
@@ -116,6 +117,7 @@ class Institution extends Model implements Auditable
     /**
      * Institution has many BudgetModification.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_modifications()

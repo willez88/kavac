@@ -99,6 +99,15 @@ class CodeSetting extends Model implements Auditable
     	return $code;
     }
 
+    /**
+     * Método Scope para obtener configuraciones de un modelo
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  object $query Objeto con la collección de la consulta realizada
+     * @param  string $model Nombre del modelo del cual obtener la configuración
+     * @param  string $type  Tipo de configuración a obtener
+     * @return object        Objeto con la consulta requerida
+     */
     public function scopeGetSetting($query, $model, $type)
     {
         return $query->where("model", $model)->where('type', $type)->first();

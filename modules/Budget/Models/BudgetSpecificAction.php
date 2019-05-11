@@ -81,6 +81,7 @@ class BudgetSpecificAction extends Model implements Auditable
     /**
      * BudgetSpecificAction has many BudgetSubSpecificFormulation.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function sub_specific_formulations()

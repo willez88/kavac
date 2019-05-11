@@ -47,6 +47,14 @@ Vue.component('finance-voucher-design', require('./components/FinanceVoucherDesi
  */
 Vue.mixin({
 	methods: {
+		/**
+		 * Permite formatear la cadena de la cuenta bancaria
+		 *
+		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {string}  account  Número de cuenta bancaria
+		 * @param  {boolean} formated Indica si se desa obtener o no el número de cuenta bancaria formateada
+		 * @return {string}           Número de cuenta formateado
+		 */
 		format_bank_account(account, formated) {
 			var formated = (typeof(formated) !== "undefined") ? formated : true;
 

@@ -55,6 +55,7 @@ class BudgetCentralizedAction extends Model implements Auditable
     /**
      * BudgetProject belongs to Department.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function department()
@@ -84,6 +85,9 @@ class BudgetCentralizedAction extends Model implements Auditable
 
     /**
      * Get all of the budget centralized action's specific actions.
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function specific_actions()
     {
