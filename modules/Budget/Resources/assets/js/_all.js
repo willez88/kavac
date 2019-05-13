@@ -42,6 +42,13 @@ Vue.component('budget-formulation-list', require('./components/BudgetSubSpecific
 Vue.component('budget-sub-specific-formulation', require('./components/BudgetSubSpecificFormulationComponent.vue'));
 
 /**
+ * Componente para getionar las modificaciones presupuestarias
+ *
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ */
+Vue.component('budget-modification', require('./components/BudgetModificationComponent.vue'));
+
+/**
  * Componente para mostrar listado de créditos adicionales
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
