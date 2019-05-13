@@ -34,7 +34,7 @@ class AccountingSeatReportPdfController extends Controller
     public function pdf($id)
     {
         // falta relación de budget_account hacia compromisos
-        $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
+        $seat = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
 
         $setting = Setting::all()->first();
 
@@ -57,15 +57,13 @@ class AccountingSeatReportPdfController extends Controller
         $pdf->AddPage();
 
         $unit = true;
-        $seats = [];
-        array_push($seats, $seating);
-        $html = \View::make('accounting::pdf.accounting_seat_pdf',compact('seats','pdf','unit'))->render();
+        $html = \View::make('accounting::pdf.accounting_seat_pdf',compact('seat','pdf','unit'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
 
-        $pdf->Output("AsientoContable_".$seating['from_date'].".pdf");
+        $pdf->Output("AsientoContable_".$seat['from_date'].".pdf");
         // return view('accounting::show');
     }
 

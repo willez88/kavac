@@ -62,6 +62,13 @@ Vue.component('accounting-seat-create', require('./components/seating/Accounting
  */
 Vue.component('accounting-seat-create-account', require('./components/seating/AccountingAccountsInSeatingComponent.vue'));
 
+/**
+ * Componente para la configuración
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-configuration-category', require('./components/configuration/AccountingConfigurationCategoryComponent.vue'));
+
 
 window.EventBus = new Vue; // Global event bus
 

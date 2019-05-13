@@ -92,14 +92,14 @@
 							{{ props.row.accounting_account.denomination }}
 						</div>
 
-						<div slot="status" slot-scope="props" class="text-center">
+						<!-- <div slot="status" slot-scope="props" class="text-center">
 							<div v-if="props.row.active">
 								<span class="badge badge-success"><strong>Activa</strong></span>
 							</div>
 							<div v-else>
 								<span class="badge badge-warning"><strong>Inactiva</strong></span>
 							</div>
-						</div>
+						</div> -->
 						<div slot="id" slot-scope="props" class="text-center">
 							<button class="btn btn-warning btn-xs btn-icon btn-action btn-round"
 									title="Modificar registro"
@@ -129,7 +129,8 @@
 				records:[],
 				budgetAccounts:[],
 				accountingAccounts:[],
-				columns: ['codeBudget', 'BudgetAccounts','codeAccounting', 'AccountingAccounts', 'status','id'],
+				// columns: ['codeBudget', 'BudgetAccounts','codeAccounting', 'AccountingAccounts', 'status','id'],
+				columns: ['codeBudget', 'BudgetAccounts','codeAccounting', 'AccountingAccounts','id'],
 				accountOptions:[[],[]],
 				accountSelect:{
 								init_id:'',
@@ -147,7 +148,6 @@
 				'BudgetAccounts': 'DENOMINACIÓN',
 				'codeAccounting': 'CÓDIGO PATRIMONIAL',
 				'AccountingAccounts': 'DENOMINACIÓN',
-				'status': 'ESTADO DE LA CONVERSIÓN',
 				'id': 'ACCIÓN'
 			};
 			this.table_options.sortable = ['codeBudget', 'BudgetAccounts',

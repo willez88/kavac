@@ -5,6 +5,7 @@ namespace Modules\Accounting\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingSeatCategory;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\AccountingSeatAccount;
@@ -21,7 +22,7 @@ use Auth;
  */
 class AccountingSeatController extends Controller
 {
-    // use ValidatesRequests;
+    use ValidatesRequests;
 
     /**
      * Define la configuración de la clase
@@ -38,34 +39,43 @@ class AccountingSeatController extends Controller
         $this->middleware('permission:accounting.seating.approve', ['only' => 'approve']);
     }
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * muestra la vista donde se mostraran los asientos contables aprobados
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @return view
      */
     public function index()
     {
+        /** @var array Arreglo que contendra las categorias */
         $categories = [];
         array_push($categories, [
-                'id' => 0,
-                'text' => 'Todos'
-            ]);
+            'id' => 0,
+            'text' => 'Todos'
+        ]);
         foreach (AccountingSeatCategory::all() as $category) {
-            array_push($categories, [
-                'id' => $category->id,
-                'text' => $category->name,
-            ]);
+        array_push($categories, [
+            'id' => $category->id,
+            'text' => $category->name,
+        ]);
         }
+        /**
+         * se convierte array a JSON
+         */
         $categories = json_encode($categories);
         return view('accounting::seating.index',compact('categories'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra un formulario para la creación de asientos contables
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
      * @return Response
      */
     public function create()
     {
+        /** @var JSON Objeto que almacena las cuentas pratrimoniales */
         $AccountingAccounts = $this->getAccountingAccount();
-
+        /** @var array Arreglo que contendra las categorias */
         $categories = [];
         array_push($categories, [
             'id' => '',
@@ -77,18 +87,26 @@ class AccountingSeatController extends Controller
                 'text' => $category->name,
             ]);
         }
+        /**
+         * se convierte array a JSON
+         */
         $categories = json_encode($categories);
 
         return view('accounting::seating.create-edit-form',compact('AccountingAccounts','categories'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param Request $request
+     * Crea una nuevo asiento contable y crea los registros de las cuentas asociadas
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
     public function store(Request $request)
     {
+        /**
+         * se crear el asiento contable
+         */
         $newSeating = new AccountingSeat();
         $newSeating->from_date = $request->data['date'];
         $newSeating->reference = $request->data['reference'];
@@ -99,6 +117,9 @@ class AccountingSeatController extends Controller
         $newSeating->tot_assets = $request->data['totAssets'];
         $newSeating->save();
 
+        /**
+         * se crea el registro en la tabla pivote entre el asiento contable y las cuentas patrimoniales
+         */
         foreach ($request->accountingAccounts as $account) {
             $newAccSeat = new AccountingSeatAccount();
             $newAccSeat->accounting_seat_id = $newSeating->id;
@@ -111,57 +132,72 @@ class AccountingSeatController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
+     * Muestra información de los asientos contables
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
      * @return Response
      */
     public function show($id)
     {
-        return view('accounting::show');
+        // return view('accounting::show');
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
+     * Muestra el formulario para la edición de asientos contables
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @param  integer $id Identificador del asiento contable a modificar
      * @return Response
      */
     public function edit($id)
     {
+        /** @var Object Objeto que contendra el asiento contable a editar */
         $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
-
+        /** @var JSON Objeto que almacena las cuentas pratrimoniales */
         $AccountingAccounts = $this->getAccountingAccount();
 
+        /**
+         * se guarda en variables la información necesaria para la edición del asiento contable
+         */ 
         $date = $seating->from_date;
         $reference = $seating->reference;
         $concept = $seating->concept;
         $observations = $seating->observations;
+        $category = $seating->generated_by_id;
 
-
-        // formateo de las categorias
+        /** @var array Arreglo que contendra las categorias */
         $categories = [];
         array_push($categories, [
             'id' => '',
             'text' => 'Seleccione...'
         ]);
-        foreach (AccountingSeatCategory::all() as $category) {
+        foreach (AccountingSeatCategory::all() as $cat) {
             array_push($categories, [
-                'id' => $category->id,
-                'text' => $category->name,
+                'id' => $cat->id,
+                'text' => $cat->name,
             ]);
         }
+        /**
+         * se convierte array a JSON
+         */
         $categories = json_encode($categories);
 
         return view('accounting::seating.create-edit-form',compact('AccountingAccounts','seating','categories','category','date','reference','concept','observations'));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     * Actualiza los datos del asiento contable
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
+     * @param  integer $id      Identificador del asiento contable a modificar
      * @return Response
      */
     public function update(Request $request, $id)
     {
+        /**
+         * se actualiza la información del registro del asiento contable
+         */ 
         $seating = AccountingSeat::find($id);
         $seating->reference = $request->data['reference'];
         $seating->concept = $request->data['concept'];
@@ -171,14 +207,17 @@ class AccountingSeatController extends Controller
         $seating->save();
 
         foreach ($request->accountingAccounts as $account) {
-
-            // Actualiza el registro si ya existe, de lo contrario crea el nuevo registro de cuenta
+            /**
+             * Actualiza la relación de cuenta a ese asiento ya existe lo actualiza, de lo contrario crea el nuevo registro de cuenta
+             */ 
             if ($account['id_seatAcc']) {
+                /** @var Object Objeto que contiene el registro de cuanta patrimonial asociada al asiento a actualizar */
                 $AccSeat = AccountingSeatAccount::find($account['id_seatAcc']);
                 $AccSeat->accounting_account_id = $account['id'];
                 $AccSeat->debit = $account['debit'];
                 $AccSeat->assets = $account['assets'];
             }else{
+                /** @var Object Objeto que contiene el nuevo registro de cuanta patrimonial asociada que se asociara al asiento */
                 $AccSeat = new AccountingSeatAccount();
                 $AccSeat->accounting_seat_id = $seating->id;
                 $AccSeat->accounting_account_id = $account['id'];
@@ -191,12 +230,15 @@ class AccountingSeatController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
+     * Elimina un asiento contable
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @param  integer $id Identificador del asiento contable a eliminar
      * @return Response
      */
     public function destroy($id)
     {
+        /** @var Object Objeto que contine el registro de asiento contable a eliminar */
         AccountingSeat::find($id)->delete();
         return response()->json(['message'=>'Success', 200]);
     }
@@ -208,8 +250,11 @@ class AccountingSeatController extends Controller
      */
     public function FilterRecords(Request $request)
     {
+        /** @var array Arreglo que contendra los registros */
         $records = [];
+        /** @var array Arreglo que contendra los registros luego de aplicar el filtrado por categoria de origen */
         $FilterByOrigin = [];
+
         if ($request->typeSearch == 'reference') {
             foreach (AccountingSeat::with('accounting_accounts.account')->orderBy('from_date','ASC')->get() as $seating) {
                 if (count(explode($request->data['reference'], $seating->reference)) > 1) {
@@ -217,20 +262,30 @@ class AccountingSeatController extends Controller
                 }
             }
         }else if ($request->typeSearch == 'origin') {
-            // todos los asientos o solo una categoria de origen
+            /**
+             * realiza busqueda de todos los asientos, sino solo por una categoria de origen
+             */
             $FilterByOrigin = ($request->data['category'] == 0) ?
                  AccountingSeat::with('accounting_accounts.account')->where('approved',true)->orderBy('from_date','ASC')->get() : 
                  AccountingSeat::with('accounting_accounts.account')->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
 
-                 // Filtrado para unos meses o años en general
+            
+            /**
+             * Filtrado para unos meses o años en general
+             */
             if ($request->filterDate == 'generic') {
+                /** @var array Arreglo que contendra los registros restantes del primer filtrado general */
                 $fltForYear = [];
-                        // todas las fechas
+                    /**
+                     * todas las fechas
+                     */
                     if ($request->data['year'] == 0 && $request->data['month'] == 0) {
                         $records = $FilterByOrigin;
                     }
                     else{
-                        // filtardo por año
+                        /**
+                         * filtardo por año
+                         */
                         if ($request->data['year'] == 0) { // todos los años
                             $fltForYear = $FilterByOrigin;
                         }else{
@@ -240,8 +295,9 @@ class AccountingSeatController extends Controller
                                 }
                             }
                         }
-
-                        // filtrado por mes
+                        /**
+                         * filtrado por mes
+                         */
                         if ($request->data['month'] == 0) { // todos los meses
                             $records = $fltForYear;
                         }else{
@@ -253,7 +309,9 @@ class AccountingSeatController extends Controller
                         }
                     }
             } else {
-                // Filtrado en un rango especifico de fechas
+                /**
+                 * Filtrado en un rango especifico de fechas
+                 */
                 $records = $FilterByOrigin->whereBetween("from_date",[$request->data['init'],$request->data['end']]);
             }
         }
@@ -266,11 +324,15 @@ class AccountingSeatController extends Controller
     */
     public function getAccountingAccount()
     {
+        /** @var array Arreglo que contendra los registros */
         $records = [];
         array_push($records, [
                 'id' => '',
                 'text' => 'Seleccione...'
             ]);
+        /**
+         * ciclo para almecenar y formatear en array las cuentas patrimoniales
+         */
         foreach (AccountingAccount::orderBy('group','ASC')
                                     ->orderBy('subgroup','ASC')
                                     ->orderBy('item','ASC')
@@ -285,6 +347,9 @@ class AccountingSeatController extends Controller
                 ]);
             }
         };
+        /**
+         * se convierte array a JSON
+         */
         return json_encode($records);
     }
 
@@ -294,6 +359,7 @@ class AccountingSeatController extends Controller
     // Listado
     public function unapproved()
     {
+        /** @var Object objeto que contendra los registros resultantes de la busqueda */
         $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved',false)->orderBy('from_date','ASC')->get();
 
         return view('accounting::seating.unapproved',compact('seating'));
@@ -305,6 +371,7 @@ class AccountingSeatController extends Controller
      */
     public function approve($id)
     {
+        /** @var Object Objeto que contendra el asiento al que se le cambiara el estado */
         $seating = AccountingSeat::find($id);
         $seating->approved = true;
         $seating->save();

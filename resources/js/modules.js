@@ -16,7 +16,7 @@ require('../../modules/Payroll/Resources/assets/js/_all.js');
 /** Compilación de componentes y configuración vuejs para el módulo de contabilidad */
 require('../../modules/Accounting/Resources/assets/js/_all.js');
 
-/** Compilación de componentes y configuración vuejs para el módulo de firma electrónica */
+// * Compilación de componentes y configuración vuejs para el módulo de firma electrónica 
 require('../../modules/DigitalSignature/Resources/assets/js/_all.js');
 
 /** Compilación de componentes y configuración vuejs para el módulo de compras */

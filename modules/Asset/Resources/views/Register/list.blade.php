@@ -58,13 +58,12 @@
 										
 										<td width="10%" class="text-center">
 											<div class="d-inline-flex">
-												
-												
-												<button onclick="openmodal( <?php echo($asset->id) ?> );" 
+
+											{{-- 	<button onclick="openmodal( <?php echo($asset->id) ?> );" 
                                                         class="btn btn-info btn-xs btn-icon btn-action"  
                                                 data-toggle="tooltip" title="Informacion Bien">
                                                     <i class="fa fa-info-circle"></i>
-                                                </button>
+                                                </button> --}}
 												
 												@if ($asset->status_id == 10)
 												{!! Form::open(['route' => ['asset.asignation.asset_assign', $asset], 'method' => 'GET']) !!}
@@ -337,7 +336,7 @@
 var records;
 function openmodal($asset) {
 	axios.get("asset/info/" + $asset).then(response => {
-			
+
 		records = response.data.record;
 		$(".modal-body #asset_type").val( records.type );
 		$(".modal-body #asset_category").val( records.category );

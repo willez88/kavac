@@ -35,14 +35,18 @@ class AccountingAccountController extends Controller
         $this->middleware('permission:accounting.account.delete', ['only' => 'destroy']);
     }
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de cuentas patrimoniales
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @return view
      */
     public function index()
     {
+        /** @var array arreglo que almacenara la lista de cuentas patrimoniales*/
         $accounts_list = [];
-
-        // se realiza la busqueda de manera ordenada en base al codigo
+        /**
+         * se realiza la busqueda de manera ordenada en base al codigo
+         */
         foreach (AccountingAccount::orderBy('group','ASC')
                                     ->orderBy('subgroup','ASC')
                                     ->orderBy('item','ASC')
@@ -50,7 +54,7 @@ class AccountingAccountController extends Controller
                                     ->orderBy('specific','ASC')
                                     ->orderBy('subspecific','ASC')
                                     ->get() as $AccountingAccount) {
-
+          /** @var array arreglo con datos de las cuentas patrimoniales*/
             array_push($accounts_list, [
                 'id' => $AccountingAccount->id,
                 'code' =>   $AccountingAccount->getCode(),
@@ -58,13 +62,18 @@ class AccountingAccountController extends Controller
                 'active'=> $AccountingAccount->active
             ]);
         }
+        /**
+         * se convierte array a JSON
+         */
         $accounts_list = json_encode($accounts_list);
         return view('accounting::accounts.index',
                compact('accounts_list'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra un formulario para la creación de una cuenta pratrimoniales
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
      * @return Response
      */
     public function create()
@@ -74,8 +83,10 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param Request $request
+     * Crea una nueva cuenta patrimonial
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
     public function store(Request $request)
@@ -90,6 +101,7 @@ class AccountingAccountController extends Controller
             'denomination' => 'required',
             'active' => 'required',
         ]);
+        /** @var object Objeto que contiene los datos de la cuenta ya registrada si existe */
         $AccountingAccount = AccountingAccount::where('group', request('group'))
                               ->where('subgroup', request('subgroup'))
                               ->where('item', request('item'))
@@ -107,6 +119,10 @@ class AccountingAccountController extends Controller
             $AccountingAccount->save();
             $request->session()->flash('message', ['type' => 'update']);
         }else{
+
+            /**
+             * Registra la nueva cuenta patrimonial
+             */
             AccountingAccount::create([
                 'group' => $request->group,
                 'subgroup' => $request->subgroup,
@@ -124,8 +140,9 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
+     * Muestra información de la cuenta patrimoniales
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
      * @return Response
      */
     public function show($id)
@@ -134,8 +151,10 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
+     * Muestra el formulario para la edición de cuentas patrimoniales
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @param  integer $id Identificador de la cuenta patrimonial a modificar
      * @return Response
      */
 
@@ -148,12 +167,13 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     * Actualiza los datos de la cuenta patrimonial
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @param  Request $request Objeto con datos de la petición realizada
+     * @param  integer $id      Identificador de la cuenta patrimonial a modificar
      * @return Response
      */
-
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -166,6 +186,7 @@ class AccountingAccountController extends Controller
             'denomination' => 'required',
             'active' => 'required',
         ]);
+        /** @var object Objeto con información de la cuenta patrimonial a modificar */
         $AccountingAccount = AccountingAccount::find($id);
 
         /**
@@ -187,15 +208,21 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
+     * Elimina una cuenta patrimonial
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @param  integer $id Identificador de la cuenta patrimonial a eliminar
      * @return Response
      */
     public function destroy($id)
     {
-        $AccountingAccount = AccountingAccount::find($id);
+        /** @var object Objeto con datos de la cuenta presupuestaria a eliminar */
+        $AccountingAccount = AccountingAccount::with('account_converters')->find($id);
 
         if ($AccountingAccount) {
+            if (!is_null($AccountingAccount->account_converters)) {
+                return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar'],200);
+            }
             $AccountingAccount->delete();
         }
         return response()->json(['records' => $AccountingAccount, 'message' => 'Success'], 200);
@@ -210,13 +237,20 @@ class AccountingAccountController extends Controller
 
     public function getChildrenAccount($parent_id)
     {
+        /** @var object Objeto con información de la cuenta presupuestaria de nivel superior */
         $parent = AccountingAccount::find($parent_id);
 
+        /** @var string Contiene el código del subgroup */
         $subgroup = $parent->subgroup;
+        /** @var string Contiene el código del ítem */
         $item = $parent->item;
+        /** @var string Contiene el código del generic */
         $generic = $parent->generic;
+        /** @var string Contiene el código del speific */
         $specific = $parent->specific;
+        /** @var string Contiene el código del subspecific */
         $subspecific = $parent->subspecific;
+
         if ($parent->subgroup === "0") {
             $currentSubgroup = AccountingAccount::where(['group' => $parent->group])->orderBy('subgroup', 'desc')->first();
             $subgroup = (strlen(intval($currentSubgroup->subgroup)) < 2 || intval($currentSubgroup->subgroup) < 9) 
@@ -265,6 +299,7 @@ class AccountingAccountController extends Controller
     */
     public function getDataAccountingAccount()
     {
+        /** @var array Arreglo que contendra los registros */
         $records = [];
         array_push($records, [
             'id' => '',
@@ -277,6 +312,9 @@ class AccountingAccountController extends Controller
                 'active'=> $AccountingAccount->active
             ]);
         }
+        /**
+         * se convierte array a JSON
+         */
         return json_encode($records);
     }
 
