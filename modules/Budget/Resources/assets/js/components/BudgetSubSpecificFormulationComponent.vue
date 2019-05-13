@@ -551,7 +551,7 @@
 					axios.get('/budget/get-specific-actions/' + type + "/" + id + "/formulation").then(response => {
 						this.specific_actions = response.data;
 					}).catch(error => {
-						console.log(error);
+						vm.logs('BudgetSubSpecificFormulationComponent.vue', 551, error, 'getSpecificActions');
 					});
 				}
 
@@ -679,7 +679,7 @@
 					});
 					
 				}).catch(error => {
-					console.log(error);
+					vm.logs('BudgetSubSpecificFormulationComponent.vue', 636, error, 'loadFormulation');
 				});
 			},
 			/**

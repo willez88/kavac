@@ -26,6 +26,7 @@
 
         <script>
             window.access = true;
+            window.log_url = '{{ route('logs.front-end') }}';
         </script>
 
         {{-- Sección para estilos extras dispuestos por las plantillas según requerimientos particulares --}}
@@ -181,7 +182,7 @@
                             error: function error(jqxhr, textStatus, _error) {
                                 var err = textStatus + ", " + _error;
                                 bootbox.alert('Error interno del servidor al eliminar el registro.');
-                                console.log('Error con la petición solicitada. Detalles: ' + err);
+                                logs('app', 160, `Error con la petición solicitada. Detalles: ${err}`);
                             }
                         });
                     }
@@ -255,7 +256,7 @@
                             error: function error(jqxhr, textStatus, _error) {
                                 var err = textStatus + ", " + _error;
                                 bootbox.alert('Error interno del servidor al restaurar el registro.');
-                                console.log('Error con la petición solicitada. Detalles: ' + err);
+                                logs('app', 234, `Error con la petición solicitada. Detalles: ${err}`, 'undelete_record');
                             }
                         });
                     }
@@ -288,10 +289,34 @@
                         
                         bootbox.alert(userDetail.showInfo());
                     }).catch(error => {
-                        console.log(error);
+                        logs('app', 272, error, 'view_user_info');
                     });
                 };
             @endrole
+
+            /**
+             * Registro de eventos del sistema
+             *
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             * @param  {string}  v  Vista
+             * @param  {integer} l  Línea
+             * @param  {string}  lg Mensaje
+             * @param  {string}  f  Función. Opcional
+             */
+            var logs = function(v, l, lg, f) {
+                var f = (typeof(f) !== "undefined") ? f : false;
+                var p = {
+                    v: v,
+                    l: l,
+                    lg: lg
+                };
+                if (f) {
+                    p.f = f;
+                }
+                axios.post(window.log_url, p).catch(error => {
+                    log('app', 297, error);
+                });
+            }
         </script>
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}

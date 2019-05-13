@@ -90,7 +90,7 @@ Vue.mixin({
 				axios.get('/finance/get-agencies/' + bank_id).then(response => {
 					vm.agencies = response.data;
 				}).catch(error => {
-					console.log(error);
+					vm.logs('Budget/Resources/assets/js/_all.js', 90, error, 'getAgencies');
 				});
 
 				if ($("#bank_code").length) {
@@ -99,7 +99,7 @@ Vue.mixin({
 							vm.record.bank_code = response.data.bank.code;
 						}
 					}).catch(error => {
-						console.log(error);
+						vm.logs('Budget/Resources/assets/js/_all.js', 97, error, 'getAgencies');
 					});
 				}
 			}
@@ -129,7 +129,7 @@ Vue.mixin({
 						vm.accounts = response.data.accounts;
 					}
 				}).catch(error => {
-					console.log(error);
+					vm.logs('Budget/Resources/assets/js/_all.js', 127, error, 'getBankAccounts');
 				});
 			}
 		}

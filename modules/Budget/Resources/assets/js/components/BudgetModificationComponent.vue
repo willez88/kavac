@@ -264,11 +264,8 @@
 				if (!$.isEmptyObject(response.data)) {
 					vm.specific_actions = response.data;
 				}
-				else {
-					console.log("no")
-				}
 			}).catch(error => {
-				console.log(error);
+				vm.logs('BudgetModificationComponent.vue', 263, error, 'mounted');
 			});
 
 			vm.reset();
@@ -353,12 +350,11 @@
 													 " | " + record.name;
 					}
 				}).catch(error => {
-					console.log(error);
+					vm.logs('BudgetModificationComponent.vue', 346, error, 'addAccount');
 				});
 
 				/** Obtiene datos de la cuenta presupuestaria */
 				axios.get('/budget/detail-accounts/' + vm.from_budget_account_id).then(response => {
-					console.log(response.data.result)
 					if (response.data.result) {
 						let record = response.data.record;
 						to_add.code = record.group + "." + record.item + "." + record.generic + "." + 
@@ -366,7 +362,7 @@
 						to_add.description = response.data.record.denomination;
 					}
 				}).catch(error => {
-					console.log(error);
+					vm.logs('BudgetModificationComponent.vue', 357, error, 'addAccount');
 				});
 				
 				to_add.from_amount = vm.from_amount;
@@ -424,10 +420,10 @@
 									axios.get('/budget/get-availability-opened-accounts/' + vm.from_budget_specific_action_id + "/" + this.id)
 										 .then(response => {
 										 	if (response.data.result) {
-										 		console.log(response.data.account)
+										 		//console.log(response.data.account)
 										 	}
 										 }).catch(error => {
-										 	console.log(error);
+										 	vm.logs('BudgetModificationComponent.vue', 420, error, 'getAccounts');
 										 });
 								}
 								vm.accounts.push({
@@ -439,7 +435,7 @@
 						});
 					}
 				}).catch(error => {
-					console.log(error);
+					vm.logs('BudgetModificationComponent.vue', 415, error, 'getAccounts');
 				});
 			}
 		}

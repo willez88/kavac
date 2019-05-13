@@ -45,6 +45,15 @@ Auth::routes();
  */
 Route::get('/refresh-captcha', 'Auth\LoginController@refreshCaptcha');
 
+/**
+ * -----------------------------------------------------------------------
+ * Ruta para generar logs del sistema
+ * -----------------------------------------------------------------------
+ *
+ * Gestiona los logs de la aplicación
+ */
+Route::post('/logs/front-end', 'Admin\LogController@frontEnd')->name('logs.front-end');
+
 
 /**
  * -----------------------------------------------------------------------

@@ -30,7 +30,7 @@
 	                $('.btn-display').fadeOut();
 	            }
 	        });
-	        console.log(this.$parent);
+	        //console.log(this.$parent);
 		}
 	};
 </script>
