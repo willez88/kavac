@@ -5,11 +5,11 @@
     $totHaber=0;                
 @endphp
 <table cellspacing="0" cellpadding="1" border="1">
-	@foreach($seats as $seat)
 	<tr>
 		@php
 			$from_date = explode('-', $seat['from_date']);
 		@endphp
+											{{-- se formatea la fecha de Y-m-d a d-m-Y --}}
 		<th width="50%"> Asiento Contable del {{ $from_date[2].'-'.$from_date[1].'-'.$from_date[0] }}</th>
         <th width="50%"> Ref.: {{ $seat['reference'] }}</th>
 	</tr>
@@ -20,9 +20,9 @@
 	{{-- Cuentas patrimoniales --}}
 	<table cellspacing="0" cellpadding="1" border="1">
 		<tr>
-			<th width="70%" align="center">Cuentas Patrimoniales</th>
-			<th width="15%" align="center">Debe</th>
-			<th width="15%" align="center">Haber</th>
+			<th width="65%" align="center">Cuentas Patrimoniales</th>
+			<th width="17.5%" align="center">Debe</th>
+			<th width="17.5%" align="center">Haber</th>
 		</tr>
 		@foreach($seat['accounting_accounts'] as $account)
 			<tr>
@@ -42,21 +42,20 @@
 			</tr>
 		@endforeach
 	</table>
-	@endforeach
 	<br><br>
 	<table cellspacing="0" cellpadding="1" border="1">
 		<tr>
-			<th width="70%"></th>
-			<th width="15%" align="center">Total Debe</th>
-			<th width="15%" align="center">Total Haber</th>
+			<th width="65%"></th>
+			<th width="17.5%" align="center">Total Debe</th>
+			<th width="17.5%" align="center">Total Haber</th>
 		</tr>
 		<tr>
 			<td></td>
 			<td>
-				{{' '.$totDebe }}
+				{{' '.$seat['tot_debit'] }}
 			</td>
 			<td>
-				{{' '.$totHaber }}
+				{{' '.$seat['tot_assets'] }}
 			</td>
 		</tr>
 	</table>

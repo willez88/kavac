@@ -71,7 +71,8 @@
 		},
 		created(){
 			if (this.category_edit != null) {
-				this.generated_by_id = this.category_edit;
+				this.generated_by_id = this.category_edit.id;
+				console.log('CAT '+this.category_edit);
 			}
 		},
 		mounted(){

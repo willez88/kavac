@@ -70,9 +70,13 @@ Route::group(['middleware' => 'web',
 	/**
      * rutas para los pdf de asientos contables
      */
-
 	Route::get('seating/pdf/{id}', 'AccountingSeatReportPdfController@pdf')
 			->name('accounting.seating.pdf');
+	/**
+     * rutas para reporte de balance de comprobación
+     */
+	Route::get('report/checkingBalance', 'AccountingReportPdfCheckupBalanceController@index')
+			->name('accounting.report.checkingBalance');
 
 	/**
 	* rutas de crud de asientos contables
@@ -81,7 +85,14 @@ Route::group(['middleware' => 'web',
 		['as' => 'seating',
 		'except' => ['index']]);
 
-	Route::resource('configuration', 'AccountingconfigurationController', 
+
+	/**
+		Rutas para las vistas de configuración de categorias del modulo de contabilidad
+	*/
+	Route::get('configuration', 'AccountingConfigurationCategoryController@index')
+			->name('accounting.configuration.index');
+
+	Route::resource('configuration/categories', 'AccountingConfigurationCategoryController', 
 		['as' => 'configuration',
 		'except' => ['index']]);
 
