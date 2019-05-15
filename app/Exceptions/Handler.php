@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof \Ultraware\Roles\Exceptions\PermissionDeniedException) {
+        if ($exception instanceof \App\Roles\Exceptions\PermissionDeniedException) {
             /** Exception catch when deny access by permissions */
             $msg = 'No dispone de permisos para acceder a esta funcionalidad';
             
@@ -60,7 +60,7 @@ class Handler extends ExceptionHandler
             return redirect()->back();
         }
 
-        if ($exception instanceof \Ultraware\Roles\Exceptions\LevelDeniedException) {
+        if ($exception instanceof \App\Roles\Exceptions\LevelDeniedException) {
             /** Exception catch when deny access by levels */
             $msg = 'Su nivel de acceso no le permite acceder a esta funcionalidad';
 
@@ -72,7 +72,7 @@ class Handler extends ExceptionHandler
             return redirect()->back();
         }
 
-        if ($exception instanceof \Ultraware\Roles\Exceptions\RoleDeniedException) {
+        if ($exception instanceof \App\Roles\Exceptions\RoleDeniedException) {
             /** Exception catch when deny access by roles */
             $msg = 'El rol asignado no le permite acceder a esta funcionalidad';
 

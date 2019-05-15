@@ -47,6 +47,14 @@ Vue.component('finance-voucher-design', require('./components/FinanceVoucherDesi
  */
 Vue.mixin({
 	methods: {
+		/**
+		 * Permite formatear la cadena de la cuenta bancaria
+		 *
+		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {string}  account  Número de cuenta bancaria
+		 * @param  {boolean} formated Indica si se desa obtener o no el número de cuenta bancaria formateada
+		 * @return {string}           Número de cuenta formateado
+		 */
 		format_bank_account(account, formated) {
 			var formated = (typeof(formated) !== "undefined") ? formated : true;
 
@@ -82,7 +90,7 @@ Vue.mixin({
 				axios.get('/finance/get-agencies/' + bank_id).then(response => {
 					vm.agencies = response.data;
 				}).catch(error => {
-					console.log(error);
+					vm.logs('Budget/Resources/assets/js/_all.js', 90, error, 'getAgencies');
 				});
 
 				if ($("#bank_code").length) {
@@ -91,7 +99,7 @@ Vue.mixin({
 							vm.record.bank_code = response.data.bank.code;
 						}
 					}).catch(error => {
-						console.log(error);
+						vm.logs('Budget/Resources/assets/js/_all.js', 97, error, 'getAgencies');
 					});
 				}
 			}
@@ -121,7 +129,7 @@ Vue.mixin({
 						vm.accounts = response.data.accounts;
 					}
 				}).catch(error => {
-					console.log(error);
+					vm.logs('Budget/Resources/assets/js/_all.js', 127, error, 'getBankAccounts');
 				});
 			}
 		}

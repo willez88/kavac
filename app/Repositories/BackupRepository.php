@@ -26,6 +26,11 @@ class BackupRepository
 		//
 	}
 
+	/**
+	 * Gestiona la creación de respaldos de la base de datos
+	 *
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 */
 	public function create()
 	{
 		try {
@@ -47,10 +52,10 @@ class BackupRepository
 	}
 
 	/**
-	 * Show list for backup files
-	 * @param  string $disk Filesystem disk name
-	 * @param  string $dir  Filesystem directory
-	 * @return array        Return array with the files
+	 * Muestra el listado de archivos de respaldo
+	 * @param  string $disk Nombre del disco del sistema de archivos
+	 * @param  string $dir  Nombre del directorio del sistema de archivos
+	 * @return array        Devuelve un arreglo con el listado de archivos de respaldo en orden descendente
 	 */
 	public function getList($disk, $dir)
 	{

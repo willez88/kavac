@@ -49,6 +49,7 @@ class Currency extends Model implements Auditable
     /**
      * Currency belongs to Country.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function country()
@@ -59,6 +60,7 @@ class Currency extends Model implements Auditable
     /**
      * Department has many BudgetProjects.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_sub_specific_formulations()

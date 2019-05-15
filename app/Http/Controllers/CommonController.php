@@ -15,11 +15,25 @@ use Illuminate\Http\Request;
  */
 class CommonController extends Controller
 {
-    public function getSelectData(Request $request, $parent_id, $model, $module_name = null, $foreign_key = null)
+	/**
+	 * Obtiene Datos de modelos relacionados
+	 *
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  \Illuminate\Http\Request $request     Datos de la petición
+	 * @param  integer  				$parent_id   Identificador del elemento relacionado
+	 * @param  string  					$model       Nombre del modelo
+	 * @param  string  					$module_name Nombre del módulo
+	 * @param  string  					$fk          Clave foránea
+	 * @return \Illuminate\Http\JsonResponse Datos con los registros relacionados
+	 */
+    public function getSelectData(Request $request, $parent_id, $model, $module_name = null, $fk = null)
     {
-    	dd('entro');
-    	$model_name = ($model == 'User')?'App\\' . $model:((!is_null($module_name))?'Modules\\' . $module_name:'App') . '\\Models\\';
-    	$foreign_key = (is_null($foreign_key))?strtolower($model) . '_id':$foreign_key;
+    	$model_name = ($model == 'User') 
+    				  ? "App\\{$model}" 
+    				  : ((!is_null($module_name)) ? "Modules\\{$module_name}" : 'App') . '\\Models\\';
+
+    	$fk = (is_null($fk))?strtolower($model) . '_id':$fk;
+
     	$items = [];
     	
     	return response()->json($items, 200);

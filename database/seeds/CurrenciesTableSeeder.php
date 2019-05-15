@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 
 use Illuminate\Database\Eloquent\Model;
-use Ultraware\Roles\Models\Role;
-use Ultraware\Roles\Models\Permission;
+use App\Roles\Models\Role;
+use App\Roles\Models\Permission;
 use App\Models\Currency;
 use App\Models\Country;
 
@@ -41,25 +41,25 @@ class CurrenciesTableSeeder extends Seeder
         	[
         		'name' => 'Crear Monedas', 'slug' => 'currency.create',
                 'description' => 'Acceso al registro de monedas', 
-                'model' => 'App\Models\Currency', 'model_prefix' => '0general',
+                'model' => Currency::class, 'model_prefix' => '0general',
                 'slug_alt' => 'moneda.crear', 'short_description' => 'agregar moneda'
         	],
         	[
                 'name' => 'Editar Monedas', 'slug' => 'currency.edit',
                 'description' => 'Acceso para editar monedas', 
-                'model' => 'App\Models\Currency', 'model_prefix' => '0general',
+                'model' => Currency::class, 'model_prefix' => '0general',
                 'slug_alt' => 'moneda.editar', 'short_description' => 'editar moneda'
             ],
             [
                 'name' => 'Eliminar Monedas', 'slug' => 'currency.delete',
                 'description' => 'Acceso para eliminar monedas', 
-                'model' => 'App\Models\Currency', 'model_prefix' => '0general',
+                'model' => Currency::class, 'model_prefix' => '0general',
                 'slug_alt' => 'moneda.eliminar', 'short_description' => 'eliminar moneda'
             ],
             [
                 'name' => 'Ver Monedas', 'slug' => 'currency.list',
                 'description' => 'Acceso para ver monedas', 
-                'model' => 'App\Models\Currency', 'model_prefix' => '0general',
+                'model' => Currency::class, 'model_prefix' => '0general',
                 'slug_alt' => 'moneda.ver', 'short_description' => 'ver monedas'
             ],
         ];

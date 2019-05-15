@@ -1,6 +1,6 @@
 <h5 class="card-title text-center">Roles</h5>
 <div class="row">
-    @foreach (Ultraware\Roles\Models\Role::all() as $role)
+    @foreach (App\Roles\Models\Role::all() as $role)
         <div class="col-md-2 text-center">
             <div class="form-group">
                 <label for="" class="control-label">{{ $role->name }}</label>
@@ -19,7 +19,7 @@
     $module = "";
 @endphp
 <div class="row">
-    @foreach (Ultraware\Roles\Models\Permission::orderBy('model_prefix')->get() as $permission)
+    @foreach (App\Roles\Models\Permission::orderBy('model_prefix')->get() as $permission)
         @if ($module != $permission->model_prefix)
             @php
                 $module = $permission->model_prefix;

@@ -57,6 +57,12 @@ class City extends Model implements Auditable
         return $this->belongsTo(Estate::class);
     }
 
+    /**
+     * Método que obtiene las agencias bancarias de una Ciudad
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return object Objeto con los registros relacionados al modelo FinanceBankingAgency
+     */
     public function banking_agencies()
     {
         return (Module::has('Finance'))

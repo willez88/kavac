@@ -76,6 +76,12 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+
+        'front_end' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/frontend.log'),
+            'level' => 'error',
+        ],
     ],
 
 ];

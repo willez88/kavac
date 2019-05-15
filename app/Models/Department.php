@@ -49,6 +49,7 @@ class Department extends Model implements Auditable
     /**
      * Department belongs to Parent.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent()
@@ -59,6 +60,7 @@ class Department extends Model implements Auditable
     /**
      * Department has many Childrens.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function childrens()
@@ -69,6 +71,7 @@ class Department extends Model implements Auditable
     /**
      * Department belongs to Institution.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()
@@ -79,6 +82,7 @@ class Department extends Model implements Auditable
     /**
      * Department has many BudgetProjects.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_projects()
@@ -89,6 +93,7 @@ class Department extends Model implements Auditable
     /**
      * Department has many BudgetCentralizedAction.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_centralized_actions()

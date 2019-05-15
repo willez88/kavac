@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 
 use Illuminate\Database\Eloquent\Model;
-use Ultraware\Roles\Models\Role;
-use Ultraware\Roles\Models\Permission;
+use App\Roles\Models\Role;
+use App\Roles\Models\Permission;
 use App\Models\Profession;
 
 /**
@@ -74,25 +74,25 @@ class ProfessionsTableSeeder extends Seeder
             [
                 'name' => 'Crear Profesiones', 'slug' => 'profession.create',
                 'description' => 'Acceso al registro de profesiones', 
-                'model' => 'App\Models\Profession', 'model_prefix' => '0general',
+                'model' => Profession::class, 'model_prefix' => '0general',
                 'slug_alt' => 'profesion.crear', 'short_description' => 'agregar profesión'
             ],
             [
                 'name' => 'Editar Profesiones', 'slug' => 'profession.edit',
                 'description' => 'Acceso para editar profesiones', 
-                'model' => 'App\Models\Profession', 'model_prefix' => '0general',
+                'model' => Profession::class, 'model_prefix' => '0general',
                 'slug_alt' => 'profesion.editar', 'short_description' => 'editar profesión'
             ],
             [
                 'name' => 'Eliminar Profesiones', 'slug' => 'profession.delete',
                 'description' => 'Acceso para eliminar profesiones', 
-                'model' => 'App\Models\Profession', 'model_prefix' => '0general',
+                'model' => Profession::class, 'model_prefix' => '0general',
                 'slug_alt' => 'profesion.eliminar', 'short_description' => 'eliminar profesión'
             ],
             [
                 'name' => 'Ver Profesiones', 'slug' => 'profession.list',
                 'description' => 'Acceso para ver profesiones', 
-                'model' => 'App\Models\Profession', 'model_prefix' => '0general',
+                'model' => Profession::class, 'model_prefix' => '0general',
                 'slug_alt' => 'profesion.ver', 'short_description' => 'ver profesiones'
             ],
         ];

@@ -5,6 +5,15 @@ namespace Modules\Finance\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
+/**
+ * @class FinanceServiceProvider
+ * @brief Service Provider del módulo de finanzas
+ * 
+ * Gestiona el service provider del módulo de finanzas
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class FinanceServiceProvider extends ServiceProvider
 {
     /**

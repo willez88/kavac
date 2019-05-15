@@ -32,8 +32,8 @@
 					<div class="card-body">
 						@include('layouts.form-errors')
 						@php
-							$roles = Ultraware\Roles\Models\Role::where('slug', '<>', 'user')->get();
-							$permissions = Ultraware\Roles\Models\Permission::orderBy('model_prefix')->get();
+							$roles = App\Roles\Models\Role::where('slug', '<>', 'user')->get();
+							$permissions = App\Roles\Models\Permission::orderBy('model_prefix')->get();
 							$module = "";
 						@endphp
 						<table class="table table-hover table-striped dt-responsive">

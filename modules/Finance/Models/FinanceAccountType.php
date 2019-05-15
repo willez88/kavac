@@ -8,6 +8,15 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+/**
+ * @class FinanceAccountType
+ * @brief Datos de tipos de cuentas bancarias
+ * 
+ * Gestiona el modelo de datos para los tipos de cuentas bancarias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class FinanceAccountType extends Model implements Auditable
 {
 	use SoftDeletes;
@@ -28,6 +37,7 @@ class FinanceAccountType extends Model implements Auditable
     /**
      * FinanceAccountType has many FinanceBankAccount.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function bank_accounts()

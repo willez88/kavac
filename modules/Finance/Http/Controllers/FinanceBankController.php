@@ -8,6 +8,15 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Finance\Models\FinanceBank;
 
+/**
+ * @class FinanceBankController
+ * @brief Controlador para las entidades bancarias
+ * 
+ * Clase que gestiona las entidades bancarias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class FinanceBankController extends Controller
 {
     use ValidatesRequests;
@@ -121,6 +130,12 @@ class FinanceBankController extends Controller
         return response()->json(['record' => $financeBank, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene los datos de las entidades bancarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return JSON Devuelve un JSON con listado de las entidades bancarias
+     */
     public function getBanks()
     {
         foreach (FinanceBank::all() as $bank) {
@@ -133,6 +148,13 @@ class FinanceBankController extends Controller
         return response()->json($this->data);
     }
 
+    /**
+     * Obtiene información de una determinada entidad bancaria
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  integer $bank_id Identificador de la entidad bancaria
+     * @return JSON             Devuelve un JSON con los datos de la entidad bancaria consultada
+     */
     public function getBankInfo($bank_id)
     {
         return response()->json(['result' => true, 'bank' => FinanceBank::find($bank_id)], 200);

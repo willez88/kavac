@@ -162,6 +162,8 @@ Vue.mixin({
 			 */
 			table_options: {
 				pagination: { edge: true },
+				//filterByColumn: true,
+				highlightMatches: true,
 				texts: {
                     filter: "Buscar:",
                     filterBy: 'Buscar por {column}',
@@ -172,6 +174,12 @@ Vue.mixin({
                     limit: 'Registros',
                     //page: 'Página:',
                     noResults: 'No existen registros',
+				},
+				sortIcon: {
+					is: 'fa-sort cursor-pointer',
+					base: 'fa',
+					up: 'fa-sort-up cursor-pointer',
+					down: 'fa-sort-down cursor-pointer'
 				},
 			},
 		}
@@ -209,6 +217,29 @@ Vue.mixin({
 		}
 	},
 	methods: {
+		/**
+         * Registro de eventos del sistema
+         *
+         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+         * @param  {string}  v  Vista
+         * @param  {integer} l  Línea
+         * @param  {string}  lg Mensaje
+         * @param  {string}  f  Función. Opcional
+         */
+		logs: function(v, l, lg, f) {
+            var f = (typeof(f) !== "undefined") ? f : false;
+            var p = {
+                v: v,
+                l: l,
+                lg: lg
+            };
+            if (f) {
+                p.f = f;
+            }
+            axios.post(window.log_url, p).catch(error => {
+                log('app', 297, error);
+            });
+        }
 		/**
 		 * Redirecciona a una url esecífica si fue suministrada
 		 *
@@ -309,7 +340,7 @@ Vue.mixin({
 						);
 					}
 					else {
-						console.log(error.response);
+						vm.logs('resources/js/all.js', 343, error, 'initRecords');
 					}
 				}
 			});

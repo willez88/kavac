@@ -50,7 +50,7 @@ $(document).ready(function() {
         $('.select2').tooltip();
     }
 
-	/*$('.card-header').hover(function() {
+    /*$('.card-header').hover(function() {
     	$(this).find('.card-btns').fadeIn('fast');
     }, function() {
     	$(this).find('.card-btns').fadeOut('fast');
@@ -406,7 +406,7 @@ function delete_record(url) {
                 error: function(jqxhr, textStatus, error) {
                     var err = textStatus + ", " + error;
                     bootbox.alert('Error interno del servidor al eliminar el registro.');
-                    console.log( 'Error con la petición solicitada. Detalles: ' + err );
+                    logs('resources/js/custom.js', 406, `Error con la petición solicitada. Detalles: ${err}`, 'delete_record');
                 }
             });
         }

@@ -8,6 +8,15 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+/**
+ * @class FinanceBankingAgency
+ * @brief Datos de las agencias bancarias
+ * 
+ * Gestiona el modelo de datos para las agencias bancarias
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class FinanceBankingAgency extends Model implements Auditable
 {
     use SoftDeletes;
@@ -30,6 +39,7 @@ class FinanceBankingAgency extends Model implements Auditable
     /**
      * FinanceBankingAgency belongs to Bank.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function finance_bank()
@@ -40,6 +50,7 @@ class FinanceBankingAgency extends Model implements Auditable
     /**
      * FinanceBankingAgency morphs many city.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
     public function city()
@@ -50,6 +61,7 @@ class FinanceBankingAgency extends Model implements Auditable
     /**
      * FinanceBankingAgency has many FinanceBankAccount.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function bank_accounts()
@@ -59,6 +71,9 @@ class FinanceBankingAgency extends Model implements Auditable
 
     /**
      * Get all of the budget project's specific actions.
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function phones()
     {

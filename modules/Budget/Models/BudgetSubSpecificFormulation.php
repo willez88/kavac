@@ -42,6 +42,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation belongs to BudgetSpecificAction.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function specific_action()
@@ -52,6 +53,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation belongs to Currency.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function currency()
@@ -62,6 +64,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation belongs to Institution.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()
@@ -72,6 +75,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation belongs to DocumentStatus.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function document_status()
@@ -83,6 +87,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation has many BudgetAccountOpen.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function account_opens()
@@ -93,6 +98,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation has many BudgetAditionalCreditAccounts.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function modification_accounts()

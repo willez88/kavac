@@ -8,6 +8,15 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+/**
+ * @class BudgetModification
+ * @brief Datos de las modificaciones presupuestarias
+ * 
+ * Gestiona el modelo de datos para las modificaciones presupuestarias (Crédito Adicional, Traspasos y Reducciones)
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class BudgetModification extends Model implements Auditable
 {
 	use SoftDeletes;
@@ -50,6 +59,7 @@ class BudgetModification extends Model implements Auditable
     /**
      * BudgetModifications belongs to DocumentStatus.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function document_status()

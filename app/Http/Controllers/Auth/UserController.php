@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Ultraware\Roles\Models\Role;
-use Ultraware\Roles\Models\Permission;
+use App\Roles\Models\Role;
+use App\Roles\Models\Permission;
 
 /**
  * @class UserController

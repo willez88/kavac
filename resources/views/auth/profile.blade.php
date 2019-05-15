@@ -778,14 +778,14 @@
                         }).then(response => {
 
                         }).catch(error => {
-                            console.log(error);
+                            logs('profile', 774, error);
                         });
                     }).catch(error => {
-                        console.log(error);
+                        logs('profile', 770, error);
                     });
                 }
             }).catch(error => {
-                console.log(error);
+                logs('profile', 755, error);
             });
         }
     </script>

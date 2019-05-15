@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 
 use Illuminate\Database\Eloquent\Model;
-use Ultraware\Roles\Models\Role;
-use Ultraware\Roles\Models\Permission;
+use App\Roles\Models\Role;
+use App\Roles\Models\Permission;
 use App\Models\Estate;
 use App\Models\City;
 
@@ -410,25 +410,25 @@ class CitiesTableSeeder extends Seeder
             [
                 'name' => 'Crear Ciudades', 'slug' => 'city.create',
                 'description' => 'Acceso al registro de ciudades', 
-                'model' => 'App\Models\City', 'model_prefix' => '0general',
+                'model' => City::class, 'model_prefix' => '0general',
                 'slug_alt' => 'ciudad.crear', 'short_description' => 'agregar ciudad'
             ],
             [
                 'name' => 'Editar Ciudades', 'slug' => 'city.edit',
                 'description' => 'Acceso para editar ciudades', 
-                'model' => 'App\Models\City', 'model_prefix' => '0general',
+                'model' => City::class, 'model_prefix' => '0general',
                 'slug_alt' => 'ciudad.editar', 'short_description' => 'editar ciudad'
             ],
             [
                 'name' => 'Eliminar Ciudades', 'slug' => 'city.delete',
                 'description' => 'Acceso para eliminar ciudades', 
-                'model' => 'App\Models\City', 'model_prefix' => '0general',
+                'model' => City::class, 'model_prefix' => '0general',
                 'slug_alt' => 'ciudad.eliminar', 'short_description' => 'eliminar ciudad'
             ],
             [
                 'name' => 'Ver Ciudades', 'slug' => 'city.list',
                 'description' => 'Acceso para ver ciudades', 
-                'model' => 'App\Models\City', 'model_prefix' => '0general',
+                'model' => City::class, 'model_prefix' => '0general',
                 'slug_alt' => 'ciudad.ver', 'short_description' => 'ver ciudades'
             ],
         ];

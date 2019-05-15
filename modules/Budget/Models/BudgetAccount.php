@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+
 /**
  * Se importa el modelo de AccountingAccountConverter del modulo Accounting
  * para la relación en la función account_converters
@@ -15,6 +16,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @author  Juan Rosas <JuanFBass17@gmail.com>
  */
 use Modules\Accounting\Models\AccountingAccountConverter;
+
 /**
  * @class BudgetAccount
  * @brief Datos de cuentas del Clasificador Presupuestario
@@ -70,6 +72,7 @@ class BudgetAccount extends Model implements Auditable
     /**
      * BudgetAccount has many BudgetAccountOpen.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function account_opens()
@@ -80,6 +83,7 @@ class BudgetAccount extends Model implements Auditable
     /**
      * BudgetAccount has many BudgetModificationAccounts.
      *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function modification_accounts()

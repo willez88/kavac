@@ -37,6 +37,7 @@ class Profile extends Model implements Auditable
     /**
      * Profile belongs to User.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()

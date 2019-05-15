@@ -44,6 +44,7 @@ class Phone extends Model implements Auditable
     /**
      * Phone morphs to models in phonetable_type.
      *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function phoneable()

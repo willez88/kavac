@@ -9,6 +9,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Finance\Models\FinanceBank;
 use Modules\Finance\Models\FinanceCheckBook;
 
+/**
+ * @class FinanceCheckBookController
+ * @brief Controlador para las chequeras
+ * 
+ * Clase que gestiona las chequeras
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class FinanceCheckBookController extends Controller
 {
     use ValidatesRequests;

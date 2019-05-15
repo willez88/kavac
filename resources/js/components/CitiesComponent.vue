@@ -130,7 +130,6 @@
 			};
 
 			this.getCountries();
-
 		},
 	};
 </script>

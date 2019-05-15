@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 
 use Illuminate\Database\Eloquent\Model;
-use Ultraware\Roles\Models\Role;
-use Ultraware\Roles\Models\Permission;
+use App\Roles\Models\Role;
+use App\Roles\Models\Permission;
 use App\Models\Country;
 use App\Models\Estate;
 
@@ -74,25 +74,25 @@ class EstatesTableSeeder extends Seeder
             [
                 'name' => 'Crear Estados', 'slug' => 'estate.create',
                 'description' => 'Acceso al registro de estados', 
-                'model' => 'App\Models\Estate', 'model_prefix' => '0general',
+                'model' => Estate::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estado.crear', 'short_description' => 'agregar estado'
             ],
             [
                 'name' => 'Editar Estados', 'slug' => 'estate.edit',
                 'description' => 'Acceso para editar estados', 
-                'model' => 'App\Models\Estate', 'model_prefix' => '0general',
+                'model' => Estate::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estado.editar', 'short_description' => 'editar estado'
             ],
             [
                 'name' => 'Eliminar Estados', 'slug' => 'estate.delete',
                 'description' => 'Acceso para eliminar estados', 
-                'model' => 'App\Models\Estate', 'model_prefix' => '0general',
+                'model' => Estate::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estado.eliminar', 'short_description' => 'eliminar estado'
             ],
             [
                 'name' => 'Ver Estados', 'slug' => 'estate.list',
                 'description' => 'Acceso para ver estados', 
-                'model' => 'App\Models\Estate', 'model_prefix' => '0general',
+                'model' => Estate::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estado.ver', 'short_description' => 'ver estados'
             ],
         ];

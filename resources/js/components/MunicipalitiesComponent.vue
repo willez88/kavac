@@ -140,7 +140,6 @@
 				'code': 'col-md-1',
 				'id': 'col-md-2'
 			};
-
 			this.getCountries();
 		}
 	};
