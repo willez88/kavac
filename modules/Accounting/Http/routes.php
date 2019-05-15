@@ -72,11 +72,14 @@ Route::group(['middleware' => 'web',
      */
 	Route::get('seating/pdf/{id}', 'AccountingSeatReportPdfController@pdf')
 			->name('accounting.seating.pdf');
+
 	/**
      * rutas para reporte de balance de comprobación
      */
 	Route::get('report/checkingBalance', 'AccountingReportPdfCheckupBalanceController@index')
 			->name('accounting.report.checkingBalance');
+	Route::get('report/checkingBalance/pdf/{zero?}','AccountingReportPdfCheckupBalanceController@pdf')
+			->name('accounting.report.checkingBalance.pdf');
 
 	/**
 	* rutas de crud de asientos contables

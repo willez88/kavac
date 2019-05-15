@@ -65,7 +65,9 @@
 								style="margin-top:0.8rem !important;" 
 								title="Consultar registros"
 								data-toggle="tooltip"
-								v-on:click="getRecords()">Consultar</button>
+								v-on:click="getRecords()">
+							<i class="fa fa-search"></i>		
+						</button>
 					</div>
 				<div class="col-12">
 					<v-client-table :columns="columns" :data="records" :options="table_options">

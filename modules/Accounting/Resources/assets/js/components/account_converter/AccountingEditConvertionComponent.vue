@@ -1,5 +1,5 @@
 <template>
-	<form class="form-horizontal" @submit.prevent="">
+	<div class="form-horizontal">
 		<div class="card-body">
 			<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
 				<div class="container">
@@ -35,7 +35,7 @@
 							data-toggle="tooltip"
 							v-on:click="update()"><i class="fa fa-save"></i></button>
 		</div>
-	</form>
+	</div>
 </template>
 <script>
 	export default{

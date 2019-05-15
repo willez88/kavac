@@ -44,7 +44,7 @@
 				</div>
 				<div class="col-4">
 					<div class="form-group">
-						<label class="control-label">Asiento generado por
+						<label class="control-label">Asiento generado poro
 						</label>
 						<select2 :options="categories" v-model="generated_by_id"></select2>
 					</div>
@@ -71,8 +71,7 @@
 		},
 		created(){
 			if (this.category_edit != null) {
-				this.generated_by_id = this.category_edit.id;
-				console.log('CAT '+this.category_edit);
+				this.generated_by_id = this.category_edit;
 			}
 		},
 		mounted(){

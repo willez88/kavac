@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					
+					<accounting-report-checkup-balance year_old="{{ $yearOld }}" />
 				</div>
 			</div>
 		</div>

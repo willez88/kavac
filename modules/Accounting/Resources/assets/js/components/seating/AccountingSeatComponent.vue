@@ -158,7 +158,7 @@
 
 <script>
 	export default{
-		props:['categories'],
+		props:['categories','year_old'],
 		data(){
 			return {
 				errors:[],
@@ -225,7 +225,8 @@
 					id:0,
 					text:'Todos'
 				});
-				for (var year = date.getFullYear(); year >= 2007; year--) {
+				console.log(this.year_old)
+				for (var year = date.getFullYear(); year >= this.year_old; year--) {
 					this.OptionsYears.push({
 						id:year,
 						text:year
