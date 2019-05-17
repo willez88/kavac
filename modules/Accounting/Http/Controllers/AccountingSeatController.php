@@ -286,19 +286,64 @@ class AccountingSeatController extends Controller
         /** @var array Arreglo que contendra los registros luego de aplicar el filtrado por categoria de origen */
         $FilterByOrigin = [];
 
+        /** @var int Variable que almacenara el id de la institución o departamento para el filtrado */
+        $institution_id = null;
+        /** @var string Objeto que almacenara el tipo de busqueda si institución o departamento */
+        $institution_type = null;
+
+        if ($request->data['institution'] != '') {
+            $institution_id = explode('-',$request->data['institution'])[0];
+            $institution_type = explode('-',$request->data['institution'])[1];
+        }
+
         if ($request->typeSearch == 'reference') {
-            foreach (AccountingSeat::with('accounting_accounts.account')->orderBy('from_date','ASC')->get() as $seating) {
-                if (count(explode($request->data['reference'], $seating->reference)) > 1) {
+
+            $allRecords = [];
+            /**
+             * Se realiza la consulta si selecciono una institución o departamento para el filtrado
+            */
+            if (!is_null($institution_id)) {
+                if ($institution_type == 'institution') {
+                    $allRecords = AccountingSeat::with('accounting_accounts.account')->where('institution_id',$institution_id)->orderBy('from_date','ASC')->get();
+                } else {
+                    $allRecords = AccountingSeat::with('accounting_accounts.account')->where('department_id',$institution_id)->orderBy('from_date','ASC')->get();
+                }
+            }
+            else {
+                $allRecords = AccountingSeat::with('accounting_accounts.account')->orderBy('from_date','ASC')->get();
+            }
+            foreach ($allRecords as $seating) {
+                if (count(explode($request->data['reference'], $seating->reference)) > 1){
                     array_push($records, $seating);
                 }
+
             }
         }else if ($request->typeSearch == 'origin') {
             /**
-             * realiza busqueda de todos los asientos, sino solo por una categoria de origen
-             */
+             * realiza busqueda de todos los asientos, de lo contrario solo por una categoria especifica
+             * Se realiza la consulta si selecciono una institución o departamento para el filtrado
+            */
             $FilterByOrigin = ($request->data['category'] == 0) ?
                  AccountingSeat::with('accounting_accounts.account')->where('approved',true)->orderBy('from_date','ASC')->get() : 
                  AccountingSeat::with('accounting_accounts.account')->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+
+            if (!is_null($institution_id)) {
+                if ($institution_type == 'institution') {
+                    $FilterByOrigin = ($request->data['category'] == 0) ?
+                                        AccountingSeat::with('accounting_accounts.account')->where('institution_id',$institution_id)->where('approved',true)->orderBy('from_date','ASC')->get() : 
+                                        AccountingSeat::with('accounting_accounts.account')->where('institution_id',$institution_id)->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+
+                } else {
+                    $FilterByOrigin = ($request->data['category'] == 0) ?
+                                        AccountingSeat::with('accounting_accounts.account')->where('department_id',$institution_id)->where('approved',true)->orderBy('from_date','ASC')->get() : 
+                                        AccountingSeat::with('accounting_accounts.account')->where('department_id',$institution_id)->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+                }
+            }
+            else {
+                $FilterByOrigin = ($request->data['category'] == 0) ?
+                                    AccountingSeat::with('accounting_accounts.account')->where('approved',true)->orderBy('from_date','ASC')->get() : 
+                                    AccountingSeat::with('accounting_accounts.account')->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+            }
             
             /**
              * Filtrado para unos meses o años en general
@@ -320,7 +365,7 @@ class AccountingSeatController extends Controller
                             $fltForYear = $FilterByOrigin;
                         }else{
                             foreach ($FilterByOrigin as $record) {
-                                if (explode('-',$record->from_date)[0] == $request->data['year']) {
+                                if (explode('-',$record->from_date)[0] == $request->data['year']){
                                     array_push($fltForYear, $record);
                                 }
                             }
@@ -332,7 +377,7 @@ class AccountingSeatController extends Controller
                             $records = $fltForYear;
                         }else{
                             foreach ($fltForYear as $record) {
-                                if (explode('-',$record->from_date)[1] == $request->data['month']) {
+                                if (explode('-',$record->from_date)[1] == $request->data['month']){
                                     array_push($records, $record);
                                 }
                             }
