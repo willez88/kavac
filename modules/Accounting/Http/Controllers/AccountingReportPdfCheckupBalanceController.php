@@ -26,7 +26,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $seating = AccountingSeat::orderBy('from_date','DESC')->first();
         
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $yearOld = explode('-',$seating->from_date)[0];
+        $yearOld = explode('-',$seating['from_date'])[0];
 
         return view('accounting::reports.index-checkupBalance',compact('yearOld'));
     }

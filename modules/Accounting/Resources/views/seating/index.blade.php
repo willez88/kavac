@@ -25,8 +25,12 @@
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.new', ['route' => route('accounting.seating.create')])
-						@include('buttons.listing', ['route' => route('accounting.seating.unapproved'),
-													 'title' => 'Aprobar Asientos'])
+						<a href="{{ route('accounting.seating.unapproved') }}"
+							class="btn btn-sm btn-primary btn-custom"
+							title="Listado de asientos por aprobar"
+							data-toggle="tooltip">
+							<i class="fa fa-list"></i>
+						</a>
 						@include('buttons.minimize')
 					</div>
 				</div>

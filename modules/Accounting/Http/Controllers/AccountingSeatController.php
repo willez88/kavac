@@ -54,7 +54,7 @@ class AccountingSeatController extends Controller
         $seating = AccountingSeat::orderBy('from_date','ASC')->first();
         
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $yearOld = explode('-',$seating->from_date)[0];
+        $yearOld = explode('-',$seating['from_date'])[0];
 
         /** @var array Arreglo que contendra las categorias */
         $categories = [];
