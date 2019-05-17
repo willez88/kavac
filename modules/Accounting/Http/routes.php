@@ -76,10 +76,21 @@ Route::group(['middleware' => 'web',
 	/**
      * rutas para reporte de balance de comprobación
      */
-	Route::get('report/checkingBalance', 'AccountingReportPdfCheckupBalanceController@index')
-			->name('accounting.report.checkingBalance');
+	Route::get('report/checkingBalance','AccountingReportPdfCheckupBalanceController@index')
+		->name('accounting.report.checkingBalance');
 	Route::get('report/checkingBalance/pdf/{zero?}','AccountingReportPdfCheckupBalanceController@pdf')
-			->name('accounting.report.checkingBalance.pdf');
+		->name('accounting.report.checkingBalance.pdf');
+
+	/**
+     * rutas para reporte del libro diario
+     */
+	Route::get('report/diaryBook', 'AccountingReportPdfDiaryBookController@index')
+			->name('accounting.report.diaryBook');
+	Route::get('report/diaryBook/pdf/{dateIni}/{dateEnd}','AccountingReportPdfDiaryBookController@pdf')
+		->name('accounting.report.diaryBook.pdf');
+
+
+
 
 	/**
 	* rutas de crud de asientos contables
@@ -92,11 +103,11 @@ Route::group(['middleware' => 'web',
 	/**
 		Rutas para las vistas de configuración de categorias del modulo de contabilidad
 	*/
-	Route::get('configuration', 'AccountingConfigurationCategoryController@index')
-			->name('accounting.configuration.index');
+	Route::get('settings', 'AccountingConfigurationCategoryController@index')
+			->name('accounting.settings.index');
 
-	Route::resource('configuration/categories', 'AccountingConfigurationCategoryController', 
-		['as' => 'configuration',
+	Route::resource('settings/categories', 'AccountingConfigurationCategoryController', 
+		['as' => 'settings',
 		'except' => ['index']]);
 
 

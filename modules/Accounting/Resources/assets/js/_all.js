@@ -74,7 +74,14 @@ Vue.component('accounting-configuration-category', require('./components/configu
  *
  * @author  Juan Rosas <JuanFBass17@gmail.com>
  */
-Vue.component('accounting-report-checkup-balance', require('./components/reports/index-CheckupBalance.vue'));
+Vue.component('accounting-report-checkup-balance', require('./components/reports/index-CheckupBalanceComponent.vue'));
+
+/**
+ * Componente index para el reporte del libro diario
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-report-diary-book', require('./components/reports/index-diaryBookComponent.vue'));
 
 
 

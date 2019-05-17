@@ -29,9 +29,9 @@
 				</div>
 				<div class="card-body">
 					@if(!isset($seating))
-						<accounting-seat-create :categories="{{ $categories }}" />
+						<accounting-seat-create :categories="{{ $categories }}" :institutions="{{ $institutions }}" />
 					@else
-						<accounting-seat-create :categories="{{ $categories }}"
+						<accounting-seat-create :categories="{{ $categories }}" :institutions="{{ $institutions }}" institution_departament_edit="{{ $institution_departament }}"
 												category_edit="{{ $category }}"
 												date_edit="{{ $date }}"
 												reference_edit="{{ $reference }}"

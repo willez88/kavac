@@ -5,7 +5,7 @@
     </a>
     <ul class="submenu" style="{!! display_submenu('accounting') !!}">
         <li>
-            <a href="{{ route('accounting.configuration.index') }}">
+            <a href="{{ route('accounting.settings.index') }}">
                 <i></i>Configuración
             </a>
         </li>
@@ -24,7 +24,7 @@
             <ul class="submenu">
                 <li><a href="{{ route('accounting.report.checkingBalance') }}">Balance de Comprobación</a></li>
                 <li><a href="#">Mayor Analítico</a></li>
-                <li><a href="#">Libro Diario</a></li>
+                <li><a href="{{ route('accounting.report.diaryBook') }}">Libro Diario</a></li>
                 <li><a href="#">Libro Auxiliar</a></li>
                 <li><a href="#">Balance General</a></li>
                 <li><a href="#">Estado de Resultados</a></li>

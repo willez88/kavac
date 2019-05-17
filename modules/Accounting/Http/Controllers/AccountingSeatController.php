@@ -10,6 +10,7 @@ use Modules\Accounting\Models\AccountingSeatCategory;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
+use App\Models\Institution;
 use Auth;
 /**
  * @class AccountingSeatController
@@ -46,8 +47,11 @@ class AccountingSeatController extends Controller
      */
     public function index()
     {
+        /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
+        $institutions = $this->getInstitutions();
+
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::orderBy('from_date','DESC')->first();
+        $seating = AccountingSeat::orderBy('from_date','ASC')->first();
         
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
         $yearOld = explode('-',$seating->from_date)[0];
@@ -59,16 +63,16 @@ class AccountingSeatController extends Controller
             'text' => 'Todos'
         ]);
         foreach (AccountingSeatCategory::all() as $category) {
-        array_push($categories, [
-            'id' => $category->id,
-            'text' => $category->name,
-        ]);
+            array_push($categories, [
+                'id' => $category->id,
+                'text' => $category->name,
+            ]);
         }
         /**
          * se convierte array a JSON
          */
         $categories = json_encode($categories);
-        return view('accounting::seating.index',compact('categories','yearOld'));
+        return view('accounting::seating.index',compact('categories','yearOld','institutions'));
     }
 
     /**
@@ -79,6 +83,9 @@ class AccountingSeatController extends Controller
      */
     public function create()
     {
+        /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
+        $institutions = $this->getInstitutions();
+
         /** @var JSON Objeto que almacena las cuentas pratrimoniales */
         $AccountingAccounts = $this->getAccountingAccount();
         /** @var array Arreglo que contendra las categorias */
@@ -98,7 +105,7 @@ class AccountingSeatController extends Controller
          */
         $categories = json_encode($categories);
 
-        return view('accounting::seating.create-edit-form',compact('AccountingAccounts','categories'));
+        return view('accounting::seating.create-edit-form',compact('AccountingAccounts','categories','institutions'));
     }
 
     /**
@@ -119,6 +126,8 @@ class AccountingSeatController extends Controller
         $newSeating->concept = $request->data['concept'];
         $newSeating->observations = $request->data['observations'];
         $newSeating->generated_by_id=($request->data['generated_by_id']!='')? $request->data['generated_by_id']: null;
+        $newSeating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
+        $newSeating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
         $newSeating->tot_debit = $request->data['totDebit'];
         $newSeating->tot_assets = $request->data['totAssets'];
         $newSeating->save();
@@ -157,6 +166,9 @@ class AccountingSeatController extends Controller
      */
     public function edit($id)
     {
+        /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
+        $institutions = $this->getInstitutions();
+        
         /** @var Object Objeto que contendra el asiento contable a editar */
         $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
         /** @var JSON Objeto que almacena las cuentas pratrimoniales */
@@ -170,6 +182,17 @@ class AccountingSeatController extends Controller
         $concept = $seating->concept;
         $observations = $seating->observations;
         $category = $seating->generated_by_id;
+
+        /**
+         * se valida si el asiento tiene alguna relación con una institución/departamento
+         */ 
+        if (is_null($seating->institution_id) && is_null($seating->departament_id)) {
+            $institution_departament = '';
+        }else if (!is_null($seating->institution_id) || !is_null($seating->departament_id)) {
+            $institution_departament = (is_null($seating->institution_id)) ? 
+                                            $seating->departament_id.'-departament':
+                                            $seating->institution_id.'-institution';
+        }
 
         /** @var array Arreglo que contendra las categorias */
         $categories = [];
@@ -188,7 +211,7 @@ class AccountingSeatController extends Controller
          */
         $categories = json_encode($categories);
 
-        return view('accounting::seating.create-edit-form',compact('AccountingAccounts','seating','categories','category','date','reference','concept','observations'));
+        return view('accounting::seating.create-edit-form',compact('AccountingAccounts','seating','categories','category','date','reference','concept','observations','institutions','institution_departament'));
     }
 
     /**
@@ -210,6 +233,8 @@ class AccountingSeatController extends Controller
         $seating->observations = $request->data['observations'];
         $seating->tot_debit = $request->data['totDebit'];
         $seating->tot_assets = $request->data['totAssets'];
+        $seating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
+        $seating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
         $seating->save();
 
         foreach ($request->accountingAccounts as $account) {
@@ -274,7 +299,6 @@ class AccountingSeatController extends Controller
             $FilterByOrigin = ($request->data['category'] == 0) ?
                  AccountingSeat::with('accounting_accounts.account')->where('approved',true)->orderBy('from_date','ASC')->get() : 
                  AccountingSeat::with('accounting_accounts.account')->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
-
             
             /**
              * Filtrado para unos meses o años en general
@@ -382,6 +406,33 @@ class AccountingSeatController extends Controller
         $seating->approved = true;
         $seating->save();
         return response()->json(['message'=>'Success'], 200);
+    }
+
+    public function getInstitutions()
+    {
+        /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
+        $institutions = [];
+        array_push($institutions, [
+            'id' => '',
+            'text' => 'Seleccione...'
+        ]);
+        foreach (Institution::with('departments')->where('active',true)->orderBy('name','ASC')->get() as $institution) {
+            // se almacenan las instituciones y departamente
+            array_push($institutions, [
+                'id' => $institution->id.'-institution',
+                'text' => $institution->acronym.' - '.$institution->name,
+            ]);
+            foreach ($institution->departments as $department) {
+               array_push($institutions, [
+                'id' => $department['id'].'-department',
+                'text' => $department['acronym'].' - '.$department['name'],
+            ]); 
+            }
+        }
+        /**
+         * se convierte array a JSON
+         */
+        return json_encode($institutions);
     }
 
 }

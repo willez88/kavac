@@ -6,26 +6,27 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Modules\Accounting\Models\AccountingSeat;
 use App\Models\Institution;
 use App\Models\Setting;
 
 use PDF;
-
-use Modules\Accounting\Models\AccountingSeat;
-
-class AccountingSeatReportPdfController extends Controller
+class AccountingReportPdfDiaryBookController extends Controller
 {
-
     /**
-     * Show the specified resource.
-     * @param int $id
+     * Display a listing of the resource.
      * @return Response
      */
-
-    public function pdf($id)
+    public function index()
     {
+        return view('accounting::reports.index-diaryBook');
+    }
+
+    public function pdf($dateIni, $dateEnd)
+    {
+
         // falta relación de budget_account hacia compromisos
-        $seat = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
+        $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->whereBetween("from_date",[$dateIni, $dateEnd])->get();
 
         $setting = Setting::all()->first();
 
@@ -48,18 +49,13 @@ class AccountingSeatReportPdfController extends Controller
         $pdf->AddPage();
 
         $unit = true;
-        $html = \View::make('accounting::pdf.accounting_seat_pdf',compact('seat','pdf','unit'))->render();
+        $html = \View::make('accounting::pdf.accounting_seat_pdf',compact('seats','seat','pdf','unit'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
 
-        $pdf->Output("AsientoContable_".$seat['from_date'].".pdf");
-        // return view('accounting::show');
+        $pdf->Output("AsientoContable_".$dateIni."_".$dateEnd.".pdf");
+        // return view('accounting::reports.index-diaryBook');
     }
-
-    public function get_checkBreak(){
-        return $this->PageBreakTrigger;
-    }
-
 }

@@ -44,9 +44,16 @@
 				</div>
 				<div class="col-4">
 					<div class="form-group">
-						<label class="control-label">Asiento generado poro
+						<label class="control-label">Asiento generado por
 						</label>
 						<select2 :options="categories" v-model="generated_by_id"></select2>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="form-group">
+						<label class="control-label">Institución que genera
+						</label>
+						<select2 :options="institutions" v-model="institution_departament"></select2>
 					</div>
 				</div>
 			</div>
@@ -57,7 +64,7 @@
 </template>
 <script>
 	export default{
-		props:['categories','category_edit','date_edit','reference_edit','concept_edit','observations_edit'],
+		props:['categories','institutions','category_edit','date_edit','reference_edit','concept_edit','observations_edit','institution_departament_edit'],
 		data(){
 			return{
 				errors:[],
@@ -67,11 +74,17 @@
 				observations:'',
 				generated_by_id:'',
 				validated:false,
+				institution_departament:'',
+				institution_id:null,
+				departament_id:null,
 			}
 		},
 		created(){
 			if (this.category_edit != null) {
 				this.generated_by_id = this.category_edit;
+			}
+			if (this.institution_departament_edit != '') {
+				this.institution_departament = this.institution_departament_edit;
 			}
 		},
 		mounted(){
@@ -85,26 +98,34 @@
 		methods:{
 			validateRequired:function() {
 				if (this.validated == false) {
-					// se verifica que la fecha y la referencia no esten vacias
+					/**
+					 * se verifica que la fecha y la referencia no esten vacios
+					*/ 
 					if (this.date != '' && this.reference != '') {
 						EventBus.$emit('enableInput:seating-account',{'value':true,
 																	  'date':this.date,
 																	  'reference':this.reference,
 																	  'concept':this.concept,
 																	  'observations':this.observations,
-																	  'generated_by_id':this.generated_by_id
+																	  'generated_by_id':this.generated_by_id,
+																	  'institution_id':this.institution_id,
+																	  'departament_id':this.departament_id,
 																	});
 						this.validated = true;
 					}
 				}
 				else {
-					// si se modifica la fecha o la referencia se envia la información actualizada
+					/**
+					 *si se modifica la fecha o la referencia se envia la información actualizada
+					*/
 					EventBus.$emit('enableInput:seating-account',{'value':true,
 																  'date':this.date,
 																  'reference':this.reference,
 																  'concept':this.concept,
 																  'observations':this.observations,
-																  'generated_by_id':this.generated_by_id
+																  'generated_by_id':this.generated_by_id,
+																  'institution_id':this.institution_id,
+																  'departament_id':this.departament_id
 																});
 				}
 			},
@@ -133,6 +154,21 @@
 			generated_by_id:function(res) {
 				this.validateRequired();
 			},
+			institution_departament:function(res) {
+				if (res.split('-')[1] == 'institution') {
+					this.institution_id = parseInt(res.split('-')[0]);
+					this.departament_id = null;
+				}
+				else {
+					this.departament_id = parseInt(res.split('-')[0]);
+					this.institution_id = null;
+				}
+				if (res == '') {
+					this.validated = false;
+					EventBus.$emit('enableInput:seating-account',{'value':false});
+				}else
+					this.validateRequired();
+			}
 		}
 	}
 </script>

@@ -23,7 +23,7 @@ class CreateAccountingAccountConvertersTable extends Migration
                 $table->integer('budget_account_id')->unsigned();
                 $table->foreign('budget_account_id')->references('id')->on('budget_accounts')->onDelete('cascade')->comment('llave foranea a registro en la tabla budget_accounts');
 
-                    $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
                 $table->timestamps();
             });
         }

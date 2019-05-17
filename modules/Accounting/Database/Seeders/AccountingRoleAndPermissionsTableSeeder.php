@@ -4,8 +4,8 @@ namespace Modules\Accounting\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
+use Ultraware\Roles\Models\Role;
+use Ultraware\Roles\Models\Permission;
 
 /**
  * @class AccountingRoleAndPermissionsTableSeeder

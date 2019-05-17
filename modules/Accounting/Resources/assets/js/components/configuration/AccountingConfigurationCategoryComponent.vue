@@ -62,7 +62,7 @@
 							@click="loadCategory(record)"><i class="fa fa-edit"></i>
 					</button>
 					<button class="btn btn-danger btn-xs btn-icon btn-round"
-							@click="deleteRecord(records.indexOf(record)+1,'/accounting/configuration/categories')">
+							@click="deleteRecord(records.indexOf(record)+1,'/accounting/settings/categories')">
 						<i class="fa fa-trash"></i>
 					</button>
 					
@@ -128,7 +128,7 @@ export default{
 			if (!this.validInformation()) return;
 
 			const vm = this;
-			axios.post('/accounting/configuration/categories',this.NewCategory).then(response=>{
+			axios.post('/accounting/settings/categories',this.NewCategory).then(response=>{
 				this.records = response.data.records;
 				this.NewCategory = {
 					name:'',
@@ -141,7 +141,7 @@ export default{
 			if (!this.validInformation(false)) return;
 
 			const vm = this;
-			axios.put('/accounting/configuration/categories/'+this.NewCategory.id,this.NewCategory).then(response=>{
+			axios.put('/accounting/settings/categories/'+this.NewCategory.id,this.NewCategory).then(response=>{
 				this.records = response.data.records;
 				this.NewCategory = {
 					name:'',

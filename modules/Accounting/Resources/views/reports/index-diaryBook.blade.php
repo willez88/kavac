@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Asientos contables
+	Reportes
 @stop
 
 @section('content')
@@ -21,17 +21,14 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Gestión de asientos contables</h6>
+					<h6 class="card-title">Libro Diario</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('accounting.seating.create')])
-						@include('buttons.listing', ['route' => route('accounting.seating.unapproved'),
-													 'title' => 'Aprobar Asientos'])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-seat :categories="{{ $categories }}" :institutions="{{ $institutions }}" year_old="{{ $yearOld }}" route_edit="{{ url('accounting/seating/{id}/edit') }}" />
+					<accounting-report-diary-book />
 				</div>
 			</div>
 		</div>

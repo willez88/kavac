@@ -3,6 +3,10 @@
 namespace Modules\Accounting\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Venturecraft\Revisionable\RevisionableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class AccountingAccount
@@ -13,8 +17,12 @@ use Illuminate\Database\Eloquent\Model;
  * @author Juan Rosas <JuanFBass17@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class AccountingAccount extends Model
+class AccountingAccount extends Model implements Auditable
 {
+    use SoftDeletes;
+    use RevisionableTrait;
+    use AuditableTrait;
+
     protected $fillable = [
 		'group',
 		'subgroup',

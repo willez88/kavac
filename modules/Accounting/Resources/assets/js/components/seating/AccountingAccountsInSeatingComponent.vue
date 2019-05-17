@@ -124,6 +124,8 @@
 					generated_by_id:'',
 					totDebit:0,
 					totAssets:0,
+					institution_id:null,
+					departament_id:null,
 				},
 				enableInput:false,
 				accountingOptions:[],
@@ -147,6 +149,8 @@
 				this.data.concept = data.concept;
 				this.data.observations = data.observations;
 				this.data.generated_by_id = data.generated_by_id;
+				this.data.institution_id = data.institution_id;
+				this.data.departament_id = data.departament_id;
 			});
 			// recibe un json con el id de cuenta presupuestal para agregar el registro con la
 			// respectiva cuenta patrimonial
@@ -184,7 +188,11 @@
         },
 		methods:{
 			validateErrors:function() {
-				if (this.recordsAccounting.length < 1) { return true; }
+				this.errors = [];
+				if (this.recordsAccounting.length < 1) {
+					this.errors.push('No es permitido guardar asientos contables vacios');
+					return true;
+				}
 			},
 			changeSelectinTable:function(record) {
 				// si asigna un select en vacio, vacia los valores del debe y haber de esa fila
@@ -223,7 +231,9 @@
 			AddSeating:function(){
 				if (this.data.totDebit == this.data.totAssets) {
 
-					if (this.validateErrors()) { return ; }
+					if (this.validateErrors()) { 
+						return ; 
+					}
 
 					const vm = this;
 					axios.post('/accounting/seating',{'data':this.data,
