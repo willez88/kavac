@@ -58,6 +58,16 @@ class City extends Model implements Auditable
     }
 
     /**
+     * City has many Institutions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function institutions()
+    {
+        return $this->hasMany(Institution::class);
+    }
+
+    /**
      * Método que obtiene las agencias bancarias de una Ciudad
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>

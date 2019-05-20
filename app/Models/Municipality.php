@@ -64,4 +64,14 @@ class Municipality extends Model implements Auditable
     {
     	return $this->hasMany(Parish::class);
     }
+
+    /**
+     * Municipality has many Institutions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function institutions()
+    {
+        return $this->hasMany(Institution::class);
+    }
 }

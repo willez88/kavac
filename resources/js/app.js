@@ -239,7 +239,7 @@ Vue.mixin({
             axios.post(window.log_url, p).catch(error => {
                 log('app', 297, error);
             });
-        }
+        },
 		/**
 		 * Redirecciona a una url esecífica si fue suministrada
 		 *

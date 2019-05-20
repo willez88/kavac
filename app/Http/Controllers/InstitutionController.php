@@ -119,6 +119,7 @@ class InstitutionController extends Controller
     public function getExecutionYear($institution_id = null, $year = null)
     {
         $year = $year ?? Carbon::now()->format("Y");
+        $exec_year = Crypt::encrypt($year);
         
         $filter = ['active' => true];
         $filter[(is_null($institution_id)) ? 'default' : 'id'] = (is_null($institution_id)) ? true : $institution_id;
@@ -127,14 +128,16 @@ class InstitutionController extends Controller
         
         $documentStatus = DocumentStatus::where('action', 'AP')->first();
         
-        $execution = (Module::has('Budget')) 
-                      ? \Modules\Budget\Models\BudgetSubSpecificFormulation::where([
-                          'year' => $year, 'assigned' => true, 'document_status_id' => $documentStatus->id,
-                          'institution_id' => $institution->id
-                      ])->first()
-                      : '';
+        if ($institution) {
+            $execution = (Module::has('Budget')) 
+                          ? \Modules\Budget\Models\BudgetSubSpecificFormulation::where([
+                              'year' => $year, 'assigned' => true, 'document_status_id' => $documentStatus->id,
+                              'institution_id' => $institution->id
+                          ])->first()
+                          : '';
 
-        $exec_year = Crypt::encrypt(($execution) ? $execution->year : $year);
+            $exec_year = Crypt::encrypt(($execution) ? $execution->year : $year);
+        }
 
         return response()->json(['result' => true, 'year' => $exec_year], 200);
     }

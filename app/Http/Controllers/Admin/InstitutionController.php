@@ -97,37 +97,61 @@ class InstitutionController extends Controller
             }
         }
 
-        $institution = Institution::updateOrCreate(
-            ['active' => true, 'default' => true],
-            [
-                'onapre_code' => $request->onapre_code,
-                'rif' => $request->rif,
-                'acronym' => $request->acronym,
-                'name' => $request->name,
-                'business_name' => $request->business_name,
-                'start_operations_date' => $request->start_operations_date,
-                'legal_address' => $request->legal_address,
-                'postal_code' => $request->postal_code,
-                'institution_sector_id' => $request->institution_sector_id,
-                'institution_type_id' => $request->institution_type_id,
-                'municipality_id' => $request->municipality_id,
-                'city_id' => $request->city_id,
-                'default' => true,
-                'active' => ($request->active!==null),
-                'legal_base' => ($request->legal_base)?$request->legal_base:null,
-                'legal_form' => ($request->legal_form)?$request->legal_form:null,
-                'main_activity' => ($request->main_activity)?$request->main_activity:null,
-                'mission' => ($request->mission)?$request->mission:null,
-                'vision' => ($request->vision)?$request->vision:null,
-                'web' => ($request->web)?$request->web:null,
-                'composition_assets' => ($request->composition_assets)?$request->composition_assets:null,
-                'retention_agent' => ($request->retention_agent!==null),
-                'logo_id' => $logo,
-                'banner_id' => $banner,
-            ]
-        );
+        $setting = Setting::where('active', true)->first();
+        
+        $data = [
+            'onapre_code' => $request->onapre_code,
+            'rif' => $request->rif,
+            'acronym' => $request->acronym,
+            'name' => $request->name,
+            'business_name' => $request->business_name,
+            'start_operations_date' => $request->start_operations_date,
+            'legal_address' => $request->legal_address,
+            'postal_code' => $request->postal_code,
+            'institution_sector_id' => $request->institution_sector_id,
+            'institution_type_id' => $request->institution_type_id,
+            'municipality_id' => $request->municipality_id,
+            'city_id' => $request->city_id,
+            'default' => ($request->default!==null),
+            'active' => ($request->active!==null),
+            'legal_base' => ($request->legal_base)?$request->legal_base:null,
+            'legal_form' => ($request->legal_form)?$request->legal_form:null,
+            'main_activity' => ($request->main_activity)?$request->main_activity:null,
+            'mission' => ($request->mission)?$request->mission:null,
+            'vision' => ($request->vision)?$request->vision:null,
+            'web' => ($request->web)?$request->web:null,
+            'composition_assets' => ($request->composition_assets)?$request->composition_assets:null,
+            'retention_agent' => ($request->retention_agent!==null),
+            'logo_id' => $logo,
+            'banner_id' => $banner,
+        ];
 
-        $request->session()->flash('message', ['type' => 'store']);
+        if (!$setting->multi_institution) {
+            /**
+             * Crea o actualiza información de una institución si la aplicación esta configurada para el 
+             * uso de una sola institución
+             */
+            $data['default'] = true;
+            Institution::updateOrCreate(['rif' => $request->rif], $data);
+        }
+        else {
+            if (!empty($request->institution_id)) {
+                /**
+                 * Si existe el identificador de la institución, se actualizan sus datos
+                 */
+                $inst = Institution::find($request->institution_id);
+                $inst->fill($data);
+                $inst->save();
+            }
+            else {
+                /**
+                 * Si no existe un identificador de institución, se crea una nueva
+                 */
+                Institution::create($data);
+            }
+        }
+
+        session()->flash('message', ['type' => 'store']);
         return redirect()->route('settings.index');
     }
 
@@ -180,6 +204,12 @@ class InstitutionController extends Controller
         //
     }
 
+    /**
+     * Obtiene un listado de instituciones con id y nombre
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getInstitutions()
     {
         foreach (Institution::all() as $institution) {
@@ -190,5 +220,22 @@ class InstitutionController extends Controller
         }
 
         return response()->json($this->data);
+    }
+
+    /**
+     * Obtiene los datos de una institución
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Institution $institution Objeto con información asociada a una institución
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getDetails(Institution $institution)
+    {
+        $inst = $institution->with(['municipality' => function($q) {
+            return $q->with(['estate' => function($qq) {
+                return $qq->with('country');
+            }]);
+        }, 'logo', 'banner'])->first();
+        return response()->json(['result' => true, 'institution' => $inst], 200);
     }
 }

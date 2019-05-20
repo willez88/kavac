@@ -344,18 +344,19 @@ $(document).ready(function() {
 /**
  * Permite mostrar alerta de mensajes de acciones realizadas con vue o js
  *
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @param  {string} msg_title Título de la ventana de alerta
- * @param  {string} msg_class Clase de estilo a usar en la ventana de alerta
- * @param  {string} msg_icon  Ícono a usar en la ventana de alerta
- * @param  {string} type      Tipo de mensaje a mostrar (store|update|destroy)
+ * @author Ing. Roldan Vargas  <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @param  {string} msg_title  Título de la ventana de alerta
+ * @param  {string} msg_class  Clase de estilo a usar en la ventana de alerta
+ * @param  {string} msg_icon   Ícono a usar en la ventana de alerta
+ * @param  {string} msg_custom Mensaje personalizado
+ * @param  {string} type       Tipo de mensaje a mostrar (store|update|destroy)
  */
-function gritter_messages(msg_title, msg_class, msg_icon, type) {
+function gritter_messages(msg_title, msg_class, msg_icon, type, msg_custom) {
     msg_title = (!msg_title)?'Éxito':msg_title;
     msg_class = (!msg_class)?'growl-success':'glowl-'+msg_class;
     msg_icon = (!msg_icon)?'screen-ok':msg_icon;
 
-    var msg_text;
+    var msg_text = (!msg_custom)?'':msg_custom;
     if (type=='store') {
         msg_text = 'Registro almacenado con éxito';
     }
@@ -364,6 +365,9 @@ function gritter_messages(msg_title, msg_class, msg_icon, type) {
     }
     else if (type=='destroy') {
         msg_text = 'Registro eliminado con éxito';
+    }
+    else if (type==='load') {
+        msg_text = 'Los datos fueron cargados correctamente';
     }
 
     $.gritter.add({

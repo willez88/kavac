@@ -236,6 +236,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
         /** Obtiene las instituciones registradas */
         Route::get('get-institutions', 'InstitutionController@getInstitutions');
+        Route::get('get-institution/details/{institution}', 'InstitutionController@getDetails')
+             ->name('institution.details');
     });
     
     /**

@@ -35,7 +35,87 @@
 			    layoutTemplates: {main2: '{preview} {remove} {browse}'},
 			    allowedFileExtensions: ["jpg", "png", "gif"]
 			});*/
+			@if ($model_setting!==null && $model_setting->multi_institution)
+				$(".btn-new-institution").on('click', function() {
+					var form = $("#card_config_institution form");
+					form.find('input[type=text]').val('');
+					form.find('input[type=date]').val('');
+					form.find('.select2:not(select[name^=DataTable])').val('');
+					form.find('.select2').trigger('change');
+					form.find('textarea').val('');
+					form.find('input[type=checkbox]').attr('checked', false);
+					form.find('input[type=radio]').attr('checked', false);
+					form.find('.bootstrap-switch').removeClass('bootstrap-switch-on');
+					form.find('.bootstrap-switch').addClass('bootstrap-switch-off');
+					$("#onapre_code").focus();
+				});
+			@endif
 		});
+
+		var loadInstitution = function(id) {
+			axios.get(`get-institution/details/${id}`).then(response => {
+				if (response.data.result) {
+					var institution = response.data.institution;
+					console.log(institution);
+					$("#institution_id").val(institution.id);
+					$("#onapre_code").val(institution.onapre_code);
+					$("#rif").val(institution.rif);
+					$("#name").val(institution.name);
+					$("#acronym").val(institution.acronym);
+					$("#business_name").val(institution.business_name);
+					$("#country_id").val(institution.municipality.estate.country.id);
+					$("#country_id").trigger('change');
+					$("#estate_id").val(institution.municipality.estate.id);
+					$("#estate_id").trigger('change');
+					$("#municipality_id").val(institution.municipality.id);
+					$("#municipality_id").trigger('change');
+					$("#city_id").val(institution.city_id);
+					$("#city_id").trigger('change');
+					$("#postal_code").val(institution.postal_code);
+					$("#start_operations_date").val(institution.start_operations_date);
+					$("#institution_sector_id").val(institution.institution_sector_id);
+					$("#institution_sector_id").trigger('change');
+					$("#institution_type_id").val(institution.institution_type_id);
+					$("#institution_type_id").trigger('change');
+					$("#legal_address").val(institution.legal_address);
+					$("#web").val(institution.web);
+					$("#social_networks").val(institution.social_networks);
+					$("#social_networks").trigger('change');
+					$('#active').attr('checked', institution.active);
+					var activeSwitchRemoveClass = (institution.active) ? 'off' : 'on';
+					var activeSwitchAddClass = (institution.active) ? 'on' : 'off';
+					$('#active.bootstrap-switch').removeClass(`bootstrap-switch-${activeSwitchRemoveClass}`);
+					$('#active.bootstrap-switch').addClass(`bootstrap-switch-${activeSwitchAddClass}`);
+					$('#default').attr('checked', institution.default);
+					var defaultSwitchRemoveClass = (institution.default) ? 'off' : 'on';
+					var defaultSwitchAddClass = (institution.default) ? 'on' : 'off';
+					$('#default.bootstrap-switch').removeClass(`bootstrap-switch-${defaultSwitchRemoveClass}`);
+					$('#default.bootstrap-switch').addClass(`bootstrap-switch-${defaultSwitchAddClass}`);
+					$('#retention_agent').attr('checked', institution.retention_agent);
+					var retAgentSwitchRemoveClass = (institution.retention_agent) ? 'off' : 'on';
+					var retAgentSwitchAddClass = (institution.retention_agent) ? 'on' : 'off';
+					$('#retention_agent.bootstrap-switch').removeClass(`bootstrap-switch-${retAgentSwitchRemoveClass}`);
+					$('#retention_agent.bootstrap-switch').addClass(`bootstrap-switch-${retAgentSwitchAddClass}`);
+					$("#legal_base").val(institution.legal_base);
+					$("#legal_form").val(institution.legal_form);
+					$("#main_activity").val(institution.main_activity);
+					$("#mission").val(institution.mission);
+					$("#vision").val(institution.vision);
+					$("#composition_assets").val(institution.composition_assets);
+
+					$.gritter.add({
+				        title: 'Éxito',
+				        text: 'Los datos fueron cargados correctamente',
+				        class_name: 'growl-success',
+				        image: "/images/screen-ok.png",
+				        sticky: false,
+				        time: 1500
+				    });
+				}
+			}).catch(error => {
+				console.log(error);
+			});
+		}
 	</script>
 @endsection
 
@@ -54,6 +134,9 @@
 					@include('layouts.form-errors')
 					<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
 					<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div>
+					{!! Form::hidden('institution_id', (isset($model_institution))?$model_institution->id:'', [
+						'readonly' => 'readonly', 'id' => 'institution_id'
+					]) !!}
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
@@ -94,7 +177,7 @@
 								{!! Form::label('onapre_code', 'Código ONAPRE', []) !!}
 								{!! Form::text('onapre_code', 
 									(isset($model_institution))?$model_institution->onapre_code:old('onapre_code'), [
-										'class' => 'form-control input-sm', 
+										'class' => 'form-control input-sm', 'id' => 'onapre_code',
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique el código ONAPRE asignado a la institución (requerido)'
 									]
@@ -106,7 +189,7 @@
 								{!! Form::label('rif', 'R.I.F.', []) !!}
 								{!! Form::text('rif', 
 									(isset($model_institution))?$model_institution->rif:old('rif'), [
-										'class' => 'form-control input-sm', 
+										'class' => 'form-control input-sm', 'id' => 'rif',
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique el número de registro de identificación fiscal (requerido)'
 									]
@@ -118,7 +201,7 @@
 								{!! Form::label('name', 'Nombre', []) !!}
 								{!! Form::text('name', 
 									(isset($model_institution))?$model_institution->name:old('name'), [
-										'class' => 'form-control input-sm', 
+										'class' => 'form-control input-sm', 'id' => 'name',
 										'data-toggle' => 'tooltip',
 										'title' => 'Introduzca el nombre de la institución (requerido)'
 									]
@@ -132,7 +215,7 @@
 								{!! Form::label('acronym', 'Acrónimo (Nombre Corto)', []) !!}
 								{!! Form::text('acronym', 
 									(isset($model_institution))?$model_institution->acronym:old('acronym'), [
-										'class' => 'form-control input-sm', 
+										'class' => 'form-control input-sm', 'id' => 'acronym',
 										'data-toggle' => 'tooltip',
 										'title' => 'Introduzca el nombre corto de la institución'
 									]
@@ -144,7 +227,7 @@
 								{!! Form::label('business_name', 'Razón Social', []) !!}
 								{!! Form::text('business_name', 
 									(isset($model_institution))?$model_institution->business_name:old('business_name'), [
-										'class' => 'form-control input-sm', 
+										'class' => 'form-control input-sm', 'id' => 'business_name',
 										'data-toggle' => 'tooltip',
 										'title' => 'Introduzca la razón social'
 									]
@@ -157,7 +240,7 @@
 									'country_id', 'Pais', []
 								) !!}
 								{!! Form::select('country_id', (isset($countries))?$countries:[], null, [
-									'class' => 'form-control select2',
+									'class' => 'form-control select2', 'id' => 'country_id',
 									'onchange' => 'updateSelect($(this).val(), $("#estate_id"), "Estate")'
 								]) !!}
 								{{-- <i class="fa fa-plus-circle btn-add-record"></i> --}}
@@ -178,7 +261,7 @@
 								{!! Form::label('municipality_id', 'Municipio', []) !!}
 								{!! Form::select(
 									'municipality_id', (isset($municipalities))?$municipalities:[], null, [
-										'class' => 'form-control select2'
+										'class' => 'form-control select2', 'id' => 'municipality_id'
 									]
 								) !!}
 							</div>
@@ -187,7 +270,7 @@
 							<div class="form-group">
 								{!! Form::label('city_id', 'Ciudad', []) !!}
 								{!! Form::select('city_id', (isset($cities))?$cities:[], null, [
-									'class' => 'form-control select2'
+									'class' => 'form-control select2', 'id' => 'city_id'
 								]) !!}
 							</div>
 						</div>
@@ -197,7 +280,7 @@
 							<div class="form-group">
 								{!! Form::label('parish_id', 'Parroquia', []) !!}
 								{!! Form::select('parish_id', (isset($parishes))?$parishes:[], null, [
-									'class' => 'form-control select2'
+									'class' => 'form-control select2', 'id' => 'parish_id'
 								]) !!}
 							</div>
 						</div>
@@ -206,7 +289,7 @@
 								{!! Form::label('postal_code', 'Código Postal', []) !!}
 								{!! Form::text('postal_code', 
 									(isset($model_institution))?$model_institution->postal_code:old('postal_code'), [
-										'class' => 'form-control input-sm', 
+										'class' => 'form-control input-sm', 'id' => 'postal_code',
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique el código postal (requerido)'
 									]
@@ -218,7 +301,7 @@
 								{!! Form::label('start_operations_date', 'Fecha de inicio de operaciones', []) !!}
 								{!! Form::date('start_operations_date', 
 									(isset($model_institution))?$model_institution->start_operations_date:old('start_operations_date'), [
-										'class' => 'form-control input-sm', 
+										'class' => 'form-control input-sm', 'id' => 'start_operations_date',
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique la fecha de inicio de operaciones (requerido)'
 									]
@@ -233,7 +316,7 @@
 								{!! Form::select(
 									'organism_adscript_id', 
 									(isset($organism_adscripts))?$organism_adscripts:[], null, [
-										'class' => 'form-control select2'
+										'class' => 'form-control select2', 'id' => 'organism_adscript_id'
 									]
 								) !!}
 							</div>
@@ -242,7 +325,7 @@
 							<div class="form-group">
 								{!! Form::label('institution_sector_id', 'Sector', []) !!}
 								{!! Form::select('institution_sector_id', (isset($sectors))?$sectors:[], null, [
-									'class' => 'form-control select2'
+									'class' => 'form-control select2', 'id' => 'institution_sector_id'
 								]) !!}
 							</div>
 						</div>
@@ -250,7 +333,7 @@
 							<div class="form-group">
 								{!! Form::label('institution_type_id', 'Tipo', []) !!}
 								{!! Form::select('institution_type_id', (isset($types))?$types:[], null, [
-									'class' => 'form-control select2'
+									'class' => 'form-control select2', 'id' => 'institution_type_id'
 								]) !!}
 							</div>
 						</div>
@@ -261,7 +344,8 @@
 								{!! Form::label('legal_address', 'Dirección Fiscal', []) !!}
 								{!! Form::textarea('legal_address', null, [
 									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-									'title' => 'Indique la dirección fiscal de la institución  (requerido)'
+									'title' => 'Indique la dirección fiscal de la institución  (requerido)',
+									'id' => 'legal_address'
 								]) !!}
 							</div>
 						</div>
@@ -270,7 +354,7 @@
 								{!! Form::label('web', 'Sitio Web', []) !!}
 								{!! Form::text('web', 
 									(isset($model_institution))?$model_institution->web:old('web'), [
-										'class' => 'form-control input-sm', 
+										'class' => 'form-control input-sm', 'id' => 'web',
 										'data-toggle' => 'tooltip',
 										'title' => 'Indique la URL del sitio web'
 									]
@@ -280,7 +364,8 @@
 								{!! Form::label('social_networks', 'Redes Sociales', []) !!}
 								{!! Form::select(
 									'social_networks', (isset($social_networks))?$social_networks:[], null, [
-										'class' => 'form-control select2', 'multiple' => 'multiple'
+										'class' => 'form-control select2', 'multiple' => 'multiple',
+										'id' => 'social_networks'
 									]
 								) !!}
 							</div>
@@ -291,6 +376,15 @@
 								<div class="col-12">
 									{!! Form::checkbox('active', true, null, [
 										'id' => 'active', 'class' => 'form-control bootstrap-switch',
+										'data-on-label' => 'SI', 'data-off-label' => 'NO'
+									]) !!}
+								</div>
+							</div>
+							<div class="form-group">
+								{!! Form::label('default', 'Institución por defecto', []) !!}
+								<div class="col-12">
+									{!! Form::checkbox('default', true, (isset($model_institution) && $model_institution->default)?null:true, [
+										'id' => 'default', 'class' => 'form-control bootstrap-switch',
 										'data-on-label' => 'SI', 'data-off-label' => 'NO'
 									]) !!}
 								</div>
@@ -316,7 +410,8 @@
 								{!! Form::label('legal_base', 'Base Legal', []) !!}
 								{!! Form::textarea('legal_base', null, [
 									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip', 
-									'title' => 'Indique la base legal constitutiva de la institución'
+									'title' => 'Indique la base legal constitutiva de la institución',
+									'id' => 'legal_base'
 								]) !!}
 							</div>
 						</div>
@@ -325,7 +420,8 @@
 								{!! Form::label('legal_form', 'Forma Jurídica', []) !!}
 								{!! Form::textarea('legal_form', null, [
 									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-									'title' => 'Indique la forma jurídica de la institución'
+									'title' => 'Indique la forma jurídica de la institución',
+									'id' => 'legal_form'
 								]) !!}
 							</div>
 						</div>
@@ -334,7 +430,8 @@
 								{!! Form::label('main_activity', 'Actividad Principal', []) !!}
 								{!! Form::textarea('main_activity', null, [
 									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-									'title' => 'Indique la actividad principal a la cual se dedica la institución'
+									'title' => 'Indique la actividad principal a la cual se dedica la institución',
+									'id' => 'main_activity'
 								]) !!}
 							</div>
 						</div>
@@ -345,7 +442,7 @@
 								{!! Form::label('mission', 'Misión', []) !!}
 								{!! Form::textarea('mission', null, [
 									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-									'title' => 'Indique la misión de la institución'
+									'title' => 'Indique la misión de la institución', 'id' => 'mission'
 								]) !!}
 							</div>
 						</div>
@@ -354,7 +451,7 @@
 								{!! Form::label('vision', 'Visión', []) !!}
 								{!! Form::textarea('vision', null, [
 									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-									'title' => 'Indique la visión de la institución'
+									'title' => 'Indique la visión de la institución', 'id' => 'vision'
 								]) !!}
 							</div>
 						</div>
@@ -363,7 +460,8 @@
 								{!! Form::label('composition_assets', 'Composición de Patrimonio', []) !!}
 								{!! Form::textarea('composition_assets', null, [
 									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-									'title' => 'Indique la composición patrimonial de la institución'
+									'title' => 'Indique la composición patrimonial de la institución',
+									'id' => 'composition_assets'
 								]) !!}
 							</div>
 						</div>
@@ -398,7 +496,10 @@
 											@endif
 										</td>
 										<td>
-											<a href="#">{{ $institution->rif }}</a>
+											<a href="javascript:void(0)" 
+											   onclick="loadInstitution('{{ $institution->id }}')">
+												{{ $institution->rif }}
+											</a>
 										</td>
 										<td>{{ $institution->onapre_code }}</td>
 										<td>
@@ -423,16 +524,3 @@
 		</div>
 	</div>
 </div>
-
-@if ($model_setting!==null && $model_setting->multi_institution)
-	@section('extra-js')
-		@parent
-		<script>
-			$(document).ready(function() {
-				$(".btn-new-institution").on('click', function() {
-					alert('nueva?');
-				});
-			});
-		</script>
-	@stop
-@endif

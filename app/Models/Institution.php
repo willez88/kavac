@@ -91,6 +91,26 @@ class Institution extends Model implements Auditable
     }
 
     /**
+     * Institution belongs to Municipality.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
+    }
+
+    /**
+     * Institution belongs to City.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    /**
      * Método que obtiene los departamentos asociados a la intitución.
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
