@@ -31,12 +31,7 @@
 					@if(!isset($seating))
 						<accounting-seat-create :categories="{{ $categories }}" :institutions="{{ $institutions }}" />
 					@else
-						<accounting-seat-create :categories="{{ $categories }}" :institutions="{{ $institutions }}" institution_departament_edit="{{ $institution_departament }}"
-												category_edit="{{ $category }}"
-												date_edit="{{ $date }}"
-												reference_edit="{{ $reference }}"
-												concept_edit="{{ $concept }}"
-												observations_edit="{{ $observations }}"/>
+						<accounting-seat-create :categories="{{ $categories }}" :institutions="{{ $institutions }}" :data_edit="{{ $data_edit }}" />
 					@endif
 				</div>
 			</div>
@@ -51,9 +46,9 @@
 				</div>
 				<div class="card-body">
 					@if(!isset($seating))
-					<accounting-seat-create-account :accounting_accounts="{{ $AccountingAccounts }}" />
+					<accounting-seat-create-account :accounting_accounts="{{ $AccountingAccounts }}" :currency="{{ $currency }}" />
 					@else
-						<accounting-seat-create-account :accounting_accounts="{{ $AccountingAccounts }}" :seating="{{ $seating }}" route_list="{{ url('accounting/seating/unapproved') }}"/>
+						<accounting-seat-create-account :accounting_accounts="{{ $AccountingAccounts }}" :seating="{{ $seating }}" :currency="{{ $currency }}" route_list="{{ url('accounting/seating/unapproved') }}"/>
 					@endif
 				</div>
 			</div>

@@ -18,7 +18,7 @@
 					<div class="form-group is-required">
 						<label class="control-label">Fecha
 						</label>
-						<input :disabled="date_edit != null" type="date" class="form-control" v-model="date">
+						<input :disabled="data_edit != null" type="date" class="form-control" v-model="date">
 					</div>
 				</div>
 				<div class="col-4">
@@ -64,7 +64,7 @@
 </template>
 <script>
 	export default{
-		props:['categories','institutions','category_edit','date_edit','reference_edit','concept_edit','observations_edit','institution_departament_edit'],
+		props:['categories','institutions','data_edit'],
 		data(){
 			return{
 				errors:[],
@@ -80,19 +80,19 @@
 			}
 		},
 		created(){
-			if (this.category_edit != null) {
-				this.generated_by_id = this.category_edit;
+			if (this.data_edit != null) {
+				this.generated_by_id = this.data_edit.category;
 			}
-			if (this.institution_departament_edit != '') {
-				this.institution_departament = this.institution_departament_edit;
+			if (this.data_edit != null) {
+				this.institution_departament = this.data_edit.institution_departament;
 			}
 		},
 		mounted(){
-			if (this.date_edit != null) {
-				this.date = this.date_edit;
-				this.reference = this.reference_edit;
-				this.concept = this.concept_edit;
-				this.observations = this.observations_edit;
+			if (this.data_edit != null) {
+				this.date = this.data_edit.date;
+				this.reference = this.data_edit.reference;
+				this.concept = this.data_edit.concept;
+				this.observations = this.data_edit.observations;
 			}
 		},
 		methods:{

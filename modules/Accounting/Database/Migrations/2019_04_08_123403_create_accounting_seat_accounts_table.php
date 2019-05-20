@@ -24,10 +24,6 @@ class CreateAccountingSeatAccountsTable extends Migration
                 $table->integer('accounting_account_id')->unsigned()->nullable();
                 $table->foreign('accounting_account_id')->references('id')->on('accounting_accounts')->onDelete('cascade')->comment('registro de cuentas patrimoniales en el asiento contable');
 
-                // $table->integer('budget_account_id')->unsigned()->nullable();
-                // $table->foreign('budget_account_id')->references('id')->on('budget_accounts')->onDelete('cascade')->comment(' registros de compromisos del asiento contable');
-
-
                 $table->float('debit', 30, 2)->comment('Monto asignado al Debe total del asiento');
                 $table->float('assets', 30, 2)->comment('Monto asignado al Haber total del Asiento');
 

@@ -61,7 +61,7 @@
 							</div>
 							<div class="col-7">
 								<div class="form-group">
-									<select2 :options="institutions"></select2>
+									<select2 :options="institutions" v-model="data.institution"></select2>
 								</div>
 							</div>
 							<div class="col-2"></div>
@@ -188,6 +188,7 @@
 					end:'',
 					year:0,
 					month:0,
+					institution:'',
 				},
 				OptionMonths:[
 					{id:0, text:'Todos'},

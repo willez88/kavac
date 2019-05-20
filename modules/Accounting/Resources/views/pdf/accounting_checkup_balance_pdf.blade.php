@@ -9,7 +9,7 @@
 		@php
 			$from_date = explode('-', $seat['from_date']);
 		@endphp
-											{{-- se formatea la fecha de Y-m-d a d-m-Y --}}
+		{{-- se formatea la fecha de Y-m-d a d-m-Y --}}
 		<th width="50%"> Asiento Contable del {{ $from_date[2].'-'.$from_date[1].'-'.$from_date[0] }}</th>
         <th width="50%"> Ref.: {{ $seat['reference'] }}</th>
 	</tr>
