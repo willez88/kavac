@@ -41,7 +41,7 @@
 
 <div class="row">
 	<div class="col-12">
-		<div class="card">
+		<div class="card" id="card_config_institution">
 			<div class="card-header">
 				<h6 class="card-title">Configurar Institución</h6>
 				<div class="card-btns">
@@ -368,45 +368,53 @@
 							</div>
 						</div>
 					</div>
-					<hr>
-					<h6 class="md-title">Instituciones Registradas</h6>
-					<table class="table table-hover table-striped dt-responsive nowrap datatable">
-						<thead>
-							<tr>
-								<th class="col-md-1">Logo</th>
-								<th class="col-md-1">R.I.F</th>
-								<th class="col-md-1">Código ONAPRE</th>
-								<th class="col-md-8">Nombre</th>
-								<th class="col-md-1">Activa</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach ($institutions as $institution)
+					@if ($model_setting!==null && $model_setting->multi_institution)
+						<hr>
+						<h6 class="md-title">Instituciones Registradas</h6>
+						<div class="row">
+							<div class="col-12 text-right">
+								@include('buttons.new', ['route' => 'javascript:void(0)', 'btnClass' => 'btn-new-institution'])
+							</div>
+						</div>
+						
+						<table class="table table-hover table-striped dt-responsive nowrap datatable">
+							<thead>
 								<tr>
-									<td class="text-center">
-										@if($institution->logo_id)
-											<img src="{{ url($institution->logo->url) }}" 
-												 alt="logo" class="img-fluid" 
-												 style="max-height:50px;">
-										@endif
-									</td>
-									<td>
-										<a href="#">{{ $institution->rif }}</a>
-									</td>
-									<td>{{ $institution->onapre_code }}</td>
-									<td>
-										@if ($institution->acronym)
-											{{ $institution->acronym }} - 
-										@endif
-										{{ $institution->name }}
-									</td>
-									<td class="text-center">
-										{{ ($institution->active)?'SI':'NO' }}
-									</td>
+									<th class="col-md-1">Logo</th>
+									<th class="col-md-1">R.I.F</th>
+									<th class="col-md-1">Código ONAPRE</th>
+									<th class="col-md-8">Nombre</th>
+									<th class="col-md-1">Activa</th>
 								</tr>
-							@endforeach
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								@foreach ($institutions as $institution)
+									<tr>
+										<td class="text-center">
+											@if($institution->logo_id)
+												<img src="{{ url($institution->logo->url) }}" 
+													 alt="logo" class="img-fluid" 
+													 style="max-height:50px;">
+											@endif
+										</td>
+										<td>
+											<a href="#">{{ $institution->rif }}</a>
+										</td>
+										<td>{{ $institution->onapre_code }}</td>
+										<td>
+											@if ($institution->acronym)
+												{{ $institution->acronym }} - 
+											@endif
+											{{ $institution->name }}
+										</td>
+										<td class="text-center">
+											{{ ($institution->active)?'SI':'NO' }}
+										</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					@endif
 				</div>
 				<div class="card-footer text-right">
 					@include('layouts.form-buttons')
@@ -415,3 +423,16 @@
 		</div>
 	</div>
 </div>
+
+@if ($model_setting!==null && $model_setting->multi_institution)
+	@section('extra-js')
+		@parent
+		<script>
+			$(document).ready(function() {
+				$(".btn-new-institution").on('click', function() {
+					alert('nueva?');
+				});
+			});
+		</script>
+	@stop
+@endif

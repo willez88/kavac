@@ -8,7 +8,7 @@
         {{-- CSRF Token --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>KAVAC | Sistema de Gestión Administrativa</title>
+        <title>{{ config('app.name') }} | Sistema de Gestión Administrativa</title>
 
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css') !!}
