@@ -7,7 +7,6 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Budget\Models\BudgetAccount;
-use Auth;
 
 /**
  * @class BudgetAccountController

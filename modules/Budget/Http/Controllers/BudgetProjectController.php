@@ -7,11 +7,11 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use App\Models\Institution;
-use App\Models\Department;
+use Modules\Budget\Models\Base\Institution;
+use Modules\Budget\Models\Base\Department;
+use Modules\Budget\Models\BudgetProject;
 use Modules\Payroll\Models\PayrollPosition;
 use Modules\Payroll\Models\PayrollStaff;
-use Modules\Budget\Models\BudgetProject;
 
 /**
  * @class BudgetProjectController

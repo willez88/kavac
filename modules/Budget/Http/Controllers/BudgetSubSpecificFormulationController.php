@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\CodeSetting;
-use App\Models\DocumentStatus;
+use Modules\Budget\Models\Base\DocumentStatus;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
 use Modules\Budget\Models\BudgetAccountOpen;
 
@@ -258,8 +258,9 @@ class BudgetSubSpecificFormulationController extends Controller
      */
     public function vueList()
     {
+
         return response()->json([
-            'records' => BudgetSubSpecificFormulation::with('currency')->with('specific_action')->get()
+            'records' => BudgetSubSpecificFormulation::with('currency', 'institution')->with('specific_action')->get()
         ], 200);
     }
 

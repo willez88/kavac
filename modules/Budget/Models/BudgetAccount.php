@@ -99,6 +99,7 @@ class BudgetAccount extends Model implements Auditable
      */
     public function account_converters()
     {
+        /** OJO: Independizar esta relación para que exista un módulo sin el otro */
         return $this->hasOne(AccountingAccountConverter::class);
     }
 

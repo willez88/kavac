@@ -60,7 +60,7 @@ class BudgetCentralizedAction extends Model implements Auditable
      */
     public function department()
     {
-    	return $this->belongsTo(\App\Models\Department::class);
+    	return $this->belongsTo(Base\Department::class);
     }
 
     /**
@@ -70,6 +70,7 @@ class BudgetCentralizedAction extends Model implements Auditable
      */
     public function payroll_position()
     {
+        /** OJO: Independizar esta relación para que exista un módulo sin el otro */
     	return $this->belongsTo(\Modules\Payroll\Models\PayrollPosition::class);
     }
 
@@ -80,6 +81,7 @@ class BudgetCentralizedAction extends Model implements Auditable
      */
     public function payroll_staff()
     {
+        /** OJO: Independizar esta relación para que exista un módulo sin el otro */
     	return $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class);
     }
 

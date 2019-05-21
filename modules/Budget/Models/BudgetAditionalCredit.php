@@ -42,7 +42,7 @@ class BudgetAditionalCredit extends Model implements Auditable
      */
     public function institution()
     {
-        return $this->belongsTo(\App\Models\Institution::class);
+        return $this->belongsTo(Base\Institution::class);
     }
 
     /**

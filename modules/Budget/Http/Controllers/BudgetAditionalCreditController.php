@@ -11,9 +11,9 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Budget\Models\BudgetModification;
 use Modules\Budget\Models\BudgetModificationAccount;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
-use App\Models\DocumentStatus;
+use Modules\Budget\Models\Base\DocumentStatus;
+use Modules\Budget\Models\Base\Institution;
 use App\Models\CodeSetting;
-use App\Models\Institution;
 
 /**
  * @class BudgetAditionalCreditController
