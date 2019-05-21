@@ -78,26 +78,4 @@ class Department extends Model implements Auditable
     {
     	return $this->belongsTo(Institution::class);
     }
-
-    /**
-     * Department has many BudgetProjects.
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function budget_projects()
-    {
-        return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetProject::class):[];
-    }
-
-    /**
-     * Department has many BudgetCentralizedAction.
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function budget_centralized_actions()
-    {
-        return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetCentralizedAction::class):[];
-    }
 }
