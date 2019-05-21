@@ -43,12 +43,10 @@ var uploadSingleImage = function(form, input_file, input_hidden, img_tag, img_ta
                 $(`#${input_hidden}`).val(image.id);
 
             }).catch(error => {
-                console.log(error)
-                //logs('custom.js', 33, error, 'uploadImage');
+                logs('custom.js', 46, error, 'uploadImage');
             });
         }
     }).catch(error => {
-        console.log(error)
-        //logs('custom.js', 37, error, 'uploadImage');
+        logs('custom.js', 50, error, 'uploadImage');
     });
 }

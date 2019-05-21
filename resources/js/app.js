@@ -671,13 +671,13 @@ Vue.mixin({
 		 * @param  {integer} id Identificador del departamento a filtrar (opcional)
 		 */
 		getDepartments(id) {
-			const vm = this;
+			let vm = this;
 			vm.departments = [];
 			if (typeof(this.record.institution_id) !== "undefined" && this.record.institution_id !== '') {
 				axios.get('/get-departments/' + this.record.institution_id).then(response => {
 					/** Obtiene los departamentos */
 					vm.departments = (typeof(id) === "undefined" || !id) 
-									 ? response.data 
+									 ? response.data
 									 : response.data.filter((department) => {
 									 	return department.id === id;
 									 });

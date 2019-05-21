@@ -160,29 +160,6 @@
 				],
 			}
 		},
-		created() {
-			this.table_options.headings = {
-				'institution.name': 'Institución',
-				'parent.name': 'Depende de',
-				'acronym': 'Siglas',
-				'name': 'Nombre',
-				'active': 'Activo',
-				'id': 'Acción'
-			};
-			this.table_options.sortable = ['institution.name', 'parent.name', 'acronym', 'name'];
-			this.table_options.filterable = ['institution.name', 'parent.name', 'acronym', 'name'];
-			this.table_options.columnsClasses = {
-				'institution.name': 'col-md-2',
-				'parent.name': 'col-md-2',
-				'acronym': 'col-md-2',
-				'name': 'col-md-3',
-				'active': 'col-md-1',
-				'id': 'col-md-2'
-			};
-
-			this.getInstitutions();
-			this.getDepartments();
-		},
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
@@ -202,10 +179,35 @@
 				};
 			},
 		},
+		created() {
+			this.table_options.headings = {
+				'institution.name': 'Institución',
+				'parent.name': 'Depende de',
+				'acronym': 'Siglas',
+				'name': 'Nombre',
+				'active': 'Activo',
+				'id': 'Acción'
+			};
+			this.table_options.sortable = ['institution.name', 'parent.name', 'acronym', 'name'];
+			this.table_options.filterable = ['institution.name', 'parent.name', 'acronym', 'name'];
+			this.table_options.columnsClasses = {
+				'institution.name': 'col-md-2',
+				'parent.name': 'col-md-2',
+				'acronym': 'col-md-2',
+				'name': 'col-md-3',
+				'active': 'col-md-1',
+				'id': 'col-md-2'
+			};
+		},
 		mounted() {
-			this.switchHandler('issue_requests');
-			this.switchHandler('active');
-			this.switchHandler('administrative');
+			let vm = this;
+			$("#add_department").on('show.bs.modal', function() {
+				vm.getInstitutions();
+				vm.getDepartments();
+			});
+			vm.switchHandler('issue_requests');
+			vm.switchHandler('active');
+			vm.switchHandler('administrative');
 		}
 	};
 </script>

@@ -160,10 +160,13 @@
 				'default': 'col-md-1',
 				'id': 'col-md-2'
 			};
-			this.getCountries();
 		},
 		mounted() {
-			this.switchHandler('default');
+			let vm = this;
+			vm.switchHandler('default');
+			$("#add_currency").on('show.bs.modal', function() {
+				vm.getCountries();
+			});
 		}
 	};
 </script>

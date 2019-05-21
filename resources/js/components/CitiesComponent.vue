@@ -128,8 +128,12 @@
 				'name': 'col-md-7',
 				'id': 'col-md-2'
 			};
-
-			this.getCountries();
 		},
+		mounted() {
+			let vm = this;
+			$("#add_city").on('show.bs.modal', function() {
+				vm.getCountries();
+			});
+		}
 	};
 </script>
