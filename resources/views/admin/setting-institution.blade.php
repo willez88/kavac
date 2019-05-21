@@ -52,15 +52,31 @@
 			@endif
 		});
 
+		/**
+		 * Carga datos de la instiotución seleccionada
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {integer} id Identificador de la Institución a cargar
+		 */
 		var loadInstitution = function(id) {
 			axios.get(`get-institution/details/${id}`).then(response => {
 				if (response.data.result) {
 					var institution = response.data.institution;
-					console.log(institution);
+					$(".institution-logo").attr('src', "/images/no-image2.png");
+					$("#logo_id").val('');
+					$(".institution-banner").attr('src', "/images/no-image3.png");
+					$("#banner_id").val('');
+					if (institution.logo) {
+						$(".institution-logo").attr('src', `/${institution.logo.url}`);
+					}
+					if (institution.banner) {
+						$(".institution-banner").attr('src', `/${institution.banner.url}`);
+						$("#banner_id").val(institution.banner.id);
+					}
 					$("#institution_id").val(institution.id);
 					$("#onapre_code").val(institution.onapre_code);
 					$("#rif").val(institution.rif);
-					$("#name").val(institution.name);
+					$("input[name=name]").val(institution.name);
 					$("#acronym").val(institution.acronym);
 					$("#business_name").val(institution.business_name);
 					$("#country_id").val(institution.municipality.estate.country.id);
@@ -103,17 +119,18 @@
 					$("#vision").val(institution.vision);
 					$("#composition_assets").val(institution.composition_assets);
 
-					$.gritter.add({
+					/*$.gritter.add({
 				        title: 'Éxito',
 				        text: 'Los datos fueron cargados correctamente',
 				        class_name: 'growl-success',
 				        image: "/images/screen-ok.png",
 				        sticky: false,
 				        time: 1500
-				    });
+				    });*/
+				    $("#onapre_code").focus();
 				}
 			}).catch(error => {
-				console.log(error);
+				logs('setting-institution', 129, error, 'loadInstitution');
 			});
 		}
 	</script>
@@ -129,19 +146,28 @@
 					@include('buttons.minimize')
 				</div>
 			</div>
-			{!! Form::model($model_institution, $header_institution) !!}
-				<div class="card-body">
-					@include('layouts.form-errors')
-					<div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
-					<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div>
-					{!! Form::hidden('institution_id', (isset($model_institution))?$model_institution->id:'', [
-						'readonly' => 'readonly', 'id' => 'institution_id'
-					]) !!}
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="">Logotipo Institucional</label>
-								<div class="kv-avatar">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="">Logotipo Institucional</label>
+							{!! Form::open([
+                                'id' => 'formImgLogo', 'method' => 'POST', 'route' => 'upload-image.store', 
+                                'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
+                            ]) !!}
+                                @php
+                                    $img_logo = (isset($model_institution) && !is_null($model_institution->logo)) ? $model_institution->logo->url : null;
+                                @endphp
+                                <img src="{{ asset($img_logo ?? 'images/no-image2.png') }}" 
+                                     alt="Logotipo institucional" 
+                                     class="img-fluid institution-logo" style="cursor:pointer" 
+                                     title="Click para cargar o modificar la imagen" data-toggle="tooltip" 
+                                     onclick="$('input[name=logo_image]').click()">
+                                <input type="file" id="logo_image" name="logo_image" style="display:none" 
+                                       onchange="uploadSingleImage('formImgLogo', 'logo_image', 'logo_id', 'institution-logo')">
+                            {!! Form::close() !!}
+                            
+								{{-- <div class="kv-avatar">
 					                <div class="file-loading">
 					                    <input id="logo_id" name="logo_id" type="file" class="file-element">
 					                </div>
@@ -150,25 +176,52 @@
 									<div class="col-12 text-center">
 										<img src="{{ url($model_institution->logo->url) }}" class="img-fluid" style="max-height:150px;margin:0 auto;" alt="logo actual">
 									</div>
-								@endif
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="">Banner Institucional</label>
-								<div class="kv-avatar">
-					                <div class="file-loading">
-					                    <input id="banner_id" name="banner_id" type="file" class="file-element input-sm">
-					                </div>
-					            </div>
-								@if ($model_institution!==null && $model_institution->banner_id)
-									<div class="col-12">
-										<img src="{{ url($model_institution->banner->url) }}" class="img-fluid" style="max-height:150px;margin:0 auto;" alt="banner actual">
-									</div>
-								@endif
-							</div>
+								@endif --}}
 						</div>
 					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="">Banner Institucional</label>
+							{!! Form::open([
+                                'id' => 'formImgBanner', 'method' => 'POST', 'route' => 'upload-image.store', 
+                                'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
+                            ]) !!}
+                                @php
+                                    $img_banner = (isset($model_institution) && !is_null($model_institution->banner)) ? $model_institution->banner->url : null;
+                                @endphp
+                                <img src="{{ asset($img_banner ?? 'images/no-image3.png') }}" 
+                                     alt="Banner institucional" 
+                                     class="img-fluid institution-banner" style="cursor:pointer" 
+                                     title="Click para cargar o modificar la imagen" data-toggle="tooltip" 
+                                     onclick="$('input[name=banner_image]').click()">
+                                <input type="file" id="banner_image" name="banner_image" style="display:none" 
+                                       onchange="uploadSingleImage('formImgBanner', 'banner_image', 'banner_id', 'institution-banner')">
+                            {!! Form::close() !!}
+							{{-- <div class="kv-avatar">
+				                <div class="file-loading">
+				                    <input id="banner_id" name="banner_id" type="file" class="file-element input-sm">
+				                </div>
+				            </div>
+							@if ($model_institution!==null && $model_institution->banner_id)
+								<div class="col-12">
+									<img src="{{ url($model_institution->banner->url) }}" class="img-fluid" style="max-height:150px;margin:0 auto;" alt="banner actual">
+								</div>
+							@endif --}}
+						</div>
+					</div>
+				</div>
+			</div>
+			{!! Form::model($model_institution, $header_institution) !!}
+				<div class="card-body">
+					@include('layouts.form-errors')
+					{{-- <div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
+					<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div> --}}
+					{!! Form::hidden('logo_id', null, ['readonly' => 'readonly', 'id' => 'logo_id']) !!}
+					{!! Form::hidden('banner_id', null, ['readonly' => 'readonly', 'id' => 'banner_id']) !!}
+					{!! Form::hidden('institution_id', (isset($model_institution))?$model_institution->id:'', [
+						'readonly' => 'readonly', 'id' => 'institution_id'
+					]) !!}
+					
 					<hr>
 					<h6 class="md-title">Datos Básicos:</h6>
 					<div class="row">
@@ -509,7 +562,9 @@
 											{{ $institution->name }}
 										</td>
 										<td class="text-center">
-											{{ ($institution->active)?'SI':'NO' }}
+											<span class="text-bold text-{{ ($institution->active)?'success':'danger' }}">
+												{{ ($institution->active)?'SI':'NO' }}
+											</span>
 										</td>
 									</tr>
 								@endforeach

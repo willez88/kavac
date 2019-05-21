@@ -77,6 +77,8 @@
         {!! Html::script('vendor/datatable/js/responsive.bootstrap4.min.js') !!}
         {{-- Plugin Gritter --}}
         {!! Html::script('vendor/jquery.gritter/js/jquery.gritter.min.js') !!}
+        {{-- Scripts comúnes --}}
+        {!! Html::script('js/common.js') !!}
         {{-- Botón de ir al inicio de la página cuando se excede de un alto preestablecido --}}
         @include('buttons.to-top')
         

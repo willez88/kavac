@@ -83,19 +83,19 @@ class InstitutionController extends Controller
         // AGREGAR VALIDACIÓN DE MULTIPLES INSTITUCIONES CUANDO SE DEFINEN COMO TRUE EN 
         // LA CONFIGURACION DE PARAMETROS
 
-        $logo = $banner = null;
+        /*$logo = $banner = null;
         if ($request->file('logo_id')) {
-            /** Gestiona la carga del archivo de la imagen al servidor y la asigna al campo correspondiente */
             if ($up->uploadImage($request->file('logo_id'), 'pictures')) {
                 $logo = $up->getImageStored()->id;
             }
         }
         if ($request->file('banner_id')) {
-            /** Gestiona la carga del archivo de la imagen al servidor y la asigna al campo correspondiente */
             if ($up->uploadImage($request->file('banner_id'), 'pictures')) {
                 $banner = $up->getImageStored()->id;
             }
-        }
+        }*/
+        $logo = (!empty($request->logo_id)) ? $request->logo_id : null;
+        $banner = (!empty($request->banner_id)) ? $request->banner_id : null;
 
         $setting = Setting::where('active', true)->first();
         
@@ -231,11 +231,12 @@ class InstitutionController extends Controller
      */
     public function getDetails(Institution $institution)
     {
-        $inst = $institution->with(['municipality' => function($q) {
+        $inst = Institution::where('id', $institution->id)->with(['municipality' => function($q) {
             return $q->with(['estate' => function($qq) {
                 return $qq->with('country');
             }]);
-        }, 'logo', 'banner'])->first();
+        }, 'banner', 'logo'])->first();
+
         return response()->json(['result' => true, 'institution' => $inst], 200);
     }
 }
