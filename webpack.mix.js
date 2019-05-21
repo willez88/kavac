@@ -19,6 +19,7 @@ mix.js([
       //'resources/js/loading-message.js'
 	], 'public/js')
    .copy('resources/js/generic-classes.js', 'public/js/generic-classes.js')
+   .copy('resources/js/common.js', 'public/js/common.js')
    .sass('resources/sass/app.scss', 'public/css')
    .sass('resources/sass/font-awesome/font-awesome.scss', 'public/css')
    .sass('resources/sass/ionicons/ionicons.scss', 'public/css')
