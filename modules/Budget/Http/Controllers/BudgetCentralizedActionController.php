@@ -8,8 +8,8 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use Modules\Budget\Models\Base\Institution;
-use Modules\Budget\Models\Base\Department;
+use Modules\Budget\Models\Institution;
+use Modules\Budget\Models\Department;
 use Modules\Budget\Models\BudgetCentralizedAction;
 use Modules\Payroll\Models\PayrollPosition;
 use Modules\Payroll\Models\PayrollStaff;

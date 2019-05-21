@@ -11,8 +11,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Budget\Models\BudgetModification;
 use Modules\Budget\Models\BudgetModificationAccount;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
-use Modules\Budget\Models\Base\DocumentStatus;
-use Modules\Budget\Models\Base\Institution;
+use Modules\Budget\Models\DocumentStatus;
+use Modules\Budget\Models\Institution;
 use App\Models\CodeSetting;
 
 /**

@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use Modules\Budget\Models\Base\Institution;
+use Modules\Budget\Models\Institution;
 use Modules\Budget\Models\BudgetModification;
 
 /**
