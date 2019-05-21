@@ -165,6 +165,14 @@
                                      onclick="$('input[name=logo_image]').click()">
                                 <input type="file" id="logo_image" name="logo_image" style="display:none" 
                                        onchange="uploadSingleImage('formImgLogo', 'logo_image', 'logo_id', 'institution-logo')">
+                                <div class="row row-delete-img">
+                                	<div class="col-12">
+                                		<div class="institution-logo text-center">
+                                			<a class="img-delete" href="javascript:void(0)" 
+                                			   onclick="deleteImage($('#logo_id').val())">Eliminar</a>
+                                		</div>
+                                	</div>
+                                </div>
                             {!! Form::close() !!}
                             
 								{{-- <div class="kv-avatar">

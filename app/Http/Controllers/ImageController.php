@@ -97,7 +97,8 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
-        //
+        $image->delete();
+        return response()->json(['result' => true, 'message' => 'Success'], 200);
     }
 
     public function getImage(Request $request, Image $image)

@@ -155,7 +155,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     /** Ruta para la gestión de imágenes */
     Route::resource('upload-image', 'ImageController', [
-        'except' => ['index', 'create', 'show', 'edit', 'update', 'destroy']
+        'except' => ['index', 'create', 'show', 'edit', 'update']
     ]);
     Route::get('get-image/{image}', 'ImageController@getImage')->name('get-image');
 

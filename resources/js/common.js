@@ -1,3 +1,11 @@
+$(document).ready(function() {
+    if ($('.row-delete-img').length) {
+        //si el atributo src de la imagen contiene la cadena no-image entonces no mostrar el enlace de eliminación, 
+        //de lo contrario mostrarlo
+        //if ($('.row-delete-img').closest('.form-group').find('img').attr('src') === "")
+    }
+});
+
 /**
  * Función que permite cargar una imagen en el servidor
  *
@@ -49,4 +57,16 @@ var uploadSingleImage = function(form, input_file, input_hidden, img_tag, img_ta
     }).catch(error => {
         logs('custom.js', 50, error, 'uploadImage');
     });
+}
+
+var deleteImage = function(id) {
+    if (id) {
+        // Determinar si el valor es un arreglo de ids. Ej. 1,2,3,4,5,etc
+        console.log(id);
+        axios.delete(`/upload-image/${id}`).then(response => {
+
+        }).catch(error => {
+            console.log(error);
+        });
+    }
 }
