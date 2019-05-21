@@ -1,9 +1,23 @@
 $(document).ready(function() {
-    if ($('.row-delete-img').length) {
-        //si el atributo src de la imagen contiene la cadena no-image entonces no mostrar el enlace de eliminación, 
-        //de lo contrario mostrarlo
-        //if ($('.row-delete-img').closest('.form-group').find('img').attr('src') === "")
+    if ($('.img-delete').length) {
+        $('.img-delete').attr({
+            'title': 'Presione para eliminar esta imagen',
+            'data-toggle': 'tooltip',
+            'data-placement': 'left'
+        });
+        $('.img-delete').tooltip();
     }
+
+    $('.form-group input[type=file]').on('change', function() {
+        if ($(this).closest('.form-group').find('.row-delete-img').length) {
+            if ($(this).val()) {
+                $(this).closest('.form-group').find('.row-delete-img').show();
+            }
+            else {
+                $(this).closest('.form-group').find('.row-delete-img').hide();
+            }
+        }
+    })
 });
 
 /**
@@ -59,14 +73,39 @@ var uploadSingleImage = function(form, input_file, input_hidden, img_tag, img_ta
     });
 }
 
-var deleteImage = function(id) {
+/**
+ * Función que permite eliminar una o varias imágenes
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @param  {string}  id           Identificador de la o las imágenes a eliminar
+ * @param  {boolean} force_delete Indica si la eliminación es permanente. Opcional.
+ */
+var deleteImage = function(element_delete, id, no_image, force_delete) {
+    var force_delete = (typeof(force_delete) !== undefined && force_delete) 
+                       ? {force_delete: force_delete} : {};
     if (id) {
-        // Determinar si el valor es un arreglo de ids. Ej. 1,2,3,4,5,etc
-        console.log(id);
-        axios.delete(`/upload-image/${id}`).then(response => {
-
-        }).catch(error => {
-            console.log(error);
+        bootbox.confirm("Esta seguro de querer eliminar la imagen?", function(result) {
+            if (result) {
+                // Determinar si el valor es un arreglo de ids. Ej. 1,2,3,4,5,etc
+                axios.delete(`/upload-image/${id}`, force_delete).then(response => {
+                    if (!response.data.result) {
+                        $.gritter.add({
+                            title: 'Error!',
+                            text: response.data.message,
+                            class_name: 'growl-danger',
+                            image: "/images/screen-error.png",
+                            sticky: false,
+                            time: 2500
+                        });
+                    }
+                    else {
+                        element_delete.closest('.form-group')
+                                      .find('img').attr('src', `/images/no-image${no_image}.png`);
+                    }
+                }).catch(error => {
+                    logs('common.js', 88, `Error con la petición solicitada. Detalles: ${error}`);
+                });
+            }
         });
     }
 }

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Models\Institution;
 use App\Repositories\UploadImageRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+use DB;
 
 /**
  * @class ImageController
@@ -95,12 +99,40 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy(Request $request, $id)
     {
-        $image->delete();
+        $image = Image::find($id);
+
+        if (is_null($image)) {
+            return response()->json([
+                'result' => false, 'message' => 'La imagen no existe o ya fue eliminada'
+            ], 200);
+        }
+
+        $file = $image->file;
+
+        DB::transaction(function() use ($image, $file, $request) {
+            if ($request->force_delete) {
+                $image->forceDelete();
+                if (Storage::disk((isset($request->store)) ? $request->store : 'pictures')->exists($file)) {
+                    Storage::disk((isset($request->store)) ? $request->store : 'pictures')->delete($file);
+                }
+            }
+            else {
+                $image->delete();
+            }
+        });
         return response()->json(['result' => true, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene detalles de una imagen
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @param  Request $request Datos de la petición
+     * @param  Image   $image   Objeto con los datos de la imagen
+     * @return JSON             JSON con los detalles de la imagen consultada
+     */
     public function getImage(Request $request, Image $image)
     {
         return response()->json(['result' => true, 'image' => $image], 200);

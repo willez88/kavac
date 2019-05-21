@@ -68,9 +68,12 @@
 					$("#banner_id").val('');
 					if (institution.logo) {
 						$(".institution-logo").attr('src', `/${institution.logo.url}`);
+						$(".institution-logo").closest('.form-group').find('.row-delete-img').show();
+						$("#logo_id").val(institution.logo.id);
 					}
 					if (institution.banner) {
 						$(".institution-banner").attr('src', `/${institution.banner.url}`);
+						$(".institution-banner").closest('.form-group').find('.row-delete-img').show();
 						$("#banner_id").val(institution.banner.id);
 					}
 					$("#institution_id").val(institution.id);
@@ -156,7 +159,9 @@
                                 'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
                             ]) !!}
                                 @php
-                                    $img_logo = (isset($model_institution) && !is_null($model_institution->logo)) ? $model_institution->logo->url : null;
+                                	$img_logo = (
+                                		isset($model_institution) && !is_null($institution->logo)
+                                	) ? $model_institution->logo->url : null;
                                 @endphp
                                 <img src="{{ asset($img_logo ?? 'images/no-image2.png') }}" 
                                      alt="Logotipo institucional" 
@@ -169,22 +174,11 @@
                                 	<div class="col-12">
                                 		<div class="institution-logo text-center">
                                 			<a class="img-delete" href="javascript:void(0)" 
-                                			   onclick="deleteImage($('#logo_id').val())">Eliminar</a>
+                                			   onclick="deleteImage($(this), $('#logo_id').val(), '2')">Eliminar</a>
                                 		</div>
                                 	</div>
                                 </div>
                             {!! Form::close() !!}
-                            
-								{{-- <div class="kv-avatar">
-					                <div class="file-loading">
-					                    <input id="logo_id" name="logo_id" type="file" class="file-element">
-					                </div>
-					            </div>
-								@if ($model_institution!==null && $model_institution->logo_id)
-									<div class="col-12 text-center">
-										<img src="{{ url($model_institution->logo->url) }}" class="img-fluid" style="max-height:150px;margin:0 auto;" alt="logo actual">
-									</div>
-								@endif --}}
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -195,7 +189,9 @@
                                 'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
                             ]) !!}
                                 @php
-                                    $img_banner = (isset($model_institution) && !is_null($model_institution->banner)) ? $model_institution->banner->url : null;
+                                	$img_banner = (
+                                		isset($model_institution) && !is_null($institution->banner)
+                                	) ? $model_institution->banner->url : null;
                                 @endphp
                                 <img src="{{ asset($img_banner ?? 'images/no-image3.png') }}" 
                                      alt="Banner institucional" 
@@ -204,17 +200,17 @@
                                      onclick="$('input[name=banner_image]').click()">
                                 <input type="file" id="banner_image" name="banner_image" style="display:none" 
                                        onchange="uploadSingleImage('formImgBanner', 'banner_image', 'banner_id', 'institution-banner')">
+                                <div class="row row-delete-img">
+                                	<div class="col-12">
+                                		<div class="text-center">
+                                			<a class="img-delete" href="javascript:void(0)" 
+                                			   onclick="deleteImage($(this), $('#banner_id').val(), '3')">
+                                				Eliminar
+                                			</a>
+                                		</div>
+                                	</div>
+                                </div>
                             {!! Form::close() !!}
-							{{-- <div class="kv-avatar">
-				                <div class="file-loading">
-				                    <input id="banner_id" name="banner_id" type="file" class="file-element input-sm">
-				                </div>
-				            </div>
-							@if ($model_institution!==null && $model_institution->banner_id)
-								<div class="col-12">
-									<img src="{{ url($model_institution->banner->url) }}" class="img-fluid" style="max-height:150px;margin:0 auto;" alt="banner actual">
-								</div>
-							@endif --}}
 						</div>
 					</div>
 				</div>
@@ -550,7 +546,7 @@
 								@foreach ($institutions as $institution)
 									<tr>
 										<td class="text-center">
-											@if($institution->logo_id)
+											@if (!is_null($institution->logo))
 												<img src="{{ url($institution->logo->url) }}" 
 													 alt="logo" class="img-fluid" 
 													 style="max-height:50px;">
