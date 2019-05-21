@@ -1,0 +1,17 @@
+img.institution-logo, img.institution-banner {
+	border: solid 1px $primary-color;
+	padding: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+}
+
+img.institution-logo {
+	width: 60%;
+	max-height: 250px;
+}
+
+img.institution-banner {
+	width:100%;
+	max-height: 100px;
+}
