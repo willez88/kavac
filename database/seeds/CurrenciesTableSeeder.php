@@ -28,23 +28,16 @@ class CurrenciesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $country = Country::where('name', 'Venezuela')->first();
-
-        Currency::updateOrCreate(
-        	['country_id' => $country->id, 'symbol' => 'BsS'],
-        	['name' => 'Bolívar Soberano', 'default' => true]
-        );
-
         $adminRole = Role::where('slug', 'admin')->first();
 
         $permissions = [
-        	[
-        		'name' => 'Crear Monedas', 'slug' => 'currency.create',
+            [
+                'name' => 'Crear Monedas', 'slug' => 'currency.create',
                 'description' => 'Acceso al registro de monedas', 
                 'model' => Currency::class, 'model_prefix' => '0general',
                 'slug_alt' => 'moneda.crear', 'short_description' => 'agregar moneda'
-        	],
-        	[
+            ],
+            [
                 'name' => 'Editar Monedas', 'slug' => 'currency.edit',
                 'description' => 'Acceso para editar monedas', 
                 'model' => Currency::class, 'model_prefix' => '0general',
@@ -64,18 +57,31 @@ class CurrenciesTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($permissions as $permission) {
-            $per = Permission::updateOrCreate(
-                ['slug' => $permission['slug']],
-                [
-                    'name' => $permission['name'], 'description' => $permission['description'],
-                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                ]
+        $country = Country::where('name', 'Venezuela')->first();
+
+        DB::transaction(function() use ($adminRole, $permissions, $country) {
+            Currency::updateOrCreate(
+            	['country_id' => $country->id, 'symbol' => 'BsS'],
+            	['name' => 'Bolívar Soberano', 'default' => true]
             );
-            if ($adminRole) {
-                $adminRole->attachPermission($per);
+            Currency::updateOrCreate(
+                ['country_id' => $country->id, 'symbol' => 'Pt'],
+                ['name' => 'Petro', 'default' => false]
+            );
+
+            foreach ($permissions as $permission) {
+                $per = Permission::updateOrCreate(
+                    ['slug' => $permission['slug']],
+                    [
+                        'name' => $permission['name'], 'description' => $permission['description'],
+                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                    ]
+                );
+                if ($adminRole) {
+                    $adminRole->attachPermission($per);
+                }
             }
-        }
+        });
     }
 }

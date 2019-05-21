@@ -28,6 +28,39 @@ class MunicipalitiesTableSeeder extends Seeder
     {
         Model::unguard();
 
+        $adminRole = Role::where('slug', 'admin')->first();
+
+        /**
+         * Permisos disponibles para la gestión de municipios
+         */
+
+        $permissions = [
+            [
+                'name' => 'Crear Municipios', 'slug' => 'municipality.create',
+                'description' => 'Acceso al registro de municipios', 
+                'model' => Municipality::class, 'model_prefix' => '0general',
+                'slug_alt' => 'municipio.crear', 'short_description' => 'agregar municipio'
+            ],
+            [
+                'name' => 'Editar Municipios', 'slug' => 'municipality.edit',
+                'description' => 'Acceso para editar municipios', 
+                'model' => Municipality::class, 'model_prefix' => '0general',
+                'slug_alt' => 'municipio.editar', 'short_description' => 'editar municipio'
+            ],
+            [
+                'name' => 'Eliminar Municipios', 'slug' => 'municipality.delete',
+                'description' => 'Acceso para eliminar municipios', 
+                'model' => Municipality::class, 'model_prefix' => '0general',
+                'slug_alt' => 'municipio.eliminar', 'short_description' => 'eliminar municipio'
+            ],
+            [
+                'name' => 'Ver Municipios', 'slug' => 'municipality.list',
+                'description' => 'Acceso para ver municipios', 
+                'model' => Municipality::class, 'model_prefix' => '0general',
+                'slug_alt' => 'municipio.ver', 'short_description' => 'ver municipios'
+            ],
+        ];
+
         $estates_municipalities = [
         	"01" => [
         		"0101" => "Libertador"
@@ -414,63 +447,32 @@ class MunicipalitiesTableSeeder extends Seeder
         	],
         ];
 
-        foreach ($estates_municipalities as $code_estate => $municipalities) {
-        	$edo = Estate::where('code', $code_estate)->first();
-        	foreach ($municipalities as $code => $municipality) {
-        		if ($municipality) {
-        			Municipality::updateOrCreate(
-		        		['code' => $code],
-		        		['name' => $municipality, 'estate_id' => $edo->id]
-			        );
-        		}
-        	}
-        }
-
-        $adminRole = Role::where('slug', 'admin')->first();
-
-        /**
-         * Permisos disponibles para la gestión de municipios
-         */
-
-        $permissions = [
-            [
-                'name' => 'Crear Municipios', 'slug' => 'municipality.create',
-                'description' => 'Acceso al registro de municipios', 
-                'model' => Municipality::class, 'model_prefix' => '0general',
-                'slug_alt' => 'municipio.crear', 'short_description' => 'agregar municipio'
-            ],
-            [
-                'name' => 'Editar Municipios', 'slug' => 'municipality.edit',
-                'description' => 'Acceso para editar municipios', 
-                'model' => Municipality::class, 'model_prefix' => '0general',
-                'slug_alt' => 'municipio.editar', 'short_description' => 'editar municipio'
-            ],
-            [
-                'name' => 'Eliminar Municipios', 'slug' => 'municipality.delete',
-                'description' => 'Acceso para eliminar municipios', 
-                'model' => Municipality::class, 'model_prefix' => '0general',
-                'slug_alt' => 'municipio.eliminar', 'short_description' => 'eliminar municipio'
-            ],
-            [
-                'name' => 'Ver Municipios', 'slug' => 'municipality.list',
-                'description' => 'Acceso para ver municipios', 
-                'model' => Municipality::class, 'model_prefix' => '0general',
-                'slug_alt' => 'municipio.ver', 'short_description' => 'ver municipios'
-            ],
-        ];
-
-        foreach ($permissions as $permission) {
-            $per = Permission::updateOrCreate(
-                ['slug' => $permission['slug']],
-                [
-                    'name' => $permission['name'], 'description' => $permission['description'],
-                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                ]
-            );
-            if ($adminRole) {
-                $adminRole->attachPermission($per);
+        DB::transaction(function() use ($adminRole, $permissions, $estates_municipalities) {
+            foreach ($estates_municipalities as $code_estate => $municipalities) {
+                $edo = Estate::where('code', $code_estate)->first();
+                foreach ($municipalities as $code => $municipality) {
+                    if ($municipality) {
+                        Municipality::updateOrCreate(
+                            ['code' => $code],
+                            ['name' => $municipality, 'estate_id' => $edo->id]
+                        );
+                    }
+                }
             }
-        }
+
+            foreach ($permissions as $permission) {
+                $per = Permission::updateOrCreate(
+                    ['slug' => $permission['slug']],
+                    [
+                        'name' => $permission['name'], 'description' => $permission['description'],
+                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                    ]
+                );
+                if ($adminRole) {
+                    $adminRole->attachPermission($per);
+                }
+            }
+        });
     }
 }

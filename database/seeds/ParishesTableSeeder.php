@@ -28,6 +28,39 @@ class ParishesTableSeeder extends Seeder
     {
         Model::unguard();
 
+        $adminRole = Role::where('slug', 'admin')->first();
+
+        /**
+         * Permisos disponibles para la gestión de parroquías
+         */
+
+        $permissions = [
+            [
+                'name' => 'Crear Parroquías', 'slug' => 'parish.create',
+                'description' => 'Acceso al registro de parroquías', 
+                'model' => Parish::class, 'model_prefix' => '0general',
+                'slug_alt' => 'parroquia.crear', 'short_description' => 'agregar parroquia'
+            ],
+            [
+                'name' => 'Editar Parroquías', 'slug' => 'parish.edit',
+                'description' => 'Acceso para editar parroquías', 
+                'model' => Parish::class, 'model_prefix' => '0general',
+                'slug_alt' => 'parroquia.editar', 'short_description' => 'editar parroquia'
+            ],
+            [
+                'name' => 'Eliminar Parroquías', 'slug' => 'parish.delete',
+                'description' => 'Acceso para eliminar parroquías', 
+                'model' => Parish::class, 'model_prefix' => '0general',
+                'slug_alt' => 'parroquia.eliminar', 'short_description' => 'eliminar parroquia'
+            ],
+            [
+                'name' => 'Ver Parroquías', 'slug' => 'parish.list',
+                'description' => 'Acceso para ver parroquías', 
+                'model' => Parish::class, 'model_prefix' => '0general',
+                'slug_alt' => 'parroquia.ver', 'short_description' => 'ver parroquías'
+            ],
+        ];
+
         $municipalities_parishes = [
             '0101' => [
                 '010101' => 'Altagracia',
@@ -1887,63 +1920,32 @@ class ParishesTableSeeder extends Seeder
             ]
         ];
 
-        foreach ($municipalities_parishes as $code_municipality => $parishes) {
-        	$mun = Municipality::where('code', $code_municipality)->first();
-        	foreach ($parishes as $code => $parish) {
-        		if ($parish && isset($mun->id)) {
-        			Parish::updateOrCreate(
-		        		['code' => $code],
-		        		['name' => $parish, 'municipality_id' => $mun->id]
-			        );
-        		}
-        	}
-        }
-
-        $adminRole = Role::where('slug', 'admin')->first();
-
-        /**
-         * Permisos disponibles para la gestión de parroquías
-         */
-
-        $permissions = [
-            [
-                'name' => 'Crear Parroquías', 'slug' => 'parish.create',
-                'description' => 'Acceso al registro de parroquías', 
-                'model' => Parish::class, 'model_prefix' => '0general',
-                'slug_alt' => 'parroquia.crear', 'short_description' => 'agregar parroquia'
-            ],
-            [
-                'name' => 'Editar Parroquías', 'slug' => 'parish.edit',
-                'description' => 'Acceso para editar parroquías', 
-                'model' => Parish::class, 'model_prefix' => '0general',
-                'slug_alt' => 'parroquia.editar', 'short_description' => 'editar parroquia'
-            ],
-            [
-                'name' => 'Eliminar Parroquías', 'slug' => 'parish.delete',
-                'description' => 'Acceso para eliminar parroquías', 
-                'model' => Parish::class, 'model_prefix' => '0general',
-                'slug_alt' => 'parroquia.eliminar', 'short_description' => 'eliminar parroquia'
-            ],
-            [
-                'name' => 'Ver Parroquías', 'slug' => 'parish.list',
-                'description' => 'Acceso para ver parroquías', 
-                'model' => Parish::class, 'model_prefix' => '0general',
-                'slug_alt' => 'parroquia.ver', 'short_description' => 'ver parroquías'
-            ],
-        ];
-
-        foreach ($permissions as $permission) {
-            $per = Permission::updateOrCreate(
-                ['slug' => $permission['slug']],
-                [
-                    'name' => $permission['name'], 'description' => $permission['description'],
-                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                ]
-            );
-            if ($adminRole) {
-                $adminRole->attachPermission($per);
+        DB::transaction(function() use ($adminRole, $permissions, $municipalities_parishes) {
+            foreach ($municipalities_parishes as $code_municipality => $parishes) {
+                $mun = Municipality::where('code', $code_municipality)->first();
+                foreach ($parishes as $code => $parish) {
+                    if ($parish && isset($mun->id)) {
+                        Parish::updateOrCreate(
+                            ['code' => $code],
+                            ['name' => $parish, 'municipality_id' => $mun->id]
+                        );
+                    }
+                }
             }
-        }
+
+            foreach ($permissions as $permission) {
+                $per = Permission::updateOrCreate(
+                    ['slug' => $permission['slug']],
+                    [
+                        'name' => $permission['name'], 'description' => $permission['description'],
+                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                    ]
+                );
+                if ($adminRole) {
+                    $adminRole->attachPermission($per);
+                }
+            }
+        });
     }
 }

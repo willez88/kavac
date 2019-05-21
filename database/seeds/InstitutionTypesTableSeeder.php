@@ -27,23 +27,6 @@ class InstitutionTypesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        InstitutionType::updateOrCreate(
-        	['acronym' => 'EDSF'],
-        	['name' => 'Ente Desentralizado sin fines empresariales']
-        );
-        InstitutionType::updateOrCreate(
-        	['acronym' => 'ALCD'],
-        	['name' => 'Alcaldía']
-        );
-        InstitutionType::updateOrCreate(
-        	['acronym' => 'MINS'],
-        	['name' => 'Ministerio']
-        );
-        InstitutionType::updateOrCreate(
-        	['acronym' => 'GOBR'],
-        	['name' => 'Gobernación']
-        );
-
         $adminRole = Role::where('slug', 'admin')->first();
 
         /**
@@ -77,18 +60,39 @@ class InstitutionTypesTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($permissions as $permission) {
-            $per = Permission::updateOrCreate(
-                ['slug' => $permission['slug']],
-                [
-                    'name' => $permission['name'], 'description' => $permission['description'],
-                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                ]
+        DB::transaction(function() use ($adminRole, $permissions) {
+            InstitutionType::updateOrCreate(
+                ['acronym' => 'EDSF'],
+                ['name' => 'Ente Desentralizado sin fines empresariales']
             );
-            if ($adminRole) {
-                $adminRole->attachPermission($per);
+            InstitutionType::updateOrCreate(
+                ['acronym' => 'ALCD'],
+                ['name' => 'Alcaldía']
+            );
+            InstitutionType::updateOrCreate(
+                ['acronym' => 'MINS'],
+                ['name' => 'Ministerio']
+            );
+            InstitutionType::updateOrCreate(
+                ['acronym' => 'GOBR'],
+                ['name' => 'Gobernación']
+            );
+
+            
+
+            foreach ($permissions as $permission) {
+                $per = Permission::updateOrCreate(
+                    ['slug' => $permission['slug']],
+                    [
+                        'name' => $permission['name'], 'description' => $permission['description'],
+                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                    ]
+                );
+                if ($adminRole) {
+                    $adminRole->attachPermission($per);
+                }
             }
-        }
+        });
     }
 }

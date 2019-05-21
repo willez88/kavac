@@ -27,11 +27,6 @@ class CountriesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        Country::updateOrCreate(
-        	['name' => 'Venezuela'],
-        	['prefix' => '58']
-        );
-
         $adminRole = Role::where('slug', 'admin')->first();
 
         /**
@@ -65,18 +60,26 @@ class CountriesTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($permissions as $permission) {
-            $per = Permission::updateOrCreate(
-                ['slug' => $permission['slug']],
-                [
-                    'name' => $permission['name'], 'description' => $permission['description'],
-                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                ]
+        DB::transaction(function() use ($adminRole, $permissions) {
+
+            Country::updateOrCreate(
+            	['name' => 'Venezuela'],
+            	['prefix' => '58']
             );
-            if ($adminRole) {
-                $adminRole->attachPermission($per);
+
+            foreach ($permissions as $permission) {
+                $per = Permission::updateOrCreate(
+                    ['slug' => $permission['slug']],
+                    [
+                        'name' => $permission['name'], 'description' => $permission['description'],
+                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                    ]
+                );
+                if ($adminRole) {
+                    $adminRole->attachPermission($per);
+                }
             }
-        }
+        });
     }
 }

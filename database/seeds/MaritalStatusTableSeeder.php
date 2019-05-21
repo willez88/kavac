@@ -27,11 +27,6 @@ class MaritalStatusTableSeeder extends Seeder
     {
         Model::unguard();
 
-        MaritalStatus::updateOrCreate(['name' => 'Soltero(a)'],[]);
-        MaritalStatus::updateOrCreate(['name' => 'Casado(a)'],[]);
-        MaritalStatus::updateOrCreate(['name' => 'Divorciado(a)'],[]);
-        MaritalStatus::updateOrCreate(['name' => 'Viudo(a)'],[]);
-
         $adminRole = Role::where('slug', 'admin')->first();
 
         /**
@@ -65,18 +60,25 @@ class MaritalStatusTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($permissions as $permission) {
-            $per = Permission::updateOrCreate(
-                ['slug' => $permission['slug']],
-                [
-                    'name' => $permission['name'], 'description' => $permission['description'],
-                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                ]
-            );
-            if ($adminRole) {
-                $adminRole->attachPermission($per);
+        DB::transaction(function() use ($adminRole, $permissions) {
+            MaritalStatus::updateOrCreate(['name' => 'Soltero(a)'],[]);
+            MaritalStatus::updateOrCreate(['name' => 'Casado(a)'],[]);
+            MaritalStatus::updateOrCreate(['name' => 'Divorciado(a)'],[]);
+            MaritalStatus::updateOrCreate(['name' => 'Viudo(a)'],[]);
+
+            foreach ($permissions as $permission) {
+                $per = Permission::updateOrCreate(
+                    ['slug' => $permission['slug']],
+                    [
+                        'name' => $permission['name'], 'description' => $permission['description'],
+                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                    ]
+                );
+                if ($adminRole) {
+                    $adminRole->attachPermission($per);
+                }
             }
-        }
+        });
     }
 }

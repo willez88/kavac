@@ -28,42 +28,6 @@ class EstatesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $country_default = Country::where('name', 'Venezuela')->first();
-
-        $estates = [
-        	"01" => "Distrito Capital",
-        	"02" => "Amazonas",
-        	"03" => "Anzoategui", 
-        	"04" => "Apure",
-        	"05" => "Aragua",
-        	"06" => "Barinas",
-        	"07" => "Bolívar",
-        	"08" => "Carabobo",
-        	"09" => "Cojedes",
-        	"10" => "Delta Amacuro",
-        	"11" => "Falcón",
-        	"12" => "Guárico",
-        	"13" => "Lara",
-        	"14" => "Mérida",
-        	"15" => "Miranda",
-        	"16" => "Monagas",
-        	"17" => "Nueva Esparta",
-        	"18" => "Portuguesa",
-        	"19" => "Sucre",
-        	"20" => "Táchira",
-        	"21" => "Trujillo",
-        	"22" => "Yaracuy",
-        	"23" => "Zulia",
-        	"24" => "Vargas"
-        ];
-
-        foreach ($estates as $code => $state) {
-        	Estate::updateOrCreate(
-        		['code' => $code],
-        		['name' => $state, 'country_id' => $country_default->id]
-	        );
-        }
-
         $adminRole = Role::where('slug', 'admin')->first();
 
         /**
@@ -97,18 +61,58 @@ class EstatesTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($permissions as $permission) {
-            $per = Permission::updateOrCreate(
-                ['slug' => $permission['slug']],
-                [
-                    'name' => $permission['name'], 'description' => $permission['description'],
-                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                ]
-            );
-            if ($adminRole) {
-                $adminRole->attachPermission($per);
+        $country_default = Country::where('name', 'Venezuela')->first();
+
+        $estates = [
+        	"01" => "Distrito Capital",
+        	"02" => "Amazonas",
+        	"03" => "Anzoategui", 
+        	"04" => "Apure",
+        	"05" => "Aragua",
+        	"06" => "Barinas",
+        	"07" => "Bolívar",
+        	"08" => "Carabobo",
+        	"09" => "Cojedes",
+        	"10" => "Delta Amacuro",
+        	"11" => "Falcón",
+        	"12" => "Guárico",
+        	"13" => "Lara",
+        	"14" => "Mérida",
+        	"15" => "Miranda",
+        	"16" => "Monagas",
+        	"17" => "Nueva Esparta",
+        	"18" => "Portuguesa",
+        	"19" => "Sucre",
+        	"20" => "Táchira",
+        	"21" => "Trujillo",
+        	"22" => "Yaracuy",
+        	"23" => "Zulia",
+        	"24" => "Vargas"
+        ];
+
+        DB::transaction(function() use ($adminRole, $permissions, $country_default, $estates) {
+
+            foreach ($estates as $code => $state) {
+            	Estate::updateOrCreate(
+            		['code' => $code],
+            		['name' => $state, 'country_id' => $country_default->id]
+    	        );
             }
-        }
+            
+            foreach ($permissions as $permission) {
+                $per = Permission::updateOrCreate(
+                    ['slug' => $permission['slug']],
+                    [
+                        'name' => $permission['name'], 'description' => $permission['description'],
+                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                    ]
+                );
+                if ($adminRole) {
+                    $adminRole->attachPermission($per);
+                }
+            }
+        });
+
     }
 }

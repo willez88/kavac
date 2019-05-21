@@ -27,10 +27,6 @@ class InstitutionSectorsTableSeeder extends Seeder
     {
         Model::unguard();
 
-        InstitutionSector::updateOrCreate(['name' => 'Desarrollo'],[]);
-        InstitutionSector::updateOrCreate(['name' => 'Ciencia y Tecnología'],[]);
-        InstitutionSector::updateOrCreate(['name' => 'Gobierno'],[]);
-
         $adminRole = Role::where('slug', 'admin')->first();
 
         /**
@@ -64,18 +60,24 @@ class InstitutionSectorsTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($permissions as $permission) {
-            $per = Permission::updateOrCreate(
-                ['slug' => $permission['slug']],
-                [
-                    'name' => $permission['name'], 'description' => $permission['description'],
-                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                ]
-            );
-            if ($adminRole) {
-                $adminRole->attachPermission($per);
+        DB::transaction(function() use ($adminRole, $permissions) {
+            InstitutionSector::updateOrCreate(['name' => 'Desarrollo'],[]);
+            InstitutionSector::updateOrCreate(['name' => 'Ciencia y Tecnología'],[]);
+            InstitutionSector::updateOrCreate(['name' => 'Gobierno'],[]);
+
+            foreach ($permissions as $permission) {
+                $per = Permission::updateOrCreate(
+                    ['slug' => $permission['slug']],
+                    [
+                        'name' => $permission['name'], 'description' => $permission['description'],
+                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                    ]
+                );
+                if ($adminRole) {
+                    $adminRole->attachPermission($per);
+                }
             }
-        }
+        });
     }
 }

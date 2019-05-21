@@ -27,43 +27,6 @@ class ProfessionsTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $professions = [
-        	['name' => 'Abogado(a)', 'acronym' => 'Abg'],
-        	['name' => 'Arquitecto(a)', 'acronym' => 'Arq'],
-        	['name' => 'Bachiller', 'acronym' => 'Bach'],
-        	['name' => 'Criminólogo(a)', 'acronym' => ''],
-        	['name' => 'Doctor(a)', 'acronym' => 'Dr'],
-        	['name' => 'Doctor(a) en Ciencias Computacionales', 'acronym' => 'Dr'],
-        	['name' => 'Economista', 'acronym' => 'Eco'],
-        	['name' => 'Ingeniero(a) Civil', 'acronym' => 'Ing'],
-        	['name' => 'Ingeniero(a) de Sistemas', 'acronym' => 'Ing'],
-        	['name' => 'Ingeniero(a) Electricista', 'acronym' => 'Ing'],
-        	['name' => 'Ingeniero(a) en Computación', 'acronym' => 'Ing'],
-        	['name' => 'Ingeniero(a) en Electrónica', 'acronym' => 'Ing'],
-        	['name' => 'Ingeniero(a) en Informática', 'acronym' => 'Ing'],
-        	['name' => 'Ingeniero(a) Industrial', 'acronym' => 'Ing'],
-        	['name' => 'Ingeniero(a) Mecánico', 'acronym' => 'Ing'],
-        	['name' => 'Licenciado(a) en Administración', 'acronym' => 'Lic'],
-        	['name' => 'Licenciado(a) en Ciencias Gerenciales', 'acronym' => 'Lic'],
-        	['name' => 'Licenciado(a) en Comunicación Social', 'acronym' => 'Lic'],
-        	['name' => 'Licenciado(a) en Contaduría Pública', 'acronym' => 'Lic'],
-        	['name' => 'Licenciado(a) en Estadística', 'acronym' => 'Lic'],
-        	['name' => 'Ninguna', 'acronym' => ''],
-        	['name' => 'Politologo(a)', 'acronym' => 'Pol'],
-        	['name' => 'T.S.U. en Administración', 'acronym' => 'T.S.U.'],
-        	['name' => 'T.S.U. en Contaduría', 'acronym' => 'T.S.U.'],
-        	['name' => 'T.S.U. en Informática', 'acronym' => 'T.S.U.'],
-        	['name' => 'T.S.U. en Diseño', 'acronym' => 'T.S.U.'],
-        	['name' => 'T.S.U. en Electrónica', 'acronym' => 'T.S.U.'],
-        ];
-
-        foreach ($professions as $profession) {
-        	Profession::updateOrCreate(
-        		['name' => $profession['name']],
-        		['acronym' => ($profession['acronym'])?$profession['acronym']:null]
-        	);
-        }
-
         $adminRole = Role::where('slug', 'admin')->first();
 
         /**
@@ -97,18 +60,57 @@ class ProfessionsTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($permissions as $permission) {
-            $per = Permission::updateOrCreate(
-                ['slug' => $permission['slug']],
-                [
-                    'name' => $permission['name'], 'description' => $permission['description'],
-                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                ]
-            );
-            if ($adminRole) {
-                $adminRole->attachPermission($per);
+        $professions = [
+        	['name' => 'Abogado(a)', 'acronym' => 'Abg'],
+        	['name' => 'Arquitecto(a)', 'acronym' => 'Arq'],
+        	['name' => 'Bachiller', 'acronym' => 'Bach'],
+        	['name' => 'Criminólogo(a)', 'acronym' => ''],
+        	['name' => 'Doctor(a)', 'acronym' => 'Dr'],
+        	['name' => 'Doctor(a) en Ciencias Computacionales', 'acronym' => 'Dr'],
+        	['name' => 'Economista', 'acronym' => 'Eco'],
+        	['name' => 'Ingeniero(a) Civil', 'acronym' => 'Ing'],
+        	['name' => 'Ingeniero(a) de Sistemas', 'acronym' => 'Ing'],
+        	['name' => 'Ingeniero(a) Electricista', 'acronym' => 'Ing'],
+        	['name' => 'Ingeniero(a) en Computación', 'acronym' => 'Ing'],
+        	['name' => 'Ingeniero(a) en Electrónica', 'acronym' => 'Ing'],
+        	['name' => 'Ingeniero(a) en Informática', 'acronym' => 'Ing'],
+        	['name' => 'Ingeniero(a) Industrial', 'acronym' => 'Ing'],
+        	['name' => 'Ingeniero(a) Mecánico', 'acronym' => 'Ing'],
+        	['name' => 'Licenciado(a) en Administración', 'acronym' => 'Lic'],
+        	['name' => 'Licenciado(a) en Ciencias Gerenciales', 'acronym' => 'Lic'],
+        	['name' => 'Licenciado(a) en Comunicación Social', 'acronym' => 'Lic'],
+        	['name' => 'Licenciado(a) en Contaduría Pública', 'acronym' => 'Lic'],
+        	['name' => 'Licenciado(a) en Estadística', 'acronym' => 'Lic'],
+        	['name' => 'Ninguna', 'acronym' => ''],
+        	['name' => 'Politologo(a)', 'acronym' => 'Pol'],
+        	['name' => 'T.S.U. en Administración', 'acronym' => 'T.S.U.'],
+        	['name' => 'T.S.U. en Contaduría', 'acronym' => 'T.S.U.'],
+        	['name' => 'T.S.U. en Informática', 'acronym' => 'T.S.U.'],
+        	['name' => 'T.S.U. en Diseño', 'acronym' => 'T.S.U.'],
+        	['name' => 'T.S.U. en Electrónica', 'acronym' => 'T.S.U.'],
+        ];
+
+        DB::transaction(function() use ($adminRole, $permissions, $professions) {
+            foreach ($professions as $profession) {
+                Profession::updateOrCreate(
+                    ['name' => $profession['name']],
+                    ['acronym' => ($profession['acronym'])?$profession['acronym']:null]
+                );
             }
-        }
+
+            foreach ($permissions as $permission) {
+                $per = Permission::updateOrCreate(
+                    ['slug' => $permission['slug']],
+                    [
+                        'name' => $permission['name'], 'description' => $permission['description'],
+                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                    ]
+                );
+                if ($adminRole) {
+                    $adminRole->attachPermission($per);
+                }
+            }
+        });
     }
 }
