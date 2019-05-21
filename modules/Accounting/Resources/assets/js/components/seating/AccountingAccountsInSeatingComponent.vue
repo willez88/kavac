@@ -26,10 +26,12 @@
 					<select2 :options="accounting_accounts" v-model="record.id" @input="changeSelectinTable(record)"></select2>
 				</td>
 				<td>
-					<input type="text" data-toggle="tooltip" class="form-control input-sm" step=0.01 v-model="record.debit" @change="CalculateTot()">
+					<input type="number" data-toggle="tooltip" class="form-control input-sm" :step="cualculateLimitDecimal()"
+					v-model="record.debit" @change="CalculateTot()">
 				</td>
 				<td>
-					<input type="text" data-toggle="tooltip" class="form-control input-sm" step=0.01 v-model="record.assets" @change="CalculateTot()">
+					<input type="number" data-toggle="tooltip" class="form-control input-sm" :step="cualculateLimitDecimal()"
+					 v-model="record.assets" @change="CalculateTot()">
 				</td>
 				<td>
 					<div class="text-center">
@@ -54,11 +56,13 @@
 				<td>
 					<div class="form-group text-center">Total Debe:
 						<h6>
-							<span v-if="data.totDebit.toFixed(2) == data.totAssets.toFixed(2)" style="color:#18ce0f;">
-								<strong>{{ data.totDebit.toFixed(2) }}</strong>
+							<span>{{ currency.symbol }}</span>
+							<span v-if="data.totDebit.toFixed(currency.decimal_places) == data.totAssets.toFixed(currency.decimal_places)" 
+								style="color:#18ce0f;">
+								<strong>{{ data.totDebit.toFixed(currency.decimal_places) }}</strong>
 							</span>
 							<span v-else style="color:#FF3636;">
-								<strong>{{ data.totDebit.toFixed(2) }}</strong>
+								<strong>{{ data.totDebit.toFixed(currency.decimal_places) }}</strong>
 							</span>
 						</h6>
 					</div>
@@ -66,12 +70,13 @@
 				<td>
 					<div class="form-group text-center">Total Haber:
 						<h6>
-							<span v-if="data.totDebit.toFixed(2) == data.totAssets.toFixed(2)"
+							<span>{{ currency.symbol }}</span>
+							<span v-if="data.totDebit.toFixed(currency.decimal_places) == data.totAssets.toFixed(currency.decimal_places)"
 								style="color:#18ce0f;">
-								<strong>{{ data.totAssets.toFixed(2) }}</strong>
+								<strong>{{ data.totAssets.toFixed(currency.decimal_places) }}</strong>
 							</span>
 							<span v-else style="color:#FF3636;">
-								<strong>{{ data.totAssets.toFixed(2) }}</strong>
+								<strong>{{ data.totAssets.toFixed(currency.decimal_places) }}</strong>
 							</span>
 						</h6>
 					</div>
@@ -108,7 +113,7 @@
 </template>
 <script>
 	export default{
-		props:['accounting_accounts','seating'],
+		props:['accounting_accounts','seating','currency'],
 		data(){
 			return{
 				errors:[],
@@ -194,6 +199,10 @@
 					return true;
 				}
 			},
+			validateDecimals:function(value){
+				value = (""+value).split('.')[1];
+				return (value.length() < currency.decimal_places)?true:false;
+			},
 			changeSelectinTable:function(record) {
 				// si asigna un select en vacio, vacia los valores del debe y haber de esa fila
 				if (record.id == '') {
@@ -202,11 +211,21 @@
 					this.CalculateTot();
 				}
 			},
+			cualculateLimitDecimal(){
+				var res = "0.";
+				for (var i = 0; i < this.currency.decimal_places-1; i++) {
+					res += "0";
+				}
+				res += "1";
+				return res;
+			},
 			CalculateTot:function(){
 				this.data.totDebit = 0;
 				this.data.totAssets = 0;
 				for (var i = this.recordsAccounting.length - 1; i >= 0; i--) {
 					if (this.recordsAccounting[i].id != '') {
+						this.recordsAccounting[i].debit = parseFloat(this.recordsAccounting[i].debit).toFixed(this.currency.decimal_places);
+						this.recordsAccounting[i].assets = parseFloat(this.recordsAccounting[i].assets).toFixed(this.currency.decimal_places);
 						this.data.totDebit += (this.recordsAccounting[i].debit!='')?parseFloat(this.recordsAccounting[i].debit):0;
 						this.data.totAssets += (this.recordsAccounting[i].assets!='')?parseFloat(this.recordsAccounting[i].assets):0;
 					}
