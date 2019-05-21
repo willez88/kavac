@@ -8,8 +8,6 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-use Modules\Budget\Models\Base\DocumentStatus;
-
 /**
  * @class BudgetSubSpecificFormulation
  * @brief Datos de las formulaciones de presupuesto por sub específicas
@@ -58,7 +56,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      */
     public function currency()
     {
-        return $this->belongsTo(Base\Currency::class);
+        return $this->belongsTo(Currency::class);
     }
 
     /**
@@ -69,7 +67,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      */
     public function institution()
     {
-        return $this->belongsTo(Base\Institution::class);
+        return $this->belongsTo(Institution::class);
     }
 
     /**
@@ -81,7 +79,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     public function document_status()
     {
         // belongsTo(RelatedModel, foreignKey = document_status_id, keyOnRelatedModel = id)
-        return $this->belongsTo(Base\DocumentStatus::class);
+        return $this->belongsTo(DocumentStatus::class);
     }
 
     /**

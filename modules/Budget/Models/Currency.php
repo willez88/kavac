@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Budget\Models\Base;
+namespace Modules\Budget\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Currency as BaseCurrency;
@@ -15,6 +15,6 @@ class Currency extends BaseCurrency
      */
     public function budget_sub_specific_formulations()
     {
-        return $this->hasMany(\Modules\Budget\Models\BudgetSubSpecificFormulation::class);
+        return $this->hasMany(BudgetSubSpecificFormulation::class);
     }
 }

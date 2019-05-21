@@ -28,6 +28,7 @@ class DashboardController extends Controller
     {
         if (auth()->check()) {
             $trashed = [];
+            
             foreach ($this->getModels() as $model_name) {
                 $model = app($model_name);
                 

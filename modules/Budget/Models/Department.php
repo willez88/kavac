@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Budget\Models\Base;
+namespace Modules\Budget\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Department as BaseDepartment;
@@ -15,7 +15,7 @@ class Department extends BaseDepartment
      */
     public function budget_projects()
     {
-        return $this->hasMany(\Modules\Budget\Models\BudgetProject::class);
+        return $this->hasMany(BudgetProject::class);
     }
 
     /**
@@ -26,6 +26,6 @@ class Department extends BaseDepartment
      */
     public function budget_centralized_actions()
     {
-        return $this->hasMany(\Modules\Budget\Models\BudgetCentralizedAction::class);
+        return $this->hasMany(BudgetCentralizedAction::class);
     }
 }

@@ -15,7 +15,7 @@ trait ModelsTrait
 	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @return array                Retorna un arreglo con los módulos
 	 */
-	function getModels() {
+	function getModels($dir = "") {
 		$path = app_path() . "/Models";
 		$modules_path = base_path() . '/modules';
 
@@ -54,6 +54,7 @@ trait ModelsTrait
 					continue;
 				}
 				$filename_m = $model;
+				
 				if (is_dir($filename_m)) {
 					$out = array_merge($out, 'Modules\\' . $filename_module . '\\Models\\' . getModels($filename_m));
 				}

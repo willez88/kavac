@@ -1,31 +1,31 @@
 <?php
 
-namespace Modules\Budget\Models\Base;
+namespace Modules\Budget\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Institution as BaseInstitution;
+use App\Models\DocumentStatus as BaseDocumentStatus;
 
-class Institution extends BaseInstitution
+class DocumentStatus extends BaseDocumentStatus
 {
     /**
-     * Institution has many BudgetSubSpecificFormulations.
+     * DocumentStatus has many BudgetSubSpecificFormulations.
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_sub_specific_formulations()
     {
-        return $this->hasMany(\Modules\Budget\Models\BudgetSubSpecificFormulation::class);
+        return $this->hasMany(BudgetSubSpecificFormulation::class);
     }
 
     /**
-     * Institution has many BudgetModification.
+     * DocumentStatus has many BudgetModifications.
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_modifications()
     {
-        return $this->hasMany(\Modules\Budget\Models\BudgetModification::class);
+        return $this->hasMany(BudgetModification::class);
     }
 }

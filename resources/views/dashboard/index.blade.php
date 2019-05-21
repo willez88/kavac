@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+	@yield('dashboard')
+	hola
 	@role('admin')
 		@include('dashboard.users-connected')
 		@include('dashboard.logs-list')
