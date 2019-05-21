@@ -201,6 +201,21 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
 
 /**
  * -----------------------------------------------------------------------
+ * Grupo de rutas de acceso exclusivo del usuario desarrollador
+ * -----------------------------------------------------------------------
+ *
+ * Gestiona las rutas que solo pueden accederse si el usuario autenticado 
+ * es un desarrollador del sistema
+ */
+Route::group(['middleware' => ['auth', 'role:dev']], function() {
+    /** Muestra un listado de íconos a utilizar en el sistema */
+    Route::get('pack-icons', function() {
+        return view('layouts.pack-icons');
+    })->name('pack.icons');
+});
+
+/**
+ * -----------------------------------------------------------------------
  * Grupo de rutas de acceso exclusivo del usuario administrador
  * -----------------------------------------------------------------------
  *
@@ -210,10 +225,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
     Route::get('restore/{model}/{id}', 'DashboardController@restore');
-    Route::get('pack-icons', function() {
-        return view('layouts.pack-icons');
-    });
-
+    
     /**
      * ------------------------------------------------------------------
      * Grupo de rutas del namespace Admin

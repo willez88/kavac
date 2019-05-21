@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-	@yield('dashboard')
-	hola
+	@role('dev')
+		@include('dashboard.development-tools-availables')
+	@endrole
+	
 	@role('admin')
 		@include('dashboard.users-connected')
 		@include('dashboard.logs-list')
 		@include('dashboard.undelete-records')
 	@endrole
+	@yield('dashboard')
 @stop
 
 @section('extra-js')

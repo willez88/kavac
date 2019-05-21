@@ -250,7 +250,7 @@ class UserController extends Controller
         $user->detachAllPermissions();
 
         if (isset($request->role)) {
-            $user->attachRole($request->role[0]);
+            $user->syncRoles($request->role);
         }
         if (isset($request->permissions)) {
             $user->syncPermissions($request->permission);
