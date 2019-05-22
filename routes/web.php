@@ -207,11 +207,11 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
  * Gestiona las rutas que solo pueden accederse si el usuario autenticado 
  * es un desarrollador del sistema
  */
-Route::group(['middleware' => ['auth', 'role:dev']], function() {
+Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefix' => 'dev'], function() {
     /** Muestra un listado de íconos a utilizar en el sistema */
-    Route::get('pack-icons', function() {
-        return view('layouts.pack-icons');
-    })->name('pack.icons');
+    Route::get('pack-icons', 'DevelopmentController@getPackIcons')->name('pack.icons');
+    /** Obtiene los registros de logs generados por el framework */
+    Route::get('get-event-logs', 'DevelopmentController@getEventLogs')->name('event.logs');
 });
 
 /**

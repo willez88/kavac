@@ -7,6 +7,9 @@ body {font-size:13px;color:#636E7B;background-color:#EBECF1;}
 // Estilos generales reescritos o adecuados
 @import "base";
 
+// Estilos para secciones destinadas a elementos de desarrollo
+@import "development";
+
 // Navbar
 @import "navbar";
 
