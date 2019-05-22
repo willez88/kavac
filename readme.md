@@ -23,11 +23,135 @@ A continuación se listan los paquetes previos requeridos para la instalación y
 	* php-mbstring
 	* php-tokenizer
 	* php-zip
+	* php-pgsql
+	* php-cli
+	* php-curl
 	* composer
 	* zip
 	* unzip
 	* nodejs
 	* postgresql
+	* servidor de aplicaciones nginx, apache, etc
+
+## Glosario
+
+**(ruta-absoluta-de-instalacion)**: Es la ruta en donde se va a instalar la aplicación, colocando la misma sin los (), por ejemplo:
+
+	/srv/kavac/
+
+**(version-php-instalada)**: Es la versión del o los paquetes de PHP instalados, colocando la misma sin los (), por ejemplo:
+
+	7.1
+o
+
+	7.2
+
+o
+	
+	7.3
+
+
+## Configuración del Servidor de Aplicaciones
+
+En esta documentación se explica como configurar un servidor de aplicaciones Nginx (para otro tipo de servidor se debe consultar la documentación pertinente para una configuración óptima en aplicaciones basadas en PHP).
+
+### Instalar Nginx
+
+Lo primero que se debe realizar es la instalación del servidor de aplicaciones con el comando
+
+	apt install nginx
+
+Una vez completada la instalación, inicie el servicio nginx y agréguelo para que se inicie automáticamente con sistema operativo mediante el comando systemctl.
+
+	systemctl start nginx
+	systemctl enable nginx
+
+El servidor Nginx se ejecutará en el puerto 80, para verificar si se ejecutó correctamente debe ejecutar el comando
+
+	netstat -plntu
+
+Si todo lo mmuestra correctamente, nginx estará instalado y en ejecución. 
+
+### Instalar PHP-FPM
+
+Para instalar la extensión FPM (FastCGI Process Manager) de la versión de PHP instalada en el sistema operativo se debe ejecutar el comando
+
+	apt install php-fpm
+
+El próximo paso es configurar el archivo php.ini de FPM, para lo cual se deve acceder a la ruta en donde fue instalado, por lo general esta ruta se encuentra en /etc/php/(version-php-instalada)/, para esto se debe editar ejecutando
+
+	nano /etc/php/(version-php-instalada)/php.ini
+
+donde (version-php-instalada) es la versión de php instalada en el servidor, Ej. 7.3
+
+En el contenido del archivo se debe buscar y descomentar la variable cgi.fix_pathinfo=1 y cambiar el valor a 0
+
+	cgi.fix_pathinfo=0
+
+Guarda las modificaciones realizadas e inicializa el servicio FPM con los comandos
+
+	systemctl start php(version-php-instalada)-fpm
+	systemctl enable php(version-php-instalada)-fpm
+
+El primer comando inicializa el servicio y el segundo lo habilita para que se ejecute automáticamente al arrancar el servidor.
+
+Por defecto en sistemas operativos como Ubuntu el servicio PHP-FPM se ejecuta bajo un archivo socket, para verificar que el servicio PHP-FPM se haya inicializado correctamente deberá escribir el comando netstat de la siguiente forma
+
+	netstat -pl | grep php(version-php-instalada)-fpm
+
+Con lo anterior, el servidor virtual para la aplicación fue creado, solo queda reiniciar el servidor nginx para que las modificaciones tengan efecto
+
+	systemctl restart nginx
+
+### Configurar el servidor virtual de Nginx
+
+Para que la aplicación se ejecute en el servidor de aplicaciones Nginx, se debe realizar una configuración adicional creando para ello un archivo que contendrá dicha configuración, para esto se ejecutara el siguiente comando
+
+	nano /etc/nginx/sites-available/kavac
+
+y se agregara el siguiente contenido:
+
+	server {
+		listen 80;
+		# Descomentar si las peticiones solo aceptan el protocolo ipv6
+		# listen [::]:80 ipv6only=on;
+		
+		# Log files for Debugging
+		access_log /var/log/nginx/kavac-access.log;
+		error_log /var/log/nginx/kavac-error.log;
+		
+        # Webroot Directory for kavac project
+		root (ruta-absoluta-de-instalacion)/public;
+		index index.php index.html index.htm;
+		
+		# Your Domain Name
+		server_name (nombre-de-dominio-que-atiende-las-peticiones);
+		
+		location / {
+			try_files $uri $uri/ /index.php?$query_string;
+		}
+		
+		# PHP-FPM Configuration Nginx
+		location ~ \.php$ {
+			try_files $uri =404;
+			fastcgi_split_path_info ^(.+\.php)(/.+)$;
+			fastcgi_pass unix:/run/php/php(version-php-instalada)-fpm.sock;
+			fastcgi_index index.php;
+			fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+			include fastcgi_params;
+		}
+	}
+
+guarda las modificaciones y cierra el archivo
+
+Ahora para activar el servidor virtual se debe crear un enlace símbolico al archivo de configuración de la siguiente forma
+
+	ln -s /etc/nginx/sites-available/kavac /etc/nginx/sites-enabled/
+
+Para que estos cambios tengan efecto se debe reiniciar el servidor de aplicaciones
+
+	systemctl restart nginx
+
 
 ## Instalación
 
@@ -43,7 +167,17 @@ Una vez instalada la aplicación, ejecuta el comando:
 
 	php artisan key:generate
 
-Esto generará un identificador único para la aplicación y creará (si no existe), el archivo de configuración .env
+Esto generará un identificador único para la aplicación y creará (si no existe), el archivo de configuración .env, en caso de que no se genere dicho archivo se debe ejecutar el comando
+
+	cp .env.example .env
+
+luego se debe repetir el paso anterior.
+
+Para un mejor rendimiento de la aplicación en entornos de producción se recomienda utilizar el comando
+
+	composer install --optimize-autoloader --no-dev
+
+esto permitirá una carga más optimizada de los componentes del sistema.
 
 En el archivo .env, localizado en la raíz del sistema, se deben establecer los parámetros de configuración necesarios bajo los cuales se ejecutará la aplicación.
 
@@ -88,6 +222,11 @@ De igual manera se debe instalar los paquetes necesarios para la gestión reacti
 
 El comando anterior instala todas las dependencias de node requeridas por el sistema.
 
+El último paso en el proceso de instalación es modificar los usuarios y permisos para el acceso del servidor a la aplicación KAVAC, para lo cual le indicamos la permisología y usuario correspondiente
+
+	chown -R www-data:root (ruta-absoluta-de-instalacion)
+	chmod 755 (ruta-absoluta-de-instalacion)/storage
+
 ## Base de Datos
 
 El Sistema Administrativo KAVAC puede ser ejecutado con diferentes gestores de Base de Datos tales como PostgreSQL, MySQL, SQLite, entre otros, sin embargo se recomienda el uso del gestor de Base de Datos PostgreSQL por su capacidad en la gestión de información.
@@ -131,6 +270,18 @@ El primer paso, para el correcto funcionamiento del sistema, es registrar inform
 	Configuración > General
 
 Y allí, en el panel "CONFIGURAR INSTITUCIÓN" se deben indicar los datos de la Institución, una vez configurada la institución se mostrarán todas las opciones de los módulos disponibles en el sistema
+
+## Probando la aplicación
+
+Para identificar si la aplicación se encuentra correctamente instalada, puedes ejecutar el comando de artisan que te permite levantar un servidor en entornos de desarrollo de la siguiente forma:
+
+	php artisan serve
+
+Este comando levanta un servidor en la dirección ip 127.0.0.1 o localhost y en el puerto 8000, para verificarlo puedes acceder a el enlace [127.0.0.1:8000](127.0.0.1:8000)
+
+Puedes, de igual forma asignarle una dirección IP o dominio a este comando y un puerto en donde atenderá las peticiones para lo cual se puede agregar las opciones --host y/o --port, un ejemplo de su uso sería:
+
+	php artisan serve --port 192.168.1.1 --port 9000
 
 ## Documentación
 
