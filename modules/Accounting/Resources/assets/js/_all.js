@@ -63,11 +63,19 @@ Vue.component('accounting-seat-create', require('./components/seating/Accounting
 Vue.component('accounting-seat-create-account', require('./components/seating/AccountingAccountsInSeatingComponent.vue'));
 
 /**
- * Componente para la configuración
+ * Componente para la configuración de categorias de origen para asientos contables
  *
  * @author  Juan Rosas <JuanFBass17@gmail.com>
  */
-Vue.component('accounting-configuration-category', require('./components/configuration/AccountingConfigurationCategoryComponent.vue'));
+Vue.component('accounting-setting-category', require('./components/setting/AccountingSettingCategoryComponent.vue'));
+
+/**
+ * Componente para la configuración de las tasas de cambio de mas monedas
+ *
+ * @author  Juan Rosas <JuanFBass17@gmail.com>
+ */
+Vue.component('accounting-setting-currency-exchange-rate', require('./components/setting/AccountingSettingCurrencyExchangeRateComponent.vue'));
+
 
 /**
  * Componente index para el reporte de balance de comprobación

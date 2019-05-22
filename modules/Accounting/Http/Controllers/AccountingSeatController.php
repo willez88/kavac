@@ -10,8 +10,8 @@ use Modules\Accounting\Models\AccountingSeatCategory;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
+use Modules\Accounting\Models\Currency;
 use App\Models\Institution;
-use App\Models\Currency;
 use Auth;
 /**
  * @class AccountingSeatController

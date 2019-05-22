@@ -18,7 +18,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-12">
+		<div class="col-6">
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">Origenes para Asientos Contables</h6>
@@ -28,7 +28,20 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-configuration-category :categories="{{$categories}}" />
+					<accounting-setting-category :categories="{{$categories}}" />
+				</div>
+			</div>
+		</div>
+		<div class="col-6">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Tasas de cambio de monedas</h6>
+					<div class="card-btns">
+						@include('buttons.minimize')
+					</div>
+				</div>
+				<div class="card-body">
+					<accounting-setting-currency-exchange-rate :currencies="{{ $currencies }}" />
 				</div>
 			</div>
 		</div>

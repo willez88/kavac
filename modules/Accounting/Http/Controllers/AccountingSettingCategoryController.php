@@ -8,36 +8,17 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingSeatCategory;
 use Auth;
-/**
- * @class AccountingConfigurationCategoryController
- * @brief Controlador de categorias de origen para sientos contables
- * 
- * Clase que gestiona las categorias para asientos contables
- * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
- */
-class AccountingConfigurationCategoryController extends Controller
+
+class AccountingSettingCategoryController extends Controller
 {
+    use ValidatesRequests;
     /**
-     * Muestra un listado de categorias de origen
-     *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
-     * @return view
+     * Display a listing of the resource.
+     * @return Response
      */
     public function index()
     {
-        $categories = AccountingSeatCategory::orderBy('name')->get();
-        return view('accounting::configuration.index', compact('categories'));
-    }
-
-    /**
-     * Formulario para la creacion de categorias
-     * @return Response
-     */
-    public function create()
-    {
-        // return view('accounting::create');
+        return view('accounting::index');
     }
 
     /**
@@ -64,28 +45,31 @@ class AccountingConfigurationCategoryController extends Controller
     }
 
     /**
-     * Muestra información de las categorias
-     *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * Show the specified resource.
+     * @param int $id
      * @return Response
      */
     public function show($id)
     {
-        // return view('accounting::show');
+        return view('accounting::show');
     }
 
     /**
-     * Muestra el formulario para la edición de categorias de origen de asientos contables
-     *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
-     * @param  integer $id Identificador de la cuenta patrimonial a modificar
+     * Show the form for editing the specified resource.
+     * @param int $id
      * @return Response
      */
     public function edit($id)
     {
-        // return view('accounting::edit');
+        return view('accounting::edit');
     }
 
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
     /**
      * Actualiza los datos de la categoria de origen
      *

@@ -278,7 +278,6 @@
 					return ;
 				}
 				const vm = this;
-				console.log(this.data)
 				axios.post('/accounting/seating/Filter-Records',{
 					'typeSearch':this.typeSearch,
 					'filterDate':this.filterDate,

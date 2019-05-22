@@ -103,12 +103,14 @@ Route::group(['middleware' => 'web',
 	/**
 		Rutas para las vistas de configuración de categorias del modulo de contabilidad
 	*/
-	Route::get('settings', 'AccountingConfigurationCategoryController@index')
+	Route::get('settings', 'AccountingSettingController@index')
 			->name('accounting.settings.index');
 
-	Route::resource('settings/categories', 'AccountingConfigurationCategoryController', 
-		['as' => 'settings',
-		'except' => ['index']]);
+	Route::post('settings/categories', 'AccountingSettingCategoryController@store')
+			->name('accounting.settings.store');
+
+	Route::resource('settings/categories', 'AccountingSettingCategoryController', 
+		['as' => 'settings']);
 
 
 });

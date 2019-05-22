@@ -27,7 +27,7 @@
 					title="Acrónimo"
 					v-model="NewCategory.acronym">
 		</div>
-		<div class="col-11"></div>
+		<div class="col-10"></div>
 		<div class="col-1">
 			<button class="btn btn-success btn-icon btn-round" 
 					title="Guardar registro"
@@ -128,6 +128,7 @@ export default{
 			if (!this.validInformation()) return;
 
 			const vm = this;
+			this.NewCategory.acronym = this.NewCategory.acronym.toUpperCase();
 			axios.post('/accounting/settings/categories',this.NewCategory).then(response=>{
 				this.records = response.data.records;
 				this.NewCategory = {
@@ -141,6 +142,7 @@ export default{
 			if (!this.validInformation(false)) return;
 
 			const vm = this;
+			this.NewCategory.acronym = this.NewCategory.acronym.toUpperCase();
 			axios.put('/accounting/settings/categories/'+this.NewCategory.id,this.NewCategory).then(response=>{
 				this.records = response.data.records;
 				this.NewCategory = {
