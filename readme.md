@@ -16,12 +16,18 @@ Como antecedentes de esta aplicación se considera como precursor a:
 
 ## Pre-requisitos
 
-Requerimientos previos para la instalación
+A continuación se listan los paquetes previos requeridos para la instalación y correcto funcionamiento de la aplicación
 
-	* php >= 7.0.0
+	* php >= 7.2.x
 	* php-gd
+	* php-mbstring
+	* php-tokenizer
+	* php-zip
 	* composer
+	* zip
+	* unzip
 	* nodejs
+	* postgresql
 
 ## Instalación
 
