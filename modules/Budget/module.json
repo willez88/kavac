@@ -8,10 +8,10 @@
     "providers": [
         "Modules\\Budget\\Providers\\BudgetServiceProvider"
     ],
-    "aliases": {},
+    "aliases": [],
     "files": [
         "start.php",
-        "Helpers/Helper.php"
+        "Helpers\/Helper.php"
     ],
     "requires": []
 }

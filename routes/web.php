@@ -209,7 +209,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
  */
 Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefix' => 'dev'], function() {
     /** Muestra un listado de íconos a utilizar en el sistema */
-    Route::get('pack-icons', 'DevelopmentController@getPackIcons')->name('pack.icons');
+    Route::get('show/{el}', 'DevelopmentController@getElement')->name('dev.show.element');
     /** Obtiene los registros de logs generados por el framework */
     Route::get('get-event-logs', 'DevelopmentController@getEventLogs')->name('event.logs');
 });

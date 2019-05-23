@@ -2,7 +2,7 @@
 
 @section('content')
 	@role('dev')
-		@include('dashboard.development-tools-availables')
+		@include('dev.tools-availables')
 	@endrole
 	
 	@role('admin')
