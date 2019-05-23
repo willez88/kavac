@@ -20,14 +20,19 @@
 				<div class="row">
 					<div class="col-12">
 						<a href="{{ route('dev.show.element', ['el' => 'icons']) }}" 
-						   class="btn btn-primary btn-simple btn-lg" 
+						   class="btn btn-primary btn-simple btn-lg" target="_blank"  
 						   data-toggle="tooltip" title="Listado de íconos disponibles en la aplicación">
 							<i class="icofont icofont-idea"></i> Iconos
 						</a>
 						<a href="{{ route('dev.show.element', ['el' => 'components']) }}" 
-						   class="btn btn-primary btn-simple btn-lg" 
+						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
 						   data-toggle="tooltip" title="Listado de componentes y elementos disponibles en la aplicación">
 							<i class="icofont icofont-idea"></i> Componentes
+						</a>
+						<a href="" 
+						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   data-toggle="tooltip" title="Listado de componentes y elementos disponibles en la aplicación">
+							<i class="icofont icofont-idea"></i> Botones
 						</a>
 					</div>
 				</div>
