@@ -120,4 +120,26 @@
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Paleta de colores</h6>
+					<div class="card-btns">
+						@include('buttons.minimize')
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-4 col-md-2">
+							<div class="color-palette-set" style="color:#ffffff">
+			                  <div class="bg-red color-palette"><span>#dd4b39</span></div>
+			                  <div class="bg-primary color-palette"><span>#f96332</span></div>
+			                </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 @stop

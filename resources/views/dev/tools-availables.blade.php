@@ -2,7 +2,13 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title">Herramientas para Desarrolladores</h6>
+				<h6 class="card-title">
+					Herramientas para Desarrolladores&#160;
+					<a href="javascript:void(0)" title="Acceso a la documentación del sistema" 
+					   data-toggle="tooltip">
+						<i class="ion ion-ios-help-outline cursor-pointer"></i>
+					</a>
+				</h6>
 				<div class="card-btns">
 					@include('buttons.minimize')
 				</div>
@@ -31,11 +37,36 @@
 						</a>
 						<a href="" 
 						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
-						   data-toggle="tooltip" title="Listado de componentes y elementos disponibles en la aplicación">
+						   data-toggle="tooltip" title="Listado de estilos de botones">
 							<i class="icofont icofont-idea"></i> Botones
+						</a>
+						<a href="" 
+						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   data-toggle="tooltip" title="Listado de componentes de formulario">
+							<i class="icofont icofont-idea"></i> Formularios
+						</a>
+						<a href="" 
+						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   data-toggle="tooltip" title="Listado de gráficos disponibles">
+							<i class="icofont icofont-idea"></i> Gráficos
+						</a>
+						<a href="" 
+						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   data-toggle="tooltip" title="Listado de estilos de sliders">
+							<i class="icofont icofont-idea"></i> Sliders
+						</a>
+						<a href="" 
+						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   data-toggle="tooltip" title="Listado de estilos de tablas">
+							<i class="icofont icofont-idea"></i> Tablas
 						</a>
 					</div>
 				</div>
+				{{-- <div class="row">
+					<div class="col-12">
+						<iframe src="{{ asset('documento.pdf') }}" width="50%" height="750" frameborder="0" style="border: 1px solid #636E7B;box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);"></iframe>
+					</div>
+				</div> --}}
 				<hr>
 				<h6>Ajustes</h6>
 				<div class="row">

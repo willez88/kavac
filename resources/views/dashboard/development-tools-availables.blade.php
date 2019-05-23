@@ -11,7 +11,10 @@
 				<div class="row">
 					<div class="col-12">
 						<span class="text-muted">
-							Acceso a herramientas para desarrolladores
+							Acceso a herramientas para desarrolladores 
+							<a href="javascript:void(0)">
+								<i class="ion ion-ios-help-outline"></i>
+							</a>
 						</span>
 						<hr>
 					</div>
