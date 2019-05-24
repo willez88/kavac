@@ -44,8 +44,8 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'full_name_twosome', 'id_number_twosome',
-        'birthdate_twosome', 'payroll_staff_id', 'marital_status_id',
+        'full_name_twosome', 'id_number_twosome', 'birthdate_twosome',
+        'payroll_children_id', 'payroll_staff_id', 'marital_status_id',
     ];
 
     /**
@@ -68,5 +68,10 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
 	public function marital_status()
     {
         return $this->belongsTo('App\Models\MaritalStatus');
+    }
+
+    public function payroll_children()
+    {
+        return $this->belongsTo('Modules\Payroll\Models\PayrollChildren');
     }
 }

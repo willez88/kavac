@@ -18,5 +18,8 @@ class PayrollDatabaseSeeder extends Seeder
 
         /** Seeder para roles y permisos disponibles en el módulo */
         $this->call(PayrollRoleAndPermissionsTableSeeder::class);
+
+        /** Seeder para tipos de personal disponibles en el módulo */
+        $this->call(PayrollStaffTypesTableSeeder::class);
     }
 }

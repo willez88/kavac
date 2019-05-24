@@ -42,8 +42,9 @@ class PayrollSocioeconomicInformationController extends Controller
      */
     public function index()
     {
-        $socioeconomic_informations = PayrollSocioeconomicInformation::all();
-        return view('payroll::socioeconomic-informations.index', compact('socioeconomic_informations'));
+        //$socioeconomic_informations = PayrollSocioeconomicInformation::all();
+        //return view('payroll::socioeconomic-informations.index', compact('socioeconomic_informations'));
+        return response()->json(['records' => PayrollSocioeconomicInformation::with(['payroll_staff','marital_status'])->get()], 200);
     }
 
     /**
@@ -74,10 +75,7 @@ class PayrollSocioeconomicInformationController extends Controller
             'id_number_twosome' => 'nullable|max:12',
             'birthdate_twosome' => 'nullable|date',
             'payroll_staff_id' => 'required',
-            'marital_status_id' => 'required',
-            'full_name_son.*' => 'required',
-            'id_number_son.*' => 'nullable',
-            'birthdate_son.*' => 'required|date'
+            'marital_status_id' => 'required'
         ]);
         $socioeconomic_information = new PayrollSocioeconomicInformation;
         $socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
@@ -148,5 +146,15 @@ class PayrollSocioeconomicInformationController extends Controller
             return response()->json(['result' => true]);
         }
         return redirect()->route('payroll.socioeconomic-informations.index');
+    }
+
+    public function list()
+    {
+        return view('payroll::socioeconomic-informations.index');
+    }
+
+    public function listMaritalStatus()
+    {
+        return template_choices('App\Models\MaritalStatus','name','',true);
     }
 }

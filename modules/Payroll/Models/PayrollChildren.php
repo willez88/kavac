@@ -46,4 +46,9 @@ class PayrollChildren extends Model
     protected $fillable = [
         'first_name', 'last_name', 'id_number', 'birthdate'
     ];
+
+    public function payroll_socioecomic_informations()
+    {
+        return $this->hasMany('Modules\Payroll\Models\PayrollSocioeconomicInformation');
+    }
 }

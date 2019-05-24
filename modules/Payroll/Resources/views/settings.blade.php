@@ -168,7 +168,7 @@
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 							   href="{{ route('payroll.genders.index') }}" title="Registro del género del trabajador"
 							   data-toggle="tooltip">
-								<i class="icofont icofont-soccer ico-3x"></i>
+								<i class="icofont icofont-group-students ico-3x"></i>
 								<span>Género</span>
 							</a>
 						</div>
