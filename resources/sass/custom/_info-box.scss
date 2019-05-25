@@ -9,6 +9,19 @@
 	border-radius: 15px;
 	margin-bottom: 15px;
 
+	&.info-box-mini {
+		max-height: 60px;
+		.info-box-icon {
+		    max-height: 70px;
+		    font-size: 30px;
+		    line-height: 70px;
+		    max-width: 70px;
+		}
+		.info-box-content {
+			margin-left: 60px;
+		}
+	}
+
 	.progress {
 		background: rgba(0,0,0,0.2);
 		/*margin: 5px -10px 5px -10px;*/

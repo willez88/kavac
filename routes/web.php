@@ -250,6 +250,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
         Route::get('get-institutions', 'InstitutionController@getInstitutions');
         Route::get('get-institution/details/{institution}', 'InstitutionController@getDetails')
              ->name('institution.details');
+
+        /** Rutas para el visor de logs */
+        Route::group(['prefix' => 'log-viewer'], function() {
+            Route::get('/', 'LogViewerController@index')->name('log-viewer::details');
+        });
     });
     
     /**

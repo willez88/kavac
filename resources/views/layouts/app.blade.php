@@ -60,6 +60,7 @@
             @endguest
         @show
 
+        @yield('modals')
         {{-- Scripts --}}
         {{-- Plugin Sliders --}}
         {!! Html::script('js/nouislider.min.js') !!}
