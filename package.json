@@ -22,6 +22,7 @@
     "dependencies": {
         "bootbox": "^4.4.0",
         "bootstrap-fileinput": "^4.5.2",
+        "chart.js": "^2.8.0",
         "gifsicle": "^4.0.1",
         "jquery.complexify": "^0.5.2",
         "moment": "^2.24.0",

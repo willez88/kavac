@@ -5,6 +5,9 @@
     "/css/ionicons.css": "/css/ionicons.css",
     "/css/now-ui-kit.css": "/css/now-ui-kit.css",
     "/css/custom.css": "/css/custom.css",
+    "/js/chart.js": "/js/chart.js",
     "/js/generic-classes.js": "/js/generic-classes.js",
-    "/js/common.js": "/js/common.js"
+    "/js/common.js": "/js/common.js",
+    "/js/app.min.js": "/js/app.min.js",
+    "/css/app.min.css": "/css/app.min.css"
 }
