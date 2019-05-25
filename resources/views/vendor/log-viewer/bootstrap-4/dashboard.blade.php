@@ -23,6 +23,7 @@
                 <div class="card-header">
                     <h6 class="card-title">Registros de Logs</h6>
                     <div class="card-btns">
+                        @include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
                     </div>
                 </div>

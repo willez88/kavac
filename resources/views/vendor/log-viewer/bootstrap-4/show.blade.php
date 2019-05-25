@@ -31,6 +31,7 @@
                 <div class="card-header">
                     <h6 class="card-title">Log del [{{ $log->date }}]</h6>
                     <div class="card-btns">
+                        @include('buttons.previous', ['route' => route('log-viewer::details')])
                         @include('buttons.minimize')
                     </div>
                 </div>
@@ -135,7 +136,7 @@
                                                     @unless (is_null($query))
                                                         <a href="{{ route('log-viewer::logs.show', [$log->date]) }}" 
                                                            class="btn btn-secondary">
-                                                            ({{ $entries->count() }} results)&#160;
+                                                            ({{ $entries->count() }} resultados)&#160;
                                                             <i class="fa fa-fw fa-times"></i>
                                                         </a>
                                                     @endunless
@@ -175,17 +176,17 @@
                                                 @forelse($entries as $key => $entry)
                                                     <?php /** @var  Arcanedev\LogViewer\Entities\LogEntry  $entry */ ?>
                                                     <tr>
-                                                        <td>
+                                                        <td class="text-center">
                                                             <span class="badge badge-env">
                                                                 {{ $entry->env }}
                                                             </span>
                                                         </td>
-                                                        <td>
+                                                        <td class="text-center">
                                                             <span class="badge badge-level-{{ $entry->level }}">
                                                                 {!! $entry->level() !!}
                                                             </span>
                                                         </td>
-                                                        <td>
+                                                        <td class="text-center">
                                                             <span class="badge badge-secondary">
                                                                 {{ $entry->datetime->format('H:i:s') }}
                                                             </span>
@@ -195,10 +196,14 @@
                                                         </td>
                                                         <td class="text-right">
                                                             @if ($entry->hasStack())
-                                                                <a class="btn btn-sm btn-light" role="button" 
-                                                                   data-toggle="collapse" href="#log-stack-{{ $key }}" aria-expanded="false" 
-                                                                   aria-controls="log-stack-{{ $key }}">
-                                                                    <i class="fa fa-toggle-on"></i> Stack
+                                                                <a class="btn btn-card-action btn-round btn-show-events collapsed" 
+                                                                   role="button" data-toggle="collapse" 
+                                                                   href="#log-stack-{{ $key }}" 
+                                                                   aria-expanded="false" 
+                                                                   aria-controls="log-stack-{{ $key }}" 
+                                                                   title="Mostrar detalles">
+                                                                    {{-- <i class="fa fa-toggle-on"></i> Stack --}}
+                                                                    <i class="now-ui-icons arrows-1_minimal-down"></i>
                                                                 </a>
                                                             @endif
                                                         </td>
@@ -208,7 +213,25 @@
                                                             <td colspan="5" class="stack py-0">
                                                                 <div class="stack-content collapse" 
                                                                      id="log-stack-{{ $key }}">
-                                                                    {!! $entry->stack() !!}
+                                                                     @php
+                                                                        $stack = str_replace(
+                                                                            "\n", "<br/>", $entry->stack()
+                                                                        );
+                                                                        $stack = str_replace(
+                                                                            "[stacktrace]", 
+                                                                            "<b>[stacktrace]</b>", 
+                                                                            $stack
+                                                                        );
+                                                                        /** 
+                                                                         * reemplazar la numeración #1, #2, etc, 
+                                                                         * con una búsqueda de regex y colocarla 
+                                                                         * en negrita
+                                                                         */
+                                                                        /*$stack = str_replace(
+                                                                            "/#[]/", replace, $stack
+                                                                        );*/
+                                                                     @endphp
+                                                                    {!! $stack !!}
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -264,9 +287,31 @@
     </div>
 @endsection
 
-@section('scripts')
+@section('extra-css')
+    @parent
+    <style>
+        .btn-show-events {
+            padding: .12rem .24rem;
+        }
+    </style>
+@stop
+
+@section('extra-js')
     <script>
         $(function () {
+            $('.btn-show-events').tooltip();
+            $('.btn-show-events').on('click', function() {
+                if ($(this).hasClass('collapsed')) {
+                    $(this).find('i').removeClass('arrows-1_minimal-down');
+                    $(this).find('i').addClass('arrows-1_minimal-up');
+                    $(this).attr('data-original-title', 'Ocultar detalles').tooltip();
+                }
+                else {
+                    $(this).find('i').addClass('arrows-1_minimal-down');
+                    $(this).find('i').removeClass('arrows-1_minimal-up');
+                    $(this).attr('data-original-title', 'Mostrar detalles').tooltip();
+                }
+            });
             var deleteLogModal = $('div#delete-log-modal'),
                 deleteLogForm  = $('form#delete-log-form'),
                 submitBtn      = deleteLogForm.find('button[type=submit]');

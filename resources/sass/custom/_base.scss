@@ -399,6 +399,9 @@ a.level-critical:hover, a.level-error:hover, a.level-warning:hover,
 a.level-notice:hover, a.level-info:hover, a.level-debug:hover {
 	color:#fff;font-weight: bold;
 }
+.stack {
+	line-height: 2em;
+}
 
 .width100p {
 	width: 100% !important;
