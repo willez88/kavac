@@ -17,13 +17,16 @@ window.Vue = require('vue');
 /** @type {Date} Año de ejecución */
 window.execution_year = new Date().getFullYear();
 
-axios.get('/get-execution-year', {}).then(response => {
-	if (response.data.result) {
-		window.execution_year = response.data.year;
-	}
-}).catch(error => {
-	console.log(error);
-});
+if (window.auth) {
+	/** Busca el año de ejecución solo cuando el usuario se encuentra autenticado */
+	axios.get('/get-execution-year', {}).then(response => {
+		if (response.data.result) {
+			window.execution_year = response.data.year;
+		}
+	}).catch(error => {
+		console.log(error);
+	});
+}
 Vue.use(window.execution_year);
 
 /** Requerimiento del paquete vue-table-2 para la representación de consultas en tablas con vue */
