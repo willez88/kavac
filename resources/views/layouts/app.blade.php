@@ -27,7 +27,7 @@
         <script>
             window.access = true;
             window.log_url = '{{ route('logs.front-end') }}';
-            window.auth = {!! (auth()->check()) ? 'true' : 'false' !!}
+            window.auth = {!! (auth()->check()) ? 'true' : 'false' !!};
         </script>
 
         {{-- Sección para estilos extras dispuestos por las plantillas según requerimientos particulares --}}
