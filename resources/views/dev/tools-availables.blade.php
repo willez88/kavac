@@ -105,7 +105,17 @@
 					</div>
 				</div>
 				<hr>
-				<h6>Visor de logs</h6>
+				<h6>Eventos</h6>
+				<div class="row">
+					<div class="col-12">
+						<a href="{{ route('log-viewer::details') }}" 
+						   class="btn btn-info btn-simple btn-lg" target="_blank" 
+						   data-toggle="tooltip" title="Registros de eventos del sistema">
+							<i class="ion ion-ios-bookmarks"></i> Logs del sistema
+						</a>
+					</div>
+				</div>
+				{{-- <h6>Visor de logs</h6>
 				<div class="row mg-bottom-20">
 					<div class="col-md-2 panel-legend">
 						<i class="ion-android-checkbox-blank text-green" 
@@ -150,7 +160,7 @@
 							<p class="text-gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore rem accusamus aut, amet. Neque, veritatis enim laborum magnam eius fuga, et vero reiciendis cumque placeat consequuntur possimus perferendis dolor molestiae.</p>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 			</div>
 		</div>
 	</div>

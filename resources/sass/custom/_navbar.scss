@@ -74,10 +74,19 @@
 }
 
 
+@media screen and (max-width:768px){
+	.navbar {
+		> .container-left {
+			top:-10px;
+		}
+	}
+}
 @media screen and (max-width: 1366px) {
 	.navbar {
 		> .container-left {
-			width:275px;
+			top:-10px;
+			/*width:275px;*/
+			width:231px;
 		}
 	}
 }

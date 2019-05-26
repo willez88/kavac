@@ -236,6 +236,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
         Route::resource('settings', 'SettingController', [
             'except' => ['create', 'edit', 'show', 'update', 'destroy']
         ]);
+        /** Rutas para la gestión de módulos de la aplicación */
+        Route::group(['prefix' => 'modules'], function() {
+            Route::get('list', 'ModuleController@index')->name('module.list');
+        });
         /** Ruta para la gestión de información sobre la(s) institución(es) */
         Route::resource('institutions', 'InstitutionController');
 

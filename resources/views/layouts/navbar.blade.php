@@ -5,14 +5,20 @@
 	</div> --}}
 	<div class="container-left">
 		<a href="{{ route('index') }}" class="logo">
-                <img src="{{ asset('images/logo-white.png') }}" alt="" /> 
+            <img src="{{ asset('images/logo-white.png') }}" alt="" /> 
+        </a>
+        <div class="float-right">
+            <a href="" class="menu-collapse">
+                <i class="now-ui-icons arrows-1_minimal-left"></i>
             </a>
-            <div class="float-right">
-                <a href="" class="menu-collapse">
-                    <i class="now-ui-icons arrows-1_minimal-left"></i>
-                </a>
-            </div>
+        </div>
 	</div>
+	<button class="navbar-toggler navbar-toggler-right" type="button" 
+				data-toggle="collapse" data-target="#app-navbar-info" 
+				aria-controls="navbarSupportedContent" aria-expanded="false" 
+				aria-label="Toggle navigation">
+			<i class="fa fa-navicon" style="position:relative;top:-5px;"></i>
+		</button>
 	<div class="container">
 		<div class="navbar-translate">
 			@php
@@ -24,12 +30,6 @@
 					{!! $institution->acronym !!} | {!! $institution->name !!}
 				</div>
 			@endif
-			<button class="navbar-toggler navbar-toggler-right" type="button" 
-					data-toggle="collapse" data-target="#app-navbar-info" 
-					aria-controls="navbarSupportedContent" aria-expanded="false" 
-					aria-label="Toggle navigation">
-				<i class="fa fa-navicon"></i>
-			</button>
 		</div>
 		<div class="collapse navbar-collapse justify-content-end" 
 			 id="app-navbar-info" data-nav-image="{{ asset('images/blurred-image.jpg') }}">

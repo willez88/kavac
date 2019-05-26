@@ -47,6 +47,12 @@
                                 Acceso
                             </a>
                         </li>
+                        <li class="{!! set_active_menu('module.list') !!}">
+                            <a href="{{ route('module.list') }}" title="Gestión de módulos del sistema" 
+                               data-toggle="tooltip" data-placement="right">
+                                Módulos
+                            </a>
+                        </li>
                     </ul>
                 </li>
             @endrole
