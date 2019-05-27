@@ -160,7 +160,7 @@
                             ]) !!}
                                 @php
                                 	$img_logo = (
-                                		isset($model_institution) && !is_null($institution->logo)
+                                		isset($model_institution) && !is_null($model_institution->logo)
                                 	) ? $model_institution->logo->url : null;
                                 @endphp
                                 <img src="{{ asset($img_logo ?? 'images/no-image2.png') }}" 
@@ -190,7 +190,7 @@
                             ]) !!}
                                 @php
                                 	$img_banner = (
-                                		isset($model_institution) && !is_null($institution->banner)
+                                		isset($model_institution) && !is_null($model_institution->banner)
                                 	) ? $model_institution->banner->url : null;
                                 @endphp
                                 <img src="{{ asset($img_banner ?? 'images/no-image3.png') }}" 

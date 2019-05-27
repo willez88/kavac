@@ -318,7 +318,7 @@
                     p.f = f;
                 }
                 axios.post(window.log_url, p).catch(error => {
-                    log('app', 297, error);
+                    logs('app', 297, error);
                 });
             }
         </script>

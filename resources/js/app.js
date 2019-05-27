@@ -39,112 +39,112 @@ Vue.use(ClientTable);
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('select2', require('./components/SelectsComponent.vue'));
+Vue.component('select2', require('./components/SelectsComponent.vue').default);
 
 /**
  * Componente genérico para mostrar motones de limpiar, cancelar o guardar registros cuando la altura del formulario es muy alta
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('buttonsDisplay', require('./components/ButtonsFormDisplayComponent.vue'));
+Vue.component('buttonsDisplay', require('./components/ButtonsFormDisplayComponent.vue').default);
 
 /**
  * Componente para la gestión de estados civiles
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('marital-status', require('./components/MaritalStatusComponent.vue'));
+Vue.component('marital-status', require('./components/MaritalStatusComponent.vue').default);
 
 /**
  * Componente para la gestión de profesiones
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('professions', require('./components/ProfessionsComponent.vue'));
+Vue.component('professions', require('./components/ProfessionsComponent.vue').default);
 
 /**
  * Componente para la gestión de tipos de instituciones
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('institution-types', require('./components/InstitutionTypesComponent.vue'));
+Vue.component('institution-types', require('./components/InstitutionTypesComponent.vue').default);
 
 /**
  * Componente para la configuración y gestión de sectores de instituciones
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('institution-sectors', require('./components/InstitutionSectorsComponent.vue'));
+Vue.component('institution-sectors', require('./components/InstitutionSectorsComponent.vue').default);
 
 /**
  * Componente para la gestión de Países
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('countries', require('./components/CountriesComponent.vue'));
+Vue.component('countries', require('./components/CountriesComponent.vue').default);
 
 /**
  * Componente para la gestión de Estados
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('estates', require('./components/EstatesComponent.vue'));
+Vue.component('estates', require('./components/EstatesComponent.vue').default);
 
 /**
  * Componente para la gestión de Municipio
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('municipalities', require('./components/MunicipalitiesComponent.vue'));
+Vue.component('municipalities', require('./components/MunicipalitiesComponent.vue').default);
 
 /**
  * Componente para la gestión de Ciudades
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('cities', require('./components/CitiesComponent.vue'));
+Vue.component('cities', require('./components/CitiesComponent.vue').default);
 
 /**
  * Componente para la gestión de Parroquias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('parishes', require('./components/ParishesComponent.vue'));
+Vue.component('parishes', require('./components/ParishesComponent.vue').default);
 
 /**
  * Componente para la gestión de estatus de documentos
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('document-status', require('./components/DocumentStatusComponent.vue'));
+Vue.component('document-status', require('./components/DocumentStatusComponent.vue').default);
 
 /**
  * Componente para la gestión de impuestos
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('taxes', require('./components/TaxesComponent.vue'));
+Vue.component('taxes', require('./components/TaxesComponent.vue').default);
 
 /**
  * Componente para la gestión de unidades tributarias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('tax-units', require('./components/TaxUnitsComponent.vue'));
+Vue.component('tax-units', require('./components/TaxUnitsComponent.vue').default);
 
 /**
  * Componente para la gestión de departamentos
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('departments', require('./components/DepartmentsComponent.vue'));
+Vue.component('departments', require('./components/DepartmentsComponent.vue').default);
 
 /**
  * Componente para la gestión de monedas
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('currencies', require('./components/CurrenciesComponent.vue'));
+Vue.component('currencies', require('./components/CurrenciesComponent.vue').default);
 
 /** Incorpora requerimientos de componentes de los módulos de la aplicación */
 require('./modules');
@@ -240,7 +240,7 @@ Vue.mixin({
                 p.f = f;
             }
             axios.post(window.log_url, p).catch(error => {
-                log('app', 297, error);
+                logs('app', 297, error);
             });
         },
 		/**

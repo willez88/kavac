@@ -29,13 +29,13 @@ class DashboardController extends Controller
         if (auth()->check()) {
             $trashed = [];
             
-            foreach ($this->getModels() as $model_name) {
+            /*foreach ($this->getModels() as $model_name) {
                 $model = app($model_name);
                 
                 if ($this->isModelSoftDelete($model) && count($model->onlyTrashed()->get()) > 0) {
                     $trashed[$model_name] = $model->onlyTrashed()->get();
                 }
-            }
+            }*/
 
             /** Si el usuario esta autenticado redirecciona a la página del panel de control */
             return view('dashboard.index', compact('trashed'));

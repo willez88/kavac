@@ -2,7 +2,7 @@
 
 return [
 
-    'characters' => '012346789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'characters' => '012346789abcdefghijklmnopqrstuvwxyz',
 
     'default'   => [
         'length'    => 6,
@@ -21,17 +21,17 @@ return [
         'bgImage'   => true,
         'bgColor'   => '#ecf2f4',
         'fontColors'=> ['#2c3e50', '#c0392b', '#16a085', '#c0392b', '#8e44ad', '#303f9f', '#f57c00', '#795548'],
-        'contrast'  => 5,
+        'contrast'  => -5,
     ],
 
     'mini'   => [
-        'length'    => 3,
+        'length'    => 6,
         'width'     => 60,
         'height'    => 32,
     ],
 
     'inverse'   => [
-        'length'    => 5,
+        'length'    => 6,
         'width'     => 120,
         'height'    => 36,
         'quality'   => 90,
