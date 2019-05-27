@@ -3,42 +3,42 @@
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-banks', require('./components/FinanceBankComponent.vue'));
+Vue.component('finance-banks', require('./components/FinanceBankComponent.vue').default);
 
 /**
  * Componente para la gestión de agencias bancarias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-banking-agencies', require('./components/FinanceBankingAgencyComponent.vue'));
+Vue.component('finance-banking-agencies', require('./components/FinanceBankingAgencyComponent.vue').default);
 
 /**
  * Componente para la gestión de tipos de cuenta bancaria
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-account-types', require('./components/FinanceAccountTypeComponent.vue'));
+Vue.component('finance-account-types', require('./components/FinanceAccountTypeComponent.vue').default);
 
 /**
  * Componente para la gestión de cuentas bancarias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-bank-accounts', require('./components/FinanceBankAccountComponent.vue'));
+Vue.component('finance-bank-accounts', require('./components/FinanceBankAccountComponent.vue').default);
 
 /**
  * Componente para la gestión de chequeras
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-checkbooks', require('./components/FinanceCheckBookComponent.vue'));
+Vue.component('finance-checkbooks', require('./components/FinanceCheckBookComponent.vue').default);
 
 /**
  * Componente para gestionar y configurar el diseño del voucher para la impresión de cheques
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('finance-voucher-design', require('./components/FinanceVoucherDesignComponent.vue'));
+Vue.component('finance-voucher-design', require('./components/FinanceVoucherDesignComponent.vue').default);
 
 /**
  * Opciones de configuración global del módulo de presupuesto
