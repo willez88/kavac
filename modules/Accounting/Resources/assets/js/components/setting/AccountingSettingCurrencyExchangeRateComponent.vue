@@ -1,16 +1,17 @@
 <template>
-	<div class="form-horizontal">
-		<div v-for="currency in currencies">
-			<div v-if="currency.default">
-				<div class="row">
-					<!-- <div class="col-12 form-group">
-						<span><strong>Moneda por defecto {{ currency.name }}</strong></span>
-					</div> -->
-					{{ selectCurrencyDefault(currency) }}
+	<div class="form-horizontal" v-show="record_curr != null">
+		<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+			<div class="container">
+				<div class="alert-icon">
+					<i class="now-ui-icons objects_support-17"></i>
 				</div>
+				<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+				<ul>
+					<li v-for="error in errors">{{ error }}</li>
+				</ul>
 			</div>
 		</div>
-
+		{{ selectCurrencyDefault(record_curr) }}
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -20,34 +21,33 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="currency in currencies" v-if="!currency.default">
+				<tr v-for="iter_currency in record_curr.exchange_rate_currency_base">
 					<td>
 						<span><strong>1 {{ baseCurrency.symbol }}</strong> </span>
 					</td>
 					<td class="row">
-						<span style="padding: 0.3rem;" class="col-3 text-right"><strong>{{ currency.symbol }}</strong></span>	
+						<span class="col-3 text-right" style="padding: 0.3rem;"
+							v-if="editCurrency.currency_id != iter_currency.currency.id"> 
+							<strong>{{ iter_currency.value }}</strong>
+						</span>
 						<input type="number" class="form-control col-6"
-							:step="cualculateLimitDecimal(currency.decimal_places)"
-							:disabled="editCurrency.id != currency.id"
-							v-show="editCurrency.id == currency.id"
+							:step="cualculateLimitDecimal(iter_currency.decimal_places)"
+							:disabled="editCurrency.currency_id != iter_currency.currency.id"
+							v-else
 							v-model="editCurrency.value">
 
-						<input type="number" class="form-control col-6"
-							v-show="editCurrency.id != currency.id"
-							:step="cualculateLimitDecimal(currency.decimal_places)"
-							:disabled="editCurrency.id != currency.id"
-							value="0">
+						<span style="padding: 0.3rem;" class="col-3 text-left"><strong>{{ iter_currency.currency.symbol }}</strong></span>	
 					</td>
 					<td>
 						<button class="btn btn-success btn-icon btn-xs btn-round" 
 								title="Guardar registro"
 								@click="storeCurrency()"
-								v-if="edit_id == currency.id">
+								v-if="editCurrency.currency_id == iter_currency.currency.id">
 								<i class="fa fa-save"></i>
 						</button>
 						<button class="btn btn-warning btn-icon btn-xs btn-round"
 								title="Actualizar registro"
-								@click="updateCurrency(currency.id)"
+								@click="updateCurrency(iter_currency)"
 								v-else
 								><i class="fa fa-edit"></i>
 						</button>
@@ -60,17 +60,21 @@
 
 <script>
 	export default{
-		props:['currencies'],
+		props:['currency_default'],
 		data(){
 			return {
+				errors:[],
 				baseCurrency:{},
 				editCurrency:{
-					id:'',
+					currency_base_id:'',
+					currency_id:'',
 					value:0.00,
 				},
-				edit_id:{},
-				disabledList:[],
+				record_curr:null,
 			}
+		},
+		created(){
+			this.record_curr = this.currency_default;
 		},
 		methods:{
 			cualculateLimitDecimal(decimal_places){
@@ -82,14 +86,27 @@
 				return res;
 			},
 			selectCurrencyDefault:function(currency) {
+				this.editCurrency.currency_base_id = currency.id;
 				this.baseCurrency = currency;
 			},
-			updateCurrency(id){
-				this.editCurrency.id = id;
-				this.editCurrency.value = 0;
+			updateCurrency(currency_default){
+				this.editCurrency.currency_id = currency_default.currency_id;
+				this.editCurrency.value = currency_default.value;
 			},
 			storeCurrency(id){
-				
+				if (this.editCurrency.value != 0) {
+					var vm = this;
+					axios.post('/accounting/settings/currencies',this.editCurrency).then(response=>{
+						this.editCurrency.currency_id = '';
+						this.editCurrency.value = 1;
+						this.record_curr = null;
+						this.record_curr = response.data.records;
+						vm.showMessage('update');
+					});
+				}else{
+					this.errors = [];
+					this.errors.push('No es permitido un equivalente de valor 0')
+				}
 			}
 
 		}

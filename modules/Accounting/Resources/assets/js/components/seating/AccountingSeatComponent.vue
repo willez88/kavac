@@ -166,14 +166,14 @@
 		</form>
 
 		<div v-if="records.length > 0">
-			<accounting-seat-listing :seating="records" :show="'approved'" />
+			<accounting-seat-listing :seating="records" :currency="currency" :show="'approved'" />
 		</div>
 	</div>
 </template>
 
 <script>
 	export default{
-		props:['categories','year_old','institutions'],
+		props:['categories','year_old','institutions','currency'],
 		data(){
 			return {
 				errors:[],

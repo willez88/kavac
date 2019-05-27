@@ -36,18 +36,23 @@ class AccountingSettingCurrencyExchangeRateController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function storeOrUpdate(Request $request)
     {
         $this->validate($request, [
+            'currency_base_id' => 'required',
             'currency_id' => 'required',
             'value' => 'required',
         ]);
         /** @var object Objeto para almacenar la información para el nuevo registro */
-        $updateCurrency = AccountingCurrencyExchangeRate::where('currency_id',$request->id)->where('date',date("Y").'-'.date("m").'-'.date("d"))->first();
+        /**
+            si un registro los edita ya que la fecha correspondera al mismo dia
+        */
+        $updateCurrency = AccountingCurrencyExchangeRate::where('currency_id',$request->currency_id)->where('currency_base_id',$request->currency_base_id)->where('date',date("Y").'-'.date("m").'-'.date("d"))->first();
         // si no existe registro en esa fecha lo crea
         if (is_null($updateCurrency)) {
             $currency = new AccountingCurrencyExchangeRate();
-            $currency->currency_id = $request->id;
+            $currency->currency_id = $request->currency_id;
+            $currency->currency_base_id = $request->currency_base_id;
             $currency->value = $request->value;
             $currency->date = date("Y").'-'.date("m").'-'.date("d");
             $currency->save();
@@ -56,7 +61,9 @@ class AccountingSettingCurrencyExchangeRateController extends Controller
             $updateCurrency->value = $request->value;
             $updateCurrency->save();
         }
-        return response()->json(['message'=>'Success'],200);
+
+        $record = Currency::with('exchange_rate_currency_base.currency')->where('default',true)->first();
+        return response()->json(['records'=>$record,'message'=>'Success'],200);
 
     }
 

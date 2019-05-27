@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccountingCurrencyExchangeRate extends Model
 {
-    protected $fillable = ['currency_id','value','date'];
+    protected $fillable = ['currency_id','value','date','currency_base_id'];
 
     /**
      * AccountingCurrencyExchangeRate belongs to Currency.

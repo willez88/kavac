@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Modules\Accounting\Models\Currency;
+use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\AccountingSeat;
-use App\Models\Institution;
-use App\Models\Setting;
 
-use PDF;
+use Modules\Accounting\Pdf\PDF;
+
 class AccountingReportPdfDiaryBookController extends Controller
 {
     /**
@@ -25,8 +27,11 @@ class AccountingReportPdfDiaryBookController extends Controller
     public function pdf($dateIni, $dateEnd)
     {
 
+        /** @var Object objeto que contendra la moneda manejada por defecto */
+        $currency = Currency::where('default',true)->first();
+
         // falta relación de budget_account hacia compromisos
-        $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->whereBetween("from_date",[$dateIni, $dateEnd])->get();
+        $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved',true)->whereBetween("from_date",[$dateIni, $dateEnd])->orderBy('from_date','ASC')->get();
 
         $setting = Setting::all()->first();
 
@@ -48,8 +53,8 @@ class AccountingReportPdfDiaryBookController extends Controller
         $pdf->Open();
         $pdf->AddPage();
 
-        $unit = true;
-        $html = \View::make('accounting::pdf.accounting_seat_pdf',compact('seats','seat','pdf','unit'))->render();
+        $OneSeat = false;
+        $html = \View::make('accounting::pdf.accounting_seat_pdf',compact('pdf','seats','OneSeat','currency'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');

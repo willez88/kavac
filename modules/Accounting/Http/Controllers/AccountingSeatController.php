@@ -11,7 +11,8 @@ use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\Currency;
-use App\Models\Institution;
+use Modules\Accounting\Models\Institution;
+
 use Auth;
 /**
  * @class AccountingSeatController
@@ -48,6 +49,9 @@ class AccountingSeatController extends Controller
      */
     public function index()
     {
+
+        /** @var Object objeto que contendra la moneda manejada por defecto */
+        $currency = Currency::where('default',true)->first();
         /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
         $institutions = $this->getInstitutions();
 
@@ -73,7 +77,7 @@ class AccountingSeatController extends Controller
          * se convierte array a JSON
          */
         $categories = json_encode($categories);
-        return view('accounting::seating.index',compact('categories','yearOld','institutions'));
+        return view('accounting::seating.index',compact('categories','yearOld','institutions','currency'));
     }
 
     /**
@@ -465,7 +469,10 @@ class AccountingSeatController extends Controller
         /** @var Object objeto que contendra los registros resultantes de la busqueda */
         $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved',false)->orderBy('from_date','ASC')->get();
 
-        return view('accounting::seating.unapproved',compact('seating'));
+        /** @var Object objeto que contendra la moneda manejada por defecto */
+        $currency = Currency::where('default',true)->first();
+
+        return view('accounting::seating.listing',compact('seating','currency'));
     }
     /**
      * aprueba el asiento contable
@@ -487,7 +494,7 @@ class AccountingSeatController extends Controller
         $institutions = [];
         array_push($institutions, [
             'id' => '',
-            'text' => 'Seleccione...'
+            'text' => 'Todos'
         ]);
         foreach (Institution::with('departments')->where('active',true)->orderBy('name','ASC')->get() as $institution) {
             // se almacenan las instituciones y departamente

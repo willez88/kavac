@@ -59,9 +59,14 @@
 		},
 		methods:{
 			update:function(){
+				const vm = this;
 				axios.put('/accounting/converter/'+this.account_to_edit.id,this.accountSelect)
 				.then(response=>{
+					vm.showMessage('update');
 					window.location.href = this.urlPrevious;
+					setTimeout(function() {
+							location.href = vm.urlPrevious;
+						}, 2000);
 				});
 			}
 		},

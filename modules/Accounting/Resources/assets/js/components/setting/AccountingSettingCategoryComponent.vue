@@ -59,9 +59,11 @@
 				<td>{{ record.acronym }}</td>
 				<td>
 					<button class="btn btn-warning btn-xs btn-icon btn-round"
+							title="Actualizar Registro"
 							@click="loadCategory(record)"><i class="fa fa-edit"></i>
 					</button>
 					<button class="btn btn-danger btn-xs btn-icon btn-round"
+							title="Eliminar Registro"
 							@click="deleteRecord(records.indexOf(record)+1,'/accounting/settings/categories')">
 						<i class="fa fa-trash"></i>
 					</button>

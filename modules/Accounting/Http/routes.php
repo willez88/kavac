@@ -112,5 +112,8 @@ Route::group(['middleware' => 'web',
 	Route::resource('settings/categories', 'AccountingSettingCategoryController', 
 		['as' => 'settings']);
 
+	Route::post('settings/currencies', 'AccountingSettingCurrencyExchangeRateController@storeOrUpdate')
+			->name('accounting.settings.storeOrUpdate');
+
 
 });

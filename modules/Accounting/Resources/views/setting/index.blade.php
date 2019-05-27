@@ -41,7 +41,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-setting-currency-exchange-rate :currencies="{{ $currencies }}" />
+					<accounting-setting-currency-exchange-rate :currency_default="{{ $currency_default }}" />
 				</div>
 			</div>
 		</div>

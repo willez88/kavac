@@ -147,9 +147,9 @@
 						this.AccountToConverters = [];
 						window.location.href = 'http://'+window.location.host+'/accounting/converter';
 						vm.showMessage('store');
-						setTimeout(function() {
-							location.href = vm.urlPrevious;
-						}, 2000);
+						// setTimeout(function() {
+						// 	location.href = vm.urlPrevious;
+						// }, 2000);
 					})
 				// .catch(error=>{
 				// 	this.errors = [];

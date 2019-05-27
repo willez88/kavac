@@ -3,9 +3,9 @@
 namespace Modules\Accounting\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Department as BaseDepartment;
+use App\Models\Setting as BaseSetting;
 
-class Department extends BaseDepartment
+class Setting extends BaseSetting
 {
     
 }

@@ -80,10 +80,10 @@
 											<h6>{{ record.account.denomination }}</h6>
 										</td>
 										<td>
-											<h6>{{ record.debit }}</h6>
+											<h6><span>{{ currency.symbol }}</span> {{ record.debit }}</h6>
 										</td>
 										<td>
-											<h6>{{ record.assets }}</h6>
+											<h6><span>{{ currency.symbol }}</span>{{ record.assets }}</h6>
 										</td>
 									</tr>
 									<tr>
@@ -92,10 +92,16 @@
 											<h6><strong>Total Debe / Haber </strong></h6>
 										</td>
 										<td>
-											<h6><strong>{{ props.row.tot_debit }}</strong> </h6>
+											<h6>
+												<span>{{ currency.symbol }}</span>
+												<strong>{{ props.row.tot_debit }}</strong>
+											</h6>
 										</td>
 										<td>
-											<h6><strong>{{ props.row.tot_assets }}</strong> </h6>
+											<h6>
+												<span>{{ currency.symbol }}</span>
+												<strong>{{ props.row.tot_assets }}</strong>
+											</h6>
 										</td>
 									</tr>
 								</tbody>
@@ -110,7 +116,7 @@
 </template>
 <script>
 	export default{
-		props:['seating','show'],
+		props:['seating','show','currency'],
 		data(){
 			return {
 				records: [],

@@ -13,8 +13,12 @@ class Currency extends BaseCurrency
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function exchange_rate()
+    public function exchange_rate_currency_base()
     {
-        return $this->hasMany(AccountingCurrencyExchangeRate::class);
+        return $this->hasMany(AccountingCurrencyExchangeRate::class, 'currency_base_id');
+    }
+    public function exchange_rate_currency_id()
+    {
+        return $this->hasMany(AccountingCurrencyExchangeRate::class, 'currency_id');
     }
 }

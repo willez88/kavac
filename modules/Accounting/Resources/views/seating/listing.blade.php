@@ -28,7 +28,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-seat-listing :seating="{{ $seating }}" 
+					<accounting-seat-listing :seating="{{ $seating }}"
+											 :currency="{{ $currency }}" 
 									:show=" 'unapproved'" 
 									route_edit="{{ url('accounting/seating/{id}/edit') }}" />
 				</div>

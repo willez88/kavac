@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\AccountingSeatCategory;
 use Modules\Accounting\Models\Currency;
+use Modules\Accounting\Models\AccountingCurrencyExchangeRate;
 use Auth;
 /**
  * @class AccountingConfigurationCategoryController
@@ -26,8 +27,29 @@ class AccountingSettingController extends Controller
     public function index()
     {
         $categories = AccountingSeatCategory::orderBy('name','ASC')->get();
-        $currencies = Currency::with('exchange_rate')->orderBy('id','ASC')->get();
-        return view('accounting::setting.index', compact('categories', 'currencies'));
+        $currency_default = Currency::with('exchange_rate_currency_base.currency')->where('default',true)->first();
+        $currencies = [];
+
+        foreach (Currency::where('default',false)->orderBy('name','ASC')->get() as $currency) {
+            $exist = false;
+            foreach ($currency_default->exchange_rate_currency_base as $exchange_rate) {
+                if ($currency->id == $exchange_rate->currency_id) {
+                    $exist = true;
+                }
+            }
+            if (!$exist) {
+                $curr = new AccountingCurrencyExchangeRate();
+                $curr->currency_id = $currency->id;
+                $curr->currency_base_id = $currency_default->id;
+                $curr->value = 1;
+                $curr->date = date("Y").'-'.date("m").'-'.date("d");
+                $curr->save();
+            }
+        }
+
+        $currency_default = Currency::with('exchange_rate_currency_base.currency')->where('default',true)->first();
+
+        return view('accounting::setting.index', compact('categories','currency_default'));
     }
 
     /**
