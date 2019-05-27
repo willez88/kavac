@@ -53,7 +53,7 @@ class BudgetModification extends Model implements Auditable
      */
     public function institution()
     {
-        return $this->belongsTo(Base\Institution::class);
+        return $this->belongsTo(Institution::class);
     }
 
     /**
@@ -64,6 +64,6 @@ class BudgetModification extends Model implements Auditable
      */
     public function document_status()
     {
-        return $this->belongsTo(Base\DocumentStatus::class);
+        return $this->belongsTo(DocumentStatus::class);
     }
 }

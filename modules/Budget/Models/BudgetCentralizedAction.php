@@ -60,7 +60,7 @@ class BudgetCentralizedAction extends Model implements Auditable
      */
     public function department()
     {
-    	return $this->belongsTo(Base\Department::class);
+    	return $this->belongsTo(Department::class);
     }
 
     /**
