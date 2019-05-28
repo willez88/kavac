@@ -26236,7 +26236,7 @@ table td {
 }
 
 .login-page .page-header .page-header-image {
-  background-image: url("/images/auth-bg.jpg");
+  background-image: url(/images/auth-bg.jpg?f807b37b1736e7709918ea35ef80ca7d);
 }
 
 .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
