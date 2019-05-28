@@ -177,17 +177,18 @@
                                                     <?php /** @var  Arcanedev\LogViewer\Entities\LogEntry  $entry */ ?>
                                                     <tr>
                                                         <td class="text-center">
-                                                            <span class="badge badge-env">
+                                                            <span class="badge badge-env cursor-pointer" title="Entorno: {!! $entry->env !!}" data-toggle="tooltip">
                                                                 {{ $entry->env }}
                                                             </span>
                                                         </td>
                                                         <td class="text-center">
-                                                            <span class="badge badge-level-{{ $entry->level }}">
+                                                            <span class="badge badge-level-{{ $entry->level }} cursor-pointer" title="Nivel: {!! $entry->level !!}" data-toggle="tooltip">
                                                                 {!! $entry->level() !!}
                                                             </span>
                                                         </td>
                                                         <td class="text-center">
-                                                            <span class="badge badge-secondary">
+                                                            <span class="badge badge-info text-bold cursor-pointer" 
+                                                                  title="Hora: {!! $entry->datetime->format('H:i:s') !!}" data-toggle="tooltip">
                                                                 {{ $entry->datetime->format('H:i:s') }}
                                                             </span>
                                                         </td>
