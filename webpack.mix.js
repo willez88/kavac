@@ -1,4 +1,6 @@
 let mix = require('laravel-mix');
+const fs = require('fs');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -33,3 +35,32 @@ mix.js([
    .minify('public/js/app.js')
    .minify('public/css/app.css')
    .sourceMaps();
+
+
+/*
+ |--------------------------------------------------------------------------
+ | Mix Asset Modules Management
+ |--------------------------------------------------------------------------
+ |
+ | Mix provides a clean, fluent API for defining some Webpack build steps
+ | for your Laravel application. By default, we are compiling the Sass
+ | file for the application as well as bundling up all the JS files.
+ |
+ */
+const moduleFolder = './modules';
+    
+const dirs = p => fs.readdirSync(p).filter(f => fs.statSync(path.resolve(p,f)).isDirectory());
+
+let modules = dirs(moduleFolder);
+
+modules.forEach(function(m) {
+   let js = path.resolve(moduleFolder,m,'Resources/assets','js', '_all.js');
+   mix.js(js, `public/modules/${m.toLowerCase()}/js/app.js`);
+   /*let scss = path.resolve(moduleFolder,m,'Resources/assets','scss', '_all.scss');
+   mix.sass(scss, `public/modules/${m}/css/app.css`);*/
+});
+
+/** Publica la versión de la compilación */
+if (mix.inProduction()) {
+   mix.version();
+}
