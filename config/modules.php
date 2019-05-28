@@ -23,11 +23,11 @@ return [
     */
 
     'stubs' => [
-        'enabled' => false,
-        'path' => base_path() . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
+        'enabled' => true,
+        'path' => base_path() . '/app/Generators/Modules/stubs',
         'files' => [
             'start' => 'start.php',
-            //'routes' => 'Http/routes.php',
+            'routes' => 'Http/routes.php',
             'routes/web' => 'Routes/web.php',
             'routes/api' => 'Routes/api.php',
             'views/index' => 'Resources/views/index.blade.php',
