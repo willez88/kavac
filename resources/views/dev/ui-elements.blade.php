@@ -87,7 +87,7 @@
 						</div>
 					</div>
 					<hr>
-					<h6>Tarjetas Descriptivas</h6>
+					<h6>Módulos</h6>
 					<div class="row">
 						<div class="col-3">
 							<div class="info-box">
