@@ -31,7 +31,7 @@
                 <div class="card-header">
                     <h6 class="card-title">Log del [{{ $log->date }}]</h6>
                     <div class="card-btns">
-                        @include('buttons.previous', ['route' => route('log-viewer::details')])
+                        @include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
                     </div>
                 </div>
