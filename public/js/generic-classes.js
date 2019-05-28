@@ -216,3 +216,93 @@ class AppInfo {
 		`;
 	}
 }
+
+/**
+ * @class  HandleJSError
+ * @brief Gestión de errores del frontend
+ *
+ * Gestiona y registra los errores generados en la interfaz de usuario
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ *
+ * Ejemplo: throw new HandleJSError('app', {
+ * 		log_url: configuración de la url que genera los logs de la interfaz del sistema,
+ * 		debug: Determina si la aplicación se encuentra o no en modo debug
+ * 		message: Mensaje de error generado
+  });
+ */
+class HandleJSError extends Error {
+
+	/**
+	 * Método constructor de la clase
+	 * @param {string} view Nombre de la vista que genera el error
+	 * @param {object} params Objeto con los parámetros a registrar
+	 */
+	constructor(view = '', params = {}) {
+		// Pass remaining arguments (including vendor specific ones) to parent constructor
+		super(params);
+
+		// Maintains proper stack trace for where our error was thrown (only available on V8)
+		if (Error.captureStackTrace) {
+			Error.captureStackTrace(this, HandleJSError);
+		}
+
+		//console.log(params)
+		this.log_url = window.log_url || this.params.log_url || false;
+		this.debug = window.debug || this.params.debug || false;
+		this.view = view || '';
+		this.message = params.message;
+		this.date = new Date();
+		this.dataLog = {
+			view: this.view,
+			line: this.getLineNumber() || '',
+			message: this.message,
+			stacktrace: this.stack.split("\n"),
+			date: this.date
+		};
+	}
+
+	/**
+	 * Registra el evento del error generado
+	 */
+	register() {
+		if (this.log_url) {
+			axios.post(this.log_url, this.dataLog).catch(error => {
+				if (this.debug) {
+					console.log(error);
+				}
+				else {
+					console.info("Error inesperado del sistema, contacte al administrador.");
+				}
+	        });
+		}
+		else if (this.debug) {
+			console.log(
+				`Se generó un evento de error que no pudo ser registrado con el siguiente detalle: 
+				${this.stack}`
+			);
+		}
+	}
+
+	/**
+	 * Muestra un mensaje en la consola del navegador según el tipo indicado
+	 * 
+	 * @param  {string} type Define el tipo de error a mostrar
+	 */
+	error_type(type = '') {
+		let err = this.message, this.stack;
+		if (type === "log") {
+			console.log(err);
+		}
+		else if (type === "info") {
+			console.info(err);
+		}
+		else if (type === "warning") {
+			console.warn(err);
+		}
+		else if (type === "error") {
+			console.error(err);
+		}
+	}
+}

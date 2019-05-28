@@ -54,7 +54,8 @@
                                             </a>
                                         @else
                                             <a href="{{ $item['url'] }}" 
-                                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center level-{{ $levelKey }}{{ $level === $levelKey ? ' active' : ''}}">
+                                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center level-{{ $levelKey }}{{ $level === $levelKey ? ' active' : ''}}" 
+                                               data-toggle="tooltip" title="{!! ($levelKey == 'all') ? 'Todos los registros' : "Registros marcados como {$item['name']}" !!}">
                                                 <span class="level-name">
                                                     {!! $item['icon'] !!} {{ $item['name'] }}
                                                 </span>
@@ -96,25 +97,31 @@
                                                 <tr>
                                                     <th>Registros de log:</th>
                                                     <td>
-                                                        <span class="badge badge-primary">
+                                                        <span class="badge badge-primary" 
+                                                              title="Total de registros: {{ $entries->total() }}" data-toggle="tooltip" data-placement="left">
                                                             {{ $entries->total() }}
                                                         </span>
                                                     </td>
                                                     <th>Tamaño:</th>
                                                     <td>
-                                                        <span class="badge badge-primary">
+                                                        <span class="badge badge-primary" 
+                                                              title="Tamaño del archivo: {{ $log->size() }}" 
+                                                              data-toggle="tooltip" data-placement="left">
                                                             {{ $log->size() }}
                                                         </span>
                                                     </td>
                                                     <th>Creado en:</th>
                                                     <td>
-                                                        <span class="badge badge-primary">
+                                                        <span class="badge badge-primary" 
+                                                              title="Fecha de creación: {{ $log->createdAt() }}" 
+                                                              data-toggle="tooltip" data-placement="left">
                                                             {{ $log->createdAt() }}
                                                         </span>
                                                     </td>
                                                     <th>Actualizado en:</th>
                                                     <td>
-                                                        <span class="badge badge-primary">
+                                                        <span class="badge badge-primary" 
+                                                              title="Última actualización: {{ $log->updatedAt() }}" data-toggle="tooltip" data-placement="left">
                                                             {{ $log->updatedAt() }}
                                                         </span>
                                                     </td>
@@ -135,12 +142,15 @@
                                                 <div class="input-group-append">
                                                     @unless (is_null($query))
                                                         <a href="{{ route('log-viewer::logs.show', [$log->date]) }}" 
-                                                           class="btn btn-secondary">
+                                                           class="btn btn-secondary" data-toggle="tooltip" 
+                                                           title="Total de resultados encontrados: {{ $entries->count() }}">
                                                             ({{ $entries->count() }} resultados)&#160;
                                                             <i class="fa fa-fw fa-times"></i>
                                                         </a>
                                                     @endunless
-                                                    <button id="search-btn" class="btn btn-primary">
+                                                    <button id="search-btn" class="btn btn-primary" 
+                                                            title="Presione el botón para buscar los registros" 
+                                                            data-toggle="tooltip">
                                                         <span class="fa fa-fw fa-search"></span>
                                                     </button>
                                                 </div>
@@ -177,17 +187,18 @@
                                                     <?php /** @var  Arcanedev\LogViewer\Entities\LogEntry  $entry */ ?>
                                                     <tr>
                                                         <td class="text-center">
-                                                            <span class="badge badge-env">
+                                                            <span class="badge badge-env cursor-pointer" title="Entorno: {!! $entry->env !!}" data-toggle="tooltip">
                                                                 {{ $entry->env }}
                                                             </span>
                                                         </td>
                                                         <td class="text-center">
-                                                            <span class="badge badge-level-{{ $entry->level }}">
+                                                            <span class="badge badge-level-{{ $entry->level }} cursor-pointer" title="Nivel: {!! $entry->level !!}" data-toggle="tooltip">
                                                                 {!! $entry->level() !!}
                                                             </span>
                                                         </td>
                                                         <td class="text-center">
-                                                            <span class="badge badge-secondary">
+                                                            <span class="badge badge-info text-bold cursor-pointer" 
+                                                                  title="Hora: {!! $entry->datetime->format('H:i:s') !!}" data-toggle="tooltip">
                                                                 {{ $entry->datetime->format('H:i:s') }}
                                                             </span>
                                                         </td>

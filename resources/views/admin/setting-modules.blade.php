@@ -27,7 +27,73 @@
                         @include('buttons.minimize')
 					</div>
 				</div>
-				<div class="card-body"></div>
+				<div class="card-body">
+					<div class="row">
+						@foreach ($modules as $module)
+							<div class="col-3" style="margin-bottom:30px">
+								<div class="info-box">
+									<div class="info-box-content info-box-content-lg">
+										<div class="info-box-img">
+											<i class="{{ $module->icon["name"] ?? "fa fa-cubes" }}" 
+											   style="color:{{ $module->icon["color"] ?? '#636E7B' }}"></i>
+										</div>
+										<div class="info-box-title">
+											<h6>{{ $module->name_es ?? $module->name }}</h6>
+										</div>
+										<div class="info-box-description">
+											<p>{{ $module->description }}</p>
+											@if (count($module->requires) > 0)
+												<p class="text-bold">Requerimientos:</p>
+												<ul>
+													@foreach ($module->requires as $key => $version)
+														<li>{{ $key }} v{{ $version }}</li>
+													@endforeach
+												</ul>
+											@endif
+											<p>Autor(es):</p>
+											@if (!is_null($module->authors) && count($module->authors) > 0)
+												<ul>
+													@foreach ($module->authors as $author)
+														<li>
+															{{ $author['name'] }}<br/>
+															@if (is_array($author['email']))
+																@foreach ($author['email'] as $email)
+																	{{ $email }}<br/>
+																@endforeach
+															@else
+																{{ $author['email'] }}
+															@endif
+														</li>
+													@endforeach
+												</ul>
+											@endif
+										</div>
+										<div class="info-box-footer buttons">
+											<div class="row">
+												<div class="col-4 text-left">
+													<a href="" class="btn btn-sm btn-round btn-success" 
+													   title="Instalar módulo" data-toggle="tooltip">
+														<i class="ion ion-android-done"></i>
+													</a>
+												</div>
+												<div class="col-4"></div>
+												<div class="col-4 text-right">
+													<a href="" class="btn btn-sm btn-round btn-danger" 
+													   title="Desinstalar módulo" data-toggle="tooltip">
+														<i class="ion ion-android-close"></i>
+													</a>
+												</div>
+											</div>
+											<span class="status installed">
+												Instalado
+											</span>										
+										</div>
+									</div>
+								</div>
+							</div>
+						@endforeach
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

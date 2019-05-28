@@ -1,7 +1,18 @@
 {
     "name": "Budget",
     "alias": "budget",
-    "description": "",
+    "name_es": "Presupuesto",
+    "description": "Gestión de recursos presupuestarios",
+    "authors": [
+        {
+            "name": "Ing. Roldan Vargas",
+            "email": ["rvargas@cenditel.gob.ve", "roldandvg@gmail.com"]
+        }
+    ],
+    "icon": {
+        "name": "ion-arrow-graph-up-right",
+        "color": "#0073b7"
+    },
     "keywords": [],
     "active": 1,
     "order": 0,
@@ -13,5 +24,8 @@
         "start.php",
         "Helpers\/Helper.php"
     ],
-    "requires": []
+    "requires": {
+        "Finanzas": "1.0",
+        "Contabilidad": "1.0"
+    }
 }

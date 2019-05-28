@@ -35,6 +35,12 @@ class LogController extends Controller
     	$function = (isset($request->f)) ? " en la función [{$request->f}]" : '';
     	Log::channel('front_end')->error("Error generado por la vista [{$view}] en la línea [$line]$function: {$log}");
 
+        /*$view = $request->view;
+        $line = $request->line;
+        $message  = $request->message;
+        $function = (isset($request->f)) ? " en la función [{$request->f}]" : '';
+        Log::channel('front_end')->error("Error generado por la vista [{$view}] en la línea [$line]$function: {$message}");*/
+
     	return response()->json(200);
     }
 }

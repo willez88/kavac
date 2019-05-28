@@ -1883,6 +1883,55 @@ a .btn-simplex:hover {
   margin-left: 60px;
 }
 
+.info-box .info-box-footer.buttons {
+  padding: 6px 10px;
+}
+
+.info-box .info-box-footer .status {
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+  position: absolute;
+  left: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  bottom: -15px;
+  min-width: 80px;
+  max-width: 130px;
+  max-height: 30px;
+  text-align: center;
+  background: #FFF;
+  border-radius: 19px;
+  padding: 7px 16px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 3px 5px #d4d4d4;
+  cursor: pointer;
+}
+
+.info-box .info-box-footer .status.installed,
+.info-box .info-box-footer .status.uninstalled,
+.info-box .info-box-footer .status.enabled,
+.info-box .info-box-footer .status.disabled {
+  font-weight: bold;
+}
+
+.info-box .info-box-footer .status.installed {
+  color: #18ce0f;
+}
+
+.info-box .info-box-footer .status.uninstalled {
+  color: #FF3636;
+}
+
+.info-box .info-box-footer .status.enabled {
+  color: #003e85;
+}
+
+.info-box .info-box-footer .status.disabled {
+  color: #FFB236;
+}
+
 .info-box .progress {
   background: rgba(0, 0, 0, 0.2);
   /*margin: 5px -10px 5px -10px;*/
@@ -1941,6 +1990,14 @@ a .btn-simplex:hover {
 
 .info-box-content .info-box-img img {
   height: inherit;
+}
+
+.info-box-content .info-box-img i {
+  font-size: 4em;
+  box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  padding: 20px;
 }
 
 .info-box-content .info-box-title {
