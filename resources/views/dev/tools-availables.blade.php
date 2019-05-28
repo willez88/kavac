@@ -17,7 +17,7 @@
 				<div class="row">
 					<div class="col-12">
 						<span class="text-muted">
-							Acceso a herramientas para desarrolladores
+							Acceso a herramientas exclusivamente para desarrolladores o usuarios avanzados que requieran construir nuevas funcionalidades de la aplicación.
 						</span>
 						<hr>
 					</div>
