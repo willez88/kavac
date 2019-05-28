@@ -234,6 +234,11 @@ class AppInfo {
  */
 class HandleJSError extends Error {
 
+	/**
+	 * Método constructor de la clase
+	 * @param {string} view Nombre de la vista que genera el error
+	 * @param {object} params Objeto con los parámetros a registrar
+	 */
 	constructor(view = '', params = {}) {
 		// Pass remaining arguments (including vendor specific ones) to parent constructor
 		super(params);
@@ -256,15 +261,20 @@ class HandleJSError extends Error {
 			stacktrace: this.stack.split("\n"),
 			date: this.date
 		};
-		console.log(this.dataLog);
-
-		//console.log(this.stack);
 	}
 
+	/**
+	 * Registra el evento del error generado
+	 */
 	register() {
 		if (this.log_url) {
 			axios.post(this.log_url, this.dataLog).catch(error => {
-	            console.log(error);
+				if (this.debug) {
+					console.log(error);
+				}
+				else {
+					console.info("Error inesperado del sistema, contacte al administrador.");
+				}
 	        });
 		}
 		else if (this.debug) {
@@ -272,6 +282,27 @@ class HandleJSError extends Error {
 				`Se generó un evento de error que no pudo ser registrado con el siguiente detalle: 
 				${this.stack}`
 			);
+		}
+	}
+
+	/**
+	 * Muestra un mensaje en la consola del navegador según el tipo indicado
+	 * 
+	 * @param  {string} type Define el tipo de error a mostrar
+	 */
+	error_type(type = '') {
+		let err = this.message, this.stack;
+		if (type === "log") {
+			console.log(err);
+		}
+		else if (type === "info") {
+			console.info(err);
+		}
+		else if (type === "warning") {
+			console.warn(err);
+		}
+		else if (type === "error") {
+			console.error(err);
 		}
 	}
 }
