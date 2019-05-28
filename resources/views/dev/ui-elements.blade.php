@@ -87,13 +87,13 @@
 						</div>
 					</div>
 					<hr>
-					<h6>Tarjetas Descriptivas</h6>
+					<h6>Módulos</h6>
 					<div class="row">
 						<div class="col-3">
 							<div class="info-box">
 								<div class="info-box-content info-box-content-lg">
 									<div class="info-box-img">
-										<img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised">
+										<i class="fa fa-cubes"></i>
 									</div>
 									<div class="info-box-title">
 										<h6>Título</h6>
@@ -101,15 +101,133 @@
 									<div class="info-box-description">
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium facilis dicta ratione ex, officiis, aut ullam culpa recusandae incidunt deserunt, tempora, a numquam velit beatae debitis quia dolores corrupti aliquid!
 									</div>
-									<div class="info-box-footer">
-										<a href="" class="btn btn-sm btn-success float-left" 
-										   title="Instalar módulo" data-toggle="tooltip">
-											<i class="ion ion-android-done"></i>
-										</a>
-										<a href="" class="btn btn-sm btn-danger float-right" 
-										   title="Desinstalar módulo" data-toggle="tooltip">
-											<i class="ion ion-android-close"></i>
-										</a>
+									<div class="info-box-footer buttons">
+										<div class="row">
+											<div class="col-4 text-left">
+												<a href="" class="btn btn-sm btn-round btn-success" 
+												   title="Instalar módulo" data-toggle="tooltip">
+													<i class="ion ion-android-done"></i>
+												</a>
+											</div>
+											<div class="col-4"></div>
+											<div class="col-4 text-right">
+												<a href="" class="btn btn-sm btn-round btn-danger" 
+												   title="Desinstalar módulo" data-toggle="tooltip">
+													<i class="ion ion-android-close"></i>
+												</a>
+											</div>
+										</div>
+										<span class="status installed">
+											Instalado
+										</span>										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="info-box">
+								<div class="info-box-content info-box-content-lg">
+									<div class="info-box-img">
+										{{-- <img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised"> --}}
+										<i class="fa fa-cubes"></i>
+									</div>
+									<div class="info-box-title">
+										<h6>Título</h6>
+									</div>
+									<div class="info-box-description">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium facilis dicta ratione ex, officiis, aut ullam culpa recusandae incidunt deserunt, tempora, a numquam velit beatae debitis quia dolores corrupti aliquid!
+									</div>
+									<div class="info-box-footer buttons">
+										<div class="row">
+											<div class="col-4 text-left">
+												<a href="" class="btn btn-sm btn-round btn-success" 
+												   title="Instalar módulo" data-toggle="tooltip">
+													<i class="ion ion-android-done"></i>
+												</a>
+											</div>
+											<div class="col-4"></div>
+											<div class="col-4 text-right">
+												<a href="" class="btn btn-sm btn-round btn-danger" 
+												   title="Desinstalar módulo" data-toggle="tooltip">
+													<i class="ion ion-android-close"></i>
+												</a>
+											</div>
+										</div>
+										<span class="status uninstalled">
+											Desinstalado
+										</span>										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="info-box">
+								<div class="info-box-content info-box-content-lg">
+									<div class="info-box-img">
+										{{-- <img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised"> --}}
+										<i class="fa fa-cubes"></i>
+									</div>
+									<div class="info-box-title">
+										<h6>Título</h6>
+									</div>
+									<div class="info-box-description">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium facilis dicta ratione ex, officiis, aut ullam culpa recusandae incidunt deserunt, tempora, a numquam velit beatae debitis quia dolores corrupti aliquid!
+									</div>
+									<div class="info-box-footer buttons">
+										<div class="row">
+											<div class="col-4 text-left">
+												<a href="" class="btn btn-sm btn-round btn-success" 
+												   title="Instalar módulo" data-toggle="tooltip">
+													<i class="ion ion-android-done"></i>
+												</a>
+											</div>
+											<div class="col-4"></div>
+											<div class="col-4 text-right">
+												<a href="" class="btn btn-sm btn-round btn-danger" 
+												   title="Desinstalar módulo" data-toggle="tooltip">
+													<i class="ion ion-android-close"></i>
+												</a>
+											</div>
+										</div>
+										<span class="status enabled">
+											Activo
+										</span>										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="info-box">
+								<div class="info-box-content info-box-content-lg">
+									<div class="info-box-img">
+										{{-- <img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised"> --}}
+										<i class="fa fa-cubes"></i>
+									</div>
+									<div class="info-box-title">
+										<h6>Título</h6>
+									</div>
+									<div class="info-box-description">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium facilis dicta ratione ex, officiis, aut ullam culpa recusandae incidunt deserunt, tempora, a numquam velit beatae debitis quia dolores corrupti aliquid!
+									</div>
+									<div class="info-box-footer buttons">
+										<div class="row">
+											<div class="col-4 text-left">
+												<a href="" class="btn btn-sm btn-round btn-success" 
+												   title="Instalar módulo" data-toggle="tooltip">
+													<i class="ion ion-android-done"></i>
+												</a>
+											</div>
+											<div class="col-4"></div>
+											<div class="col-4 text-right">
+												<a href="" class="btn btn-sm btn-round btn-danger" 
+												   title="Desinstalar módulo" data-toggle="tooltip">
+													<i class="ion ion-android-close"></i>
+												</a>
+											</div>
+										</div>
+										<span class="status disabled">
+											inactivo
+										</span>										
 									</div>
 								</div>
 							</div>

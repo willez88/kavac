@@ -28,6 +28,7 @@
             window.access = true;
             window.log_url = '{{ route('logs.front-end') }}';
             window.auth = {!! (auth()->check()) ? 'true' : 'false' !!};
+            window.debug = {!! (config('app.debug')) ? 'true' : 'false' !!};
         </script>
 
         {{-- Sección para estilos extras dispuestos por las plantillas según requerimientos particulares --}}
@@ -318,9 +319,25 @@
                     p.f = f;
                 }
                 axios.post(window.log_url, p).catch(error => {
-                    logs('app', 297, error);
+                    console.log(error);
                 });
             }
+
+            /*try {
+                throw new HandleJSError('app', {
+                    'message': 'prueba'
+                });
+            } catch(e) {
+                console.log(e);
+                console.log(e.fileName)
+                console.warn("error");
+                console.log(e.lineNumber)
+                console.log(e.name);
+                console.log(e.view);
+                console.log(e.message);
+                console.log(e.stack.split("\n"));
+                console.log(e.date);
+            }*/
         </script>
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}
