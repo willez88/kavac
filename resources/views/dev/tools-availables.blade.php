@@ -24,39 +24,51 @@
 				</div>
 				<h6>Interfaz</h6>
 				<div class="row">
-					<div class="col-12">
+					<div class="col-3">
 						<a href="{{ route('dev.show.element', ['el' => 'icons']) }}" 
-						   class="btn btn-primary btn-simple btn-lg" target="_blank"  
+						   class="btn btn-primary btn-simple btn-lg btn-block" target="_blank"  
 						   data-toggle="tooltip" title="Listado de íconos disponibles en la aplicación">
 							<i class="icofont icofont-idea"></i> Iconos
 						</a>
+					</div>
+					<div class="col-3">
 						<a href="{{ route('dev.show.element', ['el' => 'components']) }}" 
-						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   class="btn btn-primary btn-simple btn-lg btn-block" target="_blank" 
 						   data-toggle="tooltip" title="Listado de componentes y elementos disponibles en la aplicación">
 							<i class="icofont icofont-idea"></i> Componentes
 						</a>
+					</div>
+					<div class="col-3">
 						<a href="" 
-						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   class="btn btn-primary btn-simple btn-lg btn-block" target="_blank" 
 						   data-toggle="tooltip" title="Listado de estilos de botones">
 							<i class="icofont icofont-idea"></i> Botones
 						</a>
+					</div>
+					<div class="col-3">
 						<a href="" 
-						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   class="btn btn-primary btn-simple btn-lg btn-block" target="_blank" 
 						   data-toggle="tooltip" title="Listado de componentes de formulario">
 							<i class="icofont icofont-idea"></i> Formularios
 						</a>
+					</div>
+					<div class="col-3">
 						<a href="" 
-						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   class="btn btn-primary btn-simple btn-lg btn-block" target="_blank" 
 						   data-toggle="tooltip" title="Listado de gráficos disponibles">
 							<i class="icofont icofont-idea"></i> Gráficos
 						</a>
+					</div>
+					<div class="col-3">
 						<a href="" 
-						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   class="btn btn-primary btn-simple btn-lg btn-block" target="_blank" 
 						   data-toggle="tooltip" title="Listado de estilos de sliders">
 							<i class="icofont icofont-idea"></i> Sliders
 						</a>
+					</div>
+					<div class="col-3">
 						<a href="" 
-						   class="btn btn-primary btn-simple btn-lg" target="_blank" 
+						   class="btn btn-primary btn-simple btn-lg btn-block" target="_blank" 
 						   data-toggle="tooltip" title="Listado de estilos de tablas">
 							<i class="icofont icofont-idea"></i> Tablas
 						</a>
@@ -107,9 +119,9 @@
 				<hr>
 				<h6>Eventos</h6>
 				<div class="row">
-					<div class="col-12">
+					<div class="col-3">
 						<a href="{{ route('log-viewer::details') }}" 
-						   class="btn btn-info btn-simple btn-lg" target="_blank" 
+						   class="btn btn-danger btn-simple btn-lg btn-block" target="_blank" 
 						   data-toggle="tooltip" title="Registros de eventos del sistema">
 							<i class="ion ion-ios-bookmarks"></i> Logs del sistema
 						</a>

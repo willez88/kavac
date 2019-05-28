@@ -1157,32 +1157,4 @@ class DevelopmentController extends Controller
 
     	return view("dev." . $view[$el]['view'], $view[$el]['vars']);
     }
-
-    /**
-     * Obtiene los eventos de logs generados por la aplicación
-     *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return [type] [description]
-     */
-    public function getEventLogs()
-    {
-    	/** @var array Arreglo de eventos generados por la aplicación */
-    	$logs = [];
-
-    	$result_logs = scandir(storage_path('/logs'));
-
-    	foreach ($result_logs as $result_log) {
-    		if (in_array($result_log, [".", "..", ".gitignore"])) {
-				continue;
-			}
-
-			foreach (file_get_contents(storage_path("/logs/$result_log")) as $log) {
-				$logs[] = $log;
-			}
-    	}
-
-    	dd($logs);
-
-    	return response()->json(['result' => true, 'logs' => $logs], 200);
-    }
 }

@@ -210,8 +210,10 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
 Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefix' => 'dev'], function() {
     /** Muestra un listado de íconos a utilizar en el sistema */
     Route::get('show/{el}', 'DevelopmentController@getElement')->name('dev.show.element');
-    /** Obtiene los registros de logs generados por el framework */
-    Route::get('get-event-logs', 'DevelopmentController@getEventLogs')->name('event.logs');
+    /** Rutas para el visor de logs */
+    Route::group(['prefix' => 'log-viewer'], function() {
+        Route::get('/', 'LogViewerController@index')->name('log-viewer::details');
+    });
 });
 
 /**
@@ -254,11 +256,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
         Route::get('get-institutions', 'InstitutionController@getInstitutions');
         Route::get('get-institution/details/{institution}', 'InstitutionController@getDetails')
              ->name('institution.details');
-
-        /** Rutas para el visor de logs */
-        Route::group(['prefix' => 'log-viewer'], function() {
-            Route::get('/', 'LogViewerController@index')->name('log-viewer::details');
-        });
     });
     
     /**

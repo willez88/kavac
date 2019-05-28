@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Dev;
 
 use Illuminate\Http\Request;
 use Arcanedev\LogViewer\Http\Controllers\LogViewerController as ArcanedevLogViewerController;
