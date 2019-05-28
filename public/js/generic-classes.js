@@ -291,7 +291,7 @@ class HandleJSError extends Error {
 	 * @param  {string} type Define el tipo de error a mostrar
 	 */
 	error_type(type = '') {
-		let err = this.message, this.stack;
+		let err = this.message + "\n" + this.stack;
 		if (type === "log") {
 			console.log(err);
 		}
