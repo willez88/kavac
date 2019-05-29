@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -16,4 +16,15 @@
         <!-- Laravel Mix - JS File -->
         <!-- <script src="{{ mix('js/app.js', 'modules/$LOWER_NAME$') }}"></script> -->
     </body>
-</html>
+</html> --}}
+@extends('layouts.app')
+
+@section('extra-css')
+    @parent
+    
+@stop
+
+@section('extra-js')
+    @parent
+    {!! Html::script('modules/budget/js/app.js', ['type' => 'text/javascript']) !!}
+@stop

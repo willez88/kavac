@@ -29,6 +29,7 @@
             window.log_url = '{{ route('logs.front-end') }}';
             window.auth = {!! (auth()->check()) ? 'true' : 'false' !!};
             window.debug = {!! (config('app.debug')) ? 'true' : 'false' !!};
+            window.app_url = `${location.protocol}//${location.host}`;
         </script>
 
         {{-- Sección para estilos extras dispuestos por las plantillas según requerimientos particulares --}}

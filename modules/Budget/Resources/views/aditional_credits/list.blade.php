@@ -1,4 +1,5 @@
 @extends('layouts.app')
+{{-- @extends('budget::layouts.master') --}}
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>

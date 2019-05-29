@@ -68,8 +68,8 @@
 									<td>{{ account.description }}</td>
 									<td class="text-right">{{ account.from_amount }}</td>
 									<td class="text-center">
-										<input type="hidden" name="from_budget_account_id[]" readonly 
-											   :value="account.from_budget_specific_action_id + '|' + account.from_budget_account_id">
+										<input type="hidden" name="from_account_id[]" readonly 
+											   :value="account.from_specific_action_id + '|' + account.from_account_id">
 										<input type="hidden" name="from_budget_account_amount[]" readonly 
 											   :value="account.from_amount">
 										<a class="btn btn-sm btn-danger btn-action" href="#" @click="deleteAccount(index)"
@@ -111,15 +111,15 @@
 									<div class="col-6">
 										<div class="form-group is-required">
 											<label>Acción Específica:</label>
-											<select2 :options="specific_actions" @input="getAccounts" 
-													 v-model="from_budget_specific_action_id"/>
+											<select2 :options="specific_actions" 
+													 v-model="from_specific_action_id"/>
 					                    </div>
 									</div>
 									<div class="col-6">
 										<div class="form-group is-required">
 											<label>Cuenta:</label>
 											<select2 :options="accounts" 
-													 v-model="from_budget_account_id"/>
+													 v-model="from_account_id"/>
 					                    </div>
 									</div>
 								</div>
@@ -219,8 +219,8 @@
 				/*
 				 * Variables para cuentas a agregar en créditos adicionales, traspasos y reducciones
 				 */
-				from_budget_specific_action_id: '',
-				from_budget_account_id: '',
+				from_specific_action_id: '',
+				from_account_id: '',
 				from_amount: 0,
 				/*
 				 * Variables para cuentas a agregar en traspasos
@@ -260,7 +260,9 @@
 		mounted() {
 			const vm = this;
 
-			axios.get('/budget/get-group-specific-actions/' + vm.execution_year).then(response => {
+			axios.get(
+				`${window.app_url}/budget/get-group-specific-actions/${vm.execution_year}`
+			).then(response => {
 				if (!$.isEmptyObject(response.data)) {
 					vm.specific_actions = response.data;
 				}
@@ -269,10 +271,12 @@
 			});
 
 			vm.reset();
+			vm.getInstitutions();
+			vm.getAccounts();
 
-			$("#approved_at").on('change', function() {
+			/*$("#approved_at").on('change', function() {
 				vm.record.approved_at = $(this).val();
-			});
+			});*/
 		},
 		watch: {
 			/** 
@@ -298,8 +302,8 @@
 			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 */
 			reset: function() {
-				this.from_budget_specific_action_id = '';
-				this.from_budget_account_id = '';
+				this.from_specific_action_id = '';
+				this.from_account_id = '';
 				this.from_amount = 0;
 			},
 			/**
@@ -315,18 +319,18 @@
 					code: '',
 					description: '',
 					amount: 0,
-					from_budget_account_id: '',
-					from_budget_specific_action_id: ''
+					from_account_id: '',
+					from_specific_action_id: ''
 				};
 
-				if (!vm.from_budget_specific_action_id) {
+				if (!vm.from_specific_action_id) {
 					vm.showMessage(
 						'custom', 'Alerta!', 'danger', 'screen-error', 
 						'Debe seleccionar una acción específica'
 					);
 					return false;
 				}
-				if (!vm.from_budget_account_id) {
+				if (!vm.from_account_id) {
 					vm.showMessage(
 						'custom', 'Alerta!', 'danger', 'screen-error', 
 						'Debe seleccionar una cuenta presupuestaria'
@@ -343,7 +347,9 @@
 
 				
 				/** Obtiene datos de la acción específica seleccionada */
-				axios.get('/budget/detail-specific-actions/' + vm.from_budget_specific_action_id).then(response => {
+				axios.get(
+					`${window.app_url}/budget/detail-specific-actions/${vm.from_specific_action_id}`
+				).then(response => {
 					if (response.data.result) {
 						let record = response.data.record;
 						to_add.spac_description = record.specificable.code + " - " + record.code + 
@@ -354,7 +360,7 @@
 				});
 
 				/** Obtiene datos de la cuenta presupuestaria */
-				axios.get('/budget/detail-accounts/' + vm.from_budget_account_id).then(response => {
+				axios.get(`${window.app_url}/budget/detail-accounts/${vm.from_account_id}`).then(response => {
 					if (response.data.result) {
 						let record = response.data.record;
 						to_add.code = record.group + "." + record.item + "." + record.generic + "." + 
@@ -366,8 +372,8 @@
 				});
 				
 				to_add.from_amount = vm.from_amount;
-				to_add.from_budget_account_id = vm.from_budget_account_id;
-				to_add.from_budget_specific_action_id = vm.from_budget_specific_action_id;
+				to_add.from_account_id = vm.from_account_id;
+				to_add.from_specific_action_id = vm.from_specific_action_id;
 				
 				vm.budget_modification_accounts.push(to_add);
 				$('.close').click();
@@ -409,26 +415,17 @@
 				const vm = this;
 				vm.accounts = [{
 					id: '',
-					text: 'Seleccione...'
+					text: 'Seleccione...',
+					title: ''
 				}];
 
-				axios.get('/budget/accounts/egress-list/').then(response => {
+				axios.get(`${window.app_url}/budget/accounts/egress-list/`).then(response => {
 					if (!$.isEmptyObject(response.data.records)) {
 						$.each(response.data.records, function() {
 							if (this.specific !== "00") {
-								if (vm.from_budget_specific_action_id) {
-									axios.get('/budget/get-availability-opened-accounts/' + vm.from_budget_specific_action_id + "/" + this.id)
-										 .then(response => {
-										 	if (response.data.result) {
-										 		//console.log(response.data.account)
-										 	}
-										 }).catch(error => {
-										 	vm.logs('BudgetModificationComponent.vue', 420, error, 'getAccounts');
-										 });
-								}
 								vm.accounts.push({
 									id: this.id,
-									text: this.code + " - " + this.denomination,
+									text: `${this.code} - ${this.denomination}`,
 									title: 'Disponible: '
 								});
 							}

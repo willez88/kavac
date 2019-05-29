@@ -27,7 +27,7 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				<budget-modification :transfer="true"></budget-modification>
+				<budget-modification :transfer="false"></budget-modification>
 			</div>
 		</div>
 	</div>

@@ -33,7 +33,7 @@
 				try {
 					options.slice(0).unshift({id: '', text: 'Seleccione...'});
 					$(this.$el).empty().trigger('change').select2({data: options});
-					$(".select2").find('option').attr('data-toggle', 'tooltip');
+					//$(".select2").find('option').attr('data-toggle', 'tooltip');
 				}
 				catch(err) {}
 			}
