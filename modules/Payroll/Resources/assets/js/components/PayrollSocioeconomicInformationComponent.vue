@@ -132,6 +132,13 @@
 	                	</v-client-table>
 	                </div>
 
+					<div class="modal-footer">
+	                	<button type="button" @click="createRecord('payroll/socioeconomic-informations')"
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
+	                		Guardar
+		                </button>
+		            </div>
+
 				</div>
 			</div>
 		</div>
@@ -158,13 +165,13 @@
 					birthdate_twosome: '',
 					payroll_staff_id: '',
 					marital_status_id: '',
-					childrens: [],
+					childrens: ['hola', 'hola2'],
 				},
 				errors: [],
 				records: [],
 				payroll_staffs: [],
 				marital_status: [],
-				columns: ['payroll_staffs.name', 'marital_status.name', 'childrens', 'id'],
+				columns: ['payroll_staff.first_name', 'marital_status.name', 'childrens', 'id'],
 			}
 		},
 		methods: {
@@ -176,10 +183,19 @@
 			reset() {
 				this.record = {
 					id: '',
+					full_name_twosome: '',
+					id_number_twosome: '',
+					birthdate_twosome: '',
 					payroll_staff_id: '',
 					marital_status_id: '',
 					childrens: [],
 				};
+			},
+
+			getPayrollSocioeconomicInformations() {
+				axios.get('socioeconomic-informations').then(response => {
+					this.records = response.data.records;
+				});
 			},
 
 			getPayrollStaffs() {
@@ -203,7 +219,7 @@
 			 *
 			 * @author William Páez <wpaez@cenditel.gob.ve>
 			 */
-			addChildren() {
+			addChildren: function() {
 				this.record.childrens.push({
 					full_name_son: '',
 					id_number_son: '',
@@ -213,13 +229,14 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'payroll_staffs.name': 'Trabajador',
+				'payroll_staff.first_name': 'Trabajador',
 				'marital_status.name': 'Estado Civil',
 				'childrens': 'Hijos del Trabajador',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['payroll_staff.name', 'marital_status.name'];
-			this.table_options.filterable = ['payroll_staff.name', 'marital_status.name'];
+			this.table_options.sortable = ['payroll_staff.first_name', 'marital_status.name'];
+			this.table_options.filterable = ['payroll_staff.first_name', 'marital_status.name'];
+			this.getPayrollSocioeconomicInformations();
 			this.getPayrollStaffs();
 			this.getMaritalStatus();
 		},

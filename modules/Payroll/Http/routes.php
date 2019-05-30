@@ -22,7 +22,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('language-levels', 'PayrollLanguageLevelController', ['as' => 'payroll', 'except' => ['show']]);
     Route::resource('languages', 'PayrollLanguageController', ['as' => 'payroll', 'except' => ['show']]);
     Route::resource('genders', 'PayrollGenderController', ['as' => 'payroll', 'except' => ['show']]);
-    Route::resource('socioeconomic-informations', 'PayrollSocioeconomicInformationController', ['as' => 'payroll']);
+    Route::resource('socioeconomic-informations', 'PayrollSocioeconomicInformationController', ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]);
     Route::get('socioeconomic-informations-list', 'PayrollSocioeconomicInformationController@list')->name('payroll.socioeconomic-informations.list');
     Route::get('list-marital-status', 'PayrollSocioeconomicInformationController@listMaritalStatus')->name('payroll.socioeconomic-informations.list-marital-status');
 });

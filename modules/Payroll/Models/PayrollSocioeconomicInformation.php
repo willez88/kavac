@@ -45,7 +45,7 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
      */
     protected $fillable = [
         'full_name_twosome', 'id_number_twosome', 'birthdate_twosome',
-        'payroll_children_id', 'payroll_staff_id', 'marital_status_id',
+        'payroll_staff_id', 'marital_status_id',
     ];
 
     /**

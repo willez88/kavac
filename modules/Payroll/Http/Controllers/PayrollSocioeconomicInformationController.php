@@ -53,14 +53,7 @@ class PayrollSocioeconomicInformationController extends Controller
      */
     public function create()
     {
-        $staffs = template_choices(
-            'Modules\Payroll\Models\PayrollStaff', ['id_number','-','full_name']
-        );
-        $marital_status = template_choices('App\Models\MaritalStatus');
-        $header = [
-            'route' => 'payroll.socioeconomic-informations.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form', 'id' => 'form'
-        ];
-        return view('payroll::socioeconomic-informations.create-edit', compact('header','staffs','marital_status'));
+
     }
 
     /**
@@ -74,7 +67,7 @@ class PayrollSocioeconomicInformationController extends Controller
             'full_name_twosome' => 'nullable|max:200',
             'id_number_twosome' => 'nullable|max:12',
             'birthdate_twosome' => 'nullable|date',
-            'payroll_staff_id' => 'required',
+            'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations',
             'marital_status_id' => 'required'
         ]);
         $socioeconomic_information = new PayrollSocioeconomicInformation;
@@ -103,10 +96,7 @@ class PayrollSocioeconomicInformationController extends Controller
      */
     public function edit(PayrollSocioeconomicInformation $socioeconomic_information)
     {
-        $header = [
-            'route' => ['payroll.socioeconomic-informations.update', $socioeconomic_information], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::socioeconomic-informations.create-edit', compact('socioeconomic_information','header'));
+        
     }
 
     /**

@@ -21,5 +21,14 @@ class PayrollDatabaseSeeder extends Seeder
 
         /** Seeder para tipos de personal disponibles en el módulo */
         $this->call(PayrollStaffTypesTableSeeder::class);
+
+        /** Seeder para los géneros disponibles en el módulo */
+        $this->call(PayrollGendersTableSeeder::class);
+
+        /** Seeder para las nacionalidades disponibles en el módulo */
+        $this->call(PayrollNationalitiesTableSeeder::class);
+
+        /** Seeder para los grados de instrucción disponibles en el módulo */
+        $this->call(PayrollInstructionDegreesTableSeeder::class);
     }
 }
