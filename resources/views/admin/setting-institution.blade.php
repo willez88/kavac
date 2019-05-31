@@ -505,7 +505,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<div class="form-group">
 								{!! Form::label('vision', 'Visión', []) !!}
 								{!! Form::textarea('vision', null, [
@@ -514,7 +514,7 @@
 								]) !!}
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<div class="form-group">
 								{!! Form::label('composition_assets', 'Composición de Patrimonio', []) !!}
 								{!! Form::textarea('composition_assets', null, [
@@ -585,3 +585,25 @@
 		</div>
 	</div>
 </div>
+
+@section('extra-js')
+	@parent
+	<script>
+		$.each([
+			'legal_base', 'legal_form', 'main_activity', 'mission', 'vision', 'composition_assets'
+		], function(index, element_id) {
+			CkEditor.create(document.querySelector(`#${element_id}`), {
+	            toolbar: [
+	                'heading', '|', 
+	                'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|', 
+	                'insertTable'
+	            ],
+	            language: 'es',
+	        }).then(editor => {
+	            window.editor = editor;
+	        }).catch(error => {
+	            console.error( error.stack );
+	        });
+		});
+	</script>
+@stop
