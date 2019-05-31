@@ -47,7 +47,11 @@
 					form.find('input[type=radio]').attr('checked', false);
 					form.find('.bootstrap-switch').removeClass('bootstrap-switch-on');
 					form.find('.bootstrap-switch').addClass('bootstrap-switch-off');
-					$("#onapre_code").focus();
+					form.find(".institution-logo").attr('src', "/images/no-image2.png");
+					form.find(".institution-banner").attr('src', "/images/no-image3.png");
+					form.find("#logo_id").val('');
+					form.find("#banner_id").val('');
+					form.find("#onapre_code").focus();
 				});
 			@endif
 		});
@@ -298,7 +302,7 @@
 								) !!}
 								{!! Form::select('country_id', (isset($countries))?$countries:[], null, [
 									'class' => 'form-control select2', 'id' => 'country_id',
-									'onchange' => 'updateSelect($(this).val(), $("#estate_id"), "Estate")'
+									'onchange' => 'updateSelect($(this), $("#estate_id"), "Estate")'
 								]) !!}
 								{{-- <i class="fa fa-plus-circle btn-add-record"></i> --}}
 							</div>
@@ -309,7 +313,9 @@
 							<div class="form-group">
 								{!! Form::label('estate_id', 'Estado', []) !!}
 								{!! Form::select('estate_id', (isset($estates))?$estates:[], null, [
-									'class' => 'form-control select2', 'id' => 'estate_id'
+									'class' => 'form-control select2', 'id' => 'estate_id',
+									'onchange' => 'updateSelect($(this), $("#municipality_id"), "Municipality"), updateSelect($(this), $("#city_id"), "City")',
+									'disabled' => (!isset($model_institution))
 								]) !!}
 							</div>
 						</div>
@@ -318,7 +324,9 @@
 								{!! Form::label('municipality_id', 'Municipio', []) !!}
 								{!! Form::select(
 									'municipality_id', (isset($municipalities))?$municipalities:[], null, [
-										'class' => 'form-control select2', 'id' => 'municipality_id'
+										'class' => 'form-control select2', 'id' => 'municipality_id',
+										'onchange' => 'updateSelect($(this), $("#parish_id"), "Parish")',
+										'disabled' => (!isset($model_institution))
 									]
 								) !!}
 							</div>
@@ -327,7 +335,8 @@
 							<div class="form-group">
 								{!! Form::label('city_id', 'Ciudad', []) !!}
 								{!! Form::select('city_id', (isset($cities))?$cities:[], null, [
-									'class' => 'form-control select2', 'id' => 'city_id'
+									'class' => 'form-control select2', 'id' => 'city_id',
+									'disabled' => (!isset($model_institution))
 								]) !!}
 							</div>
 						</div>
@@ -337,7 +346,8 @@
 							<div class="form-group">
 								{!! Form::label('parish_id', 'Parroquia', []) !!}
 								{!! Form::select('parish_id', (isset($parishes))?$parishes:[], null, [
-									'class' => 'form-control select2', 'id' => 'parish_id'
+									'class' => 'form-control select2', 'id' => 'parish_id',
+									'disabled' => (!isset($model_institution))
 								]) !!}
 							</div>
 						</div>
