@@ -1,6 +1,6 @@
 <?php
 
-namespace Pdf;
+namespace Modules\Asset\Pdf;
 
 use Modules\Asset\Models\Asset;
 use App\Models\Institution;

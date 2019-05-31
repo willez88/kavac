@@ -13,6 +13,7 @@ use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
 use App\Models\Institution;
 use App\Models\Setting;
 
+use Modules\Asset\Pdf\Pdf;
 /**
  * @class WarehousePDFController
  * @brief Controlador de los atributos de los productos de almacén
@@ -101,7 +102,7 @@ class WarehousePDFController extends Controller
     
     public function createReport($inventary_product){
         $setting = Setting::all()->first();        
-        $pdf = new \Pdf\Pdf('L','mm','Letter');
+        $pdf = new Pdf('L','mm','Letter');
 
         /*
          *  Definicion de las caracteristicas generales de la página

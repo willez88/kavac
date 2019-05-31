@@ -10,6 +10,9 @@ use Modules\Asset\Models\Asset;
 use App\Models\Institution;
 use App\Models\Setting;
 
+use Modules\Asset\Pdf\Pdf;
+use Modules\Asset\Pdf\Pdf2;
+
 class PDFController extends Controller
 {
     /**
@@ -28,7 +31,7 @@ class PDFController extends Controller
         $assets = Asset::codeclasification($request->type,$request->category,$request->subcategory,$request->specific_category)->get();
         
         $setting = Setting::all()->first();        
-        $pdf = new \Pdf\Pdf('L','mm','Letter');
+        $pdf = new Pdf('L','mm','Letter');
 
         /*
          *  Definicion de las caracteristicas generales de la página
@@ -61,7 +64,7 @@ class PDFController extends Controller
 
         $setting = Setting::all()->first();        
 
-        $pdf = new \Pdf\Pdf('L','mm','Letter');
+        $pdf = new Pdf('L','mm','Letter');
         
         /*
          *  Definicion de las caracteristicas generales de la página
@@ -95,7 +98,7 @@ class PDFController extends Controller
 
         $setting = Setting::all()->first();        
 
-        $pdf = new \Pdf\Pdf2('P','mm','Letter');
+        $pdf = new Pdf2('P','mm','Letter');
         
         /*
          *  Definicion de las caracteristicas generales de la página
