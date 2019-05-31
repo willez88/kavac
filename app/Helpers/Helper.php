@@ -82,13 +82,15 @@ if (!function_exists('template_choices')) {
 	 * Construye un arreglo de elementos para usar en plantillas blade
 	 *
 	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-	 * @param  string 		$model   Nombre de la clase del modelo al cual generar el listado de opciones
-	 * @param  string|array $fields  Campo(s) a utilizar para mostrar en el listado de opciones
-	 * @param  array 		$filters Arreglo con los filtros a ser aplicados en la consulta
-	 * @param  boolean      $vuejs   Indica si las opciones a mostrar son para una plantilla normal o para VueJS
-	 * @return array          		 Arreglo con las opciones a mostrar
+	 * @param  string 		$model     Nombre de la clase del modelo al cual generar el listado de opciones
+	 * @param  string|array $fields    Campo(s) a utilizar para mostrar en el listado de opciones
+	 * @param  array 		$filters   Arreglo con los filtros a ser aplicados en la consulta
+	 * @param  boolean      $vuejs     Indica si las opciones a mostrar son para una plantilla 
+	 *                                 normal o para VueJS
+	 * @param  integer 		$except_id Identificador del registro a excluir. Opcional
+	 * @return array          		   Arreglo con las opciones a mostrar
 	 */
-	function template_choices($model, $fields = 'name', $filters = [], $vuejs = false)
+	function template_choices($model, $fields = 'name', $filters = [], $vuejs = false, $except_id = null)
 	{
 		$records = $model::all();
         if ($filters) {
@@ -98,8 +100,6 @@ if (!function_exists('template_choices')) {
         }
 
         /** Inicia la opción vacia por defecto */
-        /*$options = ($vuejs) ? ((count($records) > 1) ? [['id' => '', 'text' => 'Seleccione...']] : []) 
-        		   : ((count($records) > 1) ? ['' => 'Seleccione...'] : []);*/
         $options = ($vuejs) ? [['id' => '', 'text' => 'Seleccione...']] : ['' => 'Seleccione...'];
 
         foreach ($records as $rec) {
@@ -113,8 +113,14 @@ if (!function_exists('template_choices')) {
         		$text = $rec->$fields;
         	}
 
-        	/** Carga el listado según el tipo de plantilla en el cual se va a implementar (normal o con VueJS) */
-        	($vuejs) ? array_push($options, ['id' => $rec->id, 'text' => $text]) : $options[$rec->id] = $text;
+        	if (is_null($except_id) || $except_id !== $rec->id) {
+        		/**
+        		 * Carga el listado según el tipo de plantilla en el cual se va a implementar 
+        		 * (normal o con VueJS)
+        		 */
+	        	($vuejs) ? array_push($options, ['id' => $rec->id, 'text' => $text]) 
+	        			 : $options[$rec->id] = $text;
+        	}
 
         }
         return $options;
