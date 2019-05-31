@@ -23,7 +23,9 @@
         {!! Html::style('vendor/datatable/responsive/css/responsive.bootstrap4.min.css') !!}
         {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
         {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css') !!}
-
+        <style>
+            .ck-editor__editable {min-height: 200px !important;}
+        </style>
         <script>
             window.access = true;
             window.log_url = '{{ route('logs.front-end') }}';
@@ -86,67 +88,32 @@
         {{-- Botón de ir al inicio de la página cuando se excede de un alto preestablecido --}}
         @include('buttons.to-top')
         
+        @include('layouts.messages')
         <script>
             $(document).ready(function() {
-                @if (session('message'))
-                    {{-- Mensajes de la aplicación --}}
-                    var msg_title = '', msg_text = '', msg_class = '', msg_icon = '';
-                    msg_title = 'Éxito';
-                    msg_icon = 'screen-ok';
-                    msg_class = 'growl-success';
-                    @if (session('message')['type'] == 'store')
-                        msg_text = 'Registro almacenado con éxito';
-                    @elseif (session('message')['type'] == 'update')
-                        msg_text = 'Registro actualizado con éxito';
-                    @elseif (session('message')['type'] == 'destroy')
-                        msg_text = 'Registro eliminado con éxito';
-                    @elseif (session('message')['type'] == 'restore')
-                        msg_text = 'Registro restaurado con éxito';
-                    @elseif (session('message')['type'] == 'deny')
-                        msg_title = 'Acceso Denegado';
-                        msg_icon = 'screen-error';
-                        msg_class = 'growl-danger';
-                        msg_text = 'Usted no tiene acceso a la petición solicitada';
-                        @if (session('message')['msg'])
-                            msg_text = '{!! session('message')['msg'] !!}';
-                        @endif
-                    @elseif (session('message')['type'] == 'other')
-                        msg_icon = 'screen-info';
-                        @if (isset(session('message')['title']))
-                            msg_title = '{!! session('message')['title'] !!}';
-                        @endif
-                        @if (isset(session('message')['icon']))
-                            msg_icon = '{!! session('message')['icon'] !!}';
-                        @endif
-                        @if (isset(session('message')['class']))
-                            msg_class = '{!! session('message')['class'] !!}';
-                        @endif
-                        msg_text = "{{ session('message')['text'] }}";
-                    @endif
-                    $.gritter.add({
-                        title: msg_title,
-                        text: msg_text,
-                        class_name: msg_class,
-                        image: "{{ asset('images') }}/" + msg_icon + ".png",
-                        sticky: false,
-                        time: 1500
-                    });
-                @endif
-
-                @role('admin')
-                    @if (App\Models\Institution::all()->isEmpty())
-                        $.gritter.add({
-                            title: 'Alerta!',
-                            text: "Para comenzar a utilizar la aplicación debe configurar una Institución",
-                            class_name: 'growl-danger',
-                            image: "{{ asset('images/screen-error.png') }}",
-                            sticky: false,
-                            time: 2500
+                
+                if ($('.ckeditor').length) {
+                    
+                    $('.ckeditor').each(function() {
+                        CkEditor.create(document.querySelector('.ckeditor'), {
+                            toolbar: [
+                                'heading', '|', 
+                                'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|', 
+                                'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|', 
+                                'undo', 'redo'
+                            ],
+                            language: 'es',
+                        }).then(editor => {
+                            window.editor = editor;
+                            // Descomentar para entornos de desarrollo
+                            //console.log(Array.from( window.editor.ui.componentFactory.names() ));
+                        }).catch(error => {
+                            console.error( error.stack );
                         });
-                    @endif
-                @endrole
+                        
+                    });
+                }
             });
-
             /*
              * Función que permite eliminar registros mediante ajax
              * 

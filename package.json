@@ -23,6 +23,8 @@
         "vue": "^2.6.9"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-alignment": "^11.1.0",
+        "@ckeditor/ckeditor5-build-classic": "^12.1.0",
         "bootbox": "^4.4.0",
         "bootstrap-fileinput": "^4.5.2",
         "chart.js": "^2.8.0",

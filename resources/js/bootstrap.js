@@ -27,6 +27,9 @@ try {
     require('vue-tables-2');
     /** Requerido para la gestión de fechas y horas */
     require('moment');
+
+    window.CkEditor = require('@ckeditor/ckeditor5-build-classic');
+    require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
 } catch (e) {}
 
 /**

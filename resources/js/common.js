@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    /** Tooltip para botón de eliminación de imagen */
     if ($('.img-delete').length) {
         $('.img-delete').attr({
             'title': 'Presione para eliminar esta imagen',
@@ -8,6 +9,7 @@ $(document).ready(function() {
         $('.img-delete').tooltip();
     }
 
+    /** Evento que muestra u oculta el enlace para la eliminación de una imagen */
     $('.form-group input[type=file]').on('change', function() {
         if ($(this).closest('.form-group').find('.row-delete-img').length) {
             if ($(this).val()) {
@@ -17,7 +19,9 @@ $(document).ready(function() {
                 $(this).closest('.form-group').find('.row-delete-img').hide();
             }
         }
-    })
+    });
+
+    
 });
 
 /**
