@@ -1,148 +1,3 @@
-@section('extra-js')
-	@parent
-	<script>
-		$(document).ready(function() {
-			/*$("#logo_id").fileinput({
-			    overwriteInitial: true,
-			    maxFileSize: 1500,
-			    showClose: false,
-			    showCaption: false,
-			    showBrowse: false,
-			    browseOnZoneClick: true,
-			    removeLabel: '',
-			    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-			    removeTitle: 'Cancel or reset changes',
-			    elErrorContainer: '#kv-avatar-errors-logo_id',
-			    msgErrorClass: 'alert alert-block alert-danger',
-			    defaultPreviewContent: '<img src="{{ asset('images/default-avatar.png') }}" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
-			    layoutTemplates: {main2: '{preview} {remove} {browse}'},
-			    allowedFileExtensions: ["jpg", "png", "gif"]
-			});*/
-
-			/*$("#banner_id").fileinput({
-			    overwriteInitial: true,
-			    maxFileSize: 1500,
-			    showClose: false,
-			    showCaption: false,
-			    showBrowse: false,
-			    browseOnZoneClick: true,
-			    removeLabel: '',
-			    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-			    removeTitle: 'Cancel or reset changes',
-			    elErrorContainer: '#kv-avatar-errors-banner_id',
-			    msgErrorClass: 'alert alert-block alert-danger',
-			    defaultPreviewContent: '<img src="{{ asset('images/default-avatar.png') }}" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
-			    layoutTemplates: {main2: '{preview} {remove} {browse}'},
-			    allowedFileExtensions: ["jpg", "png", "gif"]
-			});*/
-			@if ($model_setting!==null && $model_setting->multi_institution)
-				$(".btn-new-institution").on('click', function() {
-					var form = $("#card_config_institution form");
-					form.find('input[type=text]').val('');
-					form.find('input[type=date]').val('');
-					form.find('.select2:not(select[name^=DataTable])').val('');
-					form.find('.select2').trigger('change');
-					form.find('textarea').val('');
-					form.find('input[type=checkbox]').attr('checked', false);
-					form.find('input[type=radio]').attr('checked', false);
-					form.find('.bootstrap-switch').removeClass('bootstrap-switch-on');
-					form.find('.bootstrap-switch').addClass('bootstrap-switch-off');
-					form.find(".institution-logo").attr('src', "/images/no-image2.png");
-					form.find(".institution-banner").attr('src', "/images/no-image3.png");
-					form.find("#logo_id").val('');
-					form.find("#banner_id").val('');
-					form.find("#onapre_code").focus();
-				});
-			@endif
-		});
-
-		/**
-		 * Carga datos de la instiotución seleccionada
-		 *
-		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-		 * @param  {integer} id Identificador de la Institución a cargar
-		 */
-		var loadInstitution = function(id) {
-			axios.get(`get-institution/details/${id}`).then(response => {
-				if (response.data.result) {
-					var institution = response.data.institution;
-					$(".institution-logo").attr('src', "/images/no-image2.png");
-					$("#logo_id").val('');
-					$(".institution-banner").attr('src', "/images/no-image3.png");
-					$("#banner_id").val('');
-					if (institution.logo) {
-						$(".institution-logo").attr('src', `/${institution.logo.url}`);
-						$(".institution-logo").closest('.form-group').find('.row-delete-img').show();
-						$("#logo_id").val(institution.logo.id);
-					}
-					if (institution.banner) {
-						$(".institution-banner").attr('src', `/${institution.banner.url}`);
-						$(".institution-banner").closest('.form-group').find('.row-delete-img').show();
-						$("#banner_id").val(institution.banner.id);
-					}
-					$("#institution_id").val(institution.id);
-					$("#onapre_code").val(institution.onapre_code);
-					$("#rif").val(institution.rif);
-					$("input[name=name]").val(institution.name);
-					$("#acronym").val(institution.acronym);
-					$("#business_name").val(institution.business_name);
-					$("#country_id").val(institution.municipality.estate.country.id);
-					$("#country_id").trigger('change');
-					$("#estate_id").val(institution.municipality.estate.id);
-					$("#estate_id").trigger('change');
-					$("#municipality_id").val(institution.municipality.id);
-					$("#municipality_id").trigger('change');
-					$("#city_id").val(institution.city_id);
-					$("#city_id").trigger('change');
-					$("#postal_code").val(institution.postal_code);
-					$("#start_operations_date").val(institution.start_operations_date);
-					$("#institution_sector_id").val(institution.institution_sector_id);
-					$("#institution_sector_id").trigger('change');
-					$("#institution_type_id").val(institution.institution_type_id);
-					$("#institution_type_id").trigger('change');
-					$("#legal_address").val(institution.legal_address);
-					$("#web").val(institution.web);
-					$("#social_networks").val(institution.social_networks);
-					$("#social_networks").trigger('change');
-					$('#active').attr('checked', institution.active);
-					var activeSwitchRemoveClass = (institution.active) ? 'off' : 'on';
-					var activeSwitchAddClass = (institution.active) ? 'on' : 'off';
-					$('#active.bootstrap-switch').removeClass(`bootstrap-switch-${activeSwitchRemoveClass}`);
-					$('#active.bootstrap-switch').addClass(`bootstrap-switch-${activeSwitchAddClass}`);
-					$('#default').attr('checked', institution.default);
-					var defaultSwitchRemoveClass = (institution.default) ? 'off' : 'on';
-					var defaultSwitchAddClass = (institution.default) ? 'on' : 'off';
-					$('#default.bootstrap-switch').removeClass(`bootstrap-switch-${defaultSwitchRemoveClass}`);
-					$('#default.bootstrap-switch').addClass(`bootstrap-switch-${defaultSwitchAddClass}`);
-					$('#retention_agent').attr('checked', institution.retention_agent);
-					var retAgentSwitchRemoveClass = (institution.retention_agent) ? 'off' : 'on';
-					var retAgentSwitchAddClass = (institution.retention_agent) ? 'on' : 'off';
-					$('#retention_agent.bootstrap-switch').removeClass(`bootstrap-switch-${retAgentSwitchRemoveClass}`);
-					$('#retention_agent.bootstrap-switch').addClass(`bootstrap-switch-${retAgentSwitchAddClass}`);
-					$("#legal_base").val(institution.legal_base);
-					$("#legal_form").val(institution.legal_form);
-					$("#main_activity").val(institution.main_activity);
-					$("#mission").val(institution.mission);
-					$("#vision").val(institution.vision);
-					$("#composition_assets").val(institution.composition_assets);
-
-					/*$.gritter.add({
-				        title: 'Éxito',
-				        text: 'Los datos fueron cargados correctamente',
-				        class_name: 'growl-success',
-				        image: "/images/screen-ok.png",
-				        sticky: false,
-				        time: 1500
-				    });*/
-				    $("#onapre_code").focus();
-				}
-			}).catch(error => {
-				logs('setting-institution', 129, error, 'loadInstitution');
-			});
-		}
-	</script>
-@endsection
-
 <div class="row">
 	<div class="col-12">
 		<div class="card" id="card_config_institution">
@@ -599,21 +454,121 @@
 @section('extra-js')
 	@parent
 	<script>
-		$.each([
-			'legal_base', 'legal_form', 'main_activity', 'mission', 'vision', 'composition_assets'
-		], function(index, element_id) {
-			CkEditor.create(document.querySelector(`#${element_id}`), {
-	            toolbar: [
-	                'heading', '|', 
-	                'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|', 
-	                'insertTable'
-	            ],
-	            language: 'es',
-	        }).then(editor => {
-	            window.editor = editor;
-	        }).catch(error => {
-	            console.error( error.stack );
-	        });
+		$(document).ready(function() {
+			if (typeof CkEditor !== 'undefined') {
+				$.each([
+					'legal_base', 'legal_form', 'main_activity', 'mission', 'vision', 'composition_assets'
+				], function(index, element_id) {
+					CkEditor.create(document.querySelector(`#${element_id}`), {
+			            toolbar: [
+			                'heading', '|', 
+			                'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|', 
+			                'insertTable'
+			            ],
+			            language: 'es',
+			        }).then(editor => {
+			            window.editor = editor;
+			        }).catch(error => {
+			            console.error( error.stack );
+			        });
+				});
+			}
+			@if ($model_setting!==null && $model_setting->multi_institution)
+				$(".btn-new-institution").on('click', function() {
+					var form = $("#card_config_institution form");
+					form.find('input[type=text]').val('');
+					form.find('input[type=date]').val('');
+					form.find('.select2:not(select[name^=DataTable])').val('');
+					form.find('.select2').trigger('change');
+					form.find('textarea').val('');
+					form.find('input[type=checkbox]').attr('checked', false);
+					form.find('input[type=radio]').attr('checked', false);
+					form.find('.bootstrap-switch').removeClass('bootstrap-switch-on');
+					form.find('.bootstrap-switch').addClass('bootstrap-switch-off');
+					form.find(".institution-logo").attr('src', "/images/no-image2.png");
+					form.find(".institution-banner").attr('src', "/images/no-image3.png");
+					form.find("#logo_id").val('');
+					form.find("#banner_id").val('');
+					form.find("#onapre_code").focus();
+				});
+			@endif
 		});
+
+		/**
+		 * Carga datos de la instiotución seleccionada
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param  {integer} id Identificador de la Institución a cargar
+		 */
+		var loadInstitution = function(id) {
+			axios.get(`get-institution/details/${id}`).then(response => {
+				if (response.data.result) {
+					var institution = response.data.institution;
+					$(".institution-logo").attr('src', "/images/no-image2.png");
+					$("#logo_id").val('');
+					$(".institution-banner").attr('src', "/images/no-image3.png");
+					$("#banner_id").val('');
+					if (institution.logo) {
+						$(".institution-logo").attr('src', `/${institution.logo.url}`);
+						$(".institution-logo").closest('.form-group').find('.row-delete-img').show();
+						$("#logo_id").val(institution.logo.id);
+					}
+					if (institution.banner) {
+						$(".institution-banner").attr('src', `/${institution.banner.url}`);
+						$(".institution-banner").closest('.form-group').find('.row-delete-img').show();
+						$("#banner_id").val(institution.banner.id);
+					}
+					$("#institution_id").val(institution.id);
+					$("#onapre_code").val(institution.onapre_code);
+					$("#rif").val(institution.rif);
+					$("input[name=name]").val(institution.name);
+					$("#acronym").val(institution.acronym);
+					$("#business_name").val(institution.business_name);
+					$("#country_id").val(institution.municipality.estate.country.id);
+					$("#country_id").trigger('change');
+					$("#estate_id").val(institution.municipality.estate.id);
+					$("#estate_id").trigger('change');
+					$("#municipality_id").val(institution.municipality.id);
+					$("#municipality_id").trigger('change');
+					$("#city_id").val(institution.city_id);
+					$("#city_id").trigger('change');
+					$("#postal_code").val(institution.postal_code);
+					$("#start_operations_date").val(institution.start_operations_date);
+					$("#institution_sector_id").val(institution.institution_sector_id);
+					$("#institution_sector_id").trigger('change');
+					$("#institution_type_id").val(institution.institution_type_id);
+					$("#institution_type_id").trigger('change');
+					$("#legal_address").val(institution.legal_address);
+					$("#web").val(institution.web);
+					$("#social_networks").val(institution.social_networks);
+					$("#social_networks").trigger('change');
+					$('#active').attr('checked', institution.active);
+					var activeSwitchRemoveClass = (institution.active) ? 'off' : 'on';
+					var activeSwitchAddClass = (institution.active) ? 'on' : 'off';
+					$('#active.bootstrap-switch').removeClass(`bootstrap-switch-${activeSwitchRemoveClass}`);
+					$('#active.bootstrap-switch').addClass(`bootstrap-switch-${activeSwitchAddClass}`);
+					$('#default').attr('checked', institution.default);
+					var defaultSwitchRemoveClass = (institution.default) ? 'off' : 'on';
+					var defaultSwitchAddClass = (institution.default) ? 'on' : 'off';
+					$('#default.bootstrap-switch').removeClass(`bootstrap-switch-${defaultSwitchRemoveClass}`);
+					$('#default.bootstrap-switch').addClass(`bootstrap-switch-${defaultSwitchAddClass}`);
+					$('#retention_agent').attr('checked', institution.retention_agent);
+					var retAgentSwitchRemoveClass = (institution.retention_agent) ? 'off' : 'on';
+					var retAgentSwitchAddClass = (institution.retention_agent) ? 'on' : 'off';
+					$('#retention_agent.bootstrap-switch').removeClass(`bootstrap-switch-${retAgentSwitchRemoveClass}`);
+					$('#retention_agent.bootstrap-switch').addClass(`bootstrap-switch-${retAgentSwitchAddClass}`);
+					$("#legal_base").val(institution.legal_base);
+					$("#legal_form").val(institution.legal_form);
+					$("#main_activity").val(institution.main_activity);
+					$("#mission").val(institution.mission);
+					$("#vision").val(institution.vision);
+					$("#composition_assets").val(institution.composition_assets);
+
+				    $("#onapre_code").focus();
+				}
+			}).catch(error => {
+				logs('setting-institution', 129, error, 'loadInstitution');
+			});
+		}
 	</script>
-@stop
+@endsection
