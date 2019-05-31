@@ -42,20 +42,25 @@ class SettingController extends Controller
             'route' => 'institutions.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
             'enctype' => 'multipart/form-data'
         ];
+
+        $organism_adscripts = template_choices(
+            Institution::class, 'name', [], false, $model_institution->id
+        );
         $institutions = Institution::all();
-        $countries = template_choices('App\Models\Country');
-        $estates = template_choices('App\Models\Estate');
-        $municipalities = template_choices('App\Models\Municipality');
-        $parishes = template_choices('App\Models\Parish');
-        $cities = template_choices('App\Models\City');
-        $sectors = template_choices('App\Models\InstitutionSector');
-        $types = template_choices('App\Models\InstitutionType');
+        $countries = template_choices(Country::class);
+        $estates = template_choices(Estate::class);
+        $municipalities = template_choices(Municipality::class);
+        $parishes = template_choices(Parish::class);
+        $cities = template_choices(City::class);
+        $sectors = template_choices(InstitutionSector::class);
+        $types = template_choices(InstitutionType::class);
 
         return view(
             'admin.settings',
             compact(
-                'model_setting', 'header_setting', 'model_institution', 'header_institution', 'institutions',
-                'countries', 'estates', 'municipalities', 'parishes', 'cities', 'sectors', 'types'
+                'model_setting', 'header_setting', 'model_institution', 'header_institution', 
+                'institutions', 'countries', 'estates', 'municipalities', 'parishes', 'cities', 
+                'sectors', 'types', 'organism_adscripts'
             )
         );
     }
