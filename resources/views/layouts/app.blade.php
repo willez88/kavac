@@ -166,37 +166,37 @@
              * Actualiza información de un select a partir de otro
              *
              * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-             * @param  {integer} parent_id      Identificador del select padre que ejecuta la acción
+             * @param  {object}  parent_element Objeto con los datos del elemento que genera la acción
              * @param  {object}  target_element Objeto que se cargara con la información
              * @param  {string}  target_model   Modelo en el cual se va a realizar la consulta
              * @param  {string}  module_name    Nombre del módulo que ejecuta la acción
              */
-            function updateSelect(parent_id, target_element, target_model, module_name) {
+            function updateSelect(parent_element, target_element, target_model, module_name) {
                 var module_name = (typeof(module_name) !== "undefined")?'/' + module_name:'';
-                
-                target_element.select2({
-                    ajax: {
-                        url: '/get-select-data/' + parent_id + '/' + target_model + module_name,
-                        dataType: 'json',
-                        type: "GET",
-                        data: function (params) {
-                            return {
-                                q: params.term // search term
-                            };
-                        },
-                        processResults: function (data) {
-                            return {
-                                results: data
-                            };
-                        },
-                        cache: true,
-                        /*processResults: function(data) {
-                            return {
-                                results: data.items
-                            }
-                        }*/
-                    }
-                });
+                var parent_id = parent_element.val();
+                var parent_name = parent_element.attr('id');
+
+                target_element.empty().append('<option value="">Seleccione...</option>');
+
+                if (parent_id) {
+                    axios.get(
+                        `/get-select-data/${parent_name}/${parent_id}/${target_model}${module_name}`
+                    ).then(response => {
+                        if (response.data.result) {
+                            target_element.attr('disabled', false);
+                            $.each(response.data.records, function(index, record) {
+                                target_element.append(
+                                    `<option value="${record['id']}">${record['name']}</option>`
+                                );
+                            });
+                        }
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
+                else {
+                    target_element.attr('disabled', true);
+                }
             }
 
             /**

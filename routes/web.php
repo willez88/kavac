@@ -138,7 +138,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('currencies/info/{currency_id}', 'CurrencyController@getCurrencyInfo')->name('currency.info');
 
     /** Ruta para obtener datos de selecs dependientes dinámicamente */
-    Route::get('get-select-data/{parent_id}/{model}/{module_name}', 'CommonController@getSelectData');
+    Route::get(
+        'get-select-data/{parent_name}/{parent_id}/{model}/{module_name?}/{fk?}',
+        'CommonController@getSelectData'
+    );
 
     /** Ruta para obtener datos de los departamentos */
     Route::get('/get-departments/{institution_id}', 'DepartmentController@getDepartments')
