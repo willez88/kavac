@@ -8,6 +8,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+use Module;
+
 /**
  * @class BudgetCentralizedAction
  * @brief Datos de Acciones Centralizadas
@@ -71,7 +73,8 @@ class BudgetCentralizedAction extends Model implements Auditable
     public function payroll_position()
     {
         /** OJO: Independizar esta relación para que exista un módulo sin el otro */
-    	return $this->belongsTo(\Modules\Payroll\Models\PayrollPosition::class);
+        return (Module::has('Payroll'))
+               ? $this->belongsTo(\Modules\Payroll\Models\PayrollPosition::class) : [];
     }
 
     /**
@@ -82,7 +85,8 @@ class BudgetCentralizedAction extends Model implements Auditable
     public function payroll_staff()
     {
         /** OJO: Independizar esta relación para que exista un módulo sin el otro */
-    	return $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class);
+        return (Module::has('Payroll'))
+               ? $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class) : [];
     }
 
     /**

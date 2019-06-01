@@ -8,6 +8,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+use Module;
+
 /**
  * @class BudgetProject
  * @brief Datos de Proyectos
@@ -59,7 +61,8 @@ class BudgetProject extends Model implements Auditable
      */
     public function payroll_position()
     {
-    	return $this->belongsTo(\Modules\Payroll\Models\PayrollPosition::class);
+        return (Module::has('Payroll'))
+               ? $this->belongsTo(\Modules\Payroll\Models\PayrollPosition::class) : [];
     }
 
     /**
@@ -69,7 +72,8 @@ class BudgetProject extends Model implements Auditable
      */
     public function payroll_staff()
     {
-    	return $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class);
+        return (Module::has('Payroll'))
+               ? $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class) : [];
     }
 
     /**
