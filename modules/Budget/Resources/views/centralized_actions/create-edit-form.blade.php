@@ -49,26 +49,28 @@
 									]) !!}
 								</div>
 							</div>
-							<div class="col-3">
-								<div class="form-group is-required">
-									{!! Form::label('payroll_position_id', 'Cargo de Responsable', [
-										'class' => 'control-label'
-									]) !!}
-									{!! Form::select('payroll_position_id', $positions, null, [
-										'class' => 'select2', 'data-toggle' => 'tooltip',
-										'title' => 'Seleccione el cargo de la persona responsable del proyecto'
-									]) !!}
+							@if (Module::has('Payroll') && Module::enabled('Payroll'))
+								<div class="col-3">
+									<div class="form-group is-required">
+										{!! Form::label('payroll_position_id', 'Cargo de Responsable', [
+											'class' => 'control-label'
+										]) !!}
+										{!! Form::select('payroll_position_id', $positions, null, [
+											'class' => 'select2', 'data-toggle' => 'tooltip',
+											'title' => 'Seleccione el cargo de la persona responsable del proyecto'
+										]) !!}
+									</div>
 								</div>
-							</div>
-							<div class="col-3">
-								<div class="form-group is-required">
-									{!! Form::label('payroll_staff_id', 'Responsable', ['class' => 'control-label']) !!}
-									{!! Form::select('payroll_staff_id', $staffs, null, [
-										'class' => 'select2', 'data-toggle' => 'tooltip',
-										'title' => 'Seleccione una persona responsable del proyecto'
-									]) !!}
+								<div class="col-3">
+									<div class="form-group is-required">
+										{!! Form::label('payroll_staff_id', 'Responsable', ['class' => 'control-label']) !!}
+										{!! Form::select('payroll_staff_id', $staffs, null, [
+											'class' => 'select2', 'data-toggle' => 'tooltip',
+											'title' => 'Seleccione una persona responsable del proyecto'
+										]) !!}
+									</div>
 								</div>
-							</div>
+							@endif
 						</div>
 						<div class="row">
 							<div class="col-3">

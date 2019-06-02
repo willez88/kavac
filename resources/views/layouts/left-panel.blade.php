@@ -66,8 +66,10 @@
                 </li> --}}
                 {{-- Menú de opciones del módulo de firma digital --}}
                 @include('digitalsignature::layouts.menu-option')
-                {{-- Menú de opciones del módulo de nómina --}}
-                @include('payroll::layouts.menu-option')
+                @if (Module::has('Payroll') && Module::enabled('Payroll'))
+                    {{-- Menú de opciones del módulo de nómina --}}
+                    @include('payroll::layouts.menu-option')
+                @endif
                 {{-- Menú de opciones del módulo de presupuesto --}}
                 @include('budget::layouts.menu-option')
                 {{-- Menú de opciones del módulo de compras --}}

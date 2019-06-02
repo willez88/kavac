@@ -12,6 +12,8 @@ use App\Models\CodeSetting;
 use Modules\Budget\Models\DocumentStatus;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
 use Modules\Budget\Models\BudgetAccountOpen;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DataImport;
 
 /**
  * @class BudgetSubSpecificFormulationController
@@ -317,5 +319,13 @@ class BudgetSubSpecificFormulationController extends Controller
         }
 
         return response()->json(['result' => true, 'account' => $account_data], 200);
+    }
+
+    public function importFormulation()
+    {
+        return response()->json([
+            'result' => true, 
+            'records' => Excel::toArray(new DataImport, request()->file('file'))[0]
+        ], 200);
     }
 }
