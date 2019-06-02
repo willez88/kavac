@@ -13,9 +13,6 @@
 				<i class="fa fa-trash-o"></i>
 			</button>
 		</div>
-		<div slot="payroll_staff.first_name" slot-scope="props">
-			{{ props.row.payroll_staff.first_name }} {{ props.row.payroll_staff.last_name }}
-		</div>
 		<div slot="active" slot-scope="props" class="text-center">
 			<span v-if="props.row.active">SI</span>
 			<span v-else>NO</span>
@@ -28,24 +25,22 @@
 		data() {
 			return {
 				records: [],
-				columns: ['code', 'name', 'payroll_staff.first_name', 'active', 'id']
+				columns: ['code', 'name', 'active', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
 				'code': 'Código',
 				'name': 'Proyecto',
-				'payroll_staff.first_name': 'Responsable',
 				'active': 'Activo',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['code', 'name', 'payroll_staff.first_name'];
-			this.table_options.filterable = ['code', 'name', 'payroll_staff.first_name'];
+			this.table_options.sortable = ['code', 'name'];
+			this.table_options.filterable = ['code', 'name'];
 			this.table_options.columnsClasses = {
 				'code': 'col-md-2',
-				'name': 'col-md-4',
-				'payroll_staff.first_name': 'col-md-3',
-				'active': 'col-md-1',
+				'name': 'col-md-6',
+				'active': 'col-md-2',
 				'id': 'col-md-2'
 			};
 		},

@@ -1,4 +1,4 @@
-<template>
+	<template>
 	<v-client-table :columns="columns" :data="records" :options="table_options">
 		<div slot="id" slot-scope="props" class="text-center">
 			<button @click="editForm(props.row.id)" 
@@ -13,9 +13,6 @@
 				<i class="fa fa-trash-o"></i>
 			</button>
 		</div>
-		<div slot="payroll_staff.first_name" slot-scope="props">
-			{{ props.row.payroll_staff.first_name }} {{ props.row.payroll_staff.last_name }}
-		</div>
 		<div slot="active" slot-scope="props" class="text-center">
 			<span v-if="props.row.active">SI</span>
 			<span v-else>NO</span>
@@ -28,7 +25,7 @@
 		data() {
 			return {
 				records: [],
-				columns: ['custom_date', 'code', 'name', 'payroll_staff.first_name', 'active', 'id']
+				columns: ['custom_date', 'code', 'name', 'active', 'id']
 			}
 		},
 		created() {
@@ -36,17 +33,15 @@
 				'custom_date': 'Fecha',
 				'code': 'Código',
 				'name': 'Acción Centralizada',
-				'payroll_staff.first_name': 'Responsable',
 				'active': 'Activa',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['custom_date', 'code', 'name', 'payroll_staff.first_name'];
-			this.table_options.filterable = ['custom_date', 'code', 'name', 'payroll_staff.first_name'];
+			this.table_options.sortable = ['custom_date', 'code', 'name'];
+			this.table_options.filterable = ['custom_date', 'code', 'name'];
 			this.table_options.columnsClasses = {
 				'custom_date': 'col-md-2',
 				'code': 'col-md-2',
-				'name': 'col-md-3',
-				'payroll_staff.first_name': 'col-md-2',
+				'name': 'col-md-5',
 				'active': 'col-md-1',
 				'id': 'col-md-2'
 			};
