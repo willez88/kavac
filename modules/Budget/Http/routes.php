@@ -76,6 +76,8 @@ Route::group([
         'get-availability-opened-accounts/{specific_action_id}/{account_id}', 
         'BudgetSubSpecificFormulationController@getAvailabilityOpenedAccounts'
     )->name('get-availability-opened-accounts');
+    Route::post('get-import-formulation', 'BudgetSubSpecificFormulationController@importFormulation')
+         ->name('import.formulation');
 
     /** Rutas para la gestión de créditos adicionales */
     Route::resource('aditional-credits', 'BudgetAditionalCreditController', ['as' => 'budget', 'except' => ['show']]);
