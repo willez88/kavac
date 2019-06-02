@@ -26870,7 +26870,7 @@ a.level-debug:hover {
 }
 
 .navbar > .container-left {
-  width: 230px;
+  width: 275px;
   max-height: 60px;
   padding: 14px 15px;
   float: left;
@@ -26932,7 +26932,7 @@ a.level-debug:hover {
   }
 }
 
-@media screen and (max-width: 1366px) {
+@media screen and (max-width: 1365px) {
   .navbar > .container-left {
     top: -10px;
     /*width:275px;*/

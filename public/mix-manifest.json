@@ -6,8 +6,7 @@
     "/css/now-ui-kit.css": "/css/now-ui-kit.css",
     "/css/custom.css": "/css/custom.css",
     "/js/chart.js": "/js/chart.js",
+    "/js/ckeditor.js": "/js/ckeditor.js",
     "/js/generic-classes.js": "/js/generic-classes.js",
-    "/js/common.js": "/js/common.js",
-    "/js/app.min.js": "/js/app.min.js",
-    "/css/app.min.css": "/css/app.min.css"
+    "/js/common.js": "/js/common.js"
 }

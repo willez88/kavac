@@ -182,7 +182,7 @@
 
 @section('extra-js')
     @parent
-    {!! Html::script('js/chart.js') !!}
+    {!! Html::script('js/chart.js', [], Request::secure()) !!}
     <script>
         $(function() {
             new Chart(document.getElementById("stats-doughnut-chart"), {

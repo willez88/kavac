@@ -12,12 +12,6 @@ try {
     /** Required for Bootstrap 4 */
     window.Popper = require('popper.js').default;
     require('bootstrap');
-    /** Required for file input uploads */
-    require('bootstrap-fileinput');
-    require('bootstrap-fileinput/js/locales/es');
-    require('bootstrap-fileinput/themes/fa/theme');
-    /** Override fileinput default icon fonts to FontAwesome and locale */
-    $('input[type=file].file-element').fileinput({theme: 'fa', language: 'es'});
     /** JQuery.Complexify required for validate strong password */
     require('jquery.complexify/jquery.complexify.banlist');
     require('jquery.complexify');
@@ -28,8 +22,6 @@ try {
     /** Requerido para la gestión de fechas y horas */
     require('moment');
 
-    window.CkEditor = require('@ckeditor/ckeditor5-build-classic');
-    require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
 } catch (e) {}
 
 /**

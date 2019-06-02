@@ -26,5 +26,7 @@
 
 @section('extra-js')
     @parent
-    {!! Html::script('modules/budget/js/app.js', ['type' => 'text/javascript']) !!}
+    {!! Html::script(
+        'modules/budget/js/app.js', ['type' => 'text/javascript'], Request::secure()
+    ) !!}
 @stop

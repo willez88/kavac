@@ -453,6 +453,7 @@
 
 @section('extra-js')
 	@parent
+	{!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
 	<script>
 		$(document).ready(function() {
 			if (typeof CkEditor !== 'undefined') {

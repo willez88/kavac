@@ -21,6 +21,7 @@ mix.js([
       //'resources/js/loading-message.js'
 	], 'public/js')
    .js('resources/js/chart.js', 'public/js')
+   .js('resources/js/ckeditor.js', 'public/js')
    .copy('resources/js/generic-classes.js', 'public/js/generic-classes.js')
    .copy('resources/js/common.js', 'public/js/common.js')
    .sass('resources/sass/app.scss', 'public/css')
@@ -32,8 +33,6 @@ mix.js([
    		'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css', 
    		'public/css/now-ui-kit.css', 'public/css/custom.css'
    ], 'public/css/app.css')
-   .minify('public/js/app.js')
-   .minify('public/css/app.css')
    .sourceMaps();
 
 

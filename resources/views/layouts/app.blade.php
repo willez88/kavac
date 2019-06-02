@@ -11,18 +11,24 @@
         <title>{{ config('app.name') }} | Sistema de Gestión Administrativa</title>
 
         {{-- Estilos de la aplicación --}}
-        {!! Html::style('css/app.css') !!}
+        {!! Html::style('css/app.css', [], Request::secure()) !!}
         {{-- Icofont --}}
-        {!! Html::style('css/icofont.css') !!}
+        {!! Html::style('css/icofont.css', [], Request::secure()) !!}
         {{-- Estilos de Plugins --}}
         {{-- Datatable --}}
-        {!! Html::style('vendor/datatable/css/dataTables.bootstrap4.min.css') !!}
-        {!! Html::style('vendor/datatable/css/jquery.dataTables.min.css') !!}
-        {!! Html::style('vendor/datatable/css/select.dataTables.min.css') !!}
-        {!! Html::style('vendor/datatable/css/buttons.dataTables.min.css') !!}
-        {!! Html::style('vendor/datatable/responsive/css/responsive.bootstrap4.min.css') !!}
+        {!! Html::style(
+            'vendor/datatable/css/dataTables.bootstrap4.min.css', [], Request::secure()
+        ) !!}
+        {!! Html::style('vendor/datatable/css/jquery.dataTables.min.css', [], Request::secure()) !!}
+        {!! Html::style('vendor/datatable/css/select.dataTables.min.css', [], Request::secure()) !!}
+        {!! Html::style(
+            'vendor/datatable/css/buttons.dataTables.min.css', [], Request::secure()
+        ) !!}
+        {!! Html::style(
+            'vendor/datatable/responsive/css/responsive.bootstrap4.min.css', [], Request::secure()
+        ) !!}
         {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
-        {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css') !!}
+        {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css', [], Request::secure()) !!}
         <style>
             .ck-editor__editable {min-height: 200px !important;}
         </style>
@@ -68,23 +74,31 @@
         @yield('modals')
         {{-- Scripts --}}
         {{-- Plugin Sliders --}}
-        {!! Html::script('js/nouislider.min.js') !!}
+        {!! Html::script('js/nouislider.min.js', [], Request::secure()) !!}
         {{-- Scripts de la aplicación --}}
-        {!! Html::script('js/generic-classes.js') !!}
-        {!! Html::script('js/app.js') !!}
+        {!! Html::script('js/generic-classes.js', [], Request::secure()) !!}
+        {!! Html::script('js/app.js', [], Request::secure()) !!}
         {{-- Plugin Bootbox --}}
-        {!! Html::script('js/bootbox.min.js') !!}
+        {!! Html::script('js/bootbox.min.js', [], Request::secure()) !!}
         {{-- Plugin Datatable --}}
-        {!! Html::script('vendor/datatable/js/jquery.dataTables.min.js') !!}
-        {!! Html::script('vendor/datatable/js/dataTables.select.min.js') !!}
-        {!! Html::script('vendor/datatable/js/dataTables.buttons.min.js') !!}
-        {!! Html::script('vendor/datatable/js/dataTables.bootstrap4.min.js') !!}
-        {!! Html::script('vendor/datatable/js/dataTables.responsive.min.js') !!}
-        {!! Html::script('vendor/datatable/js/responsive.bootstrap4.min.js') !!}
+        {!! Html::script('vendor/datatable/js/jquery.dataTables.min.js', [], Request::secure()) !!}
+        {!! Html::script('vendor/datatable/js/dataTables.select.min.js', [], Request::secure()) !!}
+        {!! Html::script('vendor/datatable/js/dataTables.buttons.min.js', [], Request::secure()) !!}
+        {!! Html::script(
+            'vendor/datatable/js/dataTables.bootstrap4.min.js', [], Request::secure()
+        ) !!}
+        {!! Html::script(
+            'vendor/datatable/js/dataTables.responsive.min.js', [], Request::secure()
+        ) !!}
+        {!! Html::script(
+            'vendor/datatable/js/responsive.bootstrap4.min.js', [], Request::secure()
+        ) !!}
         {{-- Plugin Gritter --}}
-        {!! Html::script('vendor/jquery.gritter/js/jquery.gritter.min.js') !!}
+        {!! Html::script(
+            'vendor/jquery.gritter/js/jquery.gritter.min.js', [], Request::secure()
+        ) !!}
         {{-- Scripts comúnes --}}
-        {!! Html::script('js/common.js') !!}
+        {!! Html::script('js/common.js', [], Request::secure()) !!}
         {{-- Botón de ir al inicio de la página cuando se excede de un alto preestablecido --}}
         @include('buttons.to-top')
         
@@ -98,7 +112,8 @@
                         CkEditor.create(document.querySelector('.ckeditor'), {
                             toolbar: [
                                 'heading', '|', 
-                                'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|', 
+                                'bold', 'italic', 'blockQuote', 'link', 
+                                'numberedList', 'bulletedList', '|', 
                                 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|', 
                                 'undo', 'redo'
                             ],
