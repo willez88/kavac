@@ -253,6 +253,15 @@ Vue.mixin({
 			location.href = url;
 		},
 		/**
+		 * Ejecuta el evento click del campo de tipo archivo al cual cargar información
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @param {string} input_id Identificador del campo de tipo archivo
+		 */
+		setFile(input_id) {
+			$(`#${input_id}`).click();
+		},
+		/**
 		 * Método que permite dar formato a una fecha
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
