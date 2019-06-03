@@ -23,6 +23,17 @@
                 Formulación
             </a>
         </li>
+        <li class="{!! set_active_menu([
+            'budget.aditional-credits.index', 'budget.aditional-credits.create', 'budget.aditional-credits.edit',
+            'budget.reductions.index', 'budget.reductions.create', 'budget.reductions.edit',
+            'budget.transfers.index', 'budget.transfers.create', 'budget.transfers.edit',
+            'budget.modifications.index', 'budget.modifications.create', 'budget.modifications.edit'
+        ]) !!}">
+            <a href="{{ route('budget.modifications.index') }}" data-toggle="tooltip" 
+               title="Gestiona las modificaciones presupuestarias (créditos adicionales, reducciones, traspasos, etc.)">
+                Modificaciones
+            </a>
+        </li>
         <li>
             <a href="#" title="Gestiona las modificaciones presupuestarias (créditos adicionales, reducciones, traspasos, etc.)" data-toggle="tooltip" data-placement="right">Modificaciones</a>
             <ul class="submenu" style="{!! display_submenu(['aditional-credits', 'reductions', 'transfers']) !!}">

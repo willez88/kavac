@@ -261,6 +261,30 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
                 'slug_alt' => 'traspaso.ver', 'short_description' => 'ver traspaso de presupuesto'
             ],
+            [
+                'name' => 'Crear modificación presupuestaria', 'slug' => 'budget.modifications.create',
+                'description' => 'Acceso para crear modificación presupuestaria', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'modificacion.crear', 'short_description' => 'agregar modificación presupuestaria'
+            ],
+            [
+                'name' => 'Editar modificación presupuestaria', 'slug' => 'budget.modifications.edit',
+                'description' => 'Acceso para editar modificaciones presupuestarias', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'modificacion.editar', 'short_description' => 'editar modificación presupuestaria'
+            ],
+            [
+                'name' => 'Eliminar modificación presupuestaria', 'slug' => 'budget.modifications.delete',
+                'description' => 'Acceso para eliminar modificaciones presupuestarias', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'modificacion.eliminar', 'short_description' => 'eliminar modificación presupuestaria'
+            ],
+            [
+                'name' => 'Ver modificaciones presupuestarias', 'slug' => 'budget.modifications.list',
+                'description' => 'Acceso para ver modificaciones presupuestarias', 
+                'model' => 'Modules\Budget\Models\BudgetModification', 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'modificacion.ver', 'short_description' => 'ver modificación presupuestaria'
+            ],
         ];
 
         $budgetRole->detachAllPermissions();

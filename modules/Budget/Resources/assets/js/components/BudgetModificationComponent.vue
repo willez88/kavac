@@ -273,10 +273,6 @@
 			vm.reset();
 			vm.getInstitutions();
 			vm.getAccounts();
-
-			/*$("#approved_at").on('change', function() {
-				vm.record.approved_at = $(this).val();
-			});*/
 		},
 		watch: {
 			/** 

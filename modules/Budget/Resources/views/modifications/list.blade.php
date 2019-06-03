@@ -30,7 +30,7 @@
 				</div>
 				<div class="card-body">
 					<budget-modification-list route_list='{{ url('budget/aditional-credits/vue-list') }}' 
-											  route_delete="{{ url('budget/aditional-credits/delete') }}" 
+											  route_delete="{{ url('budget/modifications') }}" 
 											  route_edit="{{ url('budget/aditional-credits/{id}/edit') }}"/>
 				</div>
 			</div>
@@ -44,14 +44,14 @@
 					<h6 class="card-title">Listado de Reducciones</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('budget.aditional-credits.create')])
+						@include('buttons.new', ['route' => route('budget.reductions.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-modification-list route_list='{{ url('budget/aditional-credits/vue-list') }}' 
-											  route_delete="{{ url('budget/aditional-credits/delete') }}" 
-											  route_edit="{{ url('budget/aditional-credits/{id}/edit') }}"/>
+					<budget-modification-list route_list='{{ url('budget/reductions/vue-list') }}' 
+											  route_delete="{{ url('budget/modifications') }}" 
+											  route_edit="{{ url('budget/reductions/{id}/edit') }}"/>
 				</div>
 			</div>
 		</div>
@@ -64,14 +64,14 @@
 					<h6 class="card-title">Listado de Traspasos</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('budget.aditional-credits.create')])
+						@include('buttons.new', ['route' => route('budget.transfers.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-modification-list route_list='{{ url('budget/aditional-credits/vue-list') }}' 
-											  route_delete="{{ url('budget/aditional-credits/delete') }}" 
-											  route_edit="{{ url('budget/aditional-credits/{id}/edit') }}"/>
+					<budget-modification-list route_list='{{ url('budget/transfers/vue-list') }}' 
+											  route_delete="{{ url('budget/modifications') }}" 
+											  route_edit="{{ url('budget/transfers/{id}/edit') }}"/>
 				</div>
 			</div>
 		</div>

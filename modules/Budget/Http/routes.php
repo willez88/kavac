@@ -79,6 +79,10 @@ Route::group([
     Route::post('get-import-formulation', 'BudgetSubSpecificFormulationController@importFormulation')
          ->name('import.formulation');
 
+    /** Rutas para la gestión de modificaciones presupuestarias */
+    Route::resource('modifications', 'BudgetModificationController', [
+        'as' => 'budget', 'except' => ['show', 'create', 'store', 'edit', 'update']
+    ]);
     /** Rutas para la gestión de créditos adicionales */
     Route::resource('aditional-credits', 'BudgetAditionalCreditController', ['as' => 'budget', 'except' => ['show']]);
     Route::get('aditional-credits/vue-list', 'BudgetAditionalCreditController@vueList')
