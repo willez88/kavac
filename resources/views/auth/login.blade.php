@@ -6,7 +6,9 @@
         <div class="header header-primary text-center">
             <div class="logo-container">
                 <img src="{{ asset('images/logo-mini.png') }}" alt="">
+                <img src="{{ asset('images/app-name-white.png') }}" alt="" />
             </div>
+            <h6>Acceso</h6>
         </div>
         <div class="content">
             <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">

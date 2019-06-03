@@ -4,7 +4,11 @@
     {!! Form::open(['route' => 'password.request', 'method' => 'POST', 'class' => 'form']) !!}
         {{ csrf_field() }}
         <div class="header header-primary text-center">
-            Reiniciar Contraseña
+            <div class="logo-container">
+                <img src="{{ asset('images/logo-mini.png') }}" alt="">
+                <img src="{{ asset('images/app-name-white.png') }}" alt="" />
+            </div>
+            <h6>Reiniciar Contraseña</h6>
         </div>
         <div class="content">
             @if (session('status'))

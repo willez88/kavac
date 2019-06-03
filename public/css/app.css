@@ -26235,6 +26235,14 @@ table td {
   margin-bottom: 20px;
 }
 
+.login-page .card-login .logo-container {
+  margin-bottom: 35px !important;
+}
+
+.login-page .card-login .content {
+  margin: 50px auto !important;
+}
+
 .login-page .page-header .page-header-image {
   background-image: url(/images/auth-bg.jpg?f807b37b1736e7709918ea35ef80ca7d);
 }
@@ -26870,7 +26878,8 @@ a.level-debug:hover {
 }
 
 .navbar > .container-left {
-  width: 275px;
+  /*width:275px;*/
+  width: 232px;
   max-height: 60px;
   padding: 14px 15px;
   float: left;

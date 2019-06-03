@@ -5,7 +5,8 @@
 	</div> --}}
 	<div class="container-left">
 		<a href="{{ route('index') }}" class="logo">
-            <img src="{{ asset('images/logo-white.png') }}" alt="" /> 
+            <img src="{{ asset('images/logo-white.png') }}" alt="" />
+            <img src="{{ asset('images/app-name-white.png') }}" alt="" />
         </a>
         <div class="float-right">
             <a href="" class="menu-collapse">
