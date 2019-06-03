@@ -65,24 +65,9 @@
                     </a>
                 </li> --}}
                 {{-- Menú de opciones del módulo de firma digital --}}
-                @include('digitalsignature::layouts.menu-option')
-                @if (Module::has('Payroll') && Module::enabled('Payroll'))
-                    {{-- Menú de opciones del módulo de nómina --}}
-                    @include('payroll::layouts.menu-option')
-                @endif
-                {{-- Menú de opciones del módulo de presupuesto --}}
-                @include('budget::layouts.menu-option')
-                {{-- Menú de opciones del módulo de compras --}}
-                @include('purchase::layouts.menu-option')
-                {{-- Menú de opciones del módulo de almacén --}}
-                @include('warehouse::layouts.menu-option')
-                {{-- Menú de opciones del módulo de bienes --}}
-                @include('asset::layouts.menu-option')
-                {{-- Menú de opciones del módulo de finanzas --}}
-                @include('finance::layouts.menu-option')
-                {{-- Menú de opciones del módulo de contabilidad --}}
-                @include('accounting::layouts.menu-option')
-                {{-- Gestión de cuentas por pagar --}}
+                @foreach (\Module::collections(1) as $module)
+                    @include(strtolower($module->name) . '::layouts.menu-option')
+                @endforeach
                 <li>
                     <a href="#" title="Gestión de cuentas por pagar" data-toggle="tooltip" data-placement="right">
                         <i class="ion-ios-paper-outline"></i><span>Cuentas Por Pagar</span>
