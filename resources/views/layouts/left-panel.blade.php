@@ -64,8 +64,8 @@
                         <i class="ion-ios-people-outline"></i><span>Beneficiarios</span>
                     </a>
                 </li> --}}
-                {{-- Menú de opciones del módulo de firma digital --}}
                 @foreach (\Module::collections(1) as $module)
+                    {{-- Menú de opciones de módulos instalados y habilitados --}}
                     @include(strtolower($module->name) . '::layouts.menu-option')
                 @endforeach
                 <li>
