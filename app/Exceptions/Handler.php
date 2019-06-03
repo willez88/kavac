@@ -83,6 +83,21 @@ class Handler extends ExceptionHandler
             $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
             return redirect()->back();
         }
+
+        if ($exception instanceof \PhpOffice\PhpSpreadsheet\Reader\Exception) {
+            /** Excepción capturada cuando un archivo a importar es inválido */
+            $msg = 'El archivo a importar es inválido. Revise que los datos de la cabecera sean correctos y que contenga información.';
+
+            if ($request->ajax()) {
+                return response()->json(['result' => false, 'message' => $msg], 200);
+            }
+            
+            $request->session()->flash('message', [
+                'type' => 'other', 'msg' => $msg, 'title' => 'Error!', 'icon' => 'screen-error',
+                'class' => 'growl-danger'
+            ]);
+        }
+
         return parent::render($request, $exception);
     }
 }
