@@ -477,19 +477,26 @@
 			@if ($model_setting!==null && $model_setting->multi_institution)
 				$(".btn-new-institution").on('click', function() {
 					var form = $("#card_config_institution form");
-					form.find('input[type=text]').val('');
-					form.find('input[type=date]').val('');
-					form.find('.select2:not(select[name^=DataTable])').val('');
+					var clearEl = {
+						val: [
+							'input[type=text]', 'input[type=date]', 
+							'.select2:not(select[name^=DataTable])', 'textarea', 
+							"#logo_id", "#banner_id"
+						],
+						attr: [
+
+						]
+					};
+					$.each(clearEl.val, function(index, el) {
+						form.find(el).val('');
+					});
 					form.find('.select2').trigger('change');
-					form.find('textarea').val('');
 					form.find('input[type=checkbox]').attr('checked', false);
 					form.find('input[type=radio]').attr('checked', false);
 					form.find('.bootstrap-switch').removeClass('bootstrap-switch-on');
 					form.find('.bootstrap-switch').addClass('bootstrap-switch-off');
 					form.find(".institution-logo").attr('src', "/images/no-image2.png");
 					form.find(".institution-banner").attr('src', "/images/no-image3.png");
-					form.find("#logo_id").val('');
-					form.find("#banner_id").val('');
 					form.find("#onapre_code").focus();
 				});
 			@endif

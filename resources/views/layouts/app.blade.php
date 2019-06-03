@@ -29,9 +29,6 @@
         ) !!}
         {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
         {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css', [], Request::secure()) !!}
-        <style>
-            .ck-editor__editable {min-height: 200px !important;}
-        </style>
         <script>
             window.access = true;
             window.log_url = '{{ route('logs.front-end') }}';

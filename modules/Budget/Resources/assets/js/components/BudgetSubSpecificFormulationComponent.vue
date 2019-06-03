@@ -80,9 +80,8 @@
 					<div class="float-right">
 						<form action="" id="" method="post" role="form" class="form" 
 							  enctype="multipart/form-data">
-							  <!--:disabled="(!record.institution_id || !record.currency_id || !record.specific_action_id)"-->
 							<button type="button" data-toggle="tooltip"  
-									
+									:disabled="(!record.institution_id || !record.currency_id || !record.specific_action_id)"
 									class="btn btn-sm btn-info btn-import" 
 									title="Presione para importar la información. Los archivos permitidos son: .csv, .ods, .xls o .xlsx" 
 									@click="setFile('import_formulation')">
@@ -767,26 +766,32 @@
 							$.each(row, function(j, col) {
 								objData[j] = (col) ? col : 0;
 							});
-							var accountEl = $(`[data-code="${objData.code}"]`);
+							var accountEl = $(`[data-code="${objData.codigo}"]`);
 							var index = accountEl.data('index');
 							accountEl.find("[id^=add_account]").click();
 							vm.records[index].total_real_amount = objData.total_real;
-							vm.records[index].total_estimated_amount = objData.total_estimated;
-							vm.records[index].total_year_amount = objData.total_year;
-							vm.records[index].jan_amount = objData.jan;
+							vm.records[index].total_estimated_amount = objData.total_estimado;
+							vm.records[index].total_year_amount = objData.total_anho;
+							vm.records[index].jan_amount = objData.ene;
 							vm.records[index].feb_amount = objData.feb;
 							vm.records[index].mar_amount = objData.mar;
-							vm.records[index].apr_amount = objData.apr;
+							vm.records[index].apr_amount = objData.abr;
 							vm.records[index].may_amount = objData.may;
 							vm.records[index].jun_amount = objData.jun;
 							vm.records[index].jul_amount = objData.jul;
-							vm.records[index].aug_amount = objData.aug;
+							vm.records[index].aug_amount = objData.ago;
 							vm.records[index].sep_amount = objData.sep;
 							vm.records[index].oct_amount = objData.oct;
 							vm.records[index].nov_amount = objData.nov;
-							vm.records[index].dec_amount = objData.dec;
-							vm.calculateAmounts(index, (objData.total_year > 0) ? 'year' : 'month');
+							vm.records[index].dec_amount = objData.dic;
+							vm.calculateAmounts(index, (objData.total_anho > 0) ? 'year' : 'month');
 						});
+					}
+					else {
+						vm.showMessage(
+							'custom', 'Error!', 'danger', 'screen-error', 
+							response.data.message
+						);
 					}
 				}).catch(error => {
 					console.log(error);

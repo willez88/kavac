@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\CodeSetting;
@@ -13,6 +14,7 @@ use Modules\Budget\Models\DocumentStatus;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
 use Modules\Budget\Models\BudgetAccountOpen;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\HeadingRowImport;
 use App\Imports\DataImport;
 
 /**
@@ -323,6 +325,40 @@ class BudgetSubSpecificFormulationController extends Controller
 
     public function importFormulation()
     {
+        $headings = (new HeadingRowImport)->toArray(request()->file('file'));
+        $records = Excel::toArray(new DataImport, request()->file('file'))[0];
+        $msg = '';
+
+        if (count($headings) < 1 || $headings[0] < 1) {
+            $msg = 'El archivo no contiene las cabeceras de los datos a importar.';
+        }
+        else if (count($headings) === 1 && $headings[0] >= 1) {
+            $validHeads = [
+                'codigo', 'total_real', 'total_estimado', 'total_anho', 'ene', 'feb', 'mar', 
+                'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+            ];
+            foreach ($validHeads as $vh) {
+                if (!in_array($vh,$headings[0][0])) {
+                    $msg = "El archivo no contiene una de las cabeceras requeridas.";
+                    break;
+                }
+            }
+        }
+        else if (count($records) < 1) {
+            $msg = "El archivo no contiene registros a ser importados.";
+        }
+        
+        foreach ($records as $record) {
+            $rec = (object)$record;
+            
+            if (!is_null($rec->total_real) && !is_numeric($rec->total_real)) {
+
+            }
+        }
+        if (!empty($msg)) {
+            return response()->json(['result' => false, 'message' => $msg], 200);
+        }
+
         return response()->json([
             'result' => true, 
             'records' => Excel::toArray(new DataImport, request()->file('file'))[0]
