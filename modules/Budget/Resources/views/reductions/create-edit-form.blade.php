@@ -27,65 +27,7 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				{!! (!isset($model))?Form::open($header):Form::model($model, $header) !!}
-					<div class="card-body">
-						@include('layouts.form-errors')
-						<div class="row">
-							<div class="col-md-2">
-								<div class="form-group is-required">
-									{!! Form::label('credit_date', 'Fecha de creación', [
-										'class' => 'control-label'
-									]) !!}
-									{!! Form::date('credit_date', old('credit_date'), [
-										'class' => 'form-control input-sm', 'placeholder' => 'dd/mm/YY',
-										'data-toggle' => 'tooltip', 'id' => 'credit_date',
-										'title' => 'Fecha en la que se otorgó el crédito adicional'
-									]) !!}
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group is-required">
-									<div class="form-group is-required">
-									{!! Form::label('institution_id', 'Institución', ['class' => 'control-label']) !!}
-									{!! Form::select('institution_id', $institutions, null, [
-										'class' => 'select2', 'data-toggle' => 'tooltip',
-										'title' => 'Seleccione una institución'
-									]) !!}
-								</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group is-required">
-									{!! Form::label('document', 'Documento', ['class' => 'control-label']) !!}
-									{!! Form::text('document', old('document'), [
-										'class' => 'form-control input-sm', 'placeholder' => 'Nro. Documento',
-										'data-toggle' => 'tooltip', 
-										'title' => 'Número del documento, decreto o misiva que avala ' . 
-												   'el crédito adicional'
-									]) !!}
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-12">
-								<div class="form-group is-required">
-									{!! Form::label('description', 'Descripción', [
-										'class' => 'control-label'
-									]) !!}
-									{!! Form::text('description', old('description'), [
-										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip', 
-										'placeholder' => 'Descripción / Detalles',
-										'title' => 'Descripción o detalle del crédito adicional'
-									]) !!}
-								</div>
-							</div>
-						</div>
-						<budget-aditional-credit-add/>
-					</div>
-					<div class="card-footer text-right">
-						@include('layouts.form-buttons')
-					</div>
-				{!! Form::close() !!}
+				<budget-modification :type_modification="{!! $type !!}"></budget-modification>
 			</div>
 		</div>
 	</div>

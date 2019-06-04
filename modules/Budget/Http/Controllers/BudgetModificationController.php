@@ -43,6 +43,39 @@ class BudgetModificationController extends Controller
     }
 
     /**
+     * Muestra el formulario para crear un crédito adicional
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return Response
+     */
+    public function create($type)
+    {
+        $viewTemplate = ($type==="AC") 
+                        ? 'aditional_credits' 
+                        : (($type==='RE') 
+                          ? 'reductions' 
+                          : (($type==="TR") 
+                            ? 'transfers' : ''));
+
+        return view("budget::$viewTemplate.create-edit-form", compact('type'));
+    }
+
+    public function store(Request $request)
+    {
+
+    }
+
+    public function edit($type, BudgetModification $modification)
+    {
+
+    }
+
+    public function update(Request $request, BudgetModification $modification)
+    {
+
+    }
+
+    /**
      * Remove the specified resource from storage.
      * @return Response
      */

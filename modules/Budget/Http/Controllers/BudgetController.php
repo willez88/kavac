@@ -17,6 +17,11 @@ use Illuminate\Routing\Controller;
  */
 class BudgetController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:budget|admin');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response

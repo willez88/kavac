@@ -35,26 +35,6 @@
             </a>
         </li>
         <li>
-            <a href="#" title="Gestiona las modificaciones presupuestarias (créditos adicionales, reducciones, traspasos, etc.)" data-toggle="tooltip" data-placement="right">Modificaciones</a>
-            <ul class="submenu" style="{!! display_submenu(['aditional-credits', 'reductions', 'transfers']) !!}">
-                <li class="{!! set_active_menu([
-                    'budget.aditional-credits.index', 'budget.aditional-credits.create', 'budget.aditional-credits.edit'
-                ]) !!}">
-                    <a href="{{ route('budget.aditional-credits.index') }}">Cŕeditos Adicionales</a>
-                </li>
-                <li class="{!! set_active_menu([
-                    'budget.reductions.index', 'budget.reductions.create', 'budget.reductions.edit'
-                ]) !!}">
-                    <a href="{{ route('budget.reductions.index') }}">Reducciones</a>
-                </li>
-                <li class="{!! set_active_menu([
-                    'budget.transfers.index', 'budget.transfers.create', 'budget.transfers.edit'
-                ]) !!}">
-                    <a href="{{ route('budget.transfers.index') }}">Traspasos</a>
-                </li>
-            </ul>
-        </li>
-        <li>
             <a href="#">Ejecución</a>
             <ul class="submenu">
                 <li><a href="#">Compromisos</a></li>

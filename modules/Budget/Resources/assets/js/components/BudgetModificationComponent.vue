@@ -55,14 +55,16 @@
 									<th>
 										<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#" 
 										   data-original-title="Agregar nuevo registro" data-toggle="modal"  
-										   data-target="#add_account" v-if="record.approved_at">
+										   data-target="#add_account" 
+										   v-if="record.approved_at && record.institution_id && 
+										   record.document && record.description">
 											<i class="fa fa-plus-circle"></i>
 										</a>
 									</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(account, index) in budget_modification_accounts">
+								<tr v-for="(account, index) in modification_accounts">
 									<td>{{ account.spac_description }}</td>
 									<td>{{ account.code }}</td>
 									<td>{{ account.description }}</td>
@@ -229,27 +231,22 @@
 				to_budget_account_id: '',
 				to_amount: 0,
 				errors: [],
+				modification_accounts: []
 				/** set localStorage budget_modification_accounts */
-                set budget_modification_accounts(value) {
+                /*set budget_modification_accounts(value) {
                     localStorage.budget_modification_accounts = value;
-                },
+                },*/
                 /** get localStorage budget_modification_accounts */
-                get budget_modification_accounts() {
+                /*get budget_modification_accounts() {
                     let storage = JSON.parse(localStorage.budget_modification_accounts || '[]');
                     return storage;
-                }
+                }*/
 			}
 		},
 		props: {
-			aditional_credit: {
-				type: Boolean,
-				required: false,
-				default: false
-			},
-			reduction: {
-				type: Boolean,
-				required: false,
-				default: false
+			type_modification: {
+				type: String,
+				required: true,
 			},
 			transfer: {
 				type: Boolean,
@@ -279,7 +276,7 @@
 			 * Monitorea modificaciones a las cuentas agregadas para guardarlas 
 			 * temporalmente en un localStorage
 			 */
-			budget_modification_accounts: {
+			/*budget_modification_accounts: {
 				deep: true,
 				handler: function() {
 					if (this.budget_modification_accounts.length === 0) {
@@ -289,7 +286,7 @@
 						localStorage.budget_modification_accounts = JSON.stringify(this.budget_modification_accounts);
 					}
 				}
-			}
+			}*/
 		},
 		methods: {
 			/**
@@ -301,6 +298,9 @@
 				this.from_specific_action_id = '';
 				this.from_account_id = '';
 				this.from_amount = 0;
+				this.to_budget_specific_action_id = '';
+				this.to_budget_account_id = '';
+				this.to_amount = 0;
 			},
 			/**
 			 * Agrega una cuenta para el registro del crédito adicional
@@ -347,33 +347,34 @@
 					`${window.app_url}/budget/detail-specific-actions/${vm.from_specific_action_id}`
 				).then(response => {
 					if (response.data.result) {
-						let record = response.data.record;
-						to_add.spac_description = record.specificable.code + " - " + record.code + 
-													 " | " + record.name;
-					}
-				}).catch(error => {
-					vm.logs('BudgetModificationComponent.vue', 346, error, 'addAccount');
-				});
+						let record_specific = response.data.record;
+						
+						/** Obtiene datos de la cuenta presupuestaria */
+						axios.get(
+							`${window.app_url}/budget/detail-accounts/${vm.from_account_id}`
+						).then(response => {
+							if (response.data.result) {
+								let record_account = response.data.record;
+								to_add.code = record_account.group + "." + record_account.item + "." + record_account.generic + "." + 
+												 record_account.specific + "." + record_account.subspecific;
+								to_add.description = record_account.denomination;
+								to_add.spac_description = record_specific.specificable.code + " - " + record_specific.code + 
+													 " | " + record_specific.name;
+								to_add.from_amount = vm.from_amount;
+								to_add.from_account_id = vm.from_account_id;
+								to_add.from_specific_action_id = vm.from_specific_action_id;
+								vm.modification_accounts.push(to_add);
 
-				/** Obtiene datos de la cuenta presupuestaria */
-				axios.get(`${window.app_url}/budget/detail-accounts/${vm.from_account_id}`).then(response => {
-					if (response.data.result) {
-						let record = response.data.record;
-						to_add.code = record.group + "." + record.item + "." + record.generic + "." + 
-										 record.specific + "." + record.subspecific;
-						to_add.description = response.data.record.denomination;
+								$('.close').click();
+								vm.reset();
+							}
+						}).catch(error => {
+							console.log(error);
+						});
 					}
 				}).catch(error => {
-					vm.logs('BudgetModificationComponent.vue', 357, error, 'addAccount');
+					console.log(error);
 				});
-				
-				to_add.from_amount = vm.from_amount;
-				to_add.from_account_id = vm.from_account_id;
-				to_add.from_specific_action_id = vm.from_specific_action_id;
-				
-				vm.budget_modification_accounts.push(to_add);
-				$('.close').click();
-				vm.reset();
 			},
 			/**
 			 * Elimina una cuenta del listado de cuentas agregadas
@@ -430,6 +431,9 @@
 				}).catch(error => {
 					vm.logs('BudgetModificationComponent.vue', 415, error, 'getAccounts');
 				});
+			},
+			createRecord: function() {
+				console.log("entro");
 			}
 		}
 	};
