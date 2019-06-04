@@ -137,16 +137,21 @@ if (!function_exists('validate_rif')) {
 	 */
 	function validate_rif($rif)
 	{
-		$rifCheck = preg_match('/^([VEJPG]{1})([0-9]{8})([0-9]{1})$/', $rif, $output_array);
+		$rifCheck = preg_match('/^([VEJPG]{1})([0-9]{8})([0-9]{1})$/', strtoupper($rif), $output_array);
 		
+		/** Si el número de RIF no es correcto retorna falso */
 		if (!$rifCheck || !$output_array) {
 			return false;
 		}
 
+		/** @var string Caracter que identifica el tipo de RIF (V, E, J, P, G) */
 		$type = $output_array[1];
+		/** @var string Número de RIF sin el tipo y el dígito verificador */
 		$number = $output_array[2];
+		/** @var string Caracter que representa el digito verificador del RIF */
 		$digit = $output_array[3];
 
+		/** @var array Arreglo cada número que compone los datos del RIF  sin el tipo y el dígito verificador */
 		$validateNumber = str_split($number);
 		$validateNumber[7] *= 2;
         $validateNumber[6] *= 3;
@@ -157,7 +162,7 @@ if (!function_exists('validate_rif')) {
         $validateNumber[1] *= 2;
         $validateNumber[0] *= 3;
 
-        // Determinar dígito especial según la inicial del RIF (Regla introducida por el SENIAT)
+        /** Determinar dígito especial según la inicial del RIF (Regla introducida por el SENIAT) */
         switch ($type) {
         	case 'V':
         		$specialDigit = 1;
@@ -176,16 +181,47 @@ if (!function_exists('validate_rif')) {
         		break;
         }
 
-        $sum = (array_sum($validateNumber) - $digit) + ($specialDigit * 4);
+        /** @var integer Sumatoria de los números del RIF y el dígito especial de validación */
+        $sum = array_sum($validateNumber) + ($specialDigit * 4);
+        /** @var integer Residuo obtenido entre la sumatoria de los números del rif y el dígito espcial de validación */
         $residue = $sum % 11;
+        /** @var integer Resta obtenida del residuo */
         $subtraction = 11 - $residue;
+        /** @var integer Dato que permite identificar si el dígito verificador es correcto. 0 = digito correcto, de lo contrario es incorrecto */
         $verifyDigit = ($subtraction >= 10) ? 0 : $subtraction;
 
         if ($verifyDigit != $digit) {
+        	/** Devuelve falso si el dígito verificador no es correcto */
             return false;
         }
 
+        /** Retorna verdadero si el dígito verificador es correcto */
         return true;
 		
+	}
+}
+
+if (!function_exists('validate_ci')) {
+	/**
+	 * Verifica si un número de Cédula de Identidad es correcto
+	 *
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  string  $ci       Número de Cédula de Identidad
+	 * @param  boolean $with_nac Indica si la verificación del número de cédula es con la nacionalidad
+	 * @param  integer $length   Establece la longitud máxima del número de Cédula de Identidad
+	 * @return boolean           Devuelve verdadero si el número de cédula es correcto, de lo contrario devuelve falso
+	 */
+	function validate_ci($ci, $with_nac = false, $length = 8) {
+		$ciCheck = preg_match(
+			($with_nac) ? "/^([VE]{1})([0-9]{$length})$/" : "/^([0-9]{$length})$/", strtoupper($ci), $output_array
+		);
+		
+		if (!$ciCheck || !$output_array) {
+			return false;
+		}
+
+		// Establecer conexión con el organismo rector para determinar si la cédula existe
+
+		return true;
 	}
 }
