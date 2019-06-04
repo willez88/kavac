@@ -126,3 +126,66 @@ if (!function_exists('template_choices')) {
         return $options;
 	}
 }
+
+if (!function_exists('validate_rif')) {
+	/**
+	 * Verifica que el número de RIF sea correcto comproando el dígito verificador del mismo
+	 *
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  string $rif Cadena con el número de RIF completo
+	 * @return boolean     Devuelve verdadero si el número de RIF es correcto, de lo contrario devuelve falso
+	 */
+	function validate_rif($rif)
+	{
+		$rifCheck = preg_match('/^([VEJPG]{1})([0-9]{8})([0-9]{1})$/', $rif, $output_array);
+		
+		if (!$rifCheck || !$output_array) {
+			return false;
+		}
+
+		$type = $output_array[1];
+		$number = $output_array[2];
+		$digit = $output_array[3];
+
+		$validateNumber = str_split($number);
+		$validateNumber[7] *= 2;
+        $validateNumber[6] *= 3;
+        $validateNumber[5] *= 4;
+        $validateNumber[4] *= 5;
+        $validateNumber[3] *= 6;
+        $validateNumber[2] *= 7;
+        $validateNumber[1] *= 2;
+        $validateNumber[0] *= 3;
+
+        // Determinar dígito especial según la inicial del RIF (Regla introducida por el SENIAT)
+        switch ($type) {
+        	case 'V':
+        		$specialDigit = 1;
+        		break;
+        	case 'E':
+        		$specialDigit = 2;
+        		break;
+        	case 'J':
+        		$specialDigit = 3;
+        		break;
+        	case 'P':
+        		$specialDigit = 4;
+        		break;
+        	case 'G':
+        		$specialDigit = 5;
+        		break;
+        }
+
+        $sum = (array_sum($validateNumber) - $digit) + ($specialDigit * 4);
+        $residue = $sum % 11;
+        $subtraction = 11 - $residue;
+        $verifyDigit = ($subtraction >= 10) ? 0 : $subtraction;
+
+        if ($verifyDigit != $digit) {
+            return false;
+        }
+
+        return true;
+		
+	}
+}
