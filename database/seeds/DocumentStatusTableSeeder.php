@@ -64,33 +64,39 @@ class DocumentStatusTableSeeder extends Seeder
         	[
         		'name' => 'Aprobado(a)',
         		'description' => 'Aprobado(a) en todas las instancias',
-        		'color' => '#18CE0F'
+        		'color' => '#18CE0F',
+                'action' => 'AP'
         	],
         	[
         		'name' => 'Rechazado(a)',
         		'description' => 'Rechazado(a) en cualquiera de las instancias',
-        		'color' => '#FFB236'
+        		'color' => '#FFB236',
+                'action' => 'RE'
         	],
         	[
         		'name' => 'En Proceso',
         		'description' => 'Contiene algunas firmas pero no todas las requeridas para su ' .
         						 'aprobación',
-        		'color' => '#2CA8FF'
+        		'color' => '#2CA8FF',
+                'action' => 'PR'
         	],
         	[
         		'name' => 'Elaborado(a)',
         		'description' => 'Faltan todas las firmas',
-        		'color' => '#888'
+        		'color' => '#888',
+                'action' => 'EL'
         	],
         	[
         		'name' => 'Anulado(a)',
         		'description' => 'Anulado(a) antes de su aprobación',
-        		'color' => '#FF3636'
+        		'color' => '#FF3636',
+                'action' => 'AN'
         	],
             [
                 'name' => 'Cerrado(a)',
                 'description' => 'El documento o registro ha sido cerrado y no puede ser modificado',
-                'color' => '#b4b0aa'
+                'color' => '#b4b0aa',
+                'action' => 'CE'
             ],
         ];
 
@@ -99,7 +105,11 @@ class DocumentStatusTableSeeder extends Seeder
             foreach ($doc_status as $doc) {
             	DocumentStatus::updateOrCreate(
             		['name' => $doc['name']],
-            		['description' => $doc['description'], 'color' => $doc['color']]
+            		[
+                        'description' => $doc['description'], 
+                        'color' => $doc['color'],
+                        'action' => $doc['action']
+                    ]
             	);
             }
 
