@@ -27,7 +27,7 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				<budget-modification :type_modification="{!! $type !!}"></budget-modification>
+				<budget-modification type_modification="{!! $type !!}"></budget-modification>
 			</div>
 		</div>
 	</div>

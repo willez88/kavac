@@ -183,6 +183,7 @@ class BudgetSubSpecificFormulationController extends Controller
         if (isset($request->assigned) && $request->assigned) {
             $formulation->assigned = $request->assigned;
             $documentStatus = DocumentStatus::where('action', 'AP')->first();
+            $formulation->document_status_id = $documentStatus->id;
             $formulation->save();
 
             $request->session()->flash('message', [

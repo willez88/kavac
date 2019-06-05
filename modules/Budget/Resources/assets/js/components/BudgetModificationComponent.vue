@@ -44,7 +44,7 @@
 			<div class="pad-top-40">
 				<h6 class="text-center card-title">Cuentas presupuestarias</h6>
 				<div class="row">
-					<div class="col-12 pad-top-20" v-if="!transfer">
+					<div class="col-12 pad-top-20" v-if="!(type_modification==='TR')">
 						<table class="table">
 							<thead>
 								<tr>
@@ -93,7 +93,7 @@
 								</button>
 								<h6>
 									<i class="ion-arrow-graph-up-right"></i> 
-									Agregar Cuenta{{ (transfer) ? 's' : '' }}
+									Agregar Cuenta{{ (type_modification==='TR') ? 's' : '' }}
 								</h6>
 							</div>
 							<div class="modal-body">
@@ -102,7 +102,7 @@
 										<li v-for="error in errors">{{ error }}</li>
 									</ul>
 								</div>
-								<div class="row" v-if="transfer">
+								<div class="row" v-if="(type_modification==='TR')">
 									<div class="col-12">
 										<h6 class="text-center">
 											Cuenta a Debitar
@@ -134,7 +134,7 @@
 										</div>
 									</div>
 								</div>
-								<div v-if="transfer">
+								<div v-if="(type_modification==='TR')">
 									<div class="row">
 										<div class="col-12">
 											<hr>
@@ -195,7 +195,7 @@
 				<i class="fa fa-ban"></i>
 			</button>
 			<button type="button" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 
-					title="Guardar registro" @click="createRecord">
+					title="Guardar registro" @click="createRecord('budget/modifications')">
 				<i class="fa fa-save"></i>
 			</button>
 		</div>
@@ -207,10 +207,12 @@
 		data() {
 			return {
 				record: {
+					type: '',
 					approved_at: '',
 					institution_id: '',
 					document: '',
-					description: ''
+					description: '',
+					budget_account_id: []
 				},
 				institutions: [],
 				specific_actions: [],
@@ -227,38 +229,24 @@
 				/*
 				 * Variables para cuentas a agregar en traspasos
 				 */
-				to_budget_specific_action_id: '',
-				to_budget_account_id: '',
+				to_specific_action_id: '',
+				to_account_id: '',
 				to_amount: 0,
 				errors: [],
 				modification_accounts: []
-				/** set localStorage budget_modification_accounts */
-                /*set budget_modification_accounts(value) {
-                    localStorage.budget_modification_accounts = value;
-                },*/
-                /** get localStorage budget_modification_accounts */
-                /*get budget_modification_accounts() {
-                    let storage = JSON.parse(localStorage.budget_modification_accounts || '[]');
-                    return storage;
-                }*/
 			}
 		},
 		props: {
 			type_modification: {
 				type: String,
 				required: true,
-			},
-			transfer: {
-				type: Boolean,
-				required: false,
-				default: false
 			}
 		},
 		mounted() {
 			const vm = this;
 
 			axios.get(
-				`${window.app_url}/budget/get-group-specific-actions/${vm.execution_year}`
+				`${window.app_url}/budget/get-group-specific-actions/${window.execution_year}/true`
 			).then(response => {
 				if (!$.isEmptyObject(response.data)) {
 					vm.specific_actions = response.data;
@@ -270,23 +258,30 @@
 			vm.reset();
 			vm.getInstitutions();
 			vm.getAccounts();
+			vm.record.type = vm.type_modification;
+			/*if (typeof(localStorage.modification_accounts) !== "undefined") {
+				vm.modification_accounts = JSON.parse(localStorage.modification_accounts);
+			}*/
 		},
 		watch: {
 			/** 
 			 * Monitorea modificaciones a las cuentas agregadas para guardarlas 
 			 * temporalmente en un localStorage
 			 */
-			/*budget_modification_accounts: {
+			modification_accounts: {
 				deep: true,
 				handler: function() {
-					if (this.budget_modification_accounts.length === 0) {
-						localStorage.removeItem('budget_modification_accounts');
+					if (this.modification_accounts.length === 0) {
+						localStorage.removeItem('modification_accounts');
 					}
 					else {
-						localStorage.budget_modification_accounts = JSON.stringify(this.budget_modification_accounts);
+						this.record.budget_account_id = this.modification_accounts;
+						localStorage.modification_accounts = JSON.stringify(
+							this.modification_accounts
+						);
 					}
 				}
-			}*/
+			}
 		},
 		methods: {
 			/**
@@ -432,9 +427,6 @@
 					vm.logs('BudgetModificationComponent.vue', 415, error, 'getAccounts');
 				});
 			},
-			createRecord: function() {
-				console.log("entro");
-			}
 		}
 	};
 </script>
