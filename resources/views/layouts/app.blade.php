@@ -125,6 +125,21 @@
                         
                     });
                 }
+
+                /** Previene el uso de carácteres no permitidos en campos numéricos */
+                $(".numeric").on('input keypress keyup blur', function(event) {
+                    $(this).val($(this).val().replace(/[^\d].+/, ""));
+                    if ((event.which < 48 || event.which > 57)) {
+                        event.preventDefault();
+                    }
+                });
+                /** Previene el uso de carácteres no permitidos en campos de monedas */
+                $(".currency").on('input keypress keyup blur', function(event) {
+                    $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+                    if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                        event.preventDefault();
+                    }
+                });
             });
             /*
              * Función que permite eliminar registros mediante ajax
