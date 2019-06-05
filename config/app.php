@@ -57,6 +57,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Modo demostración de la Aplicación
+    |--------------------------------------------------------------------------
+    |
+    | Permite establecer la aplicación en modo de demostración para probar y 
+    | verificar sus funcionalidades
+    |
+    */
+
+    'demo' => env('APP_DEMO', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Zona Horaria de la Aplicación
     |--------------------------------------------------------------------------
     |
