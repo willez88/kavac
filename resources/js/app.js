@@ -401,9 +401,14 @@ Vue.mixin({
 					fields[index] = this.record[index];
 				}
 				axios.post('/' + url, fields).then(response => {
-					vm.reset();
-					vm.readRecords(url);
-					vm.showMessage('store');
+					if (typeof(response.data.redirect) !== "undefined") {
+						location.href = response.data.redirect;
+					}
+					else {
+						vm.reset();
+						vm.readRecords(url);
+						vm.showMessage('store');
+					}
 				}).catch(error => {
 					vm.errors = [];
 
@@ -478,9 +483,14 @@ Vue.mixin({
 				fields[index] = this.record[index];
 			}
 			axios.patch('/' + url + '/' + this.record.id, fields).then(response => {
-				vm.readRecords(url);
-				vm.reset();
-				vm.showMessage('update');
+				if (typeof(response.data.redirect) !== "undefined") {
+					location.href = response.data.redirect;
+				}
+				else {
+					vm.readRecords(url);
+					vm.reset();
+					vm.showMessage('update');
+				}
 			}).catch(error => {
 				vm.errors = [];
 
