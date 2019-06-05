@@ -46,4 +46,15 @@ class PayrollLanguageLevel extends Model implements Auditable
     protected $fillable = [
         'name'
     ];
+
+    /**
+     * PayrollLanguageLevel has many PayrollProfessionalInformation
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payroll_professional_informations()
+    {
+    	return $this->hasMany(PayrollProfessionalInformation::class);
+    }
 }

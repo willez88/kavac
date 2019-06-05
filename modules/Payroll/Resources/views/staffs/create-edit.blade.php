@@ -59,8 +59,8 @@
 						    </div>
 							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('nationality_id') ? ' has-error' : '' }} is-required">
-									{!! Form::label('nationality_id', 'Nacionalidad', []) !!}
-						            {!! Form::select('nationality_id',(isset($nationalities))?$nationalities:[], (isset($staff))?$staff->payroll_nationality_id:null,
+									{!! Form::label('payroll_nationality_id', 'Nacionalidad', []) !!}
+						            {!! Form::select('payroll_nationality_id',(isset($nationalities))?$nationalities:[], (isset($staff))?$staff->payroll_nationality_id:null,
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',
@@ -123,8 +123,8 @@
 						    </div>
 							<div class="col-md-4">
 						        <div class="form-group {{ $errors->has('gender_id') ? ' has-error' : '' }} is-required">
-									{!! Form::label('gender_id', 'Género', []) !!}
-						            {!! Form::select('gender_id',(isset($genders))?$genders:[], (isset($staff))?$staff->payroll_gender_id:null,
+									{!! Form::label('payroll_gender_id', 'Género', []) !!}
+						            {!! Form::select('payroll_gender_id',(isset($genders))?$genders:[], (isset($staff))?$staff->payroll_gender_id:null,
 						                [
 						                    'class' => 'form-control select2',
 						                    'data-toggle' => 'tooltip',

@@ -45,4 +45,15 @@ class PayrollGender extends Model implements Auditable
     protected $fillable = [
         'name'
     ];
+
+    /**
+     * PayrollGender has many PayrollStaff
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payroll_staffs()
+    {
+    	return $this->hasMany(PayrollStaff::class);
+    }
 }

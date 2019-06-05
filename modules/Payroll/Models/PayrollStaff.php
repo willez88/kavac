@@ -45,8 +45,8 @@ class PayrollStaff extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code','first_name','last_name','nationality_id','id_number','passport','email','birthdate',
-        'gender_id','emergency_contact','emergency_phone','parish_id','address'
+        'code','first_name','last_name','payroll_nationality_id','id_number','passport','email','birthdate',
+        'payroll_gender_id','emergency_contact','emergency_phone','parish_id','address'
     ];
 
     /**
@@ -81,35 +81,57 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la Ciudad
+     * PayrollStaff belongs to Parish
      *
-     * @author  William Páez (wpaez@cenditel.gob.ve)
-     * @return object Objeto con los registros relacionados al modelo City
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function parish()
     {
-        return $this->belongsTo('App\Models\Parish');
+        return $this->belongsTo(Parish::class);
     }
 
     /**
-     * Método que obtiene el Género
+     * PayrollStaff belongs to PayrollGender
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo PayrollGender
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function payroll_gender()
     {
-        return $this->belongsTo('Modules\Payroll\Models\PayrollGender');
+        return $this->belongsTo(PayrollGender::class);
     }
 
     /**
-     * Método que obtiene la nacionalidad
+     * PayrollStaff belongs to PayrollNationality
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo PayrollNationality
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function payroll_nationality()
     {
-        return $this->belongsTo('Modules\Payroll\Models\PayrollNationality');
+        return $this->belongsTo(PayrollNationality::class);
+    }
+
+    /**
+     * PayrollStaff has one PayrollSocioeconomicInformation
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function payroll_socioecomic_information()
+    {
+    	return $this->hasOne(PayrollSocioeconomicInformation::class);
+    }
+
+    /**
+     * PayrollStaff has one PayrollProfessionalInformation
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function payroll_professional_information()
+    {
+    	return $this->hasOne(PayrollProfessionalInformation::class);
     }
 }
