@@ -5,8 +5,7 @@
         {{ csrf_field() }}
         <div class="header header-primary text-center">
             <div class="logo-container">
-                <img src="{{ asset('images/logo-mini.png') }}" alt="">
-                <img src="{{ asset('images/app-name-white.png') }}" alt="" />
+                @include('layouts.logo-images', ['logo_mini' => true, 'logo_name' => true])
             </div>
             <h6>Reiniciar Contraseña</h6>
         </div>
@@ -22,7 +21,8 @@
                         <i class="now-ui-icons ui-1_email-85"></i>
                     </span>
                     {!! Form::email('email', old('email'), [
-                        'class' => 'form-control', 'placeholder' => 'Correo', 'required' => 'required'
+                        'class' => 'form-control', 'placeholder' => 'Correo', 'required' => 'required',
+                        'data-toggle' => 'tooltip', 'title' => 'Indique el correo a donde enviar el enlace de modificación'
                     ]) !!}
                 </div>
                 @if ($errors->has('email'))
@@ -32,9 +32,20 @@
                 @endif
             </div>
             <div class="footer text-center">
-                <button class="btn btn-primary btn-round btn-lg btn-block">
-                    Enviar enlace
-                </button>
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" title="Presione el botón para regresar" 
+                                onclick="location.href='/'" type="button">
+                            Cancelar
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" 
+                                title="Presione el botón para enviar el enlace de modificación">
+                            Enviar enlace
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     {!! Form::close() !!}

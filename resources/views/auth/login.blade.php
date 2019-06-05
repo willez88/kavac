@@ -5,8 +5,7 @@
         {{ csrf_field() }}
         <div class="header header-primary text-center">
             <div class="logo-container">
-                <img src="{{ asset('images/logo-mini.png') }}" alt="">
-                <img src="{{ asset('images/app-name-white.png') }}" alt="" />
+                @include('layouts.logo-images', ['logo_mini' => true, 'logo_name' => true])
             </div>
             <h6>Acceso</h6>
         </div>
@@ -17,7 +16,9 @@
                         <i class="now-ui-icons users_circle-08"></i>
                     </span>
                     {!! Form::text('username', old('username'), [
-                        'class' => 'form-control', 'placeholder' => 'Usuario', 'required' => 'required'
+                        'class' => 'form-control', 'placeholder' => 'Usuario', 'required' => 'required',
+                        'title' => 'Indique el nombre del usuario.',
+                        'data-toggle' => 'tooltip'
                     ]) !!}
                 </div>
                 @if ($errors->has('username'))
@@ -32,7 +33,9 @@
                         <i class="now-ui-icons ui-1_lock-circle-open"></i>
                     </span>
                     {!! Form::password('password', [
-                        'class' => 'form-control', 'placeholder' => 'Contraseña', 'required' => 'required'
+                        'class' => 'form-control', 'placeholder' => 'Contraseña', 'required' => 'required',
+                        'title' => 'Indique la contraseña de acceso.',
+                        'data-toggle' => 'tooltip'
                     ]) !!}
                 </div>
                 @if ($errors->has('password'))
@@ -48,7 +51,8 @@
                     </div>
                     <div class="col-md-4 text-left">
                         <i class="now-ui-icons arrows-1_refresh-69 cursor-pointer vertical-middle" 
-                           onclick="refresh_captcha()"></i>
+                           onclick="refresh_captcha()" data-toggle="tooltip" 
+                           title="Presione este botón para generar una nueva imagen de captcha"></i>
                     </div>
                 </div>
             </div>
@@ -59,7 +63,8 @@
                     </span>
                     {!! Form::text('captcha', old('captcha'), [
                         'class' => 'form-control', 'placeholder' => 'Captcha', 'required' => 'required',
-                        'id' => 'captcha', 'onfocus' => '$(this).val("")'
+                        'id' => 'captcha', 'onfocus' => '$(this).val("")', 'data-toggle' => 'tooltip',
+                        'title' => 'Introduzca los carácteres de la imagen'
                     ]) !!}
                 </div>
                 @if ($errors->has('captcha'))
@@ -72,68 +77,33 @@
         <div class="footer text-center">
             <label>
                 <span style="margin-right:10px">Recuerdame</span>
-                <input type="checkbox" name="checkbox" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO" />
+                <input type="checkbox" name="checkbox" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO" 
+                       data-toggle="tooltip" title="Seleccione si desea que el sistema recuerde sus datos" />
             </label>
             
-            <button class="btn btn-primary btn-round btn-lg btn-block">Acceso</button>
-            <a class="btn btn-link" href="{{ route('password.request') }}">
+            <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" 
+                    title="Presione el botón para validar los datos y acceder al sistema">
+                Acceso
+            </button>
+            <a class="btn btn-link" href="{{ route('password.request') }}" data-toggle="tooltip" 
+               title="¿Olvido su contraseña?, presione sobre el enlace para modificarla">
                 ¿Olvidaste la contraseña?
             </a>
         </div>
-        <!--<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-            <div class="col-md-6">
-                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-            <label for="password" class="col-md-4 control-label">Password</label>
-
-            <div class="col-md-6">
-                <input id="password" type="password" class="form-control" name="password" required>
-
-                @if ($errors->has('password'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-4">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-8 col-md-offset-4">
-                <button type="submit" class="btn btn-primary">
-                    Login
-                </button>
-
-                <a class="btn btn-link" href="{{ route('password.request') }}">
-                    Forgot Your Password?
-                </a>
-            </div>
-        </div>-->
     </form>
 @endsection
 
 @section('extra-js')
     <script>
+        $(document).ready(function() {
+            $('.bootstrap-switch-wrapper').attr({
+                'title': 'Seleccione si desea que el sistema recuerde sus datos',
+                'data-toggle': 'tooltip'
+            }).tooltip({
+                trigger:"hover",
+                delay: {hide: 200}
+            });
+        });
         /**
          * Función que permite cargar una nueva imagen de captcha
          */

@@ -5,8 +5,7 @@
         {{ csrf_field() }}
         <div class="header header-primary text-center">
             <div class="logo-container">
-                <img src="{{ asset('images/logo-mini.png') }}" alt="">
-                <img src="{{ asset('images/app-name-white.png') }}" alt="" />
+                @include('layouts.logo-images', ['logo_mini' => true, 'logo_name' => true])
             </div>
             <h6>Reiniciar Contraseña</h6>
         </div>
@@ -23,7 +22,7 @@
                     </span>
                     {!! Form::email('email', old('email'), [
                         'class' => 'form-control', 'placeholder' => 'Correo', 'required' => 'required',
-                        'id' => 'email'
+                        'id' => 'email', 'data-toggle' => 'tooltip', 'title' => 'Indique el correo electrónico'
                     ]) !!}
                 </div>
                 @if ($errors->has('email'))
@@ -38,7 +37,8 @@
                         <i class="now-ui-icons ui-1_lock-circle-open"></i>
                     </span>
                     {!! Form::password('password', old('password'), [
-                        'class' => 'form-control', 'required' => 'required', 'id' => 'password'
+                        'class' => 'form-control', 'required' => 'required', 'id' => 'password', 'data-toggle' => 'tooltip',
+                        'title' => 'Indique su nueva contraseña'
                     ]) !!}
                 </div>
                 @if ($errors->has('password'))
@@ -53,7 +53,8 @@
                         <i class="now-ui-icons ui-1_lock-circle-open"></i>
                     </span>
                     {!! Form::password('password_confirmation', old('password_confirmation'), [
-                        'class' => 'form-control', 'required' => 'required', 'id' => 'password-confirm'
+                        'class' => 'form-control', 'required' => 'required', 'id' => 'password-confirm', 'data-toggle' => 'tooltip',
+                        'title' => 'Confirme su nueva contraseña'
                     ]) !!}
                 </div>
                 @if ($errors->has('password_confirmation'))
@@ -63,7 +64,8 @@
                 @endif
             </div>
             <div class="footer text-center">
-                <button class="btn btn-primary btn-round btn-lg btn-block">
+                <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" 
+                        title="Presione el botón para modificar la contraseña">
                     Modificar
                 </button>
             </div>
