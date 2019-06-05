@@ -98,7 +98,7 @@ Route::group([
         'get-specific-actions/{type}/{id}/{source?}', 'BudgetSpecificActionController@getSpecificActions'
     )->name('budget.get-specific-actions');
     Route::get(
-        'get-group-specific-actions/{formulated_year?}',
+        'get-group-specific-actions/{formulated_year?}/{formulated?}',
         'BudgetSpecificActionController@getGroupAllSpecificActions'
     )->name('budget.get-specific-actions.groups');
     Route::get(
@@ -158,17 +158,23 @@ Route::group([
     Route::delete(
         'modifications/{modification}', 'BudgetModificationController@destroy'
     )->name('budget.modifications.destroy');
+    Route::get(
+        'aditional-credits/vue-list', 'BudgetAditionalCreditController@vueList'
+    )->name('budget.aditional-credits.vuelist');
+    Route::get(
+        'reductions/vue-list', 'BudgetReductionController@vueList'
+    )->name('budget.reductions.vuelist');
+    Route::get(
+        'transfers/vue-list', 'BudgetTransferController@vueList'
+    )->name('budget.transfers.vuelist');
 
     /** Rutas para la gestión de créditos adicionales */
     /*Route::resource('aditional-credits', 'BudgetAditionalCreditController', ['as' => 'budget', 'except' => ['show']]);
-    Route::get('aditional-credits/vue-list', 'BudgetAditionalCreditController@vueList')
-         ->name('budget.aditional-credits.vuelist');*/
+    */
     /** Rutas para la gestión de reducciones presupuestarias */
     /*Route::resource('reductions', 'BudgetReductionController', ['as' => 'budget', 'except' => ['show']]);
-    Route::get('reductions/vue-list', 'BudgetReductionController@vueList')
-         ->name('budget.reductions.vuelist');*/
+    */
     /** Rutas para la gestión de traspasos presupuestarias */
     /*Route::resource('transfers', 'BudgetTransferController', ['as' => 'budget', 'except' => ['show']]);
-    Route::get('transfers/vue-list', 'BudgetTransferController@vueList')
-         ->name('budget.transfers.vuelist');*/
+    */
 });

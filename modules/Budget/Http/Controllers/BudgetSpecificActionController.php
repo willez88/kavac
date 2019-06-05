@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Crypt;
 
 use Modules\Budget\Models\BudgetProject;
 use Modules\Budget\Models\BudgetCentralizedAction;
@@ -295,10 +296,18 @@ class BudgetSpecificActionController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param string $formulated_year Año de formulación por el cual filtrar la información
+     * @param boolean $formulated     Indica si se debe validar con una formulación de presupuesto
      * @return JSON                   JSON con los datos de las acciones específicas
      */
-    public function getGroupAllSpecificActions($formulated_year = '')
+    public function getGroupAllSpecificActions($formulated_year = '', $formulated = false)
     {
+        if ($formulated_year && strlen($formulated_year) > 4) {
+            try {
+                $formulated_year = Crypt::decrypt($formulated_year);
+            } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
+                //
+            }
+        }
         /** @var array Arreglo que contiene las acciones específicas agrupadas por proyectos */
         $dataProjects = ['text' => 'Proyectos', 'children' => []];
         /** @var array Arreglo que contiene las acciones específicas agrupadas por acciones centralizadas */
@@ -316,17 +325,27 @@ class BudgetSpecificActionController extends Controller
 
         /** Agrega las acciones específicas para cada grupo */
         foreach ($sp_accs as $sp_acc) {
-            if (str_contains($sp_acc->specificable_type, 'BudgetProject')) {
+            $filter = ($formulated) ? BudgetSubSpecificFormulation::where(
+                [
+                    'budget_specific_action_id' => $sp_acc->specificable_id,
+                    'assigned' => true
+                ]
+            )->first() : '';
+
+            if (str_contains($sp_acc->specificable_type, 'BudgetProject') && !is_null($filter)) {
                 array_push($dataProjects['children'], [
                     'id' => $sp_acc->id,
                     'text' => "{$sp_acc->specificable->code} - {$sp_acc->code} | {$sp_acc->name}"
                 ]);
             }
-            else if (str_contains($sp_acc->specificable_type, 'BudgetCentralizedAction')) {
+            else if (str_contains($sp_acc->specificable_type, 'BudgetCentralizedAction') && !is_null($filter)) {
                 array_push($dataCentralizedActions['children'], [
                     'id' => $sp_acc->id,
                     'text' => "{$sp_acc->specificable->code} - {$sp_acc->code} | {$sp_acc->name}"
                 ]);
+            }
+            else if ($formulated && is_null($filter)) {
+                array_push($data, ['text' => 'Sin formulaciones registradas', 'children' => []]);
             }
         }
 
