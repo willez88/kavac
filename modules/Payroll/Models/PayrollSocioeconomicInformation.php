@@ -49,10 +49,10 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
     ];
 
     /**
-     * Método que obtiene el personal relacionado a la información socioeconómica
+     * PayrollSocioeconomicInformation belongs to PayrollStaff
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo PayrollStaff
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function payroll_staff()
     {
@@ -60,18 +60,24 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene el personal relacionado al estado civil
+     * PayrollSocioeconomicInformation belongs to MaritalStatus
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo MaritalStatus
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function marital_status()
     {
-        return $this->belongsTo('App\Models\MaritalStatus');
+        return $this->belongsTo(MaritalStatus::class);
     }
 
-    public function payroll_children()
+    /**
+     * PayrollSocioeconomicInformation has many PayrollChildren
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payroll_childrens()
     {
-        return $this->belongsTo('Modules\Payroll\Models\PayrollChildren');
+        return $this->hasMany(PayrollChildren::class);
     }
 }

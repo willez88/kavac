@@ -42,9 +42,7 @@ class PayrollSocioeconomicInformationController extends Controller
      */
     public function index()
     {
-        //$socioeconomic_informations = PayrollSocioeconomicInformation::all();
-        //return view('payroll::socioeconomic-informations.index', compact('socioeconomic_informations'));
-        return response()->json(['records' => PayrollSocioeconomicInformation::with(['payroll_staff','marital_status'])->get()], 200);
+        return view('payroll::socioeconomic-informations.index');
     }
 
     /**
@@ -96,7 +94,7 @@ class PayrollSocioeconomicInformationController extends Controller
      */
     public function edit(PayrollSocioeconomicInformation $socioeconomic_information)
     {
-        
+
     }
 
     /**
@@ -140,10 +138,15 @@ class PayrollSocioeconomicInformationController extends Controller
 
     public function list()
     {
-        return view('payroll::socioeconomic-informations.index');
+        return response()->json(['records' => PayrollSocioeconomicInformation::with(['payroll_staff','marital_status'])->get()], 200);
     }
 
-    public function listMaritalStatus()
+    public function staffsList()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollStaff',['id_number','-','full_name'],'',true);
+    }
+
+    public function maritalStatusList()
     {
         return template_choices('App\Models\MaritalStatus','name','',true);
     }

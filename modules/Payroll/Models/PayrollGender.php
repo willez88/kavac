@@ -47,10 +47,10 @@ class PayrollGender extends Model implements Auditable
     ];
 
     /**
-     * Método que obtiene el personal relacionado al género
+     * PayrollGender has many PayrollStaff
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo Staff
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payroll_staffs()
     {

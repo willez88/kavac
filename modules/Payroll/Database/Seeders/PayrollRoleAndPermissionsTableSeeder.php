@@ -357,6 +357,31 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.socioeconomica.eliminar'
             ],
+            // professional informations
+            [
+                'name' => 'Ver los datos de información profesional', 'slug' => 'payroll.professional.informations.list',
+                'description' => 'Acceso para ver los datos de información socioeconómica',
+                'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacio.profesional.ver'
+            ],
+            [
+                'name' => 'Crear datos de información profesional', 'slug' => 'payroll.professional.informations.create',
+                'description' => 'Acceso para crear datos de información profesional',
+                'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.profesional.crear'
+            ],
+            [
+                'name' => 'Editar datos de información profesional', 'slug' => 'payroll.professional.informations.edit',
+                'description' => 'Acceso para editar datos de información profesional',
+                'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.profesional.editar'
+            ],
+            [
+                'name' => 'Eliminar datos de información profesional', 'slug' => 'payroll.professional.informations.delete',
+                'description' => 'Acceso para eliminar datos de información profesional',
+                'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.profesional.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {

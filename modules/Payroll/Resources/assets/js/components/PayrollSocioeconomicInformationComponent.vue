@@ -69,7 +69,7 @@
 
 						<hr>
 						<h6 class="card-title">
-							Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addChildren"></i>
+							Hijos del Trabajador <i class="fa fa-plus-circle cursor-pointer" @click="addChildren"></i>
 						</h6>
 						<div class="row" v-for="(children, index) in record.childrens">
 							<div class="col-4">
@@ -165,7 +165,7 @@
 					birthdate_twosome: '',
 					payroll_staff_id: '',
 					marital_status_id: '',
-					childrens: ['hola', 'hola2'],
+					childrens: [],
 				},
 				errors: [],
 				records: [],
@@ -193,19 +193,19 @@
 			},
 
 			getPayrollSocioeconomicInformations() {
-				axios.get('socioeconomic-informations').then(response => {
+				axios.get('socioeconomic-informations/list').then(response => {
 					this.records = response.data.records;
 				});
 			},
 
 			getPayrollStaffs() {
-				axios.get('list-staffs').then(response => {
+				axios.get('socioeconomic-informations/staffs-list').then(response => {
 					this.payroll_staffs = response.data;
 				});
 			},
 
 			getMaritalStatus() {
-				axios.get('list-marital-status').then(response => {
+				axios.get('socioeconomic-informations/marital-status-list').then(response => {
 					this.marital_status = response.data;
 				});
 			},

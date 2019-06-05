@@ -231,9 +231,4 @@ class PayrollStaffController extends Controller
         }
         return redirect()->route('payroll.staffs.index');
     }
-
-    public function listStaffs()
-    {
-        return template_choices('Modules\Payroll\Models\PayrollStaff',['id_number','-','full_name'],'',true);
-    }
 }

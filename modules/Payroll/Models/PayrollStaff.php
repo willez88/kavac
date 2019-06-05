@@ -79,21 +79,21 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la Parroquia
+     * PayrollStaff belongs to Parish
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo Parish
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function parish()
     {
-        return $this->belongsTo('App\Models\Parish');
+        return $this->belongsTo(Parish::class);
     }
 
     /**
-     * Método que obtiene el Género del personal
+     * PayrollStaff belongs to PayrollGender
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo PayrollGender
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function payroll_gender()
     {
@@ -101,10 +101,10 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la nacionalidad
+     * PayrollStaff belongs to PayrollNationality
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo PayrollNationality
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function payroll_nationality()
     {
@@ -112,13 +112,24 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información socioeconómica relacionada al personal
+     * PayrollStaff has one PayrollSocioeconomicInformation
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return object Objeto con el registro relacionados al modelo PayrollSocioeconomicInformation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function payroll_socioecomic_information()
     {
     	return $this->hasOne(PayrollSocioeconomicInformation::class);
+    }
+
+    /**
+     * PayrollStaff has one PayrollProfessionalInformation
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function payroll_professional_information()
+    {
+    	return $this->hasOne(PayrollProfessionalInformation::class);
     }
 }

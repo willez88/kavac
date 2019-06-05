@@ -19,7 +19,7 @@ use App\Traits\ModelsTrait;
  * @author William Páez <wpaez at cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PayrollChildren extends Model
+class PayrollChildren extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -47,8 +47,14 @@ class PayrollChildren extends Model
         'first_name', 'last_name', 'id_number', 'birthdate', 'payroll_socioecomic_information_id'
     ];
 
-    public function payroll_socioecomic_informations()
+    /**
+     * PayrollChildren belongs to PayrollSocioeconomicInformation
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payroll_socioecomic_information()
     {
-        return $this->hasMany('Modules\Payroll\Models\PayrollSocioeconomicInformation');
+        return $this->belongsTo(PayrollSocioeconomicInformation::class);
     }
 }

@@ -21,7 +21,7 @@ class CreatePayrollSocioeconomicInformationsTable extends Migration
                 $table->date('birthdate_twosome')->nullable()->comment('Fecha de nacimiento de la pareja del trabajador');
 
                 $table->integer('payroll_staff_id')->unsigned()
-                      ->comment('identificador del personal que pertenece al dato socioeconómico');
+                      ->comment('identificador del trabajador que pertenece al dato socioeconómico');
                 $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
                       ->onDelete('restrict')->onUpdate('cascade');
 

@@ -48,21 +48,21 @@ class PayrollNationality extends Model implements Auditable
     ];
 
     /**
-     * Método que obtiene el país
+     * PayrollNationality belongs to Country
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo Country
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function country()
     {
-        return $this->belongsTo('App\Models\Country');
+        return $this->belongsTo(Country::class);
     }
 
     /**
-     * Método que obtiene el personal relacionado a la nacionalidad
+     * PayrollNationality has many PayrollStaff
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo Staff
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payroll_staffs()
     {

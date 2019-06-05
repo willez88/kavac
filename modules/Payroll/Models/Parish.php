@@ -8,10 +8,10 @@ use App\Models\Parish as BaseParish;
 class Parish extends BaseParish
 {
     /**
-     * Método que obtiene la parroquia relacionada al personal
+     * Parish has many PayrollStaff
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return object Objeto con los registros relacionados al modelo PayrollStaff
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payroll_staffs()
     {
