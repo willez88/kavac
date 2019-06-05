@@ -37,15 +37,15 @@ class SettingController extends Controller
         $header_setting = [
             'route' => 'settings.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        $model_institution = Institution::where(['active' => true, 'default' => true])->first();
+        $model_institution = Institution::where(['active' => true, 'default' => false])->first();
         $header_institution = [
             'route' => 'institutions.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
             'enctype' => 'multipart/form-data'
         ];
 
-        $organism_adscripts = template_choices(
+        $organism_adscripts = (!is_null($model_institution)) ? template_choices(
             Institution::class, 'name', [], false, $model_institution->id
-        );
+        ) : ['' => 'Seleccione...'];
         $institutions = Institution::all();
         $countries = template_choices(Country::class);
         $estates = template_choices(Estate::class);
