@@ -25,6 +25,9 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
 
     protected $revisionCreationsEnabled = true;
 
+    /** @var array Establece las relaciones por defecto que se retornan con las consultas */
+    protected $with = ['specific_action'];
+
     /**
      * The attributes that should be mutated to dates.
      *

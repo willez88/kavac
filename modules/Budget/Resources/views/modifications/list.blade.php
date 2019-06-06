@@ -33,9 +33,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-modification-list route_list='{{ url('budget/aditional-credits/vue-list') }}' 
-											  route_delete="{{ url('budget/modifications') }}" 
-											  route_edit="{{ url('budget/aditional-credits/{id}/edit') }}"/>
+					<budget-mod-list route_list='{{ url('budget/modifications/vue-list/AC') }}' 
+									 route_delete="{{ url('budget/modifications') }}" 
+									 route_edit="{{ url('budget/modifications/AC/{id}/edit') }}"/>
 				</div>
 			</div>
 		</div>
@@ -57,9 +57,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-modification-list route_list='{{ url('budget/reductions/vue-list') }}' 
-											  route_delete="{{ url('budget/modifications') }}" 
-											  route_edit="{{ url('budget/reductions/{id}/edit') }}"/>
+					<budget-mod-list route_list='{{ url('budget/modifications/vue-list/RE') }}' 
+									 route_delete="{{ url('budget/modifications') }}" 
+									 route_edit="{{ url('budget/modifications/RE/{id}/edit') }}"/>
 				</div>
 			</div>
 		</div>
@@ -81,9 +81,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-modification-list route_list='{{ url('budget/transfers/vue-list') }}' 
-											  route_delete="{{ url('budget/modifications') }}" 
-											  route_edit="{{ url('budget/transfers/{id}/edit') }}"/>
+					<budget-mod-list route_list='{{ url('budget/modifications/vue-list/TR') }}' 
+									 route_delete="{{ url('budget/modifications') }}" 
+									 route_edit="{{ url('budget/modifications/TR/{id}/edit') }}"/>
 				</div>
 			</div>
 		</div>

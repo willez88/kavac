@@ -149,7 +149,7 @@ class BudgetTransferController extends Controller
     public function vueList()
     {
         return response()->json([
-            'records' => BudgetModification::where('type', 'T')->with(['institution', 'budget_modificacion_accounts'])->get()
+            'records' => BudgetModification::where('type', 'T')->get()
         ], 200);
     }
 }

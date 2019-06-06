@@ -27,7 +27,8 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				<budget-modification type_modification="{!! $type !!}"></budget-modification>
+				<budget-mod type_modification="{!! $type !!}" 
+							edit_object="{{ (isset($model)) ? $model : '' }}"></budget-mod>
 			</div>
 		</div>
 	</div>

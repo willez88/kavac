@@ -186,7 +186,15 @@ class BudgetModificationController extends Controller
 
     public function edit($type, BudgetModification $modification)
     {
+        $viewTemplate = ($type==="AC") 
+                        ? 'aditional_credits' 
+                        : (($type==='RE') 
+                          ? 'reductions' 
+                          : (($type==="TR") 
+                            ? 'transfers' : ''));
+        $model = $modification;
 
+        return view("budget::$viewTemplate.create-edit-form", compact('type', 'model'));
     }
 
     public function update(Request $request, BudgetModification $modification)
@@ -208,5 +216,35 @@ class BudgetModificationController extends Controller
         }
         
         return response()->json(['record' => $budgetModification, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Obtiene los registros a mostrar en listados de componente Vue
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @return json Json con datos de la perición realizada
+     */
+    public function vueList($type)
+    {
+        switch ($type) {
+            case 'AC':
+                $tp = 'C';
+                break;
+            case 'RE':
+                $tp = 'R';
+                break;
+            case 'TR':
+                $tp = 'T';
+                break;
+            default:
+                $tp = '';
+                break;
+        }
+
+        $records = ($tp) ? BudgetModification::where('type', $tp)->get() : [];
+
+        return response()->json([
+            'records' => $records
+        ], 200);
     }
 }
