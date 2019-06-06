@@ -1,10 +1,11 @@
 @php
-	$pdf->SetTitle('Asientos Contables'); // titulo del archivo
+	$pdf->SetTitle('Libro Diario'); // titulo del archivo
     $height = $pdf->get_Y();
-    $totDebe=0;
-    $totHaber=0;                
+    $totDebit=0;
+    $totAssets=0;                
 @endphp
-
+<h2 align="center">LIBRO DIARIO</h2>
+<h4>EXPRESADO EN {{ $currency->symbol }}</h4>
 
 @if($OneSeat)
 	{{-- Pdf de un asiento contable --}}
@@ -40,8 +41,8 @@
 						<span>{{ ' '.$currency->symbol }}</span>{{' '.$account['assets'] }}
 					</td>
 					@php
-						$totDebe = $totDebe+$account['debit'];
-						$totHaber = $totHaber+$account['assets'];
+						$totDebit = $totDebit+$account['debit'];
+						$totAssets = $totAssets+$account['assets'];
 					@endphp
 				</tr>
 			@endforeach
@@ -56,10 +57,10 @@
 			<tr>
 				<td ></td>
 				<td>
-					<span>{{ ' '.$currency->symbol }}</span>{{' '.$totDebe }}
+					{{' '.$totDebit }}
 				</td>
 				<td>
-					<span>{{ ' '.$currency->symbol }}</span>{{' '.$totHaber }}
+					{{' '.$totAssets }}
 				</td>
 			</tr>
 		</table>
@@ -93,27 +94,20 @@
 					<td></td>
 					<td align="left"> {{ ' '.$account['account']['group'].'.'.$account['account']['subgroup'].'.'.$account['account']['item'].'.'.$account['account']['generic'].'.'.$account['account']['specific'].'.'.$account['account']['subspecific'] }}</td>
 					<td>
-						{{' '.$account['account']['denomination'] }}
+						{{' '.$account['account']['denomination'] }} 
 					</td>
-					<td>
-						<span>{{ ' '.$currency->symbol }}</span>{{' '.$account['debit'] }}	
+					<td align="right">
+						{{' '.number_format($account['debit'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
-					<td>
-						<span>{{ ' '.$currency->symbol }}</span>{{' '.$account['assets'] }}
+					<td align="right">
+						{{' '.number_format($account['assets'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					@php
-						$totDebe = $totDebe+$account['debit'];
-						$totHaber = $totHaber+$account['assets'];
+						$totDebit = $totDebit+$account['debit'];
+						$totAssets = $totAssets+$account['assets'];
 					@endphp
 				</tr>
 			@endforeach
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
 		</table>
 	@endforeach
 	<table cellspacing="0" cellpadding="1" border="0">
@@ -124,11 +118,11 @@
 		</tr>
 		<tr>
 			<td ></td>
-			<td>
-				<span>{{ ' '.$currency->symbol }}</span>{{' '.$totDebe }}
+			<td align="right">
+				{{number_format($totDebit, (int)$currency->decimal_places, ',', '.') }} 
 			</td>
-			<td>
-				<span>{{ ' '.$currency->symbol }}</span>{{' '.$totHaber }}
+			<td align="right">
+				{{number_format($totAssets, (int)$currency->decimal_places, ',', '.') }} 
 			</td>
 		</tr>
 	</table>

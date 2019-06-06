@@ -8,17 +8,30 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingSeatCategory;
 use Auth;
-
+/**
+ * @class AccountingSettingCategoryController
+ * @brief Controlador de configuración de categorias de origen de asientos contables
+ * 
+ * Clase que gestiona las categorias de origen de asientos contables
+ * 
+ * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class AccountingSettingCategoryController extends Controller
 {
     use ValidatesRequests;
+
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Define la configuración de la clase
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
      */
-    public function index()
+    public function __construct()
     {
-        return view('accounting::index');
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:accounting.setting.category.store', ['only' => ['store']]);
+        $this->middleware('permission:accounting.setting.category.update', ['only' => ['update']]);
+        $this->middleware('permission:accounting.setting.category.delete', ['only' => 'destroy']);
     }
 
     /**
@@ -44,32 +57,6 @@ class AccountingSettingCategoryController extends Controller
         return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'],200);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        return view('accounting::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        return view('accounting::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
     /**
      * Actualiza los datos de la categoria de origen
      *

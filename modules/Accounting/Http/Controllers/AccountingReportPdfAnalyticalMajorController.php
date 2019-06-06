@@ -5,27 +5,28 @@ namespace Modules\Accounting\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingSeat;
-use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
 use Auth;
 
 /**
- * @class AccountingReportPdfCheckupBalanceController
- * @brief Controlador para la generación del reporte de Balance de Comprobación
+ * @class AccountingReportPdfAnalyticalMajorController
+ * @brief Controlador para la generación del reporte de Mayor Analítico
  * 
- * Clase que gestiona el reporte de balance de comprobación
+ * Clase que gestiona el reporte de mayor analítico
  * 
  * @author Juan Rosas <JuanFBass17@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class AccountingReportPdfCheckupBalanceController extends Controller
+class AccountingReportPdfAnalyticalMajorController extends Controller
 {
+    use ValidatesRequests;
 
     /**
      * Define la configuración de la clase
@@ -35,41 +36,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.checkupbalance', ['only' => ['index', 'getAccAccount', 'pdf']]);
-    }
-
-    /** @var Array array en el que se almacenara la información de cuentas patrimoniales */
-    protected $accountRecords;
-    /** @var String cadena en la que se almacenara la fecha del rango inicial de busqueda */
-    protected $initDate;
-    /** @var String cadena en la que se almacenara la fecha del rango final de busqueda */
-    protected $endDate;
-
-    public function setRecords($records)
-    {
-        $this->accountRecords = $records;
-    }
-    public function getRecords()
-    {
-        return $this->accountRecords;
-    }
-
-    public function setInitDate($date)
-    {
-        $this->initDate = $date;
-    }
-    public function getInitDate()
-    {
-        return $this->initDate;
-    }
-
-    public function setEndDate($date)
-    {
-        $this->endDate = $date;
-    }
-    public function getEndDate()
-    {
-        return $this->endDate;
+        $this->middleware('permission:accounting.report.analiticalmajor', ['only' => ['index', 'getAccAccount', 'pdf']]);
     }
 
     /**
@@ -81,33 +48,38 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     public function index()
     {
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::where('approved', true)->orderBy('from_date','ASC')->first();
+        $seating = AccountingSeat::where('approved',true)->orderBy('from_date','ASC')->first();
         
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
         $yearOld = explode('-',$seating['from_date'])[0];
 
-        return view('accounting::reports.index-checkupBalance',compact('yearOld'));
+        return view('accounting::reports.index-analytical_major', compact('yearOld'));
     }
 
     /**
-     * Consulta y formatea las cuentas en un rango determinado y las almacena en variables en el controlador
-     * variable en las que almacena ($accountRecords, $initDate, $endDate)
+     * Consulta y formatea las cuentas en un rango determinado y las retorna a la vista
      *
      * @author Juan Rosas <JuanFBass17@gmail.com>
-     * @param String $initDate variable con la fecha inicial
-     * @param String $endDate variable con la fecha inicial
+     * @param  Request $request Objeto con datos del rango de busqueda de las cuentas
+     * @return Response JSON con array de las cuentas patrimoniales
      */
-    public function getAccAccount($initDate, $endDate)
+    public function getAccAccount(Request $request)
     {
+        $this->validate($request, [
+            'initMonth' => 'required',
+            'initYear' => 'required',
+            'endMonth' => 'required',
+            'endYear' => 'required',
+        ]);
 
         /** @var Object String en el que se formatea la fecha inicial de busqueda */
-        $initDate = $initDate.'-01';
+        $initDate = $request->initYear.'-'.$request->initMonth.'-01';
 
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $endDay = date('d',(mktime(0,0,0,explode('-',$endDate)[1]+1,1,explode('-',$endDate)[0])-1));
+        $endDay = date('d',(mktime(0,0,0,$request->endMonth+1,1,$request->endYear)-1));
 
         /** @var Object String en el que se formatea la fecha final de busqueda */
-        $endDate = $endDate.'-'.$endDay;
+        $endDate = $request->endYear.'-'.$request->endMonth.'-'.$endDay;
 
         /** @var Object Objeto en el que se almacena la consulta de las cuentas con relación hacia asientos contables en un rango de fecha */
         $RecordArr = AccountingSeatAccount::with('seating', 'account')->whereHas('seating', function($query) use ($initDate, $endDate) {
@@ -156,6 +128,11 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         Se formatean los datos de las cuentas
         */
         $index = 0;
+        array_push($arrAux, [
+                'id_record' => '',
+                'text' => 'Seleccione...',
+                'id' => $index,
+            ]);
         foreach ($records as $account) {
             $index += 1;
             array_push($arrAux, [
@@ -164,48 +141,56 @@ class AccountingReportPdfCheckupBalanceController extends Controller
                 'id' => $index,
             ]);
         }
+        /**
+        Se elimina la variable de sesion si ya existe
+        */
+        if (\Session::has('accountRecords')) {
+            \Session::forget('accountRecords');
+            \Session::forget('initDate');
+            \Session::forget('endDate');
+        }
+        /** @var Session Variable de Session con la información base de las cuentas patrimoniales */
+        \Session::put('accountRecords',$arrAux);
+        \Session::put('initDate',$initDate);
+        \Session::put('endDate',$endDate);
 
-        $this->setRecords($arrAux);
-        $this->setInitDate($initDate);
-        $this->setEndDate($endDate);
+        return response()->json(['records'=>$arrAux]);
     }
 
     /**
-     * vista en la que se genera el reporte en pdf de balance de comprobación
+     * vista en la que se genera el reporte en pdf
      *
      * @author Juan Rosas <JuanFBass17@gmail.com>
-     * @param String $typebalance variable con la que determina que información se debe mostrar en el reporte('Complet', 'Sum', 'Balance')
-     * @param String $initDate variable con la fecha inicial
-     * @param String $endDate variable con la fecha inicial
+     * @param String $initAcc variable con el index en el array de la cuenta de inicio
+     * @param String $endAcc variable con el index en el array de la cuenta final
      */
-    public function pdf($typeBalance, $initDate, $endDate)
+
+    public function pdf($initAcc, $endAcc = null)
     {
-
-        $this->getAccAccount($initDate, $endDate);
-
         /** @var Array Arreglo asociativo con la información base (id, id_record y denomination) de las cuentas patrimoniales */
-        $accountRecords = $this->getRecords();
+        $accountRecords = \Session::get('accountRecords');
 
         /** @var Int indice de la cuenta desde donde finalizara la busqueda */
-        $EndIndex = count($accountRecords)-1;
+        $EndIndex = $initAcc;
+
+        if (isset($endAcc)) { $EndIndex = $endAcc; }
 
         /** @var Object Objeto con los registros de las cuentas patrimoniales seleccionadas */
         $records = [];
 
         /** @var Object Cadena de Texto con la fecha inicial del rango */
-        $initDate = $this->getInitDate();
+        $initDate = \Session::get('initDate');
 
         /** @var Object Cadena de Texto con la fecha final del rango */
-        $endDate = $this->getEndDate();
+        $endDate = \Session::get('endDate');
 
-        for ($i = 0 ; $i <= $EndIndex; $i++) {
-            $id_record = $accountRecords[$i]['id_record'];
+        for ( ; $initAcc <= (int)$EndIndex; $initAcc++) {
+            $id_record = $accountRecords[$initAcc]['id_record'];
             array_push($records, AccountingSeatAccount::with('seating','account')
                                                         ->where('accounting_account_id', $id_record)
                                                         ->whereHas('seating', function($query) use ($initDate, $endDate) {
                                                             $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
-                                                        })->orderBy('updated_at','ASC')->get()
-                      );
+                                                        })->orderBy('updated_at','ASC')->get());
         }
 
         /** @var Object configuración general de la apliación */
@@ -229,21 +214,22 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
 
-        $pdf->setType('Balance de Comprobación');
+        $pdf->setType('Asientos Contables');
         $pdf->Open();
         $pdf->AddPage();
 
-        $unit = true;
-        $html = \View::make('accounting::pdf.accounting_checkup_balance_pdf',compact('pdf','records','initDate','endDate','currency','typeBalance'))->render();
+        $OneSeat = false;
+        // dd($records);
+        $html = \View::make('accounting::pdf.accounting_analytical_major_pdf',compact('pdf','records','initDate','endDate','currency'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
-        $pdf->Output("Balance_de_Comprobación_{$initDate}_{$endDate}.pdf");
+
+        $pdf->Output("MayorAnalítico_{$initDate}_{$endDate}.pdf");
     }
 
     public function get_checkBreak(){
         return $this->PageBreakTrigger;
     }
-
 }

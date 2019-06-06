@@ -22,6 +22,19 @@ class AccountingAccount extends Model implements Auditable
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
+    
+    /**
+     * Establece el uso o no de bitácora de registros para este modelo
+     * @var boolean $revisionCreationsEnabled
+     */
+    protected $revisionCreationsEnabled = true;
+
+    /**
+     * Lista de atributos para la gestión de fechas
+     *
+     * @var array $dates
+     */
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
 		'group',
@@ -47,7 +60,7 @@ class AccountingAccount extends Model implements Auditable
 
     public function seat_account()
     {
-        return $this->hasOne(AccountingSeatAccount::class);
+        return $this->hasMany(AccountingSeatAccount::class);
     }
     /**
      * Contatena ciertos valores del registro para generar el codigo

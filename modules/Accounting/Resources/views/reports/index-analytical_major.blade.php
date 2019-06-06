@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Configuración
+	Reportes
 @stop
 
 @section('content')
@@ -21,29 +21,16 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Origenes para Asientos Contables</h6>
+					<h6 class="card-title">Mayor Analítico</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-setting-category :categories="{{$categories}}" />
+					<accounting-report-analytical-major year_old="{{ $yearOld }}" />
 				</div>
 			</div>
 		</div>
-{{-- 		<div class="col-6">
-			<div class="card">
-				<div class="card-header">
-					<h6 class="card-title">Tasas de cambio de monedas</h6>
-					<div class="card-btns">
-						@include('buttons.minimize')
-					</div>
-				</div>
-				<div class="card-body">
-					<accounting-setting-currency-exchange-rate :currency_default="{{ $currency_default }}" />
-				</div>
-			</div>
-		</div> --}}
 	</div>
 @stop

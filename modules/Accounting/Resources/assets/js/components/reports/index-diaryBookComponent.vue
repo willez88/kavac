@@ -17,14 +17,13 @@
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<a :href="url+orderDate()"
-				class="btn btn-success btn-icon btn-round"
-				data-toggle="tooltip"
-				target="_blank"
-				:disabled="(dateIni == '' || dateEnd == '')"
-				title="Realizar busqueda">
-				<i class="fa fa-search"></i>
-			</a>
+			<button class="btn btn-primary btn-custom"
+					title="Generar Reporte"
+					:disabled="(dateIni == '' || dateEnd == '')"
+					v-on:click="OpenReport()">
+					<span>Generar reporte</span>
+					<i class="fa fa-print"></i>
+			</button>
 		</div>
 	</div>
 </template>
@@ -43,8 +42,10 @@
 				
 				var dateIni = this.dateIni.split('-')[2]+'-'+this.dateIni.split('-')[1]+'-'+this.dateIni.split('-')[0];
 				var dateEnd = this.dateEnd.split('-')[2]+'-'+this.dateEnd.split('-')[1]+'-'+this.dateEnd.split('-')[0];
-
-				return (dateIni <= dateEnd)?(dateIni+'/'+dateEnd):(dateEnd+'/'+dateIni);
+				return (this.dateIni <= this.dateEnd) ? (dateIni+'/'+dateEnd) : (dateEnd+'/'+dateIni);
+			},
+			OpenReport(){
+				window.open(this.url+this.orderDate(), '_blank');
 			}
 		}
 	}

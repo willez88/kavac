@@ -78,16 +78,30 @@ Route::group(['middleware' => 'web',
      */
 	Route::get('report/checkingBalance','AccountingReportPdfCheckupBalanceController@index')
 		->name('accounting.report.checkingBalance');
-	Route::get('report/checkingBalance/pdf/{zero?}','AccountingReportPdfCheckupBalanceController@pdf')
+	Route::get('report/checkingBalance/pdf/{typeBalance}/{initDate}/{endDate}','AccountingReportPdfCheckupBalanceController@pdf')
 		->name('accounting.report.checkingBalance.pdf');
 
 	/**
      * rutas para reporte del libro diario
      */
-	Route::get('report/diaryBook', 'AccountingReportPdfDiaryBookController@index')
+	Route::get('report/diaryBook', 'AccountingReportPdfDailyBookController@index')
 			->name('accounting.report.diaryBook');
-	Route::get('report/diaryBook/pdf/{dateIni}/{dateEnd}','AccountingReportPdfDiaryBookController@pdf')
+
+	Route::get('report/diaryBook/pdf/{initDate}/{endDate}','AccountingReportPdfDailyBookController@pdf')
 		->name('accounting.report.diaryBook.pdf');
+
+
+	/**
+     * rutas para reporte del Mayor Analítico
+     */
+	Route::get('report/AnalyticalMajor', 'AccountingReportPdfAnalyticalMajorController@index')
+			->name('accounting.report.analyticalMajor');
+
+	Route::post('report/AnalyticalMajor/AccAccount', 'AccountingReportPdfAnalyticalMajorController@getAccAccount')
+			->name('accounting.report.analyticalMajor.AccAccount');
+
+	Route::get('report/AnalyticalMajor/pdf/{initAcc}/{endAcc?}', 'AccountingReportPdfAnalyticalMajorController@pdf')
+			->name('accounting.report.analyticalMajor.pdf');
 
 
 

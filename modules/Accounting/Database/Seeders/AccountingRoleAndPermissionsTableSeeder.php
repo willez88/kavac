@@ -31,7 +31,7 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
 
         $adminRole = Role::where('slug', 'admin')->first();
 
-        $budgetRole = Role::updateOrCreate(
+        $accountingRole = Role::updateOrCreate(
             ['slug' => 'account'],
             ['name' => 'Contabilidad', 'description' => 'Coordinador de cuentas Contables']
         );
@@ -127,11 +127,67 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Accounting\Models\AccountingSeatController', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.approve', 'short_description' => 'aprobar asiento contable'
             ],
+            [
+                'name' => 'reporte pdf de asientos contables', 'slug' => 'accounting.seating.report',
+                'description' => 'Acceso para generar reporte pdf de asiento contable', 
+                'model' => 'Modules\Accounting\Models\AccountingSeatReportPdfController', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'asiento_contable.pdf', 'short_description' => 'reporte pdf de asiento contable'
+            ],
+
+            /**
+            * Configuración del modulo
+            */
+            [
+                'name' => 'vista principal de la configuración', 'slug' => 'accounting.setting.index',
+                'description' => 'Acceso para visualizar las configuraciones del modulo', 
+                'model' => 'Modules\Accounting\Models\AccountingSettingController', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'configuracion.ver', 'short_description' => 'Visualizar configuraciones'
+            ],
+            [
+                'name' => 'Crear nueva categoria', 'slug' => 'accounting.setting.category.store',
+                'description' => 'Acceso para guardar nueva categoria', 
+                'model' => 'Modules\Accounting\Models\AccountingSettingCategoryController', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'configuracion_categoria.guardar', 'short_description' => 'guardar categoria'
+            ],
+            [
+                'name' => 'Actualizar categoria', 'slug' => 'accounting.setting.category.update',
+                'description' => 'Acceso para actualizar categoria', 
+                'model' => 'Modules\Accounting\Models\AccountingSettingCategoryController', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'configuracion_categoria.actualizar', 'short_description' => 'actualizar categoria'
+            ],
+            [
+                'name' => 'Eliminar categoria', 'slug' => 'accounting.setting.category.delete',
+                'description' => 'Acceso para eliminar categoria', 
+                'model' => 'Modules\Accounting\Models\AccountingSettingCategoryController', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'configuracion_categoria.eliminar', 'short_description' => 'eliminar categoria'
+            ],
+
+            /**
+            * Reportes Generales
+            */
+            [
+                'name' => 'reporte pdf de libro diario', 'slug' => 'accounting.report.dailybook',
+                'description' => 'Acceso para generar reporte pdf de libro diario', 
+                'model' => 'Modules\Accounting\Models\AccountingReportPdfDailyBookController', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'reporte_libro_diario.pdf', 'short_description' => 'reporte pdf de libro diario'
+            ],
+            [
+                'name' => 'reporte pdf balance de comprobación', 'slug' => 'accounting.report.checkupbalance',
+                'description' => 'Acceso para generar reporte pdf balance de comprobación', 
+                'model' => 'Modules\Accounting\Models\AccountingReportPdfCheckupBalanceController', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'reporte_balance_comprobación.pdf', 'short_description' => 'reporte pdf balance de comprobación'
+            ],
+            [
+                'name' => 'reporte pdf de Mayor analítico', 'slug' => 'accounting.report.analiticalmajor',
+                'description' => 'Acceso para generar reporte pdf de Mayor analítico', 
+                'model' => 'Modules\Accounting\Models\AccountingReportPdfAnalyticalMajorController', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'reporte_mayor_analítico.pdf', 'short_description' => 'reporte pdf de Mayor analítico'
+            ]
         ];
 
 
 
-        $budgetRole->detachAllPermissions();
+        $accountingRole->detachAllPermissions();
 
         foreach ($permissions as $permission) {
             $per = Permission::updateOrCreate(
@@ -143,7 +199,7 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 ]
             );
 
-            $budgetRole->attachPermission($per);
+            $accountingRole->attachPermission($per);
 
             if ($adminRole) {
                 $adminRole->attachPermission($per);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pdf;
+namespace Modules\Accounting\Pdf;
 
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Setting;
@@ -17,7 +17,7 @@ class Pdf extends \TCPDF {
         $Setting = Setting::all()->first();
 
         $this->SetAuthor($Institution->acronym);
-        $this->SetTitle('Inventario de Bienes');
+        // $this->SetTitle('Inventario de Bienes');
         if($this->getTitleReport() != '')
             $this->SetTitle($this->getTitleReport());
 

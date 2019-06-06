@@ -47,4 +47,15 @@ class AccountingSeat extends Model implements Auditable
     {
         return $this->belongsTo(AccountingSeatCategory::class);
     }
+
+    /**
+     * Indica si el asiento contable esta aprobado
+     *
+     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @return Boolena
+     */
+    public function approved()
+    {
+        return ($this->approved);
+    }
 }

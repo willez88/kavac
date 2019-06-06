@@ -10,20 +10,19 @@ use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
-use Modules\Accounting\Pdf\PDF;
+use Modules\Accounting\Pdf\Pdf;
 use Auth;
 
 /**
- * @class AccountingSeatReportPdfController
- * @brief Controlador para la generación del reporte de asiento contable
+ * @class AccountingReportPdfDailyBookController
+ * @brief Controlador para la generación del reporte del libro diario
  * 
- * Clase que gestiona el reporte de asiento contable
+ * Clase que gestiona el reporte de libro diario
  * 
  * @author Juan Rosas <JuanFBass17@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
-class AccountingSeatReportPdfController extends Controller
+class AccountingReportPdfDailyBookController extends Controller
 {
 
     /**
@@ -34,20 +33,32 @@ class AccountingSeatReportPdfController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.seating.report', ['only' => 'pdf']);
+        $this->middleware('permission:accounting.report.dailybook', ['only' => ['index', 'pdf']]);
     }
 
     /**
-     * vista en la que se genera el reporte en pdf de balance de comprobación
+     * Muestra la vista con el formulario para generar el libro diario
      *
      * @author Juan Rosas <JuanFBass17@gmail.com>
-     * @param Int $id id del asiento contable
-    */
-    public function pdf($id)
+     * @return view
+     */
+    public function index()
+    {
+        return view('accounting::reports.index-diaryBook');
+    }
+
+    /**
+     * vista en la que se genera el reporte en pdf del libro diario
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @param String $initDate variable con la fecha inicial
+     * @param String $endDate variable con la fecha inicial
+     */
+    public function pdf($initDate, $endDate)
     {
 
         /** @var Objet objeto con la información del asiento contable */
-        $seat = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
+        $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved',true)->whereBetween("from_date",[$initDate, $endDate])->orderBy('from_date','ASC')->get();
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
@@ -70,22 +81,21 @@ class AccountingSeatReportPdfController extends Controller
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
 
-        $pdf->setType('Asientos Contables');
+        $pdf->setType('Libro Diario');
         $pdf->Open();
         $pdf->AddPage();
 
-        $OneSeat = true;
-        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('seat','pdf','OneSeat','currency'))->render();
+        $OneSeat = false;
+        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('pdf','seats','OneSeat','currency'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
 
-        $pdf->Output("AsientoContable_".$seat['from_date'].".pdf");
+        $pdf->Output("Libro_Diario_{$initDate}_{$endDate}.pdf");
     }
 
     public function get_checkBreak(){
         return $this->PageBreakTrigger;
     }
-
 }
