@@ -26,6 +26,8 @@ class PayrollEmploymentInformation extends Model implements Auditable
     use AuditableTrait;
     use ModelsTrait;
 
+    protected $table = 'payroll_employment_informations';
+
     /**
      * Establece el uso o no de bitácora de registros para este modelo
      * @var boolean $revisionCreationsEnabled
