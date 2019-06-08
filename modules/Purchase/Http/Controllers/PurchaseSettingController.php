@@ -6,9 +6,24 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use App\Models\CodeSetting;
+use App\Rules\CodeSetting as CodeSettingRule;
 
 class PurchaseSettingController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:purchase.setting.list', ['only' => 'index', 'vueList']);
+        $this->middleware('permission:purchase.setting.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:purchase.setting.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:purchase.setting.delete', ['only' => 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -49,6 +64,59 @@ class PurchaseSettingController extends Controller
      */
     public function store(Request $request)
     {
+        /** Reglas de validación para la configuración de códigos */
+        $request->validate([
+            'requirements_code' => [new CodeSettingRule],
+            'quotions_code' => [new CodeSettingRule],
+            'minutes_code' => [new CodeSettingRule],
+            'buy_orders_code' => [new CodeSettingRule],
+            'service_orders_code' => [new CodeSettingRule],
+            'refunds_code' => [new CodeSettingRule],
+        ]);
+
+        /** @var array Arreglo con información de los campos de códigos configurados */
+        $codes = $request->input();
+        /** @var boolean Define el estatus verdadero para indicar que no se ha registrado información */
+        $saved = false;
+        
+        foreach ($codes as $key => $value) {
+            /** @var string Define el modelo al cual hace referencia el código */
+            $model = '';
+
+            if ($key !== '_token' && !is_null($value)) {
+                list($table, $field) = explode("_", $key);
+                list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
+
+                $tableName = explode(".", $table);
+                $tbName = '';
+                foreach ($tableName as $tb) {
+                    $tbName .= $tb . '_';
+                }
+                if ($key === "buy.orders_code") {
+                    dd($tbName);
+                }
+
+                CodeSetting::updateOrCreate([
+                    'module' => 'purchase',
+                    'table' => 'purchase_' . trim($tbName, "_"),
+                    'field' => $field,
+                    'type' => (isset($type)) ? $type : null
+                ], [
+                    'format_prefix' => $prefix,
+                    'format_digits' => $digits,
+                    'format_year' => $sufix,
+                    'model' => $model,
+                ]);
+                /** @var boolean Define el estatus verdadero para indicar que se ha registrado información */
+                $saved = true;
+            }
+        }
+        
+        if ($saved) {
+            $request->session()->flash('message', ['type' => 'store']);
+        }
+        
+        return redirect()->back();
     }
 
     /**
