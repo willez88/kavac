@@ -85,16 +85,16 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label(
-										'purchase_orders_code', 'Código de Orden de Compra', []
+										'buy_orders_code', 'Código de Orden de Compra', []
 									) !!}
 									{!! Form::text(
-										'purchase_orders_code', 
-										($poCode)?$poCode->format_code:old('purchase_orders_code'), [
+										'buy_orders_code', 
+										($buCode)?$buCode->format_code:old('buy_orders_code'), [
 											'class' => 'form-control', 
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la orden de compra',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY', 
-											'readonly' => ($poCode) ? true : false
+											'readonly' => ($buCode) ? true : false
 										]
 									) !!}
 								</div>

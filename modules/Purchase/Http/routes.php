@@ -27,10 +27,10 @@ Route::group([
         Route::post('settings', 'PurchaseSettingController@store')->name('purchase.settings.store');
         /** Rutas para la gestión de especialidades de proveedores */
         Route::resource(
-        	'supplier-specialties', 'PurchaseSupplierSpecialtyController', ['as', 'purchase']
+        	'supplier-specialties', 'PurchaseSupplierSpecialtyController', ['as' => 'purchase']
         );
         /** Rutas para la gestión de tipos de proveedores */
-        Route::resource('supplier-types', 'PurchaseSupplierTypeController', ['as', 'purchase']);
+        Route::resource('supplier-types', 'PurchaseSupplierTypeController', ['as' => 'purchase']);
     });
     
     /*
@@ -40,5 +40,5 @@ Route::group([
      *
      * Gestiona los datos de los proveedores
      */
-    Route::resource('suppliers', 'PurchaseSupplierController', ['as', 'purchase']);
+    Route::resource('suppliers', 'PurchaseSupplierController', ['as' => 'purchase']);
 });
