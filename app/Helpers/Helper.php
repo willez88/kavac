@@ -253,6 +253,6 @@ if (!function_exists('ci_exists')) {
 		// de identidad
 		// Conectar al organismo rector para verificar la existencia de la cédula
 		
-		return true
+		return true;
 	}
 }
