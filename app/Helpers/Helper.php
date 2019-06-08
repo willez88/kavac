@@ -201,6 +201,21 @@ if (!function_exists('validate_rif')) {
 	}
 }
 
+if (!function_exists('rif_exists')) {
+	/**
+	 * Comprueba que un número de RIF exista
+	 *
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  string $rif Cadena con el número de RIF completo
+	 * @return boolean     Devuelve verdadero si el RIF existe, de lo contrario retorna falso
+	 */
+	function rif_exists($rif) {
+		// Comprobar si existe conexión externa para verificar la existencia del RIF
+		// Conectar al organismo rector para verificar la existencia del RIF
+		return true;
+	}
+}
+
 if (!function_exists('validate_ci')) {
 	/**
 	 * Verifica si un número de Cédula de Identidad es correcto
@@ -223,5 +238,21 @@ if (!function_exists('validate_ci')) {
 		// Establecer conexión con el organismo rector para determinar si la cédula existe
 
 		return true;
+	}
+}
+
+if (!function_exists('ci_exists')) {
+	/**
+	 * Comprueba la existencia de un número de cédula de identidad
+	 * @param  [type] $ci  [description]
+	 * @param  string $nac [description]
+	 * @return [type]      [description]
+	 */
+	function ci_exists($ci, $nac = 'V') {
+		// Comprobar si existe conexión externa para verificar la existencia de la cédula 
+		// de identidad
+		// Conectar al organismo rector para verificar la existencia de la cédula
+		
+		return true
 	}
 }
