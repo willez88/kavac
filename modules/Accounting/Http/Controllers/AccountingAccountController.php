@@ -18,7 +18,7 @@ use Auth;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingAccountController extends Controller
-{    
+{
     use ValidatesRequests;
 
     /**
@@ -34,6 +34,7 @@ class AccountingAccountController extends Controller
         $this->middleware('permission:accounting.account.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:accounting.account.delete', ['only' => 'destroy']);
     }
+    
     /**
      * Muestra un listado de cuentas patrimoniales
      *

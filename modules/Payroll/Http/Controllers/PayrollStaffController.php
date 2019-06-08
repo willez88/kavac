@@ -23,7 +23,7 @@ use App\Helpers\Helper;
  *
  * Clase que gestiona el personal
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez at cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollStaffController extends Controller
@@ -90,12 +90,12 @@ class PayrollStaffController extends Controller
         $this->validate($request, [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
-            'nationality_id' => 'required',
+            'payroll_nationality_id' => 'required',
             'id_number' => 'required|regex:/^[\d]{8}$/u',
             'passport' => 'nullable|max:20',
             'email' => 'nullable|email',
             'birthdate' => 'required|date',
-            'gender_id' => 'required',
+            'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
             'emergency_phone' => 'nullable',
             'parish_id' => 'required',
@@ -115,12 +115,12 @@ class PayrollStaffController extends Controller
         (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;
-        $staff->payroll_nationality_id = $request->nationality_id;
+        $staff->payroll_nationality_id = $request->payroll_nationality_id;
         $staff->id_number = $request->id_number;
         $staff->passport = $request->passport;
         $staff->email = $request->email;
         $staff->birthdate = $request->birthdate;
-        $staff->payroll_gender_id = $request->gender_id;
+        $staff->payroll_gender_id = $request->payroll_gender_id;
         $staff->emergency_contact = $request->emergency_contact;
         $staff->emergency_phone = $request->emergency_phone;
         $staff->parish_id = $request->parish_id;
@@ -190,12 +190,12 @@ class PayrollStaffController extends Controller
         $this->validate($request, [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
-            'nationality_id' => 'required',
+            'payroll_nationality_id' => 'required',
             'id_number' => 'required|regex:/^[\d]{8}$/u',
             'passport' => 'max:20',
             'email' => 'nullable|email',
             'birthdate' => 'required|date',
-            'gender_id' => 'required',
+            'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
             'emergency_phone' => 'nullable',
             'parish_id' => 'required',
@@ -203,12 +203,12 @@ class PayrollStaffController extends Controller
         ]);
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;
-        $staff->payroll_nationality_id = $request->nationality_id;
+        $staff->payroll_nationality_id = $request->payroll_nationality_id;
         $staff->id_number = $request->id_number;
         $staff->passport = $request->passport;
         $staff->email  = $request->email;
         $staff->birthdate = $request->birthdate;
-        $staff->payroll_gender_id = $request->gender_id;
+        $staff->payroll_gender_id = $request->payroll_gender_id;
         $staff->emergency_contact = $request->emergency_contact;
         $staff->emergency_phone = $request->emergency_phone;
         $staff->parish_id = $request->parish_id;

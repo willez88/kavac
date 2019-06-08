@@ -21,94 +21,49 @@ use Auth;
 class AccountingSettingController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Define la configuración de la clase
+     *
+     * @author Juan Rosas <JuanFBass17@gmail.com>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:accounting.setting.index', ['only' => 'index']);
+    }
+
+    /**
+     * Muestra la vista la configuración del modulo
+     * @return view
      */
     public function index()
     {
+        /** @var object Objeto en el que se almacenan los registro de las categorias de asientos contables */
         $categories = AccountingSeatCategory::orderBy('name','ASC')->get();
-        $currency_default = Currency::with('exchange_rate_currency_base.currency')->where('default',true)->first();
-        $currencies = [];
 
-        foreach (Currency::where('default',false)->orderBy('name','ASC')->get() as $currency) {
-            $exist = false;
-            foreach ($currency_default->exchange_rate_currency_base as $exchange_rate) {
-                if ($currency->id == $exchange_rate->currency_id) {
-                    $exist = true;
-                }
-            }
-            if (!$exist) {
-                $curr = new AccountingCurrencyExchangeRate();
-                $curr->currency_id = $currency->id;
-                $curr->currency_base_id = $currency_default->id;
-                $curr->value = 1;
-                $curr->date = date("Y").'-'.date("m").'-'.date("d");
-                $curr->save();
-            }
-        }
+        /** @var object Objeto en el que se almacenan la información de la moneda por defecto en la aplicación */
+        // $currency_default = Currency::with('exchange_rate_currency_base.currency')->where('default',true)->first();
+        // $currencies = [];
 
-        $currency_default = Currency::with('exchange_rate_currency_base.currency')->where('default',true)->first();
+        // foreach (Currency::where('default',false)->orderBy('name','ASC')->get() as $currency) {
+        //     $exist = false;
+        //     foreach ($currency_default->exchange_rate_currency_base as $exchange_rate) {
+        //         if ($currency->id == $exchange_rate->currency_id) {
+        //             $exist = true;
+        //         }
+        //     }
+        //     if (!$exist) {
+        //         $curr = new AccountingCurrencyExchangeRate();
+        //         $curr->currency_id = $currency->id;
+        //         $curr->currency_base_id = $currency_default->id;
+        //         $curr->value = 1;
+        //         $curr->date = date("Y").'-'.date("m").'-'.date("d");
+        //         $curr->save();
+        //     }
+        // }
 
-        return view('accounting::setting.index', compact('categories','currency_default'));
-    }
+        // $currency_default = Currency::with('exchange_rate_currency_base.currency')->where('default',true)->first();
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('accounting::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        return view('accounting::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        return view('accounting::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('accounting::setting.index', compact('categories'));
+        // return view('accounting::setting.index', compact('categories','currency_default'));
     }
 }

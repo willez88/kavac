@@ -24,7 +24,7 @@ class AccountingSeatAccount extends Model implements Auditable
 
     public function seating()
     {
-        return $this->belongsTo(AccountingSeat::class);
+        return $this->belongsTo(AccountingSeat::class,'accounting_seat_id');
     }
     public function account()
     {

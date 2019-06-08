@@ -23,7 +23,7 @@
             <a href="">Reportes</a>
             <ul class="submenu">
                 <li><a href="{{ route('accounting.report.checkingBalance') }}">Balance de Comprobación</a></li>
-                <li><a href="#">Mayor Analítico</a></li>
+                <li><a href="{{ route('accounting.report.analyticalMajor') }}">Mayor Analítico</a></li>
                 <li><a href="{{ route('accounting.report.diaryBook') }}">Libro Diario</a></li>
                 <li><a href="#">Libro Auxiliar</a></li>
                 <li><a href="#">Balance General</a></li>

@@ -1,0 +1,13 @@
+/**
+ * Componente para mostrar listado de información socioeconómica
+ *
+ * @author William Páez (wpaez@cenditel.gob.ve)
+ */
+Vue.component('socioeconomic-informations', require('./components/PayrollSocioeconomicInformationComponent.vue').default);
+
+/**
+ * Componente para mostrar listado de información profesional
+ *
+ * @author William Páez (wpaez@cenditel.gob.ve)
+ */
+Vue.component('professional-informations', require('./components/PayrollProfessionalInformationComponent.vue').default);

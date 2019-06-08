@@ -12,36 +12,40 @@
 			</ul>
 		</div>
 	</div>
-	<form @submit.prevent="" class="row">
-		<div class="form-group col-6 is-required">
-			<label class="control-label">Nombre</label>
-			<input type="text"
-					class="form-control"
-					title="Nombre de la nueva categoria de origen"
-					v-model="NewCategory.name">
-		</div>
-		<div class="form-group col-6 is-required">
-			<label class="control-label">Acrónimo</label>
-			<input type="text"
-					class="form-control"
-					title="Acrónimo"
-					v-model="NewCategory.acronym">
-		</div>
-		<div class="col-10"></div>
-		<div class="col-1">
-			<button class="btn btn-success btn-icon btn-round" 
-					title="Guardar registro"
-					:disabled="NewCategory.name=='' || NewCategory.acronym==''"
-					@click="storeCategory()"
-					v-if="state == 'store'"><i class="fa fa-save"></i>
-			</button>
-			<button class="btn btn-success btn-icon btn-round" 
-					title="Actualizar registro"
-					:disabled="NewCategory.name=='' || NewCategory.acronym==''"
-					@click="updateCategory()"
-					v-if="state == 'update'"
-					><i class="fa fa-save"></i>
-			</button>
+	<form @submit.prevent="" class="form-horizontal">
+		<div class="card-body">
+			<div class="row">
+				<div class="form-group col-5 is-required">
+					<label class="control-label">Nombre</label>
+					<input type="text"
+							class="form-control"
+							title="Nombre de la nueva categoria de origen"
+							v-model="NewCategory.name">
+				</div>
+				<div class="form-group col-5 is-required">
+					<label class="control-label">Acrónimo</label>
+					<input type="text"
+							class="form-control"
+							title="Acrónimo"
+							v-model="NewCategory.acronym">
+				</div>
+				<div class="form-group col-2">
+					<button class="btn btn-success btn-xs" 
+							title="Guardar registro"
+							style="margin-top: 1.3rem !important;" 
+							:disabled="NewCategory.name=='' || NewCategory.acronym==''"
+							@click="storeCategory()"
+							v-if="state == 'store'">Guardar
+					</button>
+					<button class="btn btn-success btn-xs" 
+							title="Actualizar registro"
+							style="margin-top: 1.3rem !important;" 
+							:disabled="NewCategory.name=='' || NewCategory.acronym==''"
+							@click="updateCategory()"
+							v-if="state == 'update'">Actualizar
+					</button>
+				</div>
+			</div>
 		</div>
 	</form>
 	<br>

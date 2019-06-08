@@ -83,7 +83,7 @@
 											<h6><span>{{ currency.symbol }}</span> {{ record.debit }}</h6>
 										</td>
 										<td>
-											<h6><span>{{ currency.symbol }}</span>{{ record.assets }}</h6>
+											<h6><span>{{ currency.symbol }}</span> {{ record.assets }}</h6>
 										</td>
 									</tr>
 									<tr>

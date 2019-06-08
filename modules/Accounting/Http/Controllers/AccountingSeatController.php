@@ -12,8 +12,8 @@ use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Institution;
-
 use Auth;
+
 /**
  * @class AccountingSeatController
  * @brief Controlador de asientos contables
