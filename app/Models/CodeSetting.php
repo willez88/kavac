@@ -47,7 +47,7 @@ class CodeSetting extends Model implements Auditable
      * Método que permite obtener el formato configurado para el código
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return [string] Retorna el formato del código configurado
+     * @return string Retorna el formato del código configurado
      */
     public function getFormatCodeAttribute()
     {

@@ -24,7 +24,7 @@ class FinanceBankAccountController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -37,7 +37,7 @@ class FinanceBankAccountController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -47,7 +47,7 @@ class FinanceBankAccountController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -72,7 +72,7 @@ class FinanceBankAccountController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show()
     {
@@ -81,7 +81,7 @@ class FinanceBankAccountController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -91,10 +91,11 @@ class FinanceBankAccountController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
+        /** @var object Datos de la cuenta bancaria */
         $bankAccount = FinanceBankAccount::find($id);
 
         $this->validate($request, [
@@ -117,10 +118,11 @@ class FinanceBankAccountController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
+        /** @var object Datos de la cuenta bancaria */
         $financeBankAccount = FinanceBankAccount::find($id);
         $financeBankAccount->delete();
         return response()->json(['record' => $financeBankAccount, 'message' => 'Success'], 200);
@@ -130,11 +132,14 @@ class FinanceBankAccountController extends Controller
      * Obtiene todas las cuentas bancarias asociadas a una entidad bancaria
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @param  integer $bank_id Identificador de la entidad bancaria de la que se desean obtener las cuentas
-     * @return JSON             JSON con los datos de las cuentas bancarias asociadas al banco
+     * @param  integer $bank_id                 Identificador de la entidad bancaria de la que se 
+     *                                          desean obtener las cuentas
+     * @return \Illuminate\Http\JsonResponse    JSON con los datos de las cuentas bancarias asociadas 
+     *                                          al banco
      */
     public function getBankAccounts($bank_id)
     {
+        /** @var object Datos de la entidad bancaria */
         $bank = FinanceBank::where('id', $bank_id)->with(['finance_agencies' => function($query) {
             return $query->with('bank_accounts');
         }])->first();

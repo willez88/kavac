@@ -37,7 +37,7 @@ class VerifyPermission
      *
      * @param Request $request
      * @param \Closure $next
-     * @param int|string $permission
+     * @param string $permission
      * @return mixed
      * @throws \App\Roles\Exceptions\PermissionDeniedException
      */

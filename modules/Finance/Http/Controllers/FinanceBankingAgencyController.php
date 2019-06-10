@@ -41,7 +41,7 @@ class FinanceBankingAgencyController extends Controller
     /**
      * Display a listing of the resource.
      * 
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -62,7 +62,7 @@ class FinanceBankingAgencyController extends Controller
      * Store a newly created resource in storage.
      * 
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -105,7 +105,7 @@ class FinanceBankingAgencyController extends Controller
     /**
      * Show the specified resource.
      * 
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show()
     {
@@ -115,7 +115,7 @@ class FinanceBankingAgencyController extends Controller
     /**
      * Show the form for editing the specified resource.
      * 
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -126,7 +126,7 @@ class FinanceBankingAgencyController extends Controller
      * Update the specified resource in storage.
      * 
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -137,6 +137,7 @@ class FinanceBankingAgencyController extends Controller
             'finance_bank_id' => 'required'
         ]);
 
+        /** @var object Datos de la agencia bancaria */
         $financeBankingAgency = FinanceBankingAgency::find($id);
         $financeBankingAgency->fill($request->all());
         $financeBankingAgency->contact_person = (!empty($request->contact_person)) 
@@ -166,10 +167,11 @@ class FinanceBankingAgencyController extends Controller
     /**
      * Remove the specified resource from storage.
      * 
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
+        /** @var object Datos de la agencia bancaria */
         $financeBankingAgency = FinanceBankingAgency::find($id);
         $financeBankingAgency->delete();
         return response()->json(['record' => $financeBankingAgency, 'message' => 'Success'], 200);
@@ -179,8 +181,8 @@ class FinanceBankingAgencyController extends Controller
      * Obtiene las agencias bancarias registradas
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @param  integer $bank_id Identificador del banco
-     * @return Response         JSON con el listado de las agencias bancarias
+     * @param  integer $bank_id                 Identificador del banco
+     * @return \Illuminate\Http\JsonResponse    JSON con el listado de las agencias bancarias
      */
     public function getAgencies($bank_id = null)
     {

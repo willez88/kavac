@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use Module;
 
 /**
  * @class Image
@@ -77,7 +78,7 @@ class Image extends Model implements Auditable
     /**
      * Image has many FinanceBank.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return array|\Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function finance_banks()
     {

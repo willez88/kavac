@@ -24,7 +24,7 @@ class FinanceCheckBookController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -73,7 +73,7 @@ class FinanceCheckBookController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -83,7 +83,7 @@ class FinanceCheckBookController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -106,7 +106,7 @@ class FinanceCheckBookController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show()
     {
@@ -115,7 +115,7 @@ class FinanceCheckBookController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -133,7 +133,7 @@ class FinanceCheckBookController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {

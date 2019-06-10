@@ -52,7 +52,7 @@ class FinanceBankingAgency extends Model implements Auditable
      * FinanceBankingAgency morphs many city.
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function city()
     {

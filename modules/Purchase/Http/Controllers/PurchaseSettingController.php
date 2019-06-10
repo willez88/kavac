@@ -26,7 +26,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -50,7 +50,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -60,7 +60,7 @@ class PurchaseSettingController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -121,7 +121,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show()
     {
@@ -130,7 +130,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -140,7 +140,7 @@ class PurchaseSettingController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function update(Request $request)
     {
@@ -148,7 +148,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function destroy()
     {

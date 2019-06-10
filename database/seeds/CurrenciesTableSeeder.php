@@ -57,6 +57,7 @@ class CurrenciesTableSeeder extends Seeder
             ],
         ];
 
+        /** @var object Almacena información del pais */
         $country = Country::where('name', 'Venezuela')->first();
 
         DB::transaction(function() use ($adminRole, $permissions, $country) {

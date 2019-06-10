@@ -37,7 +37,7 @@ class VerifyLevel
      *
      * @param Request $request
      * @param \Closure $next
-     * @param int $level
+     * @param string $level
      * @return mixed
      * @throws \App\Roles\Exceptions\LevelDeniedException
      */
