@@ -84,32 +84,23 @@ class PurchaseSupplier extends Model implements Auditable
     }
 
     /**
-     * PurchaseSupplier belongs to Municipality.
+     * PurchaseSupplier belongs to PurchaseSupplierBranch.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function municipality()
+    public function purchaseSupplierBranch()
     {
-    	return $this->belongsTo(Municipality::class);
+        return $this->belongsTo(PurchaseSupplierBranch::class);
     }
 
     /**
-     * PurchaseSupplier belongs to PurchaseSupplier.
+     * PurchaseSupplier belongs to PurchaseSupplierO.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchase_supplier()
+    public function PurchaseSupplierObject()
     {
-    	return $this->belongsTo(PurchaseSupplier::class, 'parent_id');
+        return $this->belongsTo(PurchaseSupplierObject::class);
     }
 
-    /**
-     * PurchaseSupplier has many PurchaseSupplier.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function purchase_suppliers()
-    {
-    	return $this->hasMany(PurchaseSupplier::class, 'parent_id');
-    }
 }

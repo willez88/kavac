@@ -69,8 +69,8 @@ class PurchaseSettingController extends Controller
             'requirements_code' => [new CodeSettingRule],
             'quotions_code' => [new CodeSettingRule],
             'minutes_code' => [new CodeSettingRule],
-            'buy_orders_code' => [new CodeSettingRule],
-            'service_orders_code' => [new CodeSettingRule],
+            'buy-orders_code' => [new CodeSettingRule],
+            'service-orders_code' => [new CodeSettingRule],
             'refunds_code' => [new CodeSettingRule],
         ]);
 
@@ -82,23 +82,13 @@ class PurchaseSettingController extends Controller
         foreach ($codes as $key => $value) {
             /** @var string Define el modelo al cual hace referencia el código */
             $model = '';
-
             if ($key !== '_token' && !is_null($value)) {
                 list($table, $field) = explode("_", $key);
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
 
-                $tableName = explode(".", $table);
-                $tbName = '';
-                foreach ($tableName as $tb) {
-                    $tbName .= $tb . '_';
-                }
-                if ($key === "buy.orders_code") {
-                    dd($tbName);
-                }
-
-                CodeSetting::updateOrCreate([
+                $codeSetting = CodeSetting::updateOrCreate([
                     'module' => 'purchase',
-                    'table' => 'purchase_' . trim($tbName, "_"),
+                    'table' => 'purchase_' . str_replace("-", "_", $table),
                     'field' => $field,
                     'type' => (isset($type)) ? $type : null
                 ], [
@@ -107,6 +97,7 @@ class PurchaseSettingController extends Controller
                     'format_year' => $sufix,
                     'model' => $model,
                 ]);
+
                 /** @var boolean Define el estatus verdadero para indicar que se ha registrado información */
                 $saved = true;
             }

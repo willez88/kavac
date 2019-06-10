@@ -25,6 +25,14 @@ Route::group([
     	/** Ruta de acceso a parámetros de configuración del módulo */
         Route::get('settings', 'PurchaseSettingController@index')->name('purchase.settings.index');
         Route::post('settings', 'PurchaseSettingController@store')->name('purchase.settings.store');
+        /** Rutas para la gestión de objetos de proveedores */
+        Route::resource(
+            'supplier-objects', 'PurchaseSupplierObjectController', ['as' => 'purchase']
+        );
+        /** Rutas para la gestión de ramas de proveedores */
+        Route::resource(
+            'supplier-branchs', 'PurchaseSupplierBranchController', ['as' => 'purchase']
+        );
         /** Rutas para la gestión de especialidades de proveedores */
         Route::resource(
         	'supplier-specialties', 'PurchaseSupplierSpecialtyController', ['as' => 'purchase']
