@@ -45,7 +45,7 @@ class ImageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request, UploadImageRepository $up)
     {
@@ -96,8 +96,8 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Image  $image
-     * @return \Illuminate\Http\Response
+     * @param  integer  $id Identificador de la imagen
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
     {
@@ -131,7 +131,7 @@ class ImageController extends Controller
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  Request $request Datos de la petición
      * @param  Image   $image   Objeto con los datos de la imagen
-     * @return JSON             JSON con los detalles de la imagen consultada
+     * @return \Illuminate\Http\JsonResponse             JSON con los detalles de la imagen consultada
      */
     public function getImage(Request $request, Image $image)
     {

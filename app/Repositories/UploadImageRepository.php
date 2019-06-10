@@ -34,7 +34,7 @@ class UploadImageRepository
 	 * Instrucciones para verificar y subir una imagen a la ruta indicada en el servidor
 	 *
 	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-	 * @param  object  $file       Objeto con el archivo a subir
+	 * @param  object|array|null  $file       Objeto con el archivo a subir
 	 * @param  string  $store      Ruta en la que se va a almacenar el archivo
 	 * @param  boolean $originalName Indica si el archivo a subir es con el nombre original del mismo
 	 * @param  boolean $verifySize Indica si será verificado o no el tamaño de la imagen

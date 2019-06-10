@@ -34,7 +34,7 @@ class UserController extends Controller
      * Muestra el formulario para crear un nuevo registro de usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -94,7 +94,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(User $user)
     {
@@ -200,7 +200,7 @@ class UserController extends Controller
      * 
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  User   $user Modelo de Usuario
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function assignAccess(User $user)
     {

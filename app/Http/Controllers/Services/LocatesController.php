@@ -41,6 +41,7 @@ class LocatesController extends Controller
 	 * Obtiene todos los Países registrados
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @property string $country Identificador del país
 	 * @return \Illuminate\Http\JsonResponse JSON con los datos de los Países registrados
 	 */
     public function getCountries()
