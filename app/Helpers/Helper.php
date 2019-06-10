@@ -55,12 +55,12 @@ if (! function_exists('generate_registration_code')) {
 	 * Genera códigos a implementar en los diferentes registros del sistema
 	 *
 	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-	 * @param  string  $prefix      Prefijo que identifica el código
-	 * @param  integer $code_length Longitud máxima permitida para el código a generar
-	 * @param  integer $year        Sufijo que identifica el año del cual se va a generar el código
-	 * @param  string  $model       Namespace y nombre del modelo en donde se aplicará el nuevo código
-	 * @param  string  $field       Nombre del campo del código a generar
-	 * @return string|array         Retorna una cadena con el nuevo código
+	 * @param  string  			$prefix      Prefijo que identifica el código
+	 * @param  integer 			$code_length Longitud máxima permitida para el código a generar
+	 * @param  integer|string 	$year        Sufijo que identifica el año del cual se va a generar el código
+	 * @param  string  			$model       Namespace y nombre del modelo en donde se aplicará el nuevo código
+	 * @param  string  			$field       Nombre del campo del código a generar
+	 * @return string|array     		     Retorna una cadena con el nuevo código
 	 */
 	function generate_registration_code($prefix, $code_length, $year, $model, $field)
 	{

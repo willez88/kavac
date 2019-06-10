@@ -131,9 +131,9 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      * Scope para obtener la formulación de presupuesto vigente
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @param  [object] $query               Consulta del modelo
-     * @param  [integer] $specific_action_id Identificador de la acción específica por la cual realizar el filtro
-     * @return [object]                      Objeto con la consulta solicitada
+     * @param  object $query               Consulta del modelo
+     * @param  integer $specific_action_id Identificador de la acción específica por la cual realizar el filtro
+     * @return object                      Objeto con la consulta solicitada
      */
     public function scopeCurrentFormulation($query, $specific_action_id)
     {
