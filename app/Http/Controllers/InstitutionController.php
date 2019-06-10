@@ -101,8 +101,8 @@ class InstitutionController extends Controller
      * Obtiene las instituciones registradas
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @param  integer $id Identificador de la institución a buscar, este parámetro es opcional
-     * @return JSON        JSON con los datos de las instituciones
+     * @param  integer $id                      Identificador de la institución a buscar, este parámetro es opcional
+     * @return \Illuminate\Http\JsonResponse    JSON con los datos de las instituciones
      */
     public function getInstitutions($id = null)
     {
@@ -112,9 +112,9 @@ class InstitutionController extends Controller
     /**
      * Obtiene el año actual para la ejecución de recursos
      * 
-     * @param  integer $institution_id Identificador de la institución, si no se especifica toma el valor por defecto
-     * @param  string  $year           Año de la ejecución, si no se especifica toma el año actual del sistema
-     * @return JSON                    JSON con información del año de execución
+     * @param  integer $institution_id          Identificador de la institución, si no se especifica toma el valor por defecto
+     * @param  string  $year                    Año de la ejecución, si no se especifica toma el año actual del sistema
+     * @return \Illuminate\Http\JsonResponse    JSON con información del año de execución
      */
     public function getExecutionYear($institution_id = null, $year = null)
     {

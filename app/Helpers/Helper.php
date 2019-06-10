@@ -1,12 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 if (! function_exists('set_active_menu')) {
 	/**
 	 * Define la opción activa del menú según la URL actual
 	 *
 	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @param array|string $compareUrls Nombre o lista de nombres de las URL a comparar
-	 * @return Si la URL a comparar es igual a la actual retorna active de lo contrario retorna vacio
+	 * @return string Si la URL a comparar es igual a la actual retorna active de lo contrario retorna vacio
 	 */
 	function set_active_menu($compareUrls)
 	{
@@ -58,7 +60,7 @@ if (! function_exists('generate_registration_code')) {
 	 * @param  integer $year        Sufijo que identifica el año del cual se va a generar el código
 	 * @param  string  $model       Namespace y nombre del modelo en donde se aplicará el nuevo código
 	 * @param  string  $field       Nombre del campo del código a generar
-	 * @return string               Retorna una cadena con el nuevo código
+	 * @return string|array         Retorna una cadena con el nuevo código
 	 */
 	function generate_registration_code($prefix, $code_length, $year, $model, $field)
 	{
@@ -179,6 +181,8 @@ if (!function_exists('validate_rif')) {
         	case 'G':
         		$specialDigit = 5;
         		break;
+        	default:
+        		$specialDigit = 0;
         }
 
         /** @var integer Sumatoria de los números del RIF y el dígito especial de validación */
@@ -244,9 +248,9 @@ if (!function_exists('validate_ci')) {
 if (!function_exists('ci_exists')) {
 	/**
 	 * Comprueba la existencia de un número de cédula de identidad
-	 * @param  [type] $ci  [description]
-	 * @param  string $nac [description]
-	 * @return [type]      [description]
+	 * @param  string $ci  Número de cédula de identidad
+	 * @param  string $nac Indica la nacionalidad de la cédula a validar
+	 * @return boolean     Devuelve verdadero si el número de cédula existe, de lo contrario devuelve falso
 	 */
 	function ci_exists($ci, $nac = 'V') {
 		// Comprobar si existe conexión externa para verificar la existencia de la cédula 

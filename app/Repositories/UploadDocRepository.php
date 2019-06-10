@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use \Illuminate\Support\Facades\Storage;
 use \Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 
 /**
  * @class UploadDocRepository
@@ -50,7 +51,7 @@ class UploadDocRepository
 					// Procedimiento para la firma electrónica antes de subirlo al servidor
 				}
 				
-				$upload = Storage::disk($store)->put($this->doc_name, \File::get($file));
+				$upload = Storage::disk($store)->put($this->doc_name, File::get($file));
 				if ($upload) {
 					// Procedimiento para guardar el documento en la tabla respectiva, incluyendo al documento mismo que DEBE ser almacenado en la base de datos
 					 
@@ -69,7 +70,7 @@ class UploadDocRepository
 			$this->error_msg = 'Error al procesar el archivo. ' . 
 							   'Verifique que este correcto e intente nuevamente';
 		}
-		Session::flash('message', [
+		session()->flash('message', [
 			'type' => 'other', 'class' => 'warning', 'title' => 'Alerta!', 
 			'msg' => $this->error_msg
 		]);

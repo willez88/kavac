@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use \Illuminate\Support\Facades\Storage;
 use \Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 use App\Models\Image;
 
 /**
@@ -52,7 +53,7 @@ class UploadImageRepository
 					$this->max_sizes['height'] . 'px.';
 				}
 				else {
-					$upload = Storage::disk($store)->put($this->image_name, \File::get($file));
+					$upload = Storage::disk($store)->put($this->image_name, File::get($file));
 					if ($upload) {
 						$this->image_stored = Image::create([
 							'file' => $this->image_name,
@@ -73,7 +74,7 @@ class UploadImageRepository
 		else {
 			$this->error_msg = 'Error al procesar el archivo. Verifique que este correcto y sea del tamaño permitido e intente nuevamente';
 		}
-		Session::flash('message', ['type' => 'other', 'class' => 'warning', 'title' => 'Alerta!', 'msg' => $this->error_msg]);
+		session()->flash('message', ['type' => 'other', 'class' => 'warning', 'title' => 'Alerta!', 'msg' => $this->error_msg]);
 		return false;
 	}
 

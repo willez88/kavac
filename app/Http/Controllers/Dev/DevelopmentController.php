@@ -20,7 +20,7 @@ class DevelopmentController extends Controller
 	 * Muestra un elemento
 	 *
 	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-	 * @return View Vista solicitada
+	 * @return \Illuminate\Contracts\View\View Vista solicitada
 	 */
     public function getElement($el)
     {
