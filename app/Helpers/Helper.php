@@ -271,7 +271,7 @@ if (! function_exists('generate_code')) {
 	 * @param  integer 			$length Longitud máxima de la cadena a generar
 	 * @return string           		Devuelve una cadena aleatoria
 	 */
-	public function generate_code($model, $field, $length = 20) {
+	function generate_code($model, $field, $length = 20) {
 		$pool = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
         $code = substr(str_shuffle(str_repeat($pool, $length)), 0, $length);

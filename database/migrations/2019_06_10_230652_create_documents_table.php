@@ -15,7 +15,7 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->bigIncrements('id');
-            %table->string('code', 20)->unique()
+            $table->string('code', 20)->unique()
                   ->comment('Código autogenerado para identificar al documento');
             $table->string('file')->comment('Nombre del archivo');
             $table->string('url')->comment('URL del documento');
