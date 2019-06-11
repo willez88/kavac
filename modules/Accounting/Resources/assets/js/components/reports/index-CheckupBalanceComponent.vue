@@ -21,7 +21,7 @@
 					<label class="control-label">Año</label>
 					<select2 :options="optionsYears" v-model="yearEnd"></select2>
 				</div>
-				<div class="col-3 form-horizontal">
+				<!-- <div class="col-3 form-horizontal">
 					<label class="control-label"><strong>Tipo de balance</strong></label>
 					<br><br>
 					<label class="text-center">Balance de Sumas y Saldos
@@ -52,8 +52,8 @@
 						 type="radio"
 						 value="Balance" 
 						 class="form-control text-center bootstrap-switch">
-				</div>
-				<!-- <div class="col-2">
+				</div> -->
+				<div class="col-2">
 					<label class="text-center"><strong>Mostrar valores en cero</strong>
 					</label>
 					<br><br>
@@ -63,7 +63,7 @@
 						 name="zero" 
 						 type="checkbox"
 						 class="form-control text-center bootstrap-switch">
-				</div> -->
+				</div>
 			</div>
 		</div>
 		<div class="card-footer text-right">
@@ -125,14 +125,13 @@
 				}
 			},
 			OpenReport:function(){
-				// var zero = ($('#zero').prop('checked'))?'InitZero/':'';
+				var zero = ($('#zero').prop('checked'))?'':'zero';
 				var type = $('input:radio[name=typeBalance]:checked').val();
-
 
 				var initDate = (this.yearIni > this.yearEnd)?(this.yearEnd+'-'+this.monthEnd):(this.yearIni+'-'+this.monthIni);
 				var endDate  = (this.yearIni > this.yearEnd)?(this.yearIni+'-'+this.monthIni):(this.yearEnd+'-'+this.monthEnd);
 
-				var url = this.url+type+'/'+initDate+'/'+endDate;
+				var url = this.url+initDate+'/'+endDate+'/'+zero;
 				window.open(url, '_blank');
 			}
 		},

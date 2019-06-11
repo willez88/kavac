@@ -78,7 +78,7 @@ Route::group(['middleware' => 'web',
      */
 	Route::get('report/checkingBalance','AccountingReportPdfCheckupBalanceController@index')
 		->name('accounting.report.checkingBalance');
-	Route::get('report/checkingBalance/pdf/{typeBalance}/{initDate}/{endDate}','AccountingReportPdfCheckupBalanceController@pdf')
+	Route::get('report/checkingBalance/pdf/{initDate}/{endDate}/{zero?}','AccountingReportPdfCheckupBalanceController@pdf')
 		->name('accounting.report.checkingBalance.pdf');
 
 	/**
@@ -102,8 +102,6 @@ Route::group(['middleware' => 'web',
 
 	Route::get('report/AnalyticalMajor/pdf/{initAcc}/{endAcc?}', 'AccountingReportPdfAnalyticalMajorController@pdf')
 			->name('accounting.report.analyticalMajor.pdf');
-
-
 
 
 	/**

@@ -99,10 +99,7 @@ Vue.component('accounting-report-diary-book', require('./components/reports/inde
 Vue.component('accounting-report-analytical-major', require('./components/reports/index-AnalyticalMajorComponent.vue').default);
 
 
-
 window.EventBus = new Vue; // Global event bus
-
-
 
 
 
