@@ -57,7 +57,7 @@ class BudgetProject extends Model implements Auditable
     /**
      * BudgetProject belongs to PayrollPosition.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return array|\Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payroll_position()
     {
@@ -68,7 +68,7 @@ class BudgetProject extends Model implements Auditable
     /**
      * BudgetProject belongs to PayrollStaff.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return array|\Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payroll_staff()
     {

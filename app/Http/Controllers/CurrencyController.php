@@ -157,7 +157,7 @@ class CurrencyController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  integer $id Identificador de la moneda a buscar, este parámetro es opcional
-     * @return JSON        JSON con los datos de las monedas
+     * @return \Illuminate\Http\JsonResponse        JSON con los datos de las monedas
      */
     public function getCurrencies($id = null)
     {

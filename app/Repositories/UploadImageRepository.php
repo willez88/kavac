@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use \Illuminate\Support\Facades\Storage;
 use \Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 use App\Models\Image;
 
 /**
@@ -33,7 +34,7 @@ class UploadImageRepository
 	 * Instrucciones para verificar y subir una imagen a la ruta indicada en el servidor
 	 *
 	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-	 * @param  object  $file       Objeto con el archivo a subir
+	 * @param  object|array|null  $file       Objeto con el archivo a subir
 	 * @param  string  $store      Ruta en la que se va a almacenar el archivo
 	 * @param  boolean $originalName Indica si el archivo a subir es con el nombre original del mismo
 	 * @param  boolean $verifySize Indica si será verificado o no el tamaño de la imagen
@@ -52,7 +53,7 @@ class UploadImageRepository
 					$this->max_sizes['height'] . 'px.';
 				}
 				else {
-					$upload = Storage::disk($store)->put($this->image_name, \File::get($file));
+					$upload = Storage::disk($store)->put($this->image_name, File::get($file));
 					if ($upload) {
 						$this->image_stored = Image::create([
 							'file' => $this->image_name,
@@ -73,7 +74,7 @@ class UploadImageRepository
 		else {
 			$this->error_msg = 'Error al procesar el archivo. Verifique que este correcto y sea del tamaño permitido e intente nuevamente';
 		}
-		Session::flash('message', ['type' => 'other', 'class' => 'warning', 'title' => 'Alerta!', 'msg' => $this->error_msg]);
+		session()->flash('message', ['type' => 'other', 'class' => 'warning', 'title' => 'Alerta!', 'msg' => $this->error_msg]);
 		return false;
 	}
 

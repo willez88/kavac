@@ -47,6 +47,6 @@ class VerifyLevel
             return $next($request);
         }
 
-        throw new LevelDeniedException($level);
+        throw new LevelDeniedException((string)$level);
     }
 }

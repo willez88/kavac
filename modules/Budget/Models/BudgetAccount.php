@@ -95,7 +95,7 @@ class BudgetAccount extends Model implements Auditable
      * BudgetAccount has one AccountingAccountConverter.
      *
      * @author  Juan Rosas <JuanFBass17@gmail.com>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function account_converters()
     {
@@ -108,7 +108,7 @@ class BudgetAccount extends Model implements Auditable
      * que determinan la imposibilidad de su eliminación
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return [type] [description]
+     * @return boolean Devuelve verdadero si la cuenta esta restringida para ser eliminada, de lo contrario retorna verdadero
      */
     public function restrictDelete()
     {
@@ -123,12 +123,12 @@ class BudgetAccount extends Model implements Auditable
      * Método que permite obtener la cuenta asociada de nivel superior
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @param  [string] $group       Grupo de la cuenta
-     * @param  [string] $item        Ítem de la cuenta
-     * @param  [string] $generic     Genérica de la cuenta
-     * @param  [string] $specific    Específica de la cuenta
-     * @param  [string] $subspecific Subespecífica de la cuenta
-     * @return [boolean|object]      Retorna falso si no existe una cuenta de nivel superior, de lo contrario obtiene los datos de la misma
+     * @param  string $group       Grupo de la cuenta
+     * @param  string $item        Ítem de la cuenta
+     * @param  string $generic     Genérica de la cuenta
+     * @param  string $specific    Específica de la cuenta
+     * @param  string $subspecific Subespecífica de la cuenta
+     * @return mixed               Retorna falso si no existe una cuenta de nivel superior, de lo contrario obtiene los datos de la misma
      */
     public static function getParent($group, $item, $generic, $specific, $subspecific)
     {
@@ -165,7 +165,7 @@ class BudgetAccount extends Model implements Auditable
      * Método que permite obtener el código de una cuenta presupuestaria
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return [string] Retorna el código de la cuenta
+     * @return string Retorna el código de la cuenta
      */
     public function getCodeAttribute()
     {

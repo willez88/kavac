@@ -41,7 +41,7 @@ class BudgetTransferController extends Controller
      * Muestra un listado de transferencias presupuestarias
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -55,7 +55,7 @@ class BudgetTransferController extends Controller
      * Muestra el formulario para la creación de transferencias presupuestarias
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -89,7 +89,7 @@ class BudgetTransferController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param int $id Identificador de la transferencia presupuesaria a mostrar
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -101,7 +101,7 @@ class BudgetTransferController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param int $id Identificador de la transferencia presupuestaria a modificar
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -126,7 +126,7 @@ class BudgetTransferController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param int $id Identificador de la transferencia presupuestaria a eliminar
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
@@ -144,7 +144,7 @@ class BudgetTransferController extends Controller
      * Obtiene los registros a mostrar en listados de componente Vue
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return json JSON con información de los registros de transferencias presupuestarias
+     * @return \Illuminate\Http\JsonResponse JSON con información de los registros de transferencias presupuestarias
      */
     public function vueList()
     {
