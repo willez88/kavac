@@ -13,7 +13,7 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         DB::transaction(function() {
-        	/** @var [Object] Crea el rol para desarrolladores de la aplicación */
+        	/** @var object Crea el rol para desarrolladores de la aplicación */
             $roleDev = Role::updateOrCreate(
                 ['slug' => 'dev'],
                 [
@@ -27,7 +27,7 @@ class RolesTableSeeder extends Seeder
                 throw new Exception('Error creando el rol por defecto para desarrolladores');
             }
 
-        	/** @var [Object] Crea el rol de administrador del sistema */
+        	/** @var object Crea el rol de administrador del sistema */
             $roleAdmin = Role::updateOrCreate(
                 ['slug' => 'admin'],
                 [
@@ -41,7 +41,7 @@ class RolesTableSeeder extends Seeder
                 throw new Exception('Error creando el rol por defecto para administradores');
             }
 
-            /** @var [Object] Crea el rol de usuario del sistema */
+            /** @var object Crea el rol de usuario del sistema */
             $roleUser = Role::updateOrCreate(
                 ['slug' => 'user'],
                 [
@@ -55,7 +55,7 @@ class RolesTableSeeder extends Seeder
                 throw new Exception('Error creando el rol por defecto para usuarios');
             }
 
-            /** @var [Object] Crea el rol para soporte del sistema */
+            /** @var object Crea el rol para soporte del sistema */
 			$roleSupport = Role::updateOrCreate(
                 ['slug' => 'support'],
                 [

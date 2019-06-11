@@ -65,10 +65,68 @@
 							</thead>
 							<tbody>
 								<tr v-for="(account, index) in modification_accounts">
-									<td>{{ account.spac_description }}</td>
-									<td>{{ account.code }}</td>
-									<td>{{ account.description }}</td>
+									<td>{{ account.from_spac_description }}</td>
+									<td>{{ account.from_code }}</td>
+									<td>{{ account.from_description }}</td>
 									<td class="text-right">{{ account.from_amount }}</td>
+									<td class="text-center">
+										<input type="hidden" name="from_account_id[]" readonly 
+											   :value="account.from_specific_action_id + '|' + account.from_account_id">
+										<input type="hidden" name="from_budget_account_amount[]" readonly 
+											   :value="account.from_amount">
+										<a class="btn btn-sm btn-danger btn-action" href="#" @click="deleteAccount(index)"
+										   title="Eliminar este registro" data-toggle="tooltip">
+											<i class="fa fa-minus-circle"></i>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-12 pad-top-20" v-else>
+						<table class="table">
+							<thead>
+								<tr>
+									<th colspan="4" class="border-right">
+										Datos de Origen
+									</th>
+									<th colspan="4">
+										Datos de Destino
+									</th>
+									<th>
+										<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#" 
+										   data-original-title="Agregar nuevo registro" data-toggle="modal"  
+										   data-target="#add_account" 
+										   v-if="record.approved_at && record.institution_id && 
+										   record.document && record.description">
+											<i class="fa fa-plus-circle"></i>
+										</a>
+									</th>
+								</tr>
+								<tr>
+									<th>Acción Específica</th>
+									<th>Cuenta</th>
+									<th>Descripción</th>
+									<th class="border-right">Monto</th>
+									<th>Acción Específica</th>
+									<th>Cuenta</th>
+									<th>Descripción</th>
+									<th>Monto</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(account, index) in modification_accounts">
+									<td>{{ account.from_spac_description }}</td>
+									<td>{{ account.from_code }}</td>
+									<td>{{ account.from_description }}</td>
+									<td class="text-right border-right">
+										{{ account.from_amount }}
+									</td>
+									<td>{{ account.to_spac_description }}</td>
+									<td>{{ account.to_code }}</td>
+									<td>{{ account.to_description }}</td>
+									<td class="text-right">{{ account.to_amount }}</td>
 									<td class="text-center">
 										<input type="hidden" name="from_account_id[]" readonly 
 											   :value="account.from_specific_action_id + '|' + account.from_account_id">
@@ -129,7 +187,9 @@
 									<div class="col-md-3">
 										<div class="form-group is-required">
 											<label>Monto:</label>
-											<input type="number" class="form-control" data-toggle="tooltip" 
+											<input type="number" onfocus="$(this).select()" 
+												   class="form-control numeric" 
+												   data-toggle="tooltip" 
 												   title="Indique el monto a asignar para la cuenta seleccionada" v-model="from_amount">
 										</div>
 									</div>
@@ -147,15 +207,15 @@
 										<div class="col-6">
 											<div class="form-group is-required">
 												<label>Acción Específica:</label>
-												<select2 :options="specific_actions" @input="getAccounts" 
-														 v-model="to_budget_specific_action_id"/>
+												<select2 :options="specific_actions" 
+														 v-model="to_specific_action_id"/>
 						                    </div>
 										</div>
 										<div class="col-6">
 											<div class="form-group is-required">
 												<label>Cuenta:</label>
 												<select2 :options="accounts" 
-														 v-model="to_budget_account_id"/>
+														 v-model="to_account_id"/>
 						                    </div>
 										</div>
 									</div>
@@ -163,7 +223,8 @@
 										<div class="col-md-3">
 											<div class="form-group is-required">
 												<label>Monto:</label>
-												<input type="number" class="form-control" data-toggle="tooltip" 
+												<input type="number" class="form-control" 
+													   data-toggle="tooltip" readonly 
 													   title="Indique el monto a asignar para la cuenta seleccionada" v-model="to_amount">
 											</div>
 										</div>
@@ -177,7 +238,7 @@
 			                	</button>
 			                	<button type="button" @click="addAccount" 
 			                			class="btn btn-primary btn-sm btn-round btn-modal-save">
-			                		Guardar
+			                		Agregar
 				                </button>
 				            </div>
 				        </div>
@@ -240,6 +301,10 @@
 			type_modification: {
 				type: String,
 				required: true,
+			},
+			edit_object: {
+				type: String,
+				required: false
 			}
 		},
 		mounted() {
@@ -259,6 +324,10 @@
 			vm.getInstitutions();
 			vm.getAccounts();
 			vm.record.type = vm.type_modification;
+
+			if (vm.edit_object) {
+				vm.loadEditData();
+			}
 			/*if (typeof(localStorage.modification_accounts) !== "undefined") {
 				vm.modification_accounts = JSON.parse(localStorage.modification_accounts);
 			}*/
@@ -267,6 +336,8 @@
 			/** 
 			 * Monitorea modificaciones a las cuentas agregadas para guardarlas 
 			 * temporalmente en un localStorage
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 */
 			modification_accounts: {
 				deep: true,
@@ -281,6 +352,16 @@
 						);
 					}
 				}
+			},
+			/**
+			 * Asigna el monto desde la cuenta de origen a la cuenta de destino en traspasos
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com> 
+			 */
+			from_amount: function() {
+				if (this.type_modification === "TR") {
+					this.to_amount = this.from_amount;
+				}
 			}
 		},
 		methods: {
@@ -293,9 +374,87 @@
 				this.from_specific_action_id = '';
 				this.from_account_id = '';
 				this.from_amount = 0;
-				this.to_budget_specific_action_id = '';
-				this.to_budget_account_id = '';
+				this.to_specific_action_id = '';
+				this.to_account_id = '';
 				this.to_amount = 0;
+			},
+			/**
+			 * Carga los datos para ser editados
+			 *
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 */
+			loadEditData: function() {
+				let vm = this;
+				let editData = JSON.parse(vm.edit_object);
+				vm.record.approved_at = vm.format_date(editData.approved_at);
+				vm.record.institution_id = editData.institution_id;
+				vm.record.document = editData.document;
+				vm.record.description = editData.description;
+
+				let array_accounts = [];
+
+				var from_add = {
+					spac_description: '',
+					code: '',
+					description: '',
+					amount: 0,
+					account_id: '',
+					specific_action_id: '',
+				};
+
+				var to_add = {
+					spac_description: '',
+					code: '',
+					description: '',
+					amount: 0,
+					account_id: '',
+					specific_action_id: '',
+				};
+
+				var i = 0;
+				$.each(editData.budget_modification_accounts, function(index, account) {
+					var sp = account.budget_sub_specific_formulation.specific_action;
+					var spac_desc = `${sp.specificable.code} - ${sp.code} | ${sp.name}`;
+					var acc = account.budget_account;
+					var code = `${acc.group}.${acc.item}.${acc.generic}.${acc.specific}.${acc.subspecific}`;
+					if (account.operation === "D") {
+						from_add.spac_description = spac_desc;
+						from_add.code = code;
+						from_add.description = account.budget_account.denomination;
+						from_add.amount = account.amount;
+						from_add.account_id = acc.id;
+						from_add.specific_action_id = sp.id;
+					}
+					else {
+						to_add.spac_description = spac_desc;
+						to_add.code = code;
+						to_add.description = account.budget_account.denomination;
+						to_add.amount = account.amount;
+						to_add.account_id = acc.id;
+						to_add.specific_action_id = sp.id;
+					}
+					
+					if ((index % 2) === 1 || vm.type_modification !== "TR") {
+						array_accounts[i] = {
+							from_spac_description: from_add.spac_description,
+							from_code: from_add.code,
+							from_description: from_add.description,
+							from_amount: from_add.amount,
+							from_account_id: from_add.account_id,
+							from_specific_action_id: from_add.specific_action_id,
+							to_spac_description: to_add.spac_description,
+							to_code: to_add.code,
+							to_description: to_add.description,
+							to_amount: to_add.amount,
+							to_account_id: to_add.account_id,
+							to_specific_action_id: to_add.specific_action_id,
+						};
+						i++;
+					}
+
+				});
+
+				vm.modification_accounts = array_accounts;
 			},
 			/**
 			 * Agrega una cuenta para el registro del crédito adicional
@@ -306,12 +465,18 @@
 			addAccount: function() {
 				const vm = this;
 				let to_add = {
-					spac_description: '',
-					code: '',
-					description: '',
-					amount: 0,
+					from_spac_description: '',
+					from_code: '',
+					from_description: '',
+					from_amount: 0,
 					from_account_id: '',
-					from_specific_action_id: ''
+					from_specific_action_id: '',
+					to_spac_description: '',
+					to_code: '',
+					to_description: '',
+					to_amount: 0,
+					to_account_id: '',
+					to_specific_action_id: '',
 				};
 
 				if (!vm.from_specific_action_id) {
@@ -342,26 +507,59 @@
 					`${window.app_url}/budget/detail-specific-actions/${vm.from_specific_action_id}`
 				).then(response => {
 					if (response.data.result) {
-						let record_specific = response.data.record;
+						let spec = response.data.record;
 						
 						/** Obtiene datos de la cuenta presupuestaria */
 						axios.get(
 							`${window.app_url}/budget/detail-accounts/${vm.from_account_id}`
 						).then(response => {
 							if (response.data.result) {
-								let record_account = response.data.record;
-								to_add.code = record_account.group + "." + record_account.item + "." + record_account.generic + "." + 
-												 record_account.specific + "." + record_account.subspecific;
-								to_add.description = record_account.denomination;
-								to_add.spac_description = record_specific.specificable.code + " - " + record_specific.code + 
-													 " | " + record_specific.name;
+								let acc = response.data.record;
+								to_add.from_code = `${acc.group}.${acc.item}.${acc.generic}.${acc.specific}.${acc.subspecific}`;
+								to_add.from_description = acc.denomination;
+								to_add.from_spac_description = `${spec.specificable.code} - ${spec.code} | ${spec.name}`;
 								to_add.from_amount = vm.from_amount;
 								to_add.from_account_id = vm.from_account_id;
 								to_add.from_specific_action_id = vm.from_specific_action_id;
-								vm.modification_accounts.push(to_add);
+								
+								if (this.type_modification === "TR") {
+									axios.get(
+										`${window.app_url}/budget/detail-specific-actions/${vm.to_specific_action_id}`
+									).then(response => {
+										if (response.data.result) {
+											let to_spec = response.data.record;
 
-								$('.close').click();
-								vm.reset();
+											/** Obtiene datos de la cuenta presupuestaria */
+											axios.get(
+												`${window.app_url}/budget/detail-accounts/${vm.to_account_id}`
+											).then(response => {
+												if (response.data.result) {
+													let to_acc = response.data.record;
+													to_add.to_code = `${to_acc.group}.${to_acc.item}.${to_acc.generic}.${to_acc.specific}.${to_acc.subspecific}`;
+													to_add.to_description = to_acc.denomination;
+													to_add.to_spac_description = `${to_spec.specificable.code} - ${to_spec.code} | ${to_spec.name}`;
+													to_add.to_amount = vm.to_amount;
+													to_add.to_account_id = vm.to_account_id;
+													to_add.to_specific_action_id = vm.to_specific_action_id;
+													vm.modification_accounts.push(to_add);
+
+													$('.close').click();
+													vm.reset();
+												}
+											}).catch(error => {
+												console.log(error);
+											});
+										}
+									}).catch(error => {
+										console.log(error);
+									});
+								}
+								else {
+									vm.modification_accounts.push(to_add);
+									$('.close').click();
+									vm.reset();
+								}
+
 							}
 						}).catch(error => {
 							console.log(error);

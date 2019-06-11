@@ -14,7 +14,9 @@ class AddFieldSoftDeletedToAccountingSeatCategoriesTable extends Migration
     public function up()
     {
         Schema::table('accounting_seat_categories', function (Blueprint $table) {
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            if (!Schema::hasColumn('accounting_seat_categories', 'deleted_at')) {
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            }
         });
     }
 
@@ -26,7 +28,7 @@ class AddFieldSoftDeletedToAccountingSeatCategoriesTable extends Migration
     public function down()
     {
         Schema::table('accounting_seat_categories', function (Blueprint $table) {
-
+            $table->dropColumn('deleted_at');
         });
     }
 }

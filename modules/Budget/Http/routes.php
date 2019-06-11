@@ -159,6 +159,9 @@ Route::group([
         'modifications/{modification}', 'BudgetModificationController@destroy'
     )->name('budget.modifications.destroy');
     Route::get(
+        'modifications/vue-list/{type}', 'BudgetModificationController@vueList'
+    )->name('budget.modifications.vuelist');
+    /*Route::get(
         'aditional-credits/vue-list', 'BudgetAditionalCreditController@vueList'
     )->name('budget.aditional-credits.vuelist');
     Route::get(
@@ -166,7 +169,7 @@ Route::group([
     )->name('budget.reductions.vuelist');
     Route::get(
         'transfers/vue-list', 'BudgetTransferController@vueList'
-    )->name('budget.transfers.vuelist');
+    )->name('budget.transfers.vuelist');*/
 
     /** Rutas para la gestión de créditos adicionales */
     /*Route::resource('aditional-credits', 'BudgetAditionalCreditController', ['as' => 'budget', 'except' => ['show']]);

@@ -449,6 +449,7 @@ class MunicipalitiesTableSeeder extends Seeder
 
         DB::transaction(function() use ($adminRole, $permissions, $estates_municipalities) {
             foreach ($estates_municipalities as $code_estate => $municipalities) {
+                /** @var object Almacena información del Estado */
                 $edo = Estate::where('code', $code_estate)->first();
                 foreach ($municipalities as $code => $municipality) {
                     if ($municipality) {

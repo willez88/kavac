@@ -33,7 +33,8 @@ class FinanceBankingAgency extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-    	'name', 'direction', 'headquarters', 'contact_person', 'contact_email', 'finance_bank_id', 'city_id'
+    	'name', 'direction', 'headquarters', 'contact_person', 'contact_email', 
+        'finance_bank_id', 'city_id'
     ];
 
     /**
@@ -51,7 +52,7 @@ class FinanceBankingAgency extends Model implements Auditable
      * FinanceBankingAgency morphs many city.
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function city()
     {
@@ -70,7 +71,7 @@ class FinanceBankingAgency extends Model implements Auditable
     }
 
     /**
-     * Get all of the budget project's specific actions.
+     * Obtiene todos los número telefónicos asociados a la agencia bancaria
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany

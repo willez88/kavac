@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::transaction(function() {
-        	/** @var [Object] Crea el usuario por defecto de la aplicación */
+        	/** @var object Crea el usuario por defecto de la aplicación */
     		$user_admin = User::updateOrCreate(
                 ['username' => 'admin'],
                 [
@@ -40,7 +40,7 @@ class UsersTableSeeder extends Seeder
                 throw new Exception('Error creando el usuario administrador por defecto');
             }
 
-            /** @var [Object] Crea el rol de administrador del sistema */
+            /** @var object Crea el rol de administrador del sistema */
             $adminRole = Role::where('slug', 'admin')->first();
 
             if ($adminRole) {

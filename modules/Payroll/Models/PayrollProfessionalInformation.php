@@ -25,6 +25,8 @@ class PayrollProfessionalInformation extends Model implements Auditable
     use AuditableTrait;
     use ModelsTrait;
 
+    protected $table = 'payroll_professional_informations';
+
     /**
      * Establece el uso o no de bitácora de registros para este modelo
      * @var boolean $revisionCreationsEnabled

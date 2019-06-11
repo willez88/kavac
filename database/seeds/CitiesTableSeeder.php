@@ -426,6 +426,7 @@ class CitiesTableSeeder extends Seeder
         
         DB::transaction(function() use ($adminRole, $permissions, $estates_cities) {
             foreach ($estates_cities as $code_estate => $cities) {
+                /** @var object Almacena información del Estado */
             	$edo = Estate::where('code', $code_estate)->first();
             	foreach ($cities as $city) {
         			City::updateOrCreate(['name' => $city, 'estate_id' => $edo->id],[]);

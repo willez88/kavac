@@ -245,7 +245,7 @@ class BudgetAditionalCreditController extends Controller
     public function vueList()
     {
         return response()->json([
-            'records' => BudgetModification::where('type', 'C')->with(['institution', 'budget_modificacion_accounts'])->get()
+            'records' => BudgetModification::where('type', 'C')->with(['institution', 'budget_modification_accounts'])->get()
         ], 200);
     }
 }

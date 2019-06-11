@@ -61,6 +61,7 @@ class EstatesTableSeeder extends Seeder
             ],
         ];
 
+        /** @var object Almacena información del pais */
         $country_default = Country::where('name', 'Venezuela')->first();
 
         $estates = [

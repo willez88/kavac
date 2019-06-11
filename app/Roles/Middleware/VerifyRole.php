@@ -37,7 +37,7 @@ class VerifyRole
      *
      * @param Request $request
      * @param \Closure $next
-     * @param int|string $role
+     * @param string $role
      * @return mixed
      * @throws RoleDeniedException
      */

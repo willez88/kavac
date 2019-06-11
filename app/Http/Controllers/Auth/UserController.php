@@ -34,7 +34,7 @@ class UserController extends Controller
      * Muestra el formulario para crear un nuevo registro de usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -51,7 +51,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -94,7 +94,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(User $user)
     {
@@ -146,7 +146,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $user)
     {
@@ -155,7 +155,7 @@ class UserController extends Controller
         }
 
         $user->delete();
-        return response()->json(['record' => $tax, 'message' => 'Success'], 200);
+        return response()->json(['record' => $user, 'message' => 'Success'], 200);
     }
 
     /**
@@ -200,7 +200,7 @@ class UserController extends Controller
      * 
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
      * @param  User   $user Modelo de Usuario
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function assignAccess(User $user)
     {
@@ -265,8 +265,8 @@ class UserController extends Controller
      * Muestra información del usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @param  User   $user Objero que abstrae información del usuario
-     * @return JSON         Devuelve los datos asociados al usuario
+     * @param  User                              $user Objero que abstrae información del usuario
+     * @return \Illuminate\Http\JsonResponse     Devuelve los datos asociados al usuario
      */
     public function info(User $user)
     {

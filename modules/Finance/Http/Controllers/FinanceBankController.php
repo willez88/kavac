@@ -38,7 +38,7 @@ class FinanceBankController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -47,7 +47,7 @@ class FinanceBankController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -57,7 +57,7 @@ class FinanceBankController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -79,7 +79,7 @@ class FinanceBankController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show()
     {
@@ -88,7 +88,7 @@ class FinanceBankController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -98,10 +98,11 @@ class FinanceBankController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
+        /** @var object Datos de la entidad bancaria */
         $financeBank = FinanceBank::find($id);
         
         $this->validate($request, [
@@ -121,10 +122,11 @@ class FinanceBankController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
+        /** @var object Datos de la entidad bancaria */
         $financeBank = FinanceBank::find($id);
         $financeBank->delete();
         return response()->json(['record' => $financeBank, 'message' => 'Success'], 200);
@@ -134,7 +136,7 @@ class FinanceBankController extends Controller
      * Obtiene los datos de las entidades bancarias
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return JSON Devuelve un JSON con listado de las entidades bancarias
+     * @return \Illuminate\Http\JsonResponse Devuelve un JSON con listado de las entidades bancarias
      */
     public function getBanks()
     {
@@ -152,8 +154,9 @@ class FinanceBankController extends Controller
      * Obtiene información de una determinada entidad bancaria
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @param  integer $bank_id Identificador de la entidad bancaria
-     * @return JSON             Devuelve un JSON con los datos de la entidad bancaria consultada
+     * @param  integer $bank_id                 Identificador de la entidad bancaria
+     * @return \Illuminate\Http\JsonResponse    Devuelve un JSON con los datos de la entidad 
+     *                                          bancaria consultada
      */
     public function getBankInfo($bank_id)
     {

@@ -38,7 +38,7 @@ class FinanceAccountTypeController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -47,7 +47,7 @@ class FinanceAccountTypeController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -57,7 +57,7 @@ class FinanceAccountTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -74,7 +74,7 @@ class FinanceAccountTypeController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show()
     {
@@ -83,7 +83,7 @@ class FinanceAccountTypeController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -93,10 +93,11 @@ class FinanceAccountTypeController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
+        /** @var object Datos del tipo de cuenta bancaria */
         $financeAccountType = FinanceAccountType::find($id);
         
         $this->validate($request, [
@@ -111,10 +112,11 @@ class FinanceAccountTypeController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
+        /** @var object Datos del tipo de cuenta bancaria */
         $financeAccountType = FinanceAccountType::find($id);
         $financeAccountType->delete();
         return response()->json(['record' => $financeAccountType, 'message' => 'Success'], 200);
@@ -124,7 +126,7 @@ class FinanceAccountTypeController extends Controller
      * Obtiene los tipos de cuenta bancaria
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return JSON Devuelve un JSON con los datos de los tipos de cuenta bancaria
+     * @return \Illuminate\Http\JsonResponse Devuelve un JSON con los datos de los tipos de cuenta bancaria
      */
     public function getAccountTypes()
     {

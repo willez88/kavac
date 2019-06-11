@@ -45,14 +45,14 @@ Vue.component('budget-sub-specific-formulation', require('./components/BudgetSub
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('budget-modification', require('./components/BudgetModificationComponent.vue').default);
+Vue.component('budget-mod', require('./components/BudgetModificationComponent.vue').default);
 
 /**
  * Componente para mostrar listado de créditos adicionales
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
  */
-Vue.component('budget-modification-list', require('./components/BudgetModificationListComponent.vue').default);
+Vue.component('budget-mod-list', require('./components/BudgetModificationListComponent.vue').default);
 
 /**
  * Componente para agregar cuentas al registro o actualización de créditos adicionales

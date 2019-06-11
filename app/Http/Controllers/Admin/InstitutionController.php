@@ -126,7 +126,7 @@ class InstitutionController extends Controller
             'banner_id' => $banner,
         ];
 
-        if (property_exists(Setting::class, 'multi_institution') && !$setting->multi_institution) {
+        if (is_null($setting->multi_institution) || !$setting->multi_institution) {
             /**
              * Crea o actualiza información de una institución si la aplicación esta configurada para el 
              * uso de una sola institución

@@ -1,12 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 if (! function_exists('set_active_menu')) {
 	/**
 	 * Define la opción activa del menú según la URL actual
 	 *
 	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 	 * @param array|string $compareUrls Nombre o lista de nombres de las URL a comparar
-	 * @return Si la URL a comparar es igual a la actual retorna active de lo contrario retorna vacio
+	 * @return string Si la URL a comparar es igual a la actual retorna active de lo contrario retorna vacio
 	 */
 	function set_active_menu($compareUrls)
 	{
@@ -53,12 +55,12 @@ if (! function_exists('generate_registration_code')) {
 	 * Genera códigos a implementar en los diferentes registros del sistema
 	 *
 	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-	 * @param  string  $prefix      Prefijo que identifica el código
-	 * @param  integer $code_length Longitud máxima permitida para el código a generar
-	 * @param  integer $year        Sufijo que identifica el año del cual se va a generar el código
-	 * @param  string  $model       Namespace y nombre del modelo en donde se aplicará el nuevo código
-	 * @param  string  $field       Nombre del campo del código a generar
-	 * @return string               Retorna una cadena con el nuevo código
+	 * @param  string  			$prefix      Prefijo que identifica el código
+	 * @param  integer 			$code_length Longitud máxima permitida para el código a generar
+	 * @param  integer|string 	$year        Sufijo que identifica el año del cual se va a generar el código
+	 * @param  string  			$model       Namespace y nombre del modelo en donde se aplicará el nuevo código
+	 * @param  string  			$field       Nombre del campo del código a generar
+	 * @return string|array     		     Retorna una cadena con el nuevo código
 	 */
 	function generate_registration_code($prefix, $code_length, $year, $model, $field)
 	{
@@ -179,6 +181,8 @@ if (!function_exists('validate_rif')) {
         	case 'G':
         		$specialDigit = 5;
         		break;
+        	default:
+        		$specialDigit = 0;
         }
 
         /** @var integer Sumatoria de los números del RIF y el dígito especial de validación */
@@ -198,6 +202,21 @@ if (!function_exists('validate_rif')) {
         /** Retorna verdadero si el dígito verificador es correcto */
         return true;
 		
+	}
+}
+
+if (!function_exists('rif_exists')) {
+	/**
+	 * Comprueba que un número de RIF exista
+	 *
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  string $rif Cadena con el número de RIF completo
+	 * @return boolean     Devuelve verdadero si el RIF existe, de lo contrario retorna falso
+	 */
+	function rif_exists($rif) {
+		// Comprobar si existe conexión externa para verificar la existencia del RIF
+		// Conectar al organismo rector para verificar la existencia del RIF
+		return true;
 	}
 }
 
@@ -223,5 +242,47 @@ if (!function_exists('validate_ci')) {
 		// Establecer conexión con el organismo rector para determinar si la cédula existe
 
 		return true;
+	}
+}
+
+if (!function_exists('ci_exists')) {
+	/**
+	 * Comprueba la existencia de un número de cédula de identidad
+	 * @param  string $ci  Número de cédula de identidad
+	 * @param  string $nac Indica la nacionalidad de la cédula a validar
+	 * @return boolean     Devuelve verdadero si el número de cédula existe, de lo contrario devuelve falso
+	 */
+	function ci_exists($ci, $nac = 'V') {
+		// Comprobar si existe conexión externa para verificar la existencia de la cédula 
+		// de identidad
+		// Conectar al organismo rector para verificar la existencia de la cédula
+		
+		return true;
+	}
+}
+
+if (! function_exists('generate_code')) {
+	/**
+	 * Genera una cadena aleatoria
+	 *
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  object|string  	$model  Clase del modelo a verificar
+	 * @param  string  			$field  Nombre del campo a validar
+	 * @param  integer 			$length Longitud máxima de la cadena a generar
+	 * @return string           		Devuelve una cadena aleatoria
+	 */
+	function generate_code($model, $field, $length = 20) {
+		$pool = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+        $code = substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
+
+        $generatedCode = ($model::where($field, $code)->first()) 
+        				 ? $model::where($field, $code)->first()->$field : '';
+
+        while ($generatedCode == $code) {
+            $code = substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
+        }
+
+		return $code;
 	}
 }

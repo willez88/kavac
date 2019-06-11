@@ -35,7 +35,7 @@ class CodeSetting implements Rule
     public function passes($attribute, $value)
     {
         if ($value !== null) {
-            if (!substr_count($value, "-") === 2) {
+            if (!substr_count($value, "-") == 2) {
                 return false;
             }
             list($prefix, $digits, $sufix) = explode('-', $value);

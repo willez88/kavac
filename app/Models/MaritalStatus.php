@@ -54,7 +54,7 @@ class MaritalStatus extends Model implements Auditable
     /**
      * MaritalStatus has many PayrollStaff.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return array|\Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrolls() {
         return (Module::has('Payroll'))?$this->hasMany(\Modules\Payroll\Models\PayrollStaff::class):[];

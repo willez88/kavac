@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
-use Modules\Finance\Models\FinanceCheck;
+use Modules\Finance\Models\FinanceCheckBook;
 
 /**
  * @class FinanceController
@@ -22,7 +22,7 @@ class FinanceController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -31,7 +31,7 @@ class FinanceController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -41,7 +41,7 @@ class FinanceController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -53,14 +53,14 @@ class FinanceController extends Controller
 
         CodeSetting::updateOrCreate([
             'module' => 'finance',
-            'table' => 'finance_checks',
+            'table' => 'finance_check_books',
             'field' => 'code',
-            'type' => (isset($type)) ? $type : null
+            'type' => null
         ], [
             'format_prefix' => $prefix,
             'format_digits' => $digits,
             'format_year' => $sufix,
-            'model' => FinanceCheck::class,
+            'model' => FinanceCheckBook::class,
         ]);
 
         $request->session()->flash('message', ['type' => 'store']);
@@ -70,7 +70,7 @@ class FinanceController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show()
     {
@@ -79,7 +79,7 @@ class FinanceController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -107,11 +107,11 @@ class FinanceController extends Controller
      * Gestiona la configuración para los cheques a emitir
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return View
+     * @return \Illuminate\View\View
      */
     public function setting()
     {
-        $checkCode = CodeSetting::where('model', FinanceCheck::class)->first() ?? '';
+        $checkCode = CodeSetting::where('model', FinanceCheckBook::class)->first() ?? '';
         return view('finance::settings', compact('checkCode'));
     }
 }

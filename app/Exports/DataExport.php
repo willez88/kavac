@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class DataExport implements FromCollection, WithHeadingRow
 {
-	use Exportable
+	use Exportable;
 
 	protected $model;
 
