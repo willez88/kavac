@@ -256,3 +256,29 @@ if (!function_exists('ci_exists')) {
 		return true;
 	}
 }
+
+if (! function_exists('generate_code')) {
+	/**
+	 * Genera una cadena aleatoria
+	 *
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @param  object|string  	$model  Clase del modelo a verificar
+	 * @param  string  			$field  Nombre del campo a validar
+	 * @param  integer 			$length Longitud máxima de la cadena a generar
+	 * @return string           		Devuelve una cadena aleatoria
+	 */
+	public function generate_code($model, $field, $length = 20) {
+		$pool = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+        $code = substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
+
+        $generatedCode = ($model::where($field, $code)->first()) 
+        				 ? $model::where($field, $code)->first()->$field : '';
+
+        while ($generatedCode == $code) {
+            $code = substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
+        }
+
+		return $code;
+	}
+}
