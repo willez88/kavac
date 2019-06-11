@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use \Illuminate\Support\Facades\Storage;
 use \Illuminate\Support\Facades\Session;
+use App\Models\Document;
 
 /**
  * @class UploadDocRepository
@@ -37,7 +38,7 @@ class UploadDocRepository
 	 * @param  boolean $checkAllowed Indica si se va a verificar el tipo de archivo permitido para subir
 	 * @return boolean               Retorna falso en caso de cualquier error, de lo contrario retorna verdadero
 	 */
-	public function uploadDoc($file, $store, $sign=false, $originalName=false, $checkAllowed=false)
+	public function uploadDoc($file, $store, $sign=false, $public_url = false, $originalName=false, $checkAllowed=false)
 	{
 		if (!$file->getError()) {
 			$this->doc_extension = strtolower($file->getClientOriginalExtension());
@@ -48,12 +49,21 @@ class UploadDocRepository
 			if (in_array($this->doc_extension, $this->allowed_upload) || !$checkAllowed) {
 				if ($sign) {
 					// Procedimiento para la firma electrónica antes de subirlo al servidor
+					$signCrypt = '';
 				}
 				
 				$upload = Storage::disk($store)->put($this->doc_name, \File::get($file));
 				if ($upload) {
 					// Procedimiento para guardar el documento en la tabla respectiva, incluyendo al documento mismo que DEBE ser almacenado en la base de datos
-					 
+					$this->doc_stored = Document::create([
+						'code' => '',
+						'file' => $this->doc_name,
+						'url' => ($public_url) 
+								 ? 'public/documents/'. $this->doc_name 
+								 : 'storage/documents/'. $this->doc_name,
+						'signs' => ($sign && isset($signCrypt) && $signCrypt) 
+								   ? $sygnCrypt : null
+					]);
 					return true;
 				}
 				else {

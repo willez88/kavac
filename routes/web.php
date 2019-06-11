@@ -279,3 +279,18 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
     });
 });
+
+/** Ruta pública para acceder a los documentos almacenados por la aplicación */
+Route::get('public/documents/{document}', function($document) {
+    $path = storage_path('public_documents/' . $document);
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+});
