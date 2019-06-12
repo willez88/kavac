@@ -13,7 +13,7 @@ use App\Models\InstitutionType;
  * 
  * Gestiona la información por defecto a registrar inicialmente para los tipos de Instituciones
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class InstitutionTypesTableSeeder extends Seeder

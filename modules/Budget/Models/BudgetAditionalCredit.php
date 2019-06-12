@@ -14,7 +14,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * 
  * Gestiona el modelo de datos para los créditos adicionales
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetAditionalCredit extends Model implements Auditable
@@ -37,7 +37,7 @@ class BudgetAditionalCredit extends Model implements Auditable
     /**
      * BudgetAditionalCredits belongs to Institution.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()
@@ -48,7 +48,7 @@ class BudgetAditionalCredit extends Model implements Auditable
     /**
      * BudgetAditionalCredit has many BudgetAditionalCreditAccounts.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function aditional_credit_accounts()

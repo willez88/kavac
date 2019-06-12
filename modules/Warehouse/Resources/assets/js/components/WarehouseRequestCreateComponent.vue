@@ -389,7 +389,7 @@
 		/***
 		   * Obtiene un arreglo con los proyectos
 		   *
-		   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		   * @param  {integer} id Identificador del proyecto a buscar, este parámetro es opcional
 		   */
 
@@ -405,7 +405,7 @@
 		/***
 		   * Obtiene un arreglo con las acciones centralizadas
 		   *
-		   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		   * @param  {integer} id Identificador de la acción centralizada a buscar, este parámetro es opcional
 		   */
 			
@@ -421,7 +421,7 @@
 		/***
 		   * Obtiene las Acciones Específicas
 		   * 
-		   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		   * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		   * @param {string} type Tipo de registro
 		   */
 			
@@ -444,7 +444,7 @@
 			/**
 			 * Función que permite monitorear modificaciones en el campo specific_actions
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			specific_actions: function() {
 				$("#specific_action_id").attr('disabled', (this.specific_actions.length <= 1));

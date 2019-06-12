@@ -27,7 +27,7 @@ $(document).ready(function() {
 /**
  * Función que permite cargar una imagen en el servidor
  *
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @param  {string}  form         Identificador del formulario que realiza la acción para registrar la imagen
  * @param  {string}  input_file   Identificador del campo de tipo file que ejecuta la acción
  * @param  {string}  input_hidden Identificador del campo al que se le asignara la imagen registrada
@@ -80,7 +80,7 @@ var uploadSingleImage = function(form, input_file, input_hidden, img_tag, img_ta
 /**
  * Función que permite eliminar una o varias imágenes
  *
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @param  {string}  id           Identificador de la o las imágenes a eliminar
  * @param  {boolean} force_delete Indica si la eliminación es permanente. Opcional.
  */

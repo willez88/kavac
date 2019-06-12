@@ -22,7 +22,7 @@ class BudgetModificationController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -53,7 +53,7 @@ class BudgetModificationController extends Controller
     /**
      * Muestra el formulario para crear un crédito adicional
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function create($type)
@@ -71,7 +71,7 @@ class BudgetModificationController extends Controller
     /**
      * Registra información de la modificación presupuestaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -221,7 +221,7 @@ class BudgetModificationController extends Controller
     /**
      * Obtiene los registros a mostrar en listados de componente Vue
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return json Json con datos de la perición realizada
      */
     public function vueList($type)

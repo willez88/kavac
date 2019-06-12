@@ -11,8 +11,8 @@ use Illuminate\Http\Request;
  * 
  * Controlador para gestionar Departamentos
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class DepartmentController extends Controller
 {
@@ -22,7 +22,7 @@ class DepartmentController extends Controller
     /**
      * Método constructor de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct() {
         $this->data[0] = [
@@ -160,7 +160,7 @@ class DepartmentController extends Controller
     /**
      * Obtiene un listado de departamentos
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request  $request        Objeto con los datos de la petición
      * @param  integer  $institution_id Identificador de la institución
      * @return \Illuminate\Http\JsonResponse

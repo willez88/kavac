@@ -1,7 +1,7 @@
 /**
  * Registro de ubicación de los módulos del sistema para requerir componentes Vue y/o compilaciones CSS y JS
  *
- * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 
 /** Compilación de componentes y configuración vuejs para el módulo de presupuesto */

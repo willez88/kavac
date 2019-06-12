@@ -11,7 +11,7 @@ class AccountingCurrencyExchangeRate extends Model
     /**
      * AccountingCurrencyExchangeRate belongs to Currency.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function currency()

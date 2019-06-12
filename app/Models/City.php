@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Models - Gestión de modelos comúnes
+ *
+ * @package  Models
+ * @author   Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -18,8 +23,8 @@ use Modules\Finance\Models\FinanceBankingAgency;
  * 
  * Gestiona el modelo de datos para las Ciudades
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class City extends Model implements Auditable
 {
@@ -49,7 +54,7 @@ class City extends Model implements Auditable
     /**
      * Método que obtiene el Estado de una Ciudad
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Estate
      */
 	public function estate()
@@ -70,7 +75,7 @@ class City extends Model implements Auditable
     /**
      * Método que obtiene las agencias bancarias de una Ciudad
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return array|\Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function banking_agencies()

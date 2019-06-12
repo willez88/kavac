@@ -14,7 +14,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * 
  * Gestiona el modelo de datos para las Acciones Específicas
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetSpecificAction extends Model implements Auditable
@@ -41,7 +41,7 @@ class BudgetSpecificAction extends Model implements Auditable
     /**
      * Crea un campo para obtener el nombre de la institución
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return string Devuelve el nombre de la institución asociada a la acción específica
      */
     public function getInstitutionAttribute()
@@ -52,7 +52,7 @@ class BudgetSpecificAction extends Model implements Auditable
     /**
      * Crea un campo para obtener el tipo de registro asociado (Proyecto o Acción Centralizada)
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return string Devuelve el tipo de registro asociado
      */
     public function getTypeAttribute()
@@ -65,7 +65,7 @@ class BudgetSpecificAction extends Model implements Auditable
     /**
      * Crea un campo para obtener información del código y nombre de la acción específica
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return string Devuelve el código y nombre de la acción específica
      */
     public function getDescriptionAttribute()
@@ -84,7 +84,7 @@ class BudgetSpecificAction extends Model implements Auditable
     /**
      * BudgetSpecificAction has many BudgetSubSpecificFormulation.
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function sub_specific_formulations()

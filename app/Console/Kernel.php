@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Console - Define los comandos personalizados del sistema
+ *
+ * @package  Console
+ * @author   Taylor Otwell <taylor@laravel.com>
+ */
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;

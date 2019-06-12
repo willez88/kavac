@@ -13,7 +13,7 @@ class PurchaseSettingController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {

@@ -11,15 +11,15 @@ use Illuminate\Http\Request;
  * 
  * Controlador para gestionar Profesiones
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class ProfessionController extends Controller
 {
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class ProfessionController extends Controller
     /**
      * Muesta todos los registros de profesiones
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -44,7 +44,7 @@ class ProfessionController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de profesiones
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -55,7 +55,7 @@ class ProfessionController extends Controller
     /**
      * Valida y registra una nueva profesión
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -77,7 +77,7 @@ class ProfessionController extends Controller
     /**
      * Muestra información acerca de la profesión
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
      */
@@ -89,7 +89,7 @@ class ProfessionController extends Controller
     /**
      * Muestra el formulario para actualizar información de una profesión
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\Response
      */
@@ -101,7 +101,7 @@ class ProfessionController extends Controller
     /**
      * Actualiza la información de la profesión
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\JsonResponse
@@ -123,7 +123,7 @@ class ProfessionController extends Controller
     /**
      * Elimina la profesión
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Http\JsonResponse
      */

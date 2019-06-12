@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Models - Gestión de modelos comúnes
+ *
+ * @package  Models
+ * @author   Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

@@ -18,7 +18,7 @@ use Modules\Budget\Models\BudgetModification;
  * 
  * Clase que gestiona las configuraciones en el módulo de Presupuesto
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetSettingController extends Controller
@@ -26,7 +26,7 @@ class BudgetSettingController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -40,7 +40,7 @@ class BudgetSettingController extends Controller
     /**
      * Muestra un listado de configuraciones de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -72,7 +72,7 @@ class BudgetSettingController extends Controller
     /**
      * Muestra un formulario para la creación de las configuraciones de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function create()
@@ -83,7 +83,7 @@ class BudgetSettingController extends Controller
     /**
      * Guarda información de las configuraciones de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -165,7 +165,7 @@ class BudgetSettingController extends Controller
     /**
      * Muestra información con las configuraciones de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function show()
@@ -176,7 +176,7 @@ class BudgetSettingController extends Controller
     /**
      * Muestra el formulario para editar información de configuraciones de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function edit()
@@ -187,7 +187,7 @@ class BudgetSettingController extends Controller
     /**
      * Actualiza información de configuración de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -198,7 +198,7 @@ class BudgetSettingController extends Controller
     /**
      * Elimina configuraciones de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function destroy()

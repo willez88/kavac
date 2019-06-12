@@ -11,15 +11,15 @@ use Illuminate\Http\Request;
  * 
  * Controlador para gestionar Monedas
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class CurrencyController extends Controller
 {
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -155,7 +155,7 @@ class CurrencyController extends Controller
     /**
      * Obtiene las monedas registradas
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la moneda a buscar, este parámetro es opcional
      * @return \Illuminate\Http\JsonResponse        JSON con los datos de las monedas
      */
@@ -167,7 +167,7 @@ class CurrencyController extends Controller
     /**
      * Obtiene información de una moneda
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la moneda de la cual se va a obtener información
      * @return \Illuminate\Http\JsonResponse
      */

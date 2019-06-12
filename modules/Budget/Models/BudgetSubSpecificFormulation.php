@@ -14,7 +14,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * 
  * Gestiona el modelo de datos para las formulaciones de presupuesto por sub específicas
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetSubSpecificFormulation extends Model implements Auditable
@@ -43,7 +43,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation belongs to BudgetSpecificAction.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function specific_action()
@@ -54,7 +54,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation belongs to Currency.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function currency()
@@ -65,7 +65,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation belongs to Institution.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()
@@ -76,7 +76,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation belongs to DocumentStatus.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function document_status()
@@ -88,7 +88,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation has many BudgetAccountOpen.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function account_opens()
@@ -99,7 +99,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * BudgetSubSpecificFormulation has many BudgetAditionalCreditAccounts.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function modification_accounts()
@@ -111,7 +111,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      * Método que permite validar si una formulación ya existe con los mismos datos a registrar, en cuyo caso 
      * retorna verdadero
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  array  $data Campos a filtrar en la consulta
      * @return boolean      Devuelve verdadero si la formulación existe, de lo contrario retorna falso
      */
@@ -130,7 +130,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     /**
      * Scope para obtener la formulación de presupuesto vigente
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  object $query               Consulta del modelo
      * @param  integer $specific_action_id Identificador de la acción específica por la cual realizar el filtro
      * @return object                      Objeto con la consulta solicitada

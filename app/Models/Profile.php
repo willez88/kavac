@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Models - Gestión de modelos comúnes
+ *
+ * @package  Models
+ * @author   Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +43,7 @@ class Profile extends Model implements Auditable
     /**
      * Profile belongs to User.
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
@@ -49,7 +54,7 @@ class Profile extends Model implements Auditable
     /**
      * Método que obtiene la imagen de perfil
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con el registro relacionado al modelo Image
      */
     public function image()

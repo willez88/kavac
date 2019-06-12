@@ -12,8 +12,8 @@ use App\Traits\ModelsTrait;
  * 
  * Controlador para gestionar el Panel de Control
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class DashboardController extends Controller
 {
@@ -115,7 +115,7 @@ class DashboardController extends Controller
     /**
      * Restaura registros eliminados
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  string  $model Nombre del modelo del cual se desea restaurar registros eliminados
      * @param  integer $id    Identificador del registro a restaurar
      * @return \Illuminate\Http\JsonResponse

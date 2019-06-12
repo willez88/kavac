@@ -11,15 +11,15 @@ use Illuminate\Http\Request;
  * 
  * Controlador para gestionar sectores de Instituciones
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class InstitutionSectorController extends Controller
 {
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class InstitutionSectorController extends Controller
     /**
      * Muesta todos los registros de los sectores de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -44,7 +44,7 @@ class InstitutionSectorController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de sector de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -55,7 +55,7 @@ class InstitutionSectorController extends Controller
     /**
      * Valida y registra un nuevo sector de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -76,7 +76,7 @@ class InstitutionSectorController extends Controller
     /**
      * Muestra información acerca del sector de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\InstitutionSector  $institutionSector
      * @return \Illuminate\Http\Response
      */
@@ -88,7 +88,7 @@ class InstitutionSectorController extends Controller
     /**
      * Muestra el formulario para actualizar información de un sector de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\InstitutionSector  $institutionSector
      * @return \Illuminate\Http\Response
      */
@@ -100,7 +100,7 @@ class InstitutionSectorController extends Controller
     /**
      * Actualiza la información del sector de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\InstitutionSector  $institutionSector
      * @return \Illuminate\Http\JsonResponse
@@ -120,7 +120,7 @@ class InstitutionSectorController extends Controller
     /**
      * Elimina el sector de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\InstitutionSector  $institutionSector
      * @return \Illuminate\Http\JsonResponse
      */

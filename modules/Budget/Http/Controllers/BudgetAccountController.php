@@ -14,7 +14,7 @@ use Modules\Budget\Models\BudgetAccount;
  * 
  * Clase que gestiona las Cuentas Presupuestarias
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetAccountController extends Controller
@@ -28,7 +28,7 @@ class BudgetAccountController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -66,7 +66,7 @@ class BudgetAccountController extends Controller
     /**
      * Muestra un listado de cuentas presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -79,7 +79,7 @@ class BudgetAccountController extends Controller
     /**
      * Muestra un formulario ara la creación de una cuenta presupuestaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function create()
@@ -96,7 +96,7 @@ class BudgetAccountController extends Controller
     /**
      * Crea una nueva cuenta presupuestaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -151,7 +151,7 @@ class BudgetAccountController extends Controller
     /**
      * Muestra información de la cuenta presupuestaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function show()
@@ -162,7 +162,7 @@ class BudgetAccountController extends Controller
     /**
      * Muestra el formulario para la edición de una cuenta presupuestaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la cuenta presupuestaria a modificar
      * @return Response
      */
@@ -188,7 +188,7 @@ class BudgetAccountController extends Controller
     /**
      * Actualiza los datos de la cuenta presupuestaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id      Identificador de la cuenta presupuestaria a modificar
      * @return Response
@@ -209,7 +209,7 @@ class BudgetAccountController extends Controller
     /**
      * Elimina una cuenta presupuestaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la cuenta presupuestaria a eliminar
      * @return Response
      */
@@ -231,7 +231,7 @@ class BudgetAccountController extends Controller
     /**
      * Obtiene listado de registros
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function vueList()
@@ -250,7 +250,7 @@ class BudgetAccountController extends Controller
     /**
      * Obtiene un listado de cuentas de egreso
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  boolean $to_formulate Indica si las cuentas a retornar son para formulación, 
      *                               en cuyo caso incluye la inicialización de variables para cada cuenta
      * @return \Illuminate\Http\JsonResponse
@@ -293,7 +293,7 @@ class BudgetAccountController extends Controller
     /**
      * Obtiene detalles de una cuenta presupuestaria
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificar de la cuenta presupuestaria de la cual se requiere información
      * @return JSON        JSON con los datos de la cuenta presupuestaria
      */
@@ -307,7 +307,7 @@ class BudgetAccountController extends Controller
     /**
      * Determina el próximo valor disponible para la cuenta a ser agregada
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param [integer] $parent_id Identificador de la cuenta padre de la cual se va a generar el nuevo código
      * @return JSON                JSON con los datos del nuevo código generado
      */

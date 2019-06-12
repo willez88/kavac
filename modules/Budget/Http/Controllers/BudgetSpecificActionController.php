@@ -19,7 +19,7 @@ use Modules\Budget\Models\BudgetSubSpecificFormulation;
  * 
  * Clase que gestiona las Acciones Específicas
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetSpecificActionController extends Controller
@@ -32,7 +32,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -54,7 +54,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Muestra un listado de acciones específicas
      * 
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -65,7 +65,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Muestra el formulario para crear una acción específica
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function create()
@@ -91,7 +91,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Registra información de la acción específica
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -134,7 +134,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Muestra información de una acción específica
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function show()
@@ -145,7 +145,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Muestra el formulario para la edición de una acción específica
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la acción específica a modificar
      * @return Response
      */
@@ -175,7 +175,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Actualiza información de la acción específica
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id Identificador de la acción específica a modificar
      * @return Response
@@ -218,7 +218,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Elimina una acción específica
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la acción específica a eliminar
      * @return Response
      */
@@ -237,7 +237,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Obtiene listado de registros
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false, este parámetro es opcional.
      * @return \Illuminate\Http\JsonResponse
      */
@@ -254,7 +254,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Obtiene las acciones específicas registradas
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  string  $type   Identifica si la acción a buscar es por proyecto o acción centralizada
      * @param  integer $id     Identificador de la acción centralizada a buscar, este parámetro es opcional
      * @param  string  $source Fuente de donde se realiza la consulta
@@ -294,7 +294,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Obtiene todas las acciones específicas agrupadas por Proyectos y Acciones Centralizadas
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param string $formulated_year Año de formulación por el cual filtrar la información
      * @param boolean $formulated     Indica si se debe validar con una formulación de presupuesto
      * @return JSON                   JSON con los datos de las acciones específicas
@@ -364,7 +364,7 @@ class BudgetSpecificActionController extends Controller
     /**
      * Obtiene detalles de una acción específica
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificar de la acción específica de la cual se requiere información
      * @return JSON        JSON con los datos de la acción específica
      */

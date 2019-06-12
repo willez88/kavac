@@ -16,7 +16,7 @@ use Modules\Budget\Models\BudgetModification;
  * 
  * Clase que gestiona las reducciones presupuestarias
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetReductionController extends Controller
@@ -29,7 +29,7 @@ class BudgetReductionController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -54,7 +54,7 @@ class BudgetReductionController extends Controller
     /**
      * Muestra un listado de reducciones de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -68,7 +68,7 @@ class BudgetReductionController extends Controller
     /**
      * Muestra un formulario para la creación de redcciones presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function create()
@@ -84,7 +84,7 @@ class BudgetReductionController extends Controller
     /**
      * Guarda información de las reducciones presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -96,7 +96,7 @@ class BudgetReductionController extends Controller
     /**
      * Muestra información de las reducciones presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param int $id Identificador de la reducción presupuestaria a mostrar
      * @return Response
      */
@@ -108,7 +108,7 @@ class BudgetReductionController extends Controller
     /**
      * Muestra el formulario para la edición de formulaciones presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param int $id Identificador de la reducción presupuestaria a modificar
      * @return Response
      */
@@ -120,7 +120,7 @@ class BudgetReductionController extends Controller
     /**
      * Actualiza información de las reducciones presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
      * @param int $id          Identificador de la reducción presupuestaria a modificar
      * @return Response
@@ -133,7 +133,7 @@ class BudgetReductionController extends Controller
     /**
      * Elimina una reducción presupuestaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
      * @param int $id Identificador de la reducción presupuestaria a eliminar
      * @return Response
@@ -153,7 +153,7 @@ class BudgetReductionController extends Controller
     /**
      * Obtiene los registros a mostrar en listados de componente Vue
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return json JSON con información de las reducciones presupuestarias
      */
     public function vueList()

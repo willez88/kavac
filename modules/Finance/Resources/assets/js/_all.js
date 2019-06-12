@@ -1,56 +1,56 @@
 /**
  * Componente para la gestión de bancos
  *
- * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.component('finance-banks', require('./components/FinanceBankComponent.vue').default);
 
 /**
  * Componente para la gestión de agencias bancarias
  *
- * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.component('finance-banking-agencies', require('./components/FinanceBankingAgencyComponent.vue').default);
 
 /**
  * Componente para la gestión de tipos de cuenta bancaria
  *
- * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.component('finance-account-types', require('./components/FinanceAccountTypeComponent.vue').default);
 
 /**
  * Componente para la gestión de cuentas bancarias
  *
- * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.component('finance-bank-accounts', require('./components/FinanceBankAccountComponent.vue').default);
 
 /**
  * Componente para la gestión de chequeras
  *
- * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.component('finance-checkbooks', require('./components/FinanceCheckBookComponent.vue').default);
 
 /**
  * Componente para gestionar y configurar el diseño del voucher para la impresión de cheques
  *
- * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.component('finance-voucher-design', require('./components/FinanceVoucherDesignComponent.vue').default);
 
 /**
  * Opciones de configuración global del módulo de presupuesto
  * 
- * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.mixin({
 	methods: {
 		/**
 		 * Permite formatear la cadena de la cuenta bancaria
 		 *
-		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param  {string}  account  Número de cuenta bancaria
 		 * @param  {boolean} formated Indica si se desa obtener o no el número de cuenta bancaria formateada
 		 * @return {string}           Número de cuenta formateado
@@ -71,7 +71,7 @@ Vue.mixin({
 		/**
 		 * Obtiene los datos de las entidades bancarias registradas
 		 *
-		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 */
 		getBanks: function() {
 			axios.get('/finance/get-banks').then(response => {
@@ -81,7 +81,7 @@ Vue.mixin({
 		/**
 		 * Obtiene los datos de las cuentas bancarias
 		 *
-		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 */
 		getAgencies() {
 			const vm = this;
@@ -107,7 +107,7 @@ Vue.mixin({
 		/**
 		 * Obtiene los datos de los tipos de cuenta bancaria
 		 *
-		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 */
 		getAccountTypes: function() {
 			axios.get('/finance/get-account-types').then(response => {
@@ -117,7 +117,7 @@ Vue.mixin({
 		/**
 		 * Obtiene los datos de las cuentas asociadas a una entidad bancaria
 		 *
-		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 */
 		getBankAccounts() {
 			const vm = this;

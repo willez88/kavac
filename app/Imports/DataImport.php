@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Imports - Gestión la estructura de datos del sistema a importar
+ *
+ * @package  Imports
+ * @author   Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
 namespace App\Imports;
 
 use Illuminate\Support\Collection;

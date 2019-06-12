@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Models - Gestión de modelos comúnes
+ *
+ * @package  Models
+ * @author   Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -15,8 +20,8 @@ use Module;
  * 
  * Gestiona el modelo de datos para las imágenes
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class Image extends Model implements Auditable
 {
@@ -45,7 +50,7 @@ class Image extends Model implements Auditable
     /**
      * Método que obtiene los logos de las instituciones
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Institution
      */
     public function institution_logos()
@@ -56,7 +61,7 @@ class Image extends Model implements Auditable
     /**
      * Método que obtiene los banners de las instituciones
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Institution
      */
     public function institution_banners()
@@ -67,7 +72,7 @@ class Image extends Model implements Auditable
     /**
      * Método que obtiene el perfil de una imagen
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con el registro relacionado al modelo Profile
      */
     public function profile()

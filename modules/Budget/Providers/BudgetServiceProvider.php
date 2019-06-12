@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factory;
  * 
  * Gestiona el Service Provider del módulo de presupuesto
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetServiceProvider extends ServiceProvider

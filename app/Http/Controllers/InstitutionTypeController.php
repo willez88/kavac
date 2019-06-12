@@ -11,15 +11,15 @@ use Illuminate\Http\Request;
  * 
  * Controlador para gestionar los tipos de Instituciones
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class InstitutionTypeController extends Controller
 {
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class InstitutionTypeController extends Controller
     /**
      * Muesta todos los registros de los tipos de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -44,7 +44,7 @@ class InstitutionTypeController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de tipo de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -55,7 +55,7 @@ class InstitutionTypeController extends Controller
     /**
      * Valida y registra un nuevo tipo de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -78,7 +78,7 @@ class InstitutionTypeController extends Controller
     /**
      * Muestra información acerca del tipo de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\InstitutionType  $institutionType
      * @return \Illuminate\Http\Response
      */
@@ -90,7 +90,7 @@ class InstitutionTypeController extends Controller
     /**
      * Muestra el formulario para actualizar información de un tipo de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\InstitutionType  $institutionType
      * @return \Illuminate\Http\Response
      */
@@ -102,7 +102,7 @@ class InstitutionTypeController extends Controller
     /**
      * Actualiza la información del tipo de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\InstitutionType  $institutionType
      * @return \Illuminate\Http\JsonResponse
@@ -124,7 +124,7 @@ class InstitutionTypeController extends Controller
     /**
      * Elimina el tipo de institución
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\InstitutionType  $institutionType
      * @return \Illuminate\Http\JsonResponse
      */

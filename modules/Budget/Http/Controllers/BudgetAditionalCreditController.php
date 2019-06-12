@@ -21,7 +21,7 @@ use App\Models\CodeSetting;
  * 
  * Clase que gestiona las Créditos Adicionales
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetAditionalCreditController extends Controller
@@ -34,7 +34,7 @@ class BudgetAditionalCreditController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -58,7 +58,7 @@ class BudgetAditionalCreditController extends Controller
     /**
      * Muestra el listado de créditos adicionales
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -71,7 +71,7 @@ class BudgetAditionalCreditController extends Controller
     /**
      * Muestra el formulario para crear un crédito adicional
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function create()
@@ -88,7 +88,7 @@ class BudgetAditionalCreditController extends Controller
     /**
      * Registra información del crédito adicional
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -170,7 +170,7 @@ class BudgetAditionalCreditController extends Controller
     /**
      * Muestra información del crédito adicional
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del crédito adicional a mostrar
      * @return Response
      */
@@ -182,7 +182,7 @@ class BudgetAditionalCreditController extends Controller
     /**
      * Muestra el formulario para editar datos del crédito adicional
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del crédito adicional a editar
      * @return Response
      */
@@ -209,7 +209,7 @@ class BudgetAditionalCreditController extends Controller
     /**
      * Actualiza información del crédito adicional
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -220,7 +220,7 @@ class BudgetAditionalCreditController extends Controller
     /**
      * Elimina un crédito adicional específico
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del crédito adicional a elimina
      * @return Response
      */
@@ -239,7 +239,7 @@ class BudgetAditionalCreditController extends Controller
     /**
      * Obtiene los registros a mostrar en listados de componente Vue
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return json Json con datos de la perición realizada
      */
     public function vueList()

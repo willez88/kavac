@@ -6,7 +6,7 @@ if (! function_exists('set_active_menu')) {
 	/**
 	 * Define la opción activa del menú según la URL actual
 	 *
-	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param array|string $compareUrls Nombre o lista de nombres de las URL a comparar
 	 * @return string Si la URL a comparar es igual a la actual retorna active de lo contrario retorna vacio
 	 */
@@ -31,7 +31,7 @@ if (! function_exists('display_submenu')) {
 	/**
 	 * Define si se expande o contrae las opciones de un submenÚ
 	 *
-	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  string|array $submenu Nombre del submenu a mostrar u ocultar
 	 * @return string          		 Retorna una cadena vacia para contraer las opciones del submenú, 
 	 *                               de lo contrario retorna el css para mostrar el bloque de opciones
@@ -54,7 +54,7 @@ if (! function_exists('generate_registration_code')) {
 	/**
 	 * Genera códigos a implementar en los diferentes registros del sistema
 	 *
-	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author	Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  string  			$prefix      Prefijo que identifica el código
 	 * @param  integer 			$code_length Longitud máxima permitida para el código a generar
 	 * @param  integer|string 	$year        Sufijo que identifica el año del cual se va a generar el código
@@ -83,7 +83,7 @@ if (!function_exists('template_choices')) {
 	/**
 	 * Construye un arreglo de elementos para usar en plantillas blade
 	 *
-	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  string 		$model     Nombre de la clase del modelo al cual generar el listado de opciones
 	 * @param  string|array $fields    Campo(s) a utilizar para mostrar en el listado de opciones
 	 * @param  array 		$filters   Arreglo con los filtros a ser aplicados en la consulta
@@ -133,7 +133,7 @@ if (!function_exists('validate_rif')) {
 	/**
 	 * Verifica que el número de RIF sea correcto comproando el dígito verificador del mismo
 	 *
-	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  string $rif Cadena con el número de RIF completo
 	 * @return boolean     Devuelve verdadero si el número de RIF es correcto, de lo contrario devuelve falso
 	 */
@@ -209,7 +209,7 @@ if (!function_exists('rif_exists')) {
 	/**
 	 * Comprueba que un número de RIF exista
 	 *
-	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  string $rif Cadena con el número de RIF completo
 	 * @return boolean     Devuelve verdadero si el RIF existe, de lo contrario retorna falso
 	 */
@@ -224,7 +224,7 @@ if (!function_exists('validate_ci')) {
 	/**
 	 * Verifica si un número de Cédula de Identidad es correcto
 	 *
-	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  string  $ci       Número de Cédula de Identidad
 	 * @param  boolean $with_nac Indica si la verificación del número de cédula es con la nacionalidad
 	 * @param  integer $length   Establece la longitud máxima del número de Cédula de Identidad
@@ -265,7 +265,7 @@ if (! function_exists('generate_code')) {
 	/**
 	 * Genera una cadena aleatoria
 	 *
-	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  object|string  	$model  Clase del modelo a verificar
 	 * @param  string  			$field  Nombre del campo a validar
 	 * @param  integer 			$length Longitud máxima de la cadena a generar

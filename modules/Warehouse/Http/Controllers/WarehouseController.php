@@ -237,7 +237,7 @@ class WarehouseController extends Controller
     /**
      * Construye un arreglo de elementos para usar en plantillas blade
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $institution   Institucion que gestiona los almacenes a ser buscados
      * @return array   Arreglo con las opciones a mostrar
      */

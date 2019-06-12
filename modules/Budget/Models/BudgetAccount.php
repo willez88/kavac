@@ -23,7 +23,7 @@ use Modules\Accounting\Models\AccountingAccountConverter;
  * 
  * Gestiona el modelo de datos para las cuentas del Clasificador Presupuestario
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetAccount extends Model implements Auditable
@@ -54,7 +54,7 @@ class BudgetAccount extends Model implements Auditable
     /**
      * Reescribe el método boot para establecer comportamientos por defecto en la consulta del modelo
      * 
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     protected static function boot()
     {
@@ -72,7 +72,7 @@ class BudgetAccount extends Model implements Auditable
     /**
      * BudgetAccount has many BudgetAccountOpen.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function account_opens()
@@ -83,7 +83,7 @@ class BudgetAccount extends Model implements Auditable
     /**
      * BudgetAccount has many BudgetModificationAccounts.
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function modification_accounts()
@@ -107,7 +107,7 @@ class BudgetAccount extends Model implements Auditable
      * Restringe la eliminación de un registro si el mismo esta relacionado a otro modelo o posee campos 
      * que determinan la imposibilidad de su eliminación
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return boolean Devuelve verdadero si la cuenta esta restringida para ser eliminada, de lo contrario retorna verdadero
      */
     public function restrictDelete()
@@ -122,7 +122,7 @@ class BudgetAccount extends Model implements Auditable
     /**
      * Método que permite obtener la cuenta asociada de nivel superior
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  string $group       Grupo de la cuenta
      * @param  string $item        Ítem de la cuenta
      * @param  string $generic     Genérica de la cuenta
@@ -164,7 +164,7 @@ class BudgetAccount extends Model implements Auditable
     /**
      * Método que permite obtener el código de una cuenta presupuestaria
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return string Retorna el código de la cuenta
      */
     public function getCodeAttribute()
