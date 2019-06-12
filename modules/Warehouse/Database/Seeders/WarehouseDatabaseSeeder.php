@@ -6,8 +6,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @class AssetDatabaseSeeder
- * @brief Inicializa el Modulo de Bienes
+ * @class WarehouseDatabaseSeeder
+ * @brief Inicializa el Modulo de Almacén
  * 
  * 
  * @author Henry Paredes (henryp2804@gmail.com)

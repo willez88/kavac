@@ -26,4 +26,47 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::get('socioeconomic-informations/staffs-list', 'PayrollSocioeconomicInformationController@staffsList')->name('payroll.socioeconomic-informations.staffs-list');
 
     Route::resource('professional-informations', 'PayrollProfessionalInformationController', ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]);
+
+
+
+
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar los tabuladores de nómina
+     * ------------------------------------------------------------
+     */
+
+    Route::resource('tabulators', 'PayrollTabulatorController', ['except' => ['show']]);
+
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar las asignaciones de nómina
+     * ------------------------------------------------------------
+     */
+
+    Route::resource('assignments', 'PayrollTabulatorController', ['except' => ['show']]);
+    Route::resource('assignment-types', 'PayrollAssignmentTypeController', ['except' => ['show','create','edit']]);
+
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar el simulador de salario
+     * ------------------------------------------------------------
+     */
+
+    Route::get('salary-simulator', 'PayrollServiceController@create');
+    Route::resource('scales', 'PayrollTabulatorController', ['except' => ['show']]);
+
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar los servicios del modulo de nómina
+     * ------------------------------------------------------------
+     */
+    
+    Route::get('get-staffs', 'PayrollServiceController@getStaffs');
+    Route::get('get-position-types', 'PayrollServiceController@getPositionTypes');
+    Route::get('get-positions', 'PayrollServiceController@getPositions');
+    Route::get('get-assignment-types', 'PayrollServiceController@getAssignmentTypes');
+    Route::get('get-instruction-degrees', 'PayrollServiceController@getInstructionDegrees');
+
 });
+

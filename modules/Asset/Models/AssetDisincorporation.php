@@ -47,14 +47,14 @@ class AssetDisincorporation extends Model implements Auditable
     protected $fillable = ['motive_id', 'date', 'observation'];
 
      /**
-     * Método que obtiene el tipo al que pertenece el bien
+     * Método que obtiene los bienes desincorporados
      *
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @return Objeto con el registro relacionado al modelo AssetDisincorporationAsset
      */
-    public function asset()
+    public function AssetsDisincorporation()
     {
-        return $this->belongsTo('Modules\Asset\Models\Asset', 'asset_id');
+        return $this->hasMany('Modules\Asset\Models\AssetDisincorporationAsset','disincorporation_id');
     }
 
     /**

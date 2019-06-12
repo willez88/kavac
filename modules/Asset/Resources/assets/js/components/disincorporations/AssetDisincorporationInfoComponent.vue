@@ -2,7 +2,7 @@
 	<div>
 		<a class="btn btn-info btn-xs btn-icon btn-action" 
 		   href="#" title="Ver información de la Desincorporación" data-toggle="tooltip" 
-		   @click="initRequest('view_disincorporation',$event)">
+		   @click="addRecord('view_disincorporation',route_list, $event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="view_disincorporation">
@@ -27,13 +27,13 @@
 						</div>
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
 	                        <li class="nav-item">
-	                            <a class="nav-link active" data-toggle="tab" href="#general" role="tab">
+	                            <a class="nav-link active" data-toggle="tab" href="#general" id="info_general" role="tab">
 	                                <i class="ion-android-person"></i> Información General
 	                            </a>
 	                        </li>
 	                        
 	                        <li class="nav-item">
-	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadRequest()">
+	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadEquipment()">
 	                                <i class="ion-arrow-swap"></i> Equipos Desincorporados
 	                            </a>
 	                        </li>
@@ -42,42 +42,35 @@
 	                    <div class="tab-content">
 	                    	<div class="tab-pane active" id="general" role="tabpanel">
 	                    		<div class="row">        
-									<div class="col-md-12">
-										<b>Datos de la Desincorporados</b>
-									</div>
-
 							        <div class="col-md-6">
 										<div class="form-group">
-											<label>Fecha de la Desincorporación</label>
-							        		<input type="text"
-												data-toggle="tooltip" 
-												class="form-control"
-												id="date"
-												disabled="true">
-												<input type="hidden" id="id">
+											<strong>Fecha de la Desincorporación</strong>
+											<div class="row" style="margin: 1px 0">
+												<span class="col-md-12" id="date">
+												</span>
+											</div>
+											<input type="hidden" id="id">
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Motivo de la Desincorporación</label>
-							        		<input type="text"
-												data-toggle="tooltip" 
-												class="form-control"
-												id="motive"
-												disabled="true">
-										</div>
+											<strong>Motivo</strong>
+											<div class="row" style="margin: 1px 0">
+												<span class="col-md-12" id="motive">
+												</span>
+											</div>
+							            </div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Observaciones Generales</label>
-							        		<input type="text"
-												data-toggle="tooltip" 
-												class="form-control"
-												id="observe"
-												disabled="true">
-										</div>
+											<strong>Observaciones</strong>
+											<div class="row" style="margin: 1px 0">
+												<span class="col-md-12" id="observation">
+												</span>
+											</div>
+							            </div>
 									</div>
 
 							    </div>
@@ -85,22 +78,9 @@
 	                    	
 	                    	<div class="tab-pane" id="equipment" role="tabpanel">
 	                    		<div class="row">
-									<div class="col-12">
-										<a class='btn btn-sm btn-info float-right'
-											title="Refrescar Datos"
-											data-toggle="tooltip"
-											@click="loadRequest()">
-											<i class="fa fa-refresh"></i>
-											<span>	Actualizar	</span>
-										</a>	
-									</div>
-								</div>	
-	                    		<div class="row">
 	                    			<div class="col-md-12">
 										<hr>
 										<v-client-table :columns="columns" :data="records" :options="table_options">
-											<div slot="asset.id" slot-scope="props" class="text-center">
-											</div>
 
 										</v-client-table>
 									</div>
@@ -111,11 +91,9 @@
 
 	                <div class="modal-footer">
 	                	
-	                	<button type="button" 
-	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
-	                			data-dismiss="modal"
-	                			title="Cancelar y regresar">
-	                			<i class="fa fa-ban"></i>
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                			data-dismiss="modal">
+	                		Cerrar
 	                	</button>
 		            </div>
 		        </div>
@@ -130,7 +108,7 @@
 			return {
 				records: [],
 				errors: [],
-				columns: ['asset.serial_inventario','asset.serial','asset.marca','asset.model','asset.id'],
+				columns: ['asset.serial_inventario','asset.serial','asset.marca','asset.model'],
 			}
 		},
 		props: {
@@ -142,36 +120,65 @@
 				'asset.serial': 'Serial',
 				'asset.marca': 'Marca',
 				'asset.model': 'Modelo',
-				'asset.id': 'Acción'
 			};
 			this.table_options.sortable = ['asset.serial_inventario','asset.serial','asset.marca','asset.model'];
 			this.table_options.filterable = ['asset.serial_inventario','asset.serial','asset.marca','asset.model'];
+			this.table_options.orderBy = { 'column': 'asset.id'};
 
 		},
 		methods: {
 
-            fillRequest(){         
-            	$(".modal-body #id").val( this.disincorporation.id );
-            	$(".modal-body #date").val( this.disincorporation.date );
-            	$(".modal-body #motive").val( this.disincorporation.motive.name );
-            	$(".modal-body #observe").val( this.disincorporation.observation );
+			/**
+             * Método que borra todos los datos del formulario
+             * 
+             * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             */
+            reset() {
             },
 
-			initRequest(modal_id,event) {
+            /**
+			 * Inicializa los registros base del formulario
+			 *
+			 * @author Henry Paredes (henryp2804@gmail.com)
+			 */
+            initRecords(url,modal_id){
+            	this.errors = [];
+				this.reset();
 
-				event.preventDefault();
-				this.fillRequest();
+				const vm = this;
+            	var fields = {};
+            	
+            	document.getElementById("info_general").click();
 
+            	axios.get(url).then(response => {
+					if (typeof(response.data.records) !== "undefined") {
+						fields = response.data.records;
 
-				if ($("#" + modal_id).length) {
-					$('#'+modal_id).modal('show');
-				}
-
-			},
-			loadRequest(){
+						$(".modal-body #id").val( fields.id );
+		            	document.getElementById('date').innerText = (fields.date)?fields.date:fields.created_at;
+		            	document.getElementById('motive').innerText = (fields.motive)?fields.motive.name:'N/A';
+		            	document.getElementById('observation').innerText = (fields.motive)?fields.observation:'N/A';
+					}
+					if ($("#" + modal_id).length) {
+						$("#" + modal_id).modal('show');
+					}
+				}).catch(error => {
+					if (typeof(error.response) !== "undefined") {
+						if (error.response.status == 403) {
+							vm.showMessage(
+								'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+							);
+						}
+						else {
+							vm.logs('resources/js/all.js', 343, error, 'initRecords');
+						}
+					}
+				});
+            },
+			loadEquipment(){
 				var index = $(".modal-body #id").val();
-				axios.get('/' + this.route_list +index).then(response => {
-					this.records = response.data.records;
+				axios.get('/asset/disincorporations/vue-info/' + index).then(response => {
+					this.records = response.data.records.assets_disincorporation;
 				});
 			}
 		},
