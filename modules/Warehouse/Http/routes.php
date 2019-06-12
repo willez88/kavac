@@ -2,11 +2,10 @@
 
 /**
  * -----------------------------------------------------------------------
- * Grupo de rutas para la gestión de Bienes Institucionales
+ * Grupo de rutas para la gestión de Almacénes
  * -----------------------------------------------------------------------
  *
- * Permite gestionar los bienes institucionales y 
- * el acceso a los distintos discos establecidos en la configuración de 
+ * Permite gestionar los almacenes institucionales
  * 
  */
 

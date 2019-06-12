@@ -54,7 +54,7 @@
 								<div class="form-group">
 									<a  data-toggle="tooltip"
 				                        title="Establecer los atributos del producto para gestionar las variantes">
-				                        <label for="" class="control-label">Atributos Perzonalizados</label>
+				                        <label for="" class="control-label">Atributos Personalizados</label>
 				                        <div class="col-12">
 										<input type="checkbox" class="form-control bootstrap-switch"
 											name="attribute" 

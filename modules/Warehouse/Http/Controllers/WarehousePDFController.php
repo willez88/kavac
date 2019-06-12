@@ -13,7 +13,7 @@ use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
 use App\Models\Institution;
 use App\Models\Setting;
 
-use Modules\Asset\Pdf\Pdf;
+use Modules\Warehouse\Pdf\Pdf;
 /**
  * @class WarehousePDFController
  * @brief Controlador de los atributos de los productos de almacén
