@@ -2,19 +2,20 @@
 	<div>
 		<a class="btn btn-default btn-xs btn-icon btn-action" 
 		   href="#" title="Solicitud de Prorroga" data-toggle="tooltip" 
+		   :disabled="(request.type == 1)?true:false"
 		   @click="initRequest('add_prorroga',$event)">
-			<i class="fa fa-calendar"></i>
+			<i class="fa fa-calendar-plus-o"></i>
 		</a>
 
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_prorroga">
-			<div class="modal-dialog modal-lg">
+			<div class="modal-dialog modal-xs">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book ico-2x"></i> 
+							<i class="icofont icofont-meeting-add ico-2x"></i> 
 							Solicitud de Prorroga
 						</h6>
 					</div>
@@ -42,23 +43,15 @@
 					</div>
 
 	                <div class="modal-footer">
-	                	
-	                	<button type="button" @click="reset()"
-	                			class="btn btn-default btn-icon btn-round" 
-	                			title="Borrar datos del formulario">
-	                			<i class="fa fa-eraser"></i>
-	                	</button>
-	                	<button type="button" 
-	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
-	                			data-dismiss="modal"
-	                			title="Cancelar y regresar">
-	                			<i class="fa fa-ban"></i>
+
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                			data-dismiss="modal">
+	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="createRecord('asset/requests/request-prorroga')"
-	                			class="btn btn-success btn-icon btn-round" 
-	                			title="Guardar registro">
-	                			<i class="fa fa-save"></i>
-	                	</button>
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
+	                		Guardar
+		                </button>
 		            </div>
 
 		        </div>
@@ -87,7 +80,7 @@
 			/**
              * Método que borra todos los datos del formulario
              * 
-             * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
             reset() {
                 this.record = {
@@ -125,6 +118,9 @@
 					this.reset();
 					this.readRecords(url);
 					this.showMessage('store');
+					setTimeout(function() {
+                        window.location.href = '/asset/requests';
+                    }, 2000);
 				}).catch(error => {
 					this.errors = [];
 

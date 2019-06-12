@@ -313,7 +313,7 @@
 			/**
 			 * Reinicia los valores de los elementos del formulario
 			 *
-			 * @author  In- Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author  In- Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset: function() {
 				this.record.year = '';
@@ -328,7 +328,7 @@
 			/**
 			 * Calcula los montos de las cuentas presupuestarias formuladas
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @param  {integer} index Indice del elemento
 			 * @param  {string}  input Nombre del campo que activó el evento
 			 */
@@ -516,7 +516,7 @@
 			 * Muestra u oculta los campos de texto para ingresar información sobre los montos 
 			 * a formular para una cuenta presupuestaria
 			 *
-			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @param  {integer} index Indice del registro a mostrar u ocultar
 			 */
 			showAccountInputs: function(index) {
@@ -544,7 +544,7 @@
 			/**
 			 * Obtiene un arreglo con los proyectos
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @param  {integer} id Identificador del proyecto a buscar, este parámetro es opcional
 			 */
 			getProjects(id) {
@@ -556,7 +556,7 @@
 			/**
 			 * Obtiene un arreglo con las acciones centralizadas
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @param  {integer} id Identificador de la acción centralizada a buscar, este parámetro es opcional
 			 */
 			getCentralizedActions(id) {
@@ -568,7 +568,7 @@
 			/**
 			 * Obtiene las Acciones Específicas
 			 * 
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @param {string} type Tipo de registro
 			 */
 			getSpecificActions(type) {
@@ -590,7 +590,7 @@
 			/**
 			 * Crea o actualiza la formulación de presupuesto
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			createRecord() {
 				const vm = this;
@@ -656,7 +656,7 @@
 			/**
 			 * Carga los datos de la formulación
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @param {integer} id Identificador de la formulación a cargar
 			 */
 			loadFormulation(id) {
@@ -714,7 +714,7 @@
 			/**
 			 * Ejecuta la acción para actualizar datos de la formulación
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			updateFormulation() {
 				var fields = {};
@@ -746,7 +746,7 @@
 			/**
 			 * Importa información de la formulación a partir de una hoja de cálculo
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @param  {string} input_id Identificador del campo del typo file con el 
 			 *                           archivo a ser importado
 			 */
@@ -802,7 +802,7 @@
 			/**
 			 * Función que permite monitorear modificaciones en el campo specific_actions
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			specific_actions: function() {
 				$("#specific_action_id").attr('disabled', (this.specific_actions.length <= 1));

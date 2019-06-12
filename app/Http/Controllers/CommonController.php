@@ -10,15 +10,15 @@ use Illuminate\Http\Request;
  * 
  * Controlador para gestionar datos comúnes en la aplicación
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class CommonController extends Controller
 {
 	/**
 	 * Obtiene Datos de modelos relacionados
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  \Illuminate\Http\Request $request      Datos de la petición
 	 * @param  string   				$parent_model Nombre del modelo padre
 	 * @param  integer  				$parent_id    Identificador del elemento relacionado

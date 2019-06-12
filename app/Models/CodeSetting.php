@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Models - Gestión de modelos comúnes
+ *
+ * @package  Models
+ * @author   Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +19,8 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * 
  * Gestiona el modelo de datos para las configuraciones de códigos
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class CodeSetting extends Model implements Auditable
 {
@@ -46,7 +51,7 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método que permite obtener el formato configurado para el código
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return string Retorna el formato del código configurado
      */
     public function getFormatCodeAttribute()
@@ -57,7 +62,7 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método que permite dividir el formato del código
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  string $code Formato del código a configurar
      * @return array       Arreglo con las partes que conforman el código
      */
@@ -70,7 +75,7 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método que permite obtener el prócimo valor a registrar del código
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  string $table  Nombre de la tabla
      * @param  string $field  Nombre del campo
      * @param  string $model  Ruta del Modelo
@@ -102,7 +107,7 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método Scope para obtener configuraciones de un modelo
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  object $query Objeto con la collección de la consulta realizada
      * @param  string $model Nombre del modelo del cual obtener la configuración
      * @param  string $type  Tipo de configuración a obtener

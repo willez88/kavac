@@ -344,7 +344,7 @@ $(document).ready(function() {
 /**
  * Permite mostrar alerta de mensajes de acciones realizadas con vue o js
  *
- * @author Ing. Roldan Vargas  <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas  <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @param  {string} msg_title  Título de la ventana de alerta
  * @param  {string} msg_class  Clase de estilo a usar en la ventana de alerta
  * @param  {string} msg_icon   Ícono a usar en la ventana de alerta
@@ -382,7 +382,7 @@ function gritter_messages(msg_title, msg_class, msg_icon, type, msg_custom) {
 
 /*
  * Función que permite eliminar registros mediante ajax
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @param {string} url URL del controlador que realiza la acción de eliminación
  * @return Un mensaje al usuario solicitando confirmación de la eliminación del registro
  */

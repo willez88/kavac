@@ -3,7 +3,7 @@
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Reglas de Abastecimiento del Almacén" data-toggle="tooltip" 
 		   @click="addRecord('add_rule', 'rules', $event)">
-			<i class="icofont icofont-papper ico-3x"></i>
+			<i class="icofont icofont-law-document ico-3x"></i>
 			<span>Reglas de Almacén</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_rule">
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-papper ico-2x"></i> 
+							<i class="icofont icofont-law-document ico-2x"></i> 
 							Reglas de Abastecimiento del Almacén
 						</h6>
 					</div>
@@ -79,13 +79,16 @@
 									</td>
 									<td class="td-with-border" width="10%">
 										<div v-if="editIndex == index">
-											<input type="number" class="form-control input-sm" data-toggle="tooltip" :id="'rule_product_'+field.id" onfocus="this.select()">
+											<div class="form-group">
+												<label>Minimo:</label>
+												<input type="number" class="form-control input-sm" data-toggle="tooltip" min=0 :id="'rule_product_'+field.id" onfocus="this.select()">
+											</div>
 										</div>
 										<div v-else>
 											<b>Minimo:</b> {{ (field.rule == null)? 'N/A':field.rule.min }}
 										</div>
 									</td>
-									<td class="text-center d-inline-flex">
+									<td class="text-center">
 										<div v-if="editIndex != index">
 											<button @click="editRule(index, $event)" 
 					                				class="btn btn-warning btn-xs btn-icon btn-action" 
@@ -93,7 +96,7 @@
 					                			<i class="fa fa-edit"></i>
 					                		</button>
 					                	</div>
-				                		<div v-else>
+				                		<div v-else class="d-inline-flex">
 				                			<button @click="saveRule(index,$event)" 
 					                				class="btn btn-success btn-xs btn-icon btn-action" 
 					                				title="Guardar Regla" data-toggle="tooltip" type="save">
@@ -148,7 +151,7 @@
 			/**
 			 * Método que borra todos los datos del formulario
 			 * 
-			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
 				this.record = {
@@ -201,6 +204,7 @@
 			},
 			saveRule(index, event){
 				const vm = this;
+				vm.errors = [];
 				var fields = vm.products[index];
 				var element = document.getElementById('rule_product_'+fields.id);
 				if(element){
@@ -216,12 +220,11 @@
 	                            vm.getWarehouseProducts();
 	                        }
 	                    }).catch(function (error) {
-	                        _this.errors = [];
 
 	                        if (typeof error.response != "undefined") {
 	                            for (var index in error.response.data.errors) {
 	                                if (error.response.data.errors[index]) {
-	                                    _this.errors.push(error.response.data.errors[index][0]);
+	                                    vm.errors.push(error.response.data.errors[index][0]);
 	                                }
 	                            }
 	                        }
@@ -249,12 +252,11 @@
 	                            vm.getWarehouseProducts();
 	                        }
 	                    }).catch(function (error) {
-	                        _this.errors = [];
-
+	                        
 	                        if (typeof error.response != "undefined") {
 	                            for (var index in error.response.data.errors) {
 	                                if (error.response.data.errors[index]) {
-	                                    _this.errors.push(error.response.data.errors[index][0]);
+	                                    vm.errors.push(error.response.data.errors[index][0]);
 	                                }
 	                            }
 	                        }

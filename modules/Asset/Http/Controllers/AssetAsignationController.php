@@ -11,17 +11,6 @@ use Modules\Asset\Models\AssetAsignation;
 use Modules\Asset\Models\AssetAsignationAsset;
 use Modules\Asset\Models\Asset;
 
-use Modules\Asset\Models\AssetType;
-use Modules\Asset\Models\AssetCategory;
-use Modules\Asset\Models\AssetSubcategory;
-use Modules\Asset\Models\AssetSpecificCategory;
-use Modules\Asset\Models\AssetInventary;
-
-use Modules\Payroll\Models\PayrollStaff;
-use Modules\Payroll\Models\PayrollPositionType;
-use Modules\Payroll\Models\PayrollPosition;
-use App\Models\Department;
-
 /**
  * @class AssetAsignationController
  * @brief Controlador de Asignaciones de Bienes Institucionales
@@ -57,9 +46,8 @@ class AssetAsignationController extends Controller
      */
     public function index()
     {
-        $assets = Asset::all();
         $asset_asignations = AssetAsignation::all();
-        return view('asset::asignations.list', compact('assets','asset_asignations'));
+        return view('asset::asignations.list', compact('asset_asignations'));
     }
 
     /**
@@ -68,59 +56,23 @@ class AssetAsignationController extends Controller
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function create(Request $request)
+    public function create()
     {
-        $header = [
-            'route' => 'asset.asignation.store', 'method' => 'POST', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
-        ];
-        $case=1;//New Asignation
-        $assets = Asset::AssetClasification($case,$request->type,$request->category,$request->subcategory,$request->specific_category)->get();
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
-        
-        $type_positions = template_choices('Modules\Payroll\Models\PayrollPositionType');
-        $positions = template_choices('Modules\Payroll\Models\PayrollPosition');
-        $staffs = template_choices('Modules\Payroll\Models\PayrollStaff');
-
-        $dependencias = template_choices('App\Models\Department');
-
-        return view('asset::asignations.create', compact('header','assets','types','categories','subcategories','specific_categories','request','positions','type_positions','staffs','dependencias'));
+        return view('asset::asignations.create');
     }
 
     /**
      * Muestra el formulario para registrar una nueva Asignación de un Bien Institucional
      *
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\Asset  $asset (Datos del Bien)
+     * @param  Integer $id Identificador único del bien a asignar
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function Asset_Assign(Asset $asset)
+    public function Asset_Assign($id)
     {
-        $header = [
-            'route' => 'asset.asignation.store', 'method' => 'POST', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
-        ];
-
-        
-        $assets = Asset::where('status_id', 10)->get();
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
-
-        $type_positions = template_choices('Modules\Payroll\Models\PayrollPositionType');
-        $positions = template_choices('Modules\Payroll\Models\PayrollPosition');
-        $staffs = template_choices('Modules\Payroll\Models\PayrollStaff');
-
-        $dependencias = template_choices('App\Models\Department');
-
-        $data[0]= $asset->serial_inventario;
-        $select = json_encode($data);
-
-
-        return view('asset::asignations.create', compact('header','asignation','assets','types','categories','subcategories','specific_categories','select','type_positions','positions','staffs','dependencias'));
-        }
+        $asset = Asset::find($id);
+        return view('asset::asignations.create', compact('asset'));
+    }
 
     /**
      * Valida y Registra una nueva Asignación de Bienes Institucionales
@@ -134,43 +86,24 @@ class AssetAsignationController extends Controller
         $this->validate($request, [
 
             //'ubication' => 'required',
-            //'staff' => 'required',
+            //'staff_id' => 'required',
 
         ]);
-        $datos = explode(',',$request->ids);
-        $cantidad = 0;
+        $asignation = AssetAsignation::create([
+                'staff_id' => $request->staff_id,
+        ]);
 
-        $asignation = new AssetAsignation;
-
-        $asignation->staff_id = $request->staff;
-        $asignation->save();
-
-        while ($cantidad < count($datos)) {
-            $seleccionados = new AssetAsignationAsset;
-            $asset = Asset::where('serial_inventario',trim($datos[$cantidad]))->first();
+        foreach ($request->assets as $product) {
+            $asset = Asset::find($product);
             $asset->status_id = 1;
-            $seleccionados->asset_id = $asset->id;
-            $seleccionados->asignation_id = $asignation->id;
-
-            $seleccionados->save();
             $asset->save();
-            $cantidad++;
-
+            $asset_asignation = AssetAsignationAsset::create([
+                'asset_id' => $asset->id,
+                'asignation_id' => $asignation->id,
+            ]);
         }
-        return redirect()->route('asset.asignation.index');
+        return response()->json(['result' => true], 200);
 
-    }
-
-    /**
-     * Muestra los datos de las Asignaciones de Bienes Institucionales
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\AssetAsignation  $asignation (Datos de la asignacion de un Bien)
-     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
-     */
-    public function show(AssetAsignation $asignation)
-    {
-        
     }
 
     /**
@@ -180,36 +113,10 @@ class AssetAsignationController extends Controller
      * @param  \Modules\Asset\Models\AssetAsignation  $asignation (Datos de la Asignación de un Bien)
      * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
-    public function edit(Request $request,AssetAsignation $asignation)
+    public function edit($id)
     {
-        $header = [
-            'route' => ['asset.asignation.update', $asignation], 'method' => 'PUT', 'role'=> 'form', 'id' => 'form','class' => 'form-horizontal',
-        ];
-        
-        $case=2; //Edit Asignation
-        $assets = Asset::AssetClasification($case,$request->type,$request->category,$request->subcategory,$request->specific_category)->get();
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
-        $select = AssetAsignationAsset::where('asignation_id',$asignation->id)->get();
-
-        $type_positions = template_choices('Modules\Payroll\Models\PayrollPositionType');
-        $positions = template_choices('Modules\Payroll\Models\PayrollPosition');
-        $staffs = template_choices('Modules\Payroll\Models\PayrollStaff');
-
-        $dependencias = template_choices('App\Models\Department');
-
-        $data = [];
-        $index=0;
-        foreach ($select as $key) {            
-            $asset = Asset::find($key->asset_id);
-            $data[$index]= $asset->serial_inventario;
-            $index++;
-        }
-        $select =json_encode($data);
-
-        return view('asset::asignations.create', compact('header', 'asignation', 'assets','types','categories','subcategories','specific_categories','select','type_positions','positions','staffs','dependencias'));
+        $asignation = AssetAsignation::find($id);
+        return view('asset::asignations.create', compact('asignation'));
     }
 
     /**
@@ -217,56 +124,44 @@ class AssetAsignationController extends Controller
      *
      * @author Henry Paredes (henryp2804@gmail.com)
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @param  \Modules\Asset\Models\AssetAsignation  $asignation (Datos de la Asignación de un Bien)
+     * @param  Integer $id Identificador único de la asignación
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function update(Request $request, AssetAsignation $asignation)
+    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-
-            //'ubication' => 'required',
-            //'staff' => 'required',
-
-        ]);
-
-        $asignation->staff_id = $request->staff;
+        $asignation = AssetAsignation::where('id', $id)->with('assetsAsignation')->first();
+        $asignation->staff_id = $request->staff_id;
         $asignation->save();
-
-        $datos = explode(' , ',$request->ids);
-        $cantidad = 0;
-
-        $seleccionados = AssetAsignationAsset::where('asignation_id',$asignation->id)->get();
-
+    
         /* Recorro la vieja lista para verificar si hay elementos eliminados en la nueva lista */
-        
-        foreach ($seleccionados as $asset_asignation) {
-            $old_asset = $asset_asignation->asset()->first();
-            $serial = $old_asset->serial_inventario;
-            $clave = in_array($serial, $datos);
+        $assets_asignation = AssetAsignationAsset::where('asignation_id', $asignation->id)->get();
+
+        foreach ($assets_asignation as $asset_asignation) {
+            $asset = Asset::find($asset_asignation->asset_id);
+            $datos = $request->assets;
+            $clave = in_array($asset->id, $datos);
             if ($clave == false){
-                $old_asset->status_id = 10;
+                $asset->status_id = 10;
+                $asset->save();
                 $asset_asignation->delete();
-                $old_asset->save();
             }
         }
-        
+    
         /* Recorro la nueva lista para verificar si hay nuevos elementos a ser insertados */
-
-        while ($cantidad < count($datos)) {          
-            $asset = Asset::where('serial_inventario',trim($datos[$cantidad]))->first();
-            $new_asset = $seleccionados->where('asset_id',$asset->id)->first();
-            if (is_null($new_asset)){
-                $new_asset = new AssetAsignationAsset;
-                $asset->status_id = 1;
-                $new_asset->asset_id = $asset->id;
-                $new_asset->asignation_id = $asignation->id;        
-                $new_asset->save();
-                $asset->save();
-            }                
-            $cantidad++;
+        foreach ($request->assets as $asset_id) {
+            $asset = Asset::find($asset_id);
+            $asset->status_id = 1;
+            $asset->save();
+            $asset_asignation = AssetAsignationAsset::where('asset_id', $asset->id)->where('asignation_id',$asignation->id)->first();
+            if( is_null($asset_asignation))
+                $asset_asignation = AssetAsignationAsset::create([
+                    'asset_id' => $asset->id,
+                    'asignation_id' => $asignation->id,
+                ]);
 
         }
-        return redirect()->route('asset.asignation.index');
+        
+        return response()->json(['result' => true],200);
     }
 
     /**
@@ -278,10 +173,8 @@ class AssetAsignationController extends Controller
      */
     public function destroy(AssetAsignation $asignation)
     {
-        
         $asignation->delete();
-        return back()->with(['message' => ['type' => 'destroy']]);
-
+        return response()->json(['message' => 'destroy'], 200);
     }
 
     /**
@@ -293,8 +186,23 @@ class AssetAsignationController extends Controller
      */
     
     public function vueInfo($id){
-        $asset_request = AssetAsignationAsset::where('asignation_id',$id)->with('asset')->get();
+        $asignation = AssetAsignation::where('id',$id)
+            ->with(['staff','assetsAsignation' => 
+                function($query){
+                    $query->with(['asset' =>
+                    function($query){
+                        $query->with('type','category',
+                                     'subcategory','specific',
+                                     'purchase','condition','status','use');
+                    }]);
+                }])->first();
 
-        return response()->json(['records' => $asset_request], 200);
+        return response()->json(['records' => $asignation], 200);
     }
+
+    public function vueList()
+    {
+        return response()->json(['records' => AssetAsignation::with('staff')->get()], 200);
+    }
+
 }

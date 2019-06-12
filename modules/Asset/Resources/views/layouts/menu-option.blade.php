@@ -13,8 +13,8 @@
         
         <li title="Gestión de registros de bienes institucionales" data-toggle="tooltip"
             data-placement="right"
-            class='{!! set_active_menu(['asset.index', 'asset.create', 'asset.edit']) !!}'>
-            <a href="{{ route('asset.index') }}">Registros</a>
+            class='{!! set_active_menu(['asset.register.index', 'asset.register.create', 'asset.register.edit']) !!}'>
+            <a href="{{ route('asset.register.index') }}">Registros</a>
         </li>
        
         <li title="Gestión de asignaciones de bienes institucionales" data-toggle="tooltip"

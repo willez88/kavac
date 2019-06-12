@@ -49,6 +49,9 @@
 				axios.put('/'+this.route_update+'/request-approved/'+id).then(response => {
 					this.records = response.data.records;
 					this.showMessage('update');
+					setTimeout(function() {
+                        window.location.href = '/asset/requests';
+                    }, 2000);
 				});
 			},
 			rejectedRequest(index){
@@ -56,6 +59,9 @@
 				axios.put('/'+this.route_update+'/request-rejected/'+id).then(response => {
 					this.records = response.data.records;
 					this.showMessage('update');
+					setTimeout(function() {
+                            window.location.href = '/asset/requests';
+                        }, 2000);
 				});
 			},
 

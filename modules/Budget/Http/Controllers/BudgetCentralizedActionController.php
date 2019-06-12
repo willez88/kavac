@@ -19,7 +19,7 @@ use Module;
  * 
  * Clase que gestiona las Acciones Centralizadas
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetCentralizedActionController extends Controller
@@ -29,7 +29,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -43,7 +43,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Muestra un listado de acciones centralizadas
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -54,7 +54,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Muestra el formulario para la creación de acciones centralizadas
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function create()
@@ -90,7 +90,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Registra información de la acción centralizada
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request
      * @return Response
      */
@@ -133,7 +133,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Muestra información de una acción centralizada
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la acción centralizada a mostrar
      * @return Response
      */
@@ -145,7 +145,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Muestra el formulario de edición de acciones centralizadas
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la acción centralizada a modificar
      * @return Response
      */
@@ -188,7 +188,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Actualiza información de una acción centralizada
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request
      * @param  integer $id      Identificador de la acción centralizada a modificar
      * @return Response
@@ -222,7 +222,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Elimina una acción centralizada
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id      Identificador de la acción centralizada a eliminar
      * @return Response
      */
@@ -241,7 +241,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Obtiene listado de registros
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false, este parámetro es opcional.
      * @return \Illuminate\Http\JsonResponse
      */
@@ -258,7 +258,7 @@ class BudgetCentralizedActionController extends Controller
     /**
      * Obtiene las acciones centralizadas registradas
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la acción centralizada a buscar, este parámetro es opcional
      * @return JSON        JSON con los datos de las acciones centralizadas
      */

@@ -165,7 +165,7 @@
 			/**
 			 * Inicializa las variables de las cuentas a agregar
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset: function() {
 				this.budget_specific_action_id = '';
@@ -175,7 +175,7 @@
 			/**
 			 * Agrega una cuenta para el registro del crédito adicional
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
 			 */
 			addAccount: function() {
@@ -247,7 +247,7 @@
 			/**
 			 * Elimina una cuenta del listado de cuentas agregadas
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @param  {integer} index Índice del elemento a eliminar
 			 */
 			deleteAccount(index) {
@@ -273,7 +273,7 @@
 			/**
 			 * Obtiene el listado de cuentas resupuestarias a mostrar para su selección
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			getAccounts: function() {
 				const vm = this;

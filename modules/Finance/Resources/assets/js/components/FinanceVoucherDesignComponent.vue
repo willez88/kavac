@@ -339,7 +339,7 @@
 			/**
 			 * Inicializa los valores del formulario
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			clearForm() {
 				this.record = {
@@ -362,7 +362,7 @@
 			/**
 			 * Establece el ancho y alto del voucher
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			setSizes() {
 				let vm = this;

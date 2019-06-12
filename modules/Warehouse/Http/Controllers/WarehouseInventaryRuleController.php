@@ -80,13 +80,13 @@ class WarehouseInventaryRuleController extends Controller
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, WarehouseInventaryRule $rule)
     {
         $this->validate($request,[
+            'id' => 'required',
             'min' => 'required',
         ]);
         
-        $rule = WarehouseInventaryRule::where('inventary_id', $id)->first();
         $rule->min = $request->min;
         $rule->save();
 

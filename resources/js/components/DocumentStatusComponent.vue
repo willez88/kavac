@@ -171,7 +171,7 @@
 			/**
 			 * Método que borra todos los datos del formulario
 			 * 
-			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
 				this.record = {

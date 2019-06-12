@@ -14,7 +14,7 @@ use Modules\Finance\Models\FinanceBank;
  * 
  * Clase que gestiona las entidades bancarias
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class FinanceBankController extends Controller
@@ -27,7 +27,7 @@ class FinanceBankController extends Controller
     /**
      * Método constructor de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct() {
         $this->data[0] = [
@@ -135,7 +135,7 @@ class FinanceBankController extends Controller
     /**
      * Obtiene los datos de las entidades bancarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse Devuelve un JSON con listado de las entidades bancarias
      */
     public function getBanks()
@@ -153,7 +153,7 @@ class FinanceBankController extends Controller
     /**
      * Obtiene información de una determinada entidad bancaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $bank_id                 Identificador de la entidad bancaria
      * @return \Illuminate\Http\JsonResponse    Devuelve un JSON con los datos de la entidad 
      *                                          bancaria consultada

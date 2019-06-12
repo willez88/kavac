@@ -16,7 +16,7 @@ use Modules\Budget\Models\BudgetModification;
  * 
  * Clase que gestiona las transferencias presupuestarias
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetTransferController extends Controller
@@ -26,7 +26,7 @@ class BudgetTransferController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -40,7 +40,7 @@ class BudgetTransferController extends Controller
     /**
      * Muestra un listado de transferencias presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\View\View
      */
     public function index()
@@ -54,7 +54,7 @@ class BudgetTransferController extends Controller
     /**
      * Muestra el formulario para la creación de transferencias presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\View\View
      */
     public function create()
@@ -75,7 +75,7 @@ class BudgetTransferController extends Controller
     /**
      * Guarda información de las transferencias presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -87,7 +87,7 @@ class BudgetTransferController extends Controller
     /**
      * Muestra información de transferencias presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param int $id Identificador de la transferencia presupuesaria a mostrar
      * @return \Illuminate\View\View
      */
@@ -99,7 +99,7 @@ class BudgetTransferController extends Controller
     /**
      * Muestra el formulario de modificación de transferencias presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param int $id Identificador de la transferencia presupuestaria a modificar
      * @return \Illuminate\View\View
      */
@@ -111,7 +111,7 @@ class BudgetTransferController extends Controller
     /**
      * Actualiza información de transferencias presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
      * @param int $id Identificador de la transferencia presupuestaria a modificar
      * @return Response
@@ -124,7 +124,7 @@ class BudgetTransferController extends Controller
     /**
      * Elimina transferencias presupuestarias
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param int $id Identificador de la transferencia presupuestaria a eliminar
      * @return \Illuminate\Http\JsonResponse
      */
@@ -143,7 +143,7 @@ class BudgetTransferController extends Controller
     /**
      * Obtiene los registros a mostrar en listados de componente Vue
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse JSON con información de los registros de transferencias presupuestarias
      */
     public function vueList()

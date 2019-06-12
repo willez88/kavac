@@ -15,7 +15,7 @@ use Modules\Finance\Models\FinanceBankAccount;
  * 
  * Clase que gestiona las cuentas bancarias
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class FinanceBankAccountController extends Controller
@@ -131,7 +131,7 @@ class FinanceBankAccountController extends Controller
     /**
      * Obtiene todas las cuentas bancarias asociadas a una entidad bancaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $bank_id                 Identificador de la entidad bancaria de la que se 
      *                                          desean obtener las cuentas
      * @return \Illuminate\Http\JsonResponse    JSON con los datos de las cuentas bancarias asociadas 

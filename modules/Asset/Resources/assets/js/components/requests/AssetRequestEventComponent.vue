@@ -3,7 +3,7 @@
 		<a class="btn btn-success btn-xs btn-icon btn-action" 
 		   href="#" title="Registros de Eventos" data-toggle="tooltip" 
 		   @click="addRecord('add_event', 'requests/request-event', $event)">
-		   <i class=""></i>
+		   <i class="fa fa-list-alt"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_event">
 			<div class="modal-dialog vue-crud" role="document">
@@ -13,7 +13,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book ico-2x"></i> 
+							<i class="icofont icofont-tasks-alt ico-2x"></i> 
 							Nuevo Evento
 						</h6>
 					</div>
@@ -69,23 +69,13 @@
 
 	                <div class="modal-footer">
 
-	                	<button type="button" @click="reset()"
-								class="btn btn-default btn-icon btn-round"
-								title ="Borrar datos del formulario">
-								<i class="fa fa-eraser"></i>
-						</button>
-	                	
-	                	<button type="button" 
-	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
-	                			data-dismiss="modal"
-	                			title="Cancelar y regresar">
-	                			<i class="fa fa-ban"></i>
+		                <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                			data-dismiss="modal">
+	                		Cerrar
 	                	</button>
-
 	                	<button type="button" @click="createRequest('asset/requests/request-event')" 
-	                			class="btn btn-success btn-icon btn-round btn-modal-save"
-	                			title="Guardar registro">
-	                		<i class="fa fa-save"></i>
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
+	                		Guardar
 		                </button>
 		            </div>
 		        </div>
@@ -116,7 +106,7 @@
 			/**
 			 * Método que borra todos los datos del formulario
 			 * 
-			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
 				this.record = {

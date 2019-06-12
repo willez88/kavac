@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
 
 
@@ -152,5 +153,12 @@ class AssetSpecificCategoryController extends Controller
         $specific_category = AssetSpecificCategory::find($id);
         $specific_category->delete();
         return response()->json(['record' => $specific_category, 'message' => 'Success'], 200);
+    }
+
+    public function getSpecificCategories($subcategory_id){
+        if(is_null($subcategory_id))
+            return template_choices('Modules\Asset\Models\AssetSpecificCategory','name','',true);
+        $asset_subcategory = AssetSubcategory::find($subcategory_id);
+        return ($asset_subcategory)?template_choices('Modules\Asset\Models\AssetSpecificCategory','name',['asset_subcategory_id' => $asset_subcategory->id],true):[];
     }
 }

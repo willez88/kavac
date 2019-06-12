@@ -11,15 +11,15 @@ use App\Http\Controllers\Controller;
  * 
  * Clase que gestiona las utilidades dispuestas para los desarrolladores y administradores avanzados
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class DevelopmentController extends Controller
 {
 	/**
 	 * Muestra un elemento
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @return \Illuminate\Contracts\View\View Vista solicitada
 	 */
     public function getElement($el)

@@ -13,7 +13,7 @@ use App\Models\MaritalStatus;
  * 
  * Gestiona la información por defecto a registrar inicialmente para los Estados Civiles
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class MaritalStatusTableSeeder extends Seeder

@@ -15,7 +15,7 @@ use Modules\Finance\Models\FinanceCheckBook;
  * 
  * Clase que gestiona el módulo de finanzas
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class FinanceController extends Controller
@@ -106,7 +106,7 @@ class FinanceController extends Controller
     /**
      * Gestiona la configuración para los cheques a emitir
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\View\View
      */
     public function setting()

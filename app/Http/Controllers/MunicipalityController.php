@@ -11,15 +11,15 @@ use Illuminate\Http\Request;
  * 
  * Controlador para gestionar Municipios
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class MunicipalityController extends Controller
 {
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class MunicipalityController extends Controller
     /**
      * Muesta todos los registros de los Municipios
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -44,7 +44,7 @@ class MunicipalityController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de Municipio
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>v
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>v
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -55,7 +55,7 @@ class MunicipalityController extends Controller
     /**
      * Valida y registra un nuevo Municipio
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -80,7 +80,7 @@ class MunicipalityController extends Controller
     /**
      * Muestra información acerca del Municipio
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\Municipality  $municipality
      * @return \Illuminate\Http\Response
      */
@@ -92,7 +92,7 @@ class MunicipalityController extends Controller
     /**
      * Muestra el formulario para actualizar información de un Municipio
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\Municipality  $municipality
      * @return \Illuminate\Http\Response
      */
@@ -104,7 +104,7 @@ class MunicipalityController extends Controller
     /**
      * Actualiza la información del Municipio
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Municipality  $municipality
      * @return \Illuminate\Http\JsonResponse
@@ -128,7 +128,7 @@ class MunicipalityController extends Controller
     /**
      * Elimina el Municipio
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \App\Models\Municipality  $municipality
      * @return \Illuminate\Http\JsonResponse
      */

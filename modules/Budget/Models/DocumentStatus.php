@@ -10,7 +10,7 @@ class DocumentStatus extends BaseDocumentStatus
     /**
      * DocumentStatus has many BudgetSubSpecificFormulations.
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_sub_specific_formulations()
@@ -21,7 +21,7 @@ class DocumentStatus extends BaseDocumentStatus
     /**
      * DocumentStatus has many BudgetModifications.
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budget_modifications()

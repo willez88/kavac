@@ -2,7 +2,7 @@
 	<div>
 		<a class="btn btn-info btn-xs btn-icon btn-action" 
 		   href="#" title="Ver información de la Asignación" data-toggle="tooltip" 
-		   @click="initRequest('view_asignation',$event)">
+		   @click="addRecord('view_asignation',route_list ,$event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="view_asignation">
@@ -33,7 +33,7 @@
 	                        </li>
 	                        
 	                        <li class="nav-item">
-	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadRequest()">
+	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadEquipment()">
 	                                <i class="ion-arrow-swap"></i> Equipos Asignados
 	                            </a>
 	                        </li>
@@ -41,32 +41,26 @@
 
 	                    <div class="tab-content">
 	                    	<div class="tab-pane active" id="general" role="tabpanel">
-	                    		<div class="row">        
-									<div class="col-md-12">
-										<b>Datos de la Asignación</b>
-									</div>
-
+	                    		<div class="row">
 							        <div class="col-md-6">
 										<div class="form-group">
-											<label>Fecha de Registro</label>
-							        		<input type="text"
-												data-toggle="tooltip" 
-												class="form-control input-sm" 
-												id="date_init"
-												readonly="readonly">
+											<strong>Fecha de Registro</strong>
+											<div class="row" style="margin: 1px 0">
+												<span class="col-md-12" id="date_init">
+												</span>
+											</div>
 											<input type="hidden" id="id">
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Trabajador Responsable de los Bienes Asignados</label>
-											<input type="text"
-												data-toggle="tooltip" 
-												class="form-control"
-												id="staff"
-												disabled="true">
-										</div>
+											<strong>Trabajador responsable de los bienes asignados</strong>
+											<div class="row" style="margin: 1px 0">
+												<span class="col-md-12" id="staff">
+												</span>
+											</div>
+							            </div>
 									</div>
 
 							    </div>
@@ -77,9 +71,7 @@
 	                    			<div class="col-md-12">
 										<hr>
 										<v-client-table :columns="columns" :data="records" :options="table_options">
-											<div slot="asset.id" slot-scope="props" class="text-center">
-											</div>
-
+											
 										</v-client-table>
 									</div>
 	                    		</div>
@@ -89,11 +81,9 @@
 
 	                <div class="modal-footer">
 	                	
-	                	<button type="button" 
-	                			class="btn btn-warning btn-icon btn-round btn-modal-close" 
-	                			data-dismiss="modal"
-	                			title="Cancelar y regresar">
-	                			<i class="fa fa-ban"></i>
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                			data-dismiss="modal">
+	                		Cerrar
 	                	</button>
 		            </div>
 		        </div>
@@ -108,11 +98,8 @@
 			return {
 				records: [],
 				errors: [],
-				columns: ['asset.serial_inventario','asset.serial','asset.marca','asset.model','asset.id'],
+				columns: ['asset.serial_inventario','asset.serial','asset.marca','asset.model'],
 			}
-		},
-		props: {
-		asignation: Object, 
 		},
 		created() {
 			this.table_options.headings = {
@@ -120,36 +107,64 @@
 				'asset.serial': 'Serial',
 				'asset.marca': 'Marca',
 				'asset.model': 'Modelo',
-				'asset.id': 'Acción'
 			};
 			this.table_options.sortable = ['asset.serial_inventario','asset.serial','asset.marca','asset.model'];
 			this.table_options.filterable = ['asset.serial_inventario','asset.serial','asset.marca','asset.model'];
+			this.table_options.orderBy = { 'column': 'asset.id'};
 
 		},
 		methods: {
 
-            fillRequest(){         
-            	$(".modal-body #id").val( this.asignation.id );
-            	$(".modal-body #date_init").val( this.asignation.created_at );
-            	$(".modal-body #staff").val( this.asignation.staff_id );
+			/**
+             * Método que borra todos los datos del formulario
+             * 
+             * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             */
+            reset() {
             },
 
-			initRequest(modal_id,event) {
+			/**
+			 * Inicializa los registros base del formulario
+			 *
+			 * @author Henry Paredes (henryp2804@gmail.com)
+			 */
+            initRecords(url,modal_id){
+            	this.errors = [];
 
-				event.preventDefault();
-				document.getElementById("info_general").click();
-				this.fillRequest();
 
+				const vm = this;
+            	var fields = {};
+            	
+            	document.getElementById("info_general").click();
 
-				if ($("#" + modal_id).length) {
-					$('#'+modal_id).modal('show');
-				}
+            	axios.get(url).then(response => {
+					if (typeof(response.data.records) !== "undefined") {
+						fields = response.data.records;
 
-			},
-			loadRequest(){
-				var index = $(".modal-body #id").val();
-				axios.get('/' + this.route_list +index).then(response => {
-					this.records = response.data.records;
+						$(".modal-body #id").val( fields.id );
+		            	document.getElementById('date_init').innerText = (fields.created_at)?fields.created_at:'';
+		            	document.getElementById('staff').innerText = (fields.staff)?fields.staff.first_name + ' ' + fields.staff.last_name:'N/A';
+					}
+					if ($("#" + modal_id).length) {
+						$("#" + modal_id).modal('show');
+					}
+				}).catch(error => {
+					if (typeof(error.response) !== "undefined") {
+						if (error.response.status == 403) {
+							vm.showMessage(
+								'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+							);
+						}
+						else {
+							vm.logs('resources/js/all.js', 343, error, 'initRecords');
+						}
+					}
+				});
+            },
+            loadEquipment(){
+            	var index = $(".modal-body #id").val();
+				axios.get('/asset/asignations/vue-info/' + index).then(response => {
+					this.records = response.data.records.assets_asignation;
 				});
 			}
 		},

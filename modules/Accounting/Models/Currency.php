@@ -10,7 +10,7 @@ class Currency extends BaseCurrency
     /**
      * Department has many AccountingCurrencyExchangeRate.
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function exchange_rate_currency_base()

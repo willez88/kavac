@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Models\AssetSubcategory;
 
 
@@ -142,5 +143,12 @@ class AssetSubcategoryController extends Controller
     {
         $subcategory->delete();
         return response()->json(['record' => $subcategory, 'message' => 'Success'], 200);
+    }
+
+    public function getSubcategories($category_id){
+        if(is_null($category_id))
+            return template_choices('Modules\Asset\Models\AssetSubcategory','name','',true);
+        $asset_category = AssetCategory::find($category_id);
+        return ($asset_category)?template_choices('Modules\Asset\Models\AssetSubcategory','name',['asset_category_id' => $asset_category->id],true):[];
     }
 }

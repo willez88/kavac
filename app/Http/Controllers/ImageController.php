@@ -16,8 +16,8 @@ use DB;
  * 
  * Controlador para gestionar Imágenes
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class ImageController extends Controller
 {
@@ -128,7 +128,7 @@ class ImageController extends Controller
     /**
      * Obtiene detalles de una imagen
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Datos de la petición
      * @param  Image   $image   Objeto con los datos de la imagen
      * @return \Illuminate\Http\JsonResponse             JSON con los detalles de la imagen consultada

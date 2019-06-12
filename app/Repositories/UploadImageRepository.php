@@ -12,8 +12,8 @@ use App\Models\Image;
  * 
  * Gestiona las acciones que se deben realizar en la carga de imágenes al servidor
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class UploadImageRepository
 {
@@ -33,7 +33,7 @@ class UploadImageRepository
 	/**
 	 * Instrucciones para verificar y subir una imagen a la ruta indicada en el servidor
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  object|array|null  $file       Objeto con el archivo a subir
 	 * @param  string  $store      Ruta en la que se va a almacenar el archivo
 	 * @param  boolean $originalName Indica si el archivo a subir es con el nombre original del mismo
@@ -81,7 +81,7 @@ class UploadImageRepository
 	/**
 	 * Obtiene el nombre de la image
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @return string Retorna el nombra de la imagen
 	 */
 	public function getImageName()
@@ -92,7 +92,7 @@ class UploadImageRepository
 	/**
 	 * Obtiene la extensión de la imagen
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @return string Retorna la extensión de la imagen
 	 */
 	public function getImageExtension()
@@ -103,7 +103,7 @@ class UploadImageRepository
 	/**
 	 * Obtiene el mensaje de error a mostrar al usuario
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @return string Devuelve un mensaje con el error si existe, en caso contrario retorna una cadena vacia
 	 */
 	public function getErrorMessage()
@@ -114,7 +114,7 @@ class UploadImageRepository
 	/**
 	 * Obtiene el objeto de la imagen guardada
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @return object Devuelve el objeto de la imagen guardada
 	 */
 	public function getImageStored()
@@ -125,7 +125,7 @@ class UploadImageRepository
 	/**
 	 * Verifica la existencia de una imagen y la elimina del disco
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  string $img   Contiene el nombre de la imagen a eliminar
 	 * @param  string $store Contiene la ruta en la que se encuentra almacenada la imagen
 	 */
@@ -139,7 +139,7 @@ class UploadImageRepository
 	/**
 	 * Verifica que el tamaño de la imagen corresponda con el mínimo y máximo permitido
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  object   $image Objeto que contiene la imagen a procesar
 	 * @return boolean	Devuelve verdadero si el tamaño de la imagen corresponde con el permitido, 
 	 *                  de lo contrario retorna falso

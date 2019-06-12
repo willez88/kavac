@@ -505,7 +505,7 @@
 		/**
 		 * Carga datos de la instiotución seleccionada
 		 *
-		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param  {integer} id Identificador de la Institución a cargar
 		 */
 		var loadInstitution = function(id) {

@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use Modules\Asset\Models\AssetType;
-use Modules\Asset\Models\AssetCategory;
-use Modules\Asset\Models\AssetSubcategory;
-
 /**
  * @class ServiceController
  * @brief Controlador de Servicios del Módulo de Bienes
@@ -37,24 +33,6 @@ class ServiceController extends Controller
         ];
     }
 
-    /**
-     * Obtiene todos los Tipos de Bienes registrados
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return [json] JSON con los datos de los Tipos de Bienes registrados
-     */
-    public function GetTypes()
-    {
-        foreach (AssetType::all() as $type) {
-            $this->data[] = [
-                'id' => $type->id,
-                'text' => $type->name
-            ];
-        }
-
-        return response()->json($this->data);
-        
-    }
     public function GetRequestTypes()
     {
         $this->data[1] = [
@@ -70,41 +48,33 @@ class ServiceController extends Controller
         return response()->json($this->data);
         
     }
-    /**
-     * Obtiene todos las Categorias registradas al tipo de Bien seleccionado
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return [json] JSON con los datos de las categorías registradas
-     */
-    public function GetCategories($type_id)
-    {
-        foreach (AssetCategory::where('asset_type_id', $type_id)->get() as $category) {
-            $this->data[] = [
-                'id' => $category->id,
-                'text' => $category->name
-            ];
-        }
 
-        return response()->json($this->data);
-        
+    public function getStaffs(){
+        return template_choices('Modules\Payroll\Models\PayrollStaff',['id_number', '-', 'full_name'], '',true);
     }
-    
-    /**
-     * Obtiene las subcategorías de la categoría general seleccionada
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  [integer] $category_id Identificador de la categoría general
-     * @return [json]    JSON con los datos de las subcategorías asociadas a la categoría seleccionada
-     */
-    public function GetSubcategories($category_id)
-    {
-        foreach (AssetSubcategory::where('asset_category_id', $category_id)->get() as $subcategory) {
-            $this->data[] = [
-                'id' => $subcategory->id,
-                'text' => $subcategory->name
-            ];
-        }
+    public function getTypePositions(){
+        return template_choices('Modules\Payroll\Models\PayrollPositionType','name','',true);
+    }
+    public function getPositions(){
+        return template_choices('Modules\Payroll\Models\PayrollPosition','name','',true);
+    }
+    public function getPurchases(){
+        return template_choices('Modules\Asset\Models\AssetPurchase','name','',true);
+    }
 
-        return response()->json($this->data);
+    public function getConditions(){
+        return template_choices('Modules\Asset\Models\AssetCondition','name','',true);
+    }
+
+    public function getStatus(){
+        return template_choices('Modules\Asset\Models\AssetStatus','name','',true);
+    }
+
+    public function getUses(){
+        return template_choices('Modules\Asset\Models\AssetUse','name','',true);
+    }
+
+    public function getMotives(){
+        return template_choices('Modules\Asset\Models\AssetMotiveDisincorporation','name','',true);
     }
 }

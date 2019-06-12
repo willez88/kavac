@@ -144,7 +144,7 @@
             /*
              * Función que permite eliminar registros mediante ajax
              * 
-             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              * @param {string} url URL del controlador que realiza la acción de eliminación
              * @return Un mensaje al usuario solicitando confirmación de la eliminación del registro
              */
@@ -192,7 +192,7 @@
             /**
              * Actualiza información de un select a partir de otro
              *
-             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              * @param  {object}  parent_element Objeto con los datos del elemento que genera la acción
              * @param  {object}  target_element Objeto que se cargara con la información
              * @param  {string}  target_model   Modelo en el cual se va a realizar la consulta
@@ -229,7 +229,7 @@
             /**
              * Permite restaurar registros eliminados del sistema
              *
-             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              * @param  {string} url URL que recibe la petición y ejecuta la acción
              */
             function undelete_record(url) {
@@ -267,7 +267,7 @@
                 /**
                  * Muestra información relacionada a un usuario
                  *
-                 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+                 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
                  * @param  {integer} id Identificador del usuario del cual se desea obtener información
                  */
                 var view_user_info = function(id) {
@@ -297,7 +297,7 @@
             /**
              * Registro de eventos del sistema
              *
-             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              * @param  {string}  v  Vista
              * @param  {integer} l  Línea
              * @param  {string}  lg Mensaje

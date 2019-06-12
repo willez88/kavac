@@ -16,7 +16,7 @@ use App\Models\Phone;
  * 
  * Clase que gestiona las agencias bancarias
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class FinanceBankingAgencyController extends Controller
@@ -29,7 +29,7 @@ class FinanceBankingAgencyController extends Controller
     /**
      * Método constructor de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct() {
         $this->data[0] = [
@@ -180,7 +180,7 @@ class FinanceBankingAgencyController extends Controller
     /**
      * Obtiene las agencias bancarias registradas
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $bank_id                 Identificador del banco
      * @return \Illuminate\Http\JsonResponse    JSON con el listado de las agencias bancarias
      */

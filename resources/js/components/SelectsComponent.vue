@@ -22,7 +22,7 @@
 		/**
 		 * Monitorea el valor de un select y carga los datos del select dependiente cuando este cambia su valor
 		 *
-		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @type {Object}
 		 */
 		watch: {

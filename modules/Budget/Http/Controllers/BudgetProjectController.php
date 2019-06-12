@@ -19,7 +19,7 @@ use Modules\Payroll\Models\PayrollStaff;
  * 
  * Clase que gestiona los Proyectos
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetProjectController extends Controller
@@ -29,7 +29,7 @@ class BudgetProjectController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -43,7 +43,7 @@ class BudgetProjectController extends Controller
     /**
      * Muestra un listado de proyectos
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function index()
@@ -54,7 +54,7 @@ class BudgetProjectController extends Controller
     /**
      * Muestra el formulario para crear un proyecto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return Response
      */
     public function create()
@@ -83,7 +83,7 @@ class BudgetProjectController extends Controller
     /**
      * Guarda información del nuevo proyecto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -119,7 +119,7 @@ class BudgetProjectController extends Controller
     /**
      * Muestra información de un proyecto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del proyecto a mostrar
      * @return Response
      */
@@ -131,7 +131,7 @@ class BudgetProjectController extends Controller
     /**
      * Muestra el formulario para editar un proyecto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del proyecto a modificar
      * @return Response
      */
@@ -165,7 +165,7 @@ class BudgetProjectController extends Controller
     /**
      * Actualiza la información de un proyecto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id Identificador del proyecto a modificar
      * @return Response
@@ -196,7 +196,7 @@ class BudgetProjectController extends Controller
     /**
      * Elimina un proyecto específico
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del proyecto a eliminar
      * @return Response
      */
@@ -215,7 +215,7 @@ class BudgetProjectController extends Controller
     /**
      * Obtiene listado de registros
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false, este parámetro es opcional.
      * @return \Illuminate\Http\JsonResponse
      */
@@ -231,7 +231,7 @@ class BudgetProjectController extends Controller
     /**
      * Obtiene los proyectos registrados
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del proyecto a buscar, este parámetro es opcional
      * @return JSON        JSON con los datos de los proyectos
      */

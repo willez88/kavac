@@ -72,7 +72,7 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Obtiene el nombre completo de la persona
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return string Nombre completo de la persona
      */
     public function getFullNameAttribute()

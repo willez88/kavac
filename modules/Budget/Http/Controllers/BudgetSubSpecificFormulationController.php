@@ -23,7 +23,7 @@ use App\Imports\DataImport;
  * 
  * Clase que gestiona las formulaciones de presupuesto por sub específicas
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class BudgetSubSpecificFormulationController extends Controller
@@ -33,7 +33,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -47,7 +47,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Muestra un listado de formulaciones de presupuesto registradas
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\View\View
      */
     public function index()
@@ -59,7 +59,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Muestra el formulario para el registro de datos de la formulación de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\View\View
      */
     public function create()
@@ -70,7 +70,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Guarda información para una formulación de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -147,7 +147,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Muestra información de una formulación de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\View\View
      */
     public function show($id)
@@ -159,7 +159,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Muestra el formulario de modificación para una formulación de presupuesto
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\View\View
      */
     public function edit($id)
@@ -171,7 +171,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Actualiza la información de una formulación presupuestaria
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request
      * @param  integer $id Identificador del registro a actualizar
      * @return \Illuminate\Http\JsonResponse
@@ -241,7 +241,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Elimina un registro en particular
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
@@ -258,7 +258,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Obtiene los registros a mostrar en listados de componente Vue
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse Devuelve un JSON con la información de las formulaciones
      */
     public function vueList()
@@ -272,7 +272,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Obtiene los registros de presupuestos formulados
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la formulación a consultar
      * @return \Illuminate\Http\JsonResponse        Devuelve un JSON con la información consultada
      */
@@ -291,7 +291,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Obtiene la disponibilidad de las cuentas aperturadas
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $specific_action_id      Identificador de la acción específica
      * @param  integer $account_id              Identificador de la cuenta presupuestaria
      * @return \Illuminate\Http\JsonResponse    Devuelve un JSON con la disponibilidad de la cuenta consultada
@@ -327,7 +327,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Importa datos de una formulación a partir de un archivo de hoja de cálculo
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse Devuelve los registros a importar
      */
     public function importFormulation()

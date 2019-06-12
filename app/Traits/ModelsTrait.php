@@ -4,15 +4,15 @@ namespace App\Traits;
 /**
  * Trait para la gestión de modelos
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 trait ModelsTrait
 {
 	/**
 	 * Método que escanea todos los modelos presentes en la aplicación
 	 *
-	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @return array                Retorna un arreglo con los módulos
 	 */
 	function getModels($dir = "") {
@@ -70,7 +70,7 @@ trait ModelsTrait
 	/**
 	 * Identifica si un modelo esta establecido para una eliminación lógica
 	 *
-	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+	 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 	 * @param  string  $model Nombre del modelo a evaluar
 	 * @return boolean        Devuelve verdadero si el modelo esta establecido para una eliminación lógica, 
 	 *                        de lo contrario devuelve falso
@@ -83,7 +83,7 @@ trait ModelsTrait
 	/**
      * Método que genera un listado de opciones a implementar en elementos tipo select
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return array Listado de registros para ser implementados en plantillas
      */
     public static function template_choices($field = 'name')

@@ -7,15 +7,10 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Asset\Models\AssetDisincorporation;
-use Modules\Asset\Models\AssetDisincorporationAsset;
-use Modules\Asset\Models\AssetMotiveDisincorporation;
-use Modules\Asset\Models\Asset;
 
-use Modules\Asset\Models\AssetType;
-use Modules\Asset\Models\AssetCategory;
-use Modules\Asset\Models\AssetSubcategory;
-use Modules\Asset\Models\AssetSpecificCategory;
+use Modules\Asset\Models\AssetDisincorporationAsset;
+use Modules\Asset\Models\AssetDisincorporation;
+use Modules\Asset\Models\Asset;
 
 /**
  * @class AssetDisincorporationController
@@ -52,9 +47,8 @@ class AssetDisincorporationController extends Controller
      */
     public function index()
     {
-        $assets = Asset::all();
         $asset_disincorporations = AssetDisincorporation::all();
-        return view('asset::disincorporations.list', compact('assets','asset_disincorporations'));
+        return view('asset::disincorporations.list', compact('asset_disincorporations'));
     }
 
     /**
@@ -63,22 +57,9 @@ class AssetDisincorporationController extends Controller
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function create(Request $request)
+    public function create()
     {
-        $header = [
-            'route' => 'asset.disincorporation.store', 'method' => 'POST', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
-        ];
-
-        $case = 5;
-        $assets = Asset::AssetClasification($case,$request->type,$request->category,$request->subcategory,$request->specific_category)->get();
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
-        $motive = AssetMotiveDisincorporation::template_choices();
-        $type_search=1;
-
-        return view('asset::disincorporations.create', compact('header','request','assets','types','categories','subcategories','specific_categories','motive','type_search'));
+        return view('asset::disincorporations.create');
     }
 
      /**
@@ -91,38 +72,28 @@ class AssetDisincorporationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-
-            //'ubication' => 'required',
-            //'staff' => 'required',
+            'date' => 'required',
             'motive_id' => 'required',
             'observation' => 'required'
 
         ]);
-        $datos = explode(',',$request->ids);
-        $cantidad = 0;
 
-        $disincorporation = new AssetDisincorporation;
+        $disincorporation = AssetDisincorporation::create([
+            'date' => $request->date,
+            'motive_id' => $request->motive_id,
+            'observation' => $request->observation
+        ]);
 
-        $disincorporation->date = $request->date;
-        $disincorporation->motive_id = $request->motive_id;
-        $disincorporation->observation = $request->observation;
-
-        $disincorporation->save();
-
-        while ($cantidad < count($datos)) {
-            $seleccionados = new AssetDisincorporationAsset;
-            $asset = Asset::where('serial_inventario',trim($datos[$cantidad]))->first();
-            //Validar Estatus del bien de acuerdo a motivo de la desincorporacion
+        foreach ($request->assets as $asset_id) {
+            $asset = Asset::find($asset_id);
             $asset->status_id = 7;
-            $seleccionados->asset_id = $asset->id;
-            $seleccionados->disincorporation_id = $disincorporation->id;
-
-            $seleccionados->save();
             $asset->save();
-            $cantidad++;
-
+            $asset_disincorporation = AssetDisincorporationAsset::create([
+                'asset_id' => $asset->id,
+                'disincorporation_id' => $disincorporation->id,
+            ]);
         }
-        return redirect()->route('asset.disincorporation.index');
+        return response()->json(['result' => true], 200);
     }
 
     
@@ -130,75 +101,26 @@ class AssetDisincorporationController extends Controller
      * Muestra el formulario para Desincorporar un Bien Institucional
      *
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\Asset  $asset (Datos del Bien)
+     * @param  Integer $id Identificador único del bien a desincorporar
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function Asset_Disassign(Asset $asset)
+    public function Asset_Disassign($id)
     {
-        $header = [
-            'route' => 'asset.disincorporation.store', 'method' => 'POST', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
-        ];
-
-        $assets = Asset::whereNotIn('status_id',array(6,7,8,9))->get();;
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
-        $motive = AssetMotiveDisincorporation::template_choices();
-        $type_search=1;
-
-        $data[0]= $asset->serial_inventario;
-        $select = json_encode($data);
-
-        return view('asset::disincorporations.create', compact('header','assets','types','categories','subcategories','specific_categories','motive','select','type_search'));
+        $asset = Asset::find($id);
+        return view('asset::disincorporations.create', compact('asset'));
         }
-
-    /**
-     * Muestra los datos de las Desincorporaciones de Bienes Institucionales
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\AssetDisincorporation  $disincorporation (Datos de la desincorporación de un Bien)
-     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
-     */
-    public function show(AssetDisincorporation $disincorporation)
-    {
-        
-    }
 
     /**
      * Muestra el formulario para actualizar la información de las Desincorporaciones de Bienes Institucionales
      *
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\AssetDisincorporation  $disincorporation (Datos de la Desincorporación de un Bien)
+     * @param  Integer  $id Identificador único de la desincorporación a editar
      * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
-    public function edit(Request $request,AssetDisincorporation $disincorporation)
+    public function edit($id)
     {
-        $header = [
-            'route' => ['asset.disincorporation.update', $disincorporation], 'method' => 'PUT', 'role'=> 'form', 'id' => 'form', 'class' => 'form-horizontal',
-        ];
-        $case=6;
-        $assets = Asset::AssetClasification($case,$request->type,$request->category,$request->subcategory,$request->specific_category)->get();
-        $request = $disincorporation;
-        $types = AssetType::template_choices();
-        $categories = AssetCategory::template_choices();
-        $subcategories = AssetSubcategory::template_choices();
-        $specific_categories = AssetSpecificCategory::template_choices();
-        $select = AssetDisincorporationAsset::where('disincorporation_id',$disincorporation->id)->get();
-        $type_search =2;
-        
-        $data = [];
-        $index=0;
-        foreach ($select as $key) {            
-            $asset = Asset::find($key->asset_id);
-            $data[$index]= $asset->serial_inventario;
-            $index++;
-        }
-        $select =json_encode($data);
-
-        $motive = AssetMotiveDisincorporation::template_choices();
-
-        return view('asset::disincorporations.create', compact('header','request','assets', 'types', 'categories', 'subcategories', 'specific_categories','motive','select','type_search'));
+        $disincorporation = AssetDisincorporation::find($id);
+        return view('asset::disincorporations.create', compact('disincorporation'));
     }
 
     /**
@@ -209,57 +131,47 @@ class AssetDisincorporationController extends Controller
      * @param  \Modules\Asset\Models\AssetDisincorporation  $disincorporation (Datos de la Desincorporación de un Bien)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function update(Request $request, AssetDisincorporation $disincorporation)
+    public function update(Request $request, $id)
     {
+        $disincorporation = AssetDisincorporation::find($id);
         $this->validate($request, [
-
-            //'ubication' => 'required',
-            //'staff' => 'required',
+            'date' => 'required',
             'motive_id' => 'required',
             'observation' => 'required'
 
         ]);
 
         $disincorporation->date = $request->date;
-        $disincorporation->motive_id = $request->motive_id;
         $disincorporation->observation = $request->observation;
-
         $disincorporation->save();
 
-        $datos = explode(' , ',$request->ids);
-        $cantidad = 0;
-
-        $seleccionados = AssetDisincorporationAsset::where('disincorporation_id',$disincorporation->id)->get();
-
         /* Recorro la vieja lista para verificar si hay elementos eliminados en la nueva lista */
-        
-        foreach ($seleccionados as $asset_disincorporation) {
-            $old_asset = $asset_disincorporation->asset()->first();
-            $serial = $old_asset->serial_inventario;
-            $clave = in_array($serial, $datos);
+        $assets_disincorporation = AssetDisincorporationAsset::where('disincorporation_id', $disincorporation->id)->get();
+        foreach ($assets_disincorporation as $asset_disincorporation) {
+            $asset = Asset::find($asset_disincorporation->asset_id);
+            $datos = $request->assets;
+            $clave = in_array($asset->id, $datos);
             if ($clave == false){
-                $old_asset->status_id = 10;
+                $asset->status_id = 10;
+                $asset->save();
                 $asset_disincorporation->delete();
-                $old_asset->save();
             }
         }
-        
+    
         /* Recorro la nueva lista para verificar si hay nuevos elementos a ser insertados */
-        while ($cantidad < count($datos)) {          
-            $asset = Asset::where('serial_inventario',trim($datos[$cantidad]))->first();
-            $new_asset = $seleccionados->where('asset_id',$asset->id)->first();
-            if (is_null($new_asset)){
-                $new_asset = new AssetDisincorporationAsset;
-                $asset->status_id = 1;
-                $new_asset->asset_id = $asset->id;
-                $new_asset->disincorporation_id = $disincorporation->id;        
-                $new_asset->save();
-                $asset->save();
-            }                
-            $cantidad++;
+        foreach ($request->assets as $asset_id) {
+            $asset = Asset::find($asset_id);
+            $asset->status_id = 7;
+            $asset->save();
+            $asset_disincorporation = AssetDisincorporationAsset::where('asset_id', $asset->id)->where('disincorporation_id',$disincorporation->id)->first();
+            if( is_null($asset_disincorporation))
+                $asset_disincorporation = AssetDisincorporationAsset::create([
+                    'asset_id' => $asset->id,
+                    'disincorporation_id' => $disincorporation->id,
+                ]);
 
         }
-        return redirect()->route('asset.disincorporation.index');
+        return response()->json(['result' => true],200);
     }
 
     /**
@@ -272,7 +184,7 @@ class AssetDisincorporationController extends Controller
     public function destroy(AssetDisincorporation $disincorporation)
     {
         $disincorporation->delete();
-        return back()->with(['message' => ['type' => 'destroy']]);
+        return response()->json(['message' => 'destroy'], 200);
     }
 
     /**
@@ -283,9 +195,23 @@ class AssetDisincorporationController extends Controller
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function vueInfo($id){
-        $asset_request = AssetDisincorporationAsset::where('disincorporation_id',$id)->with('asset')->get();
+        $disincorporation = AssetDisincorporation::where('id',$id)
+            ->with(['assetsDisincorporation' => 
+                function($query){
+                    $query->with(['asset' =>
+                    function($query){
+                        $query->with('type','category',
+                                     'subcategory','specific',
+                                     'purchase','condition','status','use');
+                    }]);
+                }])->first();
 
-        return response()->json(['records' => $asset_request], 200);
+        return response()->json(['records' => $disincorporation], 200);
+    }
+
+    public function vueList()
+    {
+        return response()->json(['records' => AssetDisincorporation::with('motive')->get()], 200);
     }
 
 }
