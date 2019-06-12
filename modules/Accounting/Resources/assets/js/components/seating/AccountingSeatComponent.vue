@@ -141,12 +141,12 @@
 							<div class="col-3"></div>
 							<div class="col-3">
 								<div class="form-group is-required">
-									<select2 :disabled="!filterDate" :options="OptionMonths" v-model="data.month"></select2>
+									<select2 :disabled="!filterDate" :options="months" v-model="data.month"></select2>
 								</div>
 							</div>
 							<div class="col-3">
 								<div class="form-group is-required">
-									<select2 :disabled="!filterDate" :options="OptionsYears" v-model="data.year"></select2>
+									<select2 :disabled="!filterDate" :options="years" v-model="data.year"></select2>
 								</div>
 							</div>
 							<div class="col-3"></div>
@@ -190,7 +190,7 @@
 					month:0,
 					institution:'',
 				},
-				OptionMonths:[
+				months:[
 					{id:0, text:'Todos'},
 					{id:1, text:'Enero'},
 					{id:2, text:'Febrero'},
@@ -205,11 +205,10 @@
 					{id:11, text:'Noviembre'},
 					{id:12, text:'Diciembre'}
 				],
-				OptionsYears:[],
 			}
 		},
 		created(){
-			this.CalculateOptionsYears();
+			this.CalculateOptionsYears(this.year_old, true);
 		},
 		mounted(){
 			/** 
@@ -235,19 +234,6 @@
 			});
 		},
 		methods:{
-			CalculateOptionsYears:function(){
-				var date = new Date();
-				this.OptionsYears.push({
-					id:0,
-					text:'Todos'
-				});
-				for (var year = date.getFullYear(); year >= this.year_old; year--) {
-					this.OptionsYears.push({
-						id:year,
-						text:year
-					});
-				}
-			},
 			ErrorsInForm:function(){
 
 				if (this.typeSearch == 'reference' && this.data.reference == '') {

@@ -76,20 +76,10 @@ Route::group(['middleware' => 'web',
 	/**
      * rutas para reporte de balance de comprobación
      */
-	Route::get('report/checkingBalance','AccountingReportPdfCheckupBalanceController@index')
-		->name('accounting.report.checkingBalance');
-	Route::get('report/checkingBalance/pdf/{initDate}/{endDate}/{zero?}','AccountingReportPdfCheckupBalanceController@pdf')
-		->name('accounting.report.checkingBalance.pdf');
-
-	/**
-     * rutas para reporte del libro diario
-     */
-	Route::get('report/diaryBook', 'AccountingReportPdfDailyBookController@index')
-			->name('accounting.report.diaryBook');
-
-	Route::get('report/diaryBook/pdf/{initDate}/{endDate}','AccountingReportPdfDailyBookController@pdf')
-		->name('accounting.report.diaryBook.pdf');
-
+	Route::get('report/BalanceCheckUp','AccountingReportPdfCheckupBalanceController@index')
+		->name('accounting.report.BalanceCheckUp');
+	Route::get('report/BalanceCheckUp/pdf/{initDate}/{endDate}/{zero?}','AccountingReportPdfCheckupBalanceController@pdf')
+		->name('accounting.report.BalanceCheckUp.pdf');
 
 	/**
      * rutas para reporte del Mayor Analítico
@@ -103,6 +93,22 @@ Route::group(['middleware' => 'web',
 	Route::get('report/AnalyticalMajor/pdf/{initAcc}/{endAcc?}', 'AccountingReportPdfAnalyticalMajorController@pdf')
 			->name('accounting.report.analyticalMajor.pdf');
 
+	/**
+     * rutas para reporte del libro diario
+     */
+	Route::get('report/diaryBook', 'AccountingReportPdfDailyBookController@index')
+			->name('accounting.report.diaryBook');
+
+	Route::get('report/diaryBook/pdf/{initDate}/{endDate}','AccountingReportPdfDailyBookController@pdf')
+		->name('accounting.report.diaryBook.pdf');
+
+	/**
+	 * rutas para reporte de libro auxiliar
+	 */
+	Route::get('report/auxiliaryBook', 'AccountingReportPdfAuxiliaryBookController@index')
+			->name('accounting.report.auxiliaryBook');
+	Route::get('report/auxiliaryBook/pdf/{account_id}/{date}', 'AccountingReportPdfAuxiliaryBookController@pdf')
+			->name('accounting.report.auxiliaryBook.pdf');
 
 	/**
 	* rutas de crud de asientos contables

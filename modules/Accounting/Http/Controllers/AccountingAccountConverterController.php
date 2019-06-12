@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingAccountConverter;
-use Modules\Budget\Models\BudgetAccount;
+use Modules\Accounting\Models\BudgetAccount;
 use Auth;
 /**
  * @class AccountingAccountConverterController
@@ -16,7 +16,7 @@ use Auth;
  * 
  * Clase que gestiona la conversión entre cuentas presupuestales y patrimoniales
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingAccountConverterController extends Controller
@@ -26,7 +26,7 @@ class AccountingAccountConverterController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {
@@ -42,7 +42,7 @@ class AccountingAccountConverterController extends Controller
      * Muestra la vista principal para mostrar las conversiones
      * @brief se consulta y formatea las cuentas patrimoniales y presupuestales
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return view
      */
     public function index()
@@ -55,7 +55,7 @@ class AccountingAccountConverterController extends Controller
     /**
      * Muestra un formulario para crear conversiones de cuentas
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Response
      */
     public function create()
@@ -70,7 +70,7 @@ class AccountingAccountConverterController extends Controller
     /**
      * Crea una nuevas conversiones
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request array con listado de cuentas a convertir
      * @return Response
      */
@@ -90,7 +90,7 @@ class AccountingAccountConverterController extends Controller
     /**
      * Muestra información de la cuenta convertidas
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Response
      */
     public function show($id)
@@ -101,7 +101,7 @@ class AccountingAccountConverterController extends Controller
     /**
      * Muestra el formulario para la edición de conversión de cuentas
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador de la conversión a modificar
      * @return Response
      */
@@ -178,7 +178,7 @@ class AccountingAccountConverterController extends Controller
     /**
      * Actualiza los datos de la conversión
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id      Identificador de la conversión a modificar
      * @return Response
@@ -202,7 +202,7 @@ class AccountingAccountConverterController extends Controller
     /**
      * Elimina un conversión
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador de la conversión a eliminar
      * @return Response
      */

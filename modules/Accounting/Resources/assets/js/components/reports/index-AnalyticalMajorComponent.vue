@@ -18,12 +18,12 @@
 					<br>
 					<div class="is-required">
 						<label>Mes</label>
-						<select2 :options="OptionMonths" v-model="InitDateMonth"></select2>
+						<select2 :options="months" v-model="month_init"></select2>
 					</div>
 					<br>
 					<div class="is-required">
 						<label>Año</label>
-						<select2 :options="OptionsYears" v-model="InitDateYear"></select2>
+						<select2 :options="years" v-model="year_init"></select2>
 					</div>
 				</div>
 				<div class="col-3">
@@ -31,22 +31,22 @@
 					<br>
 					<div class="is-required">
 						<label>Mes</label>
-						<select2 :options="OptionMonths" v-model="EndDateMonth"></select2>
+						<select2 :options="months" v-model="month_end"></select2>
 					</div>
 					<br>
 					<div class="is-required">
 						<label>Año</label>
-						<select2 :options="OptionsYears" v-model="EndDateYear"></select2>
+						<select2 :options="years" v-model="year_end"></select2>
 					</div>
 				</div>
 				<div class="col-6">
 					<br>
 					<label><strong>Cuenta Inicial</strong></label>
-					<select2 :disabled="disabledSelect" :options="OptionsAcc" @input="activatedButtonFunc" v-model="InitAcc"></select2>
+					<select2 :options="OptionsAcc" @input="activatedButtonFunc" v-model="InitAcc"></select2>
 
 					<br><br>
 					<label><strong>Cuenta Final</strong></label>
-					<select2 :disabled="disabledSelect" :options="OptionsAcc" @input="activatedButtonFunc" v-model="EndAcc"></select2>
+					<select2 :options="OptionsAcc" @input="activatedButtonFunc" v-model="EndAcc"></select2>
 				</div>
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 			<button class="btn btn-primary btn-custom"
 					title="Generar Reporte"
 					:disabled="disabledButton"
-					v-on:click="OpenReport()">
+					v-on:click="OpenPdf(getUrlReport(),'_black')">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
 			</button>
@@ -67,71 +67,36 @@
 		data(){
 			return {
 				errors:[],
-				url:"/accounting/report/AnalyticalMajor/pdf",
+				url:'http://'+window.location.host+'/accounting/report/AnalyticalMajor/pdf',
 				disabledButton:true,
-				InitDateMonth:0,
-				InitDateYear:0,
-				EndDateMonth:0,
-				EndDateYear:0,
 				InitAcc:'',
 				EndAcc:'',
-				OptionMonths:[
-					{id:0, text:'Seleccione...'},
-					{id:1, text:'Enero'},
-					{id:2, text:'Febrero'},
-					{id:3, text:'Marzo'},
-					{id:4, text:'Abril'},
-					{id:5, text:'Mayo'},
-					{id:6, text:'Junio'},
-					{id:7, text:'Julio'},
-					{id:8, text:'Agosto'},
-					{id:9, text:'Septiembre'},
-					{id:10, text:'Octubre'},
-					{id:11, text:'Noviembre'},
-					{id:12, text:'Diciembre'}
-				],
-				OptionsYears:[],
 				OptionsAcc:[{id:'',text:'Seleccione...'}],
 				disabledSelect:true,
 			}
 		},
 		created(){
-			this.CalculateOptionsYears();
+			this.CalculateOptionsYears(this.year_old);
+		},
+		mounted(){
+			this.getAccountingAccounts();
 		},
 		methods:{
-			CalculateOptionsYears:function(){
-				var date = new Date();
-				this.OptionsYears.push({
-					id:0,
-					text:'Seleccione...'
-				});
-				for (var year = date.getFullYear(); year >= this.year_old; year--) {
-					this.OptionsYears.push({
-						id:year,
-						text:year
-					});
-				}
-			},
 			getAccountingAccounts:function(){
-				if (this.InitDateMonth != 0 && this.InitDateYear != 0 && 
-					this.EndDateMonth != 0 && this.EndDateYear != 0) {
-					
-					var dates = {
-						initMonth:this.InitDateMonth,
-						initYear:(this.InitDateYear > this.EndDateYear)?this.EndDateYear:this.InitDateYear,
-						endMonth:this.EndDateMonth,
-						endYear:(this.InitDateYear > this.EndDateYear)?this.InitDateYear:this.EndDateYear,
-					};
-					axios.post("/accounting/report/AnalyticalMajor/AccAccount",dates).then(response=>{
-						this.OptionsAcc = response.data.records;
-						this.InitAcc = '';
-						this.EndAcc = '';
-					});
-
-					this.disabledSelect = false;
-				}else{
-					this.disabledSelect = true;
-				}
+				const vm = this;
+				var dates = {
+					initMonth:vm.month_init,
+					initYear:(vm.year_init > vm.year_end)?vm.year_end:vm.year_init,
+					endMonth:vm.month_end,
+					endYear:(vm.year_init > vm.year_end)?vm.year_init:vm.year_end,
+				};
+				console.log(dates);
+				axios.post("/accounting/report/AnalyticalMajor/AccAccount",dates).then(response=>{
+					console.log(response.data.records);
+					this.OptionsAcc = response.data.records;
+					this.InitAcc = '';
+					this.EndAcc = '';
+				});
 			},
 			getUrlReport:function(){
 				var url = this.url;
@@ -149,22 +114,19 @@
 					this.disabledButton = false;
 				}
 			},
-			OpenReport:function(){
-				window.open(this.getUrlReport(), '_blank');
-			}
 		},
 		watch:{
-			InitDateMonth:function(res) {
-				if (res != 0) this.getAccountingAccounts();
+			month_init:function(res) {
+				this.getAccountingAccounts();
 			},
-			InitDateYear:function(res) {
-				if (res != 0) this.getAccountingAccounts();
+			year_init:function(res) {
+				this.getAccountingAccounts();
 			},
-			EndDateMonth:function(res) {
-				if (res != 0) this.getAccountingAccounts();
+			month_end:function(res) {
+				this.getAccountingAccounts();
 			},
-			EndDateYear:function(res) {
-				if (res != 0) this.getAccountingAccounts();
+			year_end:function(res) {
+				this.getAccountingAccounts();
 			},
 		}
 	};

@@ -22,10 +22,10 @@
         <li>
             <a href="">Reportes</a>
             <ul class="submenu">
-                <li><a href="{{ route('accounting.report.checkingBalance') }}">Balance de Comprobación</a></li>
+                <li><a href="{{ route('accounting.report.BalanceCheckUp') }}">Balance de Comprobación</a></li>
                 <li><a href="{{ route('accounting.report.analyticalMajor') }}">Mayor Analítico</a></li>
                 <li><a href="{{ route('accounting.report.diaryBook') }}">Libro Diario</a></li>
-                <li><a href="#">Libro Auxiliar</a></li>
+                <li><a href="{{ route('accounting.report.auxiliaryBook') }}">Libro Auxiliar</a></li>
                 <li><a href="#">Balance General</a></li>
                 <li><a href="#">Estado de Resultados</a></li>
             </ul>

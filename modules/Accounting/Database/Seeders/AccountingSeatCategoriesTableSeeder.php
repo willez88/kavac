@@ -12,7 +12,7 @@ use Modules\Accounting\Models\AccountingSeatCategory;
  * 
  * Gestiona la información por defecto a registrar inicialmente de las categorias de origen de asientos contables
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingSeatCategoriesTableSeeder extends Seeder
@@ -42,10 +42,12 @@ class AccountingSeatCategoriesTableSeeder extends Seeder
 
         DB::transaction(function() use ($categories) {
             foreach ($categories as $category) {
-                DB::table('accounting_seat_categories')->insert([
-                    "name" => $category["name"],
-                    "acronym" => $category["acronym"],
-                ]);
+                AccountingSeatCategory::updateOrCreate(
+                    [
+                        "name" => $category["name"],
+                        "acronym" => $category["acronym"],
+                    ],[]
+                );
             }
         });
     }

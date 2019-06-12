@@ -20,7 +20,7 @@ use Auth;
  * 
  * Clase que gestiona el reporte de mayor analítico
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -31,7 +31,7 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {
@@ -42,7 +42,7 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
     /**
      * Se calcula la ultima fecha y retorna a la vista con el formulario
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return view
      */
     public function index()
@@ -59,7 +59,7 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
     /**
      * Consulta y formatea las cuentas en un rango determinado y las retorna a la vista
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos del rango de busqueda de las cuentas
      * @return Response JSON con array de las cuentas patrimoniales
      */
@@ -160,7 +160,7 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
     /**
      * vista en la que se genera el reporte en pdf
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initAcc variable con el index en el array de la cuenta de inicio
      * @param String $endAcc variable con el index en el array de la cuenta final
      */

@@ -14,7 +14,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * 
  * Gestiona el modelo de datos para las cuentas del Clasificador Patrimoniales
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingAccount extends Model implements Auditable
@@ -62,11 +62,61 @@ class AccountingAccount extends Model implements Auditable
     {
         return $this->hasMany(AccountingSeatAccount::class);
     }
+
+    /**
+     * Método que permite obtener la cuenta asociada de nivel superior
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  [string] $group       Grupo de la cuenta
+     * @param  [string] $subgroup    Subgrupo de la cuenta
+     * @param  [string] $item        Ítem de la cuenta
+     * @param  [string] $generic     Genérica de la cuenta
+     * @param  [string] $specific    Específica de la cuenta
+     * @param  [string] $subspecific Subespecífica de la cuenta
+     * @return [boolean|object]      Retorna falso si no existe una cuenta de nivel superior, de lo contrario obtiene los datos de la misma
+     */
+    public static function getParent($group, $subgroup, $item, $generic, $specific, $subspecific)
+    {
+        if ($subgroup !== '0') {
+            $parent = self::where('group', $group);
+            if ($item !== '0') {
+                $parent = $parent->where('subgroup', $subgroup);
+                if ($generic !== '00') {
+                    $parent = $parent->where('item', $item);
+                    if ($specific !== '00') {
+                        $parent = $parent->where('generic', $generic);
+                        if ($subspecific !== '00') {
+                            $parent = $parent->where('specific', $specific);
+                        }
+                        else {
+                            $parent = $parent->where('subspecific', '00');
+                        }
+                    }
+                    else {
+                        $parent = $parent->where('specific', '00');
+                    }
+                }
+                else {
+                    $parent = $parent->where('generic', '00');
+                }
+            }
+            else {
+                $parent = $parent->where('item', '00');
+            }
+        }
+        
+        if (!isset($parent)) {
+            return false;
+        }
+
+        return $parent->first();
+    }
+
     /**
      * Contatena ciertos valores del registro para generar el codigo
      * correspondiente
      *
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return [string] [codigo que identifica a la cuenta]
      */
     public function getCode()

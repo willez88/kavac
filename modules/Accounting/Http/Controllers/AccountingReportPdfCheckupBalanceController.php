@@ -20,7 +20,7 @@ use Auth;
  * 
  * Clase que gestiona el reporte de balance de comprobación
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -30,7 +30,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {
@@ -96,7 +96,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     /**
      * Se calcula la ultima fecha y retorna a la vista con el formulario
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return view
      */
     public function index()
@@ -114,7 +114,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
      * Consulta y formatea las cuentas en un rango determinado y las almacena en variables en el controlador
      * variable en las que almacena ($accountRecords, $initDate, $endDate)
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initDate variable con la fecha inicial que recibe formato 'YYYY-mm'
      * @param String $endDate variable con la fecha inicial que recibe formato 'YYYY-mm'
      * @param Boolean $beginningBalance bandera con la que se indica si viene de la funcion CalculateBeginningBalance y limita las operaciones que esta requiere
@@ -194,7 +194,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     /**
      * Calcula los saldos iniciales de cada cuenta en el rango dado, y lo alamcena
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $date variable con la fecha inicial que recibe formato 'YYYY-mm'
      */
     public function CalculateBeginningBalance($date)
@@ -241,7 +241,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     /**
      * vista en la que se genera el reporte en pdf de balance de comprobación
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initDate variable con la fecha inicial
      * @param String $endDate variable con la fecha inicial
      */

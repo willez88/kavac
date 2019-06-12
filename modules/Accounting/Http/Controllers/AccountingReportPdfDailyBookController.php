@@ -19,7 +19,7 @@ use Auth;
  * 
  * Clase que gestiona el reporte de libro diario
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingReportPdfDailyBookController extends Controller
@@ -28,7 +28,7 @@ class AccountingReportPdfDailyBookController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {
@@ -39,7 +39,7 @@ class AccountingReportPdfDailyBookController extends Controller
     /**
      * Muestra la vista con el formulario para generar el libro diario
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return view
      */
     public function index()
@@ -50,7 +50,7 @@ class AccountingReportPdfDailyBookController extends Controller
     /**
      * vista en la que se genera el reporte en pdf del libro diario
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initDate variable con la fecha inicial
      * @param String $endDate variable con la fecha inicial
      */

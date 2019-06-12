@@ -7,52 +7,20 @@
 					<label><strong>Desde:</strong></label>
 					<br>
 					<label class="control-label">Mes</label>
-					<select2 :options="optionMonths" v-model="monthIni"></select2>
+					<select2 :options="months" v-model="month_init"></select2>
 					<br>
 					<label class="control-label">Año</label>
-					<select2 :options="optionsYears" v-model="yearIni"></select2>
+					<select2 :options="years" v-model="year_init"></select2>
 				</div>
 				<div class="col-3">
 					<label><strong>Hasta:</strong></label>
 					<br>
 					<label class="control-label">Mes</label>
-					<select2 :options="optionMonths" v-model="monthEnd"></select2>
+					<select2 :options="months" v-model="month_end"></select2>
 					<br>
 					<label class="control-label">Año</label>
-					<select2 :options="optionsYears" v-model="yearEnd"></select2>
+					<select2 :options="years" v-model="year_end"></select2>
 				</div>
-				<!-- <div class="col-3 form-horizontal">
-					<label class="control-label"><strong>Tipo de balance</strong></label>
-					<br><br>
-					<label class="text-center">Balance de Sumas y Saldos
-					</label>
-					<input id="Balance"
-						 data-on-label="SI" data-off-label="NO" 
-						 checked="checked"
-						 name="typeBalance" 
-						 type="radio"
-						 value="Complet" 
-						 class="form-control text-center bootstrap-switch">
-					<br><br>
-					<label class="text-center">Balance de Sumas
-					</label>
-					<input id="Sum"
-						 data-on-label="SI" data-off-label="NO" 
-						 name="typeBalance" 
-						 type="radio"
-						 value="Sum" 
-						 class="form-control text-center bootstrap-switch">
-
-					<br><br>
-					<label class="text-center">Balance de Saldos
-					</label>
-					<input id="Balance"
-						 data-on-label="SI" data-off-label="NO" 
-						 name="typeBalance" 
-						 type="radio"
-						 value="Balance" 
-						 class="form-control text-center bootstrap-switch">
-				</div> -->
 				<div class="col-2">
 					<label class="text-center"><strong>Mostrar valores en cero</strong>
 					</label>
@@ -69,9 +37,8 @@
 		<div class="card-footer text-right">
 			<button class="btn btn-primary btn-custom"
 					data-toggle="tooltip"
-					:disabled="(monthIni == 0 || yearIni == 0 || monthEnd == 0 || yearEnd == 0)"
 					title="Generar Reporte"
-					v-on:click="OpenReport()">
+					v-on:click="OpenPdf(getUrlReport(), '_black')">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
 			</button>
@@ -83,57 +50,24 @@
 		props:['year_old'],
 		data(){
 			return{
-				url:'http://'+window.location.host+'/accounting/report/checkingBalance/pdf/',
-				optionMonths:[
-					{id:0, text:'Seleccione...'},
-					{id:1, text:'Enero'},
-					{id:2, text:'Febrero'},
-					{id:3, text:'Marzo'},
-					{id:4, text:'Abril'},
-					{id:5, text:'Mayo'},
-					{id:6, text:'Junio'},
-					{id:7, text:'Julio'},
-					{id:8, text:'Agosto'},
-					{id:9, text:'Septiembre'},
-					{id:10, text:'Octubre'},
-					{id:11, text:'Noviembre'},
-					{id:12, text:'Diciembre'}
-				],
-				optionsYears:[],
-				monthIni:0,
-				monthEnd:0,
-				yearIni:0,
-				yearEnd:0,
+				url:'http://'+window.location.host+'/accounting/report/BalanceCheckUp/pdf/',
 				zero:true,
 			}
 		},
 		created(){
-			this.CalculateOptionsYears();
+			this.CalculateOptionsYears(this.year_old);
 		},
 		methods:{
-			CalculateOptionsYears:function(){
-				var date = new Date();
-				this.optionsYears.push({
-					id:0,
-					text:'Seleccione...'
-				});
-				for (var year = date.getFullYear(); year >= this.year_old; year--) {
-					this.optionsYears.push({
-						id:year,
-						text:year
-					});
-				}
-			},
-			OpenReport:function(){
+			getUrlReport:function(){
 				var zero = ($('#zero').prop('checked'))?'':'zero';
 				var type = $('input:radio[name=typeBalance]:checked').val();
 
-				var initDate = (this.yearIni > this.yearEnd)?(this.yearEnd+'-'+this.monthEnd):(this.yearIni+'-'+this.monthIni);
-				var endDate  = (this.yearIni > this.yearEnd)?(this.yearIni+'-'+this.monthIni):(this.yearEnd+'-'+this.monthEnd);
+				var initDate = (this.year_init > this.year_end)?(this.year_end+'-'+this.month_end):(this.year_init+'-'+this.month_init);
+				var endDate  = (this.year_init > this.year_end)?(this.year_init+'-'+this.month_init):(this.year_end+'-'+this.month_end);
 
 				var url = this.url+initDate+'/'+endDate+'/'+zero;
-				window.open(url, '_blank');
+				return url;
 			}
 		},
-	}
+	};
 </script>

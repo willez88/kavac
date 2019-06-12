@@ -29,7 +29,7 @@ class AccountingSeat extends Model implements Auditable
     /**
      * AccountingSeat has many AccountingSeatAccount.
      *
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 	public function accounting_accounts()
@@ -40,7 +40,7 @@ class AccountingSeat extends Model implements Auditable
     /**
      * AccountingSeat belongs to AccountingSeatCategory.
      *
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function generated_by()
@@ -51,7 +51,7 @@ class AccountingSeat extends Model implements Auditable
     /**
      * Indica si el asiento contable esta aprobado
      *
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Boolena
      */
     public function approved()
