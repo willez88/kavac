@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollSocioeconomicInformation;
+use Modules\Payroll\Models\PayrollChildren;
 
 /**
  * @class PayrollSocioeconomicInformationController
@@ -65,18 +66,29 @@ class PayrollSocioeconomicInformationController extends Controller
             'full_name_twosome' => 'nullable|max:200',
             'id_number_twosome' => 'nullable|max:12',
             'birthdate_twosome' => 'nullable|date',
-            'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations',
+            'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations,payroll_staff_id',
             'marital_status_id' => 'required'
         ]);
-        $socioeconomic_information = new PayrollSocioeconomicInformation;
-        $socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
-        $socioeconomic_information->id_number_twosome  = $request->id_number_twosome;
-        $socioeconomic_information->birthdate_twosome  = $request->birthdate_twosome;
-        $socioeconomic_information->payroll_staff_id  = $request->payroll_staff_id;
-        $socioeconomic_information->marital_status_id  = $request->marital_status_id;
-        $socioeconomic_information->save();
-        $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.socioeconomic-informations.index');
+        $payroll_socioeconomic_information = new PayrollSocioeconomicInformation;
+        $payroll_socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
+        $payroll_socioeconomic_information->id_number_twosome  = $request->id_number_twosome;
+        $payroll_socioeconomic_information->birthdate_twosome  = $request->birthdate_twosome;
+        $payroll_socioeconomic_information->payroll_staff_id  = $request->payroll_staff_id;
+        $payroll_socioeconomic_information->marital_status_id  = $request->marital_status_id;
+        $payroll_socioeconomic_information->save();
+
+        if ($request->payroll_childrens && !empty($request->payroll_childrens)) {
+            foreach ($request->payroll_childrens as $children) {
+                $payroll_children = new PayrollChildren;
+                $payroll_children->first_name = $children['first_name'];
+                $payroll_children->last_name = $children['last_name'];
+                $payroll_children->id_number = $children['id_number'];
+                $payroll_children->birthdate = $children['birthdate'];
+                $payroll_children->payroll_socioeconomic_information_id = $payroll_socioeconomic_information->id;
+                $payroll_children->save();
+            }
+        }
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
@@ -102,43 +114,53 @@ class PayrollSocioeconomicInformationController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, PayrollSocioeconomicInformation $socioeconomic_information)
+    public function update(Request $request, $id)
     {
+        $payroll_socioeconomic_information = PayrollSocioeconomicInformation::find($id);
         $this->validate($request, [
-            'full_name_twosome' => 'nullable|max:100',
+            'full_name_twosome' => 'nullable|max:200',
             'id_number_twosome' => 'nullable|max:12',
             'birthdate_twosome' => 'nullable|date',
-            'payroll_staff_id' => 'required',
+            'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations,payroll_staff_id,'.$payroll_socioeconomic_information->id,
             'marital_status_id' => 'required'
         ]);
-        $socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
-        $socioeconomic_information->id_number_twosome  = $request->id_number_twosome;
-        $socioeconomic_information->birthdate_twosome  = $request->birthdate_twosome;
-        $socioeconomic_information->payroll_staff_id  = $request->payroll_staff_id;
-        $socioeconomic_information->marital_status_id  = $request->marital_status_id;
-        $socioeconomic_information->save();
-        $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.socioeconomic-informations.index');
+
+        $payroll_socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
+        $payroll_socioeconomic_information->id_number_twosome  = $request->id_number_twosome;
+        $payroll_socioeconomic_information->birthdate_twosome  = $request->birthdate_twosome;
+        $payroll_socioeconomic_information->payroll_staff_id  = $request->payroll_staff_id;
+        $payroll_socioeconomic_information->marital_status_id  = $request->marital_status_id;
+        $payroll_socioeconomic_information->save();
+
+        //falta validar los datos que ya existen para no repetir
+        if ($request->payroll_childrens && !empty($request->payroll_childrens)) {
+            foreach ($request->payroll_childrens as $children) {
+                $payroll_children = new PayrollChildren;
+                $payroll_children->first_name = $children['first_name'];
+                $payroll_children->last_name = $children['last_name'];
+                $payroll_children->id_number = $children['id_number'];
+                $payroll_children->birthdate = $children['birthdate'];
+                $payroll_children->payroll_socioeconomic_information_id = $payroll_socioeconomic_information->id;
+                $payroll_children->save();
+            }
+        }
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy(Request $request, PayrollSocioeconomicInformation $socioeconomic_information)
+    public function destroy($id)
     {
-        if ($request->ajax())
-        {
-            $socioeconomic_information->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.socioeconomic-informations.index');
+        $payroll_socioeconomic_information = PayrollSocioeconomicInformation::find($id);
+        $payroll_socioeconomic_information->delete();
+        return response()->json(['record' => $payroll_socioeconomic_information, 'message' => 'Success'], 200);
     }
 
     public function list()
     {
-        return response()->json(['records' => PayrollSocioeconomicInformation::with(['payroll_staff','marital_status'])->get()], 200);
+        return response()->json(['records' => PayrollSocioeconomicInformation::with(['payroll_staff','marital_status','payroll_childrens'])->get()], 200);
     }
 
     public function staffsList()

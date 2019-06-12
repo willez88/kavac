@@ -30,5 +30,11 @@ class PayrollDatabaseSeeder extends Seeder
 
         /** Seeder para los grados de instrucción disponibles en el módulo */
         $this->call(PayrollInstructionDegreesTableSeeder::class);
+
+        /** Seeder para los tipos de estudio disponibles en el módulo */
+        $this->call(PayrollStudyTypesTableSeeder::class);
+
+        /** Seeder para los niveles de idioma disponibles en el módulo */
+        $this->call(PayrollLanguageLevelsTableSeeder::class);
     }
 }
