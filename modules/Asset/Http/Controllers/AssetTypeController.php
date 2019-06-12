@@ -134,4 +134,8 @@ class AssetTypeController extends Controller
         $type->delete();
         return response()->json(['record' => $type, 'message' => 'Success'], 200);
     }
+
+    public function getTypes(){
+        return template_choices('Modules\Asset\Models\AssetType','name','',true);
+    }
 }

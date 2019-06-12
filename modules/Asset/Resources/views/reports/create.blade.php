@@ -17,14 +17,12 @@
 @stop
 
 @section('content')
-	<div class="row">
-		<div class="col-12">
-			<asset-request-create
-				route_list="{{ url('asset/requests')}}"
-				:requestid ="{!! (isset($request)) ? $request->id : 'null' !!}">
-			</asset-request-create>
-		</div>
-
+<div class="row">
+	<div class="col-12">
+		<asset-report-create
+			route_list='{{ url('asset/registers/vue-list')}}'>
+		</asset-report-create>
 	</div>
+</div>
 
 @stop

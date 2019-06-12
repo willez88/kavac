@@ -44,6 +44,28 @@ class AssetAsignation extends Model implements Auditable
      */
     protected $fillable = ['staff_id'];
 
+    /**
+     * Método que obtiene los bienes asignados
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetAsignation
+     */
+    public function assetsAsignation()
+    {
+        return $this->hasMany('Modules\Asset\Models\AssetAsignationAsset','asignation_id');
+    }
+
+    /**
+     * Método que obtiene el trabajador al que se le asigna el bien
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo Staff
+     */
+    public function staff()
+    {
+        return $this->belongsTo('Modules\Payroll\Models\PayrollStaff','staff_id');
+    }
+
     
 
 }

@@ -50,13 +50,7 @@ class AssetRequestController extends Controller
      */
     public function index()
     {
-        $asset_requests = AssetRequest::all();
-        $types = [
-                'Seleccione...',
-                'Prestamo de Equipos (Uso Interno)',
-                'Prestamo de Equipos (Uso Externo)',
-                'Prestamo de Equipos para Agentes Externos'];
-        return view('asset::requests.list', compact('asset_requests','types'));
+        return view('asset::requests.list');
     }
 
     /**
@@ -65,14 +59,9 @@ class AssetRequestController extends Controller
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function create(Request $request, $type=0)
+    public function create()
     {
-        $header = [
-            'route' => 'asset.request.store', 'method' => 'POST', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
-        ];
-        $assets = Asset::request($request->model,$request->marca,$request->serial)->get();
-
-        return view('asset::requests.create',compact('header','request','assets','type'));
+        return view('asset::requests.create');
     }
 
     /**
@@ -88,7 +77,7 @@ class AssetRequestController extends Controller
 
         $this->validate($request, [
 
-            'type' => 'required',
+            'type_id' => 'required',
             'motive' => 'required',
 
         ]);
@@ -109,50 +98,27 @@ class AssetRequestController extends Controller
 
             ]);
         }
-        $datos = explode(',',$request->ids);
-        $cantidad = 0;
+        $asset_request = AssetRequest::create([
+            'type' => $request->type_id,
+            'motive' => $request->motive,
+            'state' => 'Pendiente',
+            'delivery_date' => $request->delivery_date,
+            'ubication' => $request->ubication,
+            'agent_name' => $request->agent_name,
+            'agent_telf' => $request->agent_telf,
+            'agent_email' => $request->agent_email
 
-        $data = new AssetRequest;
-
-
-        $data->type = $request->type;
-        $data->motive = $request->motive;
-        $data->state = 'Pendiente';
-        $data->delivery_date = $request->delivery_date;
-        $data->ubication = $request->ubication;
-        $data->agent_name = $request->agent_name;
-        $data->agent_telf = $request->agent_telf;
-        $data->agent_email = $request->agent_email;
-        $data->save();
-
-        while ($cantidad < count($datos)) {
-            $seleccionados = new AssetRequested;
-            $asset = Asset::where('serial_inventario',trim($datos[$cantidad]))->first();
+        ]);
+        foreach ($request->assets as $asset_id) {
+            $asset = Asset::find($asset_id);
             $asset->status_id = 6;
-            $seleccionados->inventary_id = $asset->inventary_id;
-            $seleccionados->asset_id = $asset->id;
-            $seleccionados->request_id = $data->id;
-
-            $seleccionados->save();
             $asset->save();
-            $cantidad++;
-
+            $asset_request_asset = AssetRequested::create([
+                'asset_id' => $asset->id,
+                'request_id' => $asset_request->id,
+            ]);
         }
-
-        
-        return redirect()->route('asset.request.index');
-    }
-
-    /**
-     * Muestra los datos de las Solicitudes de Bienes Institucionales
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\AssetRequest  $request (Datos de la solicitud de un Bien)
-     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
-     */
-    
-    public function show(AssetRequest $request)
-    {
+        return response()->json(['result' => true], 200);
     }
 
     /**
@@ -163,27 +129,10 @@ class AssetRequestController extends Controller
      * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
      */
 
-    public function edit($id,$type=0)
+    public function edit($id)
     {
         $request = AssetRequest::find($id);
-        $header = [
-            'route' => ['asset.request.update', $request->id], 'method' => 'PUT', 'role' => 'form', 'id' => 'form', 'class' => 'form-horizontal',
-        ];
-        $assets = Asset::all();
-        $select = AssetRequested::where('request_id',$request->id)->get();
-        $data = [];
-        $index=0;
-        foreach ($select as $key) {            
-            $asset = Asset::find($key->asset_id);
-            $data[$index]= $asset->serial_inventario;
-            $index++;
-        }
-        $select =json_encode($data);
-
-        $type = $request->type;
-        
-
-        return view('asset::requests.create',compact('header','assets','request','select','type'));
+        return view('asset::requests.create',compact('request'));
     }
 
     /**
@@ -191,17 +140,16 @@ class AssetRequestController extends Controller
      *
      * @author Henry Paredes (henryp2804@gmail.com)
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @param  \Modules\Asset\Models\AssetRequest  $data (Datos de la solicitud de un Bien)
+     * @param  Integer $id Identificador único de la solicitud
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     
     public function update(Request $request, $id)
     {
-        //Validar que no se realizaron cambios
-        $data = AssetRequest::find($id);
+        $asset_request = AssetRequest::find($id);
         $this->validate($request, [
 
-            'type' => 'required',
+            'type_id' => 'required',
             'motive' => 'required',
 
         ]);
@@ -223,53 +171,45 @@ class AssetRequestController extends Controller
             ]);
         }
 
-        $datos = explode(' , ',$request->ids);
-        $cantidad = 0;
+        $asset_request->type = $request->type_id;
+        $asset_request->motive = $request->motive;
+        $asset_request->delivery_date = $request->delivery_date;
+        $asset_request->ubication = $request->ubication;
+        $asset_request->agent_name = $request->agent_name;
+        $asset_request->agent_telf = $request->agent_telf;
+        $asset_request->agent_email = $request->agent_email;
+        $asset_request->save();
 
-        $data->type = $request->type;
-        $data->motive = $request->motive;
-        $data->delivery_date = $request->delivery_date;
-        $data->ubication = $request->ubication;
-        $data->agent_name = $request->agent_name;
-        $data->agent_telf = $request->agent_telf;
-        $data->agent_email = $request->agent_email;
-        $data->save();
-
-        $seleccionados = AssetRequested::where('request_id',$data->id)->get();
+        
+        $asset_request_asset = AssetRequested::where('request_id',$asset_request->id)->get();
 
         /* Recorro la vieja lista para verificar si hay elementos eliminados en la nueva lista */
         
-        foreach ($seleccionados as $requested) {
-            $old_asset = $requested->asset()->first();
-            $serial = $old_asset->serial_inventario;
-            $clave = in_array($serial, $datos);
+        foreach ($asset_request_asset as $requested) {
+            $asset = Asset::find($requested->asset_id);
+            $datos = $request->assets;
+            $clave = in_array($asset->id, $datos);
             if ($clave === false ){
-                $old_asset->status_id = 10;
+                $asset->status_id = 10;
+                $asset->save();
                 $requested->delete();
-                $old_asset->save();
             }
         }
-        
-        /* Recorro la nueva lista para verificar si hay nuevos elementos a ser insertados */
 
-        while ($cantidad < count($datos)) {          
-            $asset = Asset::where('serial_inventario',trim($datos[$cantidad]))->first();
-            $new_asset = $seleccionados->where('asset_id',$asset->id)->first();
-            if (is_null($new_asset)){
-                $new_asset = new AssetRequested;
-                $asset->status_id = 6;
-                $new_asset->inventary_id = $asset->inventary_id;
-                $new_asset->asset_id = $asset->id;
-                $new_asset->request_id = $data->id;
-            
-                $new_asset->save();
-                $asset->save();
-            }                
-            $cantidad++;
+        /* Recorro la nueva lista para verificar si hay nuevos elementos a ser insertados */
+        foreach ($request->assets as $asset_id) {
+            $asset = Asset::find($asset_id);
+            $asset->status_id = 6;
+            $asset->save();
+            $requested = AssetRequested::where('asset_id', $asset->id)->where('request_id',$asset_request->id)->first();
+            if( is_null($requested))
+                $requested = AssetRequested::create([
+                    'asset_id' => $asset->id,
+                    'request_id' => $asset_request->id,
+                ]);
 
         }
-     
-        return redirect()->route('asset.request.index');
+        return response()->json(['result' => true],200);
     }
 
     /**
@@ -279,42 +219,10 @@ class AssetRequestController extends Controller
      * @param  \Modules\Asset\Models\AssetRequest $request (Datos de la Solicitud de un Bien)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function destroy($id)
+    public function destroy(AssetRequest $request)
     {
-        $request = AssetRequest::find($id);
-        $assets_requested = AssetRequested::where('request_id', $request->id)->get();
-        foreach ($assets_requested as $requested) {
-            $asset = $requested->asset;
-            $asset->status_id = 10;
-            $asset->save();
-            $requested->delete();
-        }
         $request->delete();
-        return back()->with(['message' => ['type' => 'destroy']]);
-    }
-
-    public function info(AssetRequest $request){
-
-        $dato = AssetRequest::find($request->id);
-        $types = [
-                'Seleccione...',
-                'Prestamo de Equipos (Uso Interno)',
-                'Prestamo de Equipos (Uso Externo)',
-                'Prestamo de Equipos para Agentes Externos'];
-        $this->data_list[] = [
-            'id' => $dato->id,
-            'type' => $types[$dato->type],
-            'date_init' => isset($dato->created_at)?$dato->created_at->format('d-m-Y'):null,
-            'motive' => $dato->motive,
-            'delivery_date' => isset($dato->delivery_date)?$dato->delivery_date:'N/A',
-            'ubication' => $dato->ubication,
-            'agent_name' => $dato->agent_name,
-            'agent_telf' => $dato->agent_telf,
-            'agent_email' => $dato->agent_email
-        ];
-
-        return response()->json(['record' => $this->data_list[0]]);
-
+        return response()->json(['message' => 'destroy'], 200);
     }
 
     public function vueList()
@@ -360,6 +268,9 @@ class AssetRequestController extends Controller
     public function deliver($id)
     {
         $request = AssetRequest::find($id);
+        $request->state = 'Entregados';
+        $request->save();
+        
         $assets_requested = AssetRequested::where('request_id', $request->id)->get();
         
         foreach ($assets_requested as $requested) {
@@ -367,11 +278,15 @@ class AssetRequestController extends Controller
             $asset->status_id = 10;
             $asset->save();
         }
-        return back();
+        response()->json(['message' => 'update'], 200);
     }
 
     public function vueInfo($id){
-        $asset_request = AssetRequested::where('request_id',$id)->with('asset')->get();
+        $asset_request = AssetRequest::where('id',$id)->with([
+            'assets' => function($query) {
+                $query->with('asset');
+            }
+        ])->first();
 
         return response()->json(['records' => $asset_request], 200);
     }

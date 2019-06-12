@@ -54,7 +54,7 @@ class AssetRequest extends Model implements Auditable
      */
     public function assets()
     {
-        return $this->hasMany('Modules\Asset\Models\AssetRequested');
+        return $this->hasMany('Modules\Asset\Models\AssetRequested', 'request_id');
     }
 
     public function events()

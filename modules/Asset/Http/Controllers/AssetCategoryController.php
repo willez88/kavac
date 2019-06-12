@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetCategory;
+use Modules\Asset\Models\AssetType;
 
 
 /**
@@ -143,5 +144,12 @@ class AssetCategoryController extends Controller
     {
         $category->delete();
         return response()->json(['record' => $category, 'message' => 'Success'], 200);
+    }
+
+    public function getCategories($type_id = null){
+        if(is_null($type_id))
+            return template_choices('Modules\Asset\Models\AssetCategory','name','',true);
+        $asset_type = AssetType::find($type_id);
+        return ($asset_type)?template_choices('Modules\Asset\Models\AssetCategory','name',['asset_type_id' => $asset_type->id],true):[];
     }
 }

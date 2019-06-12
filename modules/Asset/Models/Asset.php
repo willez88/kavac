@@ -181,6 +181,28 @@ class Asset extends Model implements Auditable
     }
 
     /**
+     * Método que obtiene los bienes asignados
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetAsignationAsset
+     */
+    public function assetAsignation()
+    {
+        return $this->hasOne('Modules\Asset\Models\assetAsignationAsset');
+    }
+
+    /**
+     * Método que obtiene los bienes desincorporados
+     *
+     * @author Henry Paredes (henryp2804@gmail.com)
+     * @return Objeto con el registro relacionado al modelo AssetDisincorporationAsset
+     */
+    public function assetDisincorporation()
+    {
+        return $this->hasOne('Modules\Asset\Models\assetDisincorporationAsset');
+    }
+
+    /**
      *
      * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
      * 

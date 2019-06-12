@@ -17,14 +17,13 @@
 @stop
 
 @section('content')
-	<div class="row">
-		<div class="col-12">
-			<asset-request-create
-				route_list="{{ url('asset/requests')}}"
-				:requestid ="{!! (isset($request)) ? $request->id : 'null' !!}">
-			</asset-request-create>
-		</div>
-
+<div class="row">
+	<div class="col-12">
+		<asset-create
+			route_list='{{ url('asset/registers')}}'
+			:assetid ="{!! (isset($asset)) ? $asset->id : 'null' !!}">
+		</asset-create>
 	</div>
+</div>
 
 @stop

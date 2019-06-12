@@ -21,19 +21,19 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Asignación de Bienes Institucionales</h6>
+					<h6 class="card-title">Bienes Institucionales</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('asset.asignation.create')])
+						@include('buttons.new', ['route' => route('asset.register.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<asset-asignation-list
-						route_list="{{ url('asset/asignations/vue-list') }}"
-						route_edit="{{ url('asset/asignations/edit/{id}') }}"
-						route_delete="{{ url('asset/asignations/delete') }}">
-					</asset-asignation-list>
+					<asset-list
+						route_list="{{ url('asset/registers/vue-list') }}"
+						route_edit="{{ url('asset/registers/edit/{id}') }}"
+						route_delete="{{ url('asset/registers/delete') }}">
+					</asset-list>
 				</div>
 			</div>
 		</div>
