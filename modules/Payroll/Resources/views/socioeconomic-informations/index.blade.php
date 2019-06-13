@@ -17,5 +17,5 @@
 @stop
 
 @section('content')
-	<socioeconomic-informations></socioeconomic-informations>
+	<payroll-socioeconomic-informations></payroll-socioeconomic-informations>
 @stop

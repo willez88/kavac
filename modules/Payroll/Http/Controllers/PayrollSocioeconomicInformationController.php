@@ -163,11 +163,6 @@ class PayrollSocioeconomicInformationController extends Controller
         return response()->json(['records' => PayrollSocioeconomicInformation::with(['payroll_staff','marital_status','payroll_childrens'])->get()], 200);
     }
 
-    public function staffsList()
-    {
-        return template_choices('Modules\Payroll\Models\PayrollStaff',['id_number','-','full_name'],'',true);
-    }
-
     public function maritalStatusList()
     {
         return template_choices('App\Models\MaritalStatus','name','',true);

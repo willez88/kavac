@@ -3,7 +3,7 @@
 		<div class="col-7">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Registrar los Datos Profesionales</h6>
+					<h6 class="card-title">Registrar los Datos Profesionales {{ professional_information_id }}</h6>
 					<div class="card-btns">
 						<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
 						   title="Ir atrás" data-toggle="tooltip">
@@ -63,7 +63,7 @@
 							<div class="form-group">
 								<label>¿Es Estudiante?</label>
 								<div class="col-md-12">
-									<input id="is_student" type="checkbox" class="form-control bootstrap-switch hola"
+									<input id="is_student" type="checkbox" class="form-control bootstrap-switch"
 										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
 										title="Indique si el trabajador es estudiante o no"
 										v-model="record.is_student" value="false"/>
@@ -117,28 +117,15 @@
 						</div>
 					</div>
 
-					<hr>
-	                <v-client-table :columns="columns" :data="records" :options="table_options">
-	                	<div slot="id" slot-scope="props" class="text-center">
-	                		<button @click="initUpdate(props.index, $event)"
-		                		class="btn btn-warning btn-xs btn-icon btn-action"
-		                		title="Modificar registro" data-toggle="tooltip" type="button">
-		                		<i class="fa fa-edit"></i>
-		                	</button>
-		                	<button @click="deleteRecord(props.index, '/payroll/professional-informations')"
-								class="btn btn-danger btn-xs btn-icon btn-action"
-								title="Eliminar registro" data-toggle="tooltip"
-								type="button">
-								<i class="fa fa-trash-o"></i>
-							</button>
-	                	</div>
-	                </v-client-table>
-
 				</div>
 
 				<div class="card-footer pull-right">
 					<button class="btn btn-default btn-icon btn-round" data-toggle="tooltip" type="button"
 						title="Borrar datos del formulario" @click="reset"><i class="fa fa-eraser"></i>
+					</button>
+					<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
+							title="Cancelar y regresar" @click="redirect_back(route_list)">
+						<i class="fa fa-ban"></i>
 					</button>
 	                <button type="button" @click="createRecord('payroll/professional-informations')"
 	                	class="btn btn-success btn-icon btn-round">
@@ -162,6 +149,9 @@
 </template>
 <script>
 	export default {
+		props: {
+			professional_information_id: Number,
+		},
 		data() {
 			return {
 				record: {
@@ -178,55 +168,54 @@
 					payroll_language_level_id: ''
 				},
 				errors: [],
-				records: [],
 				payroll_staffs: [],
 				payroll_instruction_degrees: [],
 				professions: [],
 				payroll_study_types: [],
 				payroll_languages: [],
 				payroll_language_levels: [],
-				columns: ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name', 'is_student', 'id'],
 			}
 		},
 		methods: {
-			getProfessionalInformations() {
-				axios.get('professional-informations/vue-list').then(response => {
-					this.records = response.data.records;
+
+			getProfessionalInformation() {
+				axios.get('/payroll/professional-informations/' + this.professional_information_id).then(response => {
+					this.record = response.data.record;
 				});
 			},
 
 			getPayrollStaffs() {
-				axios.get('socioeconomic-informations/staffs-list').then(response => {
+				axios.get('/payroll/staffs-list').then(response => {
 					this.payroll_staffs = response.data;
 				});
 			},
 
 			getPayrollInstructionDegrees() {
-				axios.get('instruction-degrees/list').then(response => {
+				axios.get('/payroll/instruction-degrees/list').then(response => {
 					this.payroll_instruction_degrees = response.data;
 				});
 			},
 
 			getProfessions() {
-				axios.get('professional-informations/professions-list').then(response => {
+				axios.get('/payroll/professional-informations/show/professions-list').then(response => {
 					this.professions = response.data;
 				});
 			},
 
 			getPayrollStudyTypes() {
-				axios.get('study-types/list').then(response => {
+				axios.get('/payroll/study-types/list').then(response => {
 					this.payroll_study_types = response.data;
 				});
 			},
 
 			getPayrollLanguages() {
-				axios.get('languages/list').then(response => {
+				axios.get('/payroll/languages/list').then(response => {
 					this.payroll_languages = response.data;
 				});
 			},
 
 			getPayrollLanguageLevels() {
-				axios.get('language-levels/list').then(response => {
+				axios.get('/payroll/language-levels/list').then(response => {
 					this.payroll_language_levels = response.data;
 				});
 			},
@@ -263,16 +252,6 @@
 			},
 		},
 		created() {
-			this.table_options.headings = {
-				'payroll_staff.first_name': 'Trabajador',
-				'payroll_instruction_degree.name': 'Grado de Instrucción',
-				'profession.name': 'Profesión',
-				'is_student': '¿Es Estudiante?',
-				'id': 'Acción'
-			};
-			this.table_options.sortable = ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name'];
-			this.table_options.filterable = ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name'];
-			this.getProfessionalInformations();
 			this.getPayrollStaffs();
 			this.getPayrollInstructionDegrees();
 			this.getProfessions();
@@ -282,9 +261,10 @@
 			this.record.is_student = false;
 		},
 		mounted() {
+			this.getProfessionalInformation();
 			this.switchHandler('is_student');
 			const vm = this;
-			$('.hola').on('switchChange.bootstrapSwitch', function(e) {
+			$('#is_student').on('switchChange.bootstrapSwitch', function(e) {
 				e.target.id;
 				if (vm.record.is_student) {
 					vm.record.is_student = false;

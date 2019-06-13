@@ -36,5 +36,8 @@ class PayrollDatabaseSeeder extends Seeder
 
         /** Seeder para los niveles de idioma disponibles en el módulo */
         $this->call(PayrollLanguageLevelsTableSeeder::class);
+
+        /** Seeder para los idiomas disponibles en el módulo */
+        $this->call(PayrollLanguagesTableSeeder::class);
     }
 }

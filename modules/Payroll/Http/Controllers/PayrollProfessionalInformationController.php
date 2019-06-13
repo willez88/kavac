@@ -43,6 +43,7 @@ class PayrollProfessionalInformationController extends Controller
     public function index()
     {
         return view('payroll::professional-informations.index');
+        //return view('payroll::professional-informations.index');
     }
 
     /**
@@ -51,7 +52,7 @@ class PayrollProfessionalInformationController extends Controller
      */
     public function create()
     {
-        return view('payroll::create');
+        return view('payroll::professional-informations.create-edit');
     }
 
     /**
@@ -120,18 +121,20 @@ class PayrollProfessionalInformationController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('payroll::show');
+        $payroll_professional_information = PayrollProfessionalInformation::findorfail($id)->first();
+        return response()->json(['record' => $payroll_professional_information], 200);
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('payroll::edit');
+        $professional_information = PayrollProfessionalInformation::find($id);
+        return view('payroll::professional-informations.create-edit', compact('professional_information'));
     }
 
     /**

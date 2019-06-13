@@ -11,7 +11,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('position-types', 'PayrollPositionTypeController', ['as' => 'payroll', 'except' => ['show']]);
     Route::resource('positions', 'PayrollPositionController', ['as' => 'payroll', 'except' => ['show']]);
     Route::resource('staff-classifications', 'PayrollStaffClassificationController', ['as' => 'payroll', 'except' => ['show']]);
+
     Route::resource('staffs', 'PayrollStaffController', ['as' => 'payroll']);
+    Route::get('staffs-list', 'PayrollStaffController@list')->name('payroll.staffs.list');
 
     Route::resource('instruction-degrees', 'PayrollInstructionDegreeController', ['as' => 'payroll', 'except' => ['show']]);
     Route::get('instruction-degrees/list', 'PayrollInstructionDegreeController@list')->name('payroll.instruction-degrees.list');
@@ -34,9 +36,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('socioeconomic-informations', 'PayrollSocioeconomicInformationController', ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]);
     Route::get('socioeconomic-informations/list', 'PayrollSocioeconomicInformationController@list')->name('payroll.socioeconomic-informations.list');
     Route::get('socioeconomic-informations/marital-status-list', 'PayrollSocioeconomicInformationController@maritalStatusList')->name('payroll.socioeconomic-informations.marital-status-list');
-    Route::get('socioeconomic-informations/staffs-list', 'PayrollSocioeconomicInformationController@staffsList')->name('payroll.socioeconomic-informations.staffs-list');
 
-    Route::resource('professional-informations', 'PayrollProfessionalInformationController', ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]);
-    Route::get('professional-informations/professions-list', 'PayrollProfessionalInformationController@professionsList')->name('payroll.professional-informations.professions-list');
-    Route::get('professional-informations/vue-list', 'PayrollProfessionalInformationController@vueList')->name('payroll.professional-informations.vuelist');
+    Route::resource('professional-informations', 'PayrollProfessionalInformationController', ['as' => 'payroll']);
+    Route::get('professional-informations/show/professions-list', 'PayrollProfessionalInformationController@professionsList')->name('payroll.professional-informations.professions-list');
+    Route::get('professional-informations/show/vue-list', 'PayrollProfessionalInformationController@vueList')->name('payroll.professional-informations.vue-list');
 });
