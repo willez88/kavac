@@ -29,7 +29,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<payroll-professional-informations-list route_list='{{ url('payroll/professional-informations/show/vue-list') }}'
+					<payroll-professional-informations-list route_list="{{ url('payroll/professional-informations/show/vue-list') }}"
 										  route_delete="{{ url('payroll/professional-informations') }}"
 										  route_edit="{{ url('payroll/professional-informations/{id}/edit') }}"
 										  route_show="{{ url('payroll/professional-informations/{id}') }}">

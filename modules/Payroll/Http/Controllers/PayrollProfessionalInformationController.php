@@ -123,8 +123,19 @@ class PayrollProfessionalInformationController extends Controller
      */
     public function show($id)
     {
-        $payroll_professional_information = PayrollProfessionalInformation::findorfail($id)->first();
-        return response()->json(['record' => $payroll_professional_information], 200);
+        $payroll_professional_information = PayrollProfessionalInformation::findorfail($id);
+        $data[] = [
+            'payroll_staff' => $payroll_professional_information->payroll_staff->full_name,
+            'payroll_instruction_degree' => $payroll_professional_information->payroll_instruction_degree->name,
+            'profession' => ($payroll_professional_information->profession_id) ? $payroll_professional_information->profession->name : null,
+            'is_student' => $payroll_professional_information->is_student,
+            'payroll_study_type' => ($payroll_professional_information->payroll_study_type_id) ? $payroll_professional_information->payroll_study_type->name : null,
+            'study_program_name' => ($payroll_professional_information->study_program_name) ? $payroll_professional_information->study_program_name : null,
+            'class_schedule' => ($payroll_professional_information->class_schedule) ? $payroll_professional_information->class_schedule : null,
+            'payroll_language' => $payroll_professional_information->payroll_language->name,
+            'payroll_language_level' => $payroll_professional_information->payroll_language_level->name,
+        ];
+        return response()->json(['record' => $data[0]], 200);
     }
 
     /**
