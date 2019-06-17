@@ -15,7 +15,7 @@ use Auth;
  * 
  * Clase que gestiona las categorias para asientos contables
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingSettingController extends Controller
@@ -23,7 +23,7 @@ class AccountingSettingController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {

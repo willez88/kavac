@@ -14,7 +14,7 @@ use Auth;
  * 
  * Clase que gestiona las Cuentas patrimoniales
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingAccountController extends Controller
@@ -24,7 +24,7 @@ class AccountingAccountController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {
@@ -38,7 +38,7 @@ class AccountingAccountController extends Controller
     /**
      * Muestra un listado de cuentas patrimoniales
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return view
      */
     public function index()
@@ -74,7 +74,7 @@ class AccountingAccountController extends Controller
     /**
      * Muestra un formulario para la creación de una cuenta pratrimoniales
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Response
      */
     public function create()
@@ -86,7 +86,7 @@ class AccountingAccountController extends Controller
     /**
      * Crea una nueva cuenta patrimonial
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -143,7 +143,7 @@ class AccountingAccountController extends Controller
     /**
      * Muestra información de la cuenta patrimoniales
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Response
      */
     public function show($id)
@@ -154,7 +154,7 @@ class AccountingAccountController extends Controller
     /**
      * Muestra el formulario para la edición de cuentas patrimoniales
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador de la cuenta patrimonial a modificar
      * @return Response
      */
@@ -170,7 +170,7 @@ class AccountingAccountController extends Controller
     /**
      * Actualiza los datos de la cuenta patrimonial
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id      Identificador de la cuenta patrimonial a modificar
      * @return Response
@@ -211,7 +211,7 @@ class AccountingAccountController extends Controller
     /**
      * Elimina una cuenta patrimonial
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador de la cuenta patrimonial a eliminar
      * @return Response
      */
@@ -231,7 +231,7 @@ class AccountingAccountController extends Controller
 
     /**
     * Se obtiene el próximo codigo disponible para la cuenta que sera creada
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param [integer] $parent_id Identificador de la cuenta padre de la cual se va a generar el nuevo código
      * @return json [JSON con los datos del nuevo código generado]
     */
@@ -295,7 +295,7 @@ class AccountingAccountController extends Controller
 
     /**
      * obtiene los registros de las cuentas patrimoniales
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return json [JSON con la información de las cuentas formateada]
     */
     public function getDataAccountingAccount()

@@ -20,7 +20,7 @@ use Auth;
  * 
  * Clase que gestiona el reporte de balance de comprobación
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -30,14 +30,16 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.checkupbalance', ['only' => ['index', 'getAccAccount', 'pdf']]);
+        $this->middleware('permission:accounting.report.checkupbalance', ['only' => ['index', 'getAccAccount', 'CalculateBeginningBalance', 'pdf']]);
     }
 
+    /** @var Array array en el que se almacenara la información del saldo inicial de cuentas patrimoniales */
+    protected $beginningBalance = null;
     /** @var Array array en el que se almacenara la información de cuentas patrimoniales */
     protected $accountRecords;
     /** @var String cadena en la que se almacenara la fecha del rango inicial de busqueda */
@@ -52,6 +54,18 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     public function getRecords()
     {
         return $this->accountRecords;
+    }
+
+    public function setBeginningBalance($key, $value)
+    {
+        if (is_null($this->beginningBalance)) {
+            $this->beginningBalance = [];
+        }
+        $this->beginningBalance[$key] = $value;
+    }
+    public function getBeginningBalance()
+    {
+        return $this->beginningBalance;
     }
 
     public function setInitDate($date)
@@ -72,10 +86,17 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         return $this->endDate;
     }
 
+    public function build_sorter() {
+        return function ($a, $b) {
+            return strnatcmp($a->getCode(), $b->getCode());
+        };
+    }
+
+
     /**
      * Se calcula la ultima fecha y retorna a la vista con el formulario
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return view
      */
     public function index()
@@ -93,11 +114,12 @@ class AccountingReportPdfCheckupBalanceController extends Controller
      * Consulta y formatea las cuentas en un rango determinado y las almacena en variables en el controlador
      * variable en las que almacena ($accountRecords, $initDate, $endDate)
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
-     * @param String $initDate variable con la fecha inicial
-     * @param String $endDate variable con la fecha inicial
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param String $initDate variable con la fecha inicial que recibe formato 'YYYY-mm'
+     * @param String $endDate variable con la fecha inicial que recibe formato 'YYYY-mm'
+     * @param Boolean $beginningBalance bandera con la que se indica si viene de la funcion CalculateBeginningBalance y limita las operaciones que esta requiere
      */
-    public function getAccAccount($initDate, $endDate)
+    public function getAccAccount($initDate, $endDate, $beginningBalance)
     {
 
         /** @var Object String en el que se formatea la fecha inicial de busqueda */
@@ -144,13 +166,8 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         /**
         build_sorter: function compara y ordena las cuentas segun el orden en el código
         */
-        function build_sorter() {
-            return function ($a, $b) {
-                return strnatcmp($a->getCode(), $b->getCode());
-            };
-        }
 
-        usort($records, build_sorter());
+        usort($records, $this->build_sorter());
 
         /**
         Se formatean los datos de las cuentas
@@ -165,26 +182,82 @@ class AccountingReportPdfCheckupBalanceController extends Controller
             ]);
         }
 
-        $this->setRecords($arrAux);
-        $this->setInitDate($initDate);
-        $this->setEndDate($endDate);
+        if (!$beginningBalance) {
+            $this->setRecords($arrAux);
+            $this->setInitDate($initDate);
+            $this->setEndDate($endDate);
+        }else{
+            return $arrAux;
+        }
+    }
+
+    /**
+     * Calcula los saldos iniciales de cada cuenta en el rango dado, y lo alamcena
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param String $date variable con la fecha inicial que recibe formato 'YYYY-mm'
+     */
+    public function CalculateBeginningBalance($date)
+    {
+        /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
+        $seating = AccountingSeat::where('approved', true)->orderBy('from_date','ASC')->first();
+       
+        /**
+         Se establecen las fechas validas anteriores a la fecha suministrada para realizar la busqueda de registros
+        */
+
+        /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
+        $initDate = explode('-',$seating['from_date'])[0].'-'.explode('-',$seating['from_date'])[1];
+
+        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
+        $endDay = date('d',(mktime(0,0,0,explode('-',$date)[1]+1,1,explode('-',$date)[0])-1));
+
+        /** @var Object String en el que establece el mes anterior */
+        $endMonth = (((int)explode('-',$date)[1])-1 == 0) ? 12 : (((int)explode('-',$date)[1])-1);
+
+        /** @var Object String en el que se establece el año anterior de ser necesario */
+        $endYear = (((int)explode('-',$date)[1])-1 == 0) ? (((int)explode('-',$date)[0])-1) : (((int)explode('-',$date)[0]));
+
+        /** @var Object String en el que se formatea la fecha final de busqueda */
+        $endDate = $endYear.'-'.$endMonth;
+
+        $accounts = $this->getAccAccount($initDate, $endDate, true);
+        /**
+        Ciclo en el que se calcula y almancena los saldos iniciales de cada cuenta
+        */
+        foreach ($accounts as $account) {
+            $balance = 0;
+            foreach (AccountingSeatAccount::with('seating','account')
+                        ->where('accounting_account_id', $account['id'])
+                        ->whereHas('seating', function($query) use ($initDate, $endDate, $endDay) {
+                            $query->whereBetween('from_date',[$initDate.'-01',($endDate.'-'.$endDay)])->where('approved',true);
+                        })->orderBy('updated_at','ASC')->get() as $record) {
+                $balance += (float)$record->debit - (float)$record->assets;
+            }
+            $this->setBeginningBalance($account['id'], $balance);
+        }
     }
 
     /**
      * vista en la que se genera el reporte en pdf de balance de comprobación
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
-     * @param String $typebalance variable con la que determina que información se debe mostrar en el reporte('Complet', 'Sum', 'Balance')
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initDate variable con la fecha inicial
      * @param String $endDate variable con la fecha inicial
      */
-    public function pdf($typeBalance, $initDate, $endDate)
+    public function pdf($initDate, $endDate, $zero = null)
     {
+        $this->getAccAccount($initDate, $endDate, false);
 
-        $this->getAccAccount($initDate, $endDate);
+        if (!is_null($zero)) {
+            $this->CalculateBeginningBalance($initDate);
+        }
 
         /** @var Array Arreglo asociativo con la información base (id, id_record y denomination) de las cuentas patrimoniales */
         $accountRecords = $this->getRecords();
+
+        /** @var Array Arreglo asociativo con la información del saldo inicial (id => balance) de las cuentas patrimoniales */
+        $beginningBalance = $this->getBeginningBalance();
 
         /** @var Int indice de la cuenta desde donde finalizara la busqueda */
         $EndIndex = count($accountRecords)-1;
@@ -234,7 +307,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $pdf->AddPage();
 
         $unit = true;
-        $html = \View::make('accounting::pdf.accounting_checkup_balance_pdf',compact('pdf','records','initDate','endDate','currency','typeBalance'))->render();
+        $html = \View::make('accounting::pdf.accounting_checkup_balance_pdf',compact('pdf','records','initDate','endDate','currency','beginningBalance','zero'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');

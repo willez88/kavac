@@ -13,7 +13,7 @@ use App\Roles\Models\Permission;
  * 
  * Gestiona la información por defecto a registrar inicialmente para los Roles y Permisos del módulo de contabilidad
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingRoleAndPermissionsTableSeeder extends Seeder

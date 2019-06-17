@@ -2,7 +2,8 @@
 	$pdf->SetTitle('Libro Diario'); // titulo del archivo
     $height = $pdf->get_Y();
     $totDebit=0;
-    $totAssets=0;                
+    $totAssets=0;
+    $cont = 1;
 @endphp
 <h2 align="center">LIBRO DIARIO</h2>
 <h4>EXPRESADO EN {{ $currency->symbol }}</h4>
@@ -85,7 +86,12 @@
 				{{-- se formatea la fecha de Y-m-d a d-m-Y --}}
 				<td width="10%" style="background-color: #BDBDBD;" align="left"> <strong>{{ $from_date[2].'-'.$from_date[1].'-'.$from_date[0] }}</strong></td>
 				<td width="15%" style="background-color: #BDBDBD;"></td>
-		        <td width="45%" style="background-color: #BDBDBD;" align="center"><strong>{{ $seat['reference'] }} - {{ $seat['concept'] }}</strong></td>
+		        <td width="45%" style="background-color: #BDBDBD;" align="center">
+		        	<strong>{{ $cont }}</strong>
+		        	@php
+		        		$cont++;
+		        	@endphp
+		        </td>
 		        <td width="15%" style="background-color: #BDBDBD;"></td>
 		        <td width="15%" style="background-color: #BDBDBD;"></td>
 			</tr>

@@ -14,7 +14,7 @@ use Modules\Accounting\Models\BudgetAccount;
  * 
  * Modelo de la tabla pivot entre budget_account y accounting_account
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingAccountConverter extends Model implements Auditable

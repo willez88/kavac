@@ -21,14 +21,14 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Mayor Analítico</h6>
+					<h6 class="card-title">Libro Auxiliar</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-report-analytical-major year_old="{{ $yearOld }}" />
+					<accounting-report-auxiliary-book :records="{{ $records }}" year_old="{{ $year_old }}" />
 				</div>
 			</div>
 		</div>

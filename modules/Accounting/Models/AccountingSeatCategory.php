@@ -18,7 +18,7 @@ class AccountingSeatCategory extends Model implements Auditable
     /**
      * AccountingSeatCategory has one AccountingSeat.
      *
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function accounting_seats()

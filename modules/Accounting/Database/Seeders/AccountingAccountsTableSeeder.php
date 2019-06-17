@@ -13,7 +13,7 @@ use Modules\Accounting\Models\AccountingAccount;
  * 
  * Gestiona la información por defecto a registrar inicialmente para las cuentas patrimoniales
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingAccountsTableSeeder extends Seeder
@@ -24,7 +24,7 @@ class AccountingAccountsTableSeeder extends Seeder
      * 
      * Gestiona la información por defecto y la registra inicialmente para las cuentas patrimoniales
      * 
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
      */
     public function run()
@@ -3698,6 +3698,10 @@ class AccountingAccountsTableSeeder extends Seeder
 
         DB::transaction(function() use ($accounting_acounts) {
             foreach ($accounting_acounts as $account) {
+                $parent = AccountingAccount::getParent(
+                    $account['group'], $account['subgroup'], $account['item'], $account['generic'], $account['specific'], $account['subspecific']
+                );
+
                 AccountingAccount::updateOrCreate(
                     [
                         'group' => $account['group'], 'subgroup' => $account['subgroup'],
@@ -3707,6 +3711,7 @@ class AccountingAccountsTableSeeder extends Seeder
                         'denomination' => $account['denomination'],
                         'active' => $account['active'],
                         'inactivity_date' => (!$account['active'])?date('Y-m-d'):null,
+                        'parent_id' => ($parent == false)?null:$parent->id
                     ]
                 );
             }

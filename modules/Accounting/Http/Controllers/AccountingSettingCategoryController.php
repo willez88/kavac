@@ -14,7 +14,7 @@ use Auth;
  * 
  * Clase que gestiona las categorias de origen de asientos contables
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingSettingCategoryController extends Controller
@@ -24,7 +24,7 @@ class AccountingSettingCategoryController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {
@@ -37,7 +37,7 @@ class AccountingSettingCategoryController extends Controller
     /**
      * Crea una nueva categorias de origen de asiento contable
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -60,7 +60,7 @@ class AccountingSettingCategoryController extends Controller
     /**
      * Actualiza los datos de la categoria de origen
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id      Identificador de la categoria de origen a modificar
      * @return Response
@@ -84,7 +84,7 @@ class AccountingSettingCategoryController extends Controller
     /**
      * Elimina una categoria de origen de asiento contable
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador de la categoria de origen a eliminar
      * @return Response
      */

@@ -20,7 +20,7 @@
 			<button class="btn btn-primary btn-custom"
 					title="Generar Reporte"
 					:disabled="(dateIni == '' || dateEnd == '')"
-					v-on:click="OpenReport()">
+					v-on:click="OpenPdf(getUrlReport(), '_blank')">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
 			</button>
@@ -32,21 +32,24 @@
 	export default{
 		data(){
 			return{
-				url:'/accounting/report/diaryBook/pdf/',
+				url:'http://'+window.location.host+'/accounting/report/diaryBook/pdf/',
 				dateIni:'',
 				dateEnd:'',
 			}
 		},
 		methods:{
-			orderDate(){
-				
+			getUrlReport:function(argument) {
+
 				var dateIni = this.dateIni.split('-')[2]+'-'+this.dateIni.split('-')[1]+'-'+this.dateIni.split('-')[0];
+
 				var dateEnd = this.dateEnd.split('-')[2]+'-'+this.dateEnd.split('-')[1]+'-'+this.dateEnd.split('-')[0];
-				return (this.dateIni <= this.dateEnd) ? (dateIni+'/'+dateEnd) : (dateEnd+'/'+dateIni);
+
+				var info = (this.dateIni <= this.dateEnd) ? (dateIni+'/'+dateEnd) : (dateEnd+'/'+dateIni) ;
+
+				var url = this.url+info;
+
+				return url;
 			},
-			OpenReport(){
-				window.open(this.url+this.orderDate(), '_blank');
-			}
 		}
-	}
+	};
 </script>

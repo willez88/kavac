@@ -20,7 +20,7 @@ use Auth;
  * 
  * Clase que gestiona los asientos contable
  * 
- * @author Juan Rosas <JuanFBass17@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingSeatController extends Controller
@@ -30,7 +30,7 @@ class AccountingSeatController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {
@@ -44,7 +44,7 @@ class AccountingSeatController extends Controller
     /**
      * muestra la vista donde se mostraran los asientos contables aprobados
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return view
      */
     public function index()
@@ -83,7 +83,7 @@ class AccountingSeatController extends Controller
     /**
      * Muestra un formulario para la creación de asientos contables
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Response
      */
     public function create()
@@ -120,7 +120,7 @@ class AccountingSeatController extends Controller
     /**
      * Crea una nuevo asiento contable y crea los registros de las cuentas asociadas
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Response
      */
@@ -158,7 +158,7 @@ class AccountingSeatController extends Controller
     /**
      * Muestra información de los asientos contables
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Response
      */
     public function show($id)
@@ -169,7 +169,7 @@ class AccountingSeatController extends Controller
     /**
      * Muestra el formulario para la edición de asientos contables
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador del asiento contable a modificar
      * @return Response
      */
@@ -239,7 +239,7 @@ class AccountingSeatController extends Controller
     /**
      * Actualiza los datos del asiento contable
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id      Identificador del asiento contable a modificar
      * @return Response
@@ -285,7 +285,7 @@ class AccountingSeatController extends Controller
     /**
      * Elimina un asiento contable
      *
-     * @author Juan Rosas <JuanFBass17@gmail.com>
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador del asiento contable a eliminar
      * @return Response
      */
@@ -426,7 +426,7 @@ class AccountingSeatController extends Controller
     }
     /**
      * Obtiene los registros de las cuentas patrimoniales
-     * @author  Juan Rosas <JuanFBass17@gmail.com>
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return json [JSON con la información de las cuentas formateada]
     */
     public function getAccountingAccount()
