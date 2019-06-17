@@ -48,17 +48,23 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="icofont" role="tabpanel">
 							<div class="row">
-								@foreach ($icofonts as $icofont)
-									<div class="col-md-2 text-center">
-										<div class="row">
-											<div class="col-12">
-												<i class="icofont {{ $icofont }} ico-3x"></i>
-											</div>
-											<div class="col-12">
-												<label>{{ $icofont }}</label>
+								@foreach ($icofonts as $key => $icofont)
+									<div class="col-12">
+										<hr>
+										<h6 class="card-title">{{ $key }}</h6>
+									</div>
+									@foreach ($icofont as $icon)
+										<div class="col-md-2 text-center">
+											<div class="row">
+												<div class="col-12">
+													<i class="icofont {{ $icon }} ico-2x"></i>
+												</div>
+												<div class="col-12">
+													<label>{{ $icon }}</label>
+												</div>
 											</div>
 										</div>
-									</div>
+									@endforeach
 								@endforeach
 							</div>
                         </div>
@@ -68,7 +74,7 @@
 									<div class="col-md-2 text-center">
 										<div class="row">
 											<div class="col-12">
-												<i class="fa {{ $fontawesome }} fa-3x"></i>
+												<i class="fa {{ $fontawesome }} fa-2x"></i>
 											</div>
 											<div class="col-12">
 												<label>{{ $fontawesome }}</label>
@@ -84,7 +90,7 @@
 									<div class="col-md-2 text-center">
 										<div class="row">
 											<div class="col-12">
-												<i class="ion {{ $ionicon }}" style="font-size: 3em;"></i>
+												<i class="ion {{ $ionicon }}" style="font-size: 2em;"></i>
 											</div>
 											<div class="col-12">
 												<label>{{ $ionicon }}</label>
