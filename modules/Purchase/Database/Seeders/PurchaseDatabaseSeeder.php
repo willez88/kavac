@@ -26,5 +26,7 @@ class PurchaseDatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(PurchaseRoleAndPermissionsTableSeeder::class);
+        $this->call(PurchaseSupplierObjectsTableSeeder::class);
+        $this->call(PurchaseSupplierBranchesTableSeeder::class);
     }
 }
