@@ -21,6 +21,7 @@ class CreatePurchaseSupplierObjectsTable extends Migration
             $table->text('description')->nullable()
                   ->comment('Descripción del objeto del proveedor');
             $table->timestamps();
+            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });
     }
 
