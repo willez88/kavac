@@ -50,7 +50,7 @@ class CreatePurchaseSuppliersTable extends Migration
             $table->integer('purchase_supplier_branch_id')->unsigned()
                   ->comment('Identificador de la rama del proveedor');
             $table->foreign('purchase_supplier_branch_id')->references('id')
-                  ->on('purchase_supplier_branchs')->onDelete('restrict')
+                  ->on('purchase_supplier_branches')->onDelete('restrict')
                   ->onUpdate('cascade');
 
             /*
