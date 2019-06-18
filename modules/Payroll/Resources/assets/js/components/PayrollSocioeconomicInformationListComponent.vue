@@ -6,7 +6,7 @@
     				title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
     			<i class="fa fa-eye"></i>
     		</button>
-            <div class="modal fade" tabindex="-1" role="dialog" id="show_professional_information">
+            <div class="modal fade" tabindex="-1" role="dialog" id="show_socioeconomic_information">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -15,7 +15,7 @@
         					</button>
         					<h6>
         						<i class="icofont icofont-read-book ico-2x"></i>
-        						Información Detallada de Datos Profesionales
+        						Información Detallada de Datos Socioeconómicos
         					</h6>
         				</div>
                         <div class="modal-body">
@@ -120,10 +120,6 @@
 				<i class="fa fa-trash-o"></i>
 			</button>
 		</div>
-        <div slot="is_student" slot-scope="props" class="text-center">
-            <span v-if="props.row.is_student">SI</span>
-            <span v-else>NO</span>
-        </div>
 	</v-client-table>
 </template>
 <script>
@@ -131,20 +127,18 @@
         data() {
 			return {
 				records: [],
-				columns: ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name', 'is_student', 'id'],
+				columns: ['payroll_staff.first_name', 'marital_status.name', 'id'],
 			}
 		},
 
         created() {
 			this.table_options.headings = {
                 'payroll_staff.first_name': 'Trabajador',
-				'payroll_instruction_degree.name': 'Grado de Instrucción',
-				'profession.name': 'Profesión',
-				'is_student': '¿Es Estudiante?',
+				'marital_status.name': 'Estado Civil',
 				'id': 'Acción'
 			};
-            this.table_options.sortable = ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name'];
-			this.table_options.filterable = ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name'];
+            this.table_options.sortable = ['payroll_staff.first_name', 'marital_status.name'];
+			this.table_options.filterable = ['payroll_staff.first_name', 'marital_status.name'];
 		},
 
 		mounted() {
@@ -157,7 +151,7 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/professional-informations/info/' + id).then(response => {
+                axios.get('/payroll/socioeconomic-informations/info/' + id).then(response => {
 					var record = response.data.record;
                     $('#payroll_staff').val(record.payroll_staff);
                     $('#payroll_instruction_degree').val(record.payroll_instruction_degree);
@@ -170,7 +164,7 @@
                     $('#payroll_language').val(record.payroll_language);
                     $('#payroll_language_level').val(record.payroll_language_level);
 				});
-                $('#show_professional_information').modal('show');
+                $('#show_socioeconomic_information').modal('show');
             }
         }
     };

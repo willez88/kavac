@@ -33,11 +33,12 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
 
     Route::resource('genders', 'PayrollGenderController', ['as' => 'payroll', 'except' => ['show']]);
 
-    Route::resource('socioeconomic-informations', 'PayrollSocioeconomicInformationController', ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]);
+    Route::resource('socioeconomic-informations', 'PayrollSocioeconomicInformationController', ['as' => 'payroll']);
     Route::get('socioeconomic-informations/list', 'PayrollSocioeconomicInformationController@list')->name('payroll.socioeconomic-informations.list');
     Route::get('socioeconomic-informations/marital-status-list', 'PayrollSocioeconomicInformationController@maritalStatusList')->name('payroll.socioeconomic-informations.marital-status-list');
 
     Route::resource('professional-informations', 'PayrollProfessionalInformationController', ['as' => 'payroll']);
+    Route::get('professional-informations/info/{id}', 'PayrollProfessionalInformationController@info')->name('payroll.professional-informations.info');
     Route::get('professional-informations/show/professions-list', 'PayrollProfessionalInformationController@professionsList')->name('payroll.professional-informations.professions-list');
     Route::get('professional-informations/show/vue-list', 'PayrollProfessionalInformationController@vueList')->name('payroll.professional-informations.vue-list');
 });

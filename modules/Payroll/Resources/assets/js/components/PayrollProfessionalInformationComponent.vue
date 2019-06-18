@@ -3,7 +3,7 @@
 		<div class="col-7">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Registrar los Datos Profesionales {{ professional_information_id }}</h6>
+					<h6 class="card-title">Registrar los Datos Profesionales</h6>
 					<div class="card-btns">
 						<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
 						   title="Ir atrás" data-toggle="tooltip">
@@ -66,7 +66,7 @@
 									<input id="is_student" type="checkbox" class="form-control bootstrap-switch"
 										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
 										title="Indique si el trabajador es estudiante o no"
-										v-model="record.is_student" value="false"/>
+										v-model="record.is_student" value="true"/>
 								</div>
 							</div>
 						</div>
@@ -179,9 +179,11 @@
 		methods: {
 
 			getProfessionalInformation() {
-				axios.get('/payroll/professional-informations/' + this.professional_information_id).then(response => {
-					this.record = response.data.record;
-				});
+				if(this.professional_information_id) {
+					axios.get('/payroll/professional-informations/' + this.professional_information_id).then(response => {
+						this.record = response.data.record;
+					});
+				}
 			},
 
 			getPayrollStaffs() {
@@ -261,18 +263,24 @@
 			this.record.is_student = false;
 		},
 		mounted() {
+			//Falta revisión en esta rutina, a veces sale el error de recursión
+			//No actualiza el campo switch al primer momento de cargar el componente
 			this.getProfessionalInformation();
-			this.switchHandler('is_student');
 			const vm = this;
+			vm.switchHandler('is_student');
 			$('#is_student').on('switchChange.bootstrapSwitch', function(e) {
 				e.target.id;
 				if (vm.record.is_student) {
 					vm.record.is_student = false;
+					$('#is_student').bootstrapSwitch('state', false)
 					$('#block_student').addClass('d-none');
+					//alert('Falso');
 				}
 				else {
 					vm.record.is_student = true;
+					$('#is_student').bootstrapSwitch('state', true)
 					$('#block_student').removeClass('d-none');
+					//alert('Verdadero');
 				}
 			});
 		}
