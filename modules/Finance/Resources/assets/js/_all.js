@@ -41,7 +41,7 @@ Vue.component('finance-checkbooks', require('./components/FinanceCheckBookCompon
 Vue.component('finance-voucher-design', require('./components/FinanceVoucherDesignComponent.vue').default);
 
 /**
- * Opciones de configuración global del módulo de presupuesto
+ * Opciones de configuración global del módulo de finanzas
  * 
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
