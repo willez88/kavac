@@ -5,6 +5,7 @@ namespace Modules\Purchase\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Purchase\Models\PurchaseSupplier;
 
 class PurchaseSupplierController extends Controller
 {
@@ -14,7 +15,7 @@ class PurchaseSupplierController extends Controller
      */
     public function index()
     {
-        return view('purchase::index');
+        return view('purchase::suppliers.list');
     }
 
     /**
@@ -68,5 +69,16 @@ class PurchaseSupplierController extends Controller
      */
     public function destroy()
     {
+    }
+
+    /**
+     * Obtiene listado de registros
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function vueList()
+    {
+        return response()->json(['records' => PurchaseSupplier::all()], 200);
     }
 }

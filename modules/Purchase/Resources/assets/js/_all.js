@@ -27,6 +27,13 @@ Vue.component('purchase-supplier-specialties', require('./components/PurchaseSup
 Vue.component('purchase-supplier-types', require('./components/PurchaseSupplierTypeComponent.vue').default);
 
 /**
+ * Componente para la gestión de proveedores
+ *
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('purchase-suppliers-list', require('./components/PurchaseSupplierListComponent.vue').default);
+
+/**
  * Opciones de configuración global del módulo de compras
  * 
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

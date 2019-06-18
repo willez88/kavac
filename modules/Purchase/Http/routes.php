@@ -49,4 +49,7 @@ Route::group([
      * Gestiona los datos de los proveedores
      */
     Route::resource('suppliers', 'PurchaseSupplierController', ['as' => 'purchase']);
+    Route::get(
+        'suppliers/vue-list', 'PurchaseSupplierController@vueList'
+    )->name('purchase.suppliers.vuelist');
 });
