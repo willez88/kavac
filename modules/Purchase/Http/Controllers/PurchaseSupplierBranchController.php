@@ -74,6 +74,17 @@ class PurchaseSupplierBranchController extends Controller
      */
     public function update(Request $request)
     {
+        /** @var object Datos de la rama de proveedores */
+        $supplierBranch = PurchaseSupplierBranch::find($id);
+        
+        $this->validate($request, [
+            'name' => 'required|unique:purchase_supplier_branches,name,' . $supplierBranch->id,
+        ]);
+ 
+        $supplierBranch->name = $request->name;
+        $supplierBranch->save();
+ 
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
@@ -82,5 +93,9 @@ class PurchaseSupplierBranchController extends Controller
      */
     public function destroy()
     {
+        /** @var object Datos de la rama de proveedores */
+        $supplierBranch = PurchaseSupplierBranch::find($id);
+        $supplierBranch->delete();
+        return response()->json(['record' => $supplierBranch, 'message' => 'Success'], 200);
     }
 }

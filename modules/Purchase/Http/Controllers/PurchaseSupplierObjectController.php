@@ -76,6 +76,20 @@ class PurchaseSupplierObjectController extends Controller
      */
     public function update(Request $request)
     {
+        /** @var object Datos del objeto de proveedores */
+        $supplierObject = PurchaseSupplierObject::find($id);
+        
+        $this->validate($request, [
+            'type' => 'required',
+            'name' => 'required|unique:purchase_supplier_objects,name,' . $supplierObject->id,
+        ]);
+ 
+        $supplierObject->type = $request->type;
+        $supplierObject->name = $request->name;
+        $supplierObject->description = $request->description ?? null;
+        $supplierObject->save();
+ 
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
@@ -84,5 +98,9 @@ class PurchaseSupplierObjectController extends Controller
      */
     public function destroy()
     {
+        /** @var object Datos del objeto de proveedores */
+        $supplierObject = PurchaseSupplierObject::find($id);
+        $supplierObject->delete();
+        return response()->json(['record' => $supplierObject, 'message' => 'Success'], 200);
     }
 }

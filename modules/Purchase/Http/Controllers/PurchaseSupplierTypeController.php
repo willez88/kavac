@@ -73,6 +73,17 @@ class PurchaseSupplierTypeController extends Controller
      */
     public function update(Request $request)
     {
+        /** @var object Datos del tipo de proveedores */
+        $supplierType = PurchaseSupplierType::find($id);
+        
+        $this->validate($request, [
+            'name' => 'required|unique:purchase_supplier_types,name,' . $supplierType->id,
+        ]);
+ 
+        $supplierType->name = $request->name;
+        $supplierType->save();
+ 
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
@@ -81,5 +92,9 @@ class PurchaseSupplierTypeController extends Controller
      */
     public function destroy()
     {
+        /** @var object Datos del tipo de proveedores */
+        $supplierType = PurchaseSupplierType::find($id);
+        $supplierType->delete();
+        return response()->json(['record' => $supplierType, 'message' => 'Success'], 200);
     }
 }
