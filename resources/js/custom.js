@@ -268,6 +268,16 @@ $(document).ready(function() {
                 group: 'Analistas'
             },
             {
+                name: 'María Rujano',
+                email: 'mrujano@cenditel.gob.ve',
+                group: 'Analistas'
+            },
+            {
+                name: 'Mariangel Molero',
+                email: 'mmolero@cenditel.gob.ve',
+                group: 'Analistas'
+            },
+            {
                 name: 'Francisco Berbesí',
                 email: 'fberbesi@cenditel.gob.ve',
                 group: 'Analistas'
@@ -284,7 +294,7 @@ $(document).ready(function() {
             },
             {
                 name: 'Juan Rosas',
-                email: 'JuanFBass17@gmail.com',
+                email: 'jrosas@cenditel.gob.ve',
                 group: 'Desarrolladores'
             }
         ]);
