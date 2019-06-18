@@ -29,7 +29,10 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						
+						<purchase-supplier-branches></purchase-supplier-branches>
+						<purchase-supplier-objects></purchase-supplier-objects>
+						<purchase-supplier-specialties></purchase-supplier-specialties>
+						<purchase-supplier-types></purchase-supplier-types>
 					</div>
 				</div>
 			</div>

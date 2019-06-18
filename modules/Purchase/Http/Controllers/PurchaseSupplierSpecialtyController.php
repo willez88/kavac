@@ -5,16 +5,20 @@ namespace Modules\Purchase\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Purchase\Models\PurchaseSupplierSpecialty;
 
 class PurchaseSupplierSpecialtyController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        return view('purchase::index');
+        return response()->json(['records' => PurchaseSupplierSpecialty::all()], 200);
     }
 
     /**
@@ -33,6 +37,16 @@ class PurchaseSupplierSpecialtyController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|unique:purchase_supplier_specialties,name',
+        ]);
+
+        $supplierSpecialty = PurchaseSupplierSpecialty::create([
+            'name' => $request->name,
+            'description' => $request->description ?? null
+        ]);
+
+        return response()->json(['record' => $supplierSpecialty, 'message' => 'Success'], 200);
     }
 
     /**

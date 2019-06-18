@@ -5,16 +5,20 @@ namespace Modules\Purchase\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Purchase\Models\PurchaseSupplierBranch;
 
 class PurchaseSupplierBranchController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('purchase::index');
+        return response()->json(['records' => PurchaseSupplierBranch::all()], 200);
     }
 
     /**
@@ -33,6 +37,16 @@ class PurchaseSupplierBranchController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|unique:purchase_supplier_branches,name',
+        ]);
+
+        $supplierBranch = PurchaseSupplierBranch::create([
+            'name' => $request->name,
+            'description' => $request->description ?? null
+        ]);
+
+        return response()->json(['record' => $supplierBranch, 'message' => 'Success'], 200);
     }
 
     /**

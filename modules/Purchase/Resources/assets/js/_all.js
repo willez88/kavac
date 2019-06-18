@@ -3,28 +3,28 @@
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('purchase-supplier-branch', require('./components/PurchaseSupplierBranchComponent.vue').default);
+Vue.component('purchase-supplier-branches', require('./components/PurchaseSupplierBranchComponent.vue').default);
 
 /**
  * Componente para la gestión de los objetos de proveedores
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('purchase-supplier-object', require('./components/PurchaseSupplierObjectComponent.vue').default);
+Vue.component('purchase-supplier-objects', require('./components/PurchaseSupplierObjectComponent.vue').default);
 
 /**
  * Componente para la gestión de las especialidades de proveedores
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('purchase-supplier-specialty', require('./components/PurchaseSupplierSpecialtyComponent.vue').default);
+Vue.component('purchase-supplier-specialties', require('./components/PurchaseSupplierSpecialtyComponent.vue').default);
 
 /**
  * Componente para la gestión de los tipos de proveedores
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('purchase-supplier-type', require('./components/PurchaseSupplierTypeComponent.vue').default);
+Vue.component('purchase-supplier-types', require('./components/PurchaseSupplierTypeComponent.vue').default);
 
 /**
  * Opciones de configuración global del módulo de compras

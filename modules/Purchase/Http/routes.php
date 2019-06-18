@@ -31,7 +31,7 @@ Route::group([
         );
         /** Rutas para la gestión de ramas de proveedores */
         Route::resource(
-            'supplier-branchs', 'PurchaseSupplierBranchController', ['as' => 'purchase']
+            'supplier-branches', 'PurchaseSupplierBranchController', ['as' => 'purchase']
         );
         /** Rutas para la gestión de especialidades de proveedores */
         Route::resource(

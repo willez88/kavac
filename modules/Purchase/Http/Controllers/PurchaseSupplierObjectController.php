@@ -5,16 +5,20 @@ namespace Modules\Purchase\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Purchase\Models\PurchaseSupplierObject;
 
 class PurchaseSupplierObjectController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('purchase::index');
+        return response()->json(['records' => PurchaseSupplierObject::all()], 200);
     }
 
     /**
@@ -33,6 +37,18 @@ class PurchaseSupplierObjectController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'type' => 'required',
+            'name' => 'required|unique:purchase_supplier_objects,name',
+        ]);
+
+        $supplierObject = PurchaseSupplierObject::create([
+            'type' => $request->type,
+            'name' => $request->name,
+            'description' => $request->description ?? null
+        ]);
+
+        return response()->json(['record' => $supplierObject, 'message' => 'Success'], 200);
     }
 
     /**
