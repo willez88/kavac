@@ -58,6 +58,11 @@
 			this.accountSelect.accounting_id = this.account_to_edit.accounting_account_id;
 		},
 		methods:{
+			/**
+			 * Enviar la información de la conversión para ser actualizada
+			 *
+			 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			update:function(){
 				const vm = this;
 				axios.put('/accounting/converter/'+this.account_to_edit.id,this.accountSelect)

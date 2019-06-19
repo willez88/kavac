@@ -96,6 +96,11 @@
 			}
 		},
 		methods:{
+			/**
+			* Valida las variables del formulario para realizar el filtrado, y emite el evento para actualizar los datos al componente AccountingAccountsInSeatingComponent
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			validateRequired:function() {
 				if (this.validated == false) {
 					/**

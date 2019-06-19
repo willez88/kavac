@@ -1,7 +1,7 @@
 <template>
 
-<div>
-	<div class="alert alert-warning" role="alert" v-if="warnings.length > 0">
+<div class="row">
+	<div class="alert alert-warning col-12" role="alert" v-if="warnings.length > 0">
 		<div class="container">
 			<div class="alert-icon">
 				<i class="now-ui-icons objects_support-17"></i>
@@ -12,17 +12,17 @@
 			</ul>
 		</div>
 	</div>
-	<form @submit.prevent="" class="form-horizontal">
+	<form @submit.prevent="" class="form-horizontal col-5">
 		<div class="card-body">
 			<div class="row">
-				<div class="form-group col-5 is-required">
+				<div class="form-group col-12 is-required">
 					<label class="control-label">Nombre</label>
 					<input type="text"
 							class="form-control"
 							title="Nombre de la nueva categoria de origen"
 							v-model="NewCategory.name">
 				</div>
-				<div class="form-group col-5 is-required">
+				<div class="form-group col-12 is-required">
 					<label class="control-label">Acrónimo</label>
 					<input type="text"
 							class="form-control"
@@ -48,8 +48,8 @@
 			</div>
 		</div>
 	</form>
-	<br>
-	<table class="table">
+	<div class="col 1"></div>
+	<table class="table col-5">
 		<thead>
 			<tr>
 				<td><strong>NOMBRE</strong></td>
@@ -103,6 +103,14 @@ export default{
 		this.records = this.categories;
 	},
 	methods:{
+		/**
+		* Valida información del formulario de categoria
+		*
+		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		* @param  {boolean} name bandera que establece si hay que validar el nombre de la categoria
+		* @param  {boolean} acronym bandera que establece si hay que validar el acronimo de la categoria
+		* @return {boolean} Devuelve falso si la información no es única
+		*/
 		validInformation(name=true , acronym=true){
 			var jumpOne = (this.state == 'update') ? true : false;
 
@@ -130,6 +138,11 @@ export default{
 			}
 			return true;
 		},
+		/**
+		* Guarda la información de la nueva categoria
+		*
+		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		*/
 		storeCategory(){
 			if (!this.validInformation()) return;
 
@@ -144,6 +157,12 @@ export default{
 				vm.showMessage('store');
 			});
 		},
+
+		/**
+		* Actualiza la información de la categoria
+		*
+		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		*/
 		updateCategory(){
 			if (!this.validInformation(false)) return;
 
@@ -159,6 +178,12 @@ export default{
 				vm.showMessage('update');
 			});
 		},
+
+		/**
+		* Carga la información de la categoria en el formulario
+		*
+		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		*/
 		loadCategory(record){
 			this.NewCategory.id = record.id;
 			this.NewCategory.name = record.name;

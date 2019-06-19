@@ -26,8 +26,8 @@
                 <li><a href="{{ route('accounting.report.analyticalMajor') }}">Mayor Analítico</a></li>
                 <li><a href="{{ route('accounting.report.diaryBook') }}">Libro Diario</a></li>
                 <li><a href="{{ route('accounting.report.auxiliaryBook') }}">Libro Auxiliar</a></li>
-                <li><a href="#">Balance General</a></li>
-                <li><a href="#">Estado de Resultados</a></li>
+                <li><a href="{{ route('accounting.report.balanceSheet') }}">Balance General</a></li>
+                <li><a href="{{ route('accounting.report.stateOfResults') }}">Estado de Resultados</a></li>
             </ul>
         </li>
     </ul>

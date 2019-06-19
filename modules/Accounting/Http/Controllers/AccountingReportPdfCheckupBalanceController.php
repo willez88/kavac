@@ -8,7 +8,6 @@ use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingSeat;
-use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
@@ -94,6 +93,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
 
 
     /**
+     * Despliega la vista principal del formulario de reporte de balance de comprobación
      * Se calcula la ultima fecha y retorna a la vista con el formulario
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

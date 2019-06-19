@@ -234,6 +234,12 @@
 			});
 		},
 		methods:{
+			/**
+			* Funcion para la verificación y manejo de errores
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			* @return {boolean} Devuelve true si la información no cumple algun campo
+			*/
 			ErrorsInForm:function(){
 
 				if (this.typeSearch == 'reference' && this.data.reference == '') {
@@ -257,6 +263,12 @@
 				}
 				return false;
 			},
+
+			/**
+			* Obtiene la información de los asientos contables
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			searchRecords:function(){
 
 				// manejo de errores

@@ -186,21 +186,35 @@
 			}
 		},
 		methods:{
+			/**
+			* Valida que los campos del código sean validos 
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			* @return {boolean} retorna falso si algun campo no cumple el formato correspondiente
+			*/
 			FormatCode:function(){
 				if (this.data_account.group.length < 1 ||this.data_account.subgroup.length < 1 ||
 					this.data_account.item.length < 1 || this.data_account.generic.length < 1 ||
 					this.data_account.specific.length < 1 || this.data_account.subspecific.length < 1) {
+
+					/** Cargo el error para ser mostrado*/
 					this.errors = [];
 					this.errors.push('Los campos del codigó de la cuenta son obligatorios');
 					return false;
 				}
 				return true;
 			},
+			/**
+			* Envia la información a ser almacenada de la cuenta patrimonial
+			* en caso de que se este actualizando la cuenta, se envia la información a la ruta para ser actualizada
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			sendData:function(){
 				if (!this.FormatCode()) { return; }
 				var dt = this.data_account;
 
-				// estos ultimos 3(tres) campos del codigó deben tener 2(dos) digitos
+				/** Se formatean los ultimos tres campos del codigo de ser necesario */
 				this.data_account.generic = (dt.generic.length < 2) ? '0'+dt.generic : dt.generic ;
 				this.data_account.specific = (dt.specific.length < 2) ? '0'+dt.specific : dt.specific ;
 				this.data_account.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
@@ -237,6 +251,11 @@
 			},
 		},
 		watch:{
+			/**
+			* Obtiene el código disponible para la subcuenta y carga la información en el formulario
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			RecordBase:function(res) {
 				axios.get('/accounting/get-children-account/' + res).then(response => {
 						var account = response.data.account;

@@ -105,6 +105,13 @@ Vue.component('accounting-report-analytical-major', require('./components/report
  */
 Vue.component('accounting-report-auxiliary-book', require('./components/reports/index-AuxiliaryBookComponent.vue').default);
 
+/**
+ * Componente index para el reporte de Balance General y reporte de satdo de resultados
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('accounting-report-balance-sheet-state-of-results', require('./components/reports/index-balanceSheet_and_stateOfResultsComponent.vue').default);
+
 
 /**
 * Evento global Bus del modulo de Contabilidad
@@ -141,6 +148,13 @@ Vue.mixin({
 		}
 	},
 	methods:{
+		/**
+		* Crea un array con los años desde el dado hasta el actual
+		*
+		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		* @param  {integer} year_old fecha del año de inicio
+		* @param  {boolean} optionExtra bandera para determinar si agregar un registro extra al pricipio del array de los años
+		*/
 		CalculateOptionsYears:function(year_old, optionExtra = false){
 			var date = new Date();
 			if (optionExtra) {
@@ -157,6 +171,14 @@ Vue.mixin({
 				});
 			}
 		},
+		/**
+		* Abre una nueva ventana en el navegador
+		*
+		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		* @param  {string} url para la nueva ventana
+		* @param  {string} type tipo de ventana que se desea abrir
+		* @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
+		*/
 		OpenPdf:function(url, type){
 			window.open(url, type);
 		}

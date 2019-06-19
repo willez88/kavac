@@ -15,11 +15,21 @@ use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
 use Auth;
 
+/**
+ * @class AccountingReportPdfAuxiliaryBookController
+ * @brief Controlador para la generación del reporte de libro auxiliar
+ * 
+ * Clase que gestiona el reporte de libro auxiliar
+ * 
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
+
 class AccountingReportPdfAuxiliaryBookController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Despliega la vista principal del formulario de reporte de libro auxiliar
+     * @return View
      */
     public function index()
     {
@@ -123,7 +133,7 @@ class AccountingReportPdfAuxiliaryBookController extends Controller
         $pdf->AddPage();
 
         $OneSeat = false;
-        $html = \View::make('accounting::pdf.accounting_auxiliary_book',compact('pdf','records','account','parent_account','initDate','endDate','currency'))->render();
+        $html = \View::make('accounting::pdf.accounting_auxiliary_book_pdf',compact('pdf','records','account','parent_account','initDate','endDate','currency'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');

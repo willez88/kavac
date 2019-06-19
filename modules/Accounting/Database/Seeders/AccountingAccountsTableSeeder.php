@@ -3702,6 +3702,16 @@ class AccountingAccountsTableSeeder extends Seeder
                     $account['group'], $account['subgroup'], $account['item'], $account['generic'], $account['specific'], $account['subspecific']
                 );
 
+                /**
+                * Si existe, al ejecutar nuevamente el seeder evita que se asigne a si mismo como su parent
+                */ 
+                $parent_id = (AccountingAccount::where('group',$account['group'])
+                                    ->where('subgroup',$account['subgroup'])
+                                    ->where('item',$account['item'])
+                                    ->where('generic',$account['generic'])
+                                    ->where('specific',$account['specific'])
+                                    ->where('subspecific',$account['subspecific'])->first()->id == $parent->id)?null:$parent->id;
+
                 AccountingAccount::updateOrCreate(
                     [
                         'group' => $account['group'], 'subgroup' => $account['subgroup'],
@@ -3711,7 +3721,7 @@ class AccountingAccountsTableSeeder extends Seeder
                         'denomination' => $account['denomination'],
                         'active' => $account['active'],
                         'inactivity_date' => (!$account['active'])?date('Y-m-d'):null,
-                        'parent_id' => ($parent == false)?null:$parent->id
+                        'parent_id' => $parent_id,
                     ]
                 );
             }

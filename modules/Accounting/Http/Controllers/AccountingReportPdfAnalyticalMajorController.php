@@ -38,8 +38,8 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:accounting.report.analiticalmajor', ['only' => ['index', 'getAccAccount', 'pdf']]);
     }
-
     /**
+     * Despliega la vista principal del formulario de reporte de Mayor analitico
      * Se calcula la ultima fecha y retorna a la vista con el formulario
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

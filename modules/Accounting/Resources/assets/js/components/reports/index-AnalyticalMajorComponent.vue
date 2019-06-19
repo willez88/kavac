@@ -82,6 +82,12 @@
 			this.getAccountingAccounts();
 		},
 		methods:{
+
+			/**
+			* Obtiene las cuentas encontradas en el rango de fecha dado
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			getAccountingAccounts:function(){
 				const vm = this;
 				var dates = {
@@ -98,6 +104,13 @@
 					this.EndAcc = '';
 				});
 			},
+
+			/**
+			* Formatea la url para el reporte
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			* @return {string} url para el reporte
+			*/
 			getUrlReport:function(){
 				var url = this.url;
 				var InitAcc = (this.InitAcc > this.EndAcc)? this.EndAcc  : this.InitAcc;
@@ -107,6 +120,12 @@
 				if (EndAcc != 0 && InitAcc != EndAcc) { url += '/'+EndAcc; }
 				return url;
 			},
+
+			/**
+			* valida si se cumplen los requerimientos de información de las cuentas, y cambia el valor de la variable para habilitar el boton
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			activatedButtonFunc:function(){
 				if (this.InitAcc == 0 && this.EndAcc == 0) {
 					this.disabledButton = true;

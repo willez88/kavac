@@ -192,17 +192,33 @@
             this.$EventBus.$off('request:budgetToAccount');
         },
 		methods:{
+
+			/**
+			* Validación de errores
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			validateErrors:function() {
+				/**
+				* se cargan los errores
+				*/
 				this.errors = [];
 				if (this.recordsAccounting.length < 1) {
 					this.errors.push('No es permitido guardar asientos contables vacios');
 					return true;
 				}
 			},
-			validateDecimals:function(value){
-				value = (""+value).split('.')[1];
-				return (value.length() < currency.decimal_places)?true:false;
-			},
+
+			// validateDecimals:function(value){
+			// 	value = (""+value).split('.')[1];
+			// 	return (value.length() < currency.decimal_places)?true:false;
+			// },
+
+			/**
+			* Vacia la información del debe y haber de la columna sin cuenta seleccionada
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			changeSelectinTable:function(record) {
 				// si asigna un select en vacio, vacia los valores del debe y haber de esa fila
 				if (record.id == '') {
@@ -211,6 +227,12 @@
 					this.CalculateTot();
 				}
 			},
+
+			/**
+			* Establece la cantidad de decimales correspondientes a la moneda que se maneja
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			cualculateLimitDecimal(){
 				var res = "0.";
 				for (var i = 0; i < this.currency.decimal_places-1; i++) {
@@ -219,6 +241,12 @@
 				res += "1";
 				return res;
 			},
+
+			/**
+			* Calcula el total del debe y haber del asiento contable
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			CalculateTot:function(){
 				this.data.totDebit = 0;
 				this.data.totAssets = 0;
@@ -231,6 +259,12 @@
 					}
 				}
 			},
+
+			/**
+			* Establece la información base para cada fila de cuentas
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			addAccountingAccount:function() {
 				if ($('#select2').val() != '') {
 					for (var i = this.accounting_accounts.length - 1; i >= 0; i--) {
@@ -247,6 +281,12 @@
 					}
 				}
 			},
+
+			/**
+			* Guarda la información del asiento contable
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			AddSeating:function(){
 				if (this.data.totDebit == this.data.totAssets) {
 
@@ -271,14 +311,26 @@
 								}
 							}
 						}
+						/**
+						* se cargan los errores
+						*/
 						this.errors = [];
 						this.errors = errors;
 					});
 				}else{
+					/**
+					* se cargan los errores
+					*/
 					this.errors = [];
 					this.errors.push('Los totales no coinciden, Por favor verifique.');
 				}
 			},
+
+			/**
+			* Actualiza la información del asiento contable
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			EditSeating:function() {
 				if (this.data.totDebit == this.data.totAssets){
 					if (this.validateErrors()) { return ; }
@@ -293,6 +345,12 @@
 					});
 				}
 			},
+
+			/**
+			* Elimina la fila de la cuenta y vuelve a calcular el total del asiento
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			deleteAccount:function(index){
 				this.recordsAccounting.splice(index,1);
 				this.CalculateTot();

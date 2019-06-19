@@ -45,7 +45,8 @@ class AccountingAccount extends Model implements Auditable
 		'subspecific',
 		'denomination',
 		'active',
-		'inactivity_date'
+		'inactivity_date',
+        'parent_id',
 	];
     
     /**
@@ -101,8 +102,10 @@ class AccountingAccount extends Model implements Auditable
                 }
             }
             else {
-                $parent = $parent->where('item', '00');
+                $parent = $parent->where('item', '0');
             }
+        }else{
+            $parent = self::where('group', $group)->where('subgroup', '0');
         }
         
         if (!isset($parent)) {
@@ -110,6 +113,26 @@ class AccountingAccount extends Model implements Auditable
         }
 
         return $parent->first();
+    }
+    
+    /**
+     * AccountingAccount has Many AccountingAccount.
+     *
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     */
+    public function children()
+    {
+        return $this->hasMany(AccountingAccount::class, 'parent_id');
+    }
+
+    /**
+     * AccountingAccount belongs to AccountingAccount.
+     *
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     */
+    public function parent()
+    {
+        return $this->BelongsTo(AccountingAccount::class, 'parent_id');
     }
 
     /**

@@ -58,6 +58,12 @@
 			this.CalculateOptionsYears(this.year_old);
 		},
 		methods:{
+			/**
+			* Formatea la url para el reporte
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			* @return {string} url para el reporte
+			*/
 			getUrlReport:function(){
 				var zero = ($('#zero').prop('checked'))?'':'zero';
 				var type = $('input:radio[name=typeBalance]:checked').val();

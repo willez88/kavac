@@ -134,6 +134,11 @@
 			})
 		},
 		methods:{
+			/**
+			* Se aprueba el asiento contable
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			approve:function(index) {
 				var url = this.url+'/approve';
     			var records = this.records;

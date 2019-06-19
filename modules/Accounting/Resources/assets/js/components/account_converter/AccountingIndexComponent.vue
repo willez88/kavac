@@ -185,6 +185,11 @@
 			});
 		},
 		methods:{
+			/**
+			* Obtiene los registros de las cuentas que tienen conversión activa 
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			getRecords:function(){
 				if (this.accountSelect.init_id != '' && this.accountSelect.end_id != '') {
 					var aux1 = this.accountSelect.init_id, aux2 = this.accountSelect.end_id;

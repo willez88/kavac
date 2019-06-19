@@ -183,6 +183,11 @@
 			});
 		},
 		methods:{
+			/**
+			* Obtiene los registros de las cuentas que tienen conversión activa 
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			getRecords:function(){
 				if (this.accountSelect.init_id != '' && this.accountSelect.end_id != '') {
 					var aux1 = this.accountSelect.init_id, aux2 = this.accountSelect.end_id;
@@ -207,6 +212,12 @@
 					this.errors.push('Los campos de selección de cuenta son obligatorios');
 				}
 			},
+
+			/**
+			* formatea y redirecciona a la ruta correspondiente para la edición de la conversión
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			editConvertion:function(convertionId){
 				window.location.href = 'http://'+window.location.host+'/accounting/converter/'+convertionId+'/edit';
 			},

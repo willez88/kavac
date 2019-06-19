@@ -48,6 +48,12 @@
 			this.CalculateOptionsYears(this.year_old);
 		},
 		methods:{
+			/**
+			* Formatea la url para el reporte
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			* @return {string} url para el reporte
+			*/
 			getUrlReport:function() {
 				return ( this.url+this.account_id+'/'+(this.year_init+'-'+this.month_init) );
 			}

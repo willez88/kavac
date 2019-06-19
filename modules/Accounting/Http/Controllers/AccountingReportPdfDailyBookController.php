@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
@@ -37,7 +36,7 @@ class AccountingReportPdfDailyBookController extends Controller
     }
 
     /**
-     * Muestra la vista con el formulario para generar el libro diario
+     * Despliega la vista principal del formulario de reporte de libro diario
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return view

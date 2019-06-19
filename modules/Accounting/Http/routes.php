@@ -111,6 +111,20 @@ Route::group(['middleware' => 'web',
 			->name('accounting.report.auxiliaryBook.pdf');
 
 	/**
+	 * rutas para reporte de balance general
+	 */
+	Route::get('report/balanceSheet', 'AccountingReportPdfBalanceSheetController@index')
+			->name('accounting.report.balanceSheet');
+	Route::get('report/balanceSheet/pdf/{date}/{level}/{zero?}', 'AccountingReportPdfBalanceSheetController@pdf')
+			->name('accounting.report.balanceSheet.pdf');
+
+	/**
+	 * rutas para reporte de estado de resultados
+	 */
+	Route::get('report/stateOfResults', 'AccountingReportPdfStateOfResultsController@index')
+			->name('accounting.report.stateOfResults');
+
+	/**
 	* rutas de crud de asientos contables
 	*/
 	Route::resource('seating', 'AccountingSeatController', 

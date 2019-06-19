@@ -10,6 +10,9 @@
 	$initDate = $initDate->format('d/m/Y');
 	$endDate = $endDate->format('d/m/Y');
 
+	/** @var boolean bandera que indica si la cuenta aumenta por el debe ó por el haber*/
+    $ForAssets = false;
+
 	function uniqueRecord($records, $data)
 	{
 		$unique = true;
@@ -38,6 +41,11 @@
 			<h4>DESDE {{ $initDate }} HASTA {{ $endDate }}</h4>
 			<h4>EXPRESADO EN {{ $currency->symbol }}</h4>
 			<br>
+			@php
+				if ($record[0]['account']['group'] == 1) {
+					$ForAssets = true;
+				}
+			@endphp
 		@endif
 		<table cellspacing="0" cellpadding="1" border="0">
 			@if($first)
@@ -72,7 +80,11 @@
 					</td>
 					<td align="right">
 						@php
-							$totBalance = ((float)$beginningBalance + (float)$r['debit']) - (float)$r['assets'];
+							if ($ForAssets) {
+					            $totBalance = ((float)$beginningBalance + (float)$r['assets']) - (float)$r['debit'];
+					        }else{
+								$totBalance = ((float)$beginningBalance + (float)$r['debit']) - (float)$r['assets'];
+					        }
 							
 							$beginningBalance = $totBalance;
 						@endphp
@@ -88,18 +100,10 @@
 				<td style="background-color: #BDBDBD;" align="right"> {{ number_format($totHaber, (int)$currency->decimal_places, ',', '.') }} </td>
 				<td style="background-color: #BDBDBD;" align="right"> {{ number_format($totBalance, (int)$currency->decimal_places, ',', '.') }} </td>
 			</tr>
-			{{-- <tr>
-				<td></td>
-				<td></td>
-				<td style="background-color: #BDBDBD;"> TOTAL AUXILIARES</td>
-				<td style="background-color: #BDBDBD;"></td>
-				<td style="background-color: #BDBDBD;" align="right"> {{ number_format($totDebe, (int)$currency->decimal_places, ',', '.') }} </td>
-				<td style="background-color: #BDBDBD;" align="right"> {{ number_format($totHaber, (int)$currency->decimal_places, ',', '.') }} </td>
-				<td style="background-color: #BDBDBD;" align="right"> {{ number_format($totBalance, (int)$currency->decimal_places, ',', '.') }} </td>
-			</tr> --}}
 		</table>
 		@php
 			array_push($shownAccounts, $record[0]['account']['id']);
+			$ForAssets = false;
 		@endphp
 	@endif
 	<br><br>

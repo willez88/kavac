@@ -101,6 +101,11 @@
 			this.accountingOptions = this.accounting_list;
 		},
 		methods:{
+			/**
+			* Agrega la información de la cuenta patrimonial y presupuestal seleccionada y las carga al listado de cuentas por convertir
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
 			addToConvertions:function() {
 				if (this.budgetSelect != '' && this.accountingSelect != '') {
 					var tempBudget = null;
@@ -130,7 +135,9 @@
 				}
 			},
 			/**
-			 * Remueve de la lista de cuentas a convertir
+			 * Remueve el registro de la lista de cuentas a convertir
+			 *
+			 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			 * @param {int} $indexToConvertion [posición en el array de cuentas a convertir]
 			*/
 			removeToConvertions:function(indexToConvertion){
@@ -140,27 +147,23 @@
 				this.budgetOptions.splice(1, 0, temp[0].budget);
 				this.accountingOptions.splice(1, 0, temp[0].accounting);
 			},
+
+			/**
+			 * enviar la información de las cuentas a convertir para ser almacenada
+			 *
+			 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			 * @param {int} $indexToConvertion [posición en el array de cuentas a convertir]
+			*/
 			saveConvertions:function(){
 				const vm = this;
 				axios.post('/accounting/converter',{'records':this.AccountToConverters})
 					.then(response=>{
 						this.AccountToConverters = [];
-						window.location.href = 'http://'+window.location.host+'/accounting/converter';
 						vm.showMessage('store');
-						// setTimeout(function() {
-						// 	location.href = vm.urlPrevious;
-						// }, 2000);
-					})
-				// .catch(error=>{
-				// 	this.errors = [];
-				// 	if (typeof(error.response) !="undefined") {
-				// 		for (var index in error.response.data.errors) {
-				// 			if (error.response.data.errors[index]) {
-				// 				this.errors.push(error.response.data.errors[index][0]);
-				// 			}
-				// 		}
-				// 	}
-				// });
+						setTimeout(function() {
+								window.location.href = 'http://'+window.location.host+'/accounting/converter';
+							}, 2000);
+					});
 			},
 		}
 	}
