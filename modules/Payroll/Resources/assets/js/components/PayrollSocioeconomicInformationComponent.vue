@@ -1,6 +1,6 @@
 <template>
 	<div class="row">
-		<div class="col-7">
+		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">Registrar los Datos Socioeconómicos</h6>
@@ -70,7 +70,7 @@
 
 					<hr>
 					<h6 class="card-title">
-						Hijos del Trabajador <i class="fa fa-plus-circle cursor-pointer" @click="addChildren"></i>
+						Hijos del Trabajador <i class="fa fa-plus-circle cursor-pointer" @click="addPayrollChildren"></i>
 					</h6>
 					<div class="row" v-for="(payroll_children, index) in record.payroll_childrens">
 						<div class="col-3">
@@ -105,7 +105,7 @@
 							<div class="form-group">
 								<button class="btn btn-sm btn-danger btn-action" type="button"
 									@click="removeRow(index, record.payroll_childrens)"
-									title="Eliminar este dato" data-toggle="tooltip">
+									title="Eliminar este dato" data-toggle="tooltip" data-placement="right">
 									<i class="fa fa-minus-circle"></i>
 								</button>
 							</div>
@@ -113,35 +113,13 @@
 					</div>
 				</div>
 
-				<div class="card-body modal-table">
-					<hr>
-	                <v-client-table :columns="columns" :data="records" :options="table_options">
-	                	<div slot="id" slot-scope="props" class="text-center">
-	                		<button @click="initUpdate(props.index, $event)"
-		                		class="btn btn-warning btn-xs btn-icon btn-action"
-		                		title="Modificar registro" data-toggle="tooltip" type="button">
-		                		<i class="fa fa-edit"></i>
-		                	</button>
-		                	<button @click="deleteRecord(props.index, '/payroll/socioeconomic-informations')"
-								class="btn btn-danger btn-xs btn-icon btn-action"
-								title="Eliminar registro" data-toggle="tooltip"
-								type="button">
-								<i class="fa fa-trash-o"></i>
-							</button>
-	                	</div>
-	                	<div slot="payroll_childrens" slot-scope="props" class="text-center">
-	                		<span v-for="payroll_children in props.row.payroll_childrens">
-	                			<div>
-	                				{{ payroll_children.first_name }} {{ payroll_children.last_name }}
-	                			</div>
-	                		</span>
-	                	</div>
-	                </v-client-table>
-				</div>
-
-				<div class="modal-footer">
+				<div class="card-footer pull-right">
 					<button class="btn btn-default btn-icon btn-round" data-toggle="tooltip" type="button"
 						title="Borrar datos del formulario" @click="reset"><i class="fa fa-eraser"></i>
+					</button>
+					<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
+							title="Cancelar y regresar" @click="redirect_back(route_list)">
+						<i class="fa fa-ban"></i>
 					</button>
 					<button type="button" @click="createRecord('payroll/socioeconomic-informations')"
 	                	class="btn btn-success btn-icon btn-round">
@@ -151,22 +129,14 @@
 
 			</div>
 		</div>
-
-		<div class="col-5">
-			<div class="card">
-				<div class="card-body">
-					<pre>
-						{{ $data }}
-					</pre>
-				</div>
-			</div>
-		</div>
-
 	</div>
 </template>
 
 <script>
 	export default {
+		props: {
+			socioeconomic_information_id: Number,
+		},
 		data() {
 			return {
 				record: {
@@ -179,10 +149,8 @@
 					payroll_childrens: [],
 				},
 				errors: [],
-				records: [],
 				payroll_staffs: [],
 				marital_status: [],
-				columns: ['payroll_staff.first_name', 'marital_status.name', 'payroll_childrens', 'id'],
 			}
 		},
 		methods: {
@@ -203,20 +171,22 @@
 				};
 			},
 
-			getPayrollSocioeconomicInformations() {
-				axios.get('socioeconomic-informations/list').then(response => {
-					this.records = response.data.records;
-				});
+			getSocioeconomicInformation() {
+				if(this.socioeconomic_information_id) {
+					axios.get('/payroll/socioeconomic-informations/' + this.socioeconomic_information_id).then(response => {
+						this.record = response.data.record;
+					});
+				}
 			},
 
 			getPayrollStaffs() {
-				axios.get('socioeconomic-informations/staffs-list').then(response => {
+				axios.get('/payroll/staffs/show/list').then(response => {
 					this.payroll_staffs = response.data;
 				});
 			},
 
 			getMaritalStatus() {
-				axios.get('socioeconomic-informations/marital-status-list').then(response => {
+				axios.get('/payroll/socioeconomic-informations/show/marital-status-list').then(response => {
 					this.marital_status = response.data;
 				});
 			},
@@ -230,7 +200,7 @@
 			 *
 			 * @author William Páez <wpaez@cenditel.gob.ve>
 			 */
-			addChildren() {
+			addPayrollChildren() {
 				this.record.payroll_childrens.push({
 					first_name: '',
 					last_name: '',
@@ -240,18 +210,12 @@
 			},
 		},
 		created() {
-			this.table_options.headings = {
-				'payroll_staff.first_name': 'Trabajador',
-				'marital_status.name': 'Estado Civil',
-				'payroll_childrens': 'Hijos del Trabajador',
-				'id': 'Acción'
-			};
-			this.table_options.sortable = ['payroll_staff.first_name', 'marital_status.name'];
-			this.table_options.filterable = ['payroll_staff.first_name', 'marital_status.name'];
-			this.getPayrollSocioeconomicInformations();
 			this.getPayrollStaffs();
 			this.getMaritalStatus();
 			this.record.payroll_childrens = [];
 		},
+		mounted() {
+			this.getSocioeconomicInformation();
+		}
 	};
 </script>

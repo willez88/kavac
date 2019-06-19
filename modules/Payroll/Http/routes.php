@@ -13,7 +13,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('staff-classifications', 'PayrollStaffClassificationController', ['as' => 'payroll', 'except' => ['show']]);
 
     Route::resource('staffs', 'PayrollStaffController', ['as' => 'payroll']);
-    Route::get('staffs-list', 'PayrollStaffController@list')->name('payroll.staffs.list');
+    Route::get('staffs/show/list', 'PayrollStaffController@list')->name('payroll.staffs.list');
 
     Route::resource('instruction-degrees', 'PayrollInstructionDegreeController', ['as' => 'payroll', 'except' => ['show']]);
     Route::get('instruction-degrees/list', 'PayrollInstructionDegreeController@list')->name('payroll.instruction-degrees.list');
@@ -34,8 +34,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('genders', 'PayrollGenderController', ['as' => 'payroll', 'except' => ['show']]);
 
     Route::resource('socioeconomic-informations', 'PayrollSocioeconomicInformationController', ['as' => 'payroll']);
-    Route::get('socioeconomic-informations/list', 'PayrollSocioeconomicInformationController@list')->name('payroll.socioeconomic-informations.list');
-    Route::get('socioeconomic-informations/marital-status-list', 'PayrollSocioeconomicInformationController@maritalStatusList')->name('payroll.socioeconomic-informations.marital-status-list');
+    Route::get('socioeconomic-informations/show/vue-list', 'PayrollSocioeconomicInformationController@vueList')->name('payroll.socioeconomic-informations.vue-list');
+    Route::get('socioeconomic-informations/info/{id}', 'PayrollSocioeconomicInformationController@info')->name('payroll.socioeconomic-informations.info');
+    Route::get('socioeconomic-informations/show/marital-status-list', 'PayrollSocioeconomicInformationController@maritalStatusList')->name('payroll.socioeconomic-informations.marital-status-list');
 
     Route::resource('professional-informations', 'PayrollProfessionalInformationController', ['as' => 'payroll']);
     Route::get('professional-informations/info/{id}', 'PayrollProfessionalInformationController@info')->name('payroll.professional-informations.info');

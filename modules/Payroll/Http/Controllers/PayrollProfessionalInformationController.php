@@ -43,7 +43,6 @@ class PayrollProfessionalInformationController extends Controller
     public function index()
     {
         return view('payroll::professional-informations.index');
-        //return view('payroll::professional-informations.index');
     }
 
     /**

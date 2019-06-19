@@ -127,6 +127,10 @@
 							title="Cancelar y regresar" @click="redirect_back(route_list)">
 						<i class="fa fa-ban"></i>
 					</button>
+					<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
+							title="Cancelar y regresar" @click="redirect_back(route_list)">
+						<i class="fa fa-ban"></i>
+					</button>
 	                <button type="button" @click="createRecord('payroll/professional-informations')"
 	                	class="btn btn-success btn-icon btn-round">
 	                	<i class="fa fa-save"></i>

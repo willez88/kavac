@@ -27,83 +27,46 @@
                                             disabled="true" id="payroll_staff">
         							</div>
         						</div>
+                                <div class="col-md-4">
+        							<div class="form-group">
+        								<label>Estado Civil</label>
+        				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                            disabled="true" id="payroll_marital_status">
+        				            </div>
+        				        </div>
+                            </div>
+                            <div class="row">
         						<div class="col-md-4">
         							<div class="form-group">
-        								<label>Grado de Instrucción</label>
+        								<label>Nombres y Apellidos de la Pareja del Trabajador</label>
         				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="payroll_instruction_degree">
+                                            disabled="true" id="full_name_twosome">
         				            </div>
         				        </div>
                                 <div class="col-md-4">
         							<div class="form-group">
-        								<label>Profesión</label>
+        								<label>Cédula de Identidad de la Pareja del Trabajador</label>
         				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="profession">
+                                            disabled="true" id="id_number_twosome">
         				            </div>
         				        </div>
                                 <div class="col-md-4">
         							<div class="form-group">
-        								<label>Nombre de la Especialización, Maestría o Doctorado</label>
+        								<label>Fecha de Nacimiento de la Pareja del Trabajador</label>
         				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="instruction_degree_name">
+                                            disabled="true" id="birthdate_twosome">
         				            </div>
         				        </div>
                             </div>
 
                             <hr>
                             <div class="row">
-                                <div class="col-md-6">
-        							<div class="form-group">
-        								<label>¿Es Estudiante?</label>
-                                        <input id="is_student" class="form-control bootstrap-switch"
-                                            data-on-label="SI" data-off-label="NO" type="checkbox">
-        				            </div>
-        				        </div>
+                                <div class="col-md-3">
+                					<h6 class="card-title">
+                						Hijos del Trabajador
+                					</h6>
+                                </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-        							<div class="form-group">
-        								<label>Tipo de Estudio</label>
-        				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="payroll_study_type">
-        				            </div>
-        				        </div>
-                                <div class="col-md-4">
-        							<div class="form-group">
-        								<label>Nombre del Programa de Estudio</label>
-        				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="study_program_name">
-        				            </div>
-        				        </div>
-                                <div class="col-md-4">
-        							<div class="form-group">
-        								<label>Horario de Clase</label>
-        				        		<textarea class="form-control" disabled="true"
-                                            id="class_schedule">
-                                        </textarea>
-        				            </div>
-        				        </div>
-                            </div>
-
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-        							<div class="form-group">
-        								<label>Idioma</label>
-        				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="payroll_language">
-        				            </div>
-        				        </div>
-                                <div class="col-md-6">
-        							<div class="form-group">
-        								<label>Dominio del Idioma</label>
-        				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="payroll_language_level">
-        				            </div>
-        				        </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -154,15 +117,10 @@
                 axios.get('/payroll/socioeconomic-informations/info/' + id).then(response => {
 					var record = response.data.record;
                     $('#payroll_staff').val(record.payroll_staff);
-                    $('#payroll_instruction_degree').val(record.payroll_instruction_degree);
-                    $('#profession').val(record.profession);
-                    $('#instruction_degree_name').val(record.instruction_degree_name);
-                    (record.is_student) ? $('#is_student').bootstrapSwitch('state', true) : $('#is_student').bootstrapSwitch('state', false);
-                    $('#payroll_study_type').val(record.payroll_study_type);
-                    $('#study_program_name').val(record.study_program_name);
-                    $('#class_schedule').val(record.class_schedule);
-                    $('#payroll_language').val(record.payroll_language);
-                    $('#payroll_language_level').val(record.payroll_language_level);
+                    $('#payroll_marital_status').val(record.payroll_marital_status);
+                    $('#full_name_twosome').val(record.full_name_twosome);
+                    $('#id_number_twosome').val(record.id_number_twosome);
+                    $('#birthdate_twosome').val(record.birthdate_twosome);
 				});
                 $('#show_socioeconomic_information').modal('show');
             }

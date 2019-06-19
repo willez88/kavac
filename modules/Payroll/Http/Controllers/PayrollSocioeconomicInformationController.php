@@ -31,7 +31,7 @@ class PayrollSocioeconomicInformationController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.socioeconomic.informations.list', ['only' => 'index']);
+        $this->middleware('permission:payroll.socioeconomic.informations.list', ['only' => ['index', 'vueList']]);
         $this->middleware('permission:payroll.socioeconomic.informations.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.socioeconomic.informations.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.socioeconomic.informations.delete', ['only' => 'destroy']);
@@ -52,7 +52,7 @@ class PayrollSocioeconomicInformationController extends Controller
      */
     public function create()
     {
-
+        return view('payroll::socioeconomic-informations.create-edit');
     }
 
     /**
@@ -95,18 +95,33 @@ class PayrollSocioeconomicInformationController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('payroll::show');
+        $payroll_socioeconomic_information = PayrollSocioeconomicInformation::findorfail($id)::with(['payroll_childrens'])->first();
+        return response()->json(['record' => $payroll_socioeconomic_information], 200);
+    }
+
+    public function info($id)
+    {
+        $payroll_socioeconomic_information = PayrollSocioeconomicInformation::findorfail($id);
+        $data[] = [
+            'payroll_staff' => $payroll_socioeconomic_information->payroll_staff->full_name,
+            'payroll_marital_status' => $payroll_socioeconomic_information->marital_status->name,
+            'full_name_twosome' => ($payroll_socioeconomic_information->full_name_twosome) ? $payroll_socioeconomic_information->full_name_twosomename : null,
+            'id_number_twosome' => ($payroll_socioeconomic_information->id_number_twosome) ? $payroll_socioeconomic_information->id_number_twosome : null,
+            'birthdate_twosome' => $payroll_socioeconomic_information->birthdate_twosome,
+        ];
+        return response()->json(['record' => $data[0]], 200);
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollSocioeconomicInformation $socioeconomic_information)
+    public function edit($id)
     {
-
+        $socioeconomic_information = PayrollSocioeconomicInformation::find($id);
+        return view('payroll::socioeconomic-informations.create-edit', compact('socioeconomic_information'));
     }
 
     /**
@@ -158,7 +173,7 @@ class PayrollSocioeconomicInformationController extends Controller
         return response()->json(['record' => $payroll_socioeconomic_information, 'message' => 'Success'], 200);
     }
 
-    public function list()
+    public function vuelist()
     {
         return response()->json(['records' => PayrollSocioeconomicInformation::with(['payroll_staff','marital_status','payroll_childrens'])->get()], 200);
     }

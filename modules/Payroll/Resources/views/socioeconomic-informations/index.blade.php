@@ -32,7 +32,7 @@
 					<payroll-socioeconomic-informations-list route_list="{{ url('payroll/socioeconomic-informations/show/vue-list') }}"
 						route_delete="{{ url('payroll/socioeconomic-informations') }}"
 						route_edit="{{ url('payroll/socioeconomic-informations/{id}/edit') }}"
-						route_show="{{ url('payroll/socioeconomic-informations/{id}') }}">>
+						route_show="{{ url('payroll/socioeconomic-informations/{id}') }}">
 					</payroll-socioeconomic-informations-lit>
 				</div>
 			</div>
