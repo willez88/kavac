@@ -126,4 +126,16 @@ class MaritalStatusController extends Controller
         $maritalStatus->delete();
         return response()->json(['record' => $maritalStatus, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Obtiene los estados civiles registrados
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     * @param  integer $id                      Identificador del estado civil a buscar, este parámetro es opcional
+     * @return \Illuminate\Http\JsonResponse    JSON con los datos de los estados
+     */
+    public function getMaritalStatus($id = null)
+    {
+        return response()->json(template_choices('App\Models\MaritalStatus', 'name', [], true));
+    }
 }

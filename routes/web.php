@@ -99,6 +99,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     /** Rutas para la gestión de estados civiles */
     Route::resource('marital-status', 'MaritalStatusController', ['except' => ['show']]);
+    Route::get('/get-marital-status/{id?}', 'MaritalStatusController@getMaritalStatus')
+         ->name('get-marital-status');
 
     /** Rutas para la gestión de profesiones */
     Route::resource('professions', 'ProfessionController', ['except' => ['show']]);

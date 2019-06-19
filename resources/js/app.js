@@ -707,6 +707,20 @@ Vue.mixin({
 			}
 		},
 		/**
+		 * Obtiene un arreglo con los estados civiles
+		 *
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+		 * @param  {integer} id Identificador del estado civil a filtrarm este campo es opcional
+		 */
+		getMaritalStatus(id) {
+			const vm = this;
+			vm.marital_status = [];
+			var marital_status_id = (typeof(id)!=="undefined")?'/'+id:'';
+			axios.get('/get-marital-status' + marital_status_id).then(response => {
+				vm.marital_status = response.data;
+			});
+		},
+		/**
 		 * Agrega una nueva columna para el registro de número telefónicos
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
