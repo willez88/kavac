@@ -91,9 +91,9 @@ class PayrollStaffController extends Controller
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'payroll_nationality_id' => 'required',
-            'id_number' => 'required|regex:/^[\d]{8}$/u',
+            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs',
             'passport' => 'nullable|max:20',
-            'email' => 'nullable|email',
+            'email' => 'nullable|email|unique:payroll_staffs',
             'birthdate' => 'required|date',
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
@@ -230,5 +230,10 @@ class PayrollStaffController extends Controller
             return response()->json(['result' => true]);
         }
         return redirect()->route('payroll.staffs.index');
+    }
+
+    public function list()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollStaff',['id_number','-','full_name'],'',true);
     }
 }

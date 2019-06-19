@@ -32,7 +32,7 @@ class PayrollStudyTypesTableSeeder extends Seeder
 
         DB::transaction(function() use ($payroll_study_types) {
             foreach ($payroll_study_types as $study_type) {
-                PayrollStaffType::updateOrCreate(
+                PayrollStudyType::updateOrCreate(
                     ['name' => $study_type['name']],
                     [
                         'description' => $study_type['description']

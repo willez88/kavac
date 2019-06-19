@@ -130,4 +130,9 @@ class PayrollInstructionDegreeController extends Controller
         }
         return redirect()->route('payroll.instruction-degrees.index');
     }
+
+    public function list()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollInstructionDegree','name','',true);
+    }
 }
