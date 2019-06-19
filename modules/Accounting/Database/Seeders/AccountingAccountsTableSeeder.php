@@ -3698,19 +3698,19 @@ class AccountingAccountsTableSeeder extends Seeder
 
         DB::transaction(function() use ($accounting_acounts) {
             foreach ($accounting_acounts as $account) {
-                $parent = AccountingAccount::getParent(
-                    $account['group'], $account['subgroup'], $account['item'], $account['generic'], $account['specific'], $account['subspecific']
-                );
 
-                /**
-                * Si existe, al ejecutar nuevamente el seeder evita que se asigne a si mismo como su parent
-                */ 
-                $parent_id = (AccountingAccount::where('group',$account['group'])
+                /** @var Object que almacena la consulta de la cuenta, si esta no existe retorna null */
+                $acc = AccountingAccount::where('group',$account['group'])
                                     ->where('subgroup',$account['subgroup'])
                                     ->where('item',$account['item'])
                                     ->where('generic',$account['generic'])
                                     ->where('specific',$account['specific'])
-                                    ->where('subspecific',$account['subspecific'])->first()->id == $parent->id)?null:$parent->id;
+                                    ->where('subspecific',$account['subspecific'])->first();
+
+                /** @var Object que almacena la consulta de la cuenta de nivel superior de la cuanta actual, si esta no posee retorna false */
+                $parent = AccountingAccount::getParent(
+                        $account['group'], $account['subgroup'], $account['item'], $account['generic'], $account['specific'], $account['subspecific']
+                    );
 
                 AccountingAccount::updateOrCreate(
                     [
@@ -3721,7 +3721,11 @@ class AccountingAccountsTableSeeder extends Seeder
                         'denomination' => $account['denomination'],
                         'active' => $account['active'],
                         'inactivity_date' => (!$account['active'])?date('Y-m-d'):null,
-                        'parent_id' => $parent_id,
+
+                        /**
+                        * Si existe, al ejecutar nuevamente el seeder o refrescar la base de datos evita que se asigne en la columna parent_id a si mismo como su parent
+                        */ 
+                        'parent_id' => ($acc != null) ? (($acc->id == $parent->id)?null:$parent->id) : (($parent == false)?null:$parent->id) ,
                     ]
                 );
             }
