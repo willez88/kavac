@@ -25,6 +25,17 @@ use Auth;
 
 class AccountingReportPdfBalanceSheetController extends Controller
 {
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:accounting.report.balancesheet', ['only' => ['index', 'pdf']]);
+    }
     /**
      * Despliega la vista principal del formulario de reporte de balance general
      * @return View

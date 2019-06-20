@@ -27,6 +27,18 @@ use Auth;
 
 class AccountingReportPdfAuxiliaryBookController extends Controller
 {
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:accounting.report.auxiliarybook', ['only' => ['index', 'pdf']]);
+    }
+
     /**
      * Despliega la vista principal del formulario de reporte de libro auxiliar
      * @return View
