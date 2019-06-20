@@ -116,5 +116,69 @@ Vue.mixin({
 			});
 		},
 
+		/**
+		 * Obtiene los datos de los trabajadores registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollStaffs() {
+			this.payroll_staffs = [];
+			//url por confirmar
+			axios.get('/payroll/get-staffs/list').then(response => {
+				this.payroll_staffs = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de los tipos de estudio registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollStudyTypes() {
+			this.payroll_study_types = [];
+			//url por confirmar
+			axios.get('/payroll/get-study-types/list').then(response => {
+				this.payroll_study_types = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos del idioma que manejan los trabajdores
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollLanguages() {
+			this.payroll_languages = [];
+			//url por confirmar
+			axios.get('/payroll/get-languages/list').then(response => {
+				this.payroll_languages = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos del nivel de idioma que tienen los trabajadores
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollLanguageLevels() {
+			this.payroll_language_levels = [];
+			//url por confirmar
+			axios.get('/payroll/get-language-levels/list').then(response => {
+				this.payroll_language_levels = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de los grados de instrucción registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollInstructionDegrees() {
+			this.payroll_instruction_degree_id = [];
+			//url por confirmar
+			axios.get('/payroll/get-instruction-degrees/list').then(response => {
+				this.payroll_instruction_degrees = response.data;
+			});
+		},
 	},
 });

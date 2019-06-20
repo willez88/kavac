@@ -179,18 +179,6 @@
 				}
 			},
 
-			getPayrollStaffs() {
-				axios.get('/payroll/staffs/show/list').then(response => {
-					this.payroll_staffs = response.data;
-				});
-			},
-
-			getMaritalStatus() {
-				axios.get('/payroll/socioeconomic-informations/show/marital-status-list').then(response => {
-					this.marital_status = response.data;
-				});
-			},
-
 			showHide(value) {
 				(this.record.marital_status_id == 2) ? $('#block_twosome').removeClass('d-none') : $('#block_twosome').addClass('d-none');
 			},

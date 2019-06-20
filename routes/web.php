@@ -16,8 +16,8 @@
  * Ruta para la gestión de acceso a la aplicación
  * -----------------------------------------------------------------------
  *
- * Condiciona el acceso a la aplicación y evalúa si el usuario esta 
- * autenticado en el sistema, si lo está, redirecciona a la página principal 
+ * Condiciona el acceso a la aplicación y evalúa si el usuario esta
+ * autenticado en el sistema, si lo está, redirecciona a la página principal
  * de lo contrario muestra la interfaz de autenticación
  */
 Route::get('/', 'DashboardController@index')->name('index');
@@ -60,8 +60,8 @@ Route::post('/logs/front-end', 'Admin\LogController@frontEnd')->name('logs.front
  * Grupo de rutas para la gestión general de registros
  * -----------------------------------------------------------------------
  *
- * Permite gestionar los distintos modelos de uso común en la aplicación y 
- * el acceso a los distintos discos establecidos en la configuración de 
+ * Permite gestionar los distintos modelos de uso común en la aplicación y
+ * el acceso a los distintos discos establecidos en la configuración de
  * config/filesystems.php
  */
 Route::group(['middleware' => 'auth'], function() {
@@ -104,6 +104,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     /** Rutas para la gestión de profesiones */
     Route::resource('professions', 'ProfessionController', ['except' => ['show']]);
+    Route::get('/get-professions/{id?}', 'ProfessionController@getProfessions')
+         ->name('get-professions');
 
     /** Rutas para la gestión de tipos de instituciones */
     Route::resource('institution-types', 'InstitutionTypeController', ['except' => ['show']]);
@@ -173,7 +175,7 @@ Route::group(['middleware' => 'auth'], function() {
  * Grupo de rutas establecidas en el namespace Auth
  * -----------------------------------------------------------------------
  *
- * Gestiona los controladores que se encuentran en el namespace Auth y que 
+ * Gestiona los controladores que se encuentran en el namespace Auth y que
  * requieren de que el usuario se encuentre autenticado en el sistema
  */
 Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {
@@ -187,8 +189,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {
  * Grupo de rutas para la gestión de servicios del sistema
  * -----------------------------------------------------------------------
  *
- * Gestiona diferentes datos dentro de la aplicación y retorna los mismos 
- * en formato json, estos a su vez requieren de que el usuario se encuentre 
+ * Gestiona diferentes datos dentro de la aplicación y retorna los mismos
+ * en formato json, estos a su vez requieren de que el usuario se encuentre
  * autenticado en el sistema para poder hacer uso de ellos
  */
 Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
@@ -209,7 +211,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
  * Grupo de rutas de acceso exclusivo del usuario desarrollador
  * -----------------------------------------------------------------------
  *
- * Gestiona las rutas que solo pueden accederse si el usuario autenticado 
+ * Gestiona las rutas que solo pueden accederse si el usuario autenticado
  * es un desarrollador del sistema
  */
 Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefix' => 'dev'], function() {
@@ -226,13 +228,13 @@ Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefi
  * Grupo de rutas de acceso exclusivo del usuario administrador
  * -----------------------------------------------------------------------
  *
- * Gestiona las rutas que solo pueden accederse si el usuario autenticado 
+ * Gestiona las rutas que solo pueden accederse si el usuario autenticado
  * es administrador del sistema
  */
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
     Route::get('restore/{model}/{id}', 'DashboardController@restore');
-    
+
     /**
      * ------------------------------------------------------------------
      * Grupo de rutas del namespace Admin
@@ -262,7 +264,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
         Route::get('get-institution/details/{institution}', 'InstitutionController@getDetails')
              ->name('institution.details');
     });
-    
+
     /**
      * ------------------------------------------------------------------
      * Grupo de rutas del namespace Auth
@@ -274,7 +276,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
         /** Ruta de configuración de permisos asociados a los distintos roles del sistema */
         Route::post('settings/roles-permissions', 'UserController@setRolesAndPermissions')->name('roles.permissions.settings');
-        
+
         /** Ruta para la assignación de roles y permisos a usuarios del sistema */
         Route::get('assign/roles-permissions/{user}', 'UserController@assignAccess')->name('assign.access');
         Route::post('assign/roles-permissions', 'UserController@setAccess')->name('roles.permissions.assign');
