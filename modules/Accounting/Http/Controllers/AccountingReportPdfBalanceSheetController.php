@@ -139,8 +139,8 @@ class AccountingReportPdfBalanceSheetController extends Controller
         $pdf->writeHTML($html, true, false, true, false, '');
 
         $pdf->Output("BalanceGeneral_al_{$endDate}.pdf");
-
     }
+    
     /**
      * sintetiza la información de una cuenta en un array con sus respectivas subcuentas
      *

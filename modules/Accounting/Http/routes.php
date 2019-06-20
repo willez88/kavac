@@ -123,6 +123,8 @@ Route::group(['middleware' => 'web',
 	 */
 	Route::get('report/stateOfResults', 'AccountingReportPdfStateOfResultsController@index')
 			->name('accounting.report.stateOfResults');
+	Route::get('report/stateOfResults/pdf/{date}/{level}/{zero?}', 'AccountingReportPdfStateOfResultsController@pdf')
+			->name('accounting.report.stateOfResults.pdf');
 
 	/**
 	* rutas de crud de asientos contables

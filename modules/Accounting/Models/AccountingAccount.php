@@ -90,19 +90,19 @@ class AccountingAccount extends Model implements Auditable
                             $parent = $parent->where('specific', $specific);
                         }
                         else {
-                            $parent = $parent->where('subspecific', '00');
+                            $parent = $parent->where('specific', '00');
                         }
                     }
                     else {
-                        $parent = $parent->where('specific', '00');
+                        $parent = $parent->where('generic', '00');
                     }
                 }
                 else {
-                    $parent = $parent->where('generic', '00');
+                    $parent = $parent->where('item', '0');
                 }
             }
             else {
-                $parent = $parent->where('item', '0');
+                $parent = $parent->where('subgroup', '0');
             }
         }else{
             $parent = self::where('group', $group)->where('subgroup', '0');
