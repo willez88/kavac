@@ -132,7 +132,7 @@ class PayrollStudyTypeController extends Controller
         return redirect()->route('payroll.study-types.index');
     }
 
-    public function list()
+    public function getPayrollStudyTypes()
     {
         return template_choices('Modules\Payroll\Models\PayrollStudyType','name','',true);
     }

@@ -131,7 +131,7 @@ class PayrollLanguageController extends Controller
         return redirect()->route('payroll.languages.index');
     }
 
-    public function list()
+    public function getPayrollLanguages()
     {
         return template_choices('Modules\Payroll\Models\PayrollLanguage','name','',true);
     }

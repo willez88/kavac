@@ -242,11 +242,6 @@ class PayrollProfessionalInformationController extends Controller
         return response()->json(['record' => $payroll_professional_information, 'message' => 'Success'], 200);
     }
 
-    public function professionsList()
-    {
-        return template_choices('App\Models\Profession','name','',true);
-    }
-
     public function vueList()
     {
         return response()->json(['records' => PayrollProfessionalInformation::with([

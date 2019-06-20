@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 /**
  * @class ProfessionController
  * @brief Gestiona información de Profesiones
- * 
+ *
  * Controlador para gestionar Profesiones
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -112,11 +112,11 @@ class ProfessionController extends Controller
             'name' => 'required|max:100|unique:professions,name,' . $profession->id,
             'acronym' => 'max:10'
         ]);
- 
+
         $profession->name = $request->name;
         $profession->acronym = ($request->acronym)?$request->acronym:null;
         $profession->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
@@ -131,5 +131,17 @@ class ProfessionController extends Controller
     {
         $profession->delete();
         return response()->json(['record' => $profession, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Obtiene las profesiones registradas
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador de la profesión a buscar, este parámetro es opcional
+     * @return \Illuminate\Http\JsonResponse    JSON con los datos de las profesiones
+     */
+    public function getProfessions($id = null)
+    {
+        return response()->json(template_choices('App\Models\Profession', 'name', [], true));
     }
 }

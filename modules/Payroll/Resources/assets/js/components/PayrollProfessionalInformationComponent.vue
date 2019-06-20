@@ -1,6 +1,6 @@
 <template>
 	<div class="row">
-		<div class="col-7">
+		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">Registrar los Datos Profesionales</h6>
@@ -127,26 +127,12 @@
 							title="Cancelar y regresar" @click="redirect_back(route_list)">
 						<i class="fa fa-ban"></i>
 					</button>
-					<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
-							title="Cancelar y regresar" @click="redirect_back(route_list)">
-						<i class="fa fa-ban"></i>
-					</button>
 	                <button type="button" @click="createRecord('payroll/professional-informations')"
 	                	class="btn btn-success btn-icon btn-round">
 	                	<i class="fa fa-save"></i>
 		            </button>
 		        </div>
 
-			</div>
-		</div>
-
-		<div class="col-5">
-			<div class="card">
-				<div class="card-body">
-					<pre>
-						{{ $data }}
-					</pre>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -188,42 +174,6 @@
 						this.record = response.data.record;
 					});
 				}
-			},
-
-			getPayrollStaffs() {
-				axios.get('/payroll/staffs-list').then(response => {
-					this.payroll_staffs = response.data;
-				});
-			},
-
-			getPayrollInstructionDegrees() {
-				axios.get('/payroll/instruction-degrees/list').then(response => {
-					this.payroll_instruction_degrees = response.data;
-				});
-			},
-
-			getProfessions() {
-				axios.get('/payroll/professional-informations/show/professions-list').then(response => {
-					this.professions = response.data;
-				});
-			},
-
-			getPayrollStudyTypes() {
-				axios.get('/payroll/study-types/list').then(response => {
-					this.payroll_study_types = response.data;
-				});
-			},
-
-			getPayrollLanguages() {
-				axios.get('/payroll/languages/list').then(response => {
-					this.payroll_languages = response.data;
-				});
-			},
-
-			getPayrollLanguageLevels() {
-				axios.get('/payroll/language-levels/list').then(response => {
-					this.payroll_language_levels = response.data;
-				});
 			},
 
 			showHide() {

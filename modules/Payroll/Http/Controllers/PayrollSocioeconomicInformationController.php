@@ -177,9 +177,4 @@ class PayrollSocioeconomicInformationController extends Controller
     {
         return response()->json(['records' => PayrollSocioeconomicInformation::with(['payroll_staff','marital_status','payroll_childrens'])->get()], 200);
     }
-
-    public function maritalStatusList()
-    {
-        return template_choices('App\Models\MaritalStatus','name','',true);
-    }
 }
