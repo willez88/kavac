@@ -12,44 +12,7 @@
 			</ul>
 		</div>
 	</div>
-	<form @submit.prevent="" class="form-horizontal col-5">
-		<div class="card-body">
-			<div class="row">
-				<div class="form-group col-12 is-required">
-					<label class="control-label">Nombre</label>
-					<input type="text"
-							class="form-control"
-							title="Nombre de la nueva categoria de origen"
-							v-model="NewCategory.name">
-				</div>
-				<div class="form-group col-12 is-required">
-					<label class="control-label">Acrónimo</label>
-					<input type="text"
-							class="form-control"
-							title="Acrónimo"
-							v-model="NewCategory.acronym">
-				</div>
-				<div class="form-group col-2">
-					<button class="btn btn-success btn-xs" 
-							title="Guardar registro"
-							style="margin-top: 1.3rem !important;" 
-							:disabled="NewCategory.name=='' || NewCategory.acronym==''"
-							@click="storeCategory()"
-							v-if="state == 'store'">Guardar
-					</button>
-					<button class="btn btn-success btn-xs" 
-							title="Actualizar registro"
-							style="margin-top: 1.3rem !important;" 
-							:disabled="NewCategory.name=='' || NewCategory.acronym==''"
-							@click="updateCategory()"
-							v-if="state == 'update'">Actualizar
-					</button>
-				</div>
-			</div>
-		</div>
-	</form>
-	<div class="col 1"></div>
-	<table class="table col-5">
+	<table class="table table-striped col-5" style="margin-top: 2rem; margin-left: 5rem;">
 		<thead>
 			<tr>
 				<td><strong>NOMBRE</strong></td>
@@ -76,6 +39,44 @@
 			</tr>
 		</tbody>
 	</table>
+	<form @submit.prevent="" class="form-horizontal col-5" style="margin-left: 3rem;">
+		<div class="card-body">
+			<div class="row">
+				<div class="form-group col-12 is-required">
+					<label class="control-label">Nombre</label>
+					<input type="text"
+							class="form-control"
+							title="Nombre de la nueva categoria de origen"
+							v-model="NewCategory.name">
+				</div>
+				<div class="form-group col-12 is-required">
+					<label class="control-label">Acrónimo</label>
+					<input type="text"
+							class="form-control"
+							title="Acrónimo"
+							v-model="NewCategory.acronym">
+				</div>
+			</div>
+		</div>
+		<div class="card-footer" align="right">
+			<div class="form-group">
+				<button class="btn btn-success btn-xs" 
+						title="Guardar registro"
+						style="margin-top: 1.3rem !important;" 
+						:disabled="NewCategory.name=='' || NewCategory.acronym==''"
+						@click="storeCategory()"
+						v-if="state == 'store'">Guardar
+				</button>
+				<button class="btn btn-success btn-xs" 
+						title="Actualizar registro"
+						style="margin-top: 1.3rem !important;" 
+						:disabled="NewCategory.name=='' || NewCategory.acronym==''"
+						@click="updateCategory()"
+						v-if="state == 'update'">Actualizar
+				</button>
+			</div>
+		</div>
+	</form>
 </div>
 </template>
 
