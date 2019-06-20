@@ -26,13 +26,16 @@ class PayrollLanguageLevelsTableSeeder extends Seeder
                 'name' => 'Intermedio'
             ],
             [
-                'name' => 'Doctorado'
+                'name' => 'Avanzado'
+            ],
+            [
+                'name' => 'Nativo'
             ]
         ];
 
         DB::transaction(function() use ($payroll_language_levels) {
             foreach ($payroll_language_levels as $language_level) {
-                PayrollStaffType::updateOrCreate(
+                PayrollLanguageLevel::updateOrCreate(
                     ['name' => $language_level['name']]
                 );
             }
