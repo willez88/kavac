@@ -39,7 +39,7 @@ Vue.component('payroll-professional-information', require('./components/PayrollP
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
-Vue.component('payroll-tabulator', require('./components/PayrollTabulatorComponent.vue').default);
+Vue.component('payroll-salary-tabulator', require('./components/PayrollSalaryTabulatorComponent.vue').default);
 
 /**
  * Componente para la gestión de asignaciones de nómina
@@ -47,72 +47,58 @@ Vue.component('payroll-tabulator', require('./components/PayrollTabulatorCompone
  * @author Henry Paredes (henryp2804@gmail.com)
  */
 
-Vue.component('payroll-assignment-type', require('./components/PayrollAssignmentTypeComponent.vue').default);
-Vue.component('payroll-assignment', require('./components/PayrollAssignmentComponent.vue').default);
+Vue.component('payroll-salary-assignment-type', require('./components/PayrollSalaryAssignmentTypeComponent.vue').default);
+Vue.component('payroll-salary-assignment', require('./components/PayrollSalaryAssignmentComponent.vue').default);
 
 /**
  * Componente para la gestión de calculos de salario
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  */
-Vue.component('payroll-salary-simulator', require('./components/PayrollSalarySimulatorComponent.vue').default);
+//Vue.component('payroll-salary-simulator', require('./components/PayrollSalarySimulatorComponent.vue').default);
 
 /**
  * Opciones de configuración global del módulo de Nómina
- *
- * @author Henry Paredes (henryp2804@gmail.com)
  */
 Vue.mixin({
 	methods: {
+
 		/**
-		 * Obtiene los datos de los puestos de trabajo registrados en la institucion
+		 * Obtiene los datos de los tipos de asignaciones salariales registradas
 		 *
 		 * @author Henry Paredes (henryp2804@gmail.com)
 		 */
-		getStaffs() {
+		getPayrollSalaryAssignmentTypes() {
 			const vm = this;
-			vm.staffs = [];
-			axios.get('/payroll/get-staffs').then(response => {
-				vm.staffs = response.data;
+			vm.payroll_salary_assignment_types = [];
+			axios.get('/payroll/get-salary-assignment-types').then(response => {
+				vm.payroll_salary_assignment_types = response.data;
 			});
 		},
 
 		/**
 		 * Obtiene los datos de los tipos de cargo registrados en la institucion
 		 *
-		 * @author Henry Paredes (henryp2804@gmail.com)
+		 * @author William Páez <wpaez@cenditel.gob.ve>
 		 */
-		getPositionTypes() {
+		getPayrollPositionTypes() {
 			const vm = this;
-			vm.position_types = [];
+			vm.payroll_position_types = [];
 			axios.get('/payroll/get-position-types').then(response => {
-				vm.position_types = response.data;
-			});
-		},
-
-		/**
-		 * Obtiene los datos de los tipos de asignaciones de nómina registradas
-		 *
-		 * @author Henry Paredes (henryp2804@gmail.com)
-		 */
-		getAssignmentTypes() {
-			const vm = this;
-			vm.assignment_types = [];
-			axios.get('/payroll/get-assignment-types').then(response => {
-				vm.assignment_types = response.data;
+				vm.payroll_position_types = response.data;
 			});
 		},
 
 		/**
 		 * Obtiene los datos de los cargos registrados en la institucion
 		 *
-		 * @author Henry Paredes (henryp2804@gmail.com)
+		 * @author William Páez <wpaez@cenditel.gob.ve>
 		 */
-		getPositions() {
+		getPayrollPositions() {
 			const vm = this;
-			vm.positions = [];
+			vm.payroll_positions = [];
 			axios.get('/payroll/get-positions').then(response => {
-				vm.positions = response.data;
+				vm.payroll_positions = response.data;
 			});
 		},
 

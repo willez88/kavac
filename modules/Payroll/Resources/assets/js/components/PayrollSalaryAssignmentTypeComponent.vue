@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Tipos de Asignaciones de Nómina" data-toggle="tooltip" 
-		   @click="addRecord('add_assignment_type', 'assignment-types', $event)">
+		   @click="addRecord('add_assignment_type', 'salary-assignment-types', $event)">
 			<i class=""></i>
 			<span>Tipos de Asignaciones</span>
 		</a>
@@ -55,7 +55,7 @@
 			                				title="Modificar registro" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-edit"></i>
 			                		</button>
-			                		<button @click="deleteRecord(props.index, 'assignment-types')" 
+			                		<button @click="deleteRecord(props.index, 'salary-assignment-types')" 
 											class="btn btn-danger btn-xs btn-icon btn-action" 
 											title="Eliminar registro" data-toggle="tooltip" 
 											type="button">
@@ -73,7 +73,7 @@
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('payroll/assignment-types')"
+	                	<button type="button" @click="createRecord('payroll/salary-assignment-types')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
