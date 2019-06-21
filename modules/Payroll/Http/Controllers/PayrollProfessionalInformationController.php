@@ -113,7 +113,8 @@ class PayrollProfessionalInformationController extends Controller
         $payroll_professional_information->payroll_language_id = $request->payroll_language_id;
         $payroll_professional_information->payroll_language_level_id = $request->payroll_language_level_id;
         $payroll_professional_information->save();
-        return response()->json(['message' => 'Success'], 200);
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('payroll.professional-informations.index')], 200);
     }
 
     /**
@@ -228,7 +229,8 @@ class PayrollProfessionalInformationController extends Controller
         $payroll_professional_information->payroll_language_id = $request->payroll_language_id;
         $payroll_professional_information->payroll_language_level_id = $request->payroll_language_level_id;
         $payroll_professional_information->save();
-        return response()->json(['message' => 'Success'], 200);
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('payroll.professional-informations.index')], 200);
     }
 
     /**
