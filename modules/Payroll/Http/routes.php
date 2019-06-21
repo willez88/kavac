@@ -9,7 +9,11 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
 
     Route::resource('staff-types', 'PayrollStaffTypeController', ['as' => 'payroll', 'except' => ['show']]);
     Route::resource('position-types', 'PayrollPositionTypeController', ['as' => 'payroll', 'except' => ['show']]);
+    Route::get('get-position-types', 'PayrollPositionTypeController@getPayrollPositionTypes')->name('payroll.get-payroll-position-types');
+
     Route::resource('positions', 'PayrollPositionController', ['as' => 'payroll', 'except' => ['show']]);
+    Route::get('get-positions', 'PayrollPositionController@getPayrollPositions')->name('payroll.get-payroll-positions');
+
     Route::resource('staff-classifications', 'PayrollStaffClassificationController', ['as' => 'payroll', 'except' => ['show']]);
 
     Route::resource('staffs', 'PayrollStaffController', ['as' => 'payroll']);
@@ -55,7 +59,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
      * ------------------------------------------------------------
      */
 
-    Route::resource('tabulators', 'PayrollTabulatorController', ['except' => ['show']]);
+    Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show']]);
 
     /**
      * ------------------------------------------------------------
@@ -63,17 +67,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
      * ------------------------------------------------------------
      */
 
-    Route::resource('assignments', 'PayrollTabulatorController', ['except' => ['show']]);
-    Route::resource('assignment-types', 'PayrollAssignmentTypeController', ['except' => ['show','create','edit']]);
-
-    /**
-     * ------------------------------------------------------------
-     * Rutas para gestionar el simulador de salario
-     * ------------------------------------------------------------
-     */
-
-    Route::get('salary-simulator', 'PayrollServiceController@create');
-    Route::resource('scales', 'PayrollTabulatorController', ['except' => ['show']]);
+    Route::resource('salary-assignments', 'PayrollSalaryAssignmentController', ['except' => ['show']]);
+    Route::resource('salary-assignment-types', 'PayrollSalaryAssignmentTypeController', ['except' => ['show','create','edit']]);
+    Route::get('get-salary-assignment-types', 'PayrollSalaryAssignmentTypeController@getAssignmentTypes');
 
     /**
      * ------------------------------------------------------------
@@ -82,9 +78,6 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
      */
 
     Route::get('get-staffs', 'PayrollServiceController@getStaffs');
-    Route::get('get-position-types', 'PayrollServiceController@getPositionTypes');
-    Route::get('get-positions', 'PayrollServiceController@getPositions');
-    Route::get('get-assignment-types', 'PayrollServiceController@getAssignmentTypes');
     Route::get('get-instruction-degrees', 'PayrollServiceController@getInstructionDegrees');
 
 });

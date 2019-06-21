@@ -9,9 +9,10 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollPositionType;
 
-class PayrollTabulatorController extends Controller
+class PayrollSalaryTabulatorController extends Controller
 {
     use ValidatesRequests;
+    
     /**
      * Display a listing of the resource.
      * @return Response

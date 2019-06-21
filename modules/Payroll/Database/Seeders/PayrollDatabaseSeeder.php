@@ -41,6 +41,6 @@ class PayrollDatabaseSeeder extends Seeder
         $this->call(PayrollLanguagesTableSeeder::class);
 
         /** Seeder para los tipos de asignacion disponibles en el módulo */
-        $this->call(PayrollAssignmentTypeTableSeeder::class);
+        $this->call(PayrollSalaryAssignmentTypeTableSeeder::class);
     }
 }

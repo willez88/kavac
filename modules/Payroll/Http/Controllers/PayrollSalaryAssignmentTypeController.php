@@ -7,31 +7,31 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\PayrollAssignmentType;
+use Modules\Payroll\Models\PayrollSalaryAssignmentType;
 
 /**
- * @class PayrollAssignmentTypeController
- * @brief Controlador de tipos de asignaciones de nómina
+ * @class PayrollSalaryAssignmentTypeController
+ * @brief Controlador de tipos de asignaciones salariales
  *
- * Clase que gestiona los tipos de asignaciones de nómina
+ * Clase que gestiona los tipos de asignaciones salariales
  *
  * @author Henry Paredes (henryp2804@gmail.com)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class PayrollAssignmentTypeController extends Controller
+class PayrollSalaryAssignmentTypeController extends Controller
 {
     use ValidatesRequests;
     
     /**
-     * Muestra un listado de los tipos de asignación de nómina
+     * Muestra un listado de los tipos de asignaciones salariales
      *
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
-        return response()->json(['records' => PayrollAssignmentType::all()], 200);
+        return response()->json(['records' => PayrollSalaryAssignmentType::all()], 200);
     }
 
     /**
@@ -48,7 +48,7 @@ class PayrollAssignmentTypeController extends Controller
         ]);
 
 
-        $assignment_type = PayrollAssignmentType::create([
+        $assignment_type = PayrollSalaryAssignmentType::create([
             'name' => $request->input('name'),
             'description' => $request->input('description')
         ]);
@@ -61,11 +61,11 @@ class PayrollAssignmentTypeController extends Controller
      *
      * @author Henry Paredes (henryp2804@gmail.com)
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @param  \Modules\Payroll\Models\PayrollAssignmentType  $assignment_type (Datos del Tipo de asignación)
+     * @param  \Modules\Payroll\Models\PayrollSalaryAssignmentType  $assignment_type (Datos del Tipo de asignación)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     
-    public function update(Request $request, PayrollAssignmentType $assignment_type)
+    public function update(Request $request, PayrollSalaryAssignmentType $assignment_type)
     {
         $this->validate($request, [
             'name' => 'required'
@@ -82,13 +82,18 @@ class PayrollAssignmentTypeController extends Controller
      * Elimina el Tipo de Bien
      *
      * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Payroll\Models\PayrollAssignmentType  $assignment_type (Datos del tipo de asignación)
+     * @param  \Modules\Payroll\Models\PayrollSalaryAssignmentType  $assignment_type (Datos del tipo de asignación)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function destroy(PayrollAssignmentType $assignment_type)
+    public function destroy(PayrollSalaryAssignmentType $assignment_type)
     {
         $assignment_type->delete();
         return response()->json(['record' => $assignment_type, 'message' => 'Success'], 200);
+    }
+
+    
+    public function getAssignmentTypes(){
+        return template_choices('Modules\Payroll\Models\PayrollSalaryAssignmentType','name','',true);
     }
 
 }

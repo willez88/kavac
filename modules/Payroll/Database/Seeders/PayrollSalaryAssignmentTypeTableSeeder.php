@@ -5,21 +5,20 @@ namespace Modules\Payroll\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use Modules\Payroll\Models\PayrollAssignmentType;
+use Modules\Payroll\Models\PayrollSalaryAssignmentType;
 
 /**
- * @class PayrollAssignmentType
- * @brief Inicializar tipos de asignaciones de nómina
- * 
+ * @class PayrollSalaryAssignmentType
+ * @brief Inicializar tipos de asignaciones salariales
  * 
  * @author Henry Paredes (henryp2804@gmail.com)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class PayrollAssignmentTypeTableSeeder extends Seeder
+class PayrollSalaryAssignmentTypeTableSeeder extends Seeder
 {
     /**
-     * Método que registra los valores iniciales de tipos de bien
+     * Método que registra los valores iniciales de los tipos de asignaciones salariales
      *
      * @author  Henry Paredes (henryp2804@gmail.com)
      * @return void
@@ -38,7 +37,7 @@ class PayrollAssignmentTypeTableSeeder extends Seeder
         ];
    
         foreach ($assignment_type as $type) {
-            PayrollAssignmentType::updateOrCreate(
+            PayrollSalaryAssignmentType::updateOrCreate(
                 ['name' => $type['name']]
             );
         }
