@@ -88,7 +88,8 @@ class PayrollSocioeconomicInformationController extends Controller
                 $payroll_children->save();
             }
         }
-        return response()->json(['message' => 'Success'], 200);
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('payroll.socioeconomic-informations.index')], 200);
     }
 
     /**
@@ -159,7 +160,8 @@ class PayrollSocioeconomicInformationController extends Controller
                 $payroll_children->save();
             }
         }
-        return response()->json(['message' => 'Success'], 200);
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('payroll.socioeconomic-informations.index')], 200);
     }
 
     /**
