@@ -1,10 +1,5 @@
 <?php
-/**
- * Models - Gestión de modelos comúnes
- *
- * @package  Models
- * @author   Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +8,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class Document extends Model implements Auditable
+class RequiredDocument extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -36,7 +31,16 @@ class Document extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'file', 'url', 'signs', 'archive_number', 'physical_support', 'digital_support_original', 
-        'digital_support_signed'
+    	'name', 'description'
     ];
+
+    /**
+     * RequiredDocument morphs to models in requireable_type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function requireable()
+    {
+    	return $this->morphTo();
+    }
 }

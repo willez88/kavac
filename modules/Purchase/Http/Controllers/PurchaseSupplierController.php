@@ -24,7 +24,7 @@ class PurchaseSupplierController extends Controller
      */
     public function create()
     {
-        return view('purchase::create');
+        return view('purchase::suppliers.create-edit-form');
     }
 
     /**
