@@ -219,7 +219,7 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         $pdf->AddPage();
 
         $OneSeat = false;
-        // dd($records);
+        
         $html = \View::make('accounting::pdf.accounting_analytical_major_pdf',compact('pdf','records','initDate','endDate','currency'))->render();
         $pdf->SetFont('Courier','B',8);
 

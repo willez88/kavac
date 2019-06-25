@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
@@ -84,8 +84,8 @@ class AccountingReportPdfDailyBookController extends Controller
         $pdf->Open();
         $pdf->AddPage();
 
-        $OneSeat = false;
-        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('pdf','seats','OneSeat','currency'))->render();
+        $Seating = false;
+        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('pdf','seats','Seating','currency'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');

@@ -1,15 +1,27 @@
 @php
-	$pdf->SetTitle('Libro Diario'); // titulo del archivo
+	if ($Seating) {
+		$pdf->SetTitle('Asiento Contable'); // titulo del archivo
+	}else{
+		$pdf->SetTitle('Libro Diario'); // titulo del archivo
+	}
     $height = $pdf->get_Y();
     $totDebit=0;
     $totAssets=0;
     $cont = 1;
+
+    $lineWrites = 0;
 @endphp
-<h2 align="center">LIBRO DIARIO</h2>
+@if($Seating)
+	<h2 align="center">ASIENTO CONTABLE</h2>
+	@php $lineWrites = 5; @endphp
+@else
+	<h2 align="center">LIBRO DIARIO</h2>
+	@php $lineWrites = 3; @endphp
+@endif
 <h4>EXPRESADO EN {{ $currency->symbol }}</h4>
 
-@if($OneSeat)
-	{{-- Pdf de un asiento contable --}}
+@if($Seating)
+	{{-- Pdf de asiento contable --}}
 	<table cellspacing="0" cellpadding="1" border="0">
 		<tr>
 			@php
@@ -31,6 +43,19 @@
 				<th width="17%" style="background-color: #BDBDBD;" align="center">HABER</th>
 			</tr>
 			@foreach($seat['accounting_accounts'] as $account)
+				{{-- Se valida el numero de lineas impresas para llegado el limite realizar el salto de pagina manualmente --}}
+				@if($lineWrites == 26)
+					<br pagebreak="true" />
+					@php
+						$lineWrites = 0;
+					@endphp
+				@endif
+
+				@php
+					// Se aumenta el contador de lineas
+					$lineWrites++;
+				@endphp
+				{{-- Fin de la validación --}}
 				<tr>
 					<td>
 						{{' '.$account['account']['denomination'] }}
@@ -50,6 +75,19 @@
 		</table>
 		<br><br>
 		<table cellspacing="0" cellpadding="1" border="0">
+			{{-- Se valida el numero de lineas impresas para llegado el limite realizar el salto de pagina manualmente --}}
+				@if($lineWrites+2 >= 26)
+					<br pagebreak="true" />
+					@php
+						$lineWrites = 0;
+					@endphp
+				@endif
+
+				@php
+					// Se aumenta el contador de lineas
+					$lineWrites++;
+				@endphp
+				{{-- Fin de la validación --}}
 			<tr style="background-color: #BDBDBD;">
 				<td width="65%"></td>
 				<td width="17.5%" align="center">TOTAL DEBE</td>
@@ -78,9 +116,22 @@
 		</tr>
 	</table>
 	@foreach($seats as $seat)
+		{{-- Se valida el numero de lineas impresas para llegado el limite realizar el salto de pagina manualmente --}}
+		@if($lineWrites+1 == 26)
+			<br pagebreak="true" />
+			@php
+				$lineWrites = 0;
+			@endphp
+		@endif
+
 		@php
+			// Se aumenta el contador de lineas
+			$lineWrites++;
+
+			// Se formatea la fecha
 			$from_date = explode('-', $seat['from_date']);
 		@endphp
+		{{-- Fin de la validación --}}
 		<table cellspacing="0" cellpadding="1" border="0">
 			<tr >
 				{{-- se formatea la fecha de Y-m-d a d-m-Y --}}
@@ -96,6 +147,19 @@
 		        <td width="15%" style="background-color: #BDBDBD;"></td>
 			</tr>
 			@foreach($seat['accounting_accounts'] as $account)
+				{{-- Se valida el numero de lineas impresas para llegado el limite realizar el salto de pagina manualmente --}}
+				@if($lineWrites+1 == 26)
+					<br pagebreak="true" />
+					@php
+						$lineWrites = 0;
+					@endphp
+				@endif
+
+				@php
+					// Se aumenta el contador de lineas
+					$lineWrites++;
+				@endphp
+				{{-- Fin de la validación --}}
 				<tr>
 					<td></td>
 					<td align="left"> {{ ' '.$account['account']['group'].'.'.$account['account']['subgroup'].'.'.$account['account']['item'].'.'.$account['account']['generic'].'.'.$account['account']['specific'].'.'.$account['account']['subspecific'] }}</td>
