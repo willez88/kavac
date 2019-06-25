@@ -26939,6 +26939,10 @@ a.level-debug:hover {
   }
 }
 
+.nav-tabs.custom-tabs > .nav-item {
+  font-weight: bold;
+}
+
 .nav-tabs.custom-tabs > .nav-item > .nav-link {
   border-radius: 0;
 }
@@ -27409,6 +27413,14 @@ a.level-debug:hover {
 .radio input[type=radio]:checked + label::after {
   background-color: #2CA8FF;
   border-color: #2CA8FF;
+}
+
+.radio-inline span.left {
+  margin-right: 10px;
+}
+
+.radio-inline span.right {
+  margin-left: 10px;
 }
 
 /** Estilos personalizados para campos de tipo checkbox */

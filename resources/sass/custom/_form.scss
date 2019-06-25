@@ -53,7 +53,14 @@
 .radio input[type="radio"]:checked + label::after {
 	background-color: #2CA8FF;border-color: #2CA8FF;
 }
-
+.radio-inline {
+	span.left {
+		margin-right:10px;
+	}
+	span.right {
+		margin-left:10px;
+	}
+}
 /** Estilos personalizados para campos de tipo checkbox */
 .checkbox label::after {
 	color: #2CA8FF;
