@@ -4,6 +4,7 @@ namespace Modules\Purchase\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\RequiredDocument;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 
@@ -175,6 +176,12 @@ class PurchaseRoleAndPermissionsTableSeeder extends Seeder
             if ($adminRole) {
                 $adminRole->attachPermission($per);
             }
+        }
+
+        $reqDoc = Permission::where('model', RequiredDocument::class)->first();
+
+        if ($reqDoc) {
+            $purchaseRole->attachPermission($reqDoc);
         }
     }
 }

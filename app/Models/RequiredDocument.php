@@ -31,16 +31,6 @@ class RequiredDocument extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-    	'name', 'description'
+    	'name', 'description', 'module', 'model'
     ];
-
-    /**
-     * RequiredDocument morphs to models in requireable_type.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
-    public function requireable()
-    {
-    	return $this->morphTo();
-    }
 }

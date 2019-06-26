@@ -17,7 +17,9 @@ class CreateRequiredDocumentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->comment('Nombre del documento requerido');
             $table->text('description')->nullable()->comment('Descripción del documento requerido');
-            $table->morphs('requireable');
+            $table->string('module')->nullable()
+                  ->comment('Nombre del módulo que define los documentos a solicitar');
+            $table->string('model')->comment('Nombre del modelo que define los documentos a requerir');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });

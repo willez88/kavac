@@ -10,6 +10,7 @@ use App\Models\Setting;
 use App\Models\Institution;
 use App\Models\Tax;
 use App\Models\TaxUnit;
+use App\Models\RequiredDocument;
 use OwenIt\Auditing\Models\Audit;
 
 /**
@@ -170,6 +171,30 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Acceso para ver unidades tributarias', 
                 'model' => TaxUnit::class, 'model_prefix' => '0general',
                 'slug_alt' => 'unidad.tributaria.ver', 'short_description' => 'ver unidades tributarias'
+            ],
+            [
+                'name' => 'Crear Documento Requerido', 'slug' => 'document.required.create',
+                'description' => 'Acceso al registro de documentos requeridos', 
+                'model' => RequiredDocument::class, 'model_prefix' => '0general',
+                'slug_alt' => 'solicitud.documentos.crear', 'short_description' => 'agregar documentos requeridos'
+            ],
+            [
+                'name' => 'Editar Documento Requerido', 'slug' => 'document.required.edit',
+                'description' => 'Acceso para editar documentos requeridos', 
+                'model' => RequiredDocument::class, 'model_prefix' => '0general',
+                'slug_alt' => 'solicitud.documentos.editar', 'short_description' => 'editar documentos requeridos'
+            ],
+            [
+                'name' => 'Eliminar Documento Requerido', 'slug' => 'document.required.delete',
+                'description' => 'Acceso para eliminar documentos requeridos', 
+                'model' => RequiredDocument::class, 'model_prefix' => '0general',
+                'slug_alt' => 'solicitud.documentos.eliminar', 'short_description' => 'eliminar documentos requeridos'
+            ],
+            [
+                'name' => 'Ver Documento Requerido', 'slug' => 'document.required.list',
+                'description' => 'Acceso para ver documentos requeridos', 
+                'model' => RequiredDocument::class, 'model_prefix' => '0general',
+                'slug_alt' => 'solicitud.documentos.ver', 'short_description' => 'ver documentos requeridos'
             ],
         ];
 
