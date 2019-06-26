@@ -88,8 +88,6 @@
 					id: '',
 					name: '',
 					description: '',
-					module: null,
-					model: null
 				},
 				errors: [],
 				records: [],
@@ -108,8 +106,6 @@
 					id: '',
 					name: '',
 					description: '',
-					module: this.module,
-					model: this.model
 				};
 			},
 		},
