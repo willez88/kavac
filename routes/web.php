@@ -98,7 +98,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('document-status', 'DocumentStatusController', ['except' => ['show']]);
 
     /** Rutas para la gestión de documentos requeridos */
-    Route::resource('required-documents/{model}/{module?}', 'RequiredDocumentController', ['except' => ['show']]);
+    Route::get('required-documents/{model}/{module?}', 'RequiredDocumentController@index')
+         ->name('required.documents.index');
+    Route::post('required-documents/{model}/{module?}', 'RequiredDocumentController@store')
+         ->name('required.documents.store');
+    Route::patch('required-documents/{model}/{module?}/{requiredDocument}', 'RequiredDocumentController@update')
+         ->name('required.documents.update');
+    Route::delete('required-documents/{model}/{module?}/{requiredDocument}', 'RequiredDocumentController@destroy')
+         ->name('required.documents.destroy');
 
     /** Rutas para la gestión de estados civiles */
     Route::resource('marital-status', 'MaritalStatusController', ['except' => ['show']]);
