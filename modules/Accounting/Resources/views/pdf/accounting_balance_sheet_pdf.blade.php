@@ -1,5 +1,5 @@
 @php
-	$pdf->SetTitle('balance General'); // titulo del archivo
+	$pdf->SetTitle('Balance General'); // titulo del archivo
     $height = $pdf->get_Y();
 
     // @var float suma de l total de los pasivos con los patrimoniales

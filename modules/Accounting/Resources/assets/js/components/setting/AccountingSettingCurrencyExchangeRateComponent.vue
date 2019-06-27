@@ -39,14 +39,16 @@
 						<span style="padding: 0.3rem;" class="col-3 text-left"><strong>{{ iter_currency.currency.symbol }}</strong></span>	
 					</td>
 					<td>
-						<button class="btn btn-success btn-icon btn-xs btn-round" 
+						<button class="btn btn-success btn-icon btn-xs" 
 								title="Guardar registro"
+								data-toggle="tooltip"
 								@click="storeCurrency()"
 								v-if="editCurrency.currency_id == iter_currency.currency.id">
 								<i class="fa fa-save"></i>
 						</button>
-						<button class="btn btn-warning btn-icon btn-xs btn-round"
+						<button class="btn btn-warning btn-icon btn-xs"
 								title="Actualizar registro"
+								data-toggle="tooltip"
 								@click="updateCurrency(iter_currency)"
 								v-else
 								><i class="fa fa-edit"></i>

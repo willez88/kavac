@@ -16,21 +16,23 @@
 				<div class="col-1"></div>
 				<div class="col-5">
 					<h4>Cuentas Presupuestales</h4>
-					<select2 :options="accountOptions[0]" v-model="accountSelect.budget_id"></select2>
+					<select2 :options="accountOptions[0]" v-model="accountSelect.budget_id" 
+					data-toggle="tooltip" title="Cuentas Presupuestales"></select2>
 				</div>
 				<div class="col-5">
 					<h4>Cuentas Patrimoniales</h4>
-					<select2 :options="accountOptions[1]" v-model="accountSelect.accounting_id"></select2>
+					<select2 :options="accountOptions[1]" v-model="accountSelect.accounting_id"
+					data-toggle="tooltip" title="Cuentas Patrimoniales"></select2>
 				</div>
 			</div>
 		</div>
 		<div class="card-footer text-center" align="rigth">
-			<a :href="urlPrevious" class="btn btn-warning btn-icon btn-round"
+			<a :href="urlPrevious" class="btn btn-warning btn-icon"
 							data-toggle="tooltip"
 							title="Cancelar y regresar">
 							<i class="fa fa-ban"></i>
 					</a>
-					<button class="btn btn-success btn-icon btn-round" 
+					<button class="btn btn-success btn-icon" 
 							title="actualizar conversión"
 							data-toggle="tooltip"
 							v-on:click="update()"><i class="fa fa-save"></i></button>

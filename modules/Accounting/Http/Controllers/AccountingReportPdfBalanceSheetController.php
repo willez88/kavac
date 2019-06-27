@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
@@ -64,7 +65,17 @@ class AccountingReportPdfBalanceSheetController extends Controller
 
     public function pdf($date, $level, $zero = false)
     {
-
+        /**
+        * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
+        */
+        $url = 'balanceSheet/pdf/'.$date.'/'.$level.'/'.$zero;
+        AccountingReportHistory::updateOrCreate([
+                                                    'url' => $url,
+                                                    'report' => 5 
+                                                ],
+                                                [
+                                                    'name' => 'Balance General',
+                                                ]);
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
         $day = date('d',(mktime(0,0,0,explode('-',$date)[1]+1,1,explode('-',$date)[0])-1));
 
@@ -142,8 +153,6 @@ class AccountingReportPdfBalanceSheetController extends Controller
         $pdf->Open();
         $pdf->AddPage();
 
-        $OneSeat = false;
-        // dd($records);
         $html = \View::make('accounting::pdf.accounting_balance_sheet_pdf',compact('pdf','records','currency','level','zero','endDate'))->render();
         $pdf->SetFont('Courier','B',8);
 

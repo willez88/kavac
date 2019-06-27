@@ -36,7 +36,7 @@
 				<td>
 					<div class="text-center">
 						<button @click="deleteAccount(recordsAccounting.indexOf(record))" 
-							class="btn btn-danger btn-xs btn-icon btn-action btn-round" 
+							class="btn btn-danger btn-xs btn-icon btn-action" 
 							title="Eliminar registro" data-toggle="tooltip">
 							<i class="fa fa-trash-o"></i>
 						</button>
@@ -85,12 +85,12 @@
 		</tbody>
 	</table>
 	<div class="card-footer text-right">
-		<a :href="urlPrevious" class="btn btn-warning btn-icon btn-round"
+		<a :href="urlPrevious" class="btn btn-warning btn-icon"
 			data-toggle="tooltip"
 			title="Cancelar y regresar">
 			<i class="fa fa-ban"></i>
 		</a>
-		<button class="btn btn-success btn-icon btn-round"
+		<button class="btn btn-success btn-icon"
 				data-toggle="tooltip"
 				title="Guardar registro"
 				id="save"
@@ -99,7 +99,7 @@
 				v-on:click="AddSeating()">
 				<i class="fa fa-save"></i>
 		</button>
-		<button class="btn btn-success btn-icon btn-round"
+		<button class="btn btn-success btn-icon"
 				data-toggle="tooltip"
 				title="Actualizar registro"
 				id="update"

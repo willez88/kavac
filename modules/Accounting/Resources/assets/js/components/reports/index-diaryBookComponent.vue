@@ -18,6 +18,7 @@
 		</div>
 		<div class="card-footer text-right">
 			<button class="btn btn-primary btn-custom"
+					data-toggle="tooltip"
 					title="Generar Reporte"
 					:disabled="(dateIni == '' || dateEnd == '')"
 					v-on:click="OpenPdf(getUrlReport(), '_blank')">

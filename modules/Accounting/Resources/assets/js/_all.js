@@ -112,6 +112,20 @@ Vue.component('accounting-report-auxiliary-book', require('./components/reports/
  */
 Vue.component('accounting-report-balance-sheet-state-of-results', require('./components/reports/index-balanceSheet_and_stateOfResultsComponent.vue').default);
 
+/**
+ * Componente index para el reporte de Balance General y reporte de satdo de resultados
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('dashboard-accounting-info', require('./components/dashboard/index-Component.vue').default);
+
+/**
+ * Componente index para el reporte de Balance General y reporte de satdo de resultados
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('dashboard-accounting-report-histories', require('./components/dashboard/report-histories-Component.vue').default);
+
 
 /**
 * Evento global Bus del modulo de Contabilidad
@@ -171,6 +185,7 @@ Vue.mixin({
 				});
 			}
 		},
+
 		/**
 		* Abre una nueva ventana en el navegador
 		*
@@ -181,6 +196,78 @@ Vue.mixin({
 		*/
 		OpenPdf:function(url, type){
 			window.open(url, type);
+		},
+
+		/**
+		* Se aprueba el asiento contable
+		*
+		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		*/
+		approve:function(index) {
+			var url = 'http://'+window.location.host+'/accounting/seating/approve';
+			var records = this.records;
+			var confirmated = false;
+			var index = index - 1;
+			const vm = this;
+
+			bootbox.confirm({
+    			title: "Aprobar Asiento?",
+    			message: "Esta seguro de aprobar este asiento?",
+    			buttons: {
+    				cancel: {
+    					label: '<i class="fa fa-times"></i> Cancelar'
+    				},
+    				confirm: {
+    					label: '<i class="fa fa-check"></i> Confirmar'
+    				}
+    			},
+    			callback: function (result) {
+					if (result) {
+    					confirmated = true;
+						axios.post(url + '/' + records[index].id).then(response => {
+							if (typeof(response.data.error) !== "undefined") {
+								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
+    							vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
+    							return false;
+							}
+							records.splice(index, 1);
+							vm.showMessage('update');
+							vm.reload = true;
+						}).catch(error => {});
+    				}
+    			}
+    		});
+
+    		if (confirmated) {
+    			this.records = records;
+    			this.reload = true;
+    		}
+		},
+
+		/**
+		 * cambia el formato para la fecha de YYYY/mm/dd a dd/mm/YYYY
+		 * 
+		 * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+		 * @param  {string} date fecha en formato YYYY/mm/dd
+		 * @return {string} f_date fecha en formato dd/mm/YYYY
+		 */
+		formatDate(date){
+			var f_date = date.split('-')[2]+'/'+date.split('-')[1]+'/'+date.split('-')[0];
+			return f_date;
+		},
+
+		displayDetails(id){
+			if (!document.getElementById) return false;
+			fila = document.getElementsByName('details_'+id);
+			for (var i = 0; i < fila.length; i++) {
+				if (fila[i].style.display != "none") {
+				  fila[i].style.display = "none"; //ocultar fila 
+				  this.minimized = true;
+				} else {
+				  fila[i].style.display = ""; //mostrar fila 
+				  this.minimized = false;
+				}
+			}
 		}
 	}
 });

@@ -1,5 +1,5 @@
 @php
-	$pdf->SetTitle('balance General'); // titulo del archivo
+	$pdf->SetTitle('Estado de Resultados'); // titulo del archivo
     $height = $pdf->get_Y();
 
     $lineWrites = 3;
@@ -7,7 +7,7 @@
     // @var float resultado total de las operaciones
     $result_of_the_excersice = 0;
 @endphp
-<h3>BALANCE GENERAL AL {{ $endDate }}</h3>
+<h3>ESTADO DE RESULTADOS AL {{ $endDate }}</h3>
 <h4>EXPRESADO EN {{ $currency->symbol }}</h4>
 <table cellspacing="0" cellpadding="1" border="1">
 	<tr style="background-color: #BDBDBD;">
@@ -207,11 +207,11 @@
 
 		@if($parent['code'][0] == 6)
 			<br>
-			<tr style="background-color: #BDBDBD;">
+{{-- 			<tr style="background-color: #BDBDBD;">
 				<td width="12%"></td>
 				<td align="right" width="63%">SUB TOTAL</td>
 				<td align="right" width="25%">{{ number_format($result_of_the_excersice, (int)$currency->decimal_places, ',', '.') }}</td>
-			</tr>
+			</tr> --}}
 			<tr style="background-color: #BDBDBD;">
 				<td width="12%"></td>
 				<td align="right" width="63%">RESULTADO DEL EJERCICIO</td>

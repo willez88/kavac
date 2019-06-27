@@ -155,11 +155,12 @@
 				</div>
 			</div>
 			<div class="card-footer text-right">
-				<button class="btn btn-success btn-icon btn-round"
+				<button class="btn btn-info btn-xs"
 					data-toggle="tooltip"
-					title="Realizar busqueda"
-					:disabled="typeSearch==''"
+					title="Consultar Registros"
+					:disabled="typeSearch=='' || filterDate ==''"
 					v-on:click="searchRecords()">
+					Buscar
 					<i class="fa fa-search"></i>
 			</button>
 			</div>

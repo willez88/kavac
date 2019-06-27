@@ -25,12 +25,14 @@
 				<td>{{ record.name }}</td>
 				<td>{{ record.acronym }}</td>
 				<td>
-					<button class="btn btn-warning btn-xs btn-icon btn-round"
+					<button class="btn btn-warning btn-xs btn-icon"
 							title="Actualizar Registro"
+							data-toggle="tooltip"
 							@click="loadCategory(record)"><i class="fa fa-edit"></i>
 					</button>
-					<button class="btn btn-danger btn-xs btn-icon btn-round"
+					<button class="btn btn-danger btn-xs btn-icon"
 							title="Eliminar Registro"
+							data-toggle="tooltip"
 							@click="deleteRecord(records.indexOf(record)+1,'/accounting/settings/categories')">
 						<i class="fa fa-trash"></i>
 					</button>
@@ -47,6 +49,7 @@
 					<input type="text"
 							class="form-control"
 							title="Nombre de la nueva categoria de origen"
+							data-toggle="tooltip"
 							v-model="NewCategory.name">
 				</div>
 				<div class="form-group col-12 is-required">
@@ -54,6 +57,7 @@
 					<input type="text"
 							class="form-control"
 							title="Acrónimo"
+							data-toggle="tooltip"
 							v-model="NewCategory.acronym">
 				</div>
 			</div>
@@ -62,6 +66,7 @@
 			<div class="form-group">
 				<button class="btn btn-success btn-xs" 
 						title="Guardar registro"
+						data-toggle="tooltip"
 						style="margin-top: 1.3rem !important;" 
 						:disabled="NewCategory.name=='' || NewCategory.acronym==''"
 						@click="storeCategory()"
@@ -69,6 +74,7 @@
 				</button>
 				<button class="btn btn-success btn-xs" 
 						title="Actualizar registro"
+						data-toggle="tooltip"
 						style="margin-top: 1.3rem !important;" 
 						:disabled="NewCategory.name=='' || NewCategory.acronym==''"
 						@click="updateCategory()"

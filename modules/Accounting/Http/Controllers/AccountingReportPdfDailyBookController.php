@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
@@ -55,6 +56,17 @@ class AccountingReportPdfDailyBookController extends Controller
      */
     public function pdf($initDate, $endDate)
     {
+        /**
+        * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
+        */
+        $url = 'diaryBook/pdf/'.$initDate.'/'.$endDate;
+        AccountingReportHistory::updateOrCreate([
+                                                    'url' => $url,
+                                                    'report' => 3 
+                                                ],
+                                                [
+                                                    'name' => 'Libro Diario',
+                                                ]);
 
         /** @var Objet objeto con la información del asiento contable */
         $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved',true)->whereBetween("from_date",[$initDate, $endDate])->orderBy('from_date','ASC')->get();

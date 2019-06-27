@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingSeat;
@@ -91,6 +92,17 @@ class AccountingReportPdfAuxiliaryBookController extends Controller
 
     public function pdf($account_id, $date)
     {
+        /**
+        * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
+        */
+        $url = 'auxiliaryBook/pdf/'.$account_id.'/'.$date;
+        AccountingReportHistory::updateOrCreate([
+                                                    'url' => $url,
+                                                    'report' => 4 
+                                                ],
+                                                [
+                                                    'name' => 'Libro Auxiliar',
+                                                ]);
 
         /** @var Object consulta de la cuenta patrimonial */
         $account = AccountingAccount::find($account_id);
@@ -144,7 +156,6 @@ class AccountingReportPdfAuxiliaryBookController extends Controller
         $pdf->Open();
         $pdf->AddPage();
 
-        $OneSeat = false;
         $html = \View::make('accounting::pdf.accounting_auxiliary_book_pdf',compact('pdf','records','account','parent_account','initDate','endDate','currency'))->render();
         $pdf->SetFont('Courier','B',8);
 

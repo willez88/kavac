@@ -10,28 +10,36 @@
 							<h6 class="text-center" style="display:inline;"><strong>Asiento Contable del {{ 				props.row.from_date.split('-')[2]+'-'+
 								props.row.from_date.split('-')[1]+'-'+
 								props.row.from_date.split('-')[0] }}</strong></h6>
-						
-							<button class="btn btn-danger btn-icon btn-round"
+
+							<button class="btn btn-danger btn-xs btn-icon"
 									style="display:inline;float: right; margin: 0.5rem;"
+									title="Eliminar Registro"
+									data-toggle="tooltip"
 									@click="deleteRecord(props.index, '/accounting/seating')"
 									v-if="show=='unapproved'">
 									<i class="fa fa-close" style="text-align: center;"></i>
 							</button>
-							<button class="btn btn-warning btn-icon btn-round"
+							<button class="btn btn-warning btn-xs btn-icon"
 									style="display:inline;float: right; margin: 0.5rem;"
+									title="Modificar registro"
+									data-toggle="tooltip"
 									@click="editForm(props.row.id)"
 									v-if="show=='unapproved'">
 									<i class="fa fa-edit" style="text-align: center;"></i>
 							</button>
-							<button class="btn btn-success btn-icon btn-round"
+							<button class="btn btn-success btn-xs btn-icon"
 									style="display:inline;float: right; margin: 0.5rem;"
-									@click="approve(props.index)"
+									title="Aprobar Registro"
+									data-toggle="tooltip"
+									@click="approve(props.index, url)"
 									v-if="show=='unapproved'">
 									<i class="fa fa-check" style="text-align: center;"></i>
 							</button>
-							<a class="btn btn-primary btn-icon btn-round"
+							<a class="btn btn-primary btn-xs btn-icon"
 									style="display:inline;float: right; margin: 0.5rem;"
 									:href="url+'/pdf/'+props.row.id"
+									title="Imprimir Registro"
+									data-toggle="tooltip"
 									target="_blank"
 									v-if="show=='approved'">
 									<i class="fa fa-print" style="text-align: center;"></i>
@@ -48,8 +56,15 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="text-center">
-								<h6><strong>Asiento contable</strong></h6>
+							<td>
+								<h6 class="text-center" style="display:inline;"><strong>Asiento contable</strong></h6>
+								<button class="btn btn-info btn-xs btn-icon"
+										style="float: right;"
+										title="Mostrar detalles" data-toggle="tooltip"
+										@click="displayDetails(props.row.id)">
+										<i class="fa fa-minus" v-show="!minimized"></i>
+										<i class="fa fa-plus" v-show="minimized"></i>
+								</button>
 							</td>
 						</tr>
 						<tr>
@@ -63,7 +78,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr v-for="record in props.row.accounting_accounts">
+									<tr v-for="record in props.row.accounting_accounts" :name="'details_'+props.row.id" style="display:none;">
 										<td>
 											<h6>
 												{{
@@ -76,7 +91,7 @@
 												}}
 											</h6>
 										</td>
-										<td>
+										<td class="text-left">
 											<h6>{{ record.account.denomination }}</h6>
 										</td>
 										<td>
@@ -119,9 +134,10 @@
 		props:['seating','show','currency'],
 		data(){
 			return {
+				minimized:true,
 				records: [],
+				url: 'http://'+window.location.host+'/accounting/seating', 
 				columns: ['content'],
-				url:'http://'+window.location.host+'/accounting/seating',
 			}
 		},
 		created(){
@@ -133,52 +149,6 @@
 				this.records = data;
 			})
 		},
-		methods:{
-			/**
-			* Se aprueba el asiento contable
-			*
-			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-			*/
-			approve:function(index) {
-				var url = this.url+'/approve';
-    			var records = this.records;
-    			var confirmated = false;
-				var index = index - 1;
-				const vm = this;
-
-				bootbox.confirm({
-	    			title: "Aprobar Asiento?",
-	    			message: "Esta seguro de aprobar este asiento?",
-	    			buttons: {
-	    				cancel: {
-	    					label: '<i class="fa fa-times"></i> Cancelar'
-	    				},
-	    				confirm: {
-	    					label: '<i class="fa fa-check"></i> Confirmar'
-	    				}
-	    			},
-	    			callback: function (result) {
-						if (result) {
-	    					confirmated = true;
-							axios.post(url + '/' + records[index].id).then(response => {
-								if (typeof(response.data.error) !== "undefined") {
-									/** Muestra un mensaje de error si sucede algún evento en la eliminación */
-	    							vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
-	    							return false;
-								}
-								records.splice(index, 1);
-								vm.showMessage('update');
-							}).catch(error => {});
-	    				}
-	    			}
-	    		});
-
-	    		if (confirmated) {
-	    			this.records = records;
-	    			this.showMessage('update');
-	    		}
-			},
-		}
 	}
 
 </script>

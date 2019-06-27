@@ -60,7 +60,7 @@
 						<select2 :disabled="!searchActive" :options="accountOptions[1]" v-model="accountSelect.end_id"></select2>
 					</div>
 					<div class="col-2 text-center">
-						<button class="btn btn-success btn-round"
+						<button class="btn btn-success"
 								:disabled="!searchActive"
 								style="margin-top:0.8rem !important;" 
 								title="Consultar registros"
@@ -101,13 +101,13 @@
 							</div>
 						</div>
 						<div slot="id" slot-scope="props" class="text-center">
-							<button class="btn btn-warning btn-xs btn-icon btn-action btn-round"
+							<button class="btn btn-warning btn-xs btn-icon btn-action"
 									title="Modificar registro"
 									data-toggle="tooltip"
 									v-on:click="editConvertion(props.row.id,props.row.budget_account_id,props.row.accounting_account_id)">
 								<i class="fa fa-edit"></i>
 							</button>
-							<button class="btn btn-danger btn-xs btn-icon btn-action btn-round" 
+							<button class="btn btn-danger btn-xs btn-icon btn-action" 
 									title="Eliminar registro de la lista de cuentas a convertir"
 									data-toggle="tooltip"
 									v-on:click="deleteRecord(props.row.id,'/accounting/converter')">

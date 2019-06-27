@@ -54,6 +54,7 @@
 			<button class="btn btn-primary btn-custom"
 					title="Generar Reporte"
 					:disabled="disabledButton"
+					data-toggle="tooltip"
 					v-on:click="OpenPdf(getUrlReport(),'_black')">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>

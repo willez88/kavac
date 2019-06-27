@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
@@ -247,6 +248,20 @@ class AccountingReportPdfCheckupBalanceController extends Controller
      */
     public function pdf($initDate, $endDate, $zero = null)
     {
+
+        /**
+        * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
+        */
+        $url = 'BalanceCheckUp/pdf/'.$initDate.'/'.$endDate.'/'.$zero;
+        
+        AccountingReportHistory::updateOrCreate([
+                                                    'url' => $url,
+                                                    'report' => 1 
+                                                ],
+                                                [
+                                                    'name' => 'Balance de Comporbación',
+                                                ]);
+
         $this->getAccAccount($initDate, $endDate, false);
 
         if (!is_null($zero)) {
@@ -306,7 +321,6 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $pdf->Open();
         $pdf->AddPage();
 
-        $unit = true;
         $html = \View::make('accounting::pdf.accounting_checkup_balance_pdf',compact('pdf','records','initDate','endDate','currency','beginningBalance','zero'))->render();
         $pdf->SetFont('Courier','B',8);
 

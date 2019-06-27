@@ -5,6 +5,10 @@
 		@include('dev.tools-availables')
 	@endrole
 	
+	@role('account')
+		@include('account.account-tools')
+	@endrole
+
 	@role('admin')
 		@include('dashboard.users-connected')
 		@include('dashboard.logs-list')

@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccountingReportHistory extends Model
 {
-    protected $fillable = [];
+    /**
+     * Fields that can be mass assigned.
+     *
+     * @var array
+     */
+    protected $fillable = ['report','url','name'];
 }
