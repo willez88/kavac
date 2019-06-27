@@ -35,12 +35,12 @@
 						<div class="row">
 						    <div class="col-md-6">
 						        <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} is-required">
-						            {!! Form::label('demonym', 'Gentilicio', []) !!}
-						            {!! Form::text('demonym',(isset($nationality))?$nationality->demonym:old('demonym'),
+						            {!! Form::label('name', 'Originario de', []) !!}
+						            {!! Form::text('name',(isset($nationality))?$nationality->name:old('name'),
 						                [
 						                    'class' => 'form-control input-sm',
 						                    'data-toggle' => 'tooltip',
-						                    'title' => 'Indique el nombre del gentilicio'
+						                    'title' => 'Indique la nacionalidad'
 						                ]
 						            ) !!}
 						        </div>

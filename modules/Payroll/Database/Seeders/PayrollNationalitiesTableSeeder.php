@@ -20,16 +20,18 @@ class PayrollNationalitiesTableSeeder extends Seeder
 
         $payroll_nationalities = [
             [
-                'demonym' => 'Venezolano(a)', 'country_id' => 1
-            ]
+                'name' => 'Venezolano(a)', 'country_id' => 1
+            ],
         ];
 
         DB::transaction(function() use ($payroll_nationalities) {
             foreach ($payroll_nationalities as $nationality) {
                 PayrollNationality::updateOrCreate(
-                    ['demonym' => $nationality['demonym']],
                     [
                         'country_id' => $nationality['country_id']
+                    ],
+                    [
+                        'name' => $nationality['name'], 'country_id' => $nationality['country_id']
                     ]
                 );
             }

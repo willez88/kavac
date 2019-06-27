@@ -44,7 +44,7 @@ class PayrollNationality extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'demonym', 'country_id'
+        'name', 'country_id'
     ];
 
     /**

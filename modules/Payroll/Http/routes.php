@@ -17,28 +17,23 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('staff-classifications', 'PayrollStaffClassificationController', ['as' => 'payroll', 'except' => ['show']]);
 
     Route::resource('staffs', 'PayrollStaffController', ['as' => 'payroll']);
-    //url por confirmar
-    Route::get('get-staffs/list', 'PayrollStaffController@getPayrollStaffs')->name('payroll.get-payroll-staffs');
+    Route::get('get-staffs', 'PayrollStaffController@getPayrollStaffs')->name('payroll.get-payroll-staffs');
 
     Route::resource('instruction-degrees', 'PayrollInstructionDegreeController', ['as' => 'payroll', 'except' => ['show']]);
-    //url por confirmar
-    Route::get('get-instruction-degrees/list', 'PayrollInstructionDegreeController@getPayrollInstructionDegrees')->name('payroll.get-payroll-instruction-degrees');
+    Route::get('get-instruction-degrees', 'PayrollInstructionDegreeController@getPayrollInstructionDegrees')->name('payroll.get-payroll-instruction-degrees');
 
     Route::resource('study-types', 'PayrollStudyTypeController', ['as' => 'payroll', 'except' => ['show']]);
-    //url por confirmar
-    Route::get('get-study-types/list', 'PayrollStudyTypeController@getPayrollStudyTypes')->name('payroll.get-payroll-study-types');
+    Route::get('get-study-types', 'PayrollStudyTypeController@getPayrollStudyTypes')->name('payroll.get-payroll-study-types');
 
     Route::resource('nationalities', 'PayrollNationalityController', ['as' => 'payroll', 'except' => ['show']]);
     Route::resource('concept-types', 'PayrollConceptTypeController', ['as' => 'payroll', 'except' => ['show']]);
 
 
     Route::resource('language-levels', 'PayrollLanguageLevelController', ['as' => 'payroll', 'except' => ['show']]);
-    //url por confirmar
-    Route::get('get-language-levels/list', 'PayrollLanguageLevelController@getPayrollLanguageLevels')->name('payroll.get-payroll-language-levels');
+    Route::get('get-language-levels', 'PayrollLanguageLevelController@getPayrollLanguageLevels')->name('payroll.get-payroll-language-levels');
 
     Route::resource('languages', 'PayrollLanguageController', ['as' => 'payroll', 'except' => ['show']]);
-    //url por confirmar
-    Route::get('get-languages/list', 'PayrollLanguageController@getPayrollLanguages')->name('payroll.get-payroll-languages');
+    Route::get('get-languages', 'PayrollLanguageController@getPayrollLanguages')->name('payroll.get-payroll-languages');
 
     Route::resource('genders', 'PayrollGenderController', ['as' => 'payroll', 'except' => ['show']]);
 
@@ -47,8 +42,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::get('socioeconomic-informations/info/{id}', 'PayrollSocioeconomicInformationController@info')->name('payroll.socioeconomic-informations.info');
 
     Route::resource('professional-informations', 'PayrollProfessionalInformationController', ['as' => 'payroll']);
-    Route::get('professional-informations/info/{id}', 'PayrollProfessionalInformationController@info')->name('payroll.professional-informations.info');
     Route::get('professional-informations/show/vue-list', 'PayrollProfessionalInformationController@vueList')->name('payroll.professional-informations.vue-list');
+    Route::get('professional-informations/info/{id}', 'PayrollProfessionalInformationController@info')->name('payroll.professional-informations.info');
 
 
 

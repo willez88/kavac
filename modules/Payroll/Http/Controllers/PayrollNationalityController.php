@@ -69,11 +69,11 @@ class PayrollNationalityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'demonym' => 'required|max:100',
-            'country_id' => 'required|unique:payroll_nationalities'
+            'name' => 'required|max:100',
+            'country_id' => 'required|unique:payroll_nationalities,country_id'
         ]);
         $nationality = new PayrollNationality;
-        $nationality->demonym = $request->demonym;
+        $nationality->name = $request->name;
         $nationality->country_id = $request->country_id;
         $nationality->save();
         $request->session()->flash('message', ['type' => 'store']);
@@ -110,11 +110,10 @@ class PayrollNationalityController extends Controller
     public function update(Request $request, PayrollNationality $nationality)
     {
         $this->validate($request, [
-            'demonym' => 'required|max:100',
-            'country_id' => 'required|unique:payroll_nationalities'
+            'name' => 'required|max:100',
+            'country_id' => 'required|unique:payroll_nationalities,country_id,'.$nationality->country_id
         ]);
-        $nationality = new PayrollNationality;
-        $nationality->demonym = $request->demonym;
+        $nationality->name = $request->name;
         $nationality->country_id = $request->country_id;
         $nationality->save();
         $request->session()->flash('message', ['type' => 'update']);

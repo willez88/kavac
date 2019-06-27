@@ -109,8 +109,7 @@ Vue.mixin({
 		 */
 		getPayrollStaffs() {
 			this.payroll_staffs = [];
-			//url por confirmar
-			axios.get('/payroll/get-staffs/list').then(response => {
+			axios.get('/payroll/get-staffs').then(response => {
 				this.payroll_staffs = response.data;
 			});
 		},
@@ -122,8 +121,7 @@ Vue.mixin({
 		 */
 		getPayrollStudyTypes() {
 			this.payroll_study_types = [];
-			//url por confirmar
-			axios.get('/payroll/get-study-types/list').then(response => {
+			axios.get('/payroll/get-study-types').then(response => {
 				this.payroll_study_types = response.data;
 			});
 		},
@@ -135,8 +133,7 @@ Vue.mixin({
 		 */
 		getPayrollLanguages() {
 			this.payroll_languages = [];
-			//url por confirmar
-			axios.get('/payroll/get-languages/list').then(response => {
+			axios.get('/payroll/get-languages').then(response => {
 				this.payroll_languages = response.data;
 			});
 		},
@@ -148,8 +145,7 @@ Vue.mixin({
 		 */
 		getPayrollLanguageLevels() {
 			this.payroll_language_levels = [];
-			//url por confirmar
-			axios.get('/payroll/get-language-levels/list').then(response => {
+			axios.get('/payroll/get-language-levels').then(response => {
 				this.payroll_language_levels = response.data;
 			});
 		},
@@ -161,8 +157,7 @@ Vue.mixin({
 		 */
 		getPayrollInstructionDegrees() {
 			this.payroll_instruction_degree_id = [];
-			//url por confirmar
-			axios.get('/payroll/get-instruction-degrees/list').then(response => {
+			axios.get('/payroll/get-instruction-degrees').then(response => {
 				this.payroll_instruction_degrees = response.data;
 			});
 		},
