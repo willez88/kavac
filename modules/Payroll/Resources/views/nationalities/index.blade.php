@@ -32,7 +32,7 @@
 					<table class="table table-big table-hover table-striped dt-responsive nowrap datatable">
 						<thead>
 							<tr class="text-center">
-								<th>Gentilicio</th>
+								<th>Nacionalidad</th>
 								<th>País</th>
 								<th width="10%">Acciones</th>
 							</tr>
@@ -40,7 +40,7 @@
 						<tbody>
 							@foreach($nationalities as $nationality)
 								<tr class="text-center">
-									<td> {{ $nationality->demonym }} </td>
+									<td> {{ $nationality->name }} </td>
 									<td> {{ $nationality->country->name }} </td>
 									<td>
 										<div class="d-inline-flex">

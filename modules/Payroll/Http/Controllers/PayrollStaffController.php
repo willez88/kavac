@@ -71,9 +71,7 @@ class PayrollStaffController extends Controller
         $estates = template_choices('App\Models\Estate');
         $municipalities = template_choices('App\Models\Municipality');
         $parishes = template_choices('App\Models\Parish');
-        $nationalities = template_choices(
-            'Modules\Payroll\Models\PayrollNationality', ['demonym']
-        );
+        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality');
         $genders = template_choices('Modules\Payroll\Models\PayrollGender');
         return view('payroll::staffs.create-edit', compact(
             'header','countries','estates','municipalities','parishes','nationalities','genders'
@@ -173,7 +171,7 @@ class PayrollStaffController extends Controller
         $estates = template_choices('App\Models\Estate');
         $municipalities = template_choices('App\Models\Municipality');
         $parishes = template_choices('App\Models\Parish');
-        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality', ['demonym']);
+        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality');
         $genders = template_choices('Modules\Payroll\Models\PayrollGender');
         return view('payroll::staffs.create-edit', compact(
             'staff','header','countries','estates','municipalities','parishes','nationalities','genders'
