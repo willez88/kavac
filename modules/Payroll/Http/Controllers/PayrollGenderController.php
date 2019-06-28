@@ -126,4 +126,9 @@ class PayrollGenderController extends Controller
         }
         return redirect()->route('payroll.genders.index');
     }
+
+    public function getPayrollGenders()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollGender','name','',true);
+    }
 }

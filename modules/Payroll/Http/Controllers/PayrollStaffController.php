@@ -52,8 +52,7 @@ class PayrollStaffController extends Controller
      */
     public function index()
     {
-        $staffs = PayrollStaff::all();
-        return view('payroll::staffs.index', compact('staffs'));
+        return view('payroll::staffs.index');
     }
 
     /**
@@ -64,18 +63,7 @@ class PayrollStaffController extends Controller
      */
     public function create()
     {
-        $header = [
-            'route' => 'payroll.staffs.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
-        ];
-        $countries = template_choices('App\Models\Country');
-        $estates = template_choices('App\Models\Estate');
-        $municipalities = template_choices('App\Models\Municipality');
-        $parishes = template_choices('App\Models\Parish');
-        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality');
-        $genders = template_choices('Modules\Payroll\Models\PayrollGender');
-        return view('payroll::staffs.create-edit', compact(
-            'header','countries','estates','municipalities','parishes','nationalities','genders'
-        ));
+        return view('payroll::staffs.create-edit');
     }
 
     /**
@@ -89,9 +77,9 @@ class PayrollStaffController extends Controller
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'payroll_nationality_id' => 'required',
-            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs',
-            'passport' => 'nullable|max:20',
-            'email' => 'nullable|email|unique:payroll_staffs',
+            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number',
+            'passport' => 'nullable|max:20|unique:payroll_staffs,passport',
+            'email' => 'nullable|email|unique:payroll_staffs,email',
             'birthdate' => 'required|date',
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
@@ -124,8 +112,20 @@ class PayrollStaffController extends Controller
         $staff->parish_id = $request->parish_id;
         $staff->address = $request->address;
         $staff->save();
+
+        if ($request->phones && !empty($request->phones)) {
+            foreach ($request->phones as $phone) {
+                $staff->phones()->save(new Phone([
+                    'type' => $phone['type'],
+                    'area_code' => $phone['area_code'],
+                    'number' => $phone['number'],
+                    'extension' => $phone['extension']
+                ]));
+            }
+        }
+
         $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.staffs.index');
+        return response()->json(['result' => true, 'redirect' => route('payroll.staffs.index')], 200);
     }
 
     /**
@@ -134,48 +134,44 @@ class PayrollStaffController extends Controller
      * @author William Páez (wpaez at cenditel.gob.ve)
      * @return [<b>\Illuminate\Http\Response</b>] $response Retorna el json de un registro de personal
      */
-    public function show(PayrollStaff $staff)
+    public function show($id)
     {
-        $staff = PayrollStaff::findorfail($staff->id);
-        $this->data[] = [
-            'code' => $staff->code,
-            'first_name' => $staff->first_name,
-            'last_name' => $staff->last_name,
-            'nationality' => $staff->payroll_nationality->demonym,
-            'id_number' => $staff->id_number,
-            'passport' => $staff->passport,
-            'email' => $staff->email,
-            'birthdate' => $staff->birthdate,
-            'gender' => $staff->payroll_gender->name,
-            'emergency_contact' => $staff->emergency_contact,
-            'emergency_phone' => $staff->emergency_phone,
-            'country' => $staff->parish->municipality->estate->country->name,
-            'estate' => $staff->parish->municipality->estate->name,
-            'municipality' => $staff->parish->municipality->name,
-            'parish' => $staff->parish->name,
-            'address' => $staff->address
+        $payroll_staff = PayrollStaff::where('id',$id)->with(['payroll_nationality','payroll_gender','parish','phones'])->first();
+        return response()->json(['record' => $payroll_staff], 200);
+    }
+
+    public function info($id)
+    {
+        $payroll_staff = PayrollStaff::findorfail($id);
+        $data[] = [
+            'code' => $payroll_staff->code,
+            'first_name' => $payroll_staff->first_name,
+            'last_name' => $payroll_staff->last_name,
+            'payroll_nationality' => $payroll_staff->payroll_nationality->name,
+            'id_number' => $payroll_staff->id_number,
+            'passport' => $payroll_staff->passport,
+            'email' => $payroll_staff->email,
+            'birthdate' => $payroll_staff->birthdate,
+            'payroll_gender' => $payroll_staff->payroll_gender,
+            'emergency_contact' => $payroll_staff->emergency_contact,
+            'emergency_phone' => $payroll_staff->emergency_phone,
+            'country' => $payroll_staff->parish->municipality->estate->country->name,
+            'estate' => $payroll_staff->parish->municipality->estate->name,
+            'municipality' => $payroll_staff->parish->municipality->name,
+            'parish' => $payroll_staff->parish->name,
+            'address' => $payroll_staff->address,
         ];
-        return response()->json(['record' => $this->data[0]]);
+        return response()->json(['record' => $data[0]], 200);
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollStaff $staff)
+    public function edit($id)
     {
-        $header = [
-            'route' => ['payroll.staffs.update', $staff], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
-        ];
-        $countries = template_choices('App\Models\Country');
-        $estates = template_choices('App\Models\Estate');
-        $municipalities = template_choices('App\Models\Municipality');
-        $parishes = template_choices('App\Models\Parish');
-        $nationalities = template_choices('Modules\Payroll\Models\PayrollNationality');
-        $genders = template_choices('Modules\Payroll\Models\PayrollGender');
-        return view('payroll::staffs.create-edit', compact(
-            'staff','header','countries','estates','municipalities','parishes','nationalities','genders'
-        ));
+        $payroll_staff = PayrollStaff::find($id);
+        return view('payroll::staffs.create-edit', compact('payroll_staff'));
     }
 
     /**
@@ -228,6 +224,11 @@ class PayrollStaffController extends Controller
             return response()->json(['result' => true]);
         }
         return redirect()->route('payroll.staffs.index');
+    }
+
+    public function vueList()
+    {
+        return response()->json(['records' => PayrollStaff::with(['payroll_nationality','payroll_gender','parish'])->get()], 200);
     }
 
     public function getPayrollStaffs()

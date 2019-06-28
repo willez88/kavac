@@ -7,30 +7,44 @@
 */
 
 /**
- * Componente para mostrar listado de información socioeconómica
+ * Componente para mostrar listado de información personal
  *
- * @author William Páez (wpaez@cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-socioeconomic-informations-list', require('./components/PayrollSocioeconomicInformationListComponent.vue').default);
+Vue.component('payroll-staffs-list', require('./components/PayrollStaffListComponent.vue').default);
+
+/**
+ * Componente para registrar o actualizar información personal
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-staff', require('./components/PayrollStaffComponent.vue').default);
 
 /**
  * Componente para mostrar listado de información socioeconómica
  *
- * @author William Páez (wpaez@cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-socioeconomic-informations-list', require('./components/PayrollSocioeconomicInformationListComponent.vue').default);
+
+/**
+ * Componente para registrar o actualizar información socioeconómica
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
  */
 Vue.component('payroll-socioeconomic-information', require('./components/PayrollSocioeconomicInformationComponent.vue').default);
 
 /**
  * Componente para mostrar listado de información profesional
  *
- * @author William Páez (wpaez@cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  */
 Vue.component('payroll-professional-informations-list', require('./components/PayrollProfessionalInformationListComponent.vue').default);
 
 /**
- * Componente para mostrar listado de información profesional
+ * Componente para registrar o actualizar información profesional
  *
- * @author William Páez (wpaez@cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  */
 Vue.component('payroll-professional-information', require('./components/PayrollProfessionalInformationComponent.vue').default);
 
@@ -73,6 +87,30 @@ Vue.mixin({
 			vm.payroll_salary_assignment_types = [];
 			axios.get('/payroll/get-salary-assignment-types').then(response => {
 				vm.payroll_salary_assignment_types = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de las nacionalidades registradas
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollNationalities() {
+			this.payroll_nationalities = [];
+			axios.get('/payroll/get-nationalities').then(response => {
+				this.payroll_nationalities = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de los géneros registradas
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollGenders() {
+			this.payroll_genders = [];
+			axios.get('/payroll/get-genders').then(response => {
+				this.payroll_genders = response.data;
 			});
 		},
 
