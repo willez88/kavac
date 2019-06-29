@@ -8,12 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollStaff;
-use App\Models\MaritalStatus;
-use App\Models\Profession;
-use App\Models\Country;
-use App\Models\Estate;
-use App\Models\City;
-use Modules\Payroll\Models\PayrollNationality;
+use App\Models\Phone;
 use App\Models\CodeSetting;
 use App\Helpers\Helper;
 
@@ -38,7 +33,7 @@ class PayrollStaffController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.staffs.list', ['only' => 'index']);
+        $this->middleware('permission:payroll.staffs.list', ['only' => ['index','vueList']]);
         $this->middleware('permission:payroll.staffs.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.staffs.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staffs.delete', ['only' => 'destroy']);
@@ -96,26 +91,26 @@ class PayrollStaffController extends Controller
                 ]], 200);
         }
 
-        $staff = new PayrollStaff;
-        $staff->code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
+        $payroll_staff = new PayrollStaff;
+        $payroll_staff->code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
         (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
-        $staff->first_name = $request->first_name;
-        $staff->last_name = $request->last_name;
-        $staff->payroll_nationality_id = $request->payroll_nationality_id;
-        $staff->id_number = $request->id_number;
-        $staff->passport = $request->passport;
-        $staff->email = $request->email;
-        $staff->birthdate = $request->birthdate;
-        $staff->payroll_gender_id = $request->payroll_gender_id;
-        $staff->emergency_contact = $request->emergency_contact;
-        $staff->emergency_phone = $request->emergency_phone;
-        $staff->parish_id = $request->parish_id;
-        $staff->address = $request->address;
-        $staff->save();
+        $payroll_staff->first_name = $request->first_name;
+        $payroll_staff->last_name = $request->last_name;
+        $payroll_staff->payroll_nationality_id = $request->payroll_nationality_id;
+        $payroll_staff->id_number = $request->id_number;
+        $payroll_staff->passport = $request->passport;
+        $payroll_staff->email = $request->email;
+        $payroll_staff->birthdate = $request->birthdate;
+        $payroll_staff->payroll_gender_id = $request->payroll_gender_id;
+        $payroll_staff->emergency_contact = $request->emergency_contact;
+        $payroll_staff->emergency_phone = $request->emergency_phone;
+        $payroll_staff->parish_id = $request->parish_id;
+        $payroll_staff->address = $request->address;
+        $payroll_staff->save();
 
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
-                $staff->phones()->save(new Phone([
+                $payroll_staff->phones()->save(new Phone([
                     'type' => $phone['type'],
                     'area_code' => $phone['area_code'],
                     'number' => $phone['number'],
@@ -179,15 +174,16 @@ class PayrollStaffController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, PayrollStaff $staff)
+    public function update(Request $request, $id)
     {
+        $payroll_staff = PayrollStaff::find($id);
         $this->validate($request, [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'payroll_nationality_id' => 'required',
-            'id_number' => 'required|regex:/^[\d]{8}$/u',
-            'passport' => 'max:20',
-            'email' => 'nullable|email',
+            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number,'.$payroll_staff->id_number,
+            'passport' => 'nullable|max:20|unique:payroll_staffs,passport,'.$payroll_staff->passport,
+            'email' => 'nullable|email|unique:payroll_staffs,email,'.$payroll_staff->email,
             'birthdate' => 'required|date',
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
@@ -195,21 +191,33 @@ class PayrollStaffController extends Controller
             'parish_id' => 'required',
             'address' => 'required|max:200'
         ]);
-        $staff->first_name = $request->first_name;
-        $staff->last_name = $request->last_name;
-        $staff->payroll_nationality_id = $request->payroll_nationality_id;
-        $staff->id_number = $request->id_number;
-        $staff->passport = $request->passport;
-        $staff->email  = $request->email;
-        $staff->birthdate = $request->birthdate;
-        $staff->payroll_gender_id = $request->payroll_gender_id;
-        $staff->emergency_contact = $request->emergency_contact;
-        $staff->emergency_phone = $request->emergency_phone;
-        $staff->parish_id = $request->parish_id;
-        $staff->address = $request->address;
-        $staff->save();
+        $payroll_staff->first_name = $request->first_name;
+        $payroll_staff->last_name = $request->last_name;
+        $payroll_staff->payroll_nationality_id = $request->payroll_nationality_id;
+        $payroll_staff->id_number = $request->id_number;
+        $payroll_staff->passport = $request->passport;
+        $payroll_staff->email  = $request->email;
+        $payroll_staff->birthdate = $request->birthdate;
+        $payroll_staff->payroll_gender_id = $request->payroll_gender_id;
+        $payroll_staff->emergency_contact = $request->emergency_contact;
+        $payroll_staff->emergency_phone = $request->emergency_phone;
+        $payroll_staff->parish_id = $request->parish_id;
+        $payroll_staff->address = $request->address;
+        $payroll_staff->save();
+
+        if ($request->phones && !empty($request->phones)) {
+            foreach ($request->phones as $phone) {
+                $payroll_staff->phones()->save(new Phone([
+                    'type' => $phone['type'],
+                    'area_code' => $phone['area_code'],
+                    'number' => $phone['number'],
+                    'extension' => $phone['extension']
+                ]));
+            }
+        }
+
         $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.staffs.index');
+        return response()->json(['result' => true, 'redirect' => route('payroll.staffs.index')], 200);
     }
 
     /**
