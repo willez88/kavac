@@ -17,6 +17,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('staff-classifications', 'PayrollStaffClassificationController', ['as' => 'payroll', 'except' => ['show']]);
 
     Route::resource('staffs', 'PayrollStaffController', ['as' => 'payroll']);
+    Route::get('staffs/show/vue-list', 'PayrollStaffController@vueList')->name('payroll.staffs.vue-list');
+    Route::get('staffs/info/{id}', 'PayrollStaffController@info')->name('payroll.staffs.info');
     Route::get('get-staffs', 'PayrollStaffController@getPayrollStaffs')->name('payroll.get-payroll-staffs');
 
     Route::resource('instruction-degrees', 'PayrollInstructionDegreeController', ['as' => 'payroll', 'except' => ['show']]);
@@ -26,6 +28,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::get('get-study-types', 'PayrollStudyTypeController@getPayrollStudyTypes')->name('payroll.get-payroll-study-types');
 
     Route::resource('nationalities', 'PayrollNationalityController', ['as' => 'payroll', 'except' => ['show']]);
+    Route::get('get-nationalities', 'PayrollNationalityController@getPayrollNationalities')->name('payroll.get-payroll-nationalities');
+
     Route::resource('concept-types', 'PayrollConceptTypeController', ['as' => 'payroll', 'except' => ['show']]);
 
 
@@ -36,6 +40,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::get('get-languages', 'PayrollLanguageController@getPayrollLanguages')->name('payroll.get-payroll-languages');
 
     Route::resource('genders', 'PayrollGenderController', ['as' => 'payroll', 'except' => ['show']]);
+    Route::get('get-genders', 'PayrollGenderController@getPayrollGenders')->name('payroll.get-payroll-genders');
 
     Route::resource('socioeconomic-informations', 'PayrollSocioeconomicInformationController', ['as' => 'payroll']);
     Route::get('socioeconomic-informations/show/vue-list', 'PayrollSocioeconomicInformationController@vueList')->name('payroll.socioeconomic-informations.vue-list');

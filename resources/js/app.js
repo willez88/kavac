@@ -666,6 +666,20 @@ Vue.mixin({
 			}
 		},
 		/**
+		 * Obtiene las parroquias del municipio seleccionado
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getParishes() {
+			const vm = this;
+			vm.parishes = [];
+			if (this.record.municipality_id) {
+				axios.get('/get-parishes/' + this.record.municipality_id).then(response => {
+					vm.parishes = response.data;
+				});
+			}
+		},
+		/**
 		 * Obtiene un arreglo con las instituciones registradas
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
