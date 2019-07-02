@@ -4,7 +4,7 @@
 		   href="#" title="Registros de objetos de proveedores" 
 		   data-toggle="tooltip" 
 		   @click="addRecord('add_object', '/purchase/supplier-objects', $event)">
-			<i class="icofont icofont-truck-loaded ico-3x"></i>
+			<i class="icofont icofont-box ico-3x"></i>
 			<span>Objetos de<br>Proveedor</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_object">
@@ -15,7 +15,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-truck-loaded inline-block"></i> 
+							<i class="icofont icofont-box inline-block"></i> 
 							Objeto de Proveedor
 						</h6>
 					</div>

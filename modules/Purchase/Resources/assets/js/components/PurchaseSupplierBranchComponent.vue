@@ -4,7 +4,7 @@
 		   href="#" title="Registros de ramas de proveedores" 
 		   data-toggle="tooltip" 
 		   @click="addRecord('add_branch', '/purchase/supplier-branches', $event)">
-			<i class="icofont icofont-truck-loaded ico-3x"></i>
+			<i class="icofont icofont-cubes ico-3x"></i>
 			<span>Ramas de<br>Proveedor</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_branch">
@@ -15,7 +15,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-truck-loaded inline-block"></i> 
+							<i class="icofont icofont-cubes inline-block"></i> 
 							Rama de Proveedor
 						</h6>
 					</div>
