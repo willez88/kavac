@@ -39,7 +39,7 @@
 					<div class="form-group is-required">
 						<label class="control-label">Referencia
 						</label>
-						<input type="text" class="form-control" v-model="reference">
+						<input type="text" class="form-control" v-model="reference" id="reference">
 					</div>
 				</div>
 				<div class="col-4">
@@ -157,7 +157,20 @@
 				this.validateRequired();
 			},
 			generated_by_id:function(res) {
-				this.validateRequired();
+				var bandera = true;
+				for (var i in this.categories) {
+					/** 
+					* Se asigna el acronimo usado para la categoria en la referencia
+					*/
+					if (this.categories[i].id == res) {
+						this.reference = this.categories[i].acronym;
+						bandera = false;
+						break;
+					}
+				}
+				if (bandera) {
+					this.validateRequired();
+				}
 			},
 			institution_departament:function(res) {
 				if (res.split('-')[1] == 'institution') {

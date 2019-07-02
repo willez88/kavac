@@ -1,13 +1,16 @@
 <template>
 	<div>
-		<h6>Historial de Reportes generados</h6>
+		<h6>Reportes generados</h6>
 		<v-client-table :columns="columns" :data="records" :options="table_options">
-			<div slot="created_at" slot-scope="props" class="text-center">
-				{{ props.row.created_at }}
-			</div>
 			<div slot="name" slot-scope="props" class="text-left">
 				{{ props.row.name }}
 			</div>
+			<div slot="created_at" slot-scope="props" class="text-center">
+				{{ props.row.created_at }}
+			</div>
+			
+			<div class="interval"></div>
+
 			<div slot="id" slot-scope="props" class="text-center">
 				<a class="btn btn-primary btn-xs btn-icon"
 					data-toggle="tooltip"
@@ -27,17 +30,18 @@
 			return {
 				records: [],
 				url:'http://'+window.location.host+'/accounting/report/',
-				columns: ['created_at', 'name', 'id']
+				columns: ['name', 'created_at', 'interval', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
 				'created_at': 'FECHA',
+				'interval': 'TIEMPO TRANSCURRIDO',
 				'name': 'TIPO DE REPORTE',
 				'id': 'ACCIÓN'
 			};
-			this.table_options.sortable = ['created_at', 'name'];
-			this.table_options.filterable = ['created_at', 'name'];
+			this.table_options.sortable = ['created_at','interval', 'name'];
+			this.table_options.filterable = ['created_at','interval', 'name'];
 		},
 		mounted(){
 			this.loadRecords();

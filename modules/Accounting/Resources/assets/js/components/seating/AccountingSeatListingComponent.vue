@@ -58,12 +58,19 @@
 						<tr>
 							<td>
 								<h6 class="text-center" style="display:inline;"><strong>Asiento contable</strong></h6>
-								<button class="btn btn-info btn-xs btn-icon"
-										style="float: right;"
-										title="Mostrar detalles" data-toggle="tooltip"
+								<button class="btn btn-secondary btn-xs btn-icon"
+										:id="'i-'+props.row.id+'-show'"
+										style="float: right; display:none;"
+										title="Ocultar detalles de cuentas" data-toggle="tooltip"
 										@click="displayDetails(props.row.id)">
-										<i class="fa fa-minus" v-show="!minimized"></i>
-										<i class="fa fa-plus" v-show="minimized"></i>
+										<i class="now-ui-icons arrows-1_minimal-up"></i>
+								</button>
+								<button class="btn btn-secondary btn-xs btn-icon"
+										:id="'i-'+props.row.id+'-none'"
+										style="float: right;"
+										title="Mostrar detalles de cuentas" data-toggle="tooltip"
+										@click="displayDetails(props.row.id)">
+										<i class="now-ui-icons arrows-1_minimal-down"></i>
 								</button>
 							</td>
 						</tr>

@@ -149,14 +149,9 @@ Route::group(['middleware' => 'web',
 	Route::get('settings', 'AccountingSettingController@index')
 			->name('accounting.settings.index');
 
-	Route::post('settings/categories', 'AccountingSettingCategoryController@store')
-			->name('accounting.settings.store');
+	Route::resource('/settings/categories', 'AccountingSettingCategoryController', 
+		['as' => 'accounting']);
 
-	Route::resource('settings/categories', 'AccountingSettingCategoryController', 
-		['as' => 'settings']);
-
-	Route::post('settings/currencies', 'AccountingSettingCurrencyExchangeRateController@storeOrUpdate')
-			->name('accounting.settings.storeOrUpdate');
-
+	Route::get('get-categories/', 'AccountingSettingCategoryController@getCategories');	
 
 });

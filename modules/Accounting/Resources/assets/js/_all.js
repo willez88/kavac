@@ -263,9 +263,13 @@ Vue.mixin({
 				if (fila[i].style.display != "none") {
 				  fila[i].style.display = "none"; //ocultar fila 
 				  this.minimized = true;
+				  $('#i-'+id+'-show').css("display", "none");
+				  $('#i-'+id+'-none').css("display", "");
 				} else {
 				  fila[i].style.display = ""; //mostrar fila 
 				  this.minimized = false;
+				  $('#i-'+id+'-show').css("display", "");
+				  $('#i-'+id+'-none').css("display", "none");
 				}
 			}
 		}
