@@ -27,196 +27,288 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				<div class="card-body">
-			        <ul class="nav nav-tabs custom-tabs" role="tablist">
-						<li class="nav-item">
-							<a href="#default_data" class="nav-link active" data-toggle="tab" 
-							   title="Datos básicos del proveedor">
-								Datos Básicos
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="#rnc" class="nav-link" data-toggle="tab" 
-							   title="Datos de Información del Registro Nacional de Contratistas (RNC)">
-								Datos del RNC
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="#requirement_docs" class="nav-link" data-toggle="tab" 
-							   title="Consignación de requisitos en físico y digital">
-								Documentos
-							</a>
-						</li>
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="default_data" role="tabpanel">
-							<div class="row">
-								<div class="col-4">
-									<div class="form-group is-required">
-										<label for="">Tipo de Persona</label>
-										<div class="col-12">
-											<label class="radio-inline">
-												<span class="left">Natural</span>
-												<input type="radio" name="person_type" value="N" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
-											</label>
-											<label class="radio-inline">
-												<span class="left">Jurídica</span>
-												<input type="radio" name="person_type" value="J" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"> 
-											</label>
+				{!! (!isset($model)) ? Form::open($header) : Form::model($model, $header) !!}
+					{!! Form::token() !!}
+					<div class="card-body">
+						@include('layouts.form-errors')
+				        <ul class="nav nav-tabs custom-tabs" role="tablist">
+							<li class="nav-item">
+								<a href="#default_data" class="nav-link active" data-toggle="tab" 
+								   title="Datos básicos del proveedor">
+									Datos Básicos
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#rnc" class="nav-link" data-toggle="tab" 
+								   title="Datos de Información del Registro Nacional de Contratistas (RNC)">
+									Datos del RNC
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#requirement_docs" class="nav-link" data-toggle="tab" 
+								   title="Consignación de requisitos en físico y digital">
+									Documentos
+								</a>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="default_data" role="tabpanel">
+								<h6 class="card-title">Datos básicos del Proveedor</h6>
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group is-required{{ $errors->has('person_type') ? ' has-error' : '' }}">
+											{!! Form::label('person_type', 'Tipo de Persona') !!}
+											<div class="col-12">
+												<label class="radio-inline">
+													<span class="left">Natural</span>
+													{!! Form::radio('person_type', 'N', null, [
+														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+														'data-off-label' => 'NO'
+													]) !!}
+												</label>
+												<label class="radio-inline">
+													<span class="left">Jurídica</span>
+													{!! Form::radio('person_type', 'J', null, [
+														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+														'data-off-label' => 'NO'
+													]) !!}
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group is-required{{ $errors->has('company_type') ? ' has-error' : '' }}">
+											{!! Form::label('company_type', 'Tipo de Empresa') !!}
+											<div class="col-12">
+												<label class="radio-inline">
+													<span class="left">Pública</span>
+													{!! Form::radio('company_type', 'PU', null, [
+														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+														'data-off-label' => 'NO'
+													]) !!}
+												</label>
+												<label class="radio-inline">
+													<span class="left">Privada</span>
+													{!! Form::radio('company_type', 'PR', null, [
+														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+														'data-off-label' => 'NO'
+													]) !!}
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group{{ $errors->has('active') ? ' has-error' : '' }}">
+											{!! Form::label('active', 'Activo') !!}
+											<div class="col-12">
+												{!! Form::checkbox('active', true, null, [
+													'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+													'data-off-label' => 'NO'
+												]) !!}
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-4">
-									<div class="form-group is-required">
-										<label for="">Tipo de Empresa</label>
-										<div class="col-12">
-											<label class="radio-inline">
-												<span class="left">Pública</span>
-												<input type="radio" name="person_type" value="PU" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
-											</label>
-											<label class="radio-inline">
-												<span class="left">Privada</span>
-												<input type="radio" name="person_type" value="PR" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"> 
-											</label>
+								<div class="row">
+									<div class="col-3">
+										<div class="form-group is-required{{ $errors->has('rif') ? ' has-error' : '' }}">
+											{!! Form::label('rif', 'R.I.F.') !!}
+											{!! Form::text('rif', null, [
+												'class' => 'form-control input-sm'
+											]) !!}
+										</div>
+									</div>
+									<div class="col-2">
+										{!! Form::button('<i class="icofont icofont-check-alt"></i> Validar', [
+											'class' => 'btn btn-sm btn-info btn-custom', 'style' => 'margin-top:25px',
+											'onclick' => ''
+										]) !!}
+									</div>
+									<div class="col-6 offset-1">
+										<div class="form-group is-required{{ $errors->has('name') ? ' has-error' : '' }}">
+											{!! Form::label('name', 'Nombre o Razón Social') !!}
+											{!! Form::text('name', null, [
+												'class' => 'form-control input-sm'
+											]) !!}
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-3">
+										<div class="form-group is-required{{ $errors->has('purchase_supplier_type_id') ? ' has-error' : '' }}">
+											{!! Form::label('purchase_supplier_type_id', 'Denominación Comercial') !!}
+											{!! Form::select('purchase_supplier_type_id', $supplier_types, null, [
+												'class' => 'form-control select2'
+											]) !!}
+										</div>
+									</div>
+									<div class="col-3">
+										<div class="form-group is-required{{ $errors->has('purchase_supplier_object_id') ? ' has-error' : '' }}">
+											{!! Form::label('purchase_supplier_object_id', 'Objeto Principal') !!}
+											{!! Form::select('purchase_supplier_object_id', $supplier_objects, null, [
+												'class' => 'form-control select2'
+											]) !!}
+										</div>
+									</div>
+									<div class="col-3">
+										<div class="form-group is-required{{ $errors->has('purchase_supplier_branch_id') ? ' has-error' : '' }}">
+											{!! Form::label('purchase_supplier_branch_id', 'Rama') !!}
+											{!! Form::select('purchase_supplier_branch_id', $supplier_branches, null, [
+												'class' => 'form-control select2'
+											]) !!}
+										</div>
+									</div>
+									<div class="col-3">
+										<div class="form-group is-required{{ $errors->has('purchase_supplier_specialty_id') ? ' has-error' : '' }}">
+											{!! Form::label('purchase_supplier_specialty_id', 'Especialidad') !!}
+											{!! Form::select('purchase_supplier_specialty_id', $supplier_specialties, null, [
+												'class' => 'form-control select2'
+											]) !!}
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group{{ $errors->has('website') ? ' has-error' : '' }}">
+											{!! Form::label('website', 'Sitio Web') !!}
+											{!! Form::text('website', null, [
+												'class' => 'form-control input-sm'
+											]) !!}
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group is-required{{ $errors->has('country_id') ? ' has-error' : '' }}">
+											{!! Form::label('country_id', 'Pais') !!}
+											{!! Form::select('country_id', $countries, null, [
+												'class' => 'form-control select2', 'id' => 'country_id',
+												'onchange' => 'updateSelect($(this), $("#estate_id"), "Estate")'
+											]) !!}
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group is-required{{ $errors->has('estate_id') ? ' has-error' : '' }}">
+											{!! Form::label('estate_id', 'Estado') !!}
+											{!! Form::select('estate_id', $estates, null, [
+												'class' => 'form-control select2', 'id' => 'estate_id',
+												'onchange' => 'updateSelect($(this), $("#city_id"), "City")',
+												'disabled' => (!isset($model))
+											]) !!}
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group is-required{{ $errors->has('city_id') ? ' has-error' : '' }}">
+											{!! Form::label('city_id', 'Ciudad') !!}
+											{!! Form::select('city_id', $cities, null, [
+												'class' => 'form-control select2', 'id' => 'city_id',
+												'disabled' => (!isset($model))
+											]) !!}
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="form-group is-required{{ $errors->has('direction') ? ' has-error' : '' }}">
+											{!! Form::label('direction', 'Dirección Fiscal') !!}
+											{!! Form::textarea('direction', null, [
+												'class' => 'form-control ckeditor', 'rows' => '4'
+											]) !!}
+										</div>
+									</div>
+								</div>
+								<hr>
+								<h6 class="card-title">Datos de Contacto</h6>
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group is-required{{ $errors->has('contact_name') ? ' has-error' : '' }}">
+											{!! Form::label('contact_name', 'Nombre') !!}
+											{!! Form::text('contact_name', null, [
+												'class' => 'form-control input-sm'
+											]) !!}
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group is-required{{ $errors->has('contact_email') ? ' has-error' : '' }}">
+											{!! Form::label('contact_email', 'Correo electrónico') !!}
+											{!! Form::text('contact_email', null, [
+												'class' => 'form-control input-sm'
+											]) !!}
+										</div>
+									</div>
+								</div>
+								<hr>
+								<phones></phones>
+							</div>
+							<div class="tab-pane" id="rnc" role="tabpanel">
+								<h6 class="card-title">Datos del Registro Nacional de Contratistas</h6>
+								<div class="row">
+									<div class="col-8">
+										<div class="form-group is-required{{ $errors->has('rnc_status') ? ' has-error' : '' }}">
+											{!! Form::label('rnc_status', 'Situación Actual') !!}
+											<div class="col-12">
+												<label class="radio-inline">
+													<span class="left">Inscrito y no habilitado</span>
+													{!! Form::radio('rnc_status', 'INH', null, [
+														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+														'data-off-label' => 'NO'
+													]) !!}
+												</label>
+												<label class="radio-inline">
+													<span class="left">Inscrito y habilitado</span>
+													{!! Form::radio('rnc_status', 'ISH', null, [
+														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+														'data-off-label' => 'NO'
+													]) !!}
+												</label>
+												<label class="radio-inline">
+													<span class="left">Inscrito, habilitado y calificado</span>
+													{!! Form::radio('rnc_status', 'IHC', null, [
+														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+														'data-off-label' => 'NO'
+													]) !!}
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group is-required{{ $errors->has('rnc_certificate_number') ? ' has-error' : '' }}">
+											{!! Form::label('rnc_certificate_number', 'Número de Certificado') !!}
+											{!! Form::text('rnc_certificate_number', null, [
+												'class' => 'form-control input-sm'
+											]) !!}
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-3">
-									<div class="form-group is-required">
-										<label for="">R.I.F.</label>
-										<input type="text" name="rif" class="form-control input-sm">
-									</div>
-								</div>
-								<div class="col-6 offset-3">
-									<div class="form-group is-required">
-										<label for="">Nombre o Razón Social</label>
-										<input type="text" name="name" class="form-control input-sm">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-3">
-									<div class="form-group is-required">
-										<label for="">Denominación Comercial</label>
-										<select name="" id="" class="select2"></select>
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="form-group is-required">
-										<label for="">Objeto Principal</label>
-										<select name="" id="" class="select2"></select>
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="form-group is-required">
-										<label for="">Rama</label>
-										<select name="" id="" class="select2"></select>
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="form-group is-required">
-										<label for="">Especialidad</label>
-										<select name="" id="" class="select2"></select>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-6">
-									<div class="form-group">
-										<label for="">Sitio Web</label>
-										<input type="text" class="form-control input-sm">
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="form-group is-required">
-										<label for="">Pais</label>
-										<select name="" id="" class="select2"></select>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="form-group is-required">
-										<label for="">Estado</label>
-										<select name="" id="" class="select2"></select>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="form-group is-required">
-										<label for="">Ciudad</label>
-										<select name="" id="" class="select2"></select>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-12">
-									<div class="form-group is-required">
-										<label for="">Dirección Fiscal</label>
-										<textarea name="" id="" rows="4" class="form-control input-sm"></textarea>
-									</div>
-								</div>
-								<div class="col-6">
-
-								</div>
-							</div>
-							<hr>
-							<h5 class="md-title">Datos de Contacto</h5>
-							<div class="row">
-								<div class="col-4">
-									<div class="form-group is-required">
-										<label for="">Nombre</label>
-										<input type="text" class="form-control input-sm">
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="form-group is-required">
-										<label for="">Correo electrónico</label>
-										<input type="text" class="form-control input-sm">
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="form-group is-required">
-										<label for="">Teléfono(s)</label>
-										<input type="text" class="form-control input-sm">
-									</div>
-								</div>
+							<div class="tab-pane" id="requirement_docs" role="tabpanel">
+								<h6 class="card-title">Documentos a consignar</h6>
+								<ol>
+									@foreach ($requiredDocuments as $reqDoc)
+										<li>
+											<div class="row">
+												<div class="col-8">
+													{{ $reqDoc->name }}
+													{!! ($reqDoc->description) ? ' (' . $reqDoc->description . ')' : '' !!}
+												</div>
+												<div class="col-2">
+													<input type="file">
+												</div>
+												<div class="col-1">
+													
+												</div>
+												<div class="col-1">
+													
+												</div>
+											</div>
+										</li>
+									@endforeach
+								</ol>
 							</div>
 						</div>
-						<div class="tab-pane" id="rnc" role="tabpanel">
-							<div class="row">
-								<div class="col-8">
-									<div class="form-group is-required">
-										<label for="">Situación Actual</label>
-										<div class="col-12">
-											<label class="radio-inline">
-												<span class="left">Inscrito y no habilitado</span>
-												<input type="radio" name="rnc_status" value="INH" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
-											</label>
-											<label class="radio-inline">
-												<span class="left">Inscrito y habilitado</span>
-												<input type="radio" name="rnc_status" value="ISH" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"> 
-											</label>
-											<label class="radio-inline">
-												<span class="left">Inscrito, habilitado y calificado</span>
-												<input type="radio" name="rnc_status" value="IHC" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"> 
-											</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="form-group is-required">
-										<label for="">Número de Certificado</label>
-										<input type="text" class="form-control input-sm">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="requirement_docs" role="tabpanel">otro</div>
 					</div>
-				</div>
-				<div class="card-footer text-right">
-					@include('layouts.form-buttons')
-				</div>
+					<div class="card-footer text-right">
+						@include('layouts.form-buttons')
+					</div>
+				{!! Form::close() !!}
 			</div>
 		</div>
 	</div>
@@ -224,6 +316,7 @@
 
 @section('extra-js')
 	@parent
+	{!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
 	<script>
 		$(document).ready(function() {
 			$(".nav-link").tooltip();

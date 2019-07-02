@@ -4,7 +4,7 @@
 		   href="#" title="Registros de documentos a solicitar" 
 		   data-toggle="tooltip" 
 		   @click="addRecord('add_required_doc', '/required-documents/' + model + '/' + module, $event)">
-			<i class="icofont icofont-read-book ico-3x"></i>
+			<i class="icofont icofont-copy-alt ico-3x"></i>
 			<span>Documentos Requeridos</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_required_doc">
@@ -15,7 +15,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book inline-block"></i> 
+							<i class="icofont icofont-copy-alt inline-block"></i> 
 							Documentos Requeridos
 						</h6>
 					</div>

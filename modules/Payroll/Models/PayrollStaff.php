@@ -134,4 +134,15 @@ class PayrollStaff extends Model implements Auditable
     {
     	return $this->hasOne(PayrollProfessionalInformation::class);
     }
+
+    /**
+     * Obtiene todos los número telefónicos asociados al trabajador
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function phones()
+    {
+        return $this->morphMany(\App\Models\Phone::class, 'phoneable');
+    }
 }

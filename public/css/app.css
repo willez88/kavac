@@ -26939,6 +26939,11 @@ a.level-debug:hover {
   }
 }
 
+.nav-tabs.custom-tabs {
+  border-bottom: 1px solid #519BF6;
+  padding-bottom: 0px;
+}
+
 .nav-tabs.custom-tabs > .nav-item {
   font-weight: bold;
 }
@@ -27723,6 +27728,10 @@ img.institution-banner {
 
 .information_panel .danger_progress {
   background-color: rgba(255, 54, 54, 0.8);
+}
+
+.tab-pane {
+  padding-top: 25px;
 }
 
 /** Quick Buttons */

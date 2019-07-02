@@ -133,4 +133,9 @@ class PayrollNationalityController extends Controller
         }
         return redirect()->route('payroll.nationalities.index');
     }
+
+    public function getPayrollNationalities()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollNationality','name','',true);
+    }
 }

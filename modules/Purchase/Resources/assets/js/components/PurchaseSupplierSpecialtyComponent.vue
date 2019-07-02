@@ -4,7 +4,7 @@
 		   href="#" title="Registros de especialidades de proveedores" 
 		   data-toggle="tooltip" 
 		   @click="addRecord('add_specialty', '/purchase/supplier-specialties', $event)">
-			<i class="icofont icofont-truck-loaded ico-3x"></i>
+			<i class="icofont icofont-cube ico-3x"></i>
 			<span>Espec. de<br>Proveedor</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_specialty">
@@ -15,7 +15,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-truck-loaded inline-block"></i> 
+							<i class="icofont icofont-cube inline-block"></i> 
 							Especialidad de Proveedor
 						</h6>
 					</div>
