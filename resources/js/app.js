@@ -153,6 +153,13 @@ Vue.component('currencies', require('./components/CurrenciesComponent.vue').defa
  */
 Vue.component('required-documents', require('./components/RequiredDocumentsComponent.vue').default);
 
+/**
+ * Componente para la gestión de números telefónicos
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('phones', require('./components/PhonesComponent.vue').default);
+
 /** Incorpora requerimientos de componentes de los módulos de la aplicación */
 require('./modules');
 import moment from 'moment';
