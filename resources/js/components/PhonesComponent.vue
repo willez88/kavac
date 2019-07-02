@@ -29,7 +29,7 @@
 			</div>
 			<div class="col-2">
 				<div class="form-group is-required">
-					<input type="text" placeholder="Extensión" data-toggle="tooltip" name="phone_extension" 
+					<input type="text" placeholder="Extensión" data-toggle="tooltip" name="phone_extension[]" 
 						   title="Indique la extención telefónica (opcional)" v-model="phone.extension" 
 						   class="form-control input-sm">
 				</div>

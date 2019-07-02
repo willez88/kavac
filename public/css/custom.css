@@ -972,6 +972,11 @@ a.level-debug:hover {
   }
 }
 
+.nav-tabs.custom-tabs {
+  border-bottom: 1px solid #519BF6;
+  padding-bottom: 0px;
+}
+
 .nav-tabs.custom-tabs > .nav-item {
   font-weight: bold;
 }
