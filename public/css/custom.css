@@ -1758,6 +1758,10 @@ img.institution-banner {
   background-color: rgba(255, 54, 54, 0.8);
 }
 
+.tab-pane {
+  padding-top: 25px;
+}
+
 /** Quick Buttons */
 
 .btn-simplex {

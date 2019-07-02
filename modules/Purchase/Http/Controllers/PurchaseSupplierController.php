@@ -5,7 +5,14 @@ namespace Modules\Purchase\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use App\Models\Country;
+use App\Models\Estate;
+use Modules\Purchase\Models\PurchaseSupplierBranch;
+use Modules\Purchase\Models\PurchaseSupplierObject;
+use Modules\Purchase\Models\PurchaseSupplierSpecialty;
+use Modules\Purchase\Models\PurchaseSupplierType;
 use Modules\Purchase\Models\PurchaseSupplier;
+use Modules\Purchase\Models\City;
 
 class PurchaseSupplierController extends Controller
 {
@@ -24,7 +31,28 @@ class PurchaseSupplierController extends Controller
      */
     public function create()
     {
-        return view('purchase::suppliers.create-edit-form');
+        $countries = template_choices(Country::class);
+        $estates = template_choices(Estate::class);
+        $cities = template_choices(City::class);
+        $supplier_types = template_choices(PurchaseSupplierType::class);
+        $supplier_branches = template_choices(PurchaseSupplierBranch::class);
+        $supplier_specialties = template_choices(PurchaseSupplierSpecialty::class);
+        $supplier_objects = ['' => 'Seleccione...', 'Bienes' => [], 'Obras' => [], 'Servicios' => []];
+        $assets = [];
+        $works = [];
+        $services = [];
+
+        foreach (PurchaseSupplierObject::all() as $so) {
+            $type = ($so->type === 'B') ? 'Bienes' : (($so->type === 'O') ? 'Obras' : 'Servicios');
+            $supplier_objects[$type][$so->id] = $so->name;
+        }
+        return view(
+            'purchase::suppliers.create-edit-form', 
+            compact(
+                'countries', 'estates', 'cities', 'supplier_types', 'supplier_objects', 'supplier_branches',
+                'supplier_specialties'
+            )
+        );
     }
 
     /**

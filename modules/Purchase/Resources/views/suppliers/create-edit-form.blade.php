@@ -50,34 +50,58 @@
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="default_data" role="tabpanel">
+							<h6 class="card-title">Datos básicos del Proveedor</h6>
 							<div class="row">
 								<div class="col-4">
 									<div class="form-group is-required">
-										<label for="">Tipo de Persona</label>
+										{!! Form::label('person_type', 'Tipo de Persona') !!}
 										<div class="col-12">
 											<label class="radio-inline">
 												<span class="left">Natural</span>
-												<input type="radio" name="person_type" value="N" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
+												{!! Form::radio('person_type', 'N', null, [
+													'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+													'data-off-label' => 'NO'
+												]) !!}
 											</label>
 											<label class="radio-inline">
 												<span class="left">Jurídica</span>
-												<input type="radio" name="person_type" value="J" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"> 
+												{!! Form::radio('person_type', 'J', null, [
+													'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+													'data-off-label' => 'NO'
+												]) !!}
 											</label>
 										</div>
 									</div>
 								</div>
 								<div class="col-4">
 									<div class="form-group is-required">
-										<label for="">Tipo de Empresa</label>
+										{!! Form::label('company_type', 'Tipo de Empresa') !!}
 										<div class="col-12">
 											<label class="radio-inline">
 												<span class="left">Pública</span>
-												<input type="radio" name="person_type" value="PU" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
+												{!! Form::radio('company_type', 'PU', null, [
+													'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+													'data-off-label' => 'NO'
+												]) !!}
 											</label>
 											<label class="radio-inline">
 												<span class="left">Privada</span>
-												<input type="radio" name="person_type" value="PR" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"> 
+												{!! Form::radio('company_type', 'PR', null, [
+													'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+													'data-off-label' => 'NO'
+												]) !!}
 											</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="form-group">
+										{!! Form::label('active', 'Activo') !!}
+										<div class="col-12">
+											{!! Form::checkbox('active', true, null, [
+												'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+												'data-off-label' => 'NO'
+											]) !!}
 										</div>
 									</div>
 								</div>
@@ -85,133 +109,174 @@
 							<div class="row">
 								<div class="col-3">
 									<div class="form-group is-required">
-										<label for="">R.I.F.</label>
-										<input type="text" name="rif" class="form-control input-sm">
+										{!! Form::label('rif', 'R.I.F.') !!}
+										{!! Form::text('rif', null, [
+											'class' => 'form-control input-sm'
+										]) !!}
 									</div>
 								</div>
-								<div class="col-6 offset-3">
+								<div class="col-2">
+									{!! Form::button('<i class="icofont icofont-check-alt"></i> Validar', [
+										'class' => 'btn btn-sm btn-info btn-custom', 'style' => 'margin-top:25px',
+										'onclick' => ''
+									]) !!}
+								</div>
+								<div class="col-6 offset-1">
 									<div class="form-group is-required">
-										<label for="">Nombre o Razón Social</label>
-										<input type="text" name="name" class="form-control input-sm">
+										{!! Form::label('name', 'Nombre o Razón Social') !!}
+										{!! Form::text('name', null, [
+											'class' => 'form-control input-sm'
+										]) !!}
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-3">
 									<div class="form-group is-required">
-										<label for="">Denominación Comercial</label>
-										<select name="" id="" class="select2"></select>
+										{!! Form::label('purchase_supplier_type_id', 'Denominación Comercial') !!}
+										{!! Form::select('purchase_supplier_type_id', $supplier_types, null, [
+											'class' => 'form-control select2'
+										]) !!}
 									</div>
 								</div>
 								<div class="col-3">
 									<div class="form-group is-required">
-										<label for="">Objeto Principal</label>
-										<select name="" id="" class="select2"></select>
+										{!! Form::label('purchase_supplier_object_id', 'Objeto Principal') !!}
+										{!! Form::select('purchase_supplier_object_id', $supplier_objects, null, [
+											'class' => 'form-control select2'
+										]) !!}
 									</div>
 								</div>
 								<div class="col-3">
 									<div class="form-group is-required">
-										<label for="">Rama</label>
-										<select name="" id="" class="select2"></select>
+										{!! Form::label('purchase_supplier_branch_id', 'Rama') !!}
+										{!! Form::select('purchase_supplier_branch_id', $supplier_branches, null, [
+											'class' => 'form-control select2'
+										]) !!}
 									</div>
 								</div>
 								<div class="col-3">
 									<div class="form-group is-required">
-										<label for="">Especialidad</label>
-										<select name="" id="" class="select2"></select>
+										{!! Form::label('purchase_supplier_specialty_id', 'Especialidad') !!}
+										{!! Form::select('purchase_supplier_specialty_id', $supplier_specialties, null, [
+											'class' => 'form-control select2'
+										]) !!}
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
-										<label for="">Sitio Web</label>
-										<input type="text" class="form-control input-sm">
+										{!! Form::label('website', 'Sitio Web') !!}
+										{!! Form::text('website', null, [
+											'class' => 'form-control input-sm'
+										]) !!}
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group is-required">
-										<label for="">Pais</label>
-										<select name="" id="" class="select2"></select>
+										{!! Form::label('country_id', 'Pais') !!}
+										{!! Form::select('country_id', $countries, null, [
+											'class' => 'form-control select2', 'id' => 'country_id',
+											'onchange' => 'updateSelect($(this), $("#estate_id"), "Estate")'
+										]) !!}
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group is-required">
-										<label for="">Estado</label>
-										<select name="" id="" class="select2"></select>
+										{!! Form::label('estate_id', 'Estado') !!}
+										{!! Form::select('estate_id', $estates, null, [
+											'class' => 'form-control select2', 'id' => 'estate_id',
+											'onchange' => 'updateSelect($(this), $("#city_id"), "City")',
+										]) !!}
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group is-required">
-										<label for="">Ciudad</label>
-										<select name="" id="" class="select2"></select>
+										{!! Form::label('city_id', 'Ciudad') !!}
+										{!! Form::select('city_id', $cities, null, [
+											'class' => 'form-control select2', 'id' => 'city_id'
+										]) !!}
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-12">
 									<div class="form-group is-required">
-										<label for="">Dirección Fiscal</label>
-										<textarea name="" id="" rows="4" class="form-control input-sm"></textarea>
+										{!! Form::label('direction', 'Dirección Fiscal') !!}
+										{!! Form::textarea('direction', null, [
+											'class' => 'form-control ckeditor', 'rows' => '4'
+										]) !!}
 									</div>
-								</div>
-								<div class="col-6">
-
 								</div>
 							</div>
 							<hr>
-							<h5 class="md-title">Datos de Contacto</h5>
+							<h6 class="card-title">Datos de Contacto</h6>
 							<div class="row">
-								<div class="col-4">
+								<div class="col-6">
 									<div class="form-group is-required">
-										<label for="">Nombre</label>
-										<input type="text" class="form-control input-sm">
+										{!! Form::label('contact_name', 'Nombre') !!}
+										{!! Form::text('contact_name', null, [
+											'class' => 'form-control input-sm'
+										]) !!}
 									</div>
 								</div>
-								<div class="col-4">
+								<div class="col-6">
 									<div class="form-group is-required">
-										<label for="">Correo electrónico</label>
-										<input type="text" class="form-control input-sm">
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="form-group is-required">
-										<label for="">Teléfono(s)</label>
-										<input type="text" class="form-control input-sm">
+										{!! Form::label('contact_email', 'Correo electrónico') !!}
+										{!! Form::text('contact_email', null, [
+											'class' => 'form-control input-sm'
+										]) !!}
 									</div>
 								</div>
 							</div>
+							<hr>
+							<phones></phones>
 						</div>
 						<div class="tab-pane" id="rnc" role="tabpanel">
+							<h6 class="card-title">Datos del Registro Nacional de Contratistas</h6>
 							<div class="row">
 								<div class="col-8">
 									<div class="form-group is-required">
-										<label for="">Situación Actual</label>
+										{!! Form::label('rnc_status', 'Situación Actual') !!}
 										<div class="col-12">
 											<label class="radio-inline">
 												<span class="left">Inscrito y no habilitado</span>
-												<input type="radio" name="rnc_status" value="INH" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
+												{!! Form::radio('rnc_status', 'INH', null, [
+													'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+													'data-off-label' => 'NO'
+												]) !!}
 											</label>
 											<label class="radio-inline">
 												<span class="left">Inscrito y habilitado</span>
-												<input type="radio" name="rnc_status" value="ISH" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"> 
+												{!! Form::radio('rnc_status', 'ISH', null, [
+													'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+													'data-off-label' => 'NO'
+												]) !!}
 											</label>
 											<label class="radio-inline">
 												<span class="left">Inscrito, habilitado y calificado</span>
-												<input type="radio" name="rnc_status" value="IHC" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"> 
+												{!! Form::radio('rnc_status', 'IHC', null, [
+													'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
+													'data-off-label' => 'NO'
+												]) !!}
 											</label>
 										</div>
 									</div>
 								</div>
 								<div class="col-4">
 									<div class="form-group is-required">
-										<label for="">Número de Certificado</label>
-										<input type="text" class="form-control input-sm">
+										{!! Form::label('rnc_certificate_number', 'Número de Certificado') !!}
+										{!! Form::text('rnc_certificate_number', null, [
+											'class' => 'form-control input-sm'
+										]) !!}
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="requirement_docs" role="tabpanel">otro</div>
+						<div class="tab-pane" id="requirement_docs" role="tabpanel">
+							<h6 class="card-title">Documentos a consignar</h6>
+						</div>
 					</div>
 				</div>
 				<div class="card-footer text-right">
@@ -224,6 +289,7 @@
 
 @section('extra-js')
 	@parent
+	{!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
 	<script>
 		$(document).ready(function() {
 			$(".nav-link").tooltip();

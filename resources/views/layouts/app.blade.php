@@ -104,7 +104,6 @@
             $(document).ready(function() {
                 
                 if ($('.ckeditor').length && typeof(CkEditor) !== 'undefined') {
-                    
                     $('.ckeditor').each(function() {
                         CkEditor.create(document.querySelector('.ckeditor'), {
                             toolbar: [
