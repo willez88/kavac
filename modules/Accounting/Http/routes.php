@@ -12,6 +12,14 @@ Route::group(['middleware' => 'web',
 			  'prefix' => 'accounting',
 			  'namespace' => 'Modules\Accounting\Http\Controllers'
 ], function(){
+
+	/**
+	* Ruta para el dashboard para consultar ultimas operaciones en el modulo
+	*/
+	Route::post('lastOperations', 'AccountingLastOperationsController@get_operations',['as'=>'accounting'])->name('accounting.last_operations');
+
+	Route::post('get_report_histories', 'AccountingLastOperationsController@get_report_histories',['as'=>'accounting'])->name('accounting.report_histories');
+
 	/**
      * Rutas para la gestion de cuentas patrimoniales
      */
@@ -66,6 +74,7 @@ Route::group(['middleware' => 'web',
 	// ruta para listar los asientos contables no aprobados
 	Route::get('seating/unapproved', 'AccountingSeatController@unapproved')
 			->name('accounting.seating.unapproved');
+
 
 	/**
      * rutas para los pdf de asientos contables
@@ -123,6 +132,8 @@ Route::group(['middleware' => 'web',
 	 */
 	Route::get('report/stateOfResults', 'AccountingReportPdfStateOfResultsController@index')
 			->name('accounting.report.stateOfResults');
+	Route::get('report/stateOfResults/pdf/{date}/{level}/{zero?}', 'AccountingReportPdfStateOfResultsController@pdf')
+			->name('accounting.report.stateOfResults.pdf');
 
 	/**
 	* rutas de crud de asientos contables
@@ -138,14 +149,9 @@ Route::group(['middleware' => 'web',
 	Route::get('settings', 'AccountingSettingController@index')
 			->name('accounting.settings.index');
 
-	Route::post('settings/categories', 'AccountingSettingCategoryController@store')
-			->name('accounting.settings.store');
+	Route::resource('/settings/categories', 'AccountingSettingCategoryController', 
+		['as' => 'accounting']);
 
-	Route::resource('settings/categories', 'AccountingSettingCategoryController', 
-		['as' => 'settings']);
-
-	Route::post('settings/currencies', 'AccountingSettingCurrencyExchangeRateController@storeOrUpdate')
-			->name('accounting.settings.storeOrUpdate');
-
+	Route::get('get-categories/', 'AccountingSettingCategoryController@getCategories');	
 
 });

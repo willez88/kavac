@@ -1,16 +1,26 @@
 @php
 	$pdf->SetTitle('Libro Auxiliar'); // titulo del archivo
     $height = $pdf->get_Y();
+
+    // @var float total por el debe
     $totDebit=0;
+
+    // @var float total por el debe
     $totAssets=0;
+
+    // @var float saldo total
     $totBalance = 0;
-    $cont = 1;
+
+    // @var float saldo acumulado en cada iteración
     $beginningBalance = 0;
+
+    $lineWrites = 7;
 @endphp
 
 <h1 align="center">
 	LIBRO AUXILIAR
 </h1>
+{{-- si la cuenta tiene una de nivel superior la muesta de lo contrario solo muesta la cuenta --}}
 @if($parent_account)
 	<h3>CUENTA {{ $parent_account->getCode().' '.$parent_account->denomination }} </h3>
 	@if($parent_account->id != $account->id)
@@ -29,7 +39,20 @@
 		<td width="22%" align="center">DEBITO</td>
 		<td width="22%" align="center">CREDITO</td>
 	</tr>
+	{{-- $record es un array el cual tiene cada registro relacionado con una cuenta en un asiento contable  --}}
 	@foreach($records as $record)
+		{{-- Se valida el numero de lineas impresas para llegado el limite realizar el salto de pagina manualmente --}}
+		@if($lineWrites+1 >= 26)
+			<br pagebreak="true" />
+			@php
+				$lineWrites = 0;
+			@endphp
+		@endif
+		@php
+			// Se aumenta el contador de lineas
+			$lineWrites++;
+		@endphp
+		{{-- Fin de la validación --}}
 		<tr>
 			<td> {{ $record['updated_at']->format('d/m/Y') }}</td>
 			<td> {{ $record['seating']['concept'] }}</td>
@@ -47,12 +70,25 @@
 				@endphp
 			</td>
 			@php
+				// se realizan los calculos para el saldo total
 				$totBalance = ((float)$beginningBalance + (float)$record['debit'] - (float)$record['assets']);
 				$beginningBalance = $totBalance;
 			@endphp
 		</tr>
 	@endforeach
 	<br>
+	{{-- Se valida el numero de lineas impresas para llegado el limite realizar el salto de pagina manualmente --}}
+		@if($lineWrites+2 >= 26)
+			<br pagebreak="true" />
+			@php
+				$lineWrites = 0;
+			@endphp
+		@endif
+		@php
+			// Se aumenta el contador de lineas
+			$lineWrites++;
+		@endphp
+		{{-- Fin de la validación --}}
 	<tr>
 		<td></td>
 		<td style="background-color: #BDBDBD;" align="right">SUMAS</td>

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\AccountingReportHistory;
+use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
@@ -55,6 +56,17 @@ class AccountingReportPdfDailyBookController extends Controller
      */
     public function pdf($initDate, $endDate)
     {
+        /**
+        * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
+        */
+        $url = 'diaryBook/pdf/'.$initDate.'/'.$endDate;
+        AccountingReportHistory::updateOrCreate([
+                                                    'url' => $url,
+                                                    'report' => 3 
+                                                ],
+                                                [
+                                                    'name' => 'Libro Diario',
+                                                ]);
 
         /** @var Objet objeto con la información del asiento contable */
         $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved',true)->whereBetween("from_date",[$initDate, $endDate])->orderBy('from_date','ASC')->get();
@@ -84,8 +96,8 @@ class AccountingReportPdfDailyBookController extends Controller
         $pdf->Open();
         $pdf->AddPage();
 
-        $OneSeat = false;
-        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('pdf','seats','OneSeat','currency'))->render();
+        $Seating = false;
+        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('pdf','seats','Seating','currency'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');

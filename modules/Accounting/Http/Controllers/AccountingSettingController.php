@@ -37,33 +37,6 @@ class AccountingSettingController extends Controller
      */
     public function index()
     {
-        /** @var object Objeto en el que se almacenan los registro de las categorias de asientos contables */
-        $categories = AccountingSeatCategory::orderBy('name','ASC')->get();
-
-        /** @var object Objeto en el que se almacenan la información de la moneda por defecto en la aplicación */
-        // $currency_default = Currency::with('exchange_rate_currency_base.currency')->where('default',true)->first();
-        // $currencies = [];
-
-        // foreach (Currency::where('default',false)->orderBy('name','ASC')->get() as $currency) {
-        //     $exist = false;
-        //     foreach ($currency_default->exchange_rate_currency_base as $exchange_rate) {
-        //         if ($currency->id == $exchange_rate->currency_id) {
-        //             $exist = true;
-        //         }
-        //     }
-        //     if (!$exist) {
-        //         $curr = new AccountingCurrencyExchangeRate();
-        //         $curr->currency_id = $currency->id;
-        //         $curr->currency_base_id = $currency_default->id;
-        //         $curr->value = 1;
-        //         $curr->date = date("Y").'-'.date("m").'-'.date("d");
-        //         $curr->save();
-        //     }
-        // }
-
-        // $currency_default = Currency::with('exchange_rate_currency_base.currency')->where('default',true)->first();
-
-        return view('accounting::setting.index', compact('categories'));
-        // return view('accounting::setting.index', compact('categories','currency_default'));
+        return view('accounting::setting.index');
     }
 }

@@ -126,27 +126,27 @@
 			</div>
 		</div>
 		<div class='card-footer text-right'>
-			<button class="btn btn-default btn-icon btn-round"
+			<button class="btn btn-default btn-icon"
 					data-toggle="tooltip"
 					title="Borrar datos del formulario"
 					type="reset">
 					<i class="fa fa-eraser"></i>
 			</button>
 
-			<a :href="urlPrevious" class="btn btn-warning btn-icon btn-round"
+			<a :href="urlPrevious" class="btn btn-warning btn-icon"
 					data-toggle="tooltip"
 					title="Cancelar y regresar">
 					<i class="fa fa-ban"></i>
 			</a>
 			<!-- se muestra en caso de crear -->
-			<button v-if="showButton == 'create'" class="btn btn-success btn-icon btn-round"
+			<button v-if="showButton == 'create'" class="btn btn-success btn-icon"
 					data-toggle="tooltip"
 					title="Guardar registro"
 					id="save">
 					<i class="fa fa-save"></i>
 			</button>
 			<!-- se muestra en caso de actualizar -->
-			<button v-else class="btn btn-success btn-icon btn-round"
+			<button v-else class="btn btn-success btn-icon"
 					data-toggle="tooltip"
 					title="Actualizar registro"
 					id="save">

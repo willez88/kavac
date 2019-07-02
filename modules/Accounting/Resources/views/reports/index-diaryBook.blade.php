@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Reporte
+	Reportes
 @stop
 
 @section('content')

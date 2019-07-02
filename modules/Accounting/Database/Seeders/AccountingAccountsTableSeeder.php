@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Accounting\Models\AccountingAccount;
+use Modules\Accounting\Models\AccountingSeatAccount;
+use Modules\Accounting\Models\AccountingAccountConverter;
 
 /**
  * @class AccountingAccountsTableSeeder
@@ -31,6 +33,9 @@ class AccountingAccountsTableSeeder extends Seeder
     {
         Model::unguard();
 
+        /**
+        * Listadop de cuenta patrimoniales verificadas y actualizadas
+        */
         $accounting_acounts = [
             [
                 'group' => '1','subgroup' => '0','item' => '0', 'generic' => '00','specific' => '00','subspecific' => '00',
@@ -1730,16 +1735,6 @@ class AccountingAccountsTableSeeder extends Seeder
                 'denomination' => 'Fondo de Compensación Interterritorial Fortalecimiento Institucional'
             ],
             [
-                'group' => '3','subgroup' => '1','item' => '3', 'generic' => '06','specific' => '00','subspecific' => '00',
-                'active' => true,
-                'denomination' => 'APORTES DEL SECTOR PÚBLICO AL PODER ESTADAL Y AL PODER MUNICIPAL POR TRANSFERENCIA DE SERVICIOS'
-            ],
-            [
-                'group' => '3','subgroup' => '1','item' => '3', 'generic' => '06','specific' => '01','subspecific' => '00',
-                'active' => true,
-                'denomination' => 'Aportes del Sector Público al Poder Estadal por transferencia de servicios'
-            ],
-            [
                 'group' => '3','subgroup' => '1','item' => '3', 'generic' => '06','specific' => '02','subspecific' => '00',
                 'active' => true,
                 'denomination' => 'Aportes del Sector Público al Poder Municipal por transferencia de servicios'
@@ -2540,39 +2535,44 @@ class AccountingAccountsTableSeeder extends Seeder
                 'denomination' => 'Intereses de títulos y valores externos'
             ],
             [
-                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '01','subspecific' => '00',
+                'group' => '5','subgroup' => '2','item' => '1', 'generic' => '09','specific' => '01','subspecific' => '00',
                 'active' => true,
                 'denomination' => 'Utilidades de acciones y participaciones de capital del sector privado empresarial'
             ],
             [
-                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '02','subspecific' => '00',
+                'group' => '5','subgroup' => '2','item' => '1', 'generic' => '09','specific' => '02','subspecific' => '00',
                 'active' => true,
                 'denomination' => 'Utilidades de acciones y participaciones de capital de entes descentralizados con fines empresariales petroleros'
             ],
             [
-                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '03','subspecific' => '00',
+                'group' => '5','subgroup' => '2','item' => '1', 'generic' => '09','specific' => '03','subspecific' => '00',
                 'active' => true,
                 'denomination' => 'Utilidades de acciones y participaciones de capital de entes descentralizados con fines empresariales no petroleros'
             ],
             [
-                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '04','subspecific' => '00',
+                'group' => '5','subgroup' => '2','item' => '1', 'generic' => '09','specific' => '04','subspecific' => '00',
                 'active' => true,
                 'denomination' => 'Utilidades de acciones y participaciones de capital de entes financieros bancarios'
             ],
             [
-                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '05','subspecific' => '00',
+                'group' => '5','subgroup' => '2','item' => '1', 'generic' => '09','specific' => '05','subspecific' => '00',
                 'active' => true,
                 'denomination' => 'Utilidades de acciones y participaciones de capital de entes financieros no bancarios'
             ],
             [
-                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '06','subspecific' => '00',
+                'group' => '5','subgroup' => '2','item' => '1', 'generic' => '09','specific' => '06','subspecific' => '00',
                 'active' => true,
                 'denomination' => 'Utilidades de acciones y participaciones de capital de organismos internacionales'
             ],
             [
-                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '07','subspecific' => '00',
+                'group' => '5','subgroup' => '2','item' => '1', 'generic' => '09','specific' => '07','subspecific' => '00',
                 'active' => true,
                 'denomination' => 'Utilidades de acciones y participaciones de capital de otros entes del sector externo'
+            ],
+            [
+                'group' => '5','subgroup' => '2','item' => '1', 'generic' => '09','specific' => '08','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Utilidades netas semestrales del Banco Central de Venezuela (BCV)'
             ],
             [
                 'group' => '5','subgroup' => '1','item' => '5', 'generic' => '05','specific' => '00','subspecific' => '00',
@@ -2728,6 +2728,11 @@ class AccountingAccountsTableSeeder extends Seeder
                 'group' => '5','subgroup' => '1','item' => '7', 'generic' => '04','specific' => '00','subspecific' => '00',
                 'active' => true,
                 'denomination' => 'SUBSIDIO DE CAPITALIDAD'
+            ],
+            [
+                'group' => '5','subgroup' => '1','item' => '7', 'generic' => '06','specific' => '00','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'APORTES DEL SECTOR PÚBLICO AL PODER ESTADAL Y AL PODER MUNICIPAL POR TRANSFERENCIA DE SERVICIOS'
             ],
             [
                 'group' => '5','subgroup' => '1','item' => '7', 'generic' => '06','specific' => '01','subspecific' => '00',
@@ -3696,7 +3701,63 @@ class AccountingAccountsTableSeeder extends Seeder
             ],
         ];
 
-        DB::transaction(function() use ($accounting_acounts) {
+        /**
+        * Listado de cuentas que actualizaron su código y deben ser eliminadas para sacarlas de la base de datos cargada
+        * estas cuentas ya fueron actualizas en el listado de cuentas $accounting_acounts
+        */
+        $accounting_acounts_to_delete = [
+            [
+                'group' => '3','subgroup' => '1','item' => '3', 'generic' => '06','specific' => '00','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'APORTES DEL SECTOR PÚBLICO AL PODER ESTADAL Y AL PODER MUNICIPAL POR TRANSFERENCIA DE SERVICIOS'
+            ],
+            [
+                'group' => '3','subgroup' => '1','item' => '3', 'generic' => '06','specific' => '01','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Aportes del Sector Público al Poder Estadal por transferencia de servicios'
+            ],
+            [
+                'group' => '3','subgroup' => '1','item' => '3', 'generic' => '06','specific' => '02','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Aportes del Sector Público al Poder Municipal por transferencia de servicios'
+            ],
+            [
+                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '01','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Utilidades de acciones y participaciones de capital del sector privado empresarial'
+            ],
+            [
+                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '02','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Utilidades de acciones y participaciones de capital de entes descentralizados con fines empresariales petroleros'
+            ],
+            [
+                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '03','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Utilidades de acciones y participaciones de capital de entes descentralizados con fines empresariales no petroleros'
+            ],
+            [
+                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '04','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Utilidades de acciones y participaciones de capital de entes financieros bancarios'
+            ],
+            [
+                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '05','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Utilidades de acciones y participaciones de capital de entes financieros no bancarios'
+            ],
+            [
+                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '06','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Utilidades de acciones y participaciones de capital de organismos internacionales'
+            ],
+            [
+                'group' => '5','subgroup' => '1','item' => '5', 'generic' => '04','specific' => '07','subspecific' => '00',
+                'active' => true,
+                'denomination' => 'Utilidades de acciones y participaciones de capital de otros entes del sector externo'
+            ],
+        ];
+        DB::transaction(function() use ($accounting_acounts, $accounting_acounts_to_delete) {
             foreach ($accounting_acounts as $account) {
 
                 /** @var Object que almacena la consulta de la cuenta, si esta no existe retorna null */
@@ -3716,7 +3777,7 @@ class AccountingAccountsTableSeeder extends Seeder
                     [
                         'group' => $account['group'], 'subgroup' => $account['subgroup'],
                         'item' => $account['item'], 'generic' => $account['generic'],
-                        'specific' => $account['specific'], 'subspecific' => $account['subspecific']
+                        'specific' => $account['specific'], 'subspecific' => $account['subspecific'], 
                     ],[
                         'denomination' => $account['denomination'],
                         'active' => $account['active'],
@@ -3725,9 +3786,58 @@ class AccountingAccountsTableSeeder extends Seeder
                         /**
                         * Si existe, al ejecutar nuevamente el seeder o refrescar la base de datos evita que se asigne en la columna parent_id a si mismo como su parent
                         */ 
-                        'parent_id' => ($acc != null) ? (($acc->id == $parent->id)?null:$parent->id) : (($parent == false)?null:$parent->id) ,
+                        'parent_id' => ($acc != null && $parent != false) ? (($acc->id == $parent->id)?null:$parent->id) : (($parent == false)?null:$parent->id) ,
                     ]
                 );
+
+
+            }
+
+            /**
+            * Se consultan, eliminan y actualizan los registros relacionados con la cuenta,
+            * en caso de ya tener informacion relacionada se toman las medidas necesarias para evitar la perdida de datos
+            */
+            foreach ($accounting_acounts_to_delete as $account) {
+                $account_to = AccountingAccount::where('group',$account['group'])
+                    ->where('subgroup',$account['subgroup'])
+                    ->where('item',$account['item'])
+                    ->where('generic',$account['generic'])
+                    ->where('specific',$account['specific'])
+                    ->where('subspecific',$account['subspecific'])
+                    ->where('denomination',$account['denomination'])->first();
+
+                if (!is_null($account_to)) {
+                    $acc_new = AccountingAccount::where('denomination',$account['denomination'])
+                                ->where('group','<>',$account['group'])
+                                ->where('group','<>',$account['subgroup'])
+                                ->where('group','<>',$account['item'])
+                                ->where('group','<>',$account['generic'])
+                                ->where('group','<>',$account['specific'])
+                                ->where('group','<>',$account['subspecific'])->first();
+
+                    if (!is_null($acc_new)) {
+                        /**
+                        * Se actualizan los valores de las llaves foraneas en el modelo AccountingSeatAccount que tenia la cuenta por el nuevo registro actualizado
+                        * se actualiza la información en la base de datos
+                        */
+                        foreach (AccountingSeatAccount::where('accounting_account_id',$account_to->id)->get() as $acc) {
+                            $acc->accounting_account_id = $acc_new->id;
+                            $acc->save();
+                        }
+
+                        /**
+                        * Se actualizan los valores de las llaves foraneas en el modelo AccountingAccountConverter que tenia la cuenta por el nuevo registro actualizado
+                        * se actualiza la información en la base de datos
+                        */
+                        foreach (AccountingAccountConverter::where('accounting_account_id',$account_to->id)->get() as $acc) {
+                            $acc->accounting_account_id = $acc_new->id;
+                            $acc->save();
+                        }
+                    }
+
+                    // Se elimina el registro
+                    $account_to->delete();
+                }
             }
         });
     }

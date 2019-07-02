@@ -34,6 +34,11 @@ class AccountingSettingCategoryController extends Controller
         $this->middleware('permission:accounting.setting.category.delete', ['only' => 'destroy']);
     }
 
+    public function index()
+    {
+        return response()->json(['records' => AccountingSeatCategory::orderBy('name')->get()], 200);
+    }
+
     /**
      * Crea una nueva categorias de origen de asiento contable
      *
@@ -101,5 +106,25 @@ class AccountingSettingCategoryController extends Controller
             $category->delete();
         }
         return response()->json(['record'=>$category, 'message'=>'Success'],200);
+    }
+
+        /**
+     * Obtiene los datos de las entidades bancarias
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     * @return \Illuminate\Http\JsonResponse Devuelve un JSON con listado de las entidades bancarias
+     */
+    public function getCategories()
+    {
+        $records = [];
+        foreach (AccountingSeatCategory::all() as $category) {
+            $records[] = [
+                'id' => $category->id,
+                'text' => $category->name,
+                'acronym' => $category->acronym,
+            ];
+        }
+
+        return response()->json($records);
     }
 }

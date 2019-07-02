@@ -7,11 +7,11 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingSeatCategory;
-use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
-use Modules\Accounting\Models\Currency;
+use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Currency;
 use Auth;
 
 /**
@@ -71,6 +71,7 @@ class AccountingSeatController extends Controller
             array_push($categories, [
                 'id' => $category->id,
                 'text' => $category->name,
+                'acronym' => $category->acronym,
             ]);
         }
         /**
@@ -106,6 +107,7 @@ class AccountingSeatController extends Controller
             array_push($categories, [
                 'id' => $category->id,
                 'text' => $category->name,
+                'acronym' => $category->acronym,
             ]);
         }
         /**
@@ -216,6 +218,7 @@ class AccountingSeatController extends Controller
             array_push($categories, [
                 'id' => $cat->id,
                 'text' => $cat->name,
+                'acronym' => $category->acronym,
             ]);
         }
         /**

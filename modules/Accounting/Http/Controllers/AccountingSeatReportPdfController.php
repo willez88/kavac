@@ -10,7 +10,7 @@ use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
-use Modules\Accounting\Pdf\PDF;
+use Modules\Accounting\Pdf\Pdf;
 use Auth;
 
 /**
@@ -74,8 +74,8 @@ class AccountingSeatReportPdfController extends Controller
         $pdf->Open();
         $pdf->AddPage();
 
-        $OneSeat = true;
-        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('seat','pdf','OneSeat','currency'))->render();
+        $Seating = true;
+        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('seat','pdf','Seating','currency'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');

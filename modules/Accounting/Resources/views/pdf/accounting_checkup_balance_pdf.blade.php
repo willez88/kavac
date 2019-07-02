@@ -2,20 +2,43 @@
 	$pdf->SetTitle('Balance de Comprobación'); // titulo del archivo
     $height = $pdf->get_Y();
 
+    // @var float total por el debe
     $totDebit = 0;
+    // @var float total por el haber
     $totAssets = 0;
+    // @var float total deudor
     $totDebitor = 0;
+    // @var float total acreedor
     $totCreditor = 0;
+    // @var float saldo acumulado en cada iteración por cuenta
     $beg_Balance = 0;
 
+    // @var array arreglo con la informacion de las cuentas de manera unica
     $shownAccounts = [];
 
 	$initDate = new DateTime($initDate);
 	$endDate = new DateTime($endDate);
 
+	// Se formatea la fecha
 	$initDate = $initDate->format('d/m/Y');
+
+	// Se formatea la fecha
 	$endDate = $endDate->format('d/m/Y');
 
+	/**
+	* Cuenta el numero de lineas de contenido para realizar el salto de pagina
+	* Se inicia en 5 tomando en cuenta el titulo del contenido
+	*/
+	$lineWrites = 5;
+
+    /**
+     * Verifica que la cuenta este registrada en el arreglo de manera unica
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param Array $records arreglo con las cuentas almacenadas de manera unica
+     * @param Int $data id de la cuenta
+	* @return bolean retorna falso si la cuenta ya se encuentra egregada en el array
+    */
 	function uniqueRecord($records, $data)
 	{
 		$unique = true;
@@ -57,10 +80,25 @@
 		@if(count($records) > 0)
 			@foreach($records as $record)
 				@php
+					// @var float total por el debe de la cuenta
 					$debitAcc  =0;
+					// @var float total por el haber de la cuenta
 			    	$assetsAcc =0;
 				@endphp
 				@if(uniqueRecord($shownAccounts, $record[0]['account']['id']))
+
+					{{-- Se valida el numero de lineas impresas para llegado el limite realizar el salto de pagina manualmente --}}
+					@if($lineWrites == 24)
+						<br pagebreak="true" />
+						@php
+							$lineWrites = 0;
+						@endphp
+					@endif
+					@php
+						// Se aumenta el contador de lineas
+						$lineWrites++;
+					@endphp
+					{{-- Fin de la validación --}}
 					@foreach($record as $r)
 						@php
 							$debitAcc += (float)$r['debit'];
@@ -93,21 +131,7 @@
 						</td>
 						@php
 							$res = 0;
-
-							if ($beg_Balance >= 0) {
-								if (($debitAcc-$assetsAcc) >= 0) {
-									$res = $beg_Balance + ($debitAcc-$assetsAcc);
-								}else{
-									$res = $beg_Balance + ($debitAcc-$assetsAcc);
-								}
-							}else if ($beg_Balance < 0) {
-								if (($debitAcc-$assetsAcc) >= 0) {
-									$res = $beg_Balance + ($debitAcc-$assetsAcc);
-								}else{
-									$res = $beg_Balance + ($debitAcc-$assetsAcc);
-								}
-							}
-
+							$res = $beg_Balance + ($debitAcc-$assetsAcc);
 						@endphp
 						<td align="right"> 
 							@if($res >= 0)
@@ -137,6 +161,15 @@
 			@endforeach
 		@endif
 		<tr style="background-color: #BDBDBD;">
+			@php
+				if ($lineWrites == 24) {
+					$lineWrites = 0;
+				}
+				else{
+					// Se aumenta el contador de lineas
+					$lineWrites++;
+				}
+			@endphp
 			<td></td>
 			<td align="center"><strong>TOTALES</strong></td>
 			<td></td>

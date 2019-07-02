@@ -18,16 +18,19 @@
 						<div class="col-5">
 							<h4><label class="control-label">Presupuestales</label></h4>
 							<select2 :options="budgetOptions" v-model="budgetSelect"
+										data-toggle="tooltip"
 										title="Seleccione una cuenta presupuestal"></select2>
 						</div>
 						<div class="col-5">
 							<h4><label class="control-label">Patrimoniales</label></h4>
 							<select2 :options="accountingOptions" v-model="accountingSelect"
+										data-toggle="tooltip"
 										title="Seleccione una cuenta patrimonial"></select2>
 						</div>
 						<div class="col-2">
-							<button class="btn btn-success btn-sm btn-icon btn-action btn-round"
+							<button class="btn btn-success btn-sm btn-icon btn-action"
 									style="margin-top:4.5rem !important;" 
+									data-toggle="tooltip"
 									v-on:click="addToConvertions()"
 									title="Agregar cuentas al listado de cuentas a convertir"
 									><i class="fa fa-plus"></i></button>
@@ -47,7 +50,7 @@
 					</div>
 					<div slot="id" slot-scope="props" class="text-center">
 						<button @click="removeToConvertions(props.index)" 
-								class="btn btn-danger btn-xs btn-icon btn-action btn-round" 
+								class="btn btn-danger btn-xs btn-icon btn-action" 
 								title="Eliminar registro de la lista de cuentas a convertir"
 								data-toggle="tooltip">
 							<i class="fa fa-trash-o"></i>
@@ -55,14 +58,14 @@
 					</div>
 				</v-client-table>
 				<div align="right">
-					<button class="btn btn-success btn-icon btn-round"
+					<button class="btn btn-success btn-icon"
 							data-toggle="tooltip" 
 							title="Guardar registros"
 							v-on:click="saveConvertions()"
 							v-if="AccountToConverters.length > 0">
 						<i class="fa fa-save"></i>
 					</button>
-					<button class="btn btn-success btn-icon btn-round"
+					<button class="btn btn-success btn-icon"
 							data-toggle="tooltip" 
 							title="Guardar registros"
 							disabled="" 
