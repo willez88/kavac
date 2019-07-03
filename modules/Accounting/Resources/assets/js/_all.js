@@ -70,14 +70,6 @@ Vue.component('accounting-seat-create-account', require('./components/seating/Ac
 Vue.component('accounting-setting-category', require('./components/setting/AccountingSettingCategoryComponent.vue').default);
 
 /**
- * Componente para la configuración de las tasas de cambio de mas monedas
- *
- * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- */
-Vue.component('accounting-setting-currency-exchange-rate', require('./components/setting/AccountingSettingCurrencyExchangeRateComponent.vue').default);
-
-
-/**
  * Componente index para el reporte de balance de comprobación
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
