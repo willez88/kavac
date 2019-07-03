@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\Country;
 use App\Models\Estate;
 use App\Models\RequiredDocument;
+use App\Models\Phone;
 use Modules\Purchase\Models\PurchaseSupplierBranch;
 use Modules\Purchase\Models\PurchaseSupplierObject;
 use Modules\Purchase\Models\PurchaseSupplierSpecialty;
@@ -19,6 +20,36 @@ use Modules\Purchase\Models\City;
 class PurchaseSupplierController extends Controller
 {
     use ValidatesRequests;
+
+    protected $countries;
+    protected $estates;
+    protected $cities;
+    protected $supplier_types;
+    protected $supplier_branches;
+    protected $supplier_specialties;
+    protected $supplier_objects;
+    protected $requiredDocuments;
+
+    public function __construct()
+    {
+        $this->countries = template_choices(Country::class);
+        $this->estates = template_choices(Estate::class);
+        $this->cities = template_choices(City::class);
+        $this->supplier_types = template_choices(PurchaseSupplierType::class);
+        $this->supplier_branches = template_choices(PurchaseSupplierBranch::class);
+        $this->supplier_specialties = template_choices(PurchaseSupplierSpecialty::class);
+
+        $supplier_objects = ['' => 'Seleccione...', 'Bienes' => [], 'Obras' => [], 'Servicios' => []];
+        $assets = $works = $services = [];
+
+        foreach (PurchaseSupplierObject::all() as $so) {
+            $type = ($so->type === 'B') ? 'Bienes' : (($so->type === 'O') ? 'Obras' : 'Servicios');
+            $supplier_objects[$type][$so->id] = $so->name;
+        }
+
+        $this->supplier_objects = $supplier_objects;
+        $this->requiredDocuments = RequiredDocument::where(['model' => 'supplier', 'module' => 'purchase'])->get();
+    }
 
     /**
      * Display a listing of the resource.
@@ -40,29 +71,13 @@ class PurchaseSupplierController extends Controller
             'method' => 'POST', 
             'role' => 'form',
         ];
-        $countries = template_choices(Country::class);
-        $estates = template_choices(Estate::class);
-        $cities = template_choices(City::class);
-        $supplier_types = template_choices(PurchaseSupplierType::class);
-        $supplier_branches = template_choices(PurchaseSupplierBranch::class);
-        $supplier_specialties = template_choices(PurchaseSupplierSpecialty::class);
-        $supplier_objects = ['' => 'Seleccione...', 'Bienes' => [], 'Obras' => [], 'Servicios' => []];
-        $assets = $works = $services = [];
-
-        foreach (PurchaseSupplierObject::all() as $so) {
-            $type = ($so->type === 'B') ? 'Bienes' : (($so->type === 'O') ? 'Obras' : 'Servicios');
-            $supplier_objects[$type][$so->id] = $so->name;
-        }
-
-        $requiredDocuments = RequiredDocument::where(['model' => 'supplier', 'module' => 'purchase'])->get();
-
-        return view(
-            'purchase::suppliers.create-edit-form', 
-            compact(
-                'countries', 'estates', 'cities', 'supplier_types', 'supplier_objects', 'supplier_branches',
-                'supplier_specialties', 'header', 'requiredDocuments'
-            )
-        );
+        
+        return view('purchase::suppliers.create-edit-form', [
+            'countries' => $this->countries, 'estates' => $this->estates, 'cities' => $this->cities,
+            'supplier_types' => $this->supplier_types, 'supplier_objects' => $this->supplier_objects, 
+            'supplier_branches' => $this->supplier_branches, 'supplier_specialties' => $this->supplier_specialties, 
+            'header' => $header, 'requiredDocuments' => $this->requiredDocuments
+        ]);
     }
 
     /**
@@ -74,7 +89,7 @@ class PurchaseSupplierController extends Controller
     {
         $this->validate($request, [
             'person_type' => 'required',
-            'company_type_type' => 'required',
+            'company_type' => 'required',
             'rif' => 'required',
             'name' => 'required',
             'purchase_supplier_type_id' => 'required',
@@ -96,7 +111,7 @@ class PurchaseSupplierController extends Controller
             'person_type' => $request->person_type,
             'company_type' => $request->company_type,
             'rif' => $request->rif,
-            'code' => '', // Generar código aleatorio de 20 caracteres
+            'code' => generate_code(PurchaseSupplier::class, 'code'),
             'name' => $request->name,
             'direction' => $request->direction,
             'contact_name' => $request->contact_name,
@@ -113,6 +128,16 @@ class PurchaseSupplierController extends Controller
         ]);
 
         /** Asociación de números telefónicos */
+        if ($request->phone_type && !empty($request->phone_type)) {
+            foreach ($request->phone_type as $key => $phone_type) {
+                $supplier->phones()->save(new Phone([
+                    'type' => $phone_type,
+                    'area_code' => $request->phone_area_code[$key],
+                    'number' => $request->phone_number[$key],
+                    'extension' => $request->phone_extension[$key]
+                ]));
+            }
+        }
 
         /** Registro y asociación de documentos */
 
@@ -127,16 +152,29 @@ class PurchaseSupplierController extends Controller
      */
     public function show()
     {
-        return view('purchase::show');
+        //return view('purchase::show');
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return \Illuminate\View\View
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('purchase::edit');
+        $model = PurchaseSupplier::find($id);
+        
+        $header = [
+            'route' => ['purchase.suppliers.update', $model->id], 
+            'method' => 'PUT', 
+            'role' => 'form',
+        ];
+        
+        return view('purchase::suppliers.create-edit-form', [
+            'countries' => $this->countries, 'estates' => $this->estates, 'cities' => $this->cities,
+            'supplier_types' => $this->supplier_types, 'supplier_objects' => $this->supplier_objects, 
+            'supplier_branches' => $this->supplier_branches, 'supplier_specialties' => $this->supplier_specialties, 
+            'header' => $header, 'model' => $model, 'requiredDocuments' => $this->requiredDocuments
+        ]);
     }
 
     /**
