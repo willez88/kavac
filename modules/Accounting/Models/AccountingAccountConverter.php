@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
-use modules\Accounting\Models\BudgetAccount;
+use Modules\Accounting\Models\BudgetAccount;
 /**
  * @class AccountingAccount
  * @brief Datos de cuentas del Clasificador Patrimoniales
