@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
-use modules\Accounting\Models\BudgetAccount;
+use Module;
 /**
  * @class AccountingAccount
  * @brief Datos de cuentas del Clasificador Patrimoniales
@@ -36,7 +36,7 @@ class AccountingAccountConverter extends Model implements Auditable
      */
     public function budget_account()
     {
-        return $this->belongsTo(BudgetAccount::class);
+        return (Module::has('Budget'))? $this->belongsTo(\Modules\Budget\Models\BudgetAccount::class) : null;
     }
 
     /**

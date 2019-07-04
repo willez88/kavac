@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingAccountConverter;
-use Modules\Accounting\Models\BudgetAccount;
+use Modules\Accounting\Models\AccountingAccount;
+use Module;
 use Auth;
 /**
  * @class AccountingAccountConverterController
@@ -112,13 +112,9 @@ class AccountingAccountConverterController extends Controller
         /** @var array Arreglo que contendra las cuentas patrimoniales */
         $accountingAccounts = [];
         /** @var array Arreglo que contendra las cuentas presupuestales */
-        $budgetAccounts = [];
+        $budgetAccounts = null;
 
         array_push($accountingAccounts, [
-                    'id' => '',
-                    'text' =>   "Seleccione..."
-                ]);
-        array_push($budgetAccounts, [
                     'id' => '',
                     'text' =>   "Seleccione..."
                 ]);
@@ -143,24 +139,32 @@ class AccountingAccountConverterController extends Controller
                 ]);
             }
         }
-        foreach (BudgetAccount::with('account_converters')->orderBy('id','ASC')->get() as $BudgetAccount) {
-            /**
-             * agrega al array la cuenta presupuestal que posee la conversión
-             */
-            if ($BudgetAccount->id == $account->budget_account_id) {
-                array_push($budgetAccounts, [
-                    'id' => $BudgetAccount->id,
-                    'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
-                ]);
-            }
-            /**
-             * agrega al array solo las cuentas presupuestales que estan disponibles para relacionarse en la conversión
-             */
-            if (!$BudgetAccount->account_converters['active']) {
-                array_push($budgetAccounts, [
-                    'id' => $BudgetAccount->id,
-                    'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
-                ]);
+        if (Module::has('Budget') && Module::enabled('Budget')) {
+            $budgetAccounts = [];
+            array_push($budgetAccounts, [
+                'id' => '',
+                'text' =>   "Seleccione..."
+            ]);
+
+            foreach (\Modules\Budget\Models\BudgetAccount::with('account_converters')->orderBy('id','ASC')->get() as $BudgetAccount) {
+                /**
+                 * agrega al array la cuenta presupuestal que posee la conversión
+                 */
+                if ($BudgetAccount->id == $account->budget_account_id) {
+                    array_push($budgetAccounts, [
+                        'id' => $BudgetAccount->id,
+                        'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
+                    ]);
+                }
+                /**
+                 * agrega al array solo las cuentas presupuestales que estan disponibles para relacionarse en la conversión
+                 */
+                if (!$BudgetAccount->account_converters['active']) {
+                    array_push($budgetAccounts, [
+                        'id' => $BudgetAccount->id,
+                        'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
+                    ]);
+                }
             }
         }
         /**
@@ -291,27 +295,32 @@ class AccountingAccountConverterController extends Controller
     public function getRecordsBudget($allRecords)
     {
         /** @var array Arreglo que contendra registros */
-        $records = [];
-        array_push($records, [
-            'id' => '',
-            'text' =>   "Seleccione..."
-        ]);
+        $records = null;
+        
         /**
          * ciclo para almacenar en array cuentas presupuestales disponibles para conversiones
         */
-        foreach (BudgetAccount::with('account_converters')->orderBy('id','ASC')->get() as $BudgetAccount) {
-            if (!$allRecords) {
-                if (!$BudgetAccount->account_converters['active']) {
+        if (Module::has('Budget') && Module::enabled('Budget')) {
+            $records = [];
+            array_push($records, [
+                'id' => '',
+                'text' =>   "Seleccione..."
+            ]);
+            
+            foreach (\Modules\Budget\Models\BudgetAccount::with('account_converters')->orderBy('id','ASC')->get() as $BudgetAccount) {
+                if (!$allRecords) {
+                    if (!$BudgetAccount->account_converters['active']) {
+                        array_push($records, [
+                            'id' => $BudgetAccount->id,
+                            'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
+                        ]);
+                    }
+                }else{
                     array_push($records, [
                         'id' => $BudgetAccount->id,
-                        'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
+                        'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}",
                     ]);
                 }
-            }else{
-                array_push($records, [
-                    'id' => $BudgetAccount->id,
-                    'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}",
-                ]);
             }
         }
         /**

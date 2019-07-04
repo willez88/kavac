@@ -24,13 +24,31 @@
 					<h6 class="card-title">Convertidor de cuentas</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('accounting.converter.create')])
+
+						@if($budgetList != 'null')
+							@include('buttons.new', ['route' => route('accounting.converter.create')])
+						@endif
+
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-index :accounting_accounts="{{ $accountingList }}" :budget_accounts="{{ $budgetList }}"
-					route_edit="{{ url('accounting/converter/{id}/edit') }}" />
+					@if($budgetList == 'null')
+						<br>
+						<div class="alert alert-danger">
+							<div class="container">
+								<div class="alert-icon">
+									<i class="now-ui-icons objects_support-17"></i>
+								</div>
+								<strong>Atención!</strong> La funcionalidad de conversión de cuentas presupuestales con patrimoniales
+								esta inhabilitada, para habilitarla debe instalar el modulo de
+								<a href="{{ route('module.list') }}" style="color: black;"><strong>Presupuesto</strong></a>
+							</div>
+						</div>
+					@else
+						<accounting-index :accounting_accounts="{{ $accountingList }}" :budget_accounts="{{ $budgetList }}"
+						route_edit="{{ url('accounting/converter/{id}/edit') }}" />
+					@endif
 				</div>
 			</div>
 		</div>

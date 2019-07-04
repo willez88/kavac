@@ -214,10 +214,10 @@ class AccountingSeatController extends Controller
             'id' => '',
             'text' => 'Seleccione...'
         ]);
-        foreach (AccountingSeatCategory::all() as $cat) {
+        foreach (AccountingSeatCategory::all() as $category) {
             array_push($categories, [
-                'id' => $cat->id,
-                'text' => $cat->name,
+                'id' => $category->id,
+                'text' => $category->name,
                 'acronym' => $category->acronym,
             ]);
         }

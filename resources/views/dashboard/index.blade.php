@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-
 	@role('dev')
 		@include('dev.tools-availables')
 	@endrole

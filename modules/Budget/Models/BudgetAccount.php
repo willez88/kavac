@@ -10,12 +10,12 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
- * Se importa el modelo de AccountingAccountConverter del modulo Accounting
- * para la relación en la función account_converters
+ * Usado para validar la existencia del modulo de contabilidad
+ * para la relación en la función account_converters AccountingAccountConverter
  * 
  * @author  Juan Rosas <JuanFBass17@gmail.com>
  */
-use Modules\Accounting\Models\AccountingAccountConverter;
+use Module;
 
 /**
  * @class BudgetAccount
@@ -99,8 +99,7 @@ class BudgetAccount extends Model implements Auditable
      */
     public function account_converters()
     {
-        /** OJO: Independizar esta relación para que exista un módulo sin el otro */
-        return $this->hasOne(AccountingAccountConverter::class);
+        return (Module::has('Accounting') && Module::enabled('Accounting'))? $this->hasOne(\Modules\Accounting\Models\AccountingAccountConverter::class) : [];
     }
 
     /**
