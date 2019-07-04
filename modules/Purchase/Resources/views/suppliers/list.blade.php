@@ -29,9 +29,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<purchase-suppliers-list route_list='{{ url('purchase/supliers/vue-list') }}' 
-											 route_delete="{{ url('purchase/supliers') }}" 
-											 route_edit="{{ url('purchase/supliers/{id}/edit') }}"/>
+					<purchase-suppliers-list route_list='{{ url('purchase/suppliers/vue-list') }}' 
+											 route_delete="{{ url('purchase/suppliers') }}" 
+											 route_edit="{{ url('purchase/suppliers/{id}/edit') }}"/>
 				</div>
 			</div>
 		</div>

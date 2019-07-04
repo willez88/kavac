@@ -33,7 +33,8 @@ class PurchaseSupplier extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $with = [
-    	'phones', 'purchase_supplier_specialty', 'purchase_supplier_type', 'city', 'municipality'
+    	'purchase_supplier_specialty', 'purchase_supplier_type', 'purchase_supplier_branch', 'purchase_supplier_object', 
+        'phones', 'city'
     ];
 
     protected $fillable = [
@@ -88,7 +89,7 @@ class PurchaseSupplier extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchaseSupplierBranch()
+    public function purchase_supplier_branch()
     {
         return $this->belongsTo(PurchaseSupplierBranch::class);
     }
@@ -98,7 +99,7 @@ class PurchaseSupplier extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function PurchaseSupplierObject()
+    public function purchase_supplier_object()
     {
         return $this->belongsTo(PurchaseSupplierObject::class);
     }

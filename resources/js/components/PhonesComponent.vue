@@ -53,6 +53,7 @@
 				phones: [],
 			}
 		},
+		props: ['initial-data'],
 		methods: {
 			addPhone: function() {
 				this.phones.push({
@@ -62,6 +63,11 @@
 					extension: ''
 				});
 			},
+		},
+		mounted() {
+			if (this.initial-data) {
+				this.phones = this.initial-data;
+			}
 		}
 	};
 </script>

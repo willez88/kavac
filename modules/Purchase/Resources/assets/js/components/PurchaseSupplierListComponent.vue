@@ -1,5 +1,8 @@
 <template>
 	<v-client-table :columns="columns" :data="records" :options="table_options">
+		<div slot="city_id" slot-scope="props">
+			{{ props.row.city.name }}
+		</div>
 		<div slot="id" slot-scope="props" class="text-center">
 			<button @click="editForm(props.row.id)" 
     				class="btn btn-warning btn-xs btn-icon btn-action" 
