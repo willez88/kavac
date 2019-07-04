@@ -143,7 +143,40 @@
         				            </div>
         				        </div>
                             </div>
-
+                            <hr>
+        					<h6 class="card-title">
+        						Números Telefónicos</i>
+        					</h6>
+                            <div class="row" v-for="phone in record.phones">
+                                <div class="col-md-3">
+        							<div class="form-group">
+        								<label>Tipo</label>
+        				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                            disabled="true" id="type" :value="phone.type">
+        				            </div>
+        				        </div>
+                                <div class="col-md-3">
+        							<div class="form-group">
+        								<label>Código de Área</label>
+        				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                            disabled="true" id="area_code" :value="phone.area_code">
+        				            </div>
+        				        </div>
+                                <div class="col-md-3">
+        							<div class="form-group">
+        								<label>Número</label>
+        				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                            disabled="true" id="number" :value="phone.number">
+        				            </div>
+        				        </div>
+                                <div class="col-md-3">
+        							<div class="form-group">
+        								<label>Extensión</label>
+        				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                            disabled="true" id="extension" :value="phone.extension">
+        				            </div>
+        				        </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,6 +200,7 @@
         data() {
 			return {
 				records: [],
+                record: [],
 				columns: ['first_name', 'last_name', 'id_number', 'email', 'id'],
 			}
 		},
@@ -193,27 +227,27 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/staffs/info/' + id).then(response => {
-					var record = response.data.record;
-                    $('#code').val(record.code);
-                    $('#first_name').val(record.first_name);
-                    $('#last_name').val(record.last_name);
-                    $('#payroll_nationality').val(record.payroll_nationality);
-                    $('#id_number').val(record.id_number);
-                    $('#passport').val(record.passport);
-                    $('#email').val(record.email);
-                    $('#birthdate').val(record.birthdate);
-                    $('#payroll_gender').val(record.payroll_gender);
-                    $('#emergency_contact').val(record.emergency_contact);
-                    $('#emergency_phone').val(record.emergency_phone);
-                    $('#country').val(record.country);
-                    $('#estate').val(record.estate);
-                    $('#municipality').val(record.municipality);
-                    $('#parish').val(record.parish);
-                    $('#address').val(record.address);
+                axios.get('/payroll/staffs/' + id).then(response => {
+					this.record = response.data.record;
+                    $('#code').val(this.record.code);
+                    $('#first_name').val(this.record.first_name);
+                    $('#last_name').val(this.record.last_name);
+                    $('#payroll_nationality').val(this.record.payroll_nationality.name);
+                    $('#id_number').val(this.record.id_number);
+                    $('#passport').val(this.record.passport);
+                    $('#email').val(this.record.email);
+                    $('#birthdate').val(this.record.birthdate);
+                    $('#payroll_gender').val(this.record.payroll_gender.name);
+                    $('#emergency_contact').val(this.record.emergency_contact);
+                    $('#emergency_phone').val(this.record.emergency_phone);
+                    $('#country').val(this.record.parish.municipality.estate.country.name);
+                    $('#estate').val(this.record.parish.municipality.estate.name);
+                    $('#municipality').val(this.record.parish.municipality.name);
+                    $('#parish').val(this.record.parish.name);
+                    $('#address').val(this.record.address);
 				});
                 $('#show_staff').modal('show');
-            }
+            },
         }
     };
 </script>
