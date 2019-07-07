@@ -236,7 +236,20 @@
 									</div>
 								</div>
 								<hr>
-								<phones></phones>
+								@php
+									$phones = [];
+									if (isset($model) && $model->phones) {
+										foreach ($model->phones as $phone) {
+											array_push($phones, [
+												'type' => $phone->type,
+												'area_code' => $phone->area_code,
+												'number' => $phone->number,
+												'extension' => $phone->extension ?? ''
+											]);
+										}
+									}
+								@endphp
+								<phones initial_data="{{ ($phones) ? json_encode($phones) : '' }}"></phones>
 							</div>
 							<div class="tab-pane" id="rnc" role="tabpanel">
 								<h6 class="card-title">Datos del Registro Nacional de Contratistas</h6>
