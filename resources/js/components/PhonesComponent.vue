@@ -53,6 +53,14 @@
 				phones: [],
 			}
 		},
+		watch: {
+			phones: function() {
+				localStorage.removeItem('phones');
+				if (this.phones) {
+					localStorage.phones = JSON.stringify(this.phones);
+				}
+			}
+		},
 		props: ['initial_data'],
 		methods: {
 			addPhone: function() {
