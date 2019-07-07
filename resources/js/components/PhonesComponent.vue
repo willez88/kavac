@@ -53,7 +53,7 @@
 				phones: [],
 			}
 		},
-		props: ['initial-data'],
+		props: ['initial_data'],
 		methods: {
 			addPhone: function() {
 				this.phones.push({
@@ -65,8 +65,8 @@
 			},
 		},
 		mounted() {
-			if (this.initial-data) {
-				this.phones = this.initial-data;
+			if (this.initial_data) {
+				this.phones = JSON.parse(this.initial_data);
 			}
 		}
 	};
