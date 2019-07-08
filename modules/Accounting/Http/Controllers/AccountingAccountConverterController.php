@@ -88,17 +88,6 @@ class AccountingAccountConverterController extends Controller
     }
 
     /**
-     * Muestra información de la cuenta convertidas
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return Response
-     */
-    public function show($id)
-    {
-        // return view('accounting::show');
-    }
-
-    /**
      * Muestra el formulario para la edición de conversión de cuentas
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

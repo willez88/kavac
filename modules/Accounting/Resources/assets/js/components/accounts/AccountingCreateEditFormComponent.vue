@@ -271,8 +271,6 @@
 							active:account.active
 						};
 						$("input[name=active]").bootstrapSwitch("state", this.data_account.active);
-				}).catch(error => {
-					console.log(error);
 				});
 			}
 		}

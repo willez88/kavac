@@ -136,7 +136,7 @@ class AccountingSeatController extends Controller
         $newSeating->reference = $request->data['reference'];
         $newSeating->concept = $request->data['concept'];
         $newSeating->observations = $request->data['observations'];
-        $newSeating->generated_by_id=($request->data['generated_by_id']!='')? $request->data['generated_by_id']: null;
+        $newSeating->accounting_seat_categories_id=($request->data['generated_by_id']!='')? $request->data['generated_by_id']: null;
         $newSeating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
         $newSeating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
         $newSeating->tot_debit = $request->data['totDebit'];
@@ -155,17 +155,6 @@ class AccountingSeatController extends Controller
             $newAccSeat->save();
         }
         return response()->json(['message'=>'Success'],200);
-    }
-
-    /**
-     * Muestra información de los asientos contables
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return Response
-     */
-    public function show($id)
-    {
-        // return view('accounting::show');
     }
 
     /**
@@ -195,7 +184,7 @@ class AccountingSeatController extends Controller
         $reference = $seating->reference;
         $concept = $seating->concept;
         $observations = $seating->observations;
-        $category = $seating->generated_by_id;
+        $category = $seating->accounting_seat_categories_id;
 
         /**
          * se valida si el asiento tiene alguna relación con una institución/departamento
@@ -363,7 +352,7 @@ class AccountingSeatController extends Controller
                     */
                     $FilterByOrigin = ($request->data['category'] == 0) ?
                                         AccountingSeat::with('accounting_accounts.account')->where('institution_id',$institution_id)->where('approved',true)->orderBy('from_date','ASC')->get() : 
-                                        AccountingSeat::with('accounting_accounts.account')->where('institution_id',$institution_id)->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+                                        AccountingSeat::with('accounting_accounts.account')->where('institution_id',$institution_id)->where('approved',true)->where('accounting_seat_categories_id',$request->data['category'])->orderBy('from_date','ASC')->get();
 
                 } else {
                     /**
@@ -371,13 +360,13 @@ class AccountingSeatController extends Controller
                     */
                     $FilterByOrigin = ($request->data['category'] == 0) ?
                                         AccountingSeat::with('accounting_accounts.account')->where('department_id',$institution_id)->where('approved',true)->orderBy('from_date','ASC')->get() : 
-                                        AccountingSeat::with('accounting_accounts.account')->where('department_id',$institution_id)->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+                                        AccountingSeat::with('accounting_accounts.account')->where('department_id',$institution_id)->where('approved',true)->where('accounting_seat_categories_id',$request->data['category'])->orderBy('from_date','ASC')->get();
                 }
             }
             else {
                 $FilterByOrigin = ($request->data['category'] == 0) ?
                                     AccountingSeat::with('accounting_accounts.account')->where('approved',true)->orderBy('from_date','ASC')->get() : 
-                                    AccountingSeat::with('accounting_accounts.account')->where('approved',true)->where('generated_by_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+                                    AccountingSeat::with('accounting_accounts.account')->where('approved',true)->where('accounting_seat_categories_id',$request->data['category'])->orderBy('from_date','ASC')->get();
             }
             
             /**
