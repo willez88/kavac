@@ -99,7 +99,7 @@ Route::group(['middleware' => 'web',
 	Route::post('report/AnalyticalMajor/AccAccount', 'AccountingReportPdfAnalyticalMajorController@getAccAccount')
 			->name('accounting.report.analyticalMajor.AccAccount');
 
-	Route::get('report/AnalyticalMajor/pdf/{initAcc}/{endAcc?}', 'AccountingReportPdfAnalyticalMajorController@pdf')
+	Route::get('report/AnalyticalMajor/pdf/{initDate}/{endDate}/{initAcc}/{endAcc?}', 'AccountingReportPdfAnalyticalMajorController@pdf')
 			->name('accounting.report.analyticalMajor.pdf');
 
 	/**

@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
@@ -57,35 +58,30 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
     }
 
     /**
-     * Consulta y formatea las cuentas en un rango determinado y las retorna a la vista
+     * Consulta y formatea las cuentas en un rango determinado
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  Request $request Objeto con datos del rango de busqueda de las cuentas
-     * @return Response JSON con array de las cuentas patrimoniales
+     * @param  $initDate fecha inicial para iniciar la busqueda, formato(YYYY-mm)
+     * @param  $endYear año del fin del rango de busqueda
+     * @param  $endMonth mes del fin del rango de busqueda
+     * @return Array con las cuentas patrimoniales
      */
-    public function getAccAccount(Request $request)
+    public function filter_accounts($initDate, $endYear, $endMonth)
     {
-        $this->validate($request, [
-            'initMonth' => 'required',
-            'initYear' => 'required',
-            'endMonth' => 'required',
-            'endYear' => 'required',
-        ]);
 
         /** @var Object String en el que se formatea la fecha inicial de busqueda */
-        $initDate = $request->initYear.'-'.$request->initMonth.'-01';
+        $initDate = $initDate.'-01';
 
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $endDay = date('d',(mktime(0,0,0,$request->endMonth+1,1,$request->endYear)-1));
+        $endDay = date('d',(mktime(0,0,0,$endMonth+1,1,$endYear)-1));
 
         /** @var Object String en el que se formatea la fecha final de busqueda */
-        $endDate = $request->endYear.'-'.$request->endMonth.'-'.$endDay;
+        $endDate = $endYear.'-'.$endMonth.'-'.$endDay;
 
         /** @var Object Objeto en el que se almacena la consulta de las cuentas con relación hacia asientos contables en un rango de fecha */
         $RecordArr = AccountingSeatAccount::with('seating', 'account')->whereHas('seating', function($query) use ($initDate, $endDate) {
                                                     $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
                                                 })->orderBy('updated_at','ASC')->get();
-
         /** @var Array array en el que se almacenaran las cuentas patrimoniales de manera unica en el rango dando */
         $records = [];
 
@@ -127,34 +123,41 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         /**
         Se formatean los datos de las cuentas
         */
-        $index = 0;
         array_push($arrAux, [
-                'id_record' => '',
+                'id_record' => 0,
                 'text' => 'Seleccione...',
-                'id' => $index,
+                'id' => 0,
             ]);
+        
+        $index = 1;
         foreach ($records as $account) {
-            $index += 1;
             array_push($arrAux, [
                 'id_record' => $account->id,
                 'text' => "{$account->getCode()} - {$account->denomination}",
                 'id' => $index,
             ]);
+            $index += 1;
         }
-        /**
-        Se elimina la variable de sesion si ya existe
-        */
-        if (\Session::has('accountRecords')) {
-            \Session::forget('accountRecords');
-            \Session::forget('initDate');
-            \Session::forget('endDate');
-        }
-        /** @var Session Variable de Session con la información base de las cuentas patrimoniales */
-        \Session::put('accountRecords',$arrAux);
-        \Session::put('initDate',$initDate);
-        \Session::put('endDate',$endDate);
+        return $arrAux;
+    }
 
-        return response()->json(['records'=>$arrAux]);
+    /**
+     * ruta para actualizar el listado de cuentas patrimoniales en un rango de fecha determinado
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  Request $request Objeto con datos del rango de busqueda de las cuentas
+     * @return Response JSON con array de las cuentas patrimoniales
+     */
+    public function getAccAccount(Request $request)
+    {
+        $this->validate($request, [
+            'initMonth' => 'required',
+            'initYear' => 'required',
+            'endMonth' => 'required',
+            'endYear' => 'required',
+        ]);
+        return response()->json(['records' => $this->filter_accounts($request->initYear.'-'.$request->initMonth, 
+                                                                        $request->endYear, $request->endMonth)]);
     }
 
     /**
@@ -164,13 +167,39 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
      * @param String $initAcc variable con el index en el array de la cuenta de inicio
      * @param String $endAcc variable con el index en el array de la cuenta final
      */
-
-    public function pdf($initAcc, $endAcc = null)
+    public function pdf($initDate, $endDate, $initAcc, $endAcc = null)
     {
-        /** @var Array Arreglo asociativo con la información base (id, id_record y denomination) de las cuentas patrimoniales */
-        $accountRecords = \Session::get('accountRecords');
+        /** @var String para almacenar una copia de la fecha inicial */
+        $date_i = $initDate;
 
-        /** @var Int indice de la cuenta desde donde finalizara la busqueda */
+        /** @var String para almacenar una copia de la fecha final */
+        $date_e = $endDate;
+
+        /** @var String para almacenar una copia de la fecha final */
+        $init_a = $initAcc;
+
+        $initAcc = (int)$initAcc;
+
+        /** @var Array Arreglo asociativo con la información base (id, id y denomination) de las cuentas patrimoniales */
+        $accountRecords = $this->filter_accounts($initDate, explode('-',$endDate)[0], explode('-',$endDate)[1]);
+
+        /** @var Object String en el que se formatea la fecha inicial de busqueda */
+        $initDate = $initDate.'-01';
+
+        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
+        $endDay = date('d',(mktime(0,0,0,explode('-',$endDate)[1]+1,1,explode('-',$endDate)[0])-1));
+
+        /** @var Object String en el que se formatea la fecha final de busqueda */
+        $endDate = explode('-',$endDate)[0].'-'.explode('-',$endDate)[1].'-'.$endDay;
+
+        if (isset($endAcc) && $endAcc < $initAcc) {
+            $endAcc = (int)$endAcc;
+            $aux = $initAcc;
+            $initAcc = $endAcc;
+            $endAcc = $aux;
+        }
+
+        /** @var EndIndex indice de la cuenta desde donde finalizara la busqueda */
         $EndIndex = $initAcc;
 
         if (isset($endAcc)) { $EndIndex = $endAcc; }
@@ -178,20 +207,27 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         /** @var Object Objeto con los registros de las cuentas patrimoniales seleccionadas */
         $records = [];
 
-        /** @var Object Cadena de Texto con la fecha inicial del rango */
-        $initDate = \Session::get('initDate');
-
-        /** @var Object Cadena de Texto con la fecha final del rango */
-        $endDate = \Session::get('endDate');
-
-        for ( ; $initAcc <= (int)$EndIndex; $initAcc++) {
-            $id_record = $accountRecords[$initAcc]['id_record'];
+        for ( ; $initAcc <= $EndIndex; $initAcc++) {
+            $id = $accountRecords[$initAcc]['id_record'];
             array_push($records, AccountingSeatAccount::with('seating','account')
-                                                        ->where('accounting_account_id', $id_record)
+                                                        ->where('accounting_account_id', $id)
                                                         ->whereHas('seating', function($query) use ($initDate, $endDate) {
                                                             $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
                                                         })->orderBy('updated_at','ASC')->get());
         }
+
+        // Se crea o actualiza el registro en la basde de datos para el historial
+        $url = 'AnalyticalMajor/pdf/'.$date_i.'/'.$date_e.'/'.$init_a;
+
+        if (isset($endAcc)) $url .= '/'.$endAcc;
+
+        AccountingReportHistory::updateOrCreate([
+                                                    'url' => $url,
+                                                    'report' => 2
+                                                ],
+                                                [
+                                                    'name' => 'Mayor Analítico',
+                                                ]);
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();

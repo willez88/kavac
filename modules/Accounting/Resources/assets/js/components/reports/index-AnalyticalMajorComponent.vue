@@ -72,6 +72,7 @@
 				disabledButton:true,
 				InitAcc:'',
 				EndAcc:'',
+				dates:null,
 				OptionsAcc:[{id:'',text:'Seleccione...'}],
 				disabledSelect:true,
 			}
@@ -91,15 +92,13 @@
 			*/
 			getAccountingAccounts:function(){
 				const vm = this;
-				var dates = {
+				this.dates = {
 					initMonth:vm.month_init,
 					initYear:(vm.year_init > vm.year_end)?vm.year_end:vm.year_init,
 					endMonth:vm.month_end,
 					endYear:(vm.year_init > vm.year_end)?vm.year_init:vm.year_end,
 				};
-				console.log(dates);
-				axios.post("/accounting/report/AnalyticalMajor/AccAccount",dates).then(response=>{
-					console.log(response.data.records);
+				axios.post("/accounting/report/AnalyticalMajor/AccAccount",this.dates).then(response=>{
 					this.OptionsAcc = response.data.records;
 					this.InitAcc = '';
 					this.EndAcc = '';
@@ -107,7 +106,7 @@
 			},
 
 			/**
-			* Formatea la url para el reporte
+			* genera la url para el reporte
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			* @return {string} url para el reporte
@@ -115,10 +114,17 @@
 			getUrlReport:function(){
 				var url = this.url;
 				var InitAcc = (this.InitAcc > this.EndAcc)? this.EndAcc  : this.InitAcc;
-				var EndAcc = ( this.InitAcc > this.EndAcc)? this.InitAcc : this.EndAcc;
+				var EndAcc  = (this.InitAcc > this.EndAcc)? this.InitAcc : this.EndAcc;
 
-				if (InitAcc != 0) { url += '/'+InitAcc; }
-				if (EndAcc != 0 && InitAcc != EndAcc) { url += '/'+EndAcc; }
+				var dates = '/'+this.dates.initYear+'-'+this.dates.initMonth+
+								  '/'+this.dates.endYear+'-'+this.dates.endMonth;
+
+				url += dates;
+
+				if (InitAcc != '0') { url += '/'+InitAcc; }
+
+				if (EndAcc != '0' && InitAcc != EndAcc) { url += '/'+EndAcc; }
+
 				return url;
 			},
 
