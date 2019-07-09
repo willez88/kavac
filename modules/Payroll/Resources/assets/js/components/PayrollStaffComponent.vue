@@ -113,14 +113,14 @@
 							<div class="form-group is-required">
 								<label>País</label>
 								<select2 :options="countries" @input="getEstates"
-                                    v-model="record.country_id">
+                                    v-model="record.country_id" id="country_id">
                                 </select2>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Estado</label>
-								<select2 :options="estates" @input="getMunicipalities"
+								<select2 :options="estates" @input="getMunicipalities" id="estate_id"
                                     v-model="record.estate_id">
                                 </select2>
 							</div>
@@ -128,7 +128,7 @@
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Municipio</label>
-								<select2 :options="municipalities" @input="getParishes"
+								<select2 :options="municipalities" @input="getParishes" id="municipality_id"
                                     v-model="record.municipality_id">
                                 </select2>
 							</div>
@@ -139,7 +139,7 @@
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Parroquia</label>
-								<select2 :options="parishes"
+								<select2 :options="parishes" id="parish_id"
                                     v-model="record.parish_id">
                                 </select2>
 							</div>
@@ -241,9 +241,9 @@
                     payroll_gender_id: '',
                     emergency_contact: '',
                     emergency_phone: '',
-                    country_id: '',
-                    estate_id: '',
-                    municipality_id: '',
+					country_id: '',
+					estate_id: '',
+					municipality_id: '',
                     parish_id: '',
                     address: '',
 					phones: [],
@@ -271,6 +271,11 @@
 				if(this.payroll_staff_id) {
 					axios.get('/payroll/staffs/' + this.payroll_staff_id).then(response => {
 						this.record = response.data.record;
+						// Para actualizar los datos (no se porque los selects no se cargan)
+						$('#country_id').val(this.record.parish.municipality.estate.country_id).change();
+						$('#estate_id').val(this.record.parish.municipality.estate_id).change();
+						$('#municipality_id').val(this.record.parish.municipality_id).change();
+						$('#parish_id').val(this.record.parish_id).change();
 					});
 				}
 			},
