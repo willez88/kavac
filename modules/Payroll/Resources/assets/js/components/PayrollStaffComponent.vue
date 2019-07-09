@@ -17,9 +17,6 @@
 				</div>
 
 				<div class="card-body">
-					<pre>
-						<code>{{ $data }}</code>
-					</pre>
 					<div class="alert alert-danger" v-if="errors.length > 0">
 						<ul>
 							<li v-for="error in errors">{{ error }}</li>
