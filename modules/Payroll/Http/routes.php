@@ -18,7 +18,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
 
     Route::resource('staffs', 'PayrollStaffController', ['as' => 'payroll']);
     Route::get('staffs/show/vue-list', 'PayrollStaffController@vueList')->name('payroll.staffs.vue-list');
-    Route::get('staffs/info/{id}', 'PayrollStaffController@info')->name('payroll.staffs.info');
+    //Route::get('staffs/info/{id}', 'PayrollStaffController@info')->name('payroll.staffs.info');
     Route::get('get-staffs', 'PayrollStaffController@getPayrollStaffs')->name('payroll.get-payroll-staffs');
 
     Route::resource('instruction-degrees', 'PayrollInstructionDegreeController', ['as' => 'payroll', 'except' => ['show']]);

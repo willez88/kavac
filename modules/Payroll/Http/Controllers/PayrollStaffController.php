@@ -10,7 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollStaff;
 use App\Models\Phone;
 use App\Models\CodeSetting;
-use App\Helpers\Helper;
+use App\Rules\AgeToWork;
 
 /**
  * @class PayrollStaffController
@@ -75,7 +75,8 @@ class PayrollStaffController extends Controller
             'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number',
             'passport' => 'nullable|max:20|unique:payroll_staffs,passport',
             'email' => 'nullable|email|unique:payroll_staffs,email',
-            'birthdate' => 'required|date',
+            'birthdate' => 'required|date|',
+            'birthdate' => new AgeToWork,
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
             'emergency_phone' => 'nullable',
@@ -106,7 +107,7 @@ class PayrollStaffController extends Controller
         $payroll_staff->emergency_phone = $request->emergency_phone;
         $payroll_staff->parish_id = $request->parish_id;
         $payroll_staff->address = $request->address;
-        $payroll_staff->save();
+        //$payroll_staff->save();
 
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
@@ -131,13 +132,22 @@ class PayrollStaffController extends Controller
      */
     public function show($id)
     {
-        $payroll_staff = PayrollStaff::where('id',$id)->with(['payroll_nationality','payroll_gender','parish','phones'])->first();
+        $payroll_staff = PayrollStaff::where('id',$id)->with([
+            'payroll_nationality','payroll_gender',
+            'parish' => function($query) {
+                $query->with(['municipality' => function($query){
+                    $query->with(['estate' => function($query){
+                        $query->with('country');
+                    }]);
+                }]);
+            },'phones'])->first();
         return response()->json(['record' => $payroll_staff], 200);
     }
 
+    // Posiblemente esta función no haga falta
     public function info($id)
     {
-        $payroll_staff = PayrollStaff::findorfail($id);
+        /*$payroll_staff = PayrollStaff::findorfail($id);
         $data[] = [
             'code' => $payroll_staff->code,
             'first_name' => $payroll_staff->first_name,
@@ -147,7 +157,7 @@ class PayrollStaffController extends Controller
             'passport' => $payroll_staff->passport,
             'email' => $payroll_staff->email,
             'birthdate' => $payroll_staff->birthdate,
-            'payroll_gender' => $payroll_staff->payroll_gender,
+            'payroll_gender' => $payroll_staff->payroll_gender->name,
             'emergency_contact' => $payroll_staff->emergency_contact,
             'emergency_phone' => $payroll_staff->emergency_phone,
             'country' => $payroll_staff->parish->municipality->estate->country->name,
@@ -156,7 +166,10 @@ class PayrollStaffController extends Controller
             'parish' => $payroll_staff->parish->name,
             'address' => $payroll_staff->address,
         ];
-        return response()->json(['record' => $data[0]], 200);
+        return response()->json(['record' => $data[0]], 200);*/
+
+        $payroll_staff = PayrollStaff::where('id',$id)->with(['payroll_nationality','payroll_gender','parish','phones'])->first();
+        return response()->json(['test' => $payroll_staff], 200);
     }
 
     /**
@@ -181,10 +194,11 @@ class PayrollStaffController extends Controller
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'payroll_nationality_id' => 'required',
-            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number,'.$payroll_staff->id_number,
-            'passport' => 'nullable|max:20|unique:payroll_staffs,passport,'.$payroll_staff->passport,
-            'email' => 'nullable|email|unique:payroll_staffs,email,'.$payroll_staff->email,
+            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number,'.$payroll_staff->id,
+            'passport' => 'nullable|max:20|unique:payroll_staffs,passport,'.$payroll_staff->id,
+            'email' => 'nullable|email|unique:payroll_staffs,email,'.$payroll_staff->id,
             'birthdate' => 'required|date',
+            'birthdate' => new AgeToWork,
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
             'emergency_phone' => 'nullable',

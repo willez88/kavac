@@ -34,6 +34,7 @@
         "moment": "^2.24.0",
         "node-sass": "^4.12.0",
         "select2": "^4.0.7",
+        "vue-multiselect": "^2.1.6",
         "vue-tables-2": "^1.4.70",
         "vue-template-compiler": "^2.6.10"
     }
