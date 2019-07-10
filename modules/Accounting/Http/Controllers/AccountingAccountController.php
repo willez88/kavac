@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Accounting\Models\AccountingSeatAccount; 
 use Modules\Accounting\Models\AccountingAccount;
 use Auth;
 /**
@@ -221,7 +222,7 @@ class AccountingAccountController extends Controller
         $AccountingAccount = AccountingAccount::with('account_converters')->find($id);
 
         if ($AccountingAccount) {
-            if (!is_null($AccountingAccount->account_converters)) {
+            if (!is_null($AccountingAccount->account_converters) || !is_null(AccountingSeatAccount::where('accounting_account_id', $id)->first())) {
                 return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar'],200);
             }
             $AccountingAccount->delete();

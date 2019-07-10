@@ -17,7 +17,6 @@ class AccountingSeatAccount extends Model implements Auditable
     protected $fillable = [
     	'accounting_seat_id',
     	'accounting_account_id',
-    	'budget_account_id',
     	'debit',
     	'assets'
     ];

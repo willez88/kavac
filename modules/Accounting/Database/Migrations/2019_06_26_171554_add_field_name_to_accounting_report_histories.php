@@ -14,7 +14,7 @@ class AddFieldNameToAccountingReportHistories extends Migration
     public function up()
     {
         Schema::table('accounting_report_histories', function (Blueprint $table) {
-            $table->string('name');
+            $table->string('name')->comment('Nombre del tipo de historial');
         });
     }
 
