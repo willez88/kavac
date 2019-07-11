@@ -50,6 +50,14 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::get('professional-informations/show/vue-list', 'PayrollProfessionalInformationController@vueList')->name('payroll.professional-informations.vue-list');
     Route::get('professional-informations/info/{id}', 'PayrollProfessionalInformationController@info')->name('payroll.professional-informations.info');
 
+    Route::resource('inactivity-types', 'PayrollInactivityTypeController', ['as' => 'payroll', 'except' => ['show','create','edit']]);
+    Route::get('get-inactivity-types', 'PayrollInactivityTypeController@getPayrollInactivityTypes')->name('payroll.get-payroll-inactivity-types');
+
+    Route::resource('contract-types', 'PayrollContractTypeController', ['as' => 'payroll', 'except' => ['show','create','edit']]);
+    Route::get('get-contract-types', 'PayrollContractTypeController@getPayrollContractTypes')->name('payroll.get-payroll-contract-types');
+
+    Route::resource('sector-types', 'PayrollSectorTypeController', ['as' => 'payroll', 'except' => ['show','create','edit']]);
+    Route::get('get-sector-types', 'PayrollSectorTypeController@getPayrollSectorTypes')->name('payroll.get-payroll-sector-types');
 
 
 

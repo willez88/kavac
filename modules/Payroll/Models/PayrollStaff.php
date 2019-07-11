@@ -145,4 +145,15 @@ class PayrollStaff extends Model implements Auditable
     {
         return $this->morphMany(\App\Models\Phone::class, 'phoneable');
     }
+
+    /**
+     * PayrollStaff tiene un solo PayrollEmploymentInformation
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function payroll_employment_information()
+    {
+    	return $this->hasOne(PayrollEmploymentInformation::class);
+    }
 }

@@ -7,6 +7,27 @@
 */
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de inactividad
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-inactivity-types', require('./components/PayrollInactivityTypesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de contrato
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-contract-types', require('./components/PayrollContractTypesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de sector
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-sector-types', require('./components/PayrollSectorTypesComponent.vue').default);
+
+/**
  * Componente para mostrar listado de información personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
