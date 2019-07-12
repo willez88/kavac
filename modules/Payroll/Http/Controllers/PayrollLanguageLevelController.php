@@ -126,4 +126,9 @@ class PayrollLanguageLevelController extends Controller
         }
         return redirect()->route('payroll.language-levels.index');
     }
+
+    public function getPayrollLanguageLevels()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollLanguageLevel','name','',true);
+    }
 }

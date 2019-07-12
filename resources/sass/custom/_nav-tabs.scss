@@ -1,6 +1,10 @@
 .nav-tabs {
 	&.custom-tabs {
+		border-bottom: 1px solid #519BF6;
+		padding-bottom: 0px;
+		
 		> .nav-item {
+			font-weight: bold;
 			
 			> .nav-link {
 				border-radius:0;

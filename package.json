@@ -10,31 +10,32 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.18",
+        "axios": "^0.18.1",
         "bootstrap": "^4.3.1",
         "cross-env": "^5.2.0",
-        "jquery": "^3.2",
-        "laravel-mix": "^4.0.7",
+        "jquery": "^3.4.1",
+        "laravel-mix": "^4.0.16",
         "lodash": "^4.17.11",
-        "popper.js": "^1.14.7",
+        "popper.js": "^1.15.0",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.15.2",
+        "sass": "^1.22.3",
         "sass-loader": "^7.1.0",
-        "vue": "^2.6.9"
+        "vue": "^2.6.10"
     },
     "dependencies": {
-        "@ckeditor/ckeditor5-alignment": "^11.1.0",
-        "@ckeditor/ckeditor5-build-classic": "^12.1.0",
+        "@ckeditor/ckeditor5-alignment": "^11.1.2",
+        "@ckeditor/ckeditor5-build-classic": "^12.3.0",
         "bootbox": "^4.4.0",
-        "bootstrap-fileinput": "^4.5.2",
+        "bootstrap-fileinput": "^4.5.3",
         "chart.js": "^2.8.0",
         "gifsicle": "^4.0.1",
         "jquery.complexify": "^0.5.2",
         "laravel-mix-merge-manifest": "^0.1.2",
         "moment": "^2.24.0",
-        "node-sass": "^4.11.0",
-        "select2": "^4.0.6-rc.1",
+        "node-sass": "^4.12.0",
+        "select2": "^4.0.7",
+        "vue-multiselect": "^2.1.6",
         "vue-tables-2": "^1.4.70",
-        "vue-template-compiler": "^2.6.9"
+        "vue-template-compiler": "^2.6.10"
     }
 }

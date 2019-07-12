@@ -193,12 +193,12 @@
 				<div class="card-body">
 					<div class="row">
 						{{-- Tabuladores de Nómina --}}
-						<payroll-tabulator>
-						</payroll-tabulator>
+						<payroll-salary-tabulator>
+						</payroll-salary-tabulator>
 
 						{{-- Definición de Asignaciones de Nómina --}}
-						<payroll-assignment>
-						</payroll-assignment>
+						<payroll-salary-assignment>
+						</payroll-salary-assignment>
 					</div>
 				</div>
 			</div>

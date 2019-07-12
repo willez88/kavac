@@ -13,8 +13,8 @@ class Country extends BaseCountry
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payroll_nationalities()
+    public function payroll_nationality()
     {
-    	return $this->hasMany(PayrollNationality::class);
+    	return $this->hasOne(PayrollNationality::class);
     }
 }

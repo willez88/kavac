@@ -35,6 +35,28 @@ import {ServerTable, ClientTable, Event} from 'vue-tables-2';
 Vue.use(ClientTable);
 
 /**
+ * Componente genérico para el uso de listas desplegables de selección multiple
+ *
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @param array 	options 		Arreglo de objetos con las opciones a cargar. Ej.: [{clave: clave, valor: valor}, ...]
+ * @param string 	track_by 		Define el nombre de la clave por la cual se va a gestionar la información.
+ * @param boolean 	taggable 		Define si se muestra la selección mediante tags o no (opcional). El valor por defecto es true.
+ * @param string 	id 				Define el identificador del objeto (opcional).
+ * @param boolean 	preselect_first Define si se preselecciona el primero objeto del arreglo (opcional). El valor por defecto es false
+ * @param boolean 	preserve_search Define si se preserva el campo de búsqueda (opcional). El valor por defecto es true
+ * @param boolean 	hide_selected 	Define si se ocultan los elementos seleccionados (opcional). El valor por defecto es true
+ * @param boolean 	clear_on_select Define si se limpia el texto al seleccionar un elemento (opcional). El valor por defecto es true
+ * @param boolean 	close_on_select Define si se cierra la lista de elementos al seleccionar uno de ellos (opcional). 
+ *                                 	El valor por defecto es true
+ *
+ * @note
+ * Ejemplo de uso:
+ * <v-multiselect :options="[{key: 1, name: 'one'},{key: 2, name: 'two'},{key: 3, name: 'three'}]" track_by="key" 
+ * :hide_selected="false"></v-multiselect>
+ */
+Vue.component('v-multiselect', require('./components/MultiSelectsComponent.vue').default);
+
+/**
  * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -146,13 +168,27 @@ Vue.component('departments', require('./components/DepartmentsComponent.vue').de
  */
 Vue.component('currencies', require('./components/CurrenciesComponent.vue').default);
 
+/**
+ * Componente para la gestión de documentos a requerir
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('required-documents', require('./components/RequiredDocumentsComponent.vue').default);
+
+/**
+ * Componente para la gestión de números telefónicos
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('phones', require('./components/PhonesComponent.vue').default);
+
 /** Incorpora requerimientos de componentes de los módulos de la aplicación */
 require('./modules');
 import moment from 'moment';
 
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
- * 
+ *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @param  {object} methods Métodos generales a implementar en CRUDS
  */
@@ -359,7 +395,7 @@ Vue.mixin({
 		},
 		/**
 		 * Método que obtiene los registros a mostrar
-		 * 
+		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param  {string} url Ruta que obtiene todos los registros solicitados
 		 */
@@ -372,9 +408,9 @@ Vue.mixin({
 			});
 		},
 		/**
-		 * Método que permite mostrar una ventana emergente con la información registrada 
+		 * Método que permite mostrar una ventana emergente con la información registrada
 		 * y la nueva a registrar
-		 * 
+		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param {string} modal_id Identificador de la ventana modal
 		 * @param {string} url 		Ruta para acceder a los datos solicitados
@@ -386,7 +422,7 @@ Vue.mixin({
 		},
 		/**
 		 * Método que permite crear o actualizar un registro
-		 * 
+		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param  {string} url Ruta de la acción a ejecutar para la creación o actualización de datos
 		 */
@@ -421,22 +457,22 @@ Vue.mixin({
 					}
 				});
 			}
-			
+
 		},
 		/**
 		 * Redirecciona al formulario de actualización de datos
-		 * 
+		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param  {integer} id Identificador del registro a actualizar
 		 */
 		editForm(id) {
-			location.href = (this.route_edit.indexOf("{id}") >= 0) 
-							? this.route_edit.replace("{id}", id) 
+			location.href = (this.route_edit.indexOf("{id}") >= 0)
+							? this.route_edit.replace("{id}", id)
 							: this.route_edit + '/' + id;
 		},
 		/**
 		 * Método que carga el formulario con los datos a modificar
-		 * 
+		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param  {integer} index Identificador del registro a ser modificado
 		 * @param {object} event   Objeto que gestiona los eventos
@@ -447,7 +483,7 @@ Vue.mixin({
 			vm.record = vm.records[index - 1];
 
 			/**
-			 * Recorre todos los campos para determinar si existe un elemento booleano para, posteriormente, 
+			 * Recorre todos los campos para determinar si existe un elemento booleano para, posteriormente,
 			 * seleccionarlo en el formulario en el caso de que se encuentre activado en BD
 			 */
 			$.each(vm.record, function(el, value) {
@@ -457,11 +493,11 @@ Vue.mixin({
 						if ($(this).val() === value) {
 							$(this).bootstrapSwitch('state', value, true)
 						}
-						
+
 					});
 				}
 				if (value === true || value === false) {
-					$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true); 
+					$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
 				}
 				/*if (el.substring(el.length - 3, el.length) === "_id") {
 					$("#" + el + ".select2").val(value);
@@ -472,7 +508,7 @@ Vue.mixin({
 		},
 		/**
 		 * Método que permite actualizar información
-		 * 
+		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param  {string} url Ruta de la acci´on que modificará los datos
 		 */
@@ -521,7 +557,7 @@ Vue.mixin({
 	    },
 		/**
 		 * Método para la eliminación de registros
-		 * 
+		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param  {integer} index Elemento seleccionado para su eliminación
 		 * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
@@ -546,7 +582,7 @@ Vue.mixin({
     			},
     			callback: function (result) {
 					if (result) {
-    					confirmated = true;			
+    					confirmated = true;
 						axios.delete(url + '/' + records[index].id).then(response => {
 							if (typeof(response.data.error) !== "undefined") {
 								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
@@ -567,7 +603,7 @@ Vue.mixin({
 		},
 		/**
 		 * Método que muestra un mensaje al usuario sobre el resultado de una acción
-		 * 
+		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 * @param  {string} type      	Tipo de mensaje a mostrar
 		 * @param  {string} msg_title 	Título del mensaje (opcional)
@@ -607,7 +643,7 @@ Vue.mixin({
 		},
 		/**
 		 * Método que obtiene los países registrados
-		 * 
+		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 */
 		getCountries() {
@@ -618,7 +654,7 @@ Vue.mixin({
 		},
 		/**
 		 * Obtiene los Estados del Pais seleccionado
-		 * 
+		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 */
 		getEstates() {
@@ -632,7 +668,7 @@ Vue.mixin({
 		},
 		/**
 		 * Obtiene los Municipios del Estado seleccionado
-		 * 
+		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 */
 		getMunicipalities() {
@@ -646,7 +682,7 @@ Vue.mixin({
 		},
 		/**
 		 * Obtiene los Municipios del Estado seleccionado
-		 * 
+		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 */
 		getCities() {
@@ -655,6 +691,20 @@ Vue.mixin({
 			if (this.record.estate_id) {
 				axios.get('/get-cities/' + this.record.estate_id).then(response => {
 					vm.cities = response.data;
+				});
+			}
+		},
+		/**
+		 * Obtiene las parroquias del municipio seleccionado
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getParishes() {
+			const vm = this;
+			vm.parishes = [];
+			if (this.record.municipality_id) {
+				axios.get('/get-parishes/' + this.record.municipality_id).then(response => {
+					vm.parishes = response.data;
 				});
 			}
 		},
@@ -698,7 +748,7 @@ Vue.mixin({
 			if (typeof(this.record.institution_id) !== "undefined" && this.record.institution_id !== '') {
 				axios.get('/get-departments/' + this.record.institution_id).then(response => {
 					/** Obtiene los departamentos */
-					vm.departments = (typeof(id) === "undefined" || !id) 
+					vm.departments = (typeof(id) === "undefined" || !id)
 									 ? response.data
 									 : response.data.filter((department) => {
 									 	return department.id === id;
@@ -718,6 +768,20 @@ Vue.mixin({
 			var marital_status_id = (typeof(id)!=="undefined")?'/'+id:'';
 			axios.get('/get-marital-status' + marital_status_id).then(response => {
 				vm.marital_status = response.data;
+			});
+		},
+		/**
+		 * Obtiene un arreglo con las profesiones
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 * @param  {integer} id Identificador de la profesión a filtrar, este campo es opcional
+		 */
+		getProfessions(id) {
+			const vm = this;
+			vm.professions = [];
+			var profession_id = (typeof(id)!=="undefined")?'/'+id:'';
+			axios.get('/get-professions' + profession_id).then(response => {
+				vm.professions = response.data;
 			});
 		},
 		/**
@@ -758,7 +822,7 @@ Vue.mixin({
 			var other_model = (typeof(other_model) !== "undefined") ? other_model: null;
 			let vm = this;
 			$('input[name=' + elName + '].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {
-				var value = ($(this).val().toLowerCase() === "true") 
+				var value = ($(this).val().toLowerCase() === "true")
 							? true : (($(this).val().toLowerCase() === "false") ? false : $(this).val());
 				/** Asigna el valor del elemento radio o checkbox seleccionado */
 				if (other_model) {
@@ -804,7 +868,7 @@ Vue.mixin({
     	this.clearForm();
     },
     mounted() {
-    	
+
     }
 });
 

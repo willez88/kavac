@@ -145,4 +145,8 @@ class PayrollPositionTypeController extends Controller
         }
         return redirect()->route('payroll.position-types.index');
     }
+
+    public function getPayrollPositionTypes(){
+        return template_choices('Modules\Payroll\Models\PayrollPositionType','name','',true);
+    }
 }

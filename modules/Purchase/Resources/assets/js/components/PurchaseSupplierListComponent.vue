@@ -1,14 +1,17 @@
 <template>
 	<v-client-table :columns="columns" :data="records" :options="table_options">
+		<div slot="city_id" slot-scope="props">
+			{{ props.row.city.name }}
+		</div>
 		<div slot="id" slot-scope="props" class="text-center">
 			<button @click="editForm(props.row.id)" 
-    				class="btn btn-warning btn-xs btn-icon btn-action" 
+    				class="btn btn-warning btn-xs btn-icon btn-action" data-placement="bottom"
     				title="Modificar registro" data-toggle="tooltip" type="button">
     			<i class="fa fa-edit"></i>
     		</button>
     		<button @click="deleteRecord(props.index, '')" 
 					class="btn btn-danger btn-xs btn-icon btn-action" 
-					title="Eliminar registro" data-toggle="tooltip" 
+					title="Eliminar registro" data-toggle="tooltip" data-placement="bottom"
 					type="button">
 				<i class="fa fa-trash-o"></i>
 			</button>

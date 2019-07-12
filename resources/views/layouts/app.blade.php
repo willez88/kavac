@@ -9,7 +9,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name') }} | Sistema de Gestión Administrativa</title>
-
+        <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css', [], Request::secure()) !!}
         {{-- Icofont --}}
@@ -104,7 +104,6 @@
             $(document).ready(function() {
                 
                 if ($('.ckeditor').length && typeof(CkEditor) !== 'undefined') {
-                    
                     $('.ckeditor').each(function() {
                         CkEditor.create(document.querySelector('.ckeditor'), {
                             toolbar: [

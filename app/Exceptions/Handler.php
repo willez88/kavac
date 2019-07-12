@@ -9,6 +9,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -53,6 +55,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+        if ($exception instanceof TokenMismatchException) {
+            /** Exception catch by inactivity */
+            session()->flash('message', ['type' => 'deny', 'msg' => 'Sessión expirada por inactividad.']);
+            return redirect()->route('index');
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException && $request->path() === "logout") {
+            /** Exception catch when method is not permited */
+            session()->flash('message', ['type' => 'deny', 'msg' => 'Usted ha salido del sistema']);
+            return redirect()->route('index');
+        }
+
         if ($exception instanceof \App\Roles\Exceptions\PermissionDeniedException) {
             /** Exception catch when deny access by permissions */
             $msg = 'No dispone de permisos para acceder a esta funcionalidad';
