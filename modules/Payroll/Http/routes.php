@@ -59,6 +59,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::resource('sector-types', 'PayrollSectorTypeController', ['as' => 'payroll', 'except' => ['show','create','edit']]);
     Route::get('get-sector-types', 'PayrollSectorTypeController@getPayrollSectorTypes')->name('payroll.get-payroll-sector-types');
 
+    Route::resource('employment-informations', 'PayrollEmploymentInformationController', ['as' => 'payroll']);
+    #Route::get('employment-informations/show/vue-list', 'PayrollEmploymentInformationController@vueList')->name('payroll.employment-informations.vue-list');
+
 
 
     /**

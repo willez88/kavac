@@ -362,7 +362,7 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'name' => 'Ver los datos de información profesional', 'slug' => 'payroll.professional.informations.list',
                 'description' => 'Acceso para ver los datos de información socioeconómica',
                 'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacio.profesional.ver'
+                'slug_alt' => 'informacion.profesional.ver'
             ],
             [
                 'name' => 'Crear datos de información profesional', 'slug' => 'payroll.professional.informations.create',
@@ -456,6 +456,31 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'description' => 'Acceso para eliminar datos de tipos de sector',
                 'model' => 'Modules\Payroll\Models\PayrollSectorType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.sector.eliminar'
+            ],
+            // employment informations
+            [
+                'name' => 'Ver los datos de información laboral', 'slug' => 'payroll.employment.informations.list',
+                'description' => 'Acceso para ver los datos de información socioeconómica',
+                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.laboral.ver'
+            ],
+            [
+                'name' => 'Crear datos de información laboral', 'slug' => 'payroll.employment.informations.create',
+                'description' => 'Acceso para crear datos de información laboral',
+                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.laboral.crear'
+            ],
+            [
+                'name' => 'Editar datos de información laboral', 'slug' => 'payroll.employment.informations.edit',
+                'description' => 'Acceso para editar datos de información laboral',
+                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.laboral.editar'
+            ],
+            [
+                'name' => 'Eliminar datos de información laboral', 'slug' => 'payroll.employment.informations.delete',
+                'description' => 'Acceso para eliminar datos de información laboral',
+                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.laboral.eliminar'
             ],
         ];
 

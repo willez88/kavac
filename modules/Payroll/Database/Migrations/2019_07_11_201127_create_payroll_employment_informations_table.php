@@ -53,7 +53,7 @@ class CreatePayrollEmploymentInformationsTable extends Migration
                 $table->foreign('payroll_contract_type_id')->references('id')->on('payroll_contract_types')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('payroll_staff_id')->unsigned()
+                $table->integer('payroll_staff_id')->unsigned()-unique()
                       ->comment('identificador del personal que pertenece a la información laboral');
                 $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
                       ->onDelete('restrict')->onUpdate('cascade');

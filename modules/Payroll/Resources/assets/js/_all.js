@@ -70,6 +70,20 @@ Vue.component('payroll-professional-informations-list', require('./components/Pa
 Vue.component('payroll-professional-information', require('./components/PayrollProfessionalInformationComponent.vue').default);
 
 /**
+ * Componente para mostrar listado de información laboral
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-employment-informations-list', require('./components/PayrollEmploymentInformationListComponent.vue').default);
+
+/**
+ * Componente para registrar o actualizar información laboral
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-employment-information', require('./components/PayrollEmploymentInformationComponent.vue').default);
+
+/**
  * Componente para la gestión de tabuladores de nómina
  *
  * @author Henry Paredes (henryp2804@gmail.com)

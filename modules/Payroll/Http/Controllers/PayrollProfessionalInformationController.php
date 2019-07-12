@@ -10,7 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollProfessionalInformation;
 
 /**
- * @class PayrollprofessionalInformationController
+ * @class PayrollProfessionalInformationController
  * @brief Controlador de información profesional
  *
  * Clase que gestiona los datos de información profesional
