@@ -34,28 +34,10 @@ class AccountingReportPdfStateOfResultsController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.stateofresults', ['only' => ['index', 'pdf']]);
+        $this->middleware('permission:accounting.report.stateofresults', ['only' => ['pdf']]);
     }
 
     /**
-     * Despliega la vista principal del formulario de reporte de stado de resultados
-     * @return View
-     */
-    public function index()
-    {
-        /** @var Object String con el tipo de reporte que abrira */
-        $type_report = 'stateOfResults';
-
-        /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::where('approved', true)->orderBy('from_date','ASC')->first();
-        
-        /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $year_old = explode('-',$seating['from_date'])[0];
-
-        return view('accounting::reports.index-balance_sheet_and_state_of_results',compact('year_old','type_report'));
-    }
-
-        /**
      * vista en la que se genera el reporte en pdf de balance general
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

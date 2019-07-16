@@ -35,7 +35,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.checkupbalance', ['only' => ['index', 'getAccAccount', 'CalculateBeginningBalance', 'pdf']]);
+        $this->middleware('permission:accounting.report.checkupbalance', ['only' => ['getAccAccount', 'CalculateBeginningBalance', 'pdf']]);
     }
 
     /** @var Array array en el que se almacenara la información del saldo inicial de cuentas patrimoniales */
@@ -90,25 +90,6 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         return function ($a, $b) {
             return strnatcmp($a->getCode(), $b->getCode());
         };
-    }
-
-
-    /**
-     * Despliega la vista principal del formulario de reporte de balance de comprobación
-     * Se calcula la ultima fecha y retorna a la vista con el formulario
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return view
-     */
-    public function index()
-    {
-        /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::where('approved', true)->orderBy('from_date','ASC')->first();
-        
-        /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $yearOld = explode('-',$seating['from_date'])[0];
-
-        return view('accounting::reports.index-checkupBalance',compact('yearOld'));
     }
 
     /**
@@ -288,12 +269,15 @@ class AccountingReportPdfCheckupBalanceController extends Controller
 
         for ($i = 0 ; $i <= $EndIndex; $i++) {
             $id_record = $accountRecords[$i]['id_record'];
+
+            // validar que no que desea mostrar los valores en zero
             array_push($records, AccountingSeatAccount::with('seating','account')
-                                                        ->where('accounting_account_id', $id_record)
-                                                        ->whereHas('seating', function($query) use ($initDate, $endDate) {
-                                                            $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
-                                                        })->orderBy('updated_at','ASC')->get()
-                      );
+                                                ->where('accounting_account_id', $id_record)
+                                                ->whereHas('seating', function($query) use ($initDate, $endDate) {
+                                                    $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
+                                                })->orderBy('updated_at','ASC')->get()
+            );
+            // caso contario crear la consulta necesaria
         }
 
         /** @var Object configuración general de la apliación */

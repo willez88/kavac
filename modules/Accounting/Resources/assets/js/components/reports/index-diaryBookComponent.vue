@@ -1,6 +1,6 @@
 <template>
 	<div class="form-horizontal">
-		<div class="card-body">
+		<div class="card-body" style="min-height: 0px;">
 			<div class="row">
 				<div class="col-2"></div>
 				<div class="col-4">

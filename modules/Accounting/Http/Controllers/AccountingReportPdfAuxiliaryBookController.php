@@ -10,7 +10,6 @@ use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingSeat;
-use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
@@ -38,48 +37,6 @@ class AccountingReportPdfAuxiliaryBookController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:accounting.report.auxiliarybook', ['only' => ['index', 'pdf']]);
-    }
-
-    /**
-     * Despliega la vista principal del formulario de reporte de libro auxiliar
-     * @return View
-     */
-    public function index()
-    {
-        /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::where('approved', true)->orderBy('from_date','ASC')->first();
-        
-        /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $year_old = explode('-',$seating['from_date'])[0];
-
-        /** @var array arreglo que almacenara la lista de cuentas patrimoniales*/
-        $records = [];
-        array_push($records, [
-                'id' => 0,
-                'text' =>  "Seleccione...",
-            ]);
-        /**
-         * se realiza la busqueda de manera ordenada en base al codigo
-         */
-        foreach (AccountingAccount::orderBy('group','ASC')
-                                    ->orderBy('subgroup','ASC')
-                                    ->orderBy('item','ASC')
-                                    ->orderBy('generic','ASC')
-                                    ->orderBy('specific','ASC')
-                                    ->orderBy('subspecific','ASC')
-                                    ->where('active',true)
-                                    ->get() as $account) {
-          /** @var array arreglo con datos de las cuentas patrimoniales*/
-            array_push($records, [
-                'id' => $account->id,
-                'text' =>   "{$account->getCode()} - {$account->denomination}",
-            ]);
-        }
-        /**
-         * se convierte array a JSON
-         */
-        $records = json_encode($records);
-        return view('accounting::reports.index-auxiliary_book', compact('records','year_old'));
     }
 
     /**

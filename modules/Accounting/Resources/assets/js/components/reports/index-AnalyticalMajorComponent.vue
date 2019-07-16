@@ -41,10 +41,12 @@
 				</div>
 				<div class="col-6">
 					<br>
-					<label><strong>Cuenta Inicial</strong></label>
-					<select2 :options="OptionsAcc" @input="activatedButtonFunc" v-model="InitAcc"></select2>
+					<div class="is-required">
+						<label><strong>Cuenta Inicial</strong></label>
+						<select2 :options="OptionsAcc" @input="activatedButtonFunc" v-model="InitAcc"></select2>
+					</div>
 
-					<br><br>
+					<br>
 					<label><strong>Cuenta Final</strong></label>
 					<select2 :options="OptionsAcc" @input="activatedButtonFunc" v-model="EndAcc"></select2>
 				</div>
@@ -70,10 +72,10 @@
 				errors:[],
 				url:'http://'+window.location.host+'/accounting/report/AnalyticalMajor/pdf',
 				disabledButton:true,
-				InitAcc:'',
-				EndAcc:'',
+				InitAcc:0,
+				EndAcc:0,
 				dates:null,
-				OptionsAcc:[{id:'',text:'Seleccione...'}],
+				OptionsAcc:[{id:0,text:'Seleccione...'}],
 				disabledSelect:true,
 			}
 		},
@@ -121,9 +123,9 @@
 
 				url += dates;
 
-				if (InitAcc != '0') { url += '/'+InitAcc; }
+				if (InitAcc != 0) { url += '/'+InitAcc; }
 
-				if (EndAcc != '0' && InitAcc != EndAcc) { url += '/'+EndAcc; }
+				if (InitAcc != EndAcc && EndAcc != 0) { url += '/'+EndAcc; }
 
 				return url;
 			},

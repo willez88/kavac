@@ -39,23 +39,6 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:accounting.report.analiticalmajor', ['only' => ['index', 'getAccAccount', 'pdf']]);
     }
-    /**
-     * Despliega la vista principal del formulario de reporte de Mayor analitico
-     * Se calcula la ultima fecha y retorna a la vista con el formulario
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return view
-     */
-    public function index()
-    {
-        /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::where('approved',true)->orderBy('from_date','ASC')->first();
-        
-        /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $yearOld = explode('-',$seating['from_date'])[0];
-
-        return view('accounting::reports.index-analytical_major', compact('yearOld'));
-    }
 
     /**
      * Consulta y formatea las cuentas en un rango determinado

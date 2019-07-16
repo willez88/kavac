@@ -23,7 +23,7 @@ class AccountingSeatCategory extends Model implements Auditable
      */
     public function accounting_seats()
     {
-        return $this->hasMany(AccountingSeat::class, 'generated_by_id');
+        return $this->hasMany(AccountingSeat::class, 'accounting_seat_categories_id');
     }
 
 }

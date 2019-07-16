@@ -37,17 +37,6 @@ class AccountingReportPdfDailyBookController extends Controller
     }
 
     /**
-     * Despliega la vista principal del formulario de reporte de libro diario
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return view
-     */
-    public function index()
-    {
-        return view('accounting::reports.index-diaryBook');
-    }
-
-    /**
      * vista en la que se genera el reporte en pdf del libro diario
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

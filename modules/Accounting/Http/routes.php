@@ -82,20 +82,32 @@ Route::group(['middleware' => 'web',
 	Route::get('seating/pdf/{id}', 'AccountingSeatReportPdfController@pdf')
 			->name('accounting.seating.pdf');
 
+
+	/**
+	* Rutas index para los formularios de los reportes
+	*/
+
+	Route::get('report/accountningBooks','AccountingReportsController@accountingBooks')
+		->name('accounting.report.accountingBooks');
+
+		Route::get('report/financeStatements','AccountingReportsController@financeStatements')
+		->name('accounting.report.financeStatements');
+
+
+
+
+
+
+
 	/**
      * rutas para reporte de balance de comprobación
      */
-	Route::get('report/BalanceCheckUp','AccountingReportPdfCheckupBalanceController@index')
-		->name('accounting.report.BalanceCheckUp');
 	Route::get('report/BalanceCheckUp/pdf/{initDate}/{endDate}/{zero?}','AccountingReportPdfCheckupBalanceController@pdf')
 		->name('accounting.report.BalanceCheckUp.pdf');
 
 	/**
      * rutas para reporte del Mayor Analítico
      */
-	Route::get('report/AnalyticalMajor', 'AccountingReportPdfAnalyticalMajorController@index')
-			->name('accounting.report.analyticalMajor');
-
 	Route::post('report/AnalyticalMajor/AccAccount', 'AccountingReportPdfAnalyticalMajorController@getAccAccount')
 			->name('accounting.report.analyticalMajor.AccAccount');
 
@@ -105,33 +117,24 @@ Route::group(['middleware' => 'web',
 	/**
      * rutas para reporte del libro diario
      */
-	Route::get('report/diaryBook', 'AccountingReportPdfDailyBookController@index')
-			->name('accounting.report.diaryBook');
-
 	Route::get('report/diaryBook/pdf/{initDate}/{endDate}','AccountingReportPdfDailyBookController@pdf')
 		->name('accounting.report.diaryBook.pdf');
 
 	/**
 	 * rutas para reporte de libro auxiliar
 	 */
-	Route::get('report/auxiliaryBook', 'AccountingReportPdfAuxiliaryBookController@index')
-			->name('accounting.report.auxiliaryBook');
 	Route::get('report/auxiliaryBook/pdf/{account_id}/{date}', 'AccountingReportPdfAuxiliaryBookController@pdf')
 			->name('accounting.report.auxiliaryBook.pdf');
 
 	/**
 	 * rutas para reporte de balance general
 	 */
-	Route::get('report/balanceSheet', 'AccountingReportPdfBalanceSheetController@index')
-			->name('accounting.report.balanceSheet');
 	Route::get('report/balanceSheet/pdf/{date}/{level}/{zero?}', 'AccountingReportPdfBalanceSheetController@pdf')
 			->name('accounting.report.balanceSheet.pdf');
 
 	/**
 	 * rutas para reporte de estado de resultados
 	 */
-	Route::get('report/stateOfResults', 'AccountingReportPdfStateOfResultsController@index')
-			->name('accounting.report.stateOfResults');
 	Route::get('report/stateOfResults/pdf/{date}/{level}/{zero?}', 'AccountingReportPdfStateOfResultsController@pdf')
 			->name('accounting.report.stateOfResults.pdf');
 
@@ -141,7 +144,6 @@ Route::group(['middleware' => 'web',
 	Route::resource('seating', 'AccountingSeatController', 
 		['as' => 'seating',
 		'except' => ['index']]);
-
 
 	/**
 		Rutas para las vistas de configuración de categorias del modulo de contabilidad

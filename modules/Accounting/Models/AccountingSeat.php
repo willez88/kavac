@@ -21,7 +21,7 @@ class AccountingSeat extends Model implements Auditable
     	'reference',
     	'tot_debit',
     	'tot_assets',
-    	'generated_by_id',
+    	'accounting_seat_categories_id',
         'institution_id',
         'departament_id',
     	'approved'

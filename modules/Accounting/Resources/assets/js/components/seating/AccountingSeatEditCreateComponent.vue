@@ -106,7 +106,7 @@
 					/**
 					 * se verifica que la fecha y la referencia no esten vacios
 					*/ 
-					if (this.date != '' && this.reference != '' && (this.institution_id != null || this.departament_id != null) && generated_by_id != '') {
+					if (this.date != '' && this.reference != '' && (this.institution_id != null || this.departament_id != null) && this.generated_by_id != '') {
 						EventBus.$emit('enableInput:seating-account',{'value':true,
 																	  'date':this.date,
 																	  'reference':this.reference,
@@ -158,11 +158,12 @@
 			},
 			generated_by_id:function(res,ant) {
 				var acronym_ant = '';
+
 				if (ant != '' && res != ant) {
 					/** extrae el valor del acronimo de la categoria anterior */
 					for (var i in this.categories) {
 						if (this.categories[i].id == ant) {
-							var tam = this.categories[i].acronym.length+1;
+							var tam = this.categories[i].acronym.length;
 							this.reference = this.reference.slice(tam);
 							break;
 						}
