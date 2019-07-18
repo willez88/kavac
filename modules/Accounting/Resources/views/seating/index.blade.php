@@ -29,7 +29,7 @@
 							class="btn btn-sm btn-primary btn-custom"
 							title="Listado de asientos por aprobar"
 							data-toggle="tooltip">
-							<i class="fa fa-list"></i>
+							NO APROBADOS <i class="fa fa-list"></i>
 						</a>
 						@include('buttons.minimize')
 					</div>

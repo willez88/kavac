@@ -46,14 +46,14 @@
 					<div class="form-group is-required">
 						<label class="control-label">Categoría del asiento
 						</label>
-						<select2 :options="categories" v-model="generated_by_id"></select2>
+						<select2 :options="categories" v-model="category"></select2>
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="form-group is-required">
 						<label class="control-label">Institución que genera
 						</label>
-						<select2 :options="institutions" v-model="institution_departament"></select2>
+						<select2 :options="institutions" v-model="institution"></select2>
 					</div>
 				</div>
 			</div>
@@ -72,25 +72,26 @@
 				reference:'',
 				concept:'',
 				observations:'',
-				generated_by_id:'',
+				category:'',
 				validated:false,
-				institution_departament:'',
+				institution:'',
 				institution_id:null,
-				departament_id:null,
+				data_edit_mutable:null,
 			}
 		},
 		created(){
 			if (this.data_edit != null) {
-				this.generated_by_id = this.data_edit.category;
-			}
-			if (this.data_edit != null) {
-				this.institution_departament = this.data_edit.institution_departament;
+				this.data_edit_mutable = this.data_edit;
+
+				this.reference = this.data_edit.reference;
+
+				this.category = this.data_edit.category;
+				this.institution = this.data_edit.institution;
 			}
 		},
 		mounted(){
 			if (this.data_edit != null) {
 				this.date = this.data_edit.date;
-				this.reference = this.data_edit.reference;
 				this.concept = this.data_edit.concept;
 				this.observations = this.data_edit.observations;
 			}
@@ -104,17 +105,16 @@
 			validateRequired:function() {
 				if (this.validated == false) {
 					/**
-					 * se verifica que la fecha y la referencia no esten vacios
+					 * se verifica que la fecha, la referencia, la institucion y la categoria no esten vacios
 					*/ 
-					if (this.date != '' && this.reference != '' && (this.institution_id != null || this.departament_id != null) && this.generated_by_id != '') {
+					if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != '') {
 						EventBus.$emit('enableInput:seating-account',{'value':true,
 																	  'date':this.date,
 																	  'reference':this.reference,
 																	  'concept':this.concept,
 																	  'observations':this.observations,
-																	  'generated_by_id':this.generated_by_id,
+																	  'category':this.category,
 																	  'institution_id':this.institution_id,
-																	  'departament_id':this.departament_id,
 																	});
 						this.validated = true;
 					}
@@ -128,9 +128,8 @@
 																  'reference':this.reference,
 																  'concept':this.concept,
 																  'observations':this.observations,
-																  'generated_by_id':this.generated_by_id,
+																  'category':this.category,
 																  'institution_id':this.institution_id,
-																  'departament_id':this.departament_id
 																});
 				}
 			},
@@ -156,9 +155,7 @@
 			observations:function(res) {
 				this.validateRequired();
 			},
-			generated_by_id:function(res,ant) {
-				var acronym_ant = '';
-
+			category:function(res,ant) {
 				if (ant != '' && res != ant) {
 					/** extrae el valor del acronimo de la categoria anterior */
 					for (var i in this.categories) {
@@ -171,14 +168,22 @@
 				}
 
 				if (res != ant) {
-					for (var i in this.categories) {
-						/** Se asigna el acronimo usado para la categoria en la referencia */
-						if (this.categories[i].id == res) {
-							this.reference = this.categories[i].acronym + this.reference;
-							this.validated = false;
-							break;
+					/** Se valida que en caso de estar editando en la primera iteracion no cambie la referencia */
+						for (var i in this.categories) {
+							/** si es la primera carga de los datos no modifica la referencia */
+							if (this.data_edit_mutable != null && this.categories[i].id == this.data_edit_mutable.category) {
+								this.reference = this.reference;
+								this.validated = false;
+								break;
+							}
+							else if (this.categories[i].id == res) {
+								this.reference = this.categories[i].acronym + this.reference;
+								this.validated = false;
+								break;
+							}
 						}
-					}
+
+
 					if (this.validated) {
 						this.validateRequired();
 					}else{
@@ -186,20 +191,19 @@
 					}
 				}
 			},
-			institution_departament:function(res) {
-				if (res.split('-')[1] == 'institution') {
-					this.institution_id = parseInt(res.split('-')[0]);
-					this.departament_id = null;
-				}
-				else {
-					this.departament_id = parseInt(res.split('-')[0]);
-					this.institution_id = null;
-				}
+			institution:function(res) {
+				this.institution_id = res;
+				
 				if (res == '') {
 					this.validated = false;
 					EventBus.$emit('enableInput:seating-account',{'value':false});
-				}else
+				}else{
 					this.validateRequired();
+				}
+				if (this.data_edit_mutable != null) {
+					/** Se vacia la variable que trae la informacion para no*/
+					this.data_edit_mutable = null;
+				}
 			}
 		}
 	};

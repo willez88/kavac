@@ -5,7 +5,7 @@
 			<div class="alert-icon">
 				<i class="now-ui-icons objects_support-17"></i>
 			</div>
-			<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+			<strong>Atención!</strong> Debe verificar los siguientes errores antes de continuar:
 			<ul>
 				<li v-for="error in errors">{{ error }}</li>
 			</ul>
@@ -57,7 +57,8 @@
 					<div class="form-group text-center">Total Debe:
 						<h6>
 							<span>{{ currency.symbol }}</span>
-							<span v-if="data.totDebit.toFixed(currency.decimal_places) == data.totAssets.toFixed(currency.decimal_places)" 
+							<span v-if="data.totDebit.toFixed(currency.decimal_places) == data.totAssets.toFixed(currency.decimal_places) &&
+										data.totDebit.toFixed(currency.decimal_places) >= 0" 
 								style="color:#18ce0f;">
 								<strong>{{ data.totDebit.toFixed(currency.decimal_places) }}</strong>
 							</span>
@@ -71,7 +72,8 @@
 					<div class="form-group text-center">Total Haber:
 						<h6>
 							<span>{{ currency.symbol }}</span>
-							<span v-if="data.totDebit.toFixed(currency.decimal_places) == data.totAssets.toFixed(currency.decimal_places)"
+							<span v-if="data.totDebit.toFixed(currency.decimal_places) == data.totAssets.toFixed(currency.decimal_places) &&
+										data.totAssets.toFixed(currency.decimal_places) >= 0"
 								style="color:#18ce0f;">
 								<strong>{{ data.totAssets.toFixed(currency.decimal_places) }}</strong>
 							</span>
@@ -94,7 +96,7 @@
 				data-toggle="tooltip"
 				title="Guardar registro"
 				id="save"
-				:disabled="!enableInput" 
+				:disabled="!enableInput || validateTotals()" 
 				v-if="seating == null"
 				v-on:click="AddSeating()">
 				<i class="fa fa-save"></i>
@@ -103,7 +105,7 @@
 				data-toggle="tooltip"
 				title="Actualizar registro"
 				id="update"
-				:disabled="!enableInput"
+				:disabled="!enableInput || validateTotals()"
 				v-else
 				v-on:click="EditSeating()">
 				<i class="fa fa-save"></i>
@@ -126,7 +128,7 @@
 					reference:'',
 					concept:'',
 					observations:'',
-					generated_by_id:'',
+					category:'',
 					totDebit:0,
 					totAssets:0,
 					institution_id:null,
@@ -153,7 +155,7 @@
 				this.data.reference = data.reference;
 				this.data.concept = data.concept;
 				this.data.observations = data.observations;
-				this.data.generated_by_id = data.generated_by_id;
+				this.data.category = data.category;
 				this.data.institution_id = data.institution_id;
 				this.data.departament_id = data.departament_id;
 			});
@@ -192,6 +194,11 @@
             this.$EventBus.$off('request:budgetToAccount');
         },
 		methods:{
+
+			validateTotals:function(){
+				return !(this.data.totDebit.toFixed(this.currency.decimal_places) >= 0 && 
+						this.data.totAssets.toFixed(this.currency.decimal_places) >= 0);
+			},
 
 			/**
 			* Validación de errores
@@ -254,6 +261,16 @@
 					if (this.recordsAccounting[i].id != '') {
 						this.recordsAccounting[i].debit = parseFloat(this.recordsAccounting[i].debit).toFixed(this.currency.decimal_places);
 						this.recordsAccounting[i].assets = parseFloat(this.recordsAccounting[i].assets).toFixed(this.currency.decimal_places);
+
+						if (this.recordsAccounting[i].debit < 0 || this.recordsAccounting[i].assets < 0) {
+							this.enableInput = false;
+							this.errors = [];
+							this.errors.push("Los valores en la columna del DEBE y el HABER deben ser positivos.");
+						}else{
+							this.errors = [];
+							this.enableInput = true;
+						}
+
 						this.data.totDebit += (this.recordsAccounting[i].debit!='')?parseFloat(this.recordsAccounting[i].debit):0;
 						this.data.totAssets += (this.recordsAccounting[i].assets!='')?parseFloat(this.recordsAccounting[i].assets):0;
 					}
@@ -356,5 +373,5 @@
 				this.CalculateTot();
 			},
 		},
-	}
+	};
 </script>

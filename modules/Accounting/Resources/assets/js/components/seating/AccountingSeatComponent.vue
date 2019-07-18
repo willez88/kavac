@@ -41,7 +41,7 @@
 					<div class="col-1"></div>
 					<div class="col-3">
 						<div class="form-group">
-							<label class="control-label">Por Origen <br>
+							<label class="control-label">Por Categoría <br>
 								<input type="radio"
 										name="sel_Search" 
 										id="sel_origin"

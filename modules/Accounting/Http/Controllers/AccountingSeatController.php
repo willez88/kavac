@@ -53,7 +53,7 @@ class AccountingSeatController extends Controller
         /** @var Object objeto que contendra la moneda manejada por defecto */
         $currency = Currency::where('default',true)->first();
         /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
-        $institutions = $this->getInstitutions();
+        $institutions = $this->getInstitutions("Todas");
 
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
         $seating = AccountingSeat::orderBy('from_date','ASC')->first();
@@ -65,7 +65,8 @@ class AccountingSeatController extends Controller
         $categories = [];
         array_push($categories, [
             'id' => 0,
-            'text' => 'Todos'
+            'text' => 'Todas',
+            'acronym' => ''
         ]);
         foreach (AccountingSeatCategory::all() as $category) {
             array_push($categories, [
@@ -90,7 +91,7 @@ class AccountingSeatController extends Controller
     public function create()
     {
         /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
-        $institutions = $this->getInstitutions();
+        $institutions = $this->getInstitutions("Seleccione...");
 
         /** @var Object Objeto en el que se almacena la información del tipo de moneda por defecto */
         $currency = Currency::where('default',true)->orderBy('id','ASC')->first();
@@ -101,7 +102,8 @@ class AccountingSeatController extends Controller
         $categories = [];
         array_push($categories, [
             'id' => '',
-            'text' => 'Seleccione...'
+            'text' => 'Seleccione...',
+            'acronym' => ''
         ]);
         foreach (AccountingSeatCategory::all() as $category) {
             array_push($categories, [
@@ -136,9 +138,9 @@ class AccountingSeatController extends Controller
         $newSeating->reference = $request->data['reference'];
         $newSeating->concept = $request->data['concept'];
         $newSeating->observations = $request->data['observations'];
-        $newSeating->accounting_seat_categories_id=($request->data['generated_by_id']!='')? $request->data['generated_by_id']: null;
+        $newSeating->accounting_seat_categories_id=($request->data['category']!='')? $request->data['category']: null;
         $newSeating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
-        $newSeating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
+        // $newSeating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
         $newSeating->tot_debit = $request->data['totDebit'];
         $newSeating->tot_assets = $request->data['totAssets'];
         $newSeating->save();
@@ -167,7 +169,7 @@ class AccountingSeatController extends Controller
     public function edit($id)
     {
         /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
-        $institutions = $this->getInstitutions();
+        $institutions = $this->getInstitutions("Seleccione...");
         
         /** @var Object Objeto en el que se almacena la información del tipo de moneda por defecto */
         $currency = Currency::where('default',true)->orderBy('id','ASC')->first();
@@ -180,34 +182,33 @@ class AccountingSeatController extends Controller
         /**
          * se guarda en variables la información necesaria para la edición del asiento contable
          */ 
+        //dd($seating);
         $date = $seating->from_date;
         $reference = $seating->reference;
         $concept = $seating->concept;
         $observations = $seating->observations;
         $category = $seating->accounting_seat_categories_id;
+        $institution = null;
 
         /**
-         * se valida si el asiento tiene alguna relación con una institución/departamento
+         * se valida si el asiento tiene alguna relación con una institución
          */ 
-        if (is_null($seating->institution_id) && is_null($seating->departament_id)) {
-            $institution_departament = '';
-        }else if (!is_null($seating->institution_id) || !is_null($seating->departament_id)) {
-            $institution_departament = (is_null($seating->institution_id)) ? 
-                                            $seating->departament_id.'-departament':
-                                            $seating->institution_id.'-institution';
+        if( !is_null($seating->institution_id) ) {
+            $institution = $seating->institution_id;
         }
 
         /** @var array Arreglo que contendra las categorias */
         $categories = [];
         array_push($categories, [
             'id' => '',
-            'text' => 'Seleccione...'
+            'text' => 'Seleccione...',
+            'acronym' => ''
         ]);
-        foreach (AccountingSeatCategory::all() as $category) {
+        foreach (AccountingSeatCategory::all() as $cat) {
             array_push($categories, [
-                'id' => $category->id,
-                'text' => $category->name,
-                'acronym' => $category->acronym,
+                'id' => $cat->id,
+                'text' => $cat->name,
+                'acronym' => $cat->acronym,
             ]);
         }
         /**
@@ -221,7 +222,7 @@ class AccountingSeatController extends Controller
             'reference' => $reference,
             'concept' => $concept,
             'observations' => $observations,
-            'institution_departament' => $institution_departament
+            'institution' => $institution
         ];
         $data_edit = json_encode($data_edit);
 
@@ -248,7 +249,7 @@ class AccountingSeatController extends Controller
         $seating->tot_debit = $request->data['totDebit'];
         $seating->tot_assets = $request->data['totAssets'];
         $seating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
-        $seating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
+        // $seating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
         $seating->save();
 
         foreach ($request->accountingAccounts as $account) {
@@ -480,26 +481,25 @@ class AccountingSeatController extends Controller
         return response()->json(['message'=>'Success'], 200);
     }
 
-    public function getInstitutions()
+    /**
+     * realiza la consulta de las instituciones
+     * @param Request $request
+     * @return JSON objeto json con la información de las instituciones
+     */
+    public function getInstitutions($text_default)
     {
         /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
         $institutions = [];
         array_push($institutions, [
             'id' => '',
-            'text' => 'Seleccione...'
+            'text' => $text_default,
         ]);
-        foreach (Institution::with('departments')->where('active',true)->orderBy('name','ASC')->get() as $institution) {
-            // se almacenan las instituciones y departamente
+        foreach (Institution::where('active',true)->orderBy('name','ASC')->get() as $institution) {
+            // se almacenan las instituciones en un array
             array_push($institutions, [
-                'id' => $institution->id.'-institution',
+                'id' => $institution->id,
                 'text' => $institution->acronym.' - '.$institution->name,
             ]);
-            foreach ($institution->departments as $department) {
-               array_push($institutions, [
-                'id' => $department['id'].'-department',
-                'text' => $department['acronym'].' - '.$department['name'],
-            ]); 
-            }
         }
         /**
          * se convierte array a JSON
