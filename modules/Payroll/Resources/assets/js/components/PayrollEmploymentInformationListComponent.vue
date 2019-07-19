@@ -45,6 +45,10 @@
 				<i class="fa fa-trash-o"></i>
 			</button>
 		</div>
+        <div slot="active" slot-scope="props" class="text-center">
+            <span v-if="props.row.active">SI</span>
+            <span v-else>NO</span>
+        </div>
 	</v-client-table>
 </template>
 <script>
@@ -79,7 +83,7 @@
             show_info(id) {
                 axios.get('/payroll/employment-informations/' + id).then(response => {
 					var record = response.data.record;
-                    $('#payroll_staff').val(record.payroll_staff);
+                    $('#payroll_staff').val(record.payroll_staff.first_name + ' ' + record.payroll_staff.last_name);
 				});
                 $('#show_employment_information').modal('show');
             }

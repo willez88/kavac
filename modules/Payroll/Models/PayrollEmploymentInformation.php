@@ -16,7 +16,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de información laboral
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollEmploymentInformation extends Model implements Auditable
@@ -52,7 +52,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     ];
 
     /**
-     * PayrollEmploymentInformation tiene muchos PayrollOrganization
+     * Método que obtiene la información laboral del trabajador que está asociada a muchas organizaciones
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -63,7 +63,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * PayrollEmploymentInformation pertenece a PayrollStaff
+     * Método que obtiene la información laboral del trabajaor asociado a una información personal del mismo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -71,5 +71,71 @@ class PayrollEmploymentInformation extends Model implements Auditable
 	public function payroll_staff()
     {
         return $this->belongsTo(PayrollStaff::class);
+    }
+
+    /**
+     * Método que obtiene la información laboral asociada a un tipo de inactividad
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function payroll_inactivity_type()
+    {
+        return $this->belongsTo(PayrollInactivityType::class);
+    }
+
+    /**
+     * Método que obtiene la información laboral asociada a un tipo de cargo
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function payroll_position_type()
+    {
+        return $this->belongsTo(PayrollPositionType::class);
+    }
+
+    /**
+     * Método que obtiene la información laboral asociada a un cargo
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function payroll_position()
+    {
+        return $this->belongsTo(PayrollPosition::class);
+    }
+
+    /**
+     * Método que obtiene la información laboral asociada a un departamento
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    /**
+     * Método que obtiene la información laboral asociada a un tipo de personal
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function payroll_staff_type()
+    {
+        return $this->belongsTo(PayrollStaffType::class);
+    }
+
+    /**
+     * Método que obtiene la información laboral asociada a un tipo de contrato
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+	public function payroll_contract_type()
+    {
+        return $this->belongsTo(PayrollContractType::class);
     }
 }

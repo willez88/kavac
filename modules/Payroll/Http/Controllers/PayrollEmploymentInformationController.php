@@ -121,7 +121,7 @@ class PayrollEmploymentInformationController extends Controller
             'payroll_staff', 'payroll_inactivity_type', 'payroll_position_type', 'payroll_position',
             'payroll_staff_type', 'department', 'payroll_contract_type'
         ])->first();
-        return response()->json(['record' => $payroll_staff], 200);
+        return response()->json(['record' => $payroll_employment_information], 200);
     }
 
     /**

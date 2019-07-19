@@ -8,7 +8,7 @@ use App\Models\Department as BaseDepartment;
 class Department extends BaseDepartment
 {
     /**
-     * Department tiene muchos PayrollEmploymentInformation
+     * Método que obtiene el departamento asociado a muchas informaciones laborales
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
