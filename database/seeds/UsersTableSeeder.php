@@ -47,30 +47,7 @@ class UsersTableSeeder extends Seeder
                 /** Asigna el rol de administrador */
                 $user_admin->attachRole($adminRole);
             }
-
-            /** @var object Crea el usuario por defecto de la aplicación */
-            $user_admin = User::updateOrCreate(
-                ['username' => 'juan'],
-                [
-                    'name' => 'juan',
-                    'email' => 'juan.rosasr01@gmail.com',
-                    'password' => bcrypt('123456'),
-                    'level' => 1,
-                    'created_at' => Carbon::now()
-                ]
-            );
-            if (!$user_admin) {
-                throw new Exception('Error creando el usuario administrador por defecto');
-            }
-
-            /** @var object Crea el rol de administrador del sistema */
-            $adminRole = Role::where('slug', 'account')->first();
-
-            if ($adminRole) {
-                /** Asigna el rol de administrador */
-                $user_admin->attachRole($adminRole);
-            }
-
+            
     	});
     }
 }
