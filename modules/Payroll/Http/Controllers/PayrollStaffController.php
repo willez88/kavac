@@ -75,7 +75,7 @@ class PayrollStaffController extends Controller
             'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number',
             'passport' => 'nullable|max:20|unique:payroll_staffs,passport',
             'email' => 'nullable|email|unique:payroll_staffs,email',
-            'birthdate' => 'required|date|',
+            'birthdate' => 'required|date',
             'birthdate' => new AgeToWork,
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
@@ -107,7 +107,7 @@ class PayrollStaffController extends Controller
         $payroll_staff->emergency_phone = $request->emergency_phone;
         $payroll_staff->parish_id = $request->parish_id;
         $payroll_staff->address = $request->address;
-        //$payroll_staff->save();
+        $payroll_staff->save();
 
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
@@ -142,34 +142,6 @@ class PayrollStaffController extends Controller
                 }]);
             },'phones'])->first();
         return response()->json(['record' => $payroll_staff], 200);
-    }
-
-    // Posiblemente esta función no haga falta
-    public function info($id)
-    {
-        /*$payroll_staff = PayrollStaff::findorfail($id);
-        $data[] = [
-            'code' => $payroll_staff->code,
-            'first_name' => $payroll_staff->first_name,
-            'last_name' => $payroll_staff->last_name,
-            'payroll_nationality' => $payroll_staff->payroll_nationality->name,
-            'id_number' => $payroll_staff->id_number,
-            'passport' => $payroll_staff->passport,
-            'email' => $payroll_staff->email,
-            'birthdate' => $payroll_staff->birthdate,
-            'payroll_gender' => $payroll_staff->payroll_gender->name,
-            'emergency_contact' => $payroll_staff->emergency_contact,
-            'emergency_phone' => $payroll_staff->emergency_phone,
-            'country' => $payroll_staff->parish->municipality->estate->country->name,
-            'estate' => $payroll_staff->parish->municipality->estate->name,
-            'municipality' => $payroll_staff->parish->municipality->name,
-            'parish' => $payroll_staff->parish->name,
-            'address' => $payroll_staff->address,
-        ];
-        return response()->json(['record' => $data[0]], 200);*/
-
-        $payroll_staff = PayrollStaff::where('id',$id)->with(['payroll_nationality','payroll_gender','parish','phones'])->first();
-        return response()->json(['test' => $payroll_staff], 200);
     }
 
     /**

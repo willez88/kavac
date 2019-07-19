@@ -63,15 +63,46 @@ class PayrollEmploymentInformationController extends Controller
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
-     * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
+     * @return \Illuminate\Http\JsonResponse        Json: result en verdadero y redirect con la url a donde ir
      */
     public function store(Request $request)
     {
         $this->validate($request, [
             'payroll_staff_id' => 'required|unique:payroll_employment_informations,payroll_staff_id',
+            'start_date_apn' => 'required|date',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date',
+            'payroll_inactivity_type_id' => 'nullable',
+            'institution_email' => 'email|nullable',
+            'function_description' => 'nullable',
+            'payroll_position_type_id' => 'required',
+            'payroll_position_id' => 'required',
+            'payroll_staff_type_id' => 'required',
+            'department_id' => 'required',
+            'payroll_contract_type_id' => 'required',
         ]);
         $payroll_employment_information = new PayrollEmploymentInformation;
         $payroll_employment_information->payroll_staff_id  = $request->payroll_staff_id;
+        $payroll_employment_information->start_date_apn = $request->start_date_apn;
+        $payroll_employment_information->start_date = $request->start_date;
+        $payroll_employment_information->end_date = $request->end_date;
+
+        $payroll_employment_information->active = $request->active;
+        if( $payroll_employment_information->active )
+        {
+            $payroll_employment_information->payroll_inactivity_type_id = null;
+        }
+        else {
+            $payroll_employment_information->payroll_inactivity_type_id = $request->payroll_inactivity_type_id;
+        }
+
+        $payroll_employment_information->institution_email = $request->institution_email;
+        $payroll_employment_information->function_description = $request->function_description;
+        $payroll_employment_information->payroll_position_type_id = $request->payroll_position_type_id;
+        $payroll_employment_information->payroll_position_id = $request->payroll_position_id;
+        $payroll_employment_information->payroll_staff_type_id = $request->payroll_staff_type_id;
+        $payroll_employment_information->department_id = $request->department_id;
+        $payroll_employment_information->payroll_contract_type_id = $request->payroll_contract_type_id;
         $payroll_employment_information->save();
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('payroll.employment-informations.index')], 200);
@@ -86,7 +117,10 @@ class PayrollEmploymentInformationController extends Controller
      */
     public function show($id)
     {
-        $payroll_employment_information = PayrollEmploymentInformation::where('id',$id)->with(['payroll_staff'])->first();
+        $payroll_employment_information = PayrollEmploymentInformation::where('id',$id)->with([
+            'payroll_staff', 'payroll_inactivity_type', 'payroll_position_type', 'payroll_position',
+            'payroll_staff_type', 'department', 'payroll_contract_type'
+        ])->first();
         return response()->json(['record' => $payroll_staff], 200);
     }
 
@@ -114,5 +148,13 @@ class PayrollEmploymentInformationController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function vueList()
+    {
+        return response()->json(['records' => PayrollEmploymentInformation::with([
+            'payroll_staff', 'payroll_inactivity_type', 'payroll_position_type', 'payroll_position',
+            'payroll_staff_type', 'department', 'payroll_contract_type'
+        ])->get()], 200);
     }
 }

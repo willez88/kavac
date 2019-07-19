@@ -8,6 +8,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::post('settings', 'PayrollSettingController@store')->name('payroll.settings.store');
 
     Route::resource('staff-types', 'PayrollStaffTypeController', ['as' => 'payroll', 'except' => ['show']]);
+    Route::get('get-staff-types', 'PayrollStaffTypeController@getPayrollStaffTypes')->name('payroll.get-payroll-staff-types');
+
     Route::resource('position-types', 'PayrollPositionTypeController', ['as' => 'payroll', 'except' => ['show']]);
     Route::get('get-position-types', 'PayrollPositionTypeController@getPayrollPositionTypes')->name('payroll.get-payroll-position-types');
 
@@ -18,7 +20,6 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
 
     Route::resource('staffs', 'PayrollStaffController', ['as' => 'payroll']);
     Route::get('staffs/show/vue-list', 'PayrollStaffController@vueList')->name('payroll.staffs.vue-list');
-    //Route::get('staffs/info/{id}', 'PayrollStaffController@info')->name('payroll.staffs.info');
     Route::get('get-staffs', 'PayrollStaffController@getPayrollStaffs')->name('payroll.get-payroll-staffs');
 
     Route::resource('instruction-degrees', 'PayrollInstructionDegreeController', ['as' => 'payroll', 'except' => ['show']]);
@@ -60,7 +61,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
     Route::get('get-sector-types', 'PayrollSectorTypeController@getPayrollSectorTypes')->name('payroll.get-payroll-sector-types');
 
     Route::resource('employment-informations', 'PayrollEmploymentInformationController', ['as' => 'payroll']);
-    #Route::get('employment-informations/show/vue-list', 'PayrollEmploymentInformationController@vueList')->name('payroll.employment-informations.vue-list');
+    Route::get('employment-informations/show/vue-list', 'PayrollEmploymentInformationController@vueList')->name('payroll.employment-informations.vue-list');
 
 
 

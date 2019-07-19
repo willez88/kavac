@@ -60,7 +60,7 @@
 			this.table_options.headings = {
                 'payroll_staff.first_name': 'Trabajador',
 				'institution_email': 'Correo Electrónico Institucional',
-				'active': '¿?Está Activo',
+				'active': '¿Está Activo?',
 				'id': 'Acción'
 			};
             this.table_options.sortable = ['payroll_staff.first_name', 'institution_email'];

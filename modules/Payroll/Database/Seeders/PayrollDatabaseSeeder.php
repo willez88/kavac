@@ -40,11 +40,14 @@ class PayrollDatabaseSeeder extends Seeder
         /** Seeder para los idiomas disponibles en el módulo */
         $this->call(PayrollLanguagesTableSeeder::class);
 
-        /** Seeder para los idiomas disponibles en el módulo */
+        /** Seeder para los tipos de contrato disponibles en el módulo */
         $this->call(PayrollContractTypesTableSeeder::class);
 
-        /** Seeder para los idiomas disponibles en el módulo */
+        /** Seeder para los tipos de sectores disponibles en el módulo */
         $this->call(PayrollSectorTypesTableSeeder::class);
+
+        /** Seeder para los tipos de inactividad disponibles en el módulo */
+        $this->call(PayrollInactivityTypesTableSeeder::class);
 
         /** Seeder para los tipos de asignacion disponibles en el módulo */
         $this->call(PayrollSalaryAssignmentTypeTableSeeder::class);

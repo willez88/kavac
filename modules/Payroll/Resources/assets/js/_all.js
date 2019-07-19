@@ -229,9 +229,45 @@ Vue.mixin({
 		 * @author William Páez <wpaez@cenditel.gob.ve>
 		 */
 		getPayrollInstructionDegrees() {
-			this.payroll_instruction_degree_id = [];
+			this.payroll_instruction_degree = [];
 			axios.get('/payroll/get-instruction-degrees').then(response => {
 				this.payroll_instruction_degrees = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de tipos de inactividad registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollInactivityTypes() {
+			this.payroll_inactivity_types = [];
+			axios.get('/payroll/get-inactivity-types').then(response => {
+				this.payroll_inactivity_types = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de tipos de personal registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollStaffTypes() {
+			this.payroll_staff_types = [];
+			axios.get('/payroll/get-staff-types').then(response => {
+				this.payroll_staff_types = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de tipos de contrato registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollContractTypes() {
+			this.payroll_contract_types = [];
+			axios.get('/payroll/get-contract-types').then(response => {
+				this.payroll_contract_types = response.data;
 			});
 		},
 	},

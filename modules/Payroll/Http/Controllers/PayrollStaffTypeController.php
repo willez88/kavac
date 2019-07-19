@@ -145,4 +145,9 @@ class PayrollStaffTypeController extends Controller
         }
         return redirect()->route('payroll.staff-types.index');
     }
+
+    public function getPayrollStaffTypes()
+    {
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollStaffType',['name'],'',true));
+    }
 }

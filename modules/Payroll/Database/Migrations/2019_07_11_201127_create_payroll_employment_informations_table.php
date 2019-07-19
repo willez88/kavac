@@ -19,7 +19,7 @@ class CreatePayrollEmploymentInformationsTable extends Migration
                 $table->boolean('active')->default(true)->comment('Indica si el trabajador está activo');
                 $table->date('start_date_apn')->comment('Fecha de ingreso a la administración pública nacional');
                 $table->date('start_date')->comment('Fecha de ingreso a la institución');
-                $table->date('start_end')->nullable()->comment('Fecha de egreso de la institución');
+                $table->date('end_date')->nullable()->comment('Fecha de egreso de la institución');
                 $table->string('institution_email', 100)->nullable()->comment('Correo electrónico institucional');
                 $table->text('function_description')->nullable()->comment('Descripción de funciones');
 
@@ -53,7 +53,7 @@ class CreatePayrollEmploymentInformationsTable extends Migration
                 $table->foreign('payroll_contract_type_id')->references('id')->on('payroll_contract_types')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('payroll_staff_id')->unsigned()-unique()
+                $table->integer('payroll_staff_id')->unsigned()->unique()
                       ->comment('identificador del personal que pertenece a la información laboral');
                 $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
                       ->onDelete('restrict')->onUpdate('cascade');
