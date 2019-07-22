@@ -10,14 +10,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class AssetCategory
- * @brief Datos de las Categorias Generales de un bien
+ * @brief Datos de las categorias generales de un bien
  * 
- * Gestiona el modelo de datos para las categorias generales de un bien
+ * Gestiona el modelo de datos de las categorias generales de un bien
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AssetCategory extends Model implements Auditable
 {
 	use SoftDeletes;
@@ -26,6 +25,7 @@ class AssetCategory extends Model implements Auditable
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
@@ -45,59 +45,36 @@ class AssetCategory extends Model implements Auditable
     protected $fillable = ['code','name', 'asset_type_id'];
 
     /**
-     * Método que obtiene el tipo de bien al que pertenece la categoria
+     * Método que obtiene el tipo de bien asociado a la categoria
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetType
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetType
      */
-	public function type()
+	public function asset_type()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetType', 'asset_type_id');
+        return $this->belongsTo(AssetType::class);
     }
 
     /**
-     * Método que obtiene la subcategoria del bien al que pertenece la categoria
+     * Método que obtiene las subcategorias asociadas a la categoria
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetSubcategories
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetSubcategories
      */
-    public function subcategories()
+    public function asset_subcategories()
     {
-        return $this->hasmany('Modules\Asset\Models\AssetSubcategory');
+        return $this->hasmany(AssetSubcategory::class);
     }
 
     /**
-     * Método que obtiene los bienes de la categoria
+     * Método que obtiene los bienes asociadps a la categoria
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Asset
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo Asset
      */
     public function assets()
     {
-        return $this->hasMany('Modules\Asset\Models\Asset');
+        return $this->hasMany(Asset::class);
     }
-
-    /**
-     *
-     * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
-     * 
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return [array] Listado de bienes
-     */
-     public static function template_choices($filters = [])
-    {
-        $records = self::all();
-        if ($filters) {
-            foreach ($filters as $key => $value) {
-                $records = $records->where($key, $value);
-            }
-        }
-        $options = [];
-        foreach ($records as $rec) {
-            $options[$rec->id] = $rec->name;
-        }
-        return $options;
-    }
-
 
 }

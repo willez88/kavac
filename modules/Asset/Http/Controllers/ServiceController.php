@@ -12,7 +12,7 @@ use Illuminate\Routing\Controller;
  * 
  * Clase que gestiona los registros utilizados en los elemnetos del tipo select2
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -24,7 +24,7 @@ class ServiceController extends Controller
     /**
      * Método constructor de la clase
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct() {
         $this->data[0] = [
@@ -58,8 +58,8 @@ class ServiceController extends Controller
     public function getPositions(){
         return template_choices('Modules\Payroll\Models\PayrollPosition','name','',true);
     }
-    public function getPurchases(){
-        return template_choices('Modules\Asset\Models\AssetPurchase','name','',true);
+    public function getAssetAcquisitionTypes(){
+        return template_choices('Modules\Asset\Models\AssetAcquisitionType','name','',true);
     }
 
     public function getConditions(){
@@ -70,11 +70,7 @@ class ServiceController extends Controller
         return template_choices('Modules\Asset\Models\AssetStatus','name','',true);
     }
 
-    public function getUses(){
-        return template_choices('Modules\Asset\Models\AssetUse','name','',true);
-    }
-
-    public function getMotives(){
-        return template_choices('Modules\Asset\Models\AssetMotiveDisincorporation','name','',true);
+    public function getAssetUseFunctions(){
+        return template_choices('Modules\Asset\Models\AssetUseFunction','name','',true);
     }
 }

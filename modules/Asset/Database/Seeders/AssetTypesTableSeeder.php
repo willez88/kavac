@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Asset\Models\AssetType;
 
 /**
- * @class AssetTypeTableSeeder
+ * @class AssetTypesTableSeeder
  * @brief Inicializar Tipos de Bien
  * 
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class AssetTypeTableSeeder extends Seeder
+class AssetTypesTableSeeder extends Seeder
 {
     /**
      * Método que registra los valores iniciales de tipos de bien
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function run()

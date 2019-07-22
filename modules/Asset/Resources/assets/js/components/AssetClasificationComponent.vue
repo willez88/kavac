@@ -30,8 +30,8 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Tipo de Bien:</label>
-									<select2 :options="types" @input="checkType()" 
-											 v-model="record.type_id"></select2>
+									<select2 :options="asset_types" @input="checkType()" 
+											 v-model="record.asset_type_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
@@ -49,7 +49,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Categoría General:</label>
-									<select2 :options="categories" @input="checkCategory" 
+									<select2 :options="asset_categories" @input="checkCategory" 
 											 v-model="record.category_id"></select2>
 			                    </div>
 							</div>
@@ -75,8 +75,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Subcategoría:</label>
-									<select2 :options="subcategories" @input="checkSubcategory"
-											 v-model="record.subcategory_id"></select2>
+									<select2 :options="asset_subcategories" @input="checkSubcategory"
+											 v-model="record.asset_subcategory_id"></select2>
 			                    </div>
 							</div>
 							<div class="col-md-4">
@@ -166,9 +166,9 @@
 			return {
 				record: {
 					id: '',
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
 					name: '',
 					code: ''
 				},
@@ -189,25 +189,27 @@
 
 				errors: [],
 				records: [],
-				types: [],
-				categories: [],
-				subcategories: [],
-				columns: ['subcategory.category.type.name','subcategory.category.name','subcategory.name', 'name', 'code', 'id'],
+				asset_types: [],
+				asset_categories: [],
+				asset_subcategories: [],
+				columns: ['asset_subcategory.asset_category.asset_type.name','asset_subcategory.asset_category.name','asset_subcategory.name', 'name', 'code', 'id'],
 			}
 		},
 		created() {
-			this.getTypes();
 			this.table_options.headings = {
-				'subcategory.category.type.name': 'Tipo de Bien',
-				'subcategory.category.name': 'Categoria General',
-				'subcategory.name': 'Subcategoria',
+				'asset_subcategory.asset_category.asset_type.name': 'Tipo de Bien',
+				'asset_subcategory.asset_category.name': 'Categoria General',
+				'asset_subcategory.name': 'Subcategoria',
 				'name': 'Categoria Especifica',
 				'code': 'Código',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['subcategory.category.type.name', 'subcategory.category.name','subcategory.name','name', 'code'];
-			this.table_options.filterable = ['subcategory.category.type.name', 'subcategory.category.name','subcategory.name','name', 'code'];
+			this.table_options.sortable = ['asset_subcategory.asset_category.asset_type.name', 'asset_subcategory.asset_category.name','asset_subcategory.name','name', 'code'];
+			this.table_options.filterable = ['asset_subcategory.asset_category.asset_type.name', 'asset_subcategory.asset_category.name','asset_subcategory.name','name', 'code'];
 
+		},
+		mounted() {
+			this.getAssetTypes();
 		},
 		methods: {
 			/**
@@ -219,9 +221,9 @@
 				this.errors = [];
 				this.record = {
 					id: '',
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
 					name: '',
 					code: ''
 				};
@@ -244,26 +246,26 @@
 			/**
 			 * Inicializa los registros base del formulario
 			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			getTypes() {
+			getAssetTypes() {
 				let vm = this;				
 
 				axios.get('/asset/get-types').then(response => {
 					$.each(response.data, function() {
 			        	if (this.id === 1){
-				            vm.types.push({
+				            vm.asset_types.push({
 				            	id: '-1',
 				            	text: 'Agregar Nuevo Tipo de Bienes'
 				            });
 
-				            vm.types.push({
+				            vm.asset_types.push({
 				            	id: this.id,
 				            	text: this.text
 				            });
 				        }
 				        else {
-				        	vm.types.push({
+				        	vm.asset_types.push({
 			               		id: this.id,
 								text: this.text
 			                });
@@ -274,30 +276,30 @@
 			/**
 			 * Obtiene las Categorias del Tipo de Bien seleccionado
 			 * 
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			getCategories() {
+			getAssetCategories() {
 				let vm = this;
 				var first = true;
 
-				if (this.record.type_id > 0 ) {
-					axios.get('/asset/get-categories/' + this.record.type_id).then(response => {
-						vm.categories = [];
+				if (this.record.asset_type_id > 0 ) {
+					axios.get('/asset/get-categories/' + this.record.asset_type_id).then(response => {
+						vm.asset_categories = [];
 						$.each(response.data, function() {
 							
 							if ( first === true ){
 								first = false;
-								vm.categories.push({
+								vm.asset_categories.push({
 				               		id: this.id,
 									text: this.text
 				                });
-				                vm.categories.push({
+				                vm.asset_categories.push({
 					            	id: '-1',
 					            	text: 'Agregar Nueva Categoria General de Bienes'
 					            });
 							}
 					        else {
-					        	vm.categories.push({
+					        	vm.asset_categories.push({
 				               		id: this.id,
 									text: this.text
 				                });
@@ -305,8 +307,8 @@
 				        });
 					});
 				}
-				else if (this.record.type_id == -1 ) {
-					vm.categories= [{
+				else if (this.record.asset_type_id == -1 ) {
+					vm.asset_categories= [{
 						id: '',
 						text: 'Seleccione...'
 					},{
@@ -318,30 +320,30 @@
 			/**
 			 * Obtiene las Subcategorias de la Categoria seleccionada
 			 * 
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			getSubcategories() {
+			getAssetSubcategories() {
 				let vm = this;
 				var first = true;
 				
-				if (this.record.category_id > 0) {
-					axios.get('/asset/get-subcategories/' + this.record.category_id).then(response => {
-						vm.subcategories= [];
+				if (this.record.asset_category_id > 0) {
+					axios.get('/asset/get-subcategories/' + this.record.asset_category_id).then(response => {
+						vm.asset_subcategories= [];
 						$.each(response.data, function() {
 							
 							if ( first === true ){
 								first = false;
-								vm.subcategories.push({
+								vm.asset_subcategories.push({
 				               		id: this.id,
 									text: this.text
 				                });
-				                vm.subcategories.push({
+				                vm.asset_subcategories.push({
 					            	id: '-1',
 					            	text: 'Agregar Nueva Subcategoria de Bienes'
 					            });
 							}
 					        else {
-					        	vm.subcategories.push({
+					        	vm.asset_subcategories.push({
 				               		id: this.id,
 									text: this.text
 				                });
@@ -349,8 +351,8 @@
 				        });
 					});
 				}
-				else if (this.record.category_id == -1 ) {
-					vm.subcategories= [{
+				else if (this.record.asset_category_id == -1 ) {
+					vm.asset_subcategories= [{
 						id: '',
 						text: 'Seleccione...'
 					},{
@@ -360,16 +362,16 @@
 				}
 			},
 			checkType(){
-				let index = this.record.type_id;				
+				let index = this.record.asset_type_id;				
 				$("#type_id").attr('disabled', (index > 0));
 				if (index > 0){
 					$("#type_id").closest('.form-group').removeClass('is-required');
 				}else
 					$("#type_id").closest('.form-group').addClass('is-required');
-				this.getCategories();
+				this.getAssetCategories();
 			},
 			checkCategory(){
-				let index = this.record.category_id;				
+				let index = this.record.asset_category_id;				
 				$("#category_name_id").attr('disabled', (index > 0));
 				$("#category_code_id").attr('disabled', (index > 0));
 
@@ -380,10 +382,10 @@
 					$("#category_name_id").closest('.form-group').addClass('is-required');
 					$("#category_code_id").closest('.form-group').addClass('is-required');
 				}
-				this.getSubcategories();
+				this.getAssetSubcategories();
 			},
 			checkSubcategory(){
-				let index = this.record.subcategory_id;
+				let index = this.record.asset_subcategory_id;
 				$("#subcategory_name_id").attr('disabled', (index > 0));
 				$("#subcategory_name_id").attr('required', (index > 0));
 				$("#subcategory_code_id").attr('disabled', (index > 0));
@@ -405,9 +407,9 @@
 				else {
 					var fields = {
 						id: this.record.id,
-						type_id: this.record.type_id,
-						category_id: this.record.category_id,
-						subcategory_id: this.record.subcategory_id,
+						asset_type_id: this.record.asset_type_id,
+						asset_category_id: this.record.asset_category_id,
+						asset_subcategory_id: this.record.asset_subcategory_id,
 						name: this.record.name,
 						code: this.record.code,
 
@@ -447,9 +449,9 @@
 				var field = this.records[index - 1];
 				this.record = {
 					id: field.id,
-					type_id: field.subcategory.category.asset_type_id,
-					category_id: field.subcategory.asset_category_id,
-					subcategory_id: field.asset_subcategory_id,
+					asset_type_id: field.asset_subcategory.asset_category.asset_type_id,
+					asset_category_id: field.asset_subcategory.asset_category_id,
+					asset_subcategory_id: field.asset_subcategory_id,
 					code: field.code,
 					name: field.name,
 				};

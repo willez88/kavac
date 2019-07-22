@@ -3,19 +3,19 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use Module;
 
 /**
  * @class Asset
- * @brief Datos de los Bienes Institucionales
+ * @brief Datos de los bienes institucionales
  * 
- * Gestiona el modelo de datos para los Bienes Institucionales
+ * Gestiona el modelo de datos de los bienes institucionales
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -27,6 +27,7 @@ class Asset extends Model implements Auditable
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
@@ -40,30 +41,36 @@ class Asset extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = [
-        'orden_compra', 'type_id', 'category_id', 'subcategory_id', 'specific_category_id', 'institution_id', 'proveedor_id','condition_id','purchase_id','purchase_year','status_id', 'serial', 'marca',
-        'model', 'serial_inventario', 'value','use_id'
+        'asset_type_id', 'asset_category_id', 'asset_subcategory_id', 'asset_specific_category_id', 'asset_condition_id', 'asset_acquisition_type_id', 'acquisition_year', 'asset_status_id', 'serial', 'marca', 'model', 'inventory_serial', 'value', 'asset_use_function_id', 'specifications', 'address', 'parish_id'
     ];
 
     /**
-     * Método que permite obtener el Serial de Inventario de un Bien
+     * Método que obtiene el serial de inventario de un bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return [string] Retorna el Serial de Inventario de un Bien
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return string Retorna el serial de inventario de un bien
      */
     public function getCode()
     {
-        $code = $this->type_id .'-'. $this->category_id .'-'. $this->subcategory_id .'-'. $this->specific_category_id .'-'. $this->purchase_year .'-'. $this->id;
+        $code = $this->asset_type_id .'-'. $this->asset_category_id .'-'. $this->asset_subcategory_id .'-'. $this->asset_specific_category_id .'-'. $this->acquisition_year .'-'. $this->id;
 
         return $code;
     }
 
+    /**
+     * Método que obtiene la descripción técnica de un bien institucional
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return string Retorna la descripción técnica de un bien
+     */
     public function getDescription()
     {
         $description = 'Código: '.$this->getCode() .'. Marca: '. $this->marca .'. Modelo: '. $this->model;
-        if ($this->type_id == 2){
+        if ($this->asset_type_id == 2){
             $description = $description . ". Serial: ". $this->serial;
         }
         return $description;
@@ -72,306 +79,224 @@ class Asset extends Model implements Auditable
     /**
      * Método que obtiene el tipo al que pertenece el bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetType
      */
-    public function type()
+    public function asset_type()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetType', 'type_id');
+        return $this->belongsTo(AssetType::class);
     }
     
     /**
      * Método que obtiene la categoria a la que pertenece el bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetCategory
      */
-    public function category()
+    public function asset_category()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetCategory', 'category_id');
+        return $this->belongsTo(AssetCategory::class);
     }
 
     /**
      * Método que obtiene la subcategoria a la que pertenece el bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetSubcategory
      */
-    public function subcategory()
+    public function asset_subcategory()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetSubcategory', 'subcategory_id');
+        return $this->belongsTo(AssetSubcategory::class);
     }
 
     /**
      * Método que obtiene la categoria específica a la que pertenece el bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetSpecificCategory
      */
-    public function specific()
+
+    public function asset_specific_category()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetSpecificCategory', 'specific_category_id');
+        return $this->belongsTo(AssetSpecificCategory::class);
     }
 
     /**
-     * Método que obtiene la forma de adquisicion del bien
+     * Método que obtiene el tipo de adquisicion del bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetAcquisitionType
      */
-    public function purchase()
+    public function asset_acquisition_type()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetPurchase', 'purchase_id');
+        return $this->belongsTo(AssetAcquisitionType::class);
     }
 
     /**
      * Método que obtiene la condición física del bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetCondition
      */
-    public function condition()
+    public function asset_condition()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetCondition', 'condition_id');
+        return $this->belongsTo(AssetCondition::class);
     }
 
     /**
-     * Método que obtiene el Status de uso del bien
+     * Método que obtiene el estatus de uso del bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetStatus
      */
-    public function status()
+    public function asset_status()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetStatus', 'status_id');
+        return $this->belongsTo(AssetStatus::class);
     }
 
     /**
-     * Método que obtiene la Función de uso del bien
+     * Método que obtiene la función de uso del bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetUseFunction
      */
-    public function use()
+    public function asset_use_function()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetUse', 'use_id');
-    }
-
-    
-    /**
-     * Método que obtiene el registro en inventario del bien
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetInventary
-     */
-    public function inventary()
-    {
-        return $this->belongsTo('Modules\Asset\Models\AssetInventary', 'inventary_id');
-    }
-
-     /**
-     * Método que obtiene los bienes de un registro de inventario
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Asset
-     */
-    public function assetRequested()
-    {
-        return $this->hasOne('Modules\Asset\Models\AssetRequested');
+        return $this->belongsTo(AssetUseFunction::class);
     }
 
     /**
      * Método que obtiene los bienes asignados
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetAsignationAsset
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne Objeto con el registro relacionado al modelo AssetAsignationAsset
      */
-    public function assetAsignation()
+
+    public function asset_asignation_asset()
     {
-        return $this->hasOne('Modules\Asset\Models\assetAsignationAsset');
+        return $this->hasOne(AssetAsignationAsset::class);
     }
 
     /**
      * Método que obtiene los bienes desincorporados
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetDisincorporationAsset
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne Objeto con el registro relacionado al modelo AssetDisincorporationAsset
      */
-    public function assetDisincorporation()
+    public function asset_disincorporation_asset()
     {
-        return $this->hasOne('Modules\Asset\Models\assetDisincorporationAsset');
+        return $this->hasOne(AssetDisincorporationAsset::class);
     }
 
     /**
+     * Método que obtiene los bienes solicitados
      *
-     * @brief Método que genera un listado de elementos registrados para ser implementados en plantillas blade
-     * 
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return [array] Listado de bienes
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne Objeto con el registro relacionado al modelo AssetRequestAsset
      */
-     public static function template_choices($filters = [])
+    public function asset_request_asset()
     {
-        $records = self::all();
-        if ($filters) {
-            foreach ($filters as $key => $value) {
-                $records = $records->where($key, $value);
-            }
-        }
-        $options = [];
-        foreach ($records as $rec) {
-            $options[$rec->id] = $rec->getDescription();
-        }
-        return $options;
+        return $this->hasOne(AssetRequestAsset::class);
     }
 
+    /**
+     * Método que obtiene los bienes inventariados
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetInventoryAsset
+     */
+    public function asset_inventory_assets()
+    {
+        return $this->hasMany(AssetInventoryAsset::class);
+    }
 
-    public function scopeCodeClasification($query, $type, $category, $subcategory, $specific){
-        if($type != ""){
+    /**
+     * Método que obtiene la parroquia donde esta ubicado el bien
+     * 
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parish()
+    {
+        return $this->belongsTo(\App\Models\Parish::class);
+    }
+
+    /**
+     * Método que obtiene los bienes registrados filtrados por su clasificación
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  [string] $type           Tipo del bien
+     * @param  [string] $category       Categoria general del bien
+     * @param  [string] $subcategory    Subcategoria del bien
+     * @param  [string] $specific       Categoria específica del bien
+     * @return [Object]             Objeto con los bienes registrados
+     */
+    public function scopeCodeClasification($query, $type, $category, $subcategory, $specific)
+    {
+        if($type != "") {
             if ($category != "") {
                 if ($subcategory != "") {
                     if ($specific != "") {
-                        return $query->where('type_id',$type)
-                                     ->where('category_id',$category)
-                                     ->where('subcategory_id',$subcategory)
-                                     ->where('specific_category_id',$specific);
+                        return $query->where('asset_type_id',$type)
+                                     ->where('asset_category_id',$category)
+                                     ->where('asset_subcategory_id',$subcategory)
+                                     ->where('asset_specific_category_id',$specific);
                     }
-                    return $query->where('type_id',$type)
-                             ->where('category_id',$category)
-                              ->where('subcategory_id',$subcategory);
+                    return $query->where('asset_type_id',$type)
+                             ->where('asset_category_id',$category)
+                              ->where('asset_subcategory_id',$subcategory);
                 }
-                return $query->where('type_id',$type)
-                             ->where('category_id',$category);
+                return $query->where('asset_type_id',$type)
+                             ->where('asset_category_id',$category);
             }
-            return $query->where('type_id',$type);
+            return $query->where('asset_type_id',$type);
         }
     }
 
-    public function scopeDateClasification($query, $start, $end, $mes, $year){
-        if (!is_null($start)){
-            if (!is_null($end)){
+    /**
+     * Método que obtiene los bienes registrados filtrados por la fecha de registro
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  [timestamp] $start   Fecha de inicio de busqueda
+     * @param  [timestamp] $end     Fecha de fin de busqueda
+     * @param  [string] $mes        Mes de busqueda
+     * @param  [year] $year         Año de busqueda
+     * @return [Object]             Objeto con los bienes registrados
+     */
+    public function scopeDateClasification($query, $start, $end, $mes, $year)
+    {
+        if (!is_null($start)) {
+            if (!is_null($end)) {
                 return $query->whereBetween("created_at",[$start,$end]); 
             }
-            else{
+            else {
                 return $query->whereBetween("created_at",[$start,now()]);
             }
         }
 
-        if (!is_null($mes)){
-            if (!is_null($year)){
+        if (!is_null($mes)) {
+            if (!is_null($year)) {
                 return $query->whereMonth('created_at', $mes)
-                            ->whereYear('created_at', $year);
+                             ->whereYear('created_at', $year);
             }else
                 return $query->whereMonth('created_at', $mes);
         }
     }
 
-    public function scopeRequest($query, $model, $marca, $serial, $id=10){
-        if(trim($serial) != ""){
-            if(trim($marca) != ""){
-                if(trim($model) != ""){
-                    $query->where('serial','like',"%$serial%")
-                          ->where('marca','like',"%$marca%")
-                          ->where('model','like',"%$model%")
-                          ->where('status_id','=',$id);
-                }
-                $query->where('serial','like',"%$serial%")
-                      ->where('marca','like',"%$marca%")
-                      ->where('status_id','=',$id);
-            }
-            if(trim($model) != ""){
-                    $query->where('serial','like',"%$serial%")
-                          ->where('marca','like',"%$marca%")
-                          ->where('model','like',"%$model%")
-                          ->where('status_id','=',$id);
-            }
-            $query->where('serial','like',"%$serial%")
-                  ->where('status_id','=',$id);
-        }
-        else if(trim($marca) != ""){
-            if(trim($model) != ""){
-                if(trim($serial) != ""){
-                    $query->where('marca','like',"%$marca%")
-                          ->where('model','like',"%$model%")
-                          ->where('serial','like',"%serial%")
-                          ->where('status_id','=',$id);
-
-                }
-                $query->where('marca','like',"%$marca%")
-                      ->where('model','like',"%$model%")
-                      ->where('status_id','=',$id);
-            }
-            if(trim($serial) != ""){
-                    $query->where('marca','like',"%$marca%")
-                          ->where('model','like',"%$model%")
-                          ->where('serial','like',"%serial%")
-                          ->where('status_id','=',$id);
-
-            }
-            $query->where('marca','like',"%$marca%")
-            ->where('status_id','=',$id);
-        }
-        else if(trim($model) != ""){
-            if(trim($serial) != ""){
-                if(trim($marca) != ""){
-                    $query->where('model','like',"%$model%")
-                          ->where('serial','like',"%serial%")
-                          ->where('marca','like',"%$marca%")
-                          ->where('status_id','=',$id);
-
-                }
-                $query->where('model','like',"%$model%")
-                      ->where('serial','like',"%$serial%")
-                      ->where('status_id','=',$id);
-            }
-            if(trim($marca) != ""){
-                    $query->where('model','like',"%$model%")
-                          ->where('serial','like',"%serial%")
-                          ->where('marca','like',"%$marca%")
-                          ->where('status_id','=',$id);
-
-            }
-            $query->where('model','like',"%$model%")
-                  ->where('status_id','=',$id);
-        }
-        $query->where('status_id','=',$id);
+    /**
+     * Método que obtiene los bienes registrados filtrados por la ubicación dentro de la institución
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  [Integer] $institution   Identificador único de la institución
+     * @param  [Integer] $department    Identificador único del departamento o dependencia
+     * @return [Object]                 Objeto con los bienes registrados
+     */
+    public function scopeDependenceClasification($query, $institution, $department)
+    {
+        /**
+         * Falta asociar con la institución
+         * Ojo: Debe ser los equipos que ya han sido asignados
+         */    
     }
-
-    public function scopeAssetClasification($query, $case, $type=null, $category=null,$subcategory=null,$specific=null){
-        if($case == 1)  //New Asignation
-            $query->where('status_id','=',10);
-        elseif ($case == 2) //Edit Asignation
-            $query->whereIn('status_id',array(1,10));
-        elseif ($case == 3) //New Request
-            $query->where('status_id',10);
-        elseif ($case == 4) //Edit Request
-            $query->whereIn('status_id',array(6,10));
-        elseif ($case == 5) //New Disincorporation
-            $query->whereNotIn('status_id',array(6,7,8,9));
-        elseif ($case == 6) //Edit Disincorporation
-            $query->whereNotIn('status_id',array(6));
-
-        if(!is_null($type)){
-            if(!is_null($category)){
-                if(!is_null($subcategory)){
-                    if(!is_null($specific)){
-                        $query->where('type_id','=',$type)
-                              ->where('category_id','=',$category)
-                              ->where('subcategory_id','=',$subcategory)
-                              ->where('specific_category_id','=',$specific);
-                    }
-                    else
-                        $query->where('type_id','=',$type)
-                              ->where('category_id','=',$category)
-                              ->where('subcategory_id','=',$subcategory);
-                }
-                else
-                    $query->where('type_id','=',$type)
-                              ->where('category_id','=',$category);
-            }
-            else
-                $query->where('type_id','=',$type);
-        }
-    }
-
 
 }

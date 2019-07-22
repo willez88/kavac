@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Categorias Generales de Bienes" data-toggle="tooltip" 
-		   @click="initRequest('categories',$event)">
+		   @click="addRecord('add_category', 'categories', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Categorias<br>Generales</span>
 		</a>
@@ -28,7 +28,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Tipo de Bien:</label>
-									<select2 :options="types"
+									<select2 :options="asset_types"
 											 v-model="record.asset_type_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -101,21 +101,22 @@
 				},
 				errors: [],
 				records: [],
-				types: [],
-				columns: ['type.name', 'name', 'code', 'id'],
+				asset_types: [],
+				columns: ['asset_type.name', 'name', 'code', 'id'],
 			}
 		},
 		created() {
 			this.table_options.headings = {
-				'type.name': 'Tipo de Bien',
+				'asset_type.name': 'Tipo de Bien',
 				'name': 'Categoria General',
 				'code': 'Código',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['type.name','name', 'code'];
-			this.table_options.filterable = ['type.name','name', 'code'];
-
-			
+			this.table_options.sortable = ['asset_type.name','name', 'code'];
+			this.table_options.filterable = ['asset_type.name','name', 'code'];
+		},
+		mounted() {
+			this.getAssetTypes();
 		},
 		methods: {
 			/**
@@ -131,21 +132,6 @@
 					code: ''
 				};
 			},
-			initRequest(url,event){
-				this.getTypes();
-				this.addRecord('add_category', url, event);
-			},
-			/**
-			 * Inicializa los registros base del formulario
-			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
-			 */
-			getTypes() {
-				axios.get('/asset/get-types').then(response => {
-					this.types = response.data;
-				});
-			}
-
 		}
 	};
 </script>

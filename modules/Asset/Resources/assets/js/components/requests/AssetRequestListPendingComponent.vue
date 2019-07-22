@@ -26,14 +26,14 @@
 			return {
 				records: [],
 				errors: [],
-				columns: ['state', 'user_id', 'created_at', 'delivery_date', 'id'],
+				columns: ['state', 'user.name', 'created_at', 'delivery_date', 'id'],
 			}
 		},
 		created() {
 			this.readRecords(this.route_list);
 			this.table_options.headings = {
 				'state': 'Estado',
-				'user_id': 'Solicitante',
+				'user.name': 'Solicitante',
 				'created_at': 'Fecha de Emisión',
 				'delivery_date': 'Fecha de Entrega',
 				'id': 'Acción'
@@ -44,24 +44,58 @@
 		},
 		methods: {
 
-			acceptRequest(index){
+			acceptRequest(index)
+			{
+				const vm = this;
+				var fields = this.records[index-1];
 				var id = this.records[index-1].id;
-				axios.put('/'+this.route_update+'/request-approved/'+id).then(response => {
-					this.records = response.data.records;
-					this.showMessage('update');
-					setTimeout(function() {
-                        window.location.href = '/asset/requests';
-                    }, 2000);
+				
+				axios.put('/'+this.route_update+'/request-approved/'+id, fields).then(response => {
+					if (typeof(response.data.redirect) !== "undefined") {
+						location.href = response.data.redirect;
+					}
+					else {
+						vm.readRecords(url);
+						vm.reset();
+						vm.showMessage('update');
+					}
+				}).catch(error => {
+					vm.errors = [];
+
+					if (typeof(error.response) !="undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								vm.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
 				});
 			},
-			rejectedRequest(index){
+			rejectedRequest(index)
+			{
+				const vm = this;
+				var fields = this.records[index-1];
 				var id = this.records[index-1].id;
-				axios.put('/'+this.route_update+'/request-rejected/'+id).then(response => {
-					this.records = response.data.records;
-					this.showMessage('update');
-					setTimeout(function() {
-                            window.location.href = '/asset/requests';
-                        }, 2000);
+
+				axios.put('/'+this.route_update+'/request-rejected/'+id, fields).then(response => {
+					if (typeof(response.data.redirect) !== "undefined") {
+						location.href = response.data.redirect;
+					}
+					else {
+						vm.readRecords(url);
+						vm.reset();
+						vm.showMessage('update');
+					}
+				}).catch(error => {
+					vm.errors = [];
+
+					if (typeof(error.response) !="undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								vm.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
 				});
 			},
 

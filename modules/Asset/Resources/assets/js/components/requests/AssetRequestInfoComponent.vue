@@ -163,7 +163,7 @@
 			return {
 				records: [],
 				errors: [],
-				columns: ['asset.serial_inventario','asset.serial','asset.marca','asset.model'],
+				columns: ['asset.inventory_serial','asset.serial','asset.marca','asset.model'],
 				
 				types: ["Prestamo de Equipos (Uso Interno)",
 						"Prestamo de Equipos (Uso Externo)",
@@ -172,13 +172,13 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'asset.serial_inventario': 'Código',
+				'asset.inventory_serial': 'Código',
 				'asset.serial': 'Serial',
 				'asset.marca': 'Marca',
 				'asset.model': 'Modelo',
 			};
-			this.table_options.sortable = ['asset.serial_inventario','asset.serial','asset.marca','asset.model'];
-			this.table_options.filterable = ['asset.serial_inventario','asset.serial','asset.marca','asset.model'];
+			this.table_options.sortable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
+			this.table_options.filterable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
 
 		},
 		methods: {
@@ -193,7 +193,7 @@
             /**
 			 * Inicializa los registros base del formulario
 			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
             initRecords(url,modal_id){
             	this.errors = [];
@@ -238,7 +238,7 @@
 			loadEquipment(){
 				var index = $(".modal-body #id").val();
 				axios.get('/asset/requests/vue-info/' + index).then(response => {
-					this.records = response.data.records.assets;
+					this.records = response.data.records.asset_request_assets;
 				});
 			}
 		},

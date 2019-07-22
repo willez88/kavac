@@ -12,9 +12,9 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @class AssetType
  * @brief Datos de los tipo de bienes
  * 
- * Gestiona el modelo de datos para los tipos de bien
+ * Gestiona el modelo de datos de los tipos de bienes
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -26,6 +26,7 @@ class AssetType extends Model implements Auditable
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
@@ -45,48 +46,24 @@ class AssetType extends Model implements Auditable
     protected $fillable = ['name'];
 
     /**
-     * Método que obtiene la categoria general de un bien
+     * Método que obtiene la categoria general asociada a un tipo de bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con los registros relacionados al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con los registros relacionados al modelo AssetCategory
      */
-    public function categories()
+    public function asset_categories()
     {
-    	return $this->hasMany('Modules\Asset\Models\AssetCategory');
+    	return $this->hasMany(AssetCategory::class);
     }
 
     /**
-     * Método que obtiene los bienes del tipo de bien
+     * Método que obtiene los bienes asociados al tipo de bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Asset
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo Asset
      */
     public function assets()
     {
-        return $this->hasMany('Modules\Asset\Models\Asset');
+        return $this->hasMany(Asset::class);
     }
-
-
-    /**
-     * Método que genera un listado de opciones a implementar en elementos tipo select
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Listado de tipos de bien registrados para ser implementados en plantillas
-     */
-    public static function template_choices($filters = [])
-    {
-        $records = self::all();
-        if ($filters) {
-            foreach ($filters as $key => $value) {
-                $records = $records->where($key, $value);
-            }
-        }
-        $options = [];
-        foreach ($records as $rec) {
-            $options[$rec->id] = $rec->name;
-        }
-        return $options;
-    }
-
-
 }

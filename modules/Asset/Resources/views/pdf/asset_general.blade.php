@@ -19,7 +19,7 @@
 
     @foreach($assets as $asset)
         @php
-            $height += $pdf->getStringHeight(170, $asset->specific->name . $asset->getDescription(),1);
+            $height += $pdf->getStringHeight(170, $asset->asset_specific_category->name . $asset->getDescription(),1);
 
         @endphp
 
@@ -29,7 +29,7 @@
                 <th width="9.75%"  align="R"> {{ $total }} </th>
             </tr>
             @php
-                $height = $pdf->get_Y() + $pdf->getStringHeight(170, $asset->specific->name . $asset->getDescription(),1);
+                $height = $pdf->get_Y() + $pdf->getStringHeight(170, $asset->asset_specific_category->name . $asset->getDescription(),1);
             @endphp
             </table>
 
@@ -59,8 +59,8 @@
                 <td width="7.84%"> {{ $asset->category_id }} </td>
                 <td width="7.84%"> {{ $asset->subcategory_id }} </td>
                 <td width="7.84%"> {{ $asset->specific_category_id }} </td>
-                <td width="10.83%"> {{ $asset->serial_inventario }} </td>
-                <td width="51.99%" align="L"> {{ $asset->specific->name }}. {{ $asset->getDescription() }} </td>
+                <td width="10.83%"> {{ $asset->inventory_serial }} </td>
+                <td width="51.99%" align="L"> {{ $asset->asset_specific_category->name }}. {{ $asset->getDescription() }} </td>
                 <td width="9.75%" align="R"> {{ $asset->value }} </td>
                 @php
                     $total +=$asset->value

@@ -9,15 +9,15 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
- * @class AssetSpecificCategory
- * @brief Datos de las categorias especificas de un bien
+ * @class AssetInventory
+ * @brief Datos del inventario de bienes institucionales
  * 
- * Gestiona el modelo de datos para las categorias especificas de un bien
+ * Gestiona el modelo de datos del inventario de bienes institucionales
  * 
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class AssetSpecificCategory extends Model implements Auditable
+class AssetInventory extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -42,28 +42,17 @@ class AssetSpecificCategory extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['code', 'name', 'asset_subcategory_id'];
+    protected $fillable = ['code', 'registered', 'assigned', 'disincorporated', 'reserved'];
 
     /**
-     * Método que obtiene la subcategoria asociada a la categoria especifica
+     * Método que obtiene los bienes asociados al registro de inventario
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetSubcategory
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetRequestAsset
      */
-	public function asset_subcategory()
+    public function asset_inventory_assets()
     {
-        return $this->belongsTo(AssetSubcategory::class);
-    }
-
-    /**
-     * Método que obtiene los bienes asociados a la categoria especifica
-     *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo Asset
-     */
-    public function assets()
-    {
-        return $this->hasMany(Asset::class);
+        return $this->hasMany(AssetInventoryAsset::class);
     }
 
 }

@@ -5,30 +5,30 @@ namespace Modules\Asset\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use Modules\Asset\Models\AssetMotiveDisincorporation;
+use Modules\Asset\Models\AssetDisincorporationMotive;
 
 /**
- * @class AssetMotiveDisincorporation
+ * @class AssetDisincorporationMotivesTableSeeder
  * @brief Inicializar los Motivos de desincorporación de los bienes
  * 
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class AssetMotiveDisincorporationTableSeeder extends Seeder
+class AssetDisincorporationMotivesTableSeeder extends Seeder
 {
     /**
      * Método que registra los valores iniciales de las formas de la condición física de un bien
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $motive_disincorporation = [
+        $disincorporation_motives = [
             ['name' => 'En Desuso por Obsolescencia'],
             ['name' => 'En Desuso por Inservibilidad'],
             ['name' => 'En Desuso por Obsolescencia e Inservilidad'],
@@ -42,9 +42,9 @@ class AssetMotiveDisincorporationTableSeeder extends Seeder
 
 
            
-            foreach ($motive_disincorporation as $status) {
-                AssetMotiveDisincorporation::updateOrCreate(
-                    ['name' => $status['name']]
+            foreach ($disincorporation_motives as $disincorporation_motive) {
+                AssetDisincorporationMotive::updateOrCreate(
+                    ['name' => $disincorporation_motive['name']]
                 );
             }
     }

@@ -8,44 +8,43 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class AssetDisincorporationAsset
- * @brief Datos de los Bienes que han sido desincorporados
+ * @brief Datos del listado de bienes registrados en una desincorporación
  * 
- * Gestiona el modelo de datos de los Bienes Desincorporados
+ * Gestiona el modelo de datos de los bienes registrados en una desincorporación
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
-
 class AssetDisincorporationAsset extends Model implements Auditable
 {
     use AuditableTrait;
 	
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
-    protected $fillable = ['asset_id','disincorporation_id'];
+    protected $fillable = ['asset_id','asset_disincorporation_id'];
 
     /**
-     * Método que obtiene la desincorporación a la que pertenece el bien selecionado
+     * Método que obtiene la desincorporación asociada al registro
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetDisincorporation
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetDisincorporation
      */
-    public function disincorporation()
+    public function asset_disincorporation()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetDisincorporation', 'disincorporation_id');
+        return $this->belongsTo(AssetDisincorporation::class);
     }
 
     /**
-     * Método que obtiene el registro de los bienes selecionados para la desincorporación
+     * Método que obtiene el bien asociado a la desincorporación
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Asset
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Asset
      */
     public function asset()
     {
-        return $this->belongsTo('Modules\Asset\Models\Asset', 'asset_id');
+        return $this->belongsTo(Asset::class);
     }
 }

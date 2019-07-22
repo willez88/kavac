@@ -17,7 +17,7 @@
 
     @foreach($assets as $asset)
         @php 
-            $height += $pdf->getStringHeight(34.625, $asset->status->name,1);
+            $height += $pdf->getStringHeight(34.625, $asset->asset_status->name,1);
         @endphp
         
         @if ($height > $pdf->get_checkBreak()+25)
@@ -26,7 +26,7 @@
                 <th width="12.5%"> {{ $total }} </th>
             </tr>
             @php 
-                $height = $pdf->get_Y() + $pdf->getStringHeight(34.625, $asset->status->name);
+                $height = $pdf->get_Y() + $pdf->getStringHeight(34.625, $asset->asset_status->name);
             @endphp
         </table>
 
@@ -51,10 +51,10 @@
             @endif
 
             <tr>
-                <td width="12.5%"> {{ $asset->serial_inventario }} </td>
-                <td width="12.5%"> {{ $asset->proveedor_id  }} </td>
-                <td width="12.5%"> {{ $asset->purchase_year }} </td>
-                <td width="12.5%"> {{ $asset->status->name }} </td>
+                <td width="12.5%"> {{ $asset->inventory_serial }} </td>
+                <td width="12.5%"> </td>
+                <td width="12.5%"> {{ $asset->acquisition_year }} </td>
+                <td width="12.5%"> {{ $asset->asset_status->name }} </td>
                 <td width="12.5%"> {{ $asset->serial }} </td>
                 <td width="12.5%"> {{ $asset->marca }} </td>
                 <td width="12.5%"> {{ $asset->model }} </td>

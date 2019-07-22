@@ -2,12 +2,12 @@
 	<v-client-table :columns="columns" :data="records" :options="table_options">
 		<div slot="code" slot-scope="props" class="text-center">
 			<span>
-				{{ props.row.id }}
+				{{ props.row.code }}
 			</span>
 		</div>
 		<div slot="motive" slot-scope="props" class="text-center">
 			<span>
-				{{ (props.row.motive)?props.row.motive.name:'N/A' }}
+				{{ (props.row.asset_disincorporation_motive)?props.row.asset_disincorporation_motive.name:'N/A' }}
 			</span>
 		</div>
 		<div slot="created" slot-scope="props" class="text-center">

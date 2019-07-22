@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Subcategorías de Bienes" data-toggle="tooltip" 
-		   @click="initRequest('subcategories',$event)">
+		   @click="addRecord('add_subcategory', 'subcategories', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Subcategorías</span>
 		</a>
@@ -28,7 +28,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Tipo de Bien:</label>
-									<select2 :options="types" @input="getCategories" 
+									<select2 :options="asset_types" @input="getAssetCategories" 
 											 v-model="record.asset_type_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -38,7 +38,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Categoría General:</label>
-									<select2 :options="categories" 
+									<select2 :options="asset_categories" 
 											 v-model="record.asset_category_id"></select2>
 			                    </div>
 							</div>
@@ -112,21 +112,24 @@
 				},
 				errors: [],
 				records: [],
-				types: [],
-				categories: [],
-				columns: ['category.name', 'name', 'code', 'id'],
+				asset_types: [],
+				asset_categories: [],
+				columns: ['asset_category.name', 'name', 'code', 'id'],
 			}
 		},
 		created() {
 			this.table_options.headings = {
-				'category.name': 'Categoria General',
+				'asset_category.name': 'Categoria General',
 				'name': 'Subcategoria',
 				'code': 'Código',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['category.name','name', 'code'];
-			this.table_options.filterable = ['category.name','name', 'code'];
+			this.table_options.sortable = ['asset_category.name','name', 'code'];
+			this.table_options.filterable = ['asset_category.name','name', 'code'];
 
+		},
+		mounted() {
+			this.getAssetTypes();
 		},
 		methods: {
 			/**
@@ -143,44 +146,6 @@
 					name: ''
                 };
             },
-            initUpdate(index, event) {
-				this.errors = [];
-				var field = this.records[index - 1];
-				this.record = {
-					id: field.id,
-					asset_type_id: field.category.asset_type_id,
-					asset_category_id: field.asset_category_id,
-					code: field.code,
-					name: field.name,
-				};
-				event.preventDefault();
-			},
-            initRequest(url,event){
-				this.getTypes();
-				this.addRecord('add_subcategory', url, event);
-			},
-			/**
-			 * Inicializa los registros base del formulario
-			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
-			 */
-			getTypes() {
-				axios.get('/asset/get-types').then(response => {
-					this.types = response.data;
-				});
-			},
-			/**
-			 * Obtiene las Categorias del Tipo de Bien seleccionado
-			 * 
-			 * @author Henry Paredes (henryp2804@gmail.com)
-			 */
-			getCategories() {
-				if (this.record.asset_type_id) {
-					axios.get('/asset/get-categories/' + this.record.asset_type_id).then(response => {
-						this.categories = response.data;
-					});
-				}
-			},
 		},
 	}
 </script>

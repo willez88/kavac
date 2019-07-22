@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
 
-class AssetSpecificcategoryTableSeeder extends Seeder
+class AssetSpecificcategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

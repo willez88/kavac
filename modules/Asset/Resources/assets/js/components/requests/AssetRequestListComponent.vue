@@ -3,6 +3,11 @@
 	<div class="col-md-12">
 		<hr>
 		<v-client-table :columns="columns" :data="records" :options="table_options">
+			<div slot="code" slot-scope="props" class="text-center">
+				<span>
+					{{ props.row.code }}
+				</span>
+			</div>
 			<div slot="type" slot-scope="props" class="text-center">
 				<div v-for="type in types">
 					<span v-if="props.row.type == type.id">
@@ -17,8 +22,9 @@
 					:route_list="'requests/vue-info/' + props.row.id">
 				</asset-request-info>
 				
-				<asset-request-prorroga :request="props.row">
-				</asset-request-prorroga>
+				<asset-request-extension :requestid="props.row.id"
+					:state="props.row.state">
+				</asset-request-extension>
 
 				<asset-request-event :id="props.row.id">
 				</asset-request-event>
@@ -56,7 +62,7 @@
 			return {
 				records: [],
 				errors: [],
-				columns: ['type', 'motive', 'created_at', 'state', 'id'],
+				columns: ['code', 'type', 'motive', 'created_at', 'state', 'id'],
 
 				types: [{"id":"","text":"Seleccione..."},
 						{"id":1,"text":"Prestamo de Equipos (Uso Interno)"},
@@ -66,14 +72,15 @@
 		},
 		created() {
 			this.table_options.headings = {
+				'code': 'Código',
 				'type': 'Tipo de Solicitud',
 				'motive': 'Motivo',
 				'created_at': 'Fecha de Emisión',
 				'state': 'Estado de la Solicitud',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['type','motive','created_at','state'];
-			this.table_options.filterable = ['type','motive','created_at','state'];
+			this.table_options.sortable = ['code', 'type','motive','created_at','state'];
+			this.table_options.filterable = ['code', 'type','motive','created_at','state'];
 
 		},
 		mounted () {
@@ -88,16 +95,30 @@
 			reset() {
 				
 			},
-			editForm(id) {
-				location.href = '/' + this.route_edit + '/' + id;		
-			},
 			deliverEquipment(index) {
+				const vm = this;
+				var fields = this.records[index-1];
 				var id = this.records[index-1].id;
-				axios.put('/asset/requests/deliver-equipment/'+ id).then(response => {
-					this.showMessage('update');
-					setTimeout(function() {
-                        window.location.href = '/asset/requests';
-                    }, 2000);
+
+				axios.put('/asset/requests/deliver-equipment/'+id, fields).then(response => {
+					if (typeof(response.data.redirect) !== "undefined") {
+						location.href = response.data.redirect;
+					}
+					else {
+						vm.readRecords(url);
+						vm.reset();
+						vm.showMessage('update');
+					}
+				}).catch(error => {
+					vm.errors = [];
+
+					if (typeof(error.response) !="undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								vm.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
 				});
 			}
 

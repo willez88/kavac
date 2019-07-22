@@ -3,19 +3,19 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use Module;
 
 /**
  * @class AssetAsignation
- * @brief Datos de las Asignaciones de Bienes Institucionales
+ * @brief Datos de las asignaciones de los bienes institucionales
  * 
- * Gestiona el modelo de datos para las asignaciones de Bienes Institucionales
+ * Gestiona el modelo de datos de las asignaciones de bienes institucionales
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -27,6 +27,7 @@ class AssetAsignation extends Model implements Auditable
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
@@ -40,32 +41,53 @@ class AssetAsignation extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
-    protected $fillable = ['staff_id'];
-
+    protected $fillable = ['code', 'payroll_staff_id', 'department_id', 'user_id'];
+    
     /**
      * Método que obtiene los bienes asignados
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetAsignation
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetAsignationAsset
      */
-    public function assetsAsignation()
+    public function asset_asignation_assets()
     {
-        return $this->hasMany('Modules\Asset\Models\AssetAsignationAsset','asignation_id');
+        return $this->hasMany(AssetAsignationAsset::class);
     }
-
+    
     /**
      * Método que obtiene el trabajador al que se le asigna el bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Staff
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return Array|\Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo PayrollStaff
      */
-    public function staff()
+    public function payroll_staff()
     {
-        return $this->belongsTo('Modules\Payroll\Models\PayrollStaff','staff_id');
+        return (Module::has('Payroll'))
+               ? $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class) : [];
     }
 
-    
+    /**
+     * Método que obtiene el departamento donde recide el bien asignado
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return Objeto con el registro relacionado al modelo Department
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 
+    /**
+     * Método que obtiene el usuario asociado al registro
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo User
+     */
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class);
+    }
 }

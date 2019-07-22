@@ -9,20 +9,20 @@ use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Models\AssetSubcategory;
 
 /**
- * @class AssetSubcategoryTableSeeder
+ * @class AssetSubcategoriesTableSeeder
  * @brief Inicializa Subcategorias de un Bien
  * 
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class AssetSubcategoryTableSeeder extends Seeder
+class AssetSubcategoriesTableSeeder extends Seeder
 {
     /**
      * Método que registra los valores iniciales de Categorias Generales de un Bien
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function run()
