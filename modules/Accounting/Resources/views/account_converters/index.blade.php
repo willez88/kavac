@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Convertidor
+	Convertidor de Cuentas
 @stop
 
 @section('content')
@@ -25,7 +25,7 @@
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 
-						@if($budgetList != 'null')
+						@if($has_budget)
 							@include('buttons.new', ['route' => route('accounting.converter.create')])
 						@endif
 
@@ -33,7 +33,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					@if($budgetList == 'null')
+					@if(!$has_budget)
 						<br>
 						<div class="alert alert-danger">
 							<div class="container">
@@ -46,8 +46,7 @@
 							</div>
 						</div>
 					@else
-						<accounting-index :accounting_accounts="{{ $accountingList }}" :budget_accounts="{{ $budgetList }}"
-						route_edit="{{ url('accounting/converter/{id}/edit') }}" />
+						<accounting-index route_edit="{{ url('accounting/converter/{id}/edit') }}" />
 					@endif
 				</div>
 			</div>

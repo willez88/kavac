@@ -28,26 +28,24 @@
 					<div class="col-3"></div>
 					<div class="col-3">
 						<div class="form-group">
-							<label class="control-label">Por Referencia
-								<br>
-								<input type="radio" 
-										name="sel_Search"
-										id="sel_ref"
-										data-on-label="SI" data-off-label="NO" 
-										class="form-control bootstrap-switch sel_search">
-							</label>
+							<label class="control-label">Por Referencia</label>
+							<input type="radio" 
+									name="sel_Search"
+									id="sel_ref"
+									data-on-label="SI" data-off-label="NO" 
+									class="form-control bootstrap-switch sel_search">
 						</div>
 					</div>
 					<div class="col-1"></div>
 					<div class="col-3">
 						<div class="form-group">
-							<label class="control-label">Por Categoría <br>
-								<input type="radio"
-										name="sel_Search" 
-										id="sel_origin"
-										data-on-label="SI" data-off-label="NO" 
-										class="form-control bootstrap-switch sel_search">
-							</label>
+							<label class="control-label">Por Categoría</label>
+							<input type="radio"
+									name="sel_Search" 
+									id="sel_origin"
+									checked="true" 
+									data-on-label="SI" data-off-label="NO" 
+									class="form-control bootstrap-switch sel_search">
 						</div>
 					</div>
 					<div class="col-2"></div>
@@ -96,22 +94,21 @@
 						<!-- filtrado por fechas -->
 						<div class="col-3"></div>
 						<div class="col-3">
-							<label for="" class="control-label">Por Período <br>
-								<input type="radio" 
-										name="sel_filter_date"
-										id="sel_fil_date_specific"
-										data-on-label="SI" data-off-label="NO"
-										class="form-control bootstrap-switch sel_filterDate">
-							</label>
+							<label for="" class="control-label">Por Período</label>
+							<input type="radio" 
+									name="sel_filter_date"
+									id="sel_fil_date_specific"
+									data-on-label="SI" data-off-label="NO"
+									class="form-control bootstrap-switch sel_filterDate">
 						</div>
 						<div class="col-3">
-							<label for="" class="control-label">Por Mes <br>
-								<input type="radio"
-										name="sel_filter_date" 
-										id="sel_fil_date_generic"
-										data-on-label="SI" data-off-label="NO" 
-										class="form-control bootstrap-switch sel_filterDate">
-							</label>
+							<label for="" class="control-label">Por Mes</label>
+							<input type="radio"
+									name="sel_filter_date" 
+									id="sel_fil_date_generic"
+									checked="true" 
+									data-on-label="SI" data-off-label="NO" 
+									class="form-control bootstrap-switch sel_filterDate">
 						</div>
 						<div class="col-2"></div>
 						
@@ -158,7 +155,6 @@
 				<button class="btn btn-info btn-xs"
 					data-toggle="tooltip"
 					title="Consultar Registros"
-					:disabled="typeSearch=='' || filterDate ==''"
 					v-on:click="searchRecords()">
 					Buscar
 					<i class="fa fa-search"></i>
@@ -180,8 +176,8 @@
 				errors:[],
 				warnings:[],
 				records: [],
-				typeSearch:'', //states: 'reference', 'origin'
-				filterDate:'', //states: 'generic','specific'
+				typeSearch:'origin', //states: 'reference', 'origin'
+				filterDate:'generic', //states: 'generic','specific'
 				data:{
 					reference:'',
 					category:0,
@@ -191,27 +187,15 @@
 					month:0,
 					institution:'',
 				},
-				months:[
-					{id:0, text:'Todos'},
-					{id:1, text:'Enero'},
-					{id:2, text:'Febrero'},
-					{id:3, text:'Marzo'},
-					{id:4, text:'Abril'},
-					{id:5, text:'Mayo'},
-					{id:6, text:'Junio'},
-					{id:7, text:'Julio'},
-					{id:8, text:'Agosto'},
-					{id:9, text:'Septiembre'},
-					{id:10, text:'Octubre'},
-					{id:11, text:'Noviembre'},
-					{id:12, text:'Diciembre'}
-				],
 			}
 		},
 		created(){
 			this.CalculateOptionsYears(this.year_old, true);
+			this.months.unshift({id:0, text:'Todos'});
 		},
 		mounted(){
+
+
 			/** 
 			 * Evento para determinar los datos a requerir segun la busqueda seleccionada
 			 */
@@ -291,5 +275,5 @@
 				});
 			},
 		},
-	}
+	};
 </script>

@@ -1,3 +1,6 @@
+
+Vue.component('accounting-setting-account', require('./components/setting/AccountingSettingAccountComponent.vue').default);
+
 /**
  * Componente para Listar cuentas patrimoniales
  *
@@ -11,7 +14,6 @@ Vue.component('accounting-accounts-list', require('./components/accounts/Account
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 Vue.component('accounting-create-edit-form', require('./components/accounts/AccountingCreateEditFormComponent.vue').default);
-
 
 /**
  * Componente para la consulta de los registros del convertidor de cuentas

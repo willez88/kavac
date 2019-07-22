@@ -47,9 +47,32 @@ class AccountingAccountConverterController extends Controller
      */
     public function index()
     {
-        $accountingList = $this->getRecordsAccounting(true);
-        $budgetList = $this->getRecordsBudget(true);
-        return view('accounting::account_converters.index',compact('accountingList','budgetList'));
+        /** @var boolean determina si esta instalado el modulo Budget */
+        $has_budget = (Module::has('Budget') && Module::enabled('Budget'));
+        return view('accounting::account_converters.index',compact('has_budget'));
+    }
+
+    /**
+     * funcion que retorna los registros de las cuentas patrimoniales al componente
+     * @brief se consulta y formatea los registros cuentas patrimoniales
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return response
+     */
+    public function getAllRecordsAccounting_vuejs()
+    {
+        return response()->json(['records'=>$this->getRecordsAccounting(true)]);
+    }
+    /**
+     * funcion que retorna los registros de las cuentas presupuestales al componente
+     * @brief se consulta y formatea los registros cuentas presupuestales
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return response
+     */
+    public function getAllRecordsBudget_vuejs()
+    {
+        return response()->json(['records'=>$this->getRecordsBudget(true)]);
     }
 
     /**
@@ -61,9 +84,9 @@ class AccountingAccountConverterController extends Controller
     public function create()
     {
         /** @var JSON Objeto que contiene las cuentas patrimoniales */
-        $accountingList = $this->getRecordsAccounting(false);
+        $accountingList = json_encode($this->getRecordsAccounting(false));
         /** @var JSON Objeto que contiene las cuentas patrimoniales */
-        $budgetList = $this->getRecordsBudget(false);
+        $budgetList = json_encode($this->getRecordsBudget(false));
         return view('accounting::account_converters.create',compact('accountingList','budgetList'));
     }
 
@@ -272,7 +295,7 @@ class AccountingAccountConverterController extends Controller
         /**
          * se convierte array a JSON
          */
-        return json_encode($records);
+        return $records;
     }
 
     /**
@@ -315,7 +338,7 @@ class AccountingAccountConverterController extends Controller
         /**
          * se convierte array a JSON
          */
-        return json_encode($records);
+        return $records;
     }
 
     /**

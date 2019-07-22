@@ -60,11 +60,11 @@
 					<td>
 						{{' '.$account['account']['denomination'] }}
 					</td>
-					<td>
-						<span>{{ ' '.$currency->symbol }}</span>{{' '.$account['debit'] }}	
+					<td align="right">
+						{{' '.number_format($account['debit'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
-					<td>
-						<span>{{ ' '.$currency->symbol }}</span>{{' '.$account['assets'] }}
+					<td align="right">
+						{{' '.number_format($account['assets'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					@php
 						$totDebit = $totDebit+$account['debit'];
@@ -90,16 +90,16 @@
 				{{-- Fin de la validación --}}
 			<tr style="background-color: #BDBDBD;">
 				<td width="65%"></td>
-				<td width="17.5%" align="center">TOTAL DEBE</td>
-				<td width="17.5%" align="center">TOTAL HABER</td>
+				<td width="17%" align="center">TOTAL DEBE</td>
+				<td width="17%" align="center">TOTAL HABER</td>
 			</tr>
 			<tr>
 				<td ></td>
-				<td>
-					{{' '.$totDebit }}
+				<td align="right">
+					{{' '.number_format($totDebit, (int)$currency->decimal_places, ',', '.') }}  
 				</td>
-				<td>
-					{{' '.$totAssets }}
+				<td align="right">
+					{{' '.number_format($totAssets, (int)$currency->decimal_places, ',', '.') }}  
 				</td>
 			</tr>
 		</table>

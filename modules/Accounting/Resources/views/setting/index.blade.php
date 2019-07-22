@@ -21,14 +21,21 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Configuraciones</h6>
+					<h6 class="card-title">Configuraciones del módulo de contabilidad</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-setting-category />
+					<div class="row">
+						<div class="col-2">
+							<accounting-setting-category />
+						</div>
+						<div class="coo-2">
+							<accounting-setting-account />
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

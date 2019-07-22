@@ -1545,7 +1545,7 @@ eval("/**\n*--------------------------------------------------------------------
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/cenditel/Documentos/kavac-dev/resources/js/chart.js */"./resources/js/chart.js");
+module.exports = __webpack_require__(/*! /home/cenditel/Documentos/kavac/resources/js/chart.js */"./resources/js/chart.js");
 
 
 /***/ })

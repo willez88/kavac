@@ -49,6 +49,15 @@ Route::group(['middleware' => 'web',
 			->name('accounting.converter.create');
 	Route::post('converter/get-Records', 'AccountingAccountConverterController@getRecords')
 			->name('accounting.converter.getRecords');
+
+	Route::post('converter/getAllRecordsAccounting_vuejs', 'AccountingAccountConverterController@getAllRecordsAccounting_vuejs')
+			->name('accounting.converter.getAllRecordsAccounting_vuejs');
+			
+	Route::post('converter/getAllRecordsBudget_vuejs', 'AccountingAccountConverterController@getAllRecordsBudget_vuejs')
+			->name('accounting.converter.getAllRecordsBudget_vuejs');
+
+
+
 	Route::resource('converter', 'AccountingAccountConverterController', 
 		['as' => 'converter',
 		'except' => ['index']]);
