@@ -19,6 +19,7 @@ class CreateMeasurementUnitsTable extends Migration
             $table->text('description')->comment('Descripción de la unidad de medida');
             $table->string('acronym', 6)->comment('Acrónimo o abreviatura de la unidad de medida');
             $table->timestamps();
+            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });
     }
 
