@@ -15,7 +15,7 @@ class CreateFiscalYearsTable extends Migration
     {
         Schema::create('fiscal_years', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("year", 4)->comment("Año fiscal");
+            $table->string("year", 4)->unique()->comment("Año fiscal");
             $table->boolean("active")->default(true)->comment("Estatus del año fiscal");
             $table->text("observations")->nullable()->comment("Observaciones al año fiscal");
             $table->timestamps();
