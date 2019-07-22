@@ -6,20 +6,19 @@ use Illuminate\Database\Migrations\Migration;
 
 /**
  * @class CreateAssetRulesTable
- * @brief Crear tabla de Reglas de Bienes en Inventario
+ * @brief Crear tabla de reglas de bienes en inventario
  * 
- * Gestiona los cambios en las reglas de cantidad minima por cada bien en el inventario
+ * Gestiona la creación o eliminación de las reglas de inventario
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class CreateAssetRulesTable extends Migration
 {
     /**
      * Método que ejecuta las migraciones
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function up()
@@ -27,8 +26,8 @@ class CreateAssetRulesTable extends Migration
         if (!Schema::hasTable('asset_rules')) {    
             Schema::create('asset_rules', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
-                $table->integer('asset_inventary_id')->unsigned()->comment('Identificador único del articulo en la tabla de inventario de bienes');
-                $table->foreign('asset_inventary_id')->references('id')->on('asset_inventaries')
+                $table->integer('asset_inventory_id')->unsigned()->comment('Identificador único del articulo en la tabla de inventario de bienes');
+                $table->foreign('asset_inventory_id')->references('id')->on('asset_inventories')
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->integer('min')->nullable()->unsigned()->comment('Cantidad minima permitida en el inventario de bienes');
@@ -41,13 +40,15 @@ class CreateAssetRulesTable extends Migration
                  * Fecha en que se registra el cambio de regla
                  */
                 $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         };
     }
 
     /**
-     * Reverse the migrations.
+     * Método que elimina las migraciones
      *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function down()

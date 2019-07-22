@@ -5,15 +5,15 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * @class CreateAssetRequestEventsTable
- * @brief Crear tabla de eventos de las solicitudes
+ * @class CreateAssetRequestExtensionsTable
+ * @brief Crear tabla de prorrogas de las solicitudes
  * 
- * Gestiona la creación o eliminación de los eventos en de las solicitudes
+ * Gestiona la creación o eliminación de las prorrogas de las solicitudes
  * 
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class CreateAssetRequestEventsTable extends Migration
+class CreateAssetRequestExtensionsTable extends Migration
 {
     /**
      * Método que ejecuta las migraciones
@@ -23,15 +23,17 @@ class CreateAssetRequestEventsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('asset_request_events')) {
-            Schema::create('asset_request_events', function (Blueprint $table) {
+        if (!Schema::hasTable('asset_request_extensions')) {
+            Schema::create('asset_request_extensions', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
                 
-                $table->string('type',100)->comment('Tipo de evento');
-                $table->text('description')->comment('Descripción del evento');
-                
-                $table->integer('asset_request_id')->comment('Identificador único de la solicitud asociada al evento en la tabla asset_requests');
+                $table->date('delivery_date')->comment('Nueva fecha de entrega de la solicitud asociada');
+                $table->string('state')->nullable()->comment('Estado de la solicitud');
+                $table->integer('asset_request_id')->comment('Identificador único de la solicitud asociada a la prorroga');
                 $table->foreign('asset_request_id')->references('id')->on('asset_requests')->onDelete('restrict')->onUpdate('cascade');
+                
+                $table->integer('user_id')->comment('Identificador único del usuario que solicita la prorroga');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
@@ -47,6 +49,6 @@ class CreateAssetRequestEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asset_request_events');
+        Schema::dropIfExists('asset_request_extensions');
     }
 }

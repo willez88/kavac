@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @brief Inicializa el Modulo de Bienes
  * 
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AssetDatabaseSeeder extends Seeder
@@ -18,7 +18,7 @@ class AssetDatabaseSeeder extends Seeder
     /**
      * Método que realiza el llamado a los seeders del modulo de bienes
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function run()
@@ -27,14 +27,14 @@ class AssetDatabaseSeeder extends Seeder
 
         $this->call(AssetRoleAndPermissionsTableSeeder::class);
 
-        $this->call(AssetTypeTableSeeder::class);
-        $this->call(AssetCategoryTableSeeder::class);
-        $this->call(AssetSubcategoryTableSeeder::class);
-        $this->call(AssetSpecificCategoryTableSeeder::class);
-        $this->call(AssetPurchaseTableSeeder::class);
-        $this->call(AssetConditionTableSeeder::class);
+        $this->call(AssetTypesTableSeeder::class);
+        $this->call(AssetCategoriesTableSeeder::class);
+        $this->call(AssetSubcategoriesTableSeeder::class);
+        $this->call(AssetSpecificCategoriesTableSeeder::class);
+        $this->call(AssetAcquisitionTypesTableSeeder::class);
+        $this->call(AssetConditionsTableSeeder::class);
         $this->call(AssetStatusTableSeeder::class);
-        $this->call(AssetUseTableSeeder::class);
-        $this->call(AssetMotiveDisincorporationTableSeeder::class);
+        $this->call(AssetUseFunctionsTableSeeder::class);
+        $this->call(AssetDisincorporationMotivesTableSeeder::class);
     }
 }

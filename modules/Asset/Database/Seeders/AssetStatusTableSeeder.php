@@ -12,7 +12,7 @@ use Modules\Asset\Models\AssetStatus;
  * @brief Inicializar los Estados de uso de los bienes
  * 
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -22,7 +22,7 @@ class AssetStatusTableSeeder extends Seeder
     /**
      * Método que registra los valores iniciales de las formas de la condición física de un bien
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function run()

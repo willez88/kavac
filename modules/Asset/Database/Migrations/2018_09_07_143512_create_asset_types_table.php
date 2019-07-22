@@ -7,11 +7,11 @@ use Illuminate\Database\Migrations\Migration;
 
 /**
  * @class CreateAssetTypesTable
- * @brief Crear tabla de Tipos de Bienes
+ * @brief Crear tabla de tipos de bienes
  * 
  * Gestiona la creación o eliminación de la tabla de tipos de bienes
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -20,7 +20,7 @@ class CreateAssetTypesTable extends Migration
     /**
      * Método que ejecuta las migraciones
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function up()
@@ -32,6 +32,8 @@ class CreateAssetTypesTable extends Migration
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+
+                $table->unique(array('name'))->comment('Clave única para el registro');
             });
         };
     }
@@ -39,7 +41,7 @@ class CreateAssetTypesTable extends Migration
     /**
      * Método que elimina las migraciones
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function down()

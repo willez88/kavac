@@ -6,32 +6,31 @@ use Illuminate\Database\Migrations\Migration;
 
 /**
  * @class CreateAssetUsesTable
- * @brief Crear tabla de Función de uso del bien
+ * @brief Crear tabla de función de uso del bien
  * 
- * Gestiona la creación o eliminación de la tabla de Funciones de uso de un bien
+ * Gestiona la creación o eliminación de la tabla de funciones de uso de un bien
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
-
-class CreateAssetUsesTable extends Migration
+class CreateAssetUseFunctionsTable extends Migration
 {
     /**
      * Método que ejecuta las migraciones
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function up()
     {
-        if (!Schema::hasTable('asset_uses')) {
-            Schema::create('asset_uses', function (Blueprint $table) {
+        if (!Schema::hasTable('asset_use_functions')) {
+            Schema::create('asset_use_functions', function (Blueprint $table) {
                 
                 $table->increments('id')->comment('Identificador único del registro');
                 $table->string('name',100)->comment('Nombre de la función de uso');
 
                 $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }
     }
@@ -39,11 +38,11 @@ class CreateAssetUsesTable extends Migration
     /**
      * Método que elimina las migraciones
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('asset_uses');
+        Schema::dropIfExists('asset_use_functions');
     }
 }

@@ -5,30 +5,30 @@ namespace Modules\Asset\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use Modules\Asset\Models\AssetPurchase;
+use Modules\Asset\Models\AssetAcquisitionType;
 
 /**
- * @class AssetPurchaseTableSeeder
- * @brief Inicializar Formas de Adquisición
+ * @class AssetAcquisitionTypesTableSeeder
+ * @brief Inicializar los tipos de adquisición de un bien
  * 
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
-class AssetPurchaseTableSeeder extends Seeder
+class AssetAcquisitionTypesTableSeeder extends Seeder
 {
     /**
      * Método que registra los valores iniciales de las formas de adquisición de un bien
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $asset_purchase = [
+        $asset_acquisition_types = [
             ['name' => 'Compra Directa (Consulta de Precio)'],
             ['name' => 'Permuta'],
             ['name' => 'Dación en Pago'],
@@ -44,9 +44,9 @@ class AssetPurchaseTableSeeder extends Seeder
 
 
            
-            foreach ($asset_purchase as $purchase) {
-                AssetPurchase::updateOrCreate(
-                    ['name' => $purchase['name']]
+            foreach ($asset_acquisition_types as $asset_acquisition_type) {
+                AssetAcquisitionType::updateOrCreate(
+                    ['name' => $asset_acquisition_type['name']]
                 );
             }
     }
