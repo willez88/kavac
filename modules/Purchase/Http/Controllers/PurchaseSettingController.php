@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
+use Modules\Purchase\Models\PurchaseRequirement;
 
 class PurchaseSettingController extends Controller
 {
@@ -85,6 +86,32 @@ class PurchaseSettingController extends Controller
             if ($key !== '_token' && !is_null($value)) {
                 list($table, $field) = explode("_", $key);
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
+
+                switch ($table) {
+                    case 'requirements':
+                        $model = PurchaseRequirement::class;
+                        break;
+                    /*case 'quotions':
+                        $model = PurchaseQuotion::class;
+                        break;
+                    case 'minutes':
+                        $model = PurchaseMinute::class;
+                        break;
+                    case 'buy-orders':
+                        $model = PurchaseOrder::class;
+                        $type = 'buy';
+                        break;
+                    case 'services-orders':
+                        $model = PurchaseOrder::class;
+                        $type = 'service';
+                        break;
+                    case 'refunds':
+                        $model = PurchaseRefund::class;
+                        break;*/
+                    default:
+                        $model = null;
+                        break;
+                }
 
                 $codeSetting = CodeSetting::updateOrCreate([
                     'module' => 'purchase',

@@ -20,7 +20,7 @@
             </a>
         </li>
         <li>
-            <a href="#">Requisición</a>
+            <a href="#">Requermientos</a>
         </li>
         <li>
             <a href="#">Cotización</a>

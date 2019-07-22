@@ -61,13 +61,13 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									{!! Form::label('requirements_code', 'Código de Requisición', []) !!}
+									{!! Form::label('requirements_code', 'Código de Requerimiento', []) !!}
 									{!! Form::text(
 										'requirements_code', 
 										($rqCode)?$rqCode->format_code:old('requirements_code'), [
 											'class' => 'form-control', 
 											'data-toggle' => 'tooltip',
-											'title' => 'Formato del código de la requisición',
+											'title' => 'Formato del código de los requerimientos de compra',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY', 
 											'readonly' => ($rqCode) ? true : false
 										]
