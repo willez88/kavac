@@ -15,6 +15,9 @@ class CreateMeasurementUnitsTable extends Migration
     {
         Schema::create('measurement_units', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->comment('Nombre de la unidad de medida');
+            $table->text('description')->comment('Descripción de la unidad de medida');
+            $table->string('acronym', 6)->comment('Acrónimo o abreviatura de la unidad de medida');
             $table->timestamps();
         });
     }
