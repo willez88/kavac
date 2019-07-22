@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<a class="btn btn-info btn-xs btn-icon btn-action" 
-		   href="#" title="Ver información de la Desincorporación" data-toggle="tooltip" 
-		   @click="addRecord('view_disincorporation',route_list, $event)">
+		   href="#" title="Ver información del registro" data-toggle="tooltip" 
+		   @click="addRecord('view_disincorporation',route_list ,$event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="view_disincorporation">
@@ -108,21 +108,18 @@
 			return {
 				records: [],
 				errors: [],
-				columns: ['asset.serial_inventario','asset.serial','asset.marca','asset.model'],
+				columns: ['asset.inventory_serial','asset.serial','asset.marca','asset.model'],
 			}
-		},
-		props: {
-		disincorporation: Object, 
 		},
 		created() {
 			this.table_options.headings = {
-				'asset.serial_inventario': 'Código',
+				'asset.inventory_serial': 'Código',
 				'asset.serial': 'Serial',
 				'asset.marca': 'Marca',
 				'asset.model': 'Modelo',
 			};
-			this.table_options.sortable = ['asset.serial_inventario','asset.serial','asset.marca','asset.model'];
-			this.table_options.filterable = ['asset.serial_inventario','asset.serial','asset.marca','asset.model'];
+			this.table_options.sortable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
+			this.table_options.filterable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
 			this.table_options.orderBy = { 'column': 'asset.id'};
 
 		},
@@ -139,7 +136,7 @@
             /**
 			 * Inicializa los registros base del formulario
 			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
             initRecords(url,modal_id){
             	this.errors = [];
@@ -156,8 +153,8 @@
 
 						$(".modal-body #id").val( fields.id );
 		            	document.getElementById('date').innerText = (fields.date)?fields.date:fields.created_at;
-		            	document.getElementById('motive').innerText = (fields.motive)?fields.motive.name:'N/A';
-		            	document.getElementById('observation').innerText = (fields.motive)?fields.observation:'N/A';
+		            	document.getElementById('motive').innerText = (fields.asset_disincorporation_motive)?fields.asset_disincorporation_motive.name:'N/A';
+		            	document.getElementById('observation').innerText = (fields.observation)?fields.observation:'N/A';
 					}
 					if ($("#" + modal_id).length) {
 						$("#" + modal_id).modal('show');
@@ -178,7 +175,7 @@
 			loadEquipment(){
 				var index = $(".modal-body #id").val();
 				axios.get('/asset/disincorporations/vue-info/' + index).then(response => {
-					this.records = response.data.records.assets_disincorporation;
+					this.records = response.data.records.asset_disincorporation_assets;
 				});
 			}
 		},

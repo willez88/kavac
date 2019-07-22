@@ -3,7 +3,6 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -12,11 +11,11 @@ use App\Traits\ModelsTrait;
 
 /**
  * @class AssetRequest
- * @brief Datos de las solicitudes de Bienes Institucionales
+ * @brief Datos de las solicitudes de bienes institucionales
  * 
- * Gestiona el modelo de datos para las solicitudes de Bienes Institucionales
+ * Gestiona el modelo de datos de las solicitudes de bienes institucionales
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -29,6 +28,7 @@ class AssetRequest extends Model implements Auditable
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
@@ -42,28 +42,52 @@ class AssetRequest extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
-    protected $fillable = ['type','motive', 'state','delivery_date','agent_name','agent_telf','agent_email'];
+    protected $fillable = ['code', 'type', 'motive', 'state', 'delivery_date', 'agent_name', 'agent_telf', 'agent_email', 'user_id'];
 
     /**
-     * Método que obtiene los bienes solicitados
+     * Método que obtiene los bienes asociados a la solicitud
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetRequested
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetRequestAsset
      */
-    public function assets()
+    public function asset_request_assets()
     {
-        return $this->hasMany('Modules\Asset\Models\AssetRequested', 'request_id');
+        return $this->hasMany(AssetRequestAsset::class);
     }
 
-    public function events()
+    /**
+     * Método que obtiene los eventos asociados a la solicitud
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetRequestEvent
+     */
+    public function asset_events()
     {
-        return $this->hasMany('Modules\Asset\Models\AssetRequestEvent');
+        return $this->hasMany(AssetRequestEvent::class);
     }
 
-    public function prorroga()
+    /**
+     * Método que obtiene las prorrogas asociados a la solicitud
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetRequestProrroga
+     */
+    public function asset_prorrogas()
     {
-        return $this->hasMany('Modules\Asset\Models\AssetRequestProrroga');
+        return $this->hasMany(AssetRequestProrroga::class);
+    }
+
+    /**
+     * Método que obtiene el usuario asociado al registro
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo User
+     */
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class);
     }
 }

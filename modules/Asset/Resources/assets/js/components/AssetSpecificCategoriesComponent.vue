@@ -2,7 +2,7 @@
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 		   href="#" title="Registros de Categorias Específicas de Bienes" data-toggle="tooltip" 
-		   @click="initRequest('specific',$event)">
+		   @click="addRecord('add_specific_category', 'specific', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Categorias<br>Específicas</span>
 		</a>
@@ -28,7 +28,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Tipo de Bien:</label>
-									<select2 :options="types" @input="getCategories" 
+									<select2 :options="asset_types" @input="getAssetCategories" 
 											 v-model="record.asset_type_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -37,7 +37,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Categoría General:</label>
-									<select2 :options="categories" @input="getSubcategories" 
+									<select2 :options="asset_categories" @input="getAssetSubcategories" 
 											 v-model="record.asset_category_id"></select2>
 			                    </div>
 							</div>
@@ -45,7 +45,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Subcategoría:</label>
-									<select2 :options="subcategories"
+									<select2 :options="asset_subcategories"
 											 v-model="record.asset_subcategory_id"></select2>
 			                    </div>
 							</div>						
@@ -120,22 +120,25 @@
 				},
 				errors: [],
 				records: [],
-				types: [],
-				categories: [],
-				subcategories: [],
-				columns: ['subcategory.name', 'name', 'code', 'id'],
+				asset_types: [],
+				asset_categories: [],
+				asset_subcategories: [],
+				columns: ['asset_subcategory.name', 'name', 'code', 'id'],
 			}
 		},
 		created() {
 			this.table_options.headings = {
-				'subcategory.name': 'Subcategoria',
+				'asset_subcategory.name': 'Subcategoria',
 				'name': 'Categoria Especifica',
 				'code': 'Código',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['subcategory.name','name', 'code'];
-			this.table_options.filterable = ['subcategory.name','name', 'code'];
+			this.table_options.sortable = ['asset_subcategory.name','name', 'code'];
+			this.table_options.filterable = ['asset_subcategory.name','name', 'code'];
 
+		},
+		mounted() {
+			this.getAssetTypes();
 		},
 		methods: {
 			/**
@@ -158,51 +161,13 @@
 				var field = this.records[index - 1];
 				this.record = {
 					id: field.id,
-					asset_type_id: field.subcategory.category.asset_type_id,
-					asset_category_id: field.subcategory.asset_category_id,
+					asset_type_id: field.asset_subcategory.asset_category.asset_type_id,
+					asset_category_id: field.asset_subcategory.asset_category_id,
 					asset_subcategory_id: field.asset_subcategory_id,
 					code: field.code,
 					name: field.name,
 				};
 				event.preventDefault();
-			},
-            initRequest(url,event){
-				this.getTypes();
-				this.addRecord('add_specific_category', url, event);
-			},
-			/**
-			 * Inicializa los registros base del formulario
-			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
-			 */
-			getTypes() {
-				axios.get('/asset/get-types').then(response => {
-					this.types = response.data;
-				});
-			},
-			/**
-			 * Obtiene las Categorias del Tipo de Bien seleccionado
-			 * 
-			 * @author Henry Paredes (henryp2804@gmail.com)
-			 */
-			getCategories() {
-				if (this.record.asset_type_id) {
-					axios.get('/asset/get-categories/' + this.record.asset_type_id).then(response => {
-						this.categories = response.data;
-					});
-				}
-			},
-			/**
-			 * Obtiene las Subcategorias de la Categoria seleccionada
-			 * 
-			 * @author Henry Paredes (henryp2804@gmail.com)
-			 */
-			getSubcategories() {
-				if (this.record.asset_category_id) {
-					axios.get('/asset/get-subcategories/' + this.record.asset_category_id).then(response => {
-						this.subcategories = response.data;
-					});
-				}
 			},
 		},
 	}

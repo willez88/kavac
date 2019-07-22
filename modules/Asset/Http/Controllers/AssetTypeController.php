@@ -9,58 +9,47 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetType;
 
-
 /**
  * @class AssetTypeController
- * @brief Controlador de Tipos de Bienes
+ * @brief Controlador de tipos de bienes institucionales
  * 
- * Clase que gestiona los tipos de bienes
+ * Clase que gestiona los tipos de bienes institucionales
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AssetTypeController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.setting.type');
     }
-    use ValidatesRequests;
+    
     /**
-     * Muestra un listado de los Tipos de Bienes
+     * Muestra un listado de los tipos de bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
         return response()->json(['records' => AssetType::all()], 200);
     }
 
-   /**
-     * Muestra el formulario para crear un nuevo Tipo de Bien
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
-     */
-    public function create()
-    {
-
-    }
-
     /**
-     * Valida y Registra un nuevo Tipo de Bien
+     * Valida y registra un nuevo tipo de bien institucional
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Datos de la petición
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -77,37 +66,12 @@ class AssetTypeController extends Controller
     }
 
     /**
-     * Muestra los datos de un Tipo de Bien
+     * Actualiza la información del tipo de bien institucional
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\AssetType  $type (Datos del Tipo de Bien)
-     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
-     */
-    public function show(AssetType $type)
-    {
-
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de un Tipo de Bien
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\AssetType  $type (Datos del Tipo de Bien)
-     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
-     */
-    
-    public function edit(AssetType $type)
-    {
-        
-    }
-
-    /**
-     * Actualiza la información del Tipo de Bien
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @param  \Modules\Asset\Models\AssetType  $type (Datos del Tipo de Bien)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request       Datos de la petición
+     * @param  \Modules\Asset\Models\AssetType  $type   Datos del tipo de bien
+     * @return \Illuminate\Http\JsonResponse            Objeto con los registros a mostrar
      */
     
     public function update(Request $request, AssetType $type)
@@ -119,15 +83,15 @@ class AssetTypeController extends Controller
         $type->name = $request->input('name');
         $type->save();
  
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
-     * Elimina el Tipo de Bien
+     * Elimina el tipo de bien institucional
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\AssetType  $type (Datos del Tipo de Bien)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Modules\Asset\Models\AssetType  $type   Datos del tipo de bien
+     * @return \Illuminate\Http\JsonResponse            Objeto con los registros a mostrar
      */
     public function destroy(AssetType $type)
     {
@@ -135,7 +99,13 @@ class AssetTypeController extends Controller
         return response()->json(['record' => $type, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene el listado de tipos de bienes institucionales a implementar en elementos select
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return [Array] Arreglo con los registros a mostrar
+     */
     public function getTypes(){
-        return template_choices('Modules\Asset\Models\AssetType','name','',true);
+        return template_choices('Modules\Asset\Models\AssetType', 'name', '', true);
     }
 }

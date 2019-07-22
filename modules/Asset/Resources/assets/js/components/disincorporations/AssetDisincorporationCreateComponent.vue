@@ -37,8 +37,9 @@
 					<div class="form-group is-required">
 						
 						<label>Motivo de la Desincorporación</label>
-						<select2 :options="motives" title="Indique el motivo de la desincorporación del bien"
-								 v-model="record.motive_id"></select2>
+						<select2 :options="asset_disincorporation_motives" data-toggle="tooltip"
+								 title="Indique el motivo de la desincorporación del bien"
+								 v-model="record.asset_disincorporation_motive_id"></select2>
 						<input type="hidden" v-model="record.id">
 					</div>
 				</div>
@@ -65,37 +66,42 @@
 			</div>
 				
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Tipo de Bien</label>
-						<select2 :options="types" @input="getCategories()" 
-								 v-model="record.type_id"></select2>
+						<select2 :options="asset_types" @input="getAssetCategories()"
+								 data-toggle="tooltip"
+								 title="Indique el tipo del bien"
+								 v-model="record.asset_type_id"></select2>
 					</div>
 				</div>
 									
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Categoria General</label>
-						<select2 :options="categories" @input="getSubcategories()" 
-								 v-model="record.category_id"
-								 title="Indique la categoria general del bien"></select2>
+						<select2 :options="asset_categories" @input="getAssetSubcategories()" 
+								 data-toggle="tooltip"
+								 title="Indique la categoria general del bien"
+								 v-model="record.asset_category_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Subcategoria</label>
-						<select2 :options="subcategories" @input="getSpecificCategories()" 
-								 v-model="record.subcategory_id"
-								 title="Indique la subcategoria del bien"></select2>
+						<select2 :options="asset_subcategories" @input="getAssetSpecificCategories()" 
+								 data-toggle="tooltip"
+								 title="Indique la subcategoria del bien"
+								 v-model="record.asset_subcategory_id"></select2>
 					</div>
 				</div>
 
-				<div class="col-md-6">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Categoria Específica</label>
-						<select2 :options="specific_categories" 
-								 v-model="record.specific_category_id"
-								 title="Indique la categoria específica del bien"></select2>
+						<select2 :options="asset_specific_categories"
+								 data-toggle="tooltip"
+								 title="Indique la categoria específica del bien"
+								 v-model="record.asset_specific_category_id"></select2>
 					</div>
 				</div>
 
@@ -128,11 +134,11 @@
 					<span>{{ (props.row.institution)? props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}</span>
 					
 				</div>
-				<div slot="condition" slot-scope="props" class="text-center">
-					<span>{{ (props.row.condition)? props.row.condition.name:props.row.condition_id }}</span>
+				<div slot="asset_condition" slot-scope="props" class="text-center">
+					<span>{{ (props.row.asset_condition)? props.row.asset_condition.name:props.row.asset_condition_id }}</span>
 				</div>
-				<div slot="status" slot-scope="props" class="text-center">
-					<span>{{ (props.row.status)? props.row.status.name:props.row.status_id }}</span>
+				<div slot="asset_status" slot-scope="props" class="text-center">
+					<span>{{ (props.row.asset_status)? props.row.asset_status.name:props.row.asset_status_id }}</span>
 				</div>
 			</v-client-table>
 
@@ -152,7 +158,7 @@
         			<i class="fa fa-ban"></i>
         	</button>
 
-        	<button type="button"  @click="createRecord('asset/disincorporations')"
+        	<button type="button"  @click="createForm('asset/disincorporations')"
         			class="btn btn-success btn-icon btn-round btn-modal-save"
         			title="Guardar registro">
         		<i class="fa fa-save"></i>
@@ -174,25 +180,25 @@
 				record: {
 					id: '',
 					date: '',
-					motive_id: '',
+					asset_disincorporation_motive_id: '',
 					observation: '',
 
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
-					specific_category_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
+					asset_specific_category_id: '',
 				},
 
 				records: [],
-				columns: ['check', 'serial_inventario', 'institution', 'condition', 'status', 'serial', 'marca', 'model'],
+				columns: ['check', 'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
 				errors: [],
 
-				motives: [],
+				asset_disincorporation_motives: [],
 
-				types: [],
-				categories: [],
-				subcategories: [],
-				specific_categories: [],
+				asset_types: [],
+				asset_categories: [],
+				asset_subcategories: [],
+				asset_specific_categories: [],
 
 				selected: [],
 				selectAll: false,
@@ -203,24 +209,24 @@
 						return ((checkbox)&&(checkbox.checked))? 'selected-row cursor-pointer' : 'cursor-pointer';
 					},
 					headings: {
-						'serial_inventario': 'Código',
+						'inventory_serial': 'Código',
 						'institution': 'Ubicación',
-						'condition': 'Condición Física',
-						'status': 'Estatus de Uso',
+						'asset_condition': 'Condición Física',
+						'asset_status': 'Estatus de Uso',
 						'serial': 'Serial',
 						'marca': 'Marca',
 						'model': 'Modelo',
 					},
-					sortable: ['serial_inventario', 'institution', 'condition', 'status', 'serial', 'marca', 'model'],
-					filterable: ['serial_inventario', 'institution', 'condition', 'status', 'serial', 'marca', 'model'],
+					sortable: ['inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
+					filterable: ['inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
 					orderBy: { 'column': 'id'}
 				}
 			}
 		},
 		created() {
 			this.loadAssets();
-			this.getTypes();
-			this.getMotives();
+			this.getAssetTypes();
+			this.getAssetDisincorporationMotives();
 
 			if(this.disincorporationid){
 				this.loadForm(this.disincorporationid);
@@ -262,13 +268,13 @@
 				this.record = {
 					id: '',
 					date: '',
-					motive_id: '',
+					asset_disincorporation_motive_id: '',
 					observation: '',
 
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
-					specific_category_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
+					asset_specific_category_id: '',
 				};
 				this.selected = [];
 				this.selectAll = false;
@@ -287,95 +293,50 @@
 					}
 				});
 			},
-			createRecord(url){
+			createForm(url) {
 				const vm = this
 				vm.errors = [];
 				if(!vm.selected.length > 0){
                 	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
 					return false;
 				};
-				
-				if (vm.record.id) {
-					vm.updateRecord(url);
-				}
-				else{
-					var fields = {
-						id: vm.record.id,
-						date: vm.record.date,
-						motive_id: vm.record.motive_id,
-						observation: vm.record.observation,
-						assets: vm.selected,
-					};
-
-					axios.post('/' + url, fields).then(response => {
-						if (response.data.result) {
-	                        vm.showMessage('store');
-	                        setTimeout(function() {
-	                            window.location.href = '/asset/disincorporations';
-	                        }, 2000);
-	                    }
-					}).catch(error => {
-						this.errors = [];
-
-						if (typeof(error.response) !="undefined") {
-							for (var index in error.response.data.errors) {
-								if (error.response.data.errors[index]) {
-									this.errors.push(error.response.data.errors[index][0]);
-								}
-							}
-						}
-					});
-				}
+				vm.record.assets = vm.selected;
+				vm.createRecord(url);
 			},
-			updateRecord(url) {
-				const vm = this;
-				
-				var fields = {
-						id: vm.record.id,
-						date: vm.record.date,
-						motive_id: vm.record.motive_id,
-						observation: vm.record.observation,
-						assets: vm.selected,
-					};
-
-				axios.patch('/' + url + '/' + vm.record.id, fields).then(response => {
-					if (response.data.result) {
-                        vm.showMessage('update');
-                        setTimeout(function() {
-                            window.location.href = '/asset/disincorporations';
-                        }, 2000);
-                    }
-				}).catch(error => {
-					vm.errors = [];
-
-					if (typeof(error.response) !="undefined") {
-						for (var index in error.response.data.errors) {
-							if (error.response.data.errors[index]) {
-								vm.errors.push(error.response.data.errors[index][0]);
-							}
-						}
-					}
-				});
-		    },
 			loadForm(id){
 				const vm = this;
 	            var fields = {};
 	            
 	            axios.get('/asset/disincorporations/vue-info/'+id).then(response => {
 	                if(typeof(response.data.records != "undefined")){
-
 						vm.record = response.data.records;
-	                    fields = response.data.records.assets_disincorporation;
+	                    fields = response.data.records.asset_disincorporation_assets;
 	                    $.each(fields, function(index,campo){
 	                        vm.selected.push(campo.asset.id);
+	                    });
+	                    vm.records = vm.records.filter((asset) => {
+	                    	return (asset.asset_status_id == 10 || vm.filterDisincorporation(asset));
 	                    });
 	                }
 	            });
 			},
+			filterDisincorporation(asset) {
+		      const vm = this;
+		      var equal = false;
+		      var fields = vm.record.asset_disincorporation_assets;
+
+		      $.each(fields, function (index, campo) {
+		        if (campo.asset.id == asset.id)
+		          equal = true;
+		      });
+		      return equal;
+		    },
 			loadAssets(){
 				const vm = this;
-				axios.get('/asset/registers/vue-list').then(response => {
-					vm.records = response.data.records;
+				axios.get('/asset/registers/vue-list').then(function (response) {
+					vm.records = response.data.records.filter(function (asset) {
+						return (vm.disincorporationid != null)?true:asset.asset_status_id == 10;
+					});
 				});
 			},
 			filterRecords(){
@@ -384,10 +345,10 @@
 
 				var filters = {
 					case: (vm.record.id == '')?'1':'2',
-					type: vm.record.type_id,
-					category: vm.record.category_id,
-					subcategory: vm.record.subcategory_id,
-					specific_category: vm.record.specific_category_id
+					asset_type: vm.record.asset_type_id,
+					asset_category: vm.record.asset_category_id,
+					asset_subcategory: vm.record.asset_subcategory_id,
+					asset_specific_category: vm.record.asset_specific_category_id
 				};
 
 				axios.post(url, filters).then(response => {
@@ -398,13 +359,13 @@
 			/**
 			 * Obtiene los datos de los motivos de una desincorporación
 			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			getMotives(){
+			getAssetDisincorporationMotives(){
 				const vm = this;
-				vm.motives = [];
+				vm.asset_disincorporation_motives = [];
 				axios.get('/asset/disincorporations/get-motives').then(response => {
-					vm.motives = response.data;
+					vm.asset_disincorporation_motives = response.data;
 				});
 
 			}

@@ -13,6 +13,7 @@
 Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' => 'Modules\Asset\Http\Controllers'], function()
 {
     Route::get('settings', 'AssetSettingController@index')->name('asset.setting.index');
+    Route::post('settings', 'AssetSettingController@store')->name('asset.setting.store');
 
     
     /**
@@ -25,7 +26,9 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     Route::delete('registers/delete/{asset}', 'AssetController@destroy')->name('asset.register.destroy');
     Route::get('registers/info/{asset}', 'AssetController@vueInfo');
     Route::get('registers/vue-list', 'AssetController@vueList')->name('asset.register.vuelist');
-    Route::post('registers/search', 'AssetController@searchAsset');
+    Route::post('registers/search/general', 'AssetController@searchGeneral');
+    Route::post('registers/search/clasification', 'AssetController@searchClasification');
+    Route::post('registers/search/dependence', 'AssetController@searchDependence');
 
     /**
      * Rutas para gestionar las Asignaciones de Bienes Institucionales 
@@ -62,7 +65,7 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     Route::delete('disincorporations/delete/{disincorporation}', 'AssetDisincorporationController@destroy')
                 ->name('asset.disincorporation.destroy');
     
-    Route::get('disincorporations/get-motives', 'ServiceController@getMotives');
+    Route::get('disincorporations/get-motives', 'AssetDisincorporationController@getAssetDisincorporationMotives');
     Route::get('disincorporations/vue-info/{disincorporation}', 'AssetDisincorporationController@vueInfo');
     Route::get('disincorporations/vue-list', 'AssetDisincorporationController@vueList');
     
@@ -93,9 +96,9 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
      * Rutas para gestionar las Solicitudes de Prorrogas Pendientes 
      */
 
-    Route::get('requests/prorrogas/vue-pending-list', 'AssetRequestProrrogaController@vuePendingList')->name('asset.request.prorroga.vuependinglist');
-    Route::put('requests/prorroga/request-approved/{request}', 'AssetRequestProrrogaController@approved')->name('asset.request.prorroga.approved');
-    Route::put('requests/prorroga/request-rejected/{request}', 'AssetRequestProrrogaController@rejected')->name('asset.request.prorroga.rejected');
+    Route::get('requests/extensions/vue-pending-list', 'AssetRequestExtensionController@vuePendingList')->name('asset.request.extension.vuependinglist');
+    Route::put('requests/extensions/request-approved/{request}', 'AssetRequestExtensionController@approved')->name('asset.request.extension.approved');
+    Route::put('requests/extensions/request-rejected/{request}', 'AssetRequestExtensionController@rejected')->name('asset.request.extension.rejected');
     
     /**
      * Rutas para gestionar la generación de Solicitudes en pdf
@@ -103,7 +106,6 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
 
     Route::get('pdf', 'PDFController@create');
     Route::get('pdf2', 'PDFController@create_general');
-    Route::get('pdf3', 'PDFController@create_accouting_seat');
 
 
     /**
@@ -122,10 +124,10 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     Route::get('get-subcategories/{category?}', 'AssetSubcategoryController@getSubcategories');
     Route::get('get-specific-categories/{subcategory?}', 'AssetSpecificCategoryController@getSpecificCategories');
 
-    Route::get('get-purchases', 'ServiceController@getPurchases');
+    Route::get('get-acquisition-types', 'ServiceController@getAssetAcquisitionTypes');
     Route::get('get-conditions', 'ServiceController@getConditions');
     Route::get('get-status', 'ServiceController@getStatus');
-    Route::get('get-uses', 'ServiceController@getUses');
+    Route::get('get-use-functions', 'ServiceController@getAssetUseFunctions');
 
     Route::get('get-staffs', 'ServiceController@getStaffs');
     Route::get('get-type-positions', 'ServiceController@getTypePositions');
@@ -167,7 +169,7 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     /**
      * Rutas para gestionar las solicitudes de prorroga de entrega de equipos
      */
-    Route::resource('requests/request-prorroga', 'AssetRequestProrrogaController', ['except' => ['show']]);
+    Route::resource('requests/request-extensions', 'AssetRequestExtensionController', ['except' => ['show']]);
 
 
     

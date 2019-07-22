@@ -23,39 +23,63 @@
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label>Tipo de Bien:</label>
-						<select2 :options="types" @input="getCategories()"
-								v-model="record.type_id"></select2>
+						<select2 :options="asset_types" id="asset_types_select"
+								@input="(!assetid)? getAssetCategories():''"
+								data-toggle="tooltip" 
+								title="Seleccione un registro de la lista" 
+								v-model="record.asset_type_id"></select2>
 						<input type="hidden" v-model="record.id">
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label>Categoria General:</label>
-						<select2 :options="categories" @input="getSubcategories()"
-								v-model="record.category_id"></select2>
+						<select2 :options="asset_categories" id="asset_categories_select"
+								@input="(!assetid)? getAssetSubcategories():''"
+								:disabled="(!this.record.asset_type_id != '')"
+								data-toggle="tooltip" 
+								title="Seleccione un registro de la lista"
+								v-model="record.asset_category_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label>Subcategoria:</label>
-						<select2 :options="subcategories" @input="getSpecificCategories()"
-								v-model="record.subcategory_id"></select2>
+						<select2 :options="asset_subcategories" id="asset_subcategories_select"
+								@input="(!assetid)? getAssetSpecificCategories():''"
+								:disabled="(!this.record.asset_category_id != '')"
+								data-toggle="tooltip" 
+								title="Seleccione un registro de la lista"
+								v-model="record.asset_subcategory_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-12">
+				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label>Categoria Específica:</label>
-						<select2 :options="specific_categories"
-								v-model="record.specific_category_id"></select2>
+						<select2 :options="asset_specific_categories"
+								:disabled="(!this.record.asset_subcategory_id != '')"
+								data-toggle="tooltip" 
+								title="Seleccione un registro de la lista"
+								v-model="record.asset_specific_category_id"></select2>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Especificaciones</label>
+						<textarea  data-toggle="tooltip" 
+								   title="Indique las especificaciones del bien (opcional)" 
+								   class="form-control" v-model="record.specifications">
+					   </textarea>
 					</div>
 				</div>
 			</div>
 			<div class="row">
+				<hr>
 				<div class="col-md-3">
 					<div class="form-group is-required">
 						<label>Forma de Adquisición</label>
-						<select2 :options="purchases"
-								v-model="record.purchase_id"></select2>
+						<select2 :options="asset_acquisition_types"
+								v-model="record.asset_acquisition_type_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -63,52 +87,49 @@
 						<label>Año de Adquisición</label>
 						<input type="number" min="0" placeholder="Año de Adquisición" data-toggle="tooltip" 
 							   title="Indique el año de adquisición" 
-							   class="form-control input-sm" v-model="record.purchase_year">
+							   class="form-control input-sm" v-model="record.acquisition_year">
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-3" v-if="record.asset_type_id == 1">
 					<div class="form-group is-required">
-						<label>Ubicación</label>
-						<select2 :options="departments"
-								v-model="record.institution_id"></select2>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="form-group is-required">
-						<label>Poveedor</label>
+						<label>Proveedor</label>
 						<select2 :options="proveedores"
 								v-model="record.proveedor_id"></select2>
 					</div>
 				</div>
-			</div>
-			<div class="row">
+			
 				<div class="col-md-3">
 					<div class="form-group is-required">
 						<label>Condición Física</label>
-						<select2 :options="conditions"
-								v-model="record.condition_id"></select2>
+						<select2 :options="asset_conditions"
+								 data-toggle="tooltip" 
+								 title="Seleccione un registro de la lista"
+								 v-model="record.asset_condition_id"></select2>
 					</div>
 				</div>
 
 				<div class="col-md-3">
 					<div class="form-group is-required">
 						<label>Estatus de Uso</label>
-						<select2 :options="status"
-								v-model="record.status_id"></select2>
+						<select2 :options="asset_status"
+								 data-toggle="tooltip" 
+								 title="Seleccione un registro de la lista"
+								 v-model="record.asset_status_id"></select2>
 					</div>
 				</div>
 
-				<div class="col-md-3" v-if="record.type_id == 2">
+				<div class="col-md-3" v-if="record.asset_type_id == 2">
 					<div class="form-group is-required">
 						<label>Función de Uso</label>
-						<select2 :options="uses"
-								v-model="record.use_id"></select2>
+						<select2 :options="asset_use_functions"
+								 data-toggle="tooltip" 
+								 title="Seleccione un registro de la lista"
+								 v-model="record.asset_use_function_id"></select2>
 					</div>
 				</div>
 				
-				<div class="col-md-3">
+				<div class="col-md-3" v-if="record.asset_type_id == 1">
 					<div class="form-group is-required">
 						<label>Serial</label>
 						<input type="text" placeholder="Serial de Fabricación" data-toggle="tooltip" 
@@ -116,7 +137,7 @@
 							   class="form-control input-sm" v-model="record.serial">
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" v-if="record.asset_type_id == 1">
 					<div class="form-group is-required">
 						<label>Marca</label>
 						<input type="text" placeholder="Marca" data-toggle="tooltip" 
@@ -124,7 +145,7 @@
 							   class="form-control input-sm" v-model="record.marca">
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" v-if="record.asset_type_id == 1">
 					<div class="form-group is-required">
 						<label>Modelo</label>
 						<input type="text" placeholder="Modelo" data-toggle="tooltip" 
@@ -136,19 +157,70 @@
 				<div class="col-md-3">
 					<div class="form-group is-required">
 						<label>Valor</label>
-						<input type="number" min="0" placeholder="Precio por unidad" data-toggle="tooltip" 
-							   title="Indique el precio del bien" 
-							   class="form-control input-sm" v-model="record.value">
+						<input type="number" min="0" step=".01"
+								placeholder="Precio por unidad" data-toggle="tooltip" 
+								title="Indique el precio del bien" 
+								class="form-control input-sm" v-model="record.value">
 					</div>
 				</div>
 
-				<div class="col-md-3" v-if="((record.type_id == 2)&&(record.id == ''))">
+				<div class="col-md-3" v-if="(record.id == '')">
 					<div class="form-group is-required">
 						<label>Cantidad</label>
 						<input type="number" min="0" placeholder="Cantidad" data-toggle="tooltip" 
 							   title="Indique la cantidad del bien a registrar" 
 							   class="form-control input-sm" v-model="record.quantity">
 					</div>
+				</div>
+			</div>
+			<div v-if="record.asset_type_id == 2">
+				<hr>
+				<h6 class="card-title text-uppercase">Ubicación</h6>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group is-required">
+							<label>Pais:</label>
+							<select2 :options="countries" id="country_select"
+									 @input="getEstates()"
+									 v-model="record.country_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group is-required">
+							<label>Estado:</label>
+							<select2 :options="estates" id="estate_select"
+									@input="getMunicipalities()"
+									:disabled="(!this.record.country_id != '')"
+									v-model="record.estate_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group is-required">
+							<label>Municipio:</label>
+							<select2 :options="municipalities" id="municipality_select"
+									@input="getParishes()"
+									:disabled="(!this.record.estate_id != '')"
+									v-model="record.municipality_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group is-required">
+							<label>Parroquia:</label>
+							<select2 :options="parishes" id="parish_select"
+									 :disabled="(!this.record.municipality_id != '')"
+									 v-model="record.parish_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group is-required">
+							<label>Dirección</label>
+							<textarea  data-toggle="tooltip" 
+									   title="Indique dirección física del bien" 
+									   class="form-control" v-model="record.address">
+						   </textarea>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -182,176 +254,145 @@
 			return {
 				record: {
 					id: '',
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
-					specific_category_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
+					asset_specific_category_id: '',
 
-					purchase_id: '',
-					purchase_year: '',
+					asset_acquisition_type_id: '',
+					acquisition_year: '',
 					institution_id: '',
 					proveedor_id: '',
-					condition_id: '',
-					status_id: '',
-					use_id: '',
+					asset_condition_id: '',
+					asset_status_id: '',
+					asset_use_function_id: '',
 					serial: '',
 					marca: '',
 					model: '',
 					value: '',
-					quantity: ''
+					quantity: '',
+
+					country_id: '',
+					estate_id: '',
+					municipality_id: '',
+					parish_id: '',
+					address: '',
+
+					specifications: '',
+
 				},
 				
 				records: [],
 				errors: [],
 
-				types: [],
-				categories: [],
-				subcategories: [],
-				specific_categories: [],
+				asset_types: [],
+				asset_categories: [],
+				asset_subcategories: [],
+				asset_specific_categories: [],
 
-				purchases: [],
+				asset_acquisition_types: [],
 				departments: [],
 				proveedores: [],
-				conditions: [],
-				status: [],
-				uses: [],
+				asset_conditions: [],
+				asset_status: [],
+				asset_use_functions: [],
+
+				countries: [],
+				estates: [],
+				municipalities: [],
+				parishes: [],
 			}
 		},
 		props: {
-		assetid: Number, 
+			assetid: Number, 
 		},
 		methods: {
 			reset() {
 				this.record = {
 					id: '',
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
-					specific_category_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
+					asset_specific_category_id: '',
 
-					purchase_id: '',
-					purchase_year: '',
+					asset_acquisition_type_id: '',
+					acquisition_year: '',
 					institution_id: '',
 					proveedor_id: '',
-					condition_id: '',
-					status_id: '',
-					use_id: '',
+					asset_condition_id: '',
+					asset_status_id: '',
+					asset_use_function_id: '',
 					serial: '',
 					marca: '',
 					model: '',
 					value: '',
-					quantity: ''
+					quantity: '',
+
+					country_id: '',
+					estate_id: '',
+					municipality_id: '',
+					parish_id: '',
+					address: '',
+
+					specifications: '',
+					
 				};
 
 			},
-			createRecord(url) {
-				const vm = this
-				vm.errors = [];
-				
-				if (vm.record.id) {
-					vm.updateRecord(url);
-				}
-				else{
-					var fields = {};
-
-					for (var index in this.record) {
-						fields[index] = this.record[index];
-					}
-					axios.post('/' + url, fields).then(response => {
-						if (response.data.result) {
-	                        vm.showMessage('store');
-	                        setTimeout(function() {
-	                            window.location.href = '/asset/registers';
-	                        }, 2000);
-	                    }
-					}).catch(error => {
-						this.errors = [];
-
-						if (typeof(error.response) !="undefined") {
-							for (var index in error.response.data.errors) {
-								if (error.response.data.errors[index]) {
-									this.errors.push(error.response.data.errors[index][0]);
-								}
-							}
-						}
-					});
-				}
-			},
-			updateRecord(url) {
-				const vm = this;
-				var fields = {};
-
-				for (var index in vm.record) {
-					fields[index] = vm.record[index];
-				}
-				axios.patch('/' + url + '/' + vm.record.id, fields).then(response => {
-					if (response.data.result) {
-                        vm.showMessage('update');
-                        setTimeout(function() {
-                            window.location.href = '/asset/registers';
-                        }, 2000);
-                    }
-				}).catch(error => {
-					vm.errors = [];
-
-					if (typeof(error.response) !="undefined") {
-						for (var index in error.response.data.errors) {
-							if (error.response.data.errors[index]) {
-								vm.errors.push(error.response.data.errors[index][0]);
-							}
-						}
-					}
-				});
-		    },
-
 			/**
 			 * Obtiene los datos de las formas de adquisición de los bienes institucionales registrados
 			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			getPurchases() {
+			getAssetAcquisitionTypes() {
 				const vm = this;
-				vm.purchases = [];
-				axios.get('/asset/get-purchases').then(response => {
-					vm.purchases = response.data;
+				vm.asset_acquisition_types = [];
+				axios.get('/asset/get-acquisition-types').then(response => {
+					vm.asset_acquisition_types = response.data;
 				});
 			},
 			/**
 			 * Obtiene los datos de la condición física de los bienes institucionales
 			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			getConditions() {
+			getAssetConditions() {
 				const vm = this;
-				vm.conditions = [];
+				vm.asset_conditions = [];
 				axios.get('/asset/get-conditions').then(response => {
-					vm.conditions = response.data;
+					vm.asset_conditions = response.data;
 				});
 			},
 			/**
 			 * Obtiene los datos de los estatus de uso de los bienes institucionales
 			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			getStatus() {
+			getAssetStatus() {
 				const vm = this;
-				vm.status = [];
+				vm.asset_status = [];
 				axios.get('/asset/get-status').then(response => {
-					vm.status = response.data;
+					vm.asset_status = response.data;
 				});
 			},
 			/**
-			 * Obtiene los datos de los estatus de uso de los bienes institucionales
+			 * Obtiene los datos de las funciones de uso de los bienes institucionales
 			 *
-			 * @author Henry Paredes (henryp2804@gmail.com)
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			getUses() {
+			getAssetUseFunctions() {
 				const vm = this;
-				vm.uses = [];
-				axios.get('/asset/get-uses').then(response => {
-					vm.uses = response.data;
+				vm.asset_use_functions = [];
+				axios.get('/asset/get-use-functions').then(response => {
+					vm.asset_use_functions = response.data;
 				});
 			},
+			/**
+			 * Metodo que carga la información en el formulario de edición
+			 *
+			 * @param [Integer] $id Identificador único del registro a editar
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
+			 */
 			loadForm(id){
 				const vm = this;
 	            axios.get('/asset/registers/info' + '/' + id).then(response => {
@@ -359,20 +400,109 @@
 	                    vm.record = response.data.records;
 	                }
 	            });
-			}
+	            vm.getAssetTypes();
+	            setTimeout(function() {
+	            	/** Se definen los eventos */
+		            $('#asset_types_select').on('change', function(){
+		            	vm.getAssetCategories();
+		            });
+		            $('#asset_categories_select').on('change', function(){
+		            	vm.getAssetSubcategories();
+		            });
+		            $('#asset_subcategories_select').on('change', function(){
+		            	vm.getAssetSpecificCategories();
+		            });
+		            /** Se cargan los selects dependientes */
+		            vm.record.asset_type_id = vm.record.asset_type.id;
+					setTimeout(function () {
+						vm.record.asset_category_id = vm.record.asset_category.id;
+						setTimeout(function () {
+							vm.record.asset_subcategory_id = vm.record.asset_subcategory.id;
+							setTimeout(function () {
+								vm.record.asset_specific_category_id = vm.record.asset_specific_category.id;
+								}, 1000);
+						}, 1000);
+					}, 1000);
+				}, 1000);
+			},
+
+			/**
+			 * Reescribe el método getEstates para cambiar su comportamiento por defecto
+			 * Obtiene los Estados del Pais seleccionado
+			 *
+			 */
+			getEstates() {
+				const vm = this;
+				vm.estates = [];
+				
+				if (vm.record.country_id) {
+					axios.get('/get-estates/' + this.record.country_id).then(response => {
+						vm.estates = response.data;
+					});
+				}
+				else if ((vm.assetid)&&(vm.record.country_id == '')) {
+					axios.get('/get-estates').then(response => {
+						vm.estates = response.data;
+					});
+				}
+			},
+			
+			/**
+			 * * Reescribe el método getMunicipalities para cambiar su comportamiento por defecto
+			 * Obtiene los Municipios del Estado seleccionado
+			 *
+			 */
+			getMunicipalities() {
+				const vm = this;
+				vm.municipalities = [];
+
+				if (vm.record.estate_id) {
+					axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
+						vm.municipalities = response.data;
+					});
+				}
+				else if ((vm.assetid)&&(vm.record.country_id == '')) {
+					axios.get('/get-municipalities').then(response => {
+						vm.municipalities = response.data;
+					});
+				}
+			},
+			
+			/**
+			 * Reescribe el método getParishes para cambiar su comportamiento por defecto
+			 * Obtiene las parroquias del municipio seleccionado
+			 *
+			 */
+			getParishes() {
+				const vm = this;
+				vm.parishes = [];
+				
+				if (this.record.municipality_id) {
+					axios.get('/get-parishes/' + this.record.municipality_id).then(response => {
+						vm.parishes = response.data;
+					});
+				}
+				else if ((vm.assetid)&&(vm.record.country_id == '')) {
+					axios.get('/get-parishes/' + this.record.municipality_id).then(response => {
+						vm.parishes = response.data;
+					});
+				}
+			},
 		},
 		created() {
-			this.getTypes();
 			this.getDepartments();
-			this.getPurchases();
-			this.getConditions();
-			this.getStatus();
-			this.getUses();
+			this.getAssetAcquisitionTypes();
+			this.getAssetConditions();
+			this.getAssetStatus();
+			this.getAssetUseFunctions();
+			this.getCountries();
 		},
 		mounted() {
 			if(this.assetid){
 				this.loadForm(this.assetid);
 			}
+			else
+				this.getAssetTypes();
 		},
 	};
 </script>

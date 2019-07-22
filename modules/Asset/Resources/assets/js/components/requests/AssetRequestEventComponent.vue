@@ -28,7 +28,9 @@
 								<div class="form-group is-required">
 									<label>Tipo de Evento:</label>
 									<select2 :options="types"
-										v-model="record.type_id">
+											 data-toggle="tooltip"
+											 title="Indique el tipo de evento ocurrido"
+											 v-model="record.type_id">
 									</select2>
 
 									<input type="hidden" v-model="record.id">
@@ -37,11 +39,11 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción del Evento</label>
-									<input  type="text" 
-											data-toggle="tooltip" 
-											class="form-control input-sm"
-											v-model="record.description"
-											id="description_event">
+									<textarea  data-toggle="tooltip" 
+											   title="Indique una descripción del evento" 
+											   class="form-control" v-model="record.description"
+											   id="description_event">
+								   </textarea>
 								</div>
 							</div>
 						</div>
@@ -69,7 +71,7 @@
 
 	                <div class="modal-footer">
 
-		                <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+		                <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
@@ -91,7 +93,7 @@
 				record: {
 					id:'',
 					type_id: '',
-					request_id: '',
+					asset_request_id: '',
 					description: '',
 
 				},
@@ -112,12 +114,12 @@
 				this.record = {
 					id:'',
 					type_id: '',
-					request_id: '',
+					asset_request_id: '',
 					description: '',
 				};
 			},
 			createRequest(url){
-				this.record.request_id = this.id;
+				this.record.asset_request_id = this.id;
 				this.createRecord(url);
 			},
 

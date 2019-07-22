@@ -7,6 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\CodeSetting;
 
 use Modules\Asset\Models\AssetDisincorporationAsset;
 use Modules\Asset\Models\AssetDisincorporation;
@@ -14,20 +17,21 @@ use Modules\Asset\Models\Asset;
 
 /**
  * @class AssetDisincorporationController
- * @brief Controlador de Desincorporaciones de Bienes Institucionales
+ * @brief Controlador de las desincorporaciones de bienes institucionales
  * 
- * Clase que gestiona las Desincorporaciones de Bienes Institucionales
+ * Clase que gestiona las desincorporaciones de bienes institucionales
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AssetDisincorporationController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -37,25 +41,23 @@ class AssetDisincorporationController extends Controller
         $this->middleware('permission:asset.disincorporation.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:asset.disincorporation.delete', ['only' => 'destroy']);
     }
-    use ValidatesRequests;
 
     /**
-     * Muestra un listado de las Desincorporaciones de Bienes Institucionales
+     * Muestra un listado de las Ddsincorporaciones de bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $asset_disincorporations = AssetDisincorporation::all();
-        return view('asset::disincorporations.list', compact('asset_disincorporations'));
+        return view('asset::disincorporations.list');
     }
 
     /**
-     * Muestra el formulario para registrar una nueva Desincorporación de Bienes Institucionales
+     * Muestra el formulario para registrar una nueva desincorporación de bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -63,59 +65,74 @@ class AssetDisincorporationController extends Controller
     }
 
      /**
-     * Valida y Registra una nueva Desincorporación de Bienes Institucionales
+     * Valida y registra una nueva desincorporación de bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Datos de la petición
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar)
      */
     public function store(Request $request)
     {
         $this->validate($request, [
             'date' => 'required',
-            'motive_id' => 'required',
+            'asset_disincorporation_motive_id' => 'required',
             'observation' => 'required'
 
         ]);
 
+        $codeSetting = CodeSetting::where('table', 'asset_disincorporations')->first();
+        if (is_null($codeSetting)) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]);
+            return response()->json(['result' => false, 'redirect' => route('asset.setting.index')], 200);
+        }
+
+        $code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
+        (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
+
         $disincorporation = AssetDisincorporation::create([
+            'code' => $code,
             'date' => $request->date,
-            'motive_id' => $request->motive_id,
-            'observation' => $request->observation
+            'asset_disincorporation_motive_id' => $request->asset_disincorporation_motive_id,
+            'observation' => $request->observation,
+            'user_id' => Auth::id()
         ]);
 
         foreach ($request->assets as $asset_id) {
             $asset = Asset::find($asset_id);
-            $asset->status_id = 7;
+            $asset->asset_status_id = 7;
             $asset->save();
             $asset_disincorporation = AssetDisincorporationAsset::create([
                 'asset_id' => $asset->id,
-                'disincorporation_id' => $disincorporation->id,
+                'asset_disincorporation_id' => $disincorporation->id,
             ]);
         }
-        return response()->json(['result' => true], 200);
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('asset.disincorporation.index')], 200);
     }
 
     
     /**
-     * Muestra el formulario para Desincorporar un Bien Institucional
+     * Muestra el formulario para desincorporar un bien institucional
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  Integer $id Identificador único del bien a desincorporar
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  [Integer] $id                    Identificador único del bien a desincorporar
+     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
-    public function Asset_Disassign($id)
+    public function asset_disassign($id)
     {
         $asset = Asset::find($id);
         return view('asset::disincorporations.create', compact('asset'));
-        }
+    }
 
     /**
-     * Muestra el formulario para actualizar la información de las Desincorporaciones de Bienes Institucionales
+     * Muestra el formulario para actualizar la información de las desincorporaciones de bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  Integer  $id Identificador único de la desincorporación a editar
-     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  [Integer]  $id                   Identificador único de la desincorporación a editar
+     * @return \Illuminate\Http\JsonResponse    Objeto con los datos a mostrar
      */
     public function edit($id)
     {
@@ -124,35 +141,37 @@ class AssetDisincorporationController extends Controller
     }
 
     /**
-     * Actualiza la información de las Desincorporaciones de Bienes Institucionales
+     * Actualiza la información de las desincorporaciones de bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @param  \Modules\Asset\Models\AssetDisincorporation  $disincorporation (Datos de la Desincorporación de un Bien)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Datos de la petición
+     * @param  [Integer] $id                        Identificador único de la desincorporación
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
         $disincorporation = AssetDisincorporation::find($id);
         $this->validate($request, [
             'date' => 'required',
-            'motive_id' => 'required',
+            'asset_disincorporation_motive_id' => 'required',
             'observation' => 'required'
 
         ]);
 
         $disincorporation->date = $request->date;
+        $disincorporation->asset_disincorporation_motive_id = $request->asset_disincorporation_motive_id;
         $disincorporation->observation = $request->observation;
         $disincorporation->save();
 
-        /* Recorro la vieja lista para verificar si hay elementos eliminados en la nueva lista */
-        $assets_disincorporation = AssetDisincorporationAsset::where('disincorporation_id', $disincorporation->id)->get();
+        /** Recorro la vieja lista para verificar si hay elementos eliminados en la nueva lista */
+
+        $assets_disincorporation = AssetDisincorporationAsset::where('asset_disincorporation_id', $disincorporation->id)->get();
         foreach ($assets_disincorporation as $asset_disincorporation) {
             $asset = Asset::find($asset_disincorporation->asset_id);
             $datos = $request->assets;
             $clave = in_array($asset->id, $datos);
             if ($clave == false){
-                $asset->status_id = 10;
+                $asset->asset_status_id = 10;
                 $asset->save();
                 $asset_disincorporation->delete();
             }
@@ -161,25 +180,26 @@ class AssetDisincorporationController extends Controller
         /* Recorro la nueva lista para verificar si hay nuevos elementos a ser insertados */
         foreach ($request->assets as $asset_id) {
             $asset = Asset::find($asset_id);
-            $asset->status_id = 7;
+            $asset->asset_status_id = 7;
             $asset->save();
-            $asset_disincorporation = AssetDisincorporationAsset::where('asset_id', $asset->id)->where('disincorporation_id',$disincorporation->id)->first();
+            $asset_disincorporation = AssetDisincorporationAsset::where('asset_id', $asset->id)->where('asset_disincorporation_id',$disincorporation->id)->first();
             if( is_null($asset_disincorporation))
                 $asset_disincorporation = AssetDisincorporationAsset::create([
                     'asset_id' => $asset->id,
-                    'disincorporation_id' => $disincorporation->id,
+                    'asset_disincorporation_id' => $disincorporation->id,
                 ]);
 
         }
-        return response()->json(['result' => true],200);
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('asset.disincorporation.index')], 200);
     }
 
     /**
-     * Elimina una Asignación de un Bien Institucional
+     * Elimina una desincorporación de bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\AssetDisincorporation $disincorporation (Datos de la Desincorporación de un Bien)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Modules\Asset\Models\AssetDisincorporation $disincorporation    Datos de la desincorporación de un bien
+     * @return \Illuminate\Http\JsonResponse                                    Objeto con los registros a mostrar
      */
     public function destroy(AssetDisincorporation $disincorporation)
     {
@@ -188,30 +208,48 @@ class AssetDisincorporationController extends Controller
     }
 
     /**
-     * Vizualiza la Información de la Desincorporación de un Bien Institucional
+     * Vizualiza la información de la desincorporación de un bien institucional
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\AssetDisincorporation $disincorporation (Datos de la Desincorporación de un Bien)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  [Integer] $id                  Identificador único de la desincorporación
+     * @return \Illuminate\Http\JsonResponse  Objeto con los registros a mostrar
      */
-    public function vueInfo($id){
+    public function vueInfo($id)
+    {
         $disincorporation = AssetDisincorporation::where('id',$id)
-            ->with(['assetsDisincorporation' => 
-                function($query){
-                    $query->with(['asset' =>
-                    function($query){
-                        $query->with('type','category',
-                                     'subcategory','specific',
-                                     'purchase','condition','status','use');
-                    }]);
-                }])->first();
+            ->with(['asset_disincorporation_motive' ,'asset_disincorporation_assets' => 
+            function($query) {
+                $query->with(['asset' =>
+                function($query) {
+                    $query->with('asset_type', 'asset_category',
+                        'asset_subcategory', 'asset_specific_category',
+                        'asset_acquisition_type', 'asset_condition', 'asset_status',
+                        'asset_use_function');
+                }]);
+            }])->first();
 
         return response()->json(['records' => $disincorporation], 200);
     }
 
+    /**
+     * Otiene un listado de las desincorporaciones registradas
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
     public function vueList()
     {
-        return response()->json(['records' => AssetDisincorporation::with('motive')->get()], 200);
+        return response()->json(['records' => AssetDisincorporation::with('asset_disincorporation_motive')->get()], 200);
+    }
+
+    /**
+     * Otiene un listado de los motivos de las desincorporaciones registradas
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return [array] Array con los registros a mostrar
+     */
+    public function getAssetDisincorporationMotives(){
+        return template_choices('Modules\Asset\Models\AssetDisincorporationMotive','name','',true);
     }
 
 }

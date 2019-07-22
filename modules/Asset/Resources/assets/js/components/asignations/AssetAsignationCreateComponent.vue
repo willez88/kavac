@@ -25,38 +25,45 @@
 				<div class="col-md-12">
 					<b>Información del Trabajador Responsable del bien</b>
 				</div>
-
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>Puesto de Trabajo:</label>
-						<select2 :options="type_positions" @input="" 
-								 v-model="record.type_position_id"></select2>
-						<input type="hidden" v-model="record.id">
-                    </div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>Cargo:</label>
-						<select2 :options="positions" @input="" 
-								 v-model="record.position_id"></select2>
-                    </div>
-				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="form-group is-required">
-						<label>Trabajador:</label>
-						<select2 :options="staffs" @input="" 
-								 v-model="record.staff_id"></select2>
-                    </div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="form-group is-required">
-						<label>Ubicación:</label>
-						<select2 :options="departments" @input="" 
+						<label>Institución:</label>
+						<select2 :options="institutions" @input="getDepartments()" 
 								 v-model="record.institution_id"></select2>
                     </div>
 
 				</div>
+				<div class="col-md-4">
+					<div class="form-group is-required">
+						<label>Departamento:</label>
+						<select2 :options="departments" @input="" 
+								 v-model="record.department_id"></select2>
+                    </div>
+
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Puesto de Trabajo:</label>
+						<select2 :options="payroll_position_types" @input="" 
+								 v-model="record.payroll_position_type_id"></select2>
+						<input type="hidden" v-model="record.id">
+                    </div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Cargo:</label>
+						<select2 :options="payroll_positions" @input="" 
+								 v-model="record.payroll_position_id"></select2>
+                    </div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group is-required">
+						<label>Trabajador:</label>
+						<select2 :options="payroll_staffs" @input="" 
+								 v-model="record.payroll_staff_id"></select2>
+                    </div>
+				</div>
+
 			</div>
 			<div class="row">
 				<div class="col-md-12">
@@ -70,40 +77,40 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Tipo de Bien</label>
-						<select2 :options="types" @input="getCategories()" 
-								 v-model="record.type_id"></select2>
+						<select2 :options="asset_types" @input="getAssetCategories()" 
+								 v-model="record.asset_type_id"></select2>
 					</div>
 				</div>
 									
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Categoria General</label>
-						<select2 :options="categories" @input="getSubcategories()" 
-								 v-model="record.category_id"
+						<select2 :options="asset_categories" @input="getAssetSubcategories()" 
+								 v-model="record.asset_category_id"
 								 title="Indique la categoria general del bien"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Subcategoria</label>
-						<select2 :options="subcategories" @input="getSpecificCategories()" 
-								 v-model="record.subcategory_id"
+						<select2 :options="asset_subcategories" 
+								 @input="getAssetSpecificCategories()" 
+								 v-model="record.asset_subcategory_id"
 								 title="Indique la subcategoria del bien"></select2>
 					</div>
 				</div>
 
-				<div class="col-md-6">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Categoria Específica</label>
-						<select2 :options="specific_categories" 
-								 v-model="record.specific_category_id"
+						<select2 :options="asset_specific_categories" 
+								 v-model="record.asset_specific_category_id"
 								 title="Indique la categoria específica del bien"></select2>
 					</div>
 				</div>
-
 			</div>
 			<div class="row">
 				<div class="col-md-12">
@@ -133,11 +140,11 @@
 					<span>{{ (props.row.institution)? props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}</span>
 					
 				</div>
-				<div slot="condition" slot-scope="props" class="text-center">
-					<span>{{ (props.row.condition)? props.row.condition.name:props.row.condition_id }}</span>
+				<div slot="asset_condition" slot-scope="props" class="text-center">
+					<span>{{ (props.row.asset_condition)? props.row.asset_condition.name:props.row.asset_condition_id }}</span>
 				</div>
-				<div slot="status" slot-scope="props" class="text-center">
-					<span>{{ (props.row.status)? props.row.status.name:props.row.status_id }}</span>
+				<div slot="asset_status" slot-scope="props" class="text-center">
+					<span>{{ (props.row.asset_status)? props.row.asset_status.name:props.row.asset_status_id }}</span>
 				</div>
 				
 			</v-client-table>
@@ -156,7 +163,7 @@
             			<i class="fa fa-ban"></i>
             	</button>
 
-            	<button type="button"  @click="createRecord('asset/asignations')"
+            	<button type="button"  @click="createForm('asset/asignations')"
             			class="btn btn-success btn-icon btn-round btn-modal-save"
             			title="Guardar registro">
             		<i class="fa fa-save"></i>
@@ -181,28 +188,32 @@
 			return {
 				record: {
 					id: '',
-					type_position_id: '',
-					position_id: '',
-					staff_id: '',
+					payroll_position_type_id: '',
+					payroll_position_id: '',
+					payroll_staff_id: '',
+					
 					institution_id: '',
+					department_id: '',
 
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
-					specific_category_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
+					asset_specific_category_id: '',
 				},
-				records: [],
-				columns: ['check', 'serial_inventario', 'institution', 'condition', 'status', 'serial', 'marca', 'model'],
 				errors: [],
-				type_positions:[],
-				positions:[],
-				staffs:[],
+				records: [],
+				columns: ['check', 'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
+
+				payroll_position_types:[],
+				payroll_positions:[],
+				payroll_staffs:[],
+				institutions: [],
 				departments:[],
 
-				types: [],
-				categories: [],
-				subcategories: [],
-				specific_categories: [],
+				asset_types: [],
+				asset_categories: [],
+				asset_subcategories: [],
+				asset_specific_categories: [],
 
 				selected: [],
 				selectAll: false,
@@ -213,28 +224,28 @@
 						return ((checkbox)&&(checkbox.checked))? 'selected-row cursor-pointer' : 'cursor-pointer';
 					},
 					headings: {
-						'serial_inventario': 'Código',
-						'institution': 'Ubicación',
-						'condition': 'Condición Física',
-						'status': 'Estatus de Uso',
+						'inventory_serial': 'Código',
+						'asset_condition': 'Condición Física',
+						'asset_status': 'Estatus de Uso',
 						'serial': 'Serial',
 						'marca': 'Marca',
 						'model': 'Modelo',
 					},
-					sortable: ['serial_inventario', 'institution', 'condition', 'status', 'serial', 'marca', 'model'],
-					filterable: ['serial_inventario', 'institution', 'condition', 'status', 'serial', 'marca', 'model'],
+					sortable: ['inventory_serial', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
+					filterable: ['inventory_serial', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
 					orderBy: { 'column': 'id'}
 				}
 			}
 		},
 		created() {
-			this.loadAssets();
-			this.getStaffs();
-			this.getTypePositions();
-			this.getPositions();
-			this.getTypes();
+			this.getPayrollStaffs();
+			this.getPayrollPositionTypes();
+			this.getPayrollPositions();
+			this.getAssetTypes();
+			this.getInstitutions();
 		},
 		mounted() {
+			this.loadAssets();
 			if((this.asignationid)&&(!this.assetid))
 				this.loadForm(this.asignationid);
 			else if((!this.asignationid)&&(this.assetid))
@@ -269,15 +280,16 @@
 			reset() {
 				this.record = {
 					id: '',
-					type_position_id: '',
-					position_id: '',
-					staff_id: '',
+					payroll_position_type_id: '',
+					payroll_position_id: '',
+					payroll_staff_id: '',
+					
 					institution_id: '',
 
-					type_id: '',
-					category_id: '',
-					subcategory_id: '',
-					specific_category_id: '',
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id: '',
+					asset_specific_category_id: '',
 				};
 				this.selected = [];
 				this.selectAll = false;
@@ -296,78 +308,16 @@
 					}
 				});
 			},
-			createRecord(url){
+			createForm(url) {
 				const vm = this
 				vm.errors = [];
 				if(!vm.selected.length > 0){
                 	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
 					return false;
 				};
-				
-				if (vm.record.id) {
-					vm.updateRecord(url);
-				}
-				else{
-					var fields = {
-						id: vm.record.id,
-						type_position_id: vm.record.type_position_id,
-						position_id: vm.record.position_id,
-						staff_id: vm.record.staff_id,
-						institution_id: vm.record.institution_id,
-						assets: vm.selected,
-					};
-
-					axios.post('/' + url, fields).then(response => {
-						if (response.data.result) {
-	                        vm.showMessage('store');
-	                        setTimeout(function() {
-	                            window.location.href = '/asset/asignations';
-	                        }, 2000);
-	                    }
-					}).catch(error => {
-						this.errors = [];
-
-						if (typeof(error.response) !="undefined") {
-							for (var index in error.response.data.errors) {
-								if (error.response.data.errors[index]) {
-									this.errors.push(error.response.data.errors[index][0]);
-								}
-							}
-						}
-					});
-				}
+				vm.record.assets = vm.selected;
+				vm.createRecord(url);
 			},
-			updateRecord(url) {
-				const vm = this;
-				
-				var fields = {
-					id: vm.record.id,
-					type_position_id: vm.record.type_position_id,
-					position_id: vm.record.position_id,
-					staff_id: vm.record.staff_id,
-					institution_id: vm.record.institution_id,
-					assets: vm.selected,
-				};
-
-				axios.patch('/' + url + '/' + vm.record.id, fields).then(response => {
-					if (response.data.result) {
-                        vm.showMessage('update');
-                        setTimeout(function() {
-                            window.location.href = '/asset/asignations';
-                        }, 2000);
-                    }
-				}).catch(error => {
-					vm.errors = [];
-
-					if (typeof(error.response) !="undefined") {
-						for (var index in error.response.data.errors) {
-							if (error.response.data.errors[index]) {
-								vm.errors.push(error.response.data.errors[index][0]);
-							}
-						}
-					}
-				});
-		    },
 			loadForm(id){
 				const vm = this;
 	            var fields = {};
@@ -376,17 +326,36 @@
 	                if(typeof(response.data.records != "undefined")){
 
 						vm.record = response.data.records;
-	                    fields = response.data.records.assets_asignation;
+	                    fields = response.data.records.asset_asignation_assets;
 	                    $.each(fields, function(index,campo){
 	                        vm.selected.push(campo.asset.id);
+	                    });
+	                    vm.records = vm.records.filter((asset) => {
+	                    	return (asset.asset_status_id == 10 || vm.filterAsignation(asset));
 	                    });
 	                }
 	            });
 			},
-			loadAssets(){
+			filterAsignation(asset) {
+		      const vm = this;
+		      var equal = false;
+		      var fields = vm.record.asset_asignation_assets;
+
+		      $.each(fields, function (index, campo) {
+		        if (campo.asset.id == asset.id)
+		          equal = true;
+		      });
+		      return equal;
+		    },
+			loadAssets(status = null){
 				const vm = this;
 				axios.get('/asset/registers/vue-list').then(response => {
-					vm.records = response.data.records;
+					//vm.records = response.data.records;
+					vm.records = response.data.records.filter((asset) => {
+					 	return (vm.asignationid != null)?
+					 	(asset.asset_condition_id == 1):
+					 	((asset.asset_condition_id == 1)&&(asset.asset_status_id == 10));
+					 });
 				});
 			},
 			filterRecords(){
@@ -395,10 +364,10 @@
 
 				var filters = {
 					case: (vm.record.id == '')?'1':'2',
-					type: vm.record.type_id,
-					category: vm.record.category_id,
-					subcategory: vm.record.subcategory_id,
-					specific_category: vm.record.specific_category_id
+					type: vm.record.asset_type_id,
+					category: vm.record.asset_category_id,
+					subcategory: vm.record.asset_subcategory_id,
+					specific_category: vm.record.asset_specific_category_id
 				};
 
 				axios.post(url, filters).then(response => {

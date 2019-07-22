@@ -3,7 +3,6 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -11,15 +10,14 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class AssetDisincorṕoration
- * @brief Datos de las Asignaciones de Bienes Institucionales
+ * @class AssetDisincorporation
+ * @brief Datos de las desincorporaciones de los bienes institucionales
  * 
- * Gestiona el modelo de datos para las asignaciones de Bienes Institucionales
+ * Gestiona el modelo de datos de las desincorporaciones de bienes institucionales
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AssetDisincorporation extends Model implements Auditable
 {
     use SoftDeletes;
@@ -29,6 +27,7 @@ class AssetDisincorporation extends Model implements Auditable
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
@@ -42,29 +41,41 @@ class AssetDisincorporation extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
-    protected $fillable = ['motive_id', 'date', 'observation'];
+    protected $fillable = ['code', 'asset_disincorporation_motive_id', 'date', 'observation', 'user_id'];
 
      /**
      * Método que obtiene los bienes desincorporados
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetDisincorporationAsset
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetDisincorporationAsset
      */
-    public function AssetsDisincorporation()
+    public function asset_disincorporation_assets()
     {
-        return $this->hasMany('Modules\Asset\Models\AssetDisincorporationAsset','disincorporation_id');
+        return $this->hasMany(AssetDisincorporationAsset::class);
     }
 
     /**
      * Método que obtiene el motivo de la desincorporacion del bien
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetCategory
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetDisincorporationMotive
      */
-    public function motive()
+    public function asset_disincorporation_motive()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetMotiveDisincorporation', 'motive_id');
+        return $this->belongsTo(AssetDisincorporationMotive::class);
+    }
+
+    /**
+     * Método que obtiene el usuario asociado al registro
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo User
+     */
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class);
     }
 }

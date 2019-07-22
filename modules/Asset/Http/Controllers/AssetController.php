@@ -8,27 +8,26 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
-use Modules\Asset\Models\Asset;
 
-use Modules\Asset\Models\AssetInventary;
+use Modules\Asset\Models\Asset;
 
 /**
  * @class AssetController
- * @brief Controlador de Bienes Institucionales
+ * @brief Controlador de bienes institucionales
  * 
- * Clase que gestiona los Bienes Institucionales
+ * Clase que gestiona los bienes institucionales
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AssetController extends Controller
 {
+    use ValidatesRequests;
 
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -38,25 +37,23 @@ class AssetController extends Controller
         $this->middleware('permission:asset.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:asset.delete', ['only' => 'destroy']);
     }
-    use ValidatesRequests;
 
     /**
-     * Muestra un listado de los Bienes Institucionales
+     * Muestra un listado de los bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $assets = Asset::all();
-        return view('asset::registers.list', compact('assets'));
+        return view('asset::registers.list');
     }
 
     /**
-     * Muestra el formulario para registrar un nuevo Bien Institucional
+     * Muestra el formulario para registrar un nuevo bien institucional
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\View\View 
      */
     public function create()
     {
@@ -64,102 +61,84 @@ class AssetController extends Controller
     }
 
     /**
-     * Valida y Registra un nuevo Bien Institucional
+     * Valida y registra un nuevo bien institucional
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Datos de la petición
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
         $this->validate($request, [
 
-
-            'type_id' => 'required',
-            'category_id' => 'required',
-            'subcategory_id' => 'required',
-            'specific_category_id' => 'required',
-            //'institution_id' => 'required',
-            //'proveedor_id' => 'required',
-            'purchase_id' => 'required',
-            'purchase_year' => 'required',
-            'status_id' => 'required|max:50',
-            'condition_id' => 'required|max:50',
-            'value' => 'required',
-
+            'asset_type_id' => 'required',
+            'asset_category_id' => 'required',
+            'asset_subcategory_id' => 'required',
+            'asset_specific_category_id' => 'required',
+            'asset_acquisition_type_id' => 'required',
+            'acquisition_year' => 'required|max:8',
+            'asset_status_id' => 'required',
+            'asset_condition_id' => 'required',
+            'value' => 'required|regex:/^\d+(\.\d+)?$/u',
+            'quantity' => 'required|regex:/^\d+$/u',
         ]);
         
-        if ($request->type_id == 1){
+        if ($request->asset_type_id == 1) {
             $this->validate($request,[
                 'serial' => 'required|max:50',
                 'marca'  => 'required|max:50',
                 'model' => 'required|max:50',
-
             ]);
-            
-            
         }
-        
-        $cantidad = 1;
-        if ($request->type_id == 2)
-            $cantidad = $request->quantity;
+        else if ($request->asset_type_id == 2) {
+            $this->validate($request,[
+                'asset_use_function_id' => 'required',
+                'parish_id' => 'required',
+                'address' => 'required',
+            ]);
+        }
+
+        $cantidad = $request->quantity;
         if(is_null($cantidad))
             $cantidad = 1;
-        if ($request->status_id == 10){
-            $asset_inventary = new AssetInventary;
-        }
         while ($cantidad > 0) {
-        
             $cantidad--;
             $asset = new Asset;
-            /*
-             * $asset->orden_compra = $request->orden_compra; 
-             **/
 
-            $asset->type_id = $request->type_id;
-            $asset->category_id = $request->category_id;
-            $asset->subcategory_id = $request->subcategory_id;
-            $asset->specific_category_id = $request->specific_category_id;
-            $asset->institution_id = $request->institution_id;
-            $asset->proveedor_id = $request->proveedor_id;
-            $asset->condition_id = $request->condition_id;
-            $asset->purchase_id = $request->purchase_id;
-            $asset->purchase_year = $request->purchase_year;
-            $asset->status_id = $request->status_id;
+            $asset->asset_type_id = $request->asset_type_id;
+            $asset->asset_category_id = $request->asset_category_id;
+            $asset->asset_subcategory_id = $request->asset_subcategory_id;
+            $asset->asset_specific_category_id = $request->asset_specific_category_id;
+            $asset->specifications = $request->specifications;
+            //$asset->proveedor_id = $request->proveedor_id;
+            $asset->asset_condition_id = $request->asset_condition_id;
+            $asset->asset_acquisition_type_id = $request->asset_acquisition_type_id;
+            $asset->acquisition_year = $request->acquisition_year;
+            $asset->asset_status_id = $request->asset_status_id;
             $asset->serial = $request->serial;
             $asset->marca = $request->marca;
             $asset->model = $request->model;
             $asset->value = $request->value;
-            $asset->use_id = $request->use_id;
+            $asset->asset_use_function_id = $request->asset_use_function_id;
+            $asset->parish_id = $request->parish_id;
+            $asset->address = $request->address;
 
-            if ($request->status_id == 10){
-
-
-                    if ($request->type_id == 2){
-                        $asset_inventary->exist = $cantidad;
-                    }
-                    
-                    $asset_inventary->unit_value = $asset->value;
-                    $asset_inventary->save();
-
-                $asset->inventary_id = $asset_inventary->id;
-                
-            }
 
             $asset->save();
-            $asset->serial_inventario = $asset->getCode();
+            $asset->inventory_serial = $asset->getCode();
             $asset->save();
         }
 
-        return response()->json(['result' => true],200);
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('asset.register.index')], 200);
     }
 
     /**
-     * Muestra el formulario para actualizar la información de los Bienes Institucionales
+     * Muestra el formulario para actualizar la información de los bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\Asset  $asset (Datos del Bien)
-     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Modules\Asset\Models\Asset  $asset  Datos del Bien
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -168,136 +147,157 @@ class AssetController extends Controller
     }
 
     /**
-     * Actualiza la información de los Bienes Institucionales
+     * Actualiza la información de los bienes institucionales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @param  Integer $id Identificador único del bien
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Datos de la petición
+     * @param  [Integer] $id                        Identificador único del bien
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
         $asset = Asset::find($id);
         $this->validate($request, [
-            'type_id' => 'required',
-            'category_id' => 'required',
-            'subcategory_id' => 'required',
-            'specific_category_id' => 'required',
-            //'institution_id' => 'required',
-            //'proveedor_id' => 'required',
-            'purchase_id' => 'required',
-            'purchase_year' => 'required',
-            'status_id' => 'required|max:50',
-            'condition_id' => 'required|max:50',
-            'value' => 'required',
 
+            'asset_type_id' => 'required',
+            'asset_category_id' => 'required',
+            'asset_subcategory_id' => 'required',
+            'asset_specific_category_id' => 'required',
+            'asset_acquisition_type_id' => 'required',
+            'acquisition_year' => 'required|max:8',
+            'asset_status_id' => 'required',
+            'asset_condition_id' => 'required',
+            'value' => 'required|regex:/^\d+(\.\d+)?$/u',
         ]);
-        if ($request->type_id == 1){
+        
+        if ($request->asset_type_id == 1) {
             $this->validate($request,[
                 'serial' => 'required|max:50',
                 'marca'  => 'required|max:50',
                 'model' => 'required|max:50',
-
+            ]);
+        }
+        else if ($request->type_id == 2) {
+            $this->validate($request,[
+                'asset_use_function_id' => 'required',
+                'parish_id' => 'required',
+                'address' => 'required',
             ]);
         }
 
-        /*
-         * $asset->orden_compra = $request->orden_compra; 
-        **/
-        
-        $asset->type_id = $request->type_id;
-        $asset->category_id = $request->category_id;
-        $asset->subcategory_id = $request->subcategory_id;
-        $asset->specific_category_id = $request->specific_category_id;
-        $asset->institution_id = $request->institution_id;
-        $asset->proveedor_id = $request->proveedor_id;
-        $asset->condition_id = $request->condition_id;
-        $asset->purchase_id = $request->purchase_id;
-        $asset->purchase_year = $request->purchase_year;
+        $asset->asset_type_id = $request->asset_type_id;
+        $asset->asset_category_id = $request->asset_category_id;
+        $asset->asset_subcategory_id = $request->asset_subcategory_id;
+        $asset->asset_specific_category_id = $request->asset_specific_category_id;
+        $asset->specifications = $request->specifications;
+        //$asset->proveedor_id = $request->proveedor_id;
+        $asset->asset_condition_id = $request->asset_condition_id;
+        $asset->asset_acquisition_type_id = $request->asset_acquisition_type_id;
+        $asset->acquisition_year = $request->acquisition_year;
         $asset->serial = $request->serial;
         $asset->marca = $request->marca;
         $asset->model = $request->model;
         $asset->value = $request->value;
-        $asset->use_id = $request->use_id;
-
-        // Si el bien registrado estaba en el alamacen
-        if ($asset->status_id == 10)    {
-            $asset_inventary = AssetInventary::find($asset->inventary_id);
-            
-            // Si despues de realizar cambios sigue en almacen
-            if ($request->status_id == 10)    {
-                
-                $asset_inventary->unit_value = $asset->value;
-                $asset_inventary->save();
-
-            // Si despues de realizar los cambios el bien no esta en almacen
-                
-            }else if ($request->status_id != 10)  {
-
-                if($asset_inventary->exist > 0)
-                    $asset_inventary->exist--;
-                
-                $asset_inventary->unit_value = $asset->value;
-                $asset_inventary->save();
-            }
-
+        $asset->asset_use_function_id = $request->asset_use_function_id;
+        $asset->parish_id = $request->parish_id;
+        $asset->address = $request->address;
+        $asset->asset_status_id = $request->asset_status_id;
         
-        // Si el bien registrado no estaba en el almacen antes de realizar los cambios
-        }else if ($asset->status_id != 10)   {
-
-            // Si se quiere guardar en el almacen
-            if ($request->status_id == 10)    {
-            
-                if( !is_null($asset->inventary_id) ){
-                    $asset_inventary = AssetInventary::find($asset->inventary_id);
-                    $asset_inventary->exist++;
-                }
-                else
-                    $asset_inventary = new AssetInventary;
-
-                $asset_inventary->unit_value = $asset->value;
-                $asset_inventary->save();
-                $asset->inventary_id = $asset_inventary->id;
-            }
-        }
-
-        $asset->status_id = $request->status_id;
-
         $asset->save();
-        return response()->json(['result' => true],200);
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('asset.register.index')], 200);
     }
 
     /**
-     * Elimina un Bien Institucionales
+     * Elimina un bien institucional
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Modules\Asset\Models\Asset $asset (Datos del Bien)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Modules\Asset\Models\Asset $asset   Datos del Bien
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
     public function destroy(Asset $asset)
     {
         $asset->delete();
-        return response()->json(['record' => $asset, 'message' => 'destroy'], 200);
+        return response()->json(['message' => 'destroy'], 200);
     }
 
+    /**
+     * Obtiene la información del bien institucional registrado
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Modules\Asset\Models\Asset $asset   Datos del bien institucional
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     */
     public function vueInfo($id)
     {
 
-        $asset = Asset::where('id',$id)->with('type','category','subcategory','specific','purchase','condition','status','use')->first();
+        $asset = Asset::where('id', $id)->with(['asset_type', 'asset_category', 'asset_subcategory', 'asset_specific_category', 'asset_acquisition_type', 'asset_condition', 'asset_status', 'asset_use_function', 'parish' => function($query) {
+                $query->with(['municipality' => function($query) {
+                    $query->with(['estate' => function($query) {
+                        $query->with('country')->get();
+                    }])->get();
+                }])->get();
+        }])->first();
 
-        return response()->json(['records' => $asset]);
+        return response()->json(['records' => $asset], 200);
         
     }
 
+    /**
+     * Otiene un listado de los bienes registradas
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
     public function vueList()
     {
-        return response()->json(['records' => Asset::with('condition','status')->get()], 200);
+        return response()->json(['records' => Asset::with('asset_condition', 'asset_status')->get()], 200);
     }
 
-    public function searchAsset(Request $request){
-        $assets = Asset::AssetClasification($request->case,$request->type,$request->category,$request->subcategory,$request->specific_category)->get();
+    /**
+     * Filtra por su código de clasificación los bienes registradas
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Datos de la petición
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     */
+    public function searchClasification(Request $request)
+    {
+        $assets = Asset::AssetCodeClasification($request->asset_type, $request->asset_category, $request->asset_subcategory, $request->asset_specific_category)->with('asset_condition', 'asset_status')->get();
+
         return response()->json(['records' => $assets], 200);
 
+    }
+
+    /**
+     * Filtra por su fecha de registro los bienes registradas
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Datos de la petición
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     */
+    public function searchGeneral(Request $request)
+    {
+        $assets = Asset::DateClasification($request->start_date, $request->end_date, $request->mes_id, $request->year)->with('asset_condition','asset_status')->get();
+        
+        return response()->json(['records' => $assets], 200);
+    }
+
+    /**
+     * Filtra por su ubicación en la institución los bienes registradas
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Datos de la petición
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     */
+    public function searchDependence(Request $request){
+        /*
+         *  Falta filtrar por dependencia solicitante
+         *  Validar tambien para múltiples instituciones
+         *
+         */
+        return response()->json(['records' => Asset::with('asset_condition','asset_status')->get()], 200);
     }
 
 }

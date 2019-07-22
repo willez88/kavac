@@ -1,23 +1,13 @@
 <template>
 	<v-client-table :columns="columns" :data="records" :options="table_options">
-		<div slot="code" slot-scope="props" class="text-center">
+		<div slot="asset_condition" slot-scope="props" class="text-center">
 			<span>
-				{{ props.row.serial_inventario }}
+				{{ (props.row.asset_condition)?props.row.asset_condition.name:'N/A' }}
 			</span>
 		</div>
-		<div slot="institution" slot-scope="props" class="text-center">
+		<div slot="asset_status" slot-scope="props" class="text-center">
 			<span>
-				{{ (props.row.institution)?props.row.institution.name:props.row.institution_id }}
-			</span>
-		</div>
-		<div slot="condition" slot-scope="props" class="text-center">
-			<span>
-				{{ (props.row.condition)?props.row.condition.name:'N/A' }}
-			</span>
-		</div>
-		<div slot="status" slot-scope="props" class="text-center">
-			<span>
-				{{ (props.row.status)?props.row.status.name:'N/A' }}
+				{{ (props.row.asset_status)?props.row.asset_status.name:'N/A' }}
 			</span>
 		</div>
 		<div slot="id" slot-scope="props" class="text-center">
@@ -28,13 +18,13 @@
 
 				<button @click="assignAsset(props.row.id)" 
 	    				class="btn btn-primary btn-xs btn-icon btn-action" 
-	    				title="Asignar Bien" data-toggle="tooltip" :disabled="(props.row.status_id == 10)?false:true"
+	    				title="Asignar Bien" data-toggle="tooltip" :disabled="(props.row.asset_status_id == 10)?false:true"
 	    				type="button">
 	    			<i class="fa fa-filter"></i>
 	    		</button>
 	    		<button @click="disassignAsset(props.row.id)" 
 	    				class="btn btn-danger btn-xs btn-icon btn-action" 
-	    				title="Desincorporar Bien" data-toggle="tooltip" :disabled="((props.row.status_id < 6)||(props.row.status_id > 9))?false:true"
+	    				title="Desincorporar Bien" data-toggle="tooltip" :disabled="((props.row.asset_status_id < 6)||(props.row.asset_status_id > 9))?false:true"
 	    				type="button">
 	    			<i class="fa fa-chain"></i>
 	    		</button>
@@ -60,28 +50,28 @@
 		data() {
 			return {
 				records: [],
-				columns: ['code', 'institution', 'condition','status','serial','marca','model', 'id']
+				columns: ['inventory_serial', 'asset_condition','asset_status','serial','marca','model', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
-				'code': 'Código',
-				'institution': 'Ubicación',
-				'condition': 'Condición Física',
-				'status': 'Estatus de Uso',
+				'inventory_serial': 'Código',
+				'asset_condition': 'Condición Física',
+				'asset_status': 'Estatus de Uso',
 				'serial': 'Serial',
 				'marca': 'Marca',
 				'model': 'Modelo',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['code', 'condition', 'status', 'serial', 'marca', 'model'];
-			this.table_options.filterable = ['code', 'condition', 'status', 'serial', 'marca', 'model'];
+			this.table_options.sortable = ['inventory_serial', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'];
+			this.table_options.filterable = ['inventory_serial', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'];
 			this.table_options.orderBy = { 'column': 'id'};
 		},
 		mounted () {
 			this.initRecords(this.route_list, '');
 		},
 		methods: {
+			
 			/**
 			 * Inicializa los datos del formulario
 			 *
@@ -90,10 +80,26 @@
 			reset() {
 				
 			},
-			assignAsset(id) {
+
+			/**
+			 * Redirige al formulario de asignación de bienes institucionales
+			 *
+			 * @param [Integer] $id Identificador único del bien
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
+			 */
+			assignAsset(id)
+			{
 				location.href = '/asset/asignations/asset/' + id;
 			},
-			disassignAsset(id) {
+
+			/**
+			 * Redirige al formulario de desincorporación de bienes institucionales
+			 *
+			 * @param [Integer] $id Identificador único del bien
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
+			 */
+			disassignAsset(id)
+			{
 				location.href = '/asset/disincorporations/asset/' + id;
 			},
 

@@ -8,14 +8,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class AssetAsignationAsset
- * @brief Datos de los Bienes que han sido asignados
+ * @brief Datos del listado de bienes registrados en una asignación
  * 
- * Gestiona el modelo de datos de los Bienes Asignados
+ * Gestiona el modelo de datos de los bienes registados en una asignación
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AssetAsignationAsset extends Model implements Auditable
 {
     use AuditableTrait;
@@ -24,27 +23,27 @@ class AssetAsignationAsset extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['asset_id','asignation_id'];
+    protected $fillable = ['asset_id', 'asset_asignation_id'];
 
     /**
-     * Método que obtiene la asignación a la que pertenecen el bien selecionado
+     * Método que obtiene la asignación asociada al registro
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo AssetAsignation
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetAsignation
      */
-    public function asignation()
+    public function asset_asignation()
     {
-        return $this->belongsTo('Modules\Asset\Models\AssetAsignation', 'asignation_id');
+        return $this->belongsTo(AssetAsignation::class);
     }
 
     /**
-     * Método que obtiene el registro de los bienes selecionados para la asignación
+     * Método que obtiene el bien asociado a la asignación
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Asset
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Asset
      */
     public function asset()
     {
-        return $this->belongsTo('Modules\Asset\Models\Asset', 'asset_id');
+        return $this->belongsTo(Asset::class);
     }
 }

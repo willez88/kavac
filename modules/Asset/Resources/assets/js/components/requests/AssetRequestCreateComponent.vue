@@ -21,20 +21,42 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-6" v-if="this.record.id">
+				<div class="col-md-4" v-if="record.id">
 				    <div class="form-group">
 				        <label>Fecha de Solicitud</label>
 				        <div class="input-group input-sm">
                         	<span class="input-group-addon">
                             	<i class="now-ui-icons ui-1_calendar-60"></i>
                         	</span>
-                        	<input type="date" class="form-control input-sm" data-toogle="tolltip" 
-                        			title="Fecha de la solicitud" v-model="record.created_at" disabled:true>
+                        	<input  type="text" class="form-control input-sm"
+                        			data-toogle="tooltip"
+                        			title="Fecha de la solicitud" v-model="record.created_at"
+                        			disabled="true">
                     	</div>
 				    </div>
 				</div>
-			
-				<div class="col-md-6">
+				<div class="col-md-4">
+			        <div class="form-group is-required">
+			            <label>Fecha de Entrega</label>
+			            <div class="input-group input-sm">
+			                <span class="input-group-addon">
+								<i class="now-ui-icons ui-1_calendar-60"></i>
+			                </span>
+			                <input  type="date" class="form-control input-sm" 
+			                		data-toogle="tooltip" 
+                        			title="Indique la fecha de entrega de los equipos"
+                        			v-model="record.delivery_date">
+			            </div>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+					<div class="form-group is-required">
+						<label>Tipo de Solicitud</label>
+						<select2 :options="types" 
+								 v-model="record.type_id"></select2>
+					</div>
+				</div>
+				<div class="col-md-4">
 				    <div class="form-group is-required">
 				        <label>Motivo de la solicitud</label>
 				        <textarea  data-toggle="tooltip" 
@@ -43,71 +65,94 @@
 					   </textarea>
 				    </div>
 				</div>
-
-				<div class="col-md-6">
-					<div class="form-group is-required">
-						<label>Tipo de Solicitud</label>
-						<select2 :options="types" 
-								 v-model="record.type_id"></select2>
+			</div>
+			<div v-if="record.type_id > 1">
+				<div class="row"style="margin: 10px 0">
+					<div class="col-md-12">
+						<b>Ubicación</b>
 					</div>
 				</div>
-			</div>
-			<div class="row" v-show="record.type_id > 1">
-				<div class="col-md-6">
-			        <div class="form-group is-required">
-			            <label>Fecha de Entrega</label>
-			            <div class="input-group input-sm">
-			                <span class="input-group-addon">
-								<i class="now-ui-icons ui-1_calendar-60"></i>
-			                </span>
-			                <input type="date" class="form-control input-sm" data-toogle="tolltip" 
-                        			title="Indique la fecha de entrega" v-model="record.delivery_date">
-			            </div>
-			            
-			        </div>
-			    </div>
-
-			    <div class="col-md-6">
-			        <div class="form-group is-required">
-			            <label>Ubicación</label>
-			            <input type="text" class="form-control input-sm" data-toogle="tolltip" 
-                        			title="Indique una descripción de la ubicación del bien" v-model="record.ubication">
-			        </div>
-			    </div>
-			</div>
-			<div class="row" v-show="record.type_id == 3">
-				<div class="col-md-12">
-				    <b>Información de Contacto</b>    
-				</div>
-				    
-				<div class="col-md-4">
-					<div class="form-group is-required">
-				        <label>Nombre del Agente Externo</label>
-				        <input type="text" class="form-control input-sm" data-toogle="tolltip" 
-                        			title="Indique el nombre del agente externo responsable del bien" v-model="record.agent_name">
-				    </div>
-				</div>
-				
-				<div class="col-md-4">
-				    <div class="form-group is-required">
-				    	<label>Teléfono del Agente Externo</label>
-				    	<input type="text" class="form-control input-sm" data-toogle="tolltip" 
-                        			title="Indique el teléfono del agente externo responsable del bien" v-model="record.agent_telf">
-				    </div>
-				</div>
-				
-				<div class="col-md-4">
-					<div class="form-group is-required">
-				    	<label>Correo del Agente Externo</label>
-				    	<input type="text" class="form-control input-sm" data-toogle="tolltip" 
-                        			title="Indique el correo eléctronico del agente externo responsable del bien" v-model="record.agent_email">
-				    </div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group is-required">
+							<label>Pais:</label>
+							<select2 :options="countries" id="country_select"
+									 @input="getEstates()"
+									 v-model="record.country_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group is-required">
+							<label>Estado:</label>
+							<select2 :options="estates" id="estate_select"
+									@input="getMunicipalities()"
+									:disabled="(!this.record.country_id != '')"
+									v-model="record.estate_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group is-required">
+							<label>Municipio:</label>
+							<select2 :options="municipalities" id="municipality_select"
+									@input="getParishes()"
+									:disabled="(!this.record.estate_id != '')"
+									v-model="record.municipality_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group is-required">
+							<label>Parroquia:</label>
+							<select2 :options="parishes" id="parish_select"
+									 :disabled="(!this.record.municipality_id != '')"
+									 v-model="record.parish_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group is-required">
+							<label>Dirección</label>
+							<textarea  data-toggle="tooltip" 
+									   title="Indique dirección física del bien" 
+									   class="form-control" v-model="record.address">
+						   </textarea>
+						</div>
+					</div>
+					
 				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<b>Seleccione los Bienes a ingresar en la solicitud</b>
+			<div v-show="record.type_id == 3">
+				<div class="row"style="margin: 10px 0">
+					<div class="col-md-12">
+						<b>Información de Contacto</b>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group is-required">
+					        <label>Nombre del Agente Externo</label>
+					        <input  type="text" class="form-control input-sm"
+					        		data-toogle="tooltip" 
+	                        		title="Indique el nombre del agente externo responsable del bien" v-model="record.agent_name">
+					    </div>
+					</div>
+					
+					<div class="col-md-4">
+					    <div class="form-group is-required">
+					    	<label>Teléfono del Agente Externo</label>
+					    	<input  type="text" class="form-control input-sm"
+					    			data-toogle="tooltip" 
+	                        		title="Indique el teléfono del agente externo responsable del bien" v-model="record.agent_telf">
+					    </div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="form-group is-required">
+					    	<label>Correo del Agente Externo</label>
+					    	<input  type="text" class="form-control input-sm"
+					    			data-toogle="tooltip" 
+	                        		title="Indique el correo eléctronico del agente externo responsable del bien"
+	                        		v-model="record.agent_email">
+					    </div>
+					</div>
 				</div>
 			</div>
 
@@ -124,15 +169,11 @@
 						<input type="checkbox" class="cursor-pointer" :value="props.row.id" :id="'checkbox_'+props.row.id" v-model="selected">
 					</label>
 				</div>
-				<div slot="institution" slot-scope="props" class="text-center">
-					<span>{{ (props.row.institution)? props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}</span>
-					
-				</div>
 				<div slot="condition" slot-scope="props" class="text-center">
-					<span>{{ (props.row.condition)? props.row.condition.name:props.row.condition_id }}</span>
+					<span>{{ (props.row.asset_condition)? props.row.asset_condition.name:props.row.asset_condition_id }}</span>
 				</div>
 				<div slot="status" slot-scope="props" class="text-center">
-					<span>{{ (props.row.status)? props.row.status.name:props.row.status_id }}</span>
+					<span>{{ (props.row.asset_status)? props.row.asset_status.name:props.row.asset_status_id }}</span>
 				</div>
 				
 			</v-client-table>
@@ -151,7 +192,7 @@
         			<i class="fa fa-ban"></i>
         	</button>
 
-        	<button type="button"  @click="createRecord('asset/requests')"
+        	<button type="button"  @click="createForm('asset/requests')"
         			class="btn btn-success btn-icon btn-round btn-modal-save"
         			title="Guardar registro">
         		<i class="fa fa-save"></i>
@@ -161,11 +202,9 @@
 </template>
 
 <style>
-	
 	.selected-row {
 		background-color: #d1d1d1 !important;
 	}
-	
 </style>
 
 <script>
@@ -178,14 +217,19 @@
 					motive:'',
 					type_id: '',
 					delivery_date: '',
-					ubication: '',
 					agent_name: '',
 					agent_telf: '',
 					agent_email: '',
 
+					country_id: '',
+					estate_id: '',
+					municipality_id: '',
+					parish_id: '',
+					address: '',
+
 				},
 				records: [],
-				columns: ['check', 'serial_inventario', 'institution', 'condition', 'status', 'serial', 'marca', 'model'],
+				columns: ['check', 'inventory_serial', 'condition', 'status', 'serial', 'marca', 'model'],
 				errors: [],
 
 				types: [{"id":"","text":"Seleccione..."},
@@ -196,28 +240,33 @@
 				selected: [],
 				selectAll: false,
 
+				countries: [],
+				estates: [],
+				municipalities: [],
+				parishes: [],
+
 				table_options: {
 					rowClassCallback(row) {
 						var checkbox = document.getElementById('checkbox_' + row.id);
 						return ((checkbox)&&(checkbox.checked))? 'selected-row cursor-pointer' : 'cursor-pointer';
 					},
 					headings: {
-						'serial_inventario': 'Código',
-						'institution': 'Ubicación',
+						'inventory_serial': 'Código',
 						'condition': 'Condición Física',
 						'status': 'Estatus de Uso',
 						'serial': 'Serial',
 						'marca': 'Marca',
 						'model': 'Modelo',
 					},
-					sortable: ['serial_inventario', 'institution', 'condition', 'status', 'serial', 'marca', 'model'],
-					filterable: ['serial_inventario', 'institution', 'condition', 'status', 'serial', 'marca', 'model'],
+					sortable: ['inventory_serial', 'condition', 'status', 'serial', 'marca', 'model'],
+					filterable: ['inventory_serial', 'condition', 'status', 'serial', 'marca', 'model'],
 					orderBy: { 'column': 'id'}
 				}
 			}
 		},
 		created() {
 			this.loadAssets();
+			this.getCountries();
 		},
 		mounted() {
 			if(this.requestid){
@@ -256,10 +305,15 @@
 					motive:'',
 					type_id: '',
 					delivery_date: '',
-					ubication: '',
 					agent_name: '',
 					agent_telf: '',
 					agent_email: '',
+
+					country_id: '',
+					estate_id: '',
+					municipality_id: '',
+					parish_id: '',
+					address: '',
 				};
 
 				this.selected = [];
@@ -279,105 +333,51 @@
 					}
 				});
 			},
-			createRecord(url){
+			createForm(url) {
 				const vm = this
 				vm.errors = [];
 				if(!vm.selected.length > 0){
                 	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
 					return false;
 				};
-				
-				if (vm.record.id) {
-					vm.updateRecord(url);
-				}
-				else{
-					var fields = {
-						id: vm.record.id,
-						created_at: vm.record.created_at,
-						motive: vm.record.motive,
-						type_id: vm.record.type_id,
-						delivery_date: vm.record.delivery_date,
-						ubication: vm.record.ubication,
-						agent_name: vm.record.agent_name,
-						agent_telf: vm.record.agent_telf,
-						agent_email: vm.record.agent_email,
-						assets: vm.selected,
-					};
-
-					axios.post('/' + url, fields).then(response => {
-						if (response.data.result) {
-	                        vm.showMessage('store');
-	                        setTimeout(function() {
-	                            window.location.href = '/asset/requests';
-	                        }, 2000);
-	                    }
-					}).catch(error => {
-						this.errors = [];
-
-						if (typeof(error.response) !="undefined") {
-							for (var index in error.response.data.errors) {
-								if (error.response.data.errors[index]) {
-									this.errors.push(error.response.data.errors[index][0]);
-								}
-							}
-						}
-					});
-				}
+				vm.record.assets = vm.selected;
+				vm.createRecord(url);
 			},
-			updateRecord(url) {
-				const vm = this;
-				
-				var fields = {
-					id: vm.record.id,
-					created_at: vm.record.created_at,
-					motive: vm.record.motive,
-					type_id: vm.record.type_id,
-					delivery_date: vm.record.delivery_date,
-					ubication: vm.record.ubication,
-					agent_name: vm.record.agent_name,
-					agent_telf: vm.record.agent_telf,
-					agent_email: vm.record.agent_email,
-					assets: vm.selected,
-				};
-
-				axios.patch('/' + url + '/' + vm.record.id, fields).then(response => {
-					if (response.data.result) {
-                        vm.showMessage('update');
-                        setTimeout(function() {
-                            window.location.href = '/asset/requests';
-                        }, 2000);
-                    }
-				}).catch(error => {
-					vm.errors = [];
-
-					if (typeof(error.response) !="undefined") {
-						for (var index in error.response.data.errors) {
-							if (error.response.data.errors[index]) {
-								vm.errors.push(error.response.data.errors[index][0]);
-							}
-						}
-					}
-				});
-		    },
 		    loadForm(id){
 				const vm = this;
 	            var fields = {};
 	            
 	            axios.get('/asset/requests/vue-info/'+id).then(response => {
 	                if(typeof(response.data.records != "undefined")){
-
 						vm.record = response.data.records;
-	                    fields = response.data.records.assets;
+						vm.record.created_at = vm.format_date(vm.record.created_at);
+	                    fields = response.data.records.asset_request_assets;
 	                    $.each(fields, function(index,campo){
 	                        vm.selected.push(campo.asset.id);
+	                    });
+	                    vm.records = vm.records.filter((asset) => {
+	                    	return (asset.asset_status_id == 10 || vm.filterRequest(asset));
 	                    });
 	                }
 	            });
 			},
+			filterRequest(asset) {
+		      const vm = this;
+		      var equal = false;
+		      var fields = vm.record.asset_request_assets;
+
+		      $.each(fields, function (index, campo) {
+		        if (campo.asset.id == asset.id)
+		          equal = true;
+		      });
+		      return equal;
+		    },
 			loadAssets(){
 				const vm = this;
 				axios.get('/asset/registers/vue-list').then(response => {
-					vm.records = response.data.records;
+					vm.records = response.data.records.filter(function (asset) {
+						return (vm.requestid != null)?true:asset.asset_status_id == 10;
+					});
 				});
 			},
 		}

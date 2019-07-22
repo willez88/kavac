@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<a class="btn btn-default btn-xs btn-icon btn-action" 
-		   href="#" title="Solicitud de Prorroga" data-toggle="tooltip" 
-		   :disabled="(request.type == 1)?true:false"
-		   @click="initRequest('add_prorroga',$event)">
+		   href="#" title="Solicitud de Prorroga" data-toggle="tooltip"
+		   :disabled="(state == 'Aprobado')?false:true"
+		   @click="(state == 'Aprobado')?addRecord('add_prorroga','request/request-extensions' ,$event):viewMessage()">
 			<i class="fa fa-calendar-plus-o"></i>
 		</a>
 
@@ -48,7 +48,7 @@
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('asset/requests/request-prorroga')"
+	                	<button type="button" @click="createRecord('asset/requests/request-extensions')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -67,14 +67,15 @@
 				record: {
 					id: '',                    
 					date: '',
-					request_id: ''
+					asset_request_id: ''
 				},
 				records: [],
 				errors: [],
 			}
 		},
 		props: {
-			request: Object
+			requestid: Number,
+			state: String,
 		},
 		methods: {
 			/**
@@ -86,53 +87,50 @@
                 this.record = {
                     id: '',                    
 					date: '',
-					request_id: ''
+					asset_request_id: ''
                 };
             },
-            fillRequest(){
-            	this.record.date = this.request.delivery_date;
-            	this.record.request_id = this.request.id;
-            	$(".modal-body #delivery_date").val( this.record.date );
-            },
-			/**
+            /**
 			 * Inicializa los registros base del formulario
+			 *
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			initRequest(modal_id,event) {
-				event.preventDefault();
-				this.reset();
+            initRecords(url,modal_id){
+				const vm = this;
+				vm.errors = [];
+            	var fields = {};
+            	var url = 'requests/vue-info/' + this.requestid;
+            	axios.get(url).then(response => {
+					if (typeof(response.data.records) !== "undefined") {
+						fields = response.data.records;
 
-				this.fillRequest();
-				if ($("#" + modal_id).length) {
-					$('#'+modal_id).modal('show');
-				}
-
-			},
-			createRequest(url) {
-				
-				var fields = {};
-				for (var index in this.record) {
-					fields[index] = this.record[index];
-				}
-				
-				axios.post(url, fields).then(response => {
-					this.reset();
-					this.readRecords(url);
-					this.showMessage('store');
-					setTimeout(function() {
-                        window.location.href = '/asset/requests';
-                    }, 2000);
+						vm.record = {
+							id: '',
+							date: fields.delivery_date,
+							asset_request_id: fields.id
+						};
+					}
+					if ($("#" + modal_id).length) {
+						$("#" + modal_id).modal('show');
+					}
 				}).catch(error => {
-					this.errors = [];
-
-						if (typeof(error.response) !="undefined") {
-						for (var index in error.response.data.errors) {
-							if (error.response.data.errors[index]) {
-								this.errors.push(error.response.data.errors[index][0]);
-							}
+					if (typeof(error.response) !== "undefined") {
+						if (error.response.status == 403) {
+							vm.showMessage(
+								'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+							);
+						}
+						else {
+							vm.logs('resources/js/all.js', 343, error, 'initRecords');
 						}
 					}
 				});
-			}
+            },
+            viewMessage() {
+            	const vm = this;
+            	vm.showMessage('custom', 'Alerta', 'danger', 'screen-error', 'La solicitud debe ser aprobada antes de realizar esta operación');
+            	return false;
+            },
 		},
 	}
 </script>

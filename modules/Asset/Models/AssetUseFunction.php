@@ -8,16 +8,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class AssetUse
+ * @class AssetUseFunction
  * @brief Datos de las Funciones de uso
  * 
  * Gestiona el modelo de datos para las funciones de uso de los bienes
  * 
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
-class AssetUse extends Model implements Auditable
+class AssetUseFunction extends Model implements Auditable
 {
     use AuditableTrait;
     use ModelsTrait;
@@ -30,14 +29,13 @@ class AssetUse extends Model implements Auditable
     protected $fillable = ['name'];
 
     /**
-     * Método que obtiene los bienes de una condicion fisica
+     * Método que obtiene los bienes asociados a una función de uso
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Asset
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo Asset
      */
     public function assets()
     {
-        return $this->hasMany('Modules\Asset\Models\Asset');
+        return $this->hasMany(Asset::class);
     }
 }
-
