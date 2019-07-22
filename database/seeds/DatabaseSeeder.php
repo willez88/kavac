@@ -50,5 +50,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DocumentStatusTableSeeder::class);
         /** Tipos de moneda por defecto */
         $this->call(CurrenciesTableSeeder::class);
+        /** Unidades de medida */
+        $this->call(MeasurementUnitsTableSeeder::class);
     }
 }

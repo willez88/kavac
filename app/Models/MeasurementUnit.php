@@ -7,14 +7,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
-use App\Traits\ModelsTrait;
 
-class MeasurementUnit extends Model
+class MeasurementUnit extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    use ModelsTrait;
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
