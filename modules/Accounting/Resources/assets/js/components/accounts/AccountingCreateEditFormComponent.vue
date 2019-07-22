@@ -16,8 +16,8 @@
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label'>Cuenta</label>
-						<select2 :options="records" v-model="RecordBase"></select2>
+						<label class='control-label'>Cuenta pariente</label>
+						<select2 :options="records_select" v-model="record"></select2>
 					</div>
 				</div>
 				<div class='col-md-6'>
@@ -112,10 +112,8 @@
 								<div class='col-12'>
 									<input id="active"
 										 data-on-label="SI" data-off-label="NO" 
-										 checked="checked" 
 										 name="active" 
 										 type="checkbox" 
-										 value="1" 
 										 class="form-control bootstrap-switch"
 										 v-model="data_account.active">
 								</div>
@@ -132,23 +130,9 @@
 					type="reset">
 					<i class="fa fa-eraser"></i>
 			</button>
-
-			<a :href="urlPrevious" class="btn btn-warning btn-icon"
-					data-toggle="tooltip"
-					title="Cancelar y regresar">
-					<i class="fa fa-ban"></i>
-			</a>
-			<!-- se muestra en caso de crear -->
-			<button v-if="showButton == 'create'" class="btn btn-success btn-icon"
+			<button class="btn btn-success btn-icon"
 					data-toggle="tooltip"
 					title="Guardar registro"
-					id="save">
-					<i class="fa fa-save"></i>
-			</button>
-			<!-- se muestra en caso de actualizar -->
-			<button v-else class="btn btn-success btn-icon"
-					data-toggle="tooltip"
-					title="Actualizar registro"
 					id="save">
 					<i class="fa fa-save"></i>
 			</button>
@@ -159,13 +143,14 @@
 
 <script>
 	export default {
-		props:['records','account'],
+		props:['records'],
 		data(){
 			return{
 				errors:[],
 				AccOptions:[],
-				RecordBase:'',
+				record:'',
 				data_account:{
+					id:'',
 					group:'',
 					subgroup:'',
 					item:'',
@@ -173,19 +158,62 @@
 					specific:'',
 					subspecific:'',
 					denomination:'',
-					active:true,
+					active:false,
 				},
 				urlPrevious:'http://'+window.location.host+'/accounting/accounts',
-				showButton:'create', // puede tomar valores ['create' o 'update']
+				operation:'create', // puede tomar valores ['create' o 'update']
 			}
 		},
-		mounted(){
-			if (this.account != null) {
-				this.data_account = this.account;
-				this.showButton = 'update';
-			}
+		created(){
+			this.records_select = this.records;
+			// this.records_select.unshift({id:'', text:'Seleccione...'});
+
+			EventBus.$on('reload:list-accounts',(data)=>{
+				this.reset();
+				this.records_select = data;
+			});
+
+			EventBus.$on('load:data-account-form',(data)=>{
+
+				var dt = data.code.split('.');
+				this.data_account={
+					id:data.id,
+					group:dt[0],
+					subgroup:dt[1],
+					item:dt[2],
+					generic:dt[3],
+					specific:dt[4],
+					subspecific:dt[5],
+					denomination:data.denomination,
+					active:data.active,
+				};
+				this.operation = 'update';
+			});
 		},
 		methods:{
+
+			/**
+			* Limpia los valores de las variables del formulario
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
+			reset:function(){
+				this.records_select = [];
+
+				this.data_account={
+					id:'',
+					group:'',
+					subgroup:'',
+					item:'',
+					generic:'',
+					specific:'',
+					subspecific:'',
+					denomination:'',
+					active:false,
+				};
+
+				this.operation = 'create';
+			},
 			/**
 			* Valida que los campos del código sean validos 
 			*
@@ -221,9 +249,18 @@
 
 				var url = '/accounting/accounts/';
 				this.data_account.active = $('#active').prop('checked');
-				if (this.showButton == 'create') {
+				if (this.operation == 'create') {
 					axios.post(url, this.data_account).then(response=>{
-						window.location.href = this.urlPrevious;
+
+						/** Se emite un evento para actualizar el listado de cuentas en el select */
+						this.records_select = [];
+						this.records_select = response.data.records;
+
+						/** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
+						EventBus.$emit('reload:list-accounts',response.data.records);
+
+						const vm = this;
+						vm.showMessage('store');
 					}).catch(error=>{
 						this.errors = [];
 						if (typeof(error.response) !="undefined") {
@@ -235,8 +272,17 @@
 						}
 					});
 				} else {
-					axios.put(url+this.account.id, this.data_account).then(response=>{
-						window.location.href = this.urlPrevious;
+					axios.put(url+this.data_account.id, this.data_account).then(response=>{
+
+						/** Se emite un evento para actualizar el listado de cuentas en el select */
+						this.records_select = [];
+						this.records_select = response.data.records;
+
+						/** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
+						EventBus.$emit('reload:list-accounts',response.data.records);
+
+						const vm = this;
+						vm.showMessage('update');
 					}).catch(error=>{
 						this.errors = [];
 						if (typeof(error.response) != "undefined") {
@@ -256,24 +302,26 @@
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
-			RecordBase:function(res) {
-				axios.get('/accounting/get-children-account/' + res).then(response => {
-						var account = response.data.account;
-						/** Selecciona en pantalla la nueva cuentas */
-						this.data_account = {
-							group:account.group,
-							subgroup:account.subgroup,
-							item:account.item,
-							generic:account.generic,
-							specific:account.specific,
-							subspecific:account.subspecific,
-							denomination:account.denomination,
-							active:account.active
-						};
-						$("input[name=active]").bootstrapSwitch("state", this.data_account.active);
-				});
+			record:function(res) {
+				if (res != '') {
+					axios.get('/accounting/get-children-account/' + res).then(response => {
+							var account = response.data.account;
+							/** Selecciona en pantalla la nueva cuentas */
+							this.data_account = {
+								group:account.group,
+								subgroup:account.subgroup,
+								item:account.item,
+								generic:account.generic,
+								specific:account.specific,
+								subspecific:account.subspecific,
+								denomination:account.denomination,
+								active:account.active
+							};
+							$("input[name=active]").bootstrapSwitch("state", this.data_account.active);
+					});
+				}
 			}
 		}
 
-	}
+	};
 </script>

@@ -1,12 +1,12 @@
 <template>
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de entidades bancarias" 
-		   data-toggle="tooltip" @click="addRecord('add_categories', '/accounting/settings/categories', $event)">
+		   href="#" title="Registros de categorias de origen de asientos contables" 
+		   data-toggle="tooltip" @click="addRecord('CRUD_categories', '/accounting/settings/categories', $event)">
 			<i class="fa fa-tags ico-3x"></i>
 			<span>Categorias de origen</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_categories">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="CRUD_categories">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">

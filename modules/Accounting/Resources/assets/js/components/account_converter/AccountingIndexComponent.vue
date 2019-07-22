@@ -13,26 +13,34 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-3"></div>
+				<div class="col-2"></div>
 				<div class="col-3">
-					<label for="" class="control-label">Por Presupuestos
+					<label for="sel_budget_acc" class="control-label">Por Presupuestos
+					</label>
 						<input type="radio" 
 								name="sel_account_type"
 								id="sel_budget_acc"
 								data-on-label="SI" data-off-label="NO" 
 								class="form-control bootstrap-switch sel_pry_acc">
-					</label>
 				</div>
 				<div class="col-3">
-					<label for="" class="control-label">Por Patrimonial
+					<label for="sel_account_type" class="control-label">Por Patrimonial
+					</label>
 						<input type="radio"
 								name="sel_account_type" 
 								id="sel_accounting_acc"
+								checked="true" 
 								data-on-label="SI" data-off-label="NO" 
 								class="form-control bootstrap-switch sel_pry_acc">
-					</label>
 				</div>
-				<div class="col-3"></div>
+				<div class="col-3">
+					<label for="" class="control-label">Seleccionar todos</label>
+					<input type="checkbox"
+								name="sel_account_type" 
+								id="sel_all_acc"
+								data-on-label="SI" data-off-label="NO" 
+								class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+				</div>
 				<br>
 					<div class="col-4"></div>
 
@@ -53,11 +61,11 @@
 
 					<div class="col-5">
 						<span>desde</span>
-						<select2 :disabled="!searchActive" :options="accountOptions[0]" v-model="accountSelect.init_id"></select2>
+						<select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id"></select2>
 					</div>
 					<div class="col-5">
 						<span>hasta</span>
-						<select2 :disabled="!searchActive" :options="accountOptions[1]" v-model="accountSelect.end_id"></select2>
+						<select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id"></select2>
 					</div>
 					<div class="col-2 text-center">
 						<button class="btn btn-info btn-xs"
@@ -93,15 +101,6 @@
 						<div slot="AccountingAccounts" slot-scope="props" class="text-center">
 							{{ props.row.accounting_account.denomination }}
 						</div>
-
-						<!-- <div slot="status" slot-scope="props" class="text-center">
-							<div v-if="props.row.active">
-								<span class="badge badge-success"><strong>Activa</strong></span>
-							</div>
-							<div v-else>
-								<span class="badge badge-warning"><strong>Inactiva</strong></span>
-							</div>
-						</div> -->
 						<div slot="id" slot-scope="props" class="text-center">
 							<button class="btn btn-warning btn-xs btn-icon btn-action"
 									title="Modificar registro"
@@ -124,13 +123,12 @@
 </template>
 <script>
 	export default{
-		props:['budget_accounts','accounting_accounts'],
 		data(){
 			return{
 				errors:[],
 				records:[],
-				budgetAccounts:[],
-				accountingAccounts:[],
+				budgetAccounts:null,
+				accountingAccounts:null,
 				// columns: ['codeBudget', 'BudgetAccounts','codeAccounting', 'AccountingAccounts', 'status','id'],
 				columns: ['codeBudget', 'BudgetAccounts','codeAccounting', 'AccountingAccounts','id'],
 				accountOptions:[[],[]],
@@ -155,36 +153,95 @@
 			this.table_options.sortable = ['codeBudget', 'BudgetAccounts',
 											'codeAccounting', 'AccountingAccounts'];
 			this.table_options.filterable = ['BudgetAccounts', 'AccountingAccounts'];
+
+			/** Se realiza la primera busqueda en base a cuentas patrimoniales para los selects */
+			this.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
 		},
 		mounted(){
-			this.budgetAccounts = this.budget_accounts;
-			this.accountingAccounts = this.accounting_accounts;
 			/** 
 			 * Evento para determinar los datos a requerir segun la busqueda seleccionada
 			 */
 			const vm = this;
 			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
+				console.log(e.target.id)
 				if (e.target.id === "sel_budget_acc") {
-					// se carga la información de las cuentas presupuestales en los selects
-					vm.accountOptions = [[],[]];
-					vm.accountOptions[0] = vm.budget_accounts;
-					vm.accountOptions[1] = vm.budget_accounts;
-					vm.searchBudgetAccount = true;
-					vm.accountSelect.type = 'budget';
-					vm.searchActive = true;
+					vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);
 				}
 				else if (e.target.id === "sel_accounting_acc") {
-					// se carga la información de las cuentas patrimoniales en los selects
-					vm.accountOptions = [[],[]];
-					vm.accountOptions[0] = vm.accounting_accounts;
-					vm.accountOptions[1] = vm.accounting_accounts;
-					vm.searchBudgetAccount = false;
-					vm.accountSelect.type = 'accounting';
-					vm.searchActive = true;
+					vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
+				}else if(e.target.id === "sel_all_acc"){
+					if (vm.accountSelect.type == 'budget') {
+						vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);		
+					}else{
+						vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
+					}
+
+					if (!$('#sel_all_acc').prop('checked')) {
+						vm.accountSelect.init_id = '';
+						vm.accountSelect.end_id = '';
+					}
 				}
 			});
 		},
 		methods:{
+
+			/**
+			* Asigna los valores a las variables de los selects
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
+			setValues:function(records, type_select, type_search){
+
+				this.accountOptions = [[],[]];
+				this.accountOptions[0] = records;
+				this.accountOptions[1] = records;
+
+				this.searchBudgetAccount = type_search;
+				this.accountSelect.type = type_select;
+				this.searchActive = true;
+
+				if (type_select == 'accounting') {
+					this.accountingAccounts = records;
+				}
+				if (type_select == 'budget') {
+					this.budgetAccounts = records;
+				}
+				this.accountSelect.init_id = records[1].id;
+				this.accountSelect.end_id = records[records.length-1].id;
+
+			},
+
+			/**
+			* varifica y realiza la consulta de las cuentas de ser necesario
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
+			getAllRecords_selects_vuejs:function(name_func, type_select, type_search){
+
+				/** Array que almacenara los registros de las cuentas para los selects */
+				var records = null;
+
+				/** Boolean que determina si es necesario realizar la consulta de los registros */
+				var query = true;
+
+				if (type_select == 'accounting' && this.accountingAccounts != null) {
+					records = this.accountingAccounts;
+					query = false;
+				}
+				else if (type_select == 'budget' && this.budgetAccounts != null) {
+					records = this.budgetAccounts;
+					query = false;
+				}
+
+				if (query) {
+					axios.post('/accounting/converter/'+name_func).then(response=>{
+						this.setValues(response.data.records, type_select, type_search);
+					});
+				}else{
+					this.setValues(records, type_select, type_search);
+				}
+			},
+
 			/**
 			* Obtiene los registros de las cuentas que tienen conversión activa 
 			*
@@ -208,6 +265,8 @@
 						}
 						this.accountSelect.init_id = '';
 						this.accountSelect.end_id = '';
+
+						this.errors = [];
 					});
 				}else{
 					this.errors = [];

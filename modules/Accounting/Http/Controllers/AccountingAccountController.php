@@ -31,8 +31,8 @@ class AccountingAccountController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:accounting.account.list', ['only' => 'index']);
-        $this->middleware('permission:accounting.account.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:accounting.account.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:accounting.account.create', ['only' => ['store']]);
+        $this->middleware('permission:accounting.account.edit', ['only' => ['update']]);
         $this->middleware('permission:accounting.account.delete', ['only' => 'destroy']);
     }
     
@@ -44,44 +44,8 @@ class AccountingAccountController extends Controller
      */
     public function index()
     {
-        /** @var array arreglo que almacenara la lista de cuentas patrimoniales*/
-        $accounts_list = [];
-        /**
-         * se realiza la busqueda de manera ordenada en base al codigo
-         */
-        foreach (AccountingAccount::orderBy('group','ASC')
-                                    ->orderBy('subgroup','ASC')
-                                    ->orderBy('item','ASC')
-                                    ->orderBy('generic','ASC')
-                                    ->orderBy('specific','ASC')
-                                    ->orderBy('subspecific','ASC')
-                                    ->get() as $AccountingAccount) {
-          /** @var array arreglo con datos de las cuentas patrimoniales*/
-            array_push($accounts_list, [
-                'id' => $AccountingAccount->id,
-                'code' =>   $AccountingAccount->getCode(),
-                'denomination' => $AccountingAccount->denomination,
-                'active'=> $AccountingAccount->active
-            ]);
-        }
-        /**
-         * se convierte array a JSON
-         */
-        $accounts_list = json_encode($accounts_list);
-        return view('accounting::accounts.index',
-               compact('accounts_list'));
-    }
-
-    /**
-     * Muestra un formulario para la creación de una cuenta pratrimoniales
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return Response
-     */
-    public function create()
-    {
-        $records = $this->getDataAccountingAccount();
-        return view('accounting::accounts.create-edit-form', compact('records'));
+        $accounts_list = $this->getAccounts();
+        return response()->json(['records'=>$accounts_list],200);
     }
 
     /**
@@ -135,37 +99,10 @@ class AccountingAccountController extends Controller
                 'denomination' => $request->denomination,
                 'active' => $request->active,
             ]);
-            $request->session()->flash('message', ['type' => 'store']);
+            // $request->session()->flash('message', ['type' => 'store']);
         }
         
-        return response()->json(['message'=>'Success']);
-    }
-
-    /**
-     * Muestra información de la cuenta patrimoniales
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return Response
-     */
-    public function show($id)
-    {
-        // return view('accounting::show');
-    }
-
-    /**
-     * Muestra el formulario para la edición de cuentas patrimoniales
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  integer $id Identificador de la cuenta patrimonial a modificar
-     * @return Response
-     */
-
-    public function edit($id)
-    {
-        $records = $this->getDataAccountingAccount();
-        $account = AccountingAccount::find($id);
-        return view('accounting::accounts.create-edit-form', compact('records','account'));
-
+        return response()->json(['records'=>$this->getAccounts(), 'message'=>'Success']);
     }
 
     /**
@@ -205,8 +142,9 @@ class AccountingAccountController extends Controller
         $AccountingAccount->active = $request->active;
         $AccountingAccount->save();
         
-        $request->session()->flash('message', ['type' => 'update']);
-        return response()->json(['message'=>'Success']);
+        // $request->session()->flash('message', ['type' => 'update']);
+
+        return response()->json(['records'=>$this->getAccounts(), 'message'=>'Success']);
     }
 
     /**
@@ -297,27 +235,32 @@ class AccountingAccountController extends Controller
     /**
      * obtiene los registros de las cuentas patrimoniales
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return json [JSON con la información de las cuentas formateada]
+     * @return Array con la información de las cuentas formateada
     */
-    public function getDataAccountingAccount()
+    public function getAccounts()
     {
-        /** @var array Arreglo que contendra los registros */
+        /** @var array arreglo que almacenara la lista de cuentas patrimoniales*/
         $records = [];
-        array_push($records, [
-            'id' => '',
-            'text' =>   "Seleccione..."
-        ]);
-        foreach (AccountingAccount::orderBy('id','ASC')->get() as $AccountingAccount) {
+        /**
+         * se realiza la busqueda de manera ordenada en base al codigo
+         */
+        foreach (AccountingAccount::orderBy('group','ASC')
+                                    ->orderBy('subgroup','ASC')
+                                    ->orderBy('item','ASC')
+                                    ->orderBy('generic','ASC')
+                                    ->orderBy('specific','ASC')
+                                    ->orderBy('subspecific','ASC')
+                                    ->get() as $AccountingAccount) {
+          /** @var array arreglo con datos de las cuentas patrimoniales*/
             array_push($records, [
                 'id' => $AccountingAccount->id,
-                'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}",
-                'active'=> $AccountingAccount->active
+                'code' =>   $AccountingAccount->getCode(),
+                'denomination' => $AccountingAccount->denomination,
+                'active'=> $AccountingAccount->active,
+                'text'=>"{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}",
             ]);
         }
-        /**
-         * se convierte array a JSON
-         */
-        return json_encode($records);
+        return $records;
     }
 
 }

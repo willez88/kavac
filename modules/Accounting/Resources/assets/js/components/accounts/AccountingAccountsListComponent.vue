@@ -10,7 +10,7 @@
 		</div>
 		<div slot="id" slot-scope="props" class="text-center">
 
-			<button @click="editForm(props.row.id)"
+			<button @click="loadData(props.row)"
 					class="btn btn-warning btn-xs btn-icon btn-action" 
 					title="Modificar registro" data-toggle="tooltip">
 				<i class="fa fa-edit"></i>
@@ -42,9 +42,19 @@
 			};
 			this.table_options.sortable = ['code', 'denomination', 'status'];
 			this.table_options.filterable = ['code', 'denomination', 'status'];
+
+			EventBus.$on('reload:list-accounts',(data)=>{
+				this.records = [];
+				this.records = data;
+			});
 		},
 		mounted(){
 			this.records = this.accountslist;
 		},
-	}
+		methods:{
+			loadData:function(data) {
+				EventBus.$emit('load:data-account-form', data);
+			}
+		}
+	};
 </script>
