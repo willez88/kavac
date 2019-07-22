@@ -17,7 +17,7 @@ class AssetReportController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -43,10 +43,10 @@ class AssetReportController extends Controller
             else{
                 $assets= Asset::codeclasification($request->type,$request->category,$request->subcategory,$request->specific_category)->get();
             }
-            $types = AssetType::template_choices();
-            $categories = AssetCategory::template_choices();
-            $subcategories = AssetSubcategory::template_choices();
-            $specific_categories = AssetSpecificCategory::template_choices();
+            $types = template_choices('Modules\Asset\Models\AssetType');
+            $categories = template_choices('Modules\Asset\Models\AssetCategory');
+            $subcategories = template_choices('Modules\Asset\Models\AssetSubcategory');
+            $specific_categories = template_choices('Modules\Asset\Models\AssetSpecificCategory');
             
             return view('asset::reports.asset_clasification', compact('assets','types','categories','subcategories','specific_categories','request'));
         }

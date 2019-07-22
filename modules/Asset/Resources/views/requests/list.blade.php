@@ -72,8 +72,28 @@
 				</div>
 				<div class="card-body">
 					<asset-request-list-pending
-							route_list='asset/requests/prorrogas/vue-pending-list'
-							route_update='asset/requests/prorroga'>
+							route_list='asset/requests/extensions/vue-pending-list'
+							route_update='asset/requests/extensions'>
+					</asset-request-list-pending>										
+				</div>				
+			</div>			
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Solicitudes de Entregas Pendientes</h6>
+					<div class="card-btns">
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
+					</div>
+				</div>
+				<div class="card-body">
+					<asset-request-list-pending
+							route_list='asset/requests/deliveries/vue-pending-list'
+							route_update='asset/requests/deliveries'>
 					</asset-request-list-pending>										
 				</div>				
 			</div>			

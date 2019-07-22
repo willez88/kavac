@@ -183,9 +183,9 @@
 							<tbody>
 								@foreach($assets as $asset)
 									<tr>
-										<td> {{ $asset->serial_inventario }} </td>
-								        <td> {{ $asset->condition->name }} </td>
-								        <td> {{ $asset->status->name }} </td>
+										<td> {{ $asset->inventory_serial }} </td>
+								        <td> {{ $asset->asset_condition->name }} </td>
+								        <td> {{ $asset->asset_status->name }} </td>
 								        <td> {{ $asset->serial }} </td>
 								        <td> {{ $asset->marca }} </td>
 										<td> {{ $asset->model }} </td>
@@ -200,6 +200,14 @@
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-12">
+			<asset-report-create
+				route_list='{{ url('asset/registers/vue-list')}}'>
+			</asset-report-create>
+		</div>
+	</div>
+
 @stop
 
 @section('extra-js')

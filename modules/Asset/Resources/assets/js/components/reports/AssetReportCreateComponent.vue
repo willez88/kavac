@@ -1,15 +1,15 @@
 <template>
 	<div class="card">
 		<div class="card-header">
-			<h6 class="card-title text-uppercase">Reporte de Bienes Institucionales</h6>
+			<h6 class="card-title text-uppercase">Inventario de Bienes Institucionales</h6>
 			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="createRecord()"
-				   title="Generar reporte" data-toggle="tooltip">
-					<i class="fa fa-file-pdf-o"></i>
-				</a>
 				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
 				   title="Ir atrás" data-toggle="tooltip">
 					<i class="fa fa-reply"></i>
+				</a>
+				<a href="#" class="btn btn-sm btn-primary btn-custom" target="_blank" @click="createRecord()"
+				   title="Generar reporte" data-toggle="tooltip">
+					<i class="fa fa-file-pdf-o"></i>
 				</a>
 				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 				   data-toggle="tooltip">
@@ -27,28 +27,190 @@
 				<div class="col-md-12">
 					<strong>Tipo de Reporte</strong>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="form-group">
-						<label>Clasificación de Bienes</label>
+						<label>General</label>
 						<div class="col-12">
-							<input type="radio" name="type_search" value="clasification" id="sel_clasification_search" 
-								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_search" 
+							<input type="radio" name="type_report" value="general" id="sel_general_report" 
+								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report" 
+								   data-on-label="SI" data-off-label="NO">
+							<input type="hidden" v-model="record.id">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Por Clasificación</label>
+						<div class="col-12">
+							<input type="radio" name="type_report" value="clasification" id="sel_clasification_report" 
+								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report" 
 								   data-on-label="SI" data-off-label="NO">
 						</div>
 					</div>
 				</div>
-
-				<div class="col-md-6">
-					<div class=" form-group">
-						<label>Generales de Bienes</label>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Por Dependencia</label>
 						<div class="col-12">
-							<input type="radio" name="type_search" value="general" id="sel_general_search" 
-								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_search" 
+							<input type="radio" name="type_report" value="dependence" id="sel_dependence_report" 
+								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report" 
 								   data-on-label="SI" data-off-label="NO">
 						</div>
 					</div>
 				</div>
 			</div>
+			<div v-show="this.record.type_report == 'general'">
+				<div class="row">
+					<div class="col-md-12">
+						<strong>Tipo de Busqueda</strong>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Busqueda por Periodo</label>
+							<div class="col-12">
+								<input type="radio" name="type_search" value="date" id="sel_search_date" 
+									   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_search" 
+									   data-on-label="SI" data-off-label="NO">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class=" form-group">
+							<label>Busqueda por Mes</label>
+							<div class="col-12">
+								<input type="radio" name="type_search" value="mes" id="sel_search_mes" 
+									   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_search" 
+									   data-on-label="SI" data-off-label="NO">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" v-show="this.record.type_search == 'mes'">
+					<div class="col-md-12 d-inline-flex">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Mes:</label>
+								<select2 :options="mes" 
+										 v-model="record.mes_id"></select2>
+		                    </div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Año:</label>
+								<input type="number" data-toggle="tooltip" min="0"
+										   title="Indique el año de busqueda" 
+										   class="form-control input-sm" v-model="record.year">
+		                    </div>
+						</div>
+					</div>
+				</div>
+				<div class="row" v-show="this.record.type_search == 'date'">
+					<div class="col-md-12 d-inline-flex">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Desde:</label>
+								<div class="input-group input-sm">
+				                    <span class="input-group-addon">
+				                        <i class="now-ui-icons ui-1_calendar-60"></i>
+				                    </span>
+				                    <input type="date" data-toggle="tooltip" 
+										   title="Indique la fecha minima de busqueda" 
+										   class="form-control input-sm" v-model="record.start_date">
+				                </div>
+		                    </div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Hasta:</label>
+								<div class="input-group input-sm">
+				                    <span class="input-group-addon">
+				                        <i class="now-ui-icons ui-1_calendar-60"></i>
+				                    </span>
+				                    <input type="date" data-toggle="tooltip" 
+										   title="Indique la fecha maxima de busqueda" 
+										   class="form-control input-sm" v-model="record.end_date">
+				                </div>
+		                    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-show="this.record.type_report == 'clasification'">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Tipo de Bien:</label>
+							<select2 :options="asset_types"
+									v-model="record.asset_type_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Categoria General:</label>
+							<select2 :options="asset_categories"
+									v-model="record.asset_category_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Subcategoria:</label>
+							<select2 :options="asset_subcategories"
+									v-model="record.asset_subcategory_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Categoria Específica:</label>
+							<select2 :options="asset_specific_categories"
+									v-model="record.asset_specific_category_id"></select2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-show="this.record.type_report == 'dependence'">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Departamento/Dependencia:</label>
+							<select2 :options="departments"
+									v-model="record.department_id"></select2>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<button type="button" class='btn btn-sm btn-primary btn-custom'
+							@click="createRecord()">
+						<i class="fa fa-file-pdf-o"></i>
+						<span>Generar Reporte</span>
+					</button>
+
+					<button type="button" class='btn btn-sm btn-info btn-custom float-right'
+							@click="filterRecords()" v-show="this.record.type_report != ''">
+						<i class="fa fa-search"></i>
+						<span>Buscar</span>
+					</button>
+				</div>
+			</div>
+			<hr>
+			<v-client-table :columns="columns" :data="records" :options="table_options">
+				
+				<div slot="institution" slot-scope="props" class="text-center">
+					<span>{{ (props.row.institution)? props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}</span>
+					
+				</div>
+				<div slot="condition" slot-scope="props" class="text-center">
+					<span>{{ (props.row.asset_condition)? props.row.asset_condition.name:props.row.asset_condition_id }}</span>
+				</div>
+				<div slot="status" slot-scope="props" class="text-center">
+					<span>{{ (props.row.asset_status)? props.row.asset_status.name:props.row.asset_status_id }}</span>
+				</div>
+				
+			</v-client-table>
 		</div>
 
         <div class="card-footer">
@@ -62,25 +224,71 @@
 			return {
 				record: {
 					id: '',
-					type_search: ''
-				},
+					type_search: '',
+					type_report: '',
 
-				filters: {
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id:'',
+					asset_specific_category_id: '',
+
+					department_id: '',
+					institution_id: '',
+
 					mes_id: '',
-					year_id: '',
+					year: '',
 					start_date: '',
 					end_date: '',
-				}
+				},
 
 				records: [],
 				errors: [],
+				columns: ['inventory_serial', 'condition', 'status', 'serial', 'marca', 'model'],
+				mes: [{"id":"","text":"Todos"},
+						{"id":1,"text":"Enero"},
+						{"id":2,"text":"Febrero"},
+						{"id":3,"text":"Marzo"},
+						{"id":4,"text":"Abril"},
+						{"id":5,"text":"Mayo"},
+						{"id":6,"text":"Junio"},
+						{"id":7,"text":"Julio"},
+						{"id":8,"text":"Agosto"},
+						{"id":9,"text":"Septiempre"},
+						{"id":10,"text":"Octubre"},
+						{"id":11,"text":"Noviembre"},
+						{"id":12,"text":"Diciembre"}],
+				asset_types: [],
+				asset_categories: [],
+				asset_subcategories: [],
+				asset_specific_categories: [],
+				departments: [],
+
+				table_options: {
+					headings: {
+						'inventory_serial': 'Código',
+						'condition': 'Condición Física',
+						'status': 'Estatus de Uso',
+						'serial': 'Serial',
+						'marca': 'Marca',
+						'model': 'Modelo',
+					},
+					sortable: ['inventory_serial', 'condition', 'status', 'serial', 'marca', 'model'],
+					filterable: ['inventory_serial', 'condition', 'status', 'serial', 'marca', 'model'],
+					orderBy: { 'column': 'id'}
+				}
 			}
 		},
 
 		created() {
 			this.loadAssets();
+			this.getDepartments();
+			this.getAssetTypes();
+			this.getAssetCategories();
+			this.getAssetSubcategories();
+			this.getAssetSpecificCategories();
 		},
 		mounted() {
+			this.switchHandler('type_report');
 			this.switchHandler('type_search');
 		},
 		methods: {
@@ -88,7 +296,9 @@
 			reset() {
 				this.record = {
 					id: '',
-					type_reserch: '',
+					type_search: '',
+					type_report: '',
+				};
 				
 			},
 
@@ -100,25 +310,92 @@
 			},
 			createRecord() {
 				const vm = this;
-				console.log(vm.record);
+				if(vm.record.type_report == ''){
+					bootbox.alert("Debe seleccionar el tipo de reporte a generar");
+					return false;
+				}
+				var url =  '/asset/report';
+				var fields = {};
+
+				if(vm.record.type_report == 'general'){
+					url += url +'/general/create';
+					if(vm.record.type_search == 'date'){
+						fields = {
+							start_date: vm.record.start_date,
+							end_date: vm.record.end_date,
+						};
+					}
+					else if(vm.record.type_search == 'mes'){
+						fields = {
+							mes_id: vm.record.mes_id,
+							year: vm.record.year,
+						};
+					}
+				}
+				else if(vm.record.type_report == 'clasification') {
+					url += url +'/clasification/create';
+					fields = {
+						asset_type: vm.record.asset_type_id,
+						asset_category: vm.record.asset_category_id,
+						asset_subcategory: vm.record.asset_subcategory_id,
+						asset_specific_category: vm.record.asset_specific_category_id
+					}
+				}
+				else if(vm.record.type_report == 'dependence') {
+					url += url +'/dependence/create';
+					fields = {
+						department: vm.record.department_id,
+						institution: vm.record.instituion_id
+					}	
+				}
+				
+				axios.post(url, fields).then(response => {
+					vm.records = response.data.records;
+				});
+
 
 			},
 			filterRecords() {
 				const vm = this;
 				var url =  '/asset/registers/search';
+				var fields = {};
 
-				var filters = {
-					case: (vm.record.id == '')?'1':'2',
-					type: vm.record.type_id,
-					category: vm.record.category_id,
-					subcategory: vm.record.subcategory_id,
-					specific_category: vm.record.specific_category_id
-				};
-
-				axios.post(url, filters).then(response => {
-					vm.records = response.data.records;
-				});
-
+				if(vm.record.type_report == 'general'){
+					url += url +'/general';
+					if(vm.record.type_search == 'date'){
+						fields = {
+							start_date: vm.record.start_date,
+							end_date: vm.record.end_date,
+						};
+					}
+					else if(vm.record.type_search == 'mes'){
+						fields = {
+							mes_id: vm.record.mes_id,
+							year: vm.record.year,
+						};
+					}
+				}
+				else if(vm.record.type_report == 'clasification') {
+					url += url +'/clasification';
+					fields = {
+						asset_type: vm.record.asset_type_id,
+						asset_category: vm.record.asset_category_id,
+						asset_subcategory: vm.record.asset_subcategory_id,
+						asset_specific_category: vm.record.asset_specific_category_id
+					}
+				}
+				else if(vm.record.type_report == 'dependence') {
+					url += url +'/dependence';
+					fields = {
+						department: vm.record.department_id,
+						institution: vm.record.instituion_id
+					}	
+				}
+				if((vm.record.type_report != '')||((vm.record.type_report == 'general')&&(vm.record.type_search != ''))){
+					axios.post(url, fields).then(response => {
+						vm.records = response.data.records;
+					});
+				}
 			},
 		}
 	};
