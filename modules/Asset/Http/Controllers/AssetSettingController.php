@@ -47,8 +47,8 @@ class AssetSettingController extends Controller
             'asignations_code' => [new CodeSettingRule],
             'disincorporations_code' => [new CodeSettingRule],
             'requests_code' => [new CodeSettingRule],
-            //'reports_code' => [new CodeSettingRule]
-            //'inventories_code' => [new CodeSettingRule]
+            'reports_code' => [new CodeSettingRule],
+            'inventories_code' => [new CodeSettingRule]
         ]);
 
         /** @var array Arreglo con información de los campos de códigos configurados */
@@ -75,6 +75,14 @@ class AssetSettingController extends Controller
                 else if ($table === "requests") {
                     /** @var string Define el modelo para asociado a las solicitudes de bienes */
                     $model = \Modules\Asset\Models\AssetRequest::class;
+                }
+                else if ($table === "reports") {
+                    /** @var string Define el modelo para asociado a los reportes de bienes */
+                    $model = \Modules\Asset\Models\AssetReport::class;
+                }
+                else if ($table === "inventories") {
+                    /** @var string Define el modelo para asociado al inventario de bienes */
+                    $model = \Modules\Asset\Models\AssetInventory::class;
                 }
 
                 CodeSetting::updateOrCreate([

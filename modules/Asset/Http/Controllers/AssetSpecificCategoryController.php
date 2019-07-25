@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
+use Modules\Asset\Models\AssetRequiredItem;
 
 
 /**
@@ -20,7 +21,6 @@ use Modules\Asset\Models\AssetSpecificCategory;
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AssetSpecificCategoryController extends Controller
 {
     /**
@@ -160,5 +160,11 @@ class AssetSpecificCategoryController extends Controller
             return template_choices('Modules\Asset\Models\AssetSpecificCategory','name','',true);
         $asset_subcategory = AssetSubcategory::find($subcategory_id);
         return ($asset_subcategory)?template_choices('Modules\Asset\Models\AssetSpecificCategory','name',['asset_subcategory_id' => $asset_subcategory->id],true):[];
+    }
+
+    public function getRequired($id)
+    {
+        $required = AssetRequiredItem::where('asset_specific_category_id', $id)->first();
+        return response()->json(['record' => $required], 200);
     }
 }

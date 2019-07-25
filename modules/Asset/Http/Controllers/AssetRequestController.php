@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\CodeSetting;
 
+use Modules\Asset\Models\AssetRequestDelivery;
 use Modules\Asset\Models\AssetRequestAsset;
 use Modules\Asset\Models\AssetRequest;
 use Modules\Asset\Models\Asset;
@@ -314,16 +315,15 @@ class AssetRequestController extends Controller
     public function deliver(Request $request, $id)
     {
         $asset_request = AssetRequest::find($id);
-        $asset_request->state = 'Entregados';
+        $asset_request->state = 'Procesando entrega';
         $asset_request->save();
         
-        $assets_requested = AssetRequestAsset::where('asset_request_id', $asset_request->id)->get();
+        $request_delivery = AssetRequestDelivery::create([
+            'state' => 'Pendiente',
+            'asset_request_id' => $asset_request->id,
+            'user_id' => Auth::id(),
+        ]);
         
-        foreach ($assets_requested as $requested) {
-            $asset = $requested->asset;
-            $asset->asset_status_id = 10;
-            $asset->save();
-        }
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('asset.request.index')], 200);
     }

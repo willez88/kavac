@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
+use Modules\Asset\Models\AssetRequiredItem;
 
 class AssetSpecificcategoriesTableSeeder extends Seeder
 {
@@ -1678,10 +1679,32 @@ class AssetSpecificcategoriesTableSeeder extends Seeder
 
             $asset_subcategory = AssetSubcategory::where('id',$key)->first();
             foreach ($specific_categories as $code => $specific_cat) {
-                AssetSpecificCategory::updateOrCreate([
+                $specific = AssetSpecificCategory::updateOrCreate([
                     'code' => $code,
                     'name' => $specific_cat,
                     'asset_subcategory_id' => $asset_subcategory->id],[]);
+
+                if (($specific->id == 495)||(($specific->id >= 1198)&&($specific->id <= 1221))) {
+                    AssetRequiredItem::updateOrCreate([
+                         'asset_specific_category_id' => $specific->id,
+                         'marca' => true,
+                         'model' => true,
+                    ],[]);
+                }
+                else if($specific->id > 1536) {
+                    AssetRequiredItem::updateOrCreate([
+                         'asset_specific_category_id' => $specific->id,
+                         'use_function' => true,
+                         'address' => true,
+                    ],[]);
+                }
+                else
+                    AssetRequiredItem::updateOrCreate([
+                         'asset_specific_category_id' => $specific->id,
+                         'serial' => true,
+                         'marca' => true,
+                         'model' => true,
+                    ],[]);
             }
         }
     }

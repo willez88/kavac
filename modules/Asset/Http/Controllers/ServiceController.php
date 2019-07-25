@@ -28,7 +28,7 @@ class ServiceController extends Controller
      */
     public function __construct() {
         $this->data[0] = [
-            'id' => 0,
+            'id' => '',
             'text' => 'Seleccione...'
         ];
     }

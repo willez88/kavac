@@ -55,10 +55,10 @@
         @endif
             <tr align="C">
 
-                <td width="3.91%"> {{ $asset->type_id }} </td>
-                <td width="7.84%"> {{ $asset->category_id }} </td>
-                <td width="7.84%"> {{ $asset->subcategory_id }} </td>
-                <td width="7.84%"> {{ $asset->specific_category_id }} </td>
+                <td width="3.91%"> {{ $asset->asset_type_id }} </td>
+                <td width="7.84%"> {{ $asset->asset_category_id }} </td>
+                <td width="7.84%"> {{ $asset->asset_subcategory_id }} </td>
+                <td width="7.84%"> {{ $asset->asset_specific_category_id }} </td>
                 <td width="10.83%"> {{ $asset->inventory_serial }} </td>
                 <td width="51.99%" align="L"> {{ $asset->asset_specific_category->name }}. {{ $asset->getDescription() }} </td>
                 <td width="9.75%" align="R"> {{ $asset->value }} </td>

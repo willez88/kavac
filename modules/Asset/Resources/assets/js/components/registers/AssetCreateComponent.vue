@@ -58,6 +58,7 @@
 						<label>Categoria Específica:</label>
 						<select2 :options="asset_specific_categories"
 								:disabled="(!this.record.asset_subcategory_id != '')"
+								@input="getAssetRequired()"
 								data-toggle="tooltip" 
 								title="Seleccione un registro de la lista"
 								v-model="record.asset_specific_category_id"></select2>
@@ -119,7 +120,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-3" v-if="record.asset_type_id == 2">
+				<div class="col-md-3" v-if="required.use_function == true">
 					<div class="form-group is-required">
 						<label>Función de Uso</label>
 						<select2 :options="asset_use_functions"
@@ -129,7 +130,7 @@
 					</div>
 				</div>
 				
-				<div class="col-md-3" v-if="record.asset_type_id == 1">
+				<div class="col-md-3" v-if="required.serial == true">
 					<div class="form-group is-required">
 						<label>Serial</label>
 						<input type="text" placeholder="Serial de Fabricación" data-toggle="tooltip" 
@@ -137,7 +138,7 @@
 							   class="form-control input-sm" v-model="record.serial">
 					</div>
 				</div>
-				<div class="col-md-3" v-if="record.asset_type_id == 1">
+				<div class="col-md-3" v-if="required.marca == true">
 					<div class="form-group is-required">
 						<label>Marca</label>
 						<input type="text" placeholder="Marca" data-toggle="tooltip" 
@@ -145,7 +146,7 @@
 							   class="form-control input-sm" v-model="record.marca">
 					</div>
 				</div>
-				<div class="col-md-3" v-if="record.asset_type_id == 1">
+				<div class="col-md-3" v-if="required.model == true">
 					<div class="form-group is-required">
 						<label>Modelo</label>
 						<input type="text" placeholder="Modelo" data-toggle="tooltip" 
@@ -153,7 +154,6 @@
 							   class="form-control input-sm" v-model="record.model">
 					</div>
 				</div>
-
 				<div class="col-md-3">
 					<div class="form-group is-required">
 						<label>Valor</label>
@@ -163,8 +163,14 @@
 								class="form-control input-sm" v-model="record.value">
 					</div>
 				</div>
-
-				<div class="col-md-3" v-if="(record.id == '')">
+				<div class="col-md-3">
+					<div class="form-group is-required">
+						<label>Moneda</label>
+						<select2 :options="currencies"
+								 v-model="record.currency_id"></select2>
+					</div>
+				</div>
+				<div class="col-md-3" v-if="record.id == ''">
 					<div class="form-group is-required">
 						<label>Cantidad</label>
 						<input type="number" min="0" placeholder="Cantidad" data-toggle="tooltip" 
@@ -173,7 +179,7 @@
 					</div>
 				</div>
 			</div>
-			<div v-if="record.asset_type_id == 2">
+			<div v-if="required.address == true">
 				<hr>
 				<h6 class="card-title text-uppercase">Ubicación</h6>
 				<div class="row">
@@ -279,8 +285,10 @@
 					address: '',
 
 					specifications: '',
+					currency_id: '',
 
 				},
+				required: {},
 				
 				records: [],
 				errors: [],
@@ -291,7 +299,6 @@
 				asset_specific_categories: [],
 
 				asset_acquisition_types: [],
-				departments: [],
 				proveedores: [],
 				asset_conditions: [],
 				asset_status: [],
@@ -301,6 +308,7 @@
 				estates: [],
 				municipalities: [],
 				parishes: [],
+				currencies: [],
 			}
 		},
 		props: {
@@ -335,6 +343,7 @@
 					address: '',
 
 					specifications: '',
+					currency_id: '',
 					
 				};
 
@@ -488,14 +497,24 @@
 					});
 				}
 			},
+			getAssetRequired() {
+				const vm = this;
+				vm.required = {};
+				
+				if (vm.record.asset_specific_category_id) {
+					axios.get('/asset/get-required/' + this.record.asset_specific_category_id).then(response => {
+						vm.required = response.data.record;
+					});
+				}
+			},
 		},
 		created() {
-			this.getDepartments();
 			this.getAssetAcquisitionTypes();
 			this.getAssetConditions();
 			this.getAssetStatus();
 			this.getAssetUseFunctions();
 			this.getCountries();
+			this.getCurrencies();
 		},
 		mounted() {
 			if(this.assetid){

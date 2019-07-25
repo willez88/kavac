@@ -1,15 +1,11 @@
 <template>
 	<div class="card">
 		<div class="card-header">
-			<h6 class="card-title text-uppercase">Inventario de Bienes Institucionales</h6>
+			<h6 class="card-title text-uppercase">Bienes Institucionales</h6>
 			<div class="card-btns">
 				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
 				   title="Ir atrás" data-toggle="tooltip">
 					<i class="fa fa-reply"></i>
-				</a>
-				<a href="#" class="btn btn-sm btn-primary btn-custom" target="_blank" @click="createRecord()"
-				   title="Generar reporte" data-toggle="tooltip">
-					<i class="fa fa-file-pdf-o"></i>
 				</a>
 				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
 				   data-toggle="tooltip">
@@ -27,7 +23,9 @@
 				<div class="col-md-12">
 					<strong>Tipo de Reporte</strong>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-2">
+				</div>
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>General</label>
 						<div class="col-12">
@@ -38,7 +36,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Por Clasificación</label>
 						<div class="col-12">
@@ -48,7 +46,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>Por Dependencia</label>
 						<div class="col-12">
@@ -61,8 +59,7 @@
 			</div>
 			<div v-show="this.record.type_report == 'general'">
 				<div class="row">
-					<div class="col-md-12">
-						<strong>Tipo de Busqueda</strong>
+					<div class="col-md-2">
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
@@ -75,7 +72,7 @@
 						</div>
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class=" form-group">
 							<label>Busqueda por Mes</label>
 							<div class="col-12">
@@ -87,16 +84,18 @@
 					</div>
 				</div>
 
-				<div class="row" v-show="this.record.type_search == 'mes'">
-					<div class="col-md-12 d-inline-flex">
-						<div class="col-md-6">
+				<div v-show="this.record.type_search == 'mes'">
+					<div class="row">
+						<div class="col-md-2">
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Mes:</label>
 								<select2 :options="mes" 
 										 v-model="record.mes_id"></select2>
 		                    </div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Año:</label>
 								<input type="number" data-toggle="tooltip" min="0"
@@ -106,9 +105,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" v-show="this.record.type_search == 'date'">
-					<div class="col-md-12 d-inline-flex">
-						<div class="col-md-6">
+				<div v-show="this.record.type_search == 'date'">
+					<div class="row">
+						<div class="col-md-2">
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Desde:</label>
 								<div class="input-group input-sm">
@@ -121,7 +122,7 @@
 				                </div>
 		                    </div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Hasta:</label>
 								<div class="input-group input-sm">
@@ -139,28 +140,31 @@
 			</div>
 			<div v-show="this.record.type_report == 'clasification'">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label>Tipo de Bien:</label>
 							<select2 :options="asset_types"
-									v-model="record.asset_type_id"></select2>
+									 @input="getAssetCategories()"
+									 v-model="record.asset_type_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label>Categoria General:</label>
 							<select2 :options="asset_categories"
-									v-model="record.asset_category_id"></select2>
+									 @input="getAssetSubcategories()"
+									 v-model="record.asset_category_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label>Subcategoria:</label>
 							<select2 :options="asset_subcategories"
-									v-model="record.asset_subcategory_id"></select2>
+									 @input="getAssetSpecificCategories()"
+									 v-model="record.asset_subcategory_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label>Categoria Específica:</label>
 							<select2 :options="asset_specific_categories"
@@ -171,7 +175,16 @@
 			</div>
 			<div v-show="this.record.type_report == 'dependence'">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-2"></div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Institución:</label>
+							<select2 :options="institutions"
+									 @input="getDepartments()"
+									 v-model="record.institution_id"></select2>
+						</div>
+					</div>
+					<div class="col-md-4">
 						<div class="form-group">
 							<label>Departamento/Dependencia:</label>
 							<select2 :options="departments"
@@ -183,12 +196,6 @@
 
 			<div class="row">
 				<div class="col-12">
-					<button type="button" class='btn btn-sm btn-primary btn-custom'
-							@click="createRecord()">
-						<i class="fa fa-file-pdf-o"></i>
-						<span>Generar Reporte</span>
-					</button>
-
 					<button type="button" class='btn btn-sm btn-info btn-custom float-right'
 							@click="filterRecords()" v-show="this.record.type_report != ''">
 						<i class="fa fa-search"></i>
@@ -213,7 +220,12 @@
 			</v-client-table>
 		</div>
 
-        <div class="card-footer">
+        <div class="card-footer text-right">
+        	<button type="button" class='btn btn-sm btn-primary btn-custom'
+					@click="createRecord()">
+				<i class="fa fa-file-pdf-o"></i>
+				<span>Generar Reporte</span>
+			</button>
         </div>
 	</div>
 </template>
@@ -261,6 +273,7 @@
 				asset_categories: [],
 				asset_subcategories: [],
 				asset_specific_categories: [],
+				institutions: [],
 				departments: [],
 
 				table_options: {
@@ -281,11 +294,8 @@
 
 		created() {
 			this.loadAssets();
-			this.getDepartments();
+			this.getInstitutions();
 			this.getAssetTypes();
-			this.getAssetCategories();
-			this.getAssetSubcategories();
-			this.getAssetSpecificCategories();
 		},
 		mounted() {
 			this.switchHandler('type_report');
@@ -298,6 +308,19 @@
 					id: '',
 					type_search: '',
 					type_report: '',
+
+					asset_type_id: '',
+					asset_category_id: '',
+					asset_subcategory_id:'',
+					asset_specific_category_id: '',
+
+					department_id: '',
+					institution_id: '',
+
+					mes_id: '',
+					year: '',
+					start_date: '',
+					end_date: '',
 				};
 				
 			},
@@ -310,49 +333,39 @@
 			},
 			createRecord() {
 				const vm = this;
+				var fields = {};
+				var url = 'asset/reports'
+
 				if(vm.record.type_report == ''){
 					bootbox.alert("Debe seleccionar el tipo de reporte a generar");
 					return false;
 				}
-				var url =  '/asset/report';
-				var fields = {};
 
-				if(vm.record.type_report == 'general'){
-					url += url +'/general/create';
-					if(vm.record.type_search == 'date'){
-						fields = {
-							start_date: vm.record.start_date,
-							end_date: vm.record.end_date,
-						};
-					}
-					else if(vm.record.type_search == 'mes'){
-						fields = {
-							mes_id: vm.record.mes_id,
-							year: vm.record.year,
-						};
-					}
+				for (var index in this.record) {
+					fields[index] = this.record[index];
 				}
-				else if(vm.record.type_report == 'clasification') {
-					url += url +'/clasification/create';
-					fields = {
-						asset_type: vm.record.asset_type_id,
-						asset_category: vm.record.asset_category_id,
-						asset_subcategory: vm.record.asset_subcategory_id,
-						asset_specific_category: vm.record.asset_specific_category_id
+				axios.post('/' + url, fields).then(response => {
+					if (response.data.result == false)
+						location.href = response.data.redirect;
+					else if (typeof(response.data.redirect) !== "undefined") {
+						//console.log(response.data.redirect);
+						//location.href = response.data.redirect;
+						window.open(response.data.redirect, '_blank');
 					}
-				}
-				else if(vm.record.type_report == 'dependence') {
-					url += url +'/dependence/create';
-					fields = {
-						department: vm.record.department_id,
-						institution: vm.record.instituion_id
-					}	
-				}
-				
-				axios.post(url, fields).then(response => {
-					vm.records = response.data.records;
+					else {
+						vm.reset();
+					}
+				}).catch(error => {
+					vm.errors = [];
+
+					if (typeof(error.response) !="undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								vm.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
 				});
-
 
 			},
 			filterRecords() {
@@ -361,7 +374,7 @@
 				var fields = {};
 
 				if(vm.record.type_report == 'general'){
-					url += url +'/general';
+					url += '/general';
 					if(vm.record.type_search == 'date'){
 						fields = {
 							start_date: vm.record.start_date,
@@ -376,7 +389,7 @@
 					}
 				}
 				else if(vm.record.type_report == 'clasification') {
-					url += url +'/clasification';
+					url += '/clasification';
 					fields = {
 						asset_type: vm.record.asset_type_id,
 						asset_category: vm.record.asset_category_id,
@@ -385,7 +398,7 @@
 					}
 				}
 				else if(vm.record.type_report == 'dependence') {
-					url += url +'/dependence';
+					url += '/dependence';
 					fields = {
 						department: vm.record.department_id,
 						institution: vm.record.instituion_id

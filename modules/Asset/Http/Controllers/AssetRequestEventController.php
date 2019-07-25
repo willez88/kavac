@@ -43,13 +43,13 @@ class AssetRequestEventController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'type_id' => 'required|max:100',
+            'type' => 'required|max:100',
             'description' => 'required',
             'asset_request_id' => 'required'
         ]);
     
         $event = AssetRequestEvent::create([
-            'type' => $request->input('type_id'),
+            'type' => $request->input('type'),
             'description' => $request->input('description'),
             'asset_request_id' => $request->input('asset_request_id')
         ]);
@@ -65,15 +65,16 @@ class AssetRequestEventController extends Controller
      * @param  Modules\Asset\Models\AssetRequestEvent $event  Datos del evento
      * @return \Illuminate\Http\JsonResponse                  Objeto con los registros a mostrar
      */
-    public function update(Request $request, AssetRequestEvent $event)
+    public function update(Request $request, $id)
     {
+        $event = AssetRequestEvent::find($id);
         $this->validate($request, [
-            'type_id' => 'required|max:100',
+            'type' => 'required|max:100',
             'description' => 'required',
             'asset_request_id' => 'required'
         ]);
 
-        $event->type_id = $request->input('type_id');
+        $event->type = $request->input('type');
         $event->description = $request->input('description');
         $event->asset_request_id = $request->input('asset_request_id');
         $event->save();
@@ -88,8 +89,9 @@ class AssetRequestEventController extends Controller
      * @param  Modules\Asset\Models\AssetRequestEvent $event    Datos del evento
      * @return \Illuminate\Http\JsonResponse                    Objeto con los registros a mostrar
      */
-    public function destroy(AssetRequestEvent $event)
+    public function destroy($id)
     {
+        $event = AssetRequestEvent::find($id);
         $event->delete();
         return response()->json(['message' => 'Success'], 200);
     }

@@ -23,15 +23,16 @@
 				</asset-request-info>
 				
 				<asset-request-extension :requestid="props.row.id"
-					:state="props.row.state">
+										 :state="props.row.state">
 				</asset-request-extension>
 
-				<asset-request-event :id="props.row.id">
+				<asset-request-event 	:id="props.row.id"
+										:state="props.row.state">
 				</asset-request-event>
 
 				<button @click="deliverEquipment(props.index)" 
 						class="btn btn-primary btn-xs btn-icon btn-action"
-						:disabled="(props.row.state == 'Aprobado')?false:true"
+						:disabled="((props.row.state == 'Aprobado')||(props.row.state == 'Pendiente por entrega'))?false:true"
 						data-toggle="tooltip" title="Entregar Equipos" type="button">
 					<i class="icofont icofont-computer"></i>
 				</button>

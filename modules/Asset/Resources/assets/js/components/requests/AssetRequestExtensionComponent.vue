@@ -2,8 +2,8 @@
 	<div>
 		<a class="btn btn-default btn-xs btn-icon btn-action" 
 		   href="#" title="Solicitud de Prorroga" data-toggle="tooltip"
-		   :disabled="(state == 'Aprobado')?false:true"
-		   @click="(state == 'Aprobado')?addRecord('add_prorroga','request/request-extensions' ,$event):viewMessage()">
+		   :disabled="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?false:true"
+		   @click="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?addRecord('add_prorroga','request/request-extensions', $event):viewMessage()">
 			<i class="fa fa-calendar-plus-o"></i>
 		</a>
 
@@ -128,7 +128,7 @@
             },
             viewMessage() {
             	const vm = this;
-            	vm.showMessage('custom', 'Alerta', 'danger', 'screen-error', 'La solicitud debe ser aprobada antes de realizar esta operación');
+            	vm.showMessage('custom', 'Alerta', 'danger', 'screen-error', 'La solicitud está en un tramite que no le permite acceder a esta funcionalidad');
             	return false;
             },
 		},
