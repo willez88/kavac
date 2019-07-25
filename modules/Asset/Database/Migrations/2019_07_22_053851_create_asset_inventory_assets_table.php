@@ -4,17 +4,27 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssetIventoryAssetsTable extends Migration
+/**
+ * @class CreateAssetInventoryAssetsTable
+ * @brief Crear tabla de los bienes registrados inventariados
+ * 
+ * Gestiona la creación o eliminación de los bienes inventariados
+ * 
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
+class CreateAssetInventoryAssetsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Método que ejecuta las migraciones
      *
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function up()
     {
-        if (!Schema::hasTable('asset_iventory_assets')) {
-            Schema::create('asset_iventory_assets', function (Blueprint $table) {
+        if (!Schema::hasTable('asset_inventory_assets')) {
+            Schema::create('asset_inventory_assets', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
 
                 $table->string('asset_condition')->nullable()->comment('Condicion física actual del bien');
@@ -33,12 +43,13 @@ class CreateAssetIventoryAssetsTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Método que elimina las migraciones
      *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('asset_iventory_assets');
+        Schema::dropIfExists('asset_inventory_assets');
     }
 }
