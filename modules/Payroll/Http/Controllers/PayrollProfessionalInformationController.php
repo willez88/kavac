@@ -10,7 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollProfessionalInformation;
 
 /**
- * @class PayrollprofessionalInformationController
+ * @class PayrollProfessionalInformationController
  * @brief Controlador de información profesional
  *
  * Clase que gestiona los datos de información profesional
@@ -118,46 +118,19 @@ class PayrollProfessionalInformationController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
+     * Muestra los datos de la información profesional del trabajador en específico
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                          Identificador del dato a mostrar
+     * @return \Illuminate\Http\JsonResponse        Json con el dato de la información profesional del trabajador
      */
     public function show($id)
     {
-        $payroll_professional_information = PayrollProfessionalInformation::findorfail($id);
-        return response()->json(['record' => $payroll_professional_information], 200);
-
-        /*$payroll_professional_information = PayrollProfessionalInformation::findorfail($id)->get();
-        dd($payroll_professional_information);
-        $data[] = [
-            'payroll_staff' => $payroll_professional_information->payroll_staff->full_name,
-            'payroll_instruction_degree' => $payroll_professional_information->payroll_instruction_degree->name,
-            'profession' => ($payroll_professional_information->profession_id) ? $payroll_professional_information->profession->name : null,
-            'is_student' => $payroll_professional_information->is_student,
-            'payroll_study_type' => ($payroll_professional_information->payroll_study_type_id) ? $payroll_professional_information->payroll_study_type->name : null,
-            'study_program_name' => ($payroll_professional_information->study_program_name) ? $payroll_professional_information->study_program_name : null,
-            'class_schedule' => ($payroll_professional_information->class_schedule) ? $payroll_professional_information->class_schedule : null,
-            'payroll_language' => $payroll_professional_information->payroll_language->name,
-            'payroll_language_level' => $payroll_professional_information->payroll_language_level->name,
-        ];
-        return response()->json(['record' => $data[0]], 200);*/
-    }
-
-    public function info($id)
-    {
-        $payroll_professional_information = PayrollProfessionalInformation::findorfail($id);
-        $data[] = [
-            'payroll_staff' => $payroll_professional_information->payroll_staff->full_name,
-            'payroll_instruction_degree' => $payroll_professional_information->payroll_instruction_degree->name,
-            'profession' => ($payroll_professional_information->profession_id) ? $payroll_professional_information->profession->name : null,
-            'instruction_degree_name' => ($payroll_professional_information->instruction_degree_name) ? $payroll_professional_information->instruction_degree_name : null,
-            'is_student' => $payroll_professional_information->is_student,
-            'payroll_study_type' => ($payroll_professional_information->payroll_study_type_id) ? $payroll_professional_information->payroll_study_type->name : null,
-            'study_program_name' => ($payroll_professional_information->study_program_name) ? $payroll_professional_information->study_program_name : null,
-            'class_schedule' => ($payroll_professional_information->class_schedule) ? $payroll_professional_information->class_schedule : null,
-            'payroll_language' => $payroll_professional_information->payroll_language->name,
-            'payroll_language_level' => $payroll_professional_information->payroll_language_level->name,
-        ];
-        return response()->json(['record' => $data[0]], 200);
+        $payrollProfessionalInformation = PayrollProfessionalInformation::where('id',$id)->with([
+            'payroll_staff','payroll_instruction_degree','profession','payroll_study_type',
+            'payroll_language','payroll_language_level'
+        ])->first();
+        return response()->json(['record' => $payrollProfessionalInformation], 200);
     }
 
     /**
@@ -166,8 +139,8 @@ class PayrollProfessionalInformationController extends Controller
      */
     public function edit($id)
     {
-        $professional_information = PayrollProfessionalInformation::find($id);
-        return view('payroll::professional-informations.create-edit', compact('professional_information'));
+        $payrollProfessionalInformation = PayrollProfessionalInformation::find($id);
+        return view('payroll::professional-informations.create-edit', compact('payrollProfessionalInformation'));
     }
 
     /**

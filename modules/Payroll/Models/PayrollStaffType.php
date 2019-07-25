@@ -45,4 +45,15 @@ class PayrollStaffType extends Model implements Auditable
     protected $fillable = [
         'name','description',
     ];
+
+    /**
+     * Método que obtiene el tipo de personal asociado a muchas informaciones laborales
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payroll_employment_informations()
+    {
+    	return $this->hasMany(PayrollEmploymentInformation::class);
+    }
 }

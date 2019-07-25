@@ -65,4 +65,15 @@ class PayrollPosition extends Model implements Auditable
     {
         return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetCentralizedAction::class):[];
     }
+
+    /**
+     * Método que obtiene el cargo asociado a muchas informaciones laborales
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payroll_employment_informations()
+    {
+    	return $this->hasMany(PayrollEmploymentInformation::class);
+    }
 }

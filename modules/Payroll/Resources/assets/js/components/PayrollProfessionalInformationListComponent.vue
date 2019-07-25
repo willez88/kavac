@@ -131,6 +131,7 @@
         data() {
 			return {
 				records: [],
+                record: [],
 				columns: ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name', 'is_student', 'id'],
 			}
 		},
@@ -157,18 +158,18 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/professional-informations/info/' + id).then(response => {
-					var record = response.data.record;
-                    $('#payroll_staff').val(record.payroll_staff);
-                    $('#payroll_instruction_degree').val(record.payroll_instruction_degree);
-                    $('#profession').val(record.profession);
-                    $('#instruction_degree_name').val(record.instruction_degree_name);
-                    (record.is_student) ? $('#is_student').bootstrapSwitch('state', true) : $('#is_student').bootstrapSwitch('state', false);
-                    $('#payroll_study_type').val(record.payroll_study_type);
-                    $('#study_program_name').val(record.study_program_name);
-                    $('#class_schedule').val(record.class_schedule);
-                    $('#payroll_language').val(record.payroll_language);
-                    $('#payroll_language_level').val(record.payroll_language_level);
+                axios.get('/payroll/professional-informations/' + id).then(response => {
+					this.record = response.data.record;
+                    $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
+                    $('#payroll_instruction_degree').val(this.record.payroll_instruction_degree.name);
+                    $('#profession').val( (this.record.profession) ? this.record.profession.name : ' ' );
+                    $('#instruction_degree_name').val(this.record.instruction_degree_name);
+                    (this.record.is_student) ? $('#is_student').bootstrapSwitch('state', true) : $('#is_student').bootstrapSwitch('state', false);
+                    $('#payroll_study_type').val( (this.record.payroll_study_type) ? this.record.payroll_study_type.name : ' ' );
+                    $('#study_program_name').val(this.record.study_program_name);
+                    $('#class_schedule').val(this.record.class_schedule);
+                    $('#payroll_language').val(this.record.payroll_language.name);
+                    $('#payroll_language_level').val(this.record.payroll_language_level.name);
 				});
                 $('#show_professional_information').modal('show');
             }

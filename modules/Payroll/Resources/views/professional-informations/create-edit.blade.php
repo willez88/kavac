@@ -19,7 +19,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-12">
-			<payroll-professional-information :professional_information_id="{!! (isset($professional_information)) ? $professional_information->id : "null" !!}"
+			<payroll-professional-information :payroll_professional_information_id="{!! (isset($payrollProfessionalInformation)) ? $payrollProfessionalInformation->id : "null" !!}"
                 route_list='{{ url('payroll/professional-informations') }}'>
             </payroll-professional-information>
 		</div>

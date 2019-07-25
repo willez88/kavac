@@ -15,7 +15,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de datos para los tipos de cargo
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollPositionType extends Model implements Auditable
@@ -45,4 +45,15 @@ class PayrollPositionType extends Model implements Auditable
     protected $fillable = [
         'name', 'description'
     ];
+
+    /**
+     * Método que obtiene el tipo de cargo asociado a muchas informaciones laborales
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payroll_employment_informations()
+    {
+    	return $this->hasMany(PayrollEmploymentInformation::class);
+    }
 }

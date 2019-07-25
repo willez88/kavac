@@ -18,7 +18,7 @@ use App\Rules\AgeToWork;
  *
  * Clase que gestiona el personal
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollStaffController extends Controller
@@ -40,10 +40,10 @@ class PayrollStaffController extends Controller
     }
 
     /**
-     * Muesta todos los registros de cargos
+     * Muestra todos los registros de información personal del trabajador
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return [<b>\Illuminate\Http\Response</b>] $response Retorna la vista con los datos del personal
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\View\View    Muestra los datos organizados en una tabla
      */
     public function index()
     {
@@ -51,10 +51,10 @@ class PayrollStaffController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear un nuevo personal
+     * Muestra el formulario de registro de información personal del trabajador
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return [<b>\Illuminate\Http\Response</b>] $response Retorna la vista con el formulario de registro
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\View\View    Vista con el formulario
      */
     public function create()
     {
@@ -62,9 +62,11 @@ class PayrollStaffController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra una nueva información personal del trabajador
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\JsonResponse        Json: result en verdadero y redirect con la url a donde ir
      */
     public function store(Request $request)
     {
@@ -75,7 +77,7 @@ class PayrollStaffController extends Controller
             'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number',
             'passport' => 'nullable|max:20|unique:payroll_staffs,passport',
             'email' => 'nullable|email|unique:payroll_staffs,email',
-            'birthdate' => 'required|date|',
+            'birthdate' => 'required|date',
             'birthdate' => new AgeToWork,
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
@@ -86,32 +88,33 @@ class PayrollStaffController extends Controller
 
         $codeSetting = CodeSetting::where('table', 'payroll_staffs')->first();
         if (!$codeSetting) {
-            return response()->json(['result' => false, 'message' => [
+            $request->session()->flash('message', [
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
                 'text' => 'Debe configurar previamente el formato para el código a generar'
-                ]], 200);
+            ]);
+           return response()->json(['result' => false, 'redirect' => route('payroll.settings.index')], 200);
         }
 
-        $payroll_staff = new PayrollStaff;
-        $payroll_staff->code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
+        $payrollStaff = new PayrollStaff;
+        $payrollStaff->code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
         (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
-        $payroll_staff->first_name = $request->first_name;
-        $payroll_staff->last_name = $request->last_name;
-        $payroll_staff->payroll_nationality_id = $request->payroll_nationality_id;
-        $payroll_staff->id_number = $request->id_number;
-        $payroll_staff->passport = $request->passport;
-        $payroll_staff->email = $request->email;
-        $payroll_staff->birthdate = $request->birthdate;
-        $payroll_staff->payroll_gender_id = $request->payroll_gender_id;
-        $payroll_staff->emergency_contact = $request->emergency_contact;
-        $payroll_staff->emergency_phone = $request->emergency_phone;
-        $payroll_staff->parish_id = $request->parish_id;
-        $payroll_staff->address = $request->address;
-        //$payroll_staff->save();
+        $payrollStaff->first_name = $request->first_name;
+        $payrollStaff->last_name = $request->last_name;
+        $payrollStaff->payroll_nationality_id = $request->payroll_nationality_id;
+        $payrollStaff->id_number = $request->id_number;
+        $payrollStaff->passport = $request->passport;
+        $payrollStaff->email = $request->email;
+        $payrollStaff->birthdate = $request->birthdate;
+        $payrollStaff->payroll_gender_id = $request->payroll_gender_id;
+        $payrollStaff->emergency_contact = $request->emergency_contact;
+        $payrollStaff->emergency_phone = $request->emergency_phone;
+        $payrollStaff->parish_id = $request->parish_id;
+        $payrollStaff->address = $request->address;
+        $payrollStaff->save();
 
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
-                $payroll_staff->phones()->save(new Phone([
+                $payrollStaff->phones()->save(new Phone([
                     'type' => $phone['type'],
                     'area_code' => $phone['area_code'],
                     'number' => $phone['number'],
@@ -125,14 +128,15 @@ class PayrollStaffController extends Controller
     }
 
     /**
-     * Muesta el detalle completo de los datos de un personal
+     * Muestra los datos de la información personal del trabajador en específico
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return [<b>\Illuminate\Http\Response</b>] $response Retorna el json de un registro de personal
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                          Identificador del dato a mostrar
+     * @return \Illuminate\Http\JsonResponse        Json con el dato de la información personal del trabajador
      */
     public function show($id)
     {
-        $payroll_staff = PayrollStaff::where('id',$id)->with([
+        $payrollStaff = PayrollStaff::where('id',$id)->with([
             'payroll_nationality','payroll_gender',
             'parish' => function($query) {
                 $query->with(['municipality' => function($query){
@@ -141,62 +145,40 @@ class PayrollStaffController extends Controller
                     }]);
                 }]);
             },'phones'])->first();
-        return response()->json(['record' => $payroll_staff], 200);
-    }
-
-    // Posiblemente esta función no haga falta
-    public function info($id)
-    {
-        /*$payroll_staff = PayrollStaff::findorfail($id);
-        $data[] = [
-            'code' => $payroll_staff->code,
-            'first_name' => $payroll_staff->first_name,
-            'last_name' => $payroll_staff->last_name,
-            'payroll_nationality' => $payroll_staff->payroll_nationality->name,
-            'id_number' => $payroll_staff->id_number,
-            'passport' => $payroll_staff->passport,
-            'email' => $payroll_staff->email,
-            'birthdate' => $payroll_staff->birthdate,
-            'payroll_gender' => $payroll_staff->payroll_gender->name,
-            'emergency_contact' => $payroll_staff->emergency_contact,
-            'emergency_phone' => $payroll_staff->emergency_phone,
-            'country' => $payroll_staff->parish->municipality->estate->country->name,
-            'estate' => $payroll_staff->parish->municipality->estate->name,
-            'municipality' => $payroll_staff->parish->municipality->name,
-            'parish' => $payroll_staff->parish->name,
-            'address' => $payroll_staff->address,
-        ];
-        return response()->json(['record' => $data[0]], 200);*/
-
-        $payroll_staff = PayrollStaff::where('id',$id)->with(['payroll_nationality','payroll_gender','parish','phones'])->first();
-        return response()->json(['test' => $payroll_staff], 200);
+        return response()->json(['record' => $payrollStaff], 200);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * Muestra el formulario de actualización de información personal del trabajador
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id              Identificador del dato a actualizar
+     * @return \Illuminate\View\View    Vista con el formulario y el objeto con el dato a actualizar
      */
     public function edit($id)
     {
-        $payroll_staff = PayrollStaff::find($id);
-        return view('payroll::staffs.create-edit', compact('payroll_staff'));
+        $payrollStaff = PayrollStaff::find($id);
+        return view('payroll::staffs.create-edit', compact('payrollStaff'));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información personal del trabajador
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador del dato a actualizar
+     * @return \Illuminate\Http\JsonResponse        Json con la redirección y mensaje de confirmación de la operación
      */
     public function update(Request $request, $id)
     {
-        $payroll_staff = PayrollStaff::find($id);
+        $payrollStaff = PayrollStaff::find($id);
         $this->validate($request, [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'payroll_nationality_id' => 'required',
-            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number,'.$payroll_staff->id,
-            'passport' => 'nullable|max:20|unique:payroll_staffs,passport,'.$payroll_staff->id,
-            'email' => 'nullable|email|unique:payroll_staffs,email,'.$payroll_staff->id,
+            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number,'.$payrollStaff->id,
+            'passport' => 'nullable|max:20|unique:payroll_staffs,passport,'.$payrollStaff->id,
+            'email' => 'nullable|email|unique:payroll_staffs,email,'.$payrollStaff->id,
             'birthdate' => 'required|date',
             'birthdate' => new AgeToWork,
             'payroll_gender_id' => 'required',
@@ -205,23 +187,23 @@ class PayrollStaffController extends Controller
             'parish_id' => 'required',
             'address' => 'required|max:200'
         ]);
-        $payroll_staff->first_name = $request->first_name;
-        $payroll_staff->last_name = $request->last_name;
-        $payroll_staff->payroll_nationality_id = $request->payroll_nationality_id;
-        $payroll_staff->id_number = $request->id_number;
-        $payroll_staff->passport = $request->passport;
-        $payroll_staff->email  = $request->email;
-        $payroll_staff->birthdate = $request->birthdate;
-        $payroll_staff->payroll_gender_id = $request->payroll_gender_id;
-        $payroll_staff->emergency_contact = $request->emergency_contact;
-        $payroll_staff->emergency_phone = $request->emergency_phone;
-        $payroll_staff->parish_id = $request->parish_id;
-        $payroll_staff->address = $request->address;
-        $payroll_staff->save();
+        $payrollStaff->first_name = $request->first_name;
+        $payrollStaff->last_name = $request->last_name;
+        $payrollStaff->payroll_nationality_id = $request->payroll_nationality_id;
+        $payrollStaff->id_number = $request->id_number;
+        $payrollStaff->passport = $request->passport;
+        $payrollStaff->email  = $request->email;
+        $payrollStaff->birthdate = $request->birthdate;
+        $payrollStaff->payroll_gender_id = $request->payroll_gender_id;
+        $payrollStaff->emergency_contact = $request->emergency_contact;
+        $payrollStaff->emergency_phone = $request->emergency_phone;
+        $payrollStaff->parish_id = $request->parish_id;
+        $payrollStaff->address = $request->address;
+        $payrollStaff->save();
 
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
-                $payroll_staff->phones()->save(new Phone([
+                $payrollStaff->phones()->save(new Phone([
                     'type' => $phone['type'],
                     'area_code' => $phone['area_code'],
                     'number' => $phone['number'],
@@ -235,26 +217,38 @@ class PayrollStaffController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina la información personal del trabajador
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador del dato a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json con mensaje de confirmación de la operación
      */
-    public function destroy(Request $request, PayrollStaff $staff)
+    public function destroy($id)
     {
-        if ($request->ajax()) {
-            $staff->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.staffs.index');
+        $payrollStaff = PayrollStaff::find($id);
+        $payrollStaff->delete();
+        return response()->json(['record' => $payrollStaff, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Muestra la información laboral personal del trabajador
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de la información personal del trabajador
+     */
     public function vueList()
     {
         return response()->json(['records' => PayrollStaff::with(['payroll_nationality','payroll_gender','parish'])->get()], 200);
     }
 
+    /**
+     * Obtiene la información personal de los trabajadores
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de la información personal de los trabajadores
+     */
     public function getPayrollStaffs()
     {
-        return template_choices('Modules\Payroll\Models\PayrollStaff',['id_number','-','full_name'],'',true);
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollStaff',['id_number','-','full_name'],'',true));
     }
 }

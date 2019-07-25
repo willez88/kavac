@@ -7,6 +7,27 @@
 */
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de inactividad
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-inactivity-types', require('./components/PayrollInactivityTypesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de contrato
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-contract-types', require('./components/PayrollContractTypesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de sector
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-sector-types', require('./components/PayrollSectorTypesComponent.vue').default);
+
+/**
  * Componente para mostrar listado de información personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
@@ -47,6 +68,20 @@ Vue.component('payroll-professional-informations-list', require('./components/Pa
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
 Vue.component('payroll-professional-information', require('./components/PayrollProfessionalInformationComponent.vue').default);
+
+/**
+ * Componente para mostrar listado de información laboral
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-employment-informations-list', require('./components/PayrollEmploymentInformationListComponent.vue').default);
+
+/**
+ * Componente para registrar o actualizar información laboral
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-employment-information', require('./components/PayrollEmploymentInformationComponent.vue').default);
 
 /**
  * Componente para la gestión de tabuladores de nómina
@@ -194,9 +229,45 @@ Vue.mixin({
 		 * @author William Páez <wpaez@cenditel.gob.ve>
 		 */
 		getPayrollInstructionDegrees() {
-			this.payroll_instruction_degree_id = [];
+			this.payroll_instruction_degree = [];
 			axios.get('/payroll/get-instruction-degrees').then(response => {
 				this.payroll_instruction_degrees = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de tipos de inactividad registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollInactivityTypes() {
+			this.payroll_inactivity_types = [];
+			axios.get('/payroll/get-inactivity-types').then(response => {
+				this.payroll_inactivity_types = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de tipos de personal registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollStaffTypes() {
+			this.payroll_staff_types = [];
+			axios.get('/payroll/get-staff-types').then(response => {
+				this.payroll_staff_types = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de tipos de contrato registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getPayrollContractTypes() {
+			this.payroll_contract_types = [];
+			axios.get('/payroll/get-contract-types').then(response => {
+				this.payroll_contract_types = response.data;
 			});
 		},
 	},
