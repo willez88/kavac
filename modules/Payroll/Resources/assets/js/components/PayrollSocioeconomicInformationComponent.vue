@@ -135,7 +135,7 @@
 <script>
 	export default {
 		props: {
-			socioeconomic_information_id: Number,
+			payroll_socioeconomic_information_id: Number,
 		},
 		data() {
 			return {
@@ -172,11 +172,9 @@
 			},
 
 			getSocioeconomicInformation() {
-				if(this.socioeconomic_information_id) {
-					axios.get('/payroll/socioeconomic-informations/' + this.socioeconomic_information_id).then(response => {
-						this.record = response.data.record;
-					});
-				}
+				axios.get('/payroll/socioeconomic-informations/' + this.payroll_socioeconomic_information_id).then(response => {
+					this.record = response.data.record;
+				});
 			},
 
 			showHide(value) {
@@ -203,7 +201,9 @@
 			this.record.payroll_childrens = [];
 		},
 		mounted() {
-			this.getSocioeconomicInformation();
+			if(this.payroll_socioeconomic_information_id) {
+				this.getSocioeconomicInformation();
+			}
 		}
 	};
 </script>

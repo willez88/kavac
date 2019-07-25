@@ -140,7 +140,7 @@
 <script>
 	export default {
 		props: {
-			professional_information_id: Number,
+			payroll_professional_information_id: Number,
 		},
 		data() {
 			return {
@@ -169,11 +169,9 @@
 		methods: {
 
 			getProfessionalInformation() {
-				if(this.professional_information_id) {
-					axios.get('/payroll/professional-informations/' + this.professional_information_id).then(response => {
-						this.record = response.data.record;
-					});
-				}
+				axios.get('/payroll/professional-informations/' + this.payroll_professional_information_id).then(response => {
+					this.record = response.data.record;
+				});
 			},
 
 			showHide() {
@@ -217,9 +215,11 @@
 			this.record.is_student = false;
 		},
 		mounted() {
+			if(this.payroll_professional_information_id) {
+				this.getProfessionalInformation();
+			}
 			//Falta revisión en esta rutina, a veces sale el error de recursión
 			//No actualiza el campo switch al primer momento de cargar el componente
-			this.getProfessionalInformation();
 			const vm = this;
 			vm.switchHandler('is_student');
 			$('#is_student').on('switchChange.bootstrapSwitch', function(e) {

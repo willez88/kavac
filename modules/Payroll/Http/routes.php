@@ -45,11 +45,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace
 
     Route::resource('socioeconomic-informations', 'PayrollSocioeconomicInformationController', ['as' => 'payroll']);
     Route::get('socioeconomic-informations/show/vue-list', 'PayrollSocioeconomicInformationController@vueList')->name('payroll.socioeconomic-informations.vue-list');
-    Route::get('socioeconomic-informations/info/{id}', 'PayrollSocioeconomicInformationController@info')->name('payroll.socioeconomic-informations.info');
 
     Route::resource('professional-informations', 'PayrollProfessionalInformationController', ['as' => 'payroll']);
     Route::get('professional-informations/show/vue-list', 'PayrollProfessionalInformationController@vueList')->name('payroll.professional-informations.vue-list');
-    Route::get('professional-informations/info/{id}', 'PayrollProfessionalInformationController@info')->name('payroll.professional-informations.info');
 
     Route::resource('inactivity-types', 'PayrollInactivityTypeController', ['as' => 'payroll', 'except' => ['show','create','edit']]);
     Route::get('get-inactivity-types', 'PayrollInactivityTypeController@getPayrollInactivityTypes')->name('payroll.get-payroll-inactivity-types');

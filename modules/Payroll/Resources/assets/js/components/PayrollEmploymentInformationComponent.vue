@@ -1,6 +1,6 @@
 <template>
 	<div class="row">
-		<div class="col-7">
+		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">Registrar los Datos Laborales</h6>
@@ -156,17 +156,6 @@
 			</div>
 		</div>
 
-		<div class="col-5">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<pre>
-							{{ $data }}
-						</pre>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 </template>
 <script>
@@ -205,11 +194,9 @@
 		methods: {
 
 			getEmploymentInformation() {
-				if(this.payroll_employment_information_id) {
-					axios.get('/payroll/employment-informations/' + this.payroll_employment_information_id).then(response => {
-						this.record = response.data.record;
-					});
-				}
+				axios.get('/payroll/employment-informations/' + this.payroll_employment_information_id).then(response => {
+					this.record = response.data.record;
+				});
 			},
 
 			reset() {
@@ -249,6 +236,11 @@
 
 			this.switchHandler('active');
 			const vm = this;
+
+			/**
+			 * En la funcionalidad de actualizar, el botón booleano sigue sin actualizarse según
+			 *  el valor que se carga de la bd
+			 */
 			$('#active').on('switchChange.bootstrapSwitch', function(e) {
 				e.target.id;
 				if (vm.record.active) {

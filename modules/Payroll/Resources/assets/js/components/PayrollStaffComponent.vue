@@ -268,16 +268,14 @@
 			},
 
 			getStaff() {
-				if(this.payroll_staff_id) {
-					axios.get('/payroll/staffs/' + this.payroll_staff_id).then(response => {
-						this.record = response.data.record;
-						// Para actualizar los datos (no se porque los selects no se cargan)
-						$('#country_id').val(this.record.parish.municipality.estate.country_id).change();
-						$('#estate_id').val(this.record.parish.municipality.estate_id).change();
-						$('#municipality_id').val(this.record.parish.municipality_id).change();
-						$('#parish_id').val(this.record.parish_id).change();
-					});
-				}
+				axios.get('/payroll/staffs/' + this.payroll_staff_id).then(response => {
+					this.record = response.data.record;
+					// Para actualizar los datos (no se porque los selects no se cargan)
+					$('#country_id').val(this.record.parish.municipality.estate.country_id).change();
+					$('#estate_id').val(this.record.parish.municipality.estate_id).change();
+					$('#municipality_id').val(this.record.parish.municipality_id).change();
+					$('#parish_id').val(this.record.parish_id).change();
+				});
 			},
 		},
 		created() {
@@ -289,7 +287,9 @@
 			this.record.phones = [];
 		},
 		mounted() {
-			this.getStaff();
+			if(this.payroll_staff_id) {
+				this.getStaff();
+			}
 		}
 	};
 </script>

@@ -31,7 +31,7 @@
         							<div class="form-group">
         								<label>Estado Civil</label>
         				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="payroll_marital_status">
+                                            disabled="true" id="marital_status">
         				            </div>
         				        </div>
                             </div>
@@ -66,6 +66,36 @@
                 						Hijos del Trabajador
                 					</h6>
                                 </div>
+                                <div class="row" v-for="payroll_children in record.payroll_childrens">
+                                    <div class="col-md-3">
+            							<div class="form-group">
+            								<label>Nombres</label>
+            				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                                disabled="true" :value="payroll_children.first_name">
+            				            </div>
+            				        </div>
+                                    <div class="col-md-3">
+            							<div class="form-group">
+            								<label>Apellidos</label>
+            				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                                disabled="true" :value="payroll_children.last_name">
+            				            </div>
+            				        </div>
+                                    <div class="col-md-3">
+            							<div class="form-group">
+            								<label>Cédula de Identidad</label>
+            				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                                disabled="true" :value="payroll_children.id_number">
+            				            </div>
+            				        </div>
+                                    <div class="col-md-3">
+            							<div class="form-group">
+            								<label>Fecha de Nacimiento</label>
+            				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                                disabled="true" :value="payroll_children.birthdate">
+            				            </div>
+            				        </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -90,6 +120,7 @@
         data() {
 			return {
 				records: [],
+                record: [],
 				columns: ['payroll_staff.first_name', 'marital_status.name', 'id'],
 			}
 		},
@@ -114,13 +145,13 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/socioeconomic-informations/info/' + id).then(response => {
-					var record = response.data.record;
-                    $('#payroll_staff').val(record.payroll_staff);
-                    $('#payroll_marital_status').val(record.payroll_marital_status);
-                    $('#full_name_twosome').val(record.full_name_twosome);
-                    $('#id_number_twosome').val(record.id_number_twosome);
-                    $('#birthdate_twosome').val(record.birthdate_twosome);
+                axios.get('/payroll/socioeconomic-informations/' + id).then(response => {
+					this.record = response.data.record;
+                    $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
+                    $('#marital_status').val(this.record.marital_status.name);
+                    $('#full_name_twosome').val(this.record.full_name_twosome);
+                    $('#id_number_twosome').val(this.record.id_number_twosome);
+                    $('#birthdate_twosome').val(this.record.birthdate_twosome);
 				});
                 $('#show_socioeconomic_information').modal('show');
             }

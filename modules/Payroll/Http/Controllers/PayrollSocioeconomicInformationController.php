@@ -93,26 +93,16 @@ class PayrollSocioeconomicInformationController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
+     * Muestra los datos de la información socioeconómica del trabajador en específico
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                          Identificador del dato a mostrar
+     * @return \Illuminate\Http\JsonResponse        Json con el dato de la información socioeconómica del trabajador
      */
     public function show($id)
     {
-        $payroll_socioeconomic_information = PayrollSocioeconomicInformation::where('id',$id)->with(['payroll_childrens'])->first();
-        return response()->json(['record' => $payroll_socioeconomic_information], 200);
-    }
-
-    public function info($id)
-    {
-        $payroll_socioeconomic_information = PayrollSocioeconomicInformation::findorfail($id);
-        $data[] = [
-            'payroll_staff' => $payroll_socioeconomic_information->payroll_staff->full_name,
-            'payroll_marital_status' => $payroll_socioeconomic_information->marital_status->name,
-            'full_name_twosome' => ($payroll_socioeconomic_information->full_name_twosome) ? $payroll_socioeconomic_information->full_name_twosomename : null,
-            'id_number_twosome' => ($payroll_socioeconomic_information->id_number_twosome) ? $payroll_socioeconomic_information->id_number_twosome : null,
-            'birthdate_twosome' => $payroll_socioeconomic_information->birthdate_twosome,
-        ];
-        return response()->json(['record' => $data[0]], 200);
+        $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::where('id',$id)->with(['payroll_staff','marital_status','payroll_childrens'])->first();
+        return response()->json(['record' => $payrollSocioeconomicInformation], 200);
     }
 
     /**
@@ -121,8 +111,8 @@ class PayrollSocioeconomicInformationController extends Controller
      */
     public function edit($id)
     {
-        $socioeconomic_information = PayrollSocioeconomicInformation::find($id);
-        return view('payroll::socioeconomic-informations.create-edit', compact('socioeconomic_information'));
+        $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::find($id);
+        return view('payroll::socioeconomic-informations.create-edit', compact('payrollSocioeconomicInformation'));
     }
 
     /**
