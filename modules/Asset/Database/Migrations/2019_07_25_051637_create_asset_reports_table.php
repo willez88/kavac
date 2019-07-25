@@ -47,6 +47,7 @@ class CreateAssetReportsTable extends Migration
                 $table->date('end_date')->nullable()->unsigned()->comment('Fecha final de busqueda');
 
                 $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }
     }

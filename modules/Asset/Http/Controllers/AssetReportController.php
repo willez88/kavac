@@ -108,9 +108,8 @@ class AssetReportController extends Controller
 
         if (is_null($report)) {
 
-            $cod = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits), (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
+            $code = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits), (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
             
-            return response()->json(['result' => true, 'redirect' => $cod], 200);
 
             $report = AssetReport::create([
                 'code' => $code,
