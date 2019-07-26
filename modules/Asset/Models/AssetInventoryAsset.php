@@ -45,6 +45,6 @@ class AssetInventoryAsset extends Model implements Auditable
      */
     public function asset()
     {
-        return $this->belongsTo(Asset::class);
+        return $this->belongsTo(Asset::class)->withTrashed();
     }
 }

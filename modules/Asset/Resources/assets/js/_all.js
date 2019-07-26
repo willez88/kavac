@@ -141,6 +141,14 @@ Vue.component('asset-request-delivery-list', require('./components/requests/Asse
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 Vue.component('asset-report-create', require('./components/reports/AssetReportCreateComponent.vue').default);
+
+/**
+ * Componente para mostrar un listado del historial del inventario
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-inventory-history-list', require('./components/inventories/AssetInventoryHistoryListComponent.vue').default);
+
 /**
  * Opciones de configuración global del módulo de bienes
  * 

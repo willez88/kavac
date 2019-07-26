@@ -109,10 +109,24 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     /**
      * Rutas para gestionar la generación de Reportes
      */
+    
+    Route::get('inventory-history', 'AssetInventoryController@index')->name('asset.inventory-history.index');
+    Route::post('inventory-history', 'AssetInventoryController@store')->name('asset.inventory-history.store');
+    Route::get('inventory-history/vue-list', 'AssetInventoryController@vueList')->name('asset.inventory-history.vuelist');
+    Route::delete('inventory-history/delete/{code_inventory}', 'AssetInventoryController@destroy')->name('asset.inventory-history.destroy');
+
+    /**
+     * Rutas para gestionar la generación de Reportes
+     */
 
     Route::resource('reports', 'AssetReportController', ['only' => ['store']]);
     Route::get('reports/show/{code_report}', 'AssetReportController@show')->name('asset.report.show');
     Route::get('reports', 'AssetReportController@index')->name('asset.report.index');
+
+    Route::get('reports/general/show/{code_inventory}', 'AssetReportController@showGeneral')->name('asset.report.general');
+    Route::get('reports/clasification/show/{code_inventory}', 'AssetReportController@showClasification')->name('asset.report.clasification');
+    Route::get('reports/dependence/show/{code_inventory}', 'AssetReportController@showDependence')->name('asset.report.dependence');
+
 
 
     /**

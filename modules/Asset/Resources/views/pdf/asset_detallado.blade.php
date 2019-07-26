@@ -15,9 +15,9 @@
         <th width="12.5%">Valor</th>
     </tr>
 
-    @foreach($assets as $asset)
+    @foreach($assets as $fields)
         @php 
-            $height += $pdf->getStringHeight(34.625, $asset->asset_status->name,1);
+            $height += $pdf->getStringHeight(34.625, ($fields->asset)?($fields->asset_status):($fields->asset_status->name), 1);
         @endphp
         
         @if ($height > $pdf->get_checkBreak()+25)
@@ -26,7 +26,7 @@
                 <th width="12.5%"> {{ $total }} </th>
             </tr>
             @php 
-                $height = $pdf->get_Y() + $pdf->getStringHeight(34.625, $asset->asset_status->name);
+                $height = $pdf->get_Y() + $pdf->getStringHeight(34.625, ($fields->asset)?($fields->asset_status):($fields->asset_status->name));
             @endphp
         </table>
 
@@ -51,16 +51,16 @@
             @endif
 
             <tr>
-                <td width="12.5%"> {{ $asset->inventory_serial }} </td>
+                <td width="12.5%"> {{ ($fields->asset)?($fields->asset->inventory_serial):($fields->inventory_serial) }} </td>
                 <td width="12.5%"> </td>
-                <td width="12.5%"> {{ $asset->acquisition_year }} </td>
-                <td width="12.5%"> {{ $asset->asset_status->name }} </td>
-                <td width="12.5%"> {{ $asset->serial }} </td>
-                <td width="12.5%"> {{ $asset->marca }} </td>
-                <td width="12.5%"> {{ $asset->model }} </td>
-                <td width="12.5%"> {{ $asset->value }} </td>
+                <td width="12.5%"> {{ ($fields->asset)?($fields->asset->acquisition_year):$fields->acquisition_year }} </td>
+                <td width="12.5%"> {{ ($fields->asset)?($fields->asset_status):$fields->asset_status->name }} </td>
+                <td width="12.5%"> {{ ($fields->asset)?($fields->asset->serial):$fields->serial }} </td>
+                <td width="12.5%"> {{ ($fields->asset)?($fields->asset->marca):$fields->marca }} </td>
+                <td width="12.5%"> {{ ($fields->asset)?($fields->asset->model):$fields->model }} </td>
+                <td width="12.5%"> {{ ($fields->asset)?($fields->asset->value):$fields->value }} </td>
                 @php 
-                    $total +=$asset->value;
+                    $total += ($fields->asset)?($fields->asset->value):($fields->value);
                 @endphp
             
             </tr>

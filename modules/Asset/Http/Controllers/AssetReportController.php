@@ -16,6 +16,8 @@ use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Models\AssetType;
 use Modules\Asset\Models\Asset;
 
+use Modules\Asset\Models\AssetInventoryAsset;
+use Modules\Asset\Models\AssetInventory;
 use Modules\Asset\Models\AssetReport;
 use App\Models\Institution;
 use App\Models\Setting;
@@ -144,34 +146,33 @@ class AssetReportController extends Controller
         if ($report->type_report == 'general') {
             $assets = Asset::dateclasification($report->start_date,$report->end_date,$report->mes,$report->year)->get();
 
-        $setting = Setting::all()->first();        
+            $setting = Setting::all()->first();        
 
-        $pdf = new Pdf('L','mm','Letter');
-        
-        /*
-         *  Definicion de las caracteristicas generales de la página
-         */
+            $pdf = new Pdf('L','mm','Letter');
+            
+            /*
+             *  Definicion de las caracteristicas generales de la página
+             */
 
-        if (isset($setting) and $setting->report_banner == true)
-            $pdf->SetMargins(10, 65, 10);
-        else
-            $pdf->SetMargins(10, 55, 10);
-        
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
+            if (isset($setting) and $setting->report_banner == true)
+                $pdf->SetMargins(10, 65, 10);
+            else
+                $pdf->SetMargins(10, 55, 10);
+            
+            $pdf->SetHeaderMargin(10);
+            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+            $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
 
-        $pdf->setType(2);
-        $pdf->Open();
-        $pdf->AddPage("L");
+            $pdf->setType(2);
+            $pdf->Open();
+            $pdf->AddPage("L");
 
-        $view = \View::make('asset::pdf.asset_general',compact('assets','pdf'));
-        $html = $view->render();                
-        $pdf->SetFont('Courier','B',8);
+            $view = \View::make('asset::pdf.asset_general',compact('assets','pdf'));
+            $html = $view->render();                
+            $pdf->SetFont('Courier','B',8);
 
-        $pdf->writeHTML($html, true, false, true, false, '');
+            $pdf->writeHTML($html, true, false, true, false, '');
 
-        $pdf->Output($report->code.".pdf");
         }
         else if ($report->type_report == 'clasification') {
             if ($report->type_search != '') {
@@ -201,12 +202,88 @@ class AssetReportController extends Controller
             $pdf->Open();
             $pdf->AddPage();
 
-            $view = \View::make('asset::pdf.asset_detallado',compact('assets','pdf'));
+            $view = \View::make('asset::pdf.asset_detallado', compact('assets','pdf'));
             $html = $view->render();
             $pdf->SetFont('Courier','B',8);
             $pdf->writeHTML($html, true, false, true, false, '');
-            
-            $pdf->Output($report->code.".pdf");
         }
+
+        $pdf->Output($report->code.".pdf");
+    }
+
+
+    public function showGeneral($code_inventory)
+    {
+        $inventory = AssetInventory::where('code', $code_inventory)->first();
+
+        $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
+
+        $setting = Setting::all()->first();        
+        $pdf = new Pdf('L','mm','Letter');
+
+        /*
+         *  Definicion de las caracteristicas generales de la página
+         */
+
+        if (isset($setting) and $setting->report_banner == true)
+            $pdf->SetMargins(10, 65, 10);
+        else
+            $pdf->SetMargins(10, 55, 10);
+
+        $pdf->SetHeaderMargin(10);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
+
+        $pdf->setType(2);
+        $pdf->Open();
+        $pdf->AddPage();
+
+        $view = \View::make('asset::pdf.asset_general', compact('assets','pdf'));
+        $html = $view->render();
+        $pdf->SetFont('Courier','B',8);
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        $pdf->Output($inventory->code.".pdf");
+        
+    }
+
+    public function showClasification($code_inventory)
+    {
+        $inventory = AssetInventory::where('code', $code_inventory)->first();
+
+        $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
+
+        $setting = Setting::all()->first();        
+        $pdf = new Pdf('L','mm','Letter');
+
+        /*
+         *  Definicion de las caracteristicas generales de la página
+         */
+
+        if (isset($setting) and $setting->report_banner == true)
+            $pdf->SetMargins(10, 65, 10);
+        else
+            $pdf->SetMargins(10, 55, 10);
+
+        $pdf->SetHeaderMargin(10);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
+
+        $pdf->setType(1);
+        $pdf->Open();
+        $pdf->AddPage();
+
+        $view = \View::make('asset::pdf.asset_detallado', compact('assets','pdf'));
+        $html = $view->render();
+        $pdf->SetFont('Courier','B',8);
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        $pdf->Output($inventory->code.".pdf");
+        
+    }
+
+    public function showDependence($code_inventory)
+    {
+        return;
     }
 }

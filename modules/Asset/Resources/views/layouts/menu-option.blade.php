@@ -35,6 +35,11 @@
             <a href="{{ route('asset.request.index') }}">Solicitudes</a>
         </li>
         <li data-toggle="tooltip" data-placement="right"
+            class='{!! set_active_menu(['asset.inventory-history.index']) !!}'
+            title="Gestiona el almacenamiento y visualización del estado del inventario a lo largo del tiempo">
+            <a href="{{ route('asset.inventory-history.index') }}">Historial de Inventario</a>
+        </li>
+        <li data-toggle="tooltip" data-placement="right"
             class='{!! set_active_menu(['asset.report.index']) !!}'
             title="Gestiona la generación de reportes de bienes institucionales (general, por clasificación, etc.)">
             <a href="{{ route('asset.report.index') }}">Reportes de bienes</a>
