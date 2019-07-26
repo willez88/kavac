@@ -15,7 +15,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class AssetIventoryAsset extends Model implements Auditable
+class AssetInventoryAsset extends Model implements Auditable
 {
     use AuditableTrait;
 	
@@ -45,6 +45,6 @@ class AssetIventoryAsset extends Model implements Auditable
      */
     public function asset()
     {
-        return $this->belongsTo(Asset::class);
+        return $this->belongsTo(Asset::class)->withTrashed();
     }
 }

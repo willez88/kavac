@@ -165,9 +165,10 @@
 				errors: [],
 				columns: ['asset.inventory_serial','asset.serial','asset.marca','asset.model'],
 				
-				types: ["Prestamo de Equipos (Uso Interno)",
-						"Prestamo de Equipos (Uso Externo)",
-						"Prestamo de Equipos para Agentes Externos"]
+				types: [{"id":"","text":"Seleccione..."},
+						{"id":1,"text":"Prestamo de Equipos (Uso Interno)"},
+						{"id":2,"text":"Prestamo de Equipos (Uso Externo)"},
+						{"id":3,"text":"Prestamo de Equipos para Agentes Externos"}],
 			}
 		},
 		created() {
@@ -212,7 +213,7 @@
 
 		            	document.getElementById('date_init').innerText = (fields.created_at)?fields.created_at:'N/A';
 		            	document.getElementById('motive').innerText = (fields.motive)?fields.motive:'N/A';
-		            	document.getElementById('type').innerText = (fields.type)?vm.types[fields.type]:'N/A';
+		            	document.getElementById('type').innerText = (fields.type)?vm.types[fields.type].text:'N/A';
 		            	document.getElementById('delivery_date').innerText = (fields.delivery_date)?fields.delivery_date:'N/A';
 		            	document.getElementById('ubication').innerText = (fields.ubication)?fields.ubication:'N/A';
 		            	document.getElementById('agent_name').innerText = (fields.agent_name)?fields.agent_name:'N/A';

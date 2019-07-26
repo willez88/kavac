@@ -76,7 +76,7 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
      * PayrollSocioeconomicInformation has many PayrollChildren
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payroll_childrens()
     {

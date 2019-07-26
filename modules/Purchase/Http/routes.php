@@ -52,4 +52,13 @@ Route::group([
     Route::get(
         'suppliers/vue-list', 'PurchaseSupplierController@vueList'
     )->name('purchase.suppliers.vuelist');
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de requerimientos
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los requerimientos de compras
+     */
+    Route::resource('requirements', 'PurchaseRequirementController', ['as' => 'purchase', 'except' => ['show']]);
 });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePayrollEmploymentInformationsTable extends Migration
+class CreateMeasurementUnitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreatePayrollEmploymentInformationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payroll_employment_informations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('test', 100)->nullable()->comment('Esto es una prueba');
+        Schema::create('measurement_units', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name')->comment('Nombre de la unidad de medida');
+            $table->text('description')->comment('Descripción de la unidad de medida');
+            $table->string('acronym', 6)->comment('Acrónimo o abreviatura de la unidad de medida');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });
@@ -28,6 +30,6 @@ class CreatePayrollEmploymentInformationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payroll_employment_informations');
+        Schema::dropIfExists('measurement_units');
     }
 }

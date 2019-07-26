@@ -2,7 +2,8 @@
 	<div>
 		<a class="btn btn-success btn-xs btn-icon btn-action" 
 		   href="#" title="Registros de Eventos" data-toggle="tooltip" 
-		   @click="addRecord('add_event', 'requests/request-event', $event)">
+		   :disabled="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?false:true"
+		   @click="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?addRecord('add_event', 'requests/request-event', $event):viewMessage()">
 		   <i class="fa fa-list-alt"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_event">
@@ -30,7 +31,7 @@
 									<select2 :options="types"
 											 data-toggle="tooltip"
 											 title="Indique el tipo de evento ocurrido"
-											 v-model="record.type_id">
+											 v-model="record.type">
 									</select2>
 
 									<input type="hidden" v-model="record.id">
@@ -53,6 +54,13 @@
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="type" slot-scope="props" class="text-center">
+								<div v-for="type in types">
+									<span v-if="props.row.type == type.id">
+										{{ type.text }}
+									</span>
+								</div>
+							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
 		                				class="btn btn-warning btn-xs btn-icon btn-action" 
@@ -92,7 +100,7 @@
 			return {
 				record: {
 					id:'',
-					type_id: '',
+					type: '',
 					asset_request_id: '',
 					description: '',
 
@@ -103,7 +111,10 @@
 				columns: ['type', 'description', 'id'],
 			}
 		},
-		props: ['id'],
+		props: {
+			id: Number,
+			state: String,
+		},
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
@@ -113,7 +124,7 @@
 			reset() {
 				this.record = {
 					id:'',
-					type_id: '',
+					type: '',
 					asset_request_id: '',
 					description: '',
 				};
@@ -127,7 +138,12 @@
 				axios.get('/asset/get-request-types').then(response => {
 					this.types = response.data;
 				});
-			}
+			},
+			viewMessage() {
+            	const vm = this;
+            	vm.showMessage('custom', 'Alerta', 'danger', 'screen-error', 'La solicitud está en un tramite que no le permite acceder a esta funcionalidad');
+            	return false;
+            },
 		},
 		created() {
 			this.table_options.headings = {

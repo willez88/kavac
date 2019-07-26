@@ -362,7 +362,7 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'name' => 'Ver los datos de información profesional', 'slug' => 'payroll.professional.informations.list',
                 'description' => 'Acceso para ver los datos de información socioeconómica',
                 'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacio.profesional.ver'
+                'slug_alt' => 'informacion.profesional.ver'
             ],
             [
                 'name' => 'Crear datos de información profesional', 'slug' => 'payroll.professional.informations.create',
@@ -381,6 +381,106 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'description' => 'Acceso para eliminar datos de información profesional',
                 'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.profesional.eliminar'
+            ],
+            // inactivity types
+            [
+                'name' => 'Ver los datos de tipos de inactividad', 'slug' => 'payroll.inactivity.types.list',
+                'description' => 'Acceso para ver los datos de tipos de inactividad',
+                'model' => 'Modules\Payroll\Models\PayrollInactivityType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.inactividad.ver'
+            ],
+            [
+                'name' => 'Crear datos de tipos de inactividad', 'slug' => 'payroll.inactivity.types.create',
+                'description' => 'Acceso para crear datos de tipos de inactividad',
+                'model' => 'Modules\Payroll\Models\PayrollInactivityType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.inactividad.crear'
+            ],
+            [
+                'name' => 'Editar datos de tipos de inactividad', 'slug' => 'payroll.inactivity.types.edit',
+                'description' => 'Acceso para editar datos de tipos de inactividad',
+                'model' => 'Modules\Payroll\Models\PayrollInactivityType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.inactividad.editar'
+            ],
+            [
+                'name' => 'Eliminar datos de tipos de inactividad', 'slug' => 'payroll.inactivity.types.delete',
+                'description' => 'Acceso para eliminar datos de tipos de inactividad',
+                'model' => 'Modules\Payroll\Models\PayrollInactivityType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.inactividad.eliminar'
+            ],
+            // contract types
+            [
+                'name' => 'Ver los datos de tipos de contrato', 'slug' => 'payroll.contract.types.list',
+                'description' => 'Acceso para ver los datos de tipos de contrato',
+                'model' => 'Modules\Payroll\Models\PayrollContractType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.contrato.ver'
+            ],
+            [
+                'name' => 'Crear datos de tipos de contrato', 'slug' => 'payroll.contract.types.create',
+                'description' => 'Acceso para crear datos de tipos de contrato',
+                'model' => 'Modules\Payroll\Models\PayrollContractType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.contrato.crear'
+            ],
+            [
+                'name' => 'Editar datos de tipos de contrato', 'slug' => 'payroll.contract.types.edit',
+                'description' => 'Acceso para editar datos de tipos de contrato',
+                'model' => 'Modules\Payroll\Models\PayrollContractType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.contrato.editar'
+            ],
+            [
+                'name' => 'Eliminar datos de tipos de contrato', 'slug' => 'payroll.contract.types.delete',
+                'description' => 'Acceso para eliminar datos de tipos de contrato',
+                'model' => 'Modules\Payroll\Models\PayrollContractType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.contrato.eliminar'
+            ],
+            // sector types
+            [
+                'name' => 'Ver los datos de tipos de sector', 'slug' => 'payroll.sector.types.list',
+                'description' => 'Acceso para ver los datos de tipos de sector',
+                'model' => 'Modules\Payroll\Models\PayrollSectorType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.sector.ver'
+            ],
+            [
+                'name' => 'Crear datos de tipos de sector', 'slug' => 'payroll.sector.types.create',
+                'description' => 'Acceso para crear datos de tipos de sector',
+                'model' => 'Modules\Payroll\Models\PayrollSectorType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.sector.crear'
+            ],
+            [
+                'name' => 'Editar datos de tipos de sector', 'slug' => 'payroll.sector.types.edit',
+                'description' => 'Acceso para editar datos de tipos de sector',
+                'model' => 'Modules\Payroll\Models\PayrollSectorType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.sector.editar'
+            ],
+            [
+                'name' => 'Eliminar datos de tipos de sector', 'slug' => 'payroll.sector.types.delete',
+                'description' => 'Acceso para eliminar datos de tipos de sector',
+                'model' => 'Modules\Payroll\Models\PayrollSectorType', 'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.sector.eliminar'
+            ],
+            // employment informations
+            [
+                'name' => 'Ver los datos de información laboral', 'slug' => 'payroll.employment.informations.list',
+                'description' => 'Acceso para ver los datos de información socioeconómica',
+                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.laboral.ver'
+            ],
+            [
+                'name' => 'Crear datos de información laboral', 'slug' => 'payroll.employment.informations.create',
+                'description' => 'Acceso para crear datos de información laboral',
+                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.laboral.crear'
+            ],
+            [
+                'name' => 'Editar datos de información laboral', 'slug' => 'payroll.employment.informations.edit',
+                'description' => 'Acceso para editar datos de información laboral',
+                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.laboral.editar'
+            ],
+            [
+                'name' => 'Eliminar datos de información laboral', 'slug' => 'payroll.employment.informations.delete',
+                'description' => 'Acceso para eliminar datos de información laboral',
+                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
+                'slug_alt' => 'informacion.laboral.eliminar'
             ],
         ];
 

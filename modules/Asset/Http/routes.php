@@ -89,8 +89,6 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     Route::get('requests/vue-pending-list', 'AssetRequestController@vuePendingList')->name('asset.request.vuependinglist');
     Route::put('requests/request-approved/{request}', 'AssetRequestController@approved')->name('asset.request.approved');
     Route::put('requests/request-rejected/{request}', 'AssetRequestController@rejected')->name('asset.request.rejected');
-
-    Route::put('requests/deliver-equipment/{request}', 'AssetRequestController@deliver')->name('asset.request.deliver');
     
     /**
      * Rutas para gestionar las Solicitudes de Prorrogas Pendientes 
@@ -99,20 +97,36 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     Route::get('requests/extensions/vue-pending-list', 'AssetRequestExtensionController@vuePendingList')->name('asset.request.extension.vuependinglist');
     Route::put('requests/extensions/request-approved/{request}', 'AssetRequestExtensionController@approved')->name('asset.request.extension.approved');
     Route::put('requests/extensions/request-rejected/{request}', 'AssetRequestExtensionController@rejected')->name('asset.request.extension.rejected');
-    
+
     /**
-     * Rutas para gestionar la generación de Solicitudes en pdf
+     * Rutas para gestionar las Solicitudes de Entregas Pendientes 
      */
+    
+    Route::put('requests/deliver-equipment/{request}', 'AssetRequestController@deliver')->name('asset.request.deliver');
 
-    Route::get('pdf', 'PDFController@create');
-    Route::get('pdf2', 'PDFController@create_general');
+    Route::resource('requests/deliveries', 'AssetRequestDeliveryController', ['except' => ['show', 'create', 'edit']]);
 
+    /**
+     * Rutas para gestionar la generación de Reportes
+     */
+    
+    Route::get('inventory-history', 'AssetInventoryController@index')->name('asset.inventory-history.index');
+    Route::post('inventory-history', 'AssetInventoryController@store')->name('asset.inventory-history.store');
+    Route::get('inventory-history/vue-list', 'AssetInventoryController@vueList')->name('asset.inventory-history.vuelist');
+    Route::delete('inventory-history/delete/{code_inventory}', 'AssetInventoryController@destroy')->name('asset.inventory-history.destroy');
 
     /**
      * Rutas para gestionar la generación de Reportes
      */
 
-    Route::get('report/{type}', 'AssetReportController@create')->name('asset.report.create');
+    Route::resource('reports', 'AssetReportController', ['only' => ['store']]);
+    Route::get('reports/show/{code_report}', 'AssetReportController@show')->name('asset.report.show');
+    Route::get('reports', 'AssetReportController@index')->name('asset.report.index');
+
+    Route::get('reports/general/show/{code_inventory}', 'AssetReportController@showGeneral')->name('asset.report.general');
+    Route::get('reports/clasification/show/{code_inventory}', 'AssetReportController@showClasification')->name('asset.report.clasification');
+    Route::get('reports/dependence/show/{code_inventory}', 'AssetReportController@showDependence')->name('asset.report.dependence');
+
 
 
     /**
@@ -123,6 +137,8 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' =
     Route::get('get-categories/{type?}', 'AssetCategoryController@getCategories');
     Route::get('get-subcategories/{category?}', 'AssetSubcategoryController@getSubcategories');
     Route::get('get-specific-categories/{subcategory?}', 'AssetSpecificCategoryController@getSpecificCategories');
+
+    Route::get('get-required/{specific_category?}', 'AssetSpecificCategoryController@getRequired');
 
     Route::get('get-acquisition-types', 'ServiceController@getAssetAcquisitionTypes');
     Route::get('get-conditions', 'ServiceController@getConditions');

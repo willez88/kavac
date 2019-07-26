@@ -178,6 +178,12 @@ Route::group(['middleware' => 'auth'], function() {
 
     /** Rutas para la gestión de perfiles */
     Route::resource('profiles', 'ProfileController');
+
+    /** Rutas para la gestión de años fiscales */
+    Route::resource('fiscal-years', 'FiscalYearController', ['except' => ['show']]);
+
+    /** Rutas para la gestión de unidades de medida */
+    Route::resource('measurement-units', 'MeasurementUnitController', ['except' => ['show']]);
 });
 
 /**

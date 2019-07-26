@@ -45,7 +45,7 @@ class Asset extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'asset_type_id', 'asset_category_id', 'asset_subcategory_id', 'asset_specific_category_id', 'asset_condition_id', 'asset_acquisition_type_id', 'acquisition_year', 'asset_status_id', 'serial', 'marca', 'model', 'inventory_serial', 'value', 'asset_use_function_id', 'specifications', 'address', 'parish_id'
+        'asset_type_id', 'asset_category_id', 'asset_subcategory_id', 'asset_specific_category_id', 'asset_condition_id', 'asset_acquisition_type_id', 'acquisition_year', 'asset_status_id', 'serial', 'marca', 'model', 'inventory_serial', 'value', 'asset_use_function_id', 'specifications', 'address', 'parish_id', 'currency_id'
     ];
 
     /**
@@ -214,11 +214,22 @@ class Asset extends Model implements Auditable
      * Método que obtiene la parroquia donde esta ubicado el bien
      * 
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Parish
      */
     public function parish()
     {
         return $this->belongsTo(\App\Models\Parish::class);
+    }
+
+    /**
+     * Método que obtiene la moneda en que se expresa el valor del bien
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Currency
+     */
+    public function currency()
+    {
+        return $this->belongsTo(\App\Models\Currency::class);
     }
 
     /**

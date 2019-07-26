@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Modules\Asset\Models\AssetRequestExtension;
 use Modules\Asset\Models\AssetRequest;
+use Modules\Asset\Rules\DateExtension;
 
 /**
  * @class AssetRequestExtensionController
@@ -51,9 +52,14 @@ class AssetRequestExtensionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date' => 'required',
             'asset_request_id' => 'required'
         ]);
+        $asset_request = AssetRequest::find($request->asset_request_id);
+        $this->validate($request, [
+            'date' => new DateExtension($asset_request->delivery_date,'2'),
+        ]);
+        $request->session()->flash('message', ['type' => 'store']);
+        return;
         
         $prorroga = new AssetRequestExtension;
             $prorroga->delivery_date = $request->date;

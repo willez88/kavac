@@ -172,6 +172,12 @@
 								<span>Género</span>
 							</a>
 						</div>
+						{{-- tipos de inactividad --}}
+						<payroll-inactivity-types></payroll-inactivity-types>
+						{{-- tipos de contrato --}}
+						<payroll-contract-types></payroll-contract-types>
+						{{-- tipos de sector --}}
+						<payroll-sector-types></payroll-sector-types>
 					</div>
 				</div>
 			</div>

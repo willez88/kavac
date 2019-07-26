@@ -9,6 +9,11 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
 
+use Modules\Asset\Rules\AcquisitionYear;
+use Modules\Asset\Rules\DateExtension;
+use Modules\Asset\Rules\RequiredItem;
+
+use Modules\Asset\Models\AssetRequiredItem;
 use Modules\Asset\Models\Asset;
 
 /**
@@ -69,34 +74,44 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $item_required = AssetRequiredItem::where('asset_specific_category_id', $request->asset_specific_category_id)->first();
+        if ( !is_null($item_required)){
+            $this->validate($request, [
+                'asset_type_id' => 'required',
+                'asset_category_id' => 'required',
+                'asset_subcategory_id' => 'required',
+                'asset_specific_category_id' => 'required',
+                'asset_acquisition_type_id' => 'required',
+                'acquisition_year' => ['required', 'regex:/^\d+$/u', new AcquisitionYear(Date("Y"))],
+                'asset_status_id' => 'required',
+                'asset_condition_id' => 'required',
+                'value' => 'required|regex:/^\d+(\.\d+)?$/u',
+                'quantity' => 'regex:/^\d+$/u',
+                'currency_id' => 'required',
 
-            'asset_type_id' => 'required',
-            'asset_category_id' => 'required',
-            'asset_subcategory_id' => 'required',
-            'asset_specific_category_id' => 'required',
-            'asset_acquisition_type_id' => 'required',
-            'acquisition_year' => 'required|max:8',
-            'asset_status_id' => 'required',
-            'asset_condition_id' => 'required',
-            'value' => 'required|regex:/^\d+(\.\d+)?$/u',
-            'quantity' => 'required|regex:/^\d+$/u',
-        ]);
-        
-        if ($request->asset_type_id == 1) {
-            $this->validate($request,[
-                'serial' => 'required|max:50',
-                'marca'  => 'required|max:50',
-                'model' => 'required|max:50',
+                'serial' => new RequiredItem($item_required->serial),
+                'marca'  => new RequiredItem($item_required->marca),
+                'model' => new RequiredItem($item_required->model),
+                'asset_use_function_id' => new RequiredItem($item_required->use_function),
+                'parish_id' => new RequiredItem($item_required->address),
+                'address' => new RequiredItem($item_required->address),
             ]);
         }
-        else if ($request->asset_type_id == 2) {
+        else
             $this->validate($request,[
-                'asset_use_function_id' => 'required',
-                'parish_id' => 'required',
-                'address' => 'required',
+                'asset_type_id' => 'required',
+                'asset_category_id' => 'required',
+                'asset_subcategory_id' => 'required',
+                'asset_specific_category_id' => 'required',
+                'asset_acquisition_type_id' => 'required',
+                'acquisition_year' => ['required', 'regex:/^\d+$/u', new AcquisitionYear(Date("Y"))],
+                'asset_status_id' => 'required',
+                'asset_condition_id' => 'required',
+                'value' => 'required|regex:/^\d+(\.\d+)?$/u',
+                'quantity' => 'required|regex:/^\d+$/u',
+                'currency_id' => 'required',
+                
             ]);
-        }
 
         $cantidad = $request->quantity;
         if(is_null($cantidad))
@@ -119,6 +134,7 @@ class AssetController extends Controller
             $asset->marca = $request->marca;
             $asset->model = $request->model;
             $asset->value = $request->value;
+            $asset->currency_id = $request->currency_id;
             $asset->asset_use_function_id = $request->asset_use_function_id;
             $asset->parish_id = $request->parish_id;
             $asset->address = $request->address;
@@ -168,6 +184,7 @@ class AssetController extends Controller
             'asset_status_id' => 'required',
             'asset_condition_id' => 'required',
             'value' => 'required|regex:/^\d+(\.\d+)?$/u',
+            'currency_id' => 'required',
         ]);
         
         if ($request->asset_type_id == 1) {
@@ -198,6 +215,7 @@ class AssetController extends Controller
         $asset->marca = $request->marca;
         $asset->model = $request->model;
         $asset->value = $request->value;
+        $asset->currency_id = $request->currency_id;
         $asset->asset_use_function_id = $request->asset_use_function_id;
         $asset->parish_id = $request->parish_id;
         $asset->address = $request->address;
@@ -264,7 +282,7 @@ class AssetController extends Controller
      */
     public function searchClasification(Request $request)
     {
-        $assets = Asset::AssetCodeClasification($request->asset_type, $request->asset_category, $request->asset_subcategory, $request->asset_specific_category)->with('asset_condition', 'asset_status')->get();
+        $assets = Asset::CodeClasification($request->asset_type, $request->asset_category, $request->asset_subcategory, $request->asset_specific_category)->with('asset_condition', 'asset_status')->get();
 
         return response()->json(['records' => $assets], 200);
 
@@ -297,7 +315,8 @@ class AssetController extends Controller
          *  Validar tambien para múltiples instituciones
          *
          */
-        return response()->json(['records' => Asset::with('asset_condition','asset_status')->get()], 200);
+        //Asset::with('asset_condition','asset_status')->get();
+        return response()->json(['records' => []], 200);
     }
 
 }

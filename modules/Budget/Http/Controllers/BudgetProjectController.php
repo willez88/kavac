@@ -16,9 +16,9 @@ use Modules\Payroll\Models\PayrollStaff;
 /**
  * @class BudgetProjectController
  * @brief Controlador de Proyectos
- * 
+ *
  * Clase que gestiona los Proyectos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -39,7 +39,7 @@ class BudgetProjectController extends Controller
         $this->middleware('permission:budget.project.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:budget.project.delete', ['only' => 'destroy']);
     }
-    
+
     /**
      * Muestra un listado de proyectos
      *
@@ -61,8 +61,8 @@ class BudgetProjectController extends Controller
     {
         /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
-            'route' => 'budget.projects.store', 
-            'method' => 'POST', 
+            'route' => 'budget.projects.store',
+            'method' => 'POST',
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
@@ -73,7 +73,7 @@ class BudgetProjectController extends Controller
         /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
         $positions = template_choices(PayrollPosition::class, 'name');
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
-        $staffs = template_choices(PayrollStaff::class, ['id_number', '-', 'full_name'], ['active' => true]);
+        $staffs = template_choices(PayrollStaff::class, ['id_number', '-', 'full_name']);
 
         return view('budget::projects.create-edit-form', compact(
             'header', 'institutions', 'departments', 'positions', 'staffs'
@@ -141,8 +141,8 @@ class BudgetProjectController extends Controller
         $budgetProject = BudgetProject::find($id);
         /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
-            'route' => ['budget.projects.update', $budgetProject->id], 
-            'method' => 'PUT', 
+            'route' => ['budget.projects.update', $budgetProject->id],
+            'method' => 'PUT',
             'role' => 'form'
         ];
         /** @var object Objeto con datos del modelo a modificar */
@@ -208,7 +208,7 @@ class BudgetProjectController extends Controller
         if ($budgetProject) {
             $budgetProject->delete();
         }
-        
+
         return response()->json(['record' => $budgetProject, 'message' => 'Success'], 200);
     }
 
@@ -222,8 +222,8 @@ class BudgetProjectController extends Controller
     public function vueList($active = null)
     {
         /** @var object Objeto con información de los proyectos registrados */
-        $budgetProjects = ($active !== null) 
-                          ? BudgetProject::where('active', $active)->with('payroll_staff')->get() 
+        $budgetProjects = ($active !== null)
+                          ? BudgetProject::where('active', $active)->with('payroll_staff')->get()
                           : BudgetProject::with('payroll_staff')->get();
         return response()->json(['records' => $budgetProjects], 200);
     }

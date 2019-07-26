@@ -91,10 +91,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<asset-request-list-pending
-							route_list='asset/requests/deliveries/vue-pending-list'
-							route_update='asset/requests/deliveries'>
-					</asset-request-list-pending>										
+					<asset-request-delivery-list
+							route_list='asset/requests/deliveries'>
+					</asset-request-delivery-list>										
 				</div>				
 			</div>			
 		</div>	

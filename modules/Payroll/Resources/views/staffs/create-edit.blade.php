@@ -19,7 +19,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-12">
-			<payroll-staff :payroll_staff_id="{!! (isset($payroll_staff)) ? $payroll_staff->id : "null" !!}"
+			<payroll-staff :payroll_staff_id="{!! (isset($payrollStaff)) ? $payrollStaff->id : "null" !!}"
 				route_list='{{ url('payroll/staffs') }}'>
 			</payroll-staff>
 		</div>

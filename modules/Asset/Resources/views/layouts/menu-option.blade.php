@@ -35,21 +35,14 @@
             <a href="{{ route('asset.request.index') }}">Solicitudes</a>
         </li>
         <li data-toggle="tooltip" data-placement="right"
-                        title="Gestiona la generación de reportes de bienes institucionales (general, por clasificación, etc.)">
-            <a href="#">Reportes</a>
-            
-            <ul class="submenu" style="{!! display_submenu('report') !!}">
-                <li title="Reportes Generales de bienes institucionales" data-toggle="tooltip"
-            data-placement="right"
-            class='{!! set_active_menu('asset.report.create') !!}'>
-                    <a href="{{ route('asset.report.create',1) }}">General</a>
-                </li>
-                <li title="Reportes por clasificación de bienes institucionales" data-toggle="tooltip"
-            data-placement="right"
-            class='{!! set_active_menu('asset.report.create') !!}'>
-                    <a href="{{ route('asset.report.create',2) }}">Por Clasificación</a>
-                </li>
-            </ul>
+            class='{!! set_active_menu(['asset.inventory-history.index']) !!}'
+            title="Gestiona el almacenamiento y visualización del estado del inventario a lo largo del tiempo">
+            <a href="{{ route('asset.inventory-history.index') }}">Historial de Inventario</a>
+        </li>
+        <li data-toggle="tooltip" data-placement="right"
+            class='{!! set_active_menu(['asset.report.index']) !!}'
+            title="Gestiona la generación de reportes de bienes institucionales (general, por clasificación, etc.)">
+            <a href="{{ route('asset.report.index') }}">Reportes de bienes</a>
         </li>
     </ul>
 </li>

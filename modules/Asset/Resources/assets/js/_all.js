@@ -129,11 +129,26 @@ Vue.component('asset-request-list', require('./components/requests/AssetRequestL
 Vue.component('asset-request-list-pending', require('./components/requests/AssetRequestListPendingComponent.vue').default);
 
 /**
- * Componente para mostrar un listado de solicitudes pendientes registradas
+ * Componente para mostrar un listado de solicitudes de entregas registradas
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-request-delivery-list', require('./components/requests/AssetRequestDeliveryListComponent.vue').default);
+
+/**
+ * Componente para la gestion de reportes de inventario
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 Vue.component('asset-report-create', require('./components/reports/AssetReportCreateComponent.vue').default);
+
+/**
+ * Componente para mostrar un listado del historial del inventario
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-inventory-history-list', require('./components/inventories/AssetInventoryHistoryListComponent.vue').default);
+
 /**
  * Opciones de configuración global del módulo de bienes
  * 

@@ -6,67 +6,104 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Models\CodeSetting;
+
+use Modules\Asset\Models\AssetInventoryAsset;
+use Modules\Asset\Models\AssetInventory;
+use Modules\Asset\Models\Asset;
+
 class AssetInventoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de los inventarios registrados
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        return view('asset::index');
+        return view('asset::inventories.list');
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('asset::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra el estado actual del inventario
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Datos de la petición
+     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
+        $codeSetting = CodeSetting::where('table', 'asset_inventories')->first();
+        if (is_null($codeSetting)) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]);
+            return response()->json(['result' => false, 'redirect' => route('asset.setting.index')], 200);
+        }
+
+        $code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
+        (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
+
+        $inventory = AssetInventory::create([
+            'code' => $code,
+        ]);
+        $assets = Asset::with('asset_condition', 'asset_status', 'asset_use_function')->withTrashed()->get();
+
+        $registered = count($assets);
+        $assigned = $disincorporated = $reserved = 0;
+
+        foreach ($assets as $asset) {
+            if ($asset->status_id = 1 )
+                $assigned += $assigned;
+            else if ($asset->status_id = 6 )
+                $reserved += $reserved;
+            else if (in_array($asset->status_id, [5,7,8,9]))
+                $disincorporated += $disincorporated;
+
+            $inventory_asset = AssetInventoryAsset::create([
+                'asset_condition'    => ($asset->asset_condition)?$asset->asset_condition->name:null,
+                'asset_status'       => ($asset->asset_status)?$asset->asset_status->name:null,
+                'asset_use_function' => ($asset->asset_use_function)?$asset->asset_use_function->name:null,
+                'asset_id'           => $asset->id,
+                'asset_inventory_id' => $inventory->id,
+            ]);
+        }
+        $inventory->registered      = $registered;
+        $inventory->assigned        = $assigned;
+        $inventory->disincorporated = $disincorporated;
+        $inventory->reserved        = $reserved;
+        $inventory->save();
+
+        $request->session()->flash('message', ['type' => 'store']);
+        
+        return response()->json(['result' => true, 'redirect' => route('asset.inventory-history.index')], 200);
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
+     * Elimina un registro de inventario
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Modules\Asset\Models\AssetInventory $inventory Datos del registro de inventario
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
      */
-    public function show()
+    public function destroy($id)
     {
-        return view('asset::show');
+        $inventory = AssetInventory::find($id);
+        $inventory->delete();
+        return response()->json(['message' => 'destroy'], 200);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * Otiene un listado de las inventarios registradas
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
      */
-    public function edit()
+    public function vueList()
     {
-        return view('asset::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
+        return response()->json(['records' => AssetInventory::with('asset_inventory_assets')->get()], 200);
     }
 }
