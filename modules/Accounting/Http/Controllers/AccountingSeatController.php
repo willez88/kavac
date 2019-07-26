@@ -57,7 +57,7 @@ class AccountingSeatController extends Controller
 
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
         $seating = AccountingSeat::orderBy('from_date','ASC')->first();
-        
+
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
         $yearOld = explode('-',$seating['from_date'])[0];
 
@@ -65,6 +65,7 @@ class AccountingSeatController extends Controller
         if ($yearOld == '') {
             $yearOld = date('Y');
         }
+
         /** @var array Arreglo que contendra las categorias */
         $categories = [];
         array_push($categories, [
@@ -72,6 +73,7 @@ class AccountingSeatController extends Controller
             'text' => 'Todas',
             'acronym' => ''
         ]);
+
         foreach (AccountingSeatCategory::all() as $category) {
             array_push($categories, [
                 'id' => $category->id,
@@ -79,10 +81,12 @@ class AccountingSeatController extends Controller
                 'acronym' => $category->acronym,
             ]);
         }
+
         /**
          * se convierte array a JSON
          */
         $categories = json_encode($categories);
+        
         return view('accounting::seating.index',compact('categories','yearOld','institutions','currency'));
     }
 

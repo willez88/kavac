@@ -1,4 +1,15 @@
+/**
+ * Componente para la configuración de categorias de origen para asientos contables
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('accounting-setting-category', require('./components/setting/AccountingSettingCategoryComponent.vue').default);
 
+/**
+ * Componente para el CRUD en ventana modal de cuentas patrimoniales
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
 Vue.component('accounting-setting-account', require('./components/setting/AccountingSettingAccountComponent.vue').default);
 
 /**
@@ -16,25 +27,33 @@ Vue.component('accounting-accounts-list', require('./components/accounts/Account
 Vue.component('accounting-create-edit-form', require('./components/accounts/AccountingCreateEditFormComponent.vue').default);
 
 /**
+ * Componente con el formulario para importar cuentas patrimoniales desde un excel
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('accounting-import-excel-form', require('./components/accounts/AccountingAccountImportFormComponent.vue').default);
+
+
+/**
  * Componente para la consulta de los registros del convertidor de cuentas
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-index', require('./components/account_converter/AccountingIndexComponent.vue').default);
+Vue.component('accounting-converter-index', require('./components/account_converter/AccountingIndexComponent.vue').default);
 
 /**
  * Componente para la creación de conversión de cuentas
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-create-convertions', require('./components/account_converter/AccountingCreateConvertionsComponent.vue').default);
+Vue.component('accounting-converter-create', require('./components/account_converter/AccountingCreateConvertionsComponent.vue').default);
 
 /**
  * Componente para la edición de una conversión de cuentas
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-edit-convertion', require('./components/account_converter/AccountingEditConvertionComponent.vue').default);
+Vue.component('accounting-converter-edit', require('./components/account_converter/AccountingEditConvertionComponent.vue').default);
 
 /**
  * Componente para la consulta de asientos contable
@@ -63,13 +82,6 @@ Vue.component('accounting-seat-create', require('./components/seating/Accounting
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 Vue.component('accounting-seat-create-account', require('./components/seating/AccountingAccountsInSeatingComponent.vue').default);
-
-/**
- * Componente para la configuración de categorias de origen para asientos contables
- *
- * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- */
-Vue.component('accounting-setting-category', require('./components/setting/AccountingSettingCategoryComponent.vue').default);
 
 /**
  * Componente index para el reporte de balance de comprobación

@@ -124,16 +124,16 @@
 			</div>
 		</div>
 		<div class='card-footer text-right'>
-			<button class="btn btn-default btn-icon"
+			<button class="btn btn-sm btn-default"
 					data-toggle="tooltip"
 					title="Borrar datos del formulario"
 					type="reset">
 					<i class="fa fa-eraser"></i>
 			</button>
-			<button class="btn btn-success btn-icon"
+			<button class="btn btn-sm btn-success"
 					data-toggle="tooltip"
-					title="Guardar registro"
-					id="save">
+					title="Guardar registro">
+					Guardar
 					<i class="fa fa-save"></i>
 			</button>
 		</div>

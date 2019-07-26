@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-edit-convertion :account_to_edit="{{ $account }}" :accounting_accounts="{{ $accountingAccounts }}" :budget_accounts="{{ $budgetAccounts }}" />
+					<accounting-converter-edit :account_to_edit="{{ $account }}" :accounting_accounts="{{ $accountingAccounts }}" :budget_accounts="{{ $budgetAccounts }}" />
 				</div>
 			</div>
 		</div>

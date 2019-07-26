@@ -40,6 +40,16 @@
 												v-model="record.acronym">
 									</div>
 								</div>
+								<div class="card-footer text-right">
+									<button class="btn btn-success btn-sm btn-modal-save" 
+											title="Guardar registro"
+											data-toggle="tooltip"
+											:disabled="record.name=='' || record.acronym==''"
+											@click="storeOrUpdate()">
+											Guardar
+											<i class="fa fa-save"></i>
+									</button>
+								</div>
 							</div>
 						</div>
 	                </div>
@@ -67,16 +77,10 @@
 	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-modal-close" 
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button class="btn btn-primary btn-sm btn-round btn-modal-save" 
-								title="Guardar registro"
-								data-toggle="tooltip"
-								:disabled="record.name=='' || record.acronym==''"
-								@click="storeOrUpdate()">Guardar
-						</button>
 		            </div>
 		        </div>
 		    </div>

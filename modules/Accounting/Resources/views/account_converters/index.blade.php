@@ -46,7 +46,7 @@
 							</div>
 						</div>
 					@else
-						<accounting-index route_edit="{{ url('accounting/converter/{id}/edit') }}" />
+						<accounting-converter-index route_edit="{{ url('accounting/converter/{id}/edit') }}" />
 					@endif
 				</div>
 			</div>

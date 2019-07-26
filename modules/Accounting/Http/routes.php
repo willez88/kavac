@@ -25,8 +25,13 @@ Route::group(['middleware' => 'web',
      */
 	Route::get('accounts', 'AccountingAccountController@index')
 			->name('accounting.accounts.index');
+
 	Route::get('get-children-account/{parent_id}', 'AccountingAccountController@getChildrenAccount')
 			->name('accounting.accounts.getChildrenAccount');
+
+	Route::post('import', 'AccountingAccountController@import')
+			->name('accounting.accounts.importExcel');
+
 	Route::resource('accounts', 'AccountingAccountController', 
 		['as' => 'accounting',
 		'except' => ['index']]);
@@ -47,6 +52,7 @@ Route::group(['middleware' => 'web',
 
 	Route::post('converter/create', 'AccountingAccountConverterController@create')
 			->name('accounting.converter.create');
+
 	Route::post('converter/get-Records', 'AccountingAccountConverterController@getRecords')
 			->name('accounting.converter.getRecords');
 

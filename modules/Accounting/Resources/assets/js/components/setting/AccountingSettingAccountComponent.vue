@@ -11,6 +11,21 @@
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
+						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1rem; margin-top: -0.rem;" 
+								title="Importar cuentas patrimoniales desde hoja de cálculo"
+								data-toggle="tooltip"
+								@click="OpenImportForm(true)"
+								v-if="!formImport">
+								Importar Hoja de Cálculo <i class="fa fa-file-excel-o"></i>
+						</button>
+						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1rem; margin-top: -0.rem;" 
+								title="formulario de creación manual"
+								data-toggle="tooltip"
+								@click="OpenImportForm(false)"
+								v-if="formImport">
+								Creación Estandar
+						</button>
+
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -19,18 +34,31 @@
 							CUENTAS PATRIMONIALES
 						</h6>
 					</div>
-					<div class="modal-body" v-if="records.length > 0">
+					<!-- Fromulario -->
+	                <div class="modal-body card-body" v-if="formImport">
+	                	<accounting-import-excel-form />
+	                </div>
+					<div class="modal-body" v-else-if="!formImport && records.length > 0">
 						<accounting-create-edit-form :records="records" />
 	                </div>
-	                <div class="modal-body modal-table" v-if="records.length > 0">
+
+					<!-- Tabla de cuentas patrimoniales -->
+
+	                <div class="modal-body modal-table" v-if="!formImport && records.length > 0">
 	                	<hr>
 						<accounting-accounts-list :accountslist="records" />
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-modal-close" 
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
+	                	<button type="button" class="btn btn-sm btn-primary btn-modal-close"
+								title="Guardar registros importados desde la hoja de cálculo"
+								v-if="formImport"
+								data-toggle="tooltip">
+								Guardar Registros Importados
+						</button>
 		            </div>
 		        </div>
 		    </div>
@@ -43,10 +71,8 @@ export default{
 	data(){
 		return{
 			records:[],
+			formImport:false,
 		}
-	},
-	created(){
-		
 	},
 	methods:{
 		/**
@@ -57,6 +83,9 @@ export default{
 		reset() {
 			// 
 		},
+		OpenImportForm:function(val) {
+			this.formImport = val;
+		}
 	},
 };
 </script>

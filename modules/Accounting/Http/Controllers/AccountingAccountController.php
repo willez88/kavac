@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Accounting\Models\AccountingAccountImport;
 use Modules\Accounting\Models\AccountingSeatAccount; 
 use Modules\Accounting\Models\AccountingAccount;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\HeadingRowImport;
+use App\Imports\DataImport;
+
 use Auth;
 /**
  * @class AccountingAccountController
@@ -261,6 +266,63 @@ class AccountingAccountController extends Controller
             ]);
         }
         return $records;
+    }
+
+    public function import()
+    {
+        $headings = (new HeadingRowImport)->toArray(request()->file('file'));
+        $records = Excel::toArray(new DataImport, request()->file('file'))[0];
+        $msg = '';
+
+        if (count($headings) < 1 || $headings[0] < 1) {
+            $msg = 'El archivo no contiene las cabeceras de los datos a importar.';
+        }
+        else if (count($headings) === 1 && $headings[0] >= 1) {
+            $validHeads = [
+                'grupo', 'subgrupo', 'rubro', 'n_cuenta_orden', 'n_subcuenta_primer_orden', 'n_subcuenta_segundo_orden', 'denominacion','estatus'
+            ];
+            foreach ($validHeads as $vh) {
+                if (!in_array($vh,$headings[0][0])) {
+                    $msg = "El archivo no contiene una de las cabeceras requeridas.";
+                    break;
+                }
+            }
+        }
+        else if (count($records) < 1) {
+            $msg = "El archivo no contiene registros a ser importados.";
+        }
+        
+        if (!empty($msg)) {
+            return response()->json(['result' => false, 'message' => $msg], 200);
+        }
+
+        $file = Excel::toArray(new DataImport, request()->file('file'))[0];
+        $records = [];
+
+        foreach ($file as $record) {
+            $n_cuenta_orden = ((int)$record['n_cuenta_orden'] > 9) ?
+                                                    $record['n_cuenta_orden']:'0'.$record['n_cuenta_orden'];
+            $n_subcuenta_primer_orden = ((int)$record['n_subcuenta_primer_orden'] > 9) ?
+                                                    $record['n_subcuenta_primer_orden']:'0'.$record['n_subcuenta_primer_orden'];
+            $n_subcuenta_segundo_orden = ((int)$record['n_subcuenta_segundo_orden'] > 9) ?
+                                                    $record['n_subcuenta_segundo_orden']:'0'.$record['n_subcuenta_segundo_orden'];
+
+            array_push($records, [
+                'code'=>$record['grupo'].'.'.
+                        $record['subgrupo'].'.'.
+                        $record['rubro'].'.'.
+                        $n_cuenta_orden.'.'.
+                        $n_subcuenta_primer_orden.'.'.
+                        $n_subcuenta_segundo_orden,
+                'denomination'=> $record['denominacion'],
+                'active'=>($record['estatus'] == 'activo') ? true : false,
+                ]);
+        }
+
+        return response()->json([
+            'result' => true, 
+            'records' => $records
+        ], 200);
     }
 
 }
