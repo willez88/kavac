@@ -20,9 +20,9 @@ class AgeToWork implements Rule
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($age)
     {
-        //
+        $this->age = $age;
     }
 
     /**
@@ -34,7 +34,7 @@ class AgeToWork implements Rule
      */
     public function passes($attribute, $value)
     {
-        return age(date($value)) >= 17;
+        return age(date($value)) >= $this->age;
     }
 
     /**
@@ -44,6 +44,6 @@ class AgeToWork implements Rule
      */
     public function message()
     {
-        return 'El campo :attribute debe ser 17 años o más.';
+        return 'El campo :attribute debe ser mayor o igual a '.$this->age;
     }
 }

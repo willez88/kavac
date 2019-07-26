@@ -78,7 +78,7 @@ class PayrollStaffController extends Controller
             'passport' => 'nullable|max:20|unique:payroll_staffs,passport',
             'email' => 'nullable|email|unique:payroll_staffs,email',
             'birthdate' => 'required|date',
-            'birthdate' => new AgeToWork,
+            'birthdate' => new AgeToWork(17),
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
             'emergency_phone' => 'nullable',
