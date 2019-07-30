@@ -17,7 +17,7 @@
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label'>Cuenta pariente</label>
-						<select2 :options="records_select" v-model="record"></select2>
+						<select2 :options="accRecords" v-model="record_select"></select2>
 					</div>
 				</div>
 				<div class='col-md-6'>
@@ -32,7 +32,7 @@
 										data-toggle='tooltip'
 										title='Grupo al que pertenece la cuenta'
 										maxlength='1'
-										v-model="data_account.group">
+										v-model="record.group">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -43,7 +43,7 @@
 										data-toggle='tooltip'
 										title='Sub-grupo al que pertenece la cuenta'
 										maxlength='1'
-										v-model="data_account.subgroup">
+										v-model="record.subgroup">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -54,7 +54,7 @@
 										data-toggle='tooltip'
 										title='Rubro al que pertenece la cuenta'
 										maxlength='1'
-										v-model="data_account.item">
+										v-model="record.item">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -65,7 +65,7 @@
 										data-toggle='tooltip'
 										title='identificador de cuenta a la que pertenece'
 										maxlength='2'
-										v-model="data_account.generic">
+										v-model="record.generic">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -76,7 +76,7 @@
 										data-toggle='tooltip'
 										title='Identificador de cuenta de 1er orden'
 										maxlength='2'
-										v-model="data_account.specific">
+										v-model="record.specific">
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
@@ -87,7 +87,7 @@
 										data-toggle='tooltip'
 										title='Identificador de cuenta de 2do orden'
 										maxlength='2'
-										v-model="data_account.subspecific">
+										v-model="record.subspecific">
 							</div>
 						</div>
 					</div>
@@ -101,7 +101,7 @@
 								data-toggle='tooltip'
 								placeholder='Descripción de la cuenta'
 								title='Denominación o concepto de la cuenta'
-								v-model="data_account.denomination">
+								v-model="record.denomination">
 					</div>
 				</div>
 				<div class='col-6'>
@@ -115,7 +115,7 @@
 										 name="active" 
 										 type="checkbox" 
 										 class="form-control bootstrap-switch"
-										 v-model="data_account.active">
+										 v-model="record.active">
 								</div>
 							</div>
 						</div>
@@ -147,9 +147,9 @@
 		data(){
 			return{
 				errors:[],
-				AccOptions:[],
-				record:'',
-				data_account:{
+				accRecords:[],
+				record_select:'',
+				record:{
 					id:'',
 					group:'',
 					subgroup:'',
@@ -165,18 +165,11 @@
 			}
 		},
 		created(){
-			this.records_select = this.records;
-			// this.records_select.unshift({id:'', text:'Seleccione...'});
-
-			EventBus.$on('reload:list-accounts',(data)=>{
-				this.reset();
-				this.records_select = data;
-			});
 
 			EventBus.$on('load:data-account-form',(data)=>{
 
 				var dt = data.code.split('.');
-				this.data_account={
+				this.record={
 					id:data.id,
 					group:dt[0],
 					subgroup:dt[1],
@@ -187,8 +180,12 @@
 					denomination:data.denomination,
 					active:data.active,
 				};
+				$("input[name=active]").bootstrapSwitch("state", this.record.active);
 				this.operation = 'update';
 			});
+		},
+		mounted(){
+			this.switchHandler('active');
 		},
 		methods:{
 
@@ -198,9 +195,9 @@
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
 			reset:function(){
-				this.records_select = [];
+				this.accRecords = [];
 
-				this.data_account={
+				this.record={
 					id:'',
 					group:'',
 					subgroup:'',
@@ -221,9 +218,9 @@
 			* @return {boolean} retorna falso si algun campo no cumple el formato correspondiente
 			*/
 			FormatCode:function(){
-				if (this.data_account.group.length < 1 ||this.data_account.subgroup.length < 1 ||
-					this.data_account.item.length < 1 || this.data_account.generic.length < 1 ||
-					this.data_account.specific.length < 1 || this.data_account.subspecific.length < 1) {
+				if (this.record.group.length < 1 ||this.record.subgroup.length < 1 ||
+					this.record.item.length < 1 || this.record.generic.length < 1 ||
+					this.record.specific.length < 1 || this.record.subspecific.length < 1) {
 
 					/** Cargo el error para ser mostrado*/
 					this.errors = [];
@@ -240,25 +237,24 @@
 			*/
 			sendData:function(){
 				if (!this.FormatCode()) { return; }
-				var dt = this.data_account;
+				var dt = this.record;
 
 				/** Se formatean los ultimos tres campos del codigo de ser necesario */
-				this.data_account.generic = (dt.generic.length < 2) ? '0'+dt.generic : dt.generic ;
-				this.data_account.specific = (dt.specific.length < 2) ? '0'+dt.specific : dt.specific ;
-				this.data_account.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
+				this.record.generic = (dt.generic.length < 2) ? '0'+dt.generic : dt.generic ;
+				this.record.specific = (dt.specific.length < 2) ? '0'+dt.specific : dt.specific ;
+				this.record.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
 
 				var url = '/accounting/accounts/';
-				this.data_account.active = $('#active').prop('checked');
+				this.record.active = $('#active').prop('checked');
 				if (this.operation == 'create') {
-					axios.post(url, this.data_account).then(response=>{
+					axios.post(url, this.record).then(response=>{
 
 						/** Se emite un evento para actualizar el listado de cuentas en el select */
-						this.records_select = [];
-						this.records_select = response.data.records;
+						this.accRecords = [];
+						this.accRecords = response.data.records;
 
 						/** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
 						EventBus.$emit('reload:list-accounts',response.data.records);
-
 						const vm = this;
 						vm.showMessage('store');
 					}).catch(error=>{
@@ -272,11 +268,11 @@
 						}
 					});
 				} else {
-					axios.put(url+this.data_account.id, this.data_account).then(response=>{
+					axios.put(url+this.record.id, this.record).then(response=>{
 
 						/** Se emite un evento para actualizar el listado de cuentas en el select */
-						this.records_select = [];
-						this.records_select = response.data.records;
+						this.accRecords = [];
+						this.accRecords = response.data.records;
 
 						/** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
 						EventBus.$emit('reload:list-accounts',response.data.records);
@@ -294,6 +290,8 @@
 						}
 					});
 				}
+
+				this.reset();
 			},
 		},
 		watch:{
@@ -302,12 +300,12 @@
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
-			record:function(res) {
+			record_select:function(res) {
 				if (res != '') {
 					axios.get('/accounting/get-children-account/' + res).then(response => {
 							var account = response.data.account;
 							/** Selecciona en pantalla la nueva cuentas */
-							this.data_account = {
+							this.record = {
 								group:account.group,
 								subgroup:account.subgroup,
 								item:account.item,
@@ -317,9 +315,12 @@
 								denomination:account.denomination,
 								active:account.active
 							};
-							$("input[name=active]").bootstrapSwitch("state", this.data_account.active);
+							$("input[name=active]").bootstrapSwitch("state", this.record.active);
 					});
 				}
+			},
+			records:function(res){
+				this.accRecords = res;
 			}
 		}
 

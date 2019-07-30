@@ -98,15 +98,8 @@
 					}
 				}).then(response => {
 					if (response.data.result && response.data.records) {
-						console.log(response.data.records);
 						this.records = response.data.records;
-						// var rows = response.data.records;
-						// for(var i in rows){
-						// 	var col = rows[i];
-						// 	for(var j in col){
-						// 		console.log(col[j])
-						// 	}
-						// }
+						EventBus.$emit('register:imported-accounts', this.records);
 					}
 					else {
 						vm.showMessage(

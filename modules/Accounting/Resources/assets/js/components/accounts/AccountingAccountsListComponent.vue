@@ -1,5 +1,5 @@
 <template>
-	<v-client-table :columns="columns" :data="records" :options="table_options">
+	<v-client-table :columns="columns" :data="accRecords" :options="table_options">
 		<div slot="status" slot-scope="props" class="text-center">
 			<div v-if="props.row.active">
 				<span class="badge badge-success"><strong>Activa</strong></span>
@@ -26,10 +26,10 @@
 
 <script>
 	export default {
-		props:['accountslist'],
+		props:['records'],
 		data(){
 			return {
-				records: [],
+				accRecords: [],
 				columns: ['code', 'denomination', 'status', 'id']
 			}
 		},
@@ -42,18 +42,15 @@
 			};
 			this.table_options.sortable = ['code', 'denomination', 'status'];
 			this.table_options.filterable = ['code', 'denomination', 'status'];
-
-			EventBus.$on('reload:list-accounts',(data)=>{
-				this.records = [];
-				this.records = data;
-			});
-		},
-		mounted(){
-			this.records = this.accountslist;
 		},
 		methods:{
 			loadData:function(data) {
 				EventBus.$emit('load:data-account-form', data);
+			}
+		},
+		watch:{
+			records:function(res){
+				this.accRecords = res;
 			}
 		}
 	};

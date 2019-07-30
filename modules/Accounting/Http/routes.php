@@ -30,7 +30,11 @@ Route::group(['middleware' => 'web',
 			->name('accounting.accounts.getChildrenAccount');
 
 	Route::post('import', 'AccountingAccountController@import')
-			->name('accounting.accounts.importExcel');
+			->name('accounting.accounts.import');
+
+	Route::post('importedAccounts', 'AccountingAccountController@registerImportedAccounts')
+			->name('accounting.accounts.registerImportedAccounts');
+
 
 	Route::resource('accounts', 'AccountingAccountController', 
 		['as' => 'accounting',

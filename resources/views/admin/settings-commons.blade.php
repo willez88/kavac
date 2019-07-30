@@ -39,7 +39,6 @@
 					<currencies></currencies>
 					<taxes></taxes>
 					<tax-units></tax-units>
-					<measurement-units></measurement-units>
 					<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
 						   href="#" title="Registros de Deducciones o Retenciones" 

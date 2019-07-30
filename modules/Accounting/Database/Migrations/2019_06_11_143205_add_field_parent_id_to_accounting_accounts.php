@@ -27,8 +27,8 @@ class AddFieldParentIdToAccountingAccounts extends Migration
      */
     public function down()
     {
-        Schema::table('', function (Blueprint $table) {
-
+        Schema::table('accounting_accounts', function (Blueprint $table) {
+            $table->dropColumn('parent_id');
         });
     }
 }

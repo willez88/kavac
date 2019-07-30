@@ -11,18 +11,18 @@
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1rem; margin-top: -0.rem;" 
+						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1.8rem; margin-top: -.1rem;" 
 								title="Importar cuentas patrimoniales desde hoja de cálculo"
 								data-toggle="tooltip"
 								@click="OpenImportForm(true)"
-								v-if="!formImport">
+								v-show="!formImport">
 								Importar Hoja de Cálculo <i class="fa fa-file-excel-o"></i>
 						</button>
 						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1rem; margin-top: -0.rem;" 
 								title="formulario de creación manual"
 								data-toggle="tooltip"
 								@click="OpenImportForm(false)"
-								v-if="formImport">
+								v-show="formImport">
 								Creación Estandar
 						</button>
 
@@ -35,18 +35,18 @@
 						</h6>
 					</div>
 					<!-- Fromulario -->
-	                <div class="modal-body card-body" v-if="formImport">
+	                <div class="modal-body card-body" v-show="formImport">
 	                	<accounting-import-excel-form />
 	                </div>
-					<div class="modal-body" v-else-if="!formImport && records.length > 0">
-						<accounting-create-edit-form :records="records" />
+					<div class="modal-body" v-show="!formImport && records_form.length > 0">
+						<accounting-create-edit-form :records="records_form" />
 	                </div>
 
 					<!-- Tabla de cuentas patrimoniales -->
 
-	                <div class="modal-body modal-table" v-if="!formImport && records.length > 0">
+	                <div class="modal-body modal-table" v-show="!formImport && records_list.length > 0">
 	                	<hr>
-						<accounting-accounts-list :accountslist="records" />
+						<accounting-accounts-list :records="records_list" />
 	                </div>
 	                <div class="modal-footer">
 	                	<button type="button" class="btn btn-default btn-sm btn-modal-close" 
@@ -56,6 +56,7 @@
 	                	<button type="button" class="btn btn-sm btn-primary btn-modal-close"
 								title="Guardar registros importados desde la hoja de cálculo"
 								v-if="formImport"
+								@click="registerImportedAccounts()"
 								data-toggle="tooltip">
 								Guardar Registros Importados
 						</button>
@@ -71,8 +72,20 @@ export default{
 	data(){
 		return{
 			records:[],
+			records_list:[],
+			records_form:[],
 			formImport:false,
+			accounts:null,
 		}
+	},
+	created(){
+		EventBus.$on('register:imported-accounts',(data)=>{
+				this.accounts = data;
+			});
+		EventBus.$on('reload:list-accounts',(data)=>{
+				this.reset();
+				this.records = data;
+			});
 	},
 	methods:{
 		/**
@@ -81,11 +94,53 @@ export default{
 		 * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
 		 */
 		reset() {
-			// 
+			this.formImport = false;
 		},
+
+		/**
+		* Función que cambia el valor para cambiar el formulario mostrado
+		* @var boolean Usada para cambiar el tipo de formulario que se mostrara
+		* @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+		*/
 		OpenImportForm:function(val) {
 			this.formImport = val;
+		},
+
+		/**
+		* Guarda los registros cargados desde la hora de cálculo
+		* 
+		* @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+		*/
+		registerImportedAccounts:function() {
+			const vm = this;
+			axios.post('/accounting/importedAccounts', { records: this.accounts }).then(response=>{
+				vm.showMessage(
+					'custom', 'Éxito', 'success', 'screen-ok', 
+					response.data.message
+				);
+				vm.reset();
+				EventBus.$emit('reload:list-accounts',response.data.records);
+			});
 		}
 	},
+	watch:{
+		records:function(res, ant) {
+			/** listado con las cuentas para la tabla */
+			this.records_list = this.records;
+
+			/** listado con las cuentas para el select2 */
+			this.records_form.push({
+				id:'',
+				text:'Seleccione...',
+			});
+
+			for (var i = 0; i < this.records.length; i++) {
+				this.records_form.push({
+					id:this.records[i].id,
+					text:this.records[i].text,
+				});
+			}
+		}
+	}
 };
 </script>

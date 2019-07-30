@@ -36,7 +36,7 @@ class AccountingAccountController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:accounting.account.list', ['only' => 'index']);
-        $this->middleware('permission:accounting.account.create', ['only' => ['store']]);
+        $this->middleware('permission:accounting.account.create', ['only' => ['store', 'registerImportedAccounts']]);
         $this->middleware('permission:accounting.account.edit', ['only' => ['update']]);
         $this->middleware('permission:accounting.account.delete', ['only' => 'destroy']);
     }
@@ -49,8 +49,7 @@ class AccountingAccountController extends Controller
      */
     public function index()
     {
-        $accounts_list = $this->getAccounts();
-        return response()->json(['records'=>$accounts_list],200);
+        return response()->json(['records'=>$this->getAccounts()],200);
     }
 
     /**
@@ -316,6 +315,12 @@ class AccountingAccountController extends Controller
                         $n_subcuenta_segundo_orden,
                 'denomination'=> $record['denominacion'],
                 'active'=>($record['estatus'] == 'activo') ? true : false,
+                'group'=>$record['grupo'],
+                'subgroup'=>$record['subgrupo'],
+                'item'=>$record['rubro'],
+                'generic'=>$n_cuenta_orden,
+                'specific'=>$n_subcuenta_primer_orden,
+                'subspecific'=>$n_subcuenta_segundo_orden,
                 ]);
         }
 
@@ -325,4 +330,40 @@ class AccountingAccountController extends Controller
         ], 200);
     }
 
+    public function registerImportedAccounts(Request $request)
+    {
+        foreach ($request->records as $account) {
+
+            /** @var Object que almacena la consulta de la cuenta, si esta no existe retorna null */
+            $acc = AccountingAccount::where('group',$account['group'])
+                                ->where('subgroup',$account['subgroup'])
+                                ->where('item',$account['item'])
+                                ->where('generic',$account['generic'])
+                                ->where('specific',$account['specific'])
+                                ->where('subspecific',$account['subspecific'])->first();
+
+            /** @var Object que almacena la consulta de la cuenta de nivel superior de la cuanta actual, si esta no posee retorna false */
+            $parent = AccountingAccount::getParent(
+                    $account['group'], $account['subgroup'], $account['item'], $account['generic'], $account['specific'], $account['subspecific']
+                );
+
+            AccountingAccount::updateOrCreate(
+                [
+                    'group' => $account['group'], 'subgroup' => $account['subgroup'],
+                    'item' => $account['item'], 'generic' => $account['generic'],
+                    'specific' => $account['specific'], 'subspecific' => $account['subspecific'], 
+                ],[
+                    'denomination' => $account['denomination'],
+                    'active' => $account['active'],
+                    'inactivity_date' => (!$account['active'])?date('Y-m-d'):null,
+
+                    /**
+                    * Si existe, al ejecutar nuevamente el seeder o refrescar la base de datos evita que se asigne en la columna parent_id a si mismo como su parent
+                    */ 
+                    'parent_id' => ($acc != null && $parent != false) ? (($acc->id == $parent->id)?null:$parent->id) : (($parent == false)?null:$parent->id) ,
+                ]
+            );
+        }
+        return response()->json(['message'=>'Los registros importados fueron guardados de manera exitosa.']);
+    }
 }

@@ -3789,11 +3789,10 @@ class AccountingAccountsTableSeeder extends Seeder
                         'parent_id' => ($acc != null && $parent != false) ? (($acc->id == $parent->id)?null:$parent->id) : (($parent == false)?null:$parent->id) ,
                     ]
                 );
-
-
             }
 
             /**
+            * Listado de cuentas que deben ser eliminadas por actualización en el código
             * Se consultan, eliminan y actualizan los registros relacionados con la cuenta,
             * en caso de ya tener informacion relacionada se toman las medidas necesarias para evitar la perdida de datos
             */
