@@ -16,7 +16,7 @@ class ChangeFieldToPayrollNationalitiesTable extends Migration
         Schema::table('payroll_nationalities', function (Blueprint $table) {
             if (Schema::hasColumn('payroll_nationalities', 'demonym') && !Schema::hasColumn('payroll_nationalities', 'name')) {
                 $table->dropColumn("demonym");
-                $table->string('name', 100)
+                $table->string('name', 100)->nullable()
                       ->comment('Nombre de la nacionalidad de la persona');
             }
         });
@@ -32,7 +32,7 @@ class ChangeFieldToPayrollNationalitiesTable extends Migration
         Schema::table('payroll_nationalities', function (Blueprint $table) {
             if (!Schema::hasColumn('payroll_nationalities', 'demonym') && Schema::hasColumn('payroll_nationalities', 'name')) {
                 $table->dropColumn("name");
-                $table->string('demonym', 100)
+                $table->string('demonym', 100)->nullable()
                       ->comment('Denominacion de la nacionalidad de la persona');
             }
         });

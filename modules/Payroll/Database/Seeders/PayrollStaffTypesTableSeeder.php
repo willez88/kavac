@@ -20,13 +20,13 @@ class PayrollStaffTypesTableSeeder extends Seeder
 
         $payroll_staff_types = [
             [
-                'name' => 'Personal Fijo a Tiempo Completo', 'description' => null
+                'name' => 'Personal Fijo a Tiempo Completo', 'description' => ''
             ],
             [
-                'name' => 'Personal Fijo a Tiempo Parcial', 'description' => null
+                'name' => 'Personal Fijo a Tiempo Parcial', 'description' => ''
             ],
             [
-                'name' => 'Personal Contratado', 'description' => null
+                'name' => 'Personal Contratado', 'description' => ''
             ]
         ];
 
