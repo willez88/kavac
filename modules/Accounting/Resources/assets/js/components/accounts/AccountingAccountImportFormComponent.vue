@@ -1,16 +1,16 @@
 <template>
 	<div class="card-body">
 		<form method="post" enctype="multipart/form-data" @submit.prevent="">
-			<label>Cargar Hoja de calculo</label><br>
+			<label>Cargar Hoja de calculo. Formatos permitidos:<strong>.xls .ods</strong></label><br>
 			<input type="file" 
-					id="excel_file" 
+					id="file" 
 					name="file"
 					@change="importCalculo()">
 			<br>
 		</form>
 
 		<div class="card-body">
-			<h6>EJEMPLO: Formato de hoja de cálculo</h6>
+			<h6>EJEMPLO: Formato de hoja de cálculo </h6>
 			<table cellpadding="1" border="1">
 				<thead>
 					<tr>
@@ -73,7 +73,8 @@
 		data(){
 			return {
 				records: [],
-				columns: ['code', 'denomination', 'status']
+				columns: ['code', 'denomination', 'status'],
+				file:'',
 			}
 		},
 		created() {
@@ -85,12 +86,26 @@
 			this.table_options.sortable = ['code', 'denomination'];
 			this.table_options.filterable = ['code', 'denomination'];
 
+			EventBus.$on('reset:import-form',()=>{
+				this.reset();	
+			});
 		},
 		methods:{
+
+			/**
+			* Limpia los valores de las variables del formulario
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
+			reset(){
+				document.getElementById("file").value = "";
+				this.records = [];
+			},
+
 			importCalculo(){
 				let vm = this;
 				var formData = new FormData();
-				var inputFile = document.querySelector('#excel_file');
+				var inputFile = document.querySelector('#file');
 				formData.append("file", inputFile.files[0]);
 				axios.post('/accounting/import', formData, {
 					headers: {
@@ -111,7 +126,7 @@
 					if (typeof(error.response) !== "undefined") {
 						if (error.response.status == 422 || error.response.status == 500) {
 							vm.showMessage(
-								'custom', 'Error', 'danger', 'screen-error', "El documento debe ser un archivo en formato: xls, xlsx, ods, csv."
+								'custom', 'Error', 'danger', 'screen-error', "El documento debe ser un archivo en formato: .xls .ods"
 							);
 						}
 					}

@@ -103,6 +103,11 @@ export default{
 		* @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
 		*/
 		OpenImportForm:function(val) {
+			if (val) {
+				EventBus.$emit('reset:import-form');
+			}else{
+				EventBus.$emit('load:data-account-form', null);
+			}
 			this.formImport = val;
 		},
 
@@ -126,7 +131,7 @@ export default{
 	watch:{
 		records:function(res, ant) {
 			/** listado con las cuentas para la tabla */
-			this.records_list = this.records;
+			this.records_list = res;
 
 			/** listado con las cuentas para el select2 */
 			this.records_form.push({
@@ -134,10 +139,10 @@ export default{
 				text:'Seleccione...',
 			});
 
-			for (var i = 0; i < this.records.length; i++) {
+			for (var i = 0; i < res.length; i++) {
 				this.records_form.push({
-					id:this.records[i].id,
-					text:this.records[i].text,
+					id:res[i].id,
+					text:res[i].text,
 				});
 			}
 		}

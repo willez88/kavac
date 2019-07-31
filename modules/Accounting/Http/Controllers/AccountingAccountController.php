@@ -270,7 +270,7 @@ class AccountingAccountController extends Controller
     public function import()
     {
         $this->validate(request(), [
-            'file' => 'required|mimes:xls,xlsx,ods,csv'
+            'file' => 'required|mimes:xls,ods'
         ]);
 
         $headings = (new HeadingRowImport)->toArray(request()->file('file'));
@@ -368,6 +368,6 @@ class AccountingAccountController extends Controller
                 ]
             );
         }
-        return response()->json(['message'=>'Los registros importados fueron guardados de manera exitosa.']);
+        return response()->json(['records'=>$this->getAccounts(), 'message'=>'Los registros importados fueron guardados de manera exitosa.']);
     }
 }

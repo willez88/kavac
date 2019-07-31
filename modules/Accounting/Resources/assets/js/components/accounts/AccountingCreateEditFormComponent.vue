@@ -167,20 +167,24 @@
 		created(){
 
 			EventBus.$on('load:data-account-form',(data)=>{
+				if (data == null) {
+					this.reset(false);
+				}
+				else{
+					var dt = data.code.split('.');
+					this.record={
+						id:data.id,
+						group:dt[0],
+						subgroup:dt[1],
+						item:dt[2],
+						generic:dt[3],
+						specific:dt[4],
+						subspecific:dt[5],
+						denomination:data.denomination,
+						active:data.active,
+					};
+				}
 
-				var dt = data.code.split('.');
-				this.record={
-					id:data.id,
-					group:dt[0],
-					subgroup:dt[1],
-					item:dt[2],
-					generic:dt[3],
-					specific:dt[4],
-					subspecific:dt[5],
-					denomination:data.denomination,
-					active:data.active,
-				};
-				this.record_select = data.id;
 				$("input[name=active]").bootstrapSwitch("state", this.record.active);
 				this.operation = 'update';
 			});
@@ -196,8 +200,10 @@
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
-			reset:function(){
-				this.accRecords = [];
+			reset:function(resetRecords = true){
+				if (resetRecords) {
+					this.accRecords = [];
+				}
 
 				this.record={
 					id:'',
