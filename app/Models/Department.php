@@ -30,6 +30,8 @@ class Department extends Model implements Auditable
     use RevisionableTrait;
     use AuditableTrait;
 
+    protected $with = ['institution'];
+
     /**
      * Establece el uso o no de bitácora de registros para este modelo
      * @var boolean $revisionCreationsEnabled
@@ -47,7 +49,7 @@ class Department extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-    	'name', 'acronym', 'hierarchy', 'issue_requests', 'active', 'administrative', 'department_id', 
+    	'name', 'acronym', 'hierarchy', 'issue_requests', 'active', 'administrative', 'parent_id', 
     	'institution_id'
     ];
 

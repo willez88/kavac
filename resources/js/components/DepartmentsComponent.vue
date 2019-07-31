@@ -29,7 +29,7 @@
 								<div class="form-group is-required">
 									<label>Institución:</label>
 									<select2 :options="institutions" v-model="record.institution_id" 
-											 title="Institución a la cual pertenece" @input="getDepartments"
+											 title="Institución a la cual pertenece" @input="getDepartments()"
 											 data-toggle="tooltip"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -37,7 +37,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Depende de:</label>
-									<select2 :options="departments" v-model="record.department_id" 
+									<select2 :options="departments" v-model="record.parent_id" 
 											 title="Unidad, Departamento o dependencia de la cual depende. No seleccionar si no es subordinada a otra dependencia" 
 											 data-toggle="tooltip"></select2>
 			                    </div>
@@ -144,7 +144,7 @@
 				record: {
 					id: '',
 					institution_id: '',
-					department_id: '',
+					parent_id: '',
 					acronym: '',
 					name: '',
 					issue_requests: false,
@@ -156,7 +156,7 @@
 				errors: [],
 				records: [],
 				columns: [
-					'institution.name', 'parent.name', 'acronym', 'name', 'active', 'id'
+					'institution.acronym', 'parent.name', 'acronym', 'name', 'active', 'id'
 				],
 			}
 		},
@@ -170,7 +170,7 @@
 				this.record = {
 					id: '',
 					institution_id: '',
-					department_id: '',
+					parent_id: '',
 					acronym: '',
 					name: '',
 					issue_requests: false,
@@ -181,17 +181,17 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'institution.name': 'Institución',
+				'institution.acronym': 'Institución',
 				'parent.name': 'Depende de',
 				'acronym': 'Siglas',
 				'name': 'Nombre',
 				'active': 'Activo',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['institution.name', 'parent.name', 'acronym', 'name'];
-			this.table_options.filterable = ['institution.name', 'parent.name', 'acronym', 'name'];
+			this.table_options.sortable = ['institution.acronym', 'parent.name', 'acronym', 'name'];
+			this.table_options.filterable = ['institution.acronym', 'parent.name', 'acronym', 'name'];
 			this.table_options.columnsClasses = {
-				'institution.name': 'col-md-2',
+				'institution.acronym': 'col-md-2',
 				'parent.name': 'col-md-2',
 				'acronym': 'col-md-2',
 				'name': 'col-md-3',

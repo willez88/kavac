@@ -38,7 +38,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => Department::with(['institution', 'parent'])->get()], 200);
+        return response()->json(['records' => Department::with(['parent', 'childrens'])->get()], 200);
     }
 
     /**
@@ -66,8 +66,8 @@ class DepartmentController extends Controller
 
         $hierarchy = 0;
 
-        if (!is_null($request->department_id) || !empty($request->department_id)) {
-            $dto = Department::where('department_id', $request->department_id)->first();
+        if (!is_null($request->parent_id) || !empty($request->parent_id)) {
+            $dto = Department::where('parent_id', $request->parent_id)->first();
             if ($dto) {
                 $hierarchy = $dto->hierarchy + 1;
             }
@@ -80,7 +80,7 @@ class DepartmentController extends Controller
             'issue_requests' => $request->issue_requests ?? false,
             'active' => $request->active ?? false,
             'administrative' => $request->administrative ?? false,
-            'parent_id' => ($request->department_id)?$request->department_id:null,
+            'parent_id' => ($request->parent_id)?$request->parent_id:null,
             'institution_id' => $request->institution_id
         ]);
         
@@ -125,8 +125,8 @@ class DepartmentController extends Controller
 
         $hierarchy = 0;
 
-        if (!is_null($request->department_id) || !empty($request->department_id)) {
-            $dto = Department::where('department_id', $request->department_id)->first();
+        if (!is_null($request->parent_id) || !empty($request->parent_id)) {
+            $dto = Department::where('parent_id', $request->parent_id)->first();
             if ($dto) {
                 $hierarchy = $dto->hierarchy + 1;
             }
@@ -138,7 +138,7 @@ class DepartmentController extends Controller
         $department->issue_requests = $request->issue_requests ?? false;
         $department->active = $request->active ?? false;
         $department->administrative = $request->administrative ?? false;
-        $department->parent_id = ($request->department_id)?$request->department_id:null;
+        $department->parent_id = ($request->parent_id)?$request->parent_id:null;
         $department->institution_id = $request->institution_id;
         $department->save();
 
@@ -167,13 +167,8 @@ class DepartmentController extends Controller
      */
     public function getDepartments(Request $request, $institution_id)
     {
-        foreach (Department::all() as $department) {
-            $this->data[] = [
-                'id' => $department->id,
-                'text' => $department->name
-            ];
-        }
-
-        return response()->json($this->data);
+        return response()->json(
+            template_choices(Department::class, 'name', ['institution_id' => $institution_id], true)
+        );
     }
 }
