@@ -269,6 +269,10 @@ class AccountingAccountController extends Controller
 
     public function import()
     {
+        $this->validate(request(), [
+            'file' => 'required|mimes:xls,xlsx,ods,csv'
+        ]);
+
         $headings = (new HeadingRowImport)->toArray(request()->file('file'));
         $records = Excel::toArray(new DataImport, request()->file('file'))[0];
         $msg = '';

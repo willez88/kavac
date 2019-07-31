@@ -180,12 +180,14 @@
 					denomination:data.denomination,
 					active:data.active,
 				};
+				this.record_select = data.id;
 				$("input[name=active]").bootstrapSwitch("state", this.record.active);
 				this.operation = 'update';
 			});
 		},
 		mounted(){
 			this.switchHandler('active');
+			this.reset();
 		},
 		methods:{
 
