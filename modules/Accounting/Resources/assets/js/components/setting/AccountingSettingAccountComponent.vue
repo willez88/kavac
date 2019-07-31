@@ -18,7 +18,7 @@
 								v-show="!formImport">
 								Importar Hoja de Cálculo <i class="fa fa-file-excel-o"></i>
 						</button>
-						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1rem; margin-top: -0.rem;" 
+						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1.8rem; margin-top: -.1rem;" 
 								title="formulario de creación manual"
 								data-toggle="tooltip"
 								@click="OpenImportForm(false)"
@@ -26,7 +26,7 @@
 								Creación Estandar
 						</button>
 
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="reset" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
@@ -49,7 +49,7 @@
 						<accounting-accounts-list :records="records_list" />
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-modal-close" 
+	                	<button type="reset" class="btn btn-default btn-sm btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>

@@ -14,14 +14,14 @@
 			<table cellpadding="1" border="1">
 				<thead>
 					<tr>
-						<td style="padding: 0rem !important;" width="3%" align="center">grupo</td>
-						<td style="padding: 0rem !important;" width="3%" align="center">subgrupo</td>
-						<td style="padding: 0rem !important;" width="3%" align="center">rubro</td>
-						<td style="padding: 0rem !important;" width="6%" align="center">n cuenta orden</td>
-						<td style="padding: 0rem !important;" width="9%" align="center">n subcuenta primer orden</td>
-						<td style="padding: 0rem !important;" width="9%" align="center">n subcuenta segundo orden</td>
-						<td style="padding: 0rem !important;" width="26%" align="center">denominacion</td>
-						<td style="padding: 0rem !important;" width="6%" align="center">estatus</td>
+						<td align="center">grupo</td>
+						<td align="center">subgrupo</td>
+						<td align="center">rubro</td>
+						<td align="center">n cuenta orden</td>
+						<td align="center">n subcuenta primer orden</td>
+						<td align="center">n subcuenta segundo orden</td>
+						<td align="center">denominacion</td>
+						<td align="center">estatus</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -108,7 +108,13 @@
 						);
 					}
 				}).catch(error => {
-					console.log(error);
+					if (typeof(error.response) !== "undefined") {
+						if (error.response.status == 422 || error.response.status == 500) {
+							vm.showMessage(
+								'custom', 'Error', 'danger', 'screen-error', "El documento debe ser un archivo en formato: xls, xlsx, ods, csv."
+							);
+						}
+					}
 				});
 			},
 		}
