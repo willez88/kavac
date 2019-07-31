@@ -23,13 +23,15 @@ class CreateAssetAcquisitionTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('asset_acquisition_types', function (Blueprint $table) {
-            $table->increments('id')->comment('Identificador único del registro');
-                $table->string('name',100)->comment('Nombre del tipo de adquisición');
+        if (!Schema::hasTable('asset_acquisition_types')) {
+            Schema::create('asset_acquisition_types', function (Blueprint $table) {
+                $table->increments('id')->comment('Identificador único del registro');
+                    $table->string('name',100)->comment('Nombre del tipo de adquisición');
 
-                $table->timestamps();
-                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-        });
+                    $table->timestamps();
+                    $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+        }
     }
 
     /**
