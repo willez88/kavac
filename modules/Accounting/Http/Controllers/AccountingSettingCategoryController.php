@@ -53,11 +53,7 @@ class AccountingSettingCategoryController extends Controller
             'acronym' => 'required|string',
         ]);
         /** @var object Objeto para almacenar la información para el nuevo registro */
-        $category = new AccountingSeatCategory();
-
-        $category->name = $request->name;
-        $category->acronym = $request->acronym;
-        $category->save();
+        AccountingSeatCategory::create($request->all());
 
         return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'],200);
     }
@@ -77,11 +73,8 @@ class AccountingSettingCategoryController extends Controller
             'acronym' => 'required|string',
         ]);
         /** @var Object Objeto que contine el registro de conversión a editar */
-        $category = AccountingSeatCategory::find($id);
-
-        $category->name = $request->name;
-        $category->acronym = $request->acronym;
-        $category->save();
+        AccountingSeatCategory::where('id',$id)
+                                ->update($request->all());
 
         return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'],200);
     }
@@ -101,7 +94,7 @@ class AccountingSettingCategoryController extends Controller
              * validar si no esta relacionada con algun asiento es permitido eliminarla
              */
             if (count($category->accounting_seats) > 0) {
-                return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar'],200);
+                return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar, debido a que existen asientos relacionados.'],200);
             }
             $category->delete();
         }

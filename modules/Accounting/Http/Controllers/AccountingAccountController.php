@@ -71,41 +71,36 @@ class AccountingAccountController extends Controller
             'denomination' => 'required',
             'active' => 'required',
         ]);
-        /** @var object Objeto que contiene los datos de la cuenta ya registrada si existe */
-        $AccountingAccount = AccountingAccount::where('group', request('group'))
-                              ->where('subgroup', request('subgroup'))
-                              ->where('item', request('item'))
-                              ->where('generic', request('generic'))
-                              ->where('specific', request('specific'))
-                              ->where('subspecific', request('subspecific'))->first();
 
-        /**
-         * Si la cuenta a registrar ya existe en la base de datos solo se actualiza el atributo active y la denominación
-         * De lo contrario se crea la nueva cuenta
-         */
-        if ($AccountingAccount) {
-            $AccountingAccount->denomination = $request->denomination;
-            $AccountingAccount->active = $request->active;
-            $AccountingAccount->save();
-            $request->session()->flash('message', ['type' => 'update']);
-        }else{
+        /** @var Object que almacena la consulta de la cuenta, si esta no existe retorna null */
+        $acc = AccountingAccount::where('group',$request['group'])
+                            ->where('subgroup',$request['subgroup'])
+                            ->where('item',$request['item'])
+                            ->where('generic',$request['generic'])
+                            ->where('specific',$request['specific'])
+                            ->where('subspecific',$request['subspecific'])->first();
 
-            /**
-             * Registra la nueva cuenta patrimonial
-             */
-            AccountingAccount::create([
-                'group' => $request->group,
-                'subgroup' => $request->subgroup,
-                'item' => $request->item,
-                'generic' => $request->generic,
-                'specific' => $request->specific,
-                'subspecific' => $request->subspecific,
-                'denomination' => $request->denomination,
-                'active' => $request->active,
-            ]);
-            // $request->session()->flash('message', ['type' => 'store']);
-        }
-        
+        /** @var Object que almacena la consulta de la cuenta de nivel superior de la cuanta actual, si esta no posee retorna false */
+        $parent = AccountingAccount::getParent(
+                $request['group'], $request['subgroup'], $request['item'], $request['generic'], $request['specific'], $request['subspecific']
+            );
+        AccountingAccount::updateOrCreate(
+            [
+                'group' => $request['group'], 'subgroup' => $request['subgroup'],
+                'item' => $request['item'], 'generic' => $request['generic'],
+                'specific' => $request['specific'], 'subspecific' => $request['subspecific'], 
+            ],[
+                'denomination' => $request['denomination'],
+                'active' => $request['active'],
+                'inactivity_date' => (!$request['active'])?date('Y-m-d'):null,
+
+                /**
+                * Si existe, al ejecutar nuevamente el seeder o refrescar la base de datos evita que se asigne en la columna parent_id a si mismo como su parent
+                */ 
+                'parent_id' => ($acc != null && $parent != false) ? (($acc->id == $parent->id)?null:$parent->id) : (($parent == false)?null:$parent->id) ,
+            ]
+        );
+
         return response()->json(['records'=>$this->getAccounts(), 'message'=>'Success']);
     }
 
@@ -129,24 +124,12 @@ class AccountingAccountController extends Controller
             'denomination' => 'required',
             'active' => 'required',
         ]);
-        /** @var object Objeto con información de la cuenta patrimonial a modificar */
-        $AccountingAccount = AccountingAccount::find($id);
 
         /**
          * Actualiza el registro de la cuenta
          */
-
-        $AccountingAccount->group = $request->group;
-        $AccountingAccount->subgroup = $request->subgroup;
-        $AccountingAccount->item = $request->item;
-        $AccountingAccount->generic = $request->generic;
-        $AccountingAccount->specific = $request->specific;
-        $AccountingAccount->subspecific = $request->subspecific;
-        $AccountingAccount->denomination = $request->denomination;
-        $AccountingAccount->active = $request->active;
-        $AccountingAccount->save();
-        
-        // $request->session()->flash('message', ['type' => 'update']);
+        AccountingAccount::where('id', $id)
+          ->update($request->all());
 
         return response()->json(['records'=>$this->getAccounts(), 'message'=>'Success']);
     }
@@ -165,7 +148,7 @@ class AccountingAccountController extends Controller
 
         if ($AccountingAccount) {
             if (!is_null($AccountingAccount->account_converters) || !is_null(AccountingSeatAccount::where('accounting_account_id', $id)->first())) {
-                return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar'],200);
+                return response()->json(['error' => true, 'message' => 'No es posible eliminar cuentas que esten siendo utilizadas en conversiones ó asientos contables.'],200);
             }
             $AccountingAccount->delete();
         }
@@ -370,4 +353,5 @@ class AccountingAccountController extends Controller
         }
         return response()->json(['records'=>$this->getAccounts(), 'message'=>'Los registros importados fueron guardados de manera exitosa.']);
     }
+
 }

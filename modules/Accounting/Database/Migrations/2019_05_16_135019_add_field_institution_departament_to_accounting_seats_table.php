@@ -30,7 +30,7 @@ class AddFieldInstitutionDepartamentToAccountingSeatsTable extends Migration
     public function down()
     {
         Schema::table('accounting_seats', function (Blueprint $table) {
-
+            $table->dropColumn(['institution_id', 'department_id']);
         });
     }
 }

@@ -26,6 +26,6 @@ class ChangeFieldsTotDebitTotAssetsToAccountingSeatsTable extends Migration
      */
     public function down()
     {
-        //
+        $table->dropColumn(['tot_debit', 'tot_assets']);
     }
 }

@@ -205,11 +205,11 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         if (isset($endAcc)) $url .= '/'.$endAcc;
 
         AccountingReportHistory::updateOrCreate([
-                                                    'url' => $url,
+                                                    'name' => 'Mayor Analítico',
                                                     'report' => 2
                                                 ],
                                                 [
-                                                    'name' => 'Mayor Analítico',
+                                                    'url' => $url,
                                                 ]);
 
         /** @var Object configuración general de la apliación */

@@ -35,7 +35,7 @@
 				</td>
 				<td>
 					<div class="text-center">
-						<button @click="deleteAccount(recordsAccounting.indexOf(record))" 
+						<button @click="deleteAccount(recordsAccounting.indexOf(record), record.id_seatAcc)" 
 							class="btn btn-danger btn-xs btn-icon btn-action" 
 							title="Eliminar registro" data-toggle="tooltip">
 							<i class="fa fa-trash-o"></i>
@@ -107,7 +107,7 @@
 				id="update"
 				:disabled="!enableInput || validateTotals()"
 				v-else
-				v-on:click="EditSeating()">
+				v-on:click="UpdateSeating()">
 				<i class="fa fa-save"></i>
 		</button>
 	</div>
@@ -121,6 +121,7 @@
 				errors:[],
 				recordsAccounting: [],
 				recordsBudget:[],
+				rowsToDelete:[],
 				columns: ['code', 'debit', 'assets', 'id'],
 				urlPrevious:'http://'+window.location.host+'/accounting/seating',
 				data:{
@@ -348,11 +349,12 @@
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
-			EditSeating:function() {
+			UpdateSeating:function() {
 				if (this.data.totDebit == this.data.totAssets){
 					if (this.validateErrors()) { return ; }
 					axios.put('/accounting/seating/'+this.seating.id, {'data':this.data,
-														'accountingAccounts':this.recordsAccounting})
+														'accountingAccounts':this.recordsAccounting,
+														'rowsToDelete':this.rowsToDelete })
 					.then(response=>{
 						this.showMessage('update');
 						const vm = this;
@@ -368,7 +370,8 @@
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
-			deleteAccount:function(index){
+			deleteAccount:function(index, id){
+				this.rowsToDelete.push(id);
 				this.recordsAccounting.splice(index,1);
 				this.CalculateTot();
 			},

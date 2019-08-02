@@ -236,11 +236,11 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $url = 'BalanceCheckUp/pdf/'.$initDate.'/'.$endDate.'/'.$zero;
         
         AccountingReportHistory::updateOrCreate([
-                                                    'url' => $url,
+                                                    'name' => 'Balance de Comporbación',
                                                     'report' => 1 
                                                 ],
                                                 [
-                                                    'name' => 'Balance de Comporbación',
+                                                    'url' => $url,
                                                 ]);
 
         $this->getAccAccount($initDate, $endDate, false);

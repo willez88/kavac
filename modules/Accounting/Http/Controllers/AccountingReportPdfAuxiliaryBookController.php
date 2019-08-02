@@ -54,11 +54,11 @@ class AccountingReportPdfAuxiliaryBookController extends Controller
         */
         $url = 'auxiliaryBook/pdf/'.$account_id.'/'.$date;
         AccountingReportHistory::updateOrCreate([
-                                                    'url' => $url,
+                                                    'name' => 'Libro Auxiliar',
                                                     'report' => 4 
                                                 ],
                                                 [
-                                                    'name' => 'Libro Auxiliar',
+                                                    'url' => $url,
                                                 ]);
 
         /** @var Object consulta de la cuenta patrimonial */

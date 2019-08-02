@@ -40,8 +40,8 @@
 								<div class="alert-icon">
 									<i class="now-ui-icons objects_support-17"></i>
 								</div>
-								<strong>Atención!</strong> La funcionalidad de conversión de cuentas presupuestales con patrimoniales
-								esta inhabilitada, para habilitarla debe instalar el modulo de
+								<strong>Atención!</strong><br> La funcionalidad de conversión de cuentas presupuestales con patrimoniales
+								esta inhabilitada, para habilitarla debe instalar ó activar el modulo de
 								<a href="{{ route('module.list') }}" style="color: black;"><strong>Presupuesto</strong></a>
 							</div>
 						</div>

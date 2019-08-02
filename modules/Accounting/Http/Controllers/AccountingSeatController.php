@@ -148,7 +148,6 @@ class AccountingSeatController extends Controller
         $newSeating->observations = $request->data['observations'];
         $newSeating->accounting_seat_categories_id=($request->data['category']!='')? $request->data['category']: null;
         $newSeating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
-        // $newSeating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
         $newSeating->tot_debit = $request->data['totDebit'];
         $newSeating->tot_assets = $request->data['totAssets'];
         $newSeating->save();
@@ -157,12 +156,12 @@ class AccountingSeatController extends Controller
          * se crea el registro en la tabla pivote entre el asiento contable y las cuentas patrimoniales
          */
         foreach ($request->accountingAccounts as $account) {
-            $newAccSeat = new AccountingSeatAccount();
-            $newAccSeat->accounting_seat_id = $newSeating->id;
-            $newAccSeat->accounting_account_id = $account['id'];
-            $newAccSeat->debit = $account['debit'];
-            $newAccSeat->assets = $account['assets'];
-            $newAccSeat->save();
+            AccountingSeatAccount::create([
+                'accounting_seat_id' => $newSeating->id,
+                'accounting_account_id' => $account['id'],
+                'debit' => $account['debit'],
+                'assets' => $account['assets'],
+            ]);
         }
         return response()->json(['message'=>'Success'],200);
     }
@@ -247,18 +246,28 @@ class AccountingSeatController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // $seating = AccountingSeat::find($id);
+        // $seating->reference = $request->data['reference'];
+        // $seating->concept = $request->data['concept'];
+        // $seating->observations = $request->data['observations'];
+        // $seating->tot_debit = $request->data['totDebit'];
+        // $seating->tot_assets = $request->data['totAssets'];
+        // $seating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
+        // // $seating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
+        // $seating->save();
+
         /**
          * se actualiza la información del registro del asiento contable
          */ 
-        $seating = AccountingSeat::find($id);
-        $seating->reference = $request->data['reference'];
-        $seating->concept = $request->data['concept'];
-        $seating->observations = $request->data['observations'];
-        $seating->tot_debit = $request->data['totDebit'];
-        $seating->tot_assets = $request->data['totAssets'];
-        $seating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
-        // $seating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
-        $seating->save();
+        AccountingSeat::where('id', $id)
+                        ->update([
+                            'reference' => $request->data['reference'],
+                            'concept' => $request->data['concept'],
+                            'observations' => $request->data['observations'],
+                            'tot_debit' => $request->data['totDebit'],
+                            'tot_assets' => $request->data['totAssets'],
+                            'institution_id' => $request->data['institution_id']
+                        ]);
 
         foreach ($request->accountingAccounts as $account) {
             /**
@@ -266,20 +275,27 @@ class AccountingSeatController extends Controller
              */ 
             if ($account['id_seatAcc']) {
                 /** @var Object Objeto que contiene el registro de cuanta patrimonial asociada al asiento a actualizar */
-                $AccSeat = AccountingSeatAccount::find($account['id_seatAcc']);
-                $AccSeat->accounting_account_id = $account['id'];
-                $AccSeat->debit = $account['debit'];
-                $AccSeat->assets = $account['assets'];
+                AccountingSeatAccount::where('id', $account['id_seatAcc'])
+                                ->update(['accounting_account_id'=> $account['id'],
+                                          'debit' => $account['debit'],
+                                          'assets' => $account['assets']
+                                        ]);
+
             }else{
                 /** @var Object Objeto que contiene el nuevo registro de cuanta patrimonial asociada que se asociara al asiento */
-                $AccSeat = new AccountingSeatAccount();
-                $AccSeat->accounting_seat_id = $seating->id;
-                $AccSeat->accounting_account_id = $account['id'];
-                $AccSeat->debit = $account['debit'];
-                $AccSeat->assets = $account['assets'];
+                AccountingSeatAccount::create([
+                    'accounting_seat_id' => $id,
+                    'accounting_account_id' => $account['id'],
+                    'debit' => $account['debit'],
+                    'assets' => $account['assets'],
+                ]);
             }
-            $AccSeat->save();
+
         }
+
+        /** Se eliminar los registros de las cuentas deseadas */
+        AccountingSeatAccount::destroy($request->rowsToDelete);
+
         return response()->json(['message'=>'Success'],200);
     }
 
@@ -292,8 +308,11 @@ class AccountingSeatController extends Controller
      */
     public function destroy($id)
     {
-        /** @var Object Objeto que contine el registro de asiento contable a eliminar */
+        /** El registro de asiento contable a eliminar */
+        AccountingSeatAccount::where('accounting_seat_id', $id)->delete();
+
         AccountingSeat::find($id)->delete();
+
         return response()->json(['message'=>'Success', 200]);
     }
 

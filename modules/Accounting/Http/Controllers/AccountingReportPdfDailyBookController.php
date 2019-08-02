@@ -50,11 +50,11 @@ class AccountingReportPdfDailyBookController extends Controller
         */
         $url = 'diaryBook/pdf/'.$initDate.'/'.$endDate;
         AccountingReportHistory::updateOrCreate([
-                                                    'url' => $url,
+                                                    'name' => 'Libro Diario',
                                                     'report' => 3 
                                                 ],
                                                 [
-                                                    'name' => 'Libro Diario',
+                                                    'url' => $url,
                                                 ]);
 
         /** @var Objet objeto con la información del asiento contable */

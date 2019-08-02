@@ -22,5 +22,8 @@
                 <li><a href="{{ route('accounting.report.financeStatements') }}">Estados Financieros</a></li>
             </ul>
         </li>
+        <li>
+            <a href="{{ route('accounting.dashboard.test') }}">Panel de Control</a>
+        </li>
     </ul>
 </li>

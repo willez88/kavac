@@ -53,11 +53,11 @@ class AccountingReportPdfBalanceSheetController extends Controller
         */
         $url = 'balanceSheet/pdf/'.$date.'/'.$level.'/'.$zero;
         AccountingReportHistory::updateOrCreate([
-                                                    'url' => $url,
+                                                    'name' => 'Balance General',
                                                     'report' => 5 
                                                 ],
                                                 [
-                                                    'name' => 'Balance General',
+                                                    'url' => $url,
                                                 ]);
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
         $day = date('d',(mktime(0,0,0,explode('-',$date)[1]+1,1,explode('-',$date)[0])-1));

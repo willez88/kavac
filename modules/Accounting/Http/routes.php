@@ -14,6 +14,13 @@ Route::group(['middleware' => 'web',
 ], function(){
 
 	/**
+     * Rutas para la gestion de cuentas patrimoniales
+     */
+	Route::get('',function(){
+		return view('accounting::index');
+	})->name('accounting.dashboard.test');	
+
+	/**
 	* Ruta para el dashboard para consultar ultimas operaciones en el modulo
 	*/
 	Route::post('lastOperations', 'AccountingLastOperationsController@get_operations',['as'=>'accounting'])->name('accounting.last_operations');
