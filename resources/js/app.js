@@ -745,13 +745,13 @@ Vue.mixin({
 		getDepartments(id) {
 			let vm = this;
 			vm.departments = [];
-			if (typeof(this.record.institution_id) !== "undefined" && this.record.institution_id !== '') {
-				axios.get('/get-departments/' + this.record.institution_id).then(response => {
+			if (typeof(vm.record.institution_id) !== "undefined" && vm.record.institution_id !== '') {
+				axios.get('/get-departments/' + vm.record.institution_id).then(response => {
 					/** Obtiene los departamentos */
 					vm.departments = (typeof(id) === "undefined" || !id)
 									 ? response.data
 									 : response.data.filter((department) => {
-									 	return department.id === id;
+									 	return department.id === "" || department.id === id;
 									 });
 				});
 			}

@@ -43,6 +43,16 @@ trait HasRoleAndPermission
     }
 
     /**
+     * User belongs to many permissions.
+     *
+     * @return BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(config('roles.models.permission'))->withTimestamps();
+    }
+
+    /**
      * Get all roles as collection.
      *
      * @return Collection
