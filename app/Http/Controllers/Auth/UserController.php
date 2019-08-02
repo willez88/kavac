@@ -271,20 +271,22 @@ class UserController extends Controller
     public function info(User $user)
     {
         $with = [];
-        if ($user->profile !== null) {
+        if (!is_null($user->profile)) {
             $with[] = 'profile';
         }
-        if ($user->roles !== null) {
+        if (!is_null($user->roles)) {
             $with[] = 'roles';
         }
-        if ($user->permissions !== null) {
+        if (!is_null($user->permissions)) {
             $with[] = 'permissions';
         }
 
         if (count($with) > 0) {
             $user->with($with);
         }
-        
-        return response()->json(['result' => true, 'user' => $user], 200);
+
+        return response()->json([
+            'result' => true, 'user' => $user, 'permissions' => $user->getPermissions()
+        ], 200);
     }
 }
