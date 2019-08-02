@@ -11,6 +11,7 @@ use Modules\Payroll\Models\PayrollStaff;
 use App\Models\Phone;
 use App\Models\CodeSetting;
 use App\Rules\AgeToWork;
+use Modules\Payroll\Models\PayrollWorkAgeSetting;
 
 /**
  * @class PayrollStaffController
@@ -70,6 +71,7 @@ class PayrollStaffController extends Controller
      */
     public function store(Request $request)
     {
+        $payrollWorkAgeSetting = PayrollWorkAgeSetting::first();
         $this->validate($request, [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
@@ -78,7 +80,7 @@ class PayrollStaffController extends Controller
             'passport' => 'nullable|max:20|unique:payroll_staffs,passport',
             'email' => 'nullable|email|unique:payroll_staffs,email',
             'birthdate' => 'required|date',
-            'birthdate' => new AgeToWork(17),
+            'birthdate' => new AgeToWork( ($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0 ),
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
             'emergency_phone' => 'nullable',

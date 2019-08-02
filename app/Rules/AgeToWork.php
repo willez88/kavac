@@ -44,6 +44,11 @@ class AgeToWork implements Rule
      */
     public function message()
     {
-        return 'El campo :attribute debe ser mayor o igual a '.$this->age;
+        if( $this->age == 0 ) {
+            return 'Todavía no ha configurado una edad laboral permitida en el panel de configuración de talento humano';
+        }
+        else {
+            return 'El campo :attribute debe ser mayor o igual a '.$this->age;
+        }
     }
 }

@@ -116,11 +116,12 @@ class PayrollInactivityTypeController extends Controller
      * Elimina el tipo de inactividad
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @param  \Modules\Payroll\Models\PayrollInactivityType $payrollInactivityType     Objeto con el dato a eliminar
-     * @return \Illuminate\Http\JsonResponse                                            Json: objeto eliminado y mensaje de confirmación de la operación
+     * @param  integer $id                      Identificador del tipo de inactividad a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
-    public function destroy(PayrollInactivityType $payrollInactivityType)
+    public function destroy($id)
     {
+        $payrollInactivityType = PayrollInactivityType::find($id);
         $payrollInactivityType->delete();
         return response()->json(['record' => $payrollInactivityType, 'message' => 'Success'], 200);
     }

@@ -7,11 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Payroll\Models\PayrollInstructionDegree;
 
+/**
+ * @class PayrollInstructionDegreesTableSeeder
+ * @brief Inicializar los grados de instruccíón
+ *
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class PayrollInstructionDegreesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores de los grados de instrucción
      *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function run()

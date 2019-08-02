@@ -15,7 +15,7 @@ use Modules\Payroll\Models\PayrollInstructionDegree;
  *
  * Clase que gestiona los grados de instrucción
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollInstructionDegreeController extends Controller
@@ -37,13 +37,14 @@ class PayrollInstructionDegreeController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra todos los registros de grado de instruccíón
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de grado de instruccíón
      */
     public function index()
     {
-        $instruction_degrees = PayrollInstructionDegree::all();
-        return view('payroll::instruction-degrees.index', compact('instruction_degrees'));
+        return response()->json(['records' => PayrollInstructionDegree::all()], 200);
     }
 
     /**
@@ -52,16 +53,15 @@ class PayrollInstructionDegreeController extends Controller
      */
     public function create()
     {
-        $header = [
-            'route' => 'payroll.instruction-degrees.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::instruction-degrees.create-edit', compact('header'));
+        return view('payroll::create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra un nuevo grado de instrucción
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
@@ -69,12 +69,8 @@ class PayrollInstructionDegreeController extends Controller
             'name' => 'required|max:100',
             'description' => 'nullable|max:200'
         ]);
-        $instruction_degree = new PayrollInstructionDegree;
-        $instruction_degree->name  = $request->name;
-        $instruction_degree->description = $request->description;
-        $instruction_degree->save();
-        $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.instruction-degrees.index');
+        $payrollInstructorDegree = PayrollInstructionDegree::create(['name' => $request->name,'description' => $request->description]);
+        return response()->json(['record' => $payrollInstructorDegree, 'message' => 'Success'], 200);
     }
 
     /**
@@ -90,49 +86,54 @@ class PayrollInstructionDegreeController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollInstructionDegree $instruction_degree)
+    public function edit()
     {
-        $header = [
-            'route' => ['payroll.instruction-degrees.update', $instruction_degree], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::instruction-degrees.create-edit', compact('instruction_degree','header'));
+        return view('payroll::edit');
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información del grado de instrucción
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador del grado de instrucción a actualizar
+     * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
      */
-    public function update(Request $request, PayrollInstructionDegree $instruction_degree)
+    public function update(Request $request, $id)
     {
+        $payrollInstructorDegree = PayrollInstructionDegree::find($id);
         $this->validate($request, [
             'name' => 'required|max:100',
             'description' => 'nullable|max:200'
         ]);
-        $instruction_degree->name  = $request->name;
-        $instruction_degree->description = $request->description;
-        $instruction_degree->save();
-        $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.instruction-degrees.index');
+        $payrollInstructorDegree->name  = $request->name;
+        $payrollInstructorDegree->description = $request->description;
+        $payrollInstructorDegree->save();
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina el grado de instrucción
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador del grado de instrucción a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
-    public function destroy(Request $request, PayrollInstructionDegree $instruction_degree)
+    public function destroy($id)
     {
-        if ($request->ajax())
-        {
-            $instruction_degree->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.instruction-degrees.index');
+        $payrollInstructorDegree = PayrollInstructionDegree::find($id);
+        $payrollInstructorDegree->delete();
+        return response()->json(['record' => $payrollInstructorDegree, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene los grados de instrucción registrados
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de grados de instrucción
+     */
     public function getPayrollInstructionDegrees()
     {
-        return template_choices('Modules\Payroll\Models\PayrollInstructionDegree','name','',true);
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollInstructionDegree','name','',true));
     }
 }

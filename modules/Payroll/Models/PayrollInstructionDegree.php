@@ -15,7 +15,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de grados de instruccíón
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollInstructionDegree extends Model implements Auditable
@@ -47,9 +47,9 @@ class PayrollInstructionDegree extends Model implements Auditable
     ];
 
     /**
-     * PayrollInstructionDegree has many PayrollProfessionalInformation
+     * Método que obtiene el grado de instrucción asociado a muchas informaciones profesionales
      *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payroll_professional_informations()

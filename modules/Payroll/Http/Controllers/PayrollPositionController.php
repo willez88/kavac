@@ -15,7 +15,7 @@ use Modules\Payroll\Models\PayrollPosition;
  *
  * Clase que gestiona los cargos
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollPositionController extends Controller
@@ -37,37 +37,31 @@ class PayrollPositionController extends Controller
     }
 
     /**
-     * Muesta todos los registros de cargos
+     * Muestra todos los registros de cargos
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return [<b>View</b>] vista con la lista de los cargos
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de cargos
      */
     public function index()
     {
-        $positions = PayrollPosition::all();
-        return view('payroll::positions.index', compact('positions'));
+        return response()->json(['records' => PayrollPosition::all()], 200);
     }
 
     /**
-     * Muestra el formulario para crear un nuevo cargo
-     *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return [<b>View</b>] vista con el formulario de registro
+     * Show the form for creating a new resource.
+     * @return Response
      */
     public function create()
     {
-        $header = [
-            'route' => 'payroll.positions.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::positions.create-edit', compact('header'));
+        return view('payroll::create');
     }
 
     /**
-     * Guarda un nuevo cargo en la base de datos
+     * Valida y registra un nuevo cargo
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param $request [<b>Illuminate::Http::Request</b>] Datos de la petición
-     * @return [<b>Route</b>] ruta hacia la vista de listar cargos
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
@@ -75,12 +69,8 @@ class PayrollPositionController extends Controller
             'name' => 'required|max:100',
             'description' => 'nullable|max:200'
         ]);
-        $position = new PayrollPosition;
-        $position->name  = $request->name;
-        $position->description = $request->description;
-        $position->save();
-        $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.positions.index');
+        $payrollPosition = PayrollPosition::create(['name' => $request->name,'description' => $request->description]);
+        return response()->json(['record' => $payrollPosition, 'message' => 'Success'], 200);
     }
 
     /**
@@ -93,60 +83,57 @@ class PayrollPositionController extends Controller
     }
 
     /**
-     * Muestra el formulario con los datos a modificar de un cargo
-     *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
-     * @return [<b>View</b>] vista con los datos a mostrar en el formulario de edición
+     * Show the form for editing the specified resource.
+     * @return Response
      */
-    public function edit(PayrollPosition $position)
+    public function edit()
     {
-        $header = [
-            'route' => ['payroll.positions.update', $position], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::positions.create-edit', compact('position','header'));
+        return view('payroll::edit');
     }
 
     /**
-     * Hace la actualización de los datos de un cargo en la base de datos
+     * Actualiza la información del cargo
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param $request [<b>Illuminate::Http::Request</b>] datos de la petición
-     * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
-     * @return [<b>Route</b>] ruta hacia la vista de listar cargos
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador del cargo a actualizar
+     * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
      */
-    public function update(Request $request, PayrollPosition $position)
+    public function update(Request $request, $id)
     {
+        $payrollPosition = PayrollPosition::find($id);
         $this->validate($request, [
             'name' => 'required|max:100',
             'description' => 'nullable|max:200'
         ]);
-        $position->name  = $request->name;
-        $position->description = $request->description;
-        $position->save();
-        $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.positions.index');
+        $payrollPosition->name  = $request->name;
+        $payrollPosition->description = $request->description;
+        $payrollPosition->save();
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
-     * Elimina los datos de un cargo
+     * Elimina el cargo
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param $position [<b>Modules::Payroll::Models::Position</b>] datos del cargo
-     * @return [<b>Route</<b>] ruta hacia la vista de listar cargos
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador del cargo a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
-    public function destroy(Request $request, PayrollPosition $position)
+    public function destroy($id)
     {
-        if ($request->ajax())
-        {
-            $position->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.positions.index');
+        $payrollPosition = PayrollPosition::find($id);
+        $payrollPosition->delete();
+        return response()->json(['record' => $payrollPosition, 'message' => 'Success'], 200);
     }
 
-    public function getPayrollPositions(){
-        return template_choices('Modules\Payroll\Models\PayrollPosition','name','',true);
+    /**
+     * Obtiene los cargo registrados
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de cargos
+     */
+    public function getPayrollPositions()
+    {
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollPosition','name','',true));
     }
 }

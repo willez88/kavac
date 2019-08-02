@@ -10,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\CodeSetting;
 use Modules\Payroll\Models\PayrollStaff;
 use App\Rules\CodeSetting as CodeSettingRule;
+use \Modules\Payroll\Models\PayrollWorkAgeSetting;
 
 class PayrollSettingController extends Controller
 {
@@ -23,7 +24,8 @@ class PayrollSettingController extends Controller
     {
         $codeSettings = CodeSetting::where('module', 'payroll')->get();
         $sCode = $codeSettings->where('table', 'payroll_staffs')->first();
-        return view('payroll::settings', compact('codeSettings', 'sCode'));
+        $payrollWorkAgeSetting = PayrollWorkAgeSetting::first();
+        return view('payroll::settings', compact('codeSettings', 'sCode', 'payrollWorkAgeSetting'));
     }
 
     /**
