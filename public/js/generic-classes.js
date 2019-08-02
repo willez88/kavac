@@ -54,7 +54,7 @@ class User {
 			<div class="row">
 					<div class="col-12">
 						<div class="form-group">
-							<label class="col-12"><b>Roles</b></label>
+							<label class="col-12"><b>Permisos</b></label>
 		`;
 		this.permissions.forEach(function(perm) {
 			permissions += `<span class="badge badge-primary" style="margin-right:10px">${perm}</span>`;
