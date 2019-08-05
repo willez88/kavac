@@ -182,6 +182,13 @@ Vue.component('required-documents', require('./components/RequiredDocumentsCompo
  */
 Vue.component('phones', require('./components/PhonesComponent.vue').default);
 
+/**
+* Componente para la gestión de unidades de medida
+*
+* @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+*/
+Vue.component('measurement-units', require('./components/MeasurementUnitsComponent.vue').default);
+
 /** Incorpora requerimientos de componentes de los módulos de la aplicación */
 require('./modules');
 import moment from 'moment';
