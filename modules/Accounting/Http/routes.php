@@ -17,7 +17,7 @@ Route::group(['middleware' => 'web',
      * Rutas para la gestion de cuentas patrimoniales
      */
 	Route::get('',function(){
-		return view('accounting::index');
+		return view('accounting::index_test');
 	})->name('accounting.dashboard.test');	
 
 	/**
