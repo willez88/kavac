@@ -1,7 +1,19 @@
 <template>
 	<div class="card-body">
+		<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+			<div class="container">
+				<div class="alert-icon">
+					<i class="now-ui-icons objects_support-17"></i>
+				</div>
+				<strong>Atención!</strong> Debe verificar los siguientes errores antes de continuar:
+				<ul>
+					<li v-for="error in errors">{{ error }}</li>
+				</ul>
+			</div>
+		</div>
+
 		<form method="post" enctype="multipart/form-data" @submit.prevent="">
-			<label>Cargar Hoja de calculo. Formatos permitidos:<strong>.xls .ods</strong></label><br>
+			<label>Cargar Hoja de calculo. Formatos permitidos:<strong>.xls .xlsx .ods</strong></label><br>
 			<input type="file" 
 					id="file" 
 					name="file"
@@ -72,6 +84,7 @@
 	export default{
 		data(){
 			return {
+				errors:[],
 				records: [],
 				columns: ['code', 'denomination', 'status'],
 				file:'',
@@ -103,6 +116,9 @@
 			},
 
 			importCalculo(){
+
+				EventBus.$emit('show:errors', []);
+
 				let vm = this;
 				var formData = new FormData();
 				var inputFile = document.querySelector('#file');
@@ -112,7 +128,11 @@
 						'Content-Type': 'multipart/form-data'
 					}
 				}).then(response => {
-					if (response.data.result && response.data.records) {
+
+					if (response.data.errors.length > 0) {
+						EventBus.$emit('show:errors', response.data.errors);
+					}
+					else if (response.data.result && response.data.records) {
 						this.records = response.data.records;
 						EventBus.$emit('register:imported-accounts', this.records);
 					}
@@ -126,7 +146,7 @@
 					if (typeof(error.response) !== "undefined") {
 						if (error.response.status == 422 || error.response.status == 500) {
 							vm.showMessage(
-								'custom', 'Error', 'danger', 'screen-error', "El documento debe ser un archivo en formato: .xls .ods"
+								'custom', 'Error', 'danger', 'screen-error', "El documento debe ser un archivo en formato: .xls .xlsx .ods"
 							);
 						}
 					}

@@ -253,7 +253,7 @@ class AccountingAccountController extends Controller
     public function import()
     {
         $this->validate(request(), [
-            'file' => 'required|mimes:xls,ods'
+            'file' => 'required|mimes:xls,xlsx,ods,csv'
         ]);
 
         $headings = (new HeadingRowImport)->toArray(request()->file('file'));
@@ -285,7 +285,16 @@ class AccountingAccountController extends Controller
         $file = Excel::toArray(new DataImport, request()->file('file'))[0];
         $records = [];
 
+        $currentRow = 2;
+        $rowErrors = [];
         foreach ($file as $record) {
+            /** Se validan los errores en los formatos de las columnas en el archivo */
+            foreach ($this->ValidatedErrors($record, $currentRow) as $error) {
+                array_push($rowErrors, $error);
+            }
+
+            $currentRow +=1;
+
             $n_cuenta_orden = ((int)$record['n_cuenta_orden'] > 9) ?
                                                     $record['n_cuenta_orden']:'0'.$record['n_cuenta_orden'];
             $n_subcuenta_primer_orden = ((int)$record['n_subcuenta_primer_orden'] > 9) ?
@@ -311,12 +320,18 @@ class AccountingAccountController extends Controller
                 ]);
         }
 
-        return response()->json([
-            'result' => true, 
-            'records' => $records
-        ], 200);
+        if (count($rowErrors) > 0) {
+            return response()->json(['result' => false, 'errors' => $rowErrors], 200);
+        }
+
+        return response()->json([ 'result' => true, 'records' => $records, 'errors' => $rowErrors ], 200);
     }
 
+    /**
+     * Registra en la base de datos todas las cuentas cargadas desde la hoja de cálculo
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return Array con los errores en caso de existir
+    */
     public function registerImportedAccounts(Request $request)
     {
         foreach ($request->records as $account) {
@@ -354,4 +369,85 @@ class AccountingAccountController extends Controller
         return response()->json(['records'=>$this->getAccounts(), 'message'=>'Los registros importados fueron guardados de manera exitosa.']);
     }
 
+
+    /**
+     * Verifica los posibles errores que se pueden presentar en las filas de archivo y agrega un mensaje del error para el usuario
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return Array con los errores en caso de existir
+    */
+    public function ValidatedErrors($record, $currentRow)
+    {
+        $errors = [];
+        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
+        if ( ! $this->Is_Int($record['grupo']) || gettype($record['grupo']) == 'string') {
+            array_push($errors, 'La columna grupo en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
+        }
+        if ((int)$record['grupo'] > 9 || (int)$record['grupo'] < 0 ) {
+            array_push($errors, 'La columna grupo en la fila '.$currentRow.' no cumple con el formato valido, Número entero entre 0 y 9.');
+        }
+
+        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
+        if ( ! $this->Is_Int($record['subgrupo']) || gettype($record['subgrupo']) == 'string') {
+            array_push($errors, 'La columna subgrupo en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
+        }
+        if ((int)$record['subgrupo'] > 9 || (int)$record['subgrupo'] < 0 ) {
+            array_push($errors, 'La columna subgrupo en la fila '.$currentRow.' no cumple con el formato valido, Número entero entre 0 y 9.');
+        }
+
+        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
+        if ( ! $this->Is_Int($record['rubro']) || gettype($record['rubro']) == 'string') {
+            array_push($errors, 'La columna rubro en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
+        }
+        if ((int)$record['rubro'] > 9 || (int)$record['rubro'] < 0 ) {
+            array_push($errors, 'La columna rubro en la fila '.$currentRow.' no cumple con el formato valido, Número entero entre 0 y 9.');
+        }
+
+        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 99 */
+        if ( ! $this->Is_Int($record['n_cuenta_orden']) || gettype($record['n_cuenta_orden']) == 'string') {
+            array_push($errors, 'La columna n_cuenta_orden en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
+        }
+        if ((int)$record['n_cuenta_orden'] > 99 || (int)$record['n_cuenta_orden'] < 0 ) {
+            array_push($errors, 'La columna n_cuenta_orden en la fila '.$currentRow.' no cumple con el formato valido, Número entero entre 0 y 99.');
+        }
+
+        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 99 */
+        if ( ! $this->Is_Int($record['n_subcuenta_primer_orden']) || gettype($record['n_subcuenta_primer_orden']) == 'string') {
+            array_push($errors, 'La columna n_subcuenta_primer_orden en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
+        }
+        if ((int)$record['n_subcuenta_primer_orden'] > 99 || (int)$record['n_subcuenta_primer_orden'] < 0 ) {
+            array_push($errors, 'La columna n_subcuenta_primer_orden en la fila '.$currentRow.' no cumple con el formato valido, Número entero entre 0 y 99.');
+        }
+
+        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 99 */
+        if ( ! $this->Is_Int($record['n_subcuenta_segundo_orden']) || gettype($record['n_subcuenta_segundo_orden']) == 'string') {
+            array_push($errors, 'La columna n_subcuenta_segundo_orden en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
+        }
+        if ((int)$record['n_subcuenta_segundo_orden'] > 99 || (int)$record['n_subcuenta_segundo_orden'] < 0 ) {
+            array_push($errors, 'La columna n_subcuenta_segundo_orden en la fila '.$currentRow.' no cumple con el formato valido, Número entero entre 0 y 99.');
+        }
+
+
+        /** Se valida que el valor en la columna de estatus */
+        if ($record['estatus'] != 'activo' && $record['estatus'] != 'inactivo' ) {
+            array_push($errors, 'La columna estatus en la fila '.$currentRow.' no cumple con el formato valido, activo ó inactivo.');
+        }
+
+        return $errors;
+    }
+
+
+    /**
+     * Verifica si el valor es numerico entero y que no contenga ningún carácter o símbolo
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return bollean true si es determina que es numerico y false en caso contrario
+    */
+    public function Is_Int($value)
+    {
+        $aux = explode(',', (string)$value);
+
+        $aux2 = explode('.', (string)$value);
+
+        return ( ! (count($aux) > 1 || count($aux2) > 1) || ctype_digit($aux[0]) || ctype_digit($aux[0]));
+
+    }
 }

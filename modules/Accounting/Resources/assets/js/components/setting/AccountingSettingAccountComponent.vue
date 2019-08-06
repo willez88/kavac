@@ -11,7 +11,7 @@
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1.8rem; margin-top: -.1rem;" 
+						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1.8rem; margin-top: -.1rem;"
 								title="Importar cuentas patrimoniales desde hoja de cálculo"
 								data-toggle="tooltip"
 								@click="OpenImportForm(true)"
@@ -35,6 +35,19 @@
 						</h6>
 					</div>
 					<!-- Fromulario -->
+					<div class="modal-body" v-show="errors.length > 0">
+						<div class="alert alert-danger" role="alert">
+							<div class="container">
+								<div class="alert-icon">
+									<i class="now-ui-icons objects_support-17"></i>
+								</div>
+								<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+								<ul>
+									<li v-for="error in errors">{{ error }}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 	                <div class="modal-body card-body" v-show="formImport">
 	                	<accounting-import-excel-form />
 	                </div>
@@ -71,6 +84,7 @@
 export default{
 	data(){
 		return{
+			errors:[],
 			records:[],
 			records_list:[],
 			records_form:[],
@@ -85,6 +99,10 @@ export default{
 		EventBus.$on('reload:list-accounts',(data)=>{
 				this.reset();
 				this.records = data;
+			});
+		EventBus.$on('show:errors',(data)=>{
+				this.errors = [];
+				this.errors = data;
 			});
 	},
 	methods:{
@@ -109,6 +127,8 @@ export default{
 				EventBus.$emit('load:data-account-form', null);
 			}
 			this.formImport = val;
+
+			this.errors = [];
 		},
 
 		/**
@@ -118,14 +138,19 @@ export default{
 		*/
 		registerImportedAccounts:function() {
 			const vm = this;
-			axios.post('/accounting/importedAccounts', { records: this.accounts }).then(response=>{
-				vm.showMessage(
-					'custom', 'Éxito', 'success', 'screen-ok', 
-					response.data.message
-				);
-				vm.reset();
-				EventBus.$emit('reload:list-accounts',response.data.records);
-			});
+			if (vm.accounts != null) {
+				axios.post('/accounting/importedAccounts', { records: vm.accounts }).then(response=>{
+					vm.showMessage(
+						'custom', 'Éxito', 'success', 'screen-ok', 
+						response.data.message
+					);
+					vm.reset();
+					EventBus.$emit('reload:list-accounts',response.data.records);
+				});
+			}else{
+				this.errors = [];
+				this.errors.push('No hay cuentas cargadas.');
+			}
 		}
 	},
 	watch:{

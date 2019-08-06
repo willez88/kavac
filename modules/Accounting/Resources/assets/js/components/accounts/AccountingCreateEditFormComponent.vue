@@ -2,17 +2,6 @@
 
 	<form class='form-horizontal' v-on:submit.prevent="sendData">
 		<div class='card-body'>
-			<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
-				<div class="container">
-					<div class="alert-icon">
-						<i class="now-ui-icons objects_support-17"></i>
-					</div>
-					<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-					<ul>
-						<li v-for="error in errors">{{ error }}</li>
-					</ul>
-				</div>
-			</div>
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
@@ -232,7 +221,7 @@
 
 					/** Cargo el error para ser mostrado*/
 					this.errors = [];
-					this.errors.push('Los campos del codigó de la cuenta son obligatorios');
+					EventBus.$emit('show:errors', ['Los campos del código de la cuenta son obligatorios']);
 					return false;
 				}
 				return true;
