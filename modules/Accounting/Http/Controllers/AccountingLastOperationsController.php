@@ -18,7 +18,7 @@ class AccountingLastOperationsController extends Controller
         $currency = Currency::where('default',true)->first();
 
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $report_histories = AccountingReportHistory::orderBy('created_at','DESC')->get();
+        $report_histories = AccountingReportHistory::orderBy('updated_at','DESC')->get();
 
         /** @var Object con la información de los ultimos 10 asientos contables generados */
         $lastRecords = AccountingSeat::orderBy('updated_at','DESC')->take(10)->get();
@@ -33,17 +33,17 @@ class AccountingLastOperationsController extends Controller
         $report_histories = [];
 
         for ($i=1; $i <= 6 ; $i++) { 
-            $aux = AccountingReportHistory::where('report', $i)->orderBy('created_at','DESC')->first();
+            $aux = AccountingReportHistory::where('report', $i)->orderBy('updated_at','DESC')->first();
             if (!is_null($aux)) {
 
                 /**
                 * Se calcula el intervalo de tiempo entre la fecha en la que se genero el reporte y la fecha actual en semanas y dias
                 */
-                $datetime1 = new DateTime($aux['created_at']->format('Y-m-d'));
+                $datetime1 = new DateTime($aux['updated_at']->format('Y-m-d'));
                 $datetime2 = new DateTime(date("Y-m-d"));
                 $interval = $datetime1->diff($datetime2);
                 array_push($report_histories, [
-                                                'created_at' => $aux['created_at']->format('d/m/Y'),
+                                                'created_at' => $aux['updated_at']->format('d/m/Y'),
                                                 'interval'=> (floor(($interval->format('%a') / 7)) . ' semanas con '
                              . ($interval->format('%a') % 7) . ' días'),
                                                 'name' => $aux['name'],
