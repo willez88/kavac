@@ -28,6 +28,12 @@ class AssetRoleAndPermissionsTableSeeder extends Seeder
         );
 
         $permissions = [
+            [
+                'name' => 'Acceso al panel de control de bienes', 'slug' => 'asset.dashboard',
+                'description' => 'Acceso al panel de control del módulo de bienes', 
+                'model' => '', 'model_prefix' => 'bienes',
+                'slug_alt' => 'panel.control.ver', 'short_description' => 'panel de control de bienes'
+            ],
             /**
              * Configuración General de Bienes
             **/
