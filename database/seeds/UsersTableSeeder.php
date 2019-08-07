@@ -48,6 +48,21 @@ class UsersTableSeeder extends Seeder
                 $user_admin->attachRole($adminRole);
             }
             
+            if (config('app.debug')) {
+                /** Crea un usuario de prueba para entornos de desarrollo, sin roles ni permisos */
+                User::updateOrCreate(
+                    ['username' => 'user'],
+                    [
+                        'name' => 'Usuario de prueba',
+                        'email' => 'user@kavac-testing.com',
+                        'password' => bcrypt('123456'),
+                        'level' => 2,
+                        'created_at' => Carbon::now()
+                    ]
+                );
+            }
+
+
     	});
     }
 }
