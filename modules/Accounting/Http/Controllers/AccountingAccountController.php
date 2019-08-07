@@ -237,14 +237,14 @@ class AccountingAccountController extends Controller
                                     ->orderBy('generic','ASC')
                                     ->orderBy('specific','ASC')
                                     ->orderBy('subspecific','ASC')
-                                    ->get() as $AccountingAccount) {
+                                    ->get() as $record) {
           /** @var array arreglo con datos de las cuentas patrimoniales*/
             array_push($records, [
-                'id' => $AccountingAccount->id,
-                'code' =>   $AccountingAccount->getCode(),
-                'denomination' => $AccountingAccount->denomination,
-                'active'=> $AccountingAccount->active,
-                'text'=>"{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}",
+                'id' => $record->id,
+                'code' =>   $record->getCode(),
+                'denomination' => $record->denomination,
+                'active'=> $record->active,
+                'text'=>"{$record->getCode()} - {$record->denomination}",
             ]);
         }
         return $records;

@@ -49,10 +49,10 @@
 						</div>
 					</div>
 	                <div class="modal-body card-body" v-show="formImport">
-	                	<accounting-import-excel-form />
+	                	<accounting-import-form />
 	                </div>
-					<div class="modal-body" v-show="!formImport && records_form.length > 0">
-						<accounting-create-edit-form :records="records_form" />
+					<div class="modal-body" v-show="!formImport && records_select.length > 0">
+						<accounting-create-edit-form :records="records_select" />
 	                </div>
 
 					<!-- Tabla de cuentas patrimoniales -->
@@ -87,7 +87,6 @@ export default{
 			errors:[],
 			records:[],
 			records_list:[],
-			records_form:[],
 			formImport:false,
 			accounts:null,
 		}
@@ -157,19 +156,14 @@ export default{
 		records:function(res, ant) {
 			/** listado con las cuentas para la tabla */
 			this.records_list = res;
-
-			/** listado con las cuentas para el select2 */
-			this.records_form.push({
-				id:'',
-				text:'Seleccione...',
-			});
-
-			for (var i = 0; i < res.length; i++) {
-				this.records_form.push({
-					id:res[i].id,
-					text:res[i].text,
-				});
-			}
+		}
+	},
+	computed:{
+		records_select: function(){
+			return [{
+					'id':'',
+					'text':'Seleccione...'
+				}].concat(this.records);
 		}
 	}
 };

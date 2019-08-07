@@ -31,7 +31,7 @@ Vue.component('accounting-create-edit-form', require('./components/accounts/Acco
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-import-excel-form', require('./components/accounts/AccountingAccountImportFormComponent.vue').default);
+Vue.component('accounting-import-form', require('./components/accounts/AccountingAccountImportFormComponent.vue').default);
 
 
 /**

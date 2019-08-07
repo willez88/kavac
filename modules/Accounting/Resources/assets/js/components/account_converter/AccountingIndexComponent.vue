@@ -169,7 +169,6 @@
 			 */
 			const vm = this;
 			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
-				console.log(e.target.id)
 				if (e.target.id === "sel_budget_acc") {
 					vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);
 				}
