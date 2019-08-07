@@ -107,10 +107,13 @@
 						@endphp
 					@endforeach
 					<tr>
-						<td align="left"> {{ $record[0]['account']->getCode() }}</td>
-						<td align="left"> {{ $record[0]['account']['denomination'] }}</td>
+						<td align="left"> {{ $r['account']->getCode() }}</td>
+						<td align="left"> {{ $r['account']['denomination'] }}</td>
 						@php
-							$beg_Balance = $beginningBalance[ $record[0]['account']['id'] ];
+							$beg_Balance = 0;
+							if ( !is_null($beginningBalance) && array_key_exists($r['account']['id'], $beginningBalance)) {
+								$beg_Balance = $beginningBalance[ $r['account']['id'] ];
+							}
 						@endphp
 
 						<td align="right">

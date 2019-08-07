@@ -204,19 +204,20 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $endDate = $endYear.'-'.$endMonth;
 
         $accounts = $this->getAccAccount($initDate, $endDate, true);
+
         /**
         Ciclo en el que se calcula y almancena los saldos iniciales de cada cuenta
         */
         foreach ($accounts as $account) {
             $balance = 0;
             foreach (AccountingSeatAccount::with('seating','account')
-                        ->where('accounting_account_id', $account['id'])
+                        ->where('accounting_account_id', $account['id_record'])
                         ->whereHas('seating', function($query) use ($initDate, $endDate, $endDay) {
                             $query->whereBetween('from_date',[$initDate.'-01',($endDate.'-'.$endDay)])->where('approved',true);
                         })->orderBy('updated_at','ASC')->get() as $record) {
                 $balance += (float)$record->debit - (float)$record->assets;
             }
-            $this->setBeginningBalance($account['id'], $balance);
+            $this->setBeginningBalance($account['id_record'], $balance);
         }
     }
 
@@ -227,13 +228,13 @@ class AccountingReportPdfCheckupBalanceController extends Controller
      * @param String $initDate variable con la fecha inicial
      * @param String $endDate variable con la fecha inicial
      */
-    public function pdf($initDate, $endDate, $zero = null)
+    public function pdf($initDate, $endDate)
     {
 
         /**
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
-        $url = 'BalanceCheckUp/pdf/'.$initDate.'/'.$endDate.'/'.$zero;
+        $url = 'BalanceCheckUp/pdf/'.$initDate.'/'.$endDate;
         
         AccountingReportHistory::updateOrCreate([
                                                     'name' => 'Balance de Comporbación',
@@ -245,9 +246,8 @@ class AccountingReportPdfCheckupBalanceController extends Controller
 
         $this->getAccAccount($initDate, $endDate, false);
 
-        if (!is_null($zero)) {
-            $this->CalculateBeginningBalance($initDate);
-        }
+        /** Cálcula el saldo inicial que tendra la cuenta*/
+        $this->CalculateBeginningBalance($initDate);
 
         /** @var Array Arreglo asociativo con la información base (id, id_record y denomination) de las cuentas patrimoniales */
         $accountRecords = $this->getRecords();
@@ -270,14 +270,13 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         for ($i = 0 ; $i <= $EndIndex; $i++) {
             $id_record = $accountRecords[$i]['id_record'];
 
-            // validar que no que desea mostrar los valores en zero
+            // realiza la consulta de las cuentas usadas en asientos contables en el rango dado
             array_push($records, AccountingSeatAccount::with('seating','account')
                                                 ->where('accounting_account_id', $id_record)
                                                 ->whereHas('seating', function($query) use ($initDate, $endDate) {
                                                     $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
                                                 })->orderBy('updated_at','ASC')->get()
             );
-            // caso contario crear la consulta necesaria
         }
 
         /** @var Object configuración general de la apliación */
@@ -305,7 +304,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $pdf->Open();
         $pdf->AddPage();
 
-        $html = \View::make('accounting::pdf.accounting_checkup_balance_pdf',compact('pdf','records','initDate','endDate','currency','beginningBalance','zero'))->render();
+        $html = \View::make('accounting::pdf.accounting_checkup_balance_pdf',compact('pdf','records','initDate','endDate','currency','beginningBalance'))->render();
         $pdf->SetFont('Courier','B',8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
