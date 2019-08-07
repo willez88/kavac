@@ -128,7 +128,7 @@ Route::group(['middleware' => 'web',
 	/**
      * rutas para reporte de balance de comprobación
      */
-	Route::get('report/BalanceCheckUp/pdf/{initDate}/{endDate}/{zero?}','AccountingReportPdfCheckupBalanceController@pdf')
+	Route::get('report/BalanceCheckUp/pdf/{initDate}/{endDate}','AccountingReportPdfCheckupBalanceController@pdf')
 		->name('accounting.report.BalanceCheckUp.pdf');
 
 	/**

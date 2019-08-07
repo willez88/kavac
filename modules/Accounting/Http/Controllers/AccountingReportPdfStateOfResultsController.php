@@ -104,7 +104,10 @@ class AccountingReportPdfStateOfResultsController extends Controller
             ->with([$level_6 => function($query) use ($endDate) {
                             $query->where('from_date','<=',$endDate)->where('approved', true);
                         }])
-            ->where('group','>=',5)->where('group','<=',6)
+            ->where([
+                ['group', '>=', 5],
+                ['group', '<=', 6]
+            ])
             ->where('subgroup', 0)
             ->orderBy('group','ASC')->orderBy('subgroup','ASC')->orderBy('item','ASC')->orderBy('generic','ASC')->orderBy('specific','ASC')->orderBy('subspecific','ASC')->get();
 
