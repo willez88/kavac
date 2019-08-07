@@ -31,8 +31,8 @@ class UpdateDatabaseToModuleAsset extends Migration
         Schema::dropIfExists('asset_disincorporation_assets');
         Schema::dropIfExists('asset_inventory_assets');
         Schema::dropIfExists('asset_asignations');
-        Schema::dropIfExists('asset_disincorporation_motives');
         Schema::dropIfExists('asset_disincorporations');
+        Schema::dropIfExists('asset_disincorporation_motives');
         Schema::dropIfExists('asset_rules');
         Schema::dropIfExists('asset_requesteds');
         Schema::dropIfExists('asset_iventory_assets');
