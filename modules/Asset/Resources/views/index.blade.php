@@ -1,9 +1,6 @@
-@extends('asset::layouts.master')
+<h1>Hello World</h1>
 
-@section('content')
-    <h1>Hello World</h1>
-
-    <p>
-        This view is loaded from module: {!! config('asset.name') !!}
-    </p>
+<p>
+    This view is loaded from module: {!! config('asset.name') !!}
+</p>
 

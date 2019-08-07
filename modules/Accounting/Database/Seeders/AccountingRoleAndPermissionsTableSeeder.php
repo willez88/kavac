@@ -37,7 +37,18 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
         );
 
         $permissions = [
-
+            [
+                'name' => 'Ver cuentas patrimoniales', 'slug' => 'accounting.account.list',
+                'description' => 'Acceso para ver cuentas patrimoniales', 
+                'model' => 'Modules\Accounting\Models\AccountingAccount', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'cuentas_patrimoniales.ver', 'short_description' => 'listar cuentas patrimoniales'
+            ],
+            [
+                'name' => 'Acceso al panel de control de contabilidad', 'slug' => 'accounting.dashboard',
+                'description' => 'Acceso al panel de control del módulo de contabilidad', 
+                'model' => '', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'panel.control.ver', 'short_description' => 'panel de control de contabilidad'
+            ],
             /**
             * cuentas patrimoniales
             */
