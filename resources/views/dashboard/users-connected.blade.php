@@ -106,7 +106,8 @@
                                         'onclick' => 'location="' . route('assign.access', [
                                         	'user' => $user->id
                                         ]) . '"',
-                                        'title' => 'Asignar permisos de acceso',
+                                        'title' => 'Asignar permisos de acceso.',
+                                        'disabled' => (auth()->user()->id === $user->id)
                                     ]) !!}
 								</td>
 							</tr>

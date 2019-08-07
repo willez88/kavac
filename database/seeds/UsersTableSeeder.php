@@ -40,14 +40,36 @@ class UsersTableSeeder extends Seeder
                 throw new Exception('Error creando el usuario administrador por defecto');
             }
 
-            /** @var object Crea el rol de administrador del sistema */
+            /** @var object Busca el rol de administrador del sistema */
             $adminRole = Role::where('slug', 'admin')->first();
 
             if ($adminRole) {
                 /** Asigna el rol de administrador */
                 $user_admin->attachRole($adminRole);
             }
-            
+
+            if (config('app.debug')) {
+                /** @var object Busca el rol de desarrollador del sistema */
+                $devRole = Role::where('slug', 'dev')->first();
+
+                if ($devRole) {
+                    /** Asigna el rol de administrador */
+                    $user_admin->attachRole($devRole);
+                }
+                /** Crea un usuario de prueba para entornos de desarrollo, sin roles ni permisos */
+                User::updateOrCreate(
+                    ['username' => 'user'],
+                    [
+                        'name' => 'Usuario de prueba',
+                        'email' => 'user@kavac-testing.com',
+                        'password' => bcrypt('123456'),
+                        'level' => 2,
+                        'created_at' => Carbon::now()
+                    ]
+                );
+            }
+
+
     	});
     }
 }

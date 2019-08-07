@@ -24,49 +24,38 @@ class UpdateDatabaseToModuleAsset extends Migration
     public function up()
     {
         /** Elimino las migraciones antiguas */
-
-        Schema::dropIfExists('asset_reports');
-        Schema::dropIfExists('asset_required_items');
-        Schema::dropIfExists('asset_request_deliveries');
-        Schema::dropIfExists('asset_inventory_assets');
-        
-        Schema::dropIfExists('asset_disincorporation_assets');
-        Schema::dropIfExists('asset_asignation_assets');
-
-        Schema::dropIfExists('asset_request_events');
-        Schema::dropIfExists('asset_request_prorrogas');
         Schema::dropIfExists('asset_request_extensions');
-
-        Schema::dropIfExists('asset_requesteds');
+        Schema::dropIfExists('asset_request_events');
         Schema::dropIfExists('asset_request_assets');
-        
-        Schema::dropIfExists('asset_rules');
-        
-        Schema::dropIfExists('asset_disincorporations');
-
-        Schema::dropIfExists('asset_motive_disincorporations');
-        Schema::dropIfExists('asset_disincorporation_motives');
-        
-        Schema::dropIfExists('asset_requests');
+        Schema::dropIfExists('asset_asignation_assets');
+        Schema::dropIfExists('asset_disincorporation_assets');
+        Schema::dropIfExists('asset_inventory_assets');
         Schema::dropIfExists('asset_asignations');
-        Schema::dropIfExists('assets');
-        
+        Schema::dropIfExists('asset_disincorporations');
+        Schema::dropIfExists('asset_disincorporation_motives');
+        Schema::dropIfExists('asset_rules');
+        Schema::dropIfExists('asset_requesteds');
+        Schema::dropIfExists('asset_iventory_assets');
         Schema::dropIfExists('asset_inventaries');
         Schema::dropIfExists('asset_inventories');
-        
+        Schema::dropIfExists('assets');
+        Schema::dropIfExists('asset_required_items');
+        Schema::dropIfExists('asset_reports');
         Schema::dropIfExists('asset_specific_categories');
         Schema::dropIfExists('asset_subcategories');
         Schema::dropIfExists('asset_categories');
+        Schema::dropIfExists('asset_request_deliveries');
+        Schema::dropIfExists('asset_request_prorrogas');
+        Schema::dropIfExists('asset_requests');
+
+
+        Schema::dropIfExists('asset_motive_disincorporations');
         Schema::dropIfExists('asset_types');
-        
         Schema::dropIfExists('asset_uses');
         Schema::dropIfExists('asset_use_functions');
-        
         Schema::dropIfExists('asset_statuses');
         Schema::dropIfExists('asset_status');
-        
         Schema::dropIfExists('asset_conditions');
-        
         Schema::dropIfExists('asset_purchases');
         Schema::dropIfExists('asset_acquisition_types');
         
