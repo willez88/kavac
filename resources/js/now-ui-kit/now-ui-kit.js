@@ -29,7 +29,7 @@ $(document).ready(function() {
     //  Activate the Tooltips
     $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip({
         //delay: { show: 100, hide: 100 }
-        trigger:"hover", delay:{hide:200}
+        trigger:"hover", delay:{hide:100}
     });
     /*$(document).on('click', function() {
         $('.tooltip').hide();

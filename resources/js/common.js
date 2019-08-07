@@ -6,7 +6,7 @@ $(document).ready(function() {
             'data-toggle': 'tooltip',
             'data-placement': 'left'
         });
-        $('.img-delete').tooltip();
+        $('.img-delete').tooltip({delay: {hide:100}});
     }
 
     /** Evento que muestra u oculta el enlace para la eliminación de una imagen */

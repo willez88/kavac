@@ -4,10 +4,10 @@ $.fn.modal.Constructor.prototype._enforceFocus = function() {};
 /** Instrucciones a ejecutar una vez se haya cargado la página */
 $(document).ready(function() {
 	/** Tooltip para opciones de la barra de navegación superior */
-	$('.dropdown-toggle').tooltip();
+	$('.dropdown-toggle').tooltip({delay: {hide:100}});
 	$('.dropdown-toggle').on('click', function() {
 		$('.tooltip:last').remove();
-		$(this).tooltip();
+		$(this).tooltip({delay: {hide:100}});
 	});
 
 	/** Maximizar / minimizar panel de menú izquierdo */
@@ -47,7 +47,7 @@ $(document).ready(function() {
             'title': 'Seleccione un registro de la lista',
             'data-toggle': 'tooltip'
         });
-        $('.select2').tooltip();
+        $('.select2').tooltip({delay: {hide:100}});
     }
 
     /*$('.card-header').hover(function() {
@@ -73,13 +73,13 @@ $(document).ready(function() {
     		p.find('.card-body, .card-footer').fadeOut('fast');
     		t.addClass('maximize');
     		t.find('i').removeClass('arrows-1_minimal-up').addClass('arrows-1_minimal-down');
-    		$(this).attr('data-original-title','Maximize Panel').tooltip();
+    		$(this).attr('data-original-title','Maximize Panel').tooltip({delay: {hide:100}});
     	} else {
     		p.find('hr').removeClass('nodisplay');
     		p.find('.card-body, .card-footer').fadeIn('fast');
         	t.removeClass('maximize');
         	t.find('i').removeClass('arrows-1_minimal-down').addClass('arrows-1_minimal-up');
-        	$(this).attr('data-original-title','Minimize Panel').tooltip();
+        	$(this).attr('data-original-title','Minimize Panel').tooltip({delay: {hide:100}});
         }
 
         return false;
@@ -120,7 +120,7 @@ $(document).ready(function() {
             'data-placement': 'left',
         });
         $('.close').tooltip({
-            trigger:"hover", delay:{hide:200}
+            trigger:"hover", delay:{hide:100}
         });
     }
 
@@ -130,7 +130,7 @@ $(document).ready(function() {
             'data-toggle': 'tooltip'
         });
         $('.btn-modal-close').tooltip({
-            trigger:"hover", delay:{hide:200}
+            trigger:"hover", delay:{hide:100}
         });
     }
 
@@ -140,7 +140,7 @@ $(document).ready(function() {
             'data-toggle': 'tooltip'
         });
         $('.btn-modal-save').tooltip({
-            trigger:"hover", delay:{hide:200}
+            trigger:"hover", delay:{hide:100}
         });
     }
     if ($('.btn-add-record').length) {
@@ -149,12 +149,12 @@ $(document).ready(function() {
             'data-toggle': 'tooltip'
         });
         $('.btn-add-record').tooltip({
-            trigger:"hover", delay:{hide:200}
+            trigger:"hover", delay:{hide:100}
         });
     }
     if ($('.btn-tooltip').length) {
         $('.btn-tooltip').tooltip({
-            trigger:"hover", delay:{hide:200}
+            trigger:"hover", delay:{hide:100}
         });
     }
     if ($('.btn-file').length) {
@@ -163,7 +163,7 @@ $(document).ready(function() {
             'data-toggle': 'tooltip'
         });
         $('.btn-file').tooltip({
-            trigger:"hover", delay:{hide:200}
+            trigger:"hover", delay:{hide:100}
         });
     }
 
@@ -174,7 +174,7 @@ $(document).ready(function() {
     $('a').on('hover, click', function() {
         $('.tooltip:last').remove();
         $('.tooltip:last').tooltip({
-            trigger:"hover", delay:{hide:200}
+            trigger:"hover", delay:{hide:100}
         });
     });
 
@@ -239,12 +239,12 @@ $(document).ready(function() {
             'title': 'Seleccione la cantidad de registros a mostrar por cada página',
             'data-toggle': 'tooltip'
         });
-        $('dataTables_length .selection').tooltip();
+        $('dataTables_length .selection').tooltip({delay: {hide:100}});
         $('.dataTables_filter input').attr({
             'title': 'Indique los datos del registro a buscar',
             'data-toggle': 'tooltip'
         });
-        $('.dataTables_filter input').tooltip();
+        $('.dataTables_filter input').tooltip({delay: {hide:100}});
 
     }
 
