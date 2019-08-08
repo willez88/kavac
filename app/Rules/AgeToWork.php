@@ -15,6 +15,9 @@ use Illuminate\Contracts\Validation\Rule;
  */
 class AgeToWork implements Rule
 {
+    /** Integer Define la edad laboral permitida */
+    protected $age;
+
     /**
      * Recibe por parámetro la edad laboral permitida
      *

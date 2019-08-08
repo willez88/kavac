@@ -34,8 +34,9 @@ class CreatePayrollWorkAgeSettingsTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Método que elimina las migraciones
      *
+     * @author William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function down()

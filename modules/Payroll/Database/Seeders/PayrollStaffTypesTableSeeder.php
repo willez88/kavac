@@ -27,7 +27,7 @@ class PayrollStaffTypesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $payroll_staff_types = [
+        $payrollStaffTypes = [
             [
                 'name' => 'Personal Fijo a Tiempo Completo', 'description' => null
             ],
@@ -39,12 +39,12 @@ class PayrollStaffTypesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_staff_types) {
-            foreach ($payroll_staff_types as $staff_type) {
+        DB::transaction(function() use ($payrollStaffTypes) {
+            foreach ($payrollStaffTypes as $payrollStaffType) {
                 PayrollStaffType::updateOrCreate(
-                    ['name' => $staff_type['name']],
+                    ['name' => $payrollStaffType['name']],
                     [
-                        'description' => $staff_type['description']
+                        'description' => $payrollStaffType['description']
                     ]
                 );
             }

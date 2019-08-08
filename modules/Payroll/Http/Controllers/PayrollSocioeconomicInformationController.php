@@ -90,16 +90,8 @@ class PayrollSocioeconomicInformationController extends Controller
                     'last_name' => $payrollChildren['last_name'],
                     'id_number' => $payrollChildren['id_number'],
                     'birthdate' => $payrollChildren['birthdate'],
-                    'payroll_socioeconomic_information_id' => $payrollChildren['payroll_socioeconomic_information_id']
+                    'payroll_socioeconomic_information_id' => $payrollSocioeconomicInformation->id
                 ]);
-
-                /*$payroll_children = new PayrollChildren;
-                $payroll_children->first_name = $children['first_name'];
-                $payroll_children->last_name = $children['last_name'];
-                $payroll_children->id_number = $children['id_number'];
-                $payroll_children->birthdate = $children['birthdate'];
-                $payroll_children->payroll_socioeconomic_information_id = $payroll_socioeconomic_information->id;
-                $payroll_children->save();*/
             }
         }
         $request->session()->flash('message', ['type' => 'store']);
@@ -166,7 +158,7 @@ class PayrollSocioeconomicInformationController extends Controller
                     'last_name' => $payrollChildren['last_name'],
                     'id_number' => $payrollChildren['id_number'],
                     'birthdate' => $payrollChildren['birthdate'],
-                    'payroll_socioeconomic_information_id' => $payrollChildren['payroll_socioeconomic_information_id']
+                    'payroll_socioeconomic_information_id' => $payrollSocioeconomicInformation->id
                 ]);
             }
         }

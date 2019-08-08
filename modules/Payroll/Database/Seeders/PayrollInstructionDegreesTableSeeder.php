@@ -27,7 +27,7 @@ class PayrollInstructionDegreesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $payroll_instruction_degrees = [
+        $payrollInstructionDegrees = [
             [
                 'name' => 'Primaria', 'description' => null
             ],
@@ -54,12 +54,12 @@ class PayrollInstructionDegreesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_instruction_degrees) {
-            foreach ($payroll_instruction_degrees as $instruction_degree) {
+        DB::transaction(function() use ($payrollInstructionDegrees) {
+            foreach ($payrollInstructionDegrees as $payrollInstructionDegree) {
                 PayrollInstructionDegree::updateOrCreate(
-                    ['name' => $instruction_degree['name']],
+                    ['name' => $payrollInstructionDegree['name']],
                     [
-                        'description' => $instruction_degree['description']
+                        'description' => $payrollInstructionDegree['description']
                     ]
                 );
             }

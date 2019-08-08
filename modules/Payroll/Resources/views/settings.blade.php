@@ -80,9 +80,9 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('age', 'Edad', []) !!}
-									{!! Form::text('age', ($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : old('age'), [
+									{!! Form::number('age', ($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : old('age'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
-										'title' => 'Indique la edad laboral permitida',
+										'title' => 'Indique la edad laboral permitida', 'min' => '1',
 										'placeholder' => 'Edad'
 									]) !!}
 								</div>

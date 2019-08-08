@@ -27,7 +27,7 @@ class PayrollStudyTypesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $payroll_study_types = [
+        $payrollStudyTypes = [
             [
                 'name' => 'Pregrado', 'description' => null
             ],
@@ -39,12 +39,12 @@ class PayrollStudyTypesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_study_types) {
-            foreach ($payroll_study_types as $study_type) {
+        DB::transaction(function() use ($payrollStudyTypes) {
+            foreach ($payrollStudyTypes as $payrollStudyType) {
                 PayrollStudyType::updateOrCreate(
-                    ['name' => $study_type['name']],
+                    ['name' => $payrollStudyType['name']],
                     [
-                        'description' => $study_type['description']
+                        'description' => $payrollStudyType['description']
                     ]
                 );
             }

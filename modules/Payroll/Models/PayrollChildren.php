@@ -44,7 +44,7 @@ class PayrollChildren extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'first_name', 'last_name', 'id_number', 'birthdate', 'payroll_socioecomic_information_id'
+        'first_name', 'last_name', 'id_number', 'birthdate', 'payroll_socioeconomic_information_id'
     ];
 
     /**
