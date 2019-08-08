@@ -24,13 +24,17 @@
 								<li v-for="error in errors">{{ error }}</li>
 							</ul>
 						</div>
-						<div class="form-group is-required">
-							<label for="name">Nombre:</label>
-							<input type="text" id="name" placeholder="Nombre"
-								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
-								   title="Indique el nombre del tipo de sector (requerido)">
-							<input type="hidden" name="id" id="id" v-model="record.id">
-	                    </div>
+						<div class="row">
+                            <div class="col-md-12">
+								<div class="form-group is-required">
+									<label for="name">Nombre:</label>
+									<input type="text" id="name" placeholder="Nombre"
+										   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
+										   title="Indique el nombre del tipo de sector (requerido)">
+									<input type="hidden" name="id" id="id" v-model="record.id">
+			                    </div>
+							</div>
+						</div>
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<hr>

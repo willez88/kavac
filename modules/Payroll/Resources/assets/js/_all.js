@@ -81,21 +81,21 @@ Vue.component('payroll-genders', require('./components/settings/PayrollGendersCo
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-inactivity-types', require('./components/PayrollInactivityTypesComponent.vue').default);
+Vue.component('payroll-inactivity-types', require('./components/settings/PayrollInactivityTypesComponent.vue').default);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de contrato
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-contract-types', require('./components/PayrollContractTypesComponent.vue').default);
+Vue.component('payroll-contract-types', require('./components/settings/PayrollContractTypesComponent.vue').default);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de sector
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-sector-types', require('./components/PayrollSectorTypesComponent.vue').default);
+Vue.component('payroll-sector-types', require('./components/settings/PayrollSectorTypesComponent.vue').default);
 
 /**
  * Componente para mostrar listado de información personal

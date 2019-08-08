@@ -25,7 +25,7 @@
 							</ul>
 						</div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
         						<div class="form-group is-required">
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"

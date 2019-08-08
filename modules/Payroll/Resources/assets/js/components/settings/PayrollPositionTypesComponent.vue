@@ -25,7 +25,7 @@
 							</ul>
 						</div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
         						<div class="form-group is-required">
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"
@@ -34,7 +34,7 @@
         							<input type="hidden" name="id" id="id" v-model="record.id">
         	                    </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group is-required">
         							<label for="description">Descripción:</label>
         							<input type="text" id="description" placeholder="Descripción"

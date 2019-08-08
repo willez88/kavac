@@ -1,12 +1,12 @@
 <template>
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
-		   title="Registros de tipos de inactividad" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_inactivity_type', 'inactivity-types', $event)">
-		   <i class="icofont icofont-list ico-3x"></i>
-			<span>Tipos de Inactividad</span>
+		   title="Registros de tipos de contrato" data-toggle="tooltip"
+		   @click="addRecord('add_payroll_contract_type', 'contract-types', $event)">
+		   <i class="icofont icofont-holding-hands ico-3x"></i>
+			<span>Tipos de Contrato</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_inactivity_type">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_contract_type">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -14,8 +14,8 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-list ico-3x"></i>
-							Tipo de Inactividad
+							<i class="icofont icofont-holding-hands ico-3x"></i>
+							Tipo de Contrato
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -24,13 +24,17 @@
 								<li v-for="error in errors">{{ error }}</li>
 							</ul>
 						</div>
-						<div class="form-group is-required">
-							<label for="name">Nombre:</label>
-							<input type="text" id="name" placeholder="Nombre"
-								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
-								   title="Indique el nombre del tipo de inactividad (requerido)">
-							<input type="hidden" name="id" id="id" v-model="record.id">
-	                    </div>
+						<div class="row">
+                            <div class="col-md-12">
+								<div class="form-group is-required">
+									<label for="name">Nombre:</label>
+									<input type="text" id="name" placeholder="Nombre"
+										   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
+										   title="Indique el nombre del tipo de contrato (requerido)">
+									<input type="hidden" name="id" id="id" v-model="record.id">
+			                    </div>
+							</div>
+						</div>
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
@@ -41,7 +45,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'inactivity-types')"
+		                		<button @click="deleteRecord(props.index, 'contract-types')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
@@ -54,7 +58,7 @@
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('payroll/inactivity-types')" class="btn btn-primary btn-sm btn-round btn-modal-save">
+	                	<button type="button" @click="createRecord('payroll/contract-types')" class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>
