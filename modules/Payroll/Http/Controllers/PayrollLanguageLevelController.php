@@ -15,7 +15,7 @@ use Modules\Payroll\Models\PayrollLanguageLevel;
  *
  * Clase que gestiona los niveles de idioma
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollLanguageLevelController extends Controller
@@ -37,13 +37,14 @@ class PayrollLanguageLevelController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra todos los registros del nivel de idioma
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos del nivel de idioma
      */
     public function index()
     {
-        $language_levels = PayrollLanguageLevel::all();
-        return view('payroll::language-levels.index', compact('language_levels'));
+        return response()->json(['records' => PayrollLanguageLevel::all()], 200);
     }
 
     /**
@@ -52,27 +53,23 @@ class PayrollLanguageLevelController extends Controller
      */
     public function create()
     {
-        $header = [
-            'route' => 'payroll.language-levels.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::language-levels.create-edit', compact('header'));
+        return view('payroll::create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra un nuevo nivel de idioma
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|max:100'
         ]);
-        $language_level = new PayrollLanguageLevel;
-        $language_level->name  = $request->name;
-        $language_level->save();
-        $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.language-levels.index');
+        $payrollLanguageLevel = PayrollLanguageLevel::create(['name' => $request->name]);
+        return response()->json(['record' => $payrollLanguageLevel, 'message' => 'Success'], 200);
     }
 
     /**
@@ -88,47 +85,52 @@ class PayrollLanguageLevelController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollLanguageLevel $language_level)
+    public function edit()
     {
-        $header = [
-            'route' => ['payroll.language-levels.update', $language_level], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::language-levels.create-edit', compact('language_level','header'));
+        return view('payroll::edit');
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información del nivel de idioma
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador del nivel de idioma  a actualizar
+     * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
      */
-    public function update(Request $request, PayrollLanguageLevel $language_level)
+    public function update(Request $request, $id)
     {
+        $payrollLanguageLevel = PayrollLanguageLevel::find($id);
         $this->validate($request, [
             'name' => 'required|max:100'
         ]);
-        $language_level->name  = $request->name;
-        $language_level->save();
-        $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.language-levels.index');
+        $payrollLanguageLevel->name  = $request->name;
+        $payrollLanguageLevel->save();
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina el nivel de idioma
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador del nivel de idioma a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
-    public function destroy(Request $request, PayrollLanguageLevel $language_level)
+    public function destroy($id)
     {
-        if ($request->ajax())
-        {
-            $language_level->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.language-levels.index');
+        $payrollLanguageLevel = PayrollLanguageLevel::find($id);
+        $payrollLanguageLevel->delete();
+        return response()->json(['record' => $payrollLanguageLevel, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene los niveles de idioma registrados
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos del nivel de idioma
+     */
     public function getPayrollLanguageLevels()
     {
-        return template_choices('Modules\Payroll\Models\PayrollLanguageLevel','name','',true);
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollLanguageLevel','name','',true));
     }
 }

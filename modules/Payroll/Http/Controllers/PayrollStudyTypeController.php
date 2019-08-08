@@ -110,7 +110,7 @@ class PayrollStudyTypeController extends Controller
         $payrollStudyType->name  = $request->name;
         $payrollStudyType->description = $request->description;
         $payrollStudyType->save();
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**

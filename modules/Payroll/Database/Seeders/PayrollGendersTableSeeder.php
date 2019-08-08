@@ -7,18 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Payroll\Models\PayrollGender;
 
+/**
+ * @class PayrollGendersTableSeeder
+ * @brief Inicializar los géneros
+ *
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class PayrollGendersTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores de los géneros
      *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $payroll_genders = [
+        $payrollGenders = [
             [
                 'name' => 'Masculino'
             ],
@@ -27,10 +36,10 @@ class PayrollGendersTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_genders) {
-            foreach ($payroll_genders as $gender) {
+        DB::transaction(function() use ($payrollGenders) {
+            foreach ($payrollGenders as $payrollGender) {
                 PayrollGender::updateOrCreate(
-                    ['name' => $gender['name']]
+                    ['name' => $payrollGender['name']]
                 );
             }
         });

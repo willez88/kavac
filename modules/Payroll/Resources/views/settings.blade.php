@@ -129,15 +129,10 @@
 						<payroll-study-types></payroll-study-types>
 
 						{{-- Configuración de la nacionalidad --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.nationalities.index') }}" title="Registro de nacionalidades"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-id-card ico-3x"></i>
-								<span>Nacionalidad</span>
-							</a>
-						</div>
+						<payroll-nationalities></payroll-nationalities>
+
 						{{-- Tipo de concepto --}}
+						{{--
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 							   href="{{ route('payroll.concept-types.index') }}" title="Registro de tipos de concepto"
@@ -146,37 +141,23 @@
 								<span>Tipos de<br>Concepto</span>
 							</a>
 						</div>
+						--}}
+
 						{{-- nivel de idioma --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.language-levels.index') }}" title="Registro de nivel de idioma"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-earth ico-3x"></i>
-								<span>Nivel de<br>Idioma</span>
-							</a>
-						</div>
+						<payroll-language-levels></payroll-language-levels>
+
 						{{-- idioma --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.languages.index') }}" title="Registro de idioma"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-flag ico-3x"></i>
-								<span>Idioma</span>
-							</a>
-						</div>
+						<payroll-languages></payroll-languages>
+
 						{{-- género --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.genders.index') }}" title="Registro del género del trabajador"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-group-students ico-3x"></i>
-								<span>Género</span>
-							</a>
-						</div>
+						<payroll-genders></payroll-genders>
+
 						{{-- tipos de inactividad --}}
 						<payroll-inactivity-types></payroll-inactivity-types>
+
 						{{-- tipos de contrato --}}
 						<payroll-contract-types></payroll-contract-types>
+
 						{{-- tipos de sector --}}
 						<payroll-sector-types></payroll-sector-types>
 					</div>

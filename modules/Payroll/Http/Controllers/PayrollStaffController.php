@@ -15,9 +15,9 @@ use Modules\Payroll\Models\PayrollWorkAgeSetting;
 
 /**
  * @class PayrollStaffController
- * @brief Controlador de personal
+ * @brief Controlador de la información personal del trabajador
  *
- * Clase que gestiona el personal
+ * Clase que gestiona la información personal del trabajador
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>

@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * @class CreateStaffTypesTable
+ * @class CreatePayrollStaffTypesTable
  * @brief Crear tabla de tipo de personal
  *
  * Gestiona la creación o eliminación de la tabla de tipos de personal

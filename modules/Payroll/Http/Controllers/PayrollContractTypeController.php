@@ -108,7 +108,7 @@ class PayrollContractTypeController extends Controller
 
         $payrollContractType->name = $request->name;
         $payrollContractType->save();
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**

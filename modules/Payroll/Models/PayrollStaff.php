@@ -11,11 +11,11 @@ use App\Traits\ModelsTrait;
 
 /**
  * @class PayrollStaff
- * @brief Datos del personal
+ * @brief Datos de la información personal del trabajador
  *
  * Gestiona el modelo de datos del personal
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollStaff extends Model implements Auditable
@@ -81,7 +81,7 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * PayrollStaff belongs to Parish
+     * Método que obtiene la información personal del trabajador asociada a una parroquia
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -92,7 +92,7 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * PayrollStaff belongs to PayrollGender
+     * Método que obtiene la información personal del trabajador asociada a un género
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -103,7 +103,7 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * PayrollStaff belongs to PayrollNationality
+     * Método que obtiene la información personal del trabajador asociada a una nacionalidad
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -114,7 +114,7 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * PayrollStaff has one PayrollSocioeconomicInformation
+     * Método que obtiene la información personal del trabajador asociada a una información socioeconómica del mismo
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -125,7 +125,7 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * PayrollStaff has one PayrollProfessionalInformation
+     * Método que obtiene la información personal del trabajador asociada a una información profesional del mismo
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -147,7 +147,7 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
-     * PayrollStaff tiene un solo PayrollEmploymentInformation
+     * Método que obtiene la información personal del trabajador asociada a una información laboral del mismo
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

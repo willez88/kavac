@@ -1,12 +1,12 @@
 <template>
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
-		   title="Registros de cargos" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_position', 'positions', $event)">
-           <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
-		   <span>Cargos</span>
+		   title="Registros de nivel del idioma" data-toggle="tooltip"
+		   @click="addRecord('add_payroll_language_level', 'language-levels', $event)">
+           <i class="icofont icofont-earth ico-3x"></i>
+		   <span>Niveles de Idioma</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_position">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_language_level">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -14,8 +14,8 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
-							Cargo
+							<i class="icofont icofont-earth ico-3x"></i>
+							Nivel de idioma
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -30,16 +30,8 @@
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"
         								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
-        								   title="Indique el nombre del cargo (requerido)">
+        								   title="Indique el nombre del nivel de idioma (requerido)">
         							<input type="hidden" name="id" id="id" v-model="record.id">
-        	                    </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group is-required">
-        							<label for="description">Descripción:</label>
-        							<input type="text" id="description" placeholder="Descripción"
-        								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
-        								   title="Indique la descripción del cargo (requerido)">
         	                    </div>
                             </div>
                         </div>
@@ -53,7 +45,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'positions')"
+		                		<button @click="deleteRecord(props.index, 'language-levels')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
@@ -66,7 +58,7 @@
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('payroll/positions')" class="btn btn-primary btn-sm btn-round btn-modal-save">
+	                	<button type="button" @click="createRecord('payroll/language-levels')" class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>
@@ -82,12 +74,11 @@
 			return {
 				record: {
 					id: '',
-					name: '',
-                    description: ''
+					name: ''
 				},
 				errors: [],
 				records: [],
-				columns: ['name', 'description', 'id'],
+				columns: ['name', 'id'],
 			}
 		},
 		methods: {
@@ -99,22 +90,19 @@
 			reset() {
 				this.record = {
 					id: '',
-					name: '',
-                    description: ''
+					name: ''
 				};
 			},
 		},
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
-                'description': 'Descripción',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
 			this.table_options.columnsClasses = {
-				'name': 'col-md-5',
-                'description': 'col-md-5',
+				'name': 'col-md-10',
 				'id': 'col-md-2'
 			};
 		},

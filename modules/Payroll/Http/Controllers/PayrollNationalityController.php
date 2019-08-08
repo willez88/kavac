@@ -16,7 +16,7 @@ use App\Models\Country;
  *
  * Clase que gestiona las nacionalidades
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
@@ -27,7 +27,7 @@ class PayrollNationalityController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author William Páez <wpaez at cenditel.gob.ve>
+     * @author William Páez <wpaez@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -39,13 +39,14 @@ class PayrollNationalityController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra todos los registros de nacionalidades
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de nacionalidades
      */
     public function index()
     {
-        $nationalities = PayrollNationality::all();
-        return view('payroll::nationalities.index', compact('nationalities'));
+        return response()->json(['records' => PayrollNationality::with(['country'])->get()], 200);
     }
 
     /**
@@ -54,17 +55,15 @@ class PayrollNationalityController extends Controller
      */
     public function create()
     {
-        $header = [
-            'route' => 'payroll.nationalities.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
-        ];
-        $countries = template_choices('App\Models\Country');
-        return view('payroll::nationalities.create-edit', compact('header','countries'));
+        return view('payroll::create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra una nueva nacionalidad
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
@@ -72,12 +71,8 @@ class PayrollNationalityController extends Controller
             'name' => 'required|max:100',
             'country_id' => 'required|unique:payroll_nationalities,country_id'
         ]);
-        $nationality = new PayrollNationality;
-        $nationality->name = $request->name;
-        $nationality->country_id = $request->country_id;
-        $nationality->save();
-        $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.nationalities.index');
+        $payrollNationality = PayrollNationality::create(['name' => $request->name, 'country_id' => $request->country_id]);
+        return response()->json(['record' => $payrollNationality, 'message' => 'Success'], 200);
     }
 
     /**
@@ -93,49 +88,54 @@ class PayrollNationalityController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollNationality $nationality)
+    public function edit()
     {
-        $header = [
-            'route' => ['payroll.nationalities.update', $nationality], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
-        ];
-        $countries = template_choices('App\Models\Country');
-        return view('payroll::nationalities.create-edit', compact('nationality','header','countries'));
+        return view('payroll::edit');
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de la nacionalidad
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador de la nacionalidad a actualizar
+     * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
      */
-    public function update(Request $request, PayrollNationality $nationality)
+    public function update(Request $request, $id)
     {
+        $payrollNationality = PayrollNationality::find($id);
         $this->validate($request, [
             'name' => 'required|max:100',
-            'country_id' => 'required|unique:payroll_nationalities,country_id,'.$nationality->country_id
+            'country_id' => 'required|unique:payroll_nationalities,country_id,'.$payrollNationality->id
         ]);
-        $nationality->name = $request->name;
-        $nationality->country_id = $request->country_id;
-        $nationality->save();
-        $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.nationalities.index');
+        $payrollNationality->name = $request->name;
+        $payrollNationality->country_id = $request->country_id;
+        $payrollNationality->save();
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina la nacionalidad
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador de la nacionalidad a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
-    public function destroy(Request $request, PayrollNationality $nationality)
+    public function destroy($id)
     {
-        if ($request->ajax()) {
-            $nationality->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.nationalities.index');
+        $payrollNationality = PayrollNationality::find($id);
+        $payrollNationality->delete();
+        return response()->json(['record' => $payrollNationality, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene las nacionalidades registrados
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de nacionalidades
+     */
     public function getPayrollNationalities()
     {
-        return template_choices('Modules\Payroll\Models\PayrollNationality','name','',true);
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollNationality','name','',true));
     }
 }

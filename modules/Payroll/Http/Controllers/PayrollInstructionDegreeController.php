@@ -109,7 +109,7 @@ class PayrollInstructionDegreeController extends Controller
         $payrollInstructorDegree->name  = $request->name;
         $payrollInstructorDegree->description = $request->description;
         $payrollInstructorDegree->save();
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**

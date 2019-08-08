@@ -15,7 +15,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de información profesional del trabajador
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollProfessionalInformation extends Model implements Auditable
@@ -51,7 +51,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
     ];
 
     /**
-     * PayrollProfessionalInformation belongs to PayrollStaff
+     * Método que obtiene la información profesional del trabajador asociado a una información personal del mismo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -62,7 +62,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * PayrollProfessionalInformation belongs to PayrollInstructionDegree
+     * Método que obtiene la información profesional del trabajador asociado a un grado de instrucción
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -73,7 +73,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * PayrollProfessionalInformation belongs to Profession
+     * Método que obtiene la información profesional del trabajador asociado a una profesión
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -84,7 +84,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * PayrollProfessionalInformation belongs to PayrollStudyType
+     * Método que obtiene la información profesional del trabajador asociado a un tipo de estudio
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -95,7 +95,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * PayrollProfessionalInformation belongs to PayrollLanguage
+     * Método que obtiene la información profesional del trabajador asociado a un idioma
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -106,7 +106,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * PayrollProfessionalInformation belongs to PayrollLanguageLevel
+     * Método que obtiene la información profesional del trabajador asociado a un nivel de idioma
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

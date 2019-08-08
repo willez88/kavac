@@ -105,11 +105,9 @@ class PayrollInactivityTypeController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100'
         ]);
-
         $payrollInactivityType->name = $request->name;
         $payrollInactivityType->save();
-
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**

@@ -1,12 +1,12 @@
 <template>
 	<div class="col-md-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
-		   title="Registros de cargos" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_position', 'positions', $event)">
-           <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
-		   <span>Cargos</span>
+		   title="Registros de nacionalidades" data-toggle="tooltip"
+		   @click="addRecord('add_payroll_nationality', 'nationalities', $event)">
+           <i class="icofont icofont-id-card ico-3x"></i>
+		   <span>Nacionaidades</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_position">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_nationality">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -14,8 +14,8 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
-							Cargo
+							<i class="icofont icofont-id-card ico-3x"></i>
+							Nacionalidad
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -30,18 +30,19 @@
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"
         								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
-        								   title="Indique el nombre del cargo (requerido)">
+        								   title="Indique el nombre de la nacionalidad (requerido)">
         							<input type="hidden" name="id" id="id" v-model="record.id">
         	                    </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group is-required">
-        							<label for="description">Descripción:</label>
-        							<input type="text" id="description" placeholder="Descripción"
-        								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
-        								   title="Indique la descripción del cargo (requerido)">
-        	                    </div>
-                            </div>
+    							<div class="form-group is-required">
+    								<label for="country_id">País:</label>
+    								<select2 id="country_id" :options="countries"
+                                        title="Seleccione el país (requerido)"
+    									v-model="record.country_id">
+    								</select2>
+    							</div>
+    						</div>
                         </div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -53,7 +54,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'positions')"
+		                		<button @click="deleteRecord(props.index, 'nationalities')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
@@ -66,7 +67,7 @@
 	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('payroll/positions')" class="btn btn-primary btn-sm btn-round btn-modal-save">
+	                	<button type="button" @click="createRecord('payroll/nationalities')" class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
 		            </div>
@@ -83,11 +84,12 @@
 				record: {
 					id: '',
 					name: '',
-                    description: ''
+                    country_id: ''
 				},
+                countries: [],
 				errors: [],
 				records: [],
-				columns: ['name', 'description', 'id'],
+				columns: ['name', 'country.name', 'id'],
 			}
 		},
 		methods: {
@@ -100,14 +102,15 @@
 				this.record = {
 					id: '',
 					name: '',
-                    description: ''
+                    country_id: ''
 				};
 			},
 		},
 		created() {
+            this.getCountries();
 			this.table_options.headings = {
 				'name': 'Nombre',
-                'description': 'Descripción',
+                'country.name': 'País',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['name'];

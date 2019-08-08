@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group is-required">
-        							<label for="name">Descripción:</label>
+        							<label for="description">Descripción:</label>
         							<input type="text" id="description" placeholder="Descripción"
         								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
         								   title="Indique la descripción del tipo de cargo (requerido)">

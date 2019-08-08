@@ -16,7 +16,7 @@ use Illuminate\Contracts\Validation\Rule;
 class AgeToWork implements Rule
 {
     /**
-     * Create a new rule instance.
+     * Recibe por parámetro la edad laboral permitida
      *
      * @return void
      */
@@ -26,7 +26,7 @@ class AgeToWork implements Rule
     }
 
     /**
-     * Determine if the validation rule passes.
+     * Determina si la regla de validación es correcta
      *
      * @param  string  $attribute
      * @param  mixed  $value
@@ -38,7 +38,7 @@ class AgeToWork implements Rule
     }
 
     /**
-     * Get the validation error message.
+     * Obtiene el mensaje de error de validación
      *
      * @return string
      */

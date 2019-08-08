@@ -8,7 +8,7 @@ use App\Models\MaritalStatus as BaseMaritalStatus;
 class MaritalStatus extends BaseMaritalStatus
 {
     /**
-     * MaritalStatus has many PayrollSocioeconomicInformation
+     * Método que obtiene el estado civil asociado a muchas informaciones socioeconómicas del trabajador
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

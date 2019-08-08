@@ -12,7 +12,7 @@ use App\Traits\ModelsTrait;
 
 /**
  * @class PayrollEmploymentInformation
- * @brief Datos de información laboral
+ * @brief Datos de información laboral del trabajador
  *
  * Gestiona el modelo de información laboral
  *
@@ -63,7 +63,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral del trabajaor asociado a una información personal del mismo
+     * Método que obtiene la información laboral del trabajador asociado a una información personal del mismo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -74,7 +74,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral asociada a un tipo de inactividad
+     * Método que obtiene la información laboral del trabajador asociada a un tipo de inactividad
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -85,7 +85,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral asociada a un tipo de cargo
+     * Método que obtiene la información laboral del trabajador asociada a un tipo de cargo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -96,7 +96,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral asociada a un cargo
+     * Método que obtiene la información laboral del trabajador asociada a un cargo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -107,7 +107,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral asociada a un departamento
+     * Método que obtiene la información laboral del trabajador asociada a un departamento
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -118,7 +118,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral asociada a un tipo de personal
+     * Método que obtiene la información laboral del trabajador asociada a un tipo de personal
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -129,7 +129,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral asociada a un tipo de contrato
+     * Método que obtiene la información laboral del trabajador asociada a un tipo de contrato
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

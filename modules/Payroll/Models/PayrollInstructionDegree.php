@@ -47,7 +47,7 @@ class PayrollInstructionDegree extends Model implements Auditable
     ];
 
     /**
-     * Método que obtiene el grado de instrucción asociado a muchas informaciones profesionales
+     * Método que obtiene el grado de instrucción asociado a muchas informaciones profesionales del trabajador
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

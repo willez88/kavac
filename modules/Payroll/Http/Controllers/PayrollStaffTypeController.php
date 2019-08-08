@@ -109,7 +109,7 @@ class PayrollStaffTypeController extends Controller
         $payrollStaffType->name  = $request->name;
         $payrollStaffType->description = $request->description;
         $payrollStaffType->save();
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**

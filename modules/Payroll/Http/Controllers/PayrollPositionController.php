@@ -109,7 +109,7 @@ class PayrollPositionController extends Controller
         $payrollPosition->name  = $request->name;
         $payrollPosition->description = $request->description;
         $payrollPosition->save();
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
