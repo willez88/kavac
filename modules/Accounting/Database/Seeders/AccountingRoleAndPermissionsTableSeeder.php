@@ -37,18 +37,7 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
         );
 
         $permissions = [
-            [
-                'name' => 'Ver cuentas patrimoniales', 'slug' => 'accounting.account.list',
-                'description' => 'Acceso para ver cuentas patrimoniales', 
-                'model' => 'Modules\Accounting\Models\AccountingAccount', 'model_prefix' => 'contabilidad',
-                'slug_alt' => 'cuentas_patrimoniales.ver', 'short_description' => 'listar cuentas patrimoniales'
-            ],
-            [
-                'name' => 'Acceso al panel de control de contabilidad', 'slug' => 'accounting.dashboard',
-                'description' => 'Acceso al panel de control del módulo de contabilidad', 
-                'model' => '', 'model_prefix' => 'contabilidad',
-                'slug_alt' => 'panel.control.ver', 'short_description' => 'panel de control de contabilidad'
-            ],
+
             /**
             * cuentas patrimoniales
             */
@@ -177,6 +166,19 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
             * Reportes Generales
             */
             [
+                'name' => 'Vista principal para los reportes de libros contables', 'slug' => 'accounting.report.accountingbooks',
+                'description' => 'Acceso a la vista principal de reportes de los libros contables', 
+                'model' => '', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'vista_principal_reportes_libros_contables', 'short_description' => 'acceso a la vista principal de reportes de libros contables'
+            ],
+            [
+                'name' => 'Vista principal para los reportes de estados financieros', 'slug' => 'accounting.report.financestatements',
+                'description' => 'Acceso a la vista principal de reportes de estados financieros', 
+                'model' => '', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'vista_principal_reportes_estados_financieros', 'short_description' => 'acceso a la vista principal de reportes de estados financieros'
+            ],
+
+            [
                 'name' => 'reporte pdf de libro diario', 'slug' => 'accounting.report.dailybook',
                 'description' => 'Acceso para generar reporte pdf de libro diario', 
                 'model' => '', 'model_prefix' => 'contabilidad',
@@ -211,7 +213,18 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 'description' => 'Acceso para generar reporte pdf de Estado de Resultados', 
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'reporte_estados_de_resultados.pdf', 'short_description' => 'reporte pdf de Estado de Resultados'
-            ]
+            ],
+
+            /**
+            * Dashboard
+            */
+            [
+                'name' => 'vista principal del dashboard del módulo de contabilidad', 'slug' => 'accounting.dashboard',
+                'description' => 'Acceso para visualizar el dashboard del módulo', 
+                'model' => '', 'model_prefix' => 'contabilidad',
+                'slug_alt' => 'panel_de_control.ver', 'short_description' => 'Visualizar panel de control del módulo de contabilidad'
+            ],
+
         ];
 
 

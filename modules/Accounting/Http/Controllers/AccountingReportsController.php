@@ -14,10 +14,22 @@ use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
-
 use Auth;
+
 class AccountingReportsController extends Controller
 {
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:accounting.report.accountingbooks', ['only' => ['accountingBooks']]);
+        $this->middleware('permission:accounting.report.financestatements', ['only' => ['financeStatements']]);
+    }
     /**
      * Display a listing of the resource.
      * @return Response
