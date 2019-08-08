@@ -11,12 +11,13 @@ use Modules\Payroll\Models\PayrollStaff;
 use App\Models\Phone;
 use App\Models\CodeSetting;
 use App\Rules\AgeToWork;
+use Modules\Payroll\Models\PayrollWorkAgeSetting;
 
 /**
  * @class PayrollStaffController
- * @brief Controlador de personal
+ * @brief Controlador de la información personal del trabajador
  *
- * Clase que gestiona el personal
+ * Clase que gestiona la información personal del trabajador
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
@@ -70,6 +71,7 @@ class PayrollStaffController extends Controller
      */
     public function store(Request $request)
     {
+        $payrollWorkAgeSetting = PayrollWorkAgeSetting::first();
         $this->validate($request, [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
@@ -78,7 +80,7 @@ class PayrollStaffController extends Controller
             'passport' => 'nullable|max:20|unique:payroll_staffs,passport',
             'email' => 'nullable|email|unique:payroll_staffs,email',
             'birthdate' => 'required|date',
-            'birthdate' => new AgeToWork,
+            'birthdate' => new AgeToWork( ($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0 ),
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
             'emergency_phone' => 'nullable',

@@ -7,25 +7,95 @@
 */
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de personal
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-staff-types', require('./components/settings/PayrollStaffTypesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de cargo
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-position-types', require('./components/settings/PayrollPositionTypesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de cargos
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-positions', require('./components/settings/PayrollPositionsComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de la clasificación del personal
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-staff-classifications', require('./components/settings/PayrollStaffClassificationsComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos del grado de instrucción
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-instruction-degrees', require('./components/settings/PayrollInstructionDegreesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos del tipo de estudio
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-study-types', require('./components/settings/PayrollStudyTypesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de nacionalidades
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-nationalities', require('./components/settings/PayrollNationalitiesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de los idiomas
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-languages', require('./components/settings/PayrollLanguagesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de los niveles de idioma
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-language-levels', require('./components/settings/PayrollLanguageLevelsComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de los géneros
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-genders', require('./components/settings/PayrollGendersComponent.vue').default);
+
+/**
  * Componente para listar, crear, actualizar y borrar datos de tipos de inactividad
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-inactivity-types', require('./components/PayrollInactivityTypesComponent.vue').default);
+Vue.component('payroll-inactivity-types', require('./components/settings/PayrollInactivityTypesComponent.vue').default);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de contrato
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-contract-types', require('./components/PayrollContractTypesComponent.vue').default);
+Vue.component('payroll-contract-types', require('./components/settings/PayrollContractTypesComponent.vue').default);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de sector
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-sector-types', require('./components/PayrollSectorTypesComponent.vue').default);
+Vue.component('payroll-sector-types', require('./components/settings/PayrollSectorTypesComponent.vue').default);
 
 /**
  * Componente para mostrar listado de información personal

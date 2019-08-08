@@ -10,12 +10,12 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollLanguage;
 
 /**
- * @class PayrolllanguageController
+ * @class PayrollLanguageController
  * @brief Controlador de idioma
  *
  * Clase que gestiona los idiomas
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollLanguageController extends Controller
@@ -37,13 +37,14 @@ class PayrollLanguageController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra todos los registros de idiomas
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de idiomas
      */
     public function index()
     {
-        $languages = PayrollLanguage::all();
-        return view('payroll::languages.index', compact('languages'));
+        return response()->json(['records' => PayrollLanguage::all()], 200);
     }
 
     /**
@@ -52,16 +53,15 @@ class PayrollLanguageController extends Controller
      */
     public function create()
     {
-        $header = [
-            'route' => 'payroll.languages.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::languages.create-edit', compact('header'));
+        return view('payroll::create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra un nuevo idioma
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
@@ -69,12 +69,8 @@ class PayrollLanguageController extends Controller
             'name' => 'required|max:100',
             'acronym' => 'required|max:10'
         ]);
-        $language = new PayrollLanguage;
-        $language->name  = $request->name;
-        $language->acronym  = $request->acronym;
-        $language->save();
-        $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.languages.index');
+        $payrollLanguage = PayrollLanguage::create(['name' => $request->name, 'acronym' => $request->acronym]);
+        return response()->json(['record' => $payrollLanguage, 'message' => 'Success'], 200);
     }
 
     /**
@@ -90,49 +86,54 @@ class PayrollLanguageController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollLanguage $language)
+    public function edit()
     {
-        $header = [
-            'route' => ['payroll.languages.update', $language], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::languages.create-edit', compact('language','header'));
+        return view('payroll::edit');
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información del idioma
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador del idioma a actualizar
+     * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
      */
-    public function update(Request $request, PayrollLanguage $language)
+    public function update(Request $request, $id)
     {
+        $payrollLanguage = PayrollLanguage::find($id);
         $this->validate($request, [
             'name' => 'required|max:100',
             'acronym' => 'required|max:10'
         ]);
-        $language->name  = $request->name;
-        $language->acronym  = $request->acronym;
-        $language->save();
-        $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.languages.index');
+        $payrollLanguage->name  = $request->name;
+        $payrollLanguage->acronym  = $request->acronym;
+        $payrollLanguage->save();
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina el idioma
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador del idioma a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
-    public function destroy(Request $request, PayrollLanguage $language)
+    public function destroy($id)
     {
-        if ($request->ajax())
-        {
-            $language->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.languages.index');
+        $payrollLanguage = PayrollLanguage::find($id);
+        $payrollLanguage->delete();
+        return response()->json(['record' => $payrollLanguage, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene los idiomas registrados
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de idiomas
+     */
     public function getPayrollLanguages()
     {
-        return template_choices('Modules\Payroll\Models\PayrollLanguage','name','',true);
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollLanguage','name','',true));
     }
 }

@@ -12,11 +12,11 @@ use App\Traits\ModelsTrait;
 
 /**
  * @class PayrollSocioeconomicInformation
- * @brief Datos de información socioeconómica
+ * @brief Datos de información socioeconómica del trabajador
  *
  * Gestiona el modelo de información socioeconómica
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollSocioeconomicInformation extends Model implements Auditable
@@ -51,7 +51,7 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
     ];
 
     /**
-     * PayrollSocioeconomicInformation belongs to PayrollStaff
+     * Método que obtiene la información socioeconómica del trabajador asociado a una información personal del mismo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -62,7 +62,7 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
     }
 
     /**
-     * PayrollSocioeconomicInformation belongs to MaritalStatus
+     * Método que obtiene la información socioeconómica del trabajador asociado a un estado civil
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -73,7 +73,7 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
     }
 
     /**
-     * PayrollSocioeconomicInformation has many PayrollChildren
+     * Método que obtiene la información socioeconómica del trabajador que está asociado a muchos hijos del mismo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

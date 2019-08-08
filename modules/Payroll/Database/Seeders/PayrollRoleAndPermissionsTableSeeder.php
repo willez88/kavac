@@ -482,6 +482,19 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.laboral.eliminar'
             ],
+            // work age settings
+            [
+                'name' => 'Crear datos de configuración de la edad laboral', 'slug' => 'payroll.age.work.settings.create',
+                'description' => 'Acceso para crear datos de configuración de la edad laboral',
+                'model' => 'Modules\Payroll\Models\PayrollWorkAgeSetting', 'model_prefix' => 'nomina',
+                'slug_alt' => 'configuracion.edad.laboral.crear'
+            ],
+            [
+                'name' => 'Editar datos de configuración de la edad laboral', 'slug' => 'payroll.age.work.settings.edit',
+                'description' => 'Acceso para editar datos de configuración de la edad laboral',
+                'model' => 'Modules\Payroll\Models\PayrollWorkAgeSetting', 'model_prefix' => 'nomina',
+                'slug_alt' => 'configuracion.edad.laboral.editar'
+            ],
         ];
 
         foreach ($permissions as $permission) {

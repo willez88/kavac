@@ -7,18 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Payroll\Models\PayrollInactivityType;
 
+/**
+ * @class PayrollInactivityTipesTableSeeder
+ * @brief Inicializar los tipos de inactividad
+ *
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class PayrollInactivityTypesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores de los tipos de inactividad
      *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $payroll_inactivity_types = [
+        $payrollInactivityTypes = [
             [
                 'name' => 'Permiso no remunerado'
             ],
@@ -36,10 +45,10 @@ class PayrollInactivityTypesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_inactivity_types) {
-            foreach ($payroll_inactivity_types as $payroll_inactivity_type) {
+        DB::transaction(function() use ($payrollInactivityTypes) {
+            foreach ($payrollInactivityTypes as $payrollInactivityType) {
                 PayrollInactivityType::updateOrCreate(
-                    ['name' => $payroll_inactivity_type['name']]
+                    ['name' => $payrollInactivityType['name']]
                 );
             }
         });
