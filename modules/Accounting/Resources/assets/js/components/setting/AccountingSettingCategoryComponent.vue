@@ -35,6 +35,7 @@
 										<label class="control-label">Acrónimo</label>
 										<input type="text"
 												class="form-control"
+												maxlength="8" 
 												title="Ingrese el acrónimo"
 												data-toggle="tooltip"
 												v-model="record.acronym">
