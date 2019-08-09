@@ -64,6 +64,42 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
+					<h6 class="card-title">Configuración de la Edad Laboral Permitida</h6>
+					<div class="card-btns">
+						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
+						   data-toggle="tooltip">
+							<i class="now-ui-icons arrows-1_minimal-up"></i>
+						</a>
+					</div>
+				</div>
+				{!! Form::open(['route' => 'payroll.work-age-settings.store', 'method' => 'post']) !!}
+					{!! Form::token() !!}
+					<div class="card-body">
+						@include('layouts.form-errors')
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('age', 'Edad', []) !!}
+									{!! Form::number('age', ($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : old('age'), [
+										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'title' => 'Indique la edad laboral permitida', 'min' => '1',
+										'placeholder' => 'Edad'
+									]) !!}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer text-right">
+						@include('layouts.form-buttons')
+					</div>
+				{!! Form::close() !!}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
 					<h6 class="card-title">Registros Comúnes</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
@@ -75,68 +111,28 @@
 				<div class="card-body">
 					<div class="row">
 						{{-- Configuración de tipos de personal --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.staff-types.index') }}" title="Registro de tipos de personal" data-toggle="tooltip">
-								<i class="icofont icofont-people ico-3x"></i>
-								<span>Tipos de<br>Personal</span>
-							</a>
-						</div>
+						<payroll-staff-types></payroll-staff-types>
+
 						{{-- Configuración de tipos de cargos --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.position-types.index') }}" title="Registro de tipos de cargos"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-contact-add ico-3x"></i>
-								<span>Tipos de<br>Cargos</span>
-							</a>
-						</div>
+						<payroll-position-types></payroll-position-types>
+
 						{{-- Configuración de cargos --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.positions.index') }}" title="Registro de cargos"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
-								<span>Cargos</span>
-							</a>
-						</div>
+						<payroll-positions></payroll-positions>
+
 						{{-- Configuración de clasificación del personal --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.staff-classifications.index') }}" title="Registro de clasificación del personal"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-company ico-3x"></i>
-								<span>Clasificación<br>del Personal</span>
-							</a>
-						</div>
+						<payroll-staff-classifications></payroll-staff-classifications>
+
 						{{-- Configuración del grado de instrucción --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.instruction-degrees.index') }}" title="Registro del grado de instrucción"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-graduate-alt ico-3x"></i>
-								<span>Grado de<br>Instrucción</span>
-							</a>
-						</div>
+						<payroll-instruction-degrees></payroll-instruction-degrees>
+
 						{{-- Configuración del tipo de estudio --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.study-types.index') }}" title="Registro del tipo de estudio"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-education ico-3x"></i>
-								<span>Tipo de<br>Estudio</span>
-							</a>
-						</div>
+						<payroll-study-types></payroll-study-types>
+
 						{{-- Configuración de la nacionalidad --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.nationalities.index') }}" title="Registro de nacionalidades"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-id-card ico-3x"></i>
-								<span>Nacionalidad</span>
-							</a>
-						</div>
+						<payroll-nationalities></payroll-nationalities>
+
 						{{-- Tipo de concepto --}}
+						{{--
 						<div class="col-md-2 text-center">
 							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 							   href="{{ route('payroll.concept-types.index') }}" title="Registro de tipos de concepto"
@@ -145,37 +141,23 @@
 								<span>Tipos de<br>Concepto</span>
 							</a>
 						</div>
+						--}}
+
 						{{-- nivel de idioma --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.language-levels.index') }}" title="Registro de nivel de idioma"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-earth ico-3x"></i>
-								<span>Nivel de<br>Idioma</span>
-							</a>
-						</div>
+						<payroll-language-levels></payroll-language-levels>
+
 						{{-- idioma --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.languages.index') }}" title="Registro de idioma"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-flag ico-3x"></i>
-								<span>Idioma</span>
-							</a>
-						</div>
+						<payroll-languages></payroll-languages>
+
 						{{-- género --}}
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.genders.index') }}" title="Registro del género del trabajador"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-group-students ico-3x"></i>
-								<span>Género</span>
-							</a>
-						</div>
+						<payroll-genders></payroll-genders>
+
 						{{-- tipos de inactividad --}}
 						<payroll-inactivity-types></payroll-inactivity-types>
+
 						{{-- tipos de contrato --}}
 						<payroll-contract-types></payroll-contract-types>
+
 						{{-- tipos de sector --}}
 						<payroll-sector-types></payroll-sector-types>
 					</div>

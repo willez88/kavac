@@ -7,18 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Payroll\Models\PayrollInstructionDegree;
 
+/**
+ * @class PayrollInstructionDegreesTableSeeder
+ * @brief Inicializar los grados de instruccíón
+ *
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class PayrollInstructionDegreesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores de los grados de instrucción
      *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $payroll_instruction_degrees = [
+        $payrollInstructionDegrees = [
             [
                 'name' => 'Primaria', 'description' => null
             ],
@@ -45,12 +54,12 @@ class PayrollInstructionDegreesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_instruction_degrees) {
-            foreach ($payroll_instruction_degrees as $instruction_degree) {
+        DB::transaction(function() use ($payrollInstructionDegrees) {
+            foreach ($payrollInstructionDegrees as $payrollInstructionDegree) {
                 PayrollInstructionDegree::updateOrCreate(
-                    ['name' => $instruction_degree['name']],
+                    ['name' => $payrollInstructionDegree['name']],
                     [
-                        'description' => $instruction_degree['description']
+                        'description' => $payrollInstructionDegree['description']
                     ]
                 );
             }

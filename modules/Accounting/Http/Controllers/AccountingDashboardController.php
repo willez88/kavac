@@ -10,8 +10,35 @@ use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use DateTime;
 use Auth;
-class AccountingLastOperationsController extends Controller
+
+class AccountingDashboardController extends Controller
 {
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:accounting.dashboard', ['only' => ['index', 'get_operations', 'get_report_histories']]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return Response
+     */
+    public function index()
+    {
+        return view('accounting::index_test');
+    }
+
+    /**
+     * Obtiene las ultimas 10 operaciones de creacion de asientos contables realizadas
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return View
+     */
     public function get_operations()
     {
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
@@ -26,9 +53,14 @@ class AccountingLastOperationsController extends Controller
         return response()->json(['lastRecords' => $lastRecords, 'currency' => $currency],200);
     }
 
+    /**
+     * Obtiene los registros de los ultimos reportes generados
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return View
+     */
     public function get_report_histories()
     {
-
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
         $report_histories = [];
 
@@ -53,7 +85,6 @@ class AccountingLastOperationsController extends Controller
             }
         }
 
-        // $report_histories = json_encode($report_histories);
         return response()->json(['report_histories' => $report_histories],200);
     }
 }

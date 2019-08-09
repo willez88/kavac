@@ -45,7 +45,7 @@ class PayrollInactivityType extends Model implements Auditable
     protected $fillable = ['name'];
 
     /**
-     * Método que obtiene el tipo de inactividad asociadas a muchas informaciones laborales
+     * Método que obtiene el tipo de inactividad asociadas a muchas informaciones laborales del trabajador
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

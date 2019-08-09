@@ -141,16 +141,16 @@ class AccountingSeatController extends Controller
         /**
          * se crear el asiento contable
          */
-        $newSeating = new AccountingSeat();
-        $newSeating->from_date = $request->data['date'];
-        $newSeating->reference = $request->data['reference'];
-        $newSeating->concept = $request->data['concept'];
-        $newSeating->observations = $request->data['observations'];
-        $newSeating->accounting_seat_categories_id=($request->data['category']!='')? $request->data['category']: null;
-        $newSeating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
-        $newSeating->tot_debit = $request->data['totDebit'];
-        $newSeating->tot_assets = $request->data['totAssets'];
-        $newSeating->save();
+        $newSeating = AccountingSeat::create([
+            'from_date' => $request->data['date'],
+            'reference' => $request->data['reference'],
+            'concept' => $request->data['concept'],
+            'observations' => $request->data['observations'],
+            'accounting_seat_categories_id' => ($request->data['category']!='')? $request->data['category']: null,
+            'institution_id' => (!is_null($request->data['institution_id']))? $request->data['institution_id']: null,
+            'tot_debit' => $request->data['totDebit'],
+            'tot_assets' => $request->data['totAssets'],
+        ]);
 
         /**
          * se crea el registro en la tabla pivote entre el asiento contable y las cuentas patrimoniales
@@ -246,16 +246,6 @@ class AccountingSeatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $seating = AccountingSeat::find($id);
-        // $seating->reference = $request->data['reference'];
-        // $seating->concept = $request->data['concept'];
-        // $seating->observations = $request->data['observations'];
-        // $seating->tot_debit = $request->data['totDebit'];
-        // $seating->tot_assets = $request->data['totAssets'];
-        // $seating->institution_id=(!is_null($request->data['institution_id']))? $request->data['institution_id']: null;
-        // // $seating->department_id=(!is_null($request->data['departament_id']))? $request->data['departament_id']: null;
-        // $seating->save();
-
         /**
          * se actualiza la información del registro del asiento contable
          */ 

@@ -265,7 +265,7 @@ class AccountingAccountController extends Controller
         }
         else if (count($headings) === 1 && $headings[0] >= 1) {
             $validHeads = [
-                'grupo', 'subgrupo', 'rubro', 'n_cuenta_orden', 'n_subcuenta_primer_orden', 'n_subcuenta_segundo_orden', 'denominacion','estatus'
+                'codigo', 'denominacion','activa'
             ];
             foreach ($validHeads as $vh) {
                 if (!in_array($vh,$headings[0][0])) {
@@ -288,35 +288,47 @@ class AccountingAccountController extends Controller
         $currentRow = 2;
         $rowErrors = [];
         foreach ($file as $record) {
+
+            /** @var Array se almacena el código*/
+            $CodeExplode = explode('.', $record['codigo']);
+
+            /** se Agrega un 0 al inicio de ser necesario*/
+            $n_cuenta_orden = ((int)$CodeExplode[3] > 9) ?
+                                                    $CodeExplode[3]:'0'.(int)$CodeExplode[3];
+            $n_subcuenta_primer_orden = ((int)$CodeExplode[4] > 9) ?
+                                                    $CodeExplode[4]:'0'.(int)$CodeExplode[4];
+            $n_subcuenta_segundo_orden = ((int)$CodeExplode[5] > 9) ?
+                                                    $CodeExplode[5]:'0'.(int)$CodeExplode[5];
+
+            /** @var Array para almacenar la información que se verificara */
+            $recordCode = [
+                'grupo' => $CodeExplode[0],
+                'subgrupo' => $CodeExplode[1],
+                'rubro' => $CodeExplode[2],
+                'n_cuenta_orden' => $n_cuenta_orden,
+                'n_subcuenta_primer_orden' => $n_subcuenta_primer_orden,
+                'n_subcuenta_segundo_orden' => $n_subcuenta_segundo_orden,
+                'activa' => $record['activa'],
+            ];
+
+
             /** Se validan los errores en los formatos de las columnas en el archivo */
-            foreach ($this->ValidatedErrors($record, $currentRow) as $error) {
+            foreach ($this->ValidatedErrors($recordCode, $currentRow) as $error) {
                 array_push($rowErrors, $error);
             }
 
             $currentRow +=1;
 
-            $n_cuenta_orden = ((int)$record['n_cuenta_orden'] > 9) ?
-                                                    $record['n_cuenta_orden']:'0'.$record['n_cuenta_orden'];
-            $n_subcuenta_primer_orden = ((int)$record['n_subcuenta_primer_orden'] > 9) ?
-                                                    $record['n_subcuenta_primer_orden']:'0'.$record['n_subcuenta_primer_orden'];
-            $n_subcuenta_segundo_orden = ((int)$record['n_subcuenta_segundo_orden'] > 9) ?
-                                                    $record['n_subcuenta_segundo_orden']:'0'.$record['n_subcuenta_segundo_orden'];
-
             array_push($records, [
-                'code'=>$record['grupo'].'.'.
-                        $record['subgrupo'].'.'.
-                        $record['rubro'].'.'.
-                        $n_cuenta_orden.'.'.
-                        $n_subcuenta_primer_orden.'.'.
-                        $n_subcuenta_segundo_orden,
+                'code'=>$record['codigo'],
                 'denomination'=> $record['denominacion'],
-                'active'=>($record['estatus'] == 'activo') ? true : false,
-                'group'=>$record['grupo'],
-                'subgroup'=>$record['subgrupo'],
-                'item'=>$record['rubro'],
-                'generic'=>$n_cuenta_orden,
-                'specific'=>$n_subcuenta_primer_orden,
-                'subspecific'=>$n_subcuenta_segundo_orden,
+                'active'=>($record['activa'] == 'si') ? true : false,
+                'group'=>$recordCode['grupo'],
+                'subgroup'=>$recordCode['subgrupo'],
+                'item'=>$recordCode['rubro'],
+                'generic'=>$recordCode['n_cuenta_orden'],
+                'specific'=>$recordCode['n_subcuenta_primer_orden'],
+                'subspecific'=>$recordCode['n_subcuenta_segundo_orden'],
                 ]);
         }
 
@@ -379,7 +391,7 @@ class AccountingAccountController extends Controller
     {
         $errors = [];
         /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
-        if ( ! $this->Is_Int($record['grupo']) || gettype($record['grupo']) == 'string') {
+        if ( ! ctype_digit($record['grupo']) ) {
             array_push($errors, 'La columna grupo en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
         }
         if ((int)$record['grupo'] > 9 || (int)$record['grupo'] < 0 ) {
@@ -387,7 +399,7 @@ class AccountingAccountController extends Controller
         }
 
         /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
-        if ( ! $this->Is_Int($record['subgrupo']) || gettype($record['subgrupo']) == 'string') {
+        if ( ! ctype_digit($record['subgrupo']) ) {
             array_push($errors, 'La columna subgrupo en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
         }
         if ((int)$record['subgrupo'] > 9 || (int)$record['subgrupo'] < 0 ) {
@@ -395,7 +407,7 @@ class AccountingAccountController extends Controller
         }
 
         /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
-        if ( ! $this->Is_Int($record['rubro']) || gettype($record['rubro']) == 'string') {
+        if ( ! ctype_digit($record['rubro']) ) {
             array_push($errors, 'La columna rubro en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
         }
         if ((int)$record['rubro'] > 9 || (int)$record['rubro'] < 0 ) {
@@ -403,7 +415,7 @@ class AccountingAccountController extends Controller
         }
 
         /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 99 */
-        if ( ! $this->Is_Int($record['n_cuenta_orden']) || gettype($record['n_cuenta_orden']) == 'string') {
+        if ( ! ctype_digit($record['n_cuenta_orden']) ) {
             array_push($errors, 'La columna n_cuenta_orden en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
         }
         if ((int)$record['n_cuenta_orden'] > 99 || (int)$record['n_cuenta_orden'] < 0 ) {
@@ -411,7 +423,7 @@ class AccountingAccountController extends Controller
         }
 
         /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 99 */
-        if ( ! $this->Is_Int($record['n_subcuenta_primer_orden']) || gettype($record['n_subcuenta_primer_orden']) == 'string') {
+        if ( ! ctype_digit($record['n_subcuenta_primer_orden']) ) {
             array_push($errors, 'La columna n_subcuenta_primer_orden en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
         }
         if ((int)$record['n_subcuenta_primer_orden'] > 99 || (int)$record['n_subcuenta_primer_orden'] < 0 ) {
@@ -419,7 +431,7 @@ class AccountingAccountController extends Controller
         }
 
         /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 99 */
-        if ( ! $this->Is_Int($record['n_subcuenta_segundo_orden']) || gettype($record['n_subcuenta_segundo_orden']) == 'string') {
+        if ( ! ctype_digit($record['n_subcuenta_segundo_orden']) ) {
             array_push($errors, 'La columna n_subcuenta_segundo_orden en la fila '.$currentRow.' debe ser entero y no debe contener caracteres ni simbolos.');
         }
         if ((int)$record['n_subcuenta_segundo_orden'] > 99 || (int)$record['n_subcuenta_segundo_orden'] < 0 ) {
@@ -427,27 +439,12 @@ class AccountingAccountController extends Controller
         }
 
 
-        /** Se valida que el valor en la columna de estatus */
-        if ($record['estatus'] != 'activo' && $record['estatus'] != 'inactivo' ) {
-            array_push($errors, 'La columna estatus en la fila '.$currentRow.' no cumple con el formato valido, activo ó inactivo.');
+        /** Se valida que el valor en la columna de activa */
+        if (strtolower($record['activa']) != 'si' && strtolower($record['activa']) != 'no' ) {
+            array_push($errors, 'La columna activa en la fila '.$currentRow.' no cumple con el formato valido, SI ó NO.');
         }
 
         return $errors;
     }
 
-
-    /**
-     * Verifica si el valor es numerico entero y que no contenga ningún carácter o símbolo
-     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return bollean true si es determina que es numerico y false en caso contrario
-    */
-    public function Is_Int($value)
-    {
-        $aux = explode(',', (string)$value);
-
-        $aux2 = explode('.', (string)$value);
-
-        return ( ! (count($aux) > 1 || count($aux2) > 1) || ctype_digit($aux[0]) || ctype_digit($aux[0]));
-
-    }
 }

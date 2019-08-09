@@ -35,7 +35,7 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'created_at': 'FECHA',
+				'created_at': 'FECHA DE GENERACIÓN',
 				'interval': 'TIEMPO TRANSCURRIDO',
 				'name': 'TIPO DE REPORTE',
 				'id': 'ACCIÓN'

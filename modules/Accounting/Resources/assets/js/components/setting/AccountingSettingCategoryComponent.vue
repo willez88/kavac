@@ -35,6 +35,7 @@
 										<label class="control-label">Acrónimo</label>
 										<input type="text"
 												class="form-control"
+												maxlength="8" 
 												title="Ingrese el acrónimo"
 												data-toggle="tooltip"
 												v-model="record.acronym">
@@ -92,7 +93,6 @@
 export default{
 	data(){
 		return{
-			errors:[],
 			columns:['name','acronym','id'],
 			records:[],
 			record:{
@@ -141,8 +141,8 @@ export default{
 						jumpOne = false;
 						continue;
 					}
-					this.warnings = [];
-					this.warnings.push('El acrónimo debe ser único.');
+					this.errors = [];
+					this.errors.push('El acrónimo debe ser único.');
 					return false;
 				}
 				if (name && this.record.name == this.records[i].name) {
@@ -150,8 +150,8 @@ export default{
 						jumpOne = false;
 						continue;
 					}
-					this.warnings = [];
-					this.warnings.push('El nombre debe ser único.');
+					this.errors = [];
+					this.errors.push('El nombre debe ser único.');
 					return false;
 				}
 			}

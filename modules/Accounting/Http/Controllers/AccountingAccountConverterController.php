@@ -108,12 +108,12 @@ class AccountingAccountConverterController extends Controller
     public function store(Request $request)
     {
 		foreach ($request->records as $convertion) {
-            /** @var Object Objeto que contiene los registros de conversiones */
-	        $newConvertion = new AccountingAccountConverter();
-			$newConvertion->accounting_account_id = $convertion['accounting']['id'];
-			$newConvertion->budget_account_id = $convertion['budget']['id'];
-			$newConvertion->active = true;
-			$newConvertion->save();
+            /** @var Crea el registro de conversiones */
+	        AccountingAccountConverter::create([
+                'accounting_account_id' => $convertion['accounting']['id'],
+                'budget_account_id' => $convertion['budget']['id'],
+                'active' => true,
+            ]);
         }
 		return response()->json(['message'=>'Success']);
     }

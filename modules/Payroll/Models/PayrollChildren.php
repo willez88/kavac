@@ -16,7 +16,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de los hijos de los trabajadores
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollChildren extends Model implements Auditable
@@ -44,11 +44,11 @@ class PayrollChildren extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'first_name', 'last_name', 'id_number', 'birthdate', 'payroll_socioecomic_information_id'
+        'first_name', 'last_name', 'id_number', 'birthdate', 'payroll_socioeconomic_information_id'
     ];
 
     /**
-     * PayrollChildren belongs to PayrollSocioeconomicInformation
+     * Método que obtiene el hijo del trabajador asociado a una información socioeconómica del trabajador
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

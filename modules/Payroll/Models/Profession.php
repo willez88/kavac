@@ -8,7 +8,7 @@ use App\Models\Profession as BaseProfession;
 class Profession extends BaseProfession
 {
     /**
-     * Profession has many PayrollProfessionalInformation
+     * Método que obtiene la profesión que está asociada a muchas informaciones profesionales del trabajador
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

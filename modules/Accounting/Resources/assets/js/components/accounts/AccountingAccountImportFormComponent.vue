@@ -1,6 +1,6 @@
 <template>
 	<div class="card-body">
-		<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+		<div class="alert alert-danger" role="alert" v-if="existErrors">
 			<div class="container">
 				<div class="alert-icon">
 					<i class="now-ui-icons objects_support-17"></i>
@@ -26,26 +26,16 @@
 			<table cellpadding="1" border="1">
 				<thead>
 					<tr>
-						<td align="center">grupo</td>
-						<td align="center">subgrupo</td>
-						<td align="center">rubro</td>
-						<td align="center">n cuenta orden</td>
-						<td align="center">n subcuenta primer orden</td>
-						<td align="center">n subcuenta segundo orden</td>
-						<td align="center">denominacion</td>
-						<td align="center">estatus</td>
+						<td align="center">Código</td>
+						<td align="center">Denominación</td>
+						<td align="center">Activa</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td align="center">9</td>
-						<td align="center">9</td>
-						<td align="center">9</td>
-						<td align="center">99</td>
-						<td align="center">99</td>
-						<td align="center">99</td>
+						<td align="center">9.9.9.99.99.99</td>
 						<td align="center">Nombre de denominación</td>
-						<td align="center">activo ó inactivo</td>
+						<td align="center">SI ó NO</td>
 					</tr>
 				</tbody>
 			</table>
@@ -84,7 +74,6 @@
 	export default{
 		data(){
 			return {
-				errors:[],
 				records: [],
 				columns: ['code', 'denomination', 'status'],
 				file:'',
@@ -117,8 +106,11 @@
 
 			importCalculo(){
 
+				this.records = [];
+
 				EventBus.$emit('show:errors', []);
 
+				/** Se obtiene y da formato para enviar el archivo a la ruta */
 				let vm = this;
 				var formData = new FormData();
 				var inputFile = document.querySelector('#file');
@@ -129,6 +121,19 @@
 					}
 				}).then(response => {
 
+					if ( ! response.data.result) {
+						vm.showMessage(
+							'custom', 'Error', 'danger', 'screen-error',
+							response.data.message
+						);
+					}
+					else{
+						vm.showMessage(
+							'custom', 'Éxito', 'success', 'screen-ok', 
+							'Cuentas cargadas de manera existosa.'
+						);
+					}
+
 					if (response.data.errors.length > 0) {
 						EventBus.$emit('show:errors', response.data.errors);
 					}
@@ -136,12 +141,7 @@
 						this.records = response.data.records;
 						EventBus.$emit('register:imported-accounts', this.records);
 					}
-					else {
-						vm.showMessage(
-							'custom', 'Error!', 'danger', 'screen-error', 
-							response.data.message
-						);
-					}
+
 				}).catch(error => {
 					if (typeof(error.response) !== "undefined") {
 						if (error.response.status == 422 || error.response.status == 500) {

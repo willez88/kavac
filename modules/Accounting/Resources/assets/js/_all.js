@@ -146,6 +146,7 @@ window.EventBus = new Vue;
 Vue.mixin({
 	data() {
 		return {
+			errors:[],
 			months:[
 				{id:1, text:'Enero'},
 				{id:2, text:'Febrero'},
@@ -165,6 +166,11 @@ Vue.mixin({
 			year_end:new Date().getFullYear(),
 			month_init:1,
 			month_end:12,
+		}
+	},
+	computed:{
+		existErrors:function(){
+			return (this.errors.length > 0);
 		}
 	},
 	methods:{
@@ -262,6 +268,11 @@ Vue.mixin({
 			return f_date;
 		},
 
+		/**
+		* Despliega y oculta los tr de una tabla que tengas el nombre dado
+		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		* @return String con la cadena permitida
+		*/
 		displayDetails(id){
 			if (!document.getElementById) return false;
 			fila = document.getElementsByName('details_'+id);
@@ -278,6 +289,30 @@ Vue.mixin({
 				  $('#i-'+id+'-none').css("display", "none");
 				}
 			}
+		},
+
+		/**
+		* Solo permite escribir en los input los caracteres establecidos
+		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		* @return {String} con la cadena permitida
+		*/
+		onlyNumbers(string, filter = null){
+			var out = '';
+
+			/** Caracteres validos por defecto */
+			var dafaultFilter = '1234567890';
+			if(filter != null){
+				dafaultFilter = filter;
+			}
+			
+		    /** Recorrer el texto y verificar si el caracter se encuentra en la lista de validos  */
+		    for (var i=0; i<string.length; i++)
+		       if (dafaultFilter.indexOf(string.charAt(i)) != -1) 
+		             //Se añaden a la salida los caracteres validos
+			     out += string.charAt(i);
+			
+		    /** Retornar valor filtrado */
+		    return out;
 		}
 	}
 });

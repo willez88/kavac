@@ -2,7 +2,7 @@
 	<div>
 		<form @submit.prevent="" class="form-horizontal">
 			<div class="card-body">
-				<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+				<div class="alert alert-danger" role="alert" v-if="existErrors">
 					<div class="container">
 						<div class="alert-icon">
 							<i class="now-ui-icons objects_support-17"></i>
@@ -154,7 +154,7 @@
 			<div class="card-footer text-right">
 				<button class="btn btn-info btn-xs"
 					data-toggle="tooltip"
-					title="Consultar Registros"
+					title="Buscar asientos contables aprobados"
 					v-on:click="searchRecords()">
 					Buscar
 					<i class="fa fa-search"></i>
@@ -173,7 +173,6 @@
 		props:['categories','year_old','institutions','currency'],
 		data(){
 			return {
-				errors:[],
 				warnings:[],
 				records: [],
 				typeSearch:'origin', //states: 'reference', 'origin'

@@ -15,7 +15,7 @@ use Modules\Payroll\Models\PayrollGender;
  *
  * Clase que gestiona los géneros
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollGenderController extends Controller
@@ -37,13 +37,14 @@ class PayrollGenderController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra todos los registros de cargos
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de cargos
      */
     public function index()
     {
-        $genders = PayrollGender::all();
-        return view('payroll::genders.index', compact('genders'));
+        return response()->json(['records' => PayrollGender::all()], 200);
     }
 
     /**
@@ -52,27 +53,23 @@ class PayrollGenderController extends Controller
      */
     public function create()
     {
-        $header = [
-            'route' => 'payroll.genders.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::genders.create-edit', compact('header'));
+        return view('payroll::create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra un nuevo género
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|max:100'
         ]);
-        $gender = new PayrollGender;
-        $gender->name  = $request->name;
-        $gender->save();
-        $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.genders.index');
+        $payrollGender = PayrollGender::create(['name' => $request->name]);
+        return response()->json(['record' => $payrollGender, 'message' => 'Success'], 200);
     }
 
     /**
@@ -88,47 +85,52 @@ class PayrollGenderController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(PayrollGender $gender)
+    public function edit()
     {
-        $header = [
-            'route' => ['payroll.genders.update', $gender], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::genders.create-edit', compact('gender','header'));
+        return view('payroll::edit');
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información del género
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador del género a actualizar
+     * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
      */
-    public function update(Request $request, PayrollGender $gender)
+    public function update(Request $request, $id)
     {
+        $payrollGender = PayrollGender::find($id);
         $this->validate($request, [
             'name' => 'required|max:100'
         ]);
-        $gender->name  = $request->name;
-        $gender->save();
-        $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.genders.index');
+        $payrollGender->name  = $request->name;
+        $payrollGender->save();
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina el género
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador del género a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
-    public function destroy(Request $request, PayrollGender $gender)
+    public function destroy($id)
     {
-        if ($request->ajax())
-        {
-            $gender->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.genders.index');
+        $payrollGender = PayrollGender::find($id);
+        $payrollGender->delete();
+        return response()->json(['record' => $payrollGender, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene los géneros registrados
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los géneros
+     */
     public function getPayrollGenders()
     {
-        return template_choices('Modules\Payroll\Models\PayrollGender','name','',true);
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollGender','name','',true));
     }
 }

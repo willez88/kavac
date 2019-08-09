@@ -7,18 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Payroll\Models\PayrollLanguageLevel;
 
+/**
+ * @class PayrollLanguageLevelsTableSeeder
+ * @brief Inicializar los niveles de idioma
+ *
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class PayrollLanguageLevelsTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores de los niveles de idioma
      *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $payroll_language_levels = [
+        $payrollLanguageLevels = [
             [
                 'name' => 'Básico'
             ],
@@ -33,10 +42,10 @@ class PayrollLanguageLevelsTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_language_levels) {
-            foreach ($payroll_language_levels as $language_level) {
+        DB::transaction(function() use ($payrollLanguageLevels) {
+            foreach ($payrollLanguageLevels as $payrollLanguageLevel) {
                 PayrollLanguageLevel::updateOrCreate(
-                    ['name' => $language_level['name']]
+                    ['name' => $payrollLanguageLevel['name']]
                 );
             }
         });

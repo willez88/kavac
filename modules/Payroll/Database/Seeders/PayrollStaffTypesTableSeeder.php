@@ -7,18 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Payroll\Models\PayrollStaffType;
 
+/**
+ * @class PayrollStaffTypesTableSeeder
+ * @brief Inicializar los tipos de personal
+ *
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class PayrollStaffTypesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores de los tipos de personal
      *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $payroll_staff_types = [
+        $payrollStaffTypes = [
             [
                 'name' => 'Personal Fijo a Tiempo Completo', 'description' => ''
             ],
@@ -30,12 +39,12 @@ class PayrollStaffTypesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_staff_types) {
-            foreach ($payroll_staff_types as $staff_type) {
+        DB::transaction(function() use ($payrollStaffTypes) {
+            foreach ($payrollStaffTypes as $payrollStaffType) {
                 PayrollStaffType::updateOrCreate(
-                    ['name' => $staff_type['name']],
+                    ['name' => $payrollStaffType['name']],
                     [
-                        'description' => $staff_type['description']
+                        'description' => $payrollStaffType['description']
                     ]
                 );
             }

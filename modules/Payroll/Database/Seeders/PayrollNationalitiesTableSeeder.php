@@ -8,33 +8,42 @@ use Illuminate\Support\Facades\DB;
 use Modules\Payroll\Models\PayrollNationality;
 use Modules\Payroll\Models\Country as BaseCountry;
 
+/**
+ * @class PayrollNationalitiesTableSeeder
+ * @brief Inicializar las nacionalidades
+ *
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class PayrollNationalitiesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores de las nacionalidades
      *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $payroll_nationalities = [
+        $payrollNationalities = [
             [
-                'name' => 'Venezolano(a)', 
+                'name' => 'Venezolano(a)',
                 'country_id' => BaseCountry::where('name', 'Venezuela')->first()
             ],
         ];
 
-        DB::transaction(function() use ($payroll_nationalities) {
-            foreach ($payroll_nationalities as $nationality) {
-                if (!is_null($nationality['country_id'])) {
+        DB::transaction(function() use ($payrollNationalities) {
+            foreach ($payrollNationalities as $payrollNationality) {
+                if (!is_null($payrollNationality['country_id'])) {
                     PayrollNationality::updateOrCreate(
                         [
-                            'country_id' => $nationality['country_id']->id
+                            'country_id' => $payrollNationality['country_id']->id
                         ],
                         [
-                            'name' => $nationality['name']
+                            'name' => $payrollNationality['name']
                         ]
                     );
                 }

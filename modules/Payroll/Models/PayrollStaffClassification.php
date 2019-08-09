@@ -11,11 +11,11 @@ use App\Traits\ModelsTrait;
 
 /**
  * @class StaffClassification
- * @brief Datos del clasificación del personal
+ * @brief Datos de la clasificación del personal
  *
- * Gestiona el modelo de datos para los tipos de cargo
+ * Gestiona el modelo de datos para la clasificación del personal
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollStaffClassification extends Model implements Auditable

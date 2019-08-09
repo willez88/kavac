@@ -18,7 +18,6 @@ use App\Traits\ModelsTrait;
  * @author William Páez <wpaez at cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class PayrollNationality extends Model implements Auditable
 {
     use SoftDeletes;
@@ -48,7 +47,7 @@ class PayrollNationality extends Model implements Auditable
     ];
 
     /**
-     * PayrollNationality belongs to Country
+     * Método que obtiene la nacionalidad asociada a un país
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -59,7 +58,7 @@ class PayrollNationality extends Model implements Auditable
     }
 
     /**
-     * PayrollNationality has many PayrollStaff
+     *  Método que obtiene la nacionalidad asociada a muchas informaciones personales del trabajador
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

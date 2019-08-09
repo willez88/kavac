@@ -2,7 +2,7 @@
 <div>
 	<form @submit.prevent="" class="form-horizontal">
 		<div class="card-body">
-			<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+			<div class="alert alert-danger" role="alert" v-if="existErrors">
 				<div class="container">
 					<div class="alert-icon">
 						<i class="now-ui-icons objects_support-17"></i>
@@ -67,7 +67,6 @@
 		props:['categories','institutions','data_edit'],
 		data(){
 			return{
-				errors:[],
 				date:'',
 				reference:'',
 				concept:'',

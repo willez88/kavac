@@ -15,18 +15,21 @@ use Illuminate\Contracts\Validation\Rule;
  */
 class AgeToWork implements Rule
 {
+    /** Integer Define la edad laboral permitida */
+    protected $age;
+
     /**
-     * Create a new rule instance.
+     * Recibe por parámetro la edad laboral permitida
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($age)
     {
-        //
+        $this->age = $age;
     }
 
     /**
-     * Determine if the validation rule passes.
+     * Determina si la regla de validación es correcta
      *
      * @param  string  $attribute
      * @param  mixed  $value
@@ -34,16 +37,21 @@ class AgeToWork implements Rule
      */
     public function passes($attribute, $value)
     {
-        return age(date($value)) >= 17;
+        return age(date($value)) >= $this->age;
     }
 
     /**
-     * Get the validation error message.
+     * Obtiene el mensaje de error de validación
      *
      * @return string
      */
     public function message()
     {
-        return 'El campo :attribute debe ser 17 años o más.';
+        if( $this->age == 0 ) {
+            return 'Todavía no ha configurado una edad laboral permitida en el panel de configuración de talento humano';
+        }
+        else {
+            return 'El campo :attribute debe ser mayor o igual a '.$this->age;
+        }
     }
 }
