@@ -2,7 +2,7 @@
 
 Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'payroll', 'namespace' => 'Modules\Payroll\Http\Controllers'], function()
 {
-    Route::get('/', 'PayrollController@index');
+    //Route::get('', 'PayrollController@index', ['as'=>'payroll'])->name('payroll.index');
 
     Route::get('settings', 'PayrollSettingController@index')->name('payroll.settings.index');
     Route::post('settings', 'PayrollSettingController@store')->name('payroll.settings.store');

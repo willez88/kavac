@@ -32,7 +32,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => '', 'model_prefix' => 'nomina',
                 'slug_alt' => 'configuracion.ver'
             ],
-            // Staff Types
+            /**
+             * Staff types
+             */
             [
                 'name' => 'Ver tipos de personal', 'slug' => 'payroll.staff.types.list',
                 'description' => 'Acceso para ver tipos de personal',
@@ -57,7 +59,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollStaffType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.personal.eliminar'
             ],
-            // Position Types
+            /**
+             * Position types
+             */
             [
                 'name' => 'Ver tipos de cargo', 'slug' => 'payroll.position.types.list',
                 'description' => 'Acceso para ver tipos de cargo',
@@ -82,7 +86,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollPositionType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.cargo.eliminar'
             ],
-            // Positions
+            /**
+             * Positions
+             */
             [
                 'name' => 'Ver cargos', 'slug' => 'payroll.positions.list',
                 'description' => 'Acceso para ver los cargos',
@@ -107,7 +113,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollPosition', 'model_prefix' => 'nomina',
                 'slug_alt' => 'cargo.eliminar'
             ],
-            // Staff Classifications
+            /**
+             * Staff classifications
+             */
             [
                 'name' => 'Ver la clasificación del personal', 'slug' => 'payroll.staff.classifications.list',
                 'description' => 'Acceso para ver la clasificación del personal',
@@ -132,7 +140,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollStaffClassification', 'model_prefix' => 'nomina',
                 'slug_alt' => 'clasificacion.personal.eliminar'
             ],
-            // Staffs
+            /**
+             * Staffs
+             */
             [
                 'name' => 'Ver el personal', 'slug' => 'payroll.staffs.list',
                 'description' => 'Acceso para ver el personal',
@@ -157,7 +167,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollStaff', 'model_prefix' => 'nomina',
                 'slug_alt' => 'personal.eliminar'
             ],
-            // instruction degrees
+            /**
+             * Instruction degrees
+             */
             [
                 'name' => 'Ver el grado de instrucción', 'slug' => 'payroll.instruction.degrees.list',
                 'description' => 'Acceso para ver el grado de instrucción',
@@ -182,7 +194,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollInstructionDegree', 'model_prefix' => 'nomina',
                 'slug_alt' => 'grado.instruccion.eliminar'
             ],
-            // study types
+            /**
+             * Study types
+             */
             [
                 'name' => 'Ver el tipo de estudio', 'slug' => 'payroll.study.types.list',
                 'description' => 'Acceso para ver el tipo de estudio',
@@ -207,7 +221,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollStudyType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.estudio.eliminar'
             ],
-            // nationalities
+            /**
+             * Nationalities
+             */
             [
                 'name' => 'Ver la nacionalidad', 'slug' => 'payroll.nationalities.list',
                 'description' => 'Acceso para ver la nacionalidad',
@@ -232,7 +248,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollNationality', 'model_prefix' => 'nomina',
                 'slug_alt' => 'nacionalidad.eliminar'
             ],
-            // concept types
+            /**
+             * Concept types
+             */
             [
                 'name' => 'Ver los tipos de concepto', 'slug' => 'payroll.concept.types.list',
                 'description' => 'Acceso para ver los tipos de concepto',
@@ -257,7 +275,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollConceptType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.concepto.eliminar'
             ],
-            // language levels
+            /**
+             * language levels
+             */
             [
                 'name' => 'Ver los niveles de idioma', 'slug' => 'payroll.language.levels.list',
                 'description' => 'Acceso para ver los niveles de idioma',
@@ -282,7 +302,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollLanguageLevel', 'model_prefix' => 'nomina',
                 'slug_alt' => 'nivel.idioma.eliminar'
             ],
-            // languages
+            /**
+             * Languages
+             */
             [
                 'name' => 'Ver los idiomas', 'slug' => 'payroll.languages.list',
                 'description' => 'Acceso para ver los idiomas',
@@ -307,7 +329,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollLanguage', 'model_prefix' => 'nomina',
                 'slug_alt' => 'idioma.eliminar'
             ],
-            // genders
+            /**
+             * Genders
+             */
             [
                 'name' => 'Ver los géneros', 'slug' => 'payroll.genders.list',
                 'description' => 'Acceso para ver los géneros',
@@ -332,7 +356,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollGender', 'model_prefix' => 'nomina',
                 'slug_alt' => 'genero.eliminar'
             ],
-            // socioecomic informations
+            /**
+             * Socioeconomic informations
+             */
             [
                 'name' => 'Ver los datos de información socioeconómica', 'slug' => 'payroll.socioeconomic.informations.list',
                 'description' => 'Acceso para ver los datos de información socioeconómica',
@@ -357,7 +383,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.socioeconomica.eliminar'
             ],
-            // professional informations
+            /**
+             * Professional informations
+             */
             [
                 'name' => 'Ver los datos de información profesional', 'slug' => 'payroll.professional.informations.list',
                 'description' => 'Acceso para ver los datos de información socioeconómica',
@@ -382,7 +410,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.profesional.eliminar'
             ],
-            // inactivity types
+            /**
+             * Inactivity types
+             */
             [
                 'name' => 'Ver los datos de tipos de inactividad', 'slug' => 'payroll.inactivity.types.list',
                 'description' => 'Acceso para ver los datos de tipos de inactividad',
@@ -407,7 +437,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollInactivityType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.inactividad.eliminar'
             ],
-            // contract types
+            /**
+             * Contract types
+             */
             [
                 'name' => 'Ver los datos de tipos de contrato', 'slug' => 'payroll.contract.types.list',
                 'description' => 'Acceso para ver los datos de tipos de contrato',
@@ -432,7 +464,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollContractType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.contrato.eliminar'
             ],
-            // sector types
+            /**
+             * Sector types
+             */
             [
                 'name' => 'Ver los datos de tipos de sector', 'slug' => 'payroll.sector.types.list',
                 'description' => 'Acceso para ver los datos de tipos de sector',
@@ -457,7 +491,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollSectorType', 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.sector.eliminar'
             ],
-            // employment informations
+            /**
+             * Employment informations
+             */
             [
                 'name' => 'Ver los datos de información laboral', 'slug' => 'payroll.employment.informations.list',
                 'description' => 'Acceso para ver los datos de información socioeconómica',
@@ -482,7 +518,9 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.laboral.eliminar'
             ],
-            // work age settings
+            /**
+             * Work age settings
+             */
             [
                 'name' => 'Crear datos de configuración de la edad laboral', 'slug' => 'payroll.age.work.settings.create',
                 'description' => 'Acceso para crear datos de configuración de la edad laboral',
@@ -494,6 +532,15 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'description' => 'Acceso para editar datos de configuración de la edad laboral',
                 'model' => 'Modules\Payroll\Models\PayrollWorkAgeSetting', 'model_prefix' => 'nomina',
                 'slug_alt' => 'configuracion.edad.laboral.editar'
+            ],
+            /**
+             * Dashboard
+             */
+            [
+                'name' => 'vista principal del panel de control del módulo de nómina', 'slug' => 'payroll.dashboard',
+                'description' => 'Acceso para visualizar el panel de control del módulo',
+                'model' => '', 'model_prefix' => 'nomina', 'slug_alt' => 'panel.de.control.ver',
+                'short_description' => 'Visualizar panel de control del módulo de nómina'
             ],
         ];
 

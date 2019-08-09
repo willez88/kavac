@@ -9,6 +9,17 @@ use Illuminate\Routing\Controller;
 class PayrollController extends Controller
 {
     /**
+     * Define la configuración de la clase
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        $this->middleware('permission:payroll.dashboard', ['only' => 'index']);
+    }
+
+    /**
      * Display a listing of the resource.
      * @return Response
      */
