@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="card-body">
-			<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+			<div class="alert alert-danger" role="alert" v-if="existErrors">
 				<div class="container">
 					<div class="alert-icon">
 						<i class="now-ui-icons objects_support-17"></i>
@@ -69,7 +69,6 @@
 		props:['year_old'],
 		data(){
 			return {
-				errors:[],
 				url:'http://'+window.location.host+'/accounting/report/AnalyticalMajor/pdf',
 				disabledButton:true,
 				InitAcc:0,

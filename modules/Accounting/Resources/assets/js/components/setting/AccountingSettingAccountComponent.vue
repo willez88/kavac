@@ -35,7 +35,7 @@
 						</h6>
 					</div>
 					<!-- Fromulario -->
-					<div class="modal-body" v-show="errors.length > 0">
+					<div class="modal-body" v-show="existErrors">
 						<div class="alert alert-danger" role="alert">
 							<div class="container">
 								<div class="alert-icon">
@@ -84,7 +84,6 @@
 export default{
 	data(){
 		return{
-			errors:[],
 			records:[],
 			records_list:[],
 			formImport:false,

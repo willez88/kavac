@@ -1,7 +1,7 @@
 <template>
 	<div class="form-horizontal">
 		<div class="card-body">
-			<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+			<div class="alert alert-danger" role="alert" v-if="existErrors">
 				<div class="container">
 					<div class="alert-icon">
 						<i class="now-ui-icons objects_support-17"></i>
@@ -125,7 +125,6 @@
 		props:['budget_accounts','accounting_accounts'],
 		data(){
 			return{
-				errors:[],
 				records:[],
 				budgetAccounts:[],
 				accountingAccounts:[],

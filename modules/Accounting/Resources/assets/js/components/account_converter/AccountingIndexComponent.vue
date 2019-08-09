@@ -1,7 +1,7 @@
 <template>
 	<div class="form-horizontal">
 		<div class="card-body">
-			<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+			<div class="alert alert-danger" role="alert" v-if="existErrors">
 				<div class="container">
 					<div class="alert-icon">
 						<i class="now-ui-icons objects_support-17"></i>
@@ -74,7 +74,7 @@
 				<div class="card-footer text-right">
 					<button class="btn btn-info btn-xs"
 							:disabled="!searchActive"
-							title="Consultar Registros"
+							title="Buscar conversiones de cuentas"
 							data-toggle="tooltip"
 							v-on:click="getRecords()">
 							Buscar
@@ -131,7 +131,6 @@
 	export default{
 		data(){
 			return{
-				errors:[],
 				records:[],
 				budgetAccounts:null,
 				accountingAccounts:null,
@@ -186,6 +185,7 @@
 						vm.accountSelect.end_id = '';
 					}
 				}
+				vm.errors = [];
 			});
 		},
 		methods:{
@@ -279,5 +279,5 @@
 				}
 			},
 		}
-	}
+	};
 </script>

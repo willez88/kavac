@@ -156,6 +156,6 @@
 				this.records = data;
 			})
 		},
-	}
+	};
 
 </script>

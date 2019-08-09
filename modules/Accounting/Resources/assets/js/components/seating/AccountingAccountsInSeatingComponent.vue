@@ -1,6 +1,6 @@
 <template>
 <div>
-	<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+	<div class="alert alert-danger" role="alert" v-if="existErrors">
 		<div class="container">
 			<div class="alert-icon">
 				<i class="now-ui-icons objects_support-17"></i>
@@ -118,7 +118,6 @@
 		props:['accounting_accounts','seating','currency'],
 		data(){
 			return{
-				errors:[],
 				recordsAccounting: [],
 				recordsBudget:[],
 				rowsToDelete:[],
@@ -258,10 +257,15 @@
 			CalculateTot:function(){
 				this.data.totDebit = 0;
 				this.data.totAssets = 0;
+
+				/** Se recorren todo el arreglo que tiene todas las filas de las cuentas y saldos para el asiento y se calcula el total */
 				for (var i = this.recordsAccounting.length - 1; i >= 0; i--) {
 					if (this.recordsAccounting[i].id != '') {
-						this.recordsAccounting[i].debit = parseFloat(this.recordsAccounting[i].debit).toFixed(this.currency.decimal_places);
-						this.recordsAccounting[i].assets = parseFloat(this.recordsAccounting[i].assets).toFixed(this.currency.decimal_places);
+						var debit = (this.recordsAccounting[i].debit != '') ? this.recordsAccounting[i].debit : 0;
+						var assets = (this.recordsAccounting[i].assets != '') ? this.recordsAccounting[i].assets : 0;
+
+						this.recordsAccounting[i].debit = parseFloat(debit).toFixed(this.currency.decimal_places);
+						this.recordsAccounting[i].assets = parseFloat(assets).toFixed(this.currency.decimal_places)
 
 						if (this.recordsAccounting[i].debit < 0 || this.recordsAccounting[i].assets < 0) {
 							this.enableInput = false;

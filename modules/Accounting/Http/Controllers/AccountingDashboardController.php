@@ -33,6 +33,12 @@ class AccountingDashboardController extends Controller
         return view('accounting::index_test');
     }
 
+    /**
+     * Obtiene las ultimas 10 operaciones de creacion de asientos contables realizadas
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return View
+     */
     public function get_operations()
     {
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
@@ -47,6 +53,12 @@ class AccountingDashboardController extends Controller
         return response()->json(['lastRecords' => $lastRecords, 'currency' => $currency],200);
     }
 
+    /**
+     * Obtiene los registros de los ultimos reportes generados
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return View
+     */
     public function get_report_histories()
     {
         /** @var Object con la información de la modena por defecto establecida en la aplicación */

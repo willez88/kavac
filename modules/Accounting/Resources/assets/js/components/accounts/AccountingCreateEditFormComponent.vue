@@ -1,12 +1,12 @@
 <template>
 
-	<form class='form-horizontal' v-on:submit.prevent="sendData">
+	<form class='form-horizontal' v-on:submit.prevent='sendData'>
 		<div class='card-body'>
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label'>Cuenta pariente</label>
-						<select2 :options="accRecords" v-model="record_select"></select2>
+						<select2 :options='accRecords' v-model='record_select'></select2>
 					</div>
 				</div>
 				<div class='col-md-6'>
@@ -15,68 +15,80 @@
 						<div class='row inline-inputs'>
 							<div class='col-1'>
 								<input type='text'
-										id="group"
-										name="group" 
+										:onkeyup="record.group=onlyNumbers(record.group)"
+										step='1'
+										id='group'
+										name='group'
 										class='form-control'
 										data-toggle='tooltip'
 										title='Grupo al que pertenece la cuenta'
 										maxlength='1'
-										v-model="record.group">
+										v-model='record.group'>
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
 								<input type='text'
-										id="subgroup"
-										name="subgroup"
+										:onkeyup="record.subgroup=onlyNumbers(record.subgroup)"
+										step='1'
+										id='subgroup'
+										name='subgroup'
 										class='form-control'
 										data-toggle='tooltip'
 										title='Sub-grupo al que pertenece la cuenta'
 										maxlength='1'
-										v-model="record.subgroup">
+										v-model='record.subgroup'>
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
-								<input type='text' 
-										id="item"
-										name="item"
+								<input type='text'
+										:onkeyup="record.item=onlyNumbers(record.item)"
+										step='1' 
+										id='item'
+										name='item'
 										class='form-control'
 										data-toggle='tooltip'
 										title='Rubro al que pertenece la cuenta'
 										maxlength='1'
-										v-model="record.item">
+										v-model='record.item'>
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
 								<input type='text'
-										id="generic"
-										name="generic" 
+										:onkeyup="record.generic=onlyNumbers(record.generic)"
+										step='1'
+										id='generic'
+										name='generic' 
 										class='form-control'
 										data-toggle='tooltip'
 										title='identificador de cuenta a la que pertenece'
 										maxlength='2'
-										v-model="record.generic">
+										v-model='record.generic'>
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
 								<input type='text'
-										id="specific"
-										name="specific"
+										:onkeyup="record.specific=onlyNumbers(record.specific)"
+										step='1'
+										id='specific'
+										name='specific'
 										class='form-control'
 										data-toggle='tooltip'
 										title='Identificador de cuenta de 1er orden'
 										maxlength='2'
-										v-model="record.specific">
+										v-model='record.specific'>
 							</div>
 							<div class='col-1'>.</div>
 							<div class='col-1'>
 								<input type='text'
-										id="subspecific"
-										name="subspecific"
+										:onkeyup="record.subspecific=onlyNumbers(record.subspecific)"
+										step='1'
+										id='subspecific'
+										name='subspecific'
 										class='form-control'
 										data-toggle='tooltip'
 										title='Identificador de cuenta de 2do orden'
 										maxlength='2'
-										v-model="record.subspecific">
+										v-model='record.subspecific'>
 							</div>
 						</div>
 					</div>
@@ -85,12 +97,12 @@
 					<div class='form-group'>
 						<label class='control-label'>Denominación</label>
 						<input type='text' class='form-control'
-								id="denomination"
-								name="denomination"
+								id='denomination'
+								name='denomination'
 								data-toggle='tooltip'
 								placeholder='Descripción de la cuenta'
 								title='Denominación o concepto de la cuenta'
-								v-model="record.denomination">
+								v-model='record.denomination'>
 					</div>
 				</div>
 				<div class='col-6'>
@@ -99,12 +111,12 @@
 							<div class='form-group'>
 								<label class='control-label'>Activa</label>
 								<div class='col-12'>
-									<input id="active"
-										 data-on-label="SI" data-off-label="NO" 
-										 name="active" 
-										 type="checkbox" 
-										 class="form-control bootstrap-switch"
-										 v-model="record.active">
+									<input id='active'
+										 data-on-label='SI' data-off-label='NO' 
+										 name='active' 
+										 type='checkbox' 
+										 class='form-control bootstrap-switch'
+										 v-model='record.active'>
 								</div>
 							</div>
 						</div>
@@ -113,17 +125,17 @@
 			</div>
 		</div>
 		<div class='card-footer text-right'>
-			<button class="btn btn-sm btn-default"
-					data-toggle="tooltip"
-					title="Borrar datos del formulario"
-					type="reset">
-					<i class="fa fa-eraser"></i>
+			<button class='btn btn-sm btn-default'
+					data-toggle='tooltip'
+					title='Borrar datos del formulario'
+					type='reset'>
+					<i class='fa fa-eraser'></i>
 			</button>
-			<button class="btn btn-sm btn-success"
-					data-toggle="tooltip"
-					title="Guardar registro">
+			<button class='btn btn-sm btn-success'
+					data-toggle='tooltip'
+					title='Guardar registro'>
 					Guardar
-					<i class="fa fa-save"></i>
+					<i class='fa fa-save'></i>
 			</button>
 		</div>
 	</form>
@@ -131,11 +143,11 @@
 </template>
 
 <script>
+
 	export default {
 		props:['records'],
 		data(){
 			return{
-				errors:[],
 				accRecords:[],
 				record_select:'',
 				record:{
@@ -174,7 +186,7 @@
 					};
 				}
 
-				$("input[name=active]").bootstrapSwitch("state", this.record.active);
+				$('input[name=active]').bootstrapSwitch('state', this.record.active);
 				this.operation = 'update';
 			});
 		},
@@ -183,7 +195,6 @@
 			this.reset();
 		},
 		methods:{
-
 			/**
 			* Limpia los valores de las variables del formulario
 			*
@@ -234,6 +245,14 @@
 			*/
 			sendData:function(){
 				if (!this.FormatCode()) { return; }
+
+				if (this.record.denomination == '') {
+					this.errors = [];
+					EventBus.$emit('show:errors', ['El campo denominación es obligatorio.']);
+					return;
+				}
+
+				EventBus.$emit('show:errors', []);
 				var dt = this.record;
 
 				/** Se formatean los ultimos tres campos del codigo de ser necesario */
@@ -256,7 +275,7 @@
 						vm.showMessage('store');
 					}).catch(error=>{
 						this.errors = [];
-						if (typeof(error.response) !="undefined") {
+						if (typeof(error.response) !='undefined') {
 							for (var index in error.response.data.errors) {
 								if (error.response.data.errors[index]) {
 									this.errors.push(error.response.data.errors[index][0]);
@@ -278,7 +297,7 @@
 						vm.showMessage('update');
 					}).catch(error=>{
 						this.errors = [];
-						if (typeof(error.response) != "undefined") {
+						if (typeof(error.response) != 'undefined') {
 							for (var index in error.response.data.errors) {
 								if (error.response.data.errors[index]) {
 									this.errors.push(error.response.data.errors[index][0]);
@@ -312,7 +331,7 @@
 								denomination:account.denomination,
 								active:account.active
 							};
-							$("input[name=active]").bootstrapSwitch("state", this.record.active);
+							$('input[name=active]').bootstrapSwitch('state', this.record.active);
 					});
 				}
 			},
@@ -322,4 +341,5 @@
 		}
 
 	};
+
 </script>

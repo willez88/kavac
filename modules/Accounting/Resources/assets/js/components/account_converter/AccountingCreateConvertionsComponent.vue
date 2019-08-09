@@ -1,7 +1,7 @@
 <template>
 	<div class="form-horizontal">
 		<div class="card-body">
-			<div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+			<div class="alert alert-danger" role="alert" v-if="existErrors">
 				<div class="container">
 					<div class="alert-icon">
 						<i class="now-ui-icons objects_support-17"></i>
@@ -58,18 +58,12 @@
 					</div>
 				</v-client-table>
 				<div align="right">
-					<button class="btn btn-success btn-icon"
+					<button class="btn btn-success btn-xs"
 							data-toggle="tooltip" 
-							title="Guardar registros"
+							title="Guardar listado coversiones"
 							v-on:click="saveConvertions()"
-							v-if="AccountToConverters.length > 0">
-						<i class="fa fa-save"></i>
-					</button>
-					<button class="btn btn-success btn-icon"
-							data-toggle="tooltip" 
-							title="Guardar registros"
-							disabled="" 
-							v-else>
+							:disabled="disabledButton" >
+							Guardar Listado
 						<i class="fa fa-save"></i>
 					</button>
 				</div>
@@ -83,7 +77,6 @@
 		props:['accounting_list','budget_list'],
 		data(){
 			return{
-				errors:[],
 				columns: ['BudgetAccounts', 'AccountingAccounts', 'id'],
 				AccountToConverters:[],
 				budgetOptions:[],
@@ -132,6 +125,7 @@
 					});
 					this.budgetSelect = '';
 					this.accountingSelect = '';
+					this.errors = [];
 				}else{
 					this.errors = [];
 					this.errors.push('Los campos de selección de cuenta son obligatorios');
@@ -168,6 +162,11 @@
 							}, 2000);
 					});
 			},
+		},
+		computed:{
+			disabledButton:function(){
+				return (!(this.AccountToConverters.length > 0));
+			},
 		}
-	}
+	};
 </script>
