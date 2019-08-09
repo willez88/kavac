@@ -116,11 +116,12 @@ class PayrollSectorTypeController extends Controller
      * Elimina el tipo de sector
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @param  \Modules\Payroll\Models\PayrollSecorType $payrollSectorType  Objeto con el dato a eliminar
-     * @return \Illuminate\Http\JsonResponse                                Json con mensaje de confirmación de la operación
+     * @param  integer $id                      Identificador del tipo de sector a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json con mensaje de confirmación de la operación
      */
-    public function destroy(PayrollSectorType $payrollSectorType)
+    public function destroy($id)
     {
+        $payrollSectorType = PayrollSectorType::find($id);
         $payrollSectorType->delete();
         return response()->json(['record' => $payrollSectorType, 'message' => 'Success'], 200);
     }

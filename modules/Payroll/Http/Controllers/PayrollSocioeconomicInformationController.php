@@ -12,11 +12,11 @@ use Modules\Payroll\Models\PayrollChildren;
 
 /**
  * @class PayrollSocioeconomicInformationController
- * @brief Controlador de información socioeconómica
+ * @brief Controlador de información socioeconómica del trabajador
  *
- * Clase que gestiona los datos de información socioeconómica
+ * Clase que gestiona los datos de información socioeconómica del trabajador
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollSocioeconomicInformationController extends Controller
@@ -38,8 +38,10 @@ class PayrollSocioeconomicInformationController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra todos los registros de información socioeconómica del trabajador
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\View\View    Muestra los datos organizados en una tabla
      */
     public function index()
     {
@@ -47,8 +49,10 @@ class PayrollSocioeconomicInformationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * Muestra el formulario de registro de información socioeconómica del trabajador
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\View\View    Vista con el formulario
      */
     public function create()
     {
@@ -56,9 +60,11 @@ class PayrollSocioeconomicInformationController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra una nueva información socioeconómica del trabajador
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\JsonResponse        Json: result en verdadero y redirect con la url a donde ir
      */
     public function store(Request $request)
     {
@@ -69,23 +75,23 @@ class PayrollSocioeconomicInformationController extends Controller
             'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations,payroll_staff_id',
             'marital_status_id' => 'required'
         ]);
-        $payroll_socioeconomic_information = new PayrollSocioeconomicInformation;
-        $payroll_socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
-        $payroll_socioeconomic_information->id_number_twosome  = $request->id_number_twosome;
-        $payroll_socioeconomic_information->birthdate_twosome  = $request->birthdate_twosome;
-        $payroll_socioeconomic_information->payroll_staff_id  = $request->payroll_staff_id;
-        $payroll_socioeconomic_information->marital_status_id  = $request->marital_status_id;
-        $payroll_socioeconomic_information->save();
+        $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::create([
+            'full_name_twosome' => $request->full_name_twosome,
+            'id_number_twosome' => $request->id_number_twosome,
+            'birthdate_twosome' => $request->birthdate_twosome,
+            'payroll_staff_id' => $request->payroll_staff_id,
+            'marital_status_id' => $request->marital_status_id
+        ]);
 
         if ($request->payroll_childrens && !empty($request->payroll_childrens)) {
-            foreach ($request->payroll_childrens as $children) {
-                $payroll_children = new PayrollChildren;
-                $payroll_children->first_name = $children['first_name'];
-                $payroll_children->last_name = $children['last_name'];
-                $payroll_children->id_number = $children['id_number'];
-                $payroll_children->birthdate = $children['birthdate'];
-                $payroll_children->payroll_socioeconomic_information_id = $payroll_socioeconomic_information->id;
-                $payroll_children->save();
+            foreach ($request->payroll_childrens as $payrollChildren) {
+                PayrollChildren::create([
+                    'first_name' => $payrollChildren['first_name'],
+                    'last_name' => $payrollChildren['last_name'],
+                    'id_number' => $payrollChildren['id_number'],
+                    'birthdate' => $payrollChildren['birthdate'],
+                    'payroll_socioeconomic_information_id' => $payrollSocioeconomicInformation->id
+                ]);
             }
         }
         $request->session()->flash('message', ['type' => 'store']);
@@ -106,8 +112,11 @@ class PayrollSocioeconomicInformationController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * Muestra el formulario de actualización de información socioeconómica del trabajador
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id              Identificador con el dato a actualizar
+     * @return \Illuminate\View\View    Vista con el formulario y el objeto con el dato a actualizar
      */
     public function edit($id)
     {
@@ -116,38 +125,41 @@ class PayrollSocioeconomicInformationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información socioeconómica del trabajador
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador del dato a actualizar
+     * @return \Illuminate\Http\JsonResponse        Json con la redirección y mensaje de confirmación de la operación
      */
     public function update(Request $request, $id)
     {
-        $payroll_socioeconomic_information = PayrollSocioeconomicInformation::find($id);
+        $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::find($id);
         $this->validate($request, [
             'full_name_twosome' => 'nullable|max:200',
             'id_number_twosome' => 'nullable|max:12',
             'birthdate_twosome' => 'nullable|date',
-            'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations,payroll_staff_id,'.$payroll_socioeconomic_information->id,
+            'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations,payroll_staff_id,'.$payrollSocioeconomicInformation->id,
             'marital_status_id' => 'required'
         ]);
 
-        $payroll_socioeconomic_information->full_name_twosome  = $request->full_name_twosome;
-        $payroll_socioeconomic_information->id_number_twosome  = $request->id_number_twosome;
-        $payroll_socioeconomic_information->birthdate_twosome  = $request->birthdate_twosome;
-        $payroll_socioeconomic_information->payroll_staff_id  = $request->payroll_staff_id;
-        $payroll_socioeconomic_information->marital_status_id  = $request->marital_status_id;
-        $payroll_socioeconomic_information->save();
+        $payrollSocioeconomicInformation->full_name_twosome  = $request->full_name_twosome;
+        $payrollSocioeconomicInformation->id_number_twosome  = $request->id_number_twosome;
+        $payrollSocioeconomicInformation->birthdate_twosome  = $request->birthdate_twosome;
+        $payrollSocioeconomicInformation->payroll_staff_id  = $request->payroll_staff_id;
+        $payrollSocioeconomicInformation->marital_status_id  = $request->marital_status_id;
+        $payrollSocioeconomicInformation->save();
 
         //falta validar los datos que ya existen para no repetir
         if ($request->payroll_childrens && !empty($request->payroll_childrens)) {
-            foreach ($request->payroll_childrens as $children) {
-                $payroll_children = new PayrollChildren;
-                $payroll_children->first_name = $children['first_name'];
-                $payroll_children->last_name = $children['last_name'];
-                $payroll_children->id_number = $children['id_number'];
-                $payroll_children->birthdate = $children['birthdate'];
-                $payroll_children->payroll_socioeconomic_information_id = $payroll_socioeconomic_information->id;
-                $payroll_children->save();
+            foreach ($request->payroll_childrens as $payrollChildren) {
+                PayrollChildren::create([
+                    'first_name' => $payrollChildren['first_name'],
+                    'last_name' => $payrollChildren['last_name'],
+                    'id_number' => $payrollChildren['id_number'],
+                    'birthdate' => $payrollChildren['birthdate'],
+                    'payroll_socioeconomic_information_id' => $payrollSocioeconomicInformation->id
+                ]);
             }
         }
         $request->session()->flash('message', ['type' => 'store']);
@@ -155,16 +167,25 @@ class PayrollSocioeconomicInformationController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina la información socioeconómica del trabajador
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador del dato a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json con mensaje de confirmación de la operación
      */
     public function destroy($id)
     {
-        $payroll_socioeconomic_information = PayrollSocioeconomicInformation::find($id);
-        $payroll_socioeconomic_information->delete();
-        return response()->json(['record' => $payroll_socioeconomic_information, 'message' => 'Success'], 200);
+        $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::find($id);
+        $payrollSocioeconomicInformation->delete();
+        return response()->json(['record' => $payrollSocioeconomicInformation, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Muestra la información socioeconómica del trabajador registrada
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de la información socioeconómica del trabajador
+     */
     public function vueList()
     {
         return response()->json(['records' => PayrollSocioeconomicInformation::with(['payroll_staff','marital_status','payroll_childrens'])->get()], 200);

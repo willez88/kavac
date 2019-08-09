@@ -5,12 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * @class CreateStaffTypesTable
+ * @class CreatePayrollStaffTypesTable
  * @brief Crear tabla de tipo de personal
  *
  * Gestiona la creación o eliminación de la tabla de tipos de personal
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class CreatePayrollStaffTypesTable extends Migration
@@ -18,7 +18,8 @@ class CreatePayrollStaffTypesTable extends Migration
     /**
      * Método que ejecuta las migraciones
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return void
      */
     public function up()
     {
@@ -36,7 +37,8 @@ class CreatePayrollStaffTypesTable extends Migration
     /**
      * Método que elimina las migraciones
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return void
      */
     public function down()
     {

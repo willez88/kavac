@@ -4,11 +4,21 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * @class CreatePayrollChildrensTable
+ * @brief Crear tabla de hijos de los trabajadores
+ *
+ * Gestiona la creación o eliminación de la tabla de hijos de los trabajadores
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class CreatePayrollChildrensTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Método que ejecuta las migraciones
      *
+     * @author William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function up()
@@ -33,8 +43,9 @@ class CreatePayrollChildrensTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Método que elimina las migraciones
      *
+     * @author William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function down()

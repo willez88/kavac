@@ -16,7 +16,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de niveles de idioma
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollLanguageLevel extends Model implements Auditable
@@ -48,7 +48,7 @@ class PayrollLanguageLevel extends Model implements Auditable
     ];
 
     /**
-     * PayrollLanguageLevel has many PayrollProfessionalInformation
+     * Método que obtiene el nivel de lenguaje que está asociado a muchas informaciones profesionales del trabajador
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

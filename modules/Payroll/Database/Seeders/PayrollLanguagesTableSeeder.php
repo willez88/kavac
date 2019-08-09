@@ -7,18 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Payroll\Models\PayrollLanguage;
 
+/**
+ * @class PayrollLanguagesTableSeeder
+ * @brief Inicializar los idiomas
+ *
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class PayrollLanguagesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores de los idiomas
      *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $payroll_languages = [
+        $payrollLanguages = [
             [
                 'name' => 'Español', 'acronym' => 'es'
             ],
@@ -27,14 +36,14 @@ class PayrollLanguagesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_languages) {
-            foreach ($payroll_languages as $language) {
+        DB::transaction(function() use ($payrollLanguages) {
+            foreach ($payrollLanguages as $payrollLanguage) {
                 PayrollLanguage::updateOrCreate(
                     [
-                        'name' => $language['name']
+                        'name' => $payrollLanguage['name']
                     ],
                     [
-                        'acronym' => $language['acronym']
+                        'acronym' => $payrollLanguage['acronym']
                     ]
                 );
             }

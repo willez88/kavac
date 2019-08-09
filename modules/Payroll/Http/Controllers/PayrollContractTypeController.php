@@ -108,18 +108,19 @@ class PayrollContractTypeController extends Controller
 
         $payrollContractType->name = $request->name;
         $payrollContractType->save();
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
      * Elimina el tipo de contrato
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @param  \Modules\Payroll\Models\PayrollContractType $payrollContractType     Objeto con el dato a eliminar
-     * @return \Illuminate\Http\JsonResponse                                        Json con mensaje de confirmación de la operación
+     * @param  integer $id                      Identificador del tipo de contrato a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json con mensaje de confirmación de la operación
      */
-    public function destroy(PayrollContractType $payrollContractType)
+    public function destroy($id)
     {
+        $payrollContractType = PayrollContractType::find($id);
         $payrollContractType->delete();
         return response()->json(['record' => $payrollContractType, 'message' => 'Success'], 200);
     }

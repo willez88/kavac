@@ -5,12 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * @class CreatePayrollLanguageLevesTable
+ * @class CreatePayrollLanguageLevelsTable
  * @brief Crear tabla de niveles de idioma
  *
  * Gestiona la creación o eliminación de la tabla de niveles de idioma
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class CreatePayrollLanguageLevelsTable extends Migration
@@ -18,7 +18,8 @@ class CreatePayrollLanguageLevelsTable extends Migration
     /**
      * Método que ejecuta las migraciones
      *
-     * @author William Páez <wpaez at cenditel.gob.ve>
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return void
      */
     public function up()
     {
@@ -35,7 +36,8 @@ class CreatePayrollLanguageLevelsTable extends Migration
     /**
      * Método que elimina las migraciones
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return void
      */
     public function down()
     {

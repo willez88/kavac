@@ -7,18 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Payroll\Models\PayrollStudyType;
 
+/**
+ * @class PayrollStudyTypesTableSeeder
+ * @brief Inicializar los tipos de estudio
+ *
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class PayrollStudyTypesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Método que registra los valores de los tipos de estudio
      *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return void
      */
     public function run()
     {
         Model::unguard();
 
-        $payroll_study_types = [
+        $payrollStudyTypes = [
             [
                 'name' => 'Pregrado', 'description' => null
             ],
@@ -30,12 +39,12 @@ class PayrollStudyTypesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payroll_study_types) {
-            foreach ($payroll_study_types as $study_type) {
+        DB::transaction(function() use ($payrollStudyTypes) {
+            foreach ($payrollStudyTypes as $payrollStudyType) {
                 PayrollStudyType::updateOrCreate(
-                    ['name' => $study_type['name']],
+                    ['name' => $payrollStudyType['name']],
                     [
-                        'description' => $study_type['description']
+                        'description' => $payrollStudyType['description']
                     ]
                 );
             }

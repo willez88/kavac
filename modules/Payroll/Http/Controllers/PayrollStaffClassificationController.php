@@ -15,7 +15,7 @@ use Modules\Payroll\Models\PayrollStaffClassification;
  *
  * Clase que gestiona las clasificaciones del personal
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollStaffClassificationController extends Controller
@@ -37,37 +37,31 @@ class PayrollStaffClassificationController extends Controller
     }
 
     /**
-     * Muesta todos los registros de clasificaciones del personal
+     * Muestra todos los registros de la clasificación del personal
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return [<b>View</b>] vista con la lista de las clasificaciones del personal
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de la clasificación del personal
      */
     public function index()
     {
-        $staff_classifications = PayrollStaffClassification::all();
-        return view('payroll::staff-classifications.index', compact('staff_classifications'));
+        return response()->json(['records' => PayrollStaffClassification::all()], 200);
     }
 
     /**
-     * Muestra el formulario para crear una nueva clasificación del personal
-     *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @return [<b>View</b>] vista con el formulario de registro
+     * Show the form for creating a new resource.
+     * @return Response
      */
     public function create()
     {
-        $header = [
-            'route' => 'payroll.staff-classifications.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::staff-classifications.create-edit', compact('header'));
+        return view('payroll::create');
     }
 
     /**
-     * Guarda una nueva clasificación del personal en la base de datos
+     * Valida y registra una nuevo clasificación del personal
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param $request [<b>Illuminate::Http::Request</b>] Datos de la petición
-     * @return [<b>Route</b>] ruta hacia la vista de listar clasificaciones del personal
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
@@ -75,12 +69,8 @@ class PayrollStaffClassificationController extends Controller
             'name' => 'required|max:100',
             'description' => 'nullable|max:200'
         ]);
-        $staff_classification = new PayrollStaffClassification;
-        $staff_classification->name  = $request->name;
-        $staff_classification->description = $request->description;
-        $staff_classification->save();
-        $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.staff-classifications.index');
+        $payrollStaffClassification = PayrollStaffClassification::create(['name' => $request->name,'description' => $request->description]);
+        return response()->json(['record' => $payrollStaffClassification, 'message' => 'Success'], 200);
     }
 
     /**
@@ -93,55 +83,57 @@ class PayrollStaffClassificationController extends Controller
     }
 
     /**
-     * Muestra el formulario con los datos a modificar de una clasificación del personal
-     *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param $staff_classification [<b>Modules::Payroll::Models::StaffClassification</b>] datos de la clasificación del personal
-     * @return [<b>View</b>] vista con los datos a mostrar en el formulario de edición
+     * Show the form for editing the specified resource.
+     * @return Response
      */
     public function edit(PayrollStaffClassification $staff_classification)
     {
-        $header = [
-            'route' => ['payroll.staff-classifications.update', $staff_classification], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::staff-classifications.create-edit', compact('staff_classification','header'));
+        return view('payroll::edit');
     }
 
     /**
-     * Hace la actualización de los datos de una clasificación del personal en la base de datos
+     * Actualiza la información de la clasificación del personal
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param $request [<b>Illuminate::Http::Request</b>] datos de la petición
-     * @param $staff_classification [<b>Modules::Payroll::Models::StaffClassification</b>] datos de la clasificación del personal
-     * @return [<b>Route</b>] ruta hacia la vista de listar las clasificaciones del personal
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador de la clasificación del personal a actualizar
+     * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
      */
-    public function update(Request $request, PayrollStaffClassification $staff_classification)
+    public function update(Request $request, $id)
     {
+        $payrollStaffClassification = PayrollStaffClassification::find($id);
         $this->validate($request, [
             'name' => 'required|max:100',
             'description' => 'nullable|max:200'
         ]);
-        $staff_classification->name  = $request->name;
-        $staff_classification->description = $request->description;
-        $staff_classification->save();
-        $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.staff-classifications.index');
+        $payrollStaffClassification->name  = $request->name;
+        $payrollStaffClassification->description = $request->description;
+        $payrollStaffClassification->save();
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
-     * Elimina los datos de una clasificación del personal
+     * Elimina la clasificación del personal
      *
-     * @author William Páez (wpaez at cenditel.gob.ve)
-     * @param $staff_classification [<b>Modules::Payroll::Models::StaffClassification</b>] datos de la clasificación del personal
-     * @return [<b>Route</<b>] ruta hacia la vista de listar las clasificaciones del personal
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador de la clasificación del personal a eliminar
+     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
-    public function destroy(Request $request, PayrollStaffClassification $staff_classification)
+    public function destroy($id)
     {
-        if ($request->ajax()) {
-            $staff_classification->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.staff-types.index');
+        $payrollStaffClassification = PayrollStaffClassification::find($id);
+        $payrollStaffClassification->delete();
+        return response()->json(['record' => $payrollStaffClassification, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Obtiene la clasificación del personal registradas
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de la clasificación del personal
+     */
+    public function getPayrollStaffClassifications()
+    {
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollStaffClassification','name','',true));
     }
 }

@@ -15,7 +15,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de datos para los cargos
  *
- * @author William Páez (wpaez at cenditel.gob.ve)
+ * @author William Páez <wpaez@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class PayrollPosition extends Model implements Auditable
