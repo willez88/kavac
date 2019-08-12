@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<button class="btn btn-primary btn-custom btn-xs"
+			<button class="btn btn-primary btn-sm"
 				@click="OpenPdf(getUrlReport(), '_blank')">
 				Generar Reporte <i class="fa fa-print"></i>
 			</button>

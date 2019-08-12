@@ -28,12 +28,12 @@
 										title="Seleccione una cuenta patrimonial"></select2>
 						</div>
 						<div class="col-2">
-							<button class="btn btn-success btn-sm btn-icon btn-action"
-									style="margin-top:4.5rem !important;" 
+							<button class="btn btn-success btn-sm"
+									style="margin-top:5rem !important;" 
 									data-toggle="tooltip"
 									v-on:click="addToConvertions()"
 									title="Agregar cuentas al listado de cuentas a convertir"
-									><i class="fa fa-plus"></i></button>
+									>Agregar <i class="fa fa-plus"></i></button>
 						</div>
 					</tr>
 				</tbody>
@@ -58,12 +58,12 @@
 					</div>
 				</v-client-table>
 				<div align="right">
-					<button class="btn btn-success btn-xs"
+					<button class="btn btn-success btn-sm"
 							data-toggle="tooltip" 
-							title="Guardar listado coversiones"
+							title="Guardar listado de coversiones"
 							v-on:click="saveConvertions()"
 							:disabled="disabledButton" >
-							Guardar Listado
+							Guardar
 						<i class="fa fa-save"></i>
 					</button>
 				</div>

@@ -87,28 +87,28 @@
 		</tbody>
 	</table>
 	<div class="card-footer text-right">
-		<a :href="urlPrevious" class="btn btn-warning btn-icon"
+		<a :href="urlPrevious" class="btn btn-warning btn-sm"
 			data-toggle="tooltip"
 			title="Cancelar y regresar">
 			<i class="fa fa-ban"></i>
 		</a>
-		<button class="btn btn-success btn-icon"
+		<button class="btn btn-success btn-sm"
 				data-toggle="tooltip"
 				title="Guardar registro"
 				id="save"
 				:disabled="!enableInput || validateTotals()" 
 				v-if="seating == null"
 				v-on:click="AddSeating()">
-				<i class="fa fa-save"></i>
+				Guardar <i class="fa fa-save"></i>
 		</button>
-		<button class="btn btn-success btn-icon"
+		<button class="btn btn-success btn-sm"
 				data-toggle="tooltip"
 				title="Actualizar registro"
 				id="update"
 				:disabled="!enableInput || validateTotals()"
 				v-else
 				v-on:click="UpdateSeating()">
-				<i class="fa fa-save"></i>
+				Guardar <i class="fa fa-save"></i>
 		</button>
 	</div>
 </div>
