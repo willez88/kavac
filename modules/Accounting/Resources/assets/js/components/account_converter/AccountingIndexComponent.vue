@@ -72,7 +72,7 @@
 				</div>
 				<br>
 				<div class="card-footer text-right">
-					<button class="btn btn-info btn-xs"
+					<button class="btn btn-info btn-sm"
 							:disabled="!searchActive"
 							title="Buscar conversiones de cuentas"
 							data-toggle="tooltip"
