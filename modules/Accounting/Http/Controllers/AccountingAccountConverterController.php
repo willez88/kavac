@@ -260,18 +260,41 @@ class AccountingAccountConverterController extends Controller
     {
         /** @var array Arreglo que contendra registros */
 		$records = [];
+
+        /** @var int id de rango inicial de busqueda */
+        $init_id = 0;
+
+        /** @var int id de rango final de busqueda */
+        $end_id = 0;
+
+        if (!$request->all) {
+            $init_id = $request->init_id = ($request->init_id > $request->end_id) ? $request->end_id : $request->init_id;
+            $end_id = $request->end_id = ($request->init_id > $request->end_id) ? $request->init_id : $request->end_id;
+        }
+        
         if($request->type == 'budget'){
+
+            if ($request->all) {
+                /** Se obtienen el primer y ultimo id de las cuentas presupuestales */
+                $init_id = \Modules\Budget\Models\BudgetAccount::orderBy('created_at','ASC')->where('parent_id',null)->first()->id;
+                $end_id = \Modules\Budget\Models\BudgetAccount::orderBy('created_at','DESC')->first()->id;
+            }
             /** @var Object Objeto que contine los registros de conversión a en un rango de ids */
 			$records = AccountingAccountConverter::with('budget_account','accounting_account')
-											->where('budget_account_id','>=',$request->init_id)
-											->where('budget_account_id','<=',$request->end_id)
+											->where('budget_account_id','>=',$init_id)
+											->where('budget_account_id','<=',$end_id)
 											->orderBy('id','ASC')->get();
 
 		}else if($request->type == 'accounting'){
+            if ($request->all) {
+                /** Se obtienen el primer y ultimo id de las cuentas patrimoniales */
+                $init_id = AccountingAccount::orderBy('created_at','ASC')->where('parent_id',null)->first()->id;
+                $end_id = AccountingAccount::orderBy('created_at','DESC')->first()->id;
+            }
             /** @var Object Objeto que contine los registros de conversión a en un rango de ids */
 			$records = AccountingAccountConverter::with('budget_account','accounting_account')
-											->where('accounting_account_id','>=',$request->init_id)
-											->where('accounting_account_id','<=',$request->end_id)
+											->where('accounting_account_id','>=',$init_id)
+											->where('accounting_account_id','<=',$end_id)
 											->orderBy('id','ASC')->get();
 		}
 		return response()->json(['records'=>$records, 'message'=>'Success',200]);
@@ -281,7 +304,7 @@ class AccountingAccountConverterController extends Controller
      * Consulta los registros del modelo AccountingAccount que posean conversión
      * @param Request $request [array con listado de cuentas a convertir]
      * @param boolean $allRecords [booleano para determinar los registros deseados]
-     * @return json
+     * @return Array
      */
     public function getRecordsAccounting($allRecords)
     {
@@ -295,7 +318,9 @@ class AccountingAccountConverterController extends Controller
         /**
          * ciclo para almacenar en array cuentas patrimoniales disponibles para conversiones
         */
-        foreach (AccountingAccount::with('account_converters')->orderBy('id','ASC')->get() as $AccountingAccount) {
+        foreach (AccountingAccount::with('account_converters')
+                                        ->orderBy('id','ASC')
+                                        ->get() as $AccountingAccount) {
             if (!$allRecords) {
                 if (!$AccountingAccount->account_converters['active']) {
                     array_push($records, [
@@ -337,7 +362,9 @@ class AccountingAccountConverterController extends Controller
                 'text' =>   "Seleccione..."
             ]);
             
-            foreach (\Modules\Budget\Models\BudgetAccount::with('account_converters')->orderBy('id','ASC')->get() as $BudgetAccount) {
+            foreach (\Modules\Budget\Models\BudgetAccount::with('account_converters')
+                                                            ->orderBy('id','ASC')
+                                                            ->get() as $BudgetAccount) {
                 if (!$allRecords) {
                     if (!$BudgetAccount->account_converters['active']) {
                         array_push($records, [

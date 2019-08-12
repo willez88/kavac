@@ -27,16 +27,16 @@
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<a :href="urlPrevious" class="btn btn-warning btn-icon"
+			<a :href="urlPrevious" class="btn btn-warning btn-sm"
 					data-toggle="tooltip"
 					title="Cancelar y regresar">
 					<i class="fa fa-ban"></i>
 			</a>
-			<button class="btn btn-success btn-icon" 
+			<button class="btn btn-success btn-sm" 
 					title="actualizar conversión"
 					:disabled="accountSelect.budget_account_id == '' || accountSelect.accounting_account_id == ''"
 					data-toggle="tooltip"
-					v-on:click="update()"><i class="fa fa-save"></i></button>
+					v-on:click="update()">Guardar <i class="fa fa-save"></i></button>
 		</div>
 	</div>
 </template>

@@ -53,7 +53,7 @@
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<button class="btn btn-primary btn-custom"
+			<button class="btn btn-primary btn-sm"
 					title="Generar Reporte"
 					:disabled="disabledButton"
 					data-toggle="tooltip"

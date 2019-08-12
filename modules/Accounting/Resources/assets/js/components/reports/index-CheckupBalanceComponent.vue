@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<button class="btn btn-primary btn-custom"
+			<button class="btn btn-primary btn-sm"
 					data-toggle="tooltip"
 					title="Generar Reporte"
 					v-on:click="OpenPdf(getUrlReport(), '_black')">

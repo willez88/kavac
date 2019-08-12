@@ -11,32 +11,32 @@
 								props.row.from_date.split('-')[1]+'-'+
 								props.row.from_date.split('-')[0] }}</strong></h6>
 
-							<button class="btn btn-danger btn-xs btn-icon"
-									style="display:inline;float: right; margin: 0.5rem;"
+							<button class="btn btn-danger btn-sm btn-custom"
+									style="display:inline;float: right; margin: 0.6rem;"
 									title="Eliminar Registro"
 									data-toggle="tooltip"
 									@click="deleteRecord(props.index, '/accounting/seating')"
 									v-if="show=='unapproved'">
 									<i class="fa fa-close" style="text-align: center;"></i>
 							</button>
-							<button class="btn btn-warning btn-xs btn-icon"
-									style="display:inline;float: right; margin: 0.5rem;"
+							<button class="btn btn-warning btn-sm btn-custom"
+									style="display:inline;float: right; margin: 0.6rem;"
 									title="Modificar registro"
 									data-toggle="tooltip"
 									@click="editForm(props.row.id)"
 									v-if="show=='unapproved'">
 									<i class="fa fa-edit" style="text-align: center;"></i>
 							</button>
-							<button class="btn btn-success btn-xs btn-icon"
-									style="display:inline;float: right; margin: 0.5rem;"
+							<button class="btn btn-success btn-sm btn-custom"
+									style="display:inline;float: right; margin: 0.6rem;"
 									title="Aprobar Registro"
 									data-toggle="tooltip"
 									@click="approve(props.index, url)"
 									v-if="show=='unapproved'">
-									<i class="fa fa-check" style="text-align: center;"></i>
+									Aprobar <i class="fa fa-check" style="text-align: center;"></i>
 							</button>
-							<a class="btn btn-primary btn-xs btn-icon"
-									style="display:inline;float: right; margin: 0.5rem;"
+							<a class="btn btn-primary btn-sm btn-custom"
+									style="display:inline;float: right; margin: 0.6rem;"
 									:href="url+'/pdf/'+props.row.id"
 									title="Imprimir Registro"
 									data-toggle="tooltip"
@@ -58,14 +58,14 @@
 						<tr>
 							<td>
 								<h6 class="text-center" style="display:inline;"><strong>Asiento contable</strong></h6>
-								<button class="btn btn-secondary btn-xs btn-icon"
+								<button class="btn btn-secondary btn-sm btn-custom"
 										:id="'i-'+props.row.id+'-show'"
 										style="float: right; display:none;"
 										title="Ocultar detalles de cuentas" data-toggle="tooltip"
 										@click="displayDetails(props.row.id)">
 										<i class="now-ui-icons arrows-1_minimal-up"></i>
 								</button>
-								<button class="btn btn-secondary btn-xs btn-icon"
+								<button class="btn btn-secondary btn-sm btn-custom"
 										:id="'i-'+props.row.id+'-none'"
 										style="float: right;"
 										title="Mostrar detalles de cuentas" data-toggle="tooltip"

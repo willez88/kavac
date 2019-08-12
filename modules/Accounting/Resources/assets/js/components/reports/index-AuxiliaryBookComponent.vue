@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<button class="btn btn-primary btn-custom"
+			<button class="btn btn-primary btn-sm"
 					data-toggle="tooltip"
 					:disabled="account_id == 0"
 					title="Generar Reporte"
