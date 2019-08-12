@@ -63,11 +63,11 @@
 
 						<div class="col-5">
 							<span>desde</span>
-							<select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id"></select2>
+							<select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id" :disabled="SelectAll"></select2>
 						</div>
 						<div class="col-5">
 							<span>hasta</span>
-							<select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id"></select2>
+							<select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id" :disabled="SelectAll"></select2>
 						</div>
 				</div>
 				<br>
@@ -141,6 +141,7 @@
 								init_id:'',
 								end_id:'',
 								type:'budget',
+								all:false,
 							 },
 				searchActive:false,
 				searchBudgetAccount:true, //true: para cuentas presupuestales, false para cuentas patrimoniales
@@ -170,10 +171,15 @@
 			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
 				if (e.target.id === "sel_budget_acc") {
 					vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);
+					vm.accountSelect.all = false;
+					
 				}
 				else if (e.target.id === "sel_accounting_acc") {
 					vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
+					vm.accountSelect.all = false;
+
 				}else if(e.target.id === "sel_all_acc"){
+					vm.accountSelect.all = true;
 					if (vm.accountSelect.type == 'budget') {
 						vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);		
 					}else{
@@ -183,6 +189,7 @@
 					if (!$('#sel_all_acc').prop('checked')) {
 						vm.accountSelect.init_id = '';
 						vm.accountSelect.end_id = '';
+						vm.accountSelect.all = false;
 					}
 				}
 				vm.errors = [];
@@ -253,31 +260,34 @@
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
 			getRecords:function(){
-				if (this.accountSelect.init_id != '' && this.accountSelect.end_id != '') {
-					var aux1 = this.accountSelect.init_id, aux2 = this.accountSelect.end_id;
+				const vm = this;
 
-					this.accountSelect.init_id = (aux1 > aux2) ? aux2 : aux1;
-					this.accountSelect.end_id = (aux1 > aux2) ? aux1 : aux2;
-
-					axios.post('/accounting/converter/get-Records',this.accountSelect)
+				if (vm.accountSelect.init_id != '' && vm.accountSelect.end_id != '') {
+					axios.post('/accounting/converter/get-Records',vm.accountSelect)
 					.then(response=>{
-						this.records = [];
-						this.records = response.data.records;
+						vm.records = [];
+						vm.records = response.data.records;
 
-						if (this.records.length == 0) {
-							this.errors = [];
-							this.errors.push('No se encontraron registros de conversiones en el rango dado');		
+						if (vm.records.length == 0) {
+							vm.errors = [];
+							vm.errors.push('No se encontraron registros de conversiones en el rango dado');		
 						}
-						this.accountSelect.init_id = '';
-						this.accountSelect.end_id = '';
-
-						this.errors = [];
+						vm.showMessage(
+							'custom', 'Éxito', 'success', 'screen-ok', 
+							'Consulta realizada de manera existosa.'
+						);
+						vm.errors = [];
 					});
 				}else{
-					this.errors = [];
-					this.errors.push('Los campos de selección de cuenta son obligatorios');
+					vm.errors = [];
+					vm.errors.push('Los campos de selección de cuenta son obligatorios');
 				}
 			},
+		},
+		computed:{
+			SelectAll:function(){
+				return (this.accountSelect.all);
+			}
 		}
 	};
 </script>
