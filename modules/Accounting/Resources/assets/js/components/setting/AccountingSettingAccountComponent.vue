@@ -35,18 +35,10 @@
 						</h6>
 					</div>
 					<!-- Fromulario -->
-					<div class="modal-body" v-show="existErrors">
-						<div class="alert alert-danger" role="alert">
-							<div class="container">
-								<div class="alert-icon">
-									<i class="now-ui-icons objects_support-17"></i>
-								</div>
-								<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-								<ul>
-									<li v-for="error in errors">{{ error }}</li>
-								</ul>
-							</div>
-						</div>
+					<div class="modal-body">
+
+						<accounting-show-errors :errors="errors" />
+
 					</div>
 	                <div class="modal-body card-body" v-show="formImport">
 	                	<accounting-import-form />

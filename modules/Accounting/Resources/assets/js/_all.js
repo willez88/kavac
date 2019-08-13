@@ -1,3 +1,11 @@
+
+/**
+ *	Componente generico del modulo de contabilidad para mostrar errores
+ * 
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('accounting-show-errors', require('./components/AccountingErrorsComponent.vue').default);
+
 /**
  * Componente para la configuración de categorias de origen para asientos contables
  *

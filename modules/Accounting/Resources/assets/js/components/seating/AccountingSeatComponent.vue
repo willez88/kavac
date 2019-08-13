@@ -2,17 +2,9 @@
 	<div>
 		<form @submit.prevent="" class="form-horizontal">
 			<div class="card-body">
-				<div class="alert alert-danger" role="alert" v-if="existErrors">
-					<div class="container">
-						<div class="alert-icon">
-							<i class="now-ui-icons objects_support-17"></i>
-						</div>
-						<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-						<ul>
-							<li v-for="error in errors">{{ error }}</li>
-						</ul>
-					</div>
-				</div>
+				
+				<accounting-show-errors :errors="errors" />
+
 				<div class="alert alert-warning" role="alert" v-if="warnings.length > 0">
 					<div class="container">
 						<div class="alert-icon">
@@ -267,7 +259,7 @@
 				}).then(response=>{
 					if (response.data.records.length == 0) {
 						this.warnings = [];
-						this.warnings.push('No se encontraron registros.')
+						this.warnings.push('No se encontraron registros con los parametros de busqueda dados.')
 					}
 					this.records = response.data.records;
 					EventBus.$emit('reload:listing',response.data.records);

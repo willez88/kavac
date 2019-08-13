@@ -1,16 +1,8 @@
 <template>
 <div>
-	<div class="alert alert-danger" role="alert" v-if="existErrors">
-		<div class="container">
-			<div class="alert-icon">
-				<i class="now-ui-icons objects_support-17"></i>
-			</div>
-			<strong>Atención!</strong> Debe verificar los siguientes errores antes de continuar:
-			<ul>
-				<li v-for="error in errors">{{ error }}</li>
-			</ul>
-		</div>
-	</div>
+	
+	<accounting-show-errors :errors="errors" />
+
 	<table class="table table-formulation">
 		<thead>
 			<tr>
