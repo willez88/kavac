@@ -11,11 +11,13 @@ use App\Roles\Models\Permission;
 /**
  * @class UserController
  * @brief Gestiona información de usuarios
- * 
+ *
  * Controlador para gestionar usuarios
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class UserController extends Controller
 {
@@ -39,8 +41,8 @@ class UserController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'users.store', 
-            'method' => 'POST', 
+            'route' => 'users.store',
+            'method' => 'POST',
             'role' => 'form',
         ];
         return view('auth.register', compact('header'));
@@ -99,8 +101,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $header = [
-            'route' => ['users.update', $user->id], 
-            'method' => 'PUT', 
+            'route' => ['users.update', $user->id],
+            'method' => 'PUT',
             'role' => 'form'
         ];
         $model = $user;
@@ -122,10 +124,10 @@ class UserController extends Controller
                 'password' => 'min:6|confirmed',
                 'password_confirmation' => 'min:6|required_with:password',
                 'complexity-level' => 'numeric|min:43|max:100'
-            ],[
+            ], [
                 'confirmed' => 'La contraseña no coincide con la verificación',
                 'required_with' => 'Debe confirmar la nueva contraseña',
-                'complexity-level' => 'Contraseña muy débil. Intente incorporar símbolos, letras y números, ' . 
+                'complexity-level' => 'Contraseña muy débil. Intente incorporar símbolos, letras y números, ' .
                                       'en cominación con mayúsculas y minúsculas.',
             ]);
 
@@ -133,11 +135,10 @@ class UserController extends Controller
             $user->save();
 
             $request->session()->flash('message', ['type' => 'update']);
-        }
-        else {
+        } else {
             $request->session()->flash('message', ['type' => 'other', 'text' => 'No se indicaron modificaciones']);
         }
-        
+
         return redirect()->back();
     }
 
@@ -160,7 +161,7 @@ class UserController extends Controller
 
     /**
      * Configuración de permisos asociados a roles de usuarios
-     * 
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
@@ -169,7 +170,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'perm' => 'required|array|min:1'
-        ],[
+        ], [
             'perm.required' => 'Se requiere asignar al menos un permiso a un rol'
         ]);
 
@@ -197,7 +198,7 @@ class UserController extends Controller
 
     /**
      * Muestra el formulario para la asignación de roles y permisos a usuarios
-     * 
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  User   $user Modelo de Usuario
      * @return \Illuminate\View\View
@@ -209,7 +210,7 @@ class UserController extends Controller
 
     /**
      * Assigna permisos de acceso a los usuarios del sistema
-     * 
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con los datos de la petición
      */
@@ -225,7 +226,7 @@ class UserController extends Controller
             'role.max' => 'Solo puede asignar un rol al usuario',
             'permission.min' => 'Se requiere al menos un permiso asignado al usuario'
         ];
-        
+
         $user = User::find($request->user);
 
         if (isset($request->role)) {
@@ -233,9 +234,9 @@ class UserController extends Controller
                 if (Role::find($role)->permissions->isEmpty()) {
                     $rules['permission'] = str_replace('required_without:role', 'required', $rules['permission']);
                     if (count($request->role) > 1) {
-                        $msg = 'Uno de los roles seleccionados no tiene permisos asignados, debe indicar los permisos de acceso';
-                    }
-                    else {
+                        $msg = 'Uno de los roles seleccionados no tiene permisos asignados, ' .
+                               'debe indicar los permisos de acceso';
+                    } else {
                         $msg = 'El rol seleccionado no tiene permisos asignados, debe indicar los permisos de acceso';
                     }
                     $messages['permission.required'] = $msg;
@@ -255,7 +256,7 @@ class UserController extends Controller
         if (isset($request->permissions)) {
             $user->syncPermissions($request->permission);
         }
-        
+
         $request->session()->flash('message', ['type' => 'store']);
 
         return redirect()->route('index');

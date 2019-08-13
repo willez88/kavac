@@ -17,11 +17,13 @@ use App\Traits\ModelsTrait;
 /**
  * @class IstitutionType
  * @brief Datos de los tipos de las Instituciones
- * 
+ *
  * Gestiona el modelo de datos para los tipos de Instituciones
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class InstitutionType extends Model implements Auditable
 {

@@ -64,9 +64,9 @@ Route::post('/logs/front-end', 'Admin\LogController@frontEnd')->name('logs.front
  * el acceso a los distintos discos establecidos en la configuración de
  * config/filesystems.php
  */
-Route::group(['middleware' => 'auth'], function() {
-	/** Ruta para acceder a las imágenes almacenadas por la aplicación */
-    Route::get('storage/pictures/{image}', function($image) {
+Route::group(['middleware' => 'auth'], function () {
+    /** Ruta para acceder a las imágenes almacenadas por la aplicación */
+    Route::get('storage/pictures/{image}', function ($image) {
         $path = storage_path('pictures/' . $image);
         if (!File::exists($path)) {
             abort(404);
@@ -80,7 +80,7 @@ Route::group(['middleware' => 'auth'], function() {
         return $response;
     });
     /** Ruta para acceder a los documentos almacenados por la aplicación */
-    Route::get('storage/documents/{document}', function($document) {
+    Route::get('storage/documents/{document}', function ($document) {
         $path = storage_path('documents/' . $document);
         if (!File::exists($path)) {
             abort(404);
@@ -164,7 +164,8 @@ Route::group(['middleware' => 'auth'], function() {
     /** Ruta para obtener datos de instituciones */
     Route::get('/get-institutions/{institution_id?}', 'InstitutionController@getInstitutions')
          ->name('get-institutions');
-    Route::get('/get-execution-year/{institution_id?}/{year?}', 'InstitutionController@getExecutionYear')->name('get-execution-year');
+    Route::get('/get-execution-year/{institution_id?}/{year?}', 'InstitutionController@getExecutionYear')
+         ->name('get-execution-year');
 
     /** Ruta para obtener datos de monedas */
     Route::get('/get-currencies/{currency_id?}', 'CurrencyController@getCurrencies')
@@ -194,7 +195,7 @@ Route::group(['middleware' => 'auth'], function() {
  * Gestiona los controladores que se encuentran en el namespace Auth y que
  * requieren de que el usuario se encuentre autenticado en el sistema
  */
-Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {
+Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function () {
     /** Ruta de recursos para la gestión de usuarios */
     Route::resource('users', 'UserController');
     Route::get('user-info/{user}', 'UserController@info')->name('user-info');
@@ -209,7 +210,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function() {
  * en formato json, estos a su vez requieren de que el usuario se encuentre
  * autenticado en el sistema para poder hacer uso de ellos
  */
-Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
+Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function () {
     /** Obtiene los países registrados */
     Route::get('get-countries', 'LocatesController@getCountries');
     /** Obtiene los estados de un país */
@@ -230,11 +231,11 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function() {
  * Gestiona las rutas que solo pueden accederse si el usuario autenticado
  * es un desarrollador del sistema
  */
-Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefix' => 'dev'], function() {
+Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefix' => 'dev'], function () {
     /** Muestra un listado de íconos a utilizar en el sistema */
     Route::get('show/{el}', 'DevelopmentController@getElement')->name('dev.show.element');
     /** Rutas para el visor de logs */
-    Route::group(['prefix' => 'log-viewer'], function() {
+    Route::group(['prefix' => 'log-viewer'], function () {
         Route::get('/', 'LogViewerController@index')->name('log-viewer::details');
     });
 });
@@ -247,8 +248,7 @@ Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefi
  * Gestiona las rutas que solo pueden accederse si el usuario autenticado
  * es administrador del sistema
  */
-Route::group(['middleware' => ['auth', 'role:admin']], function() {
-
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('restore/{model}/{id}', 'DashboardController@restore');
 
     /**
@@ -256,13 +256,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
      * Grupo de rutas del namespace Admin
      * ------------------------------------------------------------------
      */
-    Route::group(['namespace' => 'Admin'], function() {
+    Route::group(['namespace' => 'Admin'], function () {
         /** Ruta para la configuración de la aplicación */
         Route::resource('settings', 'SettingController', [
             'except' => ['create', 'edit', 'show', 'update', 'destroy']
         ]);
         /** Rutas para la gestión de módulos de la aplicación */
-        Route::group(['prefix' => 'modules'], function() {
+        Route::group(['prefix' => 'modules'], function () {
             Route::get('list', 'ModuleController@index')->name('module.list');
         });
         /** Ruta para la gestión de información sobre la(s) institución(es) */
@@ -286,22 +286,22 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
      * Grupo de rutas del namespace Auth
      * ------------------------------------------------------------------
      */
-    Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function() {
+    Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function () {
         /** Rutas para la configuración de usuarios, roles y permisos */
         Route::get('settings/users', 'UserController@index')->name('access.settings');
 
         /** Ruta de configuración de permisos asociados a los distintos roles del sistema */
-        Route::post('settings/roles-permissions', 'UserController@setRolesAndPermissions')->name('roles.permissions.settings');
+        Route::post('settings/roles-permissions', 'UserController@setRolesAndPermissions')
+             ->name('roles.permissions.settings');
 
         /** Ruta para la assignación de roles y permisos a usuarios del sistema */
         Route::get('assign/roles-permissions/{user}', 'UserController@assignAccess')->name('assign.access');
         Route::post('assign/roles-permissions', 'UserController@setAccess')->name('roles.permissions.assign');
-
     });
 });
 
 /** Ruta pública para acceder a los documentos almacenados por la aplicación */
-Route::get('public/documents/{document}', function($document) {
+Route::get('public/documents/{document}', function ($document) {
     $path = storage_path('public_documents/' . $document);
     if (!File::exists($path)) {
         abort(404);

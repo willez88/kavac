@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class CityController
  * @brief Controlador de Ciudades
- * 
+ *
  * Clase que gestiona las Ciudades
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CityController extends Controller
 {
@@ -112,11 +114,11 @@ class CityController extends Controller
             'name' => 'required|max:100',
             'estate_id' => 'required'
         ]);
- 
+
         $city->name = $request->name;
         $city->estate_id = $request->estate_id;
         $city->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

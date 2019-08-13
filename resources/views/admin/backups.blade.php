@@ -23,7 +23,7 @@
                 <div class="card-header">
                     <h6 class="card-title">Administración de Respaldos</h6>
                     <div class="card-btns">
-                        <a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
+                        <a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
                            data-toggle="tooltip">
                             <i class="now-ui-icons arrows-1_minimal-up"></i>
                         </a>
@@ -32,8 +32,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <a id="create-new-backup-button" href="{{ url('backup/create') }}" 
-                                class="btn btn-sm btn-primary btn-custom float-right" data-toggle="tooltip" 
+                            <a id="create-new-backup-button" href="{{ url('backup/create') }}"
+                                class="btn btn-sm btn-primary btn-custom float-right" data-toggle="tooltip"
                                 title="Crear un nuevo respaldo">
                                 <i class="fa fa-plus-circle"></i>
                                 <span>Nuevo</span>
@@ -63,20 +63,20 @@
                                         {!! Form::button('<i class="fa fa-cloud-download"></i>', [
                                             'class' => 'btn btn-default btn-xs btn-icon btn-round',
                                             'data-toggle' => 'tooltip', 'type' => 'button',
-                                            'title' => 'Descargar respaldo', 
-                                            'onclick' => 'location.href="' . 
+                                            'title' => 'Descargar respaldo',
+                                            'onclick' => 'location.href="' .
                                             url('backup/download/' .$backup['file_name'] ) .'"'
                                         ]) !!}
                                         {!! Form::button('<i class="fa fa-cloud-upload"></i>', [
                                             'class' => 'btn btn-info btn-xs btn-icon btn-round',
                                             'data-toggle' => 'tooltip', 'type' => 'button',
-                                            'title' => 'Restaurar respaldo', 
+                                            'title' => 'Restaurar respaldo',
                                             'onclick' => '#'
                                         ]) !!}
                                         {!! Form::button('<i class="fa fa-trash-o"></i>', [
                                             'class' => 'btn btn-danger btn-xs btn-icon btn-round',
                                             'data-toggle' => 'tooltip', 'type' => 'button',
-                                            'title' => 'Eliminar respaldo', 
+                                            'title' => 'Eliminar respaldo',
                                             'onclick' => 'delete_backup("'.$backup['file_name'].'")'
                                         ]) !!}
                                     </td>

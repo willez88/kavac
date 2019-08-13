@@ -18,7 +18,8 @@ return [
         'register_title' => 'Register',
         'or_label' => 'or',
         'registerfacebook' => 'Register with facebook',
-        'val_registerfacebook' => 'Sorry, your account with facebook cannot be registered because an email address is missing.',
+        'val_registerfacebook' => 'Sorry, your account with facebook cannot be registered because an ' .
+                                  'email address is missing.',
         'register' => 'Registro',
         'firstname' => 'Nombre',
         'val_firstname' => 'Por favor ingrese su nombre',
@@ -40,7 +41,8 @@ return [
         'login_title' => 'Login',
         'login' => 'Login',
         'facebooklogin' => 'Facebook Login',
-        'val_facebooklogin' => 'Sorry, your account with facebook cannot be registered because an email address is missing.',
+        'val_facebooklogin' => 'Sorry, your account with facebook cannot be registered because an ' .
+                               'email address is missing.',
         'or_label' => 'or',
         'username' => 'Username',
         'val_username' => 'The user name you entered is wrong or does not exist',

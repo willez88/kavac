@@ -14,11 +14,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class User
  * @brief Datos de Usuarios
- * 
+ *
  * Gestiona el modelo de datos para las Usuarios
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class User extends Authenticatable implements Auditable
 {
@@ -57,7 +59,7 @@ class User extends Authenticatable implements Auditable
 
     /**
      * Método que obtiene el perfil de un usuario
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function profile()

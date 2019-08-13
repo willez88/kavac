@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class DepartmentController
  * @brief Gestiona información de Departamentos
- * 
+ *
  * Controlador para gestionar Departamentos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class DepartmentController extends Controller
 {
@@ -24,7 +26,8 @@ class DepartmentController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->data[0] = [
             'id' => '',
             'text' => 'Seleccione...'
@@ -83,7 +86,7 @@ class DepartmentController extends Controller
             'parent_id' => ($request->parent_id)?$request->parent_id:null,
             'institution_id' => $request->institution_id
         ]);
-        
+
         return response()->json(['record' => $department, 'message' => 'Success'], 200);
     }
 

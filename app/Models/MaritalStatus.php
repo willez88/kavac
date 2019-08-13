@@ -23,7 +23,9 @@ use Module;
  * Gestiona el modelo de datos para los estados civiles
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class MaritalStatus extends Model implements Auditable
 {
@@ -61,7 +63,8 @@ class MaritalStatus extends Model implements Auditable
      *
      * @return array|\Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrolls() {
+    public function payrolls()
+    {
         return (Module::has('Payroll'))?$this->hasMany(\Modules\Payroll\Models\PayrollStaff::class):[];
     }
 }

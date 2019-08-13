@@ -13,7 +13,7 @@ use App\Roles\Models\Role;
 
 /**
  * Trait para la gestión de roles y permisos
- * 
+ *
  * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
  */
 trait HasRoleAndPermission
@@ -202,16 +202,25 @@ trait HasRoleAndPermission
         $permissionModel = app(config('roles.models.permission'));
 
         if (!$permissionModel instanceof Model) {
-            throw new InvalidArgumentException('[roles.models.permission] must be an instance of \Illuminate\Database\Eloquent\Model');
+            throw new InvalidArgumentException(
+                '[roles.models.permission] must be an instance of \Illuminate\Database\Eloquent\Model'
+            );
         }
 
         return $permissionModel
-            ::select(['permissions.*', 'permission_role.created_at as pivot_created_at', 'permission_role.updated_at as pivot_updated_at'])
+            ::select([
+                'permissions.*', 'permission_role.created_at as pivot_created_at',
+                'permission_role.updated_at as pivot_updated_at'
+            ])
             ->join('permission_role', 'permission_role.permission_id', '=', 'permissions.id')
             ->join('roles', 'roles.id', '=', 'permission_role.role_id')
             ->whereIn('roles.id', $this->getRoles()->pluck('id')->toArray())
             ->orWhere('roles.level', '<', $this->level())
-            ->groupBy(['permissions.id', 'permissions.name', 'permissions.slug', 'permissions.description', 'permissions.model', 'permissions.created_at', 'permissions.updated_at', 'permission_role.created_at', 'permission_role.updated_at']);
+            ->groupBy([
+                'permissions.id', 'permissions.name', 'permissions.slug', 'permissions.description',
+                'permissions.model', 'permissions.created_at', 'permissions.updated_at',
+                'permission_role.created_at', 'permission_role.updated_at'
+            ]);
     }
 
     /**
@@ -231,7 +240,9 @@ trait HasRoleAndPermission
      */
     public function getPermissions()
     {
-        return (!$this->permissions) ? $this->permissions = $this->rolePermissions()->get()->merge($this->userPermissions()->get()) : $this->permissions;
+        return (!$this->permissions)
+               ? $this->permissions = $this->rolePermissions()->get()->merge($this->userPermissions()->get())
+               : $this->permissions;
     }
 
     /**
@@ -435,7 +446,12 @@ trait HasRoleAndPermission
         } elseif (starts_with($method, 'can')) {
             return $this->hasPermission(snake_case(substr($method, 3), config('roles.separator')));
         } elseif (starts_with($method, 'allowed')) {
-            return $this->allowed(snake_case(substr($method, 7), config('roles.separator')), $parameters[0], (isset($parameters[1])) ? $parameters[1] : true, (isset($parameters[2])) ? $parameters[2] : 'user_id');
+            return $this->allowed(
+                snake_case(substr($method, 7), config('roles.separator')),
+                $parameters[0],
+                (isset($parameters[1])) ? $parameters[1] : true,
+                (isset($parameters[2])) ? $parameters[2] : 'user_id'
+            );
         }
 
         return parent::__call($method, $parameters);

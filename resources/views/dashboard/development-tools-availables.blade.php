@@ -11,7 +11,7 @@
 				<div class="row">
 					<div class="col-12">
 						<span class="text-muted">
-							Acceso a herramientas para desarrolladores 
+							Acceso a herramientas para desarrolladores
 							<a href="javascript:void(0)">
 								<i class="ion ion-ios-help-outline"></i>
 							</a>
@@ -22,7 +22,7 @@
 				<h6>Interfaz</h6>
 				<div class="row">
 					<div class="col-12">
-						<a href="{{ route('pack.icons') }}" class="btn btn-primary btn-simple btn-lg" 
+						<a href="{{ route('pack.icons') }}" class="btn btn-primary btn-simple btn-lg"
 						   data-toggle="tooltip" title="Listado de íconos disponibles en la aplicación">
 							<i class="icofont icofont-idea"></i> Iconos
 						</a>
@@ -69,32 +69,32 @@
 				<h6>Visor de logs</h6>
 				<div class="row mg-bottom-20">
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-green" 
-						   title="Generó un registro de información" 
+						<i class="ion-android-checkbox-blank text-green"
+						   title="Generó un registro de información"
 						   data-toggle="tooltip"></i>
 						<span>información</span>
 					</div>
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-warning" 
-						   title="Generó un registro de error en la aplicación" 
+						<i class="ion-android-checkbox-blank text-warning"
+						   title="Generó un registro de error en la aplicación"
 						   data-toggle="tooltip"></i>
 						<span>error</span>
 					</div>
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-blue" 
-						   title="Generó un evento de notificación" 
+						<i class="ion-android-checkbox-blank text-blue"
+						   title="Generó un evento de notificación"
 						   data-toggle="tooltip"></i>
 						<span>notificación</span>
 					</div>
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-danger" 
-						   title="Generó un evento crítico en la aplicación" 
+						<i class="ion-android-checkbox-blank text-danger"
+						   title="Generó un evento crítico en la aplicación"
 						   data-toggle="tooltip"></i>
 						<span>critico</span>
 					</div>
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-gray" 
-						   title="Generó un evento sobre alguna funcionalidad de la aplicación" 
+						<i class="ion-android-checkbox-blank text-gray"
+						   title="Generó un evento sobre alguna funcionalidad de la aplicación"
 						   data-toggle="tooltip"></i>
 						<span>debug</span>
 					</div>

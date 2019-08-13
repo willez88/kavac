@@ -8,7 +8,7 @@ use App\Roles\Models\Permission;
 
 /**
  * Trait para la gestión de roles y sus relaciones
- * 
+ *
  * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
  */
 trait RoleHasRelations
@@ -41,8 +41,8 @@ trait RoleHasRelations
      */
     public function attachPermission($permission)
     {
-        return (!$this->permissions()->get()->contains($permission)) 
-               ? $this->permissions()->attach($permission) 
+        return (!$this->permissions()->get()->contains($permission))
+               ? $this->permissions()->attach($permission)
                : true;
     }
 

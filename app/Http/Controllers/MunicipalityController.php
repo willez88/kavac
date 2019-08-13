@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class MunicipalityController
  * @brief Gestiona información de Municipios
- * 
+ *
  * Controlador para gestionar Municipios
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class MunicipalityController extends Controller
 {
@@ -116,12 +118,12 @@ class MunicipalityController extends Controller
             'code' => 'required|max:10',
             'estate_id' => 'required'
         ]);
- 
+
         $municipality->name = $request->name;
         $municipality->code = $request->code;
         $municipality->estate_id = $request->estate_id;
         $municipality->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

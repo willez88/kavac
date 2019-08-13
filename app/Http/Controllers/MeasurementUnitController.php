@@ -101,12 +101,12 @@ class MeasurementUnitController extends Controller
             'description' => 'required',
             'acronym' => 'required|max:6|unique:measurement_units,acronym,' . $measurementUnit->id
         ]);
- 
+
         $measurementUnit->name = $request->name;
         $measurementUnit->description = $request->description;
         $measurementUnit->acronym = $request->acronym;
         $measurementUnit->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

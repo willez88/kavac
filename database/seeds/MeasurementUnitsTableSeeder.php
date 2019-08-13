@@ -15,10 +15,10 @@ class MeasurementUnitsTableSeeder extends Seeder
      */
     public function run()
     {
-         Model::unguard();
+        Model::unguard();
 
         $adminRole = Role::where('slug', 'admin')->first();
-        
+
         /**
          * Permisos disponibles para la gestión de Unidades de Medidas
          */
@@ -26,98 +26,97 @@ class MeasurementUnitsTableSeeder extends Seeder
         $permissions = [
             [
                 'name' => 'Crear Unidades de Medida', 'slug' => 'measurement.units.create',
-                'description' => 'Acceso al registro de Unidades de Medidas', 
+                'description' => 'Acceso al registro de Unidades de Medidas',
                 'model' => MeasurementUnit::class, 'model_prefix' => '0general',
                 'slug_alt' => 'unidades.medida.crear', 'short_description' => 'agregar Unidades de Medidas'
             ],
             [
                 'name' => 'Editar Unidades de Medida', 'slug' => 'measurement.units.edit',
-                'description' => 'Acceso para editar Unidades de Medidas', 
+                'description' => 'Acceso para editar Unidades de Medidas',
                 'model' => MeasurementUnit::class, 'model_prefix' => '0general',
                 'slug_alt' => 'unidades.medida.editar', 'short_description' => 'editar Unidades de Medidas'
             ],
             [
                 'name' => 'Eliminar Unidades de Medida', 'slug' => 'measurement.units.delete',
-                'description' => 'Acceso para eliminar Unidades de Medidas', 
+                'description' => 'Acceso para eliminar Unidades de Medidas',
                 'model' => MeasurementUnit::class, 'model_prefix' => '0general',
                 'slug_alt' => 'unidades.medida.eliminar', 'short_description' => 'eliminar Unidades de Medidas'
             ],
             [
                 'name' => 'Ver Unidades de Medida', 'slug' => 'measurement.units.list',
-                'description' => 'Acceso para ver Unidades de Medidas', 
+                'description' => 'Acceso para ver Unidades de Medidas',
                 'model' => MeasurementUnit::class, 'model_prefix' => '0general',
                 'slug_alt' => 'unidades.medida.ver', 'short_description' => 'ver Unidades de Medidas'
             ],
         ];
 
         $measurement_units = [
-        	[
-        		'name' => 'Bulto',
-        		'description' => 'Bultos',
-        		'acronym' => 'bulto',
-        	],
-        	[
-        		'name' => 'Caja',
-        		'description' => 'Recipiente de varias formas y tamaños que sirve para albergar objetos',
-        		'acronym' => 'caja',
-        	],
-        	[
-        		'name' => 'Galón',
-        		'description' => 'Galones',
-        		'acronym' => 'gal',
-        	],
-        	[
-        		'name' => 'Litro',
-        		'description' => 'Producto por litros',
-        		'acronym' => 'lts',
-        	],
-        	[
-        		'name' => 'Metros cuadrados',
-        		'description' => 'Metros cuadrados',
-        		'acronym' => 'mt2',
-        	],
-        	[
-        		'name' => 'Metros lineales',
-        		'description' => 'Metros lineales',
-        		'acronym' => 'm',
-        	],
-        	[
-        		'name' => 'Paquete',
-        		'description' => 'Embalaje comercial o envase de un producto',
-        		'acronym' => 'pkg',
-        	],
-        	[
-        		'name' => 'Quintal',
-        		'description' => 'Quintal como medida de peso',
-        		'acronym' => 'qq',
-        	],
-        	[
-        		'name' => 'Resma',
-        		'description' => 'Conjunto de 500 pliegos de papel',
-        		'acronym' => 'res',
-        	],
-        	[
-        		'name' => 'Servicio',
-        		'description' => 'Servicio',
-        		'acronym' => 'srv',
-        	],
-        	[
-        		'name' => 'Unidad',
-        		'description' => 'Unidad de un artículo',
-        		'acronym' => 'und',
-        	],
+            [
+                'name' => 'Bulto',
+                'description' => 'Bultos',
+                'acronym' => 'bulto',
+            ],
+            [
+                'name' => 'Caja',
+                'description' => 'Recipiente de varias formas y tamaños que sirve para albergar objetos',
+                'acronym' => 'caja',
+            ],
+            [
+                'name' => 'Galón',
+                'description' => 'Galones',
+                'acronym' => 'gal',
+            ],
+            [
+                'name' => 'Litro',
+                'description' => 'Producto por litros',
+                'acronym' => 'lts',
+            ],
+            [
+                'name' => 'Metros cuadrados',
+                'description' => 'Metros cuadrados',
+                'acronym' => 'mt2',
+            ],
+            [
+                'name' => 'Metros lineales',
+                'description' => 'Metros lineales',
+                'acronym' => 'm',
+            ],
+            [
+                'name' => 'Paquete',
+                'description' => 'Embalaje comercial o envase de un producto',
+                'acronym' => 'pkg',
+            ],
+            [
+                'name' => 'Quintal',
+                'description' => 'Quintal como medida de peso',
+                'acronym' => 'qq',
+            ],
+            [
+                'name' => 'Resma',
+                'description' => 'Conjunto de 500 pliegos de papel',
+                'acronym' => 'res',
+            ],
+            [
+                'name' => 'Servicio',
+                'description' => 'Servicio',
+                'acronym' => 'srv',
+            ],
+            [
+                'name' => 'Unidad',
+                'description' => 'Unidad de un artículo',
+                'acronym' => 'und',
+            ],
         ];
 
-        DB::transaction(function() use ($adminRole, $permissions, $measurement_units) {
-
+        DB::transaction(function () use ($adminRole, $permissions, $measurement_units) {
             foreach ($measurement_units as $unit) {
-            	MeasurementUnit::updateOrCreate(
-            		['acronym' => $unit['acronym']],
-            		[
+                MeasurementUnit::updateOrCreate(
+                    ['acronym' => $unit['acronym']],
+                    [
                         'name' => $unit['name'],
                         'description' => $unit['description']
                     ]
-            	);
+                );
             }
 
             foreach ($permissions as $permission) {

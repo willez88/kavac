@@ -15,8 +15,8 @@ class SettingsTableSeeder extends Seeder
     {
         Model::unguard();
 
-        DB::transaction(function() {
-        	Setting::updateOrCreate(['active' => true], []);
+        DB::transaction(function () {
+            Setting::updateOrCreate(['active' => true], []);
         });
     }
 }

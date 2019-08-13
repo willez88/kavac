@@ -11,7 +11,9 @@ use Illuminate\Contracts\Validation\Rule;
  * Gestiona las reglas de validación para validar la edad de un trabajar
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AgeToWork implements Rule
 {
@@ -47,10 +49,10 @@ class AgeToWork implements Rule
      */
     public function message()
     {
-        if( $this->age == 0 ) {
-            return 'Todavía no ha configurado una edad laboral permitida en el panel de configuración de talento humano';
-        }
-        else {
+        if ($this->age == 0) {
+            return 'Todavía no ha configurado una edad laboral permitida en el panel de configuración de ' .
+                   'talento humano';
+        } else {
             return 'El campo :attribute debe ser mayor o igual a '.$this->age;
         }
     }

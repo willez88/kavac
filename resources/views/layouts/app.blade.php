@@ -98,19 +98,19 @@
         {!! Html::script('js/common.js', [], Request::secure()) !!}
         {{-- Botón de ir al inicio de la página cuando se excede de un alto preestablecido --}}
         @include('buttons.to-top')
-        
+
         @include('layouts.messages')
         <script>
             $(document).ready(function() {
-                
+
                 if ($('.ckeditor').length && typeof(CkEditor) !== 'undefined') {
                     $('.ckeditor').each(function() {
                         CkEditor.create(document.querySelector('.ckeditor'), {
                             toolbar: [
-                                'heading', '|', 
-                                'bold', 'italic', 'blockQuote', 'link', 
-                                'numberedList', 'bulletedList', '|', 
-                                'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|', 
+                                'heading', '|',
+                                'bold', 'italic', 'blockQuote', 'link',
+                                'numberedList', 'bulletedList', '|',
+                                'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
                                 'undo', 'redo'
                             ],
                             language: 'es',
@@ -121,7 +121,7 @@
                         }).catch(error => {
                             console.error( error.stack );
                         });
-                        
+
                     });
                 }
 
@@ -142,7 +142,7 @@
             });
             /*
              * Función que permite eliminar registros mediante ajax
-             * 
+             *
              * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              * @param {string} url URL del controlador que realiza la acción de eliminación
              * @return Un mensaje al usuario solicitando confirmación de la eliminación del registro
@@ -285,7 +285,7 @@
                         }
 
                         const userDetail = new User(user.name, user.username, user.email, roles, permissions);
-                        
+
                         bootbox.alert(userDetail.showInfo());
                     }).catch(error => {
                         logs('app', 272, error, 'view_user_info');

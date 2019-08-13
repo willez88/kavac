@@ -17,11 +17,13 @@ use App\Traits\ModelsTrait;
 /**
  * @class Estate
  * @brief Datos de Estados
- * 
+ *
  * Gestiona el modelo de datos para los Estados
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Estate extends Model implements Auditable
 {
@@ -54,7 +56,7 @@ class Estate extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con el registro relacionado al modelo Country
      */
-	public function country()
+    public function country()
     {
         return $this->belongsTo(Country::class);
     }
@@ -67,7 +69,7 @@ class Estate extends Model implements Auditable
      */
     public function municipalities()
     {
-    	return $this->hasMany(Municipality::class);
+        return $this->hasMany(Municipality::class);
     }
 
     /**

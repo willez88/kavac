@@ -10,11 +10,13 @@ use App\Models\InstitutionType;
 /**
  * @class InstitutionTypesTableSeeder
  * @brief Información por defecto para tipos de Instituciones
- * 
+ *
  * Gestiona la información por defecto a registrar inicialmente para los tipos de Instituciones
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class InstitutionTypesTableSeeder extends Seeder
 {
@@ -36,31 +38,31 @@ class InstitutionTypesTableSeeder extends Seeder
         $permissions = [
             [
                 'name' => 'Crear Tipo de Institución', 'slug' => 'institution.type.create',
-                'description' => 'Acceso al registro de tipos de instituciones', 
+                'description' => 'Acceso al registro de tipos de instituciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
                 'slug_alt' => 'tipo.institucion.crear', 'short_description' => 'agregar tipo de institución'
             ],
             [
                 'name' => 'Editar Tipo de Institución', 'slug' => 'institution.type.edit',
-                'description' => 'Acceso para editar tipos de instituciones', 
+                'description' => 'Acceso para editar tipos de instituciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
                 'slug_alt' => 'tipo.institucion.editar', 'short_description' => 'editar tipo de institución'
             ],
             [
                 'name' => 'Eliminar Tipo de Institución', 'slug' => 'institution.type.delete',
-                'description' => 'Acceso para eliminar tipos de instituciones', 
+                'description' => 'Acceso para eliminar tipos de instituciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
                 'slug_alt' => 'tipo.institucion.eliminar', 'short_description' => 'eliminar tipo de institución'
             ],
             [
                 'name' => 'Ver Tipo de Institución', 'slug' => 'institution.type.list',
-                'description' => 'Acceso para ver tipos de instituciones', 
+                'description' => 'Acceso para ver tipos de instituciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
                 'slug_alt' => 'tipo.institucion.ver', 'short_description' => 'ver tipos de instituciones'
             ],
         ];
 
-        DB::transaction(function() use ($adminRole, $permissions) {
+        DB::transaction(function () use ($adminRole, $permissions) {
             InstitutionType::updateOrCreate(
                 ['acronym' => 'EDSF'],
                 ['name' => 'Ente Desentralizado sin fines empresariales']
@@ -78,7 +80,7 @@ class InstitutionTypesTableSeeder extends Seeder
                 ['name' => 'Gobernación']
             );
 
-            
+
 
             foreach ($permissions as $permission) {
                 $per = Permission::updateOrCreate(

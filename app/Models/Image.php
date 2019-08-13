@@ -17,11 +17,13 @@ use Module;
 /**
  * @class Image
  * @brief Datos de Imágenes
- * 
+ *
  * Gestiona el modelo de datos para las imágenes
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Image extends Model implements Auditable
 {
@@ -87,8 +89,8 @@ class Image extends Model implements Auditable
      */
     public function finance_banks()
     {
-        return (Module::has('Finance')) 
-               ? $this->hasMany(\Modules\Finance\Models\FinanceBank::class, 'logo_id') 
+        return (Module::has('Finance'))
+               ? $this->hasMany(\Modules\Finance\Models\FinanceBank::class, 'logo_id')
                : [];
     }
 }

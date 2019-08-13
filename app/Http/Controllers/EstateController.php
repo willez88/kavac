@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class EstateController
  * @brief Gestiona información de Estados
- * 
+ *
  * Controlador para gestionar Estados
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class EstateController extends Controller
 {
@@ -116,12 +118,12 @@ class EstateController extends Controller
             'code' => 'required|max:10',
             'country_id' => 'required'
         ]);
- 
+
         $estate->name = $request->name;
         $estate->code = $request->code;
         $estate->country_id = $request->country_id;
         $estate->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

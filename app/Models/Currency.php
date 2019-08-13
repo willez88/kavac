@@ -16,11 +16,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class Currency
  * @brief Datos de Monedas
- * 
+ *
  * Gestiona el modelo de datos para las Monedas
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Currency extends Model implements Auditable
 {
@@ -59,6 +61,6 @@ class Currency extends Model implements Auditable
      */
     public function country()
     {
-    	return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class);
     }
 }

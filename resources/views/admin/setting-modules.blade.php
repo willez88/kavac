@@ -34,7 +34,7 @@
 								<div class="info-box">
 									<div class="info-box-content info-box-content-lg">
 										<div class="info-box-img">
-											<i class="{{ $module->icon["name"] ?? "fa fa-cubes" }}" 
+											<i class="{{ $module->icon["name"] ?? "fa fa-cubes" }}"
 											   style="color:{{ $module->icon["color"] ?? '#636E7B' }}"></i>
 										</div>
 										<div class="info-box-title">
@@ -71,14 +71,14 @@
 										<div class="info-box-footer buttons">
 											<div class="row">
 												<div class="col-4 text-left">
-													<a href="" class="btn btn-sm btn-round btn-success" 
+													<a href="" class="btn btn-sm btn-round btn-success"
 													   title="Instalar módulo" data-toggle="tooltip">
 														<i class="ion ion-android-done"></i>
 													</a>
 												</div>
 												<div class="col-4"></div>
 												<div class="col-4 text-right">
-													<a href="" class="btn btn-sm btn-round btn-danger" 
+													<a href="" class="btn btn-sm btn-round btn-danger"
 													   title="Desinstalar módulo" data-toggle="tooltip">
 														<i class="ion ion-android-close"></i>
 													</a>
@@ -86,7 +86,7 @@
 											</div>
 											<span class="status installed">
 												Instalado
-											</span>										
+											</span>
 										</div>
 									</div>
 								</div>
@@ -104,7 +104,7 @@
 			<div class="card-header">
 				<h6 class="card-title">Módulos</h6>
 				<div class="card-btns">
-					<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
+					<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 					   data-toggle="tooltip">
     					<i class="now-ui-icons arrows-1_minimal-up"></i>
     				</a>

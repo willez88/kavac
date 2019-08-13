@@ -48,7 +48,7 @@
                                                     </small>
                                                 </span>
                                                 <div class="progress">
-                                                    <div class="progress-bar level-{{ $level }}" 
+                                                    <div class="progress-bar level-{{ $level }}"
                                                          style="width: {!! $item['percent'] !!}%;"></div>
                                                 </div>
                                             </div>
@@ -67,7 +67,7 @@
                                     <thead>
                                         <tr>
                                             @foreach($headers as $key => $header)
-                                                <th scope="col" 
+                                                <th scope="col"
                                                     class="{{ $key == 'date' ? 'text-left' : 'text-center' }}">
                                                     @if ($key == 'date')
                                                         <span class="badge badge-info">{{ $header }}</span>
@@ -102,7 +102,7 @@
                                                             @else
                                                                 <a href="{{ route('log-viewer::logs.filter', [
                                                                     $date, $key
-                                                                ]) }}" class="text-level-{{ $key }}" 
+                                                                ]) }}" class="text-level-{{ $key }}"
                                                                 title="{{ $value }} incidencias registradas el {{ $titleDate->format('d-m-Y') }}" data-toggle="tooltip" data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
                                                                     {{ $value }}
                                                                 </a>
@@ -110,18 +110,18 @@
                                                         </td>
                                                     @endforeach
                                                     <td class="text-right">
-                                                        <a href="{{ route('log-viewer::logs.show', [$date]) }}" 
-                                                           class="btn btn-xs btn-info btn-icon btn-action" 
-                                                           title="Ver incidencias registradas en esta fecha" 
+                                                        <a href="{{ route('log-viewer::logs.show', [$date]) }}"
+                                                           class="btn btn-xs btn-info btn-icon btn-action"
+                                                           title="Ver incidencias registradas en esta fecha"
                                                            data-toggle="tooltip" data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
                                                             <i class="fa fa-search"></i>
                                                         </a>
-                                                        <a href="{{ route('log-viewer::logs.download', [$date]) }}" class="btn btn-xs btn-success btn-icon btn-action" title="Descargar archivo de log" data-toggle="tooltip" 
+                                                        <a href="{{ route('log-viewer::logs.download', [$date]) }}" class="btn btn-xs btn-success btn-icon btn-action" title="Descargar archivo de log" data-toggle="tooltip"
                                                         data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
                                                             <i class="fa fa-download"></i>
                                                         </a>
-                                                        <a href="#delete-log-modal" 
-                                                           class="btn btn-xs btn-danger btn-icon btn-action" 
+                                                        <a href="#delete-log-modal"
+                                                           class="btn btn-xs btn-danger btn-icon btn-action"
                                                            data-log-date="{{ (!empty($titleDate)) ? $titleDate->format('d-m-Y'):$date }}" title="Eliminar este registro" data-toggle="tooltip" data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>

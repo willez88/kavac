@@ -24,7 +24,7 @@ class CreateParishesTable extends Migration
                       ->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->unique(array('municipality_id', 'name'))->comment('Clave única para el registro');
+                $table->unique(['municipality_id', 'name'])->comment('Clave única para el registro');
             });
         }
     }

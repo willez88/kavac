@@ -14,9 +14,9 @@
             </a>
         </div>
 	</div>
-	<button class="navbar-toggler navbar-toggler-right" type="button" 
-				data-toggle="collapse" data-target="#app-navbar-info" 
-				aria-controls="navbarSupportedContent" aria-expanded="false" 
+	<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#app-navbar-info"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
 				aria-label="Toggle navigation">
 			<i class="fa fa-navicon" style="position:relative;top:-5px;"></i>
 		</button>
@@ -32,7 +32,7 @@
 				</div>
 			@endif
 		</div>
-		<div class="collapse navbar-collapse justify-content-end" 
+		<div class="collapse navbar-collapse justify-content-end"
 			 id="app-navbar-info" data-nav-image="{{ asset('images/blurred-image.jpg') }}">
 
 			<ul class="navbar-nav">
@@ -53,22 +53,22 @@
 					</a>
 				</li>
 				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_language" 
+					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_language"
 					   data-toggle="dropdown" aria-expanded="false" title="Idioma">
 					   	<i class="fa fa-flag-o" aria-hidden="true"></i>
 					</a>
-					<div class="dropdown-menu dropdown-menu-right" 
+					<div class="dropdown-menu dropdown-menu-right"
 						 aria-labelledby="list_options_language">
 						<a class="dropdown-header">IDIOMAS</a>
-						<a class="dropdown-item" href="#" title="Español" 
+						<a class="dropdown-item" href="#" title="Español"
 						   data-toggle="tooltip">Español</a>
-						<a class="dropdown-item" href="#" title="Inglés" 
+						<a class="dropdown-item" href="#" title="Inglés"
 						   data-toggle="tooltip">Inglés</a>
 					</div>
 				</li>
 				{{-- <li class="nav-item">
-					<a class="nav-link btn btn-sm btn-info" href="#" 
-					   title="Configuración del Sistema, solo administradores" 
+					<a class="nav-link btn btn-sm btn-info" href="#"
+					   title="Configuración del Sistema, solo administradores"
 					   data-toggle="tooltip">
 						<i class="now-ui-icons ui-2_settings-90"></i>
 					</a>
@@ -89,36 +89,36 @@
 				@endif
 				@if(Auth::user()->hasRole('admin'))
 					<li class="nav-item">
-						<a class="nav-link btn btn-sm btn-info" 
-						   href="{{ route('backup.index') }}" 
-						   title="Respaldos de Base de Datos" 
+						<a class="nav-link btn btn-sm btn-info"
+						   href="{{ route('backup.index') }}"
+						   title="Respaldos de Base de Datos"
 						   data-toggle="tooltip">
 							<i class="fa fa-database"></i>
 						</a>
 					</li>
 				@endif
 				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_user" 
+					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_user"
 					   data-toggle="dropdown" aria-expanded="false" title="Mi configuración y datos">
 					   	<i class="now-ui-icons users_single-02" aria-hidden="true"></i>
 					</a>
-					<div class="dropdown-menu dropdown-menu-right" 
+					<div class="dropdown-menu dropdown-menu-right"
 						 aria-labelledby="list_options_user">
 						<a class="dropdown-header">USUARIO</a>
-						<a class="dropdown-item" href="#" title="Establecer configuración personalizada" 
+						<a class="dropdown-item" href="#" title="Establecer configuración personalizada"
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-gear-a"></i>Configurar Cuenta</a>
-						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}" 
-						   title="Actualizar datos de perfil del usuario" 
+						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}"
+						   title="Actualizar datos de perfil del usuario"
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-person"></i>Mi Perfil</a>
-						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}#activity" title="Ver actividad en la aplicación" 
+						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}#activity" title="Ver actividad en la aplicación"
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-ios-star"></i>Registro de Actividad</a>
-						<a class="dropdown-item" href="#" title="Bloquear pantalla de la aplicación" 
+						<a class="dropdown-item" href="#" title="Bloquear pantalla de la aplicación"
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-android-lock"></i>Bloquear Pantalla</a>
-						<a class="dropdown-item" href="#" title="Ayuda / Manual de usuario" 
+						<a class="dropdown-item" href="#" title="Ayuda / Manual de usuario"
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-help-circled"></i>Ayuda</a>
 						<div class="divider"></div>
@@ -126,12 +126,12 @@
                                                 >
                                                 Logout
                                             </a>
-						<a class="dropdown-item" href="{{ route('logout') }}" title="Salir de la aplicación" 
-						   data-toggle="tooltip" data-placement="left" 
+						<a class="dropdown-item" href="{{ route('logout') }}" title="Salir de la aplicación"
+						   data-toggle="tooltip" data-placement="left"
 						   onclick="event.preventDefault();document.getElementById('logout-form').submit();">
 							<i class="ion-log-out"></i>Salir
 						</a>
-						<form id="logout-form" action="{{ route('logout') }}" method="POST" 
+						<form id="logout-form" action="{{ route('logout') }}" method="POST"
 							  style="display: none;">
 							{{ csrf_field() }}
 						</form>

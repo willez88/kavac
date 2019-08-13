@@ -11,11 +11,13 @@ use App\Models\City;
 /**
  * @class CitiesTableSeeder
  * @brief Información por defecto para Ciudades
- * 
+ *
  * Gestiona la información por defecto a registrar inicialmente para las Ciudades
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CitiesTableSeeder extends Seeder
 {
@@ -34,25 +36,25 @@ class CitiesTableSeeder extends Seeder
         $permissions = [
             [
                 'name' => 'Crear Ciudades', 'slug' => 'city.create',
-                'description' => 'Acceso al registro de ciudades', 
+                'description' => 'Acceso al registro de ciudades',
                 'model' => City::class, 'model_prefix' => '0general',
                 'slug_alt' => 'ciudad.crear', 'short_description' => 'agregar ciudad'
             ],
             [
                 'name' => 'Editar Ciudades', 'slug' => 'city.edit',
-                'description' => 'Acceso para editar ciudades', 
+                'description' => 'Acceso para editar ciudades',
                 'model' => City::class, 'model_prefix' => '0general',
                 'slug_alt' => 'ciudad.editar', 'short_description' => 'editar ciudad'
             ],
             [
                 'name' => 'Eliminar Ciudades', 'slug' => 'city.delete',
-                'description' => 'Acceso para eliminar ciudades', 
+                'description' => 'Acceso para eliminar ciudades',
                 'model' => City::class, 'model_prefix' => '0general',
                 'slug_alt' => 'ciudad.eliminar', 'short_description' => 'eliminar ciudad'
             ],
             [
                 'name' => 'Ver Ciudades', 'slug' => 'city.list',
-                'description' => 'Acceso para ver ciudades', 
+                'description' => 'Acceso para ver ciudades',
                 'model' => City::class, 'model_prefix' => '0general',
                 'slug_alt' => 'ciudad.ver', 'short_description' => 'ver ciudades'
             ],
@@ -60,13 +62,13 @@ class CitiesTableSeeder extends Seeder
 
         /** @var array Ciudades asociadas a un Estado */
         $estates_cities = [
-        	"01" => [
-        		"Caracas"
-        	],
-        	"02" => [
-        		"Puerto Ayacucho"
-        	],
-        	"03" => [
+            "01" => [
+                "Caracas"
+            ],
+            "02" => [
+                "Puerto Ayacucho"
+            ],
+            "03" => [
                 "Barcelona",
                 "Puerto La Cruz",
                 "El Tigre",
@@ -84,7 +86,7 @@ class CitiesTableSeeder extends Seeder
                 "Soledad",
                 "Valle de Guanape"
             ],
-        	"04" => [
+            "04" => [
                 "San Fernando de Apure",
                 "Guasdualito",
                 "Achaguas",
@@ -95,7 +97,7 @@ class CitiesTableSeeder extends Seeder
                 "Guasdualito",
                 "Mantecal"
             ],
-        	"05" => [
+            "05" => [
                 "Maracay",
                 "Turmero",
                 "La Victoria",
@@ -117,17 +119,17 @@ class CitiesTableSeeder extends Seeder
                 "Santa Cruz",
                 "Zuata"
             ],
-        	"06" => [
-        		"Barinas",
-	        	"Barinitas",
-	        	"Barrancas",
-	        	"Ciudad Bolivia",
-	        	"Punta de Piedra",
-	        	"Sabaneta",
-	        	"Santa Bárbara",
-	        	"Socopó"
-	        ],
-        	"07" => [
+            "06" => [
+                "Barinas",
+                "Barinitas",
+                "Barrancas",
+                "Ciudad Bolivia",
+                "Punta de Piedra",
+                "Sabaneta",
+                "Santa Bárbara",
+                "Socopó"
+            ],
+            "07" => [
                 "Ciudad Guayana",
                 "Ciudad Bolívar",
                 "Upata",
@@ -138,7 +140,7 @@ class CitiesTableSeeder extends Seeder
                 "Tumeremo",
                 "Ciudad Piar"
             ],
-        	"08" => [
+            "08" => [
                 "Valencia",
                 "Puerto Cabello",
                 "Tocuyito",
@@ -155,17 +157,17 @@ class CitiesTableSeeder extends Seeder
                 "San Joaquín",
                 "Tacarigua"
             ],
-        	"09" => [
-        		"San Carlos",
-	        	"Tinaquillo",
-	        	"El Baúl",
-	        	"Las Vegas",
-	        	"Tinaco"
-	        ],
-        	"10" => [
-        		"Tucupita"
-        	],
-        	"11" => [
+            "09" => [
+                "San Carlos",
+                "Tinaquillo",
+                "El Baúl",
+                "Las Vegas",
+                "Tinaco"
+            ],
+            "10" => [
+                "Tucupita"
+            ],
+            "11" => [
                 "Punto Fijo",
                 "Coro",
                 "Carirubana",
@@ -182,7 +184,7 @@ class CitiesTableSeeder extends Seeder
                 "Tucacas",
                 "Chichiriviche"
             ],
-        	"12" => [
+            "12" => [
                 "Calabozo",
                 "San Juan de Los Morros",
                 "Valle de la Pascua",
@@ -196,7 +198,7 @@ class CitiesTableSeeder extends Seeder
                 "Santa María de Ipire",
                 "Tucupido"
             ],
-        	"13" => [
+            "13" => [
                 "Barquisimeto",
                 "Carora",
                 "Cabudare",
@@ -210,7 +212,7 @@ class CitiesTableSeeder extends Seeder
                 "Sarare",
                 "Siquisique"
             ],
-        	"14" => [
+            "14" => [
                 "Mérida",
                 "El Vigía",
                 "Ejido",
@@ -227,25 +229,25 @@ class CitiesTableSeeder extends Seeder
                 "Timotes",
                 "Tucaní"
             ],
-        	"15" => [
-        		"Caracas",
-        		"Guarenas",
-        		"Los Teques",
-        		"Guatire",
-        		"Santa Teresa del Tuy",
-        		"Ocumare del Tuy",
-        		"Cúa",
-        		"Santa Lucía",
-        		"Charallave",
-        		"Baruta",
-        		"Petare",
-        		"Araira",
-        		"Carrizal",
-        		"Caucagua",
-        		"Caucaguita",
-        		"Chacao",
-        		"Cúpira",
-        		"El Cafetal",
+            "15" => [
+                "Caracas",
+                "Guarenas",
+                "Los Teques",
+                "Guatire",
+                "Santa Teresa del Tuy",
+                "Ocumare del Tuy",
+                "Cúa",
+                "Santa Lucía",
+                "Charallave",
+                "Baruta",
+                "Petare",
+                "Araira",
+                "Carrizal",
+                "Caucagua",
+                "Caucaguita",
+                "Chacao",
+                "Cúpira",
+                "El Cafetal",
                 "El Hatillo",
                 "El Manguito",
                 "El Rosario de Soapire",
@@ -263,8 +265,8 @@ class CitiesTableSeeder extends Seeder
                 "San Francisco de Yare",
                 "San José de Barlovento",
                 "Santa Lucia"
-        	],
-        	"16" => [
+            ],
+            "16" => [
                 "Maturín",
                 "Caripito",
                 "Barrancas del Orinoco",
@@ -277,7 +279,7 @@ class CitiesTableSeeder extends Seeder
                 "San Antonio de Capayacuar",
                 "Temblador"
             ],
-        	"17" => [
+            "17" => [
                 "Porlamar",
                 "La Asunción",
                 "Altagracia",
@@ -294,7 +296,7 @@ class CitiesTableSeeder extends Seeder
                 "San Juan Bautista",
                 "Villa Rosa"
             ],
-        	"18" => [
+            "18" => [
                 "Guanare",
                 "Acarigua",
                 "Araure",
@@ -307,7 +309,7 @@ class CitiesTableSeeder extends Seeder
                 "San Rafael de Onoto",
                 "Villa Bruzual"
             ],
-        	"19" => [
+            "19" => [
                 "Cumaná",
                 "Carúpano",
                 "Araya",
@@ -325,7 +327,7 @@ class CitiesTableSeeder extends Seeder
                 "Tunapuy",
                 "Yaguaraparo"
             ],
-        	"20" => [
+            "20" => [
                 "San Cristóbal",
                 "Táriba",
                 "Abejales",
@@ -348,7 +350,7 @@ class CitiesTableSeeder extends Seeder
                 "Santa Ana del Táchira",
                 "Ureña"
             ],
-        	"21" => [
+            "21" => [
                 "Valera",
                 "Trujillo",
                 "Betijoque",
@@ -366,7 +368,7 @@ class CitiesTableSeeder extends Seeder
                 "Sabana Grande",
                 "Tres Esquinas"
             ],
-        	"22" => [
+            "22" => [
                 "San Felipe",
                 "Yaritagua",
                 "Albarico",
@@ -380,14 +382,14 @@ class CitiesTableSeeder extends Seeder
                 "San Pablo",
                 "Urachiche"
             ],
-        	"23" => [
-        		"Maracaibo",
-        		"Cabimas",
-        		"Ciudad Ojeda",
-        		"Santa Bárbara del Zulia",
-        		"Machiques",
-        		"La Concepción",
-        		"Los Puertos de Altagracia",
+            "23" => [
+                "Maracaibo",
+                "Cabimas",
+                "Ciudad Ojeda",
+                "Santa Bárbara del Zulia",
+                "Machiques",
+                "La Concepción",
+                "Los Puertos de Altagracia",
                 "Bachaquero",
                 "Caja Seca",
                 "Carrasquero",
@@ -412,25 +414,25 @@ class CitiesTableSeeder extends Seeder
                 "Santa Rita",
                 "Sinamaica",
                 "Tía Juana"
-        	],
-        	"24" => [
-        		"La Guaira",
-	        	"Caraballeda",
-	        	"Catia La Mar",
-	        	"Macuto",
-	        	"Maiquetía",
-	        	"Carayaca",
-	        	"Naiguatá"
-	        ]
+            ],
+            "24" => [
+                "La Guaira",
+                "Caraballeda",
+                "Catia La Mar",
+                "Macuto",
+                "Maiquetía",
+                "Carayaca",
+                "Naiguatá"
+            ]
         ];
-        
-        DB::transaction(function() use ($adminRole, $permissions, $estates_cities) {
+
+        DB::transaction(function () use ($adminRole, $permissions, $estates_cities) {
             foreach ($estates_cities as $code_estate => $cities) {
                 /** @var object Almacena información del Estado */
-            	$edo = Estate::where('code', $code_estate)->first();
-            	foreach ($cities as $city) {
-        			City::updateOrCreate(['name' => $city, 'estate_id' => $edo->id],[]);
-            	}
+                $edo = Estate::where('code', $code_estate)->first();
+                foreach ($cities as $city) {
+                    City::updateOrCreate(['name' => $city, 'estate_id' => $edo->id], []);
+                }
             }
 
             foreach ($permissions as $permission) {
@@ -447,7 +449,5 @@ class CitiesTableSeeder extends Seeder
                 }
             }
         });
-
-
     }
 }

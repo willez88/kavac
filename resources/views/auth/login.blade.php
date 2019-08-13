@@ -50,8 +50,8 @@
                         <div class="captcha-addon">{!! Captcha::img(); !!}</div>
                     </div>
                     <div class="col-md-4 text-left">
-                        <i class="now-ui-icons arrows-1_refresh-69 cursor-pointer vertical-middle" 
-                           onclick="refresh_captcha()" data-toggle="tooltip" 
+                        <i class="now-ui-icons arrows-1_refresh-69 cursor-pointer vertical-middle"
+                           onclick="refresh_captcha()" data-toggle="tooltip"
                            title="Presione este botón para generar una nueva imagen de captcha"></i>
                     </div>
                 </div>
@@ -77,15 +77,15 @@
         <div class="footer text-center">
             <label>
                 <span style="margin-right:10px">Recuerdame</span>
-                <input type="checkbox" name="checkbox" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO" 
+                <input type="checkbox" name="checkbox" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"
                        data-toggle="tooltip" title="Seleccione si desea que el sistema recuerde sus datos" />
             </label>
-            
-            <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" 
+
+            <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip"
                     title="Presione el botón para validar los datos y acceder al sistema">
                 Acceso
             </button>
-            <a class="btn btn-link" href="{{ route('password.request') }}" data-toggle="tooltip" 
+            <a class="btn btn-link" href="{{ route('password.request') }}" data-toggle="tooltip"
                title="¿Olvido su contraseña?, presione sobre el enlace para modificarla">
                 ¿Olvidaste la contraseña?
             </a>

@@ -14,7 +14,7 @@
 						<div class="form-group">
 							<label for="">Logotipo Institucional</label>
 							{!! Form::open([
-                                'id' => 'formImgLogo', 'method' => 'POST', 'route' => 'upload-image.store', 
+                                'id' => 'formImgLogo', 'method' => 'POST', 'route' => 'upload-image.store',
                                 'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
                             ]) !!}
                                 @php
@@ -22,17 +22,17 @@
                                 		isset($model_institution) && !is_null($model_institution->logo)
                                 	) ? $model_institution->logo->url : null;
                                 @endphp
-                                <img src="{{ asset($img_logo ?? 'images/no-image2.png') }}" 
-                                     alt="Logotipo institucional" 
-                                     class="img-fluid institution-logo" style="cursor:pointer" 
-                                     title="Click para cargar o modificar la imagen" data-toggle="tooltip" 
+                                <img src="{{ asset($img_logo ?? 'images/no-image2.png') }}"
+                                     alt="Logotipo institucional"
+                                     class="img-fluid institution-logo" style="cursor:pointer"
+                                     title="Click para cargar o modificar la imagen" data-toggle="tooltip"
                                      onclick="$('input[name=logo_image]').click()">
-                                <input type="file" id="logo_image" name="logo_image" style="display:none" 
+                                <input type="file" id="logo_image" name="logo_image" style="display:none"
                                        onchange="uploadSingleImage('formImgLogo', 'logo_image', 'logo_id', 'institution-logo')">
                                 <div class="row row-delete-img">
                                 	<div class="col-12">
                                 		<div class="institution-logo text-center">
-                                			<a class="img-delete" href="javascript:void(0)" 
+                                			<a class="img-delete" href="javascript:void(0)"
                                 			   onclick="deleteImage($(this), $('#logo_id').val(), '2')">Eliminar</a>
                                 		</div>
                                 	</div>
@@ -44,7 +44,7 @@
 						<div class="form-group">
 							<label for="">Banner Institucional</label>
 							{!! Form::open([
-                                'id' => 'formImgBanner', 'method' => 'POST', 'route' => 'upload-image.store', 
+                                'id' => 'formImgBanner', 'method' => 'POST', 'route' => 'upload-image.store',
                                 'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
                             ]) !!}
                                 @php
@@ -52,17 +52,17 @@
                                 		isset($model_institution) && !is_null($model_institution->banner)
                                 	) ? $model_institution->banner->url : null;
                                 @endphp
-                                <img src="{{ asset($img_banner ?? 'images/no-image3.png') }}" 
-                                     alt="Banner institucional" 
-                                     class="img-fluid institution-banner" style="cursor:pointer" 
-                                     title="Click para cargar o modificar la imagen" data-toggle="tooltip" 
+                                <img src="{{ asset($img_banner ?? 'images/no-image3.png') }}"
+                                     alt="Banner institucional"
+                                     class="img-fluid institution-banner" style="cursor:pointer"
+                                     title="Click para cargar o modificar la imagen" data-toggle="tooltip"
                                      onclick="$('input[name=banner_image]').click()">
-                                <input type="file" id="banner_image" name="banner_image" style="display:none" 
+                                <input type="file" id="banner_image" name="banner_image" style="display:none"
                                        onchange="uploadSingleImage('formImgBanner', 'banner_image', 'banner_id', 'institution-banner')">
                                 <div class="row row-delete-img">
                                 	<div class="col-12">
                                 		<div class="text-center">
-                                			<a class="img-delete" href="javascript:void(0)" 
+                                			<a class="img-delete" href="javascript:void(0)"
                                 			   onclick="deleteImage($(this), $('#banner_id').val(), '3')">
                                 				Eliminar
                                 			</a>
@@ -84,14 +84,14 @@
 					{!! Form::hidden('institution_id', (isset($model_institution))?$model_institution->id:'', [
 						'readonly' => 'readonly', 'id' => 'institution_id'
 					]) !!}
-					
+
 					<hr>
 					<h6 class="md-title">Datos Básicos:</h6>
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								{!! Form::label('onapre_code', 'Código ONAPRE', []) !!}
-								{!! Form::text('onapre_code', 
+								{!! Form::text('onapre_code',
 									(isset($model_institution))?$model_institution->onapre_code:old('onapre_code'), [
 										'class' => 'form-control input-sm', 'id' => 'onapre_code',
 										'data-toggle' => 'tooltip',
@@ -103,7 +103,7 @@
 						<div class="col-md-4">
 							<div class="form-group{{ $errors->has('rif') ? ' has-error' : '' }} is-required">
 								{!! Form::label('rif', 'R.I.F.', []) !!}
-								{!! Form::text('rif', 
+								{!! Form::text('rif',
 									(isset($model_institution))?$model_institution->rif:old('rif'), [
 										'class' => 'form-control input-sm', 'id' => 'rif',
 										'data-toggle' => 'tooltip',
@@ -115,7 +115,7 @@
 						<div class="col-md-4">
 							<div class="form-group is-required{{ $errors->has('name') ? ' has-error' : '' }}">
 								{!! Form::label('name', 'Nombre', []) !!}
-								{!! Form::text('name', 
+								{!! Form::text('name',
 									(isset($model_institution))?$model_institution->name:old('name'), [
 										'class' => 'form-control input-sm', 'id' => 'name',
 										'data-toggle' => 'tooltip',
@@ -129,7 +129,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('acronym', 'Acrónimo (Nombre Corto)', []) !!}
-								{!! Form::text('acronym', 
+								{!! Form::text('acronym',
 									(isset($model_institution))?$model_institution->acronym:old('acronym'), [
 										'class' => 'form-control input-sm', 'id' => 'acronym',
 										'data-toggle' => 'tooltip',
@@ -141,7 +141,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('business_name', 'Razón Social', []) !!}
-								{!! Form::text('business_name', 
+								{!! Form::text('business_name',
 									(isset($model_institution))?$model_institution->business_name:old('business_name'), [
 										'class' => 'form-control input-sm', 'id' => 'business_name',
 										'data-toggle' => 'tooltip',
@@ -209,7 +209,7 @@
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								{!! Form::label('postal_code', 'Código Postal', []) !!}
-								{!! Form::text('postal_code', 
+								{!! Form::text('postal_code',
 									(isset($model_institution))?$model_institution->postal_code:old('postal_code'), [
 										'class' => 'form-control input-sm', 'id' => 'postal_code',
 										'data-toggle' => 'tooltip',
@@ -221,7 +221,7 @@
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								{!! Form::label('start_operations_date', 'Fecha de inicio de operaciones', []) !!}
-								{!! Form::date('start_operations_date', 
+								{!! Form::date('start_operations_date',
 									(isset($model_institution))?$model_institution->start_operations_date:old('start_operations_date'), [
 										'class' => 'form-control input-sm', 'id' => 'start_operations_date',
 										'data-toggle' => 'tooltip',
@@ -236,7 +236,7 @@
 							<div class="form-group">
 								{!! Form::label('organism_adscript_id', 'Adscrito a', []) !!}
 								{!! Form::select(
-									'organism_adscript_id', 
+									'organism_adscript_id',
 									(isset($organism_adscripts))?$organism_adscripts:[], null, [
 										'class' => 'form-control select2', 'id' => 'organism_adscript_id'
 									]
@@ -274,7 +274,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('web', 'Sitio Web', []) !!}
-								{!! Form::text('web', 
+								{!! Form::text('web',
 									(isset($model_institution))?$model_institution->web:old('web'), [
 										'class' => 'form-control input-sm', 'id' => 'web',
 										'data-toggle' => 'tooltip',
@@ -331,7 +331,7 @@
 							<div class="form-group">
 								{!! Form::label('legal_base', 'Base Legal', []) !!}
 								{!! Form::textarea('legal_base', null, [
-									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip', 
+									'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
 									'title' => 'Indique la base legal constitutiva de la institución',
 									'id' => 'legal_base'
 								]) !!}
@@ -398,7 +398,7 @@
 								@include('buttons.new', ['route' => 'javascript:void(0)', 'btnClass' => 'btn-new-institution'])
 							</div>
 						</div>
-						
+
 						<table class="table table-hover table-striped dt-responsive nowrap datatable">
 							<thead>
 								<tr>
@@ -414,13 +414,13 @@
 									<tr>
 										<td class="text-center">
 											@if (!is_null($institution->logo))
-												<img src="{{ url($institution->logo->url) }}" 
-													 alt="logo" class="img-fluid" 
+												<img src="{{ url($institution->logo->url) }}"
+													 alt="logo" class="img-fluid"
 													 style="max-height:50px;">
 											@endif
 										</td>
 										<td>
-											<a href="javascript:void(0)" 
+											<a href="javascript:void(0)"
 											   onclick="loadInstitution('{{ $institution->id }}')">
 												{{ $institution->rif }}
 											</a>
@@ -428,7 +428,7 @@
 										<td>{{ $institution->onapre_code }}</td>
 										<td>
 											@if ($institution->acronym)
-												{{ $institution->acronym }} - 
+												{{ $institution->acronym }} -
 											@endif
 											{{ $institution->name }}
 										</td>
@@ -462,8 +462,8 @@
 				], function(index, element_id) {
 					CkEditor.create(document.querySelector(`#${element_id}`), {
 			            toolbar: [
-			                'heading', '|', 
-			                'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|', 
+			                'heading', '|',
+			                'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
 			                'insertTable'
 			            ],
 			            language: 'es',
@@ -479,8 +479,8 @@
 					var form = $("#card_config_institution form");
 					var clearEl = {
 						val: [
-							'input[type=text]', 'input[type=date]', 
-							'.select2:not(select[name^=DataTable])', 'textarea', 
+							'input[type=text]', 'input[type=date]',
+							'.select2:not(select[name^=DataTable])', 'textarea',
 							"#logo_id", "#banner_id"
 						],
 						attr: [

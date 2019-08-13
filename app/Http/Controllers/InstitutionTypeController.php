@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class InstitutionTypeController
  * @brief Gestiona información de los tipos de Instituciones
- * 
+ *
  * Controlador para gestionar los tipos de Instituciones
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class InstitutionTypeController extends Controller
 {
@@ -29,7 +31,7 @@ class InstitutionTypeController extends Controller
         $this->middleware('permission:institution.type.delete', ['only' => 'destroy']);
         $this->middleware('permission:institution.type.list', ['only' => 'index']);
     }
-    
+
     /**
      * Muesta todos los registros de los tipos de institución
      *
@@ -113,11 +115,11 @@ class InstitutionTypeController extends Controller
             'name' => 'required|max:100',
             'acronym' => 'max:4'
         ]);
- 
+
         $institutionType->name = $request->name;
         $institutionType->acronym = ($request->acronym)?$request->acronym:null;
         $institutionType->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

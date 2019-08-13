@@ -20,6 +20,7 @@
         "nwidart/laravel-modules": "^5.0",
         "owen-it/laravel-auditing": "~9.2",
         "spatie/laravel-backup": "~6.2",
+        "stechstudio/laravel-php-cs-fixer": "^1.2",
         "venturecraft/revisionable": "~1.30"
     },
     "require-dev": {

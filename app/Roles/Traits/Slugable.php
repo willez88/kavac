@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 /**
  * Trait para la gestión de slugs
- * 
+ *
  * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
  */
 trait Slugable

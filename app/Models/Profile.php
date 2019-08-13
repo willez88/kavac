@@ -37,7 +37,7 @@ class Profile extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-    	'first_name', 'last_name', 'image_id', 'user_id'
+        'first_name', 'last_name', 'image_id', 'user_id'
     ];
 
     /**
@@ -48,7 +48,7 @@ class Profile extends Model implements Auditable
      */
     public function user()
     {
-    	return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     /**

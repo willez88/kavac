@@ -9,11 +9,13 @@ use Illuminate\Http\Request;
 /**
  * @class TaxController
  * @brief Gestiona información de Impuestos
- * 
+ *
  * Controlador para gestionar Impuestos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class TaxController extends Controller
 {
@@ -128,7 +130,7 @@ class TaxController extends Controller
         $tax->affect_tax = ($request->affect_tax);
         $tax->active = ($request->active);
         $tax->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

@@ -11,11 +11,13 @@ use Captcha;
 /**
  * @class LoginController
  * @brief Gestiona información de autenticación
- * 
+ *
  * Controlador para gestionar la autenticación de usuarios
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class LoginController extends Controller
 {

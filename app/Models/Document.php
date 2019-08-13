@@ -36,7 +36,7 @@ class Document extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'file', 'url', 'signs', 'archive_number', 'physical_support', 'digital_support_original', 
+        'code', 'file', 'url', 'signs', 'archive_number', 'physical_support', 'digital_support_original',
         'digital_support_signed'
     ];
 }

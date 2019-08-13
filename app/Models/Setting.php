@@ -16,11 +16,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class Setting
  * @brief Datos de Configuraciones
- * 
+ *
  * Gestiona el modelo de datos para las configuraciones generales del sistema
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Setting extends Model implements Auditable
 {
@@ -45,7 +47,7 @@ class Setting extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-    	'support', 'chat', 'notify', 'report_banner', 'multi_institution', 
+        'support', 'chat', 'notify', 'report_banner', 'multi_institution',
         'digital_sign', 'active', 'multi_warehouse'
     ];
 }

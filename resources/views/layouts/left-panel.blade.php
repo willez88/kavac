@@ -5,8 +5,8 @@
                 $img_profile = ($prf && $prf->image_id) ? $prf->image->url : null;
             @endphp
             <a class="float-left profile-thumb" href="{{ url('users') . "/" . Auth::user()->id }}">
-                <img class="img-circle img-profile-mini" 
-                     src="{{ asset($img_profile ?? 'images/default-avatar.png') }}" 
+                <img class="img-circle img-profile-mini"
+                     src="{{ asset($img_profile ?? 'images/default-avatar.png') }}"
                      alt="{{ auth()->user()->name }}">
             </a>
             <div class="media-body">
@@ -20,7 +20,7 @@
 		<ul>
             {{-- Acceso al panel de control del usuario --}}
 			<li class="{!! set_active_menu('index') !!}">
-                <a href="{{ route('index') }}" title="Panel de control del usuario" 
+                <a href="{{ route('index') }}" title="Panel de control del usuario"
                    data-toggle="tooltip" data-placement="right">
                     <i class="ion-ios-speedometer-outline"></i><span>Panel de control</span>
                 </a>
@@ -31,24 +31,24 @@
                     <a href="#" title="Gestión de configuración" data-toggle="tooltip" data-placement="right">
                         <i class="ion-settings"></i><span>Configuración</span>
                     </a>
-                    <ul class="submenu" 
+                    <ul class="submenu"
                         @if (Route::current()->getName()=='settings.index' || Route::current()->getName()=='access.settings')
                             style="display:block;"
                         @endif>
                         <li class="{!! set_active_menu('settings.index') !!}">
-                            <a href="{{ route('settings.index') }}" title="Configuración general de la aplicación" 
+                            <a href="{{ route('settings.index') }}" title="Configuración general de la aplicación"
                                data-toggle="tooltip" data-placement="right">
                                 General
                             </a>
                         </li>
                         <li class="{!! set_active_menu('access.settings') !!}">
-                            <a href="{{ route('access.settings') }}" title="Gestión de usuarios, roles y permisos" 
+                            <a href="{{ route('access.settings') }}" title="Gestión de usuarios, roles y permisos"
                                data-toggle="tooltip" data-placement="right">
                                 Acceso
                             </a>
                         </li>
                         <li class="{!! set_active_menu('module.list') !!}">
-                            <a href="{{ route('module.list') }}" title="Gestión de módulos del sistema" 
+                            <a href="{{ route('module.list') }}" title="Gestión de módulos del sistema"
                                data-toggle="tooltip" data-placement="right">
                                 Módulos
                             </a>
@@ -56,7 +56,7 @@
                     </ul>
                 </li>
             @endrole
-            
+
             @if (count(App\Models\Institution::where('active', true)->get()) > 0)
                 {{-- Gestión de beneficiarios --}}
                 {{-- <li>

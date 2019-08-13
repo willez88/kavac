@@ -22,8 +22,8 @@
 					<institution-sectors></institution-sectors>
 					<departments></departments>
 					{{-- <div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de clasificador de bienes" 
+						<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+						   href="#" title="Registros de clasificador de bienes"
 						   data-toggle="tooltip">
 							<i class="icofont icofont-read-book ico-3x"></i>
 							<span>Clasificador<br>Bienes</span>
@@ -41,8 +41,8 @@
 					<tax-units></tax-units>
 					<measurement-units></measurement-units>
 					<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-						   href="#" title="Registros de Deducciones o Retenciones" 
+						<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+						   href="#" title="Registros de Deducciones o Retenciones"
 						   data-toggle="tooltip">
 							<i class="icofont icofont-scroll-long-down ico-3x"></i>
 							<span>Deducciones</span>

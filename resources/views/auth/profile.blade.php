@@ -8,18 +8,18 @@
                     <div class="row">
                         <div class="col-12 text-center">
                             {!! Form::open([
-                                'id' => 'formImgProfile', 'method' => 'POST', 'route' => 'upload-image.store', 
+                                'id' => 'formImgProfile', 'method' => 'POST', 'route' => 'upload-image.store',
                                 'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
                             ]) !!}
                                 @php
                                     $prf = auth()->user()->profile;
                                     $img_profile = ($prf && $prf->image_id) ? $prf->image->url : null;
                                 @endphp
-                                <img src="{{ asset($img_profile ?? 'images/default-avatar.png') }}" 
-                                     alt="{{ $model->name ?? auth()->user()->name }}" 
-                                     class="img-profile" style="cursor:pointer" title="Click para modificar imagen de perfil" 
+                                <img src="{{ asset($img_profile ?? 'images/default-avatar.png') }}"
+                                     alt="{{ $model->name ?? auth()->user()->name }}"
+                                     class="img-profile" style="cursor:pointer" title="Click para modificar imagen de perfil"
                                      data-toggle="tooltip" onclick="$('input[name=profile_image]').click()">
-                                <input type="file" id="profile_image" name="profile_image" style="display:none" 
+                                <input type="file" id="profile_image" name="profile_image" style="display:none"
                                        onchange="uploadProfileImage()">
                             {!! Form::close() !!}
                         </div>
@@ -73,11 +73,11 @@
                                                     <i class="now-ui-icons users_single-02"></i>
                                                 </span>
                                                 {!! Form::text('name', $model->name, [
-                                                    'class' => 'form-control input-sm', 
+                                                    'class' => 'form-control input-sm',
                                                     'readonly' => 'readonly', 'id' => 'first_name',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Nombre y Apellido. Este dato solo ' . 
-                                                               'puede ser modificado por personal ' . 
+                                                    'title' => 'Nombre y Apellido. Este dato solo ' .
+                                                               'puede ser modificado por personal ' .
                                                                'autorizado.'
                                                 ]) !!}
                                             </div>
@@ -92,11 +92,11 @@
                                                     </i>
                                                 </span>
                                                 {!! Form::text('position', /*$model->position*/null, [
-                                                    'class' => 'form-control input-sm', 
+                                                    'class' => 'form-control input-sm',
                                                     'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Cargo en la institución. Este dato ' . 
-                                                               'solo puede ser modificado por ' . 
+                                                    'title' => 'Cargo en la institución. Este dato ' .
+                                                               'solo puede ser modificado por ' .
                                                                'personal autorizado.'
                                                 ]) !!}
                                             </div>
@@ -112,11 +112,11 @@
                                                     <i class="now-ui-icons ui-1_email-85"></i>
                                                 </span>
                                                 {!! Form::email('email', $model->email, [
-                                                    'class' => 'form-control input-sm', 
+                                                    'class' => 'form-control input-sm',
                                                     'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Correo electrónico. Este dato solo ' . 
-                                                               'puede ser modificado por personal ' . 
+                                                    'title' => 'Correo electrónico. Este dato solo ' .
+                                                               'puede ser modificado por personal ' .
                                                                'autorizado.'
                                                 ]) !!}
                                             </div>
@@ -132,8 +132,8 @@
                                                 {!! Form::text('username', $model->username, [
                                                     'class' => 'form-control', 'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Nombre de usuario para acceso al ' . 
-                                                               'sistema. Este dato solo puede ser ' . 
+                                                    'title' => 'Nombre de usuario para acceso al ' .
+                                                               'sistema. Este dato solo puede ser ' .
                                                                'modificado por personal autorizado.'
                                                 ]) !!}
                                             </div>
@@ -149,9 +149,9 @@
                                                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
                                                 </span>
                                                 {!! Form::password('password', [
-                                                    'class' => 'form-control input-sm', 
+                                                    'class' => 'form-control input-sm',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Introduzca la nueva contraseña de ' . 
+                                                    'title' => 'Introduzca la nueva contraseña de ' .
                                                                'acceso al sistema'
                                                 ]) !!}
                                             </div>
@@ -176,22 +176,22 @@
                                                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
                                                 </span>
                                                 {!! Form::password('password_confirmation', [
-                                                    'class' => 'form-control input-sm', 
+                                                    'class' => 'form-control input-sm',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Introduzca nuevamente la nueva ' . 
+                                                    'title' => 'Introduzca nuevamente la nueva ' .
                                                                'contraseña de acceso al sistema'
                                                 ]) !!}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
+
+
                                 <div class="form-group">
                                     <div class="col-sm-12 text-right">
                                         {!! Form::button('<i class="fa fa-save"></i>', [
                                             'class' => 'btn btn-success btn-icon btn-round', 'type' => 'submit',
-                                            'data-toggle' => 'tooltip', 'title' => 'Guardar registro', 
+                                            'data-toggle' => 'tooltip', 'title' => 'Guardar registro',
                                         ]) !!}
                                     </div>
                                 </div>
@@ -264,7 +264,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="tab-pane" id="messages" role="tabpanel">
                             <ul class="media-list msg-list">
                                 <li class="media unread">
@@ -273,7 +273,7 @@
                                         <label for="checkbox1"></label>
                                     </div>
                                     <a href="#" class="float-left">
-                                        <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}" 
+                                        <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}"
                                              alt="usuario">
                                     </a>
                                     <div class="media-body">
@@ -296,7 +296,7 @@
                                         <label for="checkbox1"></label>
                                     </div>
                                     <a href="#" class="float-left">
-                                        <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}" 
+                                        <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}"
                                              alt="usuario">
                                     </a>
                                     <div class="media-body">
@@ -319,7 +319,7 @@
                                         <label for="checkbox1"></label>
                                     </div>
                                     <a href="#" class="float-left">
-                                        <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}" 
+                                        <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}"
                                              alt="usuario">
                                     </a>
                                     <div class="media-body">
@@ -341,7 +341,7 @@
                                         <input type="checkbox" name="checkbox4" id="checkbox4" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
                                     </div>
                                     <a href="#" class="float-left">
-                                        <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}" 
+                                        <img class="media-object rounded-circle img-raised" src="{{ asset('images/default-avatar.png') }}"
                                              alt="usuario">
                                     </a>
                                     <div class="media-body">
@@ -391,8 +391,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -414,8 +414,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -437,8 +437,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -460,8 +460,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -483,8 +483,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -506,8 +506,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -529,8 +529,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -552,8 +552,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -575,8 +575,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -598,8 +598,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -621,8 +621,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -644,8 +644,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -667,8 +667,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -690,8 +690,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">
@@ -713,8 +713,8 @@
                                                         <a href="#" class="list-group-item">
                                                             <div class="media">
                                                                 <div class="float-left">
-                                                                    <img class="img-circle img-online" 
-                                                                         src="{{ asset('images/default-avatar.png') }}" 
+                                                                    <img class="img-circle img-online"
+                                                                         src="{{ asset('images/default-avatar.png') }}"
                                                                          alt="usuario">
                                                                 </div>
                                                                 <div class="media-body">

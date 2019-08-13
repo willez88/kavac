@@ -105,14 +105,14 @@
 									<div class="info-box-footer buttons">
 										<div class="row">
 											<div class="col-4 text-left">
-												<a href="" class="btn btn-sm btn-round btn-success" 
+												<a href="" class="btn btn-sm btn-round btn-success"
 												   title="Instalar módulo" data-toggle="tooltip">
 													<i class="ion ion-android-done"></i>
 												</a>
 											</div>
 											<div class="col-4"></div>
 											<div class="col-4 text-right">
-												<a href="" class="btn btn-sm btn-round btn-danger" 
+												<a href="" class="btn btn-sm btn-round btn-danger"
 												   title="Desinstalar módulo" data-toggle="tooltip">
 													<i class="ion ion-android-close"></i>
 												</a>
@@ -120,7 +120,7 @@
 										</div>
 										<span class="status installed">
 											Instalado
-										</span>										
+										</span>
 									</div>
 								</div>
 							</div>
@@ -141,14 +141,14 @@
 									<div class="info-box-footer buttons">
 										<div class="row">
 											<div class="col-4 text-left">
-												<a href="" class="btn btn-sm btn-round btn-success" 
+												<a href="" class="btn btn-sm btn-round btn-success"
 												   title="Instalar módulo" data-toggle="tooltip">
 													<i class="ion ion-android-done"></i>
 												</a>
 											</div>
 											<div class="col-4"></div>
 											<div class="col-4 text-right">
-												<a href="" class="btn btn-sm btn-round btn-danger" 
+												<a href="" class="btn btn-sm btn-round btn-danger"
 												   title="Desinstalar módulo" data-toggle="tooltip">
 													<i class="ion ion-android-close"></i>
 												</a>
@@ -156,7 +156,7 @@
 										</div>
 										<span class="status uninstalled">
 											Desinstalado
-										</span>										
+										</span>
 									</div>
 								</div>
 							</div>
@@ -177,14 +177,14 @@
 									<div class="info-box-footer buttons">
 										<div class="row">
 											<div class="col-4 text-left">
-												<a href="" class="btn btn-sm btn-round btn-success" 
+												<a href="" class="btn btn-sm btn-round btn-success"
 												   title="Instalar módulo" data-toggle="tooltip">
 													<i class="ion ion-android-done"></i>
 												</a>
 											</div>
 											<div class="col-4"></div>
 											<div class="col-4 text-right">
-												<a href="" class="btn btn-sm btn-round btn-danger" 
+												<a href="" class="btn btn-sm btn-round btn-danger"
 												   title="Desinstalar módulo" data-toggle="tooltip">
 													<i class="ion ion-android-close"></i>
 												</a>
@@ -192,7 +192,7 @@
 										</div>
 										<span class="status enabled">
 											Activo
-										</span>										
+										</span>
 									</div>
 								</div>
 							</div>
@@ -213,14 +213,14 @@
 									<div class="info-box-footer buttons">
 										<div class="row">
 											<div class="col-4 text-left">
-												<a href="" class="btn btn-sm btn-round btn-success" 
+												<a href="" class="btn btn-sm btn-round btn-success"
 												   title="Instalar módulo" data-toggle="tooltip">
 													<i class="ion ion-android-done"></i>
 												</a>
 											</div>
 											<div class="col-4"></div>
 											<div class="col-4 text-right">
-												<a href="" class="btn btn-sm btn-round btn-danger" 
+												<a href="" class="btn btn-sm btn-round btn-danger"
 												   title="Desinstalar módulo" data-toggle="tooltip">
 													<i class="ion ion-android-close"></i>
 												</a>
@@ -228,7 +228,7 @@
 										</div>
 										<span class="status disabled">
 											inactivo
-										</span>										
+										</span>
 									</div>
 								</div>
 							</div>

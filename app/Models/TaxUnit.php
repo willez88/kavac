@@ -16,11 +16,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class TaxUnit
  * @brief Datos de Unidades Tributarias (U.T.)
- * 
+ *
  * Gestiona el modelo de datos para las unidades tributarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class TaxUnit extends Model implements Auditable
 {

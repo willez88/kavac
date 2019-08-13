@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class MaritalStatusController
  * @brief Gestiona información de Estados Civiles
- * 
+ *
  * Controlador para gestionar Estados Civiles
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class MaritalStatusController extends Controller
 {
@@ -107,10 +109,10 @@ class MaritalStatusController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100'
         ]);
- 
+
         $maritalStatus->name = $request->name;
         $maritalStatus->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

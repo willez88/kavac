@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class TaxUnitController
  * @brief Gestiona información de Unidades Tributarias (U.T.)
- * 
+ *
  * Controlador para gestionar Unidades Tributarias (U.T.)
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class TaxUnitController extends Controller
 {
@@ -58,7 +60,6 @@ class TaxUnitController extends Controller
      */
     public function store(Request $request)
     {
-        
         $this->validate($request, [
             'value' => 'required',
             'start_date' => 'required|date',
@@ -118,7 +119,7 @@ class TaxUnitController extends Controller
         $taxUnit->end_date = ($request->end_date!==null)?$request->end_date:null;
         $taxUnit->active = ($request->active);
         $taxUnit->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

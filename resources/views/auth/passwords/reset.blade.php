@@ -64,7 +64,7 @@
                 @endif
             </div>
             <div class="footer text-center">
-                <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" 
+                <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip"
                         title="Presione el botón para modificar la contraseña">
                     Modificar
                 </button>

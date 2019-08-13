@@ -17,11 +17,13 @@ use App\Http\Controllers\Controller;
 /**
  * @class SettingController
  * @brief Gestiona información de configuración general
- * 
+ *
  * Controlador para gestionar configuraciones
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class SettingController extends Controller
 {
@@ -46,7 +48,11 @@ class SettingController extends Controller
         ];
 
         $organism_adscripts = (!is_null($model_institution)) ? template_choices(
-            Institution::class, 'name', [], false, $model_institution->id
+            Institution::class,
+            'name',
+            [],
+            false,
+            $model_institution->id
         ) : ['' => 'Seleccione...'];
         $institutions = Institution::all();
         $countries = template_choices(Country::class);
@@ -60,9 +66,19 @@ class SettingController extends Controller
         return view(
             'admin.settings',
             compact(
-                'model_setting', 'header_setting', 'model_institution', 'header_institution', 
-                'institutions', 'countries', 'estates', 'municipalities', 'parishes', 'cities', 
-                'sectors', 'types', 'organism_adscripts'
+                'model_setting',
+                'header_setting',
+                'model_institution',
+                'header_institution',
+                'institutions',
+                'countries',
+                'estates',
+                'municipalities',
+                'parishes',
+                'cities',
+                'sectors',
+                'types',
+                'organism_adscripts'
             )
         );
     }
@@ -87,7 +103,7 @@ class SettingController extends Controller
                 'digital_sign' => ($request->digital_sign!==null)
             ]
         );
-        
+
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('settings.index');
     }

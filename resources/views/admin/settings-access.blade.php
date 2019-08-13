@@ -44,7 +44,7 @@
 								</tr>
 								<tr>
 									@foreach ($roles as $role)
-										<th class="text-center" title="{{ $role->description }}" 
+										<th class="text-center" title="{{ $role->description }}"
 											data-toggle="tooltip">
 											{{ $role->name }}
 										</th>
@@ -68,7 +68,7 @@
 									@endif
 									@if ($perm->slug_alt)
 										<tr>
-											<td title="{{ $perm->description }}" data-toggle="tooltip" 
+											<td title="{{ $perm->description }}" data-toggle="tooltip"
 												class="border-right" style="width: 20%">
 												{{ (!empty($perm->short_description))
 													?strtoupper($perm->short_description)
@@ -82,9 +82,9 @@
 																 ->where('permission_id', $perm->id)
 																 ->first()),
 														[
-															'class' => 'form-control bootstrap-switch ' . 
+															'class' => 'form-control bootstrap-switch ' .
 																	   'bootstrap-switch-mini',
-															'data-on-label' => 'SI', 
+															'data-on-label' => 'SI',
 															'data-off-label' => 'NO'
 														]
 													) !!}
@@ -133,7 +133,7 @@
 									<td class="text-center">
 										{!! Form::button('<i class="fa fa-info-circle"></i>', [
 	                                        'class' => 'btn btn-info btn-xs btn-icon btn-action',
-	                                        'data-toggle' => 'tooltip', 'type' => 'button', 
+	                                        'data-toggle' => 'tooltip', 'type' => 'button',
 	                                        'onclick' => 'view_user_info('.$user->id.')',
 	                                        'title' => 'Ver información del usuario',
 	                                    ]) !!}

@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class InstitutionSectorController
  * @brief Gestiona información de los sectores de Instituciones
- * 
+ *
  * Controlador para gestionar sectores de Instituciones
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class InstitutionSectorController extends Controller
 {
@@ -110,10 +112,10 @@ class InstitutionSectorController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
         ]);
- 
+
         $institutionSector->name = $request->name;
         $institutionSector->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

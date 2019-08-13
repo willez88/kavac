@@ -34,13 +34,13 @@
             <div class="footer text-center">
                 <div class="row">
                     <div class="col-6">
-                        <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" title="Presione el botón para regresar" 
+                        <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" title="Presione el botón para regresar"
                                 onclick="location.href='/'" type="button">
                             Cancelar
                         </button>
                     </div>
                     <div class="col-6">
-                        <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" 
+                        <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip"
                                 title="Presione el botón para enviar el enlace de modificación">
                             Enviar enlace
                         </button>

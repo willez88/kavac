@@ -17,11 +17,13 @@ use App\Traits\ModelsTrait;
 /**
  * @class Municipality
  * @brief Datos de Municipios
- * 
+ *
  * Gestiona el modelo de datos para los Municipios
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Municipality extends Model implements Auditable
 {
@@ -54,7 +56,7 @@ class Municipality extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Estate
      */
-	public function estate()
+    public function estate()
     {
         return $this->belongsTo(Estate::class);
     }
@@ -67,7 +69,7 @@ class Municipality extends Model implements Auditable
      */
     public function parish()
     {
-    	return $this->hasMany(Parish::class);
+        return $this->hasMany(Parish::class);
     }
 
     /**

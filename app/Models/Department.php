@@ -13,16 +13,16 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-use Module;
-
 /**
  * @class Department
  * @brief Datos de las Unidades, Departamentos o Dependencias
- * 
+ *
  * Gestiona el modelo de datos para las Unidades, Departamentos o Dependencias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Department extends Model implements Auditable
 {
@@ -49,8 +49,8 @@ class Department extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-    	'name', 'acronym', 'hierarchy', 'issue_requests', 'active', 'administrative', 'parent_id', 
-    	'institution_id'
+        'name', 'acronym', 'hierarchy', 'issue_requests', 'active', 'administrative', 'parent_id',
+        'institution_id'
     ];
 
     /**
@@ -61,7 +61,7 @@ class Department extends Model implements Auditable
      */
     public function parent()
     {
-    	return $this->belongsTo(Department::class, 'parent_id');
+        return $this->belongsTo(Department::class, 'parent_id');
     }
 
     /**
@@ -72,7 +72,7 @@ class Department extends Model implements Auditable
      */
     public function childrens()
     {
-    	return $this->hasMany(Department::class, 'parent_id');
+        return $this->hasMany(Department::class, 'parent_id');
     }
 
     /**
@@ -83,6 +83,6 @@ class Department extends Model implements Auditable
      */
     public function institution()
     {
-    	return $this->belongsTo(Institution::class);
+        return $this->belongsTo(Institution::class);
     }
 }

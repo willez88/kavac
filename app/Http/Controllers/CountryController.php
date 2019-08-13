@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class CountryController
  * @brief Gestiona información de Países
- * 
+ *
  * Controlador para gestionar Países
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CountryController extends Controller
 {
@@ -113,11 +115,11 @@ class CountryController extends Controller
             'name' => 'required|max:100',
             'prefix' => 'required|max:3'
         ]);
- 
+
         $country->name = $request->name;
         $country->prefix = $request->prefix;
         $country->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

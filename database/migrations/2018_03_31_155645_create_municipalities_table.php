@@ -24,7 +24,7 @@ class CreateMunicipalitiesTable extends Migration
                       ->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->unique(array('estate_id', 'name'))->comment('Clave única para el registro');
+                $table->unique(['estate_id', 'name'])->comment('Clave única para el registro');
             });
         }
     }

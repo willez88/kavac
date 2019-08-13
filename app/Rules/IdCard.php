@@ -7,11 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 /**
  * @class IdCard
  * @brief Reglas de validación para cédulas de identidad
- * 
+ *
  * Gestiona las reglas de validación para la cédula de identidad
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class IdCard implements Rule
 {

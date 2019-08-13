@@ -5,9 +5,9 @@ namespace App\Roles\Exceptions;
 /**
  * @class PermissionDeniedException
  * @brief Excepciones para los permisos de acceso denegados
- * 
+ *
  * Gestiona las excepciones para los permisos de acceso denegados
- * 
+ *
  * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
  */
 class PermissionDeniedException extends AccessDeniedException
@@ -19,7 +19,7 @@ class PermissionDeniedException extends AccessDeniedException
      */
     public function __construct($permission)
     {
-    	parent::__construct($permission);
+        parent::__construct($permission);
         $this->message = sprintf("You don't have a required ['%s'] permission.", $permission);
     }
 }

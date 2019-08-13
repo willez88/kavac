@@ -13,11 +13,13 @@ use Module;
 /**
  * @class InstitutionController
  * @brief Gestiona información de Instituciones
- * 
+ *
  * Controlador para gestionar Instituciones
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class InstitutionController extends Controller
 {
@@ -111,25 +113,27 @@ class InstitutionController extends Controller
 
     /**
      * Obtiene el año actual para la ejecución de recursos
-     * 
-     * @param  integer $institution_id          Identificador de la institución, si no se especifica toma el valor por defecto
-     * @param  string  $year                    Año de la ejecución, si no se especifica toma el año actual del sistema
+     *
+     * @param  integer $institution_id          Identificador de la institución, si no se especifica toma
+     *                                          el valor por defecto
+     * @param  string  $year                    Año de la ejecución, si no se especifica toma el año actual
+     *                                          del sistema
      * @return \Illuminate\Http\JsonResponse    JSON con información del año de execución
      */
     public function getExecutionYear($institution_id = null, $year = null)
     {
         $year = $year ?? Carbon::now()->format("Y");
         $exec_year = Crypt::encrypt($year);
-        
+
         $filter = ['active' => true];
         $filter[(is_null($institution_id)) ? 'default' : 'id'] = (is_null($institution_id)) ? true : $institution_id;
-        
+
         $institution = Institution::where($filter)->first();
-        
+
         $documentStatus = DocumentStatus::where('action', 'AP')->first();
-        
+
         if ($institution) {
-            $execution = (Module::has('Budget')) 
+            $execution = (Module::has('Budget'))
                           ? \Modules\Budget\Models\BudgetSubSpecificFormulation::where([
                               'year' => $year, 'assigned' => true, 'document_status_id' => $documentStatus->id,
                               'institution_id' => $institution->id

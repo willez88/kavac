@@ -20,11 +20,13 @@ use Modules\Finance\Models\FinanceBankingAgency;
 /**
  * @class City
  * @brief Datos de Ciudades
- * 
+ *
  * Gestiona el modelo de datos para las Ciudades
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class City extends Model implements Auditable
 {
@@ -43,7 +45,7 @@ class City extends Model implements Auditable
      * Lista de atributos para la gestión de fechas
      * @var array $dates
      */
-    protected $dates = ['deleted_at']; 
+    protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
@@ -57,7 +59,7 @@ class City extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Estate
      */
-	public function estate()
+    public function estate()
     {
         return $this->belongsTo(Estate::class);
     }

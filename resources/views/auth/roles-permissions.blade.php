@@ -37,7 +37,7 @@
                 <label for="" class="control-label">{{ $permission->name }}</label>
                 <div class="col-12 bootstrap-switch-mini">
                     {!! Form::checkbox(
-                        'permission[]', $permission->id, 
+                        'permission[]', $permission->id,
                         ($user) ? $user->hasPermission($permission->id) : null, [
                             'class' => 'form-control bootstrap-switch bootstrap-switch-mini permission',
                             'data-on-label' => 'SI', 'data-off-label' => 'NO'

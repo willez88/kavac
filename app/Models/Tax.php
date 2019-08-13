@@ -16,9 +16,9 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class Tax
  * @brief Datos de Impuestos
- * 
+ *
  * Gestiona el modelo de datos para los impuestos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL
@@ -45,7 +45,7 @@ class Tax extends Model implements Auditable
      * @var array $fillable Lista de atributos que pueden ser asignados masivamente
      */
     protected $fillable = [
-    	'name', 'description', 'affect_tax', 'active'
+        'name', 'description', 'affect_tax', 'active'
     ];
 
     /**

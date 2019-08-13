@@ -8,7 +8,7 @@ use App\Roles\Models\Permission;
 
 /**
  * Interface para la gestión de roles y sus relaciones
- * 
+ *
  * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
  */
 interface RoleHasRelations

@@ -55,7 +55,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-
         if ($exception instanceof TokenMismatchException) {
             /** Exception catch by inactivity */
             session()->flash('message', ['type' => 'deny', 'msg' => 'Sessión expirada por inactividad.']);
@@ -71,11 +70,11 @@ class Handler extends ExceptionHandler
         if ($exception instanceof \App\Roles\Exceptions\PermissionDeniedException) {
             /** Exception catch when deny access by permissions */
             $msg = 'No dispone de permisos para acceder a esta funcionalidad';
-            
+
             if ($request->ajax()) {
                 return response()->json(['result' => false, 'message' => $msg], 403);
             }
-            
+
             $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
             return redirect()->back();
         }
@@ -106,12 +105,13 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof \PhpOffice\PhpSpreadsheet\Reader\Exception) {
             /** Excepción capturada cuando un archivo a importar es inválido */
-            $msg = 'El archivo a importar es inválido. Revise que los datos de la cabecera sean correctos y que contenga información.';
+            $msg = 'El archivo a importar es inválido. Revise que los datos de la cabecera sean ' .
+                   'correctos y que contenga información.';
 
             if ($request->ajax()) {
                 return response()->json(['result' => false, 'message' => $msg], 200);
             }
-            
+
             $request->session()->flash('message', [
                 'type' => 'other', 'msg' => $msg, 'title' => 'Error!', 'icon' => 'screen-error',
                 'class' => 'growl-danger'

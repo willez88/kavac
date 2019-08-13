@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class DocumentStatusController
  * @brief Gestiona información de los estados de documentos
- * 
+ *
  * Controlador para gestionar los estados de documentos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class DocumentStatusController extends Controller
 {
@@ -32,7 +34,7 @@ class DocumentStatusController extends Controller
 
     /**
      * Muesta todos los registros de estatus de documentos
-     * 
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
@@ -119,13 +121,13 @@ class DocumentStatusController extends Controller
             'color' => 'required|min:4|max:30|unique:document_status,color,' . $documentStatus->id,
             'action' => 'required|unique:document_status,action,' . $documentStatus->id,
         ]);
- 
+
         $documentStatus->name = $request->name;
         $documentStatus->description = $request->description;
         $documentStatus->color = $request->color;
         $documentStatus->action = $request->action;
         $documentStatus->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

@@ -9,11 +9,13 @@ use App\Traits\ModelsTrait;
 /**
  * @class DashboardController
  * @brief Gestiona información del Panel de Control
- * 
+ *
  * Controlador para gestionar el Panel de Control
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class DashboardController extends Controller
 {
@@ -28,10 +30,10 @@ class DashboardController extends Controller
     {
         if (auth()->check()) {
             $trashed = [];
-            
+
             foreach ($this->getModels() as $model_name) {
                 $model = app($model_name);
-                
+
                 if ($this->isModelSoftDelete($model) && count($model->onlyTrashed()->get()) > 0) {
                     $trashed[$model_name] = $model->onlyTrashed()->get();
                 }
@@ -39,8 +41,7 @@ class DashboardController extends Controller
 
             /** Si el usuario esta autenticado redirecciona a la página del panel de control */
             return view('dashboard.index', compact('trashed'));
-        }
-        else {
+        } else {
             /** Si el usuario no está autenticado muestra la página de acceso */
             return view('auth.login');
         }

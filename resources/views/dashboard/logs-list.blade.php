@@ -76,33 +76,33 @@
 				<hr>
 				<div class="row">
 					<div class="col-md-4 panel-legend">
-						<i class="ion-android-checkbox-blank text-success" title="Registros nuevos" 
+						<i class="ion-android-checkbox-blank text-success" title="Registros nuevos"
 						   data-toggle="tooltip"></i>
 						<span>nuevos</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4 panel-legend">
-						<i class="ion-android-checkbox-blank text-warning" title="Registros actualizados" 
+						<i class="ion-android-checkbox-blank text-warning" title="Registros actualizados"
 						   data-toggle="tooltip"></i>
 						<span>actualizados</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4 panel-legend">
-						<i class="ion-android-checkbox-blank text-info" title="Registros reestablecidos" 
+						<i class="ion-android-checkbox-blank text-info" title="Registros reestablecidos"
 						   data-toggle="tooltip"></i>
 						<span>restaurados después de eliminación</span>
 					</div>
 				</div>
 				<div class="row mg-bottom-20">
 					<div class="col-md-4 panel-legend">
-						<i class="ion-android-checkbox-blank text-danger" title="Registros eliminados" 
+						<i class="ion-android-checkbox-blank text-danger" title="Registros eliminados"
 						   data-toggle="tooltip"></i>
 						<span>eliminados</span>
 					</div>
 				</div>
-				@php 
+				@php
                 	$auditables = OwenIt\Auditing\Models\Audit::orderBy('id', 'desc')->take(40)->get();
                 @endphp
 				<table class="table table-hover table-striped dt-responsive nowrap datatable">
@@ -167,17 +167,17 @@
 									<td class="text-center">
 										{!! Form::button('<i class="fa fa-eye"></i>', [
 	                                        'class' => 'btn btn-info btn-xs btn-icon btn-action',
-	                                        'data-toggle' => 'tooltip', 
+	                                        'data-toggle' => 'tooltip',
 	                                        'onclick' => '$("#modalAudit' . $audit->id . '").modal("show")',
 	                                        'title' => 'Ver detalles del registro',
 	                                    ]) !!}
-	                                    <div class="modal fade" id="modalAudit{{ $audit->id }}" tabindex="-1" 
+	                                    <div class="modal fade" id="modalAudit{{ $audit->id }}" tabindex="-1"
 	                                    	 role="dialog" aria-hidden="true">
 	                                    	<div class="modal-dialog" role="document">
 	                                    		<div class="modal-content">
 	                                    			<div class="modal-header">
 	                                    				<h4 style="margin-top:0">Registro</h4>
-	                                    				<button type="button" class="close btn btn-default" 
+	                                    				<button type="button" class="close btn btn-default"
 	                                    						data-dismiss="modal" aria-label="Close">
 	                                    					<span aria-hidden="true">&times;</span>
 	                                    				</button>
@@ -212,8 +212,8 @@
 	                                    					</div>
 	                                    				</div>
 	                                    				<div class="modal-footer">
-	                                    					<button class="btn btn-primary" 
-	                                    							data-dismiss="modal" 
+	                                    					<button class="btn btn-primary"
+	                                    							data-dismiss="modal"
 	                                    							aria-label="Close">
 	                                    						Cerrar
 	                                    					</button>

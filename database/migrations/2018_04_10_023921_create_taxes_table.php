@@ -23,7 +23,7 @@ class CreateTaxesTable extends Migration
                 $table->boolean('active')->default(true)->comment('Indica si el impuesto esta activo');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->unique(array('name', 'active'))->comment('Clave única para el registro');
+                $table->unique(['name', 'active'])->comment('Clave única para el registro');
             });
         }
     }

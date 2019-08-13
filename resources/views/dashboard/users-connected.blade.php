@@ -74,10 +74,10 @@
                                     @if($user->lock_screen)
                                     	{!! Form::button('<i class="fa fa-unlock"></i>', [
                                     		'class' => 'btn btn-success btn-xs btn-icon btn-action',
-                                    		'data-toggle' => 'tooltip', 
+                                    		'data-toggle' => 'tooltip',
                                     		'title' => 'Bloquear pantalla de aplicación',
                                             'onclick' => '#'
-                                        ]) !!}                                        
+                                        ]) !!}
                                     @endif
                                     {!! Form::button('<i class="fa fa-comment"></i>', [
                                         'class' => 'btn btn-default btn-xs btn-icon btn-action',
@@ -96,13 +96,13 @@
                                     ]) !!}
                                 	{!! Form::button('<i class="fa fa-info-circle"></i>', [
                                         'class' => 'btn btn-info btn-xs btn-icon btn-action',
-                                        'data-toggle' => 'tooltip', 
+                                        'data-toggle' => 'tooltip',
                                         'onclick' => 'view_user_info('.$user->id.')',
                                         'title' => 'Ver información del usuario',
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-filter"></i>', [
                                         'class' => 'btn btn-warning btn-xs btn-icon btn-action',
-                                        'data-toggle' => 'tooltip', 
+                                        'data-toggle' => 'tooltip',
                                         'onclick' => 'location="' . route('assign.access', [
                                         	'user' => $user->id
                                         ]) . '"',

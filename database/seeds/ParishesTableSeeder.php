@@ -11,11 +11,13 @@ use App\Models\Parish;
 /**
  * @class ParishTableSeeder
  * @brief Información por defecto para Parroquias
- * 
+ *
  * Gestiona la información por defecto a registrar inicialmente para las Parroquias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class ParishesTableSeeder extends Seeder
 {
@@ -37,25 +39,25 @@ class ParishesTableSeeder extends Seeder
         $permissions = [
             [
                 'name' => 'Crear Parroquías', 'slug' => 'parish.create',
-                'description' => 'Acceso al registro de parroquías', 
+                'description' => 'Acceso al registro de parroquías',
                 'model' => Parish::class, 'model_prefix' => '0general',
                 'slug_alt' => 'parroquia.crear', 'short_description' => 'agregar parroquia'
             ],
             [
                 'name' => 'Editar Parroquías', 'slug' => 'parish.edit',
-                'description' => 'Acceso para editar parroquías', 
+                'description' => 'Acceso para editar parroquías',
                 'model' => Parish::class, 'model_prefix' => '0general',
                 'slug_alt' => 'parroquia.editar', 'short_description' => 'editar parroquia'
             ],
             [
                 'name' => 'Eliminar Parroquías', 'slug' => 'parish.delete',
-                'description' => 'Acceso para eliminar parroquías', 
+                'description' => 'Acceso para eliminar parroquías',
                 'model' => Parish::class, 'model_prefix' => '0general',
                 'slug_alt' => 'parroquia.eliminar', 'short_description' => 'eliminar parroquia'
             ],
             [
                 'name' => 'Ver Parroquías', 'slug' => 'parish.list',
-                'description' => 'Acceso para ver parroquías', 
+                'description' => 'Acceso para ver parroquías',
                 'model' => Parish::class, 'model_prefix' => '0general',
                 'slug_alt' => 'parroquia.ver', 'short_description' => 'ver parroquías'
             ],
@@ -1920,7 +1922,7 @@ class ParishesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($adminRole, $permissions, $municipalities_parishes) {
+        DB::transaction(function () use ($adminRole, $permissions, $municipalities_parishes) {
             foreach ($municipalities_parishes as $code_municipality => $parishes) {
                 $mun = Municipality::where('code', $code_municipality)->first();
                 foreach ($parishes as $code => $parish) {

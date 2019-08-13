@@ -10,11 +10,13 @@ use App\Models\MaritalStatus;
 /**
  * @class MaritalStatusTableSeeder
  * @brief Información por defecto para Estados Civiles
- * 
+ *
  * Gestiona la información por defecto a registrar inicialmente para los Estados Civiles
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class MaritalStatusTableSeeder extends Seeder
 {
@@ -36,35 +38,35 @@ class MaritalStatusTableSeeder extends Seeder
         $permissions = [
             [
                 'name' => 'Crear Estados Civiles', 'slug' => 'marital.status.create',
-                'description' => 'Acceso al registro de estados civiles', 
+                'description' => 'Acceso al registro de estados civiles',
                 'model' => MaritalStatus::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estado.civil.crear', 'short_description' => 'agregar estado civil'
             ],
             [
                 'name' => 'Editar Estados Civiles', 'slug' => 'marital.status.edit',
-                'description' => 'Acceso para editar estados civiles', 
+                'description' => 'Acceso para editar estados civiles',
                 'model' => MaritalStatus::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estado.civil.editar', 'short_description' => 'editar estado civil'
             ],
             [
                 'name' => 'Eliminar Estados Civiles', 'slug' => 'marital.status.delete',
-                'description' => 'Acceso para eliminar estados civiles', 
+                'description' => 'Acceso para eliminar estados civiles',
                 'model' => MaritalStatus::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estado.civil.eliminar', 'short_description' => 'eliminar estado civil'
             ],
             [
                 'name' => 'Ver Estados Civiles', 'slug' => 'marital.status.list',
-                'description' => 'Acceso para ver estados civiles', 
+                'description' => 'Acceso para ver estados civiles',
                 'model' => MaritalStatus::class, 'model_prefix' => '0general',
                 'slug_alt' => 'estado.civil.ver', 'short_description' => 'ver estados civiles'
             ],
         ];
 
-        DB::transaction(function() use ($adminRole, $permissions) {
-            MaritalStatus::updateOrCreate(['name' => 'Soltero(a)'],[]);
-            MaritalStatus::updateOrCreate(['name' => 'Casado(a)'],[]);
-            MaritalStatus::updateOrCreate(['name' => 'Divorciado(a)'],[]);
-            MaritalStatus::updateOrCreate(['name' => 'Viudo(a)'],[]);
+        DB::transaction(function () use ($adminRole, $permissions) {
+            MaritalStatus::updateOrCreate(['name' => 'Soltero(a)'], []);
+            MaritalStatus::updateOrCreate(['name' => 'Casado(a)'], []);
+            MaritalStatus::updateOrCreate(['name' => 'Divorciado(a)'], []);
+            MaritalStatus::updateOrCreate(['name' => 'Viudo(a)'], []);
 
             foreach ($permissions as $permission) {
                 $per = Permission::updateOrCreate(

@@ -16,11 +16,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class DocumentStatus
  * @brief Datos de estatus de documentos
- * 
+ *
  * Gestiona el modelo de datos para los estados de documentos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class DocumentStatus extends Model implements Auditable
 {
@@ -63,7 +65,10 @@ class DocumentStatus extends Model implements Auditable
      */
     public function scopeGetStatus($query, $status, $operator = null)
     {
-        /** @var string Define el operador por el cual filtrar la consulta, si no se indica el valor por defecto es '=' */
+        /**
+         * @var string Define el operador por el cual filtrar la consulta, si no se indica el valor
+         *             por defecto es '='
+         */
         $operator = (!is_null($operator)) ? $operator : "=";
 
         return $query->where('action', $operator, $status)->first();

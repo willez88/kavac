@@ -24,7 +24,7 @@ class CreateEstatesTable extends Migration
                       ->on('countries')->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->unique(array('country_id', 'name'))->comment('Clave única para el registro');
+                $table->unique(['country_id', 'name'])->comment('Clave única para el registro');
             });
         }
     }

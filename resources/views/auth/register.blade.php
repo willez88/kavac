@@ -34,7 +34,7 @@
                         <div class="form-group">
                             {!! Form::label('staff', 'Empleado', []) !!}
                             {!! Form::select('staff', (isset($staff))?$staff:[], null, [
-                                    'class' => 'form-control select2', 
+                                    'class' => 'form-control select2',
                                     'onchange' => '' // En el evento onchange agregar instrucción para obtener datos de la persona configurada en expediente de nómina (Ej. correo)
                                 ]
                             ) !!}
@@ -44,7 +44,7 @@
                         <div class="form-group">
                             {!! Form::label('email', 'Correo electrónico', []) !!}
                             {!! Form::text('email', (isset($model))?$model->email:old('email'), [
-                                'class' => 'form-control input-sm', 
+                                'class' => 'form-control input-sm',
                                 'data-toggle' => 'tooltip',
                                 'title' => 'Indique el correo electrónico al cual envíar los datos de acceso'
                             ]) !!}
@@ -54,7 +54,7 @@
                         <div class="form-group">
                             {!! Form::label('username', 'Usuario', []) !!}
                             {!! Form::text('username', (isset($model))?$model->username:old('username'), [
-                                'class' => 'form-control input-sm', 
+                                'class' => 'form-control input-sm',
                                 'data-toggle' => 'tooltip',
                                 'title' => 'Indique el nombre de usuario'
                             ]) !!}

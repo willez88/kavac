@@ -9,11 +9,13 @@ use Carbon\Carbon;
 /**
  * @class UsersTableSeeder
  * @brief Información por defecto para Usuarios
- * 
+ *
  * Gestiona la información por defecto a registrar inicialmente para los Usuarios
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class UsersTableSeeder extends Seeder
 {
@@ -24,9 +26,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::transaction(function() {
-        	/** @var object Crea el usuario por defecto de la aplicación */
-    		$user_admin = User::updateOrCreate(
+        DB::transaction(function () {
+            /** @var object Crea el usuario por defecto de la aplicación */
+            $user_admin = User::updateOrCreate(
                 ['username' => 'admin'],
                 [
                     'name' => 'Admin',
@@ -36,7 +38,7 @@ class UsersTableSeeder extends Seeder
                     'created_at' => Carbon::now()
                 ]
             );
-	        if (!$user_admin) {
+            if (!$user_admin) {
                 throw new Exception('Error creando el usuario administrador por defecto');
             }
 
@@ -68,8 +70,6 @@ class UsersTableSeeder extends Seeder
                     ]
                 );
             }
-
-
-    	});
+        });
     }
 }

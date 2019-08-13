@@ -11,7 +11,7 @@ use App\Roles\Models\Role;
 
 /**
  * Interface para la gestión de roles y permisos
- * 
+ *
  * @author ultraware\roles <a href="https://github.com/ultraware/roles.git">Ultraware\Roles</a>
  */
 interface HasRoleAndPermission

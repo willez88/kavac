@@ -53,8 +53,8 @@
                                                 </span>
                                             </a>
                                         @else
-                                            <a href="{{ $item['url'] }}" 
-                                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center level-{{ $levelKey }}{{ $level === $levelKey ? ' active' : ''}}" 
+                                            <a href="{{ $item['url'] }}"
+                                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center level-{{ $levelKey }}{{ $level === $levelKey ? ' active' : ''}}"
                                                data-toggle="tooltip" title="{!! ($levelKey == 'all') ? 'Todos los registros' : "Registros marcados como {$item['name']}" !!}">
                                                 <span class="level-name">
                                                     {!! $item['icon'] !!} {{ $item['name'] }}
@@ -68,19 +68,19 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         {{-- Detalles del Log --}}
                         <div class="col-lg-10">
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <h6 class="card-title">Información del Log:</h6>
                                     <div class="group-btns pull-right">
-                                        <a href="{{ route('log-viewer::logs.download', [$log->date]) }}" 
-                                           class="btn btn-sm btn-success" title="Descargar archivo de log" 
+                                        <a href="{{ route('log-viewer::logs.download', [$log->date]) }}"
+                                           class="btn btn-sm btn-success" title="Descargar archivo de log"
                                            data-toggle="tooltip">
                                             <i class="fa fa-download"></i>
                                         </a>
-                                        <a href="#delete-log-modal" class="btn btn-sm btn-danger btn-delete" 
+                                        <a href="#delete-log-modal" class="btn btn-sm btn-danger btn-delete"
                                            data-toggle="modal" title="Eliminar archivo de log">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
@@ -97,30 +97,30 @@
                                                 <tr>
                                                     <th>Registros de log:</th>
                                                     <td>
-                                                        <span class="badge badge-primary" 
+                                                        <span class="badge badge-primary"
                                                               title="Total de registros: {{ $entries->total() }}" data-toggle="tooltip" data-placement="left">
                                                             {{ $entries->total() }}
                                                         </span>
                                                     </td>
                                                     <th>Tamaño:</th>
                                                     <td>
-                                                        <span class="badge badge-primary" 
-                                                              title="Tamaño del archivo: {{ $log->size() }}" 
+                                                        <span class="badge badge-primary"
+                                                              title="Tamaño del archivo: {{ $log->size() }}"
                                                               data-toggle="tooltip" data-placement="left">
                                                             {{ $log->size() }}
                                                         </span>
                                                     </td>
                                                     <th>Creado en:</th>
                                                     <td>
-                                                        <span class="badge badge-primary" 
-                                                              title="Fecha de creación: {{ $log->createdAt() }}" 
+                                                        <span class="badge badge-primary"
+                                                              title="Fecha de creación: {{ $log->createdAt() }}"
                                                               data-toggle="tooltip" data-placement="left">
                                                             {{ $log->createdAt() }}
                                                         </span>
                                                     </td>
                                                     <th>Actualizado en:</th>
                                                     <td>
-                                                        <span class="badge badge-primary" 
+                                                        <span class="badge badge-primary"
                                                               title="Última actualización: {{ $log->updatedAt() }}" data-toggle="tooltip" data-placement="left">
                                                             {{ $log->updatedAt() }}
                                                         </span>
@@ -132,24 +132,24 @@
                                 </div>
                                 <div class="card-footer">
                                     {{-- Formulario de búsqueda --}}
-                                    <form action="{{ route('log-viewer::logs.search', [$log->date, $level]) }}" 
+                                    <form action="{{ route('log-viewer::logs.search', [$log->date, $level]) }}"
                                           method="GET">
                                         <div class=form-group">
                                             <div class="input-group">
-                                                <input id="query" name="query" class="form-control" 
-                                                       value="{!! $query !!}" placeholder="Buscar" 
+                                                <input id="query" name="query" class="form-control"
+                                                       value="{!! $query !!}" placeholder="Buscar"
                                                        title="Indique aquí lo que desea buscar en los registros del log" data-toggle="tooltip">
                                                 <div class="input-group-append">
                                                     @unless (is_null($query))
-                                                        <a href="{{ route('log-viewer::logs.show', [$log->date]) }}" 
-                                                           class="btn btn-secondary" data-toggle="tooltip" 
+                                                        <a href="{{ route('log-viewer::logs.show', [$log->date]) }}"
+                                                           class="btn btn-secondary" data-toggle="tooltip"
                                                            title="Total de resultados encontrados: {{ $entries->count() }}">
                                                             ({{ $entries->count() }} resultados)&#160;
                                                             <i class="fa fa-fw fa-times"></i>
                                                         </a>
                                                     @endunless
-                                                    <button id="search-btn" class="btn btn-primary" 
-                                                            title="Presione el botón para buscar los registros" 
+                                                    <button id="search-btn" class="btn btn-primary"
+                                                            title="Presione el botón para buscar los registros"
                                                             data-toggle="tooltip">
                                                         <span class="fa fa-fw fa-search"></span>
                                                     </button>
@@ -197,7 +197,7 @@
                                                             </span>
                                                         </td>
                                                         <td class="text-center">
-                                                            <span class="badge badge-info text-bold cursor-pointer" 
+                                                            <span class="badge badge-info text-bold cursor-pointer"
                                                                   title="Hora: {!! $entry->datetime->format('H:i:s') !!}" data-toggle="tooltip">
                                                                 {{ $entry->datetime->format('H:i:s') }}
                                                             </span>
@@ -207,11 +207,11 @@
                                                         </td>
                                                         <td class="text-right">
                                                             @if ($entry->hasStack())
-                                                                <a class="btn btn-card-action btn-round btn-show-events collapsed" 
-                                                                   role="button" data-toggle="collapse" 
-                                                                   href="#log-stack-{{ $key }}" 
-                                                                   aria-expanded="false" 
-                                                                   aria-controls="log-stack-{{ $key }}" 
+                                                                <a class="btn btn-card-action btn-round btn-show-events collapsed"
+                                                                   role="button" data-toggle="collapse"
+                                                                   href="#log-stack-{{ $key }}"
+                                                                   aria-expanded="false"
+                                                                   aria-controls="log-stack-{{ $key }}"
                                                                    title="Mostrar detalles">
                                                                     {{-- <i class="fa fa-toggle-on"></i> Stack --}}
                                                                     <i class="now-ui-icons arrows-1_minimal-down"></i>
@@ -222,20 +222,20 @@
                                                     @if ($entry->hasStack())
                                                         <tr>
                                                             <td colspan="5" class="stack py-0">
-                                                                <div class="stack-content collapse" 
+                                                                <div class="stack-content collapse"
                                                                      id="log-stack-{{ $key }}">
                                                                      @php
                                                                         $stack = str_replace(
                                                                             "\n", "<br/>", $entry->stack()
                                                                         );
                                                                         $stack = str_replace(
-                                                                            "[stacktrace]", 
-                                                                            "<b>[stacktrace]</b>", 
+                                                                            "[stacktrace]",
+                                                                            "<b>[stacktrace]</b>",
                                                                             $stack
                                                                         );
-                                                                        /** 
-                                                                         * reemplazar la numeración #1, #2, etc, 
-                                                                         * con una búsqueda de regex y colocarla 
+                                                                        /**
+                                                                         * reemplazar la numeración #1, #2, etc,
+                                                                         * con una búsqueda de regex y colocarla
                                                                          * en negrita
                                                                          */
                                                                         /*$stack = str_replace(

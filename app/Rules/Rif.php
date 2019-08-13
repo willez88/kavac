@@ -7,11 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 /**
  * @class Rif
  * @brief Reglas de validación para los registros de identificación fiscal (RIF)
- * 
+ *
  * Gestiona las reglas de validación para los registros de identificación fiscal
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Rif implements Rule
 {

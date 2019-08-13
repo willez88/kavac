@@ -4,7 +4,7 @@
 			<div class="card-header">
 				<h6 class="card-title">
 					Herramientas para Desarrolladores&#160;
-					<a href="javascript:void(0)" title="Acceso a la documentación del sistema" 
+					<a href="javascript:void(0)" title="Acceso a la documentación del sistema"
 					   data-toggle="tooltip">
 						<i class="ion ion-ios-help-outline cursor-pointer"></i>
 					</a>
@@ -25,50 +25,50 @@
 				<h6>Interfaz</h6>
 				<div class="row">
 					<div class="col-3">
-						<a href="{{ route('dev.show.element', ['el' => 'icons']) }}" 
-						   class="btn btn-primary btn-simple btn-lg btn-block" 
+						<a href="{{ route('dev.show.element', ['el' => 'icons']) }}"
+						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de íconos disponibles en la aplicación">
 							<i class="icofont icofont-idea"></i> Iconos
 						</a>
 					</div>
 					<div class="col-3">
-						<a href="{{ route('dev.show.element', ['el' => 'components']) }}" 
-						   class="btn btn-primary btn-simple btn-lg btn-block" 
+						<a href="{{ route('dev.show.element', ['el' => 'components']) }}"
+						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de componentes y elementos disponibles en la aplicación">
 							<i class="icofont icofont-idea"></i> Componentes
 						</a>
 					</div>
 					<div class="col-3">
-						<a href="javascript:void(0)" 
-						   class="btn btn-primary btn-simple btn-lg btn-block" 
+						<a href="javascript:void(0)"
+						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de estilos de botones">
 							<i class="icofont icofont-idea"></i> Botones
 						</a>
 					</div>
 					<div class="col-3">
-						<a href="javascript:void(0)" 
-						   class="btn btn-primary btn-simple btn-lg btn-block" 
+						<a href="javascript:void(0)"
+						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de componentes de formulario">
 							<i class="icofont icofont-idea"></i> Formularios
 						</a>
 					</div>
 					<div class="col-3">
-						<a href="javascript:void(0)" 
-						   class="btn btn-primary btn-simple btn-lg btn-block" 
+						<a href="javascript:void(0)"
+						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de gráficos disponibles">
 							<i class="icofont icofont-idea"></i> Gráficos
 						</a>
 					</div>
 					<div class="col-3">
-						<a href="javascript:void(0)" 
-						   class="btn btn-primary btn-simple btn-lg btn-block" 
+						<a href="javascript:void(0)"
+						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de estilos de sliders">
 							<i class="icofont icofont-idea"></i> Sliders
 						</a>
 					</div>
 					<div class="col-3">
-						<a href="javascript:void(0)" 
-						   class="btn btn-primary btn-simple btn-lg btn-block" 
+						<a href="javascript:void(0)"
+						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de estilos de tablas">
 							<i class="icofont icofont-idea"></i> Tablas
 						</a>
@@ -120,8 +120,8 @@
 				<h6>Eventos</h6>
 				<div class="row">
 					<div class="col-3">
-						<a href="{{ route('log-viewer::details') }}" 
-						   class="btn btn-danger btn-simple btn-lg btn-block" 
+						<a href="{{ route('log-viewer::details') }}"
+						   class="btn btn-danger btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Registros de eventos del sistema">
 							<i class="ion ion-ios-bookmarks"></i> Logs del sistema
 						</a>
@@ -130,32 +130,32 @@
 				{{-- <h6>Visor de logs</h6>
 				<div class="row mg-bottom-20">
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-green" 
-						   title="Generó un registro de información" 
+						<i class="ion-android-checkbox-blank text-green"
+						   title="Generó un registro de información"
 						   data-toggle="tooltip"></i>
 						<span>información</span>
 					</div>
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-warning" 
-						   title="Generó un registro de error en la aplicación" 
+						<i class="ion-android-checkbox-blank text-warning"
+						   title="Generó un registro de error en la aplicación"
 						   data-toggle="tooltip"></i>
 						<span>error</span>
 					</div>
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-blue" 
-						   title="Generó un evento de notificación" 
+						<i class="ion-android-checkbox-blank text-blue"
+						   title="Generó un evento de notificación"
 						   data-toggle="tooltip"></i>
 						<span>notificación</span>
 					</div>
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-danger" 
-						   title="Generó un evento crítico en la aplicación" 
+						<i class="ion-android-checkbox-blank text-danger"
+						   title="Generó un evento crítico en la aplicación"
 						   data-toggle="tooltip"></i>
 						<span>critico</span>
 					</div>
 					<div class="col-md-2 panel-legend">
-						<i class="ion-android-checkbox-blank text-gray" 
-						   title="Generó un evento sobre alguna funcionalidad de la aplicación" 
+						<i class="ion-android-checkbox-blank text-gray"
+						   title="Generó un evento sobre alguna funcionalidad de la aplicación"
 						   data-toggle="tooltip"></i>
 						<span>debug</span>
 					</div>

@@ -16,11 +16,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class Phone
  * @brief Datos de Teléfonos
- * 
+ *
  * Gestiona el modelo de datos para los Teléfonos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Phone extends Model implements Auditable
 {

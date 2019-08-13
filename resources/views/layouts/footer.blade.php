@@ -19,8 +19,8 @@
         &copy;
         <script>
             document.write(new Date().getFullYear());
-        </script>, Diseñado por 
-        <a href="mailto:rvargas@cenditel.gob.ve">Ing. Roldan Vargas</a>, Desarrollado por 
+        </script>, Diseñado por
+        <a href="mailto:rvargas@cenditel.gob.ve">Ing. Roldan Vargas</a>, Desarrollado por
         <a href="https://www.cenditel.gob.ve" target="_blank">CENDITEL</a> nodo Mérida.
     </div>
 </div>

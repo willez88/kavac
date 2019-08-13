@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
-use App\Models\Institution;
 use App\Repositories\UploadImageRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -13,11 +12,13 @@ use DB;
 /**
  * @class ImageController
  * @brief Gestiona información de Imágenes
- * 
+ *
  * Controlador para gestionar Imágenes
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class ImageController extends Controller
 {
@@ -50,7 +51,6 @@ class ImageController extends Controller
     public function store(Request $request, UploadImageRepository $up)
     {
         if ($request->file('image')) {
-            
             if ($up->uploadImage($request->file('image'), 'pictures')) {
                 $image_id = $up->getImageStored()->id;
                 return response()->json(['result' => true, 'image_id' => $image_id], 200);
@@ -111,14 +111,13 @@ class ImageController extends Controller
 
         $file = $image->file;
 
-        DB::transaction(function() use ($image, $file, $request) {
+        DB::transaction(function () use ($image, $file, $request) {
             if ($request->force_delete) {
                 $image->forceDelete();
                 if (Storage::disk((isset($request->store)) ? $request->store : 'pictures')->exists($file)) {
                     Storage::disk((isset($request->store)) ? $request->store : 'pictures')->delete($file);
                 }
-            }
-            else {
+            } else {
                 $image->delete();
             }
         });

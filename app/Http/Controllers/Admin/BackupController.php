@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Repositories\BackupRepository;
 
-use Artisan;
-use Log;
-use Storage; //Eliminar
-use Session;
-use Carbon\Carbon;
+//Eliminar
 
 /**
  * @class BackupController
  * @brief Gestiona información de respaldo
- * 
+ *
  * Controlador para gestionar respaldos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BackupController extends Controller
 {
@@ -28,14 +25,15 @@ class BackupController extends Controller
      * Muestra un listado de respaldos del sistema
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Repositories\BackupRepository $backup Objeto con los métodos a implementar para la 
+     * @param  \App\Repositories\BackupRepository $backup Objeto con los métodos a implementar para la
      *                                                    gestión de respaldos
      * @return \Illuminate\View\View    Devuelve la vista con los datos a mostrar
      */
     public function index(BackupRepository $backup)
     {
-    	$backups = $backup->getList(
-            config('backup.backup.destination.disks'), config('backup.backup.name')
+        $backups = $backup->getList(
+            config('backup.backup.destination.disks'),
+            config('backup.backup.name')
         );
         return view("admin.backups")->with(compact('backups'));
     }
@@ -45,9 +43,9 @@ class BackupController extends Controller
      * Crea un nuevo respaldo
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Repositories\BackupRepository $backup Objeto con los métodos a implementar para la gestión 
+     * @param  \App\Repositories\BackupRepository $backup Objeto con los métodos a implementar para la gestión
      *                                                   de respaldos
-     * @return \Illuminate\Http\RedirectResponse         Redirecciona a la página anterior después de realizar 
+     * @return \Illuminate\Http\RedirectResponse         Redirecciona a la página anterior después de realizar
      *                                                   el respaldo
      */
     public function create(BackupRepository $backup)
@@ -68,7 +66,9 @@ class BackupController extends Controller
     public function download($file_name, BackupRepository $backup)
     {
         $down = $backup->getFile(
-            config('backup.backup.destination.disks'), config('backup.backup.name'), $file_name
+            config('backup.backup.destination.disks'),
+            config('backup.backup.name'),
+            $file_name
         );
 
         if (!$down[0]) {
@@ -95,14 +95,16 @@ class BackupController extends Controller
      * Elimina un archivo de respaldo
      * @param  string         $file_name                    Nombre del archivo a eliminar
      * @param  \App\Repositories\BackupRepository $backup   Objeto con los métodos para la gestión de respaldos
-     * @return \Illuminate\Http\RedirectResponse            Muestra una página de error 404 si el archivo no pudo ser 
-     *                                                      eliminado, si el procedimiento fue exitoso retorna al 
+     * @return \Illuminate\Http\RedirectResponse            Muestra una página de error 404 si el archivo no pudo ser
+     *                                                      eliminado, si el procedimiento fue exitoso retorna al
      *                                                      listado de respaldos
      */
     public function delete($file_name, BackupRepository $backup)
     {
         $removed = $backup->delFile(
-            config('backup.backup.destination.disks'), config('backup.backup.name'), $file_name
+            config('backup.backup.destination.disks'),
+            config('backup.backup.name'),
+            $file_name
         );
 
         if (!$removed) {
@@ -111,5 +113,4 @@ class BackupController extends Controller
 
         return redirect()->back();
     }
-    
 }

@@ -23,13 +23,13 @@ class CreateUsersTable extends Migration
                 $table->integer('level')->unsigned()->default(0)
                       ->comment('Nivel de acceso del usuario. (0) usuario, (1) administrador');
                 $table->timestamp('last_login')->nullable()->comment('Último acceso registrado');
-                $table->boolean('lock_screen')->default(False)
+                $table->boolean('lock_screen')->default(false)
                       ->comment('Bloquea o desbloquea la pantalla para una sesión activa');
                 $table->integer('time_lock')->unsigned()->default(10)
                       ->comment('Tiempo máximo de inactividad para el bloqueo de pantalla');
                 $table->text('sign_public_key')->nullable()
                       ->comment('Clave pública para la verificación de firma de documentos');
-                $table->boolean('active')->default(True)
+                $table->boolean('active')->default(true)
                       ->comment('Estatus actual del usuario. (False) inactivo, (True) activo');
                 $table->integer('employee_id')->unsigned()->nullable()
                       ->comment('Identificador del empleado asociado al usuario');

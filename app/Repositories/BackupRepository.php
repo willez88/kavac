@@ -10,56 +10,58 @@ use Exception;
 /**
  * @class BackupRepository
  * @brief Gestiona las acciones a ejecutar en los respaldos del sistema
- * 
+ *
  * Gestiona las acciones que se deben realizar en el respaldo de información
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BackupRepository
 {
-	/**
-	 * Construct function
-	 */
-	public function __construct()
-	{
-		//
-	}
+    /**
+     * Construct function
+     */
+    public function __construct()
+    {
+        //
+    }
 
-	/**
-	 * Gestiona la creación de respaldos de la base de datos
-	 *
-	 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-	 */
-	public function create()
-	{
-		try {
+    /**
+     * Gestiona la creación de respaldos de la base de datos
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     */
+    public function create()
+    {
+        try {
             /** start the backup process */
             Artisan::call('backup:run');
             $output = Artisan::output();
 
             /** log the results */
             Log::info(
-            	"Backpack\BackupManager -- " . 
-            	"se ha generado un nuevo backup desde la interfaz administrativa. \r\n" . 
-            	$output
+                "Backpack\BackupManager -- " .
+                "se ha generado un nuevo backup desde la interfaz administrativa. \r\n" .
+                $output
             );
-            
+
             Session::flash('message', ['type' => 'other', 'text' => 'Nuevo backup generado']);
         } catch (Exception $e) {
-        	Session::flash('message', ['type' => 'other', 'text' => $e->getMessage()]);
+            Session::flash('message', ['type' => 'other', 'text' => $e->getMessage()]);
         }
-	}
+    }
 
-	/**
-	 * Muestra el listado de archivos de respaldo
-	 * @param  string $disk Nombre del disco del sistema de archivos
-	 * @param  string $dir  Nombre del directorio del sistema de archivos
-	 * @return array        Devuelve un arreglo con el listado de archivos de respaldo en orden descendente
-	 */
-	public function getList($disk, $dir)
-	{
-		$storage_disk = Storage::disk($disk[0]);
+    /**
+     * Muestra el listado de archivos de respaldo
+     * @param  string $disk Nombre del disco del sistema de archivos
+     * @param  string $dir  Nombre del directorio del sistema de archivos
+     * @return array        Devuelve un arreglo con el listado de archivos de respaldo en orden descendente
+     */
+    public function getList($disk, $dir)
+    {
+        $storage_disk = Storage::disk($disk[0]);
         $files = $storage_disk->files($dir);
         $backups = [];
         /** make an array of backup files, with their filesize and creation date */
@@ -76,18 +78,18 @@ class BackupRepository
         }
         /** reverse the backups, so the newest one would be on top */
         return array_reverse($backups);
-	}
+    }
 
-	/**
-	 * Get the file
-	 * @param  string $disk      Disk name
-	 * @param  string $dir       Directory name
-	 * @param  string $file_name File name
-	 * @return array             File data
-	 */
-	public function getFile($disk, $dir, $file_name)
-	{
-		$file = $dir . '/' . $file_name;
+    /**
+     * Get the file
+     * @param  string $disk      Disk name
+     * @param  string $dir       Directory name
+     * @param  string $file_name File name
+     * @return array             File data
+     */
+    public function getFile($disk, $dir, $file_name)
+    {
+        $file = $dir . '/' . $file_name;
         $storage_disk = Storage::disk($disk[0]);
         if ($storage_disk->exists($file)) {
             $fs = Storage::disk($disk[0])->getDriver();
@@ -96,11 +98,11 @@ class BackupRepository
         }
 
         return [false];
-	}
+    }
 
-	public function delFile($disk, $dir, $file_name)
-	{
-		$storage_disk = Storage::disk($disk[0]);
+    public function delFile($disk, $dir, $file_name)
+    {
+        $storage_disk = Storage::disk($disk[0]);
         if ($storage_disk->exists($dir . '/' . $file_name)) {
             $storage_disk->delete($dir . '/' . $file_name);
             Session::flash('message', ['type' => 'destroy']);
@@ -108,22 +110,23 @@ class BackupRepository
         }
 
         return false;
-	}
+    }
 
-	/**
-	 * Show readeable human file size
-	 * @param  float   $size       File size to convert
-	 * @param  integer $precision  Precision for the file size
-	 * @return string              Return readeable human file size
-	 */
-	public function humanFileSize($size, $precision = 2) {
-	    $units = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
-	    $step = 1024;
-	    $i = 0;
-	    while (($size / $step) > 0.9) {
-	        $size = $size / $step;
-	        $i++;
-	    }
-	    return round($size, $precision).$units[$i];
-	}
+    /**
+     * Show readeable human file size
+     * @param  float   $size       File size to convert
+     * @param  integer $precision  Precision for the file size
+     * @return string              Return readeable human file size
+     */
+    public function humanFileSize($size, $precision = 2)
+    {
+        $units = ['B','kB','MB','GB','TB','PB','EB','ZB','YB'];
+        $step = 1024;
+        $i = 0;
+        while (($size / $step) > 0.9) {
+            $size = $size / $step;
+            $i++;
+        }
+        return round($size, $precision).$units[$i];
+    }
 }

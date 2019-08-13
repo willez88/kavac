@@ -11,11 +11,13 @@ use App\Models\Setting;
 /**
  * @class InstitutionController
  * @brief Gestiona información de Instituciones
- * 
+ *
  * Controlador para gestionar Instituciones
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class InstitutionController extends Controller
 {
@@ -27,13 +29,14 @@ class InstitutionController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->data[0] = [
             'id' => '',
             'text' => 'Seleccione...'
         ];
     }
-    
+
     /**
      * Muesta todos los registros de las Instituciones
      *
@@ -80,7 +83,7 @@ class InstitutionController extends Controller
             'city_id' => 'required'
         ]);
 
-        // AGREGAR VALIDACIÓN DE MULTIPLES INSTITUCIONES CUANDO SE DEFINEN COMO TRUE EN 
+        // AGREGAR VALIDACIÓN DE MULTIPLES INSTITUCIONES CUANDO SE DEFINEN COMO TRUE EN
         // LA CONFIGURACION DE PARAMETROS
 
         /*$logo = $banner = null;
@@ -98,7 +101,7 @@ class InstitutionController extends Controller
         $banner = (!empty($request->banner_id)) ? $request->banner_id : null;
 
         $setting = Setting::where('active', true)->first();
-        
+
         $data = [
             'onapre_code' => $request->onapre_code,
             'rif' => $request->rif,
@@ -128,13 +131,12 @@ class InstitutionController extends Controller
 
         if (is_null($setting->multi_institution) || !$setting->multi_institution) {
             /**
-             * Crea o actualiza información de una institución si la aplicación esta configurada para el 
+             * Crea o actualiza información de una institución si la aplicación esta configurada para el
              * uso de una sola institución
              */
             $data['default'] = true;
             Institution::updateOrCreate(['rif' => $request->rif], $data);
-        }
-        else {
+        } else {
             if (!empty($request->institution_id)) {
                 /**
                  * Si existe el identificador de la institución, se actualizan sus datos
@@ -142,8 +144,7 @@ class InstitutionController extends Controller
                 $inst = Institution::find($request->institution_id);
                 $inst->fill($data);
                 $inst->save();
-            }
-            else {
+            } else {
                 /**
                  * Si no existe un identificador de institución, se crea una nueva
                  */
@@ -231,8 +232,8 @@ class InstitutionController extends Controller
      */
     public function getDetails(Institution $institution)
     {
-        $inst = Institution::where('id', $institution->id)->with(['municipality' => function($q) {
-            return $q->with(['estate' => function($qq) {
+        $inst = Institution::where('id', $institution->id)->with(['municipality' => function ($q) {
+            return $q->with(['estate' => function ($qq) {
                 return $qq->with('country');
             }]);
         }, 'banner', 'logo'])->first();

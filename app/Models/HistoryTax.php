@@ -16,11 +16,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class HistoryTax
  * @brief Datos de histórico de impuestos
- * 
+ *
  * Gestiona el modelo de datos para los históricos de impuestos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class HistoryTax extends Model implements Auditable
 {
@@ -45,7 +47,7 @@ class HistoryTax extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-    	'operation_date', 'percentage', 'tax_id'
+        'operation_date', 'percentage', 'tax_id'
     ];
 
     /**

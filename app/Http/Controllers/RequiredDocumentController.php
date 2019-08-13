@@ -95,18 +95,18 @@ class RequiredDocumentController extends Controller
      * @param  \App\Models\RequiredDocument  $requiredDocument
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $model, $module = null, RequiredDocument $requiredDocument)
+    public function update(Request $request, $model, $module, RequiredDocument $requiredDocument)
     {
         $this->validate($request, [
             'name' => 'required',
         ]);
- 
+
         $requiredDocument->name = $request->name;
         $requiredDocument->description = $request->description ?? null;
         $requiredDocument->model = $model;
         $requiredDocument->module = $module;
         $requiredDocument->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
@@ -116,7 +116,7 @@ class RequiredDocumentController extends Controller
      * @param  \App\Models\RequiredDocument  $requiredDocument
      * @return \Illuminate\Http\Response
      */
-    public function destroy($model, $module = null, RequiredDocument $requiredDocument)
+    public function destroy($model, $module, RequiredDocument $requiredDocument)
     {
         $requiredDocument->delete();
         return response()->json(['record' => $requiredDocument, 'message' => 'Success'], 200);

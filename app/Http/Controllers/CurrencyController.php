@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 /**
  * @class CurrencyController
  * @brief Gestiona información de Monedas
- * 
+ *
  * Controlador para gestionar Monedas
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CurrencyController extends Controller
 {
@@ -136,7 +138,7 @@ class CurrencyController extends Controller
             $currency->default = $request->default;
         }
         $currency->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

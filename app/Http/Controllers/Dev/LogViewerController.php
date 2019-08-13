@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dev;
 
 use Illuminate\Http\Request;
 use Arcanedev\LogViewer\Http\Controllers\LogViewerController as ArcanedevLogViewerController;
-use App\Http\Controllers\Controller;
 
 class LogViewerController extends ArcanedevLogViewerController
 {

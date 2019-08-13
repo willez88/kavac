@@ -17,11 +17,13 @@ use App\Traits\ModelsTrait;
 /**
  * @class Parish
  * @brief Datos de Parroquias
- * 
+ *
  * Gestiona el modelo de datos para las Parroquias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class Parish extends Model implements Auditable
 {
@@ -54,7 +56,7 @@ class Parish extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Municipality
      */
-	public function municipality()
+    public function municipality()
     {
         return $this->belongsTo(Municipality::class);
     }

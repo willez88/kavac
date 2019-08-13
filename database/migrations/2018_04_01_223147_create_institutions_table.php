@@ -55,7 +55,7 @@ class CreateInstitutionsTable extends Migration
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
 
-                $table->unique(array('rif', 'active'))->comment('Clave única para el registro');
+                $table->unique(['rif', 'active'])->comment('Clave única para el registro');
             });
 
             Schema::table('institutions', function (Blueprint $table) {
