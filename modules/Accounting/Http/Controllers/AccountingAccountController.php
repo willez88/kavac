@@ -62,14 +62,14 @@ class AccountingAccountController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'group' => 'required|digits:1',
-            'subgroup' => 'required|digits:1',
-            'item' => 'required|digits:1',
-            'generic' => 'required|digits:2',
-            'specific' => 'required|digits:2',
-            'subspecific' => 'required|digits:2',
+            'group'        => 'required|digits:1',
+            'subgroup'     => 'required|digits:1',
+            'item'         => 'required|digits:1',
+            'generic'      => 'required|digits:2',
+            'specific'     => 'required|digits:2',
+            'subspecific'  => 'required|digits:2',
             'denomination' => 'required',
-            'active' => 'required',
+            'active'       => 'required',
         ]);
 
         /** @var Object que almacena la consulta de la cuenta, si esta no existe retorna null */
@@ -80,9 +80,12 @@ class AccountingAccountController extends Controller
                             ->where('specific',$request['specific'])
                             ->where('subspecific',$request['subspecific'])->first();
 
-        /** @var Object que almacena la consulta de la cuenta de nivel superior de la cuanta actual, si esta no posee retorna false */
+        /** @var Object que almacena la consulta de la cuenta de nivel superior de la cuanta actual,
+        * si esta no posee retorna false 
+        */
         $parent = AccountingAccount::getParent(
-                $request['group'], $request['subgroup'], $request['item'], $request['generic'], $request['specific'], $request['subspecific']
+                $request['group'], $request['subgroup'], $request['item'],
+                $request['generic'], $request['specific'], $request['subspecific']
             );
         AccountingAccount::updateOrCreate(
             [
@@ -115,14 +118,14 @@ class AccountingAccountController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'group' => 'required|digits:1',
-            'subgroup' => 'required|digits:1',
-            'item' => 'required|digits:1',
-            'generic' => 'required|digits:2',
-            'specific' => 'required|digits:2',
-            'subspecific' => 'required|digits:2',
+            'group'        => 'required|digits:1',
+            'subgroup'     => 'required|digits:1',
+            'item'         => 'required|digits:1',
+            'generic'      => 'required|digits:2',
+            'specific'     => 'required|digits:2',
+            'subspecific'  => 'required|digits:2',
             'denomination' => 'required',
-            'active' => 'required',
+            'active'       => 'required',
         ]);
 
         /**
@@ -168,13 +171,13 @@ class AccountingAccountController extends Controller
         $parent = AccountingAccount::find($parent_id);
 
         /** @var string Contiene el código del subgroup */
-        $subgroup = $parent->subgroup;
+        $subgroup    = $parent->subgroup;
         /** @var string Contiene el código del ítem */
-        $item = $parent->item;
+        $item        = $parent->item;
         /** @var string Contiene el código del generic */
-        $generic = $parent->generic;
+        $generic     = $parent->generic;
         /** @var string Contiene el código del speific */
-        $specific = $parent->specific;
+        $specific    = $parent->specific;
         /** @var string Contiene el código del subspecific */
         $subspecific = $parent->subspecific;
 
@@ -212,9 +215,14 @@ class AccountingAccountController extends Controller
         }
 
         $account = [
-            'group' => (string)$parent->group, 'subgroup' => (string)$subgroup, 'item' => (string)$item, 'generic' => (string)$generic, 
-            'specific' => (string)$specific, 'subspecific' => (string)$subspecific,
-            'denomination' => $parent->denomination, 'active' => $parent->active
+            'group'        => (string)$parent->group,
+            'subgroup'     => (string)$subgroup,
+            'item'         => (string)$item,
+            'generic'      => (string)$generic, 
+            'specific'     => (string)$specific,
+            'subspecific'  => (string)$subspecific,
+            'denomination' => $parent->denomination,
+            'active'       => $parent->active
         ];
         return response()->json(['account'=> $account, 'message' => 'Success'], 200);
     }
@@ -240,11 +248,11 @@ class AccountingAccountController extends Controller
                                     ->get() as $record) {
           /** @var array arreglo con datos de las cuentas patrimoniales*/
             array_push($records, [
-                'id' => $record->id,
-                'code' =>   $record->getCode(),
+                'id'           => $record->id,
+                'code'         =>   $record->getCode(),
                 'denomination' => $record->denomination,
-                'active'=> $record->active,
-                'text'=>"{$record->getCode()} - {$record->denomination}",
+                'active'       => $record->active,
+                'text'         =>"{$record->getCode()} - {$record->denomination}",
             ]);
         }
         return $records;
@@ -302,13 +310,13 @@ class AccountingAccountController extends Controller
 
             /** @var Array para almacenar la información que se verificara */
             $recordCode = [
-                'grupo' => $CodeExplode[0],
-                'subgrupo' => $CodeExplode[1],
-                'rubro' => $CodeExplode[2],
-                'n_cuenta_orden' => $n_cuenta_orden,
-                'n_subcuenta_primer_orden' => $n_subcuenta_primer_orden,
+                'grupo'                     => $CodeExplode[0],
+                'subgrupo'                  => $CodeExplode[1],
+                'rubro'                     => $CodeExplode[2],
+                'n_cuenta_orden'            => $n_cuenta_orden,
+                'n_subcuenta_primer_orden'  => $n_subcuenta_primer_orden,
                 'n_subcuenta_segundo_orden' => $n_subcuenta_segundo_orden,
-                'activa' => $record['activa'],
+                'activa'                    => $record['activa'],
             ];
 
 
@@ -320,15 +328,15 @@ class AccountingAccountController extends Controller
             $currentRow +=1;
 
             array_push($records, [
-                'code'=>$record['codigo'],
-                'denomination'=> $record['denominacion'],
-                'active'=>($record['activa'] == 'si') ? true : false,
-                'group'=>$recordCode['grupo'],
-                'subgroup'=>$recordCode['subgrupo'],
-                'item'=>$recordCode['rubro'],
-                'generic'=>$recordCode['n_cuenta_orden'],
-                'specific'=>$recordCode['n_subcuenta_primer_orden'],
-                'subspecific'=>$recordCode['n_subcuenta_segundo_orden'],
+                'code'         =>$record['codigo'],
+                'denomination' => $record['denominacion'],
+                'active'       =>($record['activa'] == 'si') ? true : false,
+                'group'        =>$recordCode['grupo'],
+                'subgroup'     =>$recordCode['subgrupo'],
+                'item'         =>$recordCode['rubro'],
+                'generic'      =>$recordCode['n_cuenta_orden'],
+                'specific'     =>$recordCode['n_subcuenta_primer_orden'],
+                'subspecific'  =>$recordCode['n_subcuenta_segundo_orden'],
                 ]);
         }
 
@@ -363,9 +371,12 @@ class AccountingAccountController extends Controller
 
             AccountingAccount::updateOrCreate(
                 [
-                    'group' => $account['group'], 'subgroup' => $account['subgroup'],
-                    'item' => $account['item'], 'generic' => $account['generic'],
-                    'specific' => $account['specific'], 'subspecific' => $account['subspecific'], 
+                    'group'       => $account['group'],
+                    'subgroup'    => $account['subgroup'],
+                    'item'        => $account['item'],
+                    'generic'     => $account['generic'],
+                    'specific'    => $account['specific'],
+                    'subspecific' => $account['subspecific'], 
                 ],[
                     'denomination' => $account['denomination'],
                     'active' => $account['active'],

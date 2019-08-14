@@ -1,16 +1,7 @@
 <template>
 	<div class="card-body">
-		<div class="alert alert-danger" role="alert" v-if="existErrors">
-			<div class="container">
-				<div class="alert-icon">
-					<i class="now-ui-icons objects_support-17"></i>
-				</div>
-				<strong>Atención!</strong> Debe verificar los siguientes errores antes de continuar:
-				<ul>
-					<li v-for="error in errors">{{ error }}</li>
-				</ul>
-			</div>
-		</div>
+		
+		<accounting-show-errors :errors="errors" />
 
 		<form method="post" enctype="multipart/form-data" @submit.prevent="">
 			<label>Cargar Hoja de calculo. Formatos permitidos:<strong>.xls .xlsx .ods</strong></label><br>
