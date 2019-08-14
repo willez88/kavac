@@ -13,11 +13,13 @@ use Modules\Budget\Models\BudgetModification;
 /**
  * @class BudgetTransferController
  * @brief Controlador de transferencias presupuestarias
- * 
+ *
  * Clase que gestiona las transferencias presupuestarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetTransferController extends Controller
 {
@@ -61,8 +63,8 @@ class BudgetTransferController extends Controller
     {
         /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
-            'route' => 'budget.transfers.store', 
-            'method' => 'POST', 
+            'route' => 'budget.transfers.store',
+            'method' => 'POST',
             'role' => 'form',
             'class' => 'form-horizontal',
         ];

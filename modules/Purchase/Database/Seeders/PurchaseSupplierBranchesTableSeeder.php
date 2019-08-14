@@ -18,7 +18,7 @@ class PurchaseSupplierBranchesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        DB::transaction(function() {
+        DB::transaction(function () {
             $supplierBranches = [
                 ['name' => 'Fabricante'],
                 ['name' => 'Distribuidor'],

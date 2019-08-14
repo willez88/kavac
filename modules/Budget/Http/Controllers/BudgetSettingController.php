@@ -15,11 +15,13 @@ use Modules\Budget\Models\BudgetModification;
 /**
  * @class BudgetSettingController
  * @brief Controlador de configuraciones en el módulo de Presupuesto
- * 
+ *
  * Clase que gestiona las configuraciones en el módulo de Presupuesto
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetSettingController extends Controller
 {
@@ -54,10 +56,12 @@ class BudgetSettingController extends Controller
         /** @var object Contiene información sobre la configuración de código para los compromisos */
         $cCode = $codeSettings->where('table', 'budget_commitments')->first();
         /** @var object Contiene información sobre la configuración de código para los créditos adicionales */
-        $crCode = $codeSettings->where('table', 'budget_modifications')->where('type', 'budget.aditional-credits')->first();
+        $crCode = $codeSettings->where('table', 'budget_modifications')
+                               ->where('type', 'budget.aditional-credits')->first();
         /** @var object Contiene información sobre la configuración de código para las reducciones presupuestarias */
         $rCode = $codeSettings->where('table', 'budget_modifications')->where('type', 'budget.reductions')->first();
-        /** @var object Contiene información sobre la configuración de código para las transferencias entre presupuestos */
+        /** @var object Contiene información sobre la configuración de código
+        para las transferencias entre presupuestos */
         $tCode = $codeSettings->where('table', 'budget_modifications')->where('type', 'budget.transfers')->first();
         /** @var object Contiene información sobre la configuración de código para los causados presupuestarios */
         $caCode = $codeSettings->where('table', 'budget_caused')->first();
@@ -65,7 +69,14 @@ class BudgetSettingController extends Controller
         $pCode = $codeSettings->where('table', 'budget_payed')->first();
         
         return view('budget::settings', compact(
-            'projects', 'fCode', 'cCode', 'tCode', 'rCode', 'crCode', 'caCode', 'pCode'
+            'projects',
+            'fCode',
+            'cCode',
+            'tCode',
+            'rCode',
+            'crCode',
+            'caCode',
+            'pCode'
         ));
     }
 
@@ -116,8 +127,7 @@ class BudgetSettingController extends Controller
                 if ($table === "formulations") {
                     /** @var string Define el modelo para asociado a la formulación de presupuesto */
                     $model = BudgetSubSpecificFormulation::class;
-                }
-                else if (in_array($key, ['transfers_code', 'reductions_code', 'credits_code'])) {
+                } elseif (in_array($key, ['transfers_code', 'reductions_code', 'credits_code'])) {
                     /** @var string Define el modelo asociado a las modificaciones presupuestarias */
                     $model = BudgetModification::class;
                     /** @var string Define la tabla asociada a las modificaciones presupuestarias */
@@ -125,17 +135,14 @@ class BudgetSettingController extends Controller
                     if ($key === 'transfers_code') {
                         /** @var string Define el tipo de registro como transferencia entre presupuestos */
                         $type = 'budget.transfers';
-                    }
-                    else if ($key === 'reductions_code') {
+                    } elseif ($key === 'reductions_code') {
                         /** @var string Define el tipo de registro como reducciones presupuestarias */
                         $type = 'budget.reductions';
-                    }
-                    else if ($key === 'credits_code') {
+                    } elseif ($key === 'credits_code') {
                         /** @var string Define el tipo de registro como créditos adicionales */
                         $type = 'budget.aditional-credits';
                     }
-                }
-                else if ($table === "commitments") {
+                } elseif ($table === "commitments") {
                     $model .= "Commitment";
                 }
 

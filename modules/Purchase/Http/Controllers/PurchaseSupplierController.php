@@ -67,15 +67,15 @@ class PurchaseSupplierController extends Controller
     public function create()
     {
         $header = [
-            'route' => 'purchase.suppliers.store', 
-            'method' => 'POST', 
+            'route' => 'purchase.suppliers.store',
+            'method' => 'POST',
             'role' => 'form',
         ];
         
         return view('purchase::suppliers.create-edit-form', [
             'countries' => $this->countries, 'estates' => $this->estates, 'cities' => $this->cities,
-            'supplier_types' => $this->supplier_types, 'supplier_objects' => $this->supplier_objects, 
-            'supplier_branches' => $this->supplier_branches, 'supplier_specialties' => $this->supplier_specialties, 
+            'supplier_types' => $this->supplier_types, 'supplier_objects' => $this->supplier_objects,
+            'supplier_branches' => $this->supplier_branches, 'supplier_specialties' => $this->supplier_specialties,
             'header' => $header, 'requiredDocuments' => $this->requiredDocuments
         ]);
     }
@@ -164,15 +164,15 @@ class PurchaseSupplierController extends Controller
         $model = PurchaseSupplier::find($id);
         
         $header = [
-            'route' => ['purchase.suppliers.update', $model->id], 
-            'method' => 'PUT', 
+            'route' => ['purchase.suppliers.update', $model->id],
+            'method' => 'PUT',
             'role' => 'form',
         ];
         
         return view('purchase::suppliers.create-edit-form', [
             'countries' => $this->countries, 'estates' => $this->estates, 'cities' => $this->cities,
-            'supplier_types' => $this->supplier_types, 'supplier_objects' => $this->supplier_objects, 
-            'supplier_branches' => $this->supplier_branches, 'supplier_specialties' => $this->supplier_specialties, 
+            'supplier_types' => $this->supplier_types, 'supplier_objects' => $this->supplier_objects,
+            'supplier_branches' => $this->supplier_branches, 'supplier_specialties' => $this->supplier_specialties,
             'header' => $header, 'model' => $model, 'requiredDocuments' => $this->requiredDocuments
         ]);
     }

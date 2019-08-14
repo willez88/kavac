@@ -18,11 +18,13 @@ use App\Models\CodeSetting;
 /**
  * @class BudgetAditionalCreditController
  * @brief Controlador de Créditos Adicionales
- * 
+ *
  * Clase que gestiona las Créditos Adicionales
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetAditionalCreditController extends Controller
 {
@@ -46,8 +48,8 @@ class BudgetAditionalCreditController extends Controller
 
         /** @var array Arreglo de opciones a implementar en el formulario */
         $this->header = [
-            'route' => 'budget.aditional-credits.store', 
-            'method' => 'POST', 
+            'route' => 'budget.aditional-credits.store',
+            'method' => 'POST',
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
@@ -123,12 +125,14 @@ class BudgetAditionalCreditController extends Controller
 
         /** @var string Contiene el código generado para el registro a crear */
         $code = generate_registration_code(
-            $codeSetting->format_prefix, strlen($codeSetting->format_digits), 
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
             (strlen($codeSetting->format_year) === 2) ? date("y") : $year,
-            BudgetModification::class, 'code'
+            BudgetModification::class,
+            'code'
         );
 
-        DB::transaction(function() use ($request, $code, $documentStatus) {
+        DB::transaction(function () use ($request, $code, $documentStatus) {
             /** @var object Objeto que contiene los datos de la modificación presupuestaria creada */
             $budgetModification = BudgetModification::create([
                 'type' => 'C',
@@ -151,8 +155,8 @@ class BudgetAditionalCreditController extends Controller
 
                 if ($formulation) {
                     BudgetModificationAccount::create([
-                        'amount' => $request->budget_account_amount[$index], 
-                        'operation' => 'I', 
+                        'amount' => $request->budget_account_amount[$index],
+                        'operation' => 'I',
                         'budget_sub_specific_formulation_id' => $formulation->id,
                         'budget_account_id' => $budget_account_id,
                         'budget_modification_id' => $budgetModification->id
@@ -245,7 +249,9 @@ class BudgetAditionalCreditController extends Controller
     public function vueList()
     {
         return response()->json([
-            'records' => BudgetModification::where('type', 'C')->with(['institution', 'budget_modification_accounts'])->get()
+            'records' => BudgetModification::where('type', 'C')->with([
+                'institution', 'budget_modification_accounts'
+            ])->get()
         ], 200);
     }
 }

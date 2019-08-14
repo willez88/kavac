@@ -18,7 +18,7 @@ class PurchaseSupplierTypesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        DB::transaction(function() {
+        DB::transaction(function () {
             $types = [
                 ['name' => 'Firma Personal'],
                 ['name' => 'Compañía Anónima (C.A.)'],

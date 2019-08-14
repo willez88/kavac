@@ -64,7 +64,7 @@ class CreatePurchaseRequirementsTable extends Migration
             * Clave foránea a la relación del tipo de proveedor
             * -----------------------------------------------------------------------
             *
-            * Define la estructura de relación al tipo de proveedor según el requerimiento 
+            * Define la estructura de relación al tipo de proveedor según el requerimiento
             * a ser registrado
             */
             $table->integer('purchase_supplier_type_id')->unsigned()

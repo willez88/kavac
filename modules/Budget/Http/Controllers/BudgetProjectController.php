@@ -20,7 +20,9 @@ use Modules\Payroll\Models\PayrollStaff;
  * Clase que gestiona los Proyectos
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetProjectController extends Controller
 {
@@ -76,7 +78,11 @@ class BudgetProjectController extends Controller
         $staffs = template_choices(PayrollStaff::class, ['id_number', '-', 'full_name']);
 
         return view('budget::projects.create-edit-form', compact(
-            'header', 'institutions', 'departments', 'positions', 'staffs'
+            'header',
+            'institutions',
+            'departments',
+            'positions',
+            'staffs'
         ));
     }
 
@@ -158,7 +164,12 @@ class BudgetProjectController extends Controller
         $staffs = template_choices(PayrollStaff::class, ['id_number', '-', 'full_name'], ['active' => true]);
 
         return view('budget::projects.create-edit-form', compact(
-            'header', 'model', 'institutions', 'departments', 'positions', 'staffs'
+            'header',
+            'model',
+            'institutions',
+            'departments',
+            'positions',
+            'staffs'
         ));
     }
 
@@ -216,7 +227,8 @@ class BudgetProjectController extends Controller
      * Obtiene listado de registros
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false, este parámetro es opcional.
+     * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false,
+     *                           este parámetro es opcional.
      * @return \Illuminate\Http\JsonResponse
      */
     public function vueList($active = null)
@@ -238,7 +250,10 @@ class BudgetProjectController extends Controller
     public function getProjects($id = null)
     {
         return response()->json(template_choices(
-            BudgetProject::class, ['code', '-', 'name'], ($id) ? ['id' => $id] : [], true
+            BudgetProject::class,
+            ['code', '-', 'name'],
+            ($id) ? ['id' => $id] : [],
+            true
         ));
     }
 }

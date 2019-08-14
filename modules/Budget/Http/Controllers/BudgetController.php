@@ -9,11 +9,13 @@ use Illuminate\Routing\Controller;
 /**
  * @class BudgetController
  * @brief Controlador principal del módulo de Presupuesto
- * 
+ *
  * Clase que gestiona información del módulo de Presupuesto
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetController extends Controller
 {

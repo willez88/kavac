@@ -12,7 +12,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * Usado para validar la existencia del modulo de contabilidad
  * para la relación en la función account_converters AccountingAccountConverter
- * 
+ *
  * @author  Juan Rosas <JuanFBass17@gmail.com>
  */
 use Module;
@@ -20,11 +20,13 @@ use Module;
 /**
  * @class BudgetAccount
  * @brief Datos de cuentas del Clasificador Presupuestario
- * 
+ *
  * Gestiona el modelo de datos para las cuentas del Clasificador Presupuestario
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetAccount extends Model implements Auditable
 {
@@ -53,7 +55,7 @@ class BudgetAccount extends Model implements Auditable
 
     /**
      * Reescribe el método boot para establecer comportamientos por defecto en la consulta del modelo
-     * 
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     protected static function boot()
@@ -99,22 +101,25 @@ class BudgetAccount extends Model implements Auditable
      */
     public function account_converters()
     {
-        return (Module::has('Accounting') && Module::enabled('Accounting'))? $this->hasOne(\Modules\Accounting\Models\AccountingAccountConverter::class) : [];
+        return (Module::has('Accounting') && Module::enabled('Accounting'))
+               ? $this->hasOne(\Modules\Accounting\Models\AccountingAccountConverter::class)
+               : [];
     }
 
     /**
-     * Restringe la eliminación de un registro si el mismo esta relacionado a otro modelo o posee campos 
+     * Restringe la eliminación de un registro si el mismo esta relacionado a otro modelo o posee campos
      * que determinan la imposibilidad de su eliminación
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return boolean Devuelve verdadero si la cuenta esta restringida para ser eliminada, de lo contrario retorna verdadero
+     * @return boolean Devuelve verdadero si la cuenta esta restringida para ser eliminada,
+     *                          de lo contrario retorna verdadero
      */
     public function restrictDelete()
     {
         // Se debe agregar a esta comprobación todos los métodos con relación a otro modelo
         return (
-            $this->has('account_opens')->get() || $this->has('modification_accounts')->get() || $this->has('account_converters')->get() ||
-            $this->parent_id !== null || $this->original
+            $this->has('account_opens')->get() || $this->has('modification_accounts')->get() ||
+            $this->has('account_converters')->get() || $this->parent_id !== null || $this->original
         );
     }
 
@@ -127,7 +132,8 @@ class BudgetAccount extends Model implements Auditable
      * @param  string $generic     Genérica de la cuenta
      * @param  string $specific    Específica de la cuenta
      * @param  string $subspecific Subespecífica de la cuenta
-     * @return mixed               Retorna falso si no existe una cuenta de nivel superior, de lo contrario obtiene los datos de la misma
+     * @return mixed               Retorna falso si no existe una cuenta de nivel superior,
+     *                             de lo contrario obtiene los datos de la misma
      */
     public static function getParent($group, $item, $generic, $specific, $subspecific)
     {
@@ -139,16 +145,13 @@ class BudgetAccount extends Model implements Auditable
                     $parent = $parent->where('generic', $generic);
                     if ($subspecific !== '00') {
                         $parent = $parent->where('specific', $specific);
-                    }
-                    else {
+                    } else {
                         $parent = $parent->where('subspecific', '00');
                     }
-                }
-                else {
+                } else {
                     $parent = $parent->where('specific', '00');
                 }
-            }
-            else {
+            } else {
                 $parent = $parent->where('generic', '00');
             }
         }
@@ -170,5 +173,4 @@ class BudgetAccount extends Model implements Auditable
     {
         return "{$this->group}.{$this->item}.{$this->generic}.{$this->specific}.{$this->subspecific}";
     }
-
 }

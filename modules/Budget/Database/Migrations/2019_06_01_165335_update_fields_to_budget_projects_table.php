@@ -16,11 +16,11 @@ class UpdateFieldsToBudgetProjectsTable extends Migration
         Schema::table('budget_projects', function (Blueprint $table) {
             $table->integer('payroll_position_id')->unsigned()->nullable()
                   ->comment(
-                    'Identificador asociado al cargo de la persona responsable del proyecto'
+                      'Identificador asociado al cargo de la persona responsable del proyecto'
                   )->change();
             $table->integer('payroll_staff_id')->unsigned()->nullable()
                   ->comment(
-                    'Identificador asociado al cargo de la persona responsable del proyecto'
+                      'Identificador asociado al cargo de la persona responsable del proyecto'
                   )->change();
         });
     }
@@ -35,11 +35,11 @@ class UpdateFieldsToBudgetProjectsTable extends Migration
         Schema::table('budget_projects', function (Blueprint $table) {
             $table->integer('payroll_position_id')->unsigned()
                   ->comment(
-                    'Identificador asociado al cargo de la persona responsable del proyecto'
+                      'Identificador asociado al cargo de la persona responsable del proyecto'
                   )->change();
             $table->integer('payroll_staff_id')->unsigned()
                   ->comment(
-                    'Identificador asociado al cargo de la persona responsable del proyecto'
+                      'Identificador asociado al cargo de la persona responsable del proyecto'
                   )->change();
         });
     }

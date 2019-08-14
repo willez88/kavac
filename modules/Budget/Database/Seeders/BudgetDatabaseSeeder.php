@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @class BudgetDatabaseSeeder
  * @brief Información por defecto para datos iniciales del módulo de presupuesto
- * 
+ *
  * Gestiona la información por defecto a registrar inicialmente para los datos iniciales del módulo de presupuesto
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetDatabaseSeeder extends Seeder
 {

@@ -2,7 +2,6 @@
 
 namespace Modules\Purchase\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Department as BaseDepartment;
 
 class Department extends BaseDepartment
@@ -14,7 +13,7 @@ class Department extends BaseDepartment
      */
     public function contrating_purchase_requirements()
     {
-    	return $this->hasMany(PurchaseRequirement::class, 'contracting_department_id');
+        return $this->hasMany(PurchaseRequirement::class, 'contracting_department_id');
     }
 
     /**
@@ -24,6 +23,6 @@ class Department extends BaseDepartment
      */
     public function user_purchase_requirements()
     {
-    	return $this->hasMany(PurchaseRequirement::class, 'user_department_id');
+        return $this->hasMany(PurchaseRequirement::class, 'user_department_id');
     }
 }

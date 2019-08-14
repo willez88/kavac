@@ -11,15 +11,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class PurchaseRequirement
  * @brief Datos de los requerimientos de compras
- * 
+ *
  * Gestiona el modelo de datos para los requerimientos de compra
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PurchaseRequirement extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
 
@@ -33,8 +35,8 @@ class PurchaseRequirement extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-    	'code', 'description', 'fiscal_year_id', 'contracting_department_id', 'user_department_id', 
-    	'purchase_supplier_type_id'
+        'code', 'description', 'fiscal_year_id', 'contracting_department_id', 'user_department_id',
+        'purchase_supplier_type_id'
     ];
 
     /**
@@ -44,7 +46,7 @@ class PurchaseRequirement extends Model implements Auditable
      */
     public function fiscal_year()
     {
-    	return $this->belongsTo(FiscalYear::class);
+        return $this->belongsTo(FiscalYear::class);
     }
 
     /**
@@ -54,7 +56,7 @@ class PurchaseRequirement extends Model implements Auditable
      */
     public function contrating_department()
     {
-    	return $this->belongsTo(Department::class, 'contracting_department_id');
+        return $this->belongsTo(Department::class, 'contracting_department_id');
     }
 
     /**
@@ -64,7 +66,7 @@ class PurchaseRequirement extends Model implements Auditable
      */
     public function user_department()
     {
-    	return $this->belongsTo(Department::class, 'user_department_id');
+        return $this->belongsTo(Department::class, 'user_department_id');
     }
 
     /**
@@ -74,7 +76,7 @@ class PurchaseRequirement extends Model implements Auditable
      */
     public function purchase_supplier_type()
     {
-    	return $this->belongsTo(PurchaseSupplierType::class);
+        return $this->belongsTo(PurchaseSupplierType::class);
     }
 
     /**
@@ -84,6 +86,6 @@ class PurchaseRequirement extends Model implements Auditable
      */
     public function purchase_requirement_items()
     {
-    	return $this->hasMany(PurchaseRequirementItem::class);
+        return $this->hasMany(PurchaseRequirementItem::class);
     }
 }

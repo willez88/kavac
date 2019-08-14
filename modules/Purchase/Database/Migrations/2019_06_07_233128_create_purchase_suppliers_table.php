@@ -83,21 +83,20 @@ class CreatePurchaseSuppliersTable extends Migration
             * Clave foránea a la relación de la ciudad del proveedor
             * -----------------------------------------------------------------------
             *
-            * Define la estructura de relación a la información de la ciudad en donde 
+            * Define la estructura de relación a la información de la ciudad en donde
             * se encuentra ubicado proveedor
             */
             $table->integer('city_id')->unsigned()
                   ->comment(
-                    'Identificador de la Ciudad donde se encuentra ubicado el proveedor'
+                      'Identificador de la Ciudad donde se encuentra ubicado el proveedor'
                   );
             $table->foreign('city_id')->references('id')
                   ->on('cities')->onDelete('restrict')->onUpdate('cascade');
                   
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-            $table->unique(array('code', 'active'))->comment('Clave única para el registro');
+            $table->unique(['code', 'active'])->comment('Clave única para el registro');
         });
-
     }
 
     /**

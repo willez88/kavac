@@ -11,15 +11,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class PurchaseSupplierSpecialty
  * @brief Datos de las especialidades de proveedores
- * 
+ *
  * Gestiona el modelo de datos para las especialidades de los proveedores
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PurchaseSupplierSpecialty extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
 
@@ -41,6 +43,6 @@ class PurchaseSupplierSpecialty extends Model implements Auditable
      */
     public function purchase_suppliers()
     {
-    	return $this->hasMany(PurchaseSupplier::class);
+        return $this->hasMany(PurchaseSupplier::class);
     }
 }

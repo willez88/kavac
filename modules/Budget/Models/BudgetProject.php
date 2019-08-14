@@ -13,11 +13,13 @@ use Module;
 /**
  * @class BudgetProject
  * @brief Datos de Proyectos
- * 
+ *
  * Gestiona el modelo de datos para los Proyectos
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetProject extends Model implements Auditable
 {
@@ -40,7 +42,7 @@ class BudgetProject extends Model implements Auditable
      * @var array
      */
     protected $fillable = [
-    	'name', 'code', 'onapre_code', 'active', 'department_id', 'payroll_position_id', 'payroll_staff_id'
+        'name', 'code', 'onapre_code', 'active', 'department_id', 'payroll_position_id', 'payroll_staff_id'
     ];
 
     /**
@@ -51,7 +53,7 @@ class BudgetProject extends Model implements Auditable
      */
     public function department()
     {
-    	return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class);
     }
 
     /**

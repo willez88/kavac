@@ -11,15 +11,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class BudgetSubSpecificFormulation
  * @brief Datos de las formulaciones de presupuesto por sub específicas
- * 
+ *
  * Gestiona el modelo de datos para las formulaciones de presupuesto por sub específicas
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetSubSpecificFormulation extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
 
@@ -36,7 +38,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'code', 'year', 'total_formulated', 'assigned', 'budget_specific_action_id', 
+        'code', 'year', 'total_formulated', 'assigned', 'budget_specific_action_id',
         'currency_id', 'institution_id', 'document_status_id'
     ];
 
@@ -48,7 +50,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      */
     public function specific_action()
     {
-    	return $this->belongsTo(BudgetSpecificAction::class, 'budget_specific_action_id');
+        return $this->belongsTo(BudgetSpecificAction::class, 'budget_specific_action_id');
     }
 
     /**
@@ -108,7 +110,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     }
 
     /**
-     * Método que permite validar si una formulación ya existe con los mismos datos a registrar, en cuyo caso 
+     * Método que permite validar si una formulación ya existe con los mismos datos a registrar, en cuyo caso
      * retorna verdadero
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

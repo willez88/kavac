@@ -13,11 +13,13 @@ use Modules\Budget\Models\BudgetModification;
 /**
  * @class BudgetReductionController
  * @brief Controlador de reducciones presupuestarias
- * 
+ *
  * Clase que gestiona las reducciones presupuestarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetReductionController extends Controller
 {
@@ -41,8 +43,8 @@ class BudgetReductionController extends Controller
 
         /** @var array Arreglo de opciones a implementar en el formulario */
         $this->header = [
-            'route' => 'budget.reductions.store', 
-            'method' => 'POST', 
+            'route' => 'budget.reductions.store',
+            'method' => 'POST',
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
