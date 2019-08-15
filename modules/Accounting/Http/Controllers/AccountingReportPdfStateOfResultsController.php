@@ -17,9 +17,9 @@ use Auth;
 /**
  * @class AccountingReportPdfStateOfResultsController
  * @brief Controlador para la generación del reporte de estado de resultados
- * 
+ *
  * Clase que gestiona el reporte de estado de resultados
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -51,15 +51,17 @@ class AccountingReportPdfStateOfResultsController extends Controller
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
         $url = 'stateOfResults/pdf/'.$date.'/'.$level.'/'.$zero;
-        AccountingReportHistory::updateOrCreate([
+        AccountingReportHistory::updateOrCreate(
+            [
                                                     'name' => 'Estado de Resultados',
-                                                    'report' => 6 
+                                                    'report' => 6
                                                 ],
-                                                [
+            [
                                                     'url' => $url,
-                                                ]);
+                                                ]
+        );
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $day = date('d',(mktime(0,0,0,explode('-',$date)[1]+1,1,explode('-',$date)[0])-1));
+        $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
 
         /** @var Object String en el que se formatea la fecha final de busqueda, (YYYY-mm-dd HH:mm:ss) */
         $endDate = $date.'-'.$day;
@@ -86,30 +88,30 @@ class AccountingReportPdfStateOfResultsController extends Controller
         * Se realiza la consulta de cada cuenta y asiento que pertenezca a INGRESOS Y GASTOS
         */
         $records = AccountingAccount::with($level_1, $level_2, $level_3, $level_4, $level_5, $level_6)
-            ->with([$level_1 => function($query) use ($endDate) {
-                            $query->where('from_date','<=',$endDate)->where('approved', true);
-                        }])
-            ->with([$level_2 => function($query) use ($endDate) {
-                            $query->where('from_date','<=',$endDate)->where('approved', true);
-                        }])
-            ->with([$level_3 => function($query) use ($endDate) {
-                            $query->where('from_date','<=',$endDate)->where('approved', true);
-                        }])
-            ->with([$level_4 => function($query) use ($endDate) {
-                            $query->where('from_date','<=',$endDate)->where('approved', true);
-                        }])
-            ->with([$level_5 => function($query) use ($endDate) {
-                            $query->where('from_date','<=',$endDate)->where('approved', true);
-                        }])
-            ->with([$level_6 => function($query) use ($endDate) {
-                            $query->where('from_date','<=',$endDate)->where('approved', true);
-                        }])
+            ->with([$level_1 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            }])
+            ->with([$level_2 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            }])
+            ->with([$level_3 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            }])
+            ->with([$level_4 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            }])
+            ->with([$level_5 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            }])
+            ->with([$level_6 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            }])
             ->where([
                 ['group', '>=', 5],
                 ['group', '<=', 6]
             ])
             ->where('subgroup', 0)
-            ->orderBy('group','ASC')->orderBy('subgroup','ASC')->orderBy('item','ASC')->orderBy('generic','ASC')->orderBy('specific','ASC')->orderBy('subspecific','ASC')->get();
+            ->orderBy('group', 'ASC')->orderBy('subgroup', 'ASC')->orderBy('item', 'ASC')->orderBy('generic', 'ASC')->orderBy('specific', 'ASC')->orderBy('subspecific', 'ASC')->get();
 
         $records = $this->FormatDataInArray($records);
         
@@ -117,29 +119,30 @@ class AccountingReportPdfStateOfResultsController extends Controller
         $setting = Setting::all()->first();
 
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $currency = Currency::where('default',true)->first();
+        $currency = Currency::where('default', true)->first();
 
         /** @var Object Objeto base para generar el pdf */
-        $pdf = new Pdf('L','mm','Letter');
+        $pdf = new Pdf('L', 'mm', 'Letter');
         
         /*
          *  Definicion de las caracteristicas generales de la página
          */
 
-        if (isset($setting) and $setting->report_banner == true)
+        if (isset($setting) and $setting->report_banner == true) {
             $pdf->SetMargins(10, 65, 10);
-        else
+        } else {
             $pdf->SetMargins(10, 55, 10);
+        }
         $pdf->SetHeaderMargin(10);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
 
         $pdf->setType('Estado de Resultados');
         $pdf->Open();
         $pdf->AddPage();
 
-        $html = \View::make('accounting::pdf.accounting_state_of_results_pdf',compact('pdf','records','currency','level','zero','endDate'))->render();
-        $pdf->SetFont('Courier','B',8);
+        $html = \View::make('accounting::pdf.accounting_state_of_results_pdf', compact('pdf', 'records', 'currency', 'level', 'zero', 'endDate'))->render();
+        $pdf->SetFont('Courier', 'B', 8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
@@ -227,15 +230,16 @@ class AccountingReportPdfStateOfResultsController extends Controller
         }
         /**
         * si pertenece a los ingresos aumento por el haber
-        */ 
+        */
         if ($account->group === '5') {
             return (($assets - $debit) + $balanceChildren);
-        }else if($account->group === '6'){
+        } elseif ($account->group === '6') {
             return (($debit - $assets) + $balanceChildren);
         }
     }
 
-    public function get_checkBreak(){
+    public function get_checkBreak()
+    {
         return $this->PageBreakTrigger;
     }
 }

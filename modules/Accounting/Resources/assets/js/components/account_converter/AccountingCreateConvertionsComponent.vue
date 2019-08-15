@@ -2,7 +2,7 @@
 	<div class="form-horizontal">
 		<div class="card-body">
 			
-			<accounting-show-errors :errors="errors" />
+			<accounting-show-errors :options="errors" />
 
 			<table class="table">
 				<tbody>

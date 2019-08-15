@@ -10,14 +10,17 @@ use Modules\Accounting\Models\AccountingAccountConverter;
 use Modules\Accounting\Models\AccountingAccount;
 use Module;
 use Auth;
+
 /**
  * @class AccountingAccountConverterController
  * @brief Controlador para la conversión de cuentas presupuestales y patrimoniales
- * 
+ *
  * Clase que gestiona la conversión entre cuentas presupuestales y patrimoniales
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AccountingAccountConverterController extends Controller
 {
@@ -30,7 +33,7 @@ class AccountingAccountConverterController extends Controller
      */
     public function __construct()
     {
-        /** 
+        /**
          *Establece permisos de acceso para cada método del controlador
          */
         $this->middleware('permission:accounting.converter.index', ['only' => 'index']);
@@ -49,7 +52,7 @@ class AccountingAccountConverterController extends Controller
     {
         /** @var boolean determina si esta instalado el modulo Budget */
         $has_budget = (Module::has('Budget') && Module::enabled('Budget'));
-        return view('accounting::account_converters.index',compact('has_budget'));
+        return view('accounting::account_converters.index', compact('has_budget'));
     }
 
     /**
@@ -59,7 +62,7 @@ class AccountingAccountConverterController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return response
      */
-    public function getAllRecordsAccounting_vuejs()
+    public function getAllRecordsAccountingVuejs()
     {
         return response()->json(['records'=>$this->getRecordsAccounting(true)]);
     }
@@ -70,7 +73,7 @@ class AccountingAccountConverterController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return response
      */
-    public function getAllRecordsBudget_vuejs()
+    public function getAllRecordsBudgetVuejs()
     {
         return response()->json(['records'=>$this->getRecordsBudget(true)]);
     }
@@ -86,7 +89,7 @@ class AccountingAccountConverterController extends Controller
         $has_budget = (Module::has('Budget') && Module::enabled('Budget'));
 
         if (!Module::has('Budget') || !Module::enabled('Budget')) {
-            return view('accounting::account_converters.create',compact('has_budget'));
+            return view('accounting::account_converters.create', compact('has_budget'));
         }
 
         /** @var JSON Objeto que contiene las cuentas patrimoniales */
@@ -95,7 +98,7 @@ class AccountingAccountConverterController extends Controller
         /** @var JSON Objeto que contiene las cuentas patrimoniales */
         $budgetList = json_encode($this->getRecordsBudget(false));
 
-        return view('accounting::account_converters.create',compact('has_budget', 'accountingList','budgetList'));
+        return view('accounting::account_converters.create', compact('has_budget', 'accountingList', 'budgetList'));
     }
 
     /**
@@ -107,15 +110,15 @@ class AccountingAccountConverterController extends Controller
      */
     public function store(Request $request)
     {
-		foreach ($request->records as $convertion) {
+        foreach ($request->records as $convertion) {
             /** @var Crea el registro de conversiones */
-	        AccountingAccountConverter::create([
+            AccountingAccountConverter::create([
                 'accounting_account_id' => $convertion['accounting']['id'],
                 'budget_account_id' => $convertion['budget']['id'],
                 'active' => true,
             ]);
         }
-		return response()->json(['message'=>'Success']);
+        return response()->json(['message'=>'Success']);
     }
 
     /**
@@ -132,7 +135,7 @@ class AccountingAccountConverterController extends Controller
 
         if (!$has_budget) {
             dd($has_budget);
-            return view('accounting::account_converters.edit',compact('has_budget'));
+            return view('accounting::account_converters.edit', compact('has_budget'));
         }
 
         /** @var Object Objeto que contine el registro de conversión a editar */
@@ -150,7 +153,7 @@ class AccountingAccountConverterController extends Controller
                 ]);
 
         /** Cuentas Presupuestales */
-        foreach (AccountingAccount::with('account_converters')->orderBy('id','ASC')->get() as $AccountingAccount) {
+        foreach (AccountingAccount::with('account_converters')->orderBy('id', 'ASC')->get() as $AccountingAccount) {
             /**
              * agrega al array la cuenta patromonial que se editara
              */
@@ -178,7 +181,8 @@ class AccountingAccountConverterController extends Controller
 
         /** Cuentas Presupuestales */
 
-        foreach (\Modules\Budget\Models\BudgetAccount::with('account_converters')->orderBy('id','ASC')->get() as $BudgetAccount) {
+        foreach (\Modules\Budget\Models\BudgetAccount::with('account_converters')
+                                                        ->orderBy('id', 'ASC')->get() as $BudgetAccount) {
             /**
              * agrega al array la cuenta presupuestal que posee la conversión
              */
@@ -207,7 +211,10 @@ class AccountingAccountConverterController extends Controller
          */
         $budgetAccounts = json_encode($budgetAccounts);
         
-        return view('accounting::account_converters.edit',compact('has_budget', 'account', 'accountingAccounts', 'budgetAccounts'));
+        return view(
+            'accounting::account_converters.edit',
+            compact('has_budget', 'account', 'accountingAccounts', 'budgetAccounts')
+        );
     }
 
     /**
@@ -259,7 +266,7 @@ class AccountingAccountConverterController extends Controller
     public function getRecords(Request $request)
     {
         /** @var array Arreglo que contendra registros */
-		$records = [];
+        $records = [];
 
         /** @var int id de rango inicial de busqueda */
         $init_id = 0;
@@ -268,36 +275,35 @@ class AccountingAccountConverterController extends Controller
         $end_id = 0;
 
         if (!$request->all) {
-            $init_id = $request->init_id = ($request->init_id > $request->end_id) ? $request->end_id : $request->init_id;
+            $init_id = $request->init_id = ($request->init_id > $request->end_id)? $request->end_id : $request->init_id;
             $end_id = $request->end_id = ($request->init_id > $request->end_id) ? $request->init_id : $request->end_id;
         }
         
-        if($request->type == 'budget'){
-
+        if ($request->type == 'budget') {
             if ($request->all) {
                 /** Se obtienen el primer y ultimo id de las cuentas presupuestales */
-                $init_id = \Modules\Budget\Models\BudgetAccount::orderBy('created_at','ASC')->where('parent_id',null)->first()->id;
-                $end_id = \Modules\Budget\Models\BudgetAccount::orderBy('created_at','DESC')->first()->id;
+                $init_id = \Modules\Budget\Models\BudgetAccount::orderBy('created_at', 'ASC')
+                                                                ->where('parent_id', null)->first()->id;
+                $end_id = \Modules\Budget\Models\BudgetAccount::orderBy('created_at', 'DESC')->first()->id;
             }
             /** @var Object Objeto que contine los registros de conversión a en un rango de ids */
-			$records = AccountingAccountConverter::with('budget_account','accounting_account')
-											->where('budget_account_id','>=',$init_id)
-											->where('budget_account_id','<=',$end_id)
-											->orderBy('id','ASC')->get();
-
-		}else if($request->type == 'accounting'){
+            $records = AccountingAccountConverter::with('budget_account', 'accounting_account')
+                                            ->where('budget_account_id', '>=', $init_id)
+                                            ->where('budget_account_id', '<=', $end_id)
+                                            ->orderBy('id', 'ASC')->get();
+        } elseif ($request->type == 'accounting') {
             if ($request->all) {
                 /** Se obtienen el primer y ultimo id de las cuentas patrimoniales */
-                $init_id = AccountingAccount::orderBy('created_at','ASC')->where('parent_id',null)->first()->id;
-                $end_id = AccountingAccount::orderBy('created_at','DESC')->first()->id;
+                $init_id = AccountingAccount::orderBy('created_at', 'ASC')->where('parent_id', null)->first()->id;
+                $end_id = AccountingAccount::orderBy('created_at', 'DESC')->first()->id;
             }
             /** @var Object Objeto que contine los registros de conversión a en un rango de ids */
-			$records = AccountingAccountConverter::with('budget_account','accounting_account')
-											->where('accounting_account_id','>=',$init_id)
-											->where('accounting_account_id','<=',$end_id)
-											->orderBy('id','ASC')->get();
-		}
-		return response()->json(['records'=>$records, 'message'=>'Success',200]);
+            $records = AccountingAccountConverter::with('budget_account', 'accounting_account')
+                                            ->where('accounting_account_id', '>=', $init_id)
+                                            ->where('accounting_account_id', '<=', $end_id)
+                                            ->orderBy('id', 'ASC')->get();
+        }
+        return response()->json(['records'=>$records, 'message'=>'Success',200]);
     }
 
     /**
@@ -319,7 +325,7 @@ class AccountingAccountConverterController extends Controller
          * ciclo para almacenar en array cuentas patrimoniales disponibles para conversiones
         */
         foreach (AccountingAccount::with('account_converters')
-                                        ->orderBy('id','ASC')
+                                        ->orderBy('id', 'ASC')
                                         ->get() as $AccountingAccount) {
             if (!$allRecords) {
                 if (!$AccountingAccount->account_converters['active']) {
@@ -328,7 +334,7 @@ class AccountingAccountConverterController extends Controller
                         'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}"
                     ]);
                 }
-            }else{
+            } else {
                 array_push($records, [
                     'id' => $AccountingAccount->id,
                     'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}",
@@ -363,7 +369,7 @@ class AccountingAccountConverterController extends Controller
             ]);
             
             foreach (\Modules\Budget\Models\BudgetAccount::with('account_converters')
-                                                            ->orderBy('id','ASC')
+                                                            ->orderBy('id', 'ASC')
                                                             ->get() as $BudgetAccount) {
                 if (!$allRecords) {
                     if (!$BudgetAccount->account_converters['active']) {
@@ -372,7 +378,7 @@ class AccountingAccountConverterController extends Controller
                             'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
                         ]);
                     }
-                }else{
+                } else {
                     array_push($records, [
                         'id' => $BudgetAccount->id,
                         'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}",
@@ -393,7 +399,7 @@ class AccountingAccountConverterController extends Controller
      */
     public function budgetToAccount($id)
     {
-        $convertion = AccountingAccountConverter::with('accounting_account')->where('budget_account_id',$id)->first();
+        $convertion = AccountingAccountConverter::with('accounting_account')->where('budget_account_id', $id)->first();
         return response()->json(['record'=> $convertion->accounting_account,'message'=>'Success'], 200);
     }
 
@@ -404,7 +410,7 @@ class AccountingAccountConverterController extends Controller
      */
     public function accountToBudget($id)
     {
-        $convertion = AccountingAccountConverter::with('budget_account')->where('accounting_account_id',$id)->first();
+        $convertion = AccountingAccountConverter::with('budget_account')->where('accounting_account_id', $id)->first();
         return response()->json(['record'=> $convertion->budget_account,'message'=>'Success'], 200);
     }
 }

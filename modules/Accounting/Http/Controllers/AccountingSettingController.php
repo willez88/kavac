@@ -9,12 +9,13 @@ use Modules\Accounting\Models\AccountingSeatCategory;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\AccountingCurrencyExchangeRate;
 use Auth;
+
 /**
  * @class AccountingConfigurationCategoryController
  * @brief Controlador de categorias de origen para sientos contables
- * 
+ *
  * Clase que gestiona las categorias para asientos contables
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */

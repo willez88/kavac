@@ -14,14 +14,16 @@ use Auth;
 class AccountingDashboardController extends Controller
 {
     /**
-     * Define la configuración de la clase
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.dashboard', ['only' => ['index', 'get_operations', 'get_report_histories']]);
+        $this->middleware(
+            'permission:accounting.dashboard',
+            ['only' => ['index', 'get_operations', 'get_report_histories']]
+        );
     }
 
     /**
@@ -39,18 +41,18 @@ class AccountingDashboardController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return View
      */
-    public function get_operations()
+    public function getOperations()
     {
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $currency = Currency::where('default',true)->first();
+        $currency = Currency::where('default', true)->first();
 
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $report_histories = AccountingReportHistory::orderBy('updated_at','DESC')->get();
+        $report_histories = AccountingReportHistory::orderBy('updated_at', 'DESC')->get();
 
         /** @var Object con la información de los ultimos 10 asientos contables generados */
-        $lastRecords = AccountingSeat::orderBy('updated_at','DESC')->take(10)->get();
+        $lastRecords = AccountingSeat::orderBy('updated_at', 'DESC')->take(10)->get();
 
-        return response()->json(['lastRecords' => $lastRecords, 'currency' => $currency],200);
+        return response()->json(['lastRecords' => $lastRecords, 'currency' => $currency], 200);
     }
 
     /**
@@ -59,17 +61,18 @@ class AccountingDashboardController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return View
      */
-    public function get_report_histories()
+    public function getReportHistories()
     {
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
         $report_histories = [];
 
-        for ($i=1; $i <= 6 ; $i++) { 
-            $aux = AccountingReportHistory::where('report', $i)->orderBy('updated_at','DESC')->first();
+        for ($i=1; $i<=6; $i++) {
+            $aux = AccountingReportHistory::where('report', $i)->orderBy('updated_at', 'DESC')->first();
             if (!is_null($aux)) {
 
                 /**
-                * Se calcula el intervalo de tiempo entre la fecha en la que se genero el reporte y la fecha actual en semanas y dias
+                * Se calcula el intervalo de tiempo entre la fecha en la que se genero el reporte
+                * y la fecha actual en semanas y dias
                 */
                 $datetime1 = new DateTime($aux['updated_at']->format('Y-m-d'));
                 $datetime2 = new DateTime(date("Y-m-d"));
@@ -85,6 +88,6 @@ class AccountingDashboardController extends Controller
             }
         }
 
-        return response()->json(['report_histories' => $report_histories],200);
+        return response()->json(['report_histories' => $report_histories], 200);
     }
 }

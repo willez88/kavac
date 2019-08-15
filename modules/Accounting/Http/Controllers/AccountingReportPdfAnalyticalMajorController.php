@@ -18,9 +18,9 @@ use Auth;
 /**
  * @class AccountingReportPdfAnalyticalMajorController
  * @brief Controlador para la generación del reporte de Mayor Analítico
- * 
+ *
  * Clase que gestiona el reporte de mayor analítico
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -56,15 +56,15 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         $initDate = $initDate.'-01';
 
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $endDay = date('d',(mktime(0,0,0,$endMonth+1,1,$endYear)-1));
+        $endDay = date('d', (mktime(0, 0, 0, $endMonth+1, 1, $endYear)-1));
 
         /** @var Object String en el que se formatea la fecha final de busqueda */
         $endDate = $endYear.'-'.$endMonth.'-'.$endDay;
 
         /** @var Object Objeto en el que se almacena la consulta de las cuentas con relación hacia asientos contables en un rango de fecha */
-        $RecordArr = AccountingSeatAccount::with('seating', 'account')->whereHas('seating', function($query) use ($initDate, $endDate) {
-                                                    $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
-                                                })->orderBy('updated_at','ASC')->get();
+        $RecordArr = AccountingSeatAccount::with('seating', 'account')->whereHas('seating', function ($query) use ($initDate, $endDate) {
+            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+        })->orderBy('updated_at', 'ASC')->get();
         /** @var Array array en el que se almacenaran las cuentas patrimoniales de manera unica en el rango dando */
         $records = [];
 
@@ -80,7 +80,7 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
             /**
             Ciclo para verificar que la cuenta no se repita en el array
             */
-            for ($i=0; $i < count($records); $i++) { 
+            for ($i=0; $i < count($records); $i++) {
                 if ($records[$i]->id == $accounting_accounts->account->id) {
                     $add = false;
                     break;
@@ -95,7 +95,8 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         /**
         build_sorter: function compara y ordena las cuentas segun el orden en el código
         */
-        function build_sorter() {
+        function build_sorter()
+        {
             return function ($a, $b) {
                 return strnatcmp($a->getCode(), $b->getCode());
             };
@@ -139,8 +140,11 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
             'endMonth' => 'required',
             'endYear' => 'required',
         ]);
-        return response()->json(['records' => $this->filter_accounts($request->initYear.'-'.$request->initMonth, 
-                                                                        $request->endYear, $request->endMonth)]);
+        return response()->json(['records' => $this->filter_accounts(
+            $request->initYear.'-'.$request->initMonth,
+            $request->endYear,
+            $request->endMonth
+        )]);
     }
 
     /**
@@ -164,16 +168,16 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         $initAcc = (int)$initAcc;
 
         /** @var Array Arreglo asociativo con la información base (id, id y denomination) de las cuentas patrimoniales */
-        $accountRecords = $this->filter_accounts($initDate, explode('-',$endDate)[0], explode('-',$endDate)[1]);
+        $accountRecords = $this->filter_accounts($initDate, explode('-', $endDate)[0], explode('-', $endDate)[1]);
 
         /** @var Object String en el que se formatea la fecha inicial de busqueda */
         $initDate = $initDate.'-01';
 
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $endDay = date('d',(mktime(0,0,0,explode('-',$endDate)[1]+1,1,explode('-',$endDate)[0])-1));
+        $endDay = date('d', (mktime(0, 0, 0, explode('-', $endDate)[1]+1, 1, explode('-', $endDate)[0])-1));
 
         /** @var Object String en el que se formatea la fecha final de busqueda */
-        $endDate = explode('-',$endDate)[0].'-'.explode('-',$endDate)[1].'-'.$endDay;
+        $endDate = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1].'-'.$endDay;
 
         if (isset($endAcc) && $endAcc < $initAcc) {
             $endAcc = (int)$endAcc;
@@ -185,53 +189,60 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         /** @var EndIndex indice de la cuenta desde donde finalizara la busqueda */
         $EndIndex = $initAcc;
 
-        if (isset($endAcc)) { $EndIndex = $endAcc; }
+        if (isset($endAcc)) {
+            $EndIndex = $endAcc;
+        }
 
         /** @var Object Objeto con los registros de las cuentas patrimoniales seleccionadas */
         $records = [];
 
-        for ( ; $initAcc <= $EndIndex; $initAcc++) {
+        for (; $initAcc <= $EndIndex; $initAcc++) {
             $id = $accountRecords[$initAcc]['id_record'];
-            array_push($records, AccountingSeatAccount::with('seating','account')
+            array_push($records, AccountingSeatAccount::with('seating', 'account')
                                                         ->where('accounting_account_id', $id)
-                                                        ->whereHas('seating', function($query) use ($initDate, $endDate) {
-                                                            $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
-                                                        })->orderBy('updated_at','ASC')->get());
+                                                        ->whereHas('seating', function ($query) use ($initDate, $endDate) {
+                                                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                                                        })->orderBy('updated_at', 'ASC')->get());
         }
 
         // Se crea o actualiza el registro en la basde de datos para el historial
         $url = 'AnalyticalMajor/pdf/'.$date_i.'/'.$date_e.'/'.$init_a;
 
-        if (isset($endAcc)) $url .= '/'.$endAcc;
+        if (isset($endAcc)) {
+            $url .= '/'.$endAcc;
+        }
 
-        AccountingReportHistory::updateOrCreate([
+        AccountingReportHistory::updateOrCreate(
+            [
                                                     'name' => 'Mayor Analítico',
                                                     'report' => 2
                                                 ],
-                                                [
+            [
                                                     'url' => $url,
-                                                ]);
+                                                ]
+        );
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
 
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $currency = Currency::where('default',true)->first();
+        $currency = Currency::where('default', true)->first();
 
         /** @var Object Objeto base para generar el pdf */
-        $pdf = new Pdf('L','mm','Letter');
+        $pdf = new Pdf('L', 'mm', 'Letter');
         
         /*
          *  Definicion de las caracteristicas generales de la página
          */
 
-        if (isset($setting) and $setting->report_banner == true)
+        if (isset($setting) and $setting->report_banner == true) {
             $pdf->SetMargins(10, 65, 10);
-        else
+        } else {
             $pdf->SetMargins(10, 55, 10);
+        }
         $pdf->SetHeaderMargin(10);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
 
         $pdf->setType('Asientos Contables');
         $pdf->Open();
@@ -239,8 +250,8 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
 
         $OneSeat = false;
         
-        $html = \View::make('accounting::pdf.accounting_analytical_major_pdf',compact('pdf','records','initDate','endDate','currency'))->render();
-        $pdf->SetFont('Courier','B',8);
+        $html = \View::make('accounting::pdf.accounting_analytical_major_pdf', compact('pdf', 'records', 'initDate', 'endDate', 'currency'))->render();
+        $pdf->SetFont('Courier', 'B', 8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
@@ -248,7 +259,8 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         $pdf->Output("MayorAnalítico_{$initDate}_{$endDate}.pdf");
     }
 
-    public function get_checkBreak(){
+    public function get_checkBreak()
+    {
         return $this->PageBreakTrigger;
     }
 }

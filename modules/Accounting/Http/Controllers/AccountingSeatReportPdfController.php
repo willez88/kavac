@@ -16,9 +16,9 @@ use Auth;
 /**
  * @class AccountingSeatReportPdfController
  * @brief Controlador para la generación del reporte de asiento contable
- * 
+ *
  * Clase que gestiona el reporte de asiento contable
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -53,30 +53,31 @@ class AccountingSeatReportPdfController extends Controller
         $setting = Setting::all()->first();
 
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $currency = Currency::where('default',true)->first();
+        $currency = Currency::where('default', true)->first();
 
         /** @var Object Objeto base para generar el pdf */
-        $pdf = new Pdf('L','mm','Letter');
+        $pdf = new Pdf('L', 'mm', 'Letter');
         
         /*
          *  Definicion de las caracteristicas generales de la página
          */
 
-        if (isset($setting) and $setting->report_banner == true)
+        if (isset($setting) and $setting->report_banner == true) {
             $pdf->SetMargins(10, 65, 10);
-        else
+        } else {
             $pdf->SetMargins(10, 55, 10);
+        }
         $pdf->SetHeaderMargin(10);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
 
         $pdf->setType('Asientos Contables');
         $pdf->Open();
         $pdf->AddPage();
 
         $Seating = true;
-        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('seat','pdf','Seating','currency'))->render();
-        $pdf->SetFont('Courier','B',8);
+        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf', compact('seat', 'pdf', 'Seating', 'currency'))->render();
+        $pdf->SetFont('Courier', 'B', 8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
@@ -84,8 +85,8 @@ class AccountingSeatReportPdfController extends Controller
         $pdf->Output("AsientoContable_".$seat['from_date'].".pdf");
     }
 
-    public function get_checkBreak(){
+    public function get_checkBreak()
+    {
         return $this->PageBreakTrigger;
     }
-
 }

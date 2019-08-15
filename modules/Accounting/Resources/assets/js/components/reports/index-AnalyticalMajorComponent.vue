@@ -2,7 +2,7 @@
 	<div>
 		<div class="card-body">
 			
-			<accounting-show-errors :errors="errors" />
+			<accounting-show-errors :options="errors" />
 
 			<div class="row">
 				<div class="col-3">

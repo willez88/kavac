@@ -1,7 +1,7 @@
 <template>
 <div>
 	
-	<accounting-show-errors :errors="errors" />
+	<accounting-show-errors :options="errors" />
 
 	<table class="table table-formulation">
 		<thead>

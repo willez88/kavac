@@ -17,9 +17,9 @@ use Auth;
 /**
  * @class AccountingSeatController
  * @brief Controlador de asientos contables
- * 
+ *
  * Clase que gestiona los asientos contable
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -51,15 +51,15 @@ class AccountingSeatController extends Controller
     {
 
         /** @var Object objeto que contendra la moneda manejada por defecto */
-        $currency = Currency::where('default',true)->first();
+        $currency = Currency::where('default', true)->first();
         /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
         $institutions = $this->getInstitutions("Todas");
 
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::orderBy('from_date','ASC')->first();
+        $seating = AccountingSeat::orderBy('from_date', 'ASC')->first();
 
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $yearOld = explode('-',$seating['from_date'])[0];
+        $yearOld = explode('-', $seating['from_date'])[0];
 
         /** si no existe asientos contables la fecha mas antigua es la actual*/
         if ($yearOld == '') {
@@ -87,7 +87,7 @@ class AccountingSeatController extends Controller
          */
         $categories = json_encode($categories);
         
-        return view('accounting::seating.index',compact('categories','yearOld','institutions','currency'));
+        return view('accounting::seating.index', compact('categories', 'yearOld', 'institutions', 'currency'));
     }
 
     /**
@@ -102,7 +102,7 @@ class AccountingSeatController extends Controller
         $institutions = $this->getInstitutions("Seleccione...");
 
         /** @var Object Objeto en el que se almacena la información del tipo de moneda por defecto */
-        $currency = Currency::where('default',true)->orderBy('id','ASC')->first();
+        $currency = Currency::where('default', true)->orderBy('id', 'ASC')->first();
 
         /** @var JSON Objeto que almacena las cuentas pratrimoniales */
         $AccountingAccounts = $this->getAccountingAccount();
@@ -126,7 +126,7 @@ class AccountingSeatController extends Controller
         $categories = json_encode($categories);
         $currency = json_encode($currency);
 
-        return view('accounting::seating.create-edit-form',compact('AccountingAccounts','categories','institutions','currency'));
+        return view('accounting::seating.create-edit-form', compact('AccountingAccounts', 'categories', 'institutions', 'currency'));
     }
 
     /**
@@ -163,7 +163,7 @@ class AccountingSeatController extends Controller
                 'assets' => $account['assets'],
             ]);
         }
-        return response()->json(['message'=>'Success'],200);
+        return response()->json(['message'=>'Success'], 200);
     }
 
     /**
@@ -179,7 +179,7 @@ class AccountingSeatController extends Controller
         $institutions = $this->getInstitutions("Seleccione...");
         
         /** @var Object Objeto en el que se almacena la información del tipo de moneda por defecto */
-        $currency = Currency::where('default',true)->orderBy('id','ASC')->first();
+        $currency = Currency::where('default', true)->orderBy('id', 'ASC')->first();
 
         /** @var Object Objeto que contendra el asiento contable a editar */
         $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
@@ -188,7 +188,7 @@ class AccountingSeatController extends Controller
 
         /**
          * se guarda en variables la información necesaria para la edición del asiento contable
-         */ 
+         */
         //dd($seating);
         $date = $seating->from_date;
         $reference = $seating->reference;
@@ -199,8 +199,8 @@ class AccountingSeatController extends Controller
 
         /**
          * se valida si el asiento tiene alguna relación con una institución
-         */ 
-        if( !is_null($seating->institution_id) ) {
+         */
+        if (!is_null($seating->institution_id)) {
             $institution = $seating->institution_id;
         }
 
@@ -233,7 +233,7 @@ class AccountingSeatController extends Controller
         ];
         $data_edit = json_encode($data_edit);
 
-        return view('accounting::seating.create-edit-form',compact('AccountingAccounts','institutions','seating','categories','data_edit','currency'));
+        return view('accounting::seating.create-edit-form', compact('AccountingAccounts', 'institutions', 'seating', 'categories', 'data_edit', 'currency'));
     }
 
     /**
@@ -248,7 +248,7 @@ class AccountingSeatController extends Controller
     {
         /**
          * se actualiza la información del registro del asiento contable
-         */ 
+         */
         AccountingSeat::where('id', $id)
                         ->update([
                             'reference' => $request->data['reference'],
@@ -262,7 +262,7 @@ class AccountingSeatController extends Controller
         foreach ($request->accountingAccounts as $account) {
             /**
              * Actualiza la relación de cuenta a ese asiento ya existe lo actualiza, de lo contrario crea el nuevo registro de cuenta
-             */ 
+             */
             if ($account['id_seatAcc']) {
                 /** @var Object Objeto que contiene el registro de cuanta patrimonial asociada al asiento a actualizar */
                 AccountingSeatAccount::where('id', $account['id_seatAcc'])
@@ -270,8 +270,7 @@ class AccountingSeatController extends Controller
                                           'debit' => $account['debit'],
                                           'assets' => $account['assets']
                                         ]);
-
-            }else{
+            } else {
                 /** @var Object Objeto que contiene el nuevo registro de cuanta patrimonial asociada que se asociara al asiento */
                 AccountingSeatAccount::create([
                     'accounting_seat_id' => $id,
@@ -280,13 +279,12 @@ class AccountingSeatController extends Controller
                     'assets' => $account['assets'],
                 ]);
             }
-
         }
 
         /** Se eliminar los registros de las cuentas deseadas */
         AccountingSeatAccount::destroy($request->rowsToDelete);
 
-        return response()->json(['message'=>'Success'],200);
+        return response()->json(['message'=>'Success'], 200);
     }
 
     /**
@@ -308,7 +306,7 @@ class AccountingSeatController extends Controller
 
     /**
      * consulta y filta los registros de asientos contables
-     * @param Request $request 
+     * @param Request $request
      * @return Response
      */
     public function FilterRecords(Request $request)
@@ -324,12 +322,11 @@ class AccountingSeatController extends Controller
         $institution_type = null;
 
         if ($request->data['institution'] != '') {
-            $institution_id = explode('-',$request->data['institution'])[0];
-            $institution_type = explode('-',$request->data['institution'])[1];
+            $institution_id = explode('-', $request->data['institution'])[0];
+            $institution_type = explode('-', $request->data['institution'])[1];
         }
 
         if ($request->typeSearch == 'reference') {
-
             $allRecords = [];
             /**
              * Se realiza la consulta si selecciono una institución o departamento para el filtrado
@@ -339,24 +336,22 @@ class AccountingSeatController extends Controller
                     /**
                      * Se seleccionan los registros por institución
                     */
-                    $allRecords = AccountingSeat::with('accounting_accounts.account')->where('institution_id',$institution_id)->orderBy('from_date','ASC')->get();
+                    $allRecords = AccountingSeat::with('accounting_accounts.account')->where('institution_id', $institution_id)->orderBy('from_date', 'ASC')->get();
                 } else {
                     /**
                      * Se seleccionan los registros por departamento
                     */
-                    $allRecords = AccountingSeat::with('accounting_accounts.account')->where('department_id',$institution_id)->orderBy('from_date','ASC')->get();
+                    $allRecords = AccountingSeat::with('accounting_accounts.account')->where('department_id', $institution_id)->orderBy('from_date', 'ASC')->get();
                 }
-            }
-            else {
-                $allRecords = AccountingSeat::with('accounting_accounts.account')->orderBy('from_date','ASC')->get();
+            } else {
+                $allRecords = AccountingSeat::with('accounting_accounts.account')->orderBy('from_date', 'ASC')->get();
             }
             foreach ($allRecords as $seating) {
-                if (count(explode($request->data['reference'], $seating->reference)) > 1){
+                if (count(explode($request->data['reference'], $seating->reference)) > 1) {
                     array_push($records, $seating);
                 }
-
             }
-        }else if ($request->typeSearch == 'origin') {
+        } elseif ($request->typeSearch == 'origin') {
             /**
              * realiza busqueda de todos los asientos, de lo contrario solo por una categoria especifica
              * Se realiza la consulta si selecciono una institución o departamento para el filtrado
@@ -369,22 +364,20 @@ class AccountingSeatController extends Controller
                      * Se seleccionan los registros por institución
                     */
                     $FilterByOrigin = ($request->data['category'] == 0) ?
-                                        AccountingSeat::with('accounting_accounts.account')->where('institution_id',$institution_id)->where('approved',true)->orderBy('from_date','ASC')->get() : 
-                                        AccountingSeat::with('accounting_accounts.account')->where('institution_id',$institution_id)->where('approved',true)->where('accounting_seat_categories_id',$request->data['category'])->orderBy('from_date','ASC')->get();
-
+                                        AccountingSeat::with('accounting_accounts.account')->where('institution_id', $institution_id)->where('approved', true)->orderBy('from_date', 'ASC')->get() :
+                                        AccountingSeat::with('accounting_accounts.account')->where('institution_id', $institution_id)->where('approved', true)->where('accounting_seat_categories_id', $request->data['category'])->orderBy('from_date', 'ASC')->get();
                 } else {
                     /**
                      * Se seleccionan los registros por departamento
                     */
                     $FilterByOrigin = ($request->data['category'] == 0) ?
-                                        AccountingSeat::with('accounting_accounts.account')->where('department_id',$institution_id)->where('approved',true)->orderBy('from_date','ASC')->get() : 
-                                        AccountingSeat::with('accounting_accounts.account')->where('department_id',$institution_id)->where('approved',true)->where('accounting_seat_categories_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+                                        AccountingSeat::with('accounting_accounts.account')->where('department_id', $institution_id)->where('approved', true)->orderBy('from_date', 'ASC')->get() :
+                                        AccountingSeat::with('accounting_accounts.account')->where('department_id', $institution_id)->where('approved', true)->where('accounting_seat_categories_id', $request->data['category'])->orderBy('from_date', 'ASC')->get();
                 }
-            }
-            else {
+            } else {
                 $FilterByOrigin = ($request->data['category'] == 0) ?
-                                    AccountingSeat::with('accounting_accounts.account')->where('approved',true)->orderBy('from_date','ASC')->get() : 
-                                    AccountingSeat::with('accounting_accounts.account')->where('approved',true)->where('accounting_seat_categories_id',$request->data['category'])->orderBy('from_date','ASC')->get();
+                                    AccountingSeat::with('accounting_accounts.account')->where('approved', true)->orderBy('from_date', 'ASC')->get() :
+                                    AccountingSeat::with('accounting_accounts.account')->where('approved', true)->where('accounting_seat_categories_id', $request->data['category'])->orderBy('from_date', 'ASC')->get();
             }
             
             /**
@@ -393,43 +386,42 @@ class AccountingSeatController extends Controller
             if ($request->filterDate == 'generic') {
                 /** @var array Arreglo que contendra los registros restantes del primer filtrado general */
                 $fltForYear = [];
+                /**
+                 * todas las fechas
+                 */
+                if ($request->data['year'] == 0 && $request->data['month'] == 0) {
+                    $records = $FilterByOrigin;
+                } else {
                     /**
-                     * todas las fechas
+                     * filtardo por año
                      */
-                    if ($request->data['year'] == 0 && $request->data['month'] == 0) {
-                        $records = $FilterByOrigin;
-                    }
-                    else{
-                        /**
-                         * filtardo por año
-                         */
-                        if ($request->data['year'] == 0) { // todos los años
-                            $fltForYear = $FilterByOrigin;
-                        }else{
-                            foreach ($FilterByOrigin as $record) {
-                                if (explode('-',$record->from_date)[0] == $request->data['year']){
-                                    array_push($fltForYear, $record);
-                                }
-                            }
-                        }
-                        /**
-                         * filtrado por mes
-                         */
-                        if ($request->data['month'] == 0) { // todos los meses
-                            $records = $fltForYear;
-                        }else{
-                            foreach ($fltForYear as $record) {
-                                if (explode('-',$record->from_date)[1] == $request->data['month']){
-                                    array_push($records, $record);
-                                }
+                    if ($request->data['year'] == 0) { // todos los años
+                        $fltForYear = $FilterByOrigin;
+                    } else {
+                        foreach ($FilterByOrigin as $record) {
+                            if (explode('-', $record->from_date)[0] == $request->data['year']) {
+                                array_push($fltForYear, $record);
                             }
                         }
                     }
+                    /**
+                     * filtrado por mes
+                     */
+                    if ($request->data['month'] == 0) { // todos los meses
+                        $records = $fltForYear;
+                    } else {
+                        foreach ($fltForYear as $record) {
+                            if (explode('-', $record->from_date)[1] == $request->data['month']) {
+                                array_push($records, $record);
+                            }
+                        }
+                    }
+                }
             } else {
                 /**
                  * Filtrado en un rango especifico de fechas
                  */
-                $records = $FilterByOrigin->whereBetween("from_date",[$request->data['init'],$request->data['end']]);
+                $records = $FilterByOrigin->whereBetween("from_date", [$request->data['init'],$request->data['end']]);
             }
         }
         return response()->json(['records'=>$records,'message'=>'Success', 200]);
@@ -450,12 +442,12 @@ class AccountingSeatController extends Controller
         /**
          * ciclo para almecenar y formatear en array las cuentas patrimoniales
          */
-        foreach (AccountingAccount::orderBy('group','ASC')
-                                    ->orderBy('subgroup','ASC')
-                                    ->orderBy('item','ASC')
-                                    ->orderBy('generic','ASC')
-                                    ->orderBy('specific','ASC')
-                                    ->orderBy('subspecific','ASC')
+        foreach (AccountingAccount::orderBy('group', 'ASC')
+                                    ->orderBy('subgroup', 'ASC')
+                                    ->orderBy('item', 'ASC')
+                                    ->orderBy('generic', 'ASC')
+                                    ->orderBy('specific', 'ASC')
+                                    ->orderBy('subspecific', 'ASC')
                                     ->get() as $account) {
             if ($account->active) {
                 array_push($records, [
@@ -471,18 +463,18 @@ class AccountingSeatController extends Controller
     }
 
 
-// controladores para la gestión de asientos contable no aprobados
+    // controladores para la gestión de asientos contable no aprobados
 
     // Listado
     public function unapproved()
     {
         /** @var Object objeto que contendra los registros resultantes de la busqueda */
-        $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved',false)->orderBy('from_date','ASC')->get();
+        $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved', false)->orderBy('from_date', 'ASC')->get();
 
         /** @var Object objeto que contendra la moneda manejada por defecto */
-        $currency = Currency::where('default',true)->first();
+        $currency = Currency::where('default', true)->first();
 
-        return view('accounting::seating.listing',compact('seating','currency'));
+        return view('accounting::seating.listing', compact('seating', 'currency'));
     }
     /**
      * aprueba el asiento contable
@@ -511,7 +503,7 @@ class AccountingSeatController extends Controller
             'id' => '',
             'text' => $text_default,
         ]);
-        foreach (Institution::where('active',true)->orderBy('name','ASC')->get() as $institution) {
+        foreach (Institution::where('active', true)->orderBy('name', 'ASC')->get() as $institution) {
             // se almacenan las instituciones en un array
             array_push($institutions, [
                 'id' => $institution->id,
@@ -523,5 +515,4 @@ class AccountingSeatController extends Controller
          */
         return json_encode($institutions);
     }
-
 }

@@ -17,9 +17,9 @@ use Auth;
 /**
  * @class AccountingReportPdfCheckupBalanceController
  * @brief Controlador para la generación del reporte de Balance de Comprobación
- * 
+ *
  * Clase que gestiona el reporte de balance de comprobación
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -86,7 +86,8 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         return $this->endDate;
     }
 
-    public function build_sorter() {
+    public function build_sorter()
+    {
         return function ($a, $b) {
             return strnatcmp($a->getCode(), $b->getCode());
         };
@@ -108,15 +109,15 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $initDate = $initDate.'-01';
 
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $endDay = date('d',(mktime(0,0,0,explode('-',$endDate)[1]+1,1,explode('-',$endDate)[0])-1));
+        $endDay = date('d', (mktime(0, 0, 0, explode('-', $endDate)[1]+1, 1, explode('-', $endDate)[0])-1));
 
         /** @var Object String en el que se formatea la fecha final de busqueda */
         $endDate = $endDate.'-'.$endDay;
 
         /** @var Object Objeto en el que se almacena la consulta de las cuentas con relación hacia asientos contables en un rango de fecha */
-        $RecordArr = AccountingSeatAccount::with('seating', 'account')->whereHas('seating', function($query) use ($initDate, $endDate) {
-                                                    $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
-                                                })->orderBy('updated_at','ASC')->get();
+        $RecordArr = AccountingSeatAccount::with('seating', 'account')->whereHas('seating', function ($query) use ($initDate, $endDate) {
+            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+        })->orderBy('updated_at', 'ASC')->get();
 
         /** @var Array array en el que se almacenaran las cuentas patrimoniales de manera unica en el rango dando */
         $records = [];
@@ -133,7 +134,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
             /**
             Ciclo para verificar que la cuenta no se repita en el array
             */
-            for ($i=0; $i < count($records); $i++) { 
+            for ($i=0; $i < count($records); $i++) {
                 if ($records[$i]->id == $accounting_accounts->account->id) {
                     $add = false;
                     break;
@@ -168,7 +169,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
             $this->setRecords($arrAux);
             $this->setInitDate($initDate);
             $this->setEndDate($endDate);
-        }else{
+        } else {
             return $arrAux;
         }
     }
@@ -182,23 +183,23 @@ class AccountingReportPdfCheckupBalanceController extends Controller
     public function CalculateBeginningBalance($date)
     {
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::where('approved', true)->orderBy('from_date','ASC')->first();
+        $seating = AccountingSeat::where('approved', true)->orderBy('from_date', 'ASC')->first();
        
         /**
          Se establecen las fechas validas anteriores a la fecha suministrada para realizar la busqueda de registros
         */
 
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $initDate = explode('-',$seating['from_date'])[0].'-'.explode('-',$seating['from_date'])[1];
+        $initDate = explode('-', $seating['from_date'])[0].'-'.explode('-', $seating['from_date'])[1];
 
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $endDay = date('d',(mktime(0,0,0,explode('-',$date)[1]+1,1,explode('-',$date)[0])-1));
+        $endDay = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
 
         /** @var Object String en el que establece el mes anterior */
-        $endMonth = (((int)explode('-',$date)[1])-1 == 0) ? 12 : (((int)explode('-',$date)[1])-1);
+        $endMonth = (((int)explode('-', $date)[1])-1 == 0) ? 12 : (((int)explode('-', $date)[1])-1);
 
         /** @var Object String en el que se establece el año anterior de ser necesario */
-        $endYear = (((int)explode('-',$date)[1])-1 == 0) ? (((int)explode('-',$date)[0])-1) : (((int)explode('-',$date)[0]));
+        $endYear = (((int)explode('-', $date)[1])-1 == 0) ? (((int)explode('-', $date)[0])-1) : (((int)explode('-', $date)[0]));
 
         /** @var Object String en el que se formatea la fecha final de busqueda */
         $endDate = $endYear.'-'.$endMonth;
@@ -210,11 +211,11 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         */
         foreach ($accounts as $account) {
             $balance = 0;
-            foreach (AccountingSeatAccount::with('seating','account')
+            foreach (AccountingSeatAccount::with('seating', 'account')
                         ->where('accounting_account_id', $account['id_record'])
-                        ->whereHas('seating', function($query) use ($initDate, $endDate, $endDay) {
-                            $query->whereBetween('from_date',[$initDate.'-01',($endDate.'-'.$endDay)])->where('approved',true);
-                        })->orderBy('updated_at','ASC')->get() as $record) {
+                        ->whereHas('seating', function ($query) use ($initDate, $endDate, $endDay) {
+                            $query->whereBetween('from_date', [$initDate.'-01',($endDate.'-'.$endDay)])->where('approved', true);
+                        })->orderBy('updated_at', 'ASC')->get() as $record) {
                 $balance += (float)$record->debit - (float)$record->assets;
             }
             $this->setBeginningBalance($account['id_record'], $balance);
@@ -236,13 +237,15 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         */
         $url = 'BalanceCheckUp/pdf/'.$initDate.'/'.$endDate;
         
-        AccountingReportHistory::updateOrCreate([
+        AccountingReportHistory::updateOrCreate(
+            [
                                                     'name' => 'Balance de Comporbación',
-                                                    'report' => 1 
+                                                    'report' => 1
                                                 ],
-                                                [
+            [
                                                     'url' => $url,
-                                                ]);
+                                                ]
+        );
 
         $this->getAccAccount($initDate, $endDate, false);
 
@@ -271,11 +274,13 @@ class AccountingReportPdfCheckupBalanceController extends Controller
             $id_record = $accountRecords[$i]['id_record'];
 
             // realiza la consulta de las cuentas usadas en asientos contables en el rango dado
-            array_push($records, AccountingSeatAccount::with('seating','account')
+            array_push(
+                $records,
+                AccountingSeatAccount::with('seating', 'account')
                                                 ->where('accounting_account_id', $id_record)
-                                                ->whereHas('seating', function($query) use ($initDate, $endDate) {
-                                                    $query->whereBetween('from_date',[$initDate,$endDate])->where('approved',true);
-                                                })->orderBy('updated_at','ASC')->get()
+                                                ->whereHas('seating', function ($query) use ($initDate, $endDate) {
+                                                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                                                })->orderBy('updated_at', 'ASC')->get()
             );
         }
 
@@ -283,37 +288,38 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $setting = Setting::all()->first();
 
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $currency = Currency::where('default',true)->first();
+        $currency = Currency::where('default', true)->first();
 
         /** @var Object Objeto base para generar el pdf */
-        $pdf = new Pdf('L','mm','Letter');
+        $pdf = new Pdf('L', 'mm', 'Letter');
         
         /*
          *  Definicion de las caracteristicas generales de la página
          */
 
-        if (isset($setting) and $setting->report_banner == true)
+        if (isset($setting) and $setting->report_banner == true) {
             $pdf->SetMargins(10, 65, 10);
-        else
+        } else {
             $pdf->SetMargins(10, 55, 10);
+        }
         $pdf->SetHeaderMargin(10);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
 
         $pdf->setType('Balance de Comprobación');
         $pdf->Open();
         $pdf->AddPage();
 
-        $html = \View::make('accounting::pdf.accounting_checkup_balance_pdf',compact('pdf','records','initDate','endDate','currency','beginningBalance'))->render();
-        $pdf->SetFont('Courier','B',8);
+        $html = \View::make('accounting::pdf.accounting_checkup_balance_pdf', compact('pdf', 'records', 'initDate', 'endDate', 'currency', 'beginningBalance'))->render();
+        $pdf->SetFont('Courier', 'B', 8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
         $pdf->Output("Balance_de_Comprobación_{$initDate}_{$endDate}.pdf");
     }
 
-    public function get_checkBreak(){
+    public function get_checkBreak()
+    {
         return $this->PageBreakTrigger;
     }
-
 }

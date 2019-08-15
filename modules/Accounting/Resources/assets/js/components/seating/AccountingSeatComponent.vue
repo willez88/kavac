@@ -3,7 +3,7 @@
 		<form @submit.prevent="" class="form-horizontal">
 			<div class="card-body">
 				
-				<accounting-show-errors :errors="errors" />
+				<accounting-show-errors :options="errors" />
 
 				<div class="alert alert-warning" role="alert" v-if="warnings.length > 0">
 					<div class="container">

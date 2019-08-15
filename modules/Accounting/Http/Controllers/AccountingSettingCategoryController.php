@@ -8,12 +8,13 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingSeatCategory;
 use Auth;
+
 /**
  * @class AccountingSettingCategoryController
  * @brief Controlador de configuración de categorias de origen de asientos contables
- * 
+ *
  * Clase que gestiona las categorias de origen de asientos contables
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -55,7 +56,7 @@ class AccountingSettingCategoryController extends Controller
         /** @var object Objeto para almacenar la información para el nuevo registro */
         AccountingSeatCategory::create($request->all());
 
-        return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'],200);
+        return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'], 200);
     }
 
     /**
@@ -73,10 +74,10 @@ class AccountingSettingCategoryController extends Controller
             'acronym' => 'required|string',
         ]);
         /** @var Object Objeto que contine el registro de conversión a editar */
-        AccountingSeatCategory::where('id',$id)
+        AccountingSeatCategory::where('id', $id)
                                 ->update($request->all());
 
-        return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'],200);
+        return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'], 200);
     }
 
     /**
@@ -94,14 +95,14 @@ class AccountingSettingCategoryController extends Controller
              * validar si no esta relacionada con algun asiento es permitido eliminarla
              */
             if (count($category->accounting_seats) > 0) {
-                return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar, debido a que existen asientos relacionados.'],200);
+                return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar, debido a que existen asientos relacionados.'], 200);
             }
             $category->delete();
         }
-        return response()->json(['record'=>$category, 'message'=>'Success'],200);
+        return response()->json(['record'=>$category, 'message'=>'Success'], 200);
     }
 
-        /**
+    /**
      * Obtiene los datos de las entidades bancarias
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

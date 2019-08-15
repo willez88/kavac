@@ -36,7 +36,6 @@ class AccountingReportsController extends Controller
      */
     public function accountingBooks()
     {
-
         $yearOld =$this->CalcualteYearOld();
 
         /** @var array arreglo que almacenara la lista de cuentas patrimoniales*/
@@ -48,15 +47,15 @@ class AccountingReportsController extends Controller
         /**
          * se realiza la busqueda de manera ordenada en base al codigo
          */
-        foreach (AccountingAccount::orderBy('group','ASC')
-                                    ->orderBy('subgroup','ASC')
-                                    ->orderBy('item','ASC')
-                                    ->orderBy('generic','ASC')
-                                    ->orderBy('specific','ASC')
-                                    ->orderBy('subspecific','ASC')
-                                    ->where('active',true)
+        foreach (AccountingAccount::orderBy('group', 'ASC')
+                                    ->orderBy('subgroup', 'ASC')
+                                    ->orderBy('item', 'ASC')
+                                    ->orderBy('generic', 'ASC')
+                                    ->orderBy('specific', 'ASC')
+                                    ->orderBy('subspecific', 'ASC')
+                                    ->where('active', true)
                                     ->get() as $account) {
-          /** @var array arreglo con datos de las cuentas patrimoniales*/
+            /** @var array arreglo con datos de las cuentas patrimoniales*/
             array_push($records, [
                 'id' => $account->id,
                 'text' =>   "{$account->getCode()} - {$account->denomination}",
@@ -75,7 +74,6 @@ class AccountingReportsController extends Controller
      */
     public function financeStatements()
     {
-
         $yearOld =$this->CalcualteYearOld();
 
         /** @var Object String con el tipo de reporte que abrira */
@@ -90,12 +88,11 @@ class AccountingReportsController extends Controller
     public function CalcualteYearOld()
     {
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::where('approved', true)->orderBy('from_date','ASC')->first();
+        $seating = AccountingSeat::where('approved', true)->orderBy('from_date', 'ASC')->first();
         
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $yearOld = explode('-',$seating['from_date'])[0];
+        $yearOld = explode('-', $seating['from_date'])[0];
 
         return $yearOld;
-
     }
 }

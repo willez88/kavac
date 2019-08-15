@@ -1,7 +1,7 @@
 <template>
 	<div class="card-body">
 		
-		<accounting-show-errors :errors="errors" />
+		<accounting-show-errors :options="errors" />
 
 		<form method="post" enctype="multipart/form-data" @submit.prevent="">
 			<label>Cargar Hoja de calculo. Formatos permitidos:<strong>.xls .xlsx .ods</strong></label><br>

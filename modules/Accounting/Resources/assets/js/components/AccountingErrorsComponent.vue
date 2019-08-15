@@ -6,13 +6,13 @@
 			</div>
 			<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
 			<ul>
-				<li v-for="error in errors">{{ error }}</li>
+				<li v-for="error in options">{{ error }}</li>
 			</ul>
 		</div>
 	</div>
 </template>
 <script>
 	export default{
-		props:['errors']
+		props:['options']
 	};
 </script>

@@ -16,9 +16,9 @@ use Auth;
 /**
  * @class AccountingReportPdfDailyBookController
  * @brief Controlador para la generación del reporte del libro diario
- * 
+ *
  * Clase que gestiona el reporte de libro diario
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -49,45 +49,48 @@ class AccountingReportPdfDailyBookController extends Controller
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
         $url = 'diaryBook/pdf/'.$initDate.'/'.$endDate;
-        AccountingReportHistory::updateOrCreate([
+        AccountingReportHistory::updateOrCreate(
+            [
                                                     'name' => 'Libro Diario',
-                                                    'report' => 3 
+                                                    'report' => 3
                                                 ],
-                                                [
+            [
                                                     'url' => $url,
-                                                ]);
+                                                ]
+        );
 
         /** @var Objet objeto con la información del asiento contable */
-        $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved',true)->whereBetween("from_date",[$initDate, $endDate])->orderBy('from_date','ASC')->get();
+        $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved', true)->whereBetween("from_date", [$initDate, $endDate])->orderBy('from_date', 'ASC')->get();
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
 
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $currency = Currency::where('default',true)->first();
+        $currency = Currency::where('default', true)->first();
 
         /** @var Object Objeto base para generar el pdf */
-        $pdf = new Pdf('L','mm','Letter');
+        $pdf = new Pdf('L', 'mm', 'Letter');
         
         /*
          *  Definicion de las caracteristicas generales de la página
          */
 
-        if (isset($setting) and $setting->report_banner == true)
+        if (isset($setting) and $setting->report_banner == true) {
             $pdf->SetMargins(10, 65, 10);
-        else
+        } else {
             $pdf->SetMargins(10, 55, 10);
+        }
         $pdf->SetHeaderMargin(10);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
 
         $pdf->setType('Libro Diario');
         $pdf->Open();
         $pdf->AddPage();
 
         $Seating = false;
-        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf',compact('pdf','seats','Seating','currency'))->render();
-        $pdf->SetFont('Courier','B',8);
+        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf', compact('pdf', 'seats', 'Seating', 'currency'))->render();
+        $pdf->SetFont('Courier', 'B', 8);
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
@@ -95,7 +98,8 @@ class AccountingReportPdfDailyBookController extends Controller
         $pdf->Output("Libro_Diario_{$initDate}_{$endDate}.pdf");
     }
 
-    public function get_checkBreak(){
+    public function get_checkBreak()
+    {
         return $this->PageBreakTrigger;
     }
 }

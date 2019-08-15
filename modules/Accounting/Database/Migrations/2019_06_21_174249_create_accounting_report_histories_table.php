@@ -16,8 +16,12 @@ class CreateAccountingReportHistoriesTable extends Migration
         Schema::create('accounting_report_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('url');
-            $table->enum('report', [1, 2, 3, 4, 5, 6])->comment('Tipo de reporte generado: (1)Balance de comprobacion, (2)Mayor Analítico, (3) Libro Diario, (4)Libro Auxiliar, (5)Balance general, (6)Estado de resultados');
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            $table->enum('name', [1, 2, 3, 4, 5, 6])
+            ->comment(
+                'Tipo de reporte generado: (1)Balance de comprobacion, 
+                (2)Mayor Analítico, (3) Libro Diario, (4)Libro Auxiliar,
+                 (5)Balance general, (6)Estado de resultados'
+            );
             $table->timestamps();
         });
     }
