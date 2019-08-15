@@ -29,20 +29,11 @@
         						</div>
                                 <div class="col-md-4">
         							<div class="form-group">
-        								<label>Nombres</label>
+        								<label>Trabajador</label>
         				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="first_name">
+                                            disabled="true" id="payroll_staff">
         				            </div>
         				        </div>
-                                <div class="col-md-4">
-        							<div class="form-group">
-        								<label>Apellidos</label>
-        				        		<input type="text" data-toggle="tooltip" class="form-control"
-                                            disabled="true" id="last_name">
-        				            </div>
-        				        </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-4">
         							<div class="form-group">
         								<label>Nacionalidad</label>
@@ -50,6 +41,8 @@
                                             disabled="true" id="payroll_nationality">
         				            </div>
         				        </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">
         							<div class="form-group">
         								<label>Cédula de Identidad</label>
@@ -64,8 +57,6 @@
                                             disabled="true" id="passport">
         				            </div>
         				        </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-4">
         							<div class="form-group">
         								<label>Correo Electrónico</label>
@@ -73,11 +64,20 @@
                                             disabled="true" id="email">
         				            </div>
         				        </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">
         							<div class="form-group">
         								<label>Fecha de Nacimiento</label>
         				        		<input type="text" data-toggle="tooltip" class="form-control"
                                             disabled="true" id="birthdate">
+        				            </div>
+        				        </div>
+                                <div class="col-md-4">
+        							<div class="form-group">
+        								<label>Edad</label>
+        				        		<input type="text" data-toggle="tooltip" class="form-control"
+                                            disabled="true" id="age">
         				            </div>
         				        </div>
                                 <div class="col-md-4">
@@ -230,13 +230,13 @@
                 axios.get('/payroll/staffs/' + id).then(response => {
 					this.record = response.data.record;
                     $('#code').val(this.record.code);
-                    $('#first_name').val(this.record.first_name);
-                    $('#last_name').val(this.record.last_name);
+                    $('#payroll_staff').val(this.record.first_name + ' ' + this.record.last_name);
                     $('#payroll_nationality').val(this.record.payroll_nationality.name);
                     $('#id_number').val(this.record.id_number);
                     $('#passport').val(this.record.passport);
                     $('#email').val(this.record.email);
                     $('#birthdate').val(this.record.birthdate);
+                    $('#age').val(response.data.age);
                     $('#payroll_gender').val(this.record.payroll_gender.name);
                     $('#emergency_contact').val(this.record.emergency_contact);
                     $('#emergency_phone').val(this.record.emergency_phone);

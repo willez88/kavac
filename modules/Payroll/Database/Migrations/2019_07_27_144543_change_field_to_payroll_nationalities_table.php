@@ -14,7 +14,9 @@ class ChangeFieldToPayrollNationalitiesTable extends Migration
     public function up()
     {
         Schema::table('payroll_nationalities', function (Blueprint $table) {
-            if (Schema::hasColumn('payroll_nationalities', 'demonym') && !Schema::hasColumn('payroll_nationalities', 'name')) {
+            if (Schema::hasColumn('payroll_nationalities', 'demonym') &&
+                !Schema::hasColumn('payroll_nationalities', 'name')
+            ) {
                 $table->dropColumn("demonym");
                 $table->string('name', 100)->nullable()
                       ->comment('Nombre de la nacionalidad de la persona');
@@ -30,7 +32,9 @@ class ChangeFieldToPayrollNationalitiesTable extends Migration
     public function down()
     {
         Schema::table('payroll_nationalities', function (Blueprint $table) {
-            if (!Schema::hasColumn('payroll_nationalities', 'demonym') && Schema::hasColumn('payroll_nationalities', 'name')) {
+            if (!Schema::hasColumn('payroll_nationalities', 'demonym') &&
+                Schema::hasColumn('payroll_nationalities', 'name')
+            ) {
                 $table->dropColumn("name");
                 $table->string('demonym', 100)->nullable()
                       ->comment('Denominacion de la nacionalidad de la persona');

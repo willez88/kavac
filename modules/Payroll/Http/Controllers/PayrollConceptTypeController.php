@@ -16,7 +16,9 @@ use Modules\Payroll\Models\PayrollConceptType;
  * Clase que gestiona los tipos de concepto
  *
  * @author William Páez <wpaez at cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollConceptTypeController extends Controller
 {
@@ -95,9 +97,10 @@ class PayrollConceptTypeController extends Controller
     public function edit(PayrollConceptType $concept_type)
     {
         $header = [
-            'route' => ['payroll.concept-types.update', $concept_type], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
+            'route' => ['payroll.concept-types.update', $concept_type], 'method' => 'PUT',
+            'role' => 'form', 'class' => 'form',
         ];
-        return view('payroll::concept-types.create-edit', compact('concept_type','header'));
+        return view('payroll::concept-types.create-edit', compact('concept_type', 'header'));
     }
 
     /**
@@ -126,8 +129,7 @@ class PayrollConceptTypeController extends Controller
      */
     public function destroy(Request $request, PayrollConceptType $concept_type)
     {
-        if ($request->ajax())
-        {
+        if ($request->ajax()) {
             $concept_type->delete();
             $request->session()->flash('message', ['type' => 'destroy']);
             return response()->json(['result' => true]);

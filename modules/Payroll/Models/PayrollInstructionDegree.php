@@ -16,7 +16,9 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de grados de instruccíón
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollInstructionDegree extends Model implements Auditable
 {
@@ -54,6 +56,6 @@ class PayrollInstructionDegree extends Model implements Auditable
      */
     public function payroll_professional_informations()
     {
-    	return $this->hasMany(PayrollProfessionalInformation::class);
+        return $this->hasMany(PayrollProfessionalInformation::class);
     }
 }

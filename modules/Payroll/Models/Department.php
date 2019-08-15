@@ -15,6 +15,6 @@ class Department extends BaseDepartment
      */
     public function payroll_employment_informations()
     {
-    	return $this->hasMany(PayrollEmploymentInformation::class);
+        return $this->hasMany(PayrollEmploymentInformation::class);
     }
 }

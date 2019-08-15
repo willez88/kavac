@@ -15,6 +15,6 @@ class Country extends BaseCountry
      */
     public function payroll_nationality()
     {
-    	return $this->hasOne(PayrollNationality::class);
+        return $this->hasOne(PayrollNationality::class);
     }
 }

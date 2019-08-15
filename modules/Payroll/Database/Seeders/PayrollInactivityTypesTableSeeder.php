@@ -13,7 +13,9 @@ use Modules\Payroll\Models\PayrollInactivityType;
  *
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollInactivityTypesTableSeeder extends Seeder
 {
@@ -45,7 +47,7 @@ class PayrollInactivityTypesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payrollInactivityTypes) {
+        DB::transaction(function () use ($payrollInactivityTypes) {
             foreach ($payrollInactivityTypes as $payrollInactivityType) {
                 PayrollInactivityType::updateOrCreate(
                     ['name' => $payrollInactivityType['name']]

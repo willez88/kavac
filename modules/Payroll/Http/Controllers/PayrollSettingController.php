@@ -49,8 +49,7 @@ class PayrollSettingController extends Controller
         ]);
 
         $staffs_code = $request->staffs_code;
-        if( !is_null($staffs_code))
-        {
+        if (!is_null($staffs_code)) {
             $model = PayrollStaff::class;
             list($prefix, $digits, $sufix) = CodeSetting::divideCode($staffs_code);
             CodeSetting::updateOrCreate([

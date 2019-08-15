@@ -360,25 +360,29 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
              * Socioeconomic informations
              */
             [
-                'name' => 'Ver los datos de información socioeconómica', 'slug' => 'payroll.socioeconomic.informations.list',
+                'name' => 'Ver los datos de información socioeconómica',
+                'slug' => 'payroll.socioeconomic.informations.list',
                 'description' => 'Acceso para ver los datos de información socioeconómica',
                 'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.socioeconomica.ver'
             ],
             [
-                'name' => 'Crear datos de información socioeconómica', 'slug' => 'payroll.socioeconomic.informations.create',
+                'name' => 'Crear datos de información socioeconómica',
+                'slug' => 'payroll.socioeconomic.informations.create',
                 'description' => 'Acceso para crear datos de información socioeconómica',
                 'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.socioeconomica.crear'
             ],
             [
-                'name' => 'Editar datos de información socioeconómica', 'slug' => 'payroll.socioeconomic.informations.edit',
+                'name' => 'Editar datos de información socioeconómica',
+                'slug' => 'payroll.socioeconomic.informations.edit',
                 'description' => 'Acceso para editar datos de información socioeconómica',
                 'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.socioeconomica.editar'
             ],
             [
-                'name' => 'Eliminar datos de información socioeconómica', 'slug' => 'payroll.socioeconomic.informations.delete',
+                'name' => 'Eliminar datos de información socioeconómica',
+                'slug' => 'payroll.socioeconomic.informations.delete',
                 'description' => 'Acceso para eliminar datos de información socioeconómica',
                 'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.socioeconomica.eliminar'
@@ -387,13 +391,15 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
              * Professional informations
              */
             [
-                'name' => 'Ver los datos de información profesional', 'slug' => 'payroll.professional.informations.list',
+                'name' => 'Ver los datos de información profesional',
+                'slug' => 'payroll.professional.informations.list',
                 'description' => 'Acceso para ver los datos de información socioeconómica',
                 'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.profesional.ver'
             ],
             [
-                'name' => 'Crear datos de información profesional', 'slug' => 'payroll.professional.informations.create',
+                'name' => 'Crear datos de información profesional',
+                'slug' => 'payroll.professional.informations.create',
                 'description' => 'Acceso para crear datos de información profesional',
                 'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.profesional.crear'
@@ -405,7 +411,8 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'informacion.profesional.editar'
             ],
             [
-                'name' => 'Eliminar datos de información profesional', 'slug' => 'payroll.professional.informations.delete',
+                'name' => 'Eliminar datos de información profesional',
+                'slug' => 'payroll.professional.informations.delete',
                 'description' => 'Acceso para eliminar datos de información profesional',
                 'model' => 'Modules\Payroll\Models\PayrollProfessionalInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.profesional.eliminar'
@@ -522,13 +529,15 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
              * Work age settings
              */
             [
-                'name' => 'Crear datos de configuración de la edad laboral', 'slug' => 'payroll.age.work.settings.create',
+                'name' => 'Crear datos de configuración de la edad laboral',
+                'slug' => 'payroll.age.work.settings.create',
                 'description' => 'Acceso para crear datos de configuración de la edad laboral',
                 'model' => 'Modules\Payroll\Models\PayrollWorkAgeSetting', 'model_prefix' => 'nomina',
                 'slug_alt' => 'configuracion.edad.laboral.crear'
             ],
             [
-                'name' => 'Editar datos de configuración de la edad laboral', 'slug' => 'payroll.age.work.settings.edit',
+                'name' => 'Editar datos de configuración de la edad laboral',
+                'slug' => 'payroll.age.work.settings.edit',
                 'description' => 'Acceso para editar datos de configuración de la edad laboral',
                 'model' => 'Modules\Payroll\Models\PayrollWorkAgeSetting', 'model_prefix' => 'nomina',
                 'slug_alt' => 'configuracion.edad.laboral.editar'

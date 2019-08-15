@@ -16,7 +16,9 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de datos del personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollStaff extends Model implements Auditable
 {
@@ -86,7 +88,7 @@ class PayrollStaff extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function parish()
+    public function parish()
     {
         return $this->belongsTo(Parish::class);
     }
@@ -97,7 +99,7 @@ class PayrollStaff extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_gender()
+    public function payroll_gender()
     {
         return $this->belongsTo(PayrollGender::class);
     }
@@ -121,7 +123,7 @@ class PayrollStaff extends Model implements Auditable
      */
     public function payroll_socioecomic_information()
     {
-    	return $this->hasOne(PayrollSocioeconomicInformation::class);
+        return $this->hasOne(PayrollSocioeconomicInformation::class);
     }
 
     /**
@@ -132,7 +134,7 @@ class PayrollStaff extends Model implements Auditable
      */
     public function payroll_professional_information()
     {
-    	return $this->hasOne(PayrollProfessionalInformation::class);
+        return $this->hasOne(PayrollProfessionalInformation::class);
     }
 
     /**
@@ -154,6 +156,6 @@ class PayrollStaff extends Model implements Auditable
      */
     public function payroll_employment_information()
     {
-    	return $this->hasOne(PayrollEmploymentInformation::class);
+        return $this->hasOne(PayrollEmploymentInformation::class);
     }
 }

@@ -25,7 +25,7 @@
 
 					<div class="row">
                         <div class="col-md-4">
-							<div class="form-group">
+							<div class="form-group is-required">
 								<label>Nombres</label>
 								<input type="text" class="form-control input-sm"
 									v-model="record.first_name"/>
@@ -33,7 +33,7 @@
 							</div>
 						</div>
                         <div class="col-md-4">
-							<div class="form-group">
+							<div class="form-group is-required">
 								<label>Apellidos</label>
 								<input type="text" class="form-control input-sm"
 									v-model="record.last_name"/>
@@ -51,7 +51,7 @@
 
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group">
+							<div class="form-group is-required">
 								<label>Cédula de Identidad</label>
 								<input type="text" class="form-control input-sm"
 									v-model="record.id_number"/>
@@ -103,6 +103,7 @@
 							<div class="form-group">
 								<label>Teléfono de la Persona de Contacto</label>
 								<input type="text" class="form-control input-sm"
+									placeholder="00-000-0000000"
 									v-model="record.emergency_phone"/>
 							</div>
 						</div>

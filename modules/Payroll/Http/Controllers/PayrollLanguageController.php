@@ -16,7 +16,9 @@ use Modules\Payroll\Models\PayrollLanguage;
  * Clase que gestiona los idiomas
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollLanguageController extends Controller
 {
@@ -134,6 +136,6 @@ class PayrollLanguageController extends Controller
      */
     public function getPayrollLanguages()
     {
-        return response()->json(template_choices('Modules\Payroll\Models\PayrollLanguage','name','',true));
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollLanguage', 'name', '', true));
     }
 }

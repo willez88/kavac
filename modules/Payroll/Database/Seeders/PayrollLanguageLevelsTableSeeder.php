@@ -13,7 +13,9 @@ use Modules\Payroll\Models\PayrollLanguageLevel;
  *
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollLanguageLevelsTableSeeder extends Seeder
 {
@@ -42,7 +44,7 @@ class PayrollLanguageLevelsTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payrollLanguageLevels) {
+        DB::transaction(function () use ($payrollLanguageLevels) {
             foreach ($payrollLanguageLevels as $payrollLanguageLevel) {
                 PayrollLanguageLevel::updateOrCreate(
                     ['name' => $payrollLanguageLevel['name']]

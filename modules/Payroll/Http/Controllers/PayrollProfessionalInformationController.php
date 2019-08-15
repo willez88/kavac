@@ -16,7 +16,9 @@ use Modules\Payroll\Models\PayrollProfessionalInformation;
  * Clase que gestiona los datos de información profesional
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollProfessionalInformationController extends Controller
 {
@@ -78,20 +80,21 @@ class PayrollProfessionalInformationController extends Controller
         $payrollProfessionalInformation->payroll_staff_id = $request->payroll_staff_id;
         $payrollProfessionalInformation->payroll_instruction_degree_id = $request->payroll_instruction_degree_id;
 
-        if( $request->payroll_instruction_degree_id == 1 || $request->payroll_instruction_degree_id == 2 ||
+        if ($request->payroll_instruction_degree_id == 1 || $request->payroll_instruction_degree_id == 2 ||
             $request->payroll_instruction_degree_id == 3 || $request->payroll_instruction_degree_id == 6 ||
-            $request->payroll_instruction_degree_id == 7 || $request->payroll_instruction_degree_id == 8) {
+            $request->payroll_instruction_degree_id == 7 || $request->payroll_instruction_degree_id == 8
+        ) {
             $payrollProfessionalInformation->profession_id = null;
-        }
-        else {
+        } else {
             $this->validate($request, [
                 'profession_id' => 'required'
             ]);
             $payrollProfessionalInformation->profession_id = $request->profession_id;
         }
 
-        if( $request->payroll_instruction_degree_id == 6 || $request->payroll_instruction_degree_id == 7 ||
-            $request->payroll_instruction_degree_id == 8 ) {
+        if ($request->payroll_instruction_degree_id == 6 || $request->payroll_instruction_degree_id == 7 ||
+            $request->payroll_instruction_degree_id == 8
+        ) {
             $this->validate($request, [
                 'instruction_degree_name' => 'required'
             ]);
@@ -100,7 +103,7 @@ class PayrollProfessionalInformationController extends Controller
 
         $payrollProfessionalInformation->is_student = $request->is_student;
 
-        if( $payrollProfessionalInformation->is_student ) {
+        if ($payrollProfessionalInformation->is_student) {
             $this->validate($request, [
                 'payroll_study_type_id' => 'required',
                 'study_program_name' => 'required',
@@ -109,8 +112,7 @@ class PayrollProfessionalInformationController extends Controller
             $payrollProfessionalInformation->payroll_study_type_id = $request->payroll_study_type_id;
             $payrollProfessionalInformation->study_program_name = $request->study_program_name;
             $payrollProfessionalInformation->class_schedule = $request->class_schedule;
-        }
-        else {
+        } else {
             $payrollProfessionalInformation->payroll_study_type_id = null;
             $payrollProfessionalInformation->study_program_name = null;
             $payrollProfessionalInformation->class_schedule = null;
@@ -120,7 +122,9 @@ class PayrollProfessionalInformationController extends Controller
         $payrollProfessionalInformation->payroll_language_level_id = $request->payroll_language_level_id;
         $payrollProfessionalInformation->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return response()->json(['result' => true, 'redirect' => route('payroll.professional-informations.index')], 200);
+        return response()->json([
+            'result' => true, 'redirect' => route('payroll.professional-informations.index')
+        ], 200);
     }
 
     /**
@@ -132,7 +136,7 @@ class PayrollProfessionalInformationController extends Controller
      */
     public function show($id)
     {
-        $payrollProfessionalInformation = PayrollProfessionalInformation::where('id',$id)->with([
+        $payrollProfessionalInformation = PayrollProfessionalInformation::where('id', $id)->with([
             'payroll_staff','payroll_instruction_degree','profession','payroll_study_type',
             'payroll_language','payroll_language_level'
         ])->first();
@@ -164,7 +168,8 @@ class PayrollProfessionalInformationController extends Controller
     {
         $payrollProfessionalInformation = PayrollProfessionalInformation::find($id);
         $this->validate($request, [
-            'payroll_staff_id' => 'required|unique:payroll_professional_informations,payroll_staff_id,'.$payrollProfessionalInformation->id,
+            'payroll_staff_id' => 'required|unique:payroll_professional_informations,
+                                   payroll_staff_id,'.$payrollProfessionalInformation->id,
             'payroll_instruction_degree_id' => 'required',
             'payroll_language_id' => 'required',
             'payroll_language_level_id' => 'required'
@@ -173,27 +178,28 @@ class PayrollProfessionalInformationController extends Controller
         $payrollProfessionalInformation->payroll_staff_id = $request->payroll_staff_id;
         $payrollProfessionalInformation->payroll_instruction_degree_id = $request->payroll_instruction_degree_id;
 
-        if( $request->payroll_instruction_degree_id == 1 || $request->payroll_instruction_degree_id == 2 ||
+        if ($request->payroll_instruction_degree_id == 1 || $request->payroll_instruction_degree_id == 2 ||
             $request->payroll_instruction_degree_id == 3 || $request->payroll_instruction_degree_id == 6 ||
-            $request->payroll_instruction_degree_id == 7 || $request->payroll_instruction_degree_id == 8) {
+            $request->payroll_instruction_degree_id == 7 || $request->payroll_instruction_degree_id == 8
+        ) {
             $payrollProfessionalInformation->profession_id = null;
-        }
-        else {
+        } else {
             $this->validate($request, [
                 'profession_id' => 'required'
             ]);
             $payrollProfessionalInformation->profession_id = $request->profession_id;
         }
 
-        if( $request->payroll_instruction_degree_id == 6 || $request->payroll_instruction_degree_id == 7 ||
-            $request->payroll_instruction_degree_id == 8 ) {
+        if ($request->payroll_instruction_degree_id == 6 || $request->payroll_instruction_degree_id == 7 ||
+            $request->payroll_instruction_degree_id == 8
+        ) {
             $this->validate($request, [
                 'instruction_degree_name' => 'required'
             ]);
             $payrollProfessionalInformation->instruction_degree_name = $request->instruction_degree_name;
         }
 
-        if( $request->is_student ) {
+        if ($request->is_student) {
             $this->validate($request, [
                 'payroll_study_type_id' => 'required',
                 'study_program_name' => 'required',
@@ -203,8 +209,7 @@ class PayrollProfessionalInformationController extends Controller
             $payrollProfessionalInformation->payroll_study_type_id = $request->payroll_study_type_id;
             $payrollProfessionalInformation->study_program_name = $request->study_program_name;
             $payrollProfessionalInformation->class_schedule = $request->class_schedule;
-        }
-        else {
+        } else {
             $payrollProfessionalInformation->is_student = false;
             $payrollProfessionalInformation->payroll_study_type_id = null;
             $payrollProfessionalInformation->study_program_name = null;
@@ -215,7 +220,9 @@ class PayrollProfessionalInformationController extends Controller
         $payrollProfessionalInformation->payroll_language_level_id = $request->payroll_language_level_id;
         $payrollProfessionalInformation->save();
         $request->session()->flash('message', ['type' => 'store']);
-        return response()->json(['result' => true, 'redirect' => route('payroll.professional-informations.index')], 200);
+        return response()->json([
+            'result' => true, 'redirect' => route('payroll.professional-informations.index')
+        ], 200);
     }
 
     /**
