@@ -93,7 +93,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function account_opens()
+    public function accountOpens()
     {
         return $this->hasMany(BudgetAccountOpen::class);
     }
@@ -141,7 +141,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     {
         /** @var object Objeto con información referente al estado del documento */
         $documentStatus = DocumentStatus::where('action', 'AP')->first();
-        
+
         return $query->where('budget_specific_action_id', $specific_action_id)
                      ->where('document_status_id', $documentStatus->id)
                      ->where('assigned', true)

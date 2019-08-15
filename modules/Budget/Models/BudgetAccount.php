@@ -33,7 +33,7 @@ class BudgetAccount extends Model implements Auditable
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     protected $revisionCreationsEnabled = true;
 
     /**
@@ -77,7 +77,7 @@ class BudgetAccount extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function account_opens()
+    public function accountOpens()
     {
         return $this->hasMany(BudgetAccountOpen::class);
     }
@@ -155,7 +155,7 @@ class BudgetAccount extends Model implements Auditable
                 $parent = $parent->where('generic', '00');
             }
         }
-        
+
         if (!isset($parent)) {
             return false;
         }

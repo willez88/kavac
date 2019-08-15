@@ -80,7 +80,7 @@ class City extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return array|\Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function banking_agencies()
+    public function bankingAgencies()
     {
         return (Module::has('Finance'))
                ? $this->hasMany(FinanceBankingAgency::class) : [];

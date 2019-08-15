@@ -20,8 +20,8 @@ if (! function_exists('budget_available')) {
         ])->first();
 
         if ($formulation) {
-            $account_formulated = $formulation->account_opens()->where('budget_account_id', $account_id)->first();
-            
+            $account_formulated = $formulation->accountOpens()->where('budget_account_id', $account_id)->first();
+
             if ($account_formulated) {
                 $available += $account_formulated->total_year_amount;
             }
@@ -60,7 +60,7 @@ if (! function_exists('budget_check_opened_account')) {
         ])->first();
 
         if ($formulation) {
-            $opened = ($formulation->account_opens()->where('budget_account_id', $account_id)->first());
+            $opened = ($formulation->accountOpens()->where('budget_account_id', $account_id)->first());
         }
 
         return $opened;

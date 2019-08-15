@@ -85,10 +85,10 @@ class BudgetSubSpecificFormulationController extends Controller
         ]);
 
         $year = date("Y");
-        
+
         $documentStatus = DocumentStatus::where('action', 'EL')->first();
         $codeSetting = CodeSetting::where("model", BudgetSubSpecificFormulation::class)->first();
-        
+
         if (!$codeSetting) {
             return response()->json(['result' => false, 'message' => [
                 'type' => 'custom', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'danger',
@@ -213,7 +213,7 @@ class BudgetSubSpecificFormulationController extends Controller
                 $formulation->institution_id = $request->institution_id;
                 $formulation->save();
 
-                $formulation->account_opens()->delete();
+                $formulation->accountOpens()->delete();
 
                 foreach ($request->formulated_accounts as $formulated_account) {
                     $f_acc = (object)$formulated_account;
@@ -252,7 +252,7 @@ class BudgetSubSpecificFormulationController extends Controller
         if ($budgetFormulation) {
             $budgetFormulation->delete();
         }
-        
+
         return response()->json(['record' => $budgetFormulation, 'message' => 'Success'], 200);
     }
 
@@ -299,7 +299,7 @@ class BudgetSubSpecificFormulationController extends Controller
     public function getAvailabilityOpenedAccounts($specific_action_id, $account_id)
     {
         $account_data = ['account_id' => $account_id, 'available' => 'Sin apertura'];
-        
+
         $formulation = BudgetSubSpecificFormulation::currentFormulation($specific_action_id)
                                                    ->with(['account_opens' => function ($account) use ($account_id) {
                                                        /** Devuelve, si existe, la cuenta formulada */
@@ -354,10 +354,10 @@ class BudgetSubSpecificFormulationController extends Controller
         } elseif (count($records) < 1) {
             $msg = "El archivo no contiene registros a ser importados.";
         }
-        
+
         foreach ($records as $record) {
             $rec = (object)$record;
-            
+
             if (!is_null($rec->total_real) && !is_numeric($rec->total_real)) {
             }
         }
