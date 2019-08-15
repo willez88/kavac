@@ -14,7 +14,9 @@ class AddFieldDeleteAtToAccountingReportHistoriesTable extends Migration
     public function up()
     {
         Schema::table('accounting_report_histories', function (Blueprint $table) {
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            if (!Schema::hasColumn('accounting_report_histories', 'deleted_at')) {
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            }
         });
     }
 

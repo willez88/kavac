@@ -14,7 +14,9 @@ class RenameFieldNameToAccountingReportHistoriesTable extends Migration
     public function up()
     {
         Schema::table('accounting_report_histories', function (Blueprint $table) {
-            $table->renameColumn('name', 'report');
+            if (!Schema::hasColumn('accounting_report_histories', 'report')) {
+                $table->renameColumn('name', 'report');
+            }
         });
     }
 
