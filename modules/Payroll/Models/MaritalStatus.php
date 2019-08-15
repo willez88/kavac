@@ -15,6 +15,6 @@ class MaritalStatus extends BaseMaritalStatus
      */
     public function payroll_socioecomic_informations()
     {
-    	return $this->hasMany(PayrollSocioeconomicInformation::class);
+        return $this->hasMany(PayrollSocioeconomicInformation::class);
     }
 }

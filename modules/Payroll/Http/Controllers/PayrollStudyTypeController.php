@@ -16,7 +16,9 @@ use Modules\Payroll\Models\PayrollStudyType;
  * Clase que gestiona los tipos de estudios
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 
 class PayrollStudyTypeController extends Controller
@@ -135,6 +137,6 @@ class PayrollStudyTypeController extends Controller
      */
     public function getPayrollStudyTypes()
     {
-        return response()->json(template_choices('Modules\Payroll\Models\PayrollStudyType','name','',true));
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollStudyType', 'name', '', true));
     }
 }

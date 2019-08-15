@@ -16,7 +16,9 @@ use Modules\Payroll\Models\PayrollPositionType;
  * Clase que gestiona los tipos de cargo
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollPositionTypeController extends Controller
 {
@@ -69,7 +71,9 @@ class PayrollPositionTypeController extends Controller
             'name' => 'required|max:100',
             'description' => 'nullable|max:200'
         ]);
-        $payrollPositionType = PayrollPositionType::create(['name' => $request->name,'description' => $request->description]);
+        $payrollPositionType = PayrollPositionType::create([
+            'name' => $request->name, 'description' => $request->description
+        ]);
         return response()->json(['record' => $payrollPositionType, 'message' => 'Success'], 200);
     }
 
@@ -134,6 +138,6 @@ class PayrollPositionTypeController extends Controller
      */
     public function getPayrollPositionTypes()
     {
-        return response()->json(template_choices('Modules\Payroll\Models\PayrollPositionType','name','',true));
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollPositionType', 'name', '', true));
     }
 }

@@ -16,7 +16,9 @@ use Modules\Payroll\Models\PayrollWorkAgeSetting;
  * Clase que gestiona la configuración de la edad laboral
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollWorkAgeSettingController extends Controller
 {
@@ -63,12 +65,14 @@ class PayrollWorkAgeSettingController extends Controller
         $this->validate($request, [
             'age' => 'required|integer|min:1'
         ]);
-        PayrollWorkAgeSetting::updateOrCreate([
-            'age' => $request->age
-        ],
-        [
-            'age' => $request->age
-        ]);
+        PayrollWorkAgeSetting::updateOrCreate(
+            [
+                'age' => $request->age
+            ],
+            [
+                'age' => $request->age
+            ]
+        );
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->back();
     }

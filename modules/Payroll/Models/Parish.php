@@ -15,6 +15,6 @@ class Parish extends BaseParish
      */
     public function payroll_staffs()
     {
-    	return $this->hasMany(PayrollStaff::class);
+        return $this->hasMany(PayrollStaff::class);
     }
 }

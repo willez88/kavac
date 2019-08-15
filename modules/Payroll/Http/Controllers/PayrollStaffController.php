@@ -20,7 +20,9 @@ use Modules\Payroll\Models\PayrollWorkAgeSetting;
  * Clase que gestiona la información personal del trabajador
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollStaffController extends Controller
 {
@@ -76,17 +78,28 @@ class PayrollStaffController extends Controller
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'payroll_nationality_id' => 'required',
-            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number',
+            'id_number' => array('required', 'regex:/^([\d]{7}|[\d]{8})$/u','unique:payroll_staffs,id_number'),
             'passport' => 'nullable|max:20|unique:payroll_staffs,passport',
             'email' => 'nullable|email|unique:payroll_staffs,email',
             'birthdate' => 'required|date',
-            'birthdate' => new AgeToWork( ($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0 ),
+            'birthdate' => new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0),
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
-            'emergency_phone' => 'nullable',
+            'emergency_phone' => array('nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'),
             'parish_id' => 'required',
             'address' => 'required|max:200'
         ]);
+
+        $i = 0;
+        foreach ($request->phones as $phone) {
+            $this->validate($request, [
+                'phones.'.$i.'.type' => 'required',
+                'phones.'.$i.'.area_code' => 'required|digits:3',
+                'phones.'.$i.'.number' => 'required|digits:7',
+                'phones.'.$i.'.extension' => 'nullable|digits_between:3,6',
+            ]);
+            $i++;
+        }
 
         $codeSetting = CodeSetting::where('table', 'payroll_staffs')->first();
         if (!$codeSetting) {
@@ -94,12 +107,17 @@ class PayrollStaffController extends Controller
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
                 'text' => 'Debe configurar previamente el formato para el código a generar'
             ]);
-           return response()->json(['result' => false, 'redirect' => route('payroll.settings.index')], 200);
+            return response()->json(['result' => false, 'redirect' => route('payroll.settings.index')], 200);
         }
 
         $payrollStaff = new PayrollStaff;
-        $payrollStaff->code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
-        (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
+        $payrollStaff->code  = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
         $payrollStaff->first_name = $request->first_name;
         $payrollStaff->last_name = $request->last_name;
         $payrollStaff->payroll_nationality_id = $request->payroll_nationality_id;
@@ -138,16 +156,17 @@ class PayrollStaffController extends Controller
      */
     public function show($id)
     {
-        $payrollStaff = PayrollStaff::where('id',$id)->with([
+        $payrollStaff = PayrollStaff::where('id', $id)->with([
             'payroll_nationality','payroll_gender',
-            'parish' => function($query) {
-                $query->with(['municipality' => function($query){
-                    $query->with(['estate' => function($query){
+            'parish' => function ($query) {
+                $query->with(['municipality' => function ($query) {
+                    $query->with(['estate' => function ($query) {
                         $query->with('country');
                     }]);
                 }]);
-            },'phones'])->first();
-        return response()->json(['record' => $payrollStaff], 200);
+            }, 'phones'
+        ])->first();
+        return response()->json(['record' => $payrollStaff, 'age' => age($payrollStaff->birthdate)], 200);
     }
 
     /**
@@ -173,22 +192,37 @@ class PayrollStaffController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $payrollWorkAgeSetting = PayrollWorkAgeSetting::first();
         $payrollStaff = PayrollStaff::find($id);
         $this->validate($request, [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'payroll_nationality_id' => 'required',
-            'id_number' => 'required|regex:/^[\d]{8}$/u|unique:payroll_staffs,id_number,'.$payrollStaff->id,
+            'id_number' => array(
+                'required', 'regex:/^([\d]{7}|[\d]{8})$/u', 'unique:payroll_staffs,id_number,'.$payrollStaff->id
+            ),
             'passport' => 'nullable|max:20|unique:payroll_staffs,passport,'.$payrollStaff->id,
             'email' => 'nullable|email|unique:payroll_staffs,email,'.$payrollStaff->id,
             'birthdate' => 'required|date',
-            'birthdate' => new AgeToWork,
+            'birthdate' => new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0),
             'payroll_gender_id' => 'required',
             'emergency_contact' => 'nullable',
-            'emergency_phone' => 'nullable',
+            'emergency_phone' => array('nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'),
             'parish_id' => 'required',
             'address' => 'required|max:200'
         ]);
+
+        $i = 0;
+        foreach ($request->phones as $phone) {
+            $this->validate($request, [
+                'phones.'.$i.'.type' => 'required',
+                'phones.'.$i.'.area_code' => 'required|digits:3',
+                'phones.'.$i.'.number' => 'required|digits:7',
+                'phones.'.$i.'.extension' => 'nullable|digits_between:3,6',
+            ]);
+            $i++;
+        }
+
         $payrollStaff->first_name = $request->first_name;
         $payrollStaff->last_name = $request->last_name;
         $payrollStaff->payroll_nationality_id = $request->payroll_nationality_id;
@@ -205,6 +239,21 @@ class PayrollStaffController extends Controller
 
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
+                $payrollStaff->phones()->updateOrCreate(
+                    [
+                        'type' => $phone['type'], 'area_code' => $phone['area_code'],
+                        'number' => $phone['number'], 'extension' => $phone['extension']
+                    ],
+                    [
+                        'type' => $phone['type'], 'area_code' => $phone['area_code'],
+                        'number' => $phone['number'], 'extension' => $phone['extension']
+                    ]
+                );
+            }
+        }
+
+        /*if ($request->phones && !empty($request->phones)) {
+            foreach ($request->phones as $phone) {
                 $payrollStaff->phones()->save(new Phone([
                     'type' => $phone['type'],
                     'area_code' => $phone['area_code'],
@@ -212,7 +261,7 @@ class PayrollStaffController extends Controller
                     'extension' => $phone['extension']
                 ]));
             }
-        }
+        }*/
 
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('payroll.staffs.index')], 200);
@@ -240,7 +289,9 @@ class PayrollStaffController extends Controller
      */
     public function vueList()
     {
-        return response()->json(['records' => PayrollStaff::with(['payroll_nationality','payroll_gender','parish'])->get()], 200);
+        return response()->json(['records' => PayrollStaff::with([
+            'payroll_nationality','payroll_gender','parish'
+        ])->get()], 200);
     }
 
     /**
@@ -251,6 +302,11 @@ class PayrollStaffController extends Controller
      */
     public function getPayrollStaffs()
     {
-        return response()->json(template_choices('Modules\Payroll\Models\PayrollStaff',['id_number','-','full_name'],'',true));
+        return response()->json(template_choices(
+            'Modules\Payroll\Models\PayrollStaff',
+            ['id_number','-','full_name'],
+            '',
+            true
+        ));
     }
 }

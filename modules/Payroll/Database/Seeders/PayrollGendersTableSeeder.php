@@ -13,7 +13,9 @@ use Modules\Payroll\Models\PayrollGender;
  *
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollGendersTableSeeder extends Seeder
 {
@@ -36,7 +38,7 @@ class PayrollGendersTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payrollGenders) {
+        DB::transaction(function () use ($payrollGenders) {
             foreach ($payrollGenders as $payrollGender) {
                 PayrollGender::updateOrCreate(
                     ['name' => $payrollGender['name']]

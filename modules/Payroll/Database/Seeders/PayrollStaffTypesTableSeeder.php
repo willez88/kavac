@@ -13,7 +13,9 @@ use Modules\Payroll\Models\PayrollStaffType;
  *
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollStaffTypesTableSeeder extends Seeder
 {
@@ -39,7 +41,7 @@ class PayrollStaffTypesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($payrollStaffTypes) {
+        DB::transaction(function () use ($payrollStaffTypes) {
             foreach ($payrollStaffTypes as $payrollStaffType) {
                 PayrollStaffType::updateOrCreate(
                     ['name' => $payrollStaffType['name']],

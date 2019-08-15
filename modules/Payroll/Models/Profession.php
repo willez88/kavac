@@ -15,6 +15,6 @@ class Profession extends BaseProfession
      */
     public function payroll_professional_informations()
     {
-    	return $this->hasMany(PayrollProfessionalInformation::class);
+        return $this->hasMany(PayrollProfessionalInformation::class);
     }
 }

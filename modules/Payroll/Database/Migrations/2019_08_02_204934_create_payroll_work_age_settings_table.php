@@ -11,7 +11,9 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación de la tabla para la edad laboral permitida
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CreatePayrollWorkAgeSettingsTable extends Migration
 {
@@ -26,7 +28,8 @@ class CreatePayrollWorkAgeSettingsTable extends Migration
         if (!Schema::hasTable('payroll_work_age_settings')) {
             Schema::create('payroll_work_age_settings', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('age')->unsigned()->default(0)->comment('Edad laboral permitida para trabajar en una institución o empresa');
+                $table->integer('age')->unsigned()->default(0)
+                      ->comment('Edad laboral permitida para trabajar en una institución o empresa');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

@@ -16,7 +16,9 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de datos para el tipo de personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollStaffType extends Model implements Auditable
 {
@@ -54,6 +56,6 @@ class PayrollStaffType extends Model implements Auditable
      */
     public function payroll_employment_informations()
     {
-    	return $this->hasMany(PayrollEmploymentInformation::class);
+        return $this->hasMany(PayrollEmploymentInformation::class);
     }
 }

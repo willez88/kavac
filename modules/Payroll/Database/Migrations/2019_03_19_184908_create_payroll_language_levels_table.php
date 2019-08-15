@@ -11,7 +11,9 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación de la tabla de niveles de idioma
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CreatePayrollLanguageLevelsTable extends Migration
 {

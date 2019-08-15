@@ -17,7 +17,9 @@ use App\Models\Country;
  * Clase que gestiona las nacionalidades
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 
 class PayrollNationalityController extends Controller
@@ -71,7 +73,9 @@ class PayrollNationalityController extends Controller
             'name' => 'required|max:100',
             'country_id' => 'required|unique:payroll_nationalities,country_id'
         ]);
-        $payrollNationality = PayrollNationality::create(['name' => $request->name, 'country_id' => $request->country_id]);
+        $payrollNationality = PayrollNationality::create([
+            'name' => $request->name, 'country_id' => $request->country_id
+        ]);
         return response()->json(['record' => $payrollNationality, 'message' => 'Success'], 200);
     }
 
@@ -136,6 +140,6 @@ class PayrollNationalityController extends Controller
      */
     public function getPayrollNationalities()
     {
-        return response()->json(template_choices('Modules\Payroll\Models\PayrollNationality','name','',true));
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollNationality', 'name', '', true));
     }
 }
