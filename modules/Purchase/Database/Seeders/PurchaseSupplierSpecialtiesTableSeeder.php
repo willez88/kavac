@@ -94,7 +94,7 @@ class PurchaseSupplierSpecialtiesTableSeeder extends Seeder
             ['name' => 'Viveros'],
         ];
 
-        DB::transaction(function() use ($specialties) {
+        DB::transaction(function () use ($specialties) {
             foreach ($specialties as $specialty) {
                 PurchaseSupplierSpecialty::updateOrCreate($specialty, $specialty);
             }

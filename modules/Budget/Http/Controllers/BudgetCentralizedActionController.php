@@ -16,11 +16,13 @@ use Module;
 /**
  * @class BudgetCentralizedActionController
  * @brief Controlador de Acciones Centralizadas
- * 
+ *
  * Clase que gestiona las Acciones Centralizadas
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetCentralizedActionController extends Controller
 {
@@ -61,8 +63,8 @@ class BudgetCentralizedActionController extends Controller
     {
         /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
-            'route' => 'budget.centralized-actions.store', 
-            'method' => 'POST', 
+            'route' => 'budget.centralized-actions.store',
+            'method' => 'POST',
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
@@ -71,19 +73,23 @@ class BudgetCentralizedActionController extends Controller
         /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices(Department::class, ['acronym', '-', 'name'], ['active' => true]);
         /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
-        $positions = (Module::has('Payroll') && Module::enabled('Payroll')) 
-                     ? template_choices(Modules\Payroll\Models\PayrollPosition::class, 'name') 
+        $positions = (Module::has('Payroll') && Module::enabled('Payroll'))
+                     ? template_choices(Modules\Payroll\Models\PayrollPosition::class, 'name')
                      : [];
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
-        $staffs = (Module::has('Payroll') && Module::enabled('Payroll')) 
+        $staffs = (Module::has('Payroll') && Module::enabled('Payroll'))
                   ? template_choices(
-                        Modules\Payroll\Models\PayrollStaff::class, 
-                        ['id_number', '-', 'full_name'], 
-                        ['active' => true]
-                    ) 
+                      Modules\Payroll\Models\PayrollStaff::class,
+                      ['id_number', '-', 'full_name'],
+                      ['active' => true]
+                  )
                   : [];
         return view('budget::centralized_actions.create-edit-form', compact(
-            'header', 'institutions', 'departments', 'positions', 'staffs'
+            'header',
+            'institutions',
+            'departments',
+            'positions',
+            'staffs'
         ));
     }
 
@@ -120,9 +126,9 @@ class BudgetCentralizedActionController extends Controller
             'custom_date' => $request->custom_date,
             'active' => ($request->active!==null),
             'department_id' => $request->department_id,
-            'payroll_position_id' => (!is_null($request->payroll_position_id)) 
+            'payroll_position_id' => (!is_null($request->payroll_position_id))
                                      ? $request->payroll_position_id : null,
-            'payroll_staff_id' => (!is_null($request->payroll_staff_id)) 
+            'payroll_staff_id' => (!is_null($request->payroll_staff_id))
                                   ? $request->payroll_staff_id : null
         ]);
 
@@ -156,8 +162,8 @@ class BudgetCentralizedActionController extends Controller
 
         /** @var array Arreglo de opciones a implementar en el formulario */
         $header = [
-            'route' => ['budget.centralized-actions.update', $budgetCentralizedAction->id], 
-            'method' => 'PUT', 
+            'route' => ['budget.centralized-actions.update', $budgetCentralizedAction->id],
+            'method' => 'PUT',
             'role' => 'form'
         ];
         /** @var object Objeto con datos del modelo a modificar */
@@ -168,20 +174,25 @@ class BudgetCentralizedActionController extends Controller
         /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices('App\Models\Department', ['acronym', '-', 'name'], ['active' => true]);
         /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
-        $positions = (Module::has('Payroll') && Module::enabled('Payroll')) 
-                     ? template_choices(Modules\Payroll\Models\PayrollPosition::class, 'name') 
+        $positions = (Module::has('Payroll') && Module::enabled('Payroll'))
+                     ? template_choices(Modules\Payroll\Models\PayrollPosition::class, 'name')
                      : [];
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
-        $staffs = (Module::has('Payroll') && Module::enabled('Payroll')) 
+        $staffs = (Module::has('Payroll') && Module::enabled('Payroll'))
                   ? template_choices(
-                        Modules\Payroll\Models\PayrollStaff::class, 
-                        ['id_number', '-', 'full_name'], 
-                        ['active' => true]
-                    ) 
+                      Modules\Payroll\Models\PayrollStaff::class,
+                      ['id_number', '-', 'full_name'],
+                      ['active' => true]
+                  )
                   : [];
 
         return view('budget::centralized_actions.create-edit-form', compact(
-            'header', 'model', 'institutions', 'departments', 'positions', 'staffs'
+            'header',
+            'model',
+            'institutions',
+            'departments',
+            'positions',
+            'staffs'
         ));
     }
 
@@ -242,14 +253,15 @@ class BudgetCentralizedActionController extends Controller
      * Obtiene listado de registros
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false, este parámetro es opcional.
+     * @param  [boolean] $active Filtrar por estatus del registro, valores permitidos true o false,
+     *                           este parámetro es opcional.
      * @return \Illuminate\Http\JsonResponse
      */
     public function vueList($active = null)
     {
         /** @var object Objeto con información de las acciones centralizadas */
-        $centralizedActions = ($active !== null) 
-                              ? BudgetCentralizedAction::where('active', $active)->with('payroll_staff')->get() 
+        $centralizedActions = ($active !== null)
+                              ? BudgetCentralizedAction::where('active', $active)->with('payroll_staff')->get()
                               : BudgetCentralizedAction::with('payroll_staff')->get();
         
         return response()->json(['records' => $centralizedActions], 200);
@@ -265,8 +277,10 @@ class BudgetCentralizedActionController extends Controller
     public function getCentralizedActions($id = null)
     {
         return response()->json(template_choices(
-            BudgetCentralizedAction::class, 
-            ['code', '-', 'name'], ($id) ? ['id' => $id] : [], true
+            BudgetCentralizedAction::class,
+            ['code', '-', 'name'],
+            ($id) ? ['id' => $id] : [],
+            true
         ));
     }
 }

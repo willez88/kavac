@@ -2,7 +2,6 @@
 
 namespace Modules\Budget\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Currency as BaseCurrency;
 
 class Currency extends BaseCurrency

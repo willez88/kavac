@@ -34,8 +34,8 @@ class BudgetModificationController extends Controller
 
         /** @var array Arreglo de opciones a implementar en el formulario */
         $this->header = [
-            'route' => 'budget.modifications.store', 
-            'method' => 'POST', 
+            'route' => 'budget.modifications.store',
+            'method' => 'POST',
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
@@ -58,11 +58,11 @@ class BudgetModificationController extends Controller
      */
     public function create($type)
     {
-        $viewTemplate = ($type==="AC") 
-                        ? 'aditional_credits' 
-                        : (($type==='RE') 
-                          ? 'reductions' 
-                          : (($type==="TR") 
+        $viewTemplate = ($type==="AC")
+                        ? 'aditional_credits'
+                        : (($type==='RE')
+                          ? 'reductions'
+                          : (($type==="TR")
                             ? 'transfers' : ''));
 
         return view("budget::$viewTemplate.create-edit-form", compact('type'));
@@ -123,12 +123,14 @@ class BudgetModificationController extends Controller
 
         /** @var string Contiene el código generado para el registro a crear */
         $code = generate_registration_code(
-            $codeSetting->format_prefix, strlen($codeSetting->format_digits), 
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
             date((strlen($codeSetting->format_year) === 2) ? "y" : "Y"),
-            BudgetModification::class, 'code'
+            BudgetModification::class,
+            'code'
         );
 
-        DB::transaction(function() use ($request, $code, $documentStatus) {
+        DB::transaction(function () use ($request, $code, $documentStatus) {
             $type = ($request->type==="AC") ? 'C' : (($request->type==="RE") ? 'R' : 'T');
             
             /** @var object Objeto que contiene los datos de la modificación presupuestaria creada */
@@ -151,8 +153,8 @@ class BudgetModificationController extends Controller
                 
                 if ($formulation) {
                     BudgetModificationAccount::create([
-                        'amount' => $account['from_amount'], 
-                        'operation' => ($type==="C") ? 'I' : 'D', 
+                        'amount' => $account['from_amount'],
+                        'operation' => ($type==="C") ? 'I' : 'D',
                         'budget_sub_specific_formulation_id' => $formulation->id,
                         'budget_account_id' => $account['from_account_id'],
                         'budget_modification_id' => $budgetModification->id
@@ -160,15 +162,16 @@ class BudgetModificationController extends Controller
                 }
                 
                 if (isset($account['to_account_id'])) {
-                    /** @var object Obtiene la formulación correspondiente a la acción específica a donde transferir los recursos */
+                    /** @var object Obtiene la formulación correspondiente a la acción específica a donde transferir
+                    los recursos */
                     $formulation_transfer = BudgetSubSpecificFormulation::currentFormulation(
                         $account['to_specific_action_id']
                     );
 
                     if ($formulation_transfer) {
                         BudgetModificationAccount::create([
-                            'amount' => $account['to_amount'], 
-                            'operation' => 'I', 
+                            'amount' => $account['to_amount'],
+                            'operation' => 'I',
                             'budget_sub_specific_formulation_id' => $formulation_transfer->id,
                             'budget_account_id' => $account['to_account_id'],
                             'budget_modification_id' => $budgetModification->id
@@ -186,11 +189,11 @@ class BudgetModificationController extends Controller
 
     public function edit($type, BudgetModification $modification)
     {
-        $viewTemplate = ($type==="AC") 
-                        ? 'aditional_credits' 
-                        : (($type==='RE') 
-                          ? 'reductions' 
-                          : (($type==="TR") 
+        $viewTemplate = ($type==="AC")
+                        ? 'aditional_credits'
+                        : (($type==='RE')
+                          ? 'reductions'
+                          : (($type==="TR")
                             ? 'transfers' : ''));
         $model = $modification;
 
@@ -199,7 +202,6 @@ class BudgetModificationController extends Controller
 
     public function update(Request $request, BudgetModification $modification)
     {
-
     }
 
     /**

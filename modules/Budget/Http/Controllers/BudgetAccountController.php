@@ -11,11 +11,13 @@ use Modules\Budget\Models\BudgetAccount;
 /**
  * @class BudgetAccountController
  * @brief Controlador de Cuentas Presupuestarias
- * 
+ *
  * Clase que gestiona las Cuentas Presupuestarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetAccountController extends Controller
 {
@@ -40,15 +42,17 @@ class BudgetAccountController extends Controller
 
         /** @var array Arreglo de opciones a implementar en el formulario */
         $this->header = [
-            'route' => 'budget.accounts.store', 
-            'method' => 'POST', 
+            'route' => 'budget.accounts.store',
+            'method' => 'POST',
             'role' => 'form',
             'class' => 'form-horizontal',
         ];
 
         /** @var array Arreglo de opciones a representar en la plantilla para su selección */
         $this->budget_account_choices = template_choices(
-            BudgetAccount::class, ['code', '-', 'denomination'], ['subspecific' => '00']
+            BudgetAccount::class,
+            ['code', '-', 'denomination'],
+            ['subspecific' => '00']
         );
 
         /** @var array Define las reglas de validación para el formulario */
@@ -113,7 +117,7 @@ class BudgetAccountController extends Controller
                                       ->where('active', true)->first();
 
         /**
-         * Si la cuenta a registrar ya existe en la base de datos y la nueva cuenta se indica como activa, 
+         * Si la cuenta a registrar ya existe en la base de datos y la nueva cuenta se indica como activa,
          * se desactiva la cuenta anterior
          */
         if ($budgetAccount && $request->active!==null) {
@@ -124,7 +128,11 @@ class BudgetAccountController extends Controller
 
         /** @var object Objeto con información de la cuenta de nivel superior, si existe */
         $parent = BudgetAccount::getParent(
-            $request->group, $request->item, $request->generic, $request->specific, $request->subspecific
+            $request->group,
+            $request->item,
+            $request->generic,
+            $request->specific,
+            $request->subspecific
         );
 
         /**
@@ -251,7 +259,7 @@ class BudgetAccountController extends Controller
      * Obtiene un listado de cuentas de egreso
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  boolean $to_formulate Indica si las cuentas a retornar son para formulación, 
+     * @param  boolean $to_formulate Indica si las cuentas a retornar son para formulación,
      *                               en cuyo caso incluye la inicialización de variables para cada cuenta
      * @return \Illuminate\Http\JsonResponse
      */
@@ -267,20 +275,20 @@ class BudgetAccountController extends Controller
             /** @var array Arreglo con información de la cuenta presupuestaria */
             $account_data = [
                 'id' => $account->id, 'code' => $account->code, 'denomination' => $account->denomination,
-                'group' => $account->group, 'item' => $account->item, 'generic' => $account->generic, 
-                'specific' => $account->specific, 'subspecific' => $account->subspecific, 
+                'group' => $account->group, 'item' => $account->item, 'generic' => $account->generic,
+                'specific' => $account->specific, 'subspecific' => $account->subspecific,
                 'tax_id' => $account->tax_id
             ];
             if ($to_formulate) {
-                /** 
-                 * @var array Arreglo que agrega información extra a la cuenta presupuestaria en caso de que la misma 
+                /**
+                 * @var array Arreglo que agrega información extra a la cuenta presupuestaria en caso de que la misma
                  * sea para una formulación de presupuesto
                  */
                 $account_data = array_merge($account_data, [
                     'formulated' => false, 'locked' => ($account->specific==='00'),
                     'total_real_amount' => 0, 'total_estimated_amount' => 0, 'total_year_amount' => 0,
-                    'jan_amount' => 0, 'feb_amount' => 0, 'mar_amount' => 0, 'apr_amount' => 0, 
-                    'may_amount' => 0, 'jun_amount' => 0, 'jul_amount' => 0, 'aug_amount' => 0, 
+                    'jan_amount' => 0, 'feb_amount' => 0, 'mar_amount' => 0, 'apr_amount' => 0,
+                    'may_amount' => 0, 'jun_amount' => 0, 'jul_amount' => 0, 'aug_amount' => 0,
                     'sep_amount' => 0, 'oct_amount' => 0, 'nov_amount' => 0, 'dec_amount' => 0
                 ]);
             }
@@ -329,48 +337,50 @@ class BudgetAccountController extends Controller
             /** @var object Contiene información de la cuenta presupuestaria por el código del ítem */
             $currentItem = BudgetAccount::where(['group' => $parent->group])->orderBy('item', 'desc')->first();
             /** @var integer Contiene el código inmediatamente disponible para su registro */
-            $item = (strlen(intval($currentItem->item)) < 2|| intval($currentItem->item) < 99) 
+            $item = (strlen(intval($currentItem->item)) < 2|| intval($currentItem->item) < 99)
                     ? (intval($currentItem->item) + 1) : $currentItem->item;
-            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso de requerirlo */
+            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en
+            caso de requerirlo */
             $item = (strlen($item) === 1) ? "0$item" : $item;
-        }
-        else if ($parent->generic === "00") {
+        } elseif ($parent->generic === "00") {
             /** @var object Contiene información de la cuenta presupuestaria por el código de la genérica */
             $currentGeneric = BudgetAccount::where(['group' => $parent->group, 'item' => $parent->item])
                                            ->orderBy('generic', 'desc')->first();
             /** @var integer Contiene el código inmediatamente disponible para su registro */
-            $generic = (strlen(intval($currentGeneric->generic)) < 2 || intval($currentGeneric->generic) < 99) 
+            $generic = (strlen(intval($currentGeneric->generic)) < 2 || intval($currentGeneric->generic) < 99)
                        ? (intval($currentGeneric->generic) + 1) : $currentGeneric->generic;
-            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso de requerirlo */
+            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso
+            de requerirlo */
             $generic = (strlen($generic) === 1) ? "0$generic" : $generic;
-        }
-        else if ($parent->specific === "00") {
+        } elseif ($parent->specific === "00") {
             /** @var object Contiene información de la cuenta presupuestaria por el código de la específica */
             $currentSpecific = BudgetAccount::where([
                 'group' => $parent->group, 'item' => $parent->item, 'generic' => $parent->generic
             ])->orderBy('specific', 'desc')->first();
             /** @var integer Contiene el código inmediatamente disponible para su registro */
-            $specific = (strlen(intval($currentSpecific->specific)) < 2 || intval($currentSpecific->specific) < 99) 
+            $specific = (strlen(intval($currentSpecific->specific)) < 2 || intval($currentSpecific->specific) < 99)
                         ? (intval($currentSpecific->specific) + 1) : $currentSpecific->specific;
-            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso de requerirlo */
+            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso
+            de requerirlo */
             $specific = (strlen($specific) === 1) ? "0$specific" : $specific;
-        }
-        else if ($parent->subspecific === "00") {
+        } elseif ($parent->subspecific === "00") {
             /** @var object Contiene información de la cuenta presupuestaria por el código de la sub específica */
             $currentSubSpecific = BudgetAccount::where([
-                'group' => $parent->group, 'item' => $parent->item, 'generic' => $parent->generic, 'specific' => $parent->specific
+                'group' => $parent->group, 'item' => $parent->item, 'generic' => $parent->generic,
+                'specific' => $parent->specific
             ])->orderBy('subspecific', 'desc')->first();
             /** @var integer Contiene el código inmediatamente disponible para su registro */
             $subspecific = (
                 strlen(intval($currentSubSpecific->subspecific)) < 2 || intval($currentSubSpecific->subspecific) < 99
             ) ? (intval($currentSubSpecific->subspecific) + 1) : $currentSubSpecific->subspecific;
-            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso de requerirlo */
+            /** @var string Determina la longitud de la cadena para agregar un cero a la izquierda en caso
+            de requerirlo */
             $subspecific = (strlen($subspecific) === 1) ? "0$subspecific" : $subspecific;
         }
 
         /** @var array Arreglo con información de la nueva cuenta presupuestaria de nivel inferior disponible */
         $newAccount = [
-            'group' => $parent->group, 'item' => (string)$item, 'generic' => (string)$generic, 
+            'group' => $parent->group, 'item' => (string)$item, 'generic' => (string)$generic,
             'specific' => (string)$specific, 'subspecific' => (string)$subspecific,
             'denomination' => $parent->denomination, 'resource' => $parent->resource, 'egress' => $parent->egress
         ];

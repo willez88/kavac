@@ -10,7 +10,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 class PurchaseRequirementItem extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
 
@@ -24,8 +24,8 @@ class PurchaseRequirementItem extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-    	'name', 'description', 'technical_specifications', 'quantity', 'measurement_unit_id',
-    	'warehouse_product_id', 'purchase_requirement_id'
+        'name', 'description', 'technical_specifications', 'quantity', 'measurement_unit_id',
+        'warehouse_product_id', 'purchase_requirement_id'
     ];
 
     /**
@@ -35,6 +35,6 @@ class PurchaseRequirementItem extends Model implements Auditable
      */
     public function purchase_requirement()
     {
-    	return $this->belongsTo(PurchaseRequirement::class);
+        return $this->belongsTo(PurchaseRequirement::class);
     }
 }

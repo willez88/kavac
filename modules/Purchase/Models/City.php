@@ -2,7 +2,6 @@
 
 namespace Modules\Purchase\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\City as BaseCity;
 
 class City extends BaseCity
@@ -14,6 +13,6 @@ class City extends BaseCity
      */
     public function purchase_suppliers()
     {
-    	return $this->hasMany(PurchaseSupplier::class);
+        return $this->hasMany(PurchaseSupplier::class);
     }
 }

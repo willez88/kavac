@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Factory;
 /**
  * @class BudgetServiceProvider
  * @brief Service Provider del módulo de presupuesto
- * 
+ *
  * Gestiona el Service Provider del módulo de presupuesto
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetServiceProvider extends ServiceProvider
 {
@@ -58,7 +60,8 @@ class BudgetServiceProvider extends ServiceProvider
             __DIR__.'/../Config/config.php' => config_path('budget.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', 'budget'
+            __DIR__.'/../Config/config.php',
+            'budget'
         );
     }
 
@@ -75,7 +78,7 @@ class BudgetServiceProvider extends ServiceProvider
 
         $this->publishes([
             $sourcePath => $viewPath
-        ],'views');
+        ], 'views');
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
             return $path . '/modules/budget';
@@ -100,7 +103,7 @@ class BudgetServiceProvider extends ServiceProvider
 
     /**
      * Register an additional directory of factories.
-     * 
+     *
      * @return void
      */
     public function registerFactories()

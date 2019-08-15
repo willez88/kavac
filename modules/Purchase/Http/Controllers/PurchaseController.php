@@ -3,7 +3,6 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 class PurchaseController extends Controller

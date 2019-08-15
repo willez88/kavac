@@ -18,7 +18,7 @@ class PurchaseSupplierObjectsTableSeeder extends Seeder
     {
         Model::unguard();
 
-        DB::transaction(function() {
+        DB::transaction(function () {
             $supplierObjects = [
                 ['type' => 'B', 'name' => 'Productos'],
                 ['type' => 'B', 'name' => 'Materiales'],

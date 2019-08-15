@@ -11,15 +11,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class PurchaseSupplier
  * @brief Datos de los proveedores
- * 
+ *
  * Gestiona el modelo de datos para los proveedores
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PurchaseSupplier extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
 
@@ -33,13 +35,13 @@ class PurchaseSupplier extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $with = [
-    	'purchase_supplier_specialty', 'purchase_supplier_type', 'purchase_supplier_branch', 'purchase_supplier_object', 
+        'purchase_supplier_specialty', 'purchase_supplier_type', 'purchase_supplier_branch', 'purchase_supplier_object',
         'phones', 'city'
     ];
 
     protected $fillable = [
-    	'rif', 'code', 'name', 'direction', 'person_type', 'company_type', 'contact_name', 'contact_email', 'website', 'active',
-    	'purchase_supplier_specialty_id', 'purchase_supplier_type_id', 'purchase_supplier_object_id', 
+        'rif', 'code', 'name', 'direction', 'person_type', 'company_type', 'contact_name', 'contact_email', 'website',
+        'active', 'purchase_supplier_specialty_id', 'purchase_supplier_type_id', 'purchase_supplier_object_id',
         'purchase_supplier_branch_id', 'city_id', 'rnc_status', 'rnc_certificate_number'
     ];
 
@@ -61,7 +63,7 @@ class PurchaseSupplier extends Model implements Auditable
      */
     public function purchase_supplier_specialty()
     {
-    	return $this->belongsTo(PurchaseSupplierSpecialty::class);
+        return $this->belongsTo(PurchaseSupplierSpecialty::class);
     }
 
     /**
@@ -71,7 +73,7 @@ class PurchaseSupplier extends Model implements Auditable
      */
     public function purchase_supplier_type()
     {
-    	return $this->belongsTo(PurchaseSupplierType::class);
+        return $this->belongsTo(PurchaseSupplierType::class);
     }
 
     /**
@@ -81,7 +83,7 @@ class PurchaseSupplier extends Model implements Auditable
      */
     public function city()
     {
-    	return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class);
     }
 
     /**
@@ -103,5 +105,4 @@ class PurchaseSupplier extends Model implements Auditable
     {
         return $this->belongsTo(PurchaseSupplierObject::class);
     }
-
 }

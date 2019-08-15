@@ -55,7 +55,7 @@ class Image extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Institution
      */
-    public function institution_logos()
+    public function institutionLogos()
     {
         return $this->hasMany(Institution::class, 'logo_id');
     }
@@ -66,7 +66,7 @@ class Image extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return object Objeto con los registros relacionados al modelo Institution
      */
-    public function institution_banners()
+    public function institutionBanners()
     {
         return $this->hasMany(Institution::class, 'banner_id');
     }
@@ -87,7 +87,7 @@ class Image extends Model implements Auditable
      *
      * @return array|\Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function finance_banks()
+    public function financeBanks()
     {
         return (Module::has('Finance'))
                ? $this->hasMany(\Modules\Finance\Models\FinanceBank::class, 'logo_id')

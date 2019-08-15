@@ -11,15 +11,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class BudgetAccountOpen
  * @brief Datos de cuentas formuladas en presupuesto
- * 
+ *
  * Gestiona el modelo de datos para las cuentas formuladas en presupuesto
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetAccountOpen extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
     
@@ -38,10 +40,10 @@ class BudgetAccountOpen extends Model implements Auditable
      * @var array
      */
     protected $fillable = [
-    	'jan_amount', 'feb_amount', 'mar_amount', 'apr_amount', 'may_amount', 'jun_amount', 
-    	'jul_amount', 'aug_amount', 'sep_amount', 'oct_amount', 'nov_amount', 'dec_amount',
-    	'total_year_amount', 'total_real_amount', 'total_estimated_amount', 'budget_account_id',
-    	'budget_sub_specific_formulation_id'
+        'jan_amount', 'feb_amount', 'mar_amount', 'apr_amount', 'may_amount', 'jun_amount',
+        'jul_amount', 'aug_amount', 'sep_amount', 'oct_amount', 'nov_amount', 'dec_amount',
+        'total_year_amount', 'total_real_amount', 'total_estimated_amount', 'budget_account_id',
+        'budget_sub_specific_formulation_id'
     ];
 
     /**
@@ -52,7 +54,7 @@ class BudgetAccountOpen extends Model implements Auditable
      */
     public function budget_account()
     {
-    	return $this->belongsTo(BudgetAccount::class);
+        return $this->belongsTo(BudgetAccount::class);
     }
 
     /**
@@ -63,6 +65,6 @@ class BudgetAccountOpen extends Model implements Auditable
      */
     public function sub_specific_formulation()
     {
-    	return $this->belongsTo(BudgetSubSpecificFormulation::class);
+        return $this->belongsTo(BudgetSubSpecificFormulation::class);
     }
 }

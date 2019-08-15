@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Arr;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\CodeSetting;
@@ -20,11 +19,13 @@ use App\Imports\DataImport;
 /**
  * @class BudgetSubSpecificFormulationController
  * @brief Controlador de formulaciones de presupuesto por sub específicas
- * 
+ *
  * Clase que gestiona las formulaciones de presupuesto por sub específicas
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetSubSpecificFormulationController extends Controller
 {
@@ -84,10 +85,10 @@ class BudgetSubSpecificFormulationController extends Controller
         ]);
 
         $year = date("Y");
-        
+
         $documentStatus = DocumentStatus::where('action', 'EL')->first();
         $codeSetting = CodeSetting::where("model", BudgetSubSpecificFormulation::class)->first();
-        
+
         if (!$codeSetting) {
             return response()->json(['result' => false, 'message' => [
                 'type' => 'custom', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'danger',
@@ -97,7 +98,7 @@ class BudgetSubSpecificFormulationController extends Controller
 
         $validateStore = BudgetSubSpecificFormulation::validateStore([
             'budget_specific_action_id' => $request->specific_action_id,
-            'currency_id' => $request->currency_id, 'year' => $year, 
+            'currency_id' => $request->currency_id, 'year' => $year,
             'institution_id' => $request->institution_id
         ]);
         if (!$validateStore) {
@@ -108,14 +109,16 @@ class BudgetSubSpecificFormulationController extends Controller
         }
 
         $code = generate_registration_code(
-            $codeSetting->format_prefix, strlen($codeSetting->format_digits), 
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
             (strlen($codeSetting->format_year) === 2) ? date("y") : $year,
-            BudgetSubSpecificFormulation::class, 'code'
+            BudgetSubSpecificFormulation::class,
+            'code'
         );
 
-        DB::transaction(function() use ($request, $code, $year, $documentStatus) {
+        DB::transaction(function () use ($request, $code, $year, $documentStatus) {
             $formulation = BudgetSubSpecificFormulation::create([
-                'code' => $code, 'year' => $year, 
+                'code' => $code, 'year' => $year,
                 'total_formulated' => (float)$request->formulated_accounts[0]['total_year_amount'],
                 'budget_specific_action_id' => $request->specific_action_id,
                 'currency_id' => $request->currency_id,
@@ -126,15 +129,15 @@ class BudgetSubSpecificFormulationController extends Controller
             foreach ($request->formulated_accounts as $formulated_account) {
                 $f_acc = (object)$formulated_account;
                 BudgetAccountOpen::create([
-                    'jan_amount' => (float)$f_acc->jan_amount, 'feb_amount' => (float)$f_acc->feb_amount, 
-                    'mar_amount' => (float)$f_acc->mar_amount, 'apr_amount' => (float)$f_acc->apr_amount, 
-                    'may_amount' => (float)$f_acc->may_amount, 'jun_amount' => (float)$f_acc->jun_amount, 
-                    'jul_amount' => (float)$f_acc->jul_amount, 'aug_amount' => (float)$f_acc->aug_amount, 
-                    'sep_amount' => (float)$f_acc->sep_amount, 'oct_amount' => (float)$f_acc->oct_amount, 
+                    'jan_amount' => (float)$f_acc->jan_amount, 'feb_amount' => (float)$f_acc->feb_amount,
+                    'mar_amount' => (float)$f_acc->mar_amount, 'apr_amount' => (float)$f_acc->apr_amount,
+                    'may_amount' => (float)$f_acc->may_amount, 'jun_amount' => (float)$f_acc->jun_amount,
+                    'jul_amount' => (float)$f_acc->jul_amount, 'aug_amount' => (float)$f_acc->aug_amount,
+                    'sep_amount' => (float)$f_acc->sep_amount, 'oct_amount' => (float)$f_acc->oct_amount,
                     'nov_amount' => (float)$f_acc->nov_amount, 'dec_amount' => (float)$f_acc->dec_amount,
-                    'total_year_amount' => (float)$f_acc->total_year_amount, 
-                    'total_real_amount' => (float)$f_acc->total_real_amount, 
-                    'total_estimated_amount' => (float)$f_acc->total_estimated_amount, 
+                    'total_year_amount' => (float)$f_acc->total_year_amount,
+                    'total_real_amount' => (float)$f_acc->total_real_amount,
+                    'total_estimated_amount' => (float)$f_acc->total_estimated_amount,
                     'budget_account_id' => $f_acc->id,
                     'budget_sub_specific_formulation_id' => $formulation->id
                 ]);
@@ -187,17 +190,15 @@ class BudgetSubSpecificFormulationController extends Controller
             $formulation->save();
 
             $request->session()->flash('message', [
-                'type' => 'other', 'icon' => 'screen-ok', 
+                'type' => 'other', 'icon' => 'screen-ok',
                 'text' => 'La formulación de presupuesto fue asignada y no puede ser modificada'
             ]);
-        }
-        elseif ($formulation->assigned) {
+        } elseif ($formulation->assigned) {
             $request->session()->flash('message', [
-                'type' => 'other', 'icon' => 'screen-ok', 
+                'type' => 'other', 'icon' => 'screen-ok',
                 'text' => 'La formulación de presupuesto ya se encuentra asignada y no puede ser modificada'
             ]);
-        }
-        else {
+        } else {
             $this->validate($request, [
                 'institution_id' => 'required',
                 'specific_action_id' => 'required',
@@ -205,27 +206,27 @@ class BudgetSubSpecificFormulationController extends Controller
                 'formulated_accounts.*' => 'required'
             ]);
 
-            DB::transaction(function() use ($request, $formulation) {
+            DB::transaction(function () use ($request, $formulation) {
                 $formulation->total_formulated = (float)$request->formulated_accounts[0]['total_year_amount'];
                 $formulation->budget_specific_action_id = $request->specific_action_id;
                 $formulation->currency_id = $request->currency_id;
                 $formulation->institution_id = $request->institution_id;
                 $formulation->save();
 
-                $formulation->account_opens()->delete();
+                $formulation->accountOpens()->delete();
 
                 foreach ($request->formulated_accounts as $formulated_account) {
                     $f_acc = (object)$formulated_account;
                     BudgetAccountOpen::create([
-                        'jan_amount' => (float)$f_acc->jan_amount, 'feb_amount' => (float)$f_acc->feb_amount, 
-                        'mar_amount' => (float)$f_acc->mar_amount, 'apr_amount' => (float)$f_acc->apr_amount, 
-                        'may_amount' => (float)$f_acc->may_amount, 'jun_amount' => (float)$f_acc->jun_amount, 
-                        'jul_amount' => (float)$f_acc->jul_amount, 'aug_amount' => (float)$f_acc->aug_amount, 
-                        'sep_amount' => (float)$f_acc->sep_amount, 'oct_amount' => (float)$f_acc->oct_amount, 
+                        'jan_amount' => (float)$f_acc->jan_amount, 'feb_amount' => (float)$f_acc->feb_amount,
+                        'mar_amount' => (float)$f_acc->mar_amount, 'apr_amount' => (float)$f_acc->apr_amount,
+                        'may_amount' => (float)$f_acc->may_amount, 'jun_amount' => (float)$f_acc->jun_amount,
+                        'jul_amount' => (float)$f_acc->jul_amount, 'aug_amount' => (float)$f_acc->aug_amount,
+                        'sep_amount' => (float)$f_acc->sep_amount, 'oct_amount' => (float)$f_acc->oct_amount,
                         'nov_amount' => (float)$f_acc->nov_amount, 'dec_amount' => (float)$f_acc->dec_amount,
-                        'total_year_amount' => (float)$f_acc->total_year_amount, 
-                        'total_real_amount' => (float)$f_acc->total_real_amount, 
-                        'total_estimated_amount' => (float)$f_acc->total_estimated_amount, 
+                        'total_year_amount' => (float)$f_acc->total_year_amount,
+                        'total_real_amount' => (float)$f_acc->total_real_amount,
+                        'total_estimated_amount' => (float)$f_acc->total_estimated_amount,
                         'budget_account_id' => $f_acc->id,
                         'budget_sub_specific_formulation_id' => $formulation->id
                     ]);
@@ -251,7 +252,7 @@ class BudgetSubSpecificFormulationController extends Controller
         if ($budgetFormulation) {
             $budgetFormulation->delete();
         }
-        
+
         return response()->json(['record' => $budgetFormulation, 'message' => 'Success'], 200);
     }
 
@@ -263,7 +264,6 @@ class BudgetSubSpecificFormulationController extends Controller
      */
     public function vueList()
     {
-
         return response()->json([
             'records' => BudgetSubSpecificFormulation::with('currency', 'institution')->with('specific_action')->get()
         ], 200);
@@ -279,10 +279,10 @@ class BudgetSubSpecificFormulationController extends Controller
     public function getFormulation($id)
     {
         $formulation = BudgetSubSpecificFormulation::where('id', $id)
-                       ->with(['currency', 'account_opens', 'specific_action' => function($specifiAction) {
-                            return $specifiAction->with(['specificable' => function($specificable) {
-                                return $specificable->with('department');
-                            }]);
+                       ->with(['currency', 'account_opens', 'specific_action' => function ($specifiAction) {
+                           return $specifiAction->with(['specificable' => function ($specificable) {
+                               return $specificable->with('department');
+                           }]);
                        }])->first();
 
         return response()->json(['result' => true, 'formulation' => $formulation], 200);
@@ -299,17 +299,19 @@ class BudgetSubSpecificFormulationController extends Controller
     public function getAvailabilityOpenedAccounts($specific_action_id, $account_id)
     {
         $account_data = ['account_id' => $account_id, 'available' => 'Sin apertura'];
-        
+
         $formulation = BudgetSubSpecificFormulation::currentFormulation($specific_action_id)
-                                                   ->with(['account_opens' => function($account) use ($account_id) {
-                                                        /** Devuelve, si existe, la cuenta formulada */
-                                                        return $account->where('budget_account_id', $account_id)->first();
-                                                   }, 'modification_accounts' => function($account) use ($account_id) {
-                                                        /** 
-                                                         * Devuelve, si existen, las cuentas agregadas o modificadas mediante la 
-                                                         * asignación de créditos adicionales, reducciones o traspasos
-                                                         */
-                                                        return $account->where('budget_account_id', $account_id)->get();
+                                                   ->with(['account_opens' => function ($account) use ($account_id) {
+                                                       /** Devuelve, si existe, la cuenta formulada */
+                                                       return $account->where('budget_account_id', $account_id)
+                                                                      ->first();
+                                                   }, 'modification_accounts' => function ($account) use ($account_id) {
+                                                       /**
+                                                        * Devuelve, si existen, las cuentas agregadas o modificadas
+                                                        * mediante la asignación de créditos adicionales, reducciones
+                                                        * o traspasos
+                                                        */
+                                                       return $account->where('budget_account_id', $account_id)->get();
                                                    }])->first();
 
         $available = 0;
@@ -338,28 +340,25 @@ class BudgetSubSpecificFormulationController extends Controller
 
         if (count($headings) < 1 || $headings[0] < 1) {
             $msg = 'El archivo no contiene las cabeceras de los datos a importar.';
-        }
-        else if (count($headings) === 1 && $headings[0] >= 1) {
+        } elseif (count($headings) === 1 && $headings[0] >= 1) {
             $validHeads = [
-                'codigo', 'total_real', 'total_estimado', 'total_anho', 'ene', 'feb', 'mar', 
+                'codigo', 'total_real', 'total_estimado', 'total_anho', 'ene', 'feb', 'mar',
                 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
             ];
             foreach ($validHeads as $vh) {
-                if (!in_array($vh,$headings[0][0])) {
+                if (!in_array($vh, $headings[0][0])) {
                     $msg = "El archivo no contiene una de las cabeceras requeridas.";
                     break;
                 }
             }
-        }
-        else if (count($records) < 1) {
+        } elseif (count($records) < 1) {
             $msg = "El archivo no contiene registros a ser importados.";
         }
-        
+
         foreach ($records as $record) {
             $rec = (object)$record;
-            
-            if (!is_null($rec->total_real) && !is_numeric($rec->total_real)) {
 
+            if (!is_null($rec->total_real) && !is_numeric($rec->total_real)) {
             }
         }
         if (!empty($msg)) {
@@ -367,7 +366,7 @@ class BudgetSubSpecificFormulationController extends Controller
         }
 
         return response()->json([
-            'result' => true, 
+            'result' => true,
             'records' => Excel::toArray(new DataImport, request()->file('file'))[0]
         ], 200);
     }

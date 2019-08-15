@@ -3,11 +3,11 @@
 		<div class="card-header">
 			<h6 class="card-title text-uppercase">Formulación de presupuesto de gastos por sub específica</h6>
 			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
+				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
 				   title="Ir atrás" data-toggle="tooltip">
 					<i class="fa fa-reply"></i>
 				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
+				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 				   data-toggle="tooltip">
 					<i class="now-ui-icons arrows-1_minimal-up"></i>
 				</a>
@@ -46,23 +46,23 @@
 			<div class="row">
 				<div class="col-6">
 					<label for="">
-						<input type="radio" name="project_centralized_action" value="project" id="sel_project" 
-							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc" 
+						<input type="radio" name="project_centralized_action" value="project" id="sel_project"
+							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
 							   data-on-label="SI" data-off-label="NO">
 						Proyecto
 					</label>
-					<select2 :options="projects" v-model="record.project_id" id="project_id" 
+					<select2 :options="projects" v-model="record.project_id" id="project_id"
 							 @input="getSpecificActions('Project')" disabled></select2>
 				</div>
 				<div class="col-6">
 					<label for="">
-						<input type="radio" name="project_centralized_action" value="project" 
-							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc" 
+						<input type="radio" name="project_centralized_action" value="project"
+							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
 							   id="sel_centralized_action" data-on-label="SI" data-off-label="NO">
 						Acción Centralizada
 					</label>
-					<select2 :options="centralized_actions" v-model="record.centralized_action_id" 
-							 @input="getSpecificActions('CentralizedAction')" 
+					<select2 :options="centralized_actions" v-model="record.centralized_action_id"
+							 @input="getSpecificActions('CentralizedAction')"
 							 id="centralized_action_id" disabled></select2>
 				</div>
 			</div>
@@ -70,7 +70,7 @@
 				<div class="col-12">
 					<div class="form-group is-required">
 						<label for="" class="control-label">Acción Específica</label>
-						<select2 :options="specific_actions" v-model="record.specific_action_id" 
+						<select2 :options="specific_actions" v-model="record.specific_action_id"
 								 id="specific_action_id" disabled></select2>
 					</div>
 				</div>
@@ -78,21 +78,21 @@
 			<div class="row">
 				<div class="col-4 offset-md-8">
 					<div class="float-right">
-						<form action="" id="" method="post" role="form" class="form" 
+						<form action="" id="" method="post" role="form" class="form"
 							  enctype="multipart/form-data">
-							<button type="button" data-toggle="tooltip"  
+							<button type="button" data-toggle="tooltip"
 									:disabled="(!record.institution_id || !record.currency_id || !record.specific_action_id)"
-									class="btn btn-sm btn-info btn-import" 
-									title="Presione para importar la información. Los archivos permitidos son: .csv, .ods, .xls o .xlsx" 
+									class="btn btn-sm btn-info btn-import"
+									title="Presione para importar la información. Los archivos permitidos son: .csv, .ods, .xls o .xlsx"
 									@click="setFile('import_formulation')">
 								<i class="fa fa-upload"></i>
 							</button>
-							<button type="button" data-toggle="tooltip" 
-									class="btn btn-sm btn-warning btn-import" 
+							<button type="button" data-toggle="tooltip"
+									class="btn btn-sm btn-warning btn-import"
 									title="Presione para exportar la información.">
 								<i class="fa fa-download"></i>
 							</button>
-							<input type="file" id="import_formulation" style="display:none" 
+							<input type="file" id="import_formulation" style="display:none"
 								   @change="getImportFormulation('import_formulation')">
 		                </form>
 					</div>
@@ -118,15 +118,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(account, index) in records" 
-						:class="(account.specific==='00')?'disable-row':''" :data-index="index" 
+					<tr v-for="(account, index) in records"
+						:class="(account.specific==='00')?'disable-row':''" :data-index="index"
 						:id="account.id" data-formulated="false" :data-code="account.code">
 						<td>
-							<i class="fa fa-ban text-white" v-if="account.locked" 
+							<i class="fa fa-ban text-white" v-if="account.locked"
 							   title="Elemento bloqueado, de solo lectura" data-toggle="tooltip"></i>
-							<i class="fa fa-eye text-blue cursor-pointer" v-else 
-							   title="Pulse para agregar esta cuenta presupuestaria a la formulación" 
-							   data-toggle="tooltip" @click="showAccountInputs(index)" 
+							<i class="fa fa-eye text-blue cursor-pointer" v-else
+							   title="Pulse para agregar esta cuenta presupuestaria a la formulación"
+							   data-toggle="tooltip" @click="showAccountInputs(index)"
 							   :id="'add_account_'+account.id"></i>
 						</td>
 						<td class="td-code">
@@ -134,108 +134,108 @@
 						</td>
 						<td>{{ account.denomination }}</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm total_real" 
-								   v-model="account.total_real_amount" 
-								   v-show="account.locked || account.formulated" data-toggle="tooltip" 
-								   :readonly="account.locked"  @change="calculateAmounts(index, 'real')" 
+							<input type="text" class="form-control input-sm total_real"
+								   v-model="account.total_real_amount"
+								   v-show="account.locked || account.formulated" data-toggle="tooltip"
+								   :readonly="account.locked"  @change="calculateAmounts(index, 'real')"
 								   onfocus="this.select()">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm total_estimated" 
-								   data-toggle="tooltip" v-model="account.total_estimated_amount" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm total_estimated"
+								   data-toggle="tooltip" v-model="account.total_estimated_amount"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'estimated')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm total_year" 
-								   v-model="account.total_year_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated"  
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm total_year"
+								   v-model="account.total_year_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'year')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm jan" 
-								   v-model="account.jan_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm jan"
+								   v-model="account.jan_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm feb" 
-								   v-model="account.feb_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm feb"
+								   v-model="account.feb_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm mar" 
-								   v-model="account.mar_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm mar"
+								   v-model="account.mar_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm apr" 
-								   v-model="account.apr_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm apr"
+								   v-model="account.apr_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm may" 
-								   v-model="account.may_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm may"
+								   v-model="account.may_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm jun" 
-								   v-model="account.jun_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm jun"
+								   v-model="account.jun_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm jul" 
-								   v-model="account.jul_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm jul"
+								   v-model="account.jul_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm aug" 
-								   v-model="account.aug_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm aug"
+								   v-model="account.aug_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm sep" 
-								   v-model="account.sep_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm sep"
+								   v-model="account.sep_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm oct" 
-								   v-model="account.oct_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm oct"
+								   v-model="account.oct_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm nov" 
-								   v-model="account.nov_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm nov"
+								   v-model="account.nov_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 						<td class="td-with-border">
-							<input type="text" class="form-control input-sm dec" 
-								   v-model="account.dec_amount" data-toggle="tooltip" 
-								   v-show="account.locked || account.formulated" 
-								   :readonly="account.locked" onfocus="this.select()" 
+							<input type="text" class="form-control input-sm dec"
+								   v-model="account.dec_amount" data-toggle="tooltip"
+								   v-show="account.locked || account.formulated"
+								   :readonly="account.locked" onfocus="this.select()"
 								   @change="calculateAmounts(index, 'month')">
 						</td>
 					</tr>
@@ -244,15 +244,15 @@
 			<buttonsDisplay route_list="/budget/subspecific-formulations"></buttonsDisplay>
 		</div>
 		<div class="card-footer text-right">
-			<button type="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
+			<button type="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
 					title="Borrar datos del formulario" @click='reset'>
 				<i class="fa fa-eraser"></i>
 			</button>
-			<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip" 
+			<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
 					title="Cancelar y regresar" @click="redirect_back(route_list)">
 				<i class="fa fa-ban"></i>
 			</button>
-			<button type="button" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 
+			<button type="button" class="btn btn-success btn-icon btn-round" data-toggle="tooltip"
 					title="Guardar registro" @click="createRecord">
 				<i class="fa fa-save"></i>
 			</button>
@@ -334,7 +334,7 @@
 			 */
 			calculateAmounts(index, input) {
 				let vm = this;
-				
+
 				if (input === 'year') {
 					/** Asigna los montos mensuales equitativamente */
 					let partial_ammount = parseFloat(
@@ -364,14 +364,14 @@
 				/** Filtra las cuentas de grupo */
 				const group_acc = vm.records.filter((acc) => {
 					return (
-						acc.item === "00" && acc.generic === "00" && acc.specific === "00" 
+						acc.item === "00" && acc.generic === "00" && acc.specific === "00"
 						&& acc.subspecific === "00"
 					);
 				});
 				/** Filtra las cuentas de ítems */
 				const item_acc = vm.records.filter((acc) => {
 					return (
-						acc.item !== "00" && acc.generic === "00" && acc.specific === "00" 
+						acc.item !== "00" && acc.generic === "00" && acc.specific === "00"
 						&& acc.subspecific === "00"
 					);
 				});
@@ -379,11 +379,11 @@
 				const generic_acc = vm.records.filter((acc) => {
 					return (acc.generic !== "00" && acc.specific === "00" && acc.subspecific === "00");
 				});
-				
+
 				/** Calcula los montos de la cuenta genérica */
 				$.each(generic_acc, function() {
 					let g = this, total_year = 0, total_estimated = 0, total_real = 0;
-					let total_jan = 0, total_feb = 0, total_mar = 0, total_apr = 0, total_may = 0, 
+					let total_jan = 0, total_feb = 0, total_mar = 0, total_apr = 0, total_may = 0,
 						total_jun = 0, total_jul = 0, total_aug = 0, total_sep = 0, total_oct = 0,
 						total_nov = 0, total_dec = 0;
 					$.each(form_acc, function() {
@@ -427,7 +427,7 @@
 				/** Calcula los montos de la cuenta ítems */
 				$.each(item_acc, function() {
 					let i = this, total_year = 0, total_estimated = 0, total_real = 0;
-					let total_jan = 0, total_feb = 0, total_mar = 0, total_apr = 0, total_may = 0, 
+					let total_jan = 0, total_feb = 0, total_mar = 0, total_apr = 0, total_may = 0,
 						total_jun = 0, total_jul = 0, total_aug = 0, total_sep = 0, total_oct = 0,
 						total_nov = 0, total_dec = 0;
 					$.each(generic_acc, function() {
@@ -471,7 +471,7 @@
 				/** Calcula los montos de la cuenta de grupo */
 				$.each(group_acc, function() {
 					let gr = this, total_year = 0, total_estimated = 0, total_real = 0;
-					let total_jan = 0, total_feb = 0, total_mar = 0, total_apr = 0, total_may = 0, 
+					let total_jan = 0, total_feb = 0, total_mar = 0, total_apr = 0, total_may = 0,
 						total_jun = 0, total_jul = 0, total_aug = 0, total_sep = 0, total_oct = 0,
 						total_nov = 0, total_dec = 0;
 					$.each(item_acc, function() {
@@ -513,7 +513,7 @@
 				});
 			},
 			/**
-			 * Muestra u oculta los campos de texto para ingresar información sobre los montos 
+			 * Muestra u oculta los campos de texto para ingresar información sobre los montos
 			 * a formular para una cuenta presupuestaria
 			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -527,7 +527,7 @@
 
 				this.records[index].formulated = !(this.records[index].formulated);
 				let add_account = $("#add_account_" + this.records[index].id);
-				
+
 				if (add_account.hasClass('fa-eye')) {
 					add_account.removeClass('fa-eye');
 					add_account.addClass('fa-eye-slash');
@@ -567,7 +567,7 @@
 			},
 			/**
 			 * Obtiene las Acciones Específicas
-			 * 
+			 *
 			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 * @param {string} type Tipo de registro
 			 */
@@ -631,8 +631,8 @@
 									}
 								},
 								callback: function (result) {
-									location.href = (result) 
-													? vm.route_create 
+									location.href = (result)
+													? vm.route_create
 													: '/budget/subspecific-formulations';
     							}
     						});
@@ -666,7 +666,7 @@
 					var pry_acc_id = response.data.formulation.specific_action.specificable.id;
 					var pry_acc_type = response.data.formulation.specific_action.type;
 					var formulation = response.data.formulation;
-					
+
 					vm.record.currency_id = formulation.currency_id;
 					vm.record.institution_id = formulation.specific_action.specificable.department.institution_id;
 					vm.record.year = formulation.year;
@@ -682,10 +682,10 @@
 					}
 
 					vm.record.specific_action_id = formulation.budget_specific_action_id.toString();
-					
+
 					/** Carga los datos de las partidas presupuestarias formuladas */
 					$.each(this.records, function(index, el) {
-						$.each(formulation.account_opens, function() {
+						$.each(formulation.accountOpens, function() {
 							if (el.id === this.budget_account_id) {
 								vm.showAccountInputs(index);
 								vm.records[index].total_year_amount = this.total_year_amount;
@@ -706,7 +706,7 @@
 							}
 						});
 					});
-					
+
 				}).catch(error => {
 					vm.logs('BudgetSubSpecificFormulationComponent.vue', 636, error, 'loadFormulation');
 				});
@@ -747,7 +747,7 @@
 			 * Importa información de la formulación a partir de una hoja de cálculo
 			 *
 			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-			 * @param  {string} input_id Identificador del campo del typo file con el 
+			 * @param  {string} input_id Identificador del campo del typo file con el
 			 *                           archivo a ser importado
 			 */
 			getImportFormulation(input_id) {
@@ -789,7 +789,7 @@
 					}
 					else {
 						vm.showMessage(
-							'custom', 'Error!', 'danger', 'screen-error', 
+							'custom', 'Error!', 'danger', 'screen-error',
 							response.data.message
 						);
 					}
@@ -828,20 +828,20 @@
 			this.getProjects();
 			this.getCentralizedActions();
 			this.initRecords('/budget/accounts/egress-list/true', '');
-			
+
 			if (this.formulationId) {
 				this.loadFormulation(this.formulationId);
 			}
-			//this.record.institution_id = 
+			//this.record.institution_id =
 
-			/** 
-			 * Evento para determinar los datos a requerir según el tipo de formulación 
+			/**
+			 * Evento para determinar los datos a requerir según el tipo de formulación
 			 * (por proyecto o acción centralizada)
 			 */
 			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
 				$('#project_id').attr('disabled', (e.target.id!=="sel_project"));
 				$('#centralized_action_id').attr('disabled', (e.target.id!=="sel_centralized_action"));
-				
+
 				if (e.target.id === "sel_project") {
 					$("#centralized_action_id").closest('.form-group').removeClass('is-required');
 					$("#project_id").closest('.form-group').addClass('is-required');

@@ -2,7 +2,6 @@
 
 namespace Modules\Purchase\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\FiscalYear as BaseFiscalYear;
 
 class FiscalYear extends BaseFiscalYear
@@ -14,6 +13,6 @@ class FiscalYear extends BaseFiscalYear
      */
     public function purchase_requirements()
     {
-    	return $this->hasMany(PurchaseRequirement::class);
+        return $this->hasMany(PurchaseRequirement::class);
     }
 }

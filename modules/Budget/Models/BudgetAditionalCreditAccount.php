@@ -11,15 +11,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class BudgetAditionalCreditAccount
  * @brief Datos de cuentas asociadas a los créditos adicionales
- * 
+ *
  * Gestiona el modelo de datos para las cuentas de los créditos adicionales
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetAditionalCreditAccount extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
     
@@ -33,7 +35,7 @@ class BudgetAditionalCreditAccount extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-    	'amount', 'budget_sub_specific_formulation_id', 'budget_account_id', 'budget_aditional_credit_id'
+        'amount', 'budget_sub_specific_formulation_id', 'budget_account_id', 'budget_aditional_credit_id'
     ];
 
     /**
@@ -44,7 +46,7 @@ class BudgetAditionalCreditAccount extends Model implements Auditable
      */
     public function formulation()
     {
-    	return $this->belongsTo(BudgetSubSpecificFormulation::class);
+        return $this->belongsTo(BudgetSubSpecificFormulation::class);
     }
 
     /**
@@ -55,7 +57,7 @@ class BudgetAditionalCreditAccount extends Model implements Auditable
      */
     public function account()
     {
-    	return $this->belongsTo(BudgetAccount::class);
+        return $this->belongsTo(BudgetAccount::class);
     }
 
     /**
@@ -66,6 +68,6 @@ class BudgetAditionalCreditAccount extends Model implements Auditable
      */
     public function aditional_credit()
     {
-    	return $this->belongsTo(BudgetAditionalCredit::class);
+        return $this->belongsTo(BudgetAditionalCredit::class);
     }
 }

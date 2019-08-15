@@ -11,20 +11,22 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class BudgetModification
  * @brief Datos de las modificaciones presupuestarias
- * 
+ *
  * Gestiona el modelo de datos para las modificaciones presupuestarias (Crédito Adicional, Traspasos y Reducciones)
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class BudgetModification extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
     
     /**
-     * @type boolean Establece si el modelo es incorporado al registro de revisiones 
+     * @type boolean Establece si el modelo es incorporado al registro de revisiones
      * o eventos de usuarios
      */
     protected $revisionCreationsEnabled = true;
@@ -41,7 +43,7 @@ class BudgetModification extends Model implements Auditable
 
 
     protected $fillable = [
-        'approved_at', 'code', 'type', 'description', 'document', 'institution_id', 
+        'approved_at', 'code', 'type', 'description', 'document', 'institution_id',
         'document_status_id'
     ];
 
@@ -53,7 +55,7 @@ class BudgetModification extends Model implements Auditable
      */
     public function budget_modification_accounts()
     {
-    	return $this->hasMany(BudgetModificationAccount::class);
+        return $this->hasMany(BudgetModificationAccount::class);
     }
 
     /**
