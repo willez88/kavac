@@ -37,12 +37,12 @@
 							<div class="form-group is-required">
 								<label>Estado Civil:</label>
 								<select2 :options="marital_status"
-									v-model="record.marital_status_id" @input="showHide"></select2>
+									v-model="record.marital_status_id"></select2>
 							</div>
 						</div>
 					</div>
 
-					<div class="row d-none" id="block_twosome">
+					<div class="row" v-if="record.marital_status_id == 2">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Nombres y apellidos de la pareja del trabajador:</label>
@@ -88,7 +88,7 @@
 							</div>
 						</div>
 						<div class="col-2">
-							<div class="form-group is-required">
+							<div class="form-group">
 								<input type="text" placeholder="Cédula de Identidad del hijo del trabajador" data-toggle="tooltip"
 									title="Indique la cédula de indentidad del hijo del trabajador"
 									v-model="payroll_children.id_number" class="form-control input-sm">
@@ -175,10 +175,6 @@
 				axios.get('/payroll/socioeconomic-informations/' + this.payroll_socioeconomic_information_id).then(response => {
 					this.record = response.data.record;
 				});
-			},
-
-			showHide(value) {
-				(this.record.marital_status_id == 2) ? $('#block_twosome').removeClass('d-none') : $('#block_twosome').addClass('d-none');
 			},
 
 			/**

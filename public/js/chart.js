@@ -1545,11 +1545,7 @@ eval("/**\n*--------------------------------------------------------------------
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-module.exports = __webpack_require__(/*! /home/cenditel/Documentos/kavac/resources/js/chart.js */"./resources/js/chart.js");
-=======
 module.exports = __webpack_require__(/*! /home/william/Programación/php/proyectos_laravel/kavac/resources/js/chart.js */"./resources/js/chart.js");
->>>>>>> wpaez
 
 
 /***/ })
