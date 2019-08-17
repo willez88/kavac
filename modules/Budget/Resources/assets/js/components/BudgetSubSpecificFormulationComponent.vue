@@ -663,12 +663,12 @@
 				const vm = this;
 				this.record.id = id;
 				axios.get('/budget/get-subspecific-formulation/' + id).then(response => {
-					var pry_acc_id = response.data.formulation.specificAction.specificable.id;
-					var pry_acc_type = response.data.formulation.specificAction.type;
+					var pry_acc_id = response.data.formulation.specific_action.specificable.id;
+					var pry_acc_type = response.data.formulation.specific_action.type;
 					var formulation = response.data.formulation;
 
 					vm.record.currency_id = formulation.currency_id;
-					vm.record.institution_id = formulation.specificAction.specificable.department.institution_id;
+					vm.record.institution_id = formulation.specific_action.specificable.department.institution_id;
 					vm.record.year = formulation.year;
 					vm.record.project_id = (pry_acc_type === "Proyecto")?pry_acc_id:'';
 					vm.record.centralized_action_id = !(pry_acc_type === "Proyecto")?pry_acc_id:'';

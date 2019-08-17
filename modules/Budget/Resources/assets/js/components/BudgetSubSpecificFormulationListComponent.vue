@@ -21,8 +21,8 @@
 		<div slot="year" slot-scope="props" class="text-center">
 			{{ props.row.year }}
 		</div>
-		<div slot="specificAction" slot-scope="props">
-			{{ props.row.specificAction.code }} - {{ props.row.specificAction.name }}
+		<div slot="specific_action" slot-scope="props">
+			{{ props.row.specific_action.code }} - {{ props.row.specific_action.name }}
 		</div>
 		<div slot="assigned" slot-scope="props">
 			<span class="text-danger text-bold" v-if="!(props.row.assigned)">NO</span>
@@ -36,24 +36,24 @@
 		data() {
 			return {
 				records: [],
-				columns: ['code', 'year', 'specificAction', 'total_formulated', 'assigned', 'id']
+				columns: ['code', 'year', 'specific_action', 'total_formulated', 'assigned', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
 				'code': 'Código',
 				'year': 'Año',
-				'specificAction': 'Acc. Especifica',
+				'specific_action': 'Acc. Especifica',
 				'total_formulated': 'Total Formulado',
 				'assigned': 'Asignado',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['code', 'year', 'specificAction'];
-			this.table_options.filterable = ['code', 'year', 'specificAction'];
+			this.table_options.sortable = ['code', 'year', 'specific_action'];
+			this.table_options.filterable = ['code', 'year', 'specific_action'];
 			this.table_options.columnsClasses = {
 				'code': 'col-md-2',
 				'name': 'col-md-1',
-				'specificAction': 'col-md-4',
+				'specific_action': 'col-md-4',
 				'total_formulated': 'col-md-2 text-right',
 				'assigned': 'col-md-1 text-center',
 				'id': 'col-md-2'

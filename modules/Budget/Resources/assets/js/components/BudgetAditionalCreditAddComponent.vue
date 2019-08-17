@@ -79,7 +79,8 @@
 								<div class="form-group is-required">
 									<label>Monto:</label>
 									<input type="number" class="form-control" data-toggle="tooltip"
-										   title="Indique el monto a asignar para la cuenta seleccionada" v-model="amount">
+										   title="Indique el monto a asignar para la cuenta seleccionada"
+										   v-model="amount">
 								</div>
 							</div>
 						</div>
@@ -286,15 +287,17 @@
 					if (!$.isEmptyObject(response.data.records)) {
 						$.each(response.data.records, function() {
 							if (this.specific !== "00") {
+								var spActionId = vm.budget_specific_action_id;
 								if (vm.budget_specific_action_id) {
-									axios.get('/budget/get-availability-opened-accounts/' + vm.budget_specific_action_id + "/" + this.id)
-										 .then(response => {
-										 	if (response.data.result) {
-										 		console.log(response.data.account)
-										 	}
-										 }).catch(error => {
-										 	console.log(error);
-										 });
+									axios.get(
+										`/budget/get-availability-opened-accounts/${spActionId}/${this.id}`
+									).then(response => {
+										if (response.data.result) {
+											console.log(response.data.account);
+										}
+									}).catch(error => {
+										console.log(error);
+									});
 								}
 								vm.accounts.push({
 									id: this.id,
