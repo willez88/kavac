@@ -215,7 +215,7 @@
 				countries: [],
 				estates: ['0'],
 				cities: ['0'],
-				columns: ['bank.name', 'city.name', 'name', 'direction', 'headquarters', 'phones', 'id'],
+				columns: ['finance_bank.name', 'city.name', 'name', 'direction', 'headquarters', 'phones', 'id'],
 			}
 		},
 		methods: {
@@ -242,7 +242,7 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'bank.name': 'Banco',
+				'finance_bank.name': 'Banco',
 				'city.name': 'Ciudad',
 				'name': 'Agencia Bancaria',
 				'direction': 'Dirección',
@@ -250,8 +250,8 @@
 				'phones': 'Números Telefónicos',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['bank.name', 'city.name', 'name'];
-			this.table_options.filterable = ['bank.name', 'city.name', 'name'];
+			this.table_options.sortable = ['finance_bank.name', 'city.name', 'name'];
+			this.table_options.filterable = ['finance_bank.name', 'city.name', 'name'];
 			this.getCountries();
 			this.getBanks();
 		},

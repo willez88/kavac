@@ -112,6 +112,8 @@ Vue.mixin({
 		getAccountTypes: function() {
 			axios.get('/finance/get-account-types').then(response => {
 				this.account_types = response.data;
+			}).catch(error => {
+				console.log(error);
 			});
 		},
 		/**

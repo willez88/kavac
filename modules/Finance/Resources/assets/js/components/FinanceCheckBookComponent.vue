@@ -129,7 +129,7 @@
 				accounts: [],
 				errors: [],
 				records: [],
-				columns: ['financeBank', 'code', 'cant_checks', 'id'],
+				columns: ['finance_bank', 'code', 'cant_checks', 'id'],
 			}
 		},
 		watch: {
@@ -172,15 +172,15 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'financeBank': 'Banco',
+				'finance_bank': 'Banco',
 				'code': 'Código Chequera',
 				'cant_checks': 'Cheques',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['financeBank', 'code', 'cant_checks'];
-			this.table_options.filterable = ['financeBank', 'code', 'cant_checks'];
+			this.table_options.sortable = ['finance_bank', 'code', 'cant_checks'];
+			this.table_options.filterable = ['finance_bank', 'code', 'cant_checks'];
 			this.table_options.columnsClasses = {
-				'financeBank': 'col-md-6',
+				'finance_bank': 'col-md-6',
 				'code': 'col-md-2',
 				'cant_checks': 'col-md-2',
 				'id': 'col-md-2'
