@@ -24,6 +24,11 @@ a.resalt-link {
 	height:30px;
 }
 
+.break-words {
+    white-space:normal;
+    word-wrap: break-word;
+}
+
 /** Estilos para el contenido de la aplicación */
 .col-right-border {
 	border-right:1px solid #eee;
@@ -374,8 +379,8 @@ table {
 .level-notice{background-color:#18CE0F !important}
 .level-info{background-color: #0073b7 !important;}
 .level-debug{background-color: #00c0ef !important;}
-.badge-level-all, .badge-level-emergency, .badge-level-alert, .badge-level-critical, .badge-level-error, 
-.badge-level-warning, .badge-level-notice, .badge-level-info, 
+.badge-level-all, .badge-level-emergency, .badge-level-alert, .badge-level-critical, .badge-level-error,
+.badge-level-warning, .badge-level-notice, .badge-level-info,
 .badge-level-debug {background-color: transparent !important;font-size: .85em !important;}
 .badge-level-all {color:#111;border-color: #b5bbc8 !important;}
 .badge-level-emergency {color:#d81b60;border-color: #d81b60;}

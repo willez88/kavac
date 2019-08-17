@@ -69,12 +69,14 @@
 							@foreach ($trash as $reg)
 								<tr>
 									<td class="text-center">{{ $reg->deleted_at->format('d-m-Y') }}</td>
-									<td>{{ $model }}</td>
+									<td><span class="break-words">{{ $model }}</span></td>
 									<td>
 										<div class="row">
 											@foreach ($reg->getAttributes() as $attr => $value)
 												@if ($attr !== 'created_at' && $attr !== 'updated_at' && $attr !== 'deleted_at')
-													<div class="col-6"><b>{{ $attr }}:</b> {{ $value }}</div>
+													<div class="col-6 break-words">
+														<b>{{ $attr }}:</b> {{ $value }}
+													</div>
 												@endif
 											@endforeach
 										</div>
