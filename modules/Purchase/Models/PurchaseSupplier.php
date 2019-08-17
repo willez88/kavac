@@ -35,7 +35,7 @@ class PurchaseSupplier extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $with = [
-        'purchase_supplier_specialty', 'purchase_supplier_type', 'purchase_supplier_branch', 'purchase_supplier_object',
+        'purchaseSupplierSpecialty', 'purchaseSupplierType', 'purchaseSupplierBranch', 'purchaseSupplierObject',
         'phones', 'city'
     ];
 
@@ -61,7 +61,7 @@ class PurchaseSupplier extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchase_supplier_specialty()
+    public function purchaseSupplierSpecialty()
     {
         return $this->belongsTo(PurchaseSupplierSpecialty::class);
     }
@@ -71,7 +71,7 @@ class PurchaseSupplier extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchase_supplier_type()
+    public function purchaseSupplierType()
     {
         return $this->belongsTo(PurchaseSupplierType::class);
     }
@@ -91,17 +91,17 @@ class PurchaseSupplier extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchase_supplier_branch()
+    public function purchaseSupplierBranch()
     {
         return $this->belongsTo(PurchaseSupplierBranch::class);
     }
 
     /**
-     * PurchaseSupplier belongs to PurchaseSupplierO.
+     * PurchaseSupplier belongs to PurchaseSupplierObject.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchase_supplier_object()
+    public function purchaseSupplierObject()
     {
         return $this->belongsTo(PurchaseSupplierObject::class);
     }

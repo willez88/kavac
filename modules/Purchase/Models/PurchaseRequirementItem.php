@@ -29,11 +29,11 @@ class PurchaseRequirementItem extends Model implements Auditable
     ];
 
     /**
-     * PurchaseRequirementItem belongs to Purchase_requirement.
+     * PurchaseRequirementItem belongs to PurchaseRequirement.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchase_requirement()
+    public function purchaseRequirement()
     {
         return $this->belongsTo(PurchaseRequirement::class);
     }

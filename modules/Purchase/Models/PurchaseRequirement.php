@@ -40,51 +40,51 @@ class PurchaseRequirement extends Model implements Auditable
     ];
 
     /**
-     * PurchaseRequirement belongs to Fiscal_year.
+     * PurchaseRequirement belongs to FiscalYear.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function fiscal_year()
+    public function fiscalYear()
     {
         return $this->belongsTo(FiscalYear::class);
     }
 
     /**
-     * PurchaseRequirement belongs to Contrating_department.
+     * PurchaseRequirement belongs to ContratingDepartment.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function contrating_department()
+    public function contratingDepartment()
     {
         return $this->belongsTo(Department::class, 'contracting_department_id');
     }
 
     /**
-     * PurchaseRequirement belongs to User_department.
+     * PurchaseRequirement belongs to UserDepartment.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user_department()
+    public function userDepartment()
     {
         return $this->belongsTo(Department::class, 'user_department_id');
     }
 
     /**
-     * PurchaseRequirement belongs to Purchase_supplier_type.
+     * PurchaseRequirement belongs to PurchaseSupplierType.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchase_supplier_type()
+    public function purchaseSupplierType()
     {
         return $this->belongsTo(PurchaseSupplierType::class);
     }
 
     /**
-     * PurchaseRequirement has many Purchase_requirement_items.
+     * PurchaseRequirement has many PurchaseRequirementItems.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function purchase_requirement_items()
+    public function purchaseRequirementItems()
     {
         return $this->hasMany(PurchaseRequirementItem::class);
     }

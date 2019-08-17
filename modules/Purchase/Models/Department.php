@@ -7,21 +7,21 @@ use App\Models\Department as BaseDepartment;
 class Department extends BaseDepartment
 {
     /**
-     * Department has many Purchase_requirements.
+     * Department has many PurchaseRequirements.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function contrating_purchase_requirements()
+    public function contratingPurchaseRequirements()
     {
         return $this->hasMany(PurchaseRequirement::class, 'contracting_department_id');
     }
 
     /**
-     * Department has many User_purchase_requirements.
+     * Department has many UserPurchaseRequirements.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function user_purchase_requirements()
+    public function userPurchaseRequirements()
     {
         return $this->hasMany(PurchaseRequirement::class, 'user_department_id');
     }

@@ -47,11 +47,11 @@ class PurchaseSupplierType extends Model implements Auditable
     }
 
     /**
-     * PurchaseSupplierType has many Purchase_requirements.
+     * PurchaseSupplierType has many PurchaseRequirements.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function purchase_requirements()
+    public function purchaseRequirements()
     {
         return $this->hasMany(PurchaseRequirement::class);
     }

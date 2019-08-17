@@ -7,11 +7,11 @@ use App\Models\FiscalYear as BaseFiscalYear;
 class FiscalYear extends BaseFiscalYear
 {
     /**
-     * FiscalYear has many Purchase_requirements.
+     * FiscalYear has many PurchaseRequirements.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function purchase_requirements()
+    public function purchaseRequirements()
     {
         return $this->hasMany(PurchaseRequirement::class);
     }
