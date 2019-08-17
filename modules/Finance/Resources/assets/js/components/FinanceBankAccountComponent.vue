@@ -1,7 +1,7 @@
 <template>
 	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de cuentas bancarias" 
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de cuentas bancarias"
 		   data-toggle="tooltip" @click="addRecord('add_bank_account', '/finance/bank-accounts', $event)">
 			<i class="icofont icofont-law-document ico-3x"></i>
 			<span>Cuentas<br>Bancarias</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-law-document inline-block"></i> 
+							<i class="icofont icofont-law-document inline-block"></i>
 							Cuenta Bancaria
 						</h6>
 					</div>
@@ -28,8 +28,8 @@
 							<div class="col-md-2">
 								<div class="form-group is-required">
 									<label>Fecha de apertura</label>
-									<input type="date" v-model="record.opened_at" class="form-control input-sm" 
-										   data-toggle="tooltip" 
+									<input type="date" v-model="record.opened_at" class="form-control input-sm"
+										   data-toggle="tooltip"
 										   title="Indique la fecha en la que se aperturó la cuenta">
 								</div>
 							</div>
@@ -38,7 +38,7 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Banco:</label>
-									<select2 :options="banks" @input="getAgencies" 
+									<select2 :options="banks" @input="getAgencies"
 											 v-model="record.finance_bank_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -46,7 +46,7 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Agencia:</label>
-									<select2 :options="agencies" 
+									<select2 :options="agencies"
 											 v-model="record.finance_banking_agency_id"></select2>
 			                    </div>
 							</div>
@@ -55,7 +55,7 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Tipo de Cuenta:</label>
-									<select2 :options="account_types" 
+									<select2 :options="account_types"
 											 v-model="record.finance_account_type_id"></select2>
 								</div>
 							</div>
@@ -64,13 +64,13 @@
 									<label>Código Cuenta Cliente</label>
 									<div class="row">
 										<div class="col-3">
-											<input type="text" class="form-control input-sm" 
+											<input type="text" class="form-control input-sm"
 												   id="bank_code" v-model="record.bank_code" readonly>
 										</div>
 										<div class="col-md-9">
-											<input type="text" class="form-control input-sm" 
-												   data-toggle="tooltip" v-model="record.ccc_number" 
-												   title="Indique el número de cuenta sin guiones o espacios" 
+											<input type="text" class="form-control input-sm"
+												   data-toggle="tooltip" v-model="record.ccc_number"
+												   title="Indique el número de cuenta sin guiones o espacios"
 												   maxlength="16">
 										</div>
 									</div>
@@ -81,8 +81,8 @@
 							<div class="col-12">
 								<div class="form-group is-required">
 									<label>Descripción</label>
-									<textarea class="form-control" rows="3" v-model="record.description" 
-											  data-toggle="tooltip" 
+									<textarea class="form-control" rows="3" v-model="record.description"
+											  data-toggle="tooltip"
 											  title="Indique la descripción u objetivo de la cuenta"></textarea>
 								</div>
 							</div>
@@ -91,8 +91,8 @@
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-	                		<div slot="finance_banking_agency" slot-scope="props">
-	                			{{ props.row.finance_banking_agency.finance_bank.short_name }}
+	                		<div slot="financeBankingAgency" slot-scope="props">
+	                			{{ props.row.financeBankingAgency.finance_bank.short_name }}
 	                		</div>
 	                		<div slot="ccc_number" slot-scope="props" class="text-center">
 	                			{{ format_bank_account(props.row.ccc_number) }}
@@ -101,14 +101,14 @@
 	                			{{ format_date(props.row.opened_at) }}
 	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-round"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, '/finance/bank-accounts')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, '/finance/bank-accounts')"
+										class="btn btn-danger btn-xs btn-icon btn-round"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -116,11 +116,11 @@
 	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" data-dismiss="modal" 
+	                	<button type="button" data-dismiss="modal"
 	                			class="btn btn-default btn-sm btn-round btn-modal-close">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('finance/bank-accounts')" 
+	                	<button type="button" @click="createRecord('finance/bank-accounts')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -150,13 +150,13 @@
 				banks: [],
 				agencies: [],
 				account_types: [],
-				columns: ['finance_banking_agency', 'ccc_number', 'opened_at', 'id'],
+				columns: ['financeBankingAgency', 'ccc_number', 'opened_at', 'id'],
 			}
 		},
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
@@ -174,15 +174,15 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'finance_banking_agency': 'Banco',
+				'financeBankingAgency': 'Banco',
 				'ccc_number': 'Código Cuenta Cliente',
 				'opened_at': 'Fecha de apertura',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['finance_banking_agency', 'ccc_number'];
-			this.table_options.filterable = ['finance_banking_agency', 'cc_number'];
+			this.table_options.sortable = ['financeBankingAgency', 'ccc_number'];
+			this.table_options.filterable = ['financeBankingAgency', 'cc_number'];
 			this.table_options.columnsClasses = {
-				'finance_banking_agency': 'col-md-4',
+				'financeBankingAgency': 'col-md-4',
 				'ccc_number': 'col-md-4',
 				'opened_at': 'col-md-2',
 				'id': 'col-md-2'

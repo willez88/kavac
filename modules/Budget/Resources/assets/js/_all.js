@@ -63,7 +63,7 @@ Vue.component('budget-aditional-credit-add', require('./components/BudgetAdition
 
 /**
  * Opciones de configuración global del módulo de presupuesto
- * 
+ *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.mixin({

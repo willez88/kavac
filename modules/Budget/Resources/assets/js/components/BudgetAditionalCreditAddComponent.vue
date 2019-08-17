@@ -11,8 +11,8 @@
 							<th>Descripción</th>
 							<th>Monto</th>
 							<th>
-								<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#" 
-								   data-original-title="Agregar nuevo registro" data-toggle="modal"  
+								<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#"
+								   data-original-title="Agregar nuevo registro" data-toggle="modal"
 								   data-target="#add_account" v-if="approved_at">
 									<i class="fa fa-plus-circle"></i>
 								</a>
@@ -26,9 +26,9 @@
 							<td>{{ account.description }}</td>
 							<td class="text-right">{{ account.amount }}</td>
 							<td class="text-center">
-								<input type="hidden" name="budget_account_id[]" readonly 
+								<input type="hidden" name="budget_account_id[]" readonly
 									   :value="account.budget_specific_action_id + '|' + account.budget_account_id">
-								<input type="hidden" name="budget_account_amount[]" readonly 
+								<input type="hidden" name="budget_account_amount[]" readonly
 									   :value="account.amount">
 								<a class="btn btn-sm btn-danger btn-action" href="#" @click="deleteAccount(index)"
 								   title="Eliminar este registro" data-toggle="tooltip">
@@ -48,7 +48,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="ion-arrow-graph-up-right"></i> 
+							<i class="ion-arrow-graph-up-right"></i>
 							Agregar Cuenta
 						</h6>
 					</div>
@@ -62,14 +62,14 @@
 							<div class="col-6">
 								<div class="form-group is-required">
 									<label>Acción Específica:</label>
-									<select2 :options="specific_actions" @input="getAccounts" 
+									<select2 :options="specific_actions" @input="getAccounts"
 											 v-model="budget_specific_action_id"/>
 			                    </div>
 							</div>
 							<div class="col-6">
 								<div class="form-group is-required">
 									<label>Cuenta:</label>
-									<select2 :options="accounts" 
+									<select2 :options="accounts"
 											 v-model="budget_account_id"/>
 			                    </div>
 							</div>
@@ -78,18 +78,18 @@
 							<div class="col-md-3">
 								<div class="form-group is-required">
 									<label>Monto:</label>
-									<input type="number" class="form-control" data-toggle="tooltip" 
+									<input type="number" class="form-control" data-toggle="tooltip"
 										   title="Indique el monto a asignar para la cuenta seleccionada" v-model="amount">
 								</div>
 							</div>
 						</div>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="addAccount" 
+	                	<button type="button" @click="addAccount"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -113,7 +113,7 @@
 				budget_specific_action_id: '',
 				budget_account_id: '',
 				amount: 0,
-				/*aditional_credit_accounts: (localStorage.aditional_credit_accounts) 
+				/*aditional_credit_accounts: (localStorage.aditional_credit_accounts)
 										   ? JSON.parse(localStorage.aditional_credit_accounts) : [],*/
 				errors: [],
 				/** set localStorage aditional_credit_accounts */
@@ -191,32 +191,32 @@
 
 				if (!vm.budget_specific_action_id) {
 					vm.showMessage(
-						'custom', 'Alerta!', 'danger', 'screen-error', 
+						'custom', 'Alerta!', 'danger', 'screen-error',
 						'Debe seleccionar una acción específica'
 					);
 					return false;
 				}
 				if (!vm.budget_account_id) {
 					vm.showMessage(
-						'custom', 'Alerta!', 'danger', 'screen-error', 
+						'custom', 'Alerta!', 'danger', 'screen-error',
 						'Debe seleccionar una cuenta presupuestaria'
 					);
 					return false;
 				}
 				if (vm.amount <= 0) {
 					vm.showMessage(
-						'custom', 'Alerta!', 'danger', 'screen-error', 
+						'custom', 'Alerta!', 'danger', 'screen-error',
 						'Debe indicar un monto'
 					);
 					return false;
 				}
 
-				
+
 				/** Obtiene datos de la acción específica seleccionada */
 				axios.get('/budget/detail-specific-actions/' + vm.budget_specific_action_id).then(response => {
 					if (response.data.result) {
 						let record = response.data.record;
-						to_add.spac_description = record.specificable.code + " - " + record.code + 
+						to_add.spac_description = record.specificable.code + " - " + record.code +
 													 " | " + record.name;
 					}
 				}).catch(error => {
@@ -228,18 +228,18 @@
 					console.log(response.data.result)
 					if (response.data.result) {
 						let record = response.data.record;
-						to_add.code = record.group + "." + record.item + "." + record.generic + "." + 
+						to_add.code = record.group + "." + record.item + "." + record.generic + "." +
 										 record.specific + "." + record.subspecific;
 						to_add.description = response.data.record.denomination;
 					}
 				}).catch(error => {
 					console.log(error);
 				});
-				
+
 				to_add.amount = vm.amount;
 				to_add.budget_account_id = vm.budget_account_id;
 				to_add.budget_specific_action_id = vm.budget_specific_action_id;
-				
+
 				vm.aditional_credit_accounts.push(to_add);
 				$('.close').click();
 				vm.reset();

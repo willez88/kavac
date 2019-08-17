@@ -7,17 +7,18 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Finance\Models\FinanceBankingAgency;
-use App\Models\City;
 use App\Models\Phone;
 
 /**
  * @class FinanceBankingAgencyController
  * @brief Controlador para las agencias bancarias
- * 
+ *
  * Clase que gestiona las agencias bancarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class FinanceBankingAgencyController extends Controller
 {
@@ -31,7 +32,8 @@ class FinanceBankingAgencyController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->data[0] = [
             'id' => '',
             'text' => 'Seleccione...'
@@ -40,27 +42,28 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        return response()->json(['records' => FinanceBankingAgency::with(['finance_bank', 'city', 'phones'])->get()], 200);
+        return response()->json(['records' => FinanceBankingAgency::with([
+            'financeBank', 'city', 'phones'
+        ])->get()], 200);
     }
 
     /**
      * Show the form for creating a new resource.
-     * 
+     *
      * @return Response
      */
     public function create()
     {
-
     }
 
     /**
      * Store a newly created resource in storage.
-     * 
+     *
      * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -77,11 +80,11 @@ class FinanceBankingAgencyController extends Controller
             'name' => $request->name,
             'direction' => $request->direction,
             'finance_bank_id' => $request->finance_bank_id,
-            'contact_person' => (!empty($request->contact_person)) 
-                                ? $request->contact_person 
+            'contact_person' => (!empty($request->contact_person))
+                                ? $request->contact_person
                                 : null,
-            'contact_email' => (!empty($request->contact_email)) 
-                               ? $request->contact_email 
+            'contact_email' => (!empty($request->contact_email))
+                               ? $request->contact_email
                                : null,
             'headquarters' => (!is_null($request->headquarters)),
             'city_id' => $request->city_id,
@@ -104,7 +107,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Show the specified resource.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function show()
@@ -114,7 +117,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function edit()
@@ -124,7 +127,7 @@ class FinanceBankingAgencyController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * 
+     *
      * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -140,11 +143,11 @@ class FinanceBankingAgencyController extends Controller
         /** @var object Datos de la agencia bancaria */
         $financeBankingAgency = FinanceBankingAgency::find($id);
         $financeBankingAgency->fill($request->all());
-        $financeBankingAgency->contact_person = (!empty($request->contact_person)) 
-                                                ? $request->contact_person 
+        $financeBankingAgency->contact_person = (!empty($request->contact_person))
+                                                ? $request->contact_person
                                                 : null;
-        $financeBankingAgency->contact_email = (!empty($request->contact_email)) 
-                                               ? $request->contact_email 
+        $financeBankingAgency->contact_email = (!empty($request->contact_email))
+                                               ? $request->contact_email
                                                : null;
         $financeBankingAgency->headquarters = (!is_null($request->headquarters));
         $financeBankingAgency->save();
@@ -161,12 +164,11 @@ class FinanceBankingAgencyController extends Controller
         }
 
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
-
     }
 
     /**
      * Remove the specified resource from storage.
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
@@ -186,8 +188,8 @@ class FinanceBankingAgencyController extends Controller
      */
     public function getAgencies($bank_id = null)
     {
-        $agencies = ($bank_id) 
-                    ? FinanceBankingAgency::where('finance_bank_id', $bank_id)->get() 
+        $agencies = ($bank_id)
+                    ? FinanceBankingAgency::where('finance_bank_id', $bank_id)->get()
                     : FinanceBankingAgency::all();
 
         foreach ($agencies as $agency) {

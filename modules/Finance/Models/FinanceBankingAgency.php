@@ -11,18 +11,20 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class FinanceBankingAgency
  * @brief Datos de las agencias bancarias
- * 
+ *
  * Gestiona el modelo de datos para las agencias bancarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class FinanceBankingAgency extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     protected $revisionCreationsEnabled = true;
 
     /**
@@ -33,7 +35,7 @@ class FinanceBankingAgency extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-    	'name', 'direction', 'headquarters', 'contact_person', 'contact_email', 
+        'name', 'direction', 'headquarters', 'contact_person', 'contact_email',
         'finance_bank_id', 'city_id'
     ];
 
@@ -43,9 +45,9 @@ class FinanceBankingAgency extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function finance_bank()
+    public function financeBank()
     {
-    	return $this->belongsTo(FinanceBank::class, 'finance_bank_id');
+        return $this->belongsTo(FinanceBank::class, 'finance_bank_id');
     }
 
     /**
@@ -56,7 +58,7 @@ class FinanceBankingAgency extends Model implements Auditable
      */
     public function city()
     {
-    	return $this->belongsTo(\App\Models\City::class);
+        return $this->belongsTo(\App\Models\City::class);
     }
 
     /**
@@ -65,7 +67,7 @@ class FinanceBankingAgency extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function bank_accounts()
+    public function bankAccounts()
     {
         return $this->hasMany(FinanceBankAccount::class);
     }

@@ -201,7 +201,7 @@ class FinanceBanksTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function() use ($finance_banks) {
+        DB::transaction(function () use ($finance_banks) {
             foreach ($finance_banks as $bank) {
                 FinanceBank::updateOrCreate(
                     ['code' => $bank['code']],

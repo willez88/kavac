@@ -1,8 +1,8 @@
 <template>
 	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de chequeras" 
-		   data-toggle="tooltip" 
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de chequeras"
+		   data-toggle="tooltip"
 		   @click="addRecord('add_check_book', '/finance/check-books', $event)">
 			<i class="icofont icofont-card ico-3x"></i>
 			<span>Chequeras</span>
@@ -15,7 +15,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-card inline-block"></i> 
+							<i class="icofont icofont-card inline-block"></i>
 							Chequera
 						</h6>
 					</div>
@@ -30,7 +30,7 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Banco</label>
-									<select2 :options="banks" v-model="record.finance_bank_id" 
+									<select2 :options="banks" v-model="record.finance_bank_id"
 											 @input="getBankAccounts"></select2>
 								</div>
 							</div>
@@ -45,19 +45,19 @@
 							<div class="col-md-3">
 								<div class="form-group is-required">
 									<label>Serial / Código</label>
-									<input type="text" class="form-control input-sm" v-model="record.code" data-toggle="tooltip" 
+									<input type="text" class="form-control input-sm" v-model="record.code" data-toggle="tooltip"
 										   title="Número de serial o código único que identifica la chequera">
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group is-required">
 									<label>Nro. de Cheques</label>
-									<input type="text" class="form-control input-sm" v-model="record.checks" data-toggle="tooltip" 
+									<input type="text" class="form-control input-sm" v-model="record.checks" data-toggle="tooltip"
 										   title="Cantidad de cheques a registrar">
 								</div>
 							</div>
 							<div class="col-md-1">
-								<button class="btn btn-sm btn-info btn-action btn-tooltip" style="margin:30px auto" 
+								<button class="btn btn-sm btn-info btn-action btn-tooltip" style="margin:30px auto"
 										title="Asignar números de cheques" data-toggle="tooltip" @click="addChecks">
 									<i class="fa fa-plus-circle"></i>
 								</button>
@@ -67,7 +67,7 @@
 							<div class="col-md-3" v-for="(number, index) in record.numbers">
 								<div class="form-group is-required">
 									<label>Cheque #{{ index + 1 }}</label>
-									<input type="text" class="form-control input-sm" data-toggle="tooltip" 
+									<input type="text" class="form-control input-sm" data-toggle="tooltip"
 										   title="Indique el número de cheque" v-model="record.numbers[index]">
 								</div>
 							</div>
@@ -83,14 +83,14 @@
 	                			{{ props.row.checks }}
 	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-round"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, '/finance/check-books')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, '/finance/check-books')"
+										class="btn btn-danger btn-xs btn-icon btn-round"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -98,11 +98,11 @@
 	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" data-dismiss="modal" 
+	                	<button type="button" data-dismiss="modal"
 	                			class="btn btn-default btn-sm btn-round btn-modal-close">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('finance/check-books')" 
+	                	<button type="button" @click="createRecord('finance/check-books')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -129,7 +129,7 @@
 				accounts: [],
 				errors: [],
 				records: [],
-				columns: ['finance_bank', 'code', 'cant_checks', 'id'],
+				columns: ['financeBank', 'code', 'cant_checks', 'id'],
 			}
 		},
 		watch: {
@@ -142,7 +142,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
@@ -157,7 +157,7 @@
 			},
 			/**
 			 * Método que permite agregar una cantidad específica de campos para el registro de números de cheques
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			addChecks() {
@@ -172,15 +172,15 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'finance_bank': 'Banco',
+				'financeBank': 'Banco',
 				'code': 'Código Chequera',
 				'cant_checks': 'Cheques',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['finance_bank', 'code', 'cant_checks'];
-			this.table_options.filterable = ['finance_bank', 'code', 'cant_checks'];
+			this.table_options.sortable = ['financeBank', 'code', 'cant_checks'];
+			this.table_options.filterable = ['financeBank', 'code', 'cant_checks'];
 			this.table_options.columnsClasses = {
-				'finance_bank': 'col-md-6',
+				'financeBank': 'col-md-6',
 				'code': 'col-md-2',
 				'cant_checks': 'col-md-2',
 				'id': 'col-md-2'

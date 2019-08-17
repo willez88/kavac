@@ -42,7 +42,7 @@ Vue.component('finance-voucher-design', require('./components/FinanceVoucherDesi
 
 /**
  * Opciones de configuración global del módulo de finanzas
- * 
+ *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.mixin({

@@ -11,11 +11,13 @@ use Modules\Finance\Models\FinanceAccountType;
 /**
  * @class FinanceAccountTypeController
  * @brief Controlador para los tipos de cuenta bancaria
- * 
+ *
  * Clase que gestiona los tipos de cuenta bancaria
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class FinanceAccountTypeController extends Controller
 {
@@ -29,7 +31,8 @@ class FinanceAccountTypeController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->data[0] = [
             'id' => '',
             'text' => 'Seleccione...'
@@ -99,14 +102,14 @@ class FinanceAccountTypeController extends Controller
     {
         /** @var object Datos del tipo de cuenta bancaria */
         $financeAccountType = FinanceAccountType::find($id);
-        
+
         $this->validate($request, [
             'name' => 'required|max:100|unique:finance_account_types,name,' . $financeAccountType->id,
         ]);
- 
+
         $financeAccountType->name = $request->name;
         $financeAccountType->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

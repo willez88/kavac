@@ -6,12 +6,12 @@
 				<div class="container">
 					<div class="row mt10">
 						<div class="col-12">
-							<div class="with-border with-shadow vertical-middle" 
+							<div class="with-border with-shadow vertical-middle"
 								 :style="{
-								 	'width':  record.page.size_custom.width + 'px', 
+								 	'width':  record.page.size_custom.width + 'px',
 								 	'height': (record.page.size_custom.height / 1.5) + 'px',
 								 	'max-width': '100%'
-								 }" 
+								 }"
 								 v-if="record.page.size_custom.width !== '0' && record.page.size_custom.height !== '0'">
 							</div>
 						</div>
@@ -31,8 +31,8 @@
 						<div class="form-group bootstrap-switch-mini">
 							<label>Valores por defecto</label>
 	                		<div class="col-12">
-	                			<input type="checkbox" class="form-control bootstrap-switch bootstrap-switch-mini" 
-	                    			   data-toggle="tooltip" data-on-label="SI" data-off-label="NO" 
+	                			<input type="checkbox" class="form-control bootstrap-switch bootstrap-switch-mini"
+	                    			   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
 	                    			   title="Configurar valores por defecto" name="default"
 									   v-model.lazy="record.default" value="AP" data-record="default">
 	                		</div>
@@ -41,7 +41,7 @@
 					<div class="col-12">
 						<div class="form-group is-required">
 							<label for="">Tamaño</label>
-							<select2 :options="page_sizes" v-model="record.page.size" 
+							<select2 :options="page_sizes" v-model="record.page.size"
 									 @input="setSizes"></select2>
 						</div>
 					</div>
@@ -50,7 +50,7 @@
 					<div class="col-4">
 						<div class="form-group is-required">
 							<label for="">Ancho</label>
-							<input type="text" class="form-control input-sm" 
+							<input type="text" class="form-control input-sm"
 								   v-model="record.page.size_custom.width" data-toggle="tooltip"
 								   title="Ancho de la página en milimetros">
 						</div>
@@ -61,7 +61,7 @@
 					<div class="col-4">
 						<div class="form-group is-required">
 							<label for="">Alto</label>
-							<input type="text" class="form-control input-sm" 
+							<input type="text" class="form-control input-sm"
 								   v-model="record.page.size_custom.height" data-toggle="tooltip"
 								   title="Alto de la página en milimetros">
 						</div>
@@ -77,7 +77,7 @@
 				<div class="row">
 					<div class="col-4 offset-4">
 						<div class="form-group is-required">
-							<input type="number" class="form-control input-sm" step="0.01" 
+							<input type="number" class="form-control input-sm" step="0.01"
 								   title="margén superior en milímetros" data-toggle="tooltip" v-model="record.page.margins.top">
 						</div>
 					</div>
@@ -85,13 +85,13 @@
 				<div class="row">
 					<div class="col-4">
 						<div class="form-group is-required">
-							<input type="number" class="form-control input-sm" step="0.01" 
+							<input type="number" class="form-control input-sm" step="0.01"
 								   title="margén izquierdo en milímetros" data-toggle="tooltip" v-model="record.page.margins.left">
 						</div>
 					</div>
 					<div class="col-4 offset-4">
 						<div class="form-group is-required">
-							<input type="number" class="form-control input-sm" step="0.01" 
+							<input type="number" class="form-control input-sm" step="0.01"
 								   title="margén derecho en milímetros" data-toggle="tooltip" v-model="record.page.margins.right">
 						</div>
 					</div>
@@ -99,7 +99,7 @@
 				<div class="row">
 					<div class="col-4 offset-4">
 						<div class="form-group is-required">
-							<input type="number" class="form-control input-sm" step="0.01" 
+							<input type="number" class="form-control input-sm" step="0.01"
 								   title="margén inferior en milímetros" data-toggle="tooltip" v-model="record.page.margins.bottom">
 						</div>
 					</div>
@@ -248,7 +248,7 @@
 						<div class="form-group">
 							<label for="">Logo</label>
 							<div class="col-12">
-								<img src="/images/no-image.png" alt="logo" class="img-fluid img-rounded" 
+								<img src="/images/no-image.png" alt="logo" class="img-fluid img-rounded"
 									 style="cursor:pointer;">
 							</div>
 						</div>
@@ -257,7 +257,7 @@
 						<div class="form-group">
 							<label for="">Cheque</label>
 							<div class="col-12">
-								<img src="/images/formato-cheque.png" alt="logo" class="img-fluid img-rounded" 
+								<img src="/images/formato-cheque.png" alt="logo" class="img-fluid img-rounded"
 									 style="cursor:pointer;">
 							</div>
 						</div>
@@ -268,7 +268,7 @@
 						<div class="form-group">
 							<label for="">Datos Presupuestarios</label>
 							<div class="col-12">
-								<img src="/images/voucher-presupuesto.png" alt="logo" class="img-fluid img-rounded" 
+								<img src="/images/voucher-presupuesto.png" alt="logo" class="img-fluid img-rounded"
 									 style="cursor:pointer;">
 							</div>
 						</div>
@@ -277,7 +277,7 @@
 						<div class="form-group">
 							<label for="">Datos Contables</label>
 							<div class="col-12">
-								<img src="/images/voucher-contabilidad.png" alt="logo" class="img-fluid img-rounded" 
+								<img src="/images/voucher-contabilidad.png" alt="logo" class="img-fluid img-rounded"
 									 style="cursor:pointer;">
 							</div>
 						</div>
@@ -288,7 +288,7 @@
 						<div class="form-group">
 							<label for="">Datos Voucher</label>
 							<div class="col-12">
-								<img src="/images/voucher-data.png" alt="logo" class="img-fluid img-rounded" 
+								<img src="/images/voucher-data.png" alt="logo" class="img-fluid img-rounded"
 									 style="cursor:pointer;">
 							</div>
 						</div>
@@ -333,7 +333,7 @@
 			}
 		},
 		watch: {
-			
+
 		},
 		methods: {
 			/**

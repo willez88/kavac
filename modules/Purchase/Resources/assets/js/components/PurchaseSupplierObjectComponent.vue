@@ -1,8 +1,8 @@
 <template>
 	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de objetos de proveedores" 
-		   data-toggle="tooltip" 
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de objetos de proveedores"
+		   data-toggle="tooltip"
 		   @click="addRecord('add_object', '/purchase/supplier-objects', $event)">
 			<i class="icofont icofont-box ico-3x"></i>
 			<span>Objetos de<br>Proveedor</span>
@@ -15,7 +15,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-box inline-block"></i> 
+							<i class="icofont icofont-box inline-block"></i>
 							Objeto de Proveedor
 						</h6>
 					</div>
@@ -36,19 +36,19 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" 
-										   placeholder="Nombre del objeto del proveedor" 
-										   data-toggle="tooltip" v-model="record.name" 
-										   title="Indique el nombre del objeto del proveedor (requerido)" 
+									<input type="text"
+										   placeholder="Nombre del objeto del proveedor"
+										   data-toggle="tooltip" v-model="record.name"
+										   title="Indique el nombre del objeto del proveedor (requerido)"
 										   class="form-control input-sm">
 			                    </div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-									<textarea class="form-control input-sm" rows="3" 
-											  title="Indique la descripción para el objeto del proveedor" 
-											  placeholder="Descripción del objeto del proveedor" 
+									<textarea class="form-control input-sm" rows="3"
+											  title="Indique la descripción para el objeto del proveedor"
+											  placeholder="Descripción del objeto del proveedor"
 											  v-model="record.description" data-toggle="tooltip"></textarea>
 			                    </div>
 							</div>
@@ -63,14 +63,14 @@
 	                			<span v-if="props.row.type==='S'">Servicios</span>
 	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-round"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, '/purchase/supplier-objects')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, '/purchase/supplier-objects')"
+										class="btn btn-danger btn-xs btn-icon btn-round"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -78,11 +78,11 @@
 	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" data-dismiss="modal" 
+	                	<button type="button" data-dismiss="modal"
 	                			class="btn btn-default btn-sm btn-round btn-modal-close">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('purchase/supplier-objects')" 
+	                	<button type="button" @click="createRecord('purchase/supplier-objects')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -117,7 +117,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {

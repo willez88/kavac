@@ -11,11 +11,13 @@ use Modules\Finance\Models\FinanceBank;
 /**
  * @class FinanceBankController
  * @brief Controlador para las entidades bancarias
- * 
+ *
  * Clase que gestiona las entidades bancarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class FinanceBankController extends Controller
 {
@@ -29,7 +31,8 @@ class FinanceBankController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->data[0] = [
             'id' => '',
             'text' => 'Seleccione...'
@@ -104,19 +107,19 @@ class FinanceBankController extends Controller
     {
         /** @var object Datos de la entidad bancaria */
         $financeBank = FinanceBank::find($id);
-        
+
         $this->validate($request, [
             'code' => 'required|max:4|unique:finance_banks,code,' . $financeBank->id,
             'name' => 'required|max:100|unique:finance_banks,name,' . $financeBank->id,
             'short_name' => 'required|max:50|unique:finance_banks,short_name,' . $financeBank->id
         ]);
- 
+
         $financeBank->code = $request->input('code');
         $financeBank->name = $request->input('name');
         $financeBank->short_name = $request->input('short_name');
         $financeBank->website = (!empty($request->input('website')))?$request->input('website'):null;
         $financeBank->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
@@ -155,7 +158,7 @@ class FinanceBankController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $bank_id                 Identificador de la entidad bancaria
-     * @return \Illuminate\Http\JsonResponse    Devuelve un JSON con los datos de la entidad 
+     * @return \Illuminate\Http\JsonResponse    Devuelve un JSON con los datos de la entidad
      *                                          bancaria consultada
      */
     public function getBankInfo($bank_id)

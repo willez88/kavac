@@ -12,11 +12,13 @@ use Modules\Finance\Models\FinanceCheckBook;
 /**
  * @class FinanceCheckBookController
  * @brief Controlador para las chequeras
- * 
+ *
  * Clase que gestiona las chequeras
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class FinanceCheckBookController extends Controller
 {
@@ -28,14 +30,14 @@ class FinanceCheckBookController extends Controller
      */
     public function index()
     {
-        $banks = FinanceBank::with(['finance_agencies' => function($queryAgencies) {
-            return $queryAgencies->with(['bank_accounts' => function($queryAccounts) {
-                return $queryAccounts->with('finance_check_books');
+        $banks = FinanceBank::with(['financeAgencies' => function ($queryAgencies) {
+            return $queryAgencies->with(['bankAccounts' => function ($queryAccounts) {
+                return $queryAccounts->with('financeCheckBooks');
             }]);
-        }])->orderBy('name')->get()->filter(function($bank) {
-            foreach ($bank->finance_agencies as $agency) {
-                foreach ($agency->bank_accounts as $account) {
-                    foreach ($account->finance_check_books as $check_book) {
+        }])->orderBy('name')->get()->filter(function ($bank) {
+            foreach ($bank->financeAgencies as $agency) {
+                foreach ($agency->bankAccounts as $account) {
+                    foreach ($account->financeCheckBooks as $check_book) {
                         return $bank;
                     }
                 }
@@ -45,23 +47,23 @@ class FinanceCheckBookController extends Controller
         $financeCheckBooks = [];
 
         foreach ($banks as $bank) {
-            foreach ($bank->finance_agencies as $agency) {
-                foreach ($agency->bank_accounts as $account) {
+            foreach ($bank->financeAgencies as $agency) {
+                foreach ($agency->bankAccounts as $account) {
                     $checkBookCode = '';
-                    foreach ($account->finance_check_books as $check_book) {
+                    foreach ($account->financeCheckBooks as $check_book) {
                         if ($checkBookCode !== $check_book->code) {
                             $numbers = [];
-                            foreach ($account->finance_check_books as $check) {
+                            foreach ($account->financeCheckBooks as $check) {
                                 array_push($numbers, $check->number);
                             }
                             $checkBookCode = $check_book->code;
                             array_push($financeCheckBooks, [
                                 'finance_bank' => $bank->name, 'code' => $checkBookCode, 'id' => $checkBookCode,
-                                'checks' => $account->finance_check_books->count(),
+                                'checks' => $account->financeCheckBooks->count(),
                                 'finance_bank_id' => $bank->id, 'finance_bank_account_id' => $account->id,
                                 'numbers' => $numbers,
-                                'cant_checks' => $account->finance_check_books->first()->number . 
-                                                 '...' . $account->finance_check_books->last()->number,
+                                'cant_checks' => $account->financeCheckBooks->first()->number .
+                                                 '...' . $account->financeCheckBooks->last()->number,
                             ]);
                         }
                     }
@@ -92,7 +94,7 @@ class FinanceCheckBookController extends Controller
             'finance_bank_account_id' => 'required',
             'numbers' => 'required|array|min:1'
         ]);
-        
+
         foreach ($request->numbers as $number) {
             FinanceCheckBook::create([
                 'code' => $request->code,
@@ -138,13 +140,13 @@ class FinanceCheckBookController extends Controller
     public function destroy($id)
     {
         $checksUsed = FinanceCheckBook::where(['code' => $id, 'used' => true])->get();
-        
+
         if (!$checksUsed->isEmpty()) {
             return response()->json([
                 'error' => true, 'message' => 'La chequera posee cheques emitidos y no puede ser eliminada'
             ], 200);
         }
-        
+
         foreach (FinanceCheckBook::where('code', $id)->get() as $check) {
             $check->delete();
         }

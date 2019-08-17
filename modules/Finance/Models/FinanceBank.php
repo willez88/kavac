@@ -11,18 +11,20 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class FinanceBank
  * @brief Datos de las entidades bancarias
- * 
+ *
  * Gestiona el modelo de datos para las entidades bancarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class FinanceBank extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     protected $revisionCreationsEnabled = true;
 
     /**
@@ -40,7 +42,7 @@ class FinanceBank extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function finance_agencies()
+    public function financeAgencies()
     {
         return $this->hasMany(FinanceBankingAgency::class);
     }

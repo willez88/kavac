@@ -12,11 +12,13 @@ use Modules\Finance\Models\FinanceBankAccount;
 /**
  * @class FinanceBankAccountController
  * @brief Controlador para las cuentas bancarias
- * 
+ *
  * Clase que gestiona las cuentas bancarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class FinanceBankAccountController extends Controller
 {
@@ -29,8 +31,8 @@ class FinanceBankAccountController extends Controller
     public function index()
     {
         return response()->json([
-            'records' => FinanceBankAccount::with(['finance_banking_agency' => function($query) {
-                return $query->with('finance_bank');
+            'records' => FinanceBankAccount::with(['financeBankingAgency' => function ($query) {
+                return $query->with('financeBank');
             }])->orderBy('ccc_number')->get()
         ], 200);
     }
@@ -99,20 +101,23 @@ class FinanceBankAccountController extends Controller
         $bankAccount = FinanceBankAccount::find($id);
 
         $this->validate($request, [
-            'ccc_number' => 'required|max:20|unique:finance_bank_accounts,ccc_number,' . substr($bankAccount->ccc_number, 4),
+            'ccc_number' => 'required|max:20|unique:finance_bank_accounts,ccc_number,' . substr(
+                $bankAccount->ccc_number,
+                4
+            ),
             'description' => 'required',
             'opened_at' => 'required|date',
             'finance_banking_agency_id' => 'required',
             'finance_account_type_id' => 'required'
         ]);
- 
+
         $bankAccount->ccc_number = $request->bank_code . $request->ccc_number;
         $bankAccount->description = $request->description;
         $bankAccount->opened_at = $request->opened_at;
         $bankAccount->finance_banking_agency_id = $request->finance_banking_agency_id;
         $bankAccount->finance_account_type_id = $request->finance_account_type_id;
         $bankAccount->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
@@ -132,28 +137,28 @@ class FinanceBankAccountController extends Controller
      * Obtiene todas las cuentas bancarias asociadas a una entidad bancaria
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  integer $bank_id                 Identificador de la entidad bancaria de la que se 
+     * @param  integer $bank_id                 Identificador de la entidad bancaria de la que se
      *                                          desean obtener las cuentas
-     * @return \Illuminate\Http\JsonResponse    JSON con los datos de las cuentas bancarias asociadas 
+     * @return \Illuminate\Http\JsonResponse    JSON con los datos de las cuentas bancarias asociadas
      *                                          al banco
      */
     public function getBankAccounts($bank_id)
     {
         /** @var object Datos de la entidad bancaria */
-        $bank = FinanceBank::where('id', $bank_id)->with(['finance_agencies' => function($query) {
-            return $query->with('bank_accounts');
+        $bank = FinanceBank::where('id', $bank_id)->with(['financeAgencies' => function ($query) {
+            return $query->with('bankAccounts');
         }])->first();
 
         $accounts = [['id' => '', 'text' => 'Seleccione...']];
-        foreach ($bank->finance_agencies as $agency) {
-            foreach ($agency->bank_accounts as $bank_account) {
+        foreach ($bank->financeAgencies as $agency) {
+            foreach ($agency->bankAccounts as $bank_account) {
                 $accounts[] = [
                     'id' => $bank_account->id,
                     'text' => $bank->code . $bank_account->ccc_number
                 ];
             }
         }
-        
+
         return response()->json(['result' => true, 'accounts' => $accounts], 200);
     }
 }

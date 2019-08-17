@@ -35,7 +35,7 @@ Vue.component('purchase-suppliers-list', require('./components/PurchaseSupplierL
 
 /**
  * Opciones de configuración global del módulo de compras
- * 
+ *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.mixin({
@@ -43,6 +43,6 @@ Vue.mixin({
 		return {}
 	},
 	mounted() {
-		
+
 	}
 });

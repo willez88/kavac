@@ -11,18 +11,20 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class FinanceBank
  * @brief Datos de las cuentas bancarias
- * 
+ *
  * Gestiona el modelo de datos para las cuentas bancarias
- * 
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class FinanceBankAccount extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     protected $revisionCreationsEnabled = true;
 
     /**
@@ -33,7 +35,7 @@ class FinanceBankAccount extends Model implements Auditable
     protected $dates = ['deleted_at', 'opened_at'];
 
     protected $fillable = [
-    	'ccc_number', 'description', 'opened_at', 'finance_banking_agency_id', 'finance_account_type_id'
+        'ccc_number', 'description', 'opened_at', 'finance_banking_agency_id', 'finance_account_type_id'
     ];
 
     /**
@@ -42,9 +44,9 @@ class FinanceBankAccount extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function finance_banking_agency()
+    public function financeBankingAgency()
     {
-    	return $this->belongsTo(FinanceBankingAgency::class);
+        return $this->belongsTo(FinanceBankingAgency::class);
     }
 
     /**
@@ -53,18 +55,18 @@ class FinanceBankAccount extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function account_type()
+    public function accountType()
     {
-    	return $this->belongsTo(FinanceAccountType::class);
+        return $this->belongsTo(FinanceAccountType::class);
     }
 
     /**
-     * FinanceBankAccount has many Finance_check_books.
+     * FinanceBankAccount has many FinanceCheckBooks.
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function finance_check_books()
+    public function financeCheckBooks()
     {
         return $this->hasMany(FinanceCheckBook::class);
     }

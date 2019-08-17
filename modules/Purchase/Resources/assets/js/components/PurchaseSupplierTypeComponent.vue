@@ -1,8 +1,8 @@
 <template>
 	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de tipos de proveedores" 
-		   data-toggle="tooltip" 
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de tipos de proveedores"
+		   data-toggle="tooltip"
 		   @click="addRecord('add_type', '/purchase/supplier-types', $event)">
 			<i class="icofont icofont-truck-loaded ico-3x"></i>
 			<span>Tipos de<br>Proveedor</span>
@@ -15,7 +15,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-truck-loaded inline-block"></i> 
+							<i class="icofont icofont-truck-loaded inline-block"></i>
 							Tipo de Proveedor
 						</h6>
 					</div>
@@ -30,9 +30,9 @@
 								<div class="form-group is-required">
 									<label>Nombre:</label>
 									<input type="hidden" v-model="record.id">
-									<input type="text" placeholder="Nombre del tipo de proveedor" 
-										   data-toggle="tooltip" v-model="record.name" 
-										   title="Indique el nombre del tipo de proveedor (requerido)" 
+									<input type="text" placeholder="Nombre del tipo de proveedor"
+										   data-toggle="tooltip" v-model="record.name"
+										   title="Indique el nombre del tipo de proveedor (requerido)"
 										   class="form-control input-sm">
 			                    </div>
 							</div>
@@ -42,14 +42,14 @@
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-round" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-round"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, '/purchase/supplier-types')" 
-										class="btn btn-danger btn-xs btn-icon btn-round" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, '/purchase/supplier-types')"
+										class="btn btn-danger btn-xs btn-icon btn-round"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -57,11 +57,11 @@
 	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" data-dismiss="modal" 
+	                	<button type="button" data-dismiss="modal"
 	                			class="btn btn-default btn-sm btn-round btn-modal-close">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('purchase/supplier-types')" 
+	                	<button type="button" @click="createRecord('purchase/supplier-types')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -88,7 +88,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
