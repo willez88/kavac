@@ -2,8 +2,6 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingReportHistory;
@@ -11,7 +9,6 @@ use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
-use Auth;
 
 /**
  * @class AccountingReportPdfDailyBookController
@@ -60,7 +57,7 @@ class AccountingReportPdfDailyBookController extends Controller
         );
 
         /** @var Objet objeto con la información del asiento contable */
-        $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved', true)->whereBetween("from_date", [$initDate, $endDate])->orderBy('from_date', 'ASC')->get();
+        $seats = AccountingSeat::with('accounting_accounts.account.accountConverters.budgetAccount')->where('approved', true)->whereBetween("from_date", [$initDate, $endDate])->orderBy('from_date', 'ASC')->get();
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
@@ -70,7 +67,7 @@ class AccountingReportPdfDailyBookController extends Controller
 
         /** @var Object Objeto base para generar el pdf */
         $pdf = new Pdf('L', 'mm', 'Letter');
-        
+
         /*
          *  Definicion de las caracteristicas generales de la página
          */

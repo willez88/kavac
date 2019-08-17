@@ -53,7 +53,7 @@ class PayrollPosition extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_projects()
+    public function budgetProjects()
     {
         return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetProject::class):[];
     }
@@ -63,7 +63,7 @@ class PayrollPosition extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_centralized_actions()
+    public function budgetCentralizedActions()
     {
         return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetCentralizedAction::class):[];
     }

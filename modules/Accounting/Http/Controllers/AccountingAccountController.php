@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Accounting\Models\AccountingAccountImport;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
 use Maatwebsite\Excel\Facades\Excel;
@@ -14,7 +13,6 @@ use Maatwebsite\Excel\HeadingRowImport;
 use App\Imports\DataImport;
 
 
-use Auth;
 
 /**
  * Clase que gestiona las Cuentas patrimoniales
@@ -56,7 +54,7 @@ class AccountingAccountController extends Controller
             ['only' => 'destroy']
         );
     }
-    
+
     /**
      * Muestra un listado de cuentas patrimoniales
      *
@@ -179,10 +177,10 @@ class AccountingAccountController extends Controller
     public function destroy($id)
     {
         /** @var object Objeto con datos de la cuenta presupuestaria a eliminar */
-        $AccountingAccount = AccountingAccount::with('account_converters')->find($id);
+        $AccountingAccount = AccountingAccount::with('accountConverters')->find($id);
 
         if ($AccountingAccount) {
-            if (!is_null($AccountingAccount->account_converters)
+            if (!is_null($AccountingAccount->accountConverters)
                 || !is_null(AccountingSeatAccount::where('accounting_account_id', $id)->first())) {
                 return response()->json(
                     [
@@ -348,7 +346,7 @@ class AccountingAccountController extends Controller
         } elseif (count($records) < 1) {
             $msg = "El archivo no contiene registros a ser importados.";
         }
-        
+
         if (!empty($msg)) {
             return response()->json(['result' => false, 'message' => $msg], 200);
         }
@@ -473,7 +471,7 @@ class AccountingAccountController extends Controller
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Array con los errores en caso de existir
     */
-   
+
     public function validatedErrors($record, $currentRow)
     {
         $errors = [];

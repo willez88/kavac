@@ -24,7 +24,7 @@ class BudgetAccountOpen extends Model implements Auditable
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     protected $revisionCreationsEnabled = true;
 
     /**
@@ -52,7 +52,7 @@ class BudgetAccountOpen extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function budget_account()
+    public function budgetAccount()
     {
         return $this->belongsTo(BudgetAccount::class);
     }
@@ -63,7 +63,7 @@ class BudgetAccountOpen extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sub_specific_formulation()
+    public function subSpecificFormulation()
     {
         return $this->belongsTo(BudgetSubSpecificFormulation::class);
     }

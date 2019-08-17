@@ -26,7 +26,7 @@ if (! function_exists('budget_available')) {
                 $available += $account_formulated->total_year_amount;
             }
 
-            $aditional_credits = $formulation->aditional_credit_accounts()
+            $aditional_credits = $formulation->aditionalCreditAccounts()
                                              ->where('budget_account_id', $account_id)->get();
 
             if ($aditional_credits) {

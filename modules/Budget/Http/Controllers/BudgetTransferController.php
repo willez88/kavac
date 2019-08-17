@@ -24,7 +24,7 @@ use Modules\Budget\Models\BudgetModification;
 class BudgetTransferController extends Controller
 {
     use ValidatesRequests;
-    
+
     /**
      * Define la configuración de la clase
      *
@@ -138,7 +138,7 @@ class BudgetTransferController extends Controller
         if ($BudgetTransfer) {
             $BudgetTransfer->delete();
         }
-        
+
         return response()->json(['record' => $BudgetTransfer, 'message' => 'Success'], 200);
     }
 

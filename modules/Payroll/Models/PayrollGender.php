@@ -54,7 +54,7 @@ class PayrollGender extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payroll_staffs()
+    public function payrollStaffs()
     {
         return $this->hasMany(PayrollStaff::class);
     }

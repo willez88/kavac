@@ -12,7 +12,7 @@ class Department extends BaseDepartment
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_projects()
+    public function budgetProjects()
     {
         return $this->hasMany(BudgetProject::class);
     }
@@ -23,7 +23,7 @@ class Department extends BaseDepartment
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_centralized_actions()
+    public function budgetCentralizedActions()
     {
         return $this->hasMany(BudgetCentralizedAction::class);
     }

@@ -54,7 +54,7 @@ class PayrollNationality extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function country()
+    public function country()
     {
         return $this->belongsTo(Country::class);
     }
@@ -65,7 +65,7 @@ class PayrollNationality extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payroll_staffs()
+    public function payrollStaffs()
     {
         return $this->hasMany(PayrollStaff::class);
     }

@@ -132,7 +132,7 @@ class BudgetModificationController extends Controller
 
         DB::transaction(function () use ($request, $code, $documentStatus) {
             $type = ($request->type==="AC") ? 'C' : (($request->type==="RE") ? 'R' : 'T');
-            
+
             /** @var object Objeto que contiene los datos de la modificación presupuestaria creada */
             $budgetModification = BudgetModification::create([
                 'type' => $type,
@@ -145,12 +145,12 @@ class BudgetModificationController extends Controller
             ]);
 
             foreach ($request->budget_account_id as $account) {
-                
+
                 /** @var object Obtiene la formulación correspondiente a la acción específica seleccionada */
                 $formulation = BudgetSubSpecificFormulation::currentFormulation(
                     $account['from_specific_action_id']
                 )->first();
-                
+
                 if ($formulation) {
                     BudgetModificationAccount::create([
                         'amount' => $account['from_amount'],
@@ -160,7 +160,7 @@ class BudgetModificationController extends Controller
                         'budget_modification_id' => $budgetModification->id
                     ]);
                 }
-                
+
                 if (isset($account['to_account_id'])) {
                     /** @var object Obtiene la formulación correspondiente a la acción específica a donde transferir
                     los recursos */
@@ -216,7 +216,7 @@ class BudgetModificationController extends Controller
         if ($budgetModification) {
             $budgetModification->delete();
         }
-        
+
         return response()->json(['record' => $budgetModification, 'message' => 'Success'], 200);
     }
 

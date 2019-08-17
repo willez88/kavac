@@ -12,7 +12,6 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
-use Auth;
 
 /**
  * @class AccountingSeatController
@@ -86,7 +85,7 @@ class AccountingSeatController extends Controller
          * se convierte array a JSON
          */
         $categories = json_encode($categories);
-        
+
         return view('accounting::seating.index', compact('categories', 'yearOld', 'institutions', 'currency'));
     }
 
@@ -177,12 +176,12 @@ class AccountingSeatController extends Controller
     {
         /** @var Object Objeto en el que se almacena el listado de instituciones activas en el sistema */
         $institutions = $this->getInstitutions("Seleccione...");
-        
+
         /** @var Object Objeto en el que se almacena la información del tipo de moneda por defecto */
         $currency = Currency::where('default', true)->orderBy('id', 'ASC')->first();
 
         /** @var Object Objeto que contendra el asiento contable a editar */
-        $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
+        $seating = AccountingSeat::with('accounting_accounts.account.accountConverters.budgetAccount')->find($id);
         /** @var JSON Objeto que almacena las cuentas pratrimoniales */
         $AccountingAccounts = $this->getAccountingAccount();
 
@@ -379,7 +378,7 @@ class AccountingSeatController extends Controller
                                     AccountingSeat::with('accounting_accounts.account')->where('approved', true)->orderBy('from_date', 'ASC')->get() :
                                     AccountingSeat::with('accounting_accounts.account')->where('approved', true)->where('accounting_seat_categories_id', $request->data['category'])->orderBy('from_date', 'ASC')->get();
             }
-            
+
             /**
              * Filtrado para unos meses o años en general
              */
@@ -469,7 +468,7 @@ class AccountingSeatController extends Controller
     public function unapproved()
     {
         /** @var Object objeto que contendra los registros resultantes de la busqueda */
-        $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved', false)->orderBy('from_date', 'ASC')->get();
+        $seating = AccountingSeat::with('accounting_accounts.account.accountConverters.budgetAccount')->where('approved', false)->orderBy('from_date', 'ASC')->get();
 
         /** @var Object objeto que contendra la moneda manejada por defecto */
         $currency = Currency::where('default', true)->first();

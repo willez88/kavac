@@ -24,7 +24,7 @@ class BudgetAditionalCreditAccount extends Model implements Auditable
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     protected $revisionCreationsEnabled = true;
 
     /**
@@ -66,7 +66,7 @@ class BudgetAditionalCreditAccount extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function aditional_credit()
+    public function aditionalCredit()
     {
         return $this->belongsTo(BudgetAditionalCredit::class);
     }

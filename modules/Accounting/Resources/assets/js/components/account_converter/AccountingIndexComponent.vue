@@ -1,7 +1,7 @@
 <template>
 	<div class="form-horizontal">
 		<div class="card-body">
-			
+
 			<accounting-show-errors :options="errors" />
 
 			<div class="row">
@@ -9,29 +9,29 @@
 				<div class="col-3">
 					<label for="sel_budget_acc" class="control-label">Por Presupuestos</label>
 					<br>
-						<input type="radio" 
+						<input type="radio"
 								name="sel_account_type"
 								id="sel_budget_acc"
-								data-on-label="SI" data-off-label="NO" 
+								data-on-label="SI" data-off-label="NO"
 								class="form-control bootstrap-switch sel_pry_acc">
 				</div>
 				<div class="col-3">
 					<label for="sel_account_type" class="control-label">Por Patrimonial</label>
 					<br>
 						<input type="radio"
-								name="sel_account_type" 
+								name="sel_account_type"
 								id="sel_accounting_acc"
-								checked="true" 
-								data-on-label="SI" data-off-label="NO" 
+								checked="true"
+								data-on-label="SI" data-off-label="NO"
 								class="form-control bootstrap-switch sel_pry_acc">
 				</div>
 				<div class="col-3">
 					<label for="" class="control-label">Seleccionar todos</label>
 					<br>
 					<input type="checkbox"
-								name="sel_account_type" 
+								name="sel_account_type"
 								id="sel_all_acc"
-								data-on-label="SI" data-off-label="NO" 
+								data-on-label="SI" data-off-label="NO"
 								class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
 				</div>
 				<br>
@@ -75,16 +75,16 @@
 			<div class="row">
 				<div class="col-12">
 					<v-client-table :columns="columns" :data="records" :options="table_options">
-						
+
 						<div slot="codeBudget" slot-scope="props" class="text-center">
-							{{ props.row.budget_account.group+'.'+
-								props.row.budget_account.item+'.'+
-								props.row.budget_account.generic+'.'+
-								props.row.budget_account.specific+'.'+
-								props.row.budget_account.subspecific }}
+							{{ props.row.budgetAccount.group+'.'+
+								props.row.budgetAccount.item+'.'+
+								props.row.budgetAccount.generic+'.'+
+								props.row.budgetAccount.specific+'.'+
+								props.row.budgetAccount.subspecific }}
 						</div>
 						<div slot="BudgetAccounts" slot-scope="props" class="text-center">
-							{{ props.row.budget_account.denomination }}
+							{{ props.row.budgetAccount.denomination }}
 						</div>
 						<div slot="codeAccounting" slot-scope="props" class="text-center">
 							{{ props.row.accounting_account.group+'.'+
@@ -104,7 +104,7 @@
 									v-on:click="editForm(props.row.id)">
 								<i class="fa fa-edit"></i>
 							</button>
-							<button class="btn btn-danger btn-xs btn-icon btn-action" 
+							<button class="btn btn-danger btn-xs btn-icon btn-action"
 									title="Eliminar registro de la lista de cuentas a convertir"
 									data-toggle="tooltip"
 									v-on:click="deleteRecord(props.index,'/accounting/converter')">
@@ -154,7 +154,7 @@
 			this.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
 		},
 		mounted(){
-			/** 
+			/**
 			 * Evento para determinar los datos a requerir segun la busqueda seleccionada
 			 */
 			const vm = this;
@@ -162,7 +162,7 @@
 				if (e.target.id === "sel_budget_acc") {
 					vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);
 					vm.accountSelect.all = false;
-					
+
 				}
 				else if (e.target.id === "sel_accounting_acc") {
 					vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
@@ -171,7 +171,7 @@
 				}else if(e.target.id === "sel_all_acc"){
 					vm.accountSelect.all = true;
 					if (vm.accountSelect.type == 'budget') {
-						vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);		
+						vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);
 					}else{
 						vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
 					}
@@ -245,7 +245,7 @@
 			},
 
 			/**
-			* Obtiene los registros de las cuentas que tienen conversión activa 
+			* Obtiene los registros de las cuentas que tienen conversión activa
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
@@ -260,10 +260,10 @@
 
 						if (vm.records.length == 0) {
 							vm.errors = [];
-							vm.errors.push('No se encontraron registros de conversiones en el rango dado');		
+							vm.errors.push('No se encontraron registros de conversiones en el rango dado');
 						}
 						vm.showMessage(
-							'custom', 'Éxito', 'success', 'screen-ok', 
+							'custom', 'Éxito', 'success', 'screen-ok',
 							'Consulta realizada de manera existosa.'
 						);
 						vm.errors = [];

@@ -137,7 +137,7 @@ class PayrollProfessionalInformationController extends Controller
     public function show($id)
     {
         $payrollProfessionalInformation = PayrollProfessionalInformation::where('id', $id)->with([
-            'payroll_staff','payroll_instruction_degree','profession','payroll_study_type',
+            'payrollStaff','payroll_instruction_degree','profession','payroll_study_type',
             'payroll_language','payroll_language_level'
         ])->first();
         return response()->json(['record' => $payrollProfessionalInformation], 200);
@@ -248,7 +248,7 @@ class PayrollProfessionalInformationController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollProfessionalInformation::with([
-            'payroll_staff', 'payroll_instruction_degree','profession',
+            'payrollStaff', 'payroll_instruction_degree','profession',
             'payroll_study_type','payroll_language','payroll_language_level'
         ])->get()], 200);
     }

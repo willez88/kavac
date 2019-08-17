@@ -78,7 +78,7 @@ class PurchaseSettingController extends Controller
         $codes = $request->input();
         /** @var boolean Define el estatus verdadero para indicar que no se ha registrado información */
         $saved = false;
-        
+
         foreach ($codes as $key => $value) {
             /** @var string Define el modelo al cual hace referencia el código */
             $model = '';
@@ -128,11 +128,11 @@ class PurchaseSettingController extends Controller
                 $saved = true;
             }
         }
-        
+
         if ($saved) {
             $request->session()->flash('message', ['type' => 'store']);
         }
-        
+
         return redirect()->back();
     }
 

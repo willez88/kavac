@@ -70,7 +70,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_staff()
+    public function payrollStaff()
     {
         return $this->belongsTo(PayrollStaff::class);
     }
@@ -81,7 +81,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_inactivity_type()
+    public function payroll_inactivity_type()
     {
         return $this->belongsTo(PayrollInactivityType::class);
     }
@@ -92,7 +92,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_position_type()
+    public function payroll_position_type()
     {
         return $this->belongsTo(PayrollPositionType::class);
     }
@@ -103,7 +103,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_position()
+    public function payrollPosition()
     {
         return $this->belongsTo(PayrollPosition::class);
     }
@@ -114,7 +114,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function department()
+    public function department()
     {
         return $this->belongsTo(Department::class);
     }
@@ -125,7 +125,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_staff_type()
+    public function payroll_staff_type()
     {
         return $this->belongsTo(PayrollStaffType::class);
     }
@@ -136,7 +136,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_contract_type()
+    public function payroll_contract_type()
     {
         return $this->belongsTo(PayrollContractType::class);
     }

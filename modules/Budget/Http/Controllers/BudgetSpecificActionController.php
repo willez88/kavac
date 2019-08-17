@@ -130,7 +130,7 @@ class BudgetSpecificActionController extends Controller
             /** @var object Objeto que contiene información de una acción centralizada */
             $pry_acc = BudgetCentralizedAction::find($request->centralized_action_id);
         }
-        $pry_acc->specific_actions()->save($budgetSpecificAction);
+        $pry_acc->specificActions()->save($budgetSpecificAction);
 
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('budget.settings.index');
@@ -237,7 +237,7 @@ class BudgetSpecificActionController extends Controller
         if ($budgetSpecificAction) {
             $budgetSpecificAction->delete();
         }
-        
+
         return response()->json(['record' => $budgetSpecificAction, 'message' => 'Success'], 200);
     }
 
@@ -275,10 +275,10 @@ class BudgetSpecificActionController extends Controller
 
         if ($type==="Project") {
             /** @var object Objeto con las acciones específicas asociadas a un proyecto */
-            $specificActions = BudgetProject::find($id)->specific_actions()->get();
+            $specificActions = BudgetProject::find($id)->specificActions()->get();
         } elseif ($type == "CentralizedAction") {
             /** @var object Objeto con las acciones específicas asociadas a una acción centralizada */
-            $specificActions = BudgetCentralizedAction::find($id)->specific_actions()->get();
+            $specificActions = BudgetCentralizedAction::find($id)->specificActions()->get();
         }
 
         foreach ($specificActions as $specificAction) {

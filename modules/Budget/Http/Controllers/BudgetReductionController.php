@@ -148,7 +148,7 @@ class BudgetReductionController extends Controller
         if ($BudgetReduction) {
             $BudgetReduction->delete();
         }
-        
+
         return response()->json(['record' => $BudgetReduction, 'message' => 'Success'], 200);
     }
 

@@ -118,7 +118,7 @@ class PayrollEmploymentInformationController extends Controller
     public function show($id)
     {
         $payrollEmploymentInformation = PayrollEmploymentInformation::where('id', $id)->with([
-            'payroll_staff', 'payroll_inactivity_type', 'payroll_position_type', 'payroll_position',
+            'payrollStaff', 'payroll_inactivity_type', 'payroll_position_type', 'payrollPosition',
             'payroll_staff_type', 'department', 'payroll_contract_type'
         ])->first();
         return response()->json(['record' => $payrollEmploymentInformation], 200);
@@ -197,7 +197,6 @@ class PayrollEmploymentInformationController extends Controller
      */
     public function destroy($id)
     {
-
         $payrollEmploymentInformation = PayrollEmploymentInformation::find($id);
         $payrollEmploymentInformation->delete();
         return response()->json(['record' => $payrollEmploymentInformation, 'message' => 'Success'], 200);
@@ -212,7 +211,7 @@ class PayrollEmploymentInformationController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollEmploymentInformation::with([
-            'payroll_staff', 'payroll_inactivity_type', 'payroll_position_type', 'payroll_position',
+            'payrollStaff', 'payroll_inactivity_type', 'payroll_position_type', 'payrollPosition',
             'payroll_staff_type', 'department', 'payroll_contract_type'
         ])->get()], 200);
     }

@@ -12,9 +12,9 @@ use Module;
 /**
  * @class AssetAsignation
  * @brief Datos de las asignaciones de los bienes institucionales
- * 
+ *
  * Gestiona el modelo de datos de las asignaciones de bienes institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -45,7 +45,7 @@ class AssetAsignation extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['code', 'payroll_staff_id', 'department_id', 'user_id'];
-    
+
     /**
      * Método que obtiene los bienes asignados
      *
@@ -56,14 +56,14 @@ class AssetAsignation extends Model implements Auditable
     {
         return $this->hasMany(AssetAsignationAsset::class);
     }
-    
+
     /**
      * Método que obtiene el trabajador al que se le asigna el bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return Array|\Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo PayrollStaff
      */
-    public function payroll_staff()
+    public function payrollStaff()
     {
         return (Module::has('Payroll'))
                ? $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class) : [];

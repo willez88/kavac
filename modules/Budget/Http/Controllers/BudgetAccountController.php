@@ -151,7 +151,7 @@ class BudgetAccountController extends Controller
             'original' => ($request->original!==null),
             'parent_id' => ($parent == false)?null:$parent->id
         ]);
-        
+
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('budget.accounts.index');
     }
@@ -232,7 +232,7 @@ class BudgetAccountController extends Controller
             }
             $budgetAccount->delete();
         }
-        
+
         return response()->json(['record' => $budgetAccount, 'message' => 'Success'], 200);
     }
 

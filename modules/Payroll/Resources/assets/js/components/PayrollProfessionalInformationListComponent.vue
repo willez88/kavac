@@ -132,20 +132,20 @@
 			return {
 				records: [],
                 record: [],
-				columns: ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name', 'is_student', 'id'],
+				columns: ['payrollStaff.first_name', 'payroll_instruction_degree.name', 'profession.name', 'is_student', 'id'],
 			}
 		},
 
         created() {
 			this.table_options.headings = {
-                'payroll_staff.first_name': 'Trabajador',
+                'payrollStaff.first_name': 'Trabajador',
 				'payroll_instruction_degree.name': 'Grado de Instrucción',
 				'profession.name': 'Profesión',
 				'is_student': '¿Es Estudiante?',
 				'id': 'Acción'
 			};
-            this.table_options.sortable = ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name'];
-			this.table_options.filterable = ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'profession.name'];
+            this.table_options.sortable = ['payrollStaff.first_name', 'payroll_instruction_degree.name', 'profession.name'];
+			this.table_options.filterable = ['payrollStaff.first_name', 'payroll_instruction_degree.name', 'profession.name'];
 		},
 
 		mounted() {

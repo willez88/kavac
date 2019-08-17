@@ -58,7 +58,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_staff()
+    public function payrollStaff()
     {
         return $this->belongsTo(PayrollStaff::class);
     }
@@ -69,7 +69,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_instruction_degree()
+    public function payroll_instruction_degree()
     {
         return $this->belongsTo(PayrollInstructionDegree::class);
     }
@@ -80,7 +80,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function profession()
+    public function profession()
     {
         return $this->belongsTo(Profession::class);
     }
@@ -91,7 +91,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_study_type()
+    public function payroll_study_type()
     {
         return $this->belongsTo(PayrollStudyType::class);
     }
@@ -102,7 +102,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_language()
+    public function payroll_language()
     {
         return $this->belongsTo(PayrollLanguage::class);
     }
@@ -113,7 +113,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_language_level()
+    public function payroll_language_level()
     {
         return $this->belongsTo(PayrollLanguageLevel::class);
     }

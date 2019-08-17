@@ -46,7 +46,7 @@ Route::group([
         /** Rutas para la gestión de tipos de proveedores */
         Route::resource('supplier-types', 'PurchaseSupplierTypeController', ['as' => 'purchase']);
     });
-    
+
     /*
      * -----------------------------------------------------------------------
      * Rutas para la gestión de proveedores

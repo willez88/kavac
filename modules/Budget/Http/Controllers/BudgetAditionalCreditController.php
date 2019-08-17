@@ -197,16 +197,16 @@ class BudgetAditionalCreditController extends Controller
 
         $this->header['route'] = ['budget.aditional-credits.update', $budgetModification->id];
         $this->header['method'] = 'PUT';
-        
+
         /** @var array Arreglo de opciones a implementar en el formulario */
         $header = $this->header;
-        
+
         /** @var array Arreglo de opciones a representar en la plantilla para su selección */
         $institutions = $this->institutions;
 
         /** @var object Objeto con datos del modelo a modificar */
         $model = $budgetModification;
-        
+
         return view('budget::aditional_credits.create-edit-form', compact('header', 'model', 'institutions'));
     }
 
@@ -236,7 +236,7 @@ class BudgetAditionalCreditController extends Controller
         if ($BudgetAditionalCredit) {
             $BudgetAditionalCredit->delete();
         }
-        
+
         return response()->json(['record' => $BudgetAditionalCredit, 'message' => 'Success'], 200);
     }
 
@@ -250,7 +250,7 @@ class BudgetAditionalCreditController extends Controller
     {
         return response()->json([
             'records' => BudgetModification::where('type', 'C')->with([
-                'institution', 'budget_modification_accounts'
+                'institution', 'budgetModificationAccounts'
             ])->get()
         ], 200);
     }

@@ -26,7 +26,7 @@ class BudgetProject extends Model implements Auditable
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     protected $revisionCreationsEnabled = true;
 
     /**
@@ -61,7 +61,7 @@ class BudgetProject extends Model implements Auditable
      *
      * @return array|\Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_position()
+    public function payrollPosition()
     {
         return (Module::has('Payroll'))
                ? $this->belongsTo(\Modules\Payroll\Models\PayrollPosition::class) : [];
@@ -72,7 +72,7 @@ class BudgetProject extends Model implements Auditable
      *
      * @return array|\Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_staff()
+    public function payrollStaff()
     {
         return (Module::has('Payroll'))
                ? $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class) : [];
@@ -84,7 +84,7 @@ class BudgetProject extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function specific_actions()
+    public function specificActions()
     {
         return $this->morphMany(BudgetSpecificAction::class, 'specificable');
     }

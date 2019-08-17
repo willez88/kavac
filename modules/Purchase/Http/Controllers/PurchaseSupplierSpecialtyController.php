@@ -76,14 +76,14 @@ class PurchaseSupplierSpecialtyController extends Controller
     {
         /** @var object Datos de la especialidad de proveedores */
         $supplierSpecialty = PurchaseSupplierSpecialty::find($id);
-        
+
         $this->validate($request, [
             'name' => 'required|unique:purchase_supplier_specialties,name,' . $supplierSpecialty->id,
         ]);
- 
+
         $supplierSpecialty->name = $request->name;
         $supplierSpecialty->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

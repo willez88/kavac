@@ -56,7 +56,7 @@ class PayrollStaff extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_projects()
+    public function budgetProjects()
     {
         return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetProject::class):[];
     }
@@ -66,7 +66,7 @@ class PayrollStaff extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_centralized_actions()
+    public function budgetCentralizedActions()
     {
         return (Module::has('Budget'))?$this->hasMany(\Modules\Budget\Models\BudgetCentralizedAction::class):[];
     }
@@ -110,7 +110,7 @@ class PayrollStaff extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_nationality()
+    public function payroll_nationality()
     {
         return $this->belongsTo(PayrollNationality::class);
     }

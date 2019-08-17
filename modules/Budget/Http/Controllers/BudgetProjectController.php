@@ -235,8 +235,8 @@ class BudgetProjectController extends Controller
     {
         /** @var object Objeto con información de los proyectos registrados */
         $budgetProjects = ($active !== null)
-                          ? BudgetProject::where('active', $active)->with('payroll_staff')->get()
-                          : BudgetProject::with('payroll_staff')->get();
+                          ? BudgetProject::where('active', $active)->with('payrollStaff')->get()
+                          : BudgetProject::with('payrollStaff')->get();
         return response()->json(['records' => $budgetProjects], 200);
     }
 

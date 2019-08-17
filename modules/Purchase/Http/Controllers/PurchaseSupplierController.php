@@ -71,7 +71,7 @@ class PurchaseSupplierController extends Controller
             'method' => 'POST',
             'role' => 'form',
         ];
-        
+
         return view('purchase::suppliers.create-edit-form', [
             'countries' => $this->countries, 'estates' => $this->estates, 'cities' => $this->cities,
             'supplier_types' => $this->supplier_types, 'supplier_objects' => $this->supplier_objects,
@@ -162,13 +162,13 @@ class PurchaseSupplierController extends Controller
     public function edit($id)
     {
         $model = PurchaseSupplier::find($id);
-        
+
         $header = [
             'route' => ['purchase.suppliers.update', $model->id],
             'method' => 'PUT',
             'role' => 'form',
         ];
-        
+
         return view('purchase::suppliers.create-edit-form', [
             'countries' => $this->countries, 'estates' => $this->estates, 'cities' => $this->cities,
             'supplier_types' => $this->supplier_types, 'supplier_objects' => $this->supplier_objects,

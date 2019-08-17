@@ -12,7 +12,7 @@ class Currency extends BaseCurrency
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_sub_specific_formulations()
+    public function budgetSubSpecificFormulations()
     {
         return $this->hasMany(BudgetSubSpecificFormulation::class);
     }

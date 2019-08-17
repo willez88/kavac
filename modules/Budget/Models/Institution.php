@@ -12,7 +12,7 @@ class Institution extends BaseInstitution
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_sub_specific_formulations()
+    public function budgetSubSpecificFormulations()
     {
         return $this->hasMany(BudgetSubSpecificFormulation::class);
     }
@@ -23,7 +23,7 @@ class Institution extends BaseInstitution
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_modifications()
+    public function budgetModifications()
     {
         return $this->hasMany(BudgetModification::class);
     }

@@ -88,7 +88,7 @@ class BudgetAccount extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function modification_accounts()
+    public function modificationAccounts()
     {
         return $this->hasMany(BudgetModificationAccount::class);
     }
@@ -99,7 +99,7 @@ class BudgetAccount extends Model implements Auditable
      * @author  Juan Rosas <JuanFBass17@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function account_converters()
+    public function accountConverters()
     {
         return (Module::has('Accounting') && Module::enabled('Accounting'))
                ? $this->hasOne(\Modules\Accounting\Models\AccountingAccountConverter::class)
@@ -118,7 +118,7 @@ class BudgetAccount extends Model implements Auditable
     {
         // Se debe agregar a esta comprobación todos los métodos con relación a otro modelo
         return (
-            $this->has('account_opens')->get() || $this->has('modification_accounts')->get() ||
+            $this->has('account_opens')->get() || $this->has('modificationAccounts')->get() ||
             $this->has('account_converters')->get() || $this->parent_id !== null || $this->original
         );
     }

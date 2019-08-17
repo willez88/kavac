@@ -67,7 +67,7 @@ class BudgetSettingController extends Controller
         $caCode = $codeSettings->where('table', 'budget_caused')->first();
         /** @var object Contiene información sobre la configuración de código para los pagados presupuestarios */
         $pCode = $codeSettings->where('table', 'budget_payed')->first();
-        
+
         return view('budget::settings', compact(
             'projects',
             'fCode',
@@ -115,7 +115,7 @@ class BudgetSettingController extends Controller
         $codes = $request->input();
         /** @var boolean Define el estatus verdadero para indicar que no se ha registrado información */
         $saved = false;
-        
+
         foreach ($codes as $key => $value) {
             /** @var string Define el modelo al cual hace referencia el código */
             $model = '';
@@ -123,7 +123,7 @@ class BudgetSettingController extends Controller
             if ($key !== '_token' && !is_null($value)) {
                 list($table, $field) = explode("_", $key);
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
-                
+
                 if ($table === "formulations") {
                     /** @var string Define el modelo para asociado a la formulación de presupuesto */
                     $model = BudgetSubSpecificFormulation::class;
@@ -161,11 +161,11 @@ class BudgetSettingController extends Controller
                 $saved = true;
             }
         }
-        
+
         if ($saved) {
             $request->session()->flash('message', ['type' => 'store']);
         }
-        
+
         return redirect()->back();
     }
 

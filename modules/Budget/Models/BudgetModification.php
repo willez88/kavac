@@ -24,7 +24,7 @@ class BudgetModification extends Model implements Auditable
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     /**
      * @type boolean Establece si el modelo es incorporado al registro de revisiones
      * o eventos de usuarios
@@ -32,7 +32,7 @@ class BudgetModification extends Model implements Auditable
     protected $revisionCreationsEnabled = true;
 
     /** @var array Establece las relaciones por defecto que se retornan con las consultas */
-    protected $with = ['budget_modification_accounts', 'institution'];
+    protected $with = ['budgetModificationAccounts', 'institution'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -53,7 +53,7 @@ class BudgetModification extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function budget_modification_accounts()
+    public function budgetModificationAccounts()
     {
         return $this->hasMany(BudgetModificationAccount::class);
     }
@@ -75,7 +75,7 @@ class BudgetModification extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function document_status()
+    public function documentStatus()
     {
         return $this->belongsTo(DocumentStatus::class);
     }

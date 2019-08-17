@@ -10,8 +10,8 @@
 				<div class="col-md-2">
 					<div class="form-group is-required">
 						<label class="control-label" for="approved_at">Fecha de creación</label>
-						<input type="date" name="approved_at" id="approved_at" class="form-control input-sm" 
-							   placeholder="dd/mm/YY" data-toggle="tooltip" v-model="record.approved_at" 
+						<input type="date" name="approved_at" id="approved_at" class="form-control input-sm"
+							   placeholder="dd/mm/YY" data-toggle="tooltip" v-model="record.approved_at"
 							   title="Fecha en la que se aprobó la modificación presupuestaria">
 					</div>
 				</div>
@@ -24,8 +24,8 @@
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label class="control-label" for="document">Documento</label>
-						<input type="text" name="document" id="document" class="form-control input-sm" 
-							   placeholder="Nro. Documento" data-toggle="tooltip" v-model="record.document" 
+						<input type="text" name="document" id="document" class="form-control input-sm"
+							   placeholder="Nro. Documento" data-toggle="tooltip" v-model="record.document"
 							   title="Número del documento, decreto o misiva que avala la modificación presupuestaria">
 					</div>
 				</div>
@@ -34,9 +34,9 @@
 				<div class="col-12">
 					<div class="form-group is-required">
 						<label class="control-label" for="description">Descripción</label>
-						<input type="text" name="description" id="description" class="form-control input-sm" 
-							   placeholder="Descripción / Detalles" data-toggle="tooltip" 
-							   title="Descripción o detalle de la modificación presupuestaria" 
+						<input type="text" name="description" id="description" class="form-control input-sm"
+							   placeholder="Descripción / Detalles" data-toggle="tooltip"
+							   title="Descripción o detalle de la modificación presupuestaria"
 							   v-model="record.description">
 					</div>
 				</div>
@@ -53,10 +53,10 @@
 									<th>Descripción</th>
 									<th>Monto</th>
 									<th>
-										<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#" 
-										   data-original-title="Agregar nuevo registro" data-toggle="modal"  
-										   data-target="#add_account" 
-										   v-if="record.approved_at && record.institution_id && 
+										<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#"
+										   data-original-title="Agregar nuevo registro" data-toggle="modal"
+										   data-target="#add_account"
+										   v-if="record.approved_at && record.institution_id &&
 										   record.document && record.description">
 											<i class="fa fa-plus-circle"></i>
 										</a>
@@ -70,9 +70,9 @@
 									<td>{{ account.from_description }}</td>
 									<td class="text-right">{{ account.from_amount }}</td>
 									<td class="text-center">
-										<input type="hidden" name="from_account_id[]" readonly 
+										<input type="hidden" name="from_account_id[]" readonly
 											   :value="account.from_specific_action_id + '|' + account.from_account_id">
-										<input type="hidden" name="from_budget_account_amount[]" readonly 
+										<input type="hidden" name="from_budget_account_amount[]" readonly
 											   :value="account.from_amount">
 										<a class="btn btn-sm btn-danger btn-action" href="#" @click="deleteAccount(index)"
 										   title="Eliminar este registro" data-toggle="tooltip">
@@ -94,10 +94,10 @@
 										Datos de Destino
 									</th>
 									<th>
-										<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#" 
-										   data-original-title="Agregar nuevo registro" data-toggle="modal"  
-										   data-target="#add_account" 
-										   v-if="record.approved_at && record.institution_id && 
+										<a class="btn btn-sm btn-info btn-action btn-tooltip" href="#"
+										   data-original-title="Agregar nuevo registro" data-toggle="modal"
+										   data-target="#add_account"
+										   v-if="record.approved_at && record.institution_id &&
 										   record.document && record.description">
 											<i class="fa fa-plus-circle"></i>
 										</a>
@@ -128,9 +128,9 @@
 									<td>{{ account.to_description }}</td>
 									<td class="text-right">{{ account.to_amount }}</td>
 									<td class="text-center">
-										<input type="hidden" name="from_account_id[]" readonly 
+										<input type="hidden" name="from_account_id[]" readonly
 											   :value="account.from_specific_action_id + '|' + account.from_account_id">
-										<input type="hidden" name="from_budget_account_amount[]" readonly 
+										<input type="hidden" name="from_budget_account_amount[]" readonly
 											   :value="account.from_amount">
 										<a class="btn btn-sm btn-danger btn-action" href="#" @click="deleteAccount(index)"
 										   title="Eliminar este registro" data-toggle="tooltip">
@@ -150,7 +150,7 @@
 									<span aria-hidden="true">×</span>
 								</button>
 								<h6>
-									<i class="ion-arrow-graph-up-right"></i> 
+									<i class="ion-arrow-graph-up-right"></i>
 									Agregar Cuenta{{ (type_modification==='TR') ? 's' : '' }}
 								</h6>
 							</div>
@@ -171,14 +171,14 @@
 									<div class="col-6">
 										<div class="form-group is-required">
 											<label>Acción Específica:</label>
-											<select2 :options="specific_actions" 
+											<select2 :options="specific_actions"
 													 v-model="from_specific_action_id"/>
 					                    </div>
 									</div>
 									<div class="col-6">
 										<div class="form-group is-required">
 											<label>Cuenta:</label>
-											<select2 :options="accounts" 
+											<select2 :options="accounts"
 													 v-model="from_account_id"/>
 					                    </div>
 									</div>
@@ -187,9 +187,9 @@
 									<div class="col-md-3">
 										<div class="form-group is-required">
 											<label>Monto:</label>
-											<input type="number" onfocus="$(this).select()" 
-												   class="form-control numeric" 
-												   data-toggle="tooltip" 
+											<input type="number" onfocus="$(this).select()"
+												   class="form-control numeric"
+												   data-toggle="tooltip"
 												   title="Indique el monto a asignar para la cuenta seleccionada" v-model="from_amount">
 										</div>
 									</div>
@@ -207,14 +207,14 @@
 										<div class="col-6">
 											<div class="form-group is-required">
 												<label>Acción Específica:</label>
-												<select2 :options="specific_actions" 
+												<select2 :options="specific_actions"
 														 v-model="to_specific_action_id"/>
 						                    </div>
 										</div>
 										<div class="col-6">
 											<div class="form-group is-required">
 												<label>Cuenta:</label>
-												<select2 :options="accounts" 
+												<select2 :options="accounts"
 														 v-model="to_account_id"/>
 						                    </div>
 										</div>
@@ -223,8 +223,8 @@
 										<div class="col-md-3">
 											<div class="form-group is-required">
 												<label>Monto:</label>
-												<input type="number" class="form-control" 
-													   data-toggle="tooltip" readonly 
+												<input type="number" class="form-control"
+													   data-toggle="tooltip" readonly
 													   title="Indique el monto a asignar para la cuenta seleccionada" v-model="to_amount">
 											</div>
 										</div>
@@ -232,11 +232,11 @@
 								</div>
 			                </div>
 			                <div class="modal-footer">
-			                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+			                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 			                			data-dismiss="modal">
 			                		Cerrar
 			                	</button>
-			                	<button type="button" @click="addAccount" 
+			                	<button type="button" @click="addAccount"
 			                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 			                		Agregar
 				                </button>
@@ -247,15 +247,15 @@
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<button type="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
+			<button type="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
 					title="Borrar datos del formulario" @click='reset'>
 				<i class="fa fa-eraser"></i>
 			</button>
-			<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip" 
+			<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
 					title="Cancelar y regresar" @click="redirect_back(route_list)">
 				<i class="fa fa-ban"></i>
 			</button>
-			<button type="button" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 
+			<button type="button" class="btn btn-success btn-icon btn-round" data-toggle="tooltip"
 					title="Guardar registro" @click="createRecord('budget/modifications')">
 				<i class="fa fa-save"></i>
 			</button>
@@ -333,8 +333,8 @@
 			}*/
 		},
 		watch: {
-			/** 
-			 * Monitorea modificaciones a las cuentas agregadas para guardarlas 
+			/**
+			 * Monitorea modificaciones a las cuentas agregadas para guardarlas
 			 * temporalmente en un localStorage
 			 *
 			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -356,7 +356,7 @@
 			/**
 			 * Asigna el monto desde la cuenta de origen a la cuenta de destino en traspasos
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com> 
+			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			from_amount: function() {
 				if (this.type_modification === "TR") {
@@ -413,14 +413,14 @@
 
 				var i = 0;
 				$.each(editData.budget_modification_accounts, function(index, account) {
-					var sp = account.budget_sub_specific_formulation.specific_action;
+					var sp = account.budget_sub_specific_formulation.specificAction;
 					var spac_desc = `${sp.specificable.code} - ${sp.code} | ${sp.name}`;
-					var acc = account.budget_account;
+					var acc = account.budgetAccount;
 					var code = `${acc.group}.${acc.item}.${acc.generic}.${acc.specific}.${acc.subspecific}`;
 					if (account.operation === "D") {
 						from_add.spac_description = spac_desc;
 						from_add.code = code;
-						from_add.description = account.budget_account.denomination;
+						from_add.description = account.budgetAccount.denomination;
 						from_add.amount = account.amount;
 						from_add.account_id = acc.id;
 						from_add.specific_action_id = sp.id;
@@ -428,12 +428,12 @@
 					else {
 						to_add.spac_description = spac_desc;
 						to_add.code = code;
-						to_add.description = account.budget_account.denomination;
+						to_add.description = account.budgetAccount.denomination;
 						to_add.amount = account.amount;
 						to_add.account_id = acc.id;
 						to_add.specific_action_id = sp.id;
 					}
-					
+
 					if ((index % 2) === 1 || vm.type_modification !== "TR") {
 						array_accounts[i] = {
 							from_spac_description: from_add.spac_description,
@@ -481,34 +481,34 @@
 
 				if (!vm.from_specific_action_id) {
 					vm.showMessage(
-						'custom', 'Alerta!', 'danger', 'screen-error', 
+						'custom', 'Alerta!', 'danger', 'screen-error',
 						'Debe seleccionar una acción específica'
 					);
 					return false;
 				}
 				if (!vm.from_account_id) {
 					vm.showMessage(
-						'custom', 'Alerta!', 'danger', 'screen-error', 
+						'custom', 'Alerta!', 'danger', 'screen-error',
 						'Debe seleccionar una cuenta presupuestaria'
 					);
 					return false;
 				}
 				if (vm.from_amount <= 0) {
 					vm.showMessage(
-						'custom', 'Alerta!', 'danger', 'screen-error', 
+						'custom', 'Alerta!', 'danger', 'screen-error',
 						'Debe indicar un monto'
 					);
 					return false;
 				}
 
-				
+
 				/** Obtiene datos de la acción específica seleccionada */
 				axios.get(
 					`${window.app_url}/budget/detail-specific-actions/${vm.from_specific_action_id}`
 				).then(response => {
 					if (response.data.result) {
 						let spec = response.data.record;
-						
+
 						/** Obtiene datos de la cuenta presupuestaria */
 						axios.get(
 							`${window.app_url}/budget/detail-accounts/${vm.from_account_id}`
@@ -521,7 +521,7 @@
 								to_add.from_amount = vm.from_amount;
 								to_add.from_account_id = vm.from_account_id;
 								to_add.from_specific_action_id = vm.from_specific_action_id;
-								
+
 								if (this.type_modification === "TR") {
 									axios.get(
 										`${window.app_url}/budget/detail-specific-actions/${vm.to_specific_action_id}`
@@ -579,7 +579,7 @@
 				let vm = this;
 				bootbox.confirm({
 					title: "Eliminar cuenta?",
-					message: `Esta seguro de eliminar esta cuenta del registro de la modificación 
+					message: `Esta seguro de eliminar esta cuenta del registro de la modificación
 							  presupuestaria?`,
 					buttons: {
 						cancel: {

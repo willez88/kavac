@@ -75,14 +75,14 @@ class PurchaseSupplierTypeController extends Controller
     {
         /** @var object Datos del tipo de proveedores */
         $supplierType = PurchaseSupplierType::find($id);
-        
+
         $this->validate($request, [
             'name' => 'required|unique:purchase_supplier_types,name,' . $supplierType->id,
         ]);
- 
+
         $supplierType->name = $request->name;
         $supplierType->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

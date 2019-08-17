@@ -26,7 +26,7 @@ class BudgetCentralizedAction extends Model implements Auditable
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     protected $revisionCreationsEnabled = true;
 
     /**
@@ -72,7 +72,7 @@ class BudgetCentralizedAction extends Model implements Auditable
      *
      * @return array|\Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_position()
+    public function payrollPosition()
     {
         /** OJO: Independizar esta relación para que exista un módulo sin el otro */
         return (Module::has('Payroll'))
@@ -84,7 +84,7 @@ class BudgetCentralizedAction extends Model implements Auditable
      *
      * @return array|\Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_staff()
+    public function payrollStaff()
     {
         /** OJO: Independizar esta relación para que exista un módulo sin el otro */
         return (Module::has('Payroll'))
@@ -97,7 +97,7 @@ class BudgetCentralizedAction extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function specific_actions()
+    public function specificActions()
     {
         return $this->morphMany(BudgetSpecificAction::class, 'specificable');
     }

@@ -2,16 +2,12 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingSeat;
-use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
-use Auth;
 
 /**
  * @class AccountingSeatReportPdfController
@@ -47,7 +43,7 @@ class AccountingSeatReportPdfController extends Controller
     {
 
         /** @var Objet objeto con la información del asiento contable */
-        $seat = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->find($id);
+        $seat = AccountingSeat::with('accounting_accounts.account.accountConverters.budgetAccount')->find($id);
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
@@ -57,7 +53,7 @@ class AccountingSeatReportPdfController extends Controller
 
         /** @var Object Objeto base para generar el pdf */
         $pdf = new Pdf('L', 'mm', 'Letter');
-        
+
         /*
          *  Definicion de las caracteristicas generales de la página
          */

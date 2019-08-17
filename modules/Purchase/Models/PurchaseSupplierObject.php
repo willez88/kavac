@@ -33,7 +33,7 @@ class PurchaseSupplierObject extends Model implements Auditable
      * @var array
      */
     protected $dates = ['deleted_at'];
-    
+
     protected $fillable = ['type', 'name', 'description'];
 
     /**
@@ -41,7 +41,7 @@ class PurchaseSupplierObject extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function purchase_suppliers()
+    public function purchaseSuppliers()
     {
         return $this->hasMany(PurchaseSupplier::class);
     }

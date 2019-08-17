@@ -245,7 +245,7 @@ class BudgetCentralizedActionController extends Controller
         if ($budgetCentralizedAction) {
             $budgetCentralizedAction->delete();
         }
-        
+
         return response()->json(['record' => $budgetCentralizedAction, 'message' => 'Success'], 200);
     }
 
@@ -261,9 +261,9 @@ class BudgetCentralizedActionController extends Controller
     {
         /** @var object Objeto con información de las acciones centralizadas */
         $centralizedActions = ($active !== null)
-                              ? BudgetCentralizedAction::where('active', $active)->with('payroll_staff')->get()
-                              : BudgetCentralizedAction::with('payroll_staff')->get();
-        
+                              ? BudgetCentralizedAction::where('active', $active)->with('payrollStaff')->get()
+                              : BudgetCentralizedAction::with('payrollStaff')->get();
+
         return response()->json(['records' => $centralizedActions], 200);
     }
 

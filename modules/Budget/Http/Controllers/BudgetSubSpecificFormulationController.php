@@ -265,7 +265,7 @@ class BudgetSubSpecificFormulationController extends Controller
     public function vueList()
     {
         return response()->json([
-            'records' => BudgetSubSpecificFormulation::with('currency', 'institution')->with('specific_action')->get()
+            'records' => BudgetSubSpecificFormulation::with('currency', 'institution')->with('specificAction')->get()
         ], 200);
     }
 
@@ -279,7 +279,7 @@ class BudgetSubSpecificFormulationController extends Controller
     public function getFormulation($id)
     {
         $formulation = BudgetSubSpecificFormulation::where('id', $id)
-                       ->with(['currency', 'account_opens', 'specific_action' => function ($specifiAction) {
+                       ->with(['currency', 'account_opens', 'specificAction' => function ($specifiAction) {
                            return $specifiAction->with(['specificable' => function ($specificable) {
                                return $specificable->with('department');
                            }]);
@@ -305,7 +305,7 @@ class BudgetSubSpecificFormulationController extends Controller
                                                        /** Devuelve, si existe, la cuenta formulada */
                                                        return $account->where('budget_account_id', $account_id)
                                                                       ->first();
-                                                   }, 'modification_accounts' => function ($account) use ($account_id) {
+                                                   }, 'modificationAccounts' => function ($account) use ($account_id) {
                                                        /**
                                                         * Devuelve, si existen, las cuentas agregadas o modificadas
                                                         * mediante la asignación de créditos adicionales, reducciones
@@ -315,7 +315,7 @@ class BudgetSubSpecificFormulationController extends Controller
                                                    }])->first();
 
         $available = 0;
-        foreach ($formulation->modification_accounts as $modified_account) {
+        foreach ($formulation->modificationAccounts as $modified_account) {
             # calculo de saldo para cada una de las cuentas
         }
 

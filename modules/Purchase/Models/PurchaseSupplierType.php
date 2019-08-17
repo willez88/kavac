@@ -37,11 +37,11 @@ class PurchaseSupplierType extends Model implements Auditable
     protected $fillable = ['name'];
 
     /**
-     * City has many Purchase_suppliers.
+     * City has many PurchaseSuppliers.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function purchase_suppliers()
+    public function purchaseSuppliers()
     {
         return $this->hasMany(PurchaseSupplier::class);
     }

@@ -89,7 +89,7 @@ class BudgetSpecificAction extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sub_specific_formulations()
+    public function subSpecificFormulations()
     {
         return $this->hasMany(BudgetSubSpecificFormulation::class, 'budget_specific_action_id');
     }

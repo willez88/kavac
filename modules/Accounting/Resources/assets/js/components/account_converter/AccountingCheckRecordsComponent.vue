@@ -1,26 +1,26 @@
 <template>
 	<div class="form-horizontal">
 		<div class="card-body">
-			
+
 			<accounting-show-errors :options="errors" />
 
 			<div class="row">
 				<div class="col-3"></div>
 				<div class="col-3">
 					<label for="" class="control-label">Por Presupuestos
-						<input type="radio" 
+						<input type="radio"
 								name="sel_account_type"
 								id="sel_budget_acc"
-								data-on-label="SI" data-off-label="NO" 
+								data-on-label="SI" data-off-label="NO"
 								class="form-control bootstrap-switch sel_pry_acc">
 					</label>
 				</div>
 				<div class="col-3">
 					<label for="" class="control-label">Por Patrimonial
 						<input type="radio"
-								name="sel_account_type" 
+								name="sel_account_type"
 								id="sel_accounting_acc"
-								data-on-label="SI" data-off-label="NO" 
+								data-on-label="SI" data-off-label="NO"
 								class="form-control bootstrap-switch sel_pry_acc">
 					</label>
 				</div>
@@ -54,23 +54,23 @@
 					<div class="col-2 text-center">
 						<button class="btn btn-success"
 								:disabled="!searchActive"
-								style="margin-top:0.8rem !important;" 
+								style="margin-top:0.8rem !important;"
 								title="Consultar registros"
 								data-toggle="tooltip"
 								v-on:click="getRecords()">Consultar</button>
 					</div>
 				<div class="col-12">
 					<v-client-table :columns="columns" :data="records" :options="table_options">
-						
+
 						<div slot="codeBudget" slot-scope="props" class="text-center">
-							{{ props.row.budget_account.group+'.'+
-								props.row.budget_account.item+'.'+
-								props.row.budget_account.generic+'.'+
-								props.row.budget_account.specific+'.'+
-								props.row.budget_account.subspecific }}
+							{{ props.row.budgetAccount.group+'.'+
+								props.row.budgetAccount.item+'.'+
+								props.row.budgetAccount.generic+'.'+
+								props.row.budgetAccount.specific+'.'+
+								props.row.budgetAccount.subspecific }}
 						</div>
 						<div slot="BudgetAccounts" slot-scope="props" class="text-center">
-							{{ props.row.budget_account.denomination }}
+							{{ props.row.budgetAccount.denomination }}
 						</div>
 						<div slot="codeAccounting" slot-scope="props" class="text-center">
 							{{ props.row.accounting_account.group+'.'+
@@ -99,7 +99,7 @@
 									v-on:click="editConvertion(props.row.id,props.row.budget_account_id,props.row.accounting_account_id)">
 								<i class="fa fa-edit"></i>
 							</button>
-							<button class="btn btn-danger btn-xs btn-icon btn-action" 
+							<button class="btn btn-danger btn-xs btn-icon btn-action"
 									title="Eliminar registro de la lista de cuentas a convertir"
 									data-toggle="tooltip"
 									v-on:click="deleteRecord(props.row.id,'/accounting/converter')">
@@ -148,7 +148,7 @@
 		mounted(){
 			this.budgetAccounts = this.budget_accounts;
 			this.accountingAccounts = this.accounting_accounts;
-			/** 
+			/**
 			 * Evento para determinar los datos a requerir segun la busqueda seleccionada
 			 */
 			const vm = this;
@@ -175,7 +175,7 @@
 		},
 		methods:{
 			/**
-			* Obtiene los registros de las cuentas que tienen conversión activa 
+			* Obtiene los registros de las cuentas que tienen conversión activa
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
@@ -193,7 +193,7 @@
 
 						if (this.records.length == 0) {
 							this.errors = [];
-							this.errors.push('No se encontraron registros de conversiones en el rango dado');		
+							this.errors.push('No se encontraron registros de conversiones en el rango dado');
 						}
 						this.accountSelect.init_id = '';
 						this.accountSelect.end_id = '';

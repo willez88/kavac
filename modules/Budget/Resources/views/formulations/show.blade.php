@@ -38,13 +38,13 @@
 						<div class="col-9">
 							<label>
 								{!! Form::open([
-									'route' => ['budget.subspecific-formulations.update', $formulation->id], 
+									'route' => ['budget.subspecific-formulations.update', $formulation->id],
 									'method' => 'PUT', 'id' => 'form_assign'
 								]) !!}
 									{!! Form::token() !!}
 									{!! Form::checkbox('assigned', true, ($formulation->assigned), [
 										'class' => 'form-control bootstrap-switch bootstrap-switch-mini budget-assign',
-										'data-on-label' => 'SI', 'data-off-label' => 'NO', 
+										'data-on-label' => 'SI', 'data-off-label' => 'NO',
 										'disabled' => ($formulation->assigned), 'data-toggle' => 'tooltip',
 										'title' => 'Asignar presupuesto'
 									]) !!}
@@ -54,7 +54,7 @@
 					</div>
 					<div class="row form-group">
 						<div class="col-3 text-bold text-uppercase">Institución:</div>
-						<div class="col-9">{{ $formulation->specific_action->institution }}</div>
+						<div class="col-9">{{ $formulation->specificAction->institution }}</div>
 					</div>
 					<div class="row form-group">
 						<div class="col-3 text-bold text-uppercase">Moneda:</div>
@@ -65,12 +65,12 @@
 						<div class="col-9">{{ $formulation->year }}</div>
 					</div>
 					<div class="row form-group">
-						<div class="col-3 text-bold text-uppercase">{{ $formulation->specific_action->type }}:</div>
-						<div class="col-9">{{ $formulation->specific_action->specificable->description }}</div>
+						<div class="col-3 text-bold text-uppercase">{{ $formulation->specificAction->type }}:</div>
+						<div class="col-9">{{ $formulation->specificAction->specificable->description }}</div>
 					</div>
 					<div class="row form-group">
 						<div class="col-3 text-bold text-uppercase">Acción Específica:</div>
-						<div class="col-9">{{ $formulation->specific_action->description }}</div>
+						<div class="col-9">{{ $formulation->specificAction->description }}</div>
 					</div>
 					<div class="row form-group">
 						<div class="col-3 text-bold text-uppercase">Total Formulado:</div>
@@ -95,14 +95,14 @@
 						</thead>
 						<tbody>
 							@foreach ($formulation->account_opens as $account_open)
-								<tr class="{{ ($account_open->budget_account->specific==="00")?'text-dark text-bold':'' }}">
-									<td>{{ $account_open->budget_account->code }}</td>
-									<td>{{ $account_open->budget_account->denomination }}</td>
+								<tr class="{{ ($account_open->budgetAccount->specific==="00")?'text-dark text-bold':'' }}">
+									<td>{{ $account_open->budgetAccount->code }}</td>
+									<td>{{ $account_open->budgetAccount->denomination }}</td>
 									{{-- <td>{{ $account_open->total_real_amount }}</td>
 									<td>{{ $account_open->total_estimated_amount }}</td> --}}
 									<td class="text-right">
 										{{ number_format(
-											$account_open->total_year_amount, 
+											$account_open->total_year_amount,
 											$formulation->currency->decimal_places, ",", "."
 										) }}
 									</td>
@@ -134,7 +134,7 @@
 		$(document).ready(function() {
 			@if ($formulation->assigned)
 				/**
-				 * Muestra un mensaje al usuario en caso de que la formulación de presupuesto 
+				 * Muestra un mensaje al usuario en caso de que la formulación de presupuesto
 				 * ya se encuentra asignada
 				 */
 				$.gritter.add({

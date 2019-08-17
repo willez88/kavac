@@ -11,9 +11,9 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AccountingAccount
  * @brief Datos de cuentas del Clasificador Patrimoniales
- * 
+ *
  * Gestiona el modelo de datos para las cuentas del Clasificador Patrimoniales
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -22,7 +22,7 @@ class AccountingAccount extends Model implements Auditable
     use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
-    
+
     /**
      * Establece el uso o no de bitácora de registros para este modelo
      * @var boolean $revisionCreationsEnabled
@@ -37,24 +37,24 @@ class AccountingAccount extends Model implements Auditable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-		'group',
-		'subgroup',
-		'item',
-		'generic',
-		'specific',
-		'subspecific',
-		'denomination',
-		'active',
-		'inactivity_date',
+        'group',
+        'subgroup',
+        'item',
+        'generic',
+        'specific',
+        'subspecific',
+        'denomination',
+        'active',
+        'inactivity_date',
         'parent_id',
-	];
-    
+    ];
+
     /**
      * AccountingAccount has one AccountingAccountConverter.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function account_converters()
+    public function accountConverters()
     {
         return $this->hasOne(AccountingAccountConverter::class);
     }
@@ -88,33 +88,29 @@ class AccountingAccount extends Model implements Auditable
                         $parent = $parent->where('generic', $generic);
                         if ($subspecific !== '00') {
                             $parent = $parent->where('specific', $specific);
-                        }
-                        else {
+                        } else {
                             $parent = $parent->where('specific', '00');
                         }
-                    }
-                    else {
+                    } else {
                         $parent = $parent->where('generic', '00');
                     }
-                }
-                else {
+                } else {
                     $parent = $parent->where('item', '0');
                 }
-            }
-            else {
+            } else {
                 $parent = $parent->where('subgroup', '0');
             }
-        }else{
+        } else {
             $parent = self::where('group', $group)->where('subgroup', '0');
         }
-        
+
         if (!isset($parent)) {
             return false;
         }
 
         return $parent->first();
     }
-    
+
     /**
      * AccountingAccount has Many AccountingAccount.
      *
@@ -144,6 +140,6 @@ class AccountingAccount extends Model implements Auditable
      */
     public function getCode()
     {
-    	return "{$this->group}.{$this->subgroup}.{$this->item}.{$this->generic}.{$this->specific}.{$this->subspecific}";
+        return "{$this->group}.{$this->subgroup}.{$this->item}.{$this->generic}.{$this->specific}.{$this->subspecific}";
     }
 }

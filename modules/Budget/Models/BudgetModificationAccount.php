@@ -28,7 +28,7 @@ class BudgetModificationAccount extends Model implements Auditable
     protected $revisionCreationsEnabled = true;
 
     /** @var array Establece las relaciones por defecto que se retornan con las consultas */
-    protected $with = ['budget_account', 'budget_sub_specific_formulation'];
+    protected $with = ['budgetAccount', 'budget_sub_specific_formulation'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -58,7 +58,7 @@ class BudgetModificationAccount extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function budget_account()
+    public function budgetAccount()
     {
         return $this->belongsTo(BudgetAccount::class);
     }

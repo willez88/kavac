@@ -28,7 +28,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
     protected $revisionCreationsEnabled = true;
 
     /** @var array Establece las relaciones por defecto que se retornan con las consultas */
-    protected $with = ['specific_action'];
+    protected $with = ['specificAction'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -48,7 +48,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function specific_action()
+    public function specificAction()
     {
         return $this->belongsTo(BudgetSpecificAction::class, 'budget_specific_action_id');
     }
@@ -81,7 +81,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function document_status()
+    public function documentStatus()
     {
         // belongsTo(RelatedModel, foreignKey = document_status_id, keyOnRelatedModel = id)
         return $this->belongsTo(DocumentStatus::class);
@@ -104,7 +104,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function modification_accounts()
+    public function modificationAccounts()
     {
         return $this->hasMany(BudgetModificationAccount::class);
     }
