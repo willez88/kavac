@@ -17,7 +17,9 @@ use Modules\Payroll\Models\PayrollChildren;
  * Clase que gestiona los datos de información socioeconómica del trabajador
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollSocioeconomicInformationController extends Controller
 {
@@ -75,6 +77,18 @@ class PayrollSocioeconomicInformationController extends Controller
             'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations,payroll_staff_id',
             'marital_status_id' => 'required'
         ]);
+
+        $i = 0;
+        foreach ($request->payroll_childrens as $payrollChildren) {
+            $this->validate($request, [
+                'payroll_childrens.'.$i.'.first_name' => 'required',
+                'payroll_childrens.'.$i.'.last_name' => 'required',
+                'payroll_childrens.'.$i.'.id_number' => array('nullable', 'regex:/^([\d]{7}|[\d]{8})$/u'),
+                'payroll_childrens.'.$i.'.birthdate' => 'required|date',
+            ]);
+            $i++;
+        }
+
         $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::create([
             'full_name_twosome' => $request->full_name_twosome,
             'id_number_twosome' => $request->id_number_twosome,
@@ -95,7 +109,9 @@ class PayrollSocioeconomicInformationController extends Controller
             }
         }
         $request->session()->flash('message', ['type' => 'store']);
-        return response()->json(['result' => true, 'redirect' => route('payroll.socioeconomic-informations.index')], 200);
+        return response()->json([
+            'result' => true, 'redirect' => route('payroll.socioeconomic-informations.index')
+        ], 200);
     }
 
     /**
@@ -107,7 +123,9 @@ class PayrollSocioeconomicInformationController extends Controller
      */
     public function show($id)
     {
-        $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::where('id', $id)->with(['payrollStaff','marital_status','payroll_childrens'])->first();
+        $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::where('id', $id)->with([
+            'payrollStaff','marital_status','payroll_childrens'
+        ])->first();
         return response()->json(['record' => $payrollSocioeconomicInformation], 200);
     }
 
@@ -137,11 +155,25 @@ class PayrollSocioeconomicInformationController extends Controller
         $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::find($id);
         $this->validate($request, [
             'full_name_twosome' => 'nullable|max:200',
-            'id_number_twosome' => 'nullable|max:12',
+            'id_number_twosome' => array('nullable', 'regex:/^([\d]{7}|[\d]{8})$/u'),
             'birthdate_twosome' => 'nullable|date',
-            'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations,payroll_staff_id,'.$payrollSocioeconomicInformation->id,
+            'payroll_staff_id' => array(
+                'required',
+                'unique:payroll_socioeconomic_informations,payroll_staff_id,'.$payrollSocioeconomicInformation->id
+            ),
             'marital_status_id' => 'required'
         ]);
+
+        $i = 0;
+        foreach ($request->payroll_childrens as $payrollChildren) {
+            $this->validate($request, [
+                'payroll_childrens.'.$i.'.first_name' => 'required',
+                'payroll_childrens.'.$i.'.last_name' => 'required',
+                'payroll_childrens.'.$i.'.id_number' => array('nullable', 'regex:/^([\d]{7}|[\d]{8})$/u'),
+                'payroll_childrens.'.$i.'.birthdate' => 'required|date',
+            ]);
+            $i++;
+        }
 
         $payrollSocioeconomicInformation->full_name_twosome  = $request->full_name_twosome;
         $payrollSocioeconomicInformation->id_number_twosome  = $request->id_number_twosome;
@@ -150,20 +182,24 @@ class PayrollSocioeconomicInformationController extends Controller
         $payrollSocioeconomicInformation->marital_status_id  = $request->marital_status_id;
         $payrollSocioeconomicInformation->save();
 
-        //falta validar los datos que ya existen para no repetir
         if ($request->payroll_childrens && !empty($request->payroll_childrens)) {
             foreach ($request->payroll_childrens as $payrollChildren) {
-                PayrollChildren::create([
-                    'first_name' => $payrollChildren['first_name'],
-                    'last_name' => $payrollChildren['last_name'],
-                    'id_number' => $payrollChildren['id_number'],
-                    'birthdate' => $payrollChildren['birthdate'],
-                    'payroll_socioeconomic_information_id' => $payrollSocioeconomicInformation->id
-                ]);
+                $payrollSocioeconomicInformation->payroll_childrens()->updateOrCreate(
+                    [
+                        'first_name' => $payrollChildren['first_name'], 'last_name' => $payrollChildren['last_name'],
+                        'id_number' => $payrollChildren['id_number'], 'birthdate' => $payrollChildren['birthdate']
+                    ],
+                    [
+                        'first_name' => $payrollChildren['first_name'], 'last_name' => $payrollChildren['last_name'],
+                        'id_number' => $payrollChildren['id_number'], 'birthdate' => $payrollChildren['birthdate']
+                    ]
+                );
             }
         }
         $request->session()->flash('message', ['type' => 'store']);
-        return response()->json(['result' => true, 'redirect' => route('payroll.socioeconomic-informations.index')], 200);
+        return response()->json([
+            'result' => true, 'redirect' => route('payroll.socioeconomic-informations.index')
+        ], 200);
     }
 
     /**
@@ -188,6 +224,8 @@ class PayrollSocioeconomicInformationController extends Controller
      */
     public function vueList()
     {
-        return response()->json(['records' => PayrollSocioeconomicInformation::with(['payrollStaff','marital_status','payroll_childrens'])->get()], 200);
+        return response()->json(['records' => PayrollSocioeconomicInformation::with([
+            'payrollStaff','marital_status','payroll_childrens'
+        ])->get()], 200);
     }
 }

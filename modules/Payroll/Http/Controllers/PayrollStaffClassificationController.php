@@ -16,7 +16,9 @@ use Modules\Payroll\Models\PayrollStaffClassification;
  * Clase que gestiona las clasificaciones del personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollStaffClassificationController extends Controller
 {
@@ -69,7 +71,9 @@ class PayrollStaffClassificationController extends Controller
             'name' => 'required|max:100',
             'description' => 'nullable|max:200'
         ]);
-        $payrollStaffClassification = PayrollStaffClassification::create(['name' => $request->name,'description' => $request->description]);
+        $payrollStaffClassification = PayrollStaffClassification::create([
+            'name' => $request->name,'description' => $request->description
+        ]);
         return response()->json(['record' => $payrollStaffClassification, 'message' => 'Success'], 200);
     }
 
@@ -134,6 +138,8 @@ class PayrollStaffClassificationController extends Controller
      */
     public function getPayrollStaffClassifications()
     {
-        return response()->json(template_choices('Modules\Payroll\Models\PayrollStaffClassification','name','',true));
+        return response()->json(
+            template_choices('Modules\Payroll\Models\PayrollStaffClassification', 'name', '', true)
+        );
     }
 }

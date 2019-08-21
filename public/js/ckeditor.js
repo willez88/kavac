@@ -126,7 +126,11 @@ eval("try {\n  window.CkEditor = __webpack_require__(/*! @ckeditor/ckeditor5-bui
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/resources/js/ckeditor.js */"./resources/js/ckeditor.js");
+=======
+module.exports = __webpack_require__(/*! /home/william/Programación/php/proyectos_laravel/kavac/resources/js/ckeditor.js */"./resources/js/ckeditor.js");
+>>>>>>> wpaez
 
 
 /***/ })
