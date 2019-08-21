@@ -55,7 +55,7 @@ class PayrollChildren extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_socioecomic_information()
+    public function payrollSocioecomicInformation()
     {
         return $this->belongsTo(PayrollSocioeconomicInformation::class);
     }

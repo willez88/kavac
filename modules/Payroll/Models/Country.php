@@ -13,7 +13,7 @@ class Country extends BaseCountry
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function payroll_nationality()
+    public function payrollNationality()
     {
         return $this->hasOne(PayrollNationality::class);
     }

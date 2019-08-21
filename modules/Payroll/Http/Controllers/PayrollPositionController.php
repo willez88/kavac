@@ -69,7 +69,7 @@ class PayrollPositionController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'nullable|max:200'
+            'description' => 'required|max:200'
         ]);
         $payrollPosition = PayrollPosition::create(['name' => $request->name,'description' => $request->description]);
         return response()->json(['record' => $payrollPosition, 'message' => 'Success'], 200);
@@ -106,7 +106,7 @@ class PayrollPositionController extends Controller
         $payrollPosition = PayrollPosition::find($id);
         $this->validate($request, [
             'name' => 'required|max:100',
-            'description' => 'nullable|max:200'
+            'description' => 'required|max:200'
         ]);
         $payrollPosition->name  = $request->name;
         $payrollPosition->description = $request->description;

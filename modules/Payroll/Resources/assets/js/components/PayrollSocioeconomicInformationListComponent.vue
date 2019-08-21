@@ -121,18 +121,18 @@
 			return {
 				records: [],
                 record: [],
-				columns: ['payrollStaff.first_name', 'marital_status.name', 'id'],
+				columns: ['payroll_staff.first_name', 'marital_status.name', 'id'],
 			}
 		},
 
         created() {
 			this.table_options.headings = {
-                'payrollStaff.first_name': 'Trabajador',
+                'payroll_staff.first_name': 'Trabajador',
 				'marital_status.name': 'Estado Civil',
 				'id': 'Acción'
 			};
-            this.table_options.sortable = ['payrollStaff.first_name', 'marital_status.name'];
-			this.table_options.filterable = ['payrollStaff.first_name', 'marital_status.name'];
+            this.table_options.sortable = ['payroll_staff.first_name', 'marital_status.name'];
+			this.table_options.filterable = ['payroll_staff.first_name', 'marital_status.name'];
 		},
 
 		mounted() {

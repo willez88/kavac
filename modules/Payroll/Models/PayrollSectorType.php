@@ -52,7 +52,7 @@ class PayrollSectorType extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payroll_organizations()
+    public function payrollOrganizations()
     {
         return $this->hasMany(PayrollOrganization::class);
     }

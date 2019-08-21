@@ -157,7 +157,7 @@ class PayrollStaffController extends Controller
     public function show($id)
     {
         $payrollStaff = PayrollStaff::where('id', $id)->with([
-            'payroll_nationality','payroll_gender',
+            'payrollNationality','payrollGender',
             'parish' => function ($query) {
                 $query->with(['municipality' => function ($query) {
                     $query->with(['estate' => function ($query) {
@@ -252,17 +252,6 @@ class PayrollStaffController extends Controller
             }
         }
 
-        /*if ($request->phones && !empty($request->phones)) {
-            foreach ($request->phones as $phone) {
-                $payrollStaff->phones()->save(new Phone([
-                    'type' => $phone['type'],
-                    'area_code' => $phone['area_code'],
-                    'number' => $phone['number'],
-                    'extension' => $phone['extension']
-                ]));
-            }
-        }*/
-
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('payroll.staffs.index')], 200);
     }
@@ -290,7 +279,7 @@ class PayrollStaffController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollStaff::with([
-            'payroll_nationality','payroll_gender','parish'
+            'payrollNationality','payrollGender','parish'
         ])->get()], 200);
     }
 

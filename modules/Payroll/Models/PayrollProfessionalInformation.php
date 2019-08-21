@@ -69,7 +69,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_instruction_degree()
+    public function payrollInstructionDegree()
     {
         return $this->belongsTo(PayrollInstructionDegree::class);
     }
@@ -91,7 +91,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_study_type()
+    public function payrollStudyType()
     {
         return $this->belongsTo(PayrollStudyType::class);
     }
@@ -102,7 +102,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_language()
+    public function payrollLanguage()
     {
         return $this->belongsTo(PayrollLanguage::class);
     }
@@ -113,7 +113,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_language_level()
+    public function payrollLanguageLevel()
     {
         return $this->belongsTo(PayrollLanguageLevel::class);
     }

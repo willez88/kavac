@@ -55,7 +55,7 @@ class PayrollOrganization extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function payroll_sector_type()
+    public function payrollSectorType()
     {
         return $this->belongsTo(PayrollSectorType::class);
     }
@@ -66,7 +66,7 @@ class PayrollOrganization extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_employment_information()
+    public function payrollEmploymentInformation()
     {
         return $this->belongsTo(EmploymentInformation::class);
     }

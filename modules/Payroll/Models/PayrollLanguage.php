@@ -55,7 +55,7 @@ class PayrollLanguage extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payroll_professional_informations()
+    public function payrollProfessionalInformations()
     {
         return $this->hasMany(PayrollProfessionalInformation::class);
     }

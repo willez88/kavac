@@ -124,7 +124,7 @@ class PayrollSocioeconomicInformationController extends Controller
     public function show($id)
     {
         $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::where('id', $id)->with([
-            'payrollStaff','marital_status','payroll_childrens'
+            'payrollStaff','maritalStatus','payrollChildrens'
         ])->first();
         return response()->json(['record' => $payrollSocioeconomicInformation], 200);
     }
@@ -225,7 +225,7 @@ class PayrollSocioeconomicInformationController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollSocioeconomicInformation::with([
-            'payrollStaff','marital_status','payroll_childrens'
+            'payrollStaff','maritalStatus','payrollChildrens'
         ])->get()], 200);
     }
 }

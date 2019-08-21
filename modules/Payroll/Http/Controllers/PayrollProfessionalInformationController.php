@@ -137,8 +137,8 @@ class PayrollProfessionalInformationController extends Controller
     public function show($id)
     {
         $payrollProfessionalInformation = PayrollProfessionalInformation::where('id', $id)->with([
-            'payrollStaff','payroll_instruction_degree','profession','payroll_study_type',
-            'payroll_language','payroll_language_level'
+            'payrollStaff','payrollInstructionDegree','profession','payrollStudyType',
+            'payrollLanguage','payrollLanguageLevel'
         ])->first();
         return response()->json(['record' => $payrollProfessionalInformation], 200);
     }
@@ -168,8 +168,10 @@ class PayrollProfessionalInformationController extends Controller
     {
         $payrollProfessionalInformation = PayrollProfessionalInformation::find($id);
         $this->validate($request, [
-            'payroll_staff_id' => 'required|unique:payroll_professional_informations,
-                                   payroll_staff_id,'.$payrollProfessionalInformation->id,
+            'payroll_staff_id' => array(
+                'required',
+                'unique:payroll_professional_informations,payroll_staff_id,'.$payrollProfessionalInformation->id,
+            ),
             'payroll_instruction_degree_id' => 'required',
             'payroll_language_id' => 'required',
             'payroll_language_level_id' => 'required'
@@ -248,8 +250,8 @@ class PayrollProfessionalInformationController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollProfessionalInformation::with([
-            'payrollStaff', 'payroll_instruction_degree','profession',
-            'payroll_study_type','payroll_language','payroll_language_level'
+            'payrollStaff', 'payrollInstructionDegree','profession',
+            'payrollStudyType','payrollLanguage','payrollLanguageLevel'
         ])->get()], 200);
     }
 }

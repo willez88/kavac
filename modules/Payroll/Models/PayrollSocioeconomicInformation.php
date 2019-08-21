@@ -69,7 +69,7 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function marital_status()
+    public function maritalStatus()
     {
         return $this->belongsTo(MaritalStatus::class);
     }
@@ -80,7 +80,7 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payroll_childrens()
+    public function payrollChildrens()
     {
         return $this->hasMany(PayrollChildren::class);
     }

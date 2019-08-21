@@ -149,19 +149,19 @@
 			return {
 				records: [],
                 record: [],
-				columns: ['payrollStaff.first_name', 'institution_email', 'active', 'id'],
+				columns: ['payroll_staff.first_name', 'institution_email', 'active', 'id'],
 			}
 		},
 
         created() {
 			this.table_options.headings = {
-                'payrollStaff.first_name': 'Trabajador',
+                'payroll_staff.first_name': 'Trabajador',
 				'institution_email': 'Correo Electrónico Institucional',
 				'active': '¿Está Activo?',
 				'id': 'Acción'
 			};
-            this.table_options.sortable = ['payrollStaff.first_name', 'institution_email'];
-			this.table_options.filterable = ['payrollStaff.first_name', 'institution_email'];
+            this.table_options.sortable = ['payroll_staff.first_name', 'institution_email'];
+			this.table_options.filterable = ['payroll_staff.first_name', 'institution_email'];
 		},
 
 		mounted() {

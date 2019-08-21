@@ -13,7 +13,7 @@ class MaritalStatus extends BaseMaritalStatus
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payroll_socioecomic_informations()
+    public function payrollSocioecomicInformations()
     {
         return $this->hasMany(PayrollSocioeconomicInformation::class);
     }

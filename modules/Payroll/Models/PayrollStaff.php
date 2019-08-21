@@ -99,7 +99,7 @@ class PayrollStaff extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_gender()
+    public function payrollGender()
     {
         return $this->belongsTo(PayrollGender::class);
     }
@@ -110,7 +110,7 @@ class PayrollStaff extends Model implements Auditable
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_nationality()
+    public function payrollNationality()
     {
         return $this->belongsTo(PayrollNationality::class);
     }
@@ -121,7 +121,7 @@ class PayrollStaff extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function payroll_socioecomic_information()
+    public function payrollSocioecomicInformation()
     {
         return $this->hasOne(PayrollSocioeconomicInformation::class);
     }
@@ -132,7 +132,7 @@ class PayrollStaff extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function payroll_professional_information()
+    public function payrollProfessionalInformation()
     {
         return $this->hasOne(PayrollProfessionalInformation::class);
     }
@@ -154,7 +154,7 @@ class PayrollStaff extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function payroll_employment_information()
+    public function payrollEmploymentInformation()
     {
         return $this->hasOne(PayrollEmploymentInformation::class);
     }

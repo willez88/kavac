@@ -118,8 +118,8 @@ class PayrollEmploymentInformationController extends Controller
     public function show($id)
     {
         $payrollEmploymentInformation = PayrollEmploymentInformation::where('id', $id)->with([
-            'payrollStaff', 'payroll_inactivity_type', 'payroll_position_type', 'payrollPosition',
-            'payroll_staff_type', 'department', 'payroll_contract_type'
+            'payrollStaff', 'payrollInactivityType', 'payrollPositionType', 'payrollPosition',
+            'payrollStaffType', 'department', 'payrollContractType'
         ])->first();
         return response()->json(['record' => $payrollEmploymentInformation], 200);
     }
@@ -149,14 +149,18 @@ class PayrollEmploymentInformationController extends Controller
     {
         $payrollEmploymentInformation = PayrollEmploymentInformation::find($id);
         $this->validate($request, [
-            'payroll_staff_id' => 'required|unique:payroll_employment_informations,
-                                   payroll_staff_id,'.$payrollEmploymentInformation->id,
+            'payroll_staff_id' => array(
+                'required',
+                'unique:payroll_employment_informations,payroll_staff_id,'.$payrollEmploymentInformation->id
+            ),
             'start_date_apn' => 'required|date',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
             'payroll_inactivity_type_id' => 'nullable',
-            'institution_email' => 'email|nullable|unique:payroll_employment_informations,
-                                    institution_email,'.$payrollEmploymentInformation->id,
+            'institution_email' => array(
+                'email','nullable',
+                'unique:payroll_employment_informations,institution_email,'.$payrollEmploymentInformation->id
+            ),
             'function_description' => 'nullable',
             'payroll_position_type_id' => 'required',
             'payroll_position_id' => 'required',
@@ -211,8 +215,8 @@ class PayrollEmploymentInformationController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollEmploymentInformation::with([
-            'payrollStaff', 'payroll_inactivity_type', 'payroll_position_type', 'payrollPosition',
-            'payroll_staff_type', 'department', 'payroll_contract_type'
+            'payrollStaff', 'payrollInactivityType', 'payrollPositionType', 'payrollPosition',
+            'payrollStaffType', 'department', 'payrollContractType'
         ])->get()], 200);
     }
 }

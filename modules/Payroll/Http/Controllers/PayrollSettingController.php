@@ -48,10 +48,10 @@ class PayrollSettingController extends Controller
             'staffs_code' => [new CodeSettingRule]
         ]);
 
-        $staffs_code = $request->staffs_code;
-        if (!is_null($staffs_code)) {
+        $staffsCode = $request->staffs_code;
+        if (!is_null($staffsCode)) {
             $model = PayrollStaff::class;
-            list($prefix, $digits, $sufix) = CodeSetting::divideCode($staffs_code);
+            list($prefix, $digits, $sufix) = CodeSetting::divideCode($staffsCode);
             CodeSetting::updateOrCreate([
                 'module' => 'payroll',
                 'table' => 'payroll_staffs',

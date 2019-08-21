@@ -13,7 +13,7 @@ class Department extends BaseDepartment
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payroll_employment_informations()
+    public function payrollEmploymentInformations()
     {
         return $this->hasMany(PayrollEmploymentInformation::class);
     }
