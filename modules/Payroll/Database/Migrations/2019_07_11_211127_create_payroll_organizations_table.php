@@ -39,7 +39,8 @@ class CreatePayrollOrganizationsTable extends Migration
 
                 $table->integer('payroll_employment_information_id')->unsigned()
                       ->comment('identificador de la información laboral que pertenece a la organización');
-                $table->foreign('payroll_employment_information_id')->references('id')->on('payroll_employment_informations')
+                $table->foreign('payroll_employment_information_id')
+                      ->references('id')->on('payroll_employment_informations')
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

@@ -35,7 +35,8 @@ class CreatePayrollStaffsTable extends Migration
                 $table->string('email')->unique()->nullable()->comment('Correo electrónico del personal');
                 $table->string('id_number', 12)->unique()->comment('Cédula de identidad del personal');
                 $table->string('passport', 20)->unique()->nullable()->comment('Número de pasaporte del personal');
-                $table->string('emergency_contact', 200)->nullable()->comment('Nombre y apellido del contacto de emergencia');
+                $table->string('emergency_contact', 200)->nullable()
+                      ->comment('Nombre y apellido del contacto de emergencia');
                 $table->string('emergency_phone', 20)->nullable()->comment('Teléfono del contacto de emergencia');
                 $table->string('address', 200)->comment('Dirección de habitación del personal');
                 $table->integer('parish_id')->unsigned()

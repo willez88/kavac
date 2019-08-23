@@ -72,7 +72,11 @@ class PayrollSocioeconomicInformationController extends Controller
     {
         $this->validate($request, [
             'full_name_twosome' => 'nullable|max:200',
-            'id_number_twosome' => 'nullable|max:12',
+            'id_number_twosome' => array(
+                'nullable',
+                'regex:/^([\d]{7}|[\d]{8})$/u',
+                'unique:payroll_socioeconomic_informations,id_number_twosome'
+            ),
             'birthdate_twosome' => 'nullable|date',
             'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations,payroll_staff_id',
             'marital_status_id' => 'required'
@@ -155,7 +159,11 @@ class PayrollSocioeconomicInformationController extends Controller
         $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::find($id);
         $this->validate($request, [
             'full_name_twosome' => 'nullable|max:200',
-            'id_number_twosome' => array('nullable', 'regex:/^([\d]{7}|[\d]{8})$/u'),
+            'id_number_twosome' => array(
+                'nullable',
+                'regex:/^([\d]{7}|[\d]{8})$/u',
+                'unique:payroll_socioeconomic_informations,id_number_twosome,'.$payrollSocioeconomicInformation->id
+            ),
             'birthdate_twosome' => 'nullable|date',
             'payroll_staff_id' => array(
                 'required',
@@ -182,9 +190,13 @@ class PayrollSocioeconomicInformationController extends Controller
         $payrollSocioeconomicInformation->marital_status_id  = $request->marital_status_id;
         $payrollSocioeconomicInformation->save();
 
+        foreach ($payrollSocioeconomicInformation->payrollChildrens as $payrollChildren) {
+            $payrollChildren->delete();
+        }
+
         if ($request->payroll_childrens && !empty($request->payroll_childrens)) {
             foreach ($request->payroll_childrens as $payrollChildren) {
-                $payrollSocioeconomicInformation->payroll_childrens()->updateOrCreate(
+                $payrollSocioeconomicInformation->payrollChildrens()->updateOrCreate(
                     [
                         'first_name' => $payrollChildren['first_name'], 'last_name' => $payrollChildren['last_name'],
                         'id_number' => $payrollChildren['id_number'], 'birthdate' => $payrollChildren['birthdate']

@@ -32,7 +32,8 @@ class CreatePayrollEmploymentInformationsTable extends Migration
                 $table->date('start_date_apn')->comment('Fecha de ingreso a la administración pública nacional');
                 $table->date('start_date')->comment('Fecha de ingreso a la institución');
                 $table->date('end_date')->nullable()->comment('Fecha de egreso de la institución');
-                $table->string('institution_email', 100)->unique()->nullable()->comment('Correo electrónico institucional');
+                $table->string('institution_email', 100)
+                      ->unique()->nullable()->comment('Correo electrónico institucional');
                 $table->text('function_description')->nullable()->comment('Descripción de funciones');
 
                 $table->integer('payroll_inactivity_type_id')->unsigned()->nullable()

@@ -35,7 +35,8 @@ class CreatePayrollChildrensTable extends Migration
 
                 $table->integer('payroll_socioeconomic_information_id')->unsigned()
                       ->comment('identificador de la información socioeconómica que pertenece al hijo');
-                $table->foreign('payroll_socioeconomic_information_id')->references('id')->on('payroll_socioeconomic_informations')
+                $table->foreign('payroll_socioeconomic_information_id')
+                      ->references('id')->on('payroll_socioeconomic_informations')
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
