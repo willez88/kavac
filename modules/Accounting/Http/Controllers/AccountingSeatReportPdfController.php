@@ -53,7 +53,11 @@ class AccountingSeatReportPdfController extends Controller
 
         /** @var Object Objeto base para generar el pdf */
         $pdf = new Pdf('L', 'mm', 'Letter');
+<<<<<<< HEAD
+        
+=======
 
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
         /*
          *  Definicion de las caracteristicas generales de la página
          */

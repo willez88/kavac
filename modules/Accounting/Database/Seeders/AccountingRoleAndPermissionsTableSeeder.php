@@ -10,9 +10,9 @@ use App\Roles\Models\Permission;
 /**
  * @class AccountingRoleAndPermissionsTableSeeder
  * @brief Información por defecto para Roles y Permisos del módulo de contabilidad
- * 
+ *
  * Gestiona la información por defecto a registrar inicialmente para los Roles y Permisos del módulo de contabilidad
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -26,8 +26,6 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
-
 
         $adminRole = Role::where('slug', 'admin')->first();
 
@@ -43,25 +41,25 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
             */
             [
                 'name' => 'Ver cuentas patrimoniales', 'slug' => 'accounting.account.list',
-                'description' => 'Acceso para ver cuentas patrimoniales', 
+                'description' => 'Acceso para ver cuentas patrimoniales',
                 'model' => 'Modules\Accounting\Models\AccountingAccount', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'cuentas_patrimoniales.ver', 'short_description' => 'listar cuentas patrimoniales'
             ],
             [
                 'name' => 'Crear cuenta patrimonial', 'slug' => 'accounting.account.create',
-                'description' => 'Acceso para crear cuenta patrimonial', 
+                'description' => 'Acceso para crear cuenta patrimonial',
                 'model' => 'Modules\Accounting\Models\AccountingAccount', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'cuentas_patrimoniales.crear', 'short_description' => 'agregar cuentas patrimoniales'
             ],
             [
                 'name' => 'Editar cuenta patrimonial', 'slug' => 'accounting.account.edit',
-                'description' => 'Acceso para editar cuenta patrimonial', 
+                'description' => 'Acceso para editar cuenta patrimonial',
                 'model' => 'Modules\Accounting\Models\AccountingAccount', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'cuentas_patrimoniales.editar', 'short_description' => 'editar cuentas patrimoniales'
             ],
             [
                 'name' => 'Eliminar cuenta patrimonial', 'slug' => 'accounting.account.delete',
-                'description' => 'Acceso para eliminar cuenta patrimonial', 
+                'description' => 'Acceso para eliminar cuenta patrimonial',
                 'model' => 'Modules\Accounting\Models\AccountingAccount', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'cuentas_patrimoniales.eliminar', 'short_description' => 'eliminar cuentas patrimoniales'
             ],
@@ -69,27 +67,27 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
             /**
             * Convertidor de cuentas
             */
-			[
+            [
                 'name' => 'vista principal de consulta del convertidor de cuentas', 'slug' => 'accounting.converter.index',
-                'description' => 'Acceso para listar conversiones', 
+                'description' => 'Acceso para listar conversiones',
                 'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'conversion.ver', 'short_description' => 'listar conversion'
             ],
             [
                 'name' => 'Crear nueva conversión', 'slug' => 'accounting.converter.create',
-                'description' => 'Acceso para crear nuevas conversiones', 
+                'description' => 'Acceso para crear nuevas conversiones',
                 'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'conversion.crear', 'short_description' => 'agregar conversion'
             ],
             [
                 'name' => 'Editar conversiones', 'slug' => 'accounting.converter.edit',
-                'description' => 'Acceso para editar registro conversiones', 
+                'description' => 'Acceso para editar registro conversiones',
                 'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'conversion.editar', 'short_description' => 'editar conversion'
             ],
             [
                 'name' => 'Eliminar conversión', 'slug' => 'accounting.converter.delete',
-                'description' => 'Acceso para eliminar registro de conversiones', 
+                'description' => 'Acceso para eliminar registro de conversiones',
                 'model' => 'Modules\Accounting\Models\AccountingAccountConverter', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'conversion.eliminar', 'short_description' => 'eliminar conversion'
             ],
@@ -99,37 +97,37 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
             */
             [
                 'name' => 'listar asientos contables aprobados y no aprobados', 'slug' => 'accounting.seating.list',
-                'description' => 'Acceso para listar asientos contable', 
+                'description' => 'Acceso para listar asientos contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.ver', 'short_description' => 'listar asientos contables'
             ],
             [
                 'name' => 'Crear asiento contable', 'slug' => 'accounting.seating.create',
-                'description' => 'Acceso para crear asiento contable', 
+                'description' => 'Acceso para crear asiento contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.crear', 'short_description' => 'crear asientos contables'
             ],
             [
                 'name' => 'Editar asientos contables', 'slug' => 'accounting.seating.edit',
-                'description' => 'Acceso para editar registro de asientos contables', 
+                'description' => 'Acceso para editar registro de asientos contables',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.editar', 'short_description' => 'editar asientos contables'
             ],
             [
                 'name' => 'Eliminar asientos contables', 'slug' => 'accounting.seating.delete',
-                'description' => 'Acceso para eliminar asiento contable', 
+                'description' => 'Acceso para eliminar asiento contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.eliminar', 'short_description' => 'eliminar asiento contable'
             ],
             [
                 'name' => 'Aprobar asientos contables', 'slug' => 'accounting.seating.approve',
-                'description' => 'Acceso para aprobar asiento contable', 
+                'description' => 'Acceso para aprobar asiento contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.approve', 'short_description' => 'aprobar asiento contable'
             ],
             [
                 'name' => 'reporte pdf de asientos contables', 'slug' => 'accounting.seating.report',
-                'description' => 'Acceso para generar reporte pdf de asiento contable', 
+                'description' => 'Acceso para generar reporte pdf de asiento contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.pdf', 'short_description' => 'reporte pdf de asiento contable'
             ],
@@ -139,25 +137,25 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
             */
             [
                 'name' => 'vista principal de la configuración', 'slug' => 'accounting.setting.index',
-                'description' => 'Acceso para visualizar las configuraciones del modulo', 
+                'description' => 'Acceso para visualizar las configuraciones del modulo',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'configuracion.ver', 'short_description' => 'Visualizar configuraciones'
             ],
             [
                 'name' => 'Crear nueva categoria', 'slug' => 'accounting.setting.category.store',
-                'description' => 'Acceso para guardar nueva categoria', 
+                'description' => 'Acceso para guardar nueva categoria',
                 'model' => 'Modules\Accounting\Models\AccountingSeatCategory', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'configuracion_categoria.guardar', 'short_description' => 'guardar categoria'
             ],
             [
                 'name' => 'Actualizar categoria', 'slug' => 'accounting.setting.category.update',
-                'description' => 'Acceso para actualizar categoria', 
+                'description' => 'Acceso para actualizar categoria',
                 'model' => 'Modules\Accounting\Models\AccountingSeatCategory', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'configuracion_categoria.actualizar', 'short_description' => 'actualizar categoria'
             ],
             [
                 'name' => 'Eliminar categoria', 'slug' => 'accounting.setting.category.delete',
-                'description' => 'Acceso para eliminar categoria', 
+                'description' => 'Acceso para eliminar categoria',
                 'model' => 'Modules\Accounting\Models\AccountingSeatCategory', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'configuracion_categoria.eliminar', 'short_description' => 'eliminar categoria'
             ],
@@ -167,50 +165,50 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
             */
             [
                 'name' => 'Vista principal para los reportes de libros contables', 'slug' => 'accounting.report.accountingbooks',
-                'description' => 'Acceso a la vista principal de reportes de los libros contables', 
+                'description' => 'Acceso a la vista principal de reportes de los libros contables',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'vista_principal_reportes_libros_contables', 'short_description' => 'acceso a la vista principal de reportes de libros contables'
             ],
             [
                 'name' => 'Vista principal para los reportes de estados financieros', 'slug' => 'accounting.report.financestatements',
-                'description' => 'Acceso a la vista principal de reportes de estados financieros', 
+                'description' => 'Acceso a la vista principal de reportes de estados financieros',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'vista_principal_reportes_estados_financieros', 'short_description' => 'acceso a la vista principal de reportes de estados financieros'
             ],
 
             [
                 'name' => 'reporte pdf de libro diario', 'slug' => 'accounting.report.dailybook',
-                'description' => 'Acceso para generar reporte pdf de libro diario', 
+                'description' => 'Acceso para generar reporte pdf de libro diario',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'reporte_libro_diario.pdf', 'short_description' => 'reporte pdf de libro diario'
             ],
             [
                 'name' => 'reporte pdf balance de comprobación', 'slug' => 'accounting.report.checkupbalance',
-                'description' => 'Acceso para generar reporte pdf balance de comprobación', 
+                'description' => 'Acceso para generar reporte pdf balance de comprobación',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'reporte_balance_comprobación.pdf', 'short_description' => 'reporte pdf balance de comprobación'
             ],
             [
                 'name' => 'reporte pdf de Mayor analítico', 'slug' => 'accounting.report.analiticalmajor',
-                'description' => 'Acceso para generar reporte pdf de Mayor analítico', 
+                'description' => 'Acceso para generar reporte pdf de Mayor analítico',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'reporte_mayor_analítico.pdf', 'short_description' => 'reporte pdf de Mayor analítico'
             ],
             [
                 'name' => 'reporte pdf de Libro Auxiliar', 'slug' => 'accounting.report.auxiliarybook',
-                'description' => 'Acceso para generar reporte pdf de Libro Auxiliar', 
+                'description' => 'Acceso para generar reporte pdf de Libro Auxiliar',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'reporte_libro_auxiliar.pdf', 'short_description' => 'reporte pdf de Libro Auxiliar'
             ],
             [
                 'name' => 'reporte pdf de Balance General', 'slug' => 'accounting.report.balancesheet',
-                'description' => 'Acceso para generar reporte pdf de Balance General', 
+                'description' => 'Acceso para generar reporte pdf de Balance General',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'reporte_balance_general.pdf', 'short_description' => 'reporte pdf de Balance General'
             ],
             [
                 'name' => 'reporte pdf de Estado de Resultados', 'slug' => 'accounting.report.stateofresults',
-                'description' => 'Acceso para generar reporte pdf de Estado de Resultados', 
+                'description' => 'Acceso para generar reporte pdf de Estado de Resultados',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'reporte_estados_de_resultados.pdf', 'short_description' => 'reporte pdf de Estado de Resultados'
             ],
@@ -220,11 +218,10 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
             */
             [
                 'name' => 'vista principal del dashboard del módulo de contabilidad', 'slug' => 'accounting.dashboard',
-                'description' => 'Acceso para visualizar el dashboard del módulo', 
+                'description' => 'Acceso para visualizar el dashboard del módulo',
                 'model' => '', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'panel_de_control.ver', 'short_description' => 'Visualizar panel de control del módulo de contabilidad'
             ],
-
         ];
 
 
