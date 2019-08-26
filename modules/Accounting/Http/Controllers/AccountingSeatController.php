@@ -85,7 +85,11 @@ class AccountingSeatController extends Controller
          * se convierte array a JSON
          */
         $categories = json_encode($categories);
+<<<<<<< HEAD
+        
+=======
 
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
         return view('accounting::seating.index', compact('categories', 'yearOld', 'institutions', 'currency'));
     }
 
@@ -468,7 +472,11 @@ class AccountingSeatController extends Controller
     public function unapproved()
     {
         /** @var Object objeto que contendra los registros resultantes de la busqueda */
+<<<<<<< HEAD
+        $seating = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved', false)->orderBy('from_date', 'ASC')->get();
+=======
         $seating = AccountingSeat::with('accounting_accounts.account.accountConverters.budgetAccount')->where('approved', false)->orderBy('from_date', 'ASC')->get();
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 
         /** @var Object objeto que contendra la moneda manejada por defecto */
         $currency = Currency::where('default', true)->first();

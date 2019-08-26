@@ -2,17 +2,28 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
+use App\Imports\DataImport;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+<<<<<<< HEAD
+=======
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccount;
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
-use App\Imports\DataImport;
+use Modules\Accounting\Models\AccountingAccountImport;
+use Modules\Accounting\Models\AccountingAccount;
+use Modules\Accounting\Models\AccountingSeatAccount;
 
 
+<<<<<<< HEAD
+use Auth;
+=======
+
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 
 /**
  * Clase que gestiona las Cuentas patrimoniales
@@ -180,7 +191,11 @@ class AccountingAccountController extends Controller
         $AccountingAccount = AccountingAccount::with('accountConverters')->find($id);
 
         if ($AccountingAccount) {
+<<<<<<< HEAD
+            if (!is_null($AccountingAccount->account_converters)
+=======
             if (!is_null($AccountingAccount->accountConverters)
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
                 || !is_null(AccountingSeatAccount::where('accounting_account_id', $id)->first())) {
                 return response()->json(
                     [
@@ -471,7 +486,11 @@ class AccountingAccountController extends Controller
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Array con los errores en caso de existir
     */
+<<<<<<< HEAD
+   
+=======
 
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
     public function validatedErrors($record, $currentRow)
     {
         $errors = [];

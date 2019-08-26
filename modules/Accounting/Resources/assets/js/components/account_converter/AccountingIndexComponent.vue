@@ -1,7 +1,11 @@
 <template>
 	<div class="form-horizontal">
 		<div class="card-body">
+<<<<<<< HEAD
+			
+=======
 
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 			<accounting-show-errors :options="errors" />
 
 			<div class="row">
@@ -9,29 +13,49 @@
 				<div class="col-3">
 					<label for="sel_budget_acc" class="control-label">Por Presupuestos</label>
 					<br>
+<<<<<<< HEAD
+						<input type="radio" 
+								name="sel_account_type"
+								id="sel_budget_acc"
+								data-on-label="SI" data-off-label="NO" 
+=======
 						<input type="radio"
 								name="sel_account_type"
 								id="sel_budget_acc"
 								data-on-label="SI" data-off-label="NO"
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 								class="form-control bootstrap-switch sel_pry_acc">
 				</div>
 				<div class="col-3">
 					<label for="sel_account_type" class="control-label">Por Patrimonial</label>
 					<br>
 						<input type="radio"
+<<<<<<< HEAD
+								name="sel_account_type" 
+								id="sel_accounting_acc"
+								checked="true" 
+								data-on-label="SI" data-off-label="NO" 
+=======
 								name="sel_account_type"
 								id="sel_accounting_acc"
 								checked="true"
 								data-on-label="SI" data-off-label="NO"
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 								class="form-control bootstrap-switch sel_pry_acc">
 				</div>
 				<div class="col-3">
 					<label for="" class="control-label">Seleccionar todos</label>
 					<br>
 					<input type="checkbox"
+<<<<<<< HEAD
+								name="sel_account_type" 
+								id="sel_all_acc"
+								data-on-label="SI" data-off-label="NO" 
+=======
 								name="sel_account_type"
 								id="sel_all_acc"
 								data-on-label="SI" data-off-label="NO"
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 								class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
 				</div>
 				<br>
@@ -75,6 +99,18 @@
 			<div class="row">
 				<div class="col-12">
 					<v-client-table :columns="columns" :data="records" :options="table_options">
+<<<<<<< HEAD
+						
+						<div slot="codeBudget" slot-scope="props" class="text-center">
+							{{ props.row.budget_account.group+'.'+
+								props.row.budget_account.item+'.'+
+								props.row.budget_account.generic+'.'+
+								props.row.budget_account.specific+'.'+
+								props.row.budget_account.subspecific }}
+						</div>
+						<div slot="BudgetAccounts" slot-scope="props" class="text-center">
+							{{ props.row.budget_account.denomination }}
+=======
 
 						<div slot="codeBudget" slot-scope="props" class="text-center">
 							{{ props.row.budgetAccount.group+'.'+
@@ -85,6 +121,7 @@
 						</div>
 						<div slot="BudgetAccounts" slot-scope="props" class="text-center">
 							{{ props.row.budgetAccount.denomination }}
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 						</div>
 						<div slot="codeAccounting" slot-scope="props" class="text-center">
 							{{ props.row.accounting_account.group+'.'+
@@ -104,7 +141,11 @@
 									v-on:click="editForm(props.row.id)">
 								<i class="fa fa-edit"></i>
 							</button>
+<<<<<<< HEAD
+							<button class="btn btn-danger btn-xs btn-icon btn-action" 
+=======
 							<button class="btn btn-danger btn-xs btn-icon btn-action"
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 									title="Eliminar registro de la lista de cuentas a convertir"
 									data-toggle="tooltip"
 									v-on:click="deleteRecord(props.index,'/accounting/converter')">
@@ -162,7 +203,11 @@
 				if (e.target.id === "sel_budget_acc") {
 					vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);
 					vm.accountSelect.all = false;
+<<<<<<< HEAD
+					
+=======
 
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 				}
 				else if (e.target.id === "sel_accounting_acc") {
 					vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
@@ -260,10 +305,17 @@
 
 						if (vm.records.length == 0) {
 							vm.errors = [];
+<<<<<<< HEAD
+							vm.errors.push('No se encontraron registros de conversiones en el rango dado');		
+						}
+						vm.showMessage(
+							'custom', 'Éxito', 'success', 'screen-ok', 
+=======
 							vm.errors.push('No se encontraron registros de conversiones en el rango dado');
 						}
 						vm.showMessage(
 							'custom', 'Éxito', 'success', 'screen-ok',
+>>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 							'Consulta realizada de manera existosa.'
 						);
 						vm.errors = [];
