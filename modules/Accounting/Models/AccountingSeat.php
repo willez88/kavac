@@ -15,16 +15,16 @@ class AccountingSeat extends Model implements Auditable
     use AuditableTrait;
 
     protected $fillable = [
-    	'from_date',
-    	'concept',
-    	'observations',
-    	'reference',
-    	'tot_debit',
-    	'tot_assets',
-    	'accounting_seat_categories_id',
+        'from_date',
+        'concept',
+        'observations',
+        'reference',
+        'tot_debit',
+        'tot_assets',
+        'accounting_seat_categories_id',
         'institution_id',
         'departament_id',
-    	'approved'
+        'approved'
     ];
     /**
      * AccountingSeat has many AccountingSeatAccount.
@@ -32,7 +32,7 @@ class AccountingSeat extends Model implements Auditable
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function accounting_accounts()
+    public function accountingAccounts()
     {
         return $this->hasMany(AccountingSeatAccount::class);
     }
@@ -43,7 +43,7 @@ class AccountingSeat extends Model implements Auditable
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function generated_by()
+    public function generatedBy()
     {
         return $this->belongsTo(AccountingSeatCategory::class);
     }

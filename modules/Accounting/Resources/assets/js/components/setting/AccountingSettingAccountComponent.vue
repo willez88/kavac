@@ -91,6 +91,8 @@ export default{
 				this.records = data;
 			});
 		EventBus.$on('show:errors',(data)=>{
+				console.log("DATA")
+				console.log(data)
 				this.errors = [];
 				this.errors = data;
 			});

@@ -176,11 +176,6 @@ Vue.mixin({
 			month_end:12,
 		}
 	},
-	computed:{
-		existErrors:function(){
-			return (this.errors.length > 0);
-		}
-	},
 	methods:{
 		/**
 		* Crea un array con los años desde el dado hasta el actual

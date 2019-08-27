@@ -45,7 +45,7 @@ class AccountingAccountConverter extends Model implements Auditable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function accounting_account()
+    public function accountingAccount()
     {
         return $this->belongsTo(AccountingAccount::class);
     }

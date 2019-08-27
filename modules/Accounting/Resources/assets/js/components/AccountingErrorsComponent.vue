@@ -13,6 +13,11 @@
 </template>
 <script>
 	export default{
-		props:['options']
+		props:['options'],
+		computed:{
+			existErrors:function(){
+				return (this.options.length > 0);
+			}
+		},
 	};
 </script>

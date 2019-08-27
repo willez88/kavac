@@ -43,7 +43,7 @@ class AccountingSeatReportPdfController extends Controller
     {
 
         /** @var Objet objeto con la información del asiento contable */
-        $seat = AccountingSeat::with('accounting_accounts.account.accountConverters.budgetAccount')->find($id);
+        $seat = AccountingSeat::with('accountingAccounts.account.accountConverters.budgetAccount')->find($id);
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
@@ -53,11 +53,6 @@ class AccountingSeatReportPdfController extends Controller
 
         /** @var Object Objeto base para generar el pdf */
         $pdf = new Pdf('L', 'mm', 'Letter');
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
         /*
          *  Definicion de las caracteristicas generales de la página
          */

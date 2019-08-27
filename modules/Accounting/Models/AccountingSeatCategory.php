@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Accounting\Models;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -21,9 +22,8 @@ class AccountingSeatCategory extends Model implements Auditable
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function accounting_seats()
+    public function accountingSeats()
     {
         return $this->hasMany(AccountingSeat::class, 'accounting_seat_categories_id');
     }
-
 }
