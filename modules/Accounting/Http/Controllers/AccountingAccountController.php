@@ -20,7 +20,7 @@ use Modules\Accounting\Models\AccountingSeatAccount;
  * @class AccountingAccountController
  * @brief Controlador de Cuentas patrimoniales
  *
- * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  *
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *             LICENCIA DE SOFTWARE CENDITEL</a>
