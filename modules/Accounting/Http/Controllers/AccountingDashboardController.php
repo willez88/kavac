@@ -2,18 +2,30 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
+use Auth;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
-use DateTime;
-use Auth;
 
+/**
+ * @class AccountingAccountConverterController
+ * @brief Controlador para el manejo del dashboard
+ *
+ * Clase que gestiona la conversión entre cuentas presupuestales y patrimoniales
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class AccountingDashboardController extends Controller
 {
     /**
+     * Define la configuración de la clase
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
@@ -27,8 +39,9 @@ class AccountingDashboardController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * [index Despliega la vista principal]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return [view]
      */
     public function index()
     {
@@ -36,20 +49,28 @@ class AccountingDashboardController extends Controller
     }
 
     /**
-     * Obtiene las ultimas 10 operaciones de creacion de asientos contables realizadas
-     *
+     * [getOperations Obtiene las ultimas 10 operaciones de creacion de asientos contables realizadas]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return View
+     * @return [Response]
      */
     public function getOperations()
     {
-        /** @var Object con la información de la modena por defecto establecida en la aplicación */
+        /**
+         * [$currency información de la modena por defecto establecida en la aplicación]
+         * @var [Modules\Accounting\Models\Currency]
+         */
         $currency = Currency::where('default', true)->first();
 
-        /** @var Object con la información de la modena por defecto establecida en la aplicación */
+        /**
+         * [$report_histories información de los reportes]
+         * @var [Modules\Accounting\Models\AccountingReportHistory]
+         */
         $report_histories = AccountingReportHistory::orderBy('updated_at', 'DESC')->get();
 
-        /** @var Object con la información de los ultimos 10 asientos contables generados */
+        /**
+         * [$lastRecords información de los ultimos 10 asientos contables generados]
+         * @var [Modules\Accounting\Models\AccountingSeat]
+         */
         $lastRecords = AccountingSeat::orderBy('updated_at', 'DESC')->take(10)->get();
 
         return response()->json(['lastRecords' => $lastRecords, 'currency' => $currency], 200);
@@ -63,7 +84,10 @@ class AccountingDashboardController extends Controller
      */
     public function getReportHistories()
     {
-        /** @var Object con la información de la modena por defecto establecida en la aplicación */
+        /**
+         * [$report_histories almacenara la informacion de los reportes]
+         * @var array
+         */
         $report_histories = [];
 
         for ($i=1; $i<=6; $i++) {

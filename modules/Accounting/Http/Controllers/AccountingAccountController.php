@@ -2,18 +2,17 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
+use Auth;
 use App\Imports\DataImport;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Accounting\Models\AccountingSeatAccount;
-use Modules\Accounting\Models\AccountingAccount;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
+use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingAccountImport;
-
-use Auth;
+use Modules\Accounting\Models\AccountingSeatAccount;
 
 /**
  * Clase que gestiona las Cuentas patrimoniales
@@ -57,10 +56,9 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Muestra un listado de cuentas patrimoniales
-     *
+     * [index Muestra un listado de cuentas patrimoniales]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return view
+     * @return [view] [vista]
      */
     public function index()
     {
@@ -68,11 +66,10 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Crea una nueva cuenta patrimonial
-     *
+     * [store Crea una nueva cuenta patrimonial]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
-     * @return Response
+     * @return [Json] [informacion de la operacion y listado de los registros actualizados]
      */
     public function store(Request $request)
     {
@@ -92,7 +89,7 @@ class AccountingAccountController extends Controller
 
         /**
          * [$acc  almacena la consulta de la cuenta, si esta no existe retorna null]
-         * @var [Object]
+         * @var [Modules\Accounting\Models\AccountingAccount]
          */
         $acc = AccountingAccount::where('group', $request['group'])
             ->where('subgroup', $request['subgroup'])
@@ -101,9 +98,11 @@ class AccountingAccountController extends Controller
             ->where('specific', $request['specific'])
             ->where('subspecific', $request['subspecific'])->first();
 
-        /** @var Object que almacena la consulta de la cuenta de nivel superior de la cuanta actual,
-        * si esta no posee retorna false
-        */
+        /**
+         * [$parent almacena la consulta de la cuenta de nivel superior de la cuanta actual,
+         * si esta no posee retorna false]
+         * @var [Modules\Accounting\Models\AccountingAccount]
+         */
         $parent = AccountingAccount::getParent(
             $request['group'],
             $request['subgroup'],
@@ -136,12 +135,11 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Actualiza los datos de la cuenta patrimonial
-     *
+     * [update Actualiza los datos de la cuenta patrimonial]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id      Identificador de la cuenta patrimonial a modificar
-     * @return Response
+     * @return [Json] [informacion de la operacion y listado de los registros actualizados]
      */
     public function update(Request $request, $id)
     {
@@ -169,15 +167,17 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Elimina una cuenta patrimonial
-     *
+     * [destroy Elimina una cuenta patrimonial]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador de la cuenta patrimonial a eliminar
-     * @return Response
+     * @return [Json] [informacion de la operacion y listado de los registros actualizados]
      */
     public function destroy($id)
     {
-        /** @var object Objeto con datos de la cuenta presupuestaria a eliminar */
+        /**
+         * [$AccountingAccount datos de la cuenta presupuestaria a eliminar]
+         * @var [Modules\Accounting\Models\AccountingAccount]
+         */
         $AccountingAccount = AccountingAccount::with('accountConverters')->find($id);
 
         if ($AccountingAccount) {
@@ -198,35 +198,62 @@ class AccountingAccountController extends Controller
     }
 
     /**
-    * Se obtiene el próximo codigo disponible para la cuenta que sera creada
+     * [getChildrenAccount desc]
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param [integer] $parent_id Identificador de la cuenta padre de la cual se va a generar el nuevo código
-     * @return json [JSON con los datos del nuevo código generado]
-    */
-
+     * @return [Json] [datos del nuevo código generado]
+     */
     public function getChildrenAccount($parent_id)
     {
-        /** @var object Objeto con información de la cuenta presupuestaria de nivel superior */
+        /**
+         * [$parent información de la cuenta presupuestaria de nivel superior]
+         * @var [Modules\Accounting\Models\AccountingAccount]
+         */
         $parent = AccountingAccount::find($parent_id);
 
-        /** @var string Contiene el código del subgroup */
+        /**
+         * [$subgroup valor del campo subgroup]
+         * @var [string]
+         */
         $subgroup    = $parent->subgroup;
-        /** @var string Contiene el código del ítem */
+
+        /**
+         * [$subgroup valor del campo item]
+         * @var [string]
+         */
         $item        = $parent->item;
-        /** @var string Contiene el código del generic */
+        
+        /**
+         * [$subgroup valor del campo generic]
+         * @var [string]
+         */
         $generic     = $parent->generic;
-        /** @var string Contiene el código del speific */
+        /**
+         * [$subgroup valor del campo specific]
+         * @var [string]
+         */
         $specific    = $parent->specific;
-        /** @var string Contiene el código del subspecific */
+        /**
+         * [$subgroup valor del campo subspecific]
+         * @var [string]
+         */
         $subspecific = $parent->subspecific;
 
         if ($parent->subgroup === "0") {
+            /**
+             * [$currentSubgroup almacena registro]
+             * @var [Modules\Accounting\Models\AccountingAccount]
+             */
             $currentSubgroup = AccountingAccount::where(['group' => $parent->group])
                                                 ->orderBy('subgroup', 'desc')->first();
 
             $subgroup = (strlen(intval($currentSubgroup->subgroup)) < 2 || intval($currentSubgroup->subgroup) < 9)
                     ? (intval($currentSubgroup->subgroup) + 1) : $currentSubgroup->subgroup;
         } elseif ($parent->item === "0") {
+            /**
+             * [$currentItem almacena registro]
+             * @var [Modules\Accounting\Models\AccountingAccount]
+             */
             $currentItem = AccountingAccount::where(
                 [
                     'group'    => $parent->group,
@@ -237,6 +264,10 @@ class AccountingAccountController extends Controller
             $item = (strlen(intval($currentItem->item)) < 2 || intval($currentItem->item) < 9)
                     ? (intval($currentItem->item) + 1) : $currentItem->item;
         } elseif ($parent->generic === "00") {
+            /**
+             * [$currentGeneric almacena registro]
+             * @var [Modules\Accounting\Models\AccountingAccount]
+             */
             $currentGeneric = AccountingAccount::where(
                 [
                     'group'    => $parent->group,
@@ -249,6 +280,10 @@ class AccountingAccountController extends Controller
                        ? (intval($currentGeneric->generic) + 1) : $currentGeneric->generic;
             $generic = (strlen($generic) === 1) ? "0$generic" : $generic;
         } elseif ($parent->specific === "00") {
+            /**
+             * [$currentSpecific almacena registro]
+             * @var [Modules\Accounting\Models\AccountingAccount]
+             */
             $currentSpecific = AccountingAccount::where(
                 [
                     'group'    => $parent->group,
@@ -262,6 +297,10 @@ class AccountingAccountController extends Controller
                         ? (intval($currentSpecific->specific) + 1) : $currentSpecific->specific;
             $specific = (strlen($specific) === 1) ? "0$specific" : $specific;
         } elseif ($parent->subspecific === "00") {
+            /**
+             * [$currentSubSpecific almacena registro]
+             * @var [Modules\Accounting\Models\AccountingAccount]
+             */
             $currentSubSpecific = AccountingAccount::where(
                 [
                     'group'    => $parent->group,
@@ -278,6 +317,10 @@ class AccountingAccountController extends Controller
             $subspecific = (strlen($subspecific) === 1) ? "0$subspecific" : $subspecific;
         }
 
+        /**
+         * [$account informacion de la cuenta]
+         * @var [Array]
+         */
         $account = [
             'group'        => (string)$parent->group,
             'subgroup'     => (string)$subgroup,
@@ -292,13 +335,16 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * obtiene los registros de las cuentas patrimoniales
+     * [getAccounts obtiene los registros de las cuentas patrimoniales]
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return Array con la información de las cuentas formateada
     */
     public function getAccounts()
     {
-        /** @var array arreglo que almacenara la lista de cuentas patrimoniales*/
+        /**
+         * [$records arreglo que almacenara la lista de cuentas patrimoniales]
+         * @var array
+         */
         $records = [];
         /**
          * se realiza la busqueda de manera ordenada en base al codigo
@@ -310,7 +356,6 @@ class AccountingAccountController extends Controller
                                     ->orderBy('specific', 'ASC')
                                     ->orderBy('subspecific', 'ASC')
                                     ->get() as $record) {
-            /** @var array arreglo con datos de las cuentas patrimoniales*/
             array_push($records, [
                 'id'           => $record->id,
                 'code'         =>   $record->getCode(),
@@ -322,14 +367,33 @@ class AccountingAccountController extends Controller
         return $records;
     }
 
+    /**
+     * [import Lee las filas de un archivo de hoja de calculo]
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return [Json] [Json con los registros y mensajes de informacion de la operacion]
+     */
     public function import()
     {
         $this->validate(request(), [
             'file' => 'required|mimes:xls,xlsx,ods,csv'
         ]);
 
+        /**
+         * [$headings cabeceras]
+         * @var [Maatwebsite\Excel\HeadingRowImport]
+         */
         $headings = (new HeadingRowImport)->toArray(request()->file('file'));
+
+        /**
+         * [$records registros de hoja de calculo]
+         * @var [Maatwebsite\Excel\Facades\Excel]
+         */
         $records = Excel::toArray(new DataImport, request()->file('file'))[0];
+
+        /**
+         * [$msg mensaje en caso de error]
+         * @var string
+         */
         $msg = '';
 
         if (count($headings) < 1 || $headings[0] < 1) {
@@ -352,17 +416,40 @@ class AccountingAccountController extends Controller
             return response()->json(['result' => false, 'message' => $msg], 200);
         }
 
+        /**
+         * [$records registros de hoja de calculo]
+         * @var [Maatwebsite\Excel\Facades\Excel]
+         */
         $file = Excel::toArray(new DataImport, request()->file('file'))[0];
+
+        /**
+         * [$records registros]
+         * @var array
+         */
         $records = [];
 
+        /**
+         * [$currentRow indicador de la fila en la que comenzara a leer la informacion de los registros de la
+         * hoja de calculo]
+         * @var integer
+         */
         $currentRow = 2;
+
+        /**
+         * [$rowErrors errores encontrados en la informacion de las filas]
+         * @var array
+         */
         $rowErrors = [];
         foreach ($file as $record) {
 
-            /** @var Array se almacena el código*/
+            /**
+             * @var Array se almacena el código
+            */
             $CodeExplode = explode('.', $record['codigo']);
 
-            /** se Agrega un 0 al inicio de ser necesario*/
+            /**
+             * se Agrega un 0 al inicio de ser necesario
+            */
             $n_cuenta_orden = ((int)$CodeExplode[3] > 9) ?
                                                     $CodeExplode[3]:'0'.(int)$CodeExplode[3];
             $n_subcuenta_primer_orden = ((int)$CodeExplode[4] > 9) ?
@@ -370,7 +457,10 @@ class AccountingAccountController extends Controller
             $n_subcuenta_segundo_orden = ((int)$CodeExplode[5] > 9) ?
                                                     $CodeExplode[5]:'0'.(int)$CodeExplode[5];
 
-            /** @var Array para almacenar la información que se verificara */
+            /**
+             * [$recordCode informacion de las cuentas separada]
+             * @var [array]
+             */
             $recordCode = [
                 'grupo'                     => $CodeExplode[0],
                 'subgrupo'                  => $CodeExplode[1],
@@ -382,7 +472,9 @@ class AccountingAccountController extends Controller
             ];
 
 
-            /** Se validan los errores en los formatos de las columnas en el archivo */
+            /**
+             * Se validan los errores en los formatos de las columnas en el archivo
+            */
             foreach ($this->validatedErrors($recordCode, $currentRow) as $error) {
                 array_push($rowErrors, $error);
             }
@@ -410,15 +502,18 @@ class AccountingAccountController extends Controller
     }
 
     /**
-     * Registra en la base de datos todas las cuentas cargadas desde la hoja de cálculo
+     * [registerImportedAccounts Registra en la base de datos todas las cuentas cargadas desde la hoja de cálculo]
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return Array con los errores en caso de existir
+     * @return [Array] [con los errores en caso de existir]
     */
     public function registerImportedAccounts(Request $request)
     {
         foreach ($request->records as $account) {
 
-            /** @var Object que almacena la consulta de la cuenta, si esta no existe retorna null */
+            /**
+             * [$acc almacena la consulta de la cuenta]
+             * @var [Modules\Accounting\Models\AccountingAccount]
+             */
             $acc = AccountingAccount::where('group', $account['group'])
                                 ->where('subgroup', $account['subgroup'])
                                 ->where('item', $account['item'])
@@ -426,9 +521,10 @@ class AccountingAccountController extends Controller
                                 ->where('specific', $account['specific'])
                                 ->where('subspecific', $account['subspecific'])->first();
 
-            /** @var Object que almacena la consulta de la cuenta de nivel superior
-            * de la cuanta actual, si esta no posee retorna false
-            */
+            /**
+             * [$parent  almacena la consulta de la cuenta de nivel superior]
+             * @var [Modules\Accounting\Models\AccountingAccount]
+             */
             $parent = AccountingAccount::getParent(
                 $account['group'],
                 $account['subgroup'],
@@ -466,14 +562,18 @@ class AccountingAccountController extends Controller
 
 
     /**
-     * Verifica los posibles errores que se pueden presentar en las filas de archivo y
-     * agrega un mensaje del error para el usuario
+     * [validatedErrors Verifica los posibles errores que se pueden presentar en las filas de archivo y
+     * agrega un mensaje del error para el usuario]
      *
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return Array con los errores en caso de existir
+     * @return [Array] [errores en caso de existir]
     */
     public function validatedErrors($record, $currentRow)
     {
+        /**
+         * [$errors almecena los errores en el array]
+         * @var array
+         */
         $errors = [];
         /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
         if (! ctype_digit($record['grupo'])) {
@@ -490,6 +590,7 @@ class AccountingAccountController extends Controller
             array_push($errors, 'La columna subgrupo en la fila '.$currentRow.
                 ' debe ser entero y no debe contener caracteres ni simbolos.');
         }
+        
         if ((int)$record['subgrupo'] > 9 || (int)$record['subgrupo'] < 0) {
             array_push($errors, 'La columna subgrupo en la fila '.$currentRow.
                 ' no cumple con el formato valido, Número entero entre 0 y 9.');
