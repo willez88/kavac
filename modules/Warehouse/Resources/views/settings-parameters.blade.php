@@ -9,7 +9,7 @@
 				</div>
 			</div>
 			{!! (!isset($model_setting))?Form::open($header):Form::model($model_setting, $header) !!}
-				<div class="card-body">
+				<div class="card-body" style="min-height: 0px">
 					@include('layouts.form-errors')
 					<div class="row">
 						<div class="col-md-3">
