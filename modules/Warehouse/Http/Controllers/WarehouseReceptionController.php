@@ -5,38 +5,38 @@ namespace Modules\Warehouse\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
-use Modules\Warehouse\Models\WarehouseInventaryProductMovement;
-use Modules\Warehouse\Models\WarehouseInventaryProduct;
-use Modules\Warehouse\Models\WarehouseProductAttribute;
-use Modules\Warehouse\Models\WarehouseProductValues;
-use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
-use Modules\Warehouse\Models\WarehouseMovement;
-use Modules\Warehouse\Models\Warehouse;
-
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\CodeSetting;
 
-
+use Modules\Warehouse\Models\WarehouseInventoryProductMovement;
+use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
+use Modules\Warehouse\Models\WarehouseInventoryProduct;
+use Modules\Warehouse\Models\WarehouseProductAttribute;
+use Modules\Warehouse\Models\WarehouseProductValue;
+use Modules\Warehouse\Models\WarehouseMovement;
 
 /**
  * @class WarehouseReceptionController
- * @brief Controlador de Recepciones de Almacén
- * 
- * Clase que gestiona las Recepciones de los artículos de almacén
- * 
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @brief Controlador de recepciones de almacén
+ *
+ * Clase que gestiona las recepciones de los productos al almacén
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class WarehouseReceptionController extends Controller
 {
     use ValidatesRequests;
+
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -51,19 +51,18 @@ class WarehouseReceptionController extends Controller
     /**
      * Muestra un listado de las Recepciones o Ingresos de Almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
-        $receptions = WarehouseMovement::with('start','finish')->get();
-        return view('warehouse::receptions.list', compact('receptions'));
+        return view('warehouse::receptions.list');
     }
 
     /**
      * Muestra el formulario para registrar un nuevo Ingreso de Almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function create()
@@ -74,151 +73,212 @@ class WarehouseReceptionController extends Controller
     /**
      * Valida y Registra un nuevo Ingreso de Almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
         $this->validate($request, [
-            'product' => 'required',
+            'warehouse_inventory_products' => 'required',
             'warehouse_id' => 'required',
             'institution_id' => 'required',
 
         ]);
-        $tam = count($request->product);
+        
+        $codeSetting = CodeSetting::where('table', 'warehouse_movements')->first();
+        if (is_null($codeSetting)) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]);
+            return response()->json(['result' => false, 'redirect' => route('warehouse.setting.index')], 200);
+        }
+
+        $code  = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
+        $codeSetting = CodeSetting::where('table', 'warehouse_inventory_products')->first();
+        if (is_null($codeSetting)) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]);
+            return response()->json(['result' => false, 'redirect' => route('warehouse.setting.index')], 200);
+        }
+
+        $tam = count($request->warehouse_inventory_products);
         $i=0;
-        for($i=0; $i< $tam; $i++){
-            $attributes = $request->product[$i]['attributes'];
+        for ($i=0; $i < $tam; $i++) {
+            $attributes = $request->warehouse_inventory_products[$i]['warehouse_product_attributes'];
             $att = count($attributes);
             $j=0;
             $this->validate($request, [
-                'product.'.$i.'.product_id' => 'required',
-                'product.'.$i.'.quantity' => 'required',
-                'product.'.$i.'.unit_id' => 'required',
-                'product.'.$i.'.unit_value' => 'required',
+                'warehouse_inventory_products.'.$i.'.warehouse_product_id' => 'required',
+                'warehouse_inventory_products.'.$i.'.quantity' => 'required',
+                'warehouse_inventory_products.'.$i.'.measurement_unit_id' => 'required',
+                'warehouse_inventory_products.'.$i.'.currency_id' => 'required',
+                'warehouse_inventory_products.'.$i.'.unit_value' => 'required',
                 
             ]);
             /*
-             * Hacer validación mas detallada (ej: diferenciar tipo de dato en atributos) 
+             * Hacer validación mas detallada (ej: diferenciar tipo de dato en atributos)
              */
-            for ($j=0; $j < $att; $j++) { 
-               $this->validate($request, [
-                'product.'.$i.'.attributes.'.$j.'.name' => 'required',
-                'product.'.$i.'.attributes.'.$j.'.value' => 'required',                
-            ]); 
+            for ($j=0; $j < $att; $j++) {
+                $this->validate($request, [
+                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.name' => 'required',
+                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.value' => 'required',
+                ]);
             }
         }
 
 
         /*********************************************************/
     
-        $inst_ware = WarehouseInstitutionWarehouse::where('warehouse_id',$request->warehouse_id)
-            ->where('institution_id',$request->institution_id)->first();
+        $inst_ware = WarehouseInstitutionWarehouse::where('warehouse_id', $request->warehouse_id)
+            ->where('institution_id', $request->institution_id)->first();
 
-        DB::transaction( function() use($request, $inst_ware){
-
+        DB::transaction(function () use ($request, $inst_ware, $code) {
             $movement = WarehouseMovement::create([
-                    'type' => 0,
-                    'description' => 'Registro manual de productos en el inventario del almacén',
-                    'complete' => true,
-                    'warehouse_inst_finish_id' => $inst_ware->id,
-                    'user_id' => Auth::id(),
-                ]);
+                'code' => $code,
+                'type' => 'C',
+                'state' => 'Pendiente',
+                'description' => 'Registro manual de productos en el inventario del almacén',
+                'warehouse_institution_warehouse_end_id' => $inst_ware->id,
+                'user_id' => Auth::id(),
+            ]);
+            $equal = null;
                 
-            foreach ($request->product as $product) {
-                $product_id = $product['product_id'];
-                $unit = $product['unit_id'];
+            foreach ($request->warehouse_inventory_products as $product) {
+                $product_id = $product['warehouse_product_id'];
+                $unit = $product['measurement_unit_id'];
+                $currency = $product['currency_id'];
                 $quantity = $product['quantity'];
                 $value = $product['unit_value'];
 
-                // Se busca en el inventario por producto y unidad si existe un registro previo
+                /** Se busca en el inventario por producto y unidad si existe un registro previo */
 
-                $inventary = WarehouseInventaryProduct::where('product_id', $product_id)->where('unit_id',$unit)->where('warehouse_institution_id',$inst_ware->id)->where('unit_value',$value)->get();
-                // Si existe un registro previo se verifican los atributos del nuevo ingreso
-                if ( count($inventary) > 0 ){
+                $inventory = WarehouseInventoryProduct::where('warehouse_product_id', $product_id)
+                    ->where('measurement_unit_id', $unit)
+                    ->where('warehouse_institution_warehouse_id', $inst_ware->id)
+                    ->where('unit_value', $value)->get();
 
-                    foreach ($inventary as $product_inventary) {
+                /** Si existe un registro previo se verifican los atributos del nuevo ingreso */
+                if (count($inventory) > 0) {
+                    foreach ($inventory as $product_inventory) {
+                        /** @var boolean $equal Define si los atributos coinciden con los registrados */
                         $equal = true;
-                        //Verificamos que tengan los mismos atributos
 
-                        foreach ($product['attributes'] as $attribute) {
+                        foreach ($product['warehouse_product_attributes'] as $attribute) {
                             $name = $attribute['name'];
                             $val = $attribute['value'];
 
-                            $product_att = WarehouseProductAttribute::where('product_id',$product_id)->where('name', $name)->first();
+                            $product_att = WarehouseProductAttribute::where('warehouse_product_id', $product_id)
+                                ->where('name', $name)->first();
 
-                            if (!is_null($product_att)){
-                                
-                                $product_value = WarehouseProductValues::where('value', $val)->where('attribute_id',$product_att->id)->where('inventary_id', $product_inventary->id)->first();
+                            if (!is_null($product_att)) {
+                                $product_value = WarehouseProductValue::where('value', $val)
+                                    ->where('warehouse_product_attribute_id', $product_att->id)
+                                    ->where('warehouse_inventory_product_id', $product_inventory->id)->first();
 
-                                if(is_null($product_value)){
-                                    //si el valor de este atributo no existe, son diferentes
-                                    $equal =false;
+                                if (is_null($product_value)) {
+                                    /** si el valor de este atributo no existe, son diferentes */
+                                    $equal = false;
                                     break;
                                 }
-                            }
-                            else{
+                            } else {
                                 $equal = false;
                                 break;
                             }
                         }
-                        if ($equal === true){
-                            //Si todos los atributos de este producto son iguales ajustamos la existencia (exist_actual + exist_add) y generamos el movimiento
-                            $product_inventary->exist = $product_inventary->exist + $quantity;
-                            $product_inventary->save();
-                            $inventary_movement = WarehouseInventaryProductMovement::create([
+                        if ($equal === true) {
+                            
+                            /** Se genera el movimiento, para su posterior aprobación */
+
+                            $inventory_movement = WarehouseInventoryProductMovement::create([
                                 'quantity' => $quantity,
                                 'new_value' => $value,
-                                'movement_id' => $movement->id,
-                                'inventary_product_id' => $product_inventary->id,
+                                'warehouse_movement_id' => $movement->id,
+                                'warehouse_inventory_product_id' => $product_inventory->id,
                             ]);
-                            
                         }
                     }
-                }
-                //Si no existe un registro previo de ese producto en inventario o algún atributo es diferente (se genera un nuevo registro)
-                else if ( (count($inventary) == 0) || ($equal == false)  ) {
-                    $product_inventary = WarehouseInventaryProduct::create([
-                        'product_id' => $product_id,
-                        'exist' => $quantity,
-                        'unit_id' => $unit,
+                } elseif ((count($inventory) == 0) || ($equal == false)) {
+                    /**
+                     * Si no existe un registro previo de ese producto en inventario o algún atributo es diferente
+                     * se genera un nuevo registro
+                     */
+                    $codeSetting = CodeSetting::where('table', 'warehouse_inventory_products')->first();
+                    
+                    $codep  = generate_registration_code(
+                        $codeSetting->format_prefix,
+                        strlen($codeSetting->format_digits),
+                        (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+                        $codeSetting->model,
+                        $codeSetting->field
+                    );
+                    
+                    $product_inventory = WarehouseInventoryProduct::create([
+                        'code' => $codep,
+                        'warehouse_product_id' => $product_id,
+                        'measurement_unit_id' => $unit,
+                        'currency_id' => $currency,
                         'unit_value' => $value,
-                        'warehouse_institution_id' => $inst_ware->id,
+                        'warehouse_institution_warehouse_id' => $inst_ware->id,
                     ]);
+
             
-                    $inventary_movement = WarehouseInventaryProductMovement::create([
+                    $inventory_movement = WarehouseInventoryProductMovement::create([
                         'quantity' => $quantity,
                         'new_value' => $value,
-                        'movement_id' => $movement->id,
-                        'inventary_product_id' => $product_inventary->id,
+                        'warehouse_movement_id' => $movement->id,
+                        'warehouse_inventory_product_id' => $product_inventory->id,
                     ]);
 
-                    foreach ($product['attributes'] as $attribute) {
 
+                    foreach ($product['warehouse_product_attributes'] as $attribute) {
                         $name = $attribute['name'];
                         $value = $attribute['value'];
 
-                        $field = WarehouseProductAttribute::where('product_id',$product_id)->where('name', $name)->first();
+                        $field = WarehouseProductAttribute::where('warehouse_product_id', $product_id)
+                            ->where('name', $name)->first();
 
-                        WarehouseProductValues::create([
+
+                        WarehouseProductValue::create([
                             'value' => $value,
-                            'attribute_id' => $field->id,
-                            'inventary_id' => $product_inventary->id,
+                            'warehouse_product_attribute_id' => $field->id,
+                            'warehouse_inventory_product_id' => $product_inventory->id,
                         ]);
                     }
                 }
-
             }
         });
-
-        return response()->json(['result' => true],200);
+        $warehouse_movement = WarehouseMovement::where('code', $code)->first();
+        if (is_null($warehouse_movement)) {
+            $request->session()->flash(
+                'message',
+                [
+                    'type' => 'other',
+                    'title' => 'Alerta',
+                    'icon' => 'screen-error',
+                    'class' => 'growl-danger',
+                    'text' => 'No se pudo completar la operación.'
+                ]
+            );
+        } else {
+            $request->session()->flash('message', ['type' => 'store']);
+        }
+        return response()->json(['result' => true, 'redirect' => route('warehouse.reception.index')], 200);
     }
 
     /**
      * Muestra el formulario para editar un Ingreso de Almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del ingreso de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
@@ -231,7 +291,7 @@ class WarehouseReceptionController extends Controller
     /**
      * Actualiza la información de los Ingresos de Almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @param  Integer $id Identificador único del ingreso de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
@@ -240,144 +300,173 @@ class WarehouseReceptionController extends Controller
     {
         $warehouse_movement = WarehouseMovement::find($id);
         $this->validate($request, [
+            'warehouse_inventory_products' => 'required',
             'warehouse_id' => 'required',
             'institution_id' => 'required',
-            'product' => 'required',
+
         ]);
 
-        $tam = count($request->product);
-        for($i=0; $i< $tam; $i++){
-            $attributes = $request->product[$i]['attributes'];
+        $tam = count($request->warehouse_inventory_products);
+        for ($i=0; $i< $tam; $i++) {
+            $attributes = $request->warehouse_inventory_products[$i]['warehouse_product_attributes'];
             $att = count($attributes);
             $this->validate($request, [
-                'product.'.$i.'.product_id' => 'required',
-                'product.'.$i.'.quantity' => 'required',
-                'product.'.$i.'.unit_id' => 'required',
-                'product.'.$i.'.unit_value' => 'required',
+                'warehouse_inventory_products.'.$i.'.warehouse_product_id' => 'required',
+                'warehouse_inventory_products.'.$i.'.quantity' => 'required',
+                'warehouse_inventory_products.'.$i.'.measurement_unit_id' => 'required',
+                'warehouse_inventory_products.'.$i.'.currency_id' => 'required',
+                'warehouse_inventory_products.'.$i.'.unit_value' => 'required',
                 
             ]);
 
-            for ($j=0; $j < $att; $j++) { 
-               $this->validate($request, [
-                'product.'.$i.'.attributes.'.$j.'.name' => 'required',
-                'product.'.$i.'.attributes.'.$j.'.value' => 'required',                
-            ]); 
+            for ($j=0; $j < $att; $j++) {
+                $this->validate($request, [
+                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.name' => 'required',
+                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.value' => 'required',
+                ]);
             }
         }
 
-        $product_movements = WarehouseInventaryProductMovement::where('movement_id', $warehouse_movement->id)->get();
+        $product_movements = WarehouseInventoryProductMovement::where(
+            'warehouse_movement_id',
+            $warehouse_movement->id
+        )->get();
 
-        $inst_ware = WarehouseInstitutionWarehouse::where('warehouse_id',$request->warehouse_id)
-            ->where('institution_id',$request->institution_id)->first();
+        $inst_ware = WarehouseInstitutionWarehouse::where('warehouse_id', $request->warehouse_id)
+            ->where('institution_id', $request->institution_id)->first();
 
-        DB::transaction( function() use($request, $warehouse_movement, $inst_ware, $product_movements){
-            $warehouse_movement->warehouse_inst_finish_id = $inst_ware->id;
+        DB::transaction(function () use ($request, $warehouse_movement, $inst_ware, $product_movements) {
+            $warehouse_movement->warehouse_institution_warehouse_end_id = $inst_ware->id;
             $warehouse_movement->user_id = Auth::id();
             $warehouse_movement->save();
+            $equal = null;
 
-            /*
-             * Asumiendo que se gestione la solicitud sobre la misma institución y almacén
-             */
-            foreach ($request->product as $product) {
-                $product_id = $product['product_id'];
-                $unit = $product['unit_id'];
+            $update = now();
+            /** Se agregan los nuevos elementos a la solicitud */
+
+            foreach ($request->warehouse_inventory_products as $product) {
+                $product_id = $product['warehouse_product_id'];
+                $unit = $product['measurement_unit_id'];
+                $currency = $product['currency_id'];
                 $quantity = $product['quantity'];
                 $value = $product['unit_value'];
 
-                // Se busca en el inventario por producto y unidad si existe un registro previo
+                /** Se busca en el inventario por producto y unidad si existe un registro previo */
 
-                $inventary = WarehouseInventaryProduct::where('product_id', $product_id)->where('unit_id',$unit)->where('warehouse_institution_id',$inst_ware->id)->where('unit_value',$value)->get();
-                // Si existe un registro previo se verifican los atributos del nuevo ingreso
+                $inventory = WarehouseInventoryProduct::where('warehouse_product_id', $product_id)
+                    ->where('measurement_unit_id', $unit)
+                    ->where('warehouse_institution_warehouse_id', $inst_ware->id)
+                    ->where('unit_value', $value)->get();
 
-                if ( count($inventary) > 0){
+                /** Si existe un registro previo se verifican los atributos del nuevo ingreso */
+                if (count($inventory) > 0) {
+                    foreach ($inventory as $product_inventory) {
+                        $old_inventory = $product_movements->where(
+                            'warehouse_inventory_product_id',
+                            $product_inventory->id
+                        )->first();
 
-                    foreach ($inventary as $product_inventary) {
-                        $old_inventary = $product_movements->where('inventary_product_id', $product_inventary->id)->first();
+                        $equal =  (is_null($old_inventory))?false:true;
+                        if ($equal == true) {
+                            /** Verificamos que tengan los mismos atributos */
 
-                        # si no existe el registro se agrega un nuevo registro a la solicitud
-                           $equal =  (is_null($old_inventary))?false:true;
-                        if( $equal == true){
-                            //Verificamos que tengan los mismos atributos
-
-                            foreach ($product['attributes'] as $attribute) {
+                            foreach ($product['warehouse_product_attributes'] as $attribute) {
                                 $name = $attribute['name'];
                                 $val = $attribute['value'];
 
-                                $product_att = WarehouseProductAttribute::where('product_id',$product_id)->where('name', $name)->first();
+                                $product_att = WarehouseProductAttribute::where('warehouse_product_id', $product_id)
+                                    ->where('name', $name)->first();
 
-                                if (!is_null($product_att)){
-                                    
-                                    $product_value = WarehouseProductValues::where('value', $val)->where('attribute_id',$product_att->id)->where('inventary_id', $product_inventary->id)->first();
+                                if (!is_null($product_att)) {
+                                    $product_value = WarehouseProductValue::where('value', $val)
+                                        ->where('warehouse_product_attribute_id', $product_att->id)
+                                        ->where('warehouse_inventory_product_id', $product_inventory->id)->first();
 
-                                #si el valor de este atributo no existe, son diferentes
-                                    if(is_null($product_value))
-                                        $equal =false;
-                                }
-                                else
+                                    #si el valor de este atributo no existe, son diferentes
+                                    if (is_null($product_value)) {
+                                        $equal = false;
+                                        break;
+                                    }
+                                } else {
                                     $equal = false;
+                                    break;
+                                }
                             }
-                            # Si todos los atributos de este producto son iguales ajustamos la existencia (**)
-                            if ($equal == true){
-                                
-                                if($old_inventary->quantity > $quantity){
-                                    $product_inventary->exist -= $old_inventary->quantity - $quantity;
-                                    $old_inventary->quantity -= $old_inventary->quantity - $quantity;
-                                }
-                                else if($old_inventary->quantity < $quantity){
-                                    $product_inventary->exist += $quantity - $old_inventary->quantity ;
-                                    $old_inventary->quantity += $quantity - $old_inventary->quantity;
-                                }
-                                $old_inventary->new_value = $value;
-                                $product_inventary->save();
-                                $old_inventary->save();
+                            /** Si todos los atributos de este producto son iguales ajustamos la existencia */
+                            if ($equal == true) {
+                                $old_inventory->quantity = $quantity;
+                                $old_inventory->new_value = $value;
+                                $old_inventory->updated_at = $update;
+                                $old_inventory->save();
                             }
                         }
-
                     }
                 }
-                //Si no existe un registro previo de ese producto en inventario o algún atributo es diferente (se genera un nuevo registro)
-                if ( ( count($inventary) == 0) || ($equal == false)  ) {
-                    $product_inventary = WarehouseInventaryProduct::create([
-                        'product_id' => $product_id,
-                        'exist' => $quantity,
-                        'unit_id' => $unit,
+                /** Si no existe un registro previo de ese producto en inventario
+                 * ó algún atributo es diferente (se genera un nuevo registro)
+                 */
+                if ((count($inventory) == 0) || ($equal == false)) {
+                    $codeSetting = CodeSetting::where('table', 'warehouse_inventory_products')->first();
+                    
+                    $codep  = generate_registration_code(
+                        $codeSetting->format_prefix,
+                        strlen($codeSetting->format_digits),
+                        (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+                        $codeSetting->model,
+                        $codeSetting->field
+                    );
+                    
+                    $product_inventory = WarehouseInventoryProduct::create([
+                        'code' => $codep,
+                        'warehouse_product_id' => $product_id,
+                        'measurement_unit_id' => $unit,
+                        'currency_id' => $currency,
                         'unit_value' => $value,
-                        'warehouse_institution_id' => $inst_ware->id,
+                        'warehouse_institution_warehouse_id' => $inst_ware->id,
                     ]);
             
-                    $inventary_movement = WarehouseInventaryProductMovement::create([
+                    $inventory_movement = WarehouseInventoryProductMovement::create([
                         'quantity' => $quantity,
                         'new_value' => $value,
-                        'movement_id' => $warehouse_movement->id,
-                        'inventary_product_id' => $product_inventary->id,
+                        'warehouse_movement_id' => $warehouse_movement->id,
+                        'warehouse_inventory_product_id' => $product_inventory->id,
+                        'updated_at' => $update,
                     ]);
 
-                    foreach ($product['attributes'] as $attribute) {
-
+                    foreach ($product['warehouse_product_attributes'] as $attribute) {
                         $name = $attribute['name'];
                         $value = $attribute['value'];
 
-                        $field = WarehouseProductAttribute::where('product_id',$product_id)->where('name', $name)->first();
+                        $field = WarehouseProductAttribute::where('warehouse_product_id', $product_id)
+                            ->where('name', $name)->first();
 
-                        WarehouseProductValues::create([
+                        WarehouseProductValue::create([
                             'value' => $value,
-                            'attribute_id' => $field->id,
-                            'inventary_id' => $product_inventary->id,
+                            'warehouse_product_attribute_id' => $field->id,
+                            'warehouse_inventory_product_id' => $product_inventory->id,
                         ]);
                     }
                 }
             }
 
+            /** Se eliminan los demas elementos de la solicitud */
+            $warehouse_inventory_product_movements = WarehouseInventoryProductMovement::where(
+                'warehouse_movement_id',
+                $warehouse_movement->id
+            )->where('updated_at', '!=', $update)->get();
+
+            foreach ($warehouse_inventory_product_movements as $warehouse_inventory_product_movement) {
+                $warehouse_inventory_product_movement->delete();
+            }
         });
-
-
-        return response()->json(['result' => true],200);
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('warehouse.reception.index')], 200);
     }
 
     /**
-     * Elimina un Ingreso de Almacén
+     * Elimina un ingreso de almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del ingreso de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
@@ -385,33 +474,93 @@ class WarehouseReceptionController extends Controller
     {
         $reception = WarehouseMovement::find($id);
         $reception->delete();
-        return back()->with('info', 'Fue eliminado exitosamente');
+        return response()->json(['message' => 'destroy'], 200);
     }
 
     /**
-     * Vizualiza la Información de una recepción o Ingreso de Almacén
+     * Vizualiza la información de una recepción o ingreso de almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del movimiento de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     
-    public function vueInfo($id){
-        
-        return response()->json(['records' => WarehouseMovement::where('id',$id)->with(['productMovements' => 
-
-            function($query){
-                $query->with(['inventary' => 
-                function($query){
-                    $query->with(['product' =>
-                    function($query){
-                        $query->with(['attributes'=>
-                        function($query){
-                            $query->with('value');
+    public function vueInfo($id)
+    {
+        return response()->json(['records' => WarehouseMovement::where('id', $id)
+            ->with(
+                [
+                    'warehouseInventoryProductMovements' => function ($query) {
+                        $query->with(['warehouseInventoryProduct' => function ($query) {
+                            $query->with(['warehouseProduct', 'warehouseProductValues' => function ($query) {
+                                $query->with('warehouseProductAttribute');
+                            }, 'measurementUnit', 'currency']);
                         }]);
-                    },'unit']);
-                }]);
-            },'finish','start']
-        )->first()], 200);
+                    }, 'warehouseInstitutionWarehouseInitial', 'warehouseInstitutionWarehouseEnd', 'user']
+            )->first()], 200);
+    }
+
+    /**
+     * Obtiene un listado de los ingresos de almacén registrados
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function vueList()
+    {
+        return response()->json([
+            'records' => WarehouseMovement::whereNull('warehouse_institution_warehouse_initial_id')
+            ->with(
+                'warehouseInstitutionWarehouseInitial',
+                'warehouseInstitutionWarehouseEnd',
+                'user'
+            )->get()], 200);
+    }
+
+    /**
+     * Rechaza el ingreso de almacén
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  Integer $id Identificador único del ingreso de almacén
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    public function rejectedReception(Request $request, $id)
+    {
+        $warehouse_reception = WarehouseMovement::find($id);
+        $warehouse_reception->state = 'Rechazado';
+        $warehouse_reception->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('warehouse.reception.index')], 200);
+    }
+
+    /**
+     * Aprueba el ingreso de almacén
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  Integer $id Identificador único del ingreso de almacén
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    public function approvedReception(Request $request, $id)
+    {
+        $warehouse_reception = WarehouseMovement::find($id);
+        $warehouse_reception->state = 'Completado';
+        $warehouse_reception->save();
+
+        $warehouse_inventory_product_movements = $warehouse_reception->WarehouseInventoryProductMovements;
+        foreach ($warehouse_inventory_product_movements as $warehouse_inventory_product_movement) {
+            $warehouse_inventory_product = $warehouse_inventory_product_movement->WarehouseInventoryProduct;
+            if ($warehouse_inventory_product->exist > 0) {
+                $warehouse_inventory_product->exist += $warehouse_inventory_product_movement->quantity;
+                $warehouse_inventory_product->save();
+            } else {
+                $warehouse_inventory_product->exist = $warehouse_inventory_product_movement->quantity;
+                $warehouse_inventory_product->save();
+            }
+        }
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('warehouse.reception.index')], 200);
     }
 }
