@@ -21,7 +21,9 @@ use Modules\Asset\Models\Asset;
  * Clase que gestiona las asignaciones de bienes institucionales
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetAsignationController extends Controller
 {
@@ -36,7 +38,7 @@ class AssetAsignationController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.asignation.list', ['only' => 'index']);
-        $this->middleware('permission:asset.asignation.create', ['only' => ['create', 'Asset_Assign', 'store']]);
+        $this->middleware('permission:asset.asignation.create', ['only' => ['create', 'assetAssign', 'store']]);
         $this->middleware('permission:asset.asignation.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:asset.asignation.delete', ['only' => 'destroy']);
     }
@@ -70,7 +72,7 @@ class AssetAsignationController extends Controller
      * @param  Integer $id Identificador único del bien a asignar
      * @return \Illuminate\View\View
      */
-    public function asset_assign($id)
+    public function assetAssign($id)
     {
         $asset = Asset::find($id);
         return view('asset::asignations.create', compact('asset'));
@@ -148,38 +150,35 @@ class AssetAsignationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $asignation = AssetAsignation::where('id', $id)->with('asset_asignation_assets')->first();
+        $asignation = AssetAsignation::where('id', $id)->with('assetAsignationAssets')->first();
         $asignation->payroll_staff_id = $request->payroll_staff_id;
         $asignation->save();
 
-        /** Recorro la vieja lista para verificar si hay elementos eliminados en la nueva lista */
-        $assets_asignation = AssetAsignationAsset::where('asset_asignation_id', $asignation->id)->get();
-
-        foreach ($assets_asignation as $asset_asignation) {
-            $asset = Asset::find($asset_asignation->asset_id);
-            $datos = $request->assets;
-            $clave = in_array($asset->id, $datos);
-            if ($clave == false) {
-                $asset->asset_status_id = 10;
-                $asset->save();
-                $asset_asignation->delete();
-            }
-        }
-
-        /** Recorro la nueva lista para verificar si hay nuevos elementos a ser insertados */
+        $update = now();
+        /** Se agregan los nuevos elementos a la solicitud */
         foreach ($request->assets as $asset_id) {
             $asset = Asset::find($asset_id);
             $asset->asset_status_id = 1;
             $asset->save();
-            $asset_asignation = AssetAsignationAsset::where('asset_id', $asset->id)->where('asset_asignation_id', $asignation->id)->first();
-            if (is_null($asset_asignation)) {
-                $asset_asignation = AssetAsignationAsset::create([
+            $asset_asignation = AssetAsignationAsset::updateOrCreate([
                     'asset_id' => $asset->id,
                     'asset_asignation_id' => $asignation->id,
+                    'updated_at' => $update
                 ]);
-            }
         }
-        $request->session()->flash('message', ['type' => 'store']);
+        /** Se eliminan los demas elementos de la solicitud */
+        $assets_asignation = AssetAsignationAsset::where('asset_asignation_id', $asignation->id)
+            ->where('updated_at', '!=', $update)->get();
+
+        foreach ($assets_asignation as $asset_asignation) {
+            $asset = Asset::find($asset_asignation->asset_id);
+            $asset->asset_status_id = 10;
+            $asset->save();
+            
+            $asset_asignation->delete();
+        }
+
+        $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('asset.asignation.index')], 200);
     }
 
@@ -206,12 +205,22 @@ class AssetAsignationController extends Controller
     public function vueInfo($id)
     {
         $asignation = AssetAsignation::where('id', $id)
-            ->with(['payrollStaff','asset_asignation_assets' =>
+            ->with(['payrollStaff','assetAsignationAssets' =>
                 function ($query) {
-                    $query->with(['asset' =>
-                    function ($query) {
-                        $query->with('asset_type', 'asset_category', 'asset_subcategory', 'asset_specific_category', 'asset_acquisition_type', 'asset_condition', 'asset_status', 'asset_use_function');
-                    }]);
+                    $query->with(
+                        ['asset' => function ($query) {
+                            $query->with(
+                                'assetType',
+                                'assetCategory',
+                                'assetSubcategory',
+                                'assetSpecificCategory',
+                                'assetAcquisitionType',
+                                'assetCondition',
+                                'assetStatus',
+                                'assetUseFunction'
+                            );
+                        }]
+                    );
                 }])->first();
 
         return response()->json(['records' => $asignation], 200);
