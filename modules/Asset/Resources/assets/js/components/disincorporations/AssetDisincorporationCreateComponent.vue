@@ -15,9 +15,21 @@
 		</div>
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
-				<ul>
-					<li v-for="error in errors">{{ error }}</li>
-				</ul>
+				<div class="container">
+					<div class="alert-icon">
+						<i class="now-ui-icons objects_support-17"></i>
+					</div>
+					<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+							@click.prevent="errors = []">
+						<span aria-hidden="true">
+							<i class="now-ui-icons ui-1_simple-remove"></i>
+						</span>
+					</button>
+					<ul>
+						<li v-for="error in errors">{{ error }}</li>
+					</ul>
+				</div>
 			</div>
 
 			<div class="row">
@@ -341,10 +353,9 @@
 			},
 			filterRecords(){
 				const vm = this;
-				var url =  '/asset/registers/search';
+				var url =  '/asset/registers/search/clasification';
 
 				var filters = {
-					case: (vm.record.id == '')?'1':'2',
 					asset_type: vm.record.asset_type_id,
 					asset_category: vm.record.asset_category_id,
 					asset_subcategory: vm.record.asset_subcategory_id,

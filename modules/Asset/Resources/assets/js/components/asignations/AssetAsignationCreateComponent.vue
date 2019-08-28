@@ -15,9 +15,21 @@
 		</div>
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
-				<ul>
-					<li v-for="error in errors">{{ error }}</li>
-				</ul>
+				<div class="container">
+					<div class="alert-icon">
+						<i class="now-ui-icons objects_support-17"></i>
+					</div>
+					<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+							@click.prevent="errors = []">
+						<span aria-hidden="true">
+							<i class="now-ui-icons ui-1_simple-remove"></i>
+						</span>
+					</button>
+					<ul>
+						<li v-for="error in errors">{{ error }}</li>
+					</ul>
+				</div>
 			</div>
 
 			<div class="row">
@@ -133,15 +145,22 @@
 
 				<div slot="check" slot-scope="props" class="text-center">
 					<label class="form-checkbox">
-						<input type="checkbox" class="cursor-pointer" :value="props.row.id" :id="'checkbox_'+props.row.id" v-model="selected">
+						<input type="checkbox" class="cursor-pointer" :value="props.row.id"
+							:id="'checkbox_'+props.row.id" v-model="selected">
 					</label>
 				</div>
 				<div slot="institution" slot-scope="props" class="text-center">
-					<span>{{ (props.row.institution)? props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}</span>
+					<span>
+						{{ (props.row.institution)?
+							props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}
+					</span>
 					
 				</div>
 				<div slot="asset_condition" slot-scope="props" class="text-center">
-					<span>{{ (props.row.asset_condition)? props.row.asset_condition.name:props.row.asset_condition_id }}</span>
+					<span>
+						{{ (props.row.asset_condition)?
+							props.row.asset_condition.name:props.row.asset_condition_id }}
+					</span>
 				</div>
 				<div slot="asset_status" slot-scope="props" class="text-center">
 					<span>{{ (props.row.asset_status)? props.row.asset_status.name:props.row.asset_status_id }}</span>
@@ -256,7 +275,8 @@
 			assetid: Number, 
 		},
 		methods: {
-			toggleActive({ row }) {
+			toggleActive({ row })
+			{
 				const vm = this;
 				var checkbox = document.getElementById('checkbox_' + row.id);
 
@@ -277,7 +297,8 @@
 				}
 		    },
 
-			reset() {
+			reset()
+			{
 				this.record = {
 					id: '',
 					payroll_position_type_id: '',
@@ -295,7 +316,8 @@
 				this.selectAll = false;
 				
 			},
-			select() {
+			select()
+			{
 				const vm = this;
 				vm.selected = [];
 				$.each(vm.records, function(index,campo){
@@ -308,7 +330,8 @@
 					}
 				});
 			},
-			createForm(url) {
+			createForm(url)
+			{
 				const vm = this
 				vm.errors = [];
 				if(!vm.selected.length > 0){
@@ -318,7 +341,8 @@
 				vm.record.assets = vm.selected;
 				vm.createRecord(url);
 			},
-			loadForm(id){
+			loadForm(id)
+			{
 				const vm = this;
 	            var fields = {};
 	            
@@ -336,7 +360,8 @@
 	                }
 	            });
 			},
-			filterAsignation(asset) {
+			filterAsignation(asset)
+			{
 		      const vm = this;
 		      var equal = false;
 		      var fields = vm.record.asset_asignation_assets;
@@ -347,10 +372,10 @@
 		      });
 		      return equal;
 		    },
-			loadAssets(status = null){
+			loadAssets(status = null)
+			{
 				const vm = this;
 				axios.get('/asset/registers/vue-list').then(response => {
-					//vm.records = response.data.records;
 					vm.records = response.data.records.filter((asset) => {
 					 	return (vm.asignationid != null)?
 					 	(asset.asset_condition_id == 1):
@@ -358,16 +383,16 @@
 					 });
 				});
 			},
-			filterRecords(){
+			filterRecords()
+			{
 				const vm = this;
-				var url =  '/asset/registers/search';
+				var url =  '/asset/registers/search/clasification';
 
 				var filters = {
-					case: (vm.record.id == '')?'1':'2',
-					type: vm.record.asset_type_id,
-					category: vm.record.asset_category_id,
-					subcategory: vm.record.asset_subcategory_id,
-					specific_category: vm.record.asset_specific_category_id
+					asset_type: vm.record.asset_type_id,
+					asset_category: vm.record.asset_category_id,
+					asset_subcategory: vm.record.asset_subcategory_id,
+					asset_specific_category: vm.record.asset_specific_category_id
 				};
 
 				axios.post(url, filters).then(response => {

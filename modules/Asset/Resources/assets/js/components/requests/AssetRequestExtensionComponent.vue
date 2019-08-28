@@ -23,9 +23,21 @@
 					<div class="modal-body">
 
 						<div class="alert alert-danger" v-if="errors.length > 0">
-							<ul>
-								<li v-for="error in errors">{{ error }}</li>
-							</ul>
+							<div class="container">
+								<div class="alert-icon">
+									<i class="now-ui-icons objects_support-17"></i>
+								</div>
+								<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+										@click.prevent="errors = []">
+									<span aria-hidden="true">
+										<i class="now-ui-icons ui-1_simple-remove"></i>
+									</span>
+								</button>
+								<ul>
+									<li v-for="error in errors">{{ error }}</li>
+								</ul>
+							</div>
 						</div>
 
 						<div class="row">
@@ -107,7 +119,7 @@
 						vm.record = {
 							id: '',
 							date: fields.delivery_date,
-							asset_request_id: fields.id
+							asset_request_id: vm.requestid
 						};
 					}
 					if ($("#" + modal_id).length) {

@@ -1,5 +1,5 @@
 @php
-    $height = $pdf->get_Y();
+    $height = $pdf->getPositionY();
     $deben=0;
     $haber=0;                
 @endphp
@@ -22,9 +22,9 @@
             $height += $pdf->getStringHeight(25, $asset->created_at,1);
         @endphp
         
-        @if ($height > $pdf->get_checkBreak())
+        @if ($height > $pdf->getCheckBreak())
             @php 
-                $height = $pdf->get_Y() + $pdf->getStringHeight(25, $asset->created_at);
+                $height = $pdf->getPositionY() + $pdf->getStringHeight(25, $asset->created_at);
             @endphp
             <tr>
                 <th width="65%" align="R">Total Van</th>

@@ -1,5 +1,5 @@
 @php
-    $height = $pdf->get_Y();
+    $height = $pdf->getPositionY();
     $total = 0;
 @endphp
 
@@ -19,17 +19,17 @@
 
     @foreach($assets as $fields)
         @php
-            $height += $pdf->getStringHeight(170, ($fields->asset)?($fields->asset->asset_specific_category->name . $fields->asset->getDescription()):($fields->asset_specific_category->name . $fields->getDescription()),1);
+            $height += $pdf->getStringHeight(170, ($fields->asset)?($fields->asset->assetSpecificCategory->name . $fields->asset->getDescription()):($fields->assetSpecificCategory->name . $fields->getDescription()),1);
 
         @endphp
 
-        @if ($height > $pdf->get_checkBreak())
+        @if ($height > $pdf->getCheckBreak())
             <tr>
                 <th width="90.25%" align="R">Total Van</th>
                 <th width="9.75%"  align="R"> {{ $total }} </th>
             </tr>
             @php
-                $height = $pdf->get_Y() + $pdf->getStringHeight(170, ($fields->asset)?($fields->asset->asset_specific_category->name . $fields->asset->getDescription()):($fields->asset_specific_category->name . $fields->getDescription()),1);
+                $height = $pdf->getPositionY() + $pdf->getStringHeight(170, ($fields->asset)?($fields->asset->assetSpecificCategory->name . $fields->asset->getDescription()):($fields->assetSpecificCategory->name . $fields->getDescription()),1);
             @endphp
             </table>
 
@@ -60,7 +60,7 @@
                 <td width="7.84%"> {{ ($fields->asset)?($fields->asset->asset_subcategory_id):($fields->asset_subcategory_id) }} </td>
                 <td width="7.84%"> {{ ($fields->asset)?($fields->asset->asset_specific_category_id):($fields->asset_specific_category_id) }} </td>
                 <td width="10.83%"> {{ ($fields->asset)?($fields->asset->inventory_serial):($fields->inventory_serial) }} </td>
-                <td width="51.99%" align="L"> {{ ($fields->asset)?($fields->asset->asset_specific_category->name):($fields->asset_specific_category->name) }}. {{ ($fields->asset)?($fields->asset->getDescription()):($fields->getDescription()) }} </td>
+                <td width="51.99%" align="L"> {{ ($fields->asset)?($fields->asset->assetSpecificCategory->name):($fields->assetSpecificCategory->name) }}. {{ ($fields->asset)?($fields->asset->getDescription()):($fields->getDescription()) }} </td>
                 <td width="9.75%" align="R"> {{ ($fields->asset)?($fields->asset->value):($fields->value) }} </td>
                 @php
                     $total += ($fields->asset)?($fields->asset->value):($fields->value)
