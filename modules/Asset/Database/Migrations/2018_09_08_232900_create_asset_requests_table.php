@@ -7,13 +7,14 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * @class CreateAssetRequestTable
  * @brief Crear tabla solicitudes de bienes
- * 
+ *
  * Gestiona la creación o eliminación de las solicitudes de bienes institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class CreateAssetRequestsTable extends Migration
 {
     /**

@@ -11,12 +11,13 @@ use Modules\Asset\Models\AssetSubcategory;
 /**
  * @class AssetSubcategoriesTableSeeder
  * @brief Inicializa Subcategorias de un Bien
- * 
- * 
+ *
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class AssetSubcategoriesTableSeeder extends Seeder
 {
     /**
@@ -100,13 +101,12 @@ class AssetSubcategoriesTableSeeder extends Seeder
 
 
         foreach ($asset_subcategories as $key => $subcategories) {
-
-            $asset_category = AssetCategory::where('id',$key)->first();
+            $asset_category = AssetCategory::where('id', $key)->first();
             foreach ($subcategories as $code => $subcat) {
                 AssetSubcategory::UpdateorCreate([
                     'code' => $code,
                     'name' => $subcat,
-                    'asset_category_id' => $asset_category->id],[]);
+                    'asset_category_id' => $asset_category->id], []);
             }
         }
     }

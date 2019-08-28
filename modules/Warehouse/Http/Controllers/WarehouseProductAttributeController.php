@@ -7,20 +7,12 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Warehouse\Models\WarehouseProduct;
+
 use Modules\Warehouse\Models\WarehouseProductAttribute;
 
-
 /**
- * @class WarehouseProductAttributeController
- * @brief Controlador de los atributos de los productos de almacén
- * 
- * Clase que gestiona los atributos de productos almacenables
- * 
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * Eliminar
  */
-
 class WarehouseProductAttributeController extends Controller
 {
     use ValidatesRequests;
@@ -28,7 +20,7 @@ class WarehouseProductAttributeController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -47,7 +39,7 @@ class WarehouseProductAttributeController extends Controller
 
     public function product($id)
     {
-        return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=',$id)->get()], 200);
+        return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=', $id)->get()], 200);
     }
 
     /**
@@ -69,7 +61,7 @@ class WarehouseProductAttributeController extends Controller
             'product_id' => $request->input('product_id'),
         ]);
         
-        return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=',$id)->get()], 200);
+        return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=', $id)->get()], 200);
     }
 
     /**
@@ -90,7 +82,7 @@ class WarehouseProductAttributeController extends Controller
 
         $id = $attribute->product_id;
  
-        return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=',$id)->get()], 200);
+        return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=', $id)->get()], 200);
     }
 
     /**

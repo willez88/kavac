@@ -7,11 +7,13 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * @class CreateAssetRequestAssetsTable
  * @brief Crear tabla de bienes solicitados
- * 
+ *
  * Gestiona los cambios de los bienes solicitados
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CreateAssetRequestAssetsTable extends Migration
 {
@@ -23,15 +25,18 @@ class CreateAssetRequestAssetsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('asset_request_assets')) {    
+        if (!Schema::hasTable('asset_request_assets')) {
             Schema::create('asset_request_assets', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
 
-                $table->integer('asset_id')->unsigned()->nullable()->comment('Identificador único del bien en la tabla de bienes');
+                $table->integer('asset_id')->unsigned()->nullable()
+                      ->comment('Identificador único del bien en la tabla de bienes');
                 $table->foreign('asset_id')->references('id')->on('assets')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('asset_request_id')->unsigned()->nullable()->comment('Identificador único de la solicitud generada');
-                $table->foreign('asset_request_id')->references('id')->on('asset_requests')->onDelete('restrict')->onUpdate('cascade');
+                $table->integer('asset_request_id')->unsigned()->nullable()
+                      ->comment('Identificador único de la solicitud generada');
+                $table->foreign('asset_request_id')->references('id')->on('asset_requests')
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
             });

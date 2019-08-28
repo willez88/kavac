@@ -106,7 +106,36 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Parametros Específicos del Clasificador de Bienes</h6>
+					<h6 class="card-title">Parámetros Generales</h6>
+					<div class="card-btns">
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						{{-- Configuración de la Condición Física de un Bien --}}
+						<asset-conditions></asset-conditions>
+
+						{{-- Configuración del Status de Uso de un Bien --}}
+						<asset-status></asset-status>
+
+						{{-- Configuración de la Función de Uso de un Bien --}}
+						<asset-use-functions></asset-use-functions>
+
+						{{-- Configuración del Tipo de Adquisición de un Bien --}}
+						<asset-acquisition-types></asset-acquisition-types>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Parámetros Específicos del Clasificador de Bienes</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')

@@ -10,12 +10,13 @@ use Modules\Asset\Models\AssetCondition;
 /**
  * @class AssetConditionsTableSeeder
  * @brief Inicializar Condiciones Físicas de los bienes
- * 
- * 
+ *
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class AssetConditionsTableSeeder extends Seeder
 {
     /**
@@ -34,17 +35,16 @@ class AssetConditionsTableSeeder extends Seeder
             ['name' => 'Deteriorado'],
             ['name' => 'Averiado'],
             ['name' => 'Chatarra'],
-            ['name' => 'No Operativo'],
-            ['name' => 'Otra Condición Física']
+            ['name' => 'No Operativo']
             
         ];
 
 
            
-            foreach ($asset_condition as $condition) {
-                AssetCondition::updateOrCreate(
-                    ['name' => $condition['name']]
-                );
-            }
+        foreach ($asset_condition as $condition) {
+            AssetCondition::updateOrCreate(
+                ['name' => $condition['name']]
+            );
+        }
     }
 }

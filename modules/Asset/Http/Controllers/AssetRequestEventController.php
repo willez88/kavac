@@ -12,11 +12,13 @@ use Modules\Asset\Models\AssetRequestEvent;
 /**
  * @class AssetRequestEventController
  * @brief Controlador de eventos en bienes institucionales solicitados
- * 
+ *
  * Clase que gestiona los eventos ocurridos a los bienes institucionales solicitados
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetRequestEventController extends Controller
 {

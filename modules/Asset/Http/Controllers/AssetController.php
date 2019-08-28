@@ -7,10 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Support\Facades\DB;
 
 use Modules\Asset\Rules\AcquisitionYear;
-use Modules\Asset\Rules\DateExtension;
 use Modules\Asset\Rules\RequiredItem;
 
 use Modules\Asset\Models\AssetRequiredItem;
@@ -19,11 +17,13 @@ use Modules\Asset\Models\Asset;
 /**
  * @class AssetController
  * @brief Controlador de bienes institucionales
- * 
+ *
  * Clase que gestiona los bienes institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetController extends Controller
 {
@@ -58,7 +58,7 @@ class AssetController extends Controller
      * Muestra el formulario para registrar un nuevo bien institucional
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View 
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -74,8 +74,9 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        $item_required = AssetRequiredItem::where('asset_specific_category_id', $request->asset_specific_category_id)->first();
-        if ( !is_null($item_required)){
+        $item_required = AssetRequiredItem::where('asset_specific_category_id', $request->asset_specific_category_id)
+            ->first();
+        if (!is_null($item_required)) {
             $this->validate($request, [
                 'asset_type_id' => 'required',
                 'asset_category_id' => 'required',
@@ -96,9 +97,8 @@ class AssetController extends Controller
                 'parish_id' => new RequiredItem($item_required->address),
                 'address' => new RequiredItem($item_required->address),
             ]);
-        }
-        else
-            $this->validate($request,[
+        } else {
+            $this->validate($request, [
                 'asset_type_id' => 'required',
                 'asset_category_id' => 'required',
                 'asset_subcategory_id' => 'required',
@@ -112,10 +112,13 @@ class AssetController extends Controller
                 'currency_id' => 'required',
                 
             ]);
+        }
+        $created_at = now();
 
         $cantidad = $request->quantity;
-        if(is_null($cantidad))
+        if (is_null($cantidad)) {
             $cantidad = 1;
+        }
         while ($cantidad > 0) {
             $cantidad--;
             $asset = new Asset;
@@ -138,6 +141,7 @@ class AssetController extends Controller
             $asset->asset_use_function_id = $request->asset_use_function_id;
             $asset->parish_id = $request->parish_id;
             $asset->address = $request->address;
+            $asset->created_at = $created_at;
 
 
             $asset->save();
@@ -188,14 +192,13 @@ class AssetController extends Controller
         ]);
         
         if ($request->asset_type_id == 1) {
-            $this->validate($request,[
+            $this->validate($request, [
                 'serial' => 'required|max:50',
                 'marca'  => 'required|max:50',
                 'model' => 'required|max:50',
             ]);
-        }
-        else if ($request->type_id == 2) {
-            $this->validate($request,[
+        } elseif ($request->type_id == 2) {
+            $this->validate($request, [
                 'asset_use_function_id' => 'required',
                 'parish_id' => 'required',
                 'address' => 'required',
@@ -249,17 +252,27 @@ class AssetController extends Controller
      */
     public function vueInfo($id)
     {
-
-        $asset = Asset::where('id', $id)->with(['asset_type', 'asset_category', 'asset_subcategory', 'asset_specific_category', 'asset_acquisition_type', 'asset_condition', 'asset_status', 'asset_use_function', 'parish' => function($query) {
-                $query->with(['municipality' => function($query) {
-                    $query->with(['estate' => function($query) {
-                        $query->with('country')->get();
+        $asset = Asset::where('id', $id)->with(
+            [
+                'assetType',
+                'assetCategory',
+                'assetSubcategory',
+                'assetSpecificCategory',
+                'assetAcquisitionType',
+                'assetCondition',
+                'assetStatus',
+                'assetUseFunction',
+                'parish' => function ($query) {
+                    $query->with(['municipality' => function ($query) {
+                        $query->with(['estate' => function ($query) {
+                            $query->with('country')->get();
+                        }])->get();
                     }])->get();
-                }])->get();
-        }])->first();
+                }
+            ]
+        )->first();
 
         return response()->json(['records' => $asset], 200);
-        
     }
 
     /**
@@ -270,7 +283,7 @@ class AssetController extends Controller
      */
     public function vueList()
     {
-        return response()->json(['records' => Asset::with('asset_condition', 'asset_status')->get()], 200);
+        return response()->json(['records' => Asset::with('assetCondition', 'assetStatus')->get()], 200);
     }
 
     /**
@@ -282,10 +295,14 @@ class AssetController extends Controller
      */
     public function searchClasification(Request $request)
     {
-        $assets = Asset::CodeClasification($request->asset_type, $request->asset_category, $request->asset_subcategory, $request->asset_specific_category)->with('asset_condition', 'asset_status')->get();
+        $assets = Asset::CodeClasification(
+            $request->asset_type,
+            $request->asset_category,
+            $request->asset_subcategory,
+            $request->asset_specific_category
+        )->with('assetCondition', 'assetStatus')->get();
 
         return response()->json(['records' => $assets], 200);
-
     }
 
     /**
@@ -297,7 +314,8 @@ class AssetController extends Controller
      */
     public function searchGeneral(Request $request)
     {
-        $assets = Asset::DateClasification($request->start_date, $request->end_date, $request->mes_id, $request->year)->with('asset_condition','asset_status')->get();
+        $assets = Asset::DateClasification($request->start_date, $request->end_date, $request->mes_id, $request->year)
+            ->with('assetCondition', 'assetStatus')->get();
         
         return response()->json(['records' => $assets], 200);
     }
@@ -309,14 +327,14 @@ class AssetController extends Controller
      * @param  \Illuminate\Http\Request  $request   Datos de la petición
      * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
-    public function searchDependence(Request $request){
+    public function searchDependence(Request $request)
+    {
         /*
          *  Falta filtrar por dependencia solicitante
          *  Validar tambien para múltiples instituciones
          *
          */
-        //Asset::with('asset_condition','asset_status')->get();
+        //Asset::with('assetCondition','assetStatus')->get();
         return response()->json(['records' => []], 200);
     }
-
 }

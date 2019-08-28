@@ -7,13 +7,14 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * @class CreateAssetsAsignationTable
  * @brief Crear tabla asignación de bienes
- * 
+ *
  * Gestiona la creación o eliminación de las asignaciones de los bienes Institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class CreateAssetAsignationsTable extends Migration
 {
     /**
@@ -31,9 +32,11 @@ class CreateAssetAsignationsTable extends Migration
 
                 $table->integer('payroll_staff_id')->nullable()->unsigned()
                       ->comment('Identificador único del trabajador responsable del bien');
-                $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs');
+                $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
+                      ->onDelete('restrict')->onUpdate('cascade');
                 
-                $table->integer('department_id')->nullable()->unsigned()->comment('Identificador único del departamento donde recide el bien mueble');
+                $table->integer('department_id')->nullable()->unsigned()
+                      ->comment('Identificador único del departamento donde recide el bien mueble');
                 $table->foreign('department_id')->references('id')->on('departments')
                       ->onDelete('restrict')->onUpdate('cascade');
 

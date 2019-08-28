@@ -7,11 +7,13 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * @class CreateAssetSpecificCategoriesTable
  * @brief Crear tabla de categorias especificas de bienes
- * 
+ *
  * Gestiona la creación o eliminación de la tabla de categorias especificas de bienes
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CreateAssetSpecificCategoriesTable extends Migration
 {
@@ -26,8 +28,8 @@ class CreateAssetSpecificCategoriesTable extends Migration
         if (!Schema::hasTable('asset_specific_categories')) {
             Schema::create('asset_specific_categories', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
-                $table->string('code',10)->comment('Código de la categoria específica');
-                $table->string('name',100)->comment('Nombre de la categoria específica del bien');
+                $table->string('code', 10)->comment('Código de la categoria específica');
+                $table->string('name', 100)->comment('Nombre de la categoria específica del bien');
                 
                 $table->integer('asset_subcategory_id')->unsigned()
                       ->comment('Identificador único de la subcategoria a la que pertenece el registro');
@@ -37,7 +39,7 @@ class CreateAssetSpecificCategoriesTable extends Migration
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
 
-                $table->unique(array('asset_subcategory_id', 'code','name'))->comment('Clave única para el registro');
+                $table->unique(['asset_subcategory_id', 'code','name'])->comment('Clave única para el registro');
             });
         }
     }

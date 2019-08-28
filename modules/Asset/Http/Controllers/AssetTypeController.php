@@ -12,11 +12,13 @@ use Modules\Asset\Models\AssetType;
 /**
  * @class AssetTypeController
  * @brief Controlador de tipos de bienes institucionales
- * 
+ *
  * Clase que gestiona los tipos de bienes institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetTypeController extends Controller
 {
@@ -105,7 +107,8 @@ class AssetTypeController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return [Array] Arreglo con los registros a mostrar
      */
-    public function getTypes(){
+    public function getTypes()
+    {
         return template_choices('Modules\Asset\Models\AssetType', 'name', '', true);
     }
 }

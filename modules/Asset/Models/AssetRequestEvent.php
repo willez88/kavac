@@ -9,11 +9,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AssetRequestEvent
  * @brief Datos de los eventos asociados a una solicitud
- * 
+ *
  * Gestiona el modelo de datos de los eventos asociados a una solicitud
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetRequestEvent extends Model implements Auditable
 {
@@ -30,9 +32,10 @@ class AssetRequestEvent extends Model implements Auditable
      * Método que obtiene la solicitud asociada al registro
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetRequest
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetRequest
      */
-    public function asset_request()
+    public function assetRequest()
     {
         return $this->belongsTo(AssetRequest::class);
     }

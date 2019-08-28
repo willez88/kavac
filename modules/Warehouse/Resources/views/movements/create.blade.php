@@ -21,11 +21,11 @@
 
 	<div class="row">
 		<div class="col-12">
-			<warehouse-movement
+			<warehouse-movement-create
 				route_list='{{ url('warehouse/movements')}}'
 				:movementid ="{!! (isset($movement)) ? $movement->id : 'null' !!}">
 					
-				</warehouse-movement>
+				</warehouse-movement-create>
 		</div>
 	</div>
 

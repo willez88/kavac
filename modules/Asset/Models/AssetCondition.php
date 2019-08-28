@@ -10,11 +10,13 @@ use App\Traits\ModelsTrait;
 /**
  * @class AssetCondition
  * @brief Datos de las condiciones fisicas de un bien
- * 
+ *
  * Gestiona el modelo de datos de las condiciones fisicas de un bien
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetCondition extends Model implements Auditable
 {
@@ -39,4 +41,3 @@ class AssetCondition extends Model implements Auditable
         return $this->hasMany(Asset::class);
     }
 }
-

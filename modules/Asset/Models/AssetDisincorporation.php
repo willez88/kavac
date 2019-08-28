@@ -12,11 +12,13 @@ use App\Traits\ModelsTrait;
 /**
  * @class AssetDisincorporation
  * @brief Datos de las desincorporaciones de los bienes institucionales
- * 
+ *
  * Gestiona el modelo de datos de las desincorporaciones de bienes institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetDisincorporation extends Model implements Auditable
 {
@@ -46,13 +48,14 @@ class AssetDisincorporation extends Model implements Auditable
      */
     protected $fillable = ['code', 'asset_disincorporation_motive_id', 'date', 'observation', 'user_id'];
 
-     /**
-     * Método que obtiene los bienes desincorporados
-     *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetDisincorporationAsset
-     */
-    public function asset_disincorporation_assets()
+    /**
+    * Método que obtiene los bienes desincorporados
+    *
+    * @author Henry Paredes <hparedes@cenditel.gob.ve>
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+    * AssetDisincorporationAsset
+    */
+    public function assetDisincorporationAssets()
     {
         return $this->hasMany(AssetDisincorporationAsset::class);
     }
@@ -61,9 +64,10 @@ class AssetDisincorporation extends Model implements Auditable
      * Método que obtiene el motivo de la desincorporacion del bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetDisincorporationMotive
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetDisincorporationMotive
      */
-    public function asset_disincorporation_motive()
+    public function assetDisincorporationMotive()
     {
         return $this->belongsTo(AssetDisincorporationMotive::class);
     }

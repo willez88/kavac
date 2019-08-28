@@ -11,13 +11,14 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AssetType
  * @brief Datos de los tipo de bienes
- * 
+ *
  * Gestiona el modelo de datos de los tipos de bienes
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class AssetType extends Model implements Auditable
 {
     use SoftDeletes;
@@ -49,11 +50,12 @@ class AssetType extends Model implements Auditable
      * Método que obtiene la categoria general asociada a un tipo de bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con los registros relacionados al modelo AssetCategory
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con los registros relacionados al modelo
+     * AssetCategory
      */
-    public function asset_categories()
+    public function assetCategories()
     {
-    	return $this->hasMany(AssetCategory::class);
+        return $this->hasMany(AssetCategory::class);
     }
 
     /**

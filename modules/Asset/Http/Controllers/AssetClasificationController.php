@@ -15,11 +15,13 @@ use Modules\Asset\Models\AssetType;
 /**
  * @class AssetClasificationController
  * @brief Controlador del clasificador de bienes institucionales
- * 
+ *
  * Clase que gestiona el clasificador de bienes institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetClasificationController extends Controller
 {
@@ -44,11 +46,10 @@ class AssetClasificationController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => AssetSpecificCategory::with(['asset_subcategory' => 
-            function($query) {
-                $query->with(['asset_category' => 
-                function($query) {
-                    $query->with('asset_type');
+        return response()->json(['records' => AssetSpecificCategory::with(
+            ['assetSubcategory' => function ($query) {
+                $query->with(['assetCategory' => function ($query) {
+                    $query->with('assetType');
                 }]);
             }]
         )->get()], 200);
@@ -71,35 +72,38 @@ class AssetClasificationController extends Controller
             'code' => 'required',
             'name' => 'required',
         ]);
-        if ($request->asset_type_id === '-1')
-            $this->validate($request,[
+        if ($request->asset_type_id === '-1') {
+            $this->validate($request, [
                 'type.name' => 'required',
             ]);
-        if ($request->asset_category_id === '-1')
-            $this->validate($request,[
+        }
+        if ($request->asset_category_id === '-1') {
+            $this->validate($request, [
                 'category.code' => 'required',
                 'category.name' => 'required',
             ]);
-        if ($request->asset_subcategory_id === '-1')
-            $this->validate($request,[
+        }
+        if ($request->asset_subcategory_id === '-1') {
+            $this->validate($request, [
                 'subcategory.code' => 'required',
                 'subcategory.name' => 'required',
             ]);
+        }
 
-        if($request->asset_type_id === '-1') {
+        if ($request->asset_type_id === '-1') {
             $type = AssetType::create([
                 'name' => $request->input('name'),
             ]);
         }
 
-        if($request->asset_category_id === '-1') {
+        if ($request->asset_category_id === '-1') {
             $category = AssetCategory::create([
                 'code' => $request->input('category.code'),
                 'name' => $request->input('category.name'),
                 'asset_type_id' => $type->id,
             ]);
         }
-        if($request->asset_subcategory_id === '-1') {
+        if ($request->asset_subcategory_id === '-1') {
             $subcategory = AssetSubcategory::create([
                 'code' => $request->input('subcategory.code'),
                 'name' => $request->input('subcategory.name'),
@@ -109,10 +113,11 @@ class AssetClasificationController extends Controller
         $specific = AssetSpecificCategory::create([
             'code' => $request->input('code'),
             'name' => $request->input('name'),
-            'asset_subcategory_id' => ($request->asset_subcategory_id === '-1')?$subcategory->id:$request->asset_subcategory_id,
+            'asset_subcategory_id' => ($request->asset_subcategory_id === '-1')?$subcategory->id:
+                                                                                $request->asset_subcategory_id,
         ]);
 
-        return response()->json(['records' => $specific, 'message' => 'Success'],200);
+        return response()->json(['records' => $specific, 'message' => 'Success'], 200);
     }
 
     /**
@@ -132,20 +137,23 @@ class AssetClasificationController extends Controller
             'code' => 'required',
             'name' => 'required',
         ]);
-        if ($request->asset_type_id === '-1')
+        if ($request->asset_type_id === '-1') {
             $this->validate($request, [
                 'type.name' => 'required',
             ]);
-        if ($request->asset_category_id === '-1')
+        }
+        if ($request->asset_category_id === '-1') {
             $this->validate($request, [
                 'category.code' => 'required',
                 'category.name' => 'required',
             ]);
-        if ($request->asset_subcategory_id === '-1')
-            $this->validate($request,[
+        }
+        if ($request->asset_subcategory_id === '-1') {
+            $this->validate($request, [
                 'subcategory.code' => 'required',
                 'subcategory.name' => 'required',
             ]);
+        }
 
         $specific = AssetSpecificCategory::find($request->id);
         
@@ -155,7 +163,6 @@ class AssetClasificationController extends Controller
         $specific->save();
 
         return response()->json(['message' => 'Success'], 200);
-
     }
 
     /**

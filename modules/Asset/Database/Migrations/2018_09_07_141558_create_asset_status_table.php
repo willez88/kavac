@@ -7,11 +7,13 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * @class CreateAssetStatusesTable
  * @brief Crear tabla de Estatus de uso del bien
- * 
+ *
  * Gestiona la creación o eliminación de la tabla de Estados de uso de un bien
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 
 class CreateAssetStatusTable extends Migration
@@ -26,9 +28,8 @@ class CreateAssetStatusTable extends Migration
     {
         if (!Schema::hasTable('asset_status')) {
             Schema::create('asset_status', function (Blueprint $table) {
-                
                 $table->increments('id')->comment('Identificador único del registro');
-                $table->string('name',100)->comment('Nombre del estatus de uso');
+                $table->string('name', 100)->comment('Nombre del estatus de uso');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

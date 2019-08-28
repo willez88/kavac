@@ -8,7 +8,6 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Models\CodeSetting;
 
 use Modules\Asset\Models\AssetRequestDelivery;
@@ -19,16 +18,21 @@ use Modules\Asset\Models\Asset;
 /**
  * @class AssetRequestController
  * @brief Controlador de las solicitudes de bienes institucionales
- * 
+ *
  * Clase que gestiona las solicitudes de bienes institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetRequestController extends Controller
 {
     use ValidatesRequests;
 
+    /** @var array Lista de elementos a mostrar */
+    protected $data = [];
+    
     /**
      * Define la configuración de la clase
      *
@@ -42,6 +46,11 @@ class AssetRequestController extends Controller
         $this->middleware('permission:asset.request.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:asset.request.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:asset.request.delete', ['only' => 'destroy']);
+
+        $this->data[0] = [
+            'id' => '',
+            'text' => 'Seleccione...'
+        ];
     }
 
     /**
@@ -83,12 +92,12 @@ class AssetRequestController extends Controller
         ]);
 
         if ($request->type == 2) {
-            $this->validate($request,[
+            $this->validate($request, [
                 'ubication'  => 'required',
             ]);
         }
         if ($request->type == 3) {
-            $this->validate($request,[
+            $this->validate($request, [
                 'ubication'  => 'required',
                 'agent_name' => 'required',
                 'agent_telf' => 'required',
@@ -105,8 +114,13 @@ class AssetRequestController extends Controller
             return response()->json(['result' => false, 'redirect' => route('asset.setting.index')], 200);
         }
 
-        $code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
-        (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
+        $code  = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
 
         $asset_request = AssetRequest::create([
             'code' => $code,
@@ -144,7 +158,7 @@ class AssetRequestController extends Controller
     public function edit($id)
     {
         $request = AssetRequest::find($id);
-        return view('asset::requests.create',compact('request'));
+        return view('asset::requests.create', compact('request'));
     }
 
     /**
@@ -188,34 +202,29 @@ class AssetRequestController extends Controller
         $asset_request->agent_email = $request->agent_email;
         $asset_request->save();
 
-        $asset_request_asset = AssetRequestAsset::where('asset_request_id',$asset_request->id)->get();
 
-        /** Recorro la vieja lista para verificar si hay elementos eliminados en la nueva lista */
-        
-        foreach ($asset_request_asset as $requested) {
-            $asset = Asset::find($requested->asset_id);
-            $datos = $request->assets;
-            $clave = in_array($asset->id, $datos);
-            if ($clave === false ){
-                $asset->asset_status_id = 10;
-                $asset->save();
-                $requested->delete();
-            }
-        }
-
-        /** Recorro la nueva lista para verificar si hay nuevos elementos a ser insertados */
+        $update = now();
+        /** Se agregan los nuevos elementos a la solicitud */
         foreach ($request->assets as $asset_id) {
             $asset = Asset::find($asset_id);
             $asset->asset_status_id = 6;
             $asset->save();
-
-            $requested = AssetRequestAsset::where('asset_id', $asset->id)->where('asset_request_id',$asset_request->id)->first();
-
-            if ( is_null($requested))
-                $requested = AssetRequestAsset::create([
+            $requested = AssetRequestAsset::updateOrCreate([
                     'asset_id' => $asset->id,
                     'asset_request_id' => $asset_request->id,
+                    'updated_at' => $update
                 ]);
+        }
+        /** Se eliminan los demas elementos de la solicitud */
+        $asset_request_assets = AssetRequestAsset::where('asset_request_id', $asset_request->id)
+            ->where('updated_at', '!=', $update)->get();
+
+        foreach ($asset_request_assets as $asset_request_asset) {
+            $asset = Asset::find($asset_request_asset->asset_id);
+            $asset->asset_status_id = 10;
+            $asset->save();
+            
+            $asset_request_asset->delete();
         }
 
         $request->session()->flash('message', ['type' => 'update']);
@@ -254,7 +263,7 @@ class AssetRequestController extends Controller
      */
     public function vuePendingList()
     {
-        return response()->json(['records' => AssetRequest::with('user')->where('state','Pendiente')->get()], 200);
+        return response()->json(['records' => AssetRequest::with('user')->where('state', 'Pendiente')->get()], 200);
     }
 
     /**
@@ -337,12 +346,27 @@ class AssetRequestController extends Controller
      */
     public function vueInfo($id)
     {
-        $asset_request = AssetRequest::where('id',$id)->with([
-            'asset_request_assets' => function($query) {
+        $asset_request = AssetRequest::where('id', $id)->with(
+            ['assetRequestAssets' => function ($query) {
                 $query->with('asset');
-            }
-        ])->first();
+            }]
+        )->first();
 
         return response()->json(['records' => $asset_request], 200);
+    }
+
+    public function getTypes()
+    {
+        $this->data[1] = [
+            'id' => 1,
+            'text' => 'AVERIADO'
+        ];
+        $this->data[2] = [
+            'id' => 2,
+            'text' => 'PERDIDO'
+        ];
+        
+
+        return response()->json($this->data);
     }
 }

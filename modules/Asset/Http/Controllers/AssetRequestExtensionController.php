@@ -16,11 +16,13 @@ use Modules\Asset\Rules\DateExtension;
 /**
  * @class AssetRequestExtensionController
  * @brief Controlador de prorrogas de entrega en bienes institucionales solicitados
- * 
- * Clase que gestiona las prorrogas de entrega solicitadas 
- * 
+ *
+ * Clase que gestiona las prorrogas de entrega solicitadas
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetRequestExtensionController extends Controller
 {
@@ -41,7 +43,6 @@ class AssetRequestExtensionController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -56,17 +57,17 @@ class AssetRequestExtensionController extends Controller
         ]);
         $asset_request = AssetRequest::find($request->asset_request_id);
         $this->validate($request, [
-            'date' => new DateExtension($asset_request->delivery_date,'2'),
+            'date' => new DateExtension($asset_request->delivery_date, '2'),
         ]);
         $request->session()->flash('message', ['type' => 'store']);
         return;
         
         $prorroga = new AssetRequestExtension;
-            $prorroga->delivery_date = $request->date;
-            $prorroga->asset_request_id = $request->asset_request_id;
-            $prorroga->state = 'Pendiente';
-            $prorroga->user_id = Auth::id();
-            $prorroga->save();
+        $prorroga->delivery_date = $request->date;
+        $prorroga->asset_request_id = $request->asset_request_id;
+        $prorroga->state = 'Pendiente';
+        $prorroga->user_id = Auth::id();
+        $prorroga->save();
             
 
         $request->session()->flash('message', ['type' => 'store']);
@@ -110,7 +111,10 @@ class AssetRequestExtensionController extends Controller
 
     public function vuePendingList()
     {
-        return response()->json(['records' => AssetRequestExtension::with('user')->where('state','Pendiente')->get()], 200);
+        return response()->json(
+            ['records' => AssetRequestExtension::with('user')->where('state', 'Pendiente')->get()],
+            200
+        );
     }
 
     public function approved(Request $request, $id)
@@ -118,7 +122,7 @@ class AssetRequestExtensionController extends Controller
         $request_prorroga = AssetRequestExtension::find($id);
         $request_prorroga->state = 'Aprobado';
 
-        $asset_request = $request_prorroga->asset_request;
+        $asset_request = $request_prorroga->assetRequest;
         $asset_request->delivery_date = $request_prorroga->delivery_date;
         $asset_request->save();
         

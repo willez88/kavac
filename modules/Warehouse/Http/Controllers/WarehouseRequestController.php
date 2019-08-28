@@ -5,26 +5,26 @@ namespace Modules\Warehouse\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\DB;
+use App\Models\CodeSetting;
 
-use Modules\Warehouse\Models\WarehouseRequest;
+use Modules\Warehouse\Models\WarehouseInventoryProduct;
 use Modules\Warehouse\Models\WarehouseRequestProduct;
-use Modules\Warehouse\Models\WarehouseInventaryProduct;
-use Modules\Warehouse\Models\WarehouseInventaryRule;
-use Modules\Warehouse\Models\Warehouse;
-
+use Modules\Warehouse\Models\WarehouseRequest;
 
 /**
  * @class WarehouseRequestController
- * @brief Controlador de Solicitudes de Almacén
- * 
- * Clase que gestiona las Solicitudes de los artículos de almacén
- * 
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @brief Controlador de solicitudes de almacén
+ *
+ * Clase que gestiona las solicitudes de los productos de almacén
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class WarehouseRequestController extends Controller
 {
     use ValidatesRequests;
@@ -32,11 +32,10 @@ class WarehouseRequestController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
-
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:warehouse.request.list', ['only' => 'index']);
         $this->middleware('permission:warehouse.request.create', ['only' => ['create', 'store']]);
@@ -45,93 +44,131 @@ class WarehouseRequestController extends Controller
     }
 
     /**
-     * Muestra un listado de las Solicitudes de Almacén
+     * Muestra un listado de las solicitudes de almacén registradas
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
     {
-        $warehouse_requests = WarehouseRequest::with('department')->get();
-        return view('warehouse::requests.list', compact('warehouse_requests'));
+        return view('warehouse::requests.list');
     }
 
     /**
      * Muestra el formulario para registrar una nueva solicitud de almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function create()
     {
-        $header = [
-            'route' => 'warehouse.request.store', 'method' => 'POST', 'role' => 'form', 'id' => 'form','class' => 'form-horizontal',
-        ];
-        return view('warehouse::requests.create', compact('header'));
+        return view('warehouse::requests.create');
     }
 
     /**
-     * Valida y Registra una nueva solicitud de Almacén
+     * Valida y registra una nueva solicitud de almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
         $this->validate($request, [
-            'products.*' => 'required',
-            'specific_action_id' => 'required',
+            'warehouse_products.*' => 'required',
+            'budget_specific_action_id' => 'required',
             'department_id' => 'required',
             'motive' => 'required'
 
         ]);
-        DB::transaction(function() use ($request) {
+
+        $codeSetting = CodeSetting::where('table', 'warehouse_requests')->first();
+        if (is_null($codeSetting)) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]);
+            return response()->json(['result' => false, 'redirect' => route('warehouse.setting.index')], 200);
+        }
+
+        $code  = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
+
+
+        DB::transaction(function () use ($request, $code) {
             $data_request = WarehouseRequest::create([
+                'code' => $code,
                 'state' => 'Pendiente',
                 'motive' => $request->input('motive'),
-                'specific_action_id' => $request->input('specific_action_id'),
-                'dependence_id' => $request->input('department_id')
+                'budget_specific_action_id' => $request->input('budget_specific_action_id'),
+                'department_id' => $request->input('department_id'),
+                'payroll_staff_id' => $request->input('payroll_staff_id')
             ]);
 
-            foreach ($request->products as $product) {
-
-                $inventary_product = WarehouseInventaryProduct::find($product['id']);
-                if(!is_null($inventary_product)){
-                    $exist_real = $inventary_product->exist - $inventary_product->reserved;
-                    if($exist_real > $product['requested']){
+            foreach ($request->warehouse_products as $product) {
+                $inventory_product = WarehouseInventoryProduct::find($product['id']);
+                if (!is_null($inventory_product)) {
+                    $exist_real = $inventory_product->exist - $inventory_product->reserved;
+                    if ($exist_real >= $product['requested']) {
                         WarehouseRequestProduct::create([
-                            'warehouse_inventary_product_id' => $inventary_product->id,
+                            'warehouse_inventory_product_id' => $inventory_product->id,
                             'warehouse_request_id' => $data_request->id,
                             'quantity' => $product['requested'],
                         ]);
-                        $inventary_product->reserved += $product['requested'];
-                        $inventary_product->save();
+                    } else {
+                        /** Si la exitencia del producto es menor que lo que se solicita
+                         *  se revierten los cambios
+                         */
+                        DB::rollback();
                     }
+                } else {
+                    /** Si no existe el registro en inventario
+                     *  se revierten los cambios
+                     */
+                    DB::rollback();
                 }
             }
         });
-        return response()->json(['result' => true],200);
+        $warehouse_request = WarehouseRequest::where('code', $code)->first();
+        if (is_null($warehouse_request)) {
+            $request->session()->flash(
+                'message',
+                [
+                    'type' => 'other',
+                    'title' => 'Alerta',
+                    'icon' => 'screen-error',
+                    'class' => 'growl-danger',
+                    'text' => 'No se pudo completar la operación.'
+                ]
+            );
+        } else {
+            $request->session()->flash('message', ['type' => 'store']);
+        }
+        return response()->json(['result' => true, 'redirect' => route('warehouse.request.index')], 200);
     }
 
     /**
      * Muestra el formulario para editar una solicitud de  almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del ingreso de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function edit($id)
     {
-
         $warehouse_request = WarehouseRequest::find($id);
         return view('warehouse::requests.create', compact('warehouse_request'));
     }
 
     /**
-     * Actualiza la información de las Solicitudes de Almacén
+     * Actualiza la información de las solicitudes de almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @param  Integer $id Identificador único de la solicitud de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
@@ -140,81 +177,171 @@ class WarehouseRequestController extends Controller
     {
         $warehouse_request = WarehouseRequest::find($id);
         $this->validate($request, [
-            'products.*' => 'required',
-            'specific_action_id' => 'required',
+            'warehouse_products.*' => 'required',
+            'budget_specific_action_id' => 'required',
             'department_id' => 'required',
             'motive' => 'required'
 
         ]);
             
-        DB::transaction(function() use ($request, $warehouse_request) {
-            
+        DB::transaction(function () use ($request, $warehouse_request) {
             $warehouse_request->motive = $request->input('motive');
-            $warehouse_request->specific_action_id = $request->input('specific_action_id');
-            $warehouse_request->dependence_id = $request->input('department_id');
+            $warehouse_request->budget_specific_action_id = $request->input('budget_specific_action_id');
+            $warehouse_request->department_id = $request->input('department_id');
             $warehouse_request->save();
 
-            foreach ($request->products as $product) {
+            $update = now();
 
-                $inventary_product = WarehouseInventaryProduct::find($product['id']);
-                if(!is_null($inventary_product)){
-                    $exist_real = $inventary_product->exist - $inventary_product->reserved;
-                    $old_request = WarehouseRequestProduct::where('warehouse_request_id', $warehouse_request->id)
-                            ->where('warehouse_inventary_product_id', $inventary_product->id)->first();
-                    if(!is_null($old_request)){
-                        if($old_request->quantity > $product['requested']){
-
-                            $inventary_product->reserved -= $old_request->quantity - $product['requested'];
-                            $old_request->quantity -= $old_request->quantity - $product['requested'];
+            /** Se agregan los nuevos elementos a la solicitud */
+            foreach ($request->warehouse_products as $product) {
+                $inventory_product = WarehouseInventoryProduct::find($product['id']);
+                if (!is_null($inventory_product)) {
+                    $exist_real = $inventory_product->exist - $inventory_product->reserved;
+                    if ($exist_real >= $product['requested']) {
+                        $old_request = WarehouseRequestProduct::where('warehouse_request_id', $warehouse_request->id)
+                            ->where('warehouse_inventory_product_id', $inventory_product->id)->first();
+                        if (!is_null($old_request)) {
+                            $old_request->quantity = $product['requested'];
+                            $old_request->updated_at = $update;
+                            $old_request->save();
+                        } else {
+                            WarehouseRequestProduct::create([
+                                'warehouse_inventory_product_id' => $inventory_product->id,
+                                'warehouse_request_id' => $warehouse_request->id,
+                                'quantity' => $product['requested'],
+                                'updated_at' => $update,
+                            ]);
                         }
-                        else if($old_request->quantity < $product['requested']){
-
-                            $inventary_product->reserved += $product['requested'] - $old_request->quantity;
-                            $old_request->quantity += $product['requested'] - $old_request->quantity;
-                        }
-                        $inventary_product->save();
-                        $old_request->save();
-                    }
-                    else if($exist_real > $product['requested']){
-                        $inventary_product->reserved += $product['requested'];
-                        $inventary_product->save();
-                        WarehouseRequestProduct::create([
-                            'warehouse_inventary_product_id' => $inventary_product->id,
-                            'warehouse_request_id' => $warehouse_request->id,
-                            'quantity' => $product['requested'],
-                        ]);
+                    } else {
+                        /** Si la exitencia del producto es menor que lo que se solicita
+                         *  se revierten los cambios
+                         */
+                        DB::rollback();
                     }
                 }
+            };
+
+            /** Se eliminan los demas elementos de la solicitud */
+            $warehouse_request_products = WarehouseRequestProduct::where(
+                'warehouse_request_id',
+                $warehouse_request->id
+            )->where('updated_at', '!=', $update)->get();
+
+            foreach ($warehouse_request_products as $warehouse_request_product) {
+                $warehouse_request_product->delete();
             }
         });
-        return response()->json(['result' => true], 200);
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('warehouse.request.index')], 200);
     }
 
     /**
      * Confirma la entrega de una solicitud de almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
 
-    public function approved_request(Request $request, $id){
-        $warehouse_request = WarehouseRequest::find($id);        
-        if(!is_null($warehouse_request)){
-            $warehouse_request->observation = !empty($request->observation)?$request->observation:'N/A';
+    public function confirmRequest(Request $request, $id)
+    {
+        $warehouse_request = WarehouseRequest::find($id);
+        if (!is_null($warehouse_request)) {
+            $warehouse_request->observations = !empty($request->observations)?$request->observations:'N/A';
             $warehouse_request->delivered = true;
             $warehouse_request->state = 'Entregado';
             $warehouse_request->delivery_date = now();
             $warehouse_request->save();
-            return response()->json(['result' => true],200);
+            $request->session()->flash('message', ['type' => 'update']);
+            return response()->json(['result' => true, 'redirect' => route('warehouse.request.index')], 200);
         }
     }
 
     /**
-     * Elimina una Solicitud de Almacén
+     * Rechaza la solicitud de almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    public function rejectedRequest(Request $request, $id)
+    {
+        $warehouse_request = WarehouseRequest::find($id);
+        $warehouse_request->state = 'Rechazado';
+        $warehouse_request->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('warehouse.request.index')], 200);
+    }
+
+    /**
+     * Aprueba la solicitud de almacén
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     */
+    public function approvedRequest(Request $request, $id)
+    {
+        $warehouse_request = WarehouseRequest::find($id);
+        DB::transaction(function () use ($warehouse_request) {
+            $warehouse_request->state = 'Aprobado';
+            $warehouse_request->save();
+            $warehouse_request_products = $warehouse_request->WarehouseRequestProducts;
+            foreach ($warehouse_request_products as $warehouse_request_product) {
+                $warehouse_inventory_product =
+                    WarehouseInventoryProduct::find($warehouse_request_product->warehouse_inventory_product_id);
+                if (!is_null($warehouse_inventory_product)) {
+                    $exist_real =
+                        $warehouse_inventory_product->exist - $warehouse_inventory_product->reserved;
+                    if ($exist_real < $warehouse_request_product->quantity) {
+                        /** Si la exitencia del producto es menor que lo que solicitamos
+                         *  se revierten los cambios
+                         */
+                        DB::rollback();
+                    } else {
+                        if ($warehouse_inventory_product->reserved > 0) {
+                            $warehouse_inventory_product->reserved +=
+                                $warehouse_request_product->quantity;
+                            $warehouse_inventory_product->save();
+                        } else {
+                            $warehouse_inventory_product->reserved =
+                                $warehouse_request_product->quantity;
+                            $warehouse_inventory_product->save();
+                        }
+                    };
+                } else {
+                    /** Si no existe el registro en inventario
+                     *  se revierten los cambios
+                     */
+                    DB::rollback();
+                }
+            }
+        });
+        if ($warehouse_request->state != 'Aprobado') {
+            $request->session()->flash(
+                'message',
+                [
+                    'type' => 'other',
+                    'title' => 'Alerta',
+                    'icon' => 'screen-error',
+                    'class' => 'growl-danger',
+                    'text' => 'No se pudo completar la operación.'
+                ]
+            );
+        } else {
+            $request->session()->flash('message', ['type' => 'update']);
+        }
+        return response()->json(['result' => true, 'redirect' => route('warehouse.request.index')], 200);
+    }
+
+    /**
+     * Elimina una solicitud de almacén
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
@@ -222,48 +349,72 @@ class WarehouseRequestController extends Controller
     {
         $warehouse_request = WarehouseRequest::find($id);
         $warehouse_request->delete();
-        return back()->with('info', 'Fue eliminado exitosamente');
+        return response()->json(['message' => 'destroy'], 200);
     }
 
     /**
      * Obtiene la información de los productos inventariados
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    
-    public function getInventaryProduct(){
-
-        $warehouse_product = WarehouseInventaryProduct::with(['product'=>
-            function($query){
-                $query->with(['attributes'=>
-                    function($query){
-                        $query->with('value');
-                    }]);
-            },'warehouseInstitution'=> function($query){
-                $query->with('warehouse');
-
-            },'rule'])->get();
+    public function getInventoryProduct()
+    {
+        $warehouse_product = WarehouseInventoryProduct::with(['warehouseProductValues' => function ($query) {
+            $query->with('warehouseProductAttribute');
+        }, 'currency', 'warehouseProduct', 'warehouseInstitutionWarehouse' => function ($query) {
+            $query->with('warehouse');
+        }, 'warehouseInventoryRule'])->get();
 
         return response()->json(['records' => $warehouse_product], 200);
     }
 
     /**
-     * Vizualiza Información de una solicitud de almacén
+     * Vizualiza información de una solicitud de almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    
-    public function vueInfo($id){
-        
-        return response()->json(['records' => WarehouseRequest::where('id',$id)->with(['specificAction','department','requestProduct'=>
-                function($query){
-                    $query->with(['InventaryProduct' => 
-                        function($query){
-                            $query->with('product','unit');
-                        }]);
-                }])->first()], 200);
+    public function vueInfo($id)
+    {
+        return response()->json(['records' => WarehouseRequest::where('id', $id)->with(
+            [
+                'budgetSpecificAction',
+                'department',
+                'warehouseRequestProducts' => function ($query) {
+                    $query->with(['warehouseInventoryProduct' => function ($query) {
+                        $query->with('warehouseProduct', 'measurementUnit', 'currency');
+                    }]);
+                }
+            ]
+        )->first()], 200);
+    }
+
+    /**
+     * Obtiene un listado de las solicitudes de almacén registradas
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function vueList()
+    {
+        $warehouse_requests = WarehouseRequest::with('department')
+            ->whereNotNull('budget_specific_action_id')
+            ->get();
+        return response()->json(['records' => $warehouse_requests], 200);
+    }
+
+    /**
+     * Obtiene un listado de las solicitudes de almacén pendientes
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function vuePendingList()
+    {
+        $warehouse_requests = WarehouseRequest::with('department', 'payrollStaff')
+            ->get();
+        return response()->json(['records' => $warehouse_requests], 200);
     }
 }

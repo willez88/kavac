@@ -7,11 +7,13 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * @class CreateAssetInventoriesTable
  * @brief Crear tabla de inventario de bienes institucionales
- * 
+ *
  * Gestiona la creación o eliminación de la tabla de inventario de bienes
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CreateAssetInventoriesTable extends Migration
 {
@@ -29,8 +31,10 @@ class CreateAssetInventoriesTable extends Migration
                 $table->string('code', 20)->unique()->comment('Código identificador del inventario');
                 $table->integer('registered')->unsigned()->default(0)->comment('Cantidad de bienes en registrados');
                 $table->integer('assigned')->unsigned()->default(0)->comment('Cantidad de bienes en asignados');
-                $table->integer('disincorporated')->unsigned()->default(0)->comment('Cantidad de bienes en desincorporados');
-                $table->integer('reserved')->unsigned()->default(0)->comment('Cantidad de bienes reservados por solicitudes registradas en el sistema');
+                $table->integer('disincorporated')->unsigned()->default(0)
+                      ->comment('Cantidad de bienes en desincorporados');
+                $table->integer('reserved')->unsigned()->default(0)
+                      ->comment('Cantidad de bienes reservados por solicitudes registradas en el sistema');
 
                 /**
                  * Fecha en la que se registra el inventario actual de bienes

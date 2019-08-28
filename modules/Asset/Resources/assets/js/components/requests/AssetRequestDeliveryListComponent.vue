@@ -95,8 +95,6 @@
 							vm.record.observation = document.getElementById('request_observation').value;
 	    					vm.createRecord('asset/requests/deliveries');
 	    				}
-	    				else
-	    					return false;
 	    			}
 	    		});
 
@@ -125,8 +123,6 @@
 							vm.record.observation = document.getElementById('request_observation').value;
 	    					vm.createRecord('asset/requests/deliveries');
 	    				}
-	    				else
-	    					return false;
 	    			}
 	    		});
 				

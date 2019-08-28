@@ -21,11 +21,10 @@
 
 	<div class="row">
 		<div class="col-12">
-			<warehouse-reception
+			<warehouse-reception-create
 				route_list='{{ url('warehouse/receptions')}}'
 				:receptionid ="{!! (isset($reception)) ? $reception->id : 'null' !!}">
-					
-				</warehouse-reception>
+				</warehouse-reception-create>
 		</div>
 	</div>
 

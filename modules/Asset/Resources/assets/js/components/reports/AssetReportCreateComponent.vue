@@ -334,10 +334,13 @@
 			createRecord() {
 				const vm = this;
 				var fields = {};
-				var url = 'asset/reports'
+				var url = 'asset/reports';
 
-				if(vm.record.type_report == ''){
+				if (vm.record.type_report == '') {
 					bootbox.alert("Debe seleccionar el tipo de reporte a generar");
+					return false;
+				}
+				if (vm.record.type_report == 'dependence') {
 					return false;
 				}
 
@@ -348,8 +351,6 @@
 					if (response.data.result == false)
 						location.href = response.data.redirect;
 					else if (typeof(response.data.redirect) !== "undefined") {
-						//console.log(response.data.redirect);
-						//location.href = response.data.redirect;
 						window.open(response.data.redirect, '_blank');
 					}
 					else {

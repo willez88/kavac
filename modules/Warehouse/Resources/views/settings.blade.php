@@ -17,6 +17,7 @@
 @stop
 
 @section('content')
+	@include('warehouse::settings-code-formats')
 	@include('warehouse::settings-parameters')
 	<div class="row">
 		<div class="col-12">
@@ -31,19 +32,16 @@
 				<div class="card-body">
 					<div class="row">
 						{{-- Configuración de Almacenes --}}
-						<warehouse></warehouse>
+						<warehouses></warehouses>
 
 						{{-- Configuración de Productos Almacenables --}}
-						<warehouse-product></warehouse-product>
-
-						{{-- Configuración de Unidades Métricas de Productos --}}
-						<warehouse-unit></warehouse-unit>
+						<warehouse-products></warehouse-products>
 
 						{{-- Configuración de Reglas de Almacén --}}
-						<warehouse-rule></warehouse-rule>
+						<warehouse-rules></warehouse-rules>
 
 						{{-- Configuración de Cierres de Almacén --}}
-						<warehouse-close></warehouse-close>
+						<warehouse-closes></warehouse-closes>
 
 					</div>
 				</div>

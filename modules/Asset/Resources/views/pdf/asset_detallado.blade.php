@@ -1,5 +1,5 @@
 @php  
-    $height = $pdf->get_Y();
+    $height = $pdf->getPositionY();
     $total = 0;
 @endphp
 
@@ -17,16 +17,16 @@
 
     @foreach($assets as $fields)
         @php 
-            $height += $pdf->getStringHeight(34.625, ($fields->asset)?($fields->asset_status):($fields->asset_status->name), 1);
+            $height += $pdf->getStringHeight(34.625, ($fields->asset)?($fields->assetStatus):($fields->assetStatus->name), 1);
         @endphp
         
-        @if ($height > $pdf->get_checkBreak()+25)
+        @if ($height > $pdf->getCheckBreak()+25)
             <tr>
                 <th width="87.5%" align="R">Total Van</th>
                 <th width="12.5%"> {{ $total }} </th>
             </tr>
             @php 
-                $height = $pdf->get_Y() + $pdf->getStringHeight(34.625, ($fields->asset)?($fields->asset_status):($fields->asset_status->name));
+                $height = $pdf->getPositionY() + $pdf->getStringHeight(34.625, ($fields->asset)?($fields->assetStatus):($fields->assetStatus->name));
             @endphp
         </table>
 
@@ -54,7 +54,7 @@
                 <td width="12.5%"> {{ ($fields->asset)?($fields->asset->inventory_serial):($fields->inventory_serial) }} </td>
                 <td width="12.5%"> </td>
                 <td width="12.5%"> {{ ($fields->asset)?($fields->asset->acquisition_year):$fields->acquisition_year }} </td>
-                <td width="12.5%"> {{ ($fields->asset)?($fields->asset_status):$fields->asset_status->name }} </td>
+                <td width="12.5%"> {{ ($fields->asset)?($fields->assetStatus):$fields->assetStatus->name }} </td>
                 <td width="12.5%"> {{ ($fields->asset)?($fields->asset->serial):$fields->serial }} </td>
                 <td width="12.5%"> {{ ($fields->asset)?($fields->asset->marca):$fields->marca }} </td>
                 <td width="12.5%"> {{ ($fields->asset)?($fields->asset->model):$fields->model }} </td>

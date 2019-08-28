@@ -9,16 +9,18 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AssetDisincorporationAsset
  * @brief Datos del listado de bienes registrados en una desincorporación
- * 
+ *
  * Gestiona el modelo de datos de los bienes registrados en una desincorporación
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetDisincorporationAsset extends Model implements Auditable
 {
     use AuditableTrait;
-	
+    
     /**
      * Lista de atributos que pueden ser asignados masivamente
      *
@@ -30,9 +32,10 @@ class AssetDisincorporationAsset extends Model implements Auditable
      * Método que obtiene la desincorporación asociada al registro
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetDisincorporation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetDisincorporation
      */
-    public function asset_disincorporation()
+    public function assetDisincorporation()
     {
         return $this->belongsTo(AssetDisincorporation::class);
     }

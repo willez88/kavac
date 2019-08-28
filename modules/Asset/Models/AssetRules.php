@@ -9,16 +9,18 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AssetRules
  * @brief Modelo de datos de las reglas de bienes en inventario
- * 
+ *
  * Gestiona el modelo de datos de los cambios en las reglas por cada bien en el inventario
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetRules extends Model implements Auditable
 {
-	use AuditableTrait;
-	
+    use AuditableTrait;
+    
     /**
      * Lista de atributos que pueden ser asignados masivamente
      *
@@ -30,9 +32,10 @@ class AssetRules extends Model implements Auditable
      * Método que obtiene el registro de inventario asociado al registro
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetInventory
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetInventory
      */
-    public function asset_inventory()
+    public function assetInventory()
     {
         return $this->belongsTo(AssetInventory::class);
     }
