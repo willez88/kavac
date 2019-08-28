@@ -3,7 +3,6 @@
 namespace Modules\Warehouse\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -11,14 +10,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class Warehouse
- * @brief Datos de los Almacenes que opera la institución
- * 
- * Gestiona el modelo de datos para los Almacenes
- * 
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @brief Datos de los almacenes registrados
+ *
+ * Gestiona el modelo de datos para los almacenes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class Warehouse extends Model implements Auditable
 {
     use SoftDeletes;
@@ -27,6 +27,7 @@ class Warehouse extends Model implements Auditable
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
@@ -40,46 +41,31 @@ class Warehouse extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
-    protected $fillable = ['name','address','active','country_id','estate_id','city_id'];
+    protected $fillable = ['name', 'active', 'address','parish_id'];
 
     /**
-     * Método que obtiene el pais donde esta ubicado el almacén
+     * Método que obtiene la parroquia donde esta ubicado el almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Country
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Parish
      */
-    public function country()
+    public function parish()
     {
-        return $this->belongsTo('App\Models\Country', 'country_id');
-    }
-
-    /**
-     * Método que obtiene el estado donde esta ubicado el almacén
-     *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Estate
-     */
-    public function estate()
-    {
-        return $this->belongsTo('App\Models\Estate', 'estate_id');
+        return $this->belongsTo(\App\Models\Parish::class);
     }
 
     /**
-     * Método que obtiene la ciudad donde esta ubicado el almacén
+     * Método que obtiene las instituciones que gestionan el almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo City
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * WarehouseInstitutionWarehouse
      */
-    public function city()
+    public function warehouseInstitutionWarehouses()
     {
-        return $this->belongsTo('App\Models\City', 'city_id');
+        return $this->hasMany(WarehouseInstitutionWarehouse::class);
     }
-
-    public function pivot()
-    {
-        return $this->hasMany('Modules\Warehouse\Models\WarehouseInstitutionWarehouse');
-    }
-
 }

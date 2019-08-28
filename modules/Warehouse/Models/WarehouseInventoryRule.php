@@ -9,17 +9,17 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
- * @class WarehouseProduct
- * @brief Datos de los productos
+ * @class WarehouseInventoryRule
+ * @brief Datos de las reglas del inventario
  *
- * Gestiona el modelo de datos de los productos almacenables
+ * Gestiona el modelo de datos de las reglas del inventario de los productos
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class WarehouseProduct extends Model implements Auditable
+class WarehouseInventoryRule extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -44,17 +44,28 @@ class WarehouseProduct extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['name', 'description', 'define_attributes'];
+    protected $fillable = ['minimum', 'maximum', 'warehouse_inventory_product_id', 'user_id'];
 
     /**
-     * Método que obtiene los atributos personalizados de un producto
+     * Método que obtiene el usuario que realiza el cambio de regla
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo  User
+     */
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class);
+    }
+
+    /**
+     * Método que obtiene el registro del producto en el inventario
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
-     * WarehouseProductAttributes
+     * WarehouseInventoryProduct
      */
-    public function warehouseProductAttributes()
+    public function warehouseInventoryProduct()
     {
-        return $this->hasMany(WarehouseProductAttribute::class);
+        return $this->belongsTo(WarehouseInventoryProduct::class);
     }
 }

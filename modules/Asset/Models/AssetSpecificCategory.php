@@ -11,11 +11,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AssetSpecificCategory
  * @brief Datos de las categorias especificas de un bien
- * 
+ *
  * Gestiona el modelo de datos para las categorias especificas de un bien
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetSpecificCategory extends Model implements Auditable
 {
@@ -48,9 +50,10 @@ class AssetSpecificCategory extends Model implements Auditable
      * Método que obtiene la subcategoria asociada a la categoria especifica
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetSubcategory
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetSubcategory
      */
-	public function asset_subcategory()
+    public function assetSubcategory()
     {
         return $this->belongsTo(AssetSubcategory::class);
     }
@@ -65,5 +68,4 @@ class AssetSpecificCategory extends Model implements Auditable
     {
         return $this->hasMany(Asset::class);
     }
-
 }

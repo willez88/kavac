@@ -10,10 +10,12 @@ use Modules\Asset\Models\AssetUseFunction;
 /**
  * @class AssetUseFunctionsTableSeeder
  * @brief Inicializar Funciones de uso de los bienes
- * 
- * 
+ *
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 
 class AssetUseFunctionsTableSeeder extends Seeder
@@ -36,18 +38,16 @@ class AssetUseFunctionsTableSeeder extends Seeder
             ['name' => 'Educativo'],
             ['name' => 'Asistencial'],
             ['name' => 'De oficina'],
-            ['name' => 'Industrial'],
-            ['name' => 'Otro Uso']
+            ['name' => 'Industrial']
 
         ];
 
 
            
-            foreach ($asset_use_functions as $asset_use_function) {
-                AssetUseFunction::updateOrCreate(
-                    ['name' => $asset_use_function['name']]
-                );
-            }
+        foreach ($asset_use_functions as $asset_use_function) {
+            AssetUseFunction::updateOrCreate(
+                ['name' => $asset_use_function['name']]
+            );
+        }
     }
 }
-

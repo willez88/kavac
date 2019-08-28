@@ -11,7 +11,9 @@ use Illuminate\Contracts\Validation\Rule;
  * Gestiona las reglas de validación de las fechas de prorroga de entrega de equipos
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class DateExtension implements Rule
 {
@@ -29,7 +31,7 @@ class DateExtension implements Rule
     public function __construct($date, $days = '0')
     {
         $this->days = $days;
-        $this->date = date('d-m-Y',strtotime($date));
+        $this->date = date('d-m-Y', strtotime($date));
     }
 
     /**
@@ -42,7 +44,8 @@ class DateExtension implements Rule
     public function passes($attribute, $value)
     {
         $days_extension = '+ '.$this->days. ' days';
-        return ((date('d-m-Y',strtotime($this->date.$days_extension)) >= date('d-m-Y', strtotime($value)))&&( date('d-m-Y', strtotime($value)) >= date('d-m-Y',strtotime($this->date))));
+        return ((date('d-m-Y', strtotime($this->date.$days_extension)) >= date('d-m-Y', strtotime($value))) &&
+            (date('d-m-Y', strtotime($value)) >= date('d-m-Y', strtotime($this->date))));
     }
 
     /**

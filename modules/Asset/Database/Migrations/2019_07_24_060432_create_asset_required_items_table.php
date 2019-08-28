@@ -7,11 +7,13 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * @class CreateAssetRequiredItemsTable
  * @brief Crear tabla campos requeridos
- * 
+ *
  * Gestiona la creación o eliminación de los campos requeridos
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CreateAssetRequiredItemsTable extends Migration
 {
@@ -33,11 +35,13 @@ class CreateAssetRequiredItemsTable extends Migration
                 $table->boolean('model')->default(false)->comment('Define si el modelo es requerido');
                 $table->boolean('address')->default(false)->comment('Define si la dirección es requerida');
                 
-                $table->integer('asset_specific_category_id')->comment('Identificador único de la clasificación asociada a los requerimentos');
-                $table->foreign('asset_specific_category_id')->references('id')->on('asset_specific_categories')->onDelete('restrict')->onUpdate('cascade');
+                $table->integer('asset_specific_category_id')
+                      ->comment('Identificador único de la clasificación asociada a los requerimentos');
+                $table->foreign('asset_specific_category_id')->references('id')->on('asset_specific_categories')
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
-                $table->unique(array('asset_specific_category_id'))->comment('Clave única para el registro');
+                $table->unique(['asset_specific_category_id'])->comment('Clave única para el registro');
             });
         }
     }

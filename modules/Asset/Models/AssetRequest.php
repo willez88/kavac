@@ -12,13 +12,14 @@ use App\Traits\ModelsTrait;
 /**
  * @class AssetRequest
  * @brief Datos de las solicitudes de bienes institucionales
- * 
+ *
  * Gestiona el modelo de datos de las solicitudes de bienes institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class AssetRequest extends Model implements Auditable
 {
     use SoftDeletes;
@@ -45,15 +46,18 @@ class AssetRequest extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['code', 'type', 'motive', 'state', 'delivery_date', 'agent_name', 'agent_telf', 'agent_email', 'user_id'];
+    protected $fillable = [
+        'code', 'type', 'motive', 'state', 'delivery_date', 'agent_name', 'agent_telf', 'agent_email', 'user_id'
+    ];
 
     /**
      * Método que obtiene los bienes asociados a la solicitud
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetRequestAsset
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * AssetRequestAsset
      */
-    public function asset_request_assets()
+    public function assetRequestAssets()
     {
         return $this->hasMany(AssetRequestAsset::class);
     }
@@ -62,9 +66,10 @@ class AssetRequest extends Model implements Auditable
      * Método que obtiene los eventos asociados a la solicitud
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetRequestEvent
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * AssetRequestEvent
      */
-    public function asset_events()
+    public function assetRequestEvents()
     {
         return $this->hasMany(AssetRequestEvent::class);
     }
@@ -73,11 +78,12 @@ class AssetRequest extends Model implements Auditable
      * Método que obtiene las prorrogas asociados a la solicitud
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetRequestProrroga
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * AssetRequestProrroga
      */
-    public function asset_prorrogas()
+    public function assetRequestExtension()
     {
-        return $this->hasMany(AssetRequestProrroga::class);
+        return $this->hasMany(assetRequestExtension::class);
     }
 
     /**

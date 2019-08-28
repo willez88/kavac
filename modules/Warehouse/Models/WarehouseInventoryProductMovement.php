@@ -8,17 +8,17 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
- * @class WarehouseRequestProduct
- * @brief Datos de los productos solicitados
+ * @class WarehouseInventoryProductMovement
+ * @brief Datos de los movimientos de los productos entre almacenes
  *
- * Gestiona el modelo de datos de los productos almacenables solicitados
+ * Gestiona el modelo de datos de los productos para los movimientos de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class WarehouseRequestProduct extends Model implements Auditable
+class WarehouseInventoryProductMovement extends Model implements Auditable
 {
     use RevisionableTrait;
     use AuditableTrait;
@@ -35,10 +35,13 @@ class WarehouseRequestProduct extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['quantity', 'warehouse_request_id', 'warehouse_inventory_product_id'];
+    protected $fillable = [
+        'quantity', 'new_value', 'warehouse_movement_id', 'warehouse_initial_inventory_product_id',
+        'warehouse_inventory_product_id'
+    ];
 
     /**
-     * Método que obtiene el producto asociado al inventario
+     * Método que obtiene el registro en el inventario del producto movilizado
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
@@ -50,15 +53,26 @@ class WarehouseRequestProduct extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la solicitud registrada
+     * Método que obtiene el registro en el inventario del producto que se va movilizar
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
-     * WarehouseRequest
+     * WarehouseInventoryProduct
      */
-
-    public function warehouseRequest()
+    public function warehouseInitialInventoryProduct()
     {
-        return $this->belongsTo(WarehouseRequest::class);
+        return $this->belongsTo(WarehouseInventoryProduct::class);
+    }
+
+    /**
+     * Método que obtiene el movimiento de almacén asociado al registro
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * WarehouseMovement
+     */
+    public function warehouseMovement()
+    {
+        return $this->belongsTo(WarehouseMovement::class);
     }
 }

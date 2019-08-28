@@ -16,11 +16,13 @@ use Modules\Asset\Models\AssetRequestDelivery;
 /**
  * @class AssetRequestDeliveryController
  * @brief Controlador de las solicitudes de entrega de equipos
- * 
+ *
  * Clase que gestiona las solicitudes de entrega de equipos
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetRequestDeliveryController extends Controller
 {
@@ -34,7 +36,7 @@ class AssetRequestDeliveryController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => AssetRequestDelivery::with('asset_request', 'user')->get()], 200);
+        return response()->json(['records' => AssetRequestDelivery::with('assetRequest', 'user')->get()], 200);
     }
 
     /**
@@ -65,7 +67,7 @@ class AssetRequestDeliveryController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request                   Datos de la petición
-     * @param  Modules\Asset\Models\AssetRequestDelivery $delivery  Datos de la solicitud 
+     * @param  Modules\Asset\Models\AssetRequestDelivery $delivery  Datos de la solicitud
      * @return \Illuminate\Http\JsonResponse                        Objeto con los registros a mostrar
      */
     public function update(Request $request, AssetRequestDelivery $delivery)
@@ -90,8 +92,7 @@ class AssetRequestDeliveryController extends Controller
                 $asset->asset_status_id = 10;
                 $asset->save();
             }
-        }
-        else if ($request->state == 'Rechazado') {
+        } elseif ($request->state == 'Rechazado') {
             $asset_request = AssetRequest::find($request->asset_request_id);
             $asset_request->state = 'Pendiente por entrega';
             $asset_request->save();

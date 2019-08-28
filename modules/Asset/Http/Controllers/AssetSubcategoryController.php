@@ -13,11 +13,13 @@ use Modules\Asset\Models\AssetCategory;
 /**
  * @class AssetSubcategoryController
  * @brief Controlador de Subcategorias de Bienes
- * 
+ *
  * Clase que gestiona las Subcategorias de bienes
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetSubcategoryController extends Controller
 {
@@ -42,7 +44,7 @@ class AssetSubcategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => AssetSubcategory::with('asset_category')->get()], 200);
+        return response()->json(['records' => AssetSubcategory::with('assetCategory')->get()], 200);
     }
 
     /**
@@ -116,9 +118,15 @@ class AssetSubcategoryController extends Controller
      */
     public function getSubcategories($category_id = null)
     {
-        if(is_null($category_id))
-            return template_choices('Modules\Asset\Models\AssetSubcategory','name','',true);
+        if (is_null($category_id)) {
+            return template_choices('Modules\Asset\Models\AssetSubcategory', 'name', '', true);
+        }
         $asset_category = AssetCategory::find($category_id);
-        return ($asset_category)?template_choices('Modules\Asset\Models\AssetSubcategory','name',['asset_category_id' => $asset_category->id],true):[];
+        return ($asset_category)?template_choices(
+            'Modules\Asset\Models\AssetSubcategory',
+            'name',
+            ['asset_category_id' => $asset_category->id],
+            true
+        ):[];
     }
 }

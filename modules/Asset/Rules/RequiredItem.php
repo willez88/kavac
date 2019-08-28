@@ -11,7 +11,9 @@ use Illuminate\Contracts\Validation\Rule;
  * Gestiona las reglas de validación de campos requeridos en el registro
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class RequiredItem implements Rule
 {
@@ -37,10 +39,11 @@ class RequiredItem implements Rule
      */
     public function passes($attribute, $value = '')
     {
-        if ($this->required == true)
+        if ($this->required == true) {
             return ($value != '');
-        else
+        } else {
             return true;
+        }
     }
 
     /**

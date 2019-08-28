@@ -3,24 +3,23 @@
 namespace Modules\Warehouse\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
- * @class WarehouseProductUnit
- * @brief Datos de las unidades métricas de los productos
- * 
- * Gestiona el modelo de datos de las unidades métricas de los productos almacenables
- * 
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @class WarehouseReport
+ * @brief Datos del historico de los reportes del modulo de almacén
+ *
+ * Gestiona el modelo de datos del historico de los reportes del modulo de almacén
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
-
-class WarehouseProductUnit extends Model implements Auditable
+class WarehouseReport extends Model implements Auditable
 {
     use SoftDeletes;
     use RevisionableTrait;
@@ -28,6 +27,7 @@ class WarehouseProductUnit extends Model implements Auditable
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
@@ -38,11 +38,13 @@ class WarehouseProductUnit extends Model implements Auditable
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
-
+    
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
-    protected $fillable = ['name', 'abbreviation', 'description'];
-
+    protected $fillable = [
+        'code', 'type_report', 'warehouse_product_id', 'warehouse_id', 'institution_id'
+    ];
 }

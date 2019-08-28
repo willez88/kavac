@@ -10,12 +10,13 @@ use Modules\Asset\Models\AssetAcquisitionType;
 /**
  * @class AssetAcquisitionTypesTableSeeder
  * @brief Inicializar los tipos de adquisición de un bien
- * 
- * 
+ *
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class AssetAcquisitionTypesTableSeeder extends Seeder
 {
     /**
@@ -44,10 +45,10 @@ class AssetAcquisitionTypesTableSeeder extends Seeder
 
 
            
-            foreach ($asset_acquisition_types as $asset_acquisition_type) {
-                AssetAcquisitionType::updateOrCreate(
-                    ['name' => $asset_acquisition_type['name']]
-                );
-            }
+        foreach ($asset_acquisition_types as $asset_acquisition_type) {
+            AssetAcquisitionType::updateOrCreate(
+                ['name' => $asset_acquisition_type['name']]
+            );
+        }
     }
 }

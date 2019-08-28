@@ -10,12 +10,13 @@ use Modules\Asset\Models\AssetDisincorporationMotive;
 /**
  * @class AssetDisincorporationMotivesTableSeeder
  * @brief Inicializar los Motivos de desincorporación de los bienes
- * 
- * 
+ *
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class AssetDisincorporationMotivesTableSeeder extends Seeder
 {
     /**
@@ -42,10 +43,10 @@ class AssetDisincorporationMotivesTableSeeder extends Seeder
 
 
            
-            foreach ($disincorporation_motives as $disincorporation_motive) {
-                AssetDisincorporationMotive::updateOrCreate(
-                    ['name' => $disincorporation_motive['name']]
-                );
-            }
+        foreach ($disincorporation_motives as $disincorporation_motive) {
+            AssetDisincorporationMotive::updateOrCreate(
+                ['name' => $disincorporation_motive['name']]
+            );
+        }
     }
 }
