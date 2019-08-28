@@ -14,18 +14,18 @@
             <a href="{{ route('warehouse.setting.index') }}">Configuración</a>
         </li>
 
-        <li class="{!! set_active_menu(['warehouse.request.index','warehouse.request.create','warehouse.request.edit']) !!}" data-toggle="tooltip" data-placement="right" 
-               title="Solicitudes de almacén">
-            
-            <a href="{{ route('warehouse.request.index') }}">
-                Solicitudes de Almacén</a>
-        </li>
-
         <li class="{!! set_active_menu(['warehouse.reception.index','warehouse.reception.create','warehouse.reception.edit']) !!}" data-toggle="tooltip" data-placement="right"
                 title="Gestión de las Recepciones o Ingresos de artículos al Almacén">
 
             <a  href="{{ route('warehouse.reception.index') }}">
                 Recepciones de Almacén</a>
+        </li>
+
+        <li class="{!! set_active_menu(['warehouse.request.index','warehouse.request.create','warehouse.request.edit']) !!}" data-toggle="tooltip" data-placement="right" 
+               title="Solicitudes de almacén">
+            
+            <a href="{{ route('warehouse.request.index') }}">
+                Solicitudes de Almacén</a>
         </li>
 
         @if(($setting)&&($setting->multi_warehouse))

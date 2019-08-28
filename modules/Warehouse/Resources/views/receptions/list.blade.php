@@ -28,64 +28,34 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-
-				
 				<div class="card-body">
-					<div class="col-md-12">
-						<table class="table table-hover table-striped dt-responsive datatable">
-							<thead>
-								<tr class="text-center">			
-									<th>Código</th>
-									<th>Descripción</th>
-									<th>Almacén</th>
-									<th>Fecha de Ingreso</th>
-									<th>Estado</th>
-									<th width="10%">Acciones</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach($receptions as $reception)
-									<tr>
-										<td>{{ $reception->id }}</td>
-										<td>{{ $reception->description }}</td>
-										<td>{{ $reception->finish->warehouse->name }}</td>
-										<td>{{ $reception->created_at }}</td>
-										<td>{{ ($reception->complete)?'Completado':'Pendiente' }}</td>
-
-										<td width="10%" class="text-center">
-											<div class="d-inline-flex">
-												
-												<warehouse-reception-info 
-													route_list="warehouse/receptions/vue-info/"
-													:reception="{{$reception}}">
-												</warehouse-reception-info>
-
-												{!! Form::open(['route' => ['warehouse.reception.edit', $reception], 'method' => 'GET']) !!}
-												<button class="btn btn-warning btn-xs btn-icon btn-action"  
-												data-toggle="tooltip" title="Editar Solicitud">
-													<i class="icofont icofont-edit"></i>
-												</button>
-												{!! Form::close() !!}
-
-												{!! Form::open(['route' => ['warehouse.reception.destroy', $reception], 'method' => 'DELETE']) !!}
-												<button class="btn btn-danger btn-xs btn-icon btn-action"  data-toggle="tooltip" title="Eliminar Solicitud">
-													<i class="fa fa-trash"></i>
-												</button>
-												{!! Form::close() !!}
-												
-											</div>
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
-						
-					</div>
-					
-					
+					<warehouse-reception-list
+						route_list="{{ url('warehouse/receptions/vue-list') }}"
+						route_edit="{{ url('warehouse/receptions/edit/{id}') }}"
+						route_delete="{{ url('warehouse/receptions/delete') }}">
+					</warehouse-reception-list>
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Ingresos de Almacén Pendientes</h6>
+					<div class="card-btns">
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
+					</div>
+				</div>
+				<div class="card-body">
+					<warehouse-reception-pending-list
+						route_list="{{ url('warehouse/receptions/vue-list') }}"
+						route_update='warehouse/receptions'>
+					</warehouse-reception-pending-list>
+				</div>
+			</div>
+		</div>
+	</div>
 @stop

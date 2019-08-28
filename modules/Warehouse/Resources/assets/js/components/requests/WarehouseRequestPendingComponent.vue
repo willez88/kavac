@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<a class="btn btn-success btn-xs btn-icon btn-action" 
-		   href="#" title="Registrar Entrega de Productos" data-toggle="tooltip" 
+		<a class="btn btn-default btn-xs btn-icon btn-action" 
+		   href="#" title="Entregar productos" data-toggle="tooltip" 
 		   @click="initRequest('view_request_pending',$event)">
-			<i class="fa fa-check"></i>
+			<i class="fa fa-calendar-check-o"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="view_request_pending">
 			<div class="modal-dialog modal-xs" role="document">
@@ -18,10 +18,23 @@
 					</div>
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
-							<ul>
-								<li v-for="error in errors">{{ error }}</li>
-							</ul>
+							<div class="container">
+								<div class="alert-icon">
+									<i class="now-ui-icons objects_support-17"></i>
+								</div>
+								<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+										@click.prevent="errors = []">
+									<span aria-hidden="true">
+										<i class="now-ui-icons ui-1_simple-remove"></i>
+									</span>
+								</button>
+								<ul>
+									<li v-for="error in errors">{{ error }}</li>
+								</ul>
+							</div>
 						</div>
+						
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
@@ -29,7 +42,7 @@
 									<textarea  placeholder="Observaciones referentes a la solicitud de almacén"
 											   data-toggle="tooltip" 
 											   title="Indique alguna observación referente a la solicitud de almacén (opcional)" 
-											   class="form-control input-sm" v-model="record.observation">
+											   class="form-control input-sm" v-model="record.observations">
 								   </textarea>
 								   <input type="hidden" v-model="record.id" id="id">
 			                    </div>
@@ -44,7 +57,7 @@
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="updateRecord('/warehouse/request-complete/')" 
+	                	<button type="button" @click="updateRecord('/warehouse/requests/request-complete/')" 
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -61,13 +74,13 @@
 			return {
 				record: {
 					id:'',
-					observation: '',
+					observations: '',
 				},
 				errors: [],
 			}
 		},
 		props: {
-		requestid: Number, 
+			requestid: Number, 
 		},
 		methods: {
 			/**
@@ -78,10 +91,10 @@
 			reset() {
 				this.record = {
 					id: '',
-					observation:''
+					observations: ''
 				};
 			},
-			initRequest(modal_id,event){
+			initRequest(modal_id,event) {
 				
 				$(".modal-body #id").val( this.requestid );
 				if ($("#" + modal_id).length) {
@@ -89,17 +102,13 @@
 				}
 				event.preventDefault();
 			},
-			updateRecord(url){
+			updateRecord(url) {
 				const vm = this;
 				var id = $(".modal-body #id").val();
 				if(typeof(url) != 'undefined'){
 					axios.put(url + id, vm.record).then(response => {
-						if (response.data.result) {
-	                        vm.showMessage('update');
-	                        setTimeout(function() {
-	                            window.location.href = '/warehouse/request';
-	                        }, 2000);
-	                    }
+						if (typeof(response.data.redirect) !== "undefined")
+							location.href = response.data.redirect;
 					}).catch(error => {
 						vm.errors = [];
 

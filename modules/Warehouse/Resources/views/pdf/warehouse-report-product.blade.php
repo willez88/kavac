@@ -1,5 +1,5 @@
 @php  
-    $height = $pdf->get_Y();
+    $height = $pdf->getPositionY();
     $total = 0;
 @endphp
 
@@ -14,14 +14,14 @@
         <th width="12.5%">Valor Unitario</th>
     </tr>
 
-    @foreach($inventary_product as $inventary)
+    @foreach($inventory_product as $inventory)
         @php 
-            $height += $pdf->getStringHeight(34.625, $inventary->product->description,1);
+            $height += $pdf->getStringHeight(34.625, $inventory->warehouseProduct->description, 1);
         @endphp
         
-        @if ($height > $pdf->get_checkBreak()+25)
+        @if ($height > $pdf->getCheckBreak()+25)
             @php 
-                $height = $pdf->get_Y() + $pdf->getStringHeight(34.625, $inventary->product->description);
+                $height = $pdf->getPositionY() + $pdf->getStringHeight(34.625, $inventory->warehouseProduct->description);
             @endphp
         </table>
 
@@ -41,13 +41,13 @@
             @endif
 
             <tr>
-                <td width="12.5%"> {{ $inventary->product->id }} </td>
-                <td width="12.5%"> {{ $inventary->product->name  }} </td>
-                <td width="25%"> {{ $inventary->product->description }} </td>
-                <td width="12.5%"> {{ $inventary->warehouseInstitution->warehouse->name }} </td>
-                <td width="12.5%"> {{ $inventary->exist }} </td>
-                <td width="12.5%"> {{ $inventary->reserved }} </td>
-                <td width="12.5%"> {{ $inventary->unit_value }} </td>
+                <td width="12.5%"> {{ $inventory->code }} </td>
+                <td width="12.5%"> {{ $inventory->warehouseProduct->name  }} </td>
+                <td width="25%"> {{ $inventory->warehouseProduct->description }} </td>
+                <td width="12.5%"> {{ $inventory->warehouseInstitutionWarehouse->warehouse->name }} </td>
+                <td width="12.5%"> {{ $inventory->exist }} </td>
+                <td width="12.5%"> {{ $inventory->reserved }} </td>
+                <td width="12.5%"> {{ $inventory->unit_value .' '. $inventory->currency->symbol }} </td>
             
             </tr>
 

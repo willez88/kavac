@@ -106,14 +106,16 @@
 			 * 
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
-			reset() {
+			reset()
+			{
 				this.record = {
 					id: '',
 					name: '',
 					product_id: '',
 				};
 			},
-			getAttributes() {
+			getAttributes()
+			{
 				var id = this.record.product_id;
 				var url = "attributes";
 				if (id !== '')
@@ -123,15 +125,16 @@
 						}
 					});
 			},
-			getProducts(url){
+			getProducts(url)
+			{
 				axios.get('/' + url).then(response => {
 					if (typeof response.data !== "undefined") {
 						this.products = response.data;
 					}
 				});
 			},
-			createAttribute(url) {
-
+			createAttribute(url)
+			{
 				if (this.record.id) {
 					this.updateAttribute(url);
 				}
@@ -150,10 +153,9 @@
 						}
 					});
 				}
-				
 			},
-			updateAttribute(url) {
-				
+			updateAttribute(url)
+			{
 				var fields = {};
 				for (var index in this.record) {
 					fields[index] = this.record[index];

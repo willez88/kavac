@@ -22,16 +22,28 @@
 					</div>
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
-							<ul>
-								<li v-for="error in errors">{{ error }}</li>
-							</ul>
+							<div class="container">
+								<div class="alert-icon">
+									<i class="now-ui-icons objects_support-17"></i>
+								</div>
+								<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+										@click.prevent="errors = []">
+									<span aria-hidden="true">
+										<i class="now-ui-icons ui-1_simple-remove"></i>
+									</span>
+								</button>
+								<ul>
+									<li v-for="error in errors">{{ error }}</li>
+								</ul>
+							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4" v-if="multi_institution">
 								<div class="form-group is-required">
 									<label>Institución que gestiona el Almacén:</label>
-									<select2 :options="institutions" @input="getWarehouses()"
+									<select2 :options="institutions" @input="readRecords('warehouse/institution/' + record.institution_id)"
 											 id="institutions_id"
 											 v-model="record.institution_id">
 									</select2>
@@ -85,22 +97,29 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Estado:</label>
-									<select2 :options="estates" @input="getCities"
+									<select2 :options="estates" @input="getMunicipalities"
 											 v-model="record.estate_id"></select2>
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Ciudad:</label>
-									<select2 :options="cities" v-model="record.city_id"></select2>
+									<label>Municipio:</label>
+									<select2 :options="municipalities" @input="getParishes"
+									v-model="record.municipality_id"></select2>
+			                    </div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group is-required">
+									<label>Parroquia:</label>
+									<select2 :options="parishes" v-model="record.parish_id"></select2>
 			                    </div>
 							</div>
 
-							<div class="col-md-4">
-								<div class="form-group">
+							<div class="col-md-8">
+								<div class="form-group is-required">
 									<label>Dirección:</label>
 									<textarea  data-toggle="tooltip"
-												placeholder="Dirección del Almacén"
+												placeholder="Dirección del almacén"
 											    title="Indique una breve dirección del Nuevo almacén (requerido)" 
 										   		class="form-control" v-model="record.address">
 								   </textarea>
@@ -112,39 +131,69 @@
 		                <div class="modal-body modal-table">
 		                	<hr>
 		                	<v-client-table :columns="columns" :data="records" :options="table_options">
+		                		<div slot="name" slot-scope="props">
+		                			<span>
+		                				{{ (props.row.warehouse)?props.row.warehouse.name:'' }}
+		                			</span>
+		                		</div>
+		                		<div slot="country" slot-scope="props">
+		                			<span>
+		                				{{ (props.row.warehouse.parish)?
+		                					props.row.warehouse.parish.municipality.estate.country.name:'' }}
+		                			</span>
+		                		</div>
+		                		<div slot="estate" slot-scope="props">
+		                			<span>
+		                				{{ (props.row.warehouse.parish)?
+		                					props.row.warehouse.parish.municipality.estate.name:'' }}
+		                			</span>
+		                		</div>
+		                		<div slot="address" slot-scope="props">
+		                			<span>
+		                				{{ (props.row.warehouse.address)?
+		                					props.row.warehouse.address:'' }}
+		                			</span>
+		                		</div>
+		                		<div slot="institution" slot-scope="props">
+		                			<span>
+		                				{{ (props.row.institution)?
+		                					props.row.institution.acronym:'' }}
+		                			</span>
+		                		</div>
 		                		<div slot="active" slot-scope="props">
 		                			<span v-if="props.row.warehouse.active">Activo</span>
 		                			<span v-else>Inactivo</span>
 		                		</div>
-		                		
-		                		<div slot="id" slot-scope="props" class="text-center d-inline-flex">
-			                		<div v-if="multi_warehouse">
-				                		<button @click="warehouseManage(props.index, $event)" 
-												class="btn btn-danger btn-xs btn-icon btn-action" 
-												title="Dejar de Gestionar Almacén" data-toggle="tooltip" 
-												type="button"
-												v-if="props.row.manage">
-											<i class="fa fa-minus-circle"></i>
-										</button>
-										<button @click="warehouseManage(props.index,$event)" 
-				                				class="btn btn-success btn-xs btn-icon btn-action" 
-				                				title="Gestionar Almacén" data-toggle="tooltip" type="button"
-				                				v-else>
-				                			<i class="fa fa-plus-circle"></i>
+		                		<div slot="id" slot-scope="props" class="text-center">
+			                		<div class="d-inline-flex">
+				                		<div v-if="multi_warehouse">
+					                		<button @click="warehouseManage(props.index, $event)" 
+													class="btn btn-danger btn-xs btn-icon btn-action" 
+													title="Dejar de Gestionar Almacén" data-toggle="tooltip" 
+													type="button"
+													v-if="props.row.manage">
+												<i class="fa fa-minus-circle"></i>
+											</button>
+											<button @click="warehouseManage(props.index, $event)" 
+					                				class="btn btn-success btn-xs btn-icon btn-action" 
+					                				title="Gestionar Almacén" data-toggle="tooltip" type="button"
+					                				v-else>
+					                			<i class="fa fa-plus-circle"></i>
+					                		</button>
+										</div>
+			                			<button @click="editRecord(props.index, $event)" 
+				                				class="btn btn-warning btn-xs btn-icon btn-action" 
+				                				title="Modificar registro" data-toggle="tooltip" type="button">
+				                			<i class="fa fa-edit"></i>
 				                		</button>
-									</div>
-		                			<button @click="editRecord(props.index, $event)" 
-			                				class="btn btn-warning btn-xs btn-icon btn-action" 
-			                				title="Modificar registro" data-toggle="tooltip" type="button">
-			                			<i class="fa fa-edit"></i>
-			                		</button>
-			                		<button @click="deleteRecord(props.index, 'warehouses')" 
-											class="btn btn-danger btn-xs btn-icon btn-action" 
-											title="Eliminar registro" data-toggle="tooltip" 
-											type="button">
-										<i class="fa fa-trash-o"></i>
-									</button>
-		                		</div>
+				                		<button @click="deleteRecord(props.index, 'warehouses')" 
+												class="btn btn-danger btn-xs btn-icon btn-action" 
+												title="Eliminar registro" data-toggle="tooltip" 
+												type="button">
+											<i class="fa fa-trash-o"></i>
+										</button>
+			                		</div>
+			                	</div>
 		                	</v-client-table>
 		                </div>
 					</div>
@@ -177,7 +226,8 @@
 					institution_id:'',
 					country_id:'',
 					estate_id:'',
-					city_id:'',
+					municipality_id:'',
+					parish_id: '',
 
 				},
 
@@ -185,11 +235,12 @@
 				multi_institution: null,
 				errors: [],
 				records: [],
-				columns: ['warehouse.name', 'warehouse.country.name', 'warehouse.estate.name', 'warehouse.city.name', 'warehouse.address', 'institution.acronym','active', 'id'],
+				columns: ['name', 'country', 'estate', 'address', 'institution','active', 'id'],
 				institutions: [],
 				countries: [],
 				estates: [],
-				cities: [],
+				municipalities: [],
+				parishes: [],
 			}
 		},
 		methods: {
@@ -198,7 +249,8 @@
 			 * 
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
-			reset() {
+			reset()
+			{
 				this.record = {
 					id: '',
 					name: '',
@@ -207,33 +259,40 @@
 					institution_id: '',
 					country_id:'',
 					estate_id:'',
-					city_id:'',
+					municipality_id:'',
+					parish_id: '',
 				};
 
 				this.errors = [];
 			},
-			getWarehouses(){
-				const vm = this;
-				axios.get('warehouses',vm.record.institution_id).then(response => {
-					if(typeof(response.data.records) != 'undefied')
-						vm.records = response.data.records;
-				});
-
-			},
-			getSetting(url){
+			/**
+			 * Método que obtiene la configuración del sistema
+			 * 
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
+			 */
+			getSetting(url)
+			{
 				const vm = this;
 				axios.get(url).then(response => {
 					if (typeof(response.data.record) !== "undefined") {
-						vm.multi_institution = (response.data.record != null)?response.data.record.multi_institution:false;
-						vm.multi_warehouse = (response.data.record != null)?response.data.record.multi_warehouse:false;
+						vm.multi_institution = (response.data.record != null)?
+							response.data.record.multi_institution:false;
+						vm.multi_warehouse = (response.data.record != null)?
+							response.data.record.multi_warehouse:false;
 					}
 				});
 			},
-			warehouseManage(index){
+			/**
+			 * Método que obtiene actualiza la institución que gestiona un almacén
+			 * 
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
+			 */
+			warehouseManage(index)
+			{
 				const vm = this;
 				var field = {};
 				field = this.records[index-1];
-				var url = '/warehouse/manage/'+field.id;								
+				var url = '/warehouse/manage/' + field.id;
 
 				axios.get(url).then(response => {
 					if (typeof(response.data.records) !== "undefined") {
@@ -241,18 +300,29 @@
 					}
 				});
 			},
-			editRecord(index, event){
-				var vm = this;
+			/**
+			 * Método que carga los datos de un registro en el formulario para su edición
+			 * 
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
+			 */
+			editRecord(index, event)
+			{
+				const vm = this;
 				vm.errors = [];
-				vm.record = vm.records[index - 1].warehouse;
+				var field = vm.records[index - 1];
+				vm.record = field.warehouse;
+				vm.record.institution_id = field.institution_id;
 				var elements = {
 					active: vm.record.active,
-					main: vm.records[index - 1].main,
+					main: field.main,
 				};
 
 				$.each(elements, function (el, value) {
 					if ($("input[name=" + el + "]").hasClass('bootstrap-switch')) {
-						/** verifica los elementos bootstrap-switch para seleccionar el que corresponda según los registros del sistema */
+						/**
+						 * verifica los elementos bootstrap-switch para seleccionar el que
+						 * corresponda según los registros del sistema
+						 */
 						$("input[name=" + el + "]").each(function () {
 							if ($(this).val() === value) {
 								$(this).bootstrapSwitch('state', value, true);
@@ -262,27 +332,23 @@
 					if (value === true || value === false) {
 						$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
 					}
-					
 				});
-
 				event.preventDefault();
-
 			},
 		},
 		created() {
 			this.table_options.headings = {
-				'warehouse.name': 'Nombre',
-				'warehouse.country.name': 'Pais',
-				'warehouse.estate.name': 'Estado',
-				'warehouse.city.name': 'Ciudad',
-				'warehouse.address': 'Dirección',
-				'institution.acronym': 'Gestionado por',
+				'name': 'Nombre',
+				'country': 'Pais',
+				'estate': 'Estado',
+				'address': 'Dirección',
+				'institution': 'Gestionado por',
 				'active': 'Estatus',
 				'id': 'Acción'
 			};
 			
-			this.table_options.sortable = ['warehouse.name', 'warehouse.country.name', 'warehouse.estate.name', 'warehouse.city.name', 'warehouse.address', 'institution.acronym'];
-			this.table_options.filterable = ['warehouse.name', 'warehouse.country.name', 'warehouse.estate.name', 'warehouse.city.name', 'warehouse.address', 'institution.acronym'];
+			this.table_options.sortable = ['name', 'country', 'estate', 'address', 'institution', 'active'];
+			this.table_options.filterable = ['name', 'country', 'estate', 'address', 'institution', 'active'];
 
 			this.getCountries();
 			this.getInstitutions();
