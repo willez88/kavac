@@ -4,16 +4,28 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * @class CreateWarehousesTable
+ * @brief Crear tabla de almacenes
+ *
+ * Gestiona la creación o eliminación de la tabla de almacenes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class CreateWarehousesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Método que ejecuta las migraciones
      *
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function up()
     {
-        if (!Schema::hasTable('warehouses')) {    
+        if (!Schema::hasTable('warehouses')) {
             Schema::create('warehouses', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
                 $table->string('name')->comment('Nombre o descripción del almacen');
@@ -46,8 +58,9 @@ class CreateWarehousesTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Método que elimina las migraciones
      *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function down()

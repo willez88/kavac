@@ -43,6 +43,34 @@ Vue.component('asset-subcategories', require('./components/AssetSubcategoriesCom
 Vue.component('asset-specific-categories', require('./components/AssetSpecificCategoriesComponent.vue').default);
 
 /**
+ * Componente para la gestión de las Condiciones Físicas de un Bien
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-conditions', require('./components/AssetConditionsComponent.vue').default);
+
+/**
+ * Componente para la gestión de los Status de Uso de un Bien
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-status', require('./components/AssetStatusComponent.vue').default);
+
+/**
+ * Componente para la gestión de la Función de Uso de un Bien
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-use-functions', require('./components/AssetUseFunctionsComponent.vue').default);
+
+/**
+ * Componente para la gestión del Tipo de Adquisición de un Bien
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-acquisition-types', require('./components/AssetAcquisitionTypesComponent.vue').default);
+
+/**
  * Componente para gestionar las solicitudes de bienes institucionales
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -61,6 +89,12 @@ Vue.component('asset-request-info', require('./components/requests/AssetRequestI
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 Vue.component('asset-asignation-create', require('./components/asignations/AssetAsignationCreateComponent.vue').default);
+
+/**
+ * Componente para mostrar un listado de las asignaciones registradas
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
 Vue.component('asset-asignation-list', require('./components/asignations/AssetAsignationListComponent.vue').default);
 
 /**
@@ -76,6 +110,12 @@ Vue.component('asset-asignation-info', require('./components/asignations/AssetAs
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 Vue.component('asset-disincorporation-create', require('./components/disincorporations/AssetDisincorporationCreateComponent.vue').default);
+
+/**
+ * Componente para mostrar un listado de las desincorporaciones registradas
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
 Vue.component('asset-disincorporation-list', require('./components/disincorporations/AssetDisincorporationListComponent.vue').default);
 
 /**
@@ -91,6 +131,12 @@ Vue.component('asset-disincorporation-info', require('./components/disincorporat
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 Vue.component('asset-create', require('./components/registers/AssetCreateComponent.vue').default);
+
+/**
+ * Componente para mostrar un listado de bienes institucionales registrados
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
 Vue.component('asset-list', require('./components/registers/AssetListComponent.vue').default);
 
 /**
@@ -115,7 +161,7 @@ Vue.component('asset-request-extension', require('./components/requests/AssetReq
 Vue.component('asset-request-event', require('./components/requests/AssetRequestEventComponent.vue').default);
 
 /**
- * Componente para mostrar un listado de solicitudes registradas
+ * Componente para mostrar un listado de las solicitudes registradas
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
@@ -136,18 +182,46 @@ Vue.component('asset-request-list-pending', require('./components/requests/Asset
 Vue.component('asset-request-delivery-list', require('./components/requests/AssetRequestDeliveryListComponent.vue').default);
 
 /**
- * Componente para la gestion de reportes de inventario
+ * Componente para gestionar la creación de reportes de inventario
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 Vue.component('asset-report-create', require('./components/reports/AssetReportCreateComponent.vue').default);
 
 /**
- * Componente para mostrar un listado del historial del inventario
+ * Componente para mostrar un listado del historico del inventario
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 Vue.component('asset-inventory-history-list', require('./components/inventories/AssetInventoryHistoryListComponent.vue').default);
+
+/**
+ * Componente para mostrar los gráficos del panel de control asociados al módulo de bienes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-dashboard-graphs', require('./components/dashboard/AssetDashboardGraphsComponent.vue').default);
+
+/**
+ * Componente para la gestión de gráficos estadísticos del módulo de bienes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-graph-charts', require('./components/dashboard/AssetGraphChartsComponent.vue').default);
+
+/**
+ * Componente para mostrar la información de una operación asociada al módulo de bienes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-operations-history-info', require('./components/dashboard/AssetOperationsHistoryInfoComponent.vue').default);
+
+/**
+ * Componente para mostrar un listado de las operaciones registradas
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-operations-history-list', require('./components/dashboard/AssetOperationsHistoryListComponent.vue').default);
 
 /**
  * Opciones de configuración global del módulo de bienes
@@ -227,45 +301,5 @@ Vue.mixin({
 				});
 			}
 		},
-
-		/**
-		 * Obtiene los datos de los puestos de trabajo registrados en la institucion
-		 *
-		 * @author Henry Paredes <hparedes@cenditel.gob.ve>
-		 */
-		getStaffs() {
-			const vm = this;
-			vm.staffs = [];
-			axios.get('/asset/get-staffs').then(response => {
-				vm.staffs = response.data;
-			});
-		},
-
-		/**
-		 * Obtiene los datos de los tipos de cargo registrados en la institucion
-		 *
-		 * @author Henry Paredes <hparedes@cenditel.gob.ve>
-		 */
-		getTypePositions() {
-			const vm = this;
-			vm.type_positions = [];
-			axios.get('/asset/get-type-positions').then(response => {
-				vm.type_positions = response.data;
-			});
-		},
-
-		/**
-		 * Obtiene los datos de los cargos registrados en la institucion
-		 *
-		 * @author Henry Paredes <hparedes@cenditel.gob.ve>
-		 */
-		getPositions() {
-			const vm = this;
-			vm.positions = [];
-			axios.get('/asset/get-positions').then(response => {
-				vm.positions = response.data;
-			});
-		},
-		
 	},
 });

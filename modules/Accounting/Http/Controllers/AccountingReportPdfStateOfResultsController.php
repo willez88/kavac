@@ -67,22 +67,22 @@ class AccountingReportPdfStateOfResultsController extends Controller
         $endDate = $date.'-'.$day;
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_1 = 'seat_account.seating';
+        $level_1 = 'seatAccount.seating';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_2 = 'children.seat_account.seating';
+        $level_2 = 'children.seatAccount.seating';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_3 = 'children.children.seat_account.seating';
+        $level_3 = 'children.children.seatAccount.seating';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_4 = 'children.children.children.seat_account.seating';
+        $level_4 = 'children.children.children.seatAccount.seating';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_5 = 'children.children.children.children.seat_account.seating';
+        $level_5 = 'children.children.children.children.seatAccount.seating';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_6 = 'children.children.children.children.children.seat_account.seating';
+        $level_6 = 'children.children.children.children.children.seatAccount.seating';
 
         /**
         * Se realiza la consulta de cada cuenta y asiento que pertenezca a INGRESOS Y GASTOS
@@ -140,7 +140,6 @@ class AccountingReportPdfStateOfResultsController extends Controller
         $pdf->setType('Estado de Resultados');
         $pdf->Open();
         $pdf->AddPage();
-
         $html = \View::make('accounting::pdf.accounting_state_of_results_pdf', compact('pdf', 'records', 'currency', 'level', 'zero', 'endDate'))->render();
         $pdf->SetFont('Courier', 'B', 8);
 
@@ -214,10 +213,10 @@ class AccountingReportPdfStateOfResultsController extends Controller
         /** @var Float saldo total de la suma de los saldos de sus cuentas hijo */
         $balanceChildren = 0;
 
-        foreach ($account->seat_account as $seat_account) {
-            if ($seat_account->seating['approved']) {
-                $debit += (float)$seat_account['debit'];
-                $assets += (float)$seat_account['assets'];
+        foreach ($account->seatAccount as $seatAccount) {
+            if ($seatAccount->seating['approved']) {
+                $debit += (float)$seatAccount['debit'];
+                $assets += (float)$seatAccount['assets'];
             }
         }
         if (count($account->children) > 0) {

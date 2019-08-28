@@ -184,8 +184,8 @@
 								@foreach($assets as $asset)
 									<tr>
 										<td> {{ $asset->inventory_serial }} </td>
-								        <td> {{ $asset->asset_condition->name }} </td>
-								        <td> {{ $asset->asset_status->name }} </td>
+								        <td> {{ $asset->assetCondition->name }} </td>
+								        <td> {{ $asset->assetStatus->name }} </td>
 								        <td> {{ $asset->serial }} </td>
 								        <td> {{ $asset->marca }} </td>
 										<td> {{ $asset->model }} </td>

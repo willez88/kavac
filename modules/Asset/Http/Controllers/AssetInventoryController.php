@@ -6,13 +6,23 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\CodeSetting;
 
 use Modules\Asset\Models\AssetInventoryAsset;
 use Modules\Asset\Models\AssetInventory;
 use Modules\Asset\Models\Asset;
 
+/**
+ * @class AssetInventoryController
+ * @brief Controlador del historico de inventario de bienes institucionales
+ *
+ * Clase que gestiona el historico del inventario de bienes institucionales
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class AssetInventoryController extends Controller
 {
     /**
@@ -44,29 +54,35 @@ class AssetInventoryController extends Controller
             return response()->json(['result' => false, 'redirect' => route('asset.setting.index')], 200);
         }
 
-        $code  = generate_registration_code($codeSetting->format_prefix, strlen($codeSetting->format_digits),
-        (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'), $codeSetting->model, $codeSetting->field);
+        $code  = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
 
         $inventory = AssetInventory::create([
             'code' => $code,
         ]);
-        $assets = Asset::with('asset_condition', 'asset_status', 'asset_use_function')->withTrashed()->get();
+        $assets = Asset::with('assetCondition', 'assetStatus', 'assetUseFunction')->withTrashed()->get();
 
         $registered = count($assets);
         $assigned = $disincorporated = $reserved = 0;
 
         foreach ($assets as $asset) {
-            if ($asset->status_id = 1 )
+            if ($asset->status_id = 1) {
                 $assigned += $assigned;
-            else if ($asset->status_id = 6 )
+            } elseif ($asset->status_id = 6) {
                 $reserved += $reserved;
-            else if (in_array($asset->status_id, [5,7,8,9]))
+            } elseif (in_array($asset->status_id, [5,7,8,9])) {
                 $disincorporated += $disincorporated;
+            }
 
             $inventory_asset = AssetInventoryAsset::create([
-                'asset_condition'    => ($asset->asset_condition)?$asset->asset_condition->name:null,
-                'asset_status'       => ($asset->asset_status)?$asset->asset_status->name:null,
-                'asset_use_function' => ($asset->asset_use_function)?$asset->asset_use_function->name:null,
+                'asset_condition'    => ($asset->assetCondition)?$asset->assetCondition->name:null,
+                'asset_status'       => ($asset->assetStatus)?$asset->assetStatus->name:null,
+                'asset_use_function' => ($asset->assetUseFunction)?$asset->assetUseFunction->name:null,
                 'asset_id'           => $asset->id,
                 'asset_inventory_id' => $inventory->id,
             ]);
@@ -78,7 +94,6 @@ class AssetInventoryController extends Controller
         $inventory->save();
 
         $request->session()->flash('message', ['type' => 'store']);
-        
         return response()->json(['result' => true, 'redirect' => route('asset.inventory-history.index')], 200);
     }
 
@@ -104,6 +119,6 @@ class AssetInventoryController extends Controller
      */
     public function vueList()
     {
-        return response()->json(['records' => AssetInventory::with('asset_inventory_assets')->get()], 200);
+        return response()->json(['records' => AssetInventory::with('assetInventoryAssets')->get()], 200);
     }
 }

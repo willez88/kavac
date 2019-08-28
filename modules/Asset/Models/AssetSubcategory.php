@@ -11,11 +11,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AssetSubcategory
  * @brief Datos de las subcategorias de un bien
- * 
+ *
  * Gestiona el modelo de datos de las subcategorias de un bien
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetSubcategory extends Model implements Auditable
 {
@@ -48,9 +50,10 @@ class AssetSubcategory extends Model implements Auditable
      * Método que obtiene la categoria asociada a la subcategoria del bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetCategory
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetCategory
      */
-	public function asset_category()
+    public function assetCategory()
     {
         return $this->belongsTo(AssetCategory::class);
     }
@@ -59,9 +62,10 @@ class AssetSubcategory extends Model implements Auditable
      * Método que obtiene las categorias especificas asociadas a la subcategoria del bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetSpecificCategory
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * AssetSpecificCategory
      */
-    public function asset_specific_categories()
+    public function assetSpecificCategories()
     {
         return $this->hasmany(AssetSpecificCategory::class);
     }
@@ -76,5 +80,4 @@ class AssetSubcategory extends Model implements Auditable
     {
         return $this->hasMany(Asset::class);
     }
-
 }

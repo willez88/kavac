@@ -57,11 +57,7 @@ class AccountingReportPdfDailyBookController extends Controller
         );
 
         /** @var Objet objeto con la información del asiento contable */
-<<<<<<< HEAD
-        $seats = AccountingSeat::with('accounting_accounts.account.account_converters.budget_account')->where('approved', true)->whereBetween("from_date", [$initDate, $endDate])->orderBy('from_date', 'ASC')->get();
-=======
-        $seats = AccountingSeat::with('accounting_accounts.account.accountConverters.budgetAccount')->where('approved', true)->whereBetween("from_date", [$initDate, $endDate])->orderBy('from_date', 'ASC')->get();
->>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
+        $seats = AccountingSeat::with('accountingAccounts.account.accountConverters.budgetAccount')->where('approved', true)->whereBetween("from_date", [$initDate, $endDate])->orderBy('from_date', 'ASC')->get();
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
@@ -71,11 +67,6 @@ class AccountingReportPdfDailyBookController extends Controller
 
         /** @var Object Objeto base para generar el pdf */
         $pdf = new Pdf('L', 'mm', 'Letter');
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
         /*
          *  Definicion de las caracteristicas generales de la página
          */

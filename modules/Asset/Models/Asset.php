@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
-use Module;
 
 /**
  * @class Asset
  * @brief Datos de los bienes institucionales
- * 
+ *
  * Gestiona el modelo de datos de los bienes institucionales
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class Asset extends Model implements Auditable
 {
     use SoftDeletes;
@@ -45,7 +45,10 @@ class Asset extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'asset_type_id', 'asset_category_id', 'asset_subcategory_id', 'asset_specific_category_id', 'asset_condition_id', 'asset_acquisition_type_id', 'acquisition_year', 'asset_status_id', 'serial', 'marca', 'model', 'inventory_serial', 'value', 'asset_use_function_id', 'specifications', 'address', 'parish_id', 'currency_id'
+        'asset_type_id', 'asset_category_id', 'asset_subcategory_id', 'asset_specific_category_id',
+        'asset_condition_id', 'asset_acquisition_type_id', 'acquisition_year', 'asset_status_id',
+        'serial', 'marca', 'model', 'inventory_serial', 'value', 'asset_use_function_id',
+        'specifications', 'address', 'parish_id', 'currency_id'
     ];
 
     /**
@@ -56,9 +59,9 @@ class Asset extends Model implements Auditable
      */
     public function getCode()
     {
-        $code = $this->asset_type_id .'-'. $this->asset_category_id .'-'. $this->asset_subcategory_id .'-'. $this->asset_specific_category_id .'-'. $this->acquisition_year .'-'. $this->id;
-
-        return $code;
+        return $this->asset_type_id . '-' . $this->asset_category_id . '-' .
+        $this->asset_subcategory_id . '-' . $this->asset_specific_category_id . '-' .
+        $this->acquisition_year     . '-' . $this->id;
     }
 
     /**
@@ -69,9 +72,11 @@ class Asset extends Model implements Auditable
      */
     public function getDescription()
     {
-        $description = 'Código: '.$this->getCode() .'. Marca: '. $this->marca .'. Modelo: '. $this->model;
-        if ($this->asset_type_id == 2){
-            $description = $description . ". Serial: ". $this->serial;
+        $description = 'Código: ' . $this->getCode() . '. ' .
+                       'Marca: '  . $this->marca . '. ' .
+                       'Modelo: ' . $this->model;
+        if ($this->asset_type_id == 2) {
+            $description = $description . '. Serial: ' . $this->serial;
         }
         return $description;
     }
@@ -82,7 +87,7 @@ class Asset extends Model implements Auditable
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetType
      */
-    public function asset_type()
+    public function assetType()
     {
         return $this->belongsTo(AssetType::class);
     }
@@ -91,9 +96,10 @@ class Asset extends Model implements Auditable
      * Método que obtiene la categoria a la que pertenece el bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetCategory
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetCategory
      */
-    public function asset_category()
+    public function assetCategory()
     {
         return $this->belongsTo(AssetCategory::class);
     }
@@ -102,9 +108,10 @@ class Asset extends Model implements Auditable
      * Método que obtiene la subcategoria a la que pertenece el bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetSubcategory
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetSubcategory
      */
-    public function asset_subcategory()
+    public function assetSubcategory()
     {
         return $this->belongsTo(AssetSubcategory::class);
     }
@@ -113,10 +120,11 @@ class Asset extends Model implements Auditable
      * Método que obtiene la categoria específica a la que pertenece el bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetSpecificCategory
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetSpecificCategory
      */
 
-    public function asset_specific_category()
+    public function assetSpecificCategory()
     {
         return $this->belongsTo(AssetSpecificCategory::class);
     }
@@ -125,9 +133,10 @@ class Asset extends Model implements Auditable
      * Método que obtiene el tipo de adquisicion del bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetAcquisitionType
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetAcquisitionType
      */
-    public function asset_acquisition_type()
+    public function assetAcquisitionType()
     {
         return $this->belongsTo(AssetAcquisitionType::class);
     }
@@ -136,9 +145,10 @@ class Asset extends Model implements Auditable
      * Método que obtiene la condición física del bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetCondition
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetCondition
      */
-    public function asset_condition()
+    public function assetCondition()
     {
         return $this->belongsTo(AssetCondition::class);
     }
@@ -147,9 +157,10 @@ class Asset extends Model implements Auditable
      * Método que obtiene el estatus de uso del bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetStatus
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetStatus
      */
-    public function asset_status()
+    public function assetStatus()
     {
         return $this->belongsTo(AssetStatus::class);
     }
@@ -158,9 +169,10 @@ class Asset extends Model implements Auditable
      * Método que obtiene la función de uso del bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetUseFunction
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetUseFunction
      */
-    public function asset_use_function()
+    public function assetUseFunction()
     {
         return $this->belongsTo(AssetUseFunction::class);
     }
@@ -169,10 +181,11 @@ class Asset extends Model implements Auditable
      * Método que obtiene los bienes asignados
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne Objeto con el registro relacionado al modelo AssetAsignationAsset
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne Objeto con el registro relacionado al modelo
+     * AssetAsignationAsset
      */
 
-    public function asset_asignation_asset()
+    public function assetAsignationAsset()
     {
         return $this->hasOne(AssetAsignationAsset::class);
     }
@@ -181,9 +194,10 @@ class Asset extends Model implements Auditable
      * Método que obtiene los bienes desincorporados
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne Objeto con el registro relacionado al modelo AssetDisincorporationAsset
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne Objeto con el registro relacionado al modelo
+     * AssetDisincorporationAsset
      */
-    public function asset_disincorporation_asset()
+    public function assetDisincorporationAsset()
     {
         return $this->hasOne(AssetDisincorporationAsset::class);
     }
@@ -192,9 +206,10 @@ class Asset extends Model implements Auditable
      * Método que obtiene los bienes solicitados
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne Objeto con el registro relacionado al modelo AssetRequestAsset
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne Objeto con el registro relacionado al modelo
+     * AssetRequestAsset
      */
-    public function asset_request_asset()
+    public function assetRequestAsset()
     {
         return $this->hasOne(AssetRequestAsset::class);
     }
@@ -203,16 +218,17 @@ class Asset extends Model implements Auditable
      * Método que obtiene los bienes inventariados
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetInventoryAsset
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * AssetInventoryAsset
      */
-    public function asset_inventory_assets()
+    public function assetInventoryAssets()
     {
         return $this->hasMany(AssetInventoryAsset::class);
     }
 
     /**
      * Método que obtiene la parroquia donde esta ubicado el bien
-     * 
+     *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Parish
      */
@@ -244,23 +260,23 @@ class Asset extends Model implements Auditable
      */
     public function scopeCodeClasification($query, $type, $category, $subcategory, $specific)
     {
-        if($type != "") {
+        if ($type != "") {
             if ($category != "") {
                 if ($subcategory != "") {
                     if ($specific != "") {
-                        return $query->where('asset_type_id',$type)
-                                     ->where('asset_category_id',$category)
-                                     ->where('asset_subcategory_id',$subcategory)
-                                     ->where('asset_specific_category_id',$specific);
+                        return $query->where('asset_type_id', $type)
+                                     ->where('asset_category_id', $category)
+                                     ->where('asset_subcategory_id', $subcategory)
+                                     ->where('asset_specific_category_id', $specific);
                     }
-                    return $query->where('asset_type_id',$type)
-                             ->where('asset_category_id',$category)
-                              ->where('asset_subcategory_id',$subcategory);
+                    return $query->where('asset_type_id', $type)
+                             ->where('asset_category_id', $category)
+                              ->where('asset_subcategory_id', $subcategory);
                 }
-                return $query->where('asset_type_id',$type)
-                             ->where('asset_category_id',$category);
+                return $query->where('asset_type_id', $type)
+                             ->where('asset_category_id', $category);
             }
-            return $query->where('asset_type_id',$type);
+            return $query->where('asset_type_id', $type);
         }
     }
 
@@ -278,10 +294,9 @@ class Asset extends Model implements Auditable
     {
         if (!is_null($start)) {
             if (!is_null($end)) {
-                return $query->whereBetween("created_at",[$start,$end]); 
-            }
-            else {
-                return $query->whereBetween("created_at",[$start,now()]);
+                return $query->whereBetween("created_at", [$start,$end]);
+            } else {
+                return $query->whereBetween("created_at", [$start,now()]);
             }
         }
 
@@ -289,8 +304,9 @@ class Asset extends Model implements Auditable
             if (!is_null($year)) {
                 return $query->whereMonth('created_at', $mes)
                              ->whereYear('created_at', $year);
-            }else
+            } else {
                 return $query->whereMonth('created_at', $mes);
+            }
         }
     }
 
@@ -307,7 +323,6 @@ class Asset extends Model implements Auditable
         /**
          * Falta asociar con la institución
          * Ojo: Debe ser los equipos que ya han sido asignados
-         */    
+         */
     }
-
 }

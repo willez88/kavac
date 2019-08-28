@@ -10,13 +10,14 @@ use App\Traits\ModelsTrait;
 /**
  * @class AssetAcquisitionType
  * @brief Datos de los tipos de adquisición de los bienes
- * 
+ *
  * Gestiona el modelo de datos de los tipos de adquisición de los bienes
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class AssetAcquisitionType extends Model implements Auditable
 {
     use ModelsTrait;
@@ -39,6 +40,4 @@ class AssetAcquisitionType extends Model implements Auditable
     {
         return $this->hasMany(Asset::class);
     }
-
 }
-

@@ -3,7 +3,6 @@
 namespace Modules\Warehouse\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -11,14 +10,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class WarehouseInstitutionWarehouse
- * @brief Datos de los Almacenes de cada institución
- * 
- * Gestiona el modelo de datos de los Almacenes de cada institución
- * 
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @brief Datos de los almacenes gestionados por cada institución
+ *
+ * Gestiona el modelo de datos de los almacenes gestionados por cada institución
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class WarehouseInstitutionWarehouse extends Model implements Auditable
 {
     use SoftDeletes;
@@ -27,6 +27,7 @@ class WarehouseInstitutionWarehouse extends Model implements Auditable
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
@@ -40,46 +41,42 @@ class WarehouseInstitutionWarehouse extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
-    protected $fillable = ['institution_id','warehouse_id','manage', 'main'];
+    protected $fillable = ['institution_id', 'warehouse_id', 'manage', 'main'];
 
     /**
      * Método que obtiene el almacén gestionado por la institucion
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Intitution
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Intitution
      */
     public function institution()
     {
-        return $this->belongsTo('App\Models\Institution','institution_id');
+        return $this->belongsTo(\App\Models\Institution::class);
     }
 
     /**
      * Método que obtiene la institution que gestionan el almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo Intitution
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Warehouse
      */
     public function warehouse()
     {
-        return $this->belongsTo('Modules\Warehouse\Models\Warehouse','warehouse_id')->with('country','estate','city');
-    }
-
-    public function inventaryProduct()
-    {
-        return $this->hasMany('Modules\Warehouse\Models\WarehouseInventaryProduct','warehouse_institution_id');
+        return $this->belongsTo(Warehouse::class);
     }
 
     /**
-     * Método que obtiene los Movimiento realizados por un almacén y/o una institución dada
+     * Método que obtiene el inventario de los productos que gestiona la institución en un almacén
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return Objeto con el registro relacionado al modelo WarehouseMovement
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * WarehouseInventoryProduct
      */
-    public function movement()
+    public function warehouseInventoryProducts()
     {
-        return $this->hasMany('Modules\Warehouse\Models\WarehouseMovement');
+        return $this->hasMany(WarehouseInventoryProduct::class);
     }
-
 }

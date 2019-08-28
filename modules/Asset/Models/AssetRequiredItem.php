@@ -9,11 +9,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AssetRequiredItem
  * @brief Datos de los campos requeridos de un bien
- * 
+ *
  * Gestiona el modelo de datos de los campos requeridos de un bien
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetRequiredItem extends Model implements Auditable
 {
@@ -30,9 +32,10 @@ class AssetRequiredItem extends Model implements Auditable
      * Método que obtiene la categoria del bien asociada a los requerimentos
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetSpecificCategory
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetSpecificCategory
      */
-    public function asset_specific_category()
+    public function assetSpecificCategory()
     {
         return $this->belongsTo(AssetSpecificCategory::class);
     }

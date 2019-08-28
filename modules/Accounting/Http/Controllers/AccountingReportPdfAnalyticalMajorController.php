@@ -2,6 +2,7 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -13,7 +14,6 @@ use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
-use Auth;
 
 /**
  * @class AccountingReportPdfAnalyticalMajorController
@@ -22,7 +22,9 @@ use Auth;
  * Clase que gestiona el reporte de mayor analítico
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 
 class AccountingReportPdfAnalyticalMajorController extends Controller
@@ -36,49 +38,81 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
      */
     public function __construct()
     {
-        /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.analiticalmajor', ['only' => ['index', 'getAccAccount', 'pdf']]);
+        /**
+         * Establece permisos de acceso para cada método del controlador
+         */
+        $this->middleware(
+            'permission:accounting.report.analiticalmajor',
+            ['only' => ['index', 'getAccAccount', 'pdf']]
+        );
     }
 
     /**
      * Consulta y formatea las cuentas en un rango determinado
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  $initDate fecha inicial para iniciar la busqueda, formato(YYYY-mm)
-     * @param  $endYear año del fin del rango de busqueda
-     * @param  $endMonth mes del fin del rango de busqueda
-     * @return Array con las cuentas patrimoniales
+     * @param  [integer] $initDate [fecha inicial para iniciar la busqueda, formato(YYYY-mm)]
+     * @param  [integer] $endYear  [año del fin del rango de busqueda]
+     * @param  [integer] $endMonth [mes del fin del rango de busqueda]
+     * @return [array] [cuentas patrimoniales]
      */
     public function filter_accounts($initDate, $endYear, $endMonth)
     {
 
-        /** @var Object String en el que se formatea la fecha inicial de busqueda */
+        /**
+         * [$initDate fecha inicial de busqueda]
+         * @var [string]
+         */
         $initDate = $initDate.'-01';
 
-        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
+        /**
+         * [$endDay ultimo dia correspondiente al mes]
+         * @var [date]
+         */
         $endDay = date('d', (mktime(0, 0, 0, $endMonth+1, 1, $endYear)-1));
 
-        /** @var Object String en el que se formatea la fecha final de busqueda */
+        /** @var Object string en el que se formatea la fecha final de busqueda */
+        /**
+         * [$endDate fecha final de busqueda]
+         * @var [string]
+         */
         $endDate = $endYear.'-'.$endMonth.'-'.$endDay;
 
-        /** @var Object Objeto en el que se almacena la consulta de las cuentas con relación hacia asientos contables en un rango de fecha */
-        $RecordArr = AccountingSeatAccount::with('seating', 'account')->whereHas('seating', function ($query) use ($initDate, $endDate) {
-            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-        })->orderBy('updated_at', 'ASC')->get();
-        /** @var Array array en el que se almacenaran las cuentas patrimoniales de manera unica en el rango dando */
+
+        /**
+         * [$RecordArr consulta de las cuentas con relación hacia asientos contables en un rango de fecha]
+         * @var [Modules\Accounting\Models\AccountingSeatAccount]
+         */
+        $RecordArr = AccountingSeatAccount::with('seating', 'account')
+                    ->whereHas('seating', function ($query) use ($initDate, $endDate) {
+                        $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                    })->orderBy('updated_at', 'ASC')->get();
+
+        /**
+         * [$records cuentas patrimoniales de manera unica en el rango dado]
+         * @var array
+         */
         $records = [];
 
-        /** @var Array array auxiliar para guardar las cuentas ordenadas */
+        /**
+         * [$arrAux cuentas patrimoniales ordenadas por código]
+         * @var array
+         */
         $arrAux = [];
 
         /**
-        Ciclo los registros de cuentas relacionadas con asiento contables
+         * Ciclo los registros de cuentas relacionadas con asiento contables
         */
         foreach ($RecordArr as $accounting_accounts) {
-            /** @var boolean bandera que indica si la cuenta ya esta en el array */
-            $add = true;
+
             /**
-            Ciclo para verificar que la cuenta no se repita en el array
+             * [$add indica si la cuenta ya esta en el array]
+             * @var boolean
+             */
+            $add = true;
+
+            /**
+             * Ciclo para verificar que la cuenta no se repita en el array
             */
             for ($i=0; $i < count($records); $i++) {
                 if ($records[$i]->id == $accounting_accounts->account->id) {
@@ -93,8 +127,9 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         }
 
         /**
-        build_sorter: function compara y ordena las cuentas segun el orden en el código
-        */
+         * [build_sorter compara y ordena las cuentas segun el orden en el código]
+         * @return [integer] [resultado de la comparacion]
+         */
         function build_sorter()
         {
             return function ($a, $b) {
@@ -113,6 +148,10 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
                 'id' => 0,
             ]);
         
+        /**
+         * [$index indice para listar]
+         * @var integer
+         */
         $index = 1;
         foreach ($records as $account) {
             array_push($arrAux, [
@@ -126,11 +165,10 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
     }
 
     /**
-     * ruta para actualizar el listado de cuentas patrimoniales en un rango de fecha determinado
-     *
+     * [getAccAccount ruta para actualizar el listado de cuentas patrimoniales en un rango de fecha determinado]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  Request $request Objeto con datos del rango de busqueda de las cuentas
-     * @return Response JSON con array de las cuentas patrimoniales
+     * @param  {Request} $request [datos del rango de busqueda de las cuentas]
+     * @return [Response] [cuentas patrimoniales]
      */
     public function getAccAccount(Request $request)
     {
@@ -148,35 +186,59 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
     }
 
     /**
-     * vista en la que se genera el reporte en pdf
+     * [pdf vista en la que se genera el reporte en pdf]
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param String $initAcc variable con el index en el array de la cuenta de inicio
-     * @param String $endAcc variable con el index en el array de la cuenta final
+     * @param [string] $initAcc variable con el index en el array de la cuenta de inicio
+     * @param [string] $endAcc variable con el index en el array de la cuenta final
+     * @param [string] $initAcc  [description]
+     * @param [string] $endAcc   [description]
      */
     public function pdf($initDate, $endDate, $initAcc, $endAcc = null)
     {
-        /** @var String para almacenar una copia de la fecha inicial */
+        /**
+         * [$date_i fecha inicial]
+         * @var string
+         */
         $date_i = $initDate;
 
-        /** @var String para almacenar una copia de la fecha final */
+        /**
+         * [$date_e fecha final]
+         * @var string
+         */
         $date_e = $endDate;
 
-        /** @var String para almacenar una copia de la fecha final */
+        /**
+         * [$init_a id de cuenta inicial]
+         * @var string
+         */
         $init_a = $initAcc;
 
         $initAcc = (int)$initAcc;
 
-        /** @var Array Arreglo asociativo con la información base (id, id y denomination) de las cuentas patrimoniales */
+        /**
+         * [$accountRecords información base (id, id y denomination) de las cuentas patrimoniales]
+         * @var [array]
+         */
         $accountRecords = $this->filter_accounts($initDate, explode('-', $endDate)[0], explode('-', $endDate)[1]);
 
-        /** @var Object String en el que se formatea la fecha inicial de busqueda */
+        /**
+         * [$initDate la fecha inicial de busqueda]
+         * @var string
+         */
         $initDate = $initDate.'-01';
 
-        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
+        /** @var Object string en que se almacena el ultimo dia correspondiente al mes */
+        /**
+         * [$endDay ultimo dia correspondiente al mes]
+         * @var [date]
+         */
         $endDay = date('d', (mktime(0, 0, 0, explode('-', $endDate)[1]+1, 1, explode('-', $endDate)[0])-1));
 
-        /** @var Object String en el que se formatea la fecha final de busqueda */
+        /**
+         * [$endDate formatea la fecha final de busqueda]
+         * @var string
+         */
         $endDate = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1].'-'.$endDay;
 
         if (isset($endAcc) && $endAcc < $initAcc) {
@@ -186,26 +248,38 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
             $endAcc = $aux;
         }
 
-        /** @var EndIndex indice de la cuenta desde donde finalizara la busqueda */
+        /**
+         * [$EndIndex cuenta desde donde finalizara la busqueda]
+         * @var [integer]
+         */
         $EndIndex = $initAcc;
 
         if (isset($endAcc)) {
             $EndIndex = $endAcc;
         }
 
-        /** @var Object Objeto con los registros de las cuentas patrimoniales seleccionadas */
+        /**
+         * [$records registros de las cuentas patrimoniales seleccionadas]
+         * @var array
+         */
         $records = [];
 
         for (; $initAcc <= $EndIndex; $initAcc++) {
             $id = $accountRecords[$initAcc]['id_record'];
             array_push($records, AccountingSeatAccount::with('seating', 'account')
-                                                        ->where('accounting_account_id', $id)
-                                                        ->whereHas('seating', function ($query) use ($initDate, $endDate) {
-                                                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                                                        })->orderBy('updated_at', 'ASC')->get());
+                                ->where('accounting_account_id', $id)
+                                ->whereHas('seating', function ($query) use ($initDate, $endDate) {
+                                    $query->whereBetween(
+                                        'from_date',
+                                        [$initDate,$endDate]
+                                    )->where('approved', true);
+                                })->orderBy('updated_at', 'ASC')->get());
         }
 
-        // Se crea o actualiza el registro en la basde de datos para el historial
+        /**
+         * [$url link para consultar ese regporte]
+         * @var string
+         */
         $url = 'AnalyticalMajor/pdf/'.$date_i.'/'.$date_e.'/'.$init_a;
 
         if (isset($endAcc)) {
@@ -222,24 +296,33 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
                                                 ]
         );
 
-        /** @var Object configuración general de la apliación */
+        /**
+         * [$setting configuración general de la apliación]
+         * @var [Modules\Accounting\Models\Setting]
+         */
         $setting = Setting::all()->first();
 
-        /** @var Object con la información de la modena por defecto establecida en la aplicación */
+        /**
+         * [$currency información de la modena por defecto establecida en la aplicación]
+         * @var [Modules\Accounting\Models\Currency]
+         */
         $currency = Currency::where('default', true)->first();
 
-        /** @var Object Objeto base para generar el pdf */
+        /**
+         * [$pdf base para generar el pdf]
+         * @var [Modules\Accounting\Pdf\Pdf]
+         */
         $pdf = new Pdf('L', 'mm', 'Letter');
-        
+
         /*
          *  Definicion de las caracteristicas generales de la página
          */
-
         if (isset($setting) and $setting->report_banner == true) {
             $pdf->SetMargins(10, 65, 10);
         } else {
             $pdf->SetMargins(10, 55, 10);
         }
+        
         $pdf->SetHeaderMargin(10);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);

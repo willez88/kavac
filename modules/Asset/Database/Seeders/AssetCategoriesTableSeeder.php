@@ -11,10 +11,12 @@ use Modules\Asset\Models\AssetCategory;
 /**
  * @class AssetCategoriesTableSeeder
  * @brief Inicializa Categorias Generales
- * 
- * 
+ *
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetCategoriesTableSeeder extends Seeder
 {
@@ -48,13 +50,12 @@ class AssetCategoriesTableSeeder extends Seeder
 
 
         foreach ($asset_categories as $key => $categories) {
-
-            $asset_type = AssetType::where('id',$key)->first();
+            $asset_type = AssetType::where('id', $key)->first();
             foreach ($categories as $code => $cat) {
                 AssetCategory::UpdateorCreate([
                     'code' => $code,
                     'name' => $cat,
-                    'asset_type_id' => $asset_type->id],[]);
+                    'asset_type_id' => $asset_type->id], []);
             }
         }
     }

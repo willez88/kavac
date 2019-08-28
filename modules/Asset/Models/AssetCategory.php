@@ -11,15 +11,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AssetCategory
  * @brief Datos de las categorias generales de un bien
- * 
+ *
  * Gestiona el modelo de datos de las categorias generales de un bien
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetCategory extends Model implements Auditable
 {
-	use SoftDeletes;
+    use SoftDeletes;
     use RevisionableTrait;
     use AuditableTrait;
 
@@ -50,7 +52,7 @@ class AssetCategory extends Model implements Auditable
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetType
      */
-	public function asset_type()
+    public function assetType()
     {
         return $this->belongsTo(AssetType::class);
     }
@@ -59,9 +61,10 @@ class AssetCategory extends Model implements Auditable
      * Método que obtiene las subcategorias asociadas a la categoria
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetSubcategories
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * AssetSubcategories
      */
-    public function asset_subcategories()
+    public function assetSubcategories()
     {
         return $this->hasmany(AssetSubcategory::class);
     }
@@ -76,5 +79,4 @@ class AssetCategory extends Model implements Auditable
     {
         return $this->hasMany(Asset::class);
     }
-
 }

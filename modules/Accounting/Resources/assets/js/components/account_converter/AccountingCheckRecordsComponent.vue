@@ -1,11 +1,6 @@
 <template>
 	<div class="form-horizontal">
 		<div class="card-body">
-<<<<<<< HEAD
-			
-=======
-
->>>>>>> aabab1de39581adbaff2aa33e9a5f7fd4040ee62
 			<accounting-show-errors :options="errors" />
 
 			<div class="row">

@@ -10,10 +10,12 @@ use Modules\Asset\Models\AssetType;
 /**
  * @class AssetTypesTableSeeder
  * @brief Inicializar Tipos de Bien
- * 
- * 
+ *
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetTypesTableSeeder extends Seeder
 {
@@ -25,7 +27,6 @@ class AssetTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        
         Model::unguard();
 
         $asset_type = [
@@ -36,10 +37,10 @@ class AssetTypesTableSeeder extends Seeder
 
 
            
-            foreach ($asset_type as $type) {
-                AssetType::updateOrCreate(
-                    ['name' => $type['name']]
-                );
-            }
+        foreach ($asset_type as $type) {
+            AssetType::updateOrCreate(
+                ['name' => $type['name']]
+            );
+        }
     }
 }

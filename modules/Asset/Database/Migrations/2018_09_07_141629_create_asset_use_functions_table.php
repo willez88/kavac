@@ -7,11 +7,13 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * @class CreateAssetUsesTable
  * @brief Crear tabla de función de uso del bien
- * 
+ *
  * Gestiona la creación o eliminación de la tabla de funciones de uso de un bien
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CreateAssetUseFunctionsTable extends Migration
 {
@@ -25,9 +27,8 @@ class CreateAssetUseFunctionsTable extends Migration
     {
         if (!Schema::hasTable('asset_use_functions')) {
             Schema::create('asset_use_functions', function (Blueprint $table) {
-                
                 $table->increments('id')->comment('Identificador único del registro');
-                $table->string('name',100)->comment('Nombre de la función de uso');
+                $table->string('name', 100)->comment('Nombre de la función de uso');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

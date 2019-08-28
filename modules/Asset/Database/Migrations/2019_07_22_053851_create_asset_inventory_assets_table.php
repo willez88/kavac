@@ -7,11 +7,13 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * @class CreateAssetInventoryAssetsTable
  * @brief Crear tabla de los bienes registrados inventariados
- * 
+ *
  * Gestiona la creación o eliminación de los bienes inventariados
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CreateAssetInventoryAssetsTable extends Migration
 {
@@ -31,11 +33,15 @@ class CreateAssetInventoryAssetsTable extends Migration
                 $table->string('asset_status')->nullable()->comment('Estatus de uso actual del bien');
                 $table->string('asset_use_function')->nullable()->comment('Función de uso actual del bien');
 
-                $table->integer('asset_id')->unsigned()->nullable()->comment('Identificador único del bien en la tabla de bienes');
-                $table->foreign('asset_id')->references('id')->on('assets')->onDelete('restrict')->onUpdate('cascade');
+                $table->integer('asset_id')->unsigned()->nullable()
+                      ->comment('Identificador único del bien en la tabla de bienes');
+                $table->foreign('asset_id')->references('id')->on('assets')
+                      ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('asset_inventory_id')->unsigned()->nullable()->comment('Identificador único del registro de inventario generado');
-                $table->foreign('asset_inventory_id')->references('id')->on('asset_inventories')->onDelete('restrict')->onUpdate('cascade');
+                $table->integer('asset_inventory_id')->unsigned()->nullable()
+                      ->comment('Identificador único del registro de inventario generado');
+                $table->foreign('asset_inventory_id')->references('id')->on('asset_inventories')
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
             });

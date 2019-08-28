@@ -42,7 +42,7 @@
 				<th width="17%" style="background-color: #BDBDBD;" align="center">DEBE</th>
 				<th width="17%" style="background-color: #BDBDBD;" align="center">HABER</th>
 			</tr>
-			@foreach($seat['accounting_accounts'] as $account)
+			@foreach($seat['accountingAccounts'] as $account)
 				{{-- Se valida el numero de lineas impresas para llegado el limite realizar el salto de pagina manualmente --}}
 				@if($lineWrites == 26)
 					<br pagebreak="true" />
@@ -146,7 +146,7 @@
 		        <td width="15%" style="background-color: #BDBDBD;"></td>
 		        <td width="15%" style="background-color: #BDBDBD;"></td>
 			</tr>
-			@foreach($seat['accounting_accounts'] as $account)
+			@foreach($seat['accountingAccounts'] as $account)
 				{{-- Se valida el numero de lineas impresas para llegado el limite realizar el salto de pagina manualmente --}}
 				@if($lineWrites+1 == 26)
 					<br pagebreak="true" />

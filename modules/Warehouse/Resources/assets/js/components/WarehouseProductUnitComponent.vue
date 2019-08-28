@@ -102,7 +102,8 @@
 			 * 
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
-			reset() {
+			reset()
+			{
 				this.record = {
 					id: '',
 					name: '',

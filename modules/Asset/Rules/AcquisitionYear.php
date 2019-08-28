@@ -11,7 +11,9 @@ use Illuminate\Contracts\Validation\Rule;
  * Gestiona las reglas de validación de el año de adquisición de un bien
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AcquisitionYear implements Rule
 {

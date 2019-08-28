@@ -9,16 +9,18 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 /**
  * @class AssetRequestAsset
  * @brief Datos de los bienes institucionales solicitados
- * 
+ *
  * Gestiona el modelo de datos de los bienes solicitados
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetRequestAsset extends Model implements Auditable
 {
     use AuditableTrait;
-	
+    
     /**
      * Lista de atributos que pueden ser asignados masivamente
      *
@@ -30,9 +32,10 @@ class AssetRequestAsset extends Model implements Auditable
      * Método que obtiene la solicitud asociada al registro
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo AssetRequest
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * AssetRequest
      */
-    public function asset_request()
+    public function assetRequest()
     {
         return $this->belongsTo(AssetRequest::class);
     }
@@ -47,5 +50,4 @@ class AssetRequestAsset extends Model implements Auditable
     {
         return $this->belongsTo(Asset::class);
     }
-
 }

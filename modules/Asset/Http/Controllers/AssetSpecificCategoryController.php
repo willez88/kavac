@@ -11,15 +11,16 @@ use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
 use Modules\Asset\Models\AssetRequiredItem;
 
-
 /**
  * @class AssetSpecificCategoryController
  * @brief Controlador de Categorias Especificas de Bienes
- * 
+ *
  * Clase que gestiona las Categorias Especificas de bienes
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AssetSpecificCategoryController extends Controller
 {
@@ -42,17 +43,15 @@ class AssetSpecificCategoryController extends Controller
      */
     public function index()
     {
-        
+        return response()->json(['records' => AssetSpecificCategory::with(
+            ['assetSubcategory' =>
 
-        return response()->json(['records' => AssetSpecificCategory::with(['asset_subcategory' => 
-
-            function($query){
-                $query->with(['asset_category' => 
-                function($query){
-                    $query->with('asset_type');
+            function ($query) {
+                $query->with(['assetCategory' => function ($query) {
+                    $query->with('assetType');
                 }]);
             }]
-        )->get()], 200); 
+        )->get()], 200);
     }
 
     /**
@@ -63,7 +62,6 @@ class AssetSpecificCategoryController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -100,7 +98,6 @@ class AssetSpecificCategoryController extends Controller
      */
     public function show(AssetSpecificCategory $specific_category)
     {
-        
     }
 
     /**
@@ -112,7 +109,6 @@ class AssetSpecificCategoryController extends Controller
      */
     public function edit(AssetSpecificCategory $specific_category)
     {
-        
     }
 
     /**
@@ -123,7 +119,7 @@ class AssetSpecificCategoryController extends Controller
      * @param  \Modules\Asset\Models\AssetSpecificCategory  $specific_category (Datos de la categoria especifica)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function update(Request $request,AssetSpecificCategory $specific_category)
+    public function update(Request $request, AssetSpecificCategory $specific_category)
     {
         $this->validate($request, [
             'name' => 'required|max:100',
@@ -155,11 +151,18 @@ class AssetSpecificCategoryController extends Controller
         return response()->json(['record' => $specific_category, 'message' => 'Success'], 200);
     }
 
-    public function getSpecificCategories($subcategory_id = null){
-        if(is_null($subcategory_id))
-            return template_choices('Modules\Asset\Models\AssetSpecificCategory','name','',true);
+    public function getSpecificCategories($subcategory_id = null)
+    {
+        if (is_null($subcategory_id)) {
+            return template_choices('Modules\Asset\Models\AssetSpecificCategory', 'name', '', true);
+        }
         $asset_subcategory = AssetSubcategory::find($subcategory_id);
-        return ($asset_subcategory)?template_choices('Modules\Asset\Models\AssetSpecificCategory','name',['asset_subcategory_id' => $asset_subcategory->id],true):[];
+        return ($asset_subcategory)?template_choices(
+            'Modules\Asset\Models\AssetSpecificCategory',
+            'name',
+            ['asset_subcategory_id' => $asset_subcategory->id],
+            true
+        ):[];
     }
 
     public function getRequired($id)

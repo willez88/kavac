@@ -261,6 +261,8 @@
 						this.warnings = [];
 						this.warnings.push('No se encontraron registros con los parametros de busqueda dados.')
 					}
+					this.errors = [];
+					this.warnings = [];
 					this.records = response.data.records;
 					EventBus.$emit('reload:listing',response.data.records);
 				});

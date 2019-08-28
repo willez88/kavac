@@ -16,9 +16,10 @@ use Module;
  * Gestiona el modelo de datos de las asignaciones de bienes institucionales
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class AssetAsignation extends Model implements Auditable
 {
     use SoftDeletes;
@@ -50,9 +51,10 @@ class AssetAsignation extends Model implements Auditable
      * Método que obtiene los bienes asignados
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo AssetAsignationAsset
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * AssetAsignationAsset
      */
-    public function asset_asignation_assets()
+    public function assetAsignationAssets()
     {
         return $this->hasMany(AssetAsignationAsset::class);
     }
@@ -61,7 +63,8 @@ class AssetAsignation extends Model implements Auditable
      * Método que obtiene el trabajador al que se le asigna el bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return Array|\Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo PayrollStaff
+     * @return Array|\Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * PayrollStaff
      */
     public function payrollStaff()
     {

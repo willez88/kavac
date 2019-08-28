@@ -20,11 +20,17 @@
 @section('content')
 	<div class="row">
 		<div class="col-12">
-			<warehouse-request
-				route_list='{{ url('warehouse/request') }}'
-				:requestid ="{!! (isset($warehouse_request)) ? $warehouse_request->id : 'null' !!}">
-			</warehouse-request>
+			@if(!isset($staff))
+				<warehouse-request-create
+					route_list='{{ url('warehouse/requests') }}'
+					:requestid ="{!! (isset($warehouse_request)) ? $warehouse_request->id : 'null' !!}">
+				</warehouse-request-create>
+			@else
+				<warehouse-request-staff-create
+					route_list='{{ url('warehouse/requests') }}'
+					:requestid ="{!! (isset($warehouse_request)) ? $warehouse_request->id : 'null' !!}">
+				</warehouse-request-staff-create>
+			@endif
 		</div>
 	</div>
-
 @stop

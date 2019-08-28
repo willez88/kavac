@@ -21,77 +21,65 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Solicitudes de Almacén</h6>
+					<h6 class="card-title">Solicitudes por Departamento</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.new', ['route' => route('warehouse.request.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
-
-				
 				<div class="card-body">
-					<div class="col-md-12">
-						<table class="table table-hover table-striped dt-responsive datatable">
-							<thead>
-								<tr class="text-center">
-									<th>Departamento Solicitante</th>
-									<th>Motivo</th>
-									<th>Estado de la Solicitud</th>
-									<th>Fecha de la Solicitud</th>
-									<th width="10%">Acciones</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach($warehouse_requests as $request)
-									<tr>
-										<td>{{ $request->department->name }}</td>
-										<td>{{ $request->motive }}</td>
-										<td>{{ $request->state }}</td>
-										<td>{{ $request->created_at }}</td>
-										<td width="10%" class="text-center">
-											<div class="d-inline-flex">
-												
-												<warehouse-request-info 
-													route_list="warehouse/request/vue-info/"
-													:request="{{$request}}">
-												</warehouse-request-info>
-
-												@role(['admin','warehouse'])
-													@if(($request->delivered == false))
-
-													<warehouse-request-pending
-														:requestid="{{$request->id}}">
-													</warehouse-request-pending>
-													@endif
-												@endrole
-
-												{!! Form::open(['route' => ['warehouse.request.edit', $request], 'method' => 'GET']) !!}
-												<button class="btn btn-warning btn-xs btn-icon btn-action"  
-												data-toggle="tooltip" title="Editar Solicitud">
-													<i class="icofont icofont-edit"></i>
-												</button>
-												{!! Form::close() !!}
-
-												{!! Form::open(['route' => ['warehouse.request.destroy', $request], 'method' => 'DELETE']) !!}
-												<button class="btn btn-danger btn-xs btn-icon btn-action"  data-toggle="tooltip" title="Eliminar Solicitud">
-													<i class="fa fa-trash"></i>
-												</button>
-												{!! Form::close() !!}
-												
-											</div>
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
-						
-					</div>
-					
-					
+					<warehouse-request-list
+						route_list="{{ url('warehouse/requests/vue-list') }}"
+						route_edit="{{ url('warehouse/requests/edit/{id}') }}"
+						route_delete="{{ url('warehouse/requests/delete') }}">
+					</warehouse-request-list>
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Solicitudes por Usuario</h6>
+					<div class="card-btns">
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.new', ['route' => route('warehouse.request.staff.create')])
+						@include('buttons.minimize')
+					</div>
+				</div>
+				<div class="card-body">
+					<warehouse-request-staff-list
+						route_list="{{ url('warehouse/requests/staff/vue-list') }}"
+						route_edit="{{ url('warehouse/requests/staff/edit/{id}') }}"
+						route_delete="{{ url('warehouse/requests/delete') }}">
+					</warehouse-request-staff-list>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@role(['admin', 'warehouse'])
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h6 class="card-title">Solicitudes Pendientes</h6>
+						<div class="card-btns">
+							@include('buttons.previous', ['route' => url()->previous()])
+							@include('buttons.minimize')
+						</div>
+					</div>
+					<div class="card-body">
+						<warehouse-request-pending-list
+							route_list="{{ url('warehouse/requests/vue-pending-list') }}"
+							route_update='warehouse/requests'>
+						</warehouse-request-pending-list>
+					</div>
+				</div>
+			</div>
+		</div>
+	@endrole
 @stop

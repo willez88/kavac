@@ -176,11 +176,6 @@ Vue.mixin({
 			month_end:12,
 		}
 	},
-	computed:{
-		existErrors:function(){
-			return (this.errors.length > 0);
-		}
-	},
 	methods:{
 		/**
 		* Crea un array con los años desde el dado hasta el actual
@@ -224,7 +219,7 @@ Vue.mixin({
 		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		*/
 		approve:function(index) {
-			var url = 'http://'+window.location.host+'/accounting/seating/approve';
+			var url = window.location.origin+'/accounting/seating/approve';
 			var records = this.records;
 			var confirmated = false;
 			var index = index - 1;

@@ -10,6 +10,17 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
 
+/**
+ * @class AssetSettingController
+ * @brief Controlador del panel de configuración del módulo de bienes
+ *
+ * Clase que gestiona la configuración general del módulo de bienes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class AssetSettingController extends Controller
 {
     use ValidatesRequests;
@@ -67,20 +78,16 @@ class AssetSettingController extends Controller
                 if ($table === "asignations") {
                     /** @var string Define el modelo para asociado a las asignaciones de bienes */
                     $model = \Modules\Asset\Models\AssetAsignation::class;
-                }
-                else if ($table === "disincorporations") {
+                } elseif ($table === "disincorporations") {
                     /** @var string Define el modelo para asociado a las desincorporaciones de bienes */
                     $model = \Modules\Asset\Models\AssetDisincorporation::class;
-                }
-                else if ($table === "requests") {
+                } elseif ($table === "requests") {
                     /** @var string Define el modelo para asociado a las solicitudes de bienes */
                     $model = \Modules\Asset\Models\AssetRequest::class;
-                }
-                else if ($table === "reports") {
+                } elseif ($table === "reports") {
                     /** @var string Define el modelo para asociado a los reportes de bienes */
                     $model = \Modules\Asset\Models\AssetReport::class;
-                }
-                else if ($table === "inventories") {
+                } elseif ($table === "inventories") {
                     /** @var string Define el modelo para asociado al inventario de bienes */
                     $model = \Modules\Asset\Models\AssetInventory::class;
                 }

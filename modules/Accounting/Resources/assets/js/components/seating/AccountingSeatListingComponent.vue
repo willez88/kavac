@@ -102,10 +102,10 @@
 											<h6>{{ record.account.denomination }}</h6>
 										</td>
 										<td>
-											<h6><span>{{ currency.symbol }}</span> {{ record.debit }}</h6>
+											<h6><span>{{ currency.symbol }}</span> {{ parseFloat(record.debit).toFixed(currency.decimal_places) }}</h6>
 										</td>
 										<td>
-											<h6><span>{{ currency.symbol }}</span> {{ record.assets }}</h6>
+											<h6><span>{{ currency.symbol }}</span> {{ parseFloat(record.assets).toFixed(currency.decimal_places) }}</h6>
 										</td>
 									</tr>
 									<tr>
@@ -116,13 +116,13 @@
 										<td>
 											<h6>
 												<span>{{ currency.symbol }}</span>
-												<strong>{{ props.row.tot_debit }}</strong>
+												<strong>{{ parseFloat(props.row.tot_debit).toFixed(currency.decimal_places) }}</strong>
 											</h6>
 										</td>
 										<td>
 											<h6>
 												<span>{{ currency.symbol }}</span>
-												<strong>{{ props.row.tot_assets }}</strong>
+												<strong>{{ parseFloat(props.row.tot_assets).toFixed(currency.decimal_places) }}</strong>
 											</h6>
 										</td>
 									</tr>

@@ -4,20 +4,33 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * @class CreateWarehouseInstitutionWarehousesTable
+ * @brief Crear tabla intermedia de instituciones y almacenes
+ *
+ * Gestiona la creación o eliminación de la tabla intermedia de instituciones y almacenes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class CreateWarehouseInstitutionWarehousesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Método que ejecuta las migraciones
      *
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function up()
     {
-        if (!Schema::hasTable('warehouse_institution_warehouses')) {    
+        if (!Schema::hasTable('warehouse_institution_warehouses')) {
             Schema::create('warehouse_institution_warehouses', function (Blueprint $table) {
                 $table->increments('id')->comment('Identificador único del registro');
 
-                $table->integer('institution_id')->comment('Identificador único de la institución que gestiona el almacén');
+                $table->integer('institution_id')
+                      ->comment('Identificador único de la institución que gestiona el almacén');
                 $table->foreign('institution_id')->references('id')->on('institutions')
                       ->onDelete('restrict')->onUpdate('cascade');
 
@@ -32,8 +45,9 @@ class CreateWarehouseInstitutionWarehousesTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Método que elimina las migraciones
      *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
     public function down()
