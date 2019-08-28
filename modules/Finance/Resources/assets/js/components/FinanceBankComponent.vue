@@ -25,13 +25,10 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<div class="form-group">
 									<label>Logo</label>
-									<input type="file" placeholder="cargar archivo"
-										   v-on:change="record.logo_id" data-toggle="tooltip"
-										   class="form-control input-sm"
-										   title="Seleccione la imagen del banco">
+									<image-management ref="banklogo" v-on:changeImage="setRecordImage($event)" :img-width="'96px'" :img-height="'96px'"></image-management>
 								</div>
 							</div>
 						</div>
@@ -78,6 +75,10 @@
 	                		   v-if="props.row.website">
 	                			{{ props.row.website }}
 	                		</a>
+	                		<div slot="logo" slot-scope="props" class="text-center">
+	                			<img :src="'/'+props.row.logo.url" alt="Logo del banco" class="img-fluid bank-logo"
+	                				 v-if="props.row.logo">
+	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-round"
@@ -109,6 +110,13 @@
 	</div>
 </template>
 
+<style>
+	.bank-logo {
+		width: 48px;
+		height: 48px;
+	}
+</style>
+
 <script>
 	export default {
 		data() {
@@ -123,7 +131,7 @@
 				},
 				errors: [],
 				records: [],
-				columns: ['logo_id', 'code', 'short_name', 'name', 'website', 'id'],
+				columns: ['logo', 'code', 'short_name', 'name', 'website', 'id'],
 			}
 		},
 		methods: {
@@ -141,11 +149,17 @@
 					website: '',
 					logo_id: ''
 				};
+				this.$refs.banklogo.id = '';
+				this.$refs.banklogo.url = `${window.app_url}/images/no-image2.png`;
 			},
+			setRecordImage(imageId) {
+				console.log(imageId)
+				this.record.logo_id = imageId;
+			}
 		},
 		created() {
 			this.table_options.headings = {
-				'logo_id': 'Logo',
+				'logo': 'Logo',
 				'code': 'Código',
 				'short_name': 'Nombre',
 				'name': 'Descripción',

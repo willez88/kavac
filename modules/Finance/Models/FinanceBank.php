@@ -27,6 +27,8 @@ class FinanceBank extends Model implements Auditable
 
     protected $revisionCreationsEnabled = true;
 
+    protected $with = ['logo'];
+
     /**
      * The attributes that should be mutated to dates.
      *

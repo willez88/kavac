@@ -1,12 +1,18 @@
 <template>
-    <div>
-        <img :src="url" alt="Imagen" class="img-fluid default-image-size" id="showImage" 
-             title="Click para cargar o modificar la imagen" data-toggle="tooltip" @click="selectImage('image')">
-        <input type="file" id="image" name="image" class="hide-image-file" @change="uploadImage('image')">
-        <div class="row" :class="{'row-delete-img': (!id)}">
+    <div class="text-center">
+        <img :src="url" alt="Imagen" class="img-fluid default-image-style" id="showImage"
+             title="Click para cargar o modificar la imagen" data-toggle="tooltip" @click="selectImage('image')"
+             :style="{'width': imgWidth, 'height': imgHeight}">
+        <input type="file" id="image" name="image" class="hide-image-file" @change="uploadImage('image')"
+               accept="image/*">
+        <div class="row" :class="{'row-delete-img': (!id)}" v-if="id !== ''">
             <div class="col-12">
                 <div class="text-center">
-                    <a id="imgDelete" href="javascript:void(0)" @click="deleteImage(true)">Eliminar</a>
+                    <a id="imgDelete" href="javascript:void(0)" @click.prevent="deleteImage(true)"
+                       class="btn btn-primary btn-simple btn-img-action" title="Eliminar imagen"
+                       data-toggle="tooltip">
+                        <i class="fa fa-times"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -14,13 +20,14 @@
 </template>
 
 <style>
-    .default-image-size {
-        width: 64px;
-        height: 64px;
+    .default-image-style {
         cursor:pointer;
     }
     .hide-image-file {
         display:none;
+    }
+    .btn-img-action {
+        padding: 0.1rem 0.3rem !important;
     }
 </style>
 
@@ -32,11 +39,25 @@
                 url: '',
             }
         },
+        props: {
+            imgWidth: {
+                type: String,
+                required: false,
+                default: '64px',
+            },
+            imgHeight: {
+                type: String,
+                required: false,
+                default: '64px',
+            }
+        },
         methods: {
             /**
              * Método que borra todos los datos del formulario
-             * 
+             *
              * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param {string} el   Identificador del elemento para seleccionar el archivo de imagen
              */
             selectImage(el) {
                 $(`#${el}`).click();
@@ -70,13 +91,15 @@
                                 'Error',
                                 'growl-danger',
                                 'screen-error',
-                                `La imagen no se pudo cargar, verifique e intente de nuevo. 
+                                `La imagen no se pudo cargar, verifique e intente de nuevo.
                                 Si el problema persiste contacte al administrador del sistema.`
                             );
                             return false;
                         }
                         vm.id = response.data.image_id;
-                        vm.url = response.data.image_url;
+                        vm.url = `${window.app_url}/${response.data.image_url}`;
+                        vm.$emit('changeImage', vm.id);
+                        $('#imgDelete').tooltip({delay: {hide:100}});
                     }).catch(error => {
                         console.log(error);
                     });
@@ -91,7 +114,7 @@
             },
             deleteImage: function(force_delete) {
                 let vm = this;
-                var force_delete = (typeof(force_delete) !== undefined && force_delete) 
+                var force_delete = (typeof(force_delete) !== undefined && force_delete)
                        ? {force_delete: force_delete} : {};
                 if (vm.id) {
                     bootbox.confirm("Esta seguro de querer eliminar la imagen?", function(result) {
@@ -111,6 +134,7 @@
                                 else {
                                     vm.id = '';
                                     vm.url = `${window.app_url}/images/no-image2.png`;
+
                                 }
                             }).catch(error => {
                                 console.log(error);

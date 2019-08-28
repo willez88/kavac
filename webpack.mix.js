@@ -30,7 +30,7 @@ mix.js([
    .sass('resources/sass/now-ui-kit/now-ui-kit.scss', 'public/css')
    .sass('resources/sass/custom/custom.scss', 'public/css')
    .combine([
-   		'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css', 
+   		'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css',
    		'public/css/now-ui-kit.css', 'public/css/custom.css'
    ], 'public/css/app.css')
    .sourceMaps();
@@ -47,7 +47,7 @@ mix.js([
  |
  */
 /*const moduleFolder = './modules';
-    
+
 const dirs = p => fs.readdirSync(p).filter(f => fs.statSync(path.resolve(p,f)).isDirectory());
 
 let modules = dirs(moduleFolder);

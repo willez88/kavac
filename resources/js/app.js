@@ -46,12 +46,12 @@ Vue.use(ClientTable);
  * @param boolean 	preserve_search Define si se preserva el campo de búsqueda (opcional). El valor por defecto es true
  * @param boolean 	hide_selected 	Define si se ocultan los elementos seleccionados (opcional). El valor por defecto es true
  * @param boolean 	clear_on_select Define si se limpia el texto al seleccionar un elemento (opcional). El valor por defecto es true
- * @param boolean 	close_on_select Define si se cierra la lista de elementos al seleccionar uno de ellos (opcional). 
+ * @param boolean 	close_on_select Define si se cierra la lista de elementos al seleccionar uno de ellos (opcional).
  *                                 	El valor por defecto es true
  *
  * @note
  * Ejemplo de uso:
- * <v-multiselect :options="[{key: 1, name: 'one'},{key: 2, name: 'two'},{key: 3, name: 'three'}]" track_by="key" 
+ * <v-multiselect :options="[{key: 1, name: 'one'},{key: 2, name: 'two'},{key: 3, name: 'three'}]" track_by="key"
  * :hide_selected="false"></v-multiselect>
  */
 Vue.component('v-multiselect', require('./components/MultiSelectsComponent.vue').default);
@@ -269,7 +269,7 @@ Vue.mixin({
          * Registro de eventos del sistema
          *
          * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-         * 
+         *
          * @param  {string}  v  Vista
          * @param  {integer} l  Línea
          * @param  {string}  lg Mensaje
@@ -293,7 +293,7 @@ Vue.mixin({
 		 * Redirecciona a una url esecífica si fue suministrada
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {string} url URL a redireccionar.
 		 */
 		redirect_back: function(url) {
@@ -303,7 +303,7 @@ Vue.mixin({
 		 * Ejecuta el evento click del campo de tipo archivo al cual cargar información
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param {string} input_id Identificador del campo de tipo archivo
 		 */
 		setFile(input_id) {
@@ -313,9 +313,9 @@ Vue.mixin({
 		 * Método que permite dar formato a una fecha
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {string} value Fecha ser formateada
-		 * 
+		 *
 		 * @return {string}       Fecha con el formato establecido
 		 */
 		format_date: function(value) {
@@ -325,9 +325,9 @@ Vue.mixin({
 		 * Método que permite dar formato con marca de tiempo a una fecha
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {string} value Fecha ser formateada
-		 * 
+		 *
 		 * @return {string}       Fecha con el formato establecido
 		 */
 		format_timestamp: function(value) {
@@ -337,11 +337,11 @@ Vue.mixin({
 		 * Método que permite convertir elementos de medida y peso
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {float}  number Numero a convertir
 		 * @param  {string} from   Unidad de medida o peso desde la cual se desea realizar la conversión
 		 * @param  {string} to     Unidad de medida o peso a la cual se desea realizar la conversión
-		 * 
+		 *
 		 * @return {float}         Retorna el valor numérico despues de la conversión
 		 */
 		measure_converter: function(number, from, to) {
@@ -383,7 +383,7 @@ Vue.mixin({
 		 * Inicializa los registros base del formulario
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param {string} url 		Ruta que obtiene los datos a ser mostrado en listados
 		 * @param {string} modal_id Identificador del modal a mostrar con la información solicitada
 		 */
@@ -416,7 +416,7 @@ Vue.mixin({
 		 * Método que obtiene los registros a mostrar
 		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {string} url Ruta que obtiene todos los registros solicitados
 		 */
 		readRecords(url) {
@@ -432,7 +432,7 @@ Vue.mixin({
 		 * y la nueva a registrar
 		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param {string} modal_id Identificador de la ventana modal
 		 * @param {string} url 		Ruta para acceder a los datos solicitados
 		 * @param {object} event 	Objeto que gestiona los eventos
@@ -445,7 +445,7 @@ Vue.mixin({
 		 * Método que permite crear o actualizar un registro
 		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {string} url Ruta de la acción a ejecutar para la creación o actualización de datos
 		 */
 		createRecord(url) {
@@ -485,7 +485,7 @@ Vue.mixin({
 		 * Redirecciona al formulario de actualización de datos
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {integer} id Identificador del registro a actualizar
 		 */
 		editForm(id) {
@@ -497,7 +497,7 @@ Vue.mixin({
 		 * Método que carga el formulario con los datos a modificar
 		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {integer} index Identificador del registro a ser modificado
 		 * @param {object} event   Objeto que gestiona los eventos
 		 */
@@ -534,7 +534,7 @@ Vue.mixin({
 		 * Método que permite actualizar información
 		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {string} url Ruta de la acci´on que modificará los datos
 		 */
 		updateRecord(url) {
@@ -568,7 +568,7 @@ Vue.mixin({
 	     * Método que muestra datos de un registro seleccionado
 	     *
 	     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-	     * 
+	     *
 	     * @param  {integer} id Identificador del registro a mostrar
 	     */
 	    showRecord(id) {
@@ -585,7 +585,7 @@ Vue.mixin({
 		 * Método para la eliminación de registros
 		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {integer} index Elemento seleccionado para su eliminación
 		 * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
 		 */
@@ -632,7 +632,7 @@ Vue.mixin({
 		 * Método que muestra un mensaje al usuario sobre el resultado de una acción
 		 *
 		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {string} type      	Tipo de mensaje a mostrar
 		 * @param  {string} msg_title 	Título del mensaje (opcional)
 		 * @param  {string} msg_class 	Clase CSS a utilizar en el mensaje (opcional)
@@ -740,7 +740,7 @@ Vue.mixin({
 		 * Obtiene un arreglo con las instituciones registradas
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {integer} id Identificador de la institución a buscar, este parámetro es opcional
 		 */
 		getInstitutions(id) {
@@ -755,7 +755,7 @@ Vue.mixin({
 		 * Obtiene un arreglo con las monedas registradas
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {integer} id Identificador de la moneda a buscar, este parámetro es opcional
 		 */
 		getCurrencies(id) {
@@ -770,7 +770,7 @@ Vue.mixin({
 		 * Obtiene los departamentos o unidades de la institución
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {integer} id Identificador del departamento a filtrar (opcional)
 		 */
 		getDepartments(id) {
@@ -791,7 +791,7 @@ Vue.mixin({
 		 * Obtiene un arreglo con los estados civiles
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {integer} id Identificador del estado civil a filtrarm este campo es opcional
 		 */
 		getMaritalStatus(id) {
@@ -806,7 +806,7 @@ Vue.mixin({
 		 * Obtiene un arreglo con las profesiones
 		 *
 		 * @author William Páez <wpaez@cenditel.gob.ve>
-		 * 
+		 *
 		 * @param  {integer} id Identificador de la profesión a filtrar, este campo es opcional
 		 */
 		getProfessions(id) {
@@ -834,7 +834,7 @@ Vue.mixin({
 		 * Elimina la fila del elemento indicado
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {integer}      index Indice del elemento a eliminar
 		 * @param  {object|array} el    Elemento del cual se va a eliminar un elemento
 		 */
@@ -845,7 +845,7 @@ Vue.mixin({
 		 * Gestiona el evento del elemento switch en radio y checkbox
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {string} elName 		 Nombre del elemento switch
 		 * @param  {string} model  		 Nombre del modelo al cual asignar el valor del switch
 		 * @param  {string} other_model  Nombre de otro modelo al cual asignar el valor del switch
@@ -874,7 +874,7 @@ Vue.mixin({
 		 * Agrega mensajes tooltip a elementos bootstrap switch
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * 
+		 *
 		 * @param  {string}  elName    Nombre del elemento
 		 * @param  {string}  text      Texto a mostrar en el tooltip
 		 * @param  {integer} delayHide Tiempo en milisegundos para ocultar la ventana tooltip
@@ -904,7 +904,6 @@ Vue.mixin({
     	this.clearForm();
     },
     mounted() {
-
     }
 });
 

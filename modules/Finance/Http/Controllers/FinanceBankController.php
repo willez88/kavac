@@ -71,10 +71,11 @@ class FinanceBankController extends Controller
         ]);
 
         $financeBank = FinanceBank::create([
-            'code' => $request->input('code'),
-            'name' => $request->input('name'),
-            'short_name' => $request->input('short_name'),
-            'website' => (!empty($request->input('website')))?$request->input('website'):null
+            'code' => $request->code,
+            'name' => $request->name,
+            'short_name' => $request->short_name,
+            'website' => (!empty($request->website)) ? $request->website : null,
+            'logo_id' => ($request->logo_id) ? $request->logo_id : null
         ]);
 
         return response()->json(['record' => $financeBank, 'message' => 'Success'], 200);
@@ -114,10 +115,11 @@ class FinanceBankController extends Controller
             'short_name' => 'required|max:50|unique:finance_banks,short_name,' . $financeBank->id
         ]);
 
-        $financeBank->code = $request->input('code');
-        $financeBank->name = $request->input('name');
-        $financeBank->short_name = $request->input('short_name');
-        $financeBank->website = (!empty($request->input('website')))?$request->input('website'):null;
+        $financeBank->code = $request->code;
+        $financeBank->name = $request->name;
+        $financeBank->short_name = $request->short_name;
+        $financeBank->website = (!empty($request->website))?$request->website:null;
+        $financeBank->logo_id = ($request->logo_id) ? $request->logo_id : null;
         $financeBank->save();
 
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
