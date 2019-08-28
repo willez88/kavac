@@ -219,7 +219,7 @@ Vue.mixin({
 		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		*/
 		approve:function(index) {
-			var url = window.location.protocol+'//'+window.location.host+'/accounting/seating/approve';
+			var url = window.location.origin+'/accounting/seating/approve';
 			var records = this.records;
 			var confirmated = false;
 			var index = index - 1;
