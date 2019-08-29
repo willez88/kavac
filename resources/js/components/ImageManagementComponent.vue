@@ -69,7 +69,7 @@
         },
         methods: {
             /**
-             * Método que borra todos los datos del formulario
+             * Método realiza la acción para seleccionar una imagen a cargar
              *
              * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              *
@@ -128,6 +128,15 @@
                     });
                 }
             },
+            /**
+             * Realiza la acción para eliminar una imagen
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param      {boolean}    force_delete    Condición que indica si la imagen será eliminada permanentemente
+             *
+             * @return     {boolean}    Retorna falso si ocurrió un error al eliminar la imagen
+             */
             deleteImage: function(force_delete) {
                 let vm = this;
                 var force_delete = (typeof(force_delete) !== undefined && force_delete)
