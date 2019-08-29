@@ -28,7 +28,11 @@
 							<div class="col-md-2">
 								<div class="form-group">
 									<label>Logo</label>
-									<image-management ref="banklogo" v-on:changeImage="setRecordImage($event)" :img-width="'96px'" :img-height="'96px'"></image-management>
+									<image-management ref="banklogo" v-on:changeImage="setRecordImage($event)"
+													  :img-width="'96px'" :img-height="'96px'"
+													  :img-id="(record.logo_id)?record.logo_id:0"
+													  :img-default="(typeof(record.logo)!=='undefined' && record.logo!==null)
+													  ?'/'+record.logo.url:'/images/no-image2.png'"></image-management>
 								</div>
 							</div>
 						</div>

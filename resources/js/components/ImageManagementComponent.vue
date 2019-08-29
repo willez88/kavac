@@ -49,6 +49,22 @@
                 type: String,
                 required: false,
                 default: '64px',
+            },
+            imgDefault: {
+                type: String,
+                required: false,
+                default: '/images/no-image2.png'
+            },
+            imgId: {
+                type: Number,
+                required: false,
+                default: ''
+            }
+        },
+        watch: {
+            imgDefault: function(newVal, oldVal) {
+                this.url = this.imgDefault
+                this.id = this.imgId;
             }
         },
         methods: {
@@ -146,7 +162,7 @@
         },
         mounted() {
             let vm = this;
-            vm.url = `${window.app_url}/images/no-image2.png`;
+            vm.url = (vm.imgDefault) ? vm.imgDefault : `${window.app_url}/images/no-image2.png`;
         }
     };
 </script>
