@@ -1,0 +1,100 @@
+.feature-list {
+    .feature-list-indicator {
+        position: absolute;
+        width: 4px;
+        height: 60%;
+        border-radius: .3rem;
+        left: .625rem;
+        top: 20%;
+        /*opacity: .8;
+        transition: opacity .2s;*/
+    }
+    .feature-list-content {
+        padding: 1rem !important;
+        flex-direction: row;
+        align-items: center;
+
+        .feature-list-content-wrapper {
+            display: flex;
+            flex: 1;
+            position: relative;
+            align-items: center;
+        }
+
+        .feature-list-content-left {
+            .feature-list-heading {
+                opacity: .8;
+                font-weight: bold;
+            }
+            .feature-list-subheading {
+                opacity: .5;
+            }
+        }
+
+        .feature-list-content-right {
+            margin-left: 20px;
+
+            &.feature-list-content-actions {
+                /*visibility: hidden;
+                opacity: 0;
+                transition: opacity .2s;*/
+                min-width:25%;
+                text-align: center;
+            }
+        }
+    }
+
+    input[checkbox]:hover, input[radio]:hover {
+        cursor: pointer !important;
+    }
+
+    .custom-control, input[checkbox], input[radio] {
+        margin-left: .625rem;
+    }
+    .custom-control {
+        position: relative;
+        display: block;
+        min-height: 1.32rem;
+        padding-left: 1.5rem;
+    }
+    .custom-control-input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+    .custom-control-label {
+        position: relative;
+        margin-bottom: 0;
+        vertical-align: top;
+    }
+    .custom-checkbox .custom-control-label::before {
+        border-radius: .25rem;
+    }
+    .custom-control-label::before, .custom-file-label, .custom-select {
+        transition: background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    }
+    .custom-control-label::before {
+        position: absolute;
+        top: .16rem;
+        left: -1.5rem;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        pointer-events: none;
+        content: "";
+        background-color: #fff;
+        border: #adb5bd solid 1px;
+    }
+    .custom-control-label::after {
+        position: absolute;
+        top: .16rem;
+        left: -1.5rem;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        content: "";
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 50% 50%;
+    }
+}

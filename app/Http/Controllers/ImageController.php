@@ -53,7 +53,8 @@ class ImageController extends Controller
         if ($request->file('image')) {
             if ($up->uploadImage($request->file('image'), 'pictures')) {
                 $image_id = $up->getImageStored()->id;
-                return response()->json(['result' => true, 'image_id' => $image_id], 200);
+                $image_url = $up->getImageStored()->url;
+                return response()->json(['result' => true, 'image_id' => $image_id, 'image_url' => $image_url], 200);
             }
         }
         return response()->json(['result' => false, 'message' => 'No se pudo subir la imagen'], 200);
