@@ -235,6 +235,52 @@
 						</div>
 					</div>
 					<hr>
+					<h6>Listas</h6>
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<b>Listas de funcionalidades / tareas</b>
+							</div>
+							@foreach (['warning', 'default', 'primary', 'success', 'info', 'danger'] as $listType)
+								<ul class="feature-list list-group list-group-flush">
+						            <li class="list-group-item">
+						                <div class="feature-list-indicator bg-{{ $listType }}"></div>
+						                <div class="feature-list-content p-0">
+						                    <div class="feature-list-content-wrapper">
+						                        <div class="feature-list-content-left mr-2">
+						                            <div class="custom-checkbox custom-control">
+						                                <input type="checkbox" id="elementId" class="custom-control-input">
+						                                <label class="custom-control-label" for="elementId">&nbsp;</label>
+						                            </div>
+						                        </div>
+						                        <div class="feature-list-content-left">
+						                            <div class="feature-list-heading">
+						                                Título
+						                                <div class="badge badge-danger ml-2" title="mensaje tooltip a mostrar"
+						                                	 data-toggle="tooltip">
+						                                	estatus / acción
+						                                </div>
+						                            </div>
+						                            <div class="feature-list-subheading"><i>Descripción</i></div>
+						                        </div>
+						                        <div class="feature-list-content-right feature-list-content-actions">
+						                        	<button class="btn btn-simple btn-primary btn-events"
+						                        			title="mensaje tooltip a mostrar" data-toggle="tooltip">
+						                        		<i class="fa fa-cloud-upload fa-2x"></i>
+						                        	</button>
+						                        	<button class="btn btn-simple btn-primary btn-events"
+						                        			title="mensaje tooltip a mostrar" data-toggle="tooltip">
+						                        		<i class="fa fa-cloud-download fa-2x"></i>
+						                        	</button>
+						                        </div>
+						                    </div>
+						                </div>
+						            </li>
+						        </ul>
+							@endforeach
+						</div>
+					</div>
+					<hr>
 				</div>
 			</div>
 		</div>

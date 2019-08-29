@@ -26926,6 +26926,11 @@ a.level-debug:hover {
   z-index: 99;
 }
 
+.btn-events {
+  padding: 0.1rem 0.3rem !important;
+  border: 0 !important;
+}
+
 /** Efectos para mostrar u ocultar las opciones del menú del panel izquierdo */
 
 .content-wrapper {
@@ -29815,5 +29820,114 @@ table th {
 
 .ck-editor__editable {
   min-height: 200px !important;
+}
+
+.feature-list .feature-list-indicator {
+  position: absolute;
+  width: 4px;
+  height: 60%;
+  border-radius: .3rem;
+  left: .625rem;
+  top: 20%;
+  /*opacity: .8;
+        transition: opacity .2s;*/
+}
+
+.feature-list .feature-list-content {
+  padding: 1rem !important;
+  flex-direction: row;
+  align-items: center;
+}
+
+.feature-list .feature-list-content .feature-list-content-wrapper {
+  display: flex;
+  flex: 1;
+  position: relative;
+  align-items: center;
+}
+
+.feature-list .feature-list-content .feature-list-content-left .feature-list-heading {
+  opacity: .8;
+  font-weight: bold;
+}
+
+.feature-list .feature-list-content .feature-list-content-left .feature-list-subheading {
+  opacity: .5;
+}
+
+.feature-list .feature-list-content .feature-list-content-right {
+  margin-left: auto;
+}
+
+.feature-list .feature-list-content .feature-list-content-right.feature-list-content-actions {
+  /*visibility: hidden;
+                opacity: 0;
+                transition: opacity .2s;*/
+}
+
+.feature-list input[checkbox]:hover,
+.feature-list input[radio]:hover {
+  cursor: pointer !important;
+}
+
+.feature-list .custom-control,
+.feature-list input[checkbox],
+.feature-list input[radio] {
+  margin-left: .625rem;
+}
+
+.feature-list .custom-control {
+  position: relative;
+  display: block;
+  min-height: 1.32rem;
+  padding-left: 1.5rem;
+}
+
+.feature-list .custom-control-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.feature-list .custom-control-label {
+  position: relative;
+  margin-bottom: 0;
+  vertical-align: top;
+}
+
+.feature-list .custom-checkbox .custom-control-label::before {
+  border-radius: .25rem;
+}
+
+.feature-list .custom-control-label::before,
+.feature-list .custom-file-label,
+.feature-list .custom-select {
+  transition: background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+}
+
+.feature-list .custom-control-label::before {
+  position: absolute;
+  top: .16rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  content: "";
+  background-color: #fff;
+  border: #adb5bd solid 1px;
+}
+
+.feature-list .custom-control-label::after {
+  position: absolute;
+  top: .16rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
 }
 
