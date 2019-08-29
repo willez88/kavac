@@ -33,19 +33,19 @@
 						@include('layouts.form-errors')
 				        <ul class="nav nav-tabs custom-tabs" role="tablist">
 							<li class="nav-item">
-								<a href="#default_data" class="nav-link active" data-toggle="tab" 
+								<a href="#default_data" class="nav-link active" data-toggle="tab"
 								   title="Datos básicos del proveedor">
 									Datos Básicos
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="#rnc" class="nav-link" data-toggle="tab" 
+								<a href="#rnc" class="nav-link" data-toggle="tab"
 								   title="Datos de Información del Registro Nacional de Contratistas (RNC)">
 									Datos del RNC
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="#requirement_docs" class="nav-link" data-toggle="tab" 
+								<a href="#requirement_docs" class="nav-link" data-toggle="tab"
 								   title="Consignación de requisitos en físico y digital">
 									Documentos
 								</a>
@@ -294,27 +294,51 @@
 							</div>
 							<div class="tab-pane" id="requirement_docs" role="tabpanel">
 								<h6 class="card-title">Documentos a consignar</h6>
-								<ol>
-									@foreach ($requiredDocuments as $reqDoc)
-										<li>
-											<div class="row">
-												<div class="col-8">
-													{{ $reqDoc->name }}
-													{!! ($reqDoc->description) ? ' (' . $reqDoc->description . ')' : '' !!}
-												</div>
-												<div class="col-2">
-													<input type="file">
-												</div>
-												<div class="col-1">
-													
-												</div>
-												<div class="col-1">
-													
-												</div>
-											</div>
-										</li>
-									@endforeach
-								</ol>
+								<div class="row">
+									<div class="col-6">
+										{{-- Campo para registrar un arreglo de documentos --}}
+										<input type="hidden" id="documents" name="documents" readonly>
+										<ul class="feature-list list-group list-group-flush">
+											@foreach ($requiredDocuments as $reqDoc)
+									            <li class="list-group-item">
+									                <div class="feature-list-indicator bg-info"></div>
+									                <div class="feature-list-content p-0">
+									                    <div class="feature-list-content-wrapper">
+									                        <div class="feature-list-content-left">
+									                            <div class="feature-list-heading">
+									                                {{ $reqDoc->name }}
+									                                <div class="badge badge-danger ml-2"
+									                                	 title="El documento aún no ha sido cargado"
+									                                	 data-toggle="tooltip">
+									                                	por cargar
+									                                </div>
+									                            </div>
+									                            <div class="feature-list-subheading">
+									                            	<i>{{ $reqDoc->description ?? '' }}</i>
+									                            </div>
+									                        </div>
+									                        <div class="feature-list-content-right feature-list-content-actions">
+									                        	<button class="btn btn-simple btn-success btn-events"
+									                        			title="Presione para cargar el documento"
+									                        			data-toggle="tooltip" type="button"
+									                        			onclick="$('#doc').click()">
+									                        		<i class="fa fa-cloud-upload fa-2x"></i>
+									                        	</button>
+									                        	<button class="btn btn-simple btn-primary btn-events"
+									                        			title="Presione para descargar el documento"
+									                        			data-toggle="tooltip" type="button">
+									                        		<i class="fa fa-cloud-download fa-2x"></i>
+									                        	</button>
+									                        	<input type="file" id="doc" name="doc" style="display:none"
+									                        		   accept=".doc, .pdf, .odt, .docx">
+									                        </div>
+									                    </div>
+									                </div>
+									            </li>
+											@endforeach
+								        </ul>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
