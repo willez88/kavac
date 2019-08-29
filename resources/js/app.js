@@ -63,7 +63,19 @@ Vue.component('v-multiselect', require('./components/MultiSelectsComponent.vue')
  */
 Vue.component('select2', require('./components/SelectsComponent.vue').default);
 
+/**
+ * Componente genérico para la gestión de imágenes
+ *
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
 Vue.component('image-management', require('./components/ImageManagementComponent.vue').default);
+
+/**
+ * Componente genérico para la gestión de documentos
+ *
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('document-management', require('./components/DocumentManagementComponent.vue').default);
 
 /**
  * Componente genérico para mostrar motones de limpiar, cancelar o guardar registros cuando la altura del formulario es muy alta
