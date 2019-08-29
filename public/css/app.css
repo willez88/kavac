@@ -29856,13 +29856,15 @@ table th {
 }
 
 .feature-list .feature-list-content .feature-list-content-right {
-  margin-left: auto;
+  margin-left: 20px;
 }
 
 .feature-list .feature-list-content .feature-list-content-right.feature-list-content-actions {
   /*visibility: hidden;
                 opacity: 0;
                 transition: opacity .2s;*/
+  min-width: 25%;
+  text-align: center;
 }
 
 .feature-list input[checkbox]:hover,
