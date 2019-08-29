@@ -138,7 +138,7 @@ class AccountingAccount extends Model implements Auditable
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return [string] [codigo que identifica a la cuenta]
      */
-    public function getCode()
+    public function getCodeAttribute()
     {
         return "{$this->group}.{$this->subgroup}.{$this->item}.{$this->generic}.{$this->specific}.{$this->subspecific}";
     }

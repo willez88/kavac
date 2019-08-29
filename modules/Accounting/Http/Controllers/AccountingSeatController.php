@@ -435,7 +435,7 @@ class AccountingSeatController extends Controller
             if ($account->active) {
                 array_push($records, [
                     'id' => $account->id,
-                    'text' => "{$account->getCode()} - {$account->denomination}"
+                    'text' => "{$account->getCodeAttribute()} - {$account->denomination}"
                 ]);
             }
         };

@@ -4,7 +4,7 @@
 			<accounting-show-errors :options="errors" />
 
 			<div class="row">
-				<div class="col-2"></div>
+				<div class="col-3"></div>
 				<div class="col-3">
 					<label for="sel_budget_acc" class="control-label">Por Presupuestos</label>
 					<br>
@@ -24,8 +24,37 @@
 								data-on-label="SI" data-off-label="NO"
 								class="form-control bootstrap-switch sel_pry_acc">
 				</div>
-				<div class="col-3">
-					<label for="" class="control-label">Seleccionar todos</label>
+				<div class="col-3"></div>
+
+
+				<div class="col-4"></div>
+
+				<div class="col-4">
+					<label v-if="searchActive && searchBudgetAccount"
+							class="control-label text-center">
+						<h4>Cuentas Presupuestales</h4>
+					</label>
+					<label v-else-if="searchActive && !searchBudgetAccount"
+							class="control-label text-center">
+						<h4>Cuentas Patrimoniales</h4>
+					</label>
+					<label v-else
+							class="control-label text-center">
+					</label>
+				</div>
+				<div class="col-4"></div>
+
+				<div class="col-1"></div>
+				<div class="col-4">
+					<span>Desde</span>
+					<select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id" :disabled="SelectAll"></select2>
+				</div>
+				<div class="col-4">
+					<span>Hasta</span>
+					<select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id" :disabled="SelectAll"></select2>
+				</div>
+				<div class="col-2">
+					<label for="" class="control-label">Seleccionar todas</label>
 					<br>
 					<input type="checkbox"
 								name="sel_account_type"
@@ -33,32 +62,6 @@
 								data-on-label="SI" data-off-label="NO"
 								class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
 				</div>
-				<br>
-					<div class="col-4"></div>
-
-					<div class="col-4">
-						<label v-if="searchActive && searchBudgetAccount"
-								class="control-label text-center">
-							<h4>Cuentas Presupuestales</h4>
-						</label>
-						<label v-else-if="searchActive && !searchBudgetAccount"
-								class="control-label text-center">
-							<h4>Cuentas Patrimoniales</h4>
-						</label>
-						<label v-else
-								class="control-label text-center">
-						</label>
-					</div>
-					<div class="col-4"></div>
-
-					<div class="col-5">
-						<span>desde</span>
-						<select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id" :disabled="SelectAll"></select2>
-					</div>
-					<div class="col-5">
-						<span>hasta</span>
-						<select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id" :disabled="SelectAll"></select2>
-					</div>
 			</div>
 			<br>
 			<div class="card-footer text-right">
@@ -138,6 +141,7 @@
 			}
 		},
 		created() {
+			this.table_options.filterByColumn = false,
 			this.table_options.headings = {
 				'codeBudget': 'CÓDIGO PRESUPUESTAL',
 				'BudgetAccounts': 'DENOMINACIÓN',
@@ -248,7 +252,7 @@
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
 			getRecords:function(){
-				const vm = this;
+				let vm = this;
 
 				if (vm.accountSelect.init_id != '' && vm.accountSelect.end_id != '') {
 					axios.post('/accounting/converter/get-Records',vm.accountSelect)

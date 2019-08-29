@@ -358,10 +358,10 @@ class AccountingAccountController extends Controller
                                     ->get() as $record) {
             array_push($records, [
                 'id'           => $record->id,
-                'code'         =>   $record->getCode(),
+                'code'         =>   $record->getCodeAttribute(),
                 'denomination' => $record->denomination,
                 'active'       => $record->active,
-                'text'         =>"{$record->getCode()} - {$record->denomination}",
+                'text'         =>"{$record->getCodeAttribute()} - {$record->denomination}",
             ]);
         }
         return $records;

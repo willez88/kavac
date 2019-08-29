@@ -229,7 +229,7 @@ class AccountingReportPdfBalanceSheetController extends Controller
         if (count($records) > 0) {
             foreach ($records as $account) {
                 array_push($parent, [
-                    'code' => $account->getCode(),
+                    'code' => $account->getCodeAttribute(),
                     'denomination' => $account->denomination,
                     'balance' => $this->calculateValuesInSeating($account),
                     'level' => $level,

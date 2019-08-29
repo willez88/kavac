@@ -143,7 +143,7 @@
 			return {
 				minimized:true,
 				records: [],
-				url: 'http://'+window.location.host+'/accounting/seating', 
+				url:'/accounting/seating', 
 				columns: ['content'],
 			}
 		},
@@ -151,6 +151,9 @@
 			this.table_options.headings = {
 				'content': 'ASIENTOS CONTABLES',
 			};
+
+			this.table_options.filterable = [];
+
 			this.records = this.seating;
 			EventBus.$on('reload:listing',(data)=>{
 				this.records = data;

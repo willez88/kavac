@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFieldNameToAccountingReportHistories extends Migration
+class ChangeFieldReportToAccountingReportHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,9 @@ class AddFieldNameToAccountingReportHistories extends Migration
     public function up()
     {
         Schema::table('accounting_report_histories', function (Blueprint $table) {
-            $table->string('name')->comment('Nombre del tipo de historial');
+            if (!Schema::hasColumn('accounting_report_histories', 'report')) {
+                $table->string('report')->comment('Tipo de reporte')->change();
+            }
         });
     }
 
@@ -25,8 +27,6 @@ class AddFieldNameToAccountingReportHistories extends Migration
      */
     public function down()
     {
-        Schema::table('', function (Blueprint $table) {
-
-        });
+        //
     }
 }

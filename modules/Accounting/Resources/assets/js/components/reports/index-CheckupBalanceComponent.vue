@@ -40,7 +40,7 @@
 		props:['year_old'],
 		data(){
 			return{
-				url:'http://'+window.location.host+'/accounting/report/BalanceCheckUp/pdf/',
+				url:'/accounting/report/BalanceCheckUp/pdf/',
 			}
 		},
 		created(){

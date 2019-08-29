@@ -161,7 +161,7 @@
 					denomination:'',
 					active:false,
 				},
-				urlPrevious:'http://'+window.location.host+'/accounting/accounts',
+				urlPrevious:'/accounting/accounts',
 				operation:'create', // puede tomar valores ['create' o 'update']
 			}
 		},

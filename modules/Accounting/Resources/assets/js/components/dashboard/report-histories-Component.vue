@@ -29,7 +29,7 @@
 		data(){
 			return {
 				records: [],
-				url:'http://'+window.location.host+'/accounting/report/',
+				url:'/accounting/report/',
 				columns: ['name', 'created_at', 'interval', 'id']
 			}
 		},

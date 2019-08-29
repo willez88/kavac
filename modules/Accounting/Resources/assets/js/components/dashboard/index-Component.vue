@@ -53,7 +53,7 @@
 				reload:false,
 				currency:'',
 				records: [],
-				url:'http://'+window.location.host+'/accounting/seating/',
+				url:'/accounting/seating/',
 				columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'action']
 			}
 		},

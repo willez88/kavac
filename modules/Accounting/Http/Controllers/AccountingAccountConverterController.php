@@ -182,7 +182,7 @@ class AccountingAccountConverterController extends Controller
             if ($AccountingAccount->id == $account->accounting_account_id) {
                 array_push($accountingAccounts, [
                     'id' => $AccountingAccount->id,
-                    'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}"
+                    'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
                 ]);
             }
             /**
@@ -191,7 +191,7 @@ class AccountingAccountConverterController extends Controller
             if (!$AccountingAccount->accountConverters['active']) {
                 array_push($accountingAccounts, [
                     'id' => $AccountingAccount->id,
-                    'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}"
+                    'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
                 ]);
             }
         }
@@ -384,13 +384,13 @@ class AccountingAccountConverterController extends Controller
                 if (!$AccountingAccount->accountConverters['active']) {
                     array_push($records, [
                         'id' => $AccountingAccount->id,
-                        'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}"
+                        'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
                     ]);
                 }
             } else {
                 array_push($records, [
                     'id' => $AccountingAccount->id,
-                    'text' =>   "{$AccountingAccount->getCode()} - {$AccountingAccount->denomination}",
+                    'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}",
                 ]);
             }
         }

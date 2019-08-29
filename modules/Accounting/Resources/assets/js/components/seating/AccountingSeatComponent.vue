@@ -5,18 +5,26 @@
 				
 				<accounting-show-errors :options="errors" />
 
-				<div class="alert alert-warning" role="alert" v-if="warnings.length > 0">
+				<div class="alert alert-primery" role="alert" v-if="warnings.length > 0">
 					<div class="container">
 						<div class="alert-icon">
 							<i class="now-ui-icons objects_support-17"></i>
 						</div>
 						<strong>Atención!</strong>
 						<ul>
-							<li v-for="warning in warnings">{{ warning }}</li>
+							<li v-for="warning in warnings"><strong>{{ warning }}</strong></li>
 						</ul>
 					</div>
 				</div>
 				<div class="row">
+					<div class="col-3"></div>
+					<div class="col-6" style="margin-top: -2rem; padding-bottom: 2rem;">
+						<label class="control-label text-center">
+							<h4 style="text-transform: uppercase;">Buscardor de asientos contables aprobados</h4>
+						</label>
+					</div>
+					<div class="col-3"></div>
+
 					<div class="col-3"></div>
 					<div class="col-3">
 						<div class="form-group">
@@ -114,13 +122,13 @@
 							</div>
 							<div class="col-3">
 								<div class="form-group is-required">
-									<label class="control-label">desde</label>
+									<label class="control-label">Desde</label>
 									<input type="date" class="form-control" v-model="data.init">
 								</div>
 							</div>
 							<div class="col-3">
 								<div class="form-group is-required">
-									<label class="control-label">hasta</label>
+									<label class="control-label">Hasta</label>
 									<input type="date" class="form-control" v-model="data.end">
 								</div>
 							</div>
@@ -257,12 +265,11 @@
 					'filterDate':this.filterDate,
 					'data':this.data,
 				}).then(response=>{
-					if (response.data.records.length == 0) {
-						this.warnings = [];
-						this.warnings.push('No se encontraron registros con los parametros de busqueda dados.')
-					}
-					this.errors = [];
 					this.warnings = [];
+					this.errors = [];
+					if (response.data.records.length == 0) {
+						this.warnings.push('No se encontraron asientos contables aprobados con los parametros de busqueda dados.')
+					}
 					this.records = response.data.records;
 					EventBus.$emit('reload:listing',response.data.records);
 				});

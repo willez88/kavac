@@ -58,7 +58,7 @@ class AccountingReportsController extends Controller
             /** @var array arreglo con datos de las cuentas patrimoniales*/
             array_push($records, [
                 'id' => $account->id,
-                'text' =>   "{$account->getCode()} - {$account->denomination}",
+                'text' =>   "{$account->getCodeAttribute()} - {$account->denomination}",
             ]);
         }
         /**
