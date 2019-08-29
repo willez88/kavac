@@ -65,12 +65,24 @@
 				required: false,
 				default: true
 			},
+			selected: {
+				type: Array,
+				required: false,
+			},
 		},
 		methods: {
 			onSelect (option, id) {
 		    	//console.log(this.value, id)
 		    }
-		}
+		},
+		watch: {
+			selected_values: function() {
+				this.$emit('input', this.selected_values)
+			},
+			selected: function(selected) {
+				this.selected_values = selected; 
+			}
+		},
 	};
 </script>
 
