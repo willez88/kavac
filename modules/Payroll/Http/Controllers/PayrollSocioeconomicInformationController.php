@@ -87,7 +87,10 @@ class PayrollSocioeconomicInformationController extends Controller
             $this->validate($request, [
                 'payroll_childrens.'.$i.'.first_name' => 'required',
                 'payroll_childrens.'.$i.'.last_name' => 'required',
-                'payroll_childrens.'.$i.'.id_number' => array('nullable', 'regex:/^([\d]{7}|[\d]{8})$/u'),
+                'payroll_childrens.'.$i.'.id_number' => array(
+                    'nullable',
+                    'regex:/^([\d]{7}|[\d]{8})$/u'
+                ),
                 'payroll_childrens.'.$i.'.birthdate' => 'required|date',
             ]);
             $i++;
@@ -172,7 +175,6 @@ class PayrollSocioeconomicInformationController extends Controller
             'marital_status_id' => 'required'
         ]);
 
-        // Falta validar los campos id_number de payrollChildren
         $i = 0;
         foreach ($request->payroll_childrens as $payrollChildren) {
             $this->validate($request, [

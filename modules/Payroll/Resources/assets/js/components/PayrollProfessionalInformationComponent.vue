@@ -115,6 +115,22 @@
 								</select2>
 							</div>
 						</div>
+						<div class="col-md-4">
+							<div class="form-group is-required">
+								<label>Profesiones:</label>
+								<v-multiselect :options="professions" track_by="text" :hide_selected="false"
+									:selected="record.professions" v-model="record.professions">
+								</v-multiselect>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<pre>
+								{{ $data }}
+							</pre>
+						</div>
 					</div>
 
 				</div>
@@ -155,7 +171,8 @@
 					study_program_name: '',
 					class_schedule: '',
 					payroll_language_id: '',
-					payroll_language_level_id: ''
+					payroll_language_level_id: '',
+					professions: ''
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -206,6 +223,7 @@
 			},
 		},
 		created() {
+			this.record.professions = [];
 			this.getPayrollStaffs();
 			this.getPayrollInstructionDegrees();
 			this.getProfessions();

@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<multiselectComponent v-model="selected_values" :options="options" :multiple="true" :taggable="taggable" :id="id" 
-							  :preselect-first="preselect_first" :track-by="track_by" :label="track_by" 
-							  placeholder="Seleccione..." :preserve-search="preserve_search" :hide-selected="hide_selected" 
-							  :clear-on-select="clear_on_select" :close-on-select="close_on_select" @select="onSelect" 
-							  :deselect-group-label="'Deseleccionar grupo'" :deselect-label="'Eliminar'" 
-							  :select-group-label="'Seleccionar grupo'" :select-label="'Seleccionar'" 
+		<multiselectComponent v-model="selected_values" :options="options" :multiple="true" :taggable="taggable" :id="id"
+							  :preselect-first="preselect_first" :track-by="track_by" :label="track_by"
+							  placeholder="Seleccione..." :preserve-search="preserve_search" :hide-selected="hide_selected"
+							  :clear-on-select="clear_on_select" :close-on-select="close_on_select" @select="onSelect"
+							  :deselect-group-label="'Deseleccionar grupo'" :deselect-label="'Eliminar'"
+							  :select-group-label="'Seleccionar grupo'" :select-label="'Seleccionar'"
 							  :selected-label="'Seleccionado'" :tag-placeholder="'Crear una etiqueta'"></multiselectComponent>
 	</div>
 </template>
@@ -65,12 +65,25 @@
 				required: false,
 				default: true
 			},
+			selected: {
+				type: Array,
+				required: false,
+			},
 		},
 		methods: {
 			onSelect (option, id) {
 		    	//console.log(this.value, id)
 		    }
-		}
+		},
+
+		watch: {
+			selected_values: function() {
+				this.$emit('input', this.selected_values)
+			},
+			selected: function(selected) {
+				this.selected_values = selected;
+			}
+		},
 	};
 </script>
 
