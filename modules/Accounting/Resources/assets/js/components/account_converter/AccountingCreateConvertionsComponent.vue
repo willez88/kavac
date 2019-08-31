@@ -83,6 +83,7 @@
 				'AccountingAccounts': 'CUENTAS PATRIMONIALES',
 				'id': 'ACCIÓN'
 			};
+			this.table_options.filterable = [];
 		},
 		mounted(){
 			this.budgetOptions = this.budget_list;
@@ -150,7 +151,7 @@
 						this.AccountToConverters = [];
 						vm.showMessage('store');
 						setTimeout(function() {
-								window.location.href = 'http://'+window.location.host+'/accounting/converter';
+								window.location.href = '/accounting/converter';
 							}, 2000);
 					});
 			},

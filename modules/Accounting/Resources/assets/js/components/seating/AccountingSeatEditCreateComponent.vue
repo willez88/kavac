@@ -29,16 +29,16 @@
 				</div>
 				<div class="col-4">
 					<div class="form-group is-required">
-						<label class="control-label">Referencia
+						<label class="control-label">Categoría del asiento
 						</label>
-						<input type="text" class="form-control" v-model="reference" id="reference">
+						<select2 :options="categories" v-model="category"></select2>
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="form-group is-required">
-						<label class="control-label">Categoría del asiento
+						<label class="control-label">Referencia
 						</label>
-						<select2 :options="categories" v-model="category"></select2>
+						<input type="text" class="form-control" v-model="reference" id="reference">
 					</div>
 				</div>
 				<div class="col-4">

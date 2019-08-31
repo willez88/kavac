@@ -47,7 +47,7 @@
 					{ id:5, text:'Nivel 5' },
 					{ id:6, text:'Nivel 6' },
 				],
-				url:'http://'+window.location.host+'/accounting/report/',
+				url:'/accounting/report/',
 			}
 		},
 		created(){

@@ -33,7 +33,7 @@
 	export default{
 		data(){
 			return{
-				url:'http://'+window.location.host+'/accounting/report/diaryBook/pdf/',
+				url:'/accounting/report/diaryBook/pdf/',
 				dateIni:'',
 				dateEnd:'',
 			}

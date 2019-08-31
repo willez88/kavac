@@ -114,7 +114,7 @@
 				recordsBudget:[],
 				rowsToDelete:[],
 				columns: ['code', 'debit', 'assets', 'id'],
-				urlPrevious:'http://'+window.location.host+'/accounting/seating',
+				urlPrevious:'/accounting/seating',
 				data:{
 					date:'',
 					reference:'',

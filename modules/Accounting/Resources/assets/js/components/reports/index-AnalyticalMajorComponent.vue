@@ -61,7 +61,7 @@
 		props:['year_old'],
 		data(){
 			return {
-				url:'http://'+window.location.host+'/accounting/report/AnalyticalMajor/pdf',
+				url:'/accounting/report/AnalyticalMajor/pdf',
 				disabledButton:true,
 				InitAcc:0,
 				EndAcc:0,

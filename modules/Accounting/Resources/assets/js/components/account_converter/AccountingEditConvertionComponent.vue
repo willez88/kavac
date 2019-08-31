@@ -42,7 +42,7 @@
 								budget_account_id:'',
 								accounting_account_id:''
 							 },
-				urlPrevious:'http://'+window.location.host+'/accounting/converter',
+				urlPrevious:'/accounting/converter',
 			}
 		},
 		created(){
@@ -62,13 +62,11 @@
 				axios.put('/accounting/converter/'+this.account_to_edit.id,this.accountSelect)
 				.then(response=>{
 					vm.showMessage('update');
-					window.location.href = this.urlPrevious;
 					setTimeout(function() {
 							location.href = vm.urlPrevious;
 						}, 2000);
 				});
 			}
 		},
-
-	}
+	};
 </script>

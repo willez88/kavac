@@ -133,7 +133,7 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         function build_sorter()
         {
             return function ($a, $b) {
-                return strnatcmp($a->getCode(), $b->getCode());
+                return strnatcmp($a->getCodeAttribute(), $b->getCodeAttribute());
             };
         }
 
@@ -156,7 +156,7 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
         foreach ($records as $account) {
             array_push($arrAux, [
                 'id_record' => $account->id,
-                'text' => "{$account->getCode()} - {$account->denomination}",
+                'text' => "{$account->getCodeAttribute()} - {$account->denomination}",
                 'id' => $index,
             ]);
             $index += 1;

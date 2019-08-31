@@ -41,7 +41,7 @@
 		data(){
 			return {
 				account_id:0,
-				url:'http://'+window.location.host+'/accounting/report/auxiliaryBook/pdf/',
+				url:'/accounting/report/auxiliaryBook/pdf/',
 			}
 		},
 		created(){

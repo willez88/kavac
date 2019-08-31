@@ -68,8 +68,8 @@
 								props.row.budgetAccount.specific+'.'+
 								props.row.budgetAccount.subspecific }}
 						</div>
-						<div slot="BudgetAccounts" slot-scope="props" class="text-center">
-							{{ props.row.budgetAccount.denomination }}
+						<div slot="budget_account" slot-scope="props" class="text-center">
+							{{ props.row.budget_account.denomination }}
 						</div>
 						<div slot="codeAccounting" slot-scope="props" class="text-center">
 							{{ props.row.accounting_account.group+'.'+
@@ -79,7 +79,7 @@
 								props.row.accounting_account.specific+'.'+
 								props.row.accounting_account.subspecific }}
 						</div>
-						<div slot="AccountingAccounts" slot-scope="props" class="text-center">
+						<div slot="accounting_account" slot-scope="props" class="text-center">
 							{{ props.row.accounting_account.denomination }}
 						</div>
 
@@ -134,15 +134,15 @@
 		created() {
 			this.table_options.headings = {
 				'codeBudget': 'CÓDIGO PRESUPUESTAL',
-				'BudgetAccounts': 'DENOMINACIÓN',
+				'budget_account': 'DENOMINACIÓN',
 				'codeAccounting': 'CÓDIGO PATRIMONIAL',
-				'AccountingAccounts': 'DENOMINACIÓN',
+				'accounting_account': 'DENOMINACIÓN',
 				'status': 'ESTADO DE LA CONVERSIÓN',
 				'id': 'ACCIÓN'
 			};
-			this.table_options.sortable = ['codeBudget', 'BudgetAccounts',
-											'codeAccounting', 'AccountingAccounts'];
-			this.table_options.filterable = ['BudgetAccounts', 'AccountingAccounts'];
+			this.table_options.filterable = ['budget_account', 'accounting_account'];
+			this.table_options.sortable = ['codeBudget', 'budget_account',
+											'codeAccounting', 'accounting_account'];
 		},
 		mounted(){
 			this.budgetAccounts = this.budget_accounts;
@@ -209,8 +209,8 @@
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
 			editConvertion:function(convertionId){
-				window.location.href = 'http://'+window.location.host+'/accounting/converter/'+convertionId+'/edit';
+				window.location.href = '/accounting/converter/'+convertionId+'/edit';
 			},
 		}
-	}
+	};
 </script>
