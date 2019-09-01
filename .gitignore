@@ -3,6 +3,7 @@
 /doc
 /public/hot
 /public/storage
+/public/modules
 /storage/*.key
 /storage/debugbar
 /storage/pictures

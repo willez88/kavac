@@ -8,5 +8,13 @@
     "/js/chart.js": "/js/chart.js",
     "/js/ckeditor.js": "/js/ckeditor.js",
     "/js/generic-classes.js": "/js/generic-classes.js",
-    "/js/common.js": "/js/common.js"
+    "/js/common.js": "/js/common.js",
+    "/modules/accounting/js/app.js": "/modules/accounting/js/app.js",
+    "/modules/asset/js/app.js": "/modules/asset/js/app.js",
+    "/modules/budget/js/app.js": "/modules/budget/js/app.js",
+    "/modules/digitalsignature/js/app.js": "/modules/digitalsignature/js/app.js",
+    "/modules/finance/js/app.js": "/modules/finance/js/app.js",
+    "/modules/payroll/js/app.js": "/modules/payroll/js/app.js",
+    "/modules/purchase/js/app.js": "/modules/purchase/js/app.js",
+    "/modules/warehouse/js/app.js": "/modules/warehouse/js/app.js"
 }
