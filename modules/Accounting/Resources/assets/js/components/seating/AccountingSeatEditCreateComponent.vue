@@ -10,42 +10,43 @@
 					<div class="form-group is-required">
 						<label class="control-label">Fecha
 						</label>
-						<input :disabled="data_edit != null" type="date" class="form-control" v-model="date">
+						<input :disabled="data_edit != null" type="date" class="form-control" v-model="date"
+								tabindex="1">
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="form-group">
-						<label class="control-label">Concepto
+						<label class="control-label">Descripción de Asiento
 						</label>
-						<input type="text" class="form-control" v-model="concept">
+						<input type="text" class="form-control" v-model="concept" tabindex="1">
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="form-group">
 						<label class="control-label">Observaciones
 						</label>
-						<input type="text" class="form-control" v-model="observations">
+						<input type="text" class="form-control" v-model="observations" tabindex="1">
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="form-group is-required">
 						<label class="control-label">Categoría del asiento
 						</label>
-						<select2 :options="categories" v-model="category"></select2>
+						<select2 :options="categories" v-model="category" tabindex="1"></select2>
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="form-group is-required">
 						<label class="control-label">Referencia
 						</label>
-						<input type="text" class="form-control" v-model="reference" id="reference">
+						<input type="text" class="form-control" v-model="reference" id="reference" tabindex="1">
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="form-group is-required">
 						<label class="control-label">Institución que genera
 						</label>
-						<select2 :options="institutions" v-model="institution"></select2>
+						<select2 :options="institutions" v-model="institution" tabindex="1"></select2>
 					</div>
 				</div>
 			</div>
