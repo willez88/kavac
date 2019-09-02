@@ -48,9 +48,11 @@ class CreatePurchaseRequirementItemsTable extends Migration
                       las mismas características
                       EOF
                   );
-            $table->foreign('warehouse_product_id')->references('id')
-                  ->on('warehouse_products')->onDelete('restrict')
-                  ->onUpdate('cascade');
+            if (Module::has('Wareouse')) {
+                $table->foreign('warehouse_product_id')->references('id')
+                      ->on('warehouse_products')->onDelete('restrict')
+                      ->onUpdate('cascade');
+            }
 
             /*
             * -----------------------------------------------------------------------
