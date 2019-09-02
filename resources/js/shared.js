@@ -6,28 +6,6 @@
 * Scripts compartidos para ser requeridos por módulos externos al núcleo de la aplicación
 */
 
-/** Requerimiento del paquete bootstrap 4 para el diseño de la aplicación */
-require('./bootstrap');
-//require('./loading-message');
-
-/** @type {object} Requerimiento del paquete vue para la reactividad de la aplicación */
-window.Vue = require('vue');
-
-/** @type {Date} Año de ejecución */
-window.execution_year = new Date().getFullYear();
-
-if (window.auth) {
-    /** Busca el año de ejecución solo cuando el usuario se encuentra autenticado */
-    axios.get('/get-execution-year', {}).then(response => {
-        if (response.data.result) {
-            window.execution_year = response.data.year;
-        }
-    }).catch(error => {
-        console.log(error);
-    });
-}
-Vue.use(window.execution_year);
-
 /** Requerimiento del paquete vue-table-2 para la representación de consultas en tablas con vue */
 import {ServerTable, ClientTable, Event} from 'vue-tables-2';
 
@@ -37,14 +15,21 @@ Vue.use(ClientTable);
  * Componente genérico para el uso de listas desplegables de selección multiple
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @param array     options         Arreglo de objetos con las opciones a cargar. Ej.: [{clave: clave, valor: valor}, ...]
+ *
+ * @param array     options         Arreglo de objetos con las opciones a cargar.
+ *                                  Ej.: [{clave: clave, valor: valor}, ...]
  * @param string    track_by        Define el nombre de la clave por la cual se va a gestionar la información.
- * @param boolean   taggable        Define si se muestra la selección mediante tags o no (opcional). El valor por defecto es true.
+ * @param boolean   taggable        Define si se muestra la selección mediante tags o no (opcional).
+ *                                  El valor por defecto es true.
  * @param string    id              Define el identificador del objeto (opcional).
- * @param boolean   preselect_first Define si se preselecciona el primero objeto del arreglo (opcional). El valor por defecto es false
- * @param boolean   preserve_search Define si se preserva el campo de búsqueda (opcional). El valor por defecto es true
- * @param boolean   hide_selected   Define si se ocultan los elementos seleccionados (opcional). El valor por defecto es true
- * @param boolean   clear_on_select Define si se limpia el texto al seleccionar un elemento (opcional). El valor por defecto es true
+ * @param boolean   preselect_first Define si se preselecciona el primero objeto del arreglo (opcional).
+ *                                  El valor por defecto es false
+ * @param boolean   preserve_search Define si se preserva el campo de búsqueda (opcional).
+ *                                  El valor por defecto es true
+ * @param boolean   hide_selected   Define si se ocultan los elementos seleccionados (opcional).
+ *                                  El valor por defecto es true
+ * @param boolean   clear_on_select Define si se limpia el texto al seleccionar un elemento (opcional).
+ *                                  El valor por defecto es true
  * @param boolean   close_on_select Define si se cierra la lista de elementos al seleccionar uno de ellos (opcional).
  *                                  El valor por defecto es true
  *
@@ -77,8 +62,16 @@ Vue.component('image-management', require('./components/ImageManagementComponent
 Vue.component('document-management', require('./components/DocumentManagementComponent.vue').default);
 
 /**
- * Componente genérico para mostrar motones de limpiar, cancelar o guardar registros cuando la altura del formulario es muy alta
+ * Componente genérico para mostrar motones de limpiar, cancelar o guardar registros cuando la altura del
+ * formulario es muy alta
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.component('buttonsDisplay', require('./components/ButtonsFormDisplayComponent.vue').default);
+
+/**
+ * Componente para la gestión de números telefónicos
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('phones', require('./components/PhonesComponent.vue').default);
