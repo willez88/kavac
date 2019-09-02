@@ -230,8 +230,7 @@ a.resalt-link {
 }
 
 .modal-footer {
-  -webkit-box-pack: end !important;
-          justify-content: flex-end !important;
+  justify-content: flex-end !important;
 }
 
 table {
@@ -922,7 +921,6 @@ a.level-debug:hover {
 }
 
 .navbar > .container-left .menu-collapse {
-  -webkit-transition: all 0.2s ease-out 0s;
   transition: all 0.2s ease-out 0s;
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: rgba(255, 255, 255, 0.8);
@@ -999,7 +997,6 @@ a.level-debug:hover {
 }
 
 .nav-tabs.custom-tabs .nav-link {
-  -webkit-transition: all 0s ease 0s;
   transition: all 0s ease 0s;
 }
 
@@ -1179,7 +1176,6 @@ a.level-debug:hover {
 .left-menu-panel {
   display: block;
   text-decoration: none;
-  -webkit-transition: background-color 0.5s ease-in-out;
   transition: background-color 0.5s ease-in-out;
   border-left: none !important;
   border-right: none !important;
@@ -1922,7 +1918,6 @@ a .btn-simplex:hover {
 }
 
 .info-box .info-box-footer .status {
-  -webkit-transform: translateY(-50%) translateX(-50%);
   transform: translateY(-50%) translateX(-50%);
   position: absolute;
   left: 50%;
@@ -2092,7 +2087,6 @@ a .btn-simplex:hover {
 .dash-box {
   position: relative;
   background: #ff5641;
-  background: -webkit-gradient(linear, left top, left bottom, from(#ff5641), to(#fd3261));
   background: linear-gradient(to bottom, #ff5641 0%, #fd3261 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff5641', endColorstr='#fd3261', GradientType=0 );
   border-radius: 4px;
@@ -2103,7 +2097,6 @@ a .btn-simplex:hover {
 
 .dash-box.dash-box-warning {
   background: #fcbe1b;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #fcbe1b), color-stop(99%, #f85648));
   background: linear-gradient(to bottom, #fcbe1b 1%, #f85648 99%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcbe1b', endColorstr='#f85648', GradientType=0 );
 }
@@ -2122,7 +2115,6 @@ a .btn-simplex:hover {
 
 .dash-box.dash-box-purple {
   background: #b747f7;
-  background: -webkit-gradient(linear, left top, left bottom, from(#b747f7), to(#6c53dc));
   background: linear-gradient(to bottom, #b747f7 0%, #6c53dc 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b747f7', endColorstr='#6c53dc',GradientType=0 );
 }
@@ -2141,8 +2133,7 @@ a .btn-simplex:hover {
 
 .dash-box-icon {
   position: absolute;
-  -webkit-transform: translateY(-50%) translateX(-50%);
-          transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
   left: 50%;
 }
 
@@ -2181,8 +2172,7 @@ a .btn-simplex:hover {
 }
 
 .dash-box-action {
-  -webkit-transform: translateY(-50%) translateX(-50%);
-          transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
   position: absolute;
   left: 50%;
 }
@@ -2338,7 +2328,6 @@ a .btn-simplex:hover {
   white-space: nowrap;
   position: relative;
   overflow: hidden;
-  -webkit-transition: color .2s linear,background .2s linear;
   transition: color .2s linear,background .2s linear;
 }
 
@@ -2379,7 +2368,6 @@ a .btn-simplex:hover {
   border-top: none;
   position: relative;
   border-left: solid 6px transparent;
-  -webkit-transition: border .2s linear;
   transition: border .2s linear;
 }
 
@@ -2426,7 +2414,6 @@ a .btn-simplex:hover {
 }
 
 .jquery-accordion-menu .submenu-indicator-minus > .submenu-indicator {
-  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
@@ -2451,7 +2438,6 @@ a .btn-simplex:hover {
   position: absolute;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 100%;
-  -webkit-transform: scale(0);
   transform: scale(0);
 }
 
@@ -2470,8 +2456,7 @@ a .btn-simplex:hover {
 @keyframes ripple {
   100% {
     opacity: 0;
-    -webkit-transform: scale(2.5);
-            transform: scale(2.5);
+    transform: scale(2.5);
   }
 }
 
@@ -2700,7 +2685,6 @@ a .btn-simplex:hover {
 
 .nav-msg li a {
   color: #444;
-  -webkit-transition: all 0.2s ease-out 0s;
   transition: all 0.2s ease-out 0s;
 }
 
@@ -3016,7 +3000,6 @@ a .btn-simplex:hover {
 }
 
 .people-group .list-group-item {
-  -webkit-transition: all 0.2s ease-out 0s;
   transition: all 0.2s ease-out 0s;
   border-radius: 3px;
   margin: 0;
@@ -3493,104 +3476,84 @@ table th {
 
 @-webkit-keyframes wrench {
   0% {
-    -webkit-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
 
   8% {
-    -webkit-transform: rotate(12deg);
     transform: rotate(12deg);
   }
 
   10% {
-    -webkit-transform: rotate(24deg);
     transform: rotate(24deg);
   }
 
   18%, 20% {
-    -webkit-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
 
   28%, 30% {
-    -webkit-transform: rotate(24deg);
     transform: rotate(24deg);
   }
 
   38%, 40% {
-    -webkit-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
 
   48%, 50% {
-    -webkit-transform: rotate(24deg);
     transform: rotate(24deg);
   }
 
   58%, 60% {
-    -webkit-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
 
   68% {
-    -webkit-transform: rotate(24deg);
     transform: rotate(24deg);
   }
 
   75% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
 
 @keyframes wrench {
   0% {
-    -webkit-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
 
   8% {
-    -webkit-transform: rotate(12deg);
     transform: rotate(12deg);
   }
 
   10% {
-    -webkit-transform: rotate(24deg);
     transform: rotate(24deg);
   }
 
   18%, 20% {
-    -webkit-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
 
   28%, 30% {
-    -webkit-transform: rotate(24deg);
     transform: rotate(24deg);
   }
 
   38%, 40% {
-    -webkit-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
 
   48%, 50% {
-    -webkit-transform: rotate(24deg);
     transform: rotate(24deg);
   }
 
   58%, 60% {
-    -webkit-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
 
   68% {
-    -webkit-transform: rotate(24deg);
     transform: rotate(24deg);
   }
 
   75% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
@@ -3606,114 +3569,92 @@ table th {
 
 @-webkit-keyframes ring {
   0% {
-    -webkit-transform: rotate(-15deg);
     transform: rotate(-15deg);
   }
 
   2% {
-    -webkit-transform: rotate(15deg);
     transform: rotate(15deg);
   }
 
   4% {
-    -webkit-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
 
   6% {
-    -webkit-transform: rotate(18deg);
     transform: rotate(18deg);
   }
 
   8% {
-    -webkit-transform: rotate(-22deg);
     transform: rotate(-22deg);
   }
 
   10% {
-    -webkit-transform: rotate(22deg);
     transform: rotate(22deg);
   }
 
   12% {
-    -webkit-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
 
   14% {
-    -webkit-transform: rotate(18deg);
     transform: rotate(18deg);
   }
 
   16% {
-    -webkit-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
 
   18% {
-    -webkit-transform: rotate(12deg);
     transform: rotate(12deg);
   }
 
   20% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
 
 @keyframes ring {
   0% {
-    -webkit-transform: rotate(-15deg);
     transform: rotate(-15deg);
   }
 
   2% {
-    -webkit-transform: rotate(15deg);
     transform: rotate(15deg);
   }
 
   4% {
-    -webkit-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
 
   6% {
-    -webkit-transform: rotate(18deg);
     transform: rotate(18deg);
   }
 
   8% {
-    -webkit-transform: rotate(-22deg);
     transform: rotate(-22deg);
   }
 
   10% {
-    -webkit-transform: rotate(22deg);
     transform: rotate(22deg);
   }
 
   12% {
-    -webkit-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
 
   14% {
-    -webkit-transform: rotate(18deg);
     transform: rotate(18deg);
   }
 
   16% {
-    -webkit-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
 
   18% {
-    -webkit-transform: rotate(12deg);
     transform: rotate(12deg);
   }
 
   20% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
@@ -3729,74 +3670,60 @@ table th {
 
 @-webkit-keyframes vertical {
   0% {
-    -webkit-transform: translate(0, -3px);
     transform: translate(0, -3px);
   }
 
   4% {
-    -webkit-transform: translate(0, 3px);
     transform: translate(0, 3px);
   }
 
   8% {
-    -webkit-transform: translate(0, -3px);
     transform: translate(0, -3px);
   }
 
   12% {
-    -webkit-transform: translate(0, 3px);
     transform: translate(0, 3px);
   }
 
   16% {
-    -webkit-transform: translate(0, -3px);
     transform: translate(0, -3px);
   }
 
   20% {
-    -webkit-transform: translate(0, 3px);
     transform: translate(0, 3px);
   }
 
   22% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 }
 
 @keyframes vertical {
   0% {
-    -webkit-transform: translate(0, -3px);
     transform: translate(0, -3px);
   }
 
   4% {
-    -webkit-transform: translate(0, 3px);
     transform: translate(0, 3px);
   }
 
   8% {
-    -webkit-transform: translate(0, -3px);
     transform: translate(0, -3px);
   }
 
   12% {
-    -webkit-transform: translate(0, 3px);
     transform: translate(0, 3px);
   }
 
   16% {
-    -webkit-transform: translate(0, -3px);
     transform: translate(0, -3px);
   }
 
   20% {
-    -webkit-transform: translate(0, 3px);
     transform: translate(0, 3px);
   }
 
   22% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 }
@@ -3809,74 +3736,60 @@ table th {
 
 @-webkit-keyframes horizontal {
   0% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 
   6% {
-    -webkit-transform: translate(5px, 0);
     transform: translate(5px, 0);
   }
 
   12% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 
   18% {
-    -webkit-transform: translate(5px, 0);
     transform: translate(5px, 0);
   }
 
   24% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 
   30% {
-    -webkit-transform: translate(5px, 0);
     transform: translate(5px, 0);
   }
 
   36% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 }
 
 @keyframes horizontal {
   0% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 
   6% {
-    -webkit-transform: translate(5px, 0);
     transform: translate(5px, 0);
   }
 
   12% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 
   18% {
-    -webkit-transform: translate(5px, 0);
     transform: translate(5px, 0);
   }
 
   24% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 
   30% {
-    -webkit-transform: translate(5px, 0);
     transform: translate(5px, 0);
   }
 
   36% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
 }
@@ -3915,24 +3828,20 @@ table th {
 
 @-webkit-keyframes bounce {
   0%, 10%, 20%, 50%, 80% {
-    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 
   40%, 60% {
-    -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
   }
 }
 
 @keyframes bounce {
   0%, 10%, 20%, 50%, 80% {
-    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 
   40%, 60% {
-    -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
   }
 }
@@ -3945,24 +3854,20 @@ table th {
 
 @-webkit-keyframes spin {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
   100% {
-    -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
 
 @keyframes spin {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
   100% {
-    -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
@@ -3975,34 +3880,28 @@ table th {
 
 @-webkit-keyframes float {
   0% {
-    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 
   50% {
-    -webkit-transform: translateY(-6px);
     transform: translateY(-6px);
   }
 
   100% {
-    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 }
 
 @keyframes float {
   0% {
-    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 
   50% {
-    -webkit-transform: translateY(-6px);
     transform: translateY(-6px);
   }
 
   100% {
-    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 }
@@ -4015,34 +3914,28 @@ table th {
 
 @-webkit-keyframes pulse {
   0% {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 
   50% {
-    -webkit-transform: scale(0.8);
     transform: scale(0.8);
   }
 
   100% {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 }
 
 @keyframes pulse {
   0% {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 
   50% {
-    -webkit-transform: scale(0.8);
     transform: scale(0.8);
   }
 
   100% {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 }
@@ -4081,21 +3974,15 @@ table th {
 
 .feature-list .feature-list-content {
   padding: 1rem !important;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-          flex-direction: row;
-  -webkit-box-align: center;
-          align-items: center;
+  flex-direction: row;
+  align-items: center;
 }
 
 .feature-list .feature-list-content .feature-list-content-wrapper {
-  display: -webkit-box;
   display: flex;
-  -webkit-box-flex: 1;
-          flex: 1;
+  flex: 1;
   position: relative;
-  -webkit-box-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .feature-list .feature-list-content .feature-list-content-left .feature-list-heading {
@@ -4156,7 +4043,6 @@ table th {
 .feature-list .custom-control-label::before,
 .feature-list .custom-file-label,
 .feature-list .custom-select {
-  -webkit-transition: background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
   transition: background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
 }
 
