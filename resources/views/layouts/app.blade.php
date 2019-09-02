@@ -12,7 +12,6 @@
         <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css', [], Request::secure()) !!}
-        @yield('module-css')
         {{-- Icofont --}}
         {!! Html::style('css/icofont.css', [], Request::secure()) !!}
         {{-- Estilos de Plugins --}}
@@ -30,6 +29,7 @@
         ) !!}
         {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
         {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css', [], Request::secure()) !!}
+        @yield('modules-css')
         <script>
             window.access = true;
             window.log_url = '{{ route('logs.front-end') }}';
@@ -75,9 +75,9 @@
         {!! Html::script('js/nouislider.min.js', [], Request::secure()) !!}
         {{-- Scripts de la aplicación --}}
         {!! Html::script('js/generic-classes.js', [], Request::secure()) !!}
+        {!! Html::script('js/app.js', [], Request::secure()) !!}
+        @yield('modules-js')
 
-        @yield('app-js', Html::script('js/app.js', [], Request::secure()))
-            
         {{-- Plugin Bootbox --}}
         {!! Html::script('js/bootbox.min.js', [], Request::secure()) !!}
         {{-- Plugin Datatable --}}
@@ -99,6 +99,7 @@
         ) !!}
         {{-- Scripts comúnes --}}
         {!! Html::script('js/common.js', [], Request::secure()) !!}
+
         {{-- Botón de ir al inicio de la página cuando se excede de un alto preestablecido --}}
         @include('buttons.to-top')
 
