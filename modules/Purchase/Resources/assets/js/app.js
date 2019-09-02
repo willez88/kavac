@@ -1,3 +1,4 @@
+
 /**
  * Componente para la gestión de las ramas de proveedores
  *
@@ -47,7 +48,7 @@ Vue.mixin({
 	}
 });
 
-/** @type {object} Constante que crea el elemento Vue */
-const app = new Vue({
+/** @type {object} Constante que crea el elemento Vue para el módulo */
+var app = new Vue({
     el: '#app',
 });
