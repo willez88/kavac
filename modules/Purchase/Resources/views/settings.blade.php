@@ -63,12 +63,12 @@
 								<div class="form-group">
 									{!! Form::label('requirements_code', 'Código de Requerimiento', []) !!}
 									{!! Form::text(
-										'requirements_code', 
+										'requirements_code',
 										($rqCode)?$rqCode->format_code:old('requirements_code'), [
-											'class' => 'form-control', 
+											'class' => 'form-control',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de los requerimientos de compra',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY', 
+											'placeholder' => 'Ej. XXX-0000000000-YYYY',
 											'readonly' => ($rqCode) ? true : false
 										]
 									) !!}
@@ -78,12 +78,12 @@
 								<div class="form-group">
 									{!! Form::label('quotions_code', 'Código de Cotización', []) !!}
 									{!! Form::text(
-										'quotions_code', 
+										'quotions_code',
 										($quCode)?$quCode->format_code:old('quotions_code'), [
-											'class' => 'form-control', 
+											'class' => 'form-control',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la cotización',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY', 
+											'placeholder' => 'Ej. XXX-0000000000-YYYY',
 											'readonly' => ($quCode) ? true : false
 										]
 									) !!}
@@ -93,12 +93,12 @@
 								<div class="form-group">
 									{!! Form::label('minutes_code', 'Código de Acta', []) !!}
 									{!! Form::text(
-										'minutes_code', 
+										'minutes_code',
 										($miCode)?$miCode->format_code:old('minutes_code'), [
-											'class' => 'form-control', 
+											'class' => 'form-control',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de las actas',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY', 
+											'placeholder' => 'Ej. XXX-0000000000-YYYY',
 											'readonly' => ($miCode) ? true : false
 										]
 									) !!}
@@ -110,12 +110,12 @@
 										'buy-orders_code', 'Código de Orden de Compra', []
 									) !!}
 									{!! Form::text(
-										'buy-orders_code', 
+										'buy-orders_code',
 										($buCode)?$buCode->format_code:old('buy-orders_code'), [
-											'class' => 'form-control', 
+											'class' => 'form-control',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la orden de compra',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY', 
+											'placeholder' => 'Ej. XXX-0000000000-YYYY',
 											'readonly' => ($buCode) ? true : false
 										]
 									) !!}
@@ -127,12 +127,12 @@
 										'service-orders_code', 'Código de Orden de Servicio', []
 									) !!}
 									{!! Form::text(
-										'service-orders_code', 
+										'service-orders_code',
 										($soCode)?$soCode->format_code:old('service-orders_code'), [
-											'class' => 'form-control', 
+											'class' => 'form-control',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la orden de servicio',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY', 
+											'placeholder' => 'Ej. XXX-0000000000-YYYY',
 											'readonly' => ($soCode) ? true : false
 										]
 									) !!}
@@ -142,12 +142,12 @@
 								<div class="form-group">
 									{!! Form::label('refunds_code', 'Código de Reintegro', []) !!}
 									{!! Form::text(
-										'refunds_code', 
+										'refunds_code',
 										($reCode)?$reCode->format_code:old('refunds_code'), [
-											'class' => 'form-control', 
+											'class' => 'form-control',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código del reintegro',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY', 
+											'placeholder' => 'Ej. XXX-0000000000-YYYY',
 											'readonly' => ($reCode) ? true : false
 										]
 									) !!}

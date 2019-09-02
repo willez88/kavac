@@ -141,9 +141,9 @@ Vue.mixin({
 });
 /** @type {object} Constante que crea el elemento Vue para el módulo */
 
-var app = new Vue({
-  el: '#app'
-});
+/*var app = new Vue({
+    el: '#app',
+});*/
 
 /***/ }),
 

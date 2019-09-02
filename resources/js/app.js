@@ -133,8 +133,3 @@ Vue.component('measurement-units', require('./components/MeasurementUnitsCompone
 
 /** Incorpora requerimientos de mixins generales */
 require('./mixins');
-
-/** @type {object} Constante que crea el elemento Vue */
-var app = new Vue({
-    el: '#app',
-});
