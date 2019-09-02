@@ -33,6 +33,8 @@ return [
             'views/index' => 'Resources/views/index.blade.php',
             'views/master' => 'Resources/views/layouts/master.blade.php',
             'scaffold/config' => 'Config/config.php',
+            'assets/js/app' => 'Resources/assets/js/app.js',
+            'assets/sass/app' => 'Resources/assets/sass/app.scss',
             'composer' => 'composer.json',
             'webpack' => 'webpack.mix.js',
             'package' => 'package.json',

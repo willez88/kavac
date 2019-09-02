@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module Purchase</title>
+@extends('layouts.app')
 
-       <!-- Laravel Mix - CSS File -->
-       <!-- <link rel="stylesheet" href="{{ mix('css/app.css','modules/$LOWER_NAME$') }}"> -->
+@section('maproute-icon')
+    @parent
+@endsection
 
-    </head>
-    <body>
-        @yield('content')
+@section('maproute-icon-mini')
+    @parent
+@endsection
 
-        <!-- Laravel Mix - JS File -->
-        <!-- <script src="{{ mix('js/app.js', 'modules/$LOWER_NAME$') }}"></script> -->
-    </body>
-</html>
+@section('maproute-actual')
+    @parent
+@endsection
+
+@section('maproute-title')
+    @parent
+@endsection
+
+@section('content')
+    @parent
+@endsection
+
+@section('module-css')
+    {!! Html::style(mix('css/purchase.css'), [], Request::secure()) !!}
+@endsection
+
+@section('app-js')
+    {!! Html::style(mix('js/purchase.js'), [], Request::secure()) !!}
+@endsection

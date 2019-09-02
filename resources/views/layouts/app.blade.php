@@ -12,6 +12,7 @@
         <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css', [], Request::secure()) !!}
+        @yield('module-css')
         {{-- Icofont --}}
         {!! Html::style('css/icofont.css', [], Request::secure()) !!}
         {{-- Estilos de Plugins --}}
@@ -74,7 +75,9 @@
         {!! Html::script('js/nouislider.min.js', [], Request::secure()) !!}
         {{-- Scripts de la aplicación --}}
         {!! Html::script('js/generic-classes.js', [], Request::secure()) !!}
-        {!! Html::script('js/app.js', [], Request::secure()) !!}
+
+        @yield('app-js', Html::script('js/app.js', [], Request::secure()))
+            
         {{-- Plugin Bootbox --}}
         {!! Html::script('js/bootbox.min.js', [], Request::secure()) !!}
         {{-- Plugin Datatable --}}

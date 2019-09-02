@@ -20,15 +20,6 @@
 					<institution-types></institution-types>
 					{{-- Configuración de sectores de instituciones --}}
 					<institution-sectors></institution-sectors>
-					<departments></departments>
-					{{-- <div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-						   href="#" title="Registros de clasificador de bienes"
-						   data-toggle="tooltip">
-							<i class="icofont icofont-read-book ico-3x"></i>
-							<span>Clasificador<br>Bienes</span>
-						</a>
-					</div> --}}
 					{{-- Configuración de Países --}}
 					<countries></countries>
 					{{-- Configuración de Estados --}}
@@ -40,14 +31,17 @@
 					<taxes></taxes>
 					<tax-units></tax-units>
 					<measurement-units></measurement-units>
-					<div class="col-md-2 text-center">
+					<!--<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 						   href="#" title="Registros de Deducciones o Retenciones"
 						   data-toggle="tooltip">
 							<i class="icofont icofont-scroll-long-down ico-3x"></i>
 							<span>Deducciones</span>
 						</a>
-					</div>
+					</div>-->
+					@if (App\Models\Institution::all()->isEmpty())
+						<departments></departments>
+					@endif
 				</div>
 			</div>
 		</div>

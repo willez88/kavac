@@ -129,7 +129,7 @@ Vue.component('phones', require('./components/PhonesComponent.vue').default);
 Vue.component('measurement-units', require('./components/MeasurementUnitsComponent.vue').default);
 
 /** Incorpora requerimientos de componentes de los módulos de la aplicación */
-require('./modules');
+//require('./modules');
 
 /** Incorpora requerimientos de mixins generales */
 require('./mixins');

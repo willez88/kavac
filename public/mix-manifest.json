@@ -16,5 +16,10 @@
     "/modules/finance/js/app.js": "/modules/finance/js/app.js",
     "/modules/payroll/js/app.js": "/modules/payroll/js/app.js",
     "/modules/purchase/js/app.js": "/modules/purchase/js/app.js",
-    "/modules/warehouse/js/app.js": "/modules/warehouse/js/app.js"
+    "/modules/warehouse/js/app.js": "/modules/warehouse/js/app.js",
+    "/modules/purchase/css/app.css": "/modules/purchase/css/app.css",
+    "/js/purchace.js": "/js/purchace.js",
+    "/css/purchace.css": "/css/purchace.css",
+    "/js/purchase.js": "/js/purchase.js",
+    "/css/purchase.css": "/css/purchase.css"
 }
