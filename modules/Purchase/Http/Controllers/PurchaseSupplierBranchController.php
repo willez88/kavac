@@ -53,7 +53,7 @@ class PurchaseSupplierBranchController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
         return view('purchase::show');
     }
@@ -62,7 +62,7 @@ class PurchaseSupplierBranchController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
         return view('purchase::edit');
     }
@@ -75,13 +75,14 @@ class PurchaseSupplierBranchController extends Controller
     public function update(Request $request)
     {
         /** @var object Datos de la rama de proveedores */
-        $supplierBranch = PurchaseSupplierBranch::find($id);
+        $supplierBranch = PurchaseSupplierBranch::find($request->id);
 
         $this->validate($request, [
             'name' => 'required|unique:purchase_supplier_branches,name,' . $supplierBranch->id,
         ]);
 
         $supplierBranch->name = $request->name;
+        $supplierBranch->description = $request->description;
         $supplierBranch->save();
 
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
@@ -91,7 +92,7 @@ class PurchaseSupplierBranchController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy(Request $request, $id)
     {
         /** @var object Datos de la rama de proveedores */
         $supplierBranch = PurchaseSupplierBranch::find($id);
