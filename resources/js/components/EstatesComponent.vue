@@ -1,8 +1,8 @@
 <template>
 	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de Estado de un Pais" 
-		   data-toggle="tooltip" @click="addRecord('add_estate', 'estates', $event)">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de Estado de un Pais"
+		   data-toggle="tooltip" @click="addRecord('add_estate', '/estates', $event)">
 			<i class="icofont icofont-map-search ico-3x"></i>
 			<span>Estados</span>
 		</a>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-map-search inline-block"></i> 
+							<i class="icofont icofont-map-search inline-block"></i>
 							Estado
 						</h6>
 					</div>
@@ -35,16 +35,16 @@
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Código:</label>
-									<input type="text" placeholder="Código de Estado" data-toggle="tooltip" 
-										   title="Indique el código del Estado (requerido)" 
+									<input type="text" placeholder="Código de Estado" data-toggle="tooltip"
+										   title="Indique el código del Estado (requerido)"
 										   class="form-control input-sm" v-model="record.code">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Nombre de Estado" data-toggle="tooltip" 
-										   title="Infique el nombre del Estado (requerido)" 
+									<input type="text" placeholder="Nombre de Estado" data-toggle="tooltip"
+										   title="Infique el nombre del Estado (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -54,14 +54,14 @@
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'estates')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'estates')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -69,11 +69,11 @@
 	                	</v-client-table>
 	                </div>
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRecord('estates')" 
+	                	<button type="button" @click="createRecord('estates')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -103,7 +103,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
