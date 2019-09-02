@@ -47,7 +47,7 @@
 						</tr>
 						<tr>
 							<td class="text-left">
-								<h6><strong>Concepto: </strong> {{ props.row.concept }}</h6>
+								<h6><strong>Descripción: </strong> {{ props.row.concept }}</h6>
 							</td>
 						</tr>
 						<tr>

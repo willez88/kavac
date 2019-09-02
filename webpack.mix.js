@@ -32,8 +32,8 @@ mix.js([
    .combine([
    		'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css',
    		'public/css/now-ui-kit.css', 'public/css/custom.css'
-   ], 'public/css/app.css')
-   .sourceMaps();
+   ], 'public/css/app.css');
+   // .sourceMaps();
 
 
 /*
