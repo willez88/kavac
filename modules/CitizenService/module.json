@@ -1,0 +1,16 @@
+{
+    "name": "CitizenService",
+    "alias": "citizenservice",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\CitizenService\\Providers\\CitizenServiceServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
