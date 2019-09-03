@@ -31,11 +31,25 @@
         {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css', [], Request::secure()) !!}
         @yield('modules-css')
         <script>
+            /** @type {boolean} Define si la condición de acceso */
             window.access = true;
+            /** @type {string} Define la URI para el registro de eventos del sistema */
             window.log_url = '{{ route('logs.front-end') }}';
+            /** @type {boolean} Define si el usuario se encuentra o no autenticado en el sistema */
             window.auth = {!! (auth()->check()) ? 'true' : 'false' !!};
+            /** @type {boolean} Define si la aplicación se encuentra o no en módo de desarrollo */
             window.debug = {!! (config('app.debug')) ? 'true' : 'false' !!};
+            /** @type {string} Define la URI de la aplicación */
             window.app_url = `${location.protocol}//${location.host}`;
+            @auth
+                /** @type {array} Lista de módulos instalados y habilitados */
+                window.modules = [];
+                @if (Module::allEnabled())
+                    @foreach (Module::allEnabled() as $moduleEnabled)
+                        window.modules.push('{!! $moduleEnabled->name !!}');
+                    @endforeach
+                @endif
+            @endauth
         </script>
 
         {{-- Sección para estilos extras dispuestos por las plantillas según requerimientos particulares --}}
