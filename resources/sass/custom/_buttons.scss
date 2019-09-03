@@ -69,3 +69,12 @@
     padding: 0.1rem 0.3rem !important;
     border:0 !important;
 }
+
+.swal-button--confirm {
+    background-color: #f96332;
+    color: #FFFFFF;
+
+    &:hover {
+        background-color: #f94d18;
+    }
+}
