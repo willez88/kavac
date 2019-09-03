@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('budget::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>
@@ -158,7 +158,7 @@
 				$("input[type=text]").each(function() {
 					$(this).val("");
 				});
-				
+
 				if ($(this).val()) {
 					axios.get('/budget/set-children-account/' + $(this).val()).then(response => {
 						if (response.data.result) {

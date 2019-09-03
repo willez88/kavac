@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('budget::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>
@@ -37,7 +37,7 @@
 									<div class="col-12">
 										{!! Form::radio('project_centralized_action', 'project', null, [
 											'class' => 'form-control bootstrap-switch sel_project_centralized_action',
-											'data-on-label' => 'SI', 'data-off-label' => 'NO', 
+											'data-on-label' => 'SI', 'data-off-label' => 'NO',
 											'id' => 'sel_project'
 										]) !!}
 									</div>
@@ -45,7 +45,7 @@
 								<div class="form-group">
 									{!! Form::select('project_id', $projects, (isset($model))?$model->specificable_id:old('project_id'), [
 										'class' => 'select2', 'data-toggle' => 'tooltip', 'id' => 'project_id',
-										'title' => 'Seleccione un proyecto', 
+										'title' => 'Seleccione un proyecto',
 										'disabled' => (!$errors->has('project_id'))?'disabled':false
 									]) !!}
 								</div>
@@ -56,16 +56,16 @@
 									<div class="col-12">
 										{!! Form::radio('project_centralized_action', 'centralized_action', null, [
 											'class' => 'form-control bootstrap-switch sel_project_centralized_action',
-											'data-on-label' => 'SI', 'data-off-label' => 'NO', 
+											'data-on-label' => 'SI', 'data-off-label' => 'NO',
 											'id' => 'sel_centralized_action'
 										]) !!}
 									</div>
 								</div>
 								<div class="form-group">
 									{!! Form::select('centralized_action_id', $centralized_actions, (isset($model))?$model->specificable_id:old('centralized_action_id'), [
-										'class' => 'select2', 'data-toggle' => 'tooltip', 
+										'class' => 'select2', 'data-toggle' => 'tooltip',
 										'id' => 'centralized_action_id',
-										'title' => 'Seleccione una acción centralizada', 
+										'title' => 'Seleccione una acción centralizada',
 										'disabled' => (!$errors->has('centralized_action_id'))?'disabled':false
 									]) !!}
 								</div>
@@ -77,7 +77,7 @@
 									{!! Form::label('from_date', 'Fecha de inicio', ['class' => 'control-label']) !!}
 									{!! Form::date('from_date', (isset($model))?$model->from_date:old('from_date'), [
 										'class' => 'form-control', 'placeholder' => 'dd/mm/YYYY',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip',
 										'title' => 'Fecha en la que inicia la acción específica'
 									]) !!}
 								</div>
@@ -87,7 +87,7 @@
 									{!! Form::label('to_date', 'Fecha final', ['class' => 'control-label']) !!}
 									{!! Form::date('to_date', (isset($model))?$model->from_date:old('to_date'), [
 										'class' => 'form-control', 'placeholder' => 'dd/mm/YYYY',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip',
 										'title' => 'Fecha en la que finaliza la acción específica'
 									]) !!}
 								</div>
@@ -97,7 +97,7 @@
 									{!! Form::label('code', 'Código', ['class' => 'control-label']) !!}
 									{!! Form::text('code', old('code'), [
 										'class' => 'form-control', 'placeholder' => 'Código de la acción específica',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip',
 										'title' => 'Código que identifica la acción específica'
 									]) !!}
 								</div>
@@ -107,7 +107,7 @@
 									{!! Form::label('name', 'Nombre', ['class' => 'control-label']) !!}
 									{!! Form::text('name', old('name'), [
 										'class' => 'form-control', 'placeholder' => 'Nombre de la acción específica',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip',
 										'title' => 'Nombre que identifica la acción específica'
 									]) !!}
 								</div>
@@ -120,7 +120,7 @@
 									{!! Form::textarea('description', old('description'), [
 										'class' => 'form-control', 'rows' => '4',
 										'placeholder' => 'Descripción de la acción específica',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip',
 										'title' => 'Descripción de la acción específica'
 									]) !!}
 								</div>
@@ -143,7 +143,7 @@
 			$('.sel_project_centralized_action').on('switchChange.bootstrapSwitch', function(e) {
 				$('#project_id').attr('disabled', (e.target.id!=="sel_project"));
 				$('#centralized_action_id').attr('disabled', (e.target.id!=="sel_centralized_action"));
-				
+
 				if (e.target.id === "sel_project") {
 					$("#centralized_action_id").closest('.form-group').removeClass('is-required');
 					$("#project_id").closest('.form-group').addClass('is-required');

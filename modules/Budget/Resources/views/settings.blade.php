@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('budget::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-settings"></i>
@@ -43,7 +43,7 @@
 									{!! Form::text('formulations_code', ($fCode) ? $fCode->format_code : old('formulations_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de la formulación de presupuesto',
-										'placeholder' => 'Ej. XXX-0000000000-YYYY', 
+										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($fCode) ? true : false
 									]) !!}
 								</div>
@@ -144,8 +144,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-projects-list route_list='{{ url('budget/projects/vue-list') }}' 
-										  route_delete="{{ url('budget/projects') }}" 
+					<budget-projects-list route_list='{{ url('budget/projects/vue-list') }}'
+										  route_delete="{{ url('budget/projects') }}"
 										  route_edit="{{ url('budget/projects/{id}/edit') }}">
 					</budget-projects-list>
 				</div>
@@ -164,8 +164,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-centralized-actions-list route_list='{{ url('budget/centralized-actions/vue-list') }}' 
-										  route_delete="{{ url('budget/centralized-actions') }}" 
+					<budget-centralized-actions-list route_list='{{ url('budget/centralized-actions/vue-list') }}'
+										  route_delete="{{ url('budget/centralized-actions') }}"
 										  route_edit="{{ url('budget/centralized-actions/{id}/edit') }}">
 					</budget-centralized-actions-list>
 				</div>
@@ -184,8 +184,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-specific-actions-list route_list='{{ url('budget/specific-actions/vue-list') }}' 
-										  route_delete="{{ url('budget/specific-actions') }}" 
+					<budget-specific-actions-list route_list='{{ url('budget/specific-actions/vue-list') }}'
+										  route_delete="{{ url('budget/specific-actions') }}"
 										  route_edit="{{ url('budget/specific-actions/{id}/edit') }}">
 					</budget-specific-actions-list>
 				</div>

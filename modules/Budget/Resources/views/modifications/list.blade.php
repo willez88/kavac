@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('budget::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>
@@ -33,8 +33,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-mod-list route_list='{{ url('budget/modifications/vue-list/AC') }}' 
-									 route_delete="{{ url('budget/modifications') }}" 
+					<budget-mod-list route_list='{{ url('budget/modifications/vue-list/AC') }}'
+									 route_delete="{{ url('budget/modifications') }}"
 									 route_edit="{{ url('budget/modifications/AC/{id}/edit') }}"/>
 				</div>
 			</div>
@@ -57,8 +57,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-mod-list route_list='{{ url('budget/modifications/vue-list/RE') }}' 
-									 route_delete="{{ url('budget/modifications') }}" 
+					<budget-mod-list route_list='{{ url('budget/modifications/vue-list/RE') }}'
+									 route_delete="{{ url('budget/modifications') }}"
 									 route_edit="{{ url('budget/modifications/RE/{id}/edit') }}"/>
 				</div>
 			</div>
@@ -81,8 +81,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-mod-list route_list='{{ url('budget/modifications/vue-list/TR') }}' 
-									 route_delete="{{ url('budget/modifications') }}" 
+					<budget-mod-list route_list='{{ url('budget/modifications/vue-list/TR') }}'
+									 route_delete="{{ url('budget/modifications') }}"
 									 route_edit="{{ url('budget/modifications/TR/{id}/edit') }}"/>
 				</div>
 			</div>

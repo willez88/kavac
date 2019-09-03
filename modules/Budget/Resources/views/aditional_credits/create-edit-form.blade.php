@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('budget::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>
@@ -27,7 +27,7 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				<budget-mod type_modification="{!! $type !!}" 
+				<budget-mod type_modification="{!! $type !!}"
 							edit_object="{{ (isset($model)) ? $model : '' }}"></budget-mod>
 			</div>
 		</div>

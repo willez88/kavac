@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('budget::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>
@@ -29,9 +29,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-formulation-list route_list='{{ url('budget/subspecific-formulations/vue-list') }}' 
-										  route_delete="{{ url('budget/subspecific-formulations') }}" 
-										  route_edit="{{ url('budget/subspecific-formulations/{id}/edit') }}" 
+					<budget-formulation-list route_list='{{ url('budget/subspecific-formulations/vue-list') }}'
+										  route_delete="{{ url('budget/subspecific-formulations') }}"
+										  route_edit="{{ url('budget/subspecific-formulations/{id}/edit') }}"
 										  route_show="{{ url('budget/subspecific-formulations/show/{id}') }}">
 					</budget-formulation-list>
 				</div>

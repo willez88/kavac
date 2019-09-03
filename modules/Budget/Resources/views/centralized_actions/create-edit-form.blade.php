@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('budget::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>
@@ -78,7 +78,7 @@
 									{!! Form::label('custom_date', 'Fecha de creación', ['class' => 'control-label']) !!}
 									{!! Form::date('custom_date', old('custom_date'), [
 										'class' => 'form-control', 'placeholder' => 'dd/mm/YY',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip',
 										'title' => 'Fecha en la que se creó la acción centralizada'
 									]) !!}
 								</div>
@@ -97,7 +97,7 @@
 									{!! Form::label('name', 'Nombre', ['class' => 'control-label']) !!}
 									{!! Form::text('name', old('name'), [
 										'class' => 'form-control', 'placeholder' => 'Nombre del proyecto',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip',
 										'title' => 'Nombre que identifica el proyecto'
 									]) !!}
 								</div>

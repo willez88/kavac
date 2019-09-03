@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('budget::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>
@@ -87,7 +87,7 @@
 									{!! Form::label('onapre_code', 'Código ONAPRE', ['class' => 'control-label']) !!}
 									{!! Form::text('onapre_code', (isset($model)) ? $model->onapre_code : old('onapre_code'), [
 										'class' => 'form-control', 'placeholder' => 'Código de la ONAPRE',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip',
 										'title' => 'Código asignado por la Oficina Nacional de Presupuesto (ONAPRE)'
 									]) !!}
 								</div>
@@ -97,7 +97,7 @@
 									{!! Form::label('name', 'Nombre', ['class' => 'control-label']) !!}
 									{!! Form::text('name', (isset($model)) ? $model->name : old('name'), [
 										'class' => 'form-control', 'placeholder' => 'Nombre del proyecto',
-										'data-toggle' => 'tooltip', 
+										'data-toggle' => 'tooltip',
 										'title' => 'Nombre que identifica el proyecto'
 									]) !!}
 								</div>
