@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('asset::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-ios-pricetags-outline"></i>

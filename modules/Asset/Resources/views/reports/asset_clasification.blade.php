@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('asset::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-ios-pricetags-outline"></i>
@@ -32,23 +32,23 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-									
+
 								{!! Form::label('type_label', 'Tipo de Bien', []) !!}
-								{!! Form::select('type', (isset($types))?$types:[], (isset($request->category))?$request->type:null, [		
+								{!! Form::select('type', (isset($types))?$types:[], (isset($request->category))?$request->type:null, [
 									'id' => 'type',
 									'class' => 'form-control select2',
 									'data-toggle' => 'tooltip',
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique el tipo de bien a registrar',
-										
+
 								]) !!}
-									
+
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<div class="form-group">
-									
+
 								{!! Form::label('category_label', 'Categoria General', []) !!}
 								{!! Form::select('category', (isset($categories))?$categories:[],  (isset($request))?$request->category:null, [
 									'id' => 'category',
@@ -56,12 +56,12 @@
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la categoria general del bien'
 								]) !!}
-									
+
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-									
+
 								{!! Form::label('subcategory_label', 'Subcategoria', []) !!}
 								{!! Form::select('subcategory', (isset($subcategories))?$subcategories:[],  (isset($request))?$request->subcategory:null, [
 									'id' => 'subcategory',
@@ -69,12 +69,12 @@
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la subcategoria del bien'
 								]) !!}
-									
+
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-									
+
 								{!! Form::label('specific_category_label', 'Categoria Específica', []) !!}
 								{!! Form::select('specific_category', (isset($specific_categories))?$specific_categories:[],  (isset($request))?$request->specific_category:null, [
 									'id' => 'specific_category',
@@ -82,7 +82,7 @@
 									'placeholder' => 'Seleccione...',
 									'title' => 'Indique la categoria específica del bien'
 								]) !!}
-									
+
 							</div>
 						</div>
 
@@ -133,7 +133,7 @@
 								        <td> {{ $asset->serial }} </td>
 								        <td> {{ $asset->marca }} </td>
 										<td> {{ $asset->model }} </td>
-										
+
 									</tr>
 								@endforeach
 							</tbody>

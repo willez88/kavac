@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('asset::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-ios-pricetags-outline"></i>
@@ -84,15 +84,15 @@
 									'Noviembre',
 									'Diciembre',
 
-								], (isset($request->mes))?$request->mes:null, 
-								[		
+								], (isset($request->mes))?$request->mes:null,
+								[
 									'id' => 'mes_id',
 									'class' => 'form-control select2',
 									'data-toggle' => 'tooltip',
 									'placeholder' => 'Todos',
 									'title' => 'Indique el mes a buscar',
 									'disabled' => ($request->search_type==0)?true:false
-									
+
 								]) !!}
 							</div>
 						</div>
@@ -100,15 +100,15 @@
 							<div class="form-group">
 								{!! Form::label('anual_label', 'Año:', []) !!}
 								{!! Form::select('year', (isset($year))?$year:
-								[], (isset($request->year))?$request->year:null, 
-								[		
+								[], (isset($request->year))?$request->year:null,
+								[
 									'id' => 'year_id',
 									'class' => 'form-control select2',
 									'data-toggle' => 'tooltip',
 									'placeholder' => 'Todos',
 									'title' => 'Indique el Año a buscar',
 									'disabled' => ($request->search_type==0)?true:false
-									
+
 								]) !!}
 							</div>
 						</div>
@@ -123,7 +123,7 @@
 			                    {!! Form::date('start_date', old('start_date'), [
 			                    	'id' => 'start_date',
 			                        'class' => 'form-control', 'placeholder' => 'Fecha',
-			                        'title' => 'Fecha mínima de búsqueda', 
+			                        'title' => 'Fecha mínima de búsqueda',
 			                        'data-toggle' => 'tooltip',
 			                        'disabled' => ($request->search_type==1)?true:false
 			                    ]) !!}
@@ -145,7 +145,7 @@
 			                </div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-12">
 							<button type="Submit" class='btn btn-sm btn-info float-right'>
@@ -161,7 +161,7 @@
 								<i class="fa fa-plus-circle"></i>
 								<span>	Generar Reporte	</span>
 							</a>
-							
+
 						</div>
 					</div>
 					{!! Form::close() !!}
@@ -190,7 +190,7 @@
 								        <td> {{ $asset->marca }} </td>
 										<td> {{ $asset->model }} </td>
 										<td> {{ $asset->created_at->format('d-m-Y') }} </td>
-										
+
 									</tr>
 								@endforeach
 							</tbody>

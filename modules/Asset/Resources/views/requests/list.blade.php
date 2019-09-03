@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('asset::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-ios-pricetags-outline"></i>
@@ -34,9 +34,9 @@
 						route_edit="{{ url('asset/requests/edit/{id}') }}"
 						route_delete="{{ url('asset/requests/delete') }}">
 					</asset-request-list>
-				</div>				
-			</div>			
-		</div>	
+				</div>
+			</div>
+		</div>
 	</div>
 
 	@role(['admin','asset'])
@@ -54,10 +54,10 @@
 					<asset-request-list-pending
 							route_list='asset/requests/vue-pending-list'
 							route_update='asset/requests'>
-					</asset-request-list-pending>										
-				</div>				
-			</div>			
-		</div>	
+					</asset-request-list-pending>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div class="row">
@@ -74,10 +74,10 @@
 					<asset-request-list-pending
 							route_list='asset/requests/extensions/vue-pending-list'
 							route_update='asset/requests/extensions'>
-					</asset-request-list-pending>										
-				</div>				
-			</div>			
-		</div>	
+					</asset-request-list-pending>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div class="row">
@@ -93,10 +93,10 @@
 				<div class="card-body">
 					<asset-request-delivery-list
 							route_list='asset/requests/deliveries'>
-					</asset-request-delivery-list>										
-				</div>				
-			</div>			
-		</div>	
+					</asset-request-delivery-list>
+				</div>
+			</div>
+		</div>
 	</div>
 	@endrole
 @stop
