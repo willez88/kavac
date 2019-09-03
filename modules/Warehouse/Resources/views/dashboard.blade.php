@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('payroll::layouts.master')
 
 @section('maproute-icon')
     <i class="ion-settings"></i>
@@ -17,7 +17,7 @@
 @stop
 
 @section('content')
-    
+
     {{-- Minimo de Productos --}}
     <div class="row">
         <div class="col-12">

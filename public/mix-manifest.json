@@ -27,5 +27,7 @@
     "/modules/digitalsignature/js/app.js": "/modules/digitalsignature/js/app.js",
     "/modules/digitalsignature/css/app.css": "/modules/digitalsignature/css/app.css",
     "/modules/payroll/js/app.js": "/modules/payroll/js/app.js",
-    "/modules/payroll/css/app.css": "/modules/payroll/css/app.css"
+    "/modules/payroll/css/app.css": "/modules/payroll/css/app.css",
+    "/modules/warehouse/js/app.js": "/modules/warehouse/js/app.js",
+    "/modules/warehouse/css/app.css": "/modules/warehouse/css/app.css"
 }

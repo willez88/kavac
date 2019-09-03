@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('payroll::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-ios-list-outline"></i>
@@ -24,7 +24,7 @@
 			<warehouse-movement-create
 				route_list='{{ url('warehouse/movements')}}'
 				:movementid ="{!! (isset($movement)) ? $movement->id : 'null' !!}">
-					
+
 				</warehouse-movement-create>
 		</div>
 	</div>
