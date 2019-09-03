@@ -1,0 +1,16 @@
+{
+    "name": "TechnicalSupport",
+    "alias": "technicalsupport",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\TechnicalSupport\\Providers\\TechnicalSupportServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
