@@ -28,7 +28,7 @@
     "/modules/digitalsignature/css/app.css": "/modules/digitalsignature/css/app.css?id=d41d8cd98f00b204e980",
     "/modules/payroll/js/app.js": "/modules/payroll/js/app.js?id=2ac0e9c047ac1e1bed0c",
     "/modules/payroll/css/app.css": "/modules/payroll/css/app.css?id=d41d8cd98f00b204e980",
-    "/modules/warehouse/js/app.js": "/modules/warehouse/js/app.js?id=47452c6dfb57f356103c",
-    "/modules/warehouse/css/app.css": "/modules/warehouse/css/app.css?id=d41d8cd98f00b204e980",
+    "/modules/warehouse/js/app.js": "/modules/warehouse/js/app.js",
+    "/modules/warehouse/css/app.css": "/modules/warehouse/css/app.css",
     "/modules/payroll/js/app.js.map": "/modules/payroll/js/app.js.map?id=cfcb4fd37f255df872e6"
 }
