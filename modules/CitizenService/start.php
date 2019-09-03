@@ -13,5 +13,5 @@
 */
 
 if (!app()->routesAreCached()) {
-    require __DIR__ . '';
+    require __DIR__ . '/Http/routes.php';
 }
