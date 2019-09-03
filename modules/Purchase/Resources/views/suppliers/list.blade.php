@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('purchase::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-social-dropbox-outline"></i>
@@ -29,8 +29,8 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<purchase-suppliers-list route_list='{{ url('purchase/suppliers/vue-list') }}' 
-											 route_delete="{{ url('purchase/suppliers') }}" 
+					<purchase-suppliers-list route_list='{{ url('purchase/suppliers/vue-list') }}'
+											 route_delete="{{ url('purchase/suppliers') }}"
 											 route_edit="{{ url('purchase/suppliers/{id}/edit') }}"/>
 				</div>
 			</div>
