@@ -12,63 +12,63 @@
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-clasification', require('./components/AssetClasificationComponent.vue').default);
+Vue.component('asset-clasifications', require('./components/settings/AssetClasificationComponent.vue').default);
 
 /**
  * Componente para la gestión de Tipos de Bienes
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-types', require('./components/AssetTypesComponent.vue').default);
+Vue.component('asset-types', require('./components/settings/AssetTypesComponent.vue').default);
 
 /**
  * Componente para la gestión de las Categorías de Bienes
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-categories', require('./components/AssetCategoriesComponent.vue').default);
+Vue.component('asset-categories', require('./components/settings/AssetCategoriesComponent.vue').default);
 
 /**
  * Componente para la gestión de las Subcategorías de Bienes
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-subcategories', require('./components/AssetSubcategoriesComponent.vue').default);
+Vue.component('asset-subcategories', require('./components/settings/AssetSubcategoriesComponent.vue').default);
 
 /**
  * Componente para la gestión de las Categorías Específicas de Bienes
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-specific-categories', require('./components/AssetSpecificCategoriesComponent.vue').default);
+Vue.component('asset-specific-categories', require('./components/settings/AssetSpecificCategoriesComponent.vue').default);
 
 /**
  * Componente para la gestión de las Condiciones Físicas de un Bien
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-conditions', require('./components/AssetConditionsComponent.vue').default);
+Vue.component('asset-conditions', require('./components/settings/AssetConditionsComponent.vue').default);
 
 /**
  * Componente para la gestión de los Status de Uso de un Bien
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-status', require('./components/AssetStatusComponent.vue').default);
+Vue.component('asset-status', require('./components/settings/AssetStatusComponent.vue').default);
 
 /**
  * Componente para la gestión de la Función de Uso de un Bien
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-use-functions', require('./components/AssetUseFunctionsComponent.vue').default);
+Vue.component('asset-use-functions', require('./components/settings/AssetUseFunctionsComponent.vue').default);
 
 /**
  * Componente para la gestión del Tipo de Adquisición de un Bien
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-acquisition-types', require('./components/AssetAcquisitionTypesComponent.vue').default);
+Vue.component('asset-acquisition-types', require('./components/settings/AssetAcquisitionTypesComponent.vue').default);
 
 /**
  * Componente para gestionar las solicitudes de bienes institucionales
@@ -300,6 +300,36 @@ Vue.mixin({
 					vm.asset_specific_categories = response.data;
 				});
 			}
+		},
+		/**
+		 *--------------------------------------------------------------------------
+		 * Módulo Payroll
+		 *--------------------------------------------------------------------------
+		 *
+		 * Operaciones del modulo de talento humano requeridas por el módulo de bienes
+		 */
+
+		getPayrollPositionTypes() {
+			const vm = this;
+			vm.payroll_position_types = [];
+			axios.get('/asset/get-payroll-position-types').then(response => {
+				vm.payroll_position_types = response.data;
+			});
+		},
+
+		getPayrollPositions() {
+			const vm = this;
+			vm.payroll_positions = [];
+			axios.get('/asset/get-payroll-positions').then(response => {
+				vm.payroll_positions = response.data;
+			});
+		},
+
+		getPayrollStaffs() {
+			this.payroll_staffs = [];
+			axios.get('/asset/get-payroll-staffs').then(response => {
+				this.payroll_staffs = response.data;
+			});
 		},
 	},
 });

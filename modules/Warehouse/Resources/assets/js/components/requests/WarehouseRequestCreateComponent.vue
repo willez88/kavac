@@ -72,7 +72,7 @@
 							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc" 
 							   data-on-label="SI" data-off-label="NO">
 							Proyecto</label>
-						<select2 :options="budget_projects" id="budget_project_id" @input="getSpecificActions('Project')" disabled
+						<select2 :options="budget_projects" id="budget_project_id" @input="getBudgetSpecificActions('Project')" disabled
 							v-model="record.budget_project_id"></select2>
 							
 					</div>
@@ -84,7 +84,7 @@
 								   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc" 
 								   id="sel_centralized_action" data-on-label="SI" data-off-label="NO">
 							Acción Centralizada</label>
-						<select2 :options="budget_centralized_actions" id="budget_centralized_action_id" @input="getSpecificActions('CentralizedAction')" disabled
+						<select2 :options="budget_centralized_actions" id="budget_centralized_action_id" @input="getBudgetSpecificActions('CentralizedAction')" disabled
 							v-model="record.budget_centralized_action_id"></select2>
 					</div>
 				</div>
@@ -227,8 +227,8 @@
 			}
 		},
 		created() {
-			this.getProjects();
-			this.getCentralizedActions();
+			this.getBudgetProjects();
+			this.getBudgetCentralizedActions();
 			this.initForm('/warehouse/requests/vue-list-products');
 			if(this.requestid){
 				this.loadRequest(this.requestid);
@@ -370,58 +370,7 @@
                 });
                 if (complete == true)
                 	vm.createRecord(url)
-			},
-
-		    /**
-		     * Obtiene un arreglo con los proyectos
-		     *
-		     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		     * @param  {integer} id Identificador del proyecto a buscar, este parámetro es opcional
-		     */
-			getProjects(id) {
-				const vm = this;
-
-				var budget_project_id = typeof id !== "undefined" ? '/' + id : '';
-				axios.get('/budget/get-projects' + budget_project_id).then(function (response) {
-					vm.budget_projects = response.data;
-				});
-			},
-
-			/**
-			 * Obtiene un arreglo con las acciones centralizadas
-			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-			 * @param  {integer} id Identificador de la acción centralizada a buscar, este parámetro es opcional
-			 */
-			getCentralizedActions(id) {
-				const vm = this;
-
-				var budget_centralized_action_id = typeof id !== "undefined" ? '/' + id : '';
-				axios.get('/budget/get-centralized-actions' + budget_centralized_action_id).then(function (response) {
-					vm.budget_centralized_actions = response.data;
-				});
-			},
-
-			/**
-			 * Obtiene las Acciones Específicas
-			 * 
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-			 * @param {string} type Tipo de registro
-			 */
-			getSpecificActions(type) {
-				const vm = this;
-
-				var id = type === 'Project' ? this.record.budget_project_id : this.record.budget_centralized_action_id;
-
-				vm.budget_specific_actions = [];
-
-				if (id) {
-					axios.get('/budget/get-specific-actions/' + type + "/" + id + "/formulation").then(function (response) {
-						vm.budget_specific_actions = response.data;
-					});
-				}
-			},
-
+			}
 		},
 		watch: {
 

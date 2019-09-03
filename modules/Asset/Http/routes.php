@@ -149,9 +149,9 @@ Route::group(
         Route::get('get-status', 'AssetStatusController@getStatus');
         Route::get('get-use-functions', 'AssetUseFunctionController@getUseFunctions');
 
-        Route::get('get-staffs', 'ServiceController@getStaffs');
-        Route::get('get-type-positions', 'ServiceController@getTypePositions');
-        Route::get('get-positions', 'ServiceController@getPositions');
+        Route::get('get-payroll-staffs', 'AssetServiceController@getPayrollStaffs');
+        Route::get('get-payroll-position-types', 'AssetServiceController@getPayrollPositionTypes');
+        Route::get('get-payroll-positions', 'AssetServiceController@getPayrollPositions');
 
         Route::get('get-request-types', 'AssetRequestController@getTypes');
 

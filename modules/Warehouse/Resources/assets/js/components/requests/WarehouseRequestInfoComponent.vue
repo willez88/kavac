@@ -200,7 +200,7 @@
 		            	document.getElementById('motive').innerText = (fields.motive)?fields.motive:'';
 		            	document.getElementById('observations').innerText = (fields.observations)?fields.observations:'No definido';
 		            	document.getElementById('state').innerText = (fields.state)?fields.state:'';
-		            	this.records = fields.warehouse_request_products;
+		            	this.records = fields.warehouse_inventory_product_requests;
 					}
 					if ($("#" + modal_id).length) {
 						$("#" + modal_id).modal('show');
@@ -229,7 +229,7 @@
 				const vm = this;
 				var index = $(".modal-body #id").val();
 				axios.get('/warehouse/requests/info/' + index).then(response => {
-					this.records = response.data.records.warehouse_request_products;
+					this.records = response.data.records.warehouse_inventory_product_requests;
 				});
 			}
 		},
