@@ -77,12 +77,6 @@
         {!! Html::script('js/generic-classes.js', [], Request::secure()) !!}
         {!! Html::script('js/app.js', [], Request::secure()) !!}
         @yield('modules-js')
-        <script defer>
-            /** @type {object} Constante que crea el elemento Vue */
-            var app = new Vue({
-                el: '#app',
-            });
-        </script>
 
         {{-- Plugin Bootbox --}}
         {!! Html::script('js/bootbox.min.js', [], Request::secure()) !!}
@@ -345,5 +339,12 @@
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}
         @yield('extra-js')
+        {{-- Sección que permite renderizar los componentes de VueJS --}}
+        <script defer>
+            /** @type {object} Constante que crea el elemento Vue */
+            var app = new Vue({
+                el: '#app',
+            });
+        </script>
     </body>
 </html>

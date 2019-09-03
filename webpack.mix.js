@@ -1,6 +1,6 @@
 let mix = require('laravel-mix');
-const fs = require('fs');
-const path = require('path');
+/*const fs = require('fs');
+const path = require('path');*/
 
 /* Allow multiple Laravel Mix applications*/
 require('laravel-mix-merge-manifest');
@@ -24,6 +24,7 @@ mix.js([
 		'resources/js/jquery-menu.js', 'resources/js/custom.js'
       //'resources/js/loading-message.js'
 	], 'public/js')
+   .js('resources/js/core-settings.js', 'public/js')
    .js('resources/js/chart.js', 'public/js')
    .js('resources/js/ckeditor.js', 'public/js')
    .copy('resources/js/generic-classes.js', 'public/js/generic-classes.js')
