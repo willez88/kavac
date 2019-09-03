@@ -35,6 +35,7 @@ return [
             'scaffold/config' => 'Config/config.php',
             'assets/js/app' => 'Resources/assets/js/app.js',
             'assets/sass/app' => 'Resources/assets/sass/app.scss',
+            'gitignore' => '.gitignore',
             'composer' => 'composer.json',
             'webpack' => 'webpack.mix.js',
             'package' => 'package.json',
