@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('finance::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-settings"></i>
@@ -35,8 +35,8 @@
 						<finance-bank-accounts></finance-bank-accounts>
 						<finance-checkbooks></finance-checkbooks>
 						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-							   href="{{ route('finance.voucher.design') }}" title="Diseñador de voucher" 
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('finance.voucher.design') }}" title="Diseñador de voucher"
 							   data-toggle="tooltip" >
 								<i class="icofont icofont-rulers-alt ico-3x"></i>
 								<span>Diseñador<br>Voucher</span>
@@ -73,7 +73,7 @@
 									{!! Form::text('checks_code', ($checkCode) ? $checkCode->format_code : old('checks_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de la emisión de cheques',
-										'placeholder' => 'Ej. XXX-0000000000-YYYY', 
+										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($checkCode) ? true : false
 									]) !!}
 								</div>

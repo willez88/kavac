@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('finance::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-settings"></i>

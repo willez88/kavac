@@ -17,5 +17,7 @@
     "/modules/purchase/js/app.js": "/modules/purchase/js/app.js",
     "/modules/purchase/css/app.css": "/modules/purchase/css/app.css",
     "/modules/budget/js/app.js": "/modules/budget/js/app.js",
-    "/modules/budget/css/app.css": "/modules/budget/css/app.css"
+    "/modules/budget/css/app.css": "/modules/budget/css/app.css",
+    "/modules/finance/js/app.js": "/modules/finance/js/app.js",
+    "/modules/finance/css/app.css": "/modules/finance/css/app.css"
 }
