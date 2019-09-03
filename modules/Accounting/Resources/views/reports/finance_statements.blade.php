@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('accounting::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>

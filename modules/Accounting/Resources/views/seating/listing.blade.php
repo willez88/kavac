@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('accounting::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-arrow-graph-up-right"></i>
@@ -29,8 +29,8 @@
 				</div>
 				<div class="card-body">
 					<accounting-seat-listing :seating="{{ $seating }}"
-											 :currency="{{ $currency }}" 
-									:show=" 'unapproved'" 
+											 :currency="{{ $currency }}"
+									:show=" 'unapproved'"
 									route_edit="{{ url('accounting/seating/{id}/edit') }}" />
 				</div>
 			</div>
