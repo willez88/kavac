@@ -1,3 +1,7 @@
+@section('modules-js')
+    @parent
+    {!! Html::script(mix('modules/warehouse/js/app.js'), [], Request::secure()) !!}
+@endsection
 
 {{-- Minimo de Productos --}}
 <div class="row">
