@@ -27,6 +27,7 @@ class CreateParametersTable extends Migration
                 );
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+                $table->unique(['p_key', 'required_by'])->comment('Clave única para el registro');
             });
         }
     }
