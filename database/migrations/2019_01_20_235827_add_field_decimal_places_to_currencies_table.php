@@ -13,10 +13,12 @@ class AddFieldDecimalPlacesToCurrenciesTable extends Migration
      */
     public function up()
     {
-        Schema::table('currencies', function (Blueprint $table) {
-            $table->integer('decimal_places')->default(2)
-                  ->comment('Máximo número de decimales a gestionar. El máximo es 10');
-        });
+        if (!Schema::hasColumn('currencies', 'decimal_places')) {
+            Schema::table('currencies', function (Blueprint $table) {
+                $table->integer('decimal_places')->default(2)
+                      ->comment('Máximo número de decimales a gestionar. El máximo es 10');
+            });
+        }
     }
 
     /**

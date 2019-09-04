@@ -14,14 +14,22 @@ class AddFieldsToDocumentsTable extends Migration
     public function up()
     {
         Schema::table('documents', function (Blueprint $table) {
-            $table->string('archive_number')->nullable()
-                  ->comment('Número que permite identificar el documento físico en archivo');
-            $table->boolean('physical_support')->default(false)
-                  ->comment('Establece si el documento tiene un respaldo en físico');
-            $table->longText('digital_support_original')->nullable()
-                  ->comment('Soporte digital del documento original');
-            $table->longText('digital_support_signed')->nullable()
-                  ->comment('Soporte digital del documento firmado');
+            if (!Schema::hasColumn('documents', 'archive_number')) {
+                $table->string('archive_number')->nullable()
+                      ->comment('Número que permite identificar el documento físico en archivo');
+            }
+            if (!Schema::hasColumn('documents', 'physical_support')) {
+                $table->boolean('physical_support')->default(false)
+                      ->comment('Establece si el documento tiene un respaldo en físico');
+            }
+            if (!Schema::hasColumn('documents', 'digital_support_original')) {
+                $table->longText('digital_support_original')->nullable()
+                      ->comment('Soporte digital del documento original');
+            }
+            if (!Schema::hasColumn('documents', 'digital_support_signed')) {
+                $table->longText('digital_support_signed')->nullable()
+                      ->comment('Soporte digital del documento firmado');
+            }
         });
     }
 

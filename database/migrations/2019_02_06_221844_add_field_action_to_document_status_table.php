@@ -13,13 +13,15 @@ class AddFieldActionToDocumentStatusTable extends Migration
      */
     public function up()
     {
-        Schema::table('document_status', function (Blueprint $table) {
-            $table->enum('action', ['AP', 'RE', 'EL', 'PR', 'AN', 'CE'])->default('AP')
-                  ->comment(
-                      'Acción que realiza el estado del documento. Valores aceptados: (AP)robado, ' .
-                      '(RE)chazado, (EL)aborado, (PR)or revisar, (AN)ulado, (CE)rrado'
-                  );
-        });
+        if (!Schema::hasColumn('document_status', 'action')) {
+            Schema::table('document_status', function (Blueprint $table) {
+                $table->enum('action', ['AP', 'RE', 'EL', 'PR', 'AN', 'CE'])->default('AP')
+                      ->comment(
+                          'Acción que realiza el estado del documento. Valores aceptados: (AP)robado, ' .
+                          '(RE)chazado, (EL)aborado, (PR)or revisar, (AN)ulado, (CE)rrado'
+                      );
+            });
+        }
     }
 
     /**

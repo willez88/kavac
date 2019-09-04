@@ -65,6 +65,10 @@ Vue.component('document-management', require('./components/DocumentManagementCom
  * Componente genérico para mostrar motones de limpiar, cancelar o guardar registros cuando la altura del
  * formulario es muy alta
  *
+ * @param string route_list Ruta que muestra el listado de registros cuando se presiona el botón cancelar
+ * @param string display    Indica si los botones se muestran en un display al hacer scroll o son estáticos para 
+ *                          colocarlos en el footer de un formulario
+ *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.component('buttonsDisplay', require('./components/ButtonsFormDisplayComponent.vue').default);

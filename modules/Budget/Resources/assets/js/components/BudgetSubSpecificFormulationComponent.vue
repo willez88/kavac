@@ -244,18 +244,7 @@
 			<buttonsDisplay route_list="/budget/subspecific-formulations"></buttonsDisplay>
 		</div>
 		<div class="card-footer text-right">
-			<button type="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
-					title="Borrar datos del formulario" @click='reset'>
-				<i class="fa fa-eraser"></i>
-			</button>
-			<button type="button" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
-					title="Cancelar y regresar" @click="redirect_back(route_list)">
-				<i class="fa fa-ban"></i>
-			</button>
-			<button type="button" class="btn btn-success btn-icon btn-round" data-toggle="tooltip"
-					title="Guardar registro" @click="createRecord">
-				<i class="fa fa-save"></i>
-			</button>
+			<buttonsDisplay route_list="/budget/subspecific-formulations" display='false'></buttonsDisplay>
 		</div>
 	</div>
 </template>

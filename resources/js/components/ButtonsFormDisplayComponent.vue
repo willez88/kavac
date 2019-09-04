@@ -1,5 +1,5 @@
 <template>
-	<div class="btn-display">
+	<div :class="{'btn-display': (display==='true')}">
 		<button type="button" @click="$parent.reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
 				title="Borrar datos del formulario">
 			<i class="fa fa-eraser"></i>
@@ -17,6 +17,13 @@
 
 <script>
 	export default {
+		props: {
+            display: {
+                type: String,
+                required: false,
+                default: 'true'
+            }
+        },
 		mounted() {
 			/** 
 			 * Muestra los botones cuando se baja el scroll de la pantalla a una altura predeterminada y 
@@ -30,7 +37,6 @@
 	                $('.btn-display').fadeOut();
 	            }
 	        });
-	        //console.log(this.$parent);
 		}
 	};
 </script>
