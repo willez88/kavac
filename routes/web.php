@@ -94,6 +94,9 @@ Route::group(['middleware' => 'auth'], function () {
         return $response;
     });
 
+    /** Ruta para la configuración de parámetros de la aplicación */
+    Route::post('parameters', 'ParameterController@store');
+
     /** Rutas para la gestión de estatus de documentos */
     Route::resource('document-status', 'DocumentStatusController', ['except' => ['show']]);
 
