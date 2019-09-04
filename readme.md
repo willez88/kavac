@@ -41,9 +41,6 @@ A continuación se listan los paquetes previos requeridos para la instalación y
 
 **(version-php-instalada)**: Es la versión del o los paquetes de PHP instalados, colocando la misma sin los (), por ejemplo:
 
-	7.1
-o
-
 	7.2
 
 o
