@@ -248,15 +248,15 @@ class AccountingSeatController extends Controller
         /**
          * se actualiza la información del registro del asiento contable
          */
-        AccountingSeat::where('id', $id)
-                        ->update([
-                            'reference' => $request->data['reference'],
-                            'concept' => $request->data['concept'],
-                            'observations' => $request->data['observations'],
-                            'tot_debit' => $request->data['totDebit'],
-                            'tot_assets' => $request->data['totAssets'],
-                            'institution_id' => $request->data['institution_id']
-                        ]);
+        
+        $record = AccountingSeat::find($id);
+        $record->reference = $request->data['reference'];
+        $record->concept = $request->data['concept'];
+        $record->observations = $request->data['observations'];
+        $record->tot_debit = $request->data['totDebit'];
+        $record->tot_assets = $request->data['totAssets'];
+        $record->institution_id = $request->data['institution_id'];
+        $record->save();
 
         foreach ($request->accountingAccounts as $account) {
             /**
@@ -264,11 +264,11 @@ class AccountingSeatController extends Controller
              */
             if ($account['id_seatAcc']) {
                 /** @var Object Objeto que contiene el registro de cuanta patrimonial asociada al asiento a actualizar */
-                AccountingSeatAccount::where('id', $account['id_seatAcc'])
-                                ->update(['accounting_account_id'=> $account['id'],
-                                          'debit' => $account['debit'],
-                                          'assets' => $account['assets']
-                                        ]);
+                $record = AccountingSeatAccount::find($account['id_seatAcc']);
+                $record->accounting_account_id = $account['id'];
+                $record->debit = $account['debit'];
+                $record->assets = $account['assets'];
+                $record->save();
             } else {
                 /** @var Object Objeto que contiene el nuevo registro de cuanta patrimonial asociada que se asociara al asiento */
                 AccountingSeatAccount::create([

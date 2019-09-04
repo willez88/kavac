@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Convertidor de cuentas</h6>
+					<h6 class="card-title">Buscador de conversiones</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 

@@ -111,8 +111,21 @@
 			*/
 			validateRequired:function() {
 
-				if (!this.validated && (this.date == '' || this.reference == '' || this.institution_id == null || this.category == '')) {
+				if (!this.validated && 
+					(this.date == '' || 
+					this.concept == '' || 
+					this.observations == '' || 
+					this.category == '' ||
+					this.reference == '' || this.institution_id == null)) {
 
+					EventBus.$emit('enableInput:seating-account',{'value':false,
+																	  'date':this.date,
+																	  'reference':this.reference,
+																	  'concept':this.concept,
+																	  'observations':this.observations,
+																	  'category':this.category,
+																	  'institution_id':this.institution_id,
+																	});
 				}
 
 				if (this.validated == false) {
@@ -208,6 +221,7 @@
 					/** Se vacia la variable que trae la informacion para no*/
 					this.data_edit_mutable = null;
 				}
+				this.validateRequired();
 			}
 		}
 	};

@@ -160,8 +160,17 @@ class AccountingAccountController extends Controller
         /**
          * Actualiza el registro de la cuenta
          */
-        AccountingAccount::where('id', $id)
-          ->update($request->all());
+        $record = AccountingAccount::find($id);
+
+        $record->group = $request['group'];
+        $record->subgroup = $request['subgroup'];
+        $record->item = $request['item'];
+        $record->generic = $request['generic'];
+        $record->specific = $request['specific'];
+        $record->subspecific = $request['subspecific'];
+        $record->denomination = $request['denomination'];
+        $record->active = $request['active'];
+        $record->save();
 
         return response()->json(['records'=>$this->getAccounts(), 'message'=>'Success']);
     }

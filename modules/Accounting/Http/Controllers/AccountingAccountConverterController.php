@@ -270,9 +270,12 @@ class AccountingAccountConverterController extends Controller
         /**
          * Actualiza el registro de conversión a editar
          */
-        AccountingAccountConverter::where('id', $id)
-          ->update($request->all());
+        $record = AccountingAccountConverter::find($id);
 
+        $record->accounting_account_id = $request['accounting_account_id'];
+        $record->budget_account_id = $request['budget_account_id'];
+        $record->save();
+        
         $request->session()->flash('message', ['type' => 'update']);
         $this->index();
     }

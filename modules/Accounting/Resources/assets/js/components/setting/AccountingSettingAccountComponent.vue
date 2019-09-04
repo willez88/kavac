@@ -64,7 +64,7 @@
 								v-if="formImport"
 								@click="registerImportedAccounts()"
 								data-toggle="tooltip">
-								Guardar Registros Importados
+								Guardar
 						</button>
 						<button class='btn btn-sm btn-primary'
 								data-toggle='tooltip'

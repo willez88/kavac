@@ -5,7 +5,7 @@
 
 			<div class="row">
 
-				<div class="col-4"></div>
+<!-- 				<div class="col-4"></div>
 
 				<div class="col-4">
 					<label v-if="searchActive && searchBudgetAccount"
@@ -20,7 +20,7 @@
 							class="control-label text-center">
 					</label>
 				</div>
-				<div class="col-4"></div>
+				<div class="col-4"></div> -->
 	
 				<div class="col-2">
 					<label for="sel_budget_acc" class="control-label">Por Presupuestos</label>

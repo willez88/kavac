@@ -1,7 +1,7 @@
 <template>
 <div>
     
-    <accounting-show-errors :options="errors" />
+    <!-- <accounting-show-errors :options="errors" /> -->
 
     <table class="table table-formulation">
         <thead>
@@ -82,26 +82,7 @@
         </tbody>
     </table>
     <div class="card-footer text-right">
-<!--         <button class="btn btn-success btn-sm"
-                data-toggle="tooltip"
-                title="Guardar registro"
-                id="save"
-                :disabled="!enableInput || validateTotals()" 
-                v-if="seating == null"
-                v-on:click="createRecord()">
-                Guardar <i class="fa fa-save"></i>
-        </button>
-        <button class="btn btn-success btn-sm"
-                data-toggle="tooltip"
-                title="Actualizar registro"
-                id="update"
-                :disabled="!enableInput || validateTotals()"
-                v-else
-                v-on:click="UpdateSeating()">
-                Guardar <i class="fa fa-save"></i>
-        </button> -->
-
-        <button @click="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
+        <!-- <button @click="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
                 title="Borrar datos del formulario">
             <i class="fa fa-eraser"></i>
         </button>
@@ -112,7 +93,8 @@
         <button @click="(seating == null)?createRecord():UpdateSeating()" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 
                 title="Guardar registro">
             <i class="fa fa-save"></i>
-        </button>
+        </button> -->
+        <buttonsDisplay route_list="/accounting/seating" display="false"/>
     </div>
 </div>
 </template>
@@ -249,10 +231,13 @@
                     res = true;
                 }
 
-                EventBus.$emit('show:errors', []);
 
                 if (this.recordsAccounting.length < 1) {
                     errors.push('No es permitido guardar asientos contables vacios');
+                    res = true;
+                }
+                if (this.data.totDebit < 0 || this.data.totAssets < 0) {
+                    errors.push('Los valores en la columna del DEBE y el HABER deben ser positivos.');
                     res = true;
                 }
                 EventBus.$emit('show:errors', errors);
@@ -312,7 +297,6 @@
 
                         if (this.recordsAccounting[i].debit < 0 || this.recordsAccounting[i].assets < 0) {
                             this.enableInput = false;
-                            EventBus.$emit('show:errors', []);
                             EventBus.$emit('show:errors', ["Los valores en la columna del DEBE y el HABER deben ser positivos."]);
                         }else{
                             EventBus.$emit('show:errors', []);
@@ -347,13 +331,25 @@
                 }
             },
 
-            /**
-            * Guarda la información del asiento contable
-            *
+           /**
+            * [createRecord se valida si el asiento sera actualizado o creado]
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+            * @return {[type]} [description]
             */
             createRecord:function(){
-                console.log("pase")
+                if (this.seating == null) {
+                    this.createSeat();
+                }
+                else{
+                    this.UpdateSeating();
+                }
+            },
+
+           /**
+            * [createSeat Guarda la información del asiento contable]
+            * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+            */
+            createSeat(){
                 if (this.data.totDebit == this.data.totAssets) {
 
                     if (this.validateErrors()) { 

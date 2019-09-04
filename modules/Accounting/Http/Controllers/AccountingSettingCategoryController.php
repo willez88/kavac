@@ -74,8 +74,10 @@ class AccountingSettingCategoryController extends Controller
             'acronym' => 'required|string',
         ]);
         /** @var Object Objeto que contine el registro de conversión a editar */
-        AccountingSeatCategory::where('id', $id)
-                                ->update($request->all());
+        $record = AccountingSeatCategory::find($id);
+        $record->name = $request['name'];
+        $record->acronym = $request['acronym'];
+        $record->save() ;
 
         return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'], 200);
     }
