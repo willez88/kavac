@@ -13,14 +13,16 @@ class CreateFiscalYearsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fiscal_years', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string("year", 4)->unique()->comment("Año fiscal");
-            $table->boolean("active")->default(true)->comment("Estatus del año fiscal");
-            $table->text("observations")->nullable()->comment("Observaciones al año fiscal");
-            $table->timestamps();
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-        });
+        if (!Schema::hasTable('fiscal_years')) {
+            Schema::create('fiscal_years', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string("year", 4)->unique()->comment("Año fiscal");
+                $table->boolean("active")->default(true)->comment("Estatus del año fiscal");
+                $table->text("observations")->nullable()->comment("Observaciones al año fiscal");
+                $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+        }
     }
 
     /**

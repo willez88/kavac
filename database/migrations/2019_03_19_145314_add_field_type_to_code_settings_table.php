@@ -24,13 +24,15 @@ class AddFieldTypeToCodeSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::table('code_settings', function (Blueprint $table) {
-            $table->string('type')->nullable()
-                  ->comment(
-                      "Define un tipo de registro en caso de que en un mismo modelo se registre " .
-                      "distinta información"
-                  );
-        });
+        if (!Schema::hasColumn('code_settings', 'type')) {
+            Schema::table('code_settings', function (Blueprint $table) {
+                $table->string('type')->nullable()
+                      ->comment(
+                          "Define un tipo de registro en caso de que en un mismo modelo se registre " .
+                          "distinta información"
+                      );
+            });
+        }
     }
 
     /**

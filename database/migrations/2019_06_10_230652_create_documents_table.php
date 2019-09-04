@@ -13,17 +13,19 @@ class CreateDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('documents', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('code', 20)->unique()
-                  ->comment('Código autogenerado para identificar al documento');
-            $table->string('file')->comment('Nombre del archivo');
-            $table->string('url')->comment('URL del documento');
-            $table->json('signs')->nullable()->comment('Firma(s) del documento en JSON');
-            $table->morphs('documentable');
-            $table->timestamps();
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-        });
+        if (!Schema::hasTable('documents')) {
+            Schema::create('documents', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('code', 20)->unique()
+                      ->comment('Código autogenerado para identificar al documento');
+                $table->string('file')->comment('Nombre del archivo');
+                $table->string('url')->comment('URL del documento');
+                $table->json('signs')->nullable()->comment('Firma(s) del documento en JSON');
+                $table->morphs('documentable');
+                $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+        }
     }
 
     /**
