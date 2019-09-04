@@ -75,3 +75,10 @@ Vue.component('buttonsDisplay', require('./components/ButtonsFormDisplayComponen
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('phones', require('./components/PhonesComponent.vue').default);
+
+/**
+ * Componente para la gestión de documentos a requerir
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('required-documents', require('./components/RequiredDocumentsComponent.vue').default);

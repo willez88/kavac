@@ -105,13 +105,6 @@ Vue.component('departments', require('./components/DepartmentsComponent.vue').de
 Vue.component('currencies', require('./components/CurrenciesComponent.vue').default);
 
 /**
- * Componente para la gestión de documentos a requerir
- *
- * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
- */
-Vue.component('required-documents', require('./components/RequiredDocumentsComponent.vue').default);
-
-/**
 * Componente para la gestión de unidades de medida
 *
 * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)

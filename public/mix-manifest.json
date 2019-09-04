@@ -30,5 +30,6 @@
     "/modules/payroll/css/app.css": "/modules/payroll/css/app.css?id=d41d8cd98f00b204e980",
     "/modules/warehouse/js/app.js": "/modules/warehouse/js/app.js",
     "/modules/warehouse/css/app.css": "/modules/warehouse/css/app.css",
-    "/modules/payroll/js/app.js.map": "/modules/payroll/js/app.js.map?id=cfcb4fd37f255df872e6"
+    "/modules/payroll/js/app.js.map": "/modules/payroll/js/app.js.map?id=cfcb4fd37f255df872e6",
+    "/js/shared-components.js": "/js/shared-components.js"
 }

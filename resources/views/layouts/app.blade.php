@@ -90,6 +90,7 @@
         {{-- Scripts de la aplicación --}}
         {!! Html::script('js/generic-classes.js', [], Request::secure()) !!}
         {!! Html::script('js/app.js', [], Request::secure()) !!}
+        {!! Html::script('js/shared-components.js', [], Request::secure()) !!}
         @yield('modules-js')
 
         {{-- Plugin Bootbox --}}

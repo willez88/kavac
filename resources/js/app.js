@@ -27,12 +27,3 @@ if (window.auth) {
     });
 }
 Vue.use(window.execution_year);
-
-/** Requerimiento de elementos compartidos */
-require('./shared');
-
-/** Incorpora requerimientos de componentes de los módulos de la aplicación */
-//require('./modules');
-
-/** Incorpora requerimientos de mixins generales */
-require('./mixins');
