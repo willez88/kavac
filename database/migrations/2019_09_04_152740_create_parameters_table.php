@@ -26,6 +26,7 @@ class CreateParametersTable extends Migration
                     'Indica si el parámetro se encuentra activo o no. El valor por defecto es activo.'
                 );
                 $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }
     }
