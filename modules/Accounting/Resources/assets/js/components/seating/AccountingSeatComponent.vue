@@ -25,10 +25,9 @@
 					</div>
 					<div class="col-3"></div>
 
-					<div class="col-3"></div>
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
-							<label class="control-label">Por Referencia</label>
+							<label class="control-label">Por Referencia</label><br>
 							<input type="radio" 
 									name="sel_Search"
 									id="sel_ref"
@@ -36,10 +35,9 @@
 									class="form-control bootstrap-switch sel_search">
 						</div>
 					</div>
-					<div class="col-1"></div>
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
-							<label class="control-label">Por Categoría</label>
+							<label class="control-label">Por Categoría</label><br>
 							<input type="radio"
 									name="sel_Search" 
 									id="sel_origin"
@@ -48,106 +46,78 @@
 									class="form-control bootstrap-switch sel_search">
 						</div>
 					</div>
-					<div class="col-2"></div>
-					<br><br>
-					<div class="col-12 row">
-							<div class="col-2"></div>
-							<div class="col-1">
-								<div class="form-group">
-									<label class="control-label">Por Institución</label>
-								</div>
-							</div>
-							<div class="col-7">
-								<div class="form-group">
-									<select2 :options="institutions" v-model="data.institution"></select2>
-								</div>
-							</div>
-							<div class="col-2"></div>
-						</div>
-					<div class="col-12 row">
-						<div class="col-2"></div>
-						<div class="col-1">
+					<div class="col-8 row">
+						<div class="col-7">
 							<div class="form-group">
+								<label class="control-label">Por Institución</label><br>
+								<select2 :options="institutions" v-model="data.institution"></select2>
+							</div>
+						</div>
+						<div class="col-5">
+							<div :class="(typeSearch != 'reference')? 'form-group': 'form-group is-required'">
 								<label class="control-label">Referencia</label>
-							</div>
-						</div>
-						<div class="col-7">
-							<div class="form-group is-required">
 								<input :disabled="typeSearch != 'reference'" type="text" class="form-control"
-										v-model="data.reference">
-							</div>
+									v-model="data.reference" placeholder="Referencia">
+							</div>	
 						</div>
-						<div class="col-2"></div>
 					</div>
-					<div class="col-12 row">
-						<div class="col-2"></div>
-						<div class="col-1">
-							<div class="form-group">
-								<label class="control-label">Por Categoría</label>
-							</div>
-						</div>
-						<div class="col-7">
-							<div class="form-group is-required">
-								<select2 :disabled="typeSearch != 'origin'" :options="categories" v-model="data.category"></select2>
-							</div>
-						</div>
-						<!-- filtrado por fechas -->
-						<div class="col-3"></div>
-						<div class="col-3">
-							<label for="" class="control-label">Por Período</label>
-							<input type="radio" 
-									name="sel_filter_date"
-									id="sel_fil_date_specific"
-									data-on-label="SI" data-off-label="NO"
-									class="form-control bootstrap-switch sel_filterDate">
-						</div>
-						<div class="col-3">
-							<label for="" class="control-label">Por Mes</label>
-							<input type="radio"
-									name="sel_filter_date" 
-									id="sel_fil_date_generic"
-									checked="true" 
-									data-on-label="SI" data-off-label="NO" 
-									class="form-control bootstrap-switch sel_filterDate">
-						</div>
-						<div class="col-2"></div>
-						
+
+					<!-- filtrado por fechas -->
+					<div class="col-2">
+						<label for="" class="control-label">Por Período</label><br>
+						<input type="radio" 
+								name="sel_filter_date"
+								id="sel_fil_date_specific"
+								data-on-label="SI" data-off-label="NO"
+								class="form-control bootstrap-switch sel_filterDate">
+					</div>
+					<div class="col-2">
+						<label for="" class="control-label">Por Mes</label><br>
+						<input type="radio"
+								name="sel_filter_date" 
+								id="sel_fil_date_generic"
+								checked="true" 
+								data-on-label="SI" data-off-label="NO" 
+								class="form-control bootstrap-switch sel_filterDate">
+					</div>
+
+					<div class="col-8 row">
 						<!-- fecha detallada -->
-						<div class="col-12 row" v-if="filterDate == 'specific'">
-							<div class="col-2"></div>
-							<div class="col-1">
-								<div class="form-group">
-									<label class="control-label">Por fecha</label>
-								</div>
-							</div>
-							<div class="col-3">
+						<div class="col-7 row" style="padding-right: 0rem;" v-if="filterDate == 'specific'">
+							<div class="col-6">
 								<div class="form-group is-required">
 									<label class="control-label">Desde</label>
 									<input type="date" class="form-control" v-model="data.init">
 								</div>
 							</div>
-							<div class="col-3">
+							<div class="col-6" style="padding-right: 0rem;">
 								<div class="form-group is-required">
 									<label class="control-label">Hasta</label>
 									<input type="date" class="form-control" v-model="data.end">
 								</div>
-							</div>
-							<div class="col-2"></div>					
+							</div>				
 						</div>
-						<div class="col-12 row" v-else>
-							<div class="col-3"></div>
-							<div class="col-3">
+						<div class="col-7 row" style="padding-right: 0rem;" v-else>
+							<div class="col-6">
 								<div class="form-group is-required">
+									<label class="control-label">Mes</label>
 									<select2 :disabled="!filterDate" :options="months" v-model="data.month"></select2>
 								</div>
 							</div>
-							<div class="col-3">
+							<div class="col-6" style="padding-right: 0rem;">
 								<div class="form-group is-required">
+									<label class="control-label">Año</label>
 									<select2 :disabled="!filterDate" :options="years" v-model="data.year"></select2>
 								</div>
 							</div>
-							<div class="col-3"></div>
 						</div>
+						<div class="col-5" style="margin-left: 1.8rem;">
+							<div :class="(typeSearch != 'origin')? 'form-group': 'form-group is-required'">
+								<label class="control-label">Por Categoría</label><br>
+								<select2 :disabled="typeSearch != 'origin'" :options="categories" v-model="data.category"></select2>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -163,7 +133,7 @@
 		</form>
 
 		<div v-if="records.length > 0">
-			<accounting-seat-listing :seating="records" :currency="currency" :show="'approved'" />
+			<!-- <accounting-seat-listing :seating="records" :currency="currency" :show="'approved'" /> -->
 		</div>
 	</div>
 </template>
@@ -271,7 +241,10 @@
 						this.warnings.push('No se encontraron asientos contables aprobados con los parametros de busqueda dados.')
 					}
 					this.records = response.data.records;
-					EventBus.$emit('reload:listing',response.data.records);
+					EventBus.$emit('list:seating',{
+						records:response.data.records,
+						currency:this.currency,
+					});
 				});
 			},
 		},

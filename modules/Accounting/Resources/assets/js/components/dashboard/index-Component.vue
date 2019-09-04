@@ -66,8 +66,8 @@
 				'approved': 'ESTADO DEL ASIENTO',
 				'action': 'ACCIÓN'
 			};
-			this.table_options.sortable = ['from_date', 'reference', 'concept'];
-			this.table_options.filterable = ['from_date', 'reference', 'concept'];
+			this.table_options.sortable = [];
+			this.table_options.filterable = [];
 		},
 		mounted(){
 			this.loadRecords();

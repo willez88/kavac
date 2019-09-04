@@ -50,18 +50,19 @@ Vue.component('accounting-import-form', require('./components/accounts/Accountin
 Vue.component('accounting-converter-index', require('./components/account_converter/AccountingIndexComponent.vue').default);
 
 /**
- * Componente para la creación de conversión de cuentas
+ * Componente para listar cuentas con conversiones
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-converter-create', require('./components/account_converter/AccountingCreateConvertionsComponent.vue').default);
+Vue.component('accounting-conversion-list', require('./components/account_converter/AccountingListConversionsComponent.vue').default);
+
 
 /**
- * Componente para la edición de una conversión de cuentas
+ * Componente para el formulario de creación y edición de conversión de cuentas
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-converter-edit', require('./components/account_converter/AccountingEditConvertionComponent.vue').default);
+Vue.component('accounting-conversion-form', require('./components/account_converter/AccountingConversionFormComponent.vue').default);
 
 /**
  * Componente para la consulta de asientos contable

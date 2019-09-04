@@ -13,11 +13,21 @@
 </template>
 <script>
 	export default{
-		props:['options'],
+		data(){
+			return{
+				options:[],
+			}
+		},
 		computed:{
 			existErrors:function(){
 				return (this.options.length > 0);
 			}
 		},
+		created(){
+			EventBus.$on('show:errors',(data)=>{
+				this.options = [];
+				this.options = data;
+			});
+		}
 	};
 </script>

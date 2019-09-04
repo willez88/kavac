@@ -21,14 +21,13 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Editar conversión</h6>
+					<h6 class="card-title">Editar Conversión</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-
 					@if(!$has_budget)
 						<br>
 						<div class="alert alert-danger">
@@ -42,7 +41,10 @@
 							</div>
 						</div>
 					@else
-						<accounting-converter-edit :account_to_edit="{{ $account }}" :accounting_accounts="{{ $accountingAccounts }}" :budget_accounts="{{ $budgetAccounts }}" />
+						<accounting-conversion-form :accounting_list="{{ $accountingAccounts }}" 
+													:budget_list="{{ $budgetAccounts }}" 
+													:account_to_edit="{{ $account }}"
+													route_list="{{ url('/converter') }}" />
 					@endif
 
 				</div>

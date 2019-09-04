@@ -117,17 +117,32 @@ class AccountingAccountConverterController extends Controller
      */
     public function store(Request $request)
     {
-        foreach ($request->records as $convertion) {
-            /**
-             * Crea el registro de conversiones
-             */
-            AccountingAccountConverter::create([
-                'accounting_account_id' => $convertion['accounting']['id'],
-                'budget_account_id' => $convertion['budget']['id'],
-                'active' => true,
-            ]);
-        }
-        return response()->json(['message'=>'Success']);
+        /**
+         * Crea el registro de conversiones
+         */
+        AccountingAccountConverter::create([
+            'accounting_account_id' => $request->accounting_id,
+            'budget_account_id' => $request->budget_id,
+            'active' => true,
+        ]);
+
+        /**
+         * [$records_accounting contiene las cuentas patrimoniales disponibles]
+         * @var [Json]
+         */
+        $records_accounting = $this->getRecordsAccounting(false);
+
+        /**
+         * [$records_busget contiene las cuentas presupuestales disponibles]
+         * @var [Json]
+         */
+        $records_busget = $this->getRecordsBudget(false);
+
+        return response()->json([
+                                    'records_accounting'=> $records_accounting,
+                                    'records_busget'=> $records_busget,
+                                    'message'=>'Success'
+                                ]);
     }
 
     /**
@@ -167,63 +182,60 @@ class AccountingAccountConverterController extends Controller
          */
         $budgetAccounts = [];
 
-        array_push($accountingAccounts, [
-                    'id' => '',
-                    'text' =>   "Seleccione..."
-                ]);
 
         /**
-         * Cuentas patrimoniales
+         * [$records_accounting contiene las cuentas patrimoniales disponibles]
+         * @var [Json]
          */
-        foreach (AccountingAccount::with('accountConverters')->orderBy('id', 'ASC')->get() as $AccountingAccount) {
-            /**
-             * agrega al array la cuenta patromonial que se editara
-             */
-            if ($AccountingAccount->id == $account->accounting_account_id) {
-                array_push($accountingAccounts, [
-                    'id' => $AccountingAccount->id,
-                    'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
-                ]);
-            }
-            /**
-             * agrega al array el resto de cuentas disponibles que no tienen conversion activa
-             */
-            if (!$AccountingAccount->accountConverters['active']) {
-                array_push($accountingAccounts, [
-                    'id' => $AccountingAccount->id,
-                    'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
-                ]);
+        $accountingAccounts = $this->getRecordsAccounting(false);
+
+        /**
+         * [$records_busget contiene las cuentas presupuestales disponibles]
+         * @var [Json]
+         */
+        $budgetAccounts = $this->getRecordsBudget(false);
+
+        /**
+         * Cuenta patrimonial a editar
+         */
+        
+        $aux = AccountingAccount::find($account->accounting_account_id);
+        $aux['getCodeAttribute'] = $aux->getCodeAttribute();
+        /**
+         * agrega al array la cuenta patromonial que se editara
+        */
+
+        for ($i=1; $i < $accountingAccounts[0]['index']; $i++) {
+            if (explode(' - ', $accountingAccounts[$i]['text'])[0] > "{$aux->getCodeAttribute}") {
+                array_splice($accountingAccounts, $i, 0, '-');
+                $accountingAccounts[$i] = [
+                    'id' => $aux->id,
+                    'text' => "{$aux->getCodeAttribute()} - {$aux->denomination}"
+                ];
+                break;
             }
         }
 
-        array_push($budgetAccounts, [
-            'id' => '',
-            'text' =>   "Seleccione..."
-        ]);
+        /**
+         * Cuenta Presupuestal a editar
+         */
 
-        /** Cuentas Presupuestales */
-        foreach (\Modules\Budget\Models\BudgetAccount::with('accountConverters')
-                                                        ->orderBy('id', 'ASC')->get() as $BudgetAccount) {
-            /**
-             * agrega al array la cuenta presupuestal que posee la conversión
-             */
-            if ($BudgetAccount->id == $account->budget_account_id) {
-                array_push($budgetAccounts, [
-                    'id' => $BudgetAccount->id,
-                    'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
-                ]);
-            }
-            /**
-             * agrega al array solo las cuentas presupuestales que estan disponibles para relacionarse en la conversión
-             */
-            if (!$BudgetAccount->accountConverters['active']) {
-                array_push($budgetAccounts, [
-                    'id' => $BudgetAccount->id,
-                    'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
-                ]);
+        $aux = \Modules\Budget\Models\BudgetAccount::find($account->budget_account_id);
+        $aux['getCodeAttribute'] = $aux->getCodeAttribute();
+        /**
+         * agrega al array la cuenta presupuestal que se editara
+        */
+        for ($i=1; $i < $budgetAccounts[0]['index']; $i++) {
+            if (explode(' - ', $budgetAccounts[$i]['text'])[0] > "{$aux->getCodeAttribute}") {
+                array_splice($budgetAccounts, $i, 0, '-');
+                $budgetAccounts[$i] = [
+                    'id' => $aux->id,
+                    'text' => "{$aux->getCodeAttribute()} - {$aux->denomination}"
+                ];
+                break;
             }
         }
-
+        
         /**
          * [$accountingAccounts contiene las cuentas presupuestales]
          * @var [Json]
@@ -359,7 +371,7 @@ class AccountingAccountConverterController extends Controller
      * Consulta los registros del modelo AccountingAccount que posean conversión
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request [array con listado de cuentas a convertir]
-     * @param  boolean $allRecords [booleano para determinar los registros deseados]
+     * @param  boolean $allRecords [booleano para determinar los registros deseados, true= todo, false=solo sin conversiones]
      * @return Array
      */
     public function getRecordsAccounting($allRecords)
@@ -369,6 +381,7 @@ class AccountingAccountConverterController extends Controller
          * @var array
          */
         $records = [];
+        $index = 0;
         array_push($records, [
             'id' => '',
             'text' =>   "Seleccione..."
@@ -377,23 +390,43 @@ class AccountingAccountConverterController extends Controller
         /**
          * ciclo para almacenar en array cuentas patrimoniales disponibles para conversiones
         */
-        foreach (AccountingAccount::with('accountConverters')
-                                        ->orderBy('id', 'ASC')
-                                        ->get() as $AccountingAccount) {
-            if (!$allRecords) {
-                if (!$AccountingAccount->accountConverters['active']) {
-                    array_push($records, [
+       
+        if (!$allRecords) {
+            foreach (AccountingAccount::doesnthave('accountConverters')
+                    ->orderBy('group', 'ASC')
+                    ->orderBy('subgroup', 'ASC')
+                    ->orderBy('item', 'ASC')
+                    ->orderBy('generic', 'ASC')
+                    ->orderBy('specific', 'ASC')
+                    ->orderBy('subspecific', 'ASC')
+                    ->orderBy('denomination', 'ASC')
+                    ->cursor() as $AccountingAccount) {
+                array_push($records, [
                         'id' => $AccountingAccount->id,
                         'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
                     ]);
-                }
-            } else {
+                $index++;
+            }
+        } else {
+            foreach (AccountingAccount::with('accountConverters')
+                    ->orderBy('group', 'ASC')
+                    ->orderBy('subgroup', 'ASC')
+                    ->orderBy('item', 'ASC')
+                    ->orderBy('generic', 'ASC')
+                    ->orderBy('specific', 'ASC')
+                    ->orderBy('subspecific', 'ASC')
+                    ->orderBy('denomination', 'ASC')
+                    ->cursor() as $AccountingAccount) {
                 array_push($records, [
-                    'id' => $AccountingAccount->id,
-                    'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}",
-                ]);
+                        'id' => $AccountingAccount->id,
+                        'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
+                    ]);
+                $index++;
             }
         }
+
+        $records[0]['index'] = $index;
+
         /**
          * se convierte array a JSON
          */
@@ -413,6 +446,7 @@ class AccountingAccountConverterController extends Controller
          * @var null
          */
         $records = null;
+        $index = 0;
 
         if (Module::has('Budget') && Module::enabled('Budget')) {
             $records = [];
@@ -424,24 +458,41 @@ class AccountingAccountConverterController extends Controller
             /**
              * ciclo para almacenar en array cuentas presupuestales disponibles para conversiones
             */
-            foreach (\Modules\Budget\Models\BudgetAccount::with('accountConverters')
-                                                            ->orderBy('id', 'ASC')
-                                                            ->get() as $BudgetAccount) {
-                if (!$allRecords) {
-                    if (!$BudgetAccount->accountConverters['active']) {
-                        array_push($records, [
-                            'id' => $BudgetAccount->id,
-                            'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}"
-                        ]);
-                    }
-                } else {
+                   
+            if (!$allRecords) {
+                foreach (\Modules\Budget\Models\BudgetAccount::doesnthave('accountConverters')
+                    ->orderBy('group', 'ASC')
+                    ->orderBy('item', 'ASC')
+                    ->orderBy('generic', 'ASC')
+                    ->orderBy('specific', 'ASC')
+                    ->orderBy('subspecific', 'ASC')
+                    ->orderBy('denomination', 'ASC')
+                    ->cursor() as $AccountingAccount) {
                     array_push($records, [
-                        'id' => $BudgetAccount->id,
-                        'text' =>   "{$BudgetAccount->getCodeAttribute()} - {$BudgetAccount->denomination}",
+                        'id' => $AccountingAccount->id,
+                        'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
+                    ]);
+                    $index++;
+                }
+            } else {
+                foreach (\Modules\Budget\Models\BudgetAccount::with('accountConverters')
+                    ->orderBy('group', 'ASC')
+                    ->orderBy('item', 'ASC')
+                    ->orderBy('generic', 'ASC')
+                    ->orderBy('specific', 'ASC')
+                    ->orderBy('subspecific', 'ASC')
+                    ->orderBy('denomination', 'ASC')
+                    ->cursor() as $AccountingAccount) {
+                    array_push($records, [
+                        'id' => $AccountingAccount->id,
+                        'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
                     ]);
                 }
+                $index++;
             }
         }
+
+        $records[0]['index'] = $index;
         /**
          * se convierte array a JSON
          */

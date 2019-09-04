@@ -41,7 +41,7 @@
 				'id': 'ACCIÓN'
 			};
 			this.table_options.sortable = ['created_at','interval', 'name'];
-			this.table_options.filterable = ['created_at','interval', 'name'];
+			this.table_options.filterable = [];
 		},
 		mounted(){
 			this.loadRecords();

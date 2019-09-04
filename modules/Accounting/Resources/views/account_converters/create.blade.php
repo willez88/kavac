@@ -41,7 +41,7 @@
 							</div>
 						</div>
 					@else
-						<accounting-converter-create :accounting_list="{{ $accountingList }}" :budget_list="{{ $budgetList }}"/>
+						<accounting-conversion-form :accounting_list="{{ $accountingList }}" :budget_list="{{ $budgetList }}"/>
 					@endif
 
 				</div>

@@ -12,7 +12,7 @@
 				<div class="row">
 					<div class="col-12">
 						<span class="text-muted">
-							Acceso a infomación de los ultimos asientos contables.
+							Acceso a infomación de los ultimos 10 asientos contables.
 						</span>
 					</div>
 				</div>

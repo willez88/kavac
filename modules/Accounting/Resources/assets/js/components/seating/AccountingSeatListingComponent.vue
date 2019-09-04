@@ -16,7 +16,7 @@
 									title="Eliminar Registro"
 									data-toggle="tooltip"
 									@click="deleteRecord(props.index, '/accounting/seating')"
-									v-if="show=='unapproved'">
+									v-if="!props.row.approved">
 									<i class="fa fa-close" style="text-align: center;"></i>
 							</button>
 							<button class="btn btn-warning btn-sm btn-custom"
@@ -24,7 +24,7 @@
 									title="Modificar registro"
 									data-toggle="tooltip"
 									@click="editForm(props.row.id)"
-									v-if="show=='unapproved'">
+									v-if="!props.row.approved">
 									<i class="fa fa-edit" style="text-align: center;"></i>
 							</button>
 							<button class="btn btn-success btn-sm btn-custom"
@@ -32,7 +32,7 @@
 									title="Aprobar Registro"
 									data-toggle="tooltip"
 									@click="approve(props.index, url)"
-									v-if="show=='unapproved'">
+									v-if="!props.row.approved">
 									Aprobar <i class="fa fa-check" style="text-align: center;"></i>
 							</button>
 							<a class="btn btn-primary btn-sm btn-custom"
@@ -41,7 +41,7 @@
 									title="Imprimir Registro"
 									data-toggle="tooltip"
 									target="_blank"
-									v-if="show=='approved'">
+									v-if="props.row.approved">
 									<i class="fa fa-print" style="text-align: center;"></i>
 							</a>
 						</tr>
@@ -102,10 +102,10 @@
 											<h6>{{ record.account.denomination }}</h6>
 										</td>
 										<td>
-											<h6><span>{{ currency.symbol }}</span> {{ parseFloat(record.debit).toFixed(currency.decimal_places) }}</h6>
+											<h6><span>{{ currcy.symbol }}</span> {{ parseFloat(record.debit).toFixed(currcy.decimal_places) }}</h6>
 										</td>
 										<td>
-											<h6><span>{{ currency.symbol }}</span> {{ parseFloat(record.assets).toFixed(currency.decimal_places) }}</h6>
+											<h6><span>{{ currcy.symbol }}</span> {{ parseFloat(record.assets).toFixed(currcy.decimal_places) }}</h6>
 										</td>
 									</tr>
 									<tr>
@@ -115,14 +115,14 @@
 										</td>
 										<td>
 											<h6>
-												<span>{{ currency.symbol }}</span>
-												<strong>{{ parseFloat(props.row.tot_debit).toFixed(currency.decimal_places) }}</strong>
+												<span>{{ currcy.symbol }}</span>
+												<strong>{{ parseFloat(props.row.tot_debit).toFixed(currcy.decimal_places) }}</strong>
 											</h6>
 										</td>
 										<td>
 											<h6>
-												<span>{{ currency.symbol }}</span>
-												<strong>{{ parseFloat(props.row.tot_assets).toFixed(currency.decimal_places) }}</strong>
+												<span>{{ currcy.symbol }}</span>
+												<strong>{{ parseFloat(props.row.tot_assets).toFixed(currcy.decimal_places) }}</strong>
 											</h6>
 										</td>
 									</tr>
@@ -138,9 +138,10 @@
 </template>
 <script>
 	export default{
-		props:['seating','show','currency'],
+		props:['seating','currency'],
 		data(){
 			return {
+				currcy:{},
 				minimized:true,
 				records: [],
 				url:'/accounting/seating', 
@@ -154,10 +155,18 @@
 
 			this.table_options.filterable = [];
 
-			this.records = this.seating;
+			if (this.seating) {
+				this.records = this.seating;
+				this.currcy = this.currency;
+			}
 			EventBus.$on('reload:listing',(data)=>{
 				this.records = data;
-			})
+			});
+
+			EventBus.$on('list:seating',(data)=>{
+				this.records = data.records;
+				this.currcy = data.currency;
+			});
 		},
 	};
 

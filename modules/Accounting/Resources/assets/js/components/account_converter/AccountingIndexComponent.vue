@@ -1,31 +1,9 @@
 <template>
 	<div class="form-horizontal">
 		<div class="card-body">
-			<accounting-show-errors :options="errors" />
+			<accounting-show-errors />
 
 			<div class="row">
-				<div class="col-3"></div>
-				<div class="col-3">
-					<label for="sel_budget_acc" class="control-label">Por Presupuestos</label>
-					<br>
-						<input type="radio"
-								name="sel_account_type"
-								id="sel_budget_acc"
-								data-on-label="SI" data-off-label="NO"
-								class="form-control bootstrap-switch sel_pry_acc">
-				</div>
-				<div class="col-3">
-					<label for="sel_account_type" class="control-label">Por Patrimonial</label>
-					<br>
-						<input type="radio"
-								name="sel_account_type"
-								id="sel_accounting_acc"
-								checked="true"
-								data-on-label="SI" data-off-label="NO"
-								class="form-control bootstrap-switch sel_pry_acc">
-				</div>
-				<div class="col-3"></div>
-
 
 				<div class="col-4"></div>
 
@@ -43,24 +21,44 @@
 					</label>
 				</div>
 				<div class="col-4"></div>
-
-				<div class="col-1"></div>
-				<div class="col-4">
-					<span>Desde</span>
-					<select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id" :disabled="SelectAll"></select2>
-				</div>
-				<div class="col-4">
-					<span>Hasta</span>
-					<select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id" :disabled="SelectAll"></select2>
+	
+				<div class="col-2">
+					<label for="sel_budget_acc" class="control-label">Por Presupuestos</label>
+					<br>
+						<input type="radio"
+								name="sel_account_type"
+								id="sel_budget_acc"
+								data-on-label="SI" data-off-label="NO"
+								class="form-control bootstrap-switch sel_pry_acc">
 				</div>
 				<div class="col-2">
-					<label for="" class="control-label">Seleccionar todas</label>
+					<label for="sel_account_type" class="control-label">Por Patrimonial</label>
 					<br>
-					<input type="checkbox"
+						<input type="radio"
 								name="sel_account_type"
-								id="sel_all_acc"
+								id="sel_accounting_acc"
+								checked="true"
 								data-on-label="SI" data-off-label="NO"
-								class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+								class="form-control bootstrap-switch sel_pry_acc">
+				</div>
+				<div class="col-8 row">
+					<div class="col-5">
+						<label class="control-label">Desde</label>
+						<select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id" :disabled="SelectAll"></select2>
+					</div>
+					<div class="col-5">
+						<label class="control-label">Hasta</label>
+						<select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id" :disabled="SelectAll"></select2>
+					</div>
+					<div class="col-2">
+						<label for="" class="control-label">Seleccionar todas</label>
+						<br>
+						<input type="checkbox"
+									name="sel_account_type"
+									id="sel_all_acc"
+									data-on-label="SI" data-off-label="NO"
+									class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+					</div>
 				</div>
 			</div>
 			<br>
@@ -76,7 +74,7 @@
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<v-client-table :columns="columns" :data="records" :options="table_options">
+					<!-- <v-client-table :columns="columns" :data="records" :options="table_options">
 
 						<div slot="codeBudget" slot-scope="props" class="text-center">
 							{{ props.row.budget_account.group+'.'+
@@ -113,7 +111,7 @@
 								<i class="fa fa-trash-o"></i>
 							</button>
 						</div>
-					</v-client-table>
+					</v-client-table> -->
 				</div>
 			</div>
 		</div>
@@ -126,8 +124,6 @@
 				records:[],
 				budgetAccounts:null,
 				accountingAccounts:null,
-				// columns: ['codeBudget', 'BudgetAccounts','codeAccounting', 'AccountingAccounts', 'status','id'],
-				columns: ['codeBudget', 'BudgetAccounts','codeAccounting', 'AccountingAccounts','id'],
 				accountOptions:[[],[]],
 				accountSelect:{
 								init_id:'',
@@ -141,17 +137,6 @@
 			}
 		},
 		created() {
-			this.table_options.filterByColumn = false,
-			this.table_options.headings = {
-				'codeBudget': 'CÓDIGO PRESUPUESTAL',
-				'BudgetAccounts': 'DENOMINACIÓN',
-				'codeAccounting': 'CÓDIGO PATRIMONIAL',
-				'AccountingAccounts': 'DENOMINACIÓN',
-				'id': 'ACCIÓN'
-			};
-			this.table_options.sortable = ['codeBudget', 'BudgetAccounts',
-											'codeAccounting', 'AccountingAccounts'];
-			this.table_options.filterable = ['BudgetAccounts', 'AccountingAccounts'];
 
 			/** Se realiza la primera busqueda en base a cuentas patrimoniales para los selects */
 			this.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
@@ -262,17 +247,18 @@
 
 						if (vm.records.length == 0) {
 							vm.errors = [];
-							vm.errors.push('No se encontraron registros de conversiones en el rango dado');
+							EventBus.$emit('show:errors', ['No se encontraron registros de conversiones en el rango dado']);
 						}
 						vm.showMessage(
 							'custom', 'Éxito', 'success', 'screen-ok',
 							'Consulta realizada de manera existosa.'
 						);
-						vm.errors = [];
+						EventBus.$emit('show:errors', []);
+						EventBus.$emit('list:conversions', response.data.records);
 					});
 				}else{
-					vm.errors = [];
-					vm.errors.push('Los campos de selección de cuenta son obligatorios');
+					EventBus.$emit('show:errors', []);
+					EventBus.$emit('show:errors', ['Los campos de selección de cuenta son obligatorios']);
 				}
 			},
 		},

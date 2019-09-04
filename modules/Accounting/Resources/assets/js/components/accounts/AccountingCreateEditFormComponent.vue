@@ -1,6 +1,6 @@
 <template>
 
-	<form class='form-horizontal' v-on:submit.prevent='sendData'>
+	<form class='form-horizontal'>
 		<div class='card-body'>
 			<div class='row'>
 				<div class='col-md-6'>
@@ -124,20 +124,6 @@
 				</div>
 			</div>
 		</div>
-		<div class='card-footer text-right'>
-			<button class='btn btn-sm btn-default'
-					data-toggle='tooltip'
-					title='Borrar datos del formulario'
-					type='reset'>
-					<i class='fa fa-eraser'></i>
-			</button>
-			<button class='btn btn-sm btn-success'
-					data-toggle='tooltip'
-					title='Guardar registro'>
-					Guardar
-					<i class='fa fa-save'></i>
-			</button>
-		</div>
 	</form>
 
 </template>
@@ -167,6 +153,9 @@
 		},
 		created(){
 
+			EventBus.$on('register:account',()=>{
+				this.sendData();
+			});
 			EventBus.$on('load:data-account-form',(data)=>{
 				if (data == null) {
 					this.reset(false);
@@ -226,16 +215,23 @@
 			* @return {boolean} retorna falso si algun campo no cumple el formato correspondiente
 			*/
 			FormatCode:function(){
+				var res = true;
+				var errors = [];
+
 				if (this.record.group.length < 1 ||this.record.subgroup.length < 1 ||
 					this.record.item.length < 1 || this.record.generic.length < 1 ||
 					this.record.specific.length < 1 || this.record.subspecific.length < 1) {
 
 					/** Cargo el error para ser mostrado*/
-					this.errors = [];
-					EventBus.$emit('show:errors', ['Los campos del código de la cuenta son obligatorios']);
-					return false;
+					errors.push('Los campos del código de la cuenta son obligatorios');
+					res = false;
 				}
-				return true;
+				if (this.record.denomination == '') {
+					errors.push('El campo denominación es obligatorio.');
+					res = false;
+				}
+				EventBus.$emit('show:errors', errors);
+				return res;
 			},
 			/**
 			* Envia la información a ser almacenada de la cuenta patrimonial
@@ -246,13 +242,6 @@
 			sendData:function(){
 				if (!this.FormatCode()) { return; }
 
-				if (this.record.denomination == '') {
-					this.errors = [];
-					EventBus.$emit('show:errors', ['El campo denominación es obligatorio.']);
-					return;
-				}
-
-				EventBus.$emit('show:errors', []);
 				var dt = this.record;
 
 				/** Se formatean los ultimos tres campos del codigo de ser necesario */
@@ -274,13 +263,14 @@
 						const vm = this;
 						vm.showMessage('store');
 					}).catch(error=>{
-						this.errors = [];
+						var errors = [];
 						if (typeof(error.response) !='undefined') {
 							for (var index in error.response.data.errors) {
 								if (error.response.data.errors[index]) {
-									this.errors.push(error.response.data.errors[index][0]);
+									errors.push(error.response.data.errors[index][0]);
 								}
 							}
+							EventBus.$emit('show:errors', errors);
 						}
 					});
 				} else {
@@ -296,13 +286,14 @@
 						const vm = this;
 						vm.showMessage('update');
 					}).catch(error=>{
-						this.errors = [];
+						var errors = [];
 						if (typeof(error.response) != 'undefined') {
 							for (var index in error.response.data.errors) {
 								if (error.response.data.errors[index]) {
-									this.errors.push(error.response.data.errors[index][0]);
+									errors.push(error.response.data.errors[index][0]);
 								}
 							}
+							EventBus.$emit('show:errors', errors);
 						}
 					});
 				}

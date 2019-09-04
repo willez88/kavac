@@ -20,7 +20,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="row">
-							<div class="card-body">
+							<div class="card-body" style="margin-bottom: -7rem;">
 								<div class="row">
 									<div class="col-1"></div>
 									<div class="form-group col-5 is-required">
@@ -40,16 +40,6 @@
 												data-toggle="tooltip"
 												v-model="record.acronym">
 									</div>
-								</div>
-								<div class="card-footer text-right">
-									<button class="btn btn-success btn-sm btn-modal-save" 
-											title="Guardar registro"
-											data-toggle="tooltip"
-											:disabled="record.name=='' || record.acronym==''"
-											@click="storeOrUpdate()">
-											Guardar
-											<i class="fa fa-save"></i>
-									</button>
 								</div>
 							</div>
 						</div>
@@ -82,6 +72,13 @@
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
+						<button class="btn btn-primary btn-sm btn-modal-save" 
+								title="Guardar registro"
+								data-toggle="tooltip"
+								:disabled="record.name=='' || record.acronym==''"
+								@click="storeOrUpdate()">
+								Guardar
+						</button>
 		            </div>
 		        </div>
 		    </div>

@@ -3,7 +3,7 @@
 	<form @submit.prevent="" class="form-horizontal">
 		<div class="card-body">
 			
-			<accounting-show-errors :options="errors" />
+			<accounting-show-errors />
 
 			<div class="row">
 				<div class="col-4">
@@ -16,7 +16,7 @@
 				</div>
 				<div class="col-4">
 					<div class="form-group">
-						<label class="control-label">Descripción de Asiento
+						<label class="control-label">Concepto ó Descripción
 						</label>
 						<input type="text" class="form-control" v-model="concept" tabindex="1">
 					</div>

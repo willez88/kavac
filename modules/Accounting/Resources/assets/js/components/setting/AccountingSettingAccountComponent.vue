@@ -43,7 +43,8 @@
 	                <div class="modal-body card-body" v-show="formImport">
 	                	<accounting-import-form />
 	                </div>
-					<div class="modal-body" v-show="!formImport && records_select.length > 0">
+	                <hr>
+					<div class="modal-body" style="margin-top: -5rem;" v-show="!formImport && records_select.length > 0">
 						<accounting-create-edit-form :records="records_select" />
 	                </div>
 
@@ -65,10 +66,18 @@
 								data-toggle="tooltip">
 								Guardar Registros Importados
 						</button>
+						<button class='btn btn-sm btn-primary'
+								data-toggle='tooltip'
+								@click="registerAccount()"
+								v-if="!formImport"
+								title='Guardar registro'>
+								Guardar
+						</button>
 		            </div>
 		        </div>
 		    </div>
 		</div>
+
 	</div>
 </template>
 
@@ -90,14 +99,9 @@ export default{
 				this.reset();
 				this.records = data;
 			});
-		EventBus.$on('show:errors',(data)=>{
-				console.log("DATA")
-				console.log(data)
-				this.errors = [];
-				this.errors = data;
-			});
 	},
 	methods:{
+		
 		/**
 		 * Método que borra todos los datos del formulario
 		 * 
@@ -143,6 +147,9 @@ export default{
 				this.errors = [];
 				this.errors.push('No hay cuentas cargadas.');
 			}
+		},
+		registerAccount(){
+			EventBus.$emit('register:account');
 		}
 	},
 	watch:{

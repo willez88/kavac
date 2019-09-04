@@ -46,10 +46,26 @@
 							</div>
 						</div>
 					@else
-						<accounting-converter-index route_edit="{{ url('accounting/converter/{id}/edit') }}" />
+						<accounting-converter-index />
 					@endif
 				</div>
 			</div>
 		</div>
+
+		@if($has_budget)
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Lista de conversiones</h6>
+					<div class="card-btns">
+						@include('buttons.minimize')
+					</div>
+				</div>
+				<div class="card-body">
+						<accounting-conversion-list route_edit="{{ url('accounting/converter/{id}/edit') }}" />
+				</div>
+			</div>
+		</div>
+		@endif
 	</div>
 @stop
