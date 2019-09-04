@@ -372,6 +372,13 @@ $(document).ready(function() {
         ]);
         bootbox.alert(appInfo.showLicense());
     });
+
+    /** Oculta el tooltip de los elementos bootstrap switch después de unois segundos */
+    $('.bootstrap-switch').on('shown.bs.tooltip', function () {
+        setTimeout(function(){
+            $('.bootstrap-switch').tooltip('hide');
+        }, 1500);
+    });
 });
 
 /** Script para medir la fortaleza de la contraseña */
