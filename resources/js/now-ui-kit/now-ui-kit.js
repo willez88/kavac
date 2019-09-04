@@ -31,6 +31,11 @@ $(document).ready(function() {
         //delay: { show: 100, hide: 100 }
         trigger:"hover", delay:{hide:100}
     });
+    $('[data-toggle="tooltip"], [rel="tooltip"]').on('shown.bs.tooltip', function () {
+        setTimeout(function(){
+            $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip('hide');
+        }, 1500);
+    });
     /*$(document).on('click', function() {
         $('.tooltip').hide();
     });*/

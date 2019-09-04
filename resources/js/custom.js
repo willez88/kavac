@@ -9,6 +9,11 @@ $(document).ready(function() {
 		$('.tooltip:last').remove();
 		$(this).tooltip({delay: {hide:100}});
 	});
+    $('.dropdown-toggle').on('shown.bs.tooltip', function () {
+        setTimeout(function(){
+            $('.dropdown-toggle').tooltip('hide');
+        }, 1500);
+    });
 
 	/** Maximizar / minimizar panel de menú izquierdo */
 	$('.menu-collapse').click(function() {
@@ -48,6 +53,11 @@ $(document).ready(function() {
             'data-toggle': 'tooltip'
         });
         $('.select2').tooltip({delay: {hide:100}});
+        $('.select2').on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                $('.select2').tooltip('hide');
+            }, 1500);
+        });
     }
 
     /*$('.card-header').hover(function() {
@@ -64,23 +74,29 @@ $(document).ready(function() {
 
     // Minimize Panel
     $('.card .card-minimize').click(function(){
-    	var t = $(this);
-    	var p = t.closest('.card');
+    	let el = $(this);
+    	var p = el.closest('.card');
     	$('.tooltip:last').remove();
-    	
+
     	if(!$(this).hasClass('maximize')) {
-    		p.find('hr').addClass('nodisplay');
+            p.find('hr').addClass('nodisplay');
     		p.find('.card-body, .card-footer').fadeOut('fast');
-    		t.addClass('maximize');
-    		t.find('i').removeClass('arrows-1_minimal-up').addClass('arrows-1_minimal-down');
-    		$(this).attr('data-original-title','Maximize Panel').tooltip({delay: {hide:100}});
+    		el.addClass('maximize');
+    		el.find('i').removeClass('arrows-1_minimal-up').addClass('arrows-1_minimal-down');
+    		el.attr('data-original-title','Maximize Panel').tooltip({delay: {hide:100}});
     	} else {
     		p.find('hr').removeClass('nodisplay');
     		p.find('.card-body, .card-footer').fadeIn('fast');
-        	t.removeClass('maximize');
-        	t.find('i').removeClass('arrows-1_minimal-down').addClass('arrows-1_minimal-up');
-        	$(this).attr('data-original-title','Minimize Panel').tooltip({delay: {hide:100}});
+        	el.removeClass('maximize');
+        	el.find('i').removeClass('arrows-1_minimal-down').addClass('arrows-1_minimal-up');
+        	el.attr('data-original-title','Minimize Panel').tooltip({delay: {hide:100}});
         }
+
+        el.on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                el.tooltip('hide');
+            }, 1500);
+        });
 
         return false;
     });
@@ -98,7 +114,7 @@ $(document).ready(function() {
             }
         });
     }
-    
+
     /** Implementación de sliders dobles */
     if ($('#sliderDouble').length) {
         var slider2 = document.getElementById('sliderDouble');
@@ -122,6 +138,11 @@ $(document).ready(function() {
         $('.close').tooltip({
             trigger:"hover", delay:{hide:100}
         });
+        $('.close').on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                $('.close').tooltip('hide');
+            }, 1500);
+        });
     }
 
     if ($('.btn-modal-close').length) {
@@ -131,6 +152,11 @@ $(document).ready(function() {
         });
         $('.btn-modal-close').tooltip({
             trigger:"hover", delay:{hide:100}
+        });
+        $('.btn-modal-close').on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                $('.btn-modal-close').tooltip('hide');
+            }, 1500);
         });
     }
 
@@ -142,6 +168,11 @@ $(document).ready(function() {
         $('.btn-modal-save').tooltip({
             trigger:"hover", delay:{hide:100}
         });
+        $('.btn-modal-save').on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                $('.btn-modal-save').tooltip('hide');
+            }, 1500);
+        });
     }
     if ($('.btn-add-record').length) {
         $('.btn-add-record').attr({
@@ -151,10 +182,20 @@ $(document).ready(function() {
         $('.btn-add-record').tooltip({
             trigger:"hover", delay:{hide:100}
         });
+        $('.btn-add-record').on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                $('.btn-add-record').tooltip('hide');
+            }, 1500);
+        });
     }
     if ($('.btn-tooltip').length) {
         $('.btn-tooltip').tooltip({
             trigger:"hover", delay:{hide:100}
+        });
+        $('.btn-tooltip').on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                $('.btn-tooltip').tooltip('hide');
+            }, 1500);
         });
     }
     if ($('.btn-file').length) {
@@ -164,6 +205,11 @@ $(document).ready(function() {
         });
         $('.btn-file').tooltip({
             trigger:"hover", delay:{hide:100}
+        });
+        $('.btn-file').on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                $('.btn-file').tooltip('hide');
+            }, 1500);
         });
     }
 
@@ -182,12 +228,12 @@ $(document).ready(function() {
     $('form').each(function() {
         if ($(this).find('.is-required').length) {
             $(this).find('.card-body').prepend(
-                "<div class='row' style='margin:10px 0'>" + 
-                    "<div class='col-12 form-group'>" + 
-                        "<span class='text-muted'>" + 
+                "<div class='row' style='margin:10px 0'>" +
+                    "<div class='col-12 form-group'>" +
+                        "<span class='text-muted'>" +
                             "Los campos con <span class='text-required'>*</span> son obligatorios" +
-                        "</span>" + 
-                    "</div>" + 
+                        "</span>" +
+                    "</div>" +
                 "</div>"
             );
         }
@@ -239,13 +285,22 @@ $(document).ready(function() {
             'title': 'Seleccione la cantidad de registros a mostrar por cada página',
             'data-toggle': 'tooltip'
         });
-        $('dataTables_length .selection').tooltip({delay: {hide:100}});
+        $('.dataTables_length .selection').tooltip({delay: {hide:100}});
+        $('.dataTables_length .selection').on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                $('.dataTables_length .selection').tooltip('hide');
+            }, 1500);
+        });
         $('.dataTables_filter input').attr({
             'title': 'Indique los datos del registro a buscar',
             'data-toggle': 'tooltip'
         });
         $('.dataTables_filter input').tooltip({delay: {hide:100}});
-
+        $('.dataTables_filter input').on('shown.bs.tooltip', function () {
+            setTimeout(function(){
+                $('.dataTables_filter input').tooltip('hide');
+            }, 1500);
+        });
     }
 
     /** Evento que permite mostrar datos sobre la aplicación (acerca de) */
@@ -253,8 +308,8 @@ $(document).ready(function() {
         e.preventDefault();
         const appInfo = new AppInfo([
             {
-                name: 'Roldan Vargas', 
-                email: 'rvargas@cenditel.gob.ve | roldandvg@gmail.com', 
+                name: 'Roldan Vargas',
+                email: 'rvargas@cenditel.gob.ve | roldandvg@gmail.com',
                 group: 'Lider de proyecto / Diseño / Desarrollo'
             },
             {
@@ -342,7 +397,7 @@ $(document).ready(function() {
             color = "text-success";
             progressContainer.find('.progress-badge').html('Fuerte');
         }
-        
+
         progressBar.css({'width': complexity + '%'});
 
         $('#complexity').addClass(color);
