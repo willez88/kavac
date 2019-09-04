@@ -82,18 +82,13 @@
         </tbody>
     </table>
     <div class="card-footer text-right">
-        <a :href="urlPrevious" class="btn btn-warning btn-sm"
-            data-toggle="tooltip"
-            title="Cancelar y regresar">
-            <i class="fa fa-ban"></i>
-        </a>
-        <button class="btn btn-success btn-sm"
+<!--         <button class="btn btn-success btn-sm"
                 data-toggle="tooltip"
                 title="Guardar registro"
                 id="save"
                 :disabled="!enableInput || validateTotals()" 
                 v-if="seating == null"
-                v-on:click="AddSeating()">
+                v-on:click="createRecord()">
                 Guardar <i class="fa fa-save"></i>
         </button>
         <button class="btn btn-success btn-sm"
@@ -104,6 +99,19 @@
                 v-else
                 v-on:click="UpdateSeating()">
                 Guardar <i class="fa fa-save"></i>
+        </button> -->
+
+        <button @click="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
+                title="Borrar datos del formulario">
+            <i class="fa fa-eraser"></i>
+        </button>
+        <button @click="redirect_back(urlPrevious)" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip" 
+                title="Cancelar y regresar">
+            <i class="fa fa-ban"></i>
+        </button>
+        <button @click="(seating == null)?createRecord():UpdateSeating()" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 
+                title="Guardar registro">
+            <i class="fa fa-save"></i>
         </button>
     </div>
 </div>
@@ -127,7 +135,6 @@
                     totDebit:0,
                     totAssets:0,
                     institution_id:null,
-                    departament_id:null,
                 },
                 enableInput:false,
                 accountingOptions:[],
@@ -153,7 +160,6 @@
                 this.data.observations = data.observations;
                 this.data.category = data.category;
                 this.data.institution_id = data.institution_id;
-                this.data.departament_id = data.departament_id;
             });
             // recibe un json con el id de cuenta presupuestal para agregar el registro con la
             // respectiva cuenta patrimonial
@@ -191,6 +197,10 @@
         },
         methods:{
 
+            reset(){
+                EventBus.$emit('reset:accounting-seat-edit-create');
+            },
+
             /**
              * [validateTotals valida que los totales sean positivos]
              * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
@@ -210,11 +220,43 @@
                 /**
                 * se cargan los errores
                 */
-                this.errors = [];
-                if (this.recordsAccounting.length < 1) {
-                    this.errors.push('No es permitido guardar asientos contables vacios');
-                    return true;
+                var errors = [];
+
+                var res = false;
+
+                if (!this.data.date) {
+                    errors.push('El campo fecha es obligatorio.');
+                    res = true;
                 }
+                if (!this.data.concept) {
+                    errors.push('El campo concepto ó descripción es obligatorio.');
+                    res = true;
+                }
+                if (!this.data.observations) {
+                    errors.push('El campo observaciones es obligatorio.');
+                    res = true;
+                }
+                if (!this.data.category) {
+                    errors.push('El campo categoria es obligatorio.');
+                    res = true;
+                }
+                if (!this.data.reference) {
+                    errors.push('El campo referencia es obligatorio.');
+                    res = true;
+                }
+                if (!this.data.institution_id) {
+                    errors.push('El campo institución es obligatorio.');
+                    res = true;
+                }
+
+                EventBus.$emit('show:errors', []);
+
+                if (this.recordsAccounting.length < 1) {
+                    errors.push('No es permitido guardar asientos contables vacios');
+                    res = true;
+                }
+                EventBus.$emit('show:errors', errors);
+                return res;
             },
 
             // validateDecimals:function(value){
@@ -270,10 +312,10 @@
 
                         if (this.recordsAccounting[i].debit < 0 || this.recordsAccounting[i].assets < 0) {
                             this.enableInput = false;
-                            this.errors = [];
-                            this.errors.push("Los valores en la columna del DEBE y el HABER deben ser positivos.");
+                            EventBus.$emit('show:errors', []);
+                            EventBus.$emit('show:errors', ["Los valores en la columna del DEBE y el HABER deben ser positivos."]);
                         }else{
-                            this.errors = [];
+                            EventBus.$emit('show:errors', []);
                             this.enableInput = true;
                         }
 
@@ -310,7 +352,8 @@
             *
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
-            AddSeating:function(){
+            createRecord:function(){
+                console.log("pase")
                 if (this.data.totDebit == this.data.totAssets) {
 
                     if (this.validateErrors()) { 
@@ -337,15 +380,15 @@
                         /**
                         * se cargan los errores
                         */
-                        this.errors = [];
-                        this.errors = errors;
+                        EventBus.$emit('show:errors', []);
+                        EventBus.$emit('show:errors', errors);
                     });
                 }else{
                     /**
                     * se cargan los errores
                     */
-                    this.errors = [];
-                    this.errors.push('El asiento no esta balanceado, Por favor verifique.');
+                    EventBus.$emit('show:errors', []);
+                    EventBus.$emit('show:errors', ['El asiento no esta balanceado, Por favor verifique.']);
                 }
             },
 
@@ -356,7 +399,9 @@
             */
             UpdateSeating:function() {
                 if (this.data.totDebit == this.data.totAssets){
-                    if (this.validateErrors()) { return ; }
+                    if (this.validateErrors()) {
+                        return ; 
+                    }
                     axios.put('/accounting/seating/'+this.seating.id, {'data':this.data,
                                                         'accountingAccounts':this.recordsAccounting,
                                                         'rowsToDelete':this.rowsToDelete })

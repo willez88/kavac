@@ -80,6 +80,10 @@
 				this.category = this.data_edit.category;
 				this.institution = this.data_edit.institution;
 			}
+
+			EventBus.$on('reset:accounting-seat-edit-create',()=>{
+				this.reset();
+			});
 		},
 		mounted(){
 			if (this.data_edit != null) {
@@ -89,12 +93,28 @@
 			}
 		},
 		methods:{
+
+			reset(){
+				this.date = ''
+				this.reference = ''
+				this.concept = ''
+				this.observations = ''
+				this.category = ''
+				this.institution = null
+				this.institution_id = null
+			},
+
 			/**
 			* Valida las variables del formulario para realizar el filtrado, y emite el evento para actualizar los datos al componente AccountingAccountsInSeatingComponent
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
 			validateRequired:function() {
+
+				if (!this.validated && (this.date == '' || this.reference == '' || this.institution_id == null || this.category == '')) {
+
+				}
+
 				if (this.validated == false) {
 					/**
 					 * se verifica que la fecha, la referencia, la institucion y la categoria no esten vacios
@@ -130,14 +150,12 @@
 			date:function(res) {
 				if (res == '') {
 					this.validated = false;
-					EventBus.$emit('enableInput:seating-account',{'value':false});
 				}else
 					this.validateRequired();
 			},
 			reference:function(res) {
 				if (res == '') {
 					this.validated = false;
-					EventBus.$emit('enableInput:seating-account',{'value':false});
 				}else
 					this.validateRequired();
 			},
@@ -175,12 +193,7 @@
 							}
 						}
 
-
-					if (this.validated) {
-						this.validateRequired();
-					}else{
-						EventBus.$emit('enableInput:seating-account',{'value':false});
-					}
+					this.validateRequired();
 				}
 			},
 			institution:function(res) {
@@ -188,9 +201,8 @@
 				
 				if (res == '') {
 					this.validated = false;
-					EventBus.$emit('enableInput:seating-account',{'value':false});
-				}else{
 					this.validateRequired();
+				}else{
 				}
 				if (this.data_edit_mutable != null) {
 					/** Se vacia la variable que trae la informacion para no*/

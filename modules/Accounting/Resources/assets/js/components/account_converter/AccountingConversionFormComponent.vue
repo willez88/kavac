@@ -20,16 +20,20 @@
                 </div>
                 <div class="col-1"></div>
             </div> 
-
+            <br><br>
             <div class="card-footer text-right">
- <!--                <button class="btn btn-success btn-sm"
-                        style="margin-top:5rem !important;" 
-                        data-toggle="tooltip"
-                        v-on:click="saveConvertion()"
-                        title="Agregar cuentas al listado de cuentas a convertir"
-                        >Agregar <i class="fa fa-save"></i></button>
- -->
-                <buttonsDisplay route_list="urlPrevious"></buttonsDisplay>
+                <button @click="reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
+                        title="Borrar datos del formulario">
+                    <i class="fa fa-eraser"></i>
+                </button>
+                <button @click="redirect_back(urlPrevious)" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip" 
+                        title="Cancelar y regresar">
+                    <i class="fa fa-ban"></i>
+                </button>
+                <button @click="createRecord" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 
+                        title="Guardar registro">
+                    <i class="fa fa-save"></i>
+                </button>
             </div>
         </div>
     </div>
