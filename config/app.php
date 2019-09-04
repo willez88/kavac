@@ -7,8 +7,8 @@ return [
     | Nombre de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | Este valor es el nombre de tu aplicación. El valor es usado cuando el framework 
-    | necesita colocar el nombre de la aplicación en una notificación o en cualquier otra 
+    | Este valor es el nombre de tu aplicación. El valor es usado cuando el framework
+    | necesita colocar el nombre de la aplicación en una notificación o en cualquier otra
     | localización requerida por la aplicación o por los paquetes.
     |
     */
@@ -20,8 +20,8 @@ return [
     | Entorno de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | Este valor determina el "entorno" que actualmente se esta ejecutando en la aplicación. 
-    | Esto puede determinar como prefieres configurar varios servicios que utiliza la aplicación. 
+    | Este valor determina el "entorno" que actualmente se esta ejecutando en la aplicación.
+    | Esto puede determinar como prefieres configurar varios servicios que utiliza la aplicación.
     | Puedes verlo en tu archivo ".env".
     |
     */
@@ -33,9 +33,9 @@ return [
     | Modo de Depuración de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | Cuando la aplicación esta en modo de depuración, se mostrarán mensajes de error detallados 
-    | con información de los mismos y en que parte del sistema ocurrieron estos errores. 
-    | Si lo desabilitas, se mostrará una página sencilla con el código de error generado e 
+    | Cuando la aplicación esta en modo de depuración, se mostrarán mensajes de error detallados
+    | con información de los mismos y en que parte del sistema ocurrieron estos errores.
+    | Si lo desabilitas, se mostrará una página sencilla con el código de error generado e
     | información básica del mismo.
     |
     */
@@ -47,8 +47,8 @@ return [
     | URL de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | Esta URL es usada por la consola para generar URLs apropiadamente cuando usas 
-    | el comando artisan en la herramienta de línea de comandos. Puedes configurar esto al 
+    | Esta URL es usada por la consola para generar URLs apropiadamente cuando usas
+    | el comando artisan en la herramienta de línea de comandos. Puedes configurar esto al
     | root de la aplicación para ser usado cuando ejecutes tareas Artisan.
     |
     */
@@ -60,7 +60,7 @@ return [
     | Modo demostración de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | Permite establecer la aplicación en modo de demostración para probar y 
+    | Permite establecer la aplicación en modo de demostración para probar y
     | verificar sus funcionalidades
     |
     */
@@ -72,8 +72,8 @@ return [
     | Zona Horaria de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | Aquí puedes indicar la zona horaria de la aplicación por defecto, esto puede ser 
-    | usado por las funciones "date" y "date-time" de PHP. Por defecto se ha configurado 
+    | Aquí puedes indicar la zona horaria de la aplicación por defecto, esto puede ser
+    | usado por las funciones "date" y "date-time" de PHP. Por defecto se ha configurado
     | la zona horaria a una configuración generalmente utilizada.
     |
     */
@@ -85,8 +85,8 @@ return [
     | Configuración de Localización de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | La localización de la aplicación determina el lenguaje por defecto que puede ser 
-    | usado por el service provider de traducción. Eres libre de configurar este valor 
+    | La localización de la aplicación determina el lenguaje por defecto que puede ser
+    | usado por el service provider de traducción. Eres libre de configurar este valor
     | a cualquiera de las localizaciones que son soportadas por la aplicación.
     |
     */
@@ -98,8 +98,8 @@ return [
     | Localización por defecto de la Aplicación
     |--------------------------------------------------------------------------
     |
-    | La localización por defecto determina el lenguaje a usar cuando la configuración actual 
-    | de la variable "locale" no esta disponible. Puedes modificar este valor a cualquiera de 
+    | La localización por defecto determina el lenguaje a usar cuando la configuración actual
+    | de la variable "locale" no esta disponible. Puedes modificar este valor a cualquiera de
     | los que corresponda ubicados en la carpeta "language" provista para la aplicación.
     |
     */
@@ -111,8 +111,8 @@ return [
     | Clave de Cifrado
     |--------------------------------------------------------------------------
     |
-    | Esta clave es usada por el servicio de cifrado de Illuminate y debe ser configurada a una cadena 
-    | aleatoria de 32 carácteres, de lo contrario esta cadena de cifrado puede no ser segura. 
+    | Esta clave es usada por el servicio de cifrado de Illuminate y debe ser configurada a una cadena
+    | aleatoria de 32 carácteres, de lo contrario esta cadena de cifrado puede no ser segura.
     | Por favor configurela antes de desplegar la aplicación!
     |
     */
@@ -126,8 +126,8 @@ return [
     | Proveedores de Servicios Autocargados
     |--------------------------------------------------------------------------
     |
-    | Los proveedores de servicios listados aquí pueden ser cargados automáticamente en las 
-    | peticiones de la aplicación. Sientete libre de agregar tú propio servicio a este arreglo 
+    | Los proveedores de servicios listados aquí pueden ser cargados automáticamente en las
+    | peticiones de la aplicación. Sientete libre de agregar tú propio servicio a este arreglo
     | para expandir las funcionalidades de la aplicación.
     |
     */
@@ -186,8 +186,8 @@ return [
     | Alias de Clases
     |--------------------------------------------------------------------------
     |
-    | Este arreglo de alias de clases puede ser registrado cuando esta aplicación 
-    | es inicializada. Sin embargo, sientete libre de registrar tantos alias necesites 
+    | Este arreglo de alias de clases puede ser registrado cuando esta aplicación
+    | es inicializada. Sin embargo, sientete libre de registrar tantos alias necesites
     | cargar ya que esto no impide el correcto desempeño de la aplicación.
     |
     */
