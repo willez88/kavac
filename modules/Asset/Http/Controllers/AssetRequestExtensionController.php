@@ -59,8 +59,6 @@ class AssetRequestExtensionController extends Controller
         $this->validate($request, [
             'date' => new DateExtension($asset_request->delivery_date, '2'),
         ]);
-        $request->session()->flash('message', ['type' => 'store']);
-        return;
         
         $prorroga = new AssetRequestExtension;
         $prorroga->delivery_date = $request->date;

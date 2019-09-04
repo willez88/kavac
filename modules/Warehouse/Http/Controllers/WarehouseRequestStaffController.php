@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\CodeSetting;
 
 use Modules\Warehouse\Models\WarehouseInventoryProduct;
-use Modules\Warehouse\Models\WarehouseRequestProduct;
+use Modules\Warehouse\Models\WarehouseInventoryProductRequest;
 use Modules\Warehouse\Models\WarehouseRequest;
 
 /**
@@ -103,7 +103,7 @@ class WarehouseRequestStaffController extends Controller
                 if (!is_null($inventory_product)) {
                     $exist_real = $inventory_product->exist - $inventory_product->reserved;
                     if ($exist_real >= $product['requested']) {
-                        WarehouseRequestProduct::create([
+                        WarehouseInventoryProductRequest::create([
                             'warehouse_inventory_product_id' => $inventory_product->id,
                             'warehouse_request_id' => $data_request->id,
                             'quantity' => $product['requested'],
@@ -187,14 +187,16 @@ class WarehouseRequestStaffController extends Controller
                 if (!is_null($inventory_product)) {
                     $exist_real = $inventory_product->exist - $inventory_product->reserved;
                     if ($exist_real >= $product['requested']) {
-                        $old_request = WarehouseRequestProduct::where('warehouse_request_id', $warehouse_request->id)
-                            ->where('warehouse_inventory_product_id', $inventory_product->id)->first();
+                        $old_request = WarehouseInventoryProductRequest::where(
+                            'warehouse_request_id',
+                            $warehouse_request->id
+                        )->where('warehouse_inventory_product_id', $inventory_product->id)->first();
                         if (!is_null($old_request)) {
                             $old_request->quantity = $product['requested'];
                             $old_request->updated_at = $update;
                             $old_request->save();
                         } else {
-                            WarehouseRequestProduct::create([
+                            WarehouseInventoryProductRequest::create([
                                 'warehouse_inventory_product_id' => $inventory_product->id,
                                 'warehouse_request_id' => $warehouse_request->id,
                                 'quantity' => $product['requested'],
@@ -216,7 +218,7 @@ class WarehouseRequestStaffController extends Controller
             };
 
             /** Se eliminan los demas elementos de la solicitud */
-            $warehouse_request_products = WarehouseRequestProduct::where(
+            $warehouse_request_products = WarehouseInventoryProductRequest::where(
                 'warehouse_request_id',
                 $warehouse_request->id
             )->where('updated_at', '!=', $update)->get();
@@ -242,7 +244,7 @@ class WarehouseRequestStaffController extends Controller
             [
                 'payrollStaff',
                 'department',
-                'warehouseRequestProducts' => function ($query) {
+                'warehouseInventoryProductRequests' => function ($query) {
                     $query->with(['warehouseInventoryProduct' => function ($query) {
                         $query->with('warehouseProduct', 'measurementUnit', 'currency');
                     }]);

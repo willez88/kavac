@@ -5,9 +5,9 @@
 				{{ props.row.code }}
 			</span>
 		</div>
-		<div slot="payrollStaff" slot-scope="props" class="text-center">
+		<div slot="payroll_staff" slot-scope="props" class="text-center">
 			<span>
-				{{ (props.row.payrollStaff)?(props.row.payrollStaff.first_name + ' ' + props.row.payrollStaff.last_name):'N/A' }}
+				{{ (props.row.payroll_staff)?(props.row.payroll_staff.first_name + ' ' + props.row.payroll_staff.last_name):'N/A' }}
 			</span>
 		</div>
 		<div slot="created" slot-scope="props" class="text-center">
@@ -42,18 +42,18 @@
 		data() {
 			return {
 				records: [],
-				columns: ['code', 'payrollStaff', 'created', 'id']
+				columns: ['code', 'payroll_staff', 'created', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
 				'code': 'Código',
-				'payrollStaff': 'Trabajador',
+				'payroll_staff': 'Trabajador',
 				'created': 'Fecha de Asignación',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['code', 'payrollStaff', 'created'];
-			this.table_options.filterable = ['code', 'payrollStaff', 'created'];
+			this.table_options.sortable = ['code', 'payroll_staff', 'created'];
+			this.table_options.filterable = ['code', 'payroll_staff', 'created'];
 			this.table_options.orderBy = { 'column': 'code'};
 		},
 		mounted () {

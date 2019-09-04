@@ -73,14 +73,14 @@ class WarehouseDashboardController extends Controller
             $field = WarehouseRequest::where('code', $code)
                 ->with(
                     [
-                        'warehouseRequestProducts' => function ($query) {
+                        'warehouseInventoryProductRequests' => function ($query) {
                             $query->with(['warehouseInventoryProduct' => function ($query) {
                                 $query->with('warehouseProduct', 'measurementUnit', 'currency');
                             }]);
                         }
                     ]
                 )->first();
-            return response()->json(['records' => $field->warehouseRequestProducts], 200);
+            return response()->json(['records' => $field->warehouseInventoryProductRequests], 200);
         } else {
             return response()->json(['records' => [] ], 200);
         }

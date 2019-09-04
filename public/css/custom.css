@@ -1073,6 +1073,15 @@ a.level-debug:hover {
   border: 0 !important;
 }
 
+.swal-button--confirm {
+  background-color: #f96332;
+  color: #FFFFFF;
+}
+
+.swal-button--confirm:hover {
+  background-color: #f94d18;
+}
+
 /** Efectos para mostrar u ocultar las opciones del menú del panel izquierdo */
 
 .content-wrapper {

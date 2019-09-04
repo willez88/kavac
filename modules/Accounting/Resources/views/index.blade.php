@@ -1,4 +1,7 @@
-
+@section('modules-js')
+    @parent
+    {!! Html::script(mix('modules/accounting/js/app.js'), [], Request::secure()) !!}
+@endsection
 <div class="row">
 	<div class="col-12">
 		<div class="card">

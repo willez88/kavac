@@ -66,7 +66,7 @@
                 </li> --}}
                 @foreach (\Module::collections(1) as $module)
                     {{-- Menú de opciones de módulos instalados y habilitados --}}
-                    @include(strtolower($module->name) . '::layouts.menu-option')
+                    @includeIf(strtolower($module->name) . '::layouts.menu-option')
                 @endforeach
                 <li>
                     <a href="#" title="Gestión de cuentas por pagar" data-toggle="tooltip" data-placement="right">

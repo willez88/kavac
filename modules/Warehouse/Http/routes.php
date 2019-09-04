@@ -40,6 +40,25 @@ Route::group(
         Route::get('attributes/product/{product}', 'WarehouseProductController@getProductAttributes');
         Route::get('get-measurement-units', 'WarehouseProductController@getMeasurementUnits');
 
+        /*
+         * Rutas para los elementos requeridos del módulo de nomina
+         */
+        Route::get('get-payroll-staffs', 'WarehouseServiceController@getPayrollStaffs');
+        Route::get('get-payroll-positions', 'WarehouseServiceController@getPayrollPositions');
+
+        /*
+         * Rutas para los elementos requeridos del módulo de presupuesto
+         */
+        Route::get('get-budget-projects/{project_id?}', 'WarehouseServiceController@getBudgetProjects');
+        Route::get(
+            'get-budget-centralized-actions/{centralized_action_id?}',
+            'WarehouseServiceController@getBudgetCentralizedActions'
+        );
+        Route::get(
+            'get-budget-specific-actions/{type}/{id}/{source?}',
+            'WarehouseServiceController@getBudgetSpecificActions'
+        );
+
         /**
          * ------------------------------------------------------------
          * Rutas para gestionar los Ingresos de Almacén

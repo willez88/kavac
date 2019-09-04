@@ -1,4 +1,4 @@
-@extends('payroll::layouts.master')
+@extends('warehouse::layouts.master')
 
 @section('maproute-icon')
     <i class="ion-settings"></i>

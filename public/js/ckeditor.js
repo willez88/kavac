@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -119,7 +119,7 @@ eval("try {\n  window.CkEditor = __webpack_require__(/*! @ckeditor/ckeditor5-bui
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!****************************************!*\
   !*** multi ./resources/js/ckeditor.js ***!
   \****************************************/

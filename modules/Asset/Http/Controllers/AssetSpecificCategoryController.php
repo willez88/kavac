@@ -168,6 +168,14 @@ class AssetSpecificCategoryController extends Controller
     public function getRequired($id)
     {
         $required = AssetRequiredItem::where('asset_specific_category_id', $id)->first();
+        if (is_null($required)) {
+            $required = [
+                'serial' => false,
+                'marca' => false,
+                'model' => false,
+                'address' => false
+            ];
+        }
         return response()->json(['record' => $required], 200);
     }
 }

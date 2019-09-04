@@ -93,10 +93,10 @@ class WarehouseRequest extends Model implements Auditable
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
-     *         WarehouseRequestProduct
+     *         WarehouseInventoryProductRequest
      */
-    public function warehouseRequestProducts()
+    public function warehouseInventoryProductRequests()
     {
-        return $this->hasMany(WarehouseRequestProduct::class);
+        return $this->hasMany(WarehouseInventoryProductRequest::class);
     }
 }
