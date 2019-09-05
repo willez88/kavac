@@ -60,6 +60,12 @@
 	            'title': 'Activar firma electrónica para todos los procesos del sistema?. Requiere conexión externa.',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
+	        $('#online').closest('.bootstrap-switch-wrapper').attr({
+	            'title': 'Establecer la aplicación en modo de mantenimiento. ' +
+	            		 'Ningún usuario podrá acceder a la aplicación mientras esta opción este activa. ' +
+	            		 'Solo usuarios autorizados podrán acceder mientras este en modo mantenimiento.',
+	            'data-toggle': 'tooltip'
+	        }).tooltip({delay: 4});
 		});
 	</script>
 @endsection

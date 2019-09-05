@@ -2,16 +2,28 @@
     <nav>
         <ul>
             <li>
-                <a href="https://www.cenditel.gob.ve" target="_blank" class="resalt-link">CENDITEL</a>
+                <a href="https://www.cenditel.gob.ve" target="_blank" class="resalt-link" data-toggle="tooltip"
+                   title="Acceso a la página principal de la Institución">
+                    CENDITEL
+                </a>
             </li>
             <li>
-                <a href="#" class="about_app resalt-link">Acerca de</a>
+                <a href="#" class="about_app resalt-link" data-toggle="tooltip"
+                   title="Información acerca de la aplicación">
+                    Acerca de
+                </a>
             </li>
             <li>
-                <a href="#" target="_blank" class="resalt-link">Blog</a>
+                <a href="#" target="_blank" class="resalt-link" data-toggle="tooltip"
+                   title="Acceso al blog del proyecto">
+                    Blog
+                </a>
             </li>
             <li>
-                <a href="#" class="license_app resalt-link">Licencia</a>
+                <a href="#" class="license_app resalt-link" data-toggle="tooltip"
+                   title="Licencia bajo la cual se distribuye la aplicación">
+                    Licencia
+                </a>
             </li>
         </ul>
     </nav>
@@ -20,7 +32,10 @@
         <script>
             document.write(new Date().getFullYear());
         </script>, Diseñado por
-        <a href="mailto:rvargas@cenditel.gob.ve">Ing. Roldan Vargas</a>, Desarrollado por
-        <a href="https://www.cenditel.gob.ve" target="_blank">CENDITEL</a> nodo Mérida.
+        <a href="mailto:rvargas@cenditel.gob.ve" data-toggle="tooltip" title="Envíanos tus sugerencias o comentarios">
+            Ing. Roldan Vargas
+        </a>, Desarrollado por
+        <a href="https://www.cenditel.gob.ve" target="_blank" data-toggle="tooltip"
+           title="Acceso a la página principal de la Institución">CENDITEL</a> nodo Mérida.
     </div>
 </div>

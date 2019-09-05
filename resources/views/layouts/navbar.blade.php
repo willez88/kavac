@@ -36,7 +36,9 @@
 			 id="app-navbar-info" data-nav-image="{{ asset('images/blurred-image.jpg') }}">
 
 			<ul class="navbar-nav">
-				@if (App\Models\Setting::where('active', true)->where('notify', true)->first())
+				@if (App\Models\Parameter::where([
+					'active' => true, 'required_by' => 'core', 'p_key' => 'notify', 'p_value' => 'true'
+				])->first())
 					<li class="nav-item">
 						<a class="nav-link btn btn-sm btn-info" href="#" title="Notificaciones del sistema" data-toggle="tooltip">
 							<i class="now-ui-icons ui-1_bell-53"></i>
@@ -73,14 +75,20 @@
 						<i class="now-ui-icons ui-2_settings-90"></i>
 					</a>
 				</li> --}}
-				@if (App\Models\Setting::where('active', true)->where('chat', true)->first())
+				@if (App\Models\Parameter::where([
+		            'active' => true, 'required_by' => 'core',
+		            'p_key' => 'chat', 'p_value' => 'true'
+		        ])->first())
 					<li class="nav-item">
 						<a class="nav-link btn btn-sm btn-info" href="#" title="chat" data-toggle="tooltip">
 							<i class="now-ui-icons ui-2_chat-round"></i>
 						</a>
 					</li>
 				@endif
-				@if (App\Models\Setting::where('active', true)->where('support', true)->first())
+				@if (App\Models\Parameter::where([
+		            'active' => true, 'required_by' => 'core',
+		            'p_key' => 'support', 'p_value' => 'true'
+		        ])->first())
 					<li class="nav-item">
 						<a class="nav-link btn btn-sm btn-info" href="#" title="Contacte con soporte técnico" data-toggle="tooltip">
 							<i class="now-ui-icons objects_support-17"></i>

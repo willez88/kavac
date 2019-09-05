@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Parameter;
 use App\Models\Setting;
 use App\Models\Institution;
 use App\Models\Country;
@@ -13,6 +14,7 @@ use App\Models\InstitutionSector;
 use App\Models\InstitutionType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\ParameterRepository;
 
 /**
  * @class SettingController
@@ -35,12 +37,42 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $model_setting = Setting::where('active', true)->first();
-        $header_setting = [
+        //$model_parameters = Setting::where('active', true)->first();
+        $paramSupport = Parameter::where([
+            'active' => true, 'required_by' => 'core',
+            'p_key' => 'support', 'p_value' => 'true'
+        ])->first();
+        $paramChat = Parameter::where([
+            'active' => true, 'required_by' => 'core',
+            'p_key' => 'chat', 'p_value' => 'true'
+        ])->first();
+        $paramNotify = Parameter::where([
+            'active' => true, 'required_by' => 'core',
+            'p_key' => 'notify', 'p_value' => 'true'
+        ])->first();
+        $paramReportBanner = Parameter::where([
+            'active' => true, 'required_by' => 'core',
+            'p_key' => 'report_banner', 'p_value' => 'true'
+        ])->first();
+        $paramMultiInstitution = Parameter::where([
+            'active' => true, 'required_by' => 'core',
+            'p_key' => 'multi_institution', 'p_value' => 'true'
+        ])->first();
+        $paramDigitalSign = Parameter::where([
+            'active' => true, 'required_by' => 'core',
+            'p_key' => 'digital_sign', 'p_value' => 'true'
+        ])->first();
+        $paramOnline = Parameter::where([
+            'active' => true, 'required_by' => 'core',
+            'p_key' => 'online', 'p_value' => 'true'
+        ])->first();
+
+        $header_parameters = [
             'route' => 'settings.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
         $model_institution = Institution::where([
-            'active' => true, 'default' => (!is_null($model_setting) && !$model_setting->multi_institution)
+            'active' => true,
+            'default' => !is_null($paramMultiInstitution)
         ])->first();
         $header_institution = [
             'route' => 'institutions.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
@@ -66,8 +98,14 @@ class SettingController extends Controller
         return view(
             'admin.settings',
             compact(
-                'model_setting',
-                'header_setting',
+                'header_parameters',
+                'paramSupport',
+                'paramChat',
+                'paramNotify',
+                'paramReportBanner',
+                'paramMultiInstitution',
+                'paramDigitalSign',
+                'paramOnline',
                 'model_institution',
                 'header_institution',
                 'institutions',
@@ -90,21 +128,37 @@ class SettingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, ParameterRepository $parameterRepository)
     {
-        $setting = Setting::updateOrCreate(
-            ['active' => true],
-            [
-                'support' => ($request->support!==null),
-                'chat' => ($request->chat!==null),
-                'notify' => ($request->notify!==null),
-                'report_banner' => ($request->report_banner!==null),
-                'multi_institution' => ($request->multi_institution!==null),
-                'digital_sign' => ($request->digital_sign!==null)
-            ]
-        );
+        $parameters = ['support', 'chat', 'notify', 'report_banner', 'multi_institution', 'digital_sign', 'online'];
+        $msgType = ['type' => 'store'];
 
-        $request->session()->flash('message', ['type' => 'store']);
+        foreach ($parameters as $parameter) {
+            $parameterRepository->updateOrCreate(
+                ['p_key' => $parameter, 'required_by' => 'core'],
+                ['p_value' => (!is_null($request->$parameter)) ? 'true' : 'false']
+            );
+
+            if ($parameter === "online") {
+                if (is_null($request->$parameter)) {
+                    \Artisan::call('up');
+                    $msgType = [
+                        'type' => 'other',
+                        'text' => 'El sistema esta actualmente en en línea, ' .
+                        'todos los usuarios pueden acceder a la aplicación'
+                    ];
+                } else {
+                    \Artisan::call('down', ['--allow' => $request->ip()]);
+                    $msgType = [
+                        'type' => 'other',
+                        'text' => 'El sistema esta actualmente en mantenimiento, ' .
+                        'solo puede acceder a la aplicación desde este equipo'
+                    ];
+                }
+            }
+        }
+
+        $request->session()->flash('message', $msgType);
         return redirect()->route('settings.index');
     }
 }

@@ -18,7 +18,7 @@
                     {!! Form::text('username', old('username'), [
                         'class' => 'form-control', 'placeholder' => 'Usuario', 'required' => 'required',
                         'title' => 'Indique el nombre del usuario.',
-                        'data-toggle' => 'tooltip'
+                        'data-toggle' => 'tooltip', 'data-placement' => 'right'
                     ]) !!}
                 </div>
                 @if ($errors->has('username'))
@@ -35,7 +35,7 @@
                     {!! Form::password('password', [
                         'class' => 'form-control', 'placeholder' => 'Contraseña', 'required' => 'required',
                         'title' => 'Indique la contraseña de acceso.',
-                        'data-toggle' => 'tooltip'
+                        'data-toggle' => 'tooltip', 'data-placement' => 'right'
                     ]) !!}
                 </div>
                 @if ($errors->has('password'))
@@ -64,7 +64,7 @@
                     {!! Form::text('captcha', old('captcha'), [
                         'class' => 'form-control', 'placeholder' => 'Captcha', 'required' => 'required',
                         'id' => 'captcha', 'onfocus' => '$(this).val("")', 'data-toggle' => 'tooltip',
-                        'title' => 'Introduzca los carácteres de la imagen'
+                        'title' => 'Introduzca los carácteres de la imagen', 'data-placement' => 'right'
                     ]) !!}
                 </div>
                 @if ($errors->has('captcha'))
@@ -77,16 +77,17 @@
         <div class="footer text-center">
             <label>
                 <span style="margin-right:10px">Recuerdame</span>
-                <input type="checkbox" name="checkbox" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO"
-                       data-toggle="tooltip" title="Seleccione si desea que el sistema recuerde sus datos" />
+                <input type="checkbox" name="checkbox" class="form-control bootstrap-switch"
+                       data-on-label="SI" data-off-label="NO" data-toggle="tooltip" data-placement="right"
+                       title="Seleccione si desea que el sistema recuerde sus datos" />
             </label>
 
-            <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip"
+            <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" data-placement="right"
                     title="Presione el botón para validar los datos y acceder al sistema">
                 Acceso
             </button>
             <a class="btn btn-link" href="{{ route('password.request') }}" data-toggle="tooltip"
-               title="¿Olvido su contraseña?, presione sobre el enlace para modificarla">
+               title="¿Olvido su contraseña?, presione sobre el enlace para modificarla" data-placement="right">
                 ¿Olvidaste la contraseña?
             </a>
         </div>

@@ -390,7 +390,7 @@
 							</div>
 						</div>
 					</div>
-					@if ($model_setting!==null && $model_setting->multi_institution)
+					@if (!is_null($paramMultiInstitution))
 						<hr>
 						<h6 class="md-title">Instituciones Registradas</h6>
 						<div class="row">
@@ -474,7 +474,7 @@
 			        });
 				});
 			}
-			@if ($model_setting!==null && $model_setting->multi_institution)
+			@if (!is_null($paramMultiInstitution))
 				$(".btn-new-institution").on('click', function() {
 					var form = $("#card_config_institution form");
 					var clearEl = {
