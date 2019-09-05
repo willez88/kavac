@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         /** Configuración por defecto */
         $this->call(SettingsTableSeeder::class);
+        /** Parámetros de configuración por defecto */
+        $this->call(ParametersTableSeeder::class);
         /** Registros de países */
         $this->call(CountriesTableSeeder::class);
         /** Registros de Estados asociados a los países */

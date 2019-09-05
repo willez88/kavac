@@ -27,13 +27,13 @@ class ParametersTableSeeder extends Seeder
         Model::unguard();
 
         $parameters = [
-            ['p_key' => 'support', 'p_value' => false],
-            ['p_key' => 'chat', 'p_value' => false],
-            ['p_key' => 'notify', 'p_value' => false],
-            ['p_key' => 'report_banner', 'p_value' => false],
-            ['p_key' => 'multi_institution', 'p_value' => false],
-            ['p_key' => 'digital_sign', 'p_value' => false],
-            ['p_key' => 'online', 'p_value' => true],
+            ['p_key' => 'support', 'p_value' => 'false'],
+            ['p_key' => 'chat', 'p_value' => 'false'],
+            ['p_key' => 'notify', 'p_value' => 'false'],
+            ['p_key' => 'report_banner', 'p_value' => 'false'],
+            ['p_key' => 'multi_institution', 'p_value' => 'false'],
+            ['p_key' => 'digital_sign', 'p_value' => 'false'],
+            ['p_key' => 'online', 'p_value' => 'true'],
         ];
 
         DB::transaction(function () use ($parameters) {
