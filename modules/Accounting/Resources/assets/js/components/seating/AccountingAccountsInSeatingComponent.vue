@@ -214,10 +214,6 @@
                     errors.push('El campo concepto ó descripción es obligatorio.');
                     res = true;
                 }
-                if (!this.data.observations) {
-                    errors.push('El campo observaciones es obligatorio.');
-                    res = true;
-                }
                 if (!this.data.category) {
                     errors.push('El campo categoria es obligatorio.');
                     res = true;

@@ -6,12 +6,13 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Accounting\Models\AccountingSeatCategory;
+
 /**
  * @class AccountingSeatCategoriesTableSeeder
  * @brief Información por defecto de las categorias de origen de asientos contables
- * 
+ *
  * Gestiona la información por defecto a registrar inicialmente de las categorias de origen de asientos contables
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -28,25 +29,26 @@ class AccountingSeatCategoriesTableSeeder extends Seeder
         $categories = [
             [
                 'name' => 'Solicitud de pago',
-                'acronym' => 'SOP.',
+                'acronym' => 'SOP',
             ],
             [
                 'name' => 'Emisión de cheques',
-                'acronym' => 'CHQ.',
+                'acronym' => 'CHQ',
             ],
             [
                 'name' => 'Movimientos bancarios',
-                'acronym' => 'DEP.',
+                'acronym' => 'DEP',
             ]
         ];
 
-        DB::transaction(function() use ($categories) {
+        DB::transaction(function () use ($categories) {
             foreach ($categories as $category) {
                 AccountingSeatCategory::updateOrCreate(
                     [
                         "name" => $category["name"],
                         "acronym" => $category["acronym"],
-                    ],[]
+                    ],
+                    []
                 );
             }
         });

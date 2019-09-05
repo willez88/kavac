@@ -7,6 +7,13 @@
 Vue.component('accounting-show-errors', require('./components/AccountingErrorsComponent.vue').default);
 
 /**
+ * Componente para la configuración del código para las referencias de los asientos contables
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('accounting-setting-code', require('./components/setting/AccountingSettingCodeComponent.vue').default);
+
+/**
  * Componente para la configuración de categorias de origen para asientos contables
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

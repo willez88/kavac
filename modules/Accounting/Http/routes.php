@@ -191,6 +191,11 @@ Route::group(['middleware' => 'web',
     */
     Route::get('settings', 'AccountingSettingController@index')
             ->name('accounting.settings.index');
+    Route::post('settings/code', 'AccountingSettingController@code_store')
+            ->name('accounting.settings.code.store');
+    Route::post('settings/generate_reference_code', 'AccountingSettingController@generate_reference_code')
+            ->name('accounting.settings.code.generate');
+
 
     Route::resource(
         '/settings/categories',

@@ -36,10 +36,10 @@
 					</div>
 				</div>
 				<div class="col-4">
-					<div class="form-group is-required">
+					<div class="form-group">
 						<label class="control-label">Referencia
 						</label>
-						<input type="text" class="form-control" v-model="reference" id="reference" tabindex="1">
+						<input type="text" class="form-control" v-model="reference" id="reference" tabindex="1" disabled="">
 					</div>
 				</div>
 				<div class="col-4">
@@ -178,36 +178,30 @@
 			observations:function(res) {
 				this.validateRequired();
 			},
-			category:function(res,ant) {
-				if (ant != '' && res != ant) {
-					/** extrae el valor del acronimo de la categoria anterior */
+			category:function(res) {
+				if (res != '') {
 					for (var i in this.categories) {
-						if (this.categories[i].id == ant) {
+						if (this.categories[i].id == res) {
 							var tam = this.categories[i].acronym.length;
-							this.reference = this.reference.slice(tam);
+
+							axios.post('/accounting/settings/generate_reference_code',{
+								format_prefix:this.categories[i].acronym
+							}).then(response=>{
+								this.reference = response.data.code;
+								this.validated = false;
+								this.validateRequired();
+							})
+							// this.reference = this.reference.slice(tam);
 							break;
 						}
 					}
 				}
-
-				if (res != ant) {
-					/** Se valida que en caso de estar editando en la primera iteracion no cambie la referencia */
-						for (var i in this.categories) {
-							/** si es la primera carga de los datos no modifica la referencia */
-							if (this.data_edit_mutable != null && this.categories[i].id == this.data_edit_mutable.category) {
-								this.reference = this.reference;
-								this.validated = false;
-								break;
-							}
-							else if (this.categories[i].id == res) {
-								this.reference = this.categories[i].acronym + this.reference;
-								this.validated = false;
-								break;
-							}
-						}
-
+				else{
+					this.reference = '';
+					this.validated = false;
 					this.validateRequired();
 				}
+
 			},
 			institution:function(res) {
 				this.institution_id = res;
