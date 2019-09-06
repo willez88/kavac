@@ -75,14 +75,14 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información profesional del trabajador que está asociada a muchas profesiones
+     * Método que obtiene las informacines profesionales del trabajador que están asociadas a muchas profesiones
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function payrollProfessions()
+    public function professions()
     {
-        return $this->hasMany(Profession::class);
+        return $this->belongsToMany(Profession::class)->withTimestamps();
     }
 
     /**

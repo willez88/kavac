@@ -18,7 +18,7 @@ use Illuminate\Database\Migrations\Migration;
 class ChangeFieldToPayrollSocioeconomicInformationsTable extends Migration
 {
     /**
-     * Método que ejecuta las migraciones
+     * Método que agrega el atributo único al campo id_number_twosome
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @return void
@@ -32,7 +32,7 @@ class ChangeFieldToPayrollSocioeconomicInformationsTable extends Migration
     }
 
     /**
-     * Método que elimina las migraciones
+     * Método que elimina el atributo único al campo id_number_twosome
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @return void

@@ -8,13 +8,13 @@ use App\Models\Profession as BaseProfession;
 class Profession extends BaseProfession
 {
     /**
-     * Método que obtiene la profesión asociado a una información profesional del trabajador
+     * Método que obtiene las profesines asociadas a muchas informaciones profesionales del trabajador
      *
      * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function payrollProfessionalInformation()
+    public function payrollProfessionalInformations()
     {
-        return $this->belongsTo(PayrollProfessionalInformation::class);
+        return $this->belongsToMany(PayrollProfessionalInformation::class)->withTimestamps();
     }
 }
