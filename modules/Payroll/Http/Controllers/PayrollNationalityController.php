@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollNationality;
-use App\Models\Country;
+use Modules\Payroll\Models\Country;
 
 /**
  * @class PayrollNationalityController

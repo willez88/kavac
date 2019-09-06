@@ -237,6 +237,10 @@ class PayrollStaffController extends Controller
         $payrollStaff->address = $request->address;
         $payrollStaff->save();
 
+        foreach ($payrollStaff->phones as $phone) {
+            $phone->delete();
+        }
+
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
                 $payrollStaff->phones()->updateOrCreate(
