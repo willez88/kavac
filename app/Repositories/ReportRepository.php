@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\ReportInterface;
 use App\Models\Parameter;
-use App\Models\Institution;
 use Carbon\Carbon;
 use Elibyy\TCPDF\TCPDF as PDF;
 
@@ -94,7 +93,7 @@ class ReportRepository implements ReportInterface
             'color' => [0, 0, 0]
         ];
         $this->urlVerify = $params['urlVerify'] ?? null;
-        $this->institution = Institution::find($params['institutionId']);
+        $this->institution = $params['institution'] ?? null;
         $this->headerY = (is_null($this->institution->banner)) ? 10 : 22;
         $this->headerTextY = ($this->headerY === 22) ? 30 : 22;
         $this->filename = $params['filename'] ?? uniqid() . 'pdf';
