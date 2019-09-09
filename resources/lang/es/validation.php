@@ -31,6 +31,7 @@ return [
     'boolean' => 'El campo :attribute debe tener un valor verdadero o falso.',
     'confirmed' => 'La confirmación de :attribute no coincide.',
     'date' => ':attribute no es una fecha válida.',
+    'date_equals' => 'El campo :attribute debe ser una fecha igual a :date.',
     'date_format' => ':attribute no corresponde al formato :format.',
     'different' => ':attribute y :other deben ser diferentes.',
     'digits' => ':attribute debe tener :digits dígitos.',
@@ -38,9 +39,22 @@ return [
     'dimensions' => 'Las dimensiones de la imagen :attribute no son válidas.',
     'distinct' => 'El campo :attribute contiene un valor duplicado.',
     'email' => ':attribute no es un correo válido',
+    'ends_with' => 'El :attribute debe finalizar con uno de los siguiente valores: :values',
     'exists' => ':attribute es inválido.',
     'file' => 'El campo :attribute debe ser un archivo.',
     'filled' => 'El campo :attribute es obligatorio.',
+    'gt' => [
+        'numeric' => 'El :attribute debe ser mayor que :value.',
+        'file' => 'El :attribute debe ser mayor a :value kilobytes.',
+        'string' => 'El :attribute debe ser mayor a :value carácteres.',
+        'array' => 'El :attribute debe tener más de :value items.',
+    ],
+    'gte' => [
+        'numeric' => 'El :attribute debe ser mayor o igual a :value.',
+        'file' => 'El :attribute debe ser mayor o igual a :value kilobytes.',
+        'string' => 'El :attribute debe ser mayor o igual a :value carácteres.',
+        'array' => 'El :attribute debe tener :value items o más.',
+    ],
     'image' => ':attribute debe ser una imagen.',
     'in' => ':attribute es inválido.',
     'in_array' => 'El campo :attribute no existe en :other.',
@@ -49,6 +63,18 @@ return [
     'ipv4' => ':attribute debe ser un dirección IPv4 válida',
     'ipv6' => ':attribute debe ser un dirección IPv6 válida.',
     'json' => 'El campo :attribute debe tener una cadena JSON válida.',
+    'lt' => [
+        'numeric' => 'El :attribute debe ser menor que :value.',
+        'file' => 'El :attribute debe ser menor a :value kilobytes.',
+        'string' => 'El :attribute debe ser menor a :value carácteres.',
+        'array' => 'El :attribute debe tener menos de :value items.',
+    ],
+    'lte' => [
+        'numeric' => 'El :attribute debe ser menor o igual a :value.',
+        'file' => 'El :attribute debe ser menor o igual a :value kilobytes.',
+        'string' => 'El :attribute debe ser menor o igual a :value carácteres.',
+        'array' => 'El :attribute no debe ser menor a :value items.',
+    ],
     'max' => [
         'numeric' => ':attribute no debe ser mayor a :max.',
         'file' => ':attribute no debe ser mayor que :max kilobytes.',
@@ -64,7 +90,7 @@ return [
         'array' => ':attribute debe tener al menos :min elementos.',
     ],
     'not_in' => ':attribute es inválido.',
-    'not_regex' => 'The :attribute format is invalid.',
+    'not_regex' => 'El formato de :attribute es invalido.',
     'numeric' => ':attribute debe ser numérico.',
     'present' => 'El campo :attribute debe estar presente.',
     'regex' => 'El formato de :attribute es inválido.',
@@ -82,11 +108,13 @@ return [
         'string' => ':attribute debe contener :size caracteres.',
         'array' => ':attribute debe contener :size elementos.',
     ],
+    'starts_with' => 'El valor de :attribute debe comenzar con alguno de los siguientes: :values',
     'string' => 'El campo :attribute debe ser una cadena de caracteres.',
     'timezone' => 'El :attribute debe ser una zona válida.',
     'unique' => ':attribute ya ha sido registrado.',
     'uploaded' => 'Subir :attribute ha fallado.',
     'url' => 'El formato :attribute es inválido.',
+    'uuid' => 'El valor de :attribute debe ser un UUID válido.',
     'captcha' => 'El captcha es incorrecto',
 
     /*
@@ -116,7 +144,7 @@ return [
     |
     | The following language lines are used to swap attribute place-holders
     | with something more reader friendly such as E-Mail Address instead
-    | of "email". This simply helps us make messages a little cleaner.
+    | of "email". This simply helps us make our message more expressive.
     |
     */
 
