@@ -26,6 +26,8 @@ class ChangeFieldsTotDebitTotAssetsToAccountingSeatsTable extends Migration
      */
     public function down()
     {
-        $table->dropColumn(['tot_debit', 'tot_assets']);
+        Schema::table('accounting_seats', function (Blueprint $table) {
+            $table->dropColumn(['tot_debit', 'tot_assets']);
+        });
     }
 }
