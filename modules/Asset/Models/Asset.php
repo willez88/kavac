@@ -4,9 +4,10 @@ namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Venturecraft\Revisionable\RevisionableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;
+
+//use Venturecraft\Revisionable\RevisionableTrait;
+/*use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;*/
 
 /**
  * @class Asset
@@ -19,11 +20,11 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class Asset extends Model implements Auditable
+class Asset extends Model //implements Auditable
 {
     use SoftDeletes;
-    use RevisionableTrait;
-    use AuditableTrait;
+    //use RevisionableTrait;
+    //use AuditableTrait;
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo
@@ -80,7 +81,7 @@ class Asset extends Model implements Auditable
         }
         return $description;
     }
-    
+
     /**
      * Método que obtiene el tipo al que pertenece el bien
      *
@@ -91,7 +92,7 @@ class Asset extends Model implements Auditable
     {
         return $this->belongsTo(AssetType::class);
     }
-    
+
     /**
      * Método que obtiene la categoria a la que pertenece el bien
      *

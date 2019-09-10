@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Venturecraft\Revisionable\RevisionableTrait;
+//use Venturecraft\Revisionable\RevisionableTrait;
 //use Ultraware\Roles\Traits\HasRoleAndPermission;
 use App\Roles\Traits\HasRoleAndPermission;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;
+
+/*use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;*/
 
 /**
  * @class User
@@ -22,13 +23,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class User extends Authenticatable implements Auditable
+class User extends Authenticatable //implements Auditable
 {
     use Notifiable;
     use SoftDeletes;
-    use RevisionableTrait;
+    //use RevisionableTrait;
     use HasRoleAndPermission;
-    use AuditableTrait;
+    //use AuditableTrait;
 
     protected $revisionCreationsEnabled = true;
 

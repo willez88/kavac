@@ -4,9 +4,9 @@ namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Venturecraft\Revisionable\RevisionableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;
+//use Venturecraft\Revisionable\RevisionableTrait;
+/*use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;*/
 use App\Traits\ModelsTrait;
 
 /**
@@ -20,11 +20,11 @@ use App\Traits\ModelsTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class AssetRequest extends Model implements Auditable
+class AssetRequest extends Model //implements Auditable
 {
     use SoftDeletes;
-    use RevisionableTrait;
-    use AuditableTrait;
+    //use RevisionableTrait;
+    //use AuditableTrait;
     use ModelsTrait;
 
     /**

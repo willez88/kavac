@@ -4,32 +4,33 @@ namespace Modules\Payroll\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Venturecraft\Revisionable\RevisionableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;
+
+//use Venturecraft\Revisionable\RevisionableTrait;
+/*use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;*/
 
 /**
  * @class CreatePayrollSalaryTabulator
  * @brief Datos de los tabuladores salariales
- * 
+ *
  * Gestiona el modelo de datos de los tabuladores salariales
  * @author Henry Paredes (henryp2804@gmail.com)
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class PayrollSalaryTabulator extends Model implements Auditable
+class PayrollSalaryTabulator extends Model //implements Auditable
 {
     use SoftDeletes;
-    use RevisionableTrait;
-    use AuditableTrait;
-    
+    //use RevisionableTrait;
+    //use AuditableTrait;
+
     /**
      * Establece el uso o no de bitácora de registros para este modelo
-     * 
+     *
      * @var boolean $revisionCreationsEnabled
      */
     protected $revisionCreationsEnabled = true;
 
-	/**
+    /**
      * Lista de atributos para la gestión de fechas
      *
      * @var array $dates
@@ -51,7 +52,7 @@ class PayrollSalaryTabulator extends Model implements Auditable
      */
     public function payroll_position_type()
     {
-    	return $this->belongsTo(PayrollPositionType::class);
+        return $this->belongsTo(PayrollPositionType::class);
     }
 
     /**
@@ -62,7 +63,7 @@ class PayrollSalaryTabulator extends Model implements Auditable
      */
     public function payroll_vertical_salary_scale()
     {
-    	return $this->belongsTo(PayrollSalaryScale::class);
+        return $this->belongsTo(PayrollSalaryScale::class);
     }
 
     /**
@@ -73,7 +74,6 @@ class PayrollSalaryTabulator extends Model implements Auditable
      */
     public function payroll_horizontal_salary_scale()
     {
-    	return $this->belongsTo(PayrollSalaryScale::class);
+        return $this->belongsTo(PayrollSalaryScale::class);
     }
-
 }

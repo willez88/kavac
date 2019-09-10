@@ -3,8 +3,9 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;
+
+/*use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;*/
 
 /**
  * @class AssetAsignationAsset
@@ -17,10 +18,10 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class AssetAsignationAsset extends Model implements Auditable
+class AssetAsignationAsset extends Model //implements Auditable
 {
-    use AuditableTrait;
-    
+    //use AuditableTrait;
+
     /**
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable

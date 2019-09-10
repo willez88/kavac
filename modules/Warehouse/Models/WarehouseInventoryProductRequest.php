@@ -3,9 +3,10 @@
 namespace Modules\Warehouse\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Venturecraft\Revisionable\RevisionableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;
+
+//use Venturecraft\Revisionable\RevisionableTrait;
+/*use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;*/
 
 /**
  * @class WarehouseInventoryProductRequest
@@ -18,10 +19,10 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class WarehouseInventoryProductRequest extends Model implements Auditable
+class WarehouseInventoryProductRequest extends Model //implements Auditable
 {
-    use RevisionableTrait;
-    use AuditableTrait;
+    //use RevisionableTrait;
+    //use AuditableTrait;
 
     /**
      * Establece el uso o no de bitácora de registros para este modelo

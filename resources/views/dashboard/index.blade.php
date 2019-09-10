@@ -7,7 +7,7 @@
 
 	@role('admin')
 		@include('dashboard.users-connected')
-		@include('dashboard.logs-list')
+		{{-- @include('dashboard.logs-list') --}}
 		@include('dashboard.undelete-records')
 	@endrole
 	@yield('dashboard')
