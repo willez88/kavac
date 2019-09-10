@@ -1,0 +1,12 @@
+{
+    "Accounting": true,
+    "Asset": true,
+    "Budget": true,
+    "CitizenService": true,
+    "DigitalSignature": true,
+    "Finance": true,
+    "Payroll": true,
+    "Purchase": true,
+    "TechnicalSupport": true,
+    "Warehouse": true
+}

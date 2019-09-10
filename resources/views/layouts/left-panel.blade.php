@@ -56,7 +56,7 @@
                     </ul>
                 </li>
             @endrole
-
+{{ dd(\Module::collections(1)) }}
             @if (count(App\Models\Institution::where('active', true)->get()) > 0)
                 {{-- Gestión de beneficiarios --}}
                 {{-- <li>
