@@ -37,22 +37,26 @@
 							<div class="form-group is-required">
 								<label>Grado de Instrucción:</label>
 								<select2 :options="payroll_instruction_degrees"
-									v-model="record.payroll_instruction_degree_id" @input="showHide">
+									v-model="record.payroll_instruction_degree_id">
 								</select2>
 							</div>
 						</div>
-						<div class="col-md-4" id="block_profession">
+						<div class="col-md-4" v-show="record.payroll_instruction_degree_id == 4 || record.payroll_instruction_degree_id == 5">
 							<div class="form-group is-required">
-								<label>Profesión:</label>
-								<select2 :options="professions"
-									v-model="record.profession_id">
-								</select2>
+								<label>Profesiones:</label>
+								<v-multiselect :options="professions" v-if="payroll_professional_information_id" track_by="name"
+									:hide_selected="false" :selected="record.professions" v-model="record.professions">
+								</v-multiselect>
+								<v-multiselect :options="professions" v-else track_by="text"
+									:hide_selected="false" :selected="record.professions" v-model="record.professions">
+								</v-multiselect>
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
-						<div class="col-md-4 d-none" id="block_idn">
+						<div class="col-md-4" v-show="record.payroll_instruction_degree_id == 6 || record.payroll_instruction_degree_id == 7 ||
+							record.payroll_instruction_degree_id == 8">
 							<div class="form-group">
 								<label>Nombre de Especialización, Maestría o Doctorado:</label>
 								<input type="text" class="form-control input-sm"
@@ -117,6 +121,14 @@
 						</div>
 					</div>
 
+					<div class="row">
+						<div class="col-md-4">
+							<pre>
+								{{ $data }}
+							</pre>
+						</div>
+					</div>
+
 				</div>
 
 				<div class="card-footer pull-right">
@@ -155,7 +167,8 @@
 					study_program_name: '',
 					class_schedule: '',
 					payroll_language_id: '',
-					payroll_language_level_id: ''
+					payroll_language_level_id: '',
+					professions: ''
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -172,21 +185,6 @@
 				axios.get('/payroll/professional-informations/' + this.payroll_professional_information_id).then(response => {
 					this.record = response.data.record;
 				});
-			},
-
-			showHide() {
-				if (this.record.payroll_instruction_degree_id == 6 || this.record.payroll_instruction_degree_id == 7 || this.record.payroll_instruction_degree_id == 8) {
-					$('#block_idn').removeClass('d-none');
-					$('#block_profession').addClass('d-none');
-				}
-				else if (this.record.payroll_instruction_degree_id == 1 || this.record.payroll_instruction_degree_id == 2 || this.record.payroll_instruction_degree_id == 3) {
-					$('#block_idn').addClass('d-none');
-					$('#block_profession').addClass('d-none');
-				}
-				else if (this.record.payroll_instruction_degree_id == 4 || this.record.payroll_instruction_degree_id == 5) {
-					$('#block_idn').addClass('d-none');
-					$('#block_profession').removeClass('d-none');
-				}
 			},
 
 			reset() {
@@ -206,6 +204,7 @@
 			},
 		},
 		created() {
+			this.record.professions = [];
 			this.getPayrollStaffs();
 			this.getPayrollInstructionDegrees();
 			this.getProfessions();

@@ -38,7 +38,9 @@ class CreatePayrollProfessionalInformationsTable extends Migration
             $table->foreign('profession_id')->references('id')->on('professions')
                   ->onDelete('restrict')->onUpdate('cascade');
 
-            $table->string('instruction_degree_name', 100)->nullable()->comment('Nombre en caso de elegir en Grado de Instrucción: Especialización, Maestría, Doctorado');
+            $table->string('instruction_degree_name', 100)
+                  ->nullable()
+                  ->comment('Nombre en caso de elegir en Grado de Instrucción: Especialización, Maestría, Doctorado');
 
             $table->boolean('is_student')->default(false)->comment('Establece si el trabajdor es estudiante o no');
 

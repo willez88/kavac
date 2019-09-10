@@ -47,7 +47,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'payroll_instruction_degree_id', 'profession_id', 'instruction_degree_name', 'is_student',
+        'payroll_instruction_degree_id', 'instruction_degree_name', 'is_student',
         'payroll_study_type_id', 'study_program_name', 'class_schedule',
         'payroll_language_id', 'payroll_language_level_id', 'payroll_staff_id'
     ];
@@ -75,14 +75,14 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información profesional del trabajador asociado a una profesión
+     * Método que obtiene las informacines profesionales del trabajador que están asociadas a muchas profesiones
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function profession()
+    public function professions()
     {
-        return $this->belongsTo(Profession::class);
+        return $this->belongsToMany(Profession::class)->withTimestamps();
     }
 
     /**
