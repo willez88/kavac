@@ -46,7 +46,7 @@
                 window.modules = [];
                 @if (Module::allEnabled())
                     @foreach (Module::allEnabled() as $moduleEnabled)
-                        window.modules.push('{!! $moduleEnabled->name !!}');
+                        window.modules.push('{!! $moduleEnabled->getName() !!}');
                     @endforeach
                 @endif
             @endauth
