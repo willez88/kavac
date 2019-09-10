@@ -280,17 +280,17 @@
                 <input type="hidden" name="date" value="{{ $log->date }}">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">DELETE LOG FILE</h5>
+                        <h5 class="modal-title">ELIMINAR ARCHIVO DE LOG</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to <span class="badge badge-danger">DELETE</span> this log file <span class="badge badge-primary">{{ $log->date }}</span> ?</p>
+                        <p>Estas seguro de querer <span class="badge badge-danger">ELIMINAR</span> este archivo de log <span class="badge badge-primary">{{ $log->date }}</span> ?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-secondary mr-auto" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="Loading&hellip;">DELETE FILE</button>
+                        <button type="button" class="btn btn-sm btn-secondary mr-auto" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="Loading&hellip;">ELIMINAR</button>
                     </div>
                 </div>
             </form>
