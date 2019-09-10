@@ -94,30 +94,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($formulation->account_opens as $account_open)
-								<tr class="{{ ($account_open->budgetAccount->specific==="00")?'text-dark text-bold':'' }}">
-									<td>{{ $account_open->budgetAccount->code }}</td>
-									<td>{{ $account_open->budgetAccount->denomination }}</td>
-									{{-- <td>{{ $account_open->total_real_amount }}</td>
-									<td>{{ $account_open->total_estimated_amount }}</td> --}}
+							@foreach ($formulation->accountOpens as $accountOpen)
+								<tr class="{{ ($accountOpen->budgetAccount->specific==="00")?'text-dark text-bold':'' }}">
+									<td>{{ $accountOpen->budgetAccount->code }}</td>
+									<td>{{ $accountOpen->budgetAccount->denomination }}</td>
+									{{-- <td>{{ $accountOpen->total_real_amount }}</td>
+									<td>{{ $accountOpen->total_estimated_amount }}</td> --}}
 									<td class="text-right">
 										{{ number_format(
-											$account_open->total_year_amount,
+											$accountOpen->total_year_amount,
 											$formulation->currency->decimal_places, ",", "."
 										) }}
 									</td>
-									{{-- <td>{{ $account_open->jan_amount }}</td>
-									<td>{{ $account_open->feb_amount }}</td>
-									<td>{{ $account_open->mar_amount }}</td>
-									<td>{{ $account_open->apr_amount }}</td>
-									<td>{{ $account_open->may_amount }}</td>
-									<td>{{ $account_open->jun_amount }}</td>
-									<td>{{ $account_open->jul_amount }}</td>
-									<td>{{ $account_open->aug_amount }}</td>
-									<td>{{ $account_open->sep_amount }}</td>
-									<td>{{ $account_open->oct_amount }}</td>
-									<td>{{ $account_open->nov_amount }}</td>
-									<td>{{ $account_open->dec_amount }}</td> --}}
+									{{-- <td>{{ $accountOpen->jan_amount }}</td>
+									<td>{{ $accountOpen->feb_amount }}</td>
+									<td>{{ $accountOpen->mar_amount }}</td>
+									<td>{{ $accountOpen->apr_amount }}</td>
+									<td>{{ $accountOpen->may_amount }}</td>
+									<td>{{ $accountOpen->jun_amount }}</td>
+									<td>{{ $accountOpen->jul_amount }}</td>
+									<td>{{ $accountOpen->aug_amount }}</td>
+									<td>{{ $accountOpen->sep_amount }}</td>
+									<td>{{ $accountOpen->oct_amount }}</td>
+									<td>{{ $accountOpen->nov_amount }}</td>
+									<td>{{ $accountOpen->dec_amount }}</td> --}}
 								</tr>
 							@endforeach
 						</tbody>

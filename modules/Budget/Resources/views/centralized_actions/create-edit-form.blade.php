@@ -49,7 +49,7 @@
 									]) !!}
 								</div>
 							</div>
-							@if (Module::has('Payroll') && Module::enabled('Payroll'))
+							@if (Module::has('Payroll') && Module::isEnabled('Payroll'))
 								<div class="col-3">
 									<div class="form-group is-required">
 										{!! Form::label('payroll_position_id', 'Cargo de Responsable', [

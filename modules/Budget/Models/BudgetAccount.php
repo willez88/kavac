@@ -101,7 +101,7 @@ class BudgetAccount extends Model //implements Auditable
      */
     public function accountConverters()
     {
-        return (Module::has('Accounting') && Module::enabled('Accounting'))
+        return (Module::has('Accounting') && Module::isEnabled('Accounting'))
                ? $this->hasOne(\Modules\Accounting\Models\AccountingAccountConverter::class)
                : [];
     }

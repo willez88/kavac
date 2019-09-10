@@ -73,13 +73,13 @@ class BudgetCentralizedActionController extends Controller
         /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices(Department::class, ['acronym', '-', 'name'], ['active' => true]);
         /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
-        $positions = (Module::has('Payroll') && Module::enabled('Payroll'))
-                     ? template_choices(Modules\Payroll\Models\PayrollPosition::class, 'name')
+        $positions = (Module::has('Payroll') && Module::isEnabled('Payroll'))
+                     ? template_choices(\Modules\Payroll\Models\PayrollPosition::class, 'name')
                      : [];
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
-        $staffs = (Module::has('Payroll') && Module::enabled('Payroll'))
+        $staffs = (Module::has('Payroll') && Module::isEnabled('Payroll'))
                   ? template_choices(
-                      Modules\Payroll\Models\PayrollStaff::class,
+                      \Modules\Payroll\Models\PayrollStaff::class,
                       ['id_number', '-', 'full_name'],
                       ['active' => true]
                   )
@@ -110,7 +110,7 @@ class BudgetCentralizedActionController extends Controller
             'name' => 'required',
         ];
 
-        if (Module::has('Payroll') && Module::enabled('Payroll')) {
+        if (Module::has('Payroll') && Module::isEnabled('Payroll')) {
             $rules['payroll_position_id'] = 'required';
             $rules['payroll_staff_id'] = 'required';
         }
@@ -174,13 +174,13 @@ class BudgetCentralizedActionController extends Controller
         /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices('App\Models\Department', ['acronym', '-', 'name'], ['active' => true]);
         /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
-        $positions = (Module::has('Payroll') && Module::enabled('Payroll'))
-                     ? template_choices(Modules\Payroll\Models\PayrollPosition::class, 'name')
+        $positions = (Module::has('Payroll') && Module::isEnabled('Payroll'))
+                     ? template_choices(\Modules\Payroll\Models\PayrollPosition::class, 'name')
                      : [];
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
-        $staffs = (Module::has('Payroll') && Module::enabled('Payroll'))
+        $staffs = (Module::has('Payroll') && Module::isEnabled('Payroll'))
                   ? template_choices(
-                      Modules\Payroll\Models\PayrollStaff::class,
+                      \Modules\Payroll\Models\PayrollStaff::class,
                       ['id_number', '-', 'full_name'],
                       ['active' => true]
                   )
@@ -214,7 +214,7 @@ class BudgetCentralizedActionController extends Controller
             'name' => 'required',
         ];
 
-        if (Module::has('Payroll') && Module::enabled('Payroll')) {
+        if (Module::has('Payroll') && Module::isEnabled('Payroll')) {
             $rules['payroll_position_id'] = 'required';
             $rules['payroll_staff_id'] = 'required';
         }

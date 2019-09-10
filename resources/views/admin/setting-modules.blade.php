@@ -38,7 +38,7 @@
 											   style="color:{{ $module->icon["color"] ?? '#636E7B' }}"></i>
 										</div>
 										<div class="info-box-title">
-											<h6>{{ $module->name_es ?? $module->getName() }}</h6>
+											<h6>{{ $module->get('name_es') ?? $module->getName() }}</h6>
 										</div>
 										<div class="info-box-description">
 											<p>{{ $module->getDescription() }}</p>
@@ -50,11 +50,10 @@
 													@endforeach
 												</ul>
 											@endif
-											<p>Autor(es):</p>
-											{{ dd($module) }}
-											@if (!is_null($module->getAuthors()) && count($module->getAuthors()) > 0)
+											@if (!is_null($module->get('authors')) && count($module->get('authors')) > 0)
+												<p>Autor(es):</p>
 												<ul>
-													@foreach ($module->authors as $author)
+													@foreach ($module->get('authors') as $author)
 														<li>
 															{{ $author['name'] }}<br/>
 															@if (is_array($author['email']))
