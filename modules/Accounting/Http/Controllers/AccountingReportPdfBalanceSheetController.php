@@ -11,7 +11,8 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
-use Modules\Accounting\Pdf\Pdf;
+use App\Repositories\ReportRepository;
+use App\Models\Institution;
 use Auth;
 
 /**
@@ -57,8 +58,7 @@ class AccountingReportPdfBalanceSheetController extends Controller
         $url = 'balanceSheet/pdf/'.$date.'/'.$level.'/'.$zero;
         AccountingReportHistory::updateOrCreate(
             [
-                                                    'name' => 'Balance General',
-                                                    'report' => 5
+                                                    'report' => 'Balance General',
                                                 ],
             [
                                                     'url' => $url,
@@ -168,34 +168,23 @@ class AccountingReportPdfBalanceSheetController extends Controller
          * [$pdf base para generar el pdf]
          * @var [Modules\Accounting\Pdf\Pdf]
          */
-        $pdf = new Pdf('L', 'mm', 'Letter');
-        
+        $pdf = new ReportRepository();
+
         /*
-         *  Definicion de las caracteristicas generales de la página
+         *  Definicion de las caracteristicas generales de la página pdf
          */
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setType('Balance General');
-        $pdf->Open();
-        $pdf->AddPage();
-
-        $html = \View::make(
-            'accounting::pdf.accounting_balance_sheet_pdf',
-            compact('pdf', 'records', 'currency', 'level', 'zero', 'endDate')
-        )->render();
-        $pdf->SetFont('Courier', 'B', 8);
-
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $pdf->Output("BalanceGeneral_al_{$endDate}.pdf");
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setHeader('Reporte de Contabilidad', 'Reporte de Balance General');
+        $pdf->setFooter();
+        $pdf->setBody('accounting::pdf.accounting_balance_sheet_pdf', true, [
+            'pdf' => $pdf,
+            'records' => $records,
+            'currency' => $currency,
+            'level' => $level,
+            'zero' => $zero,
+            'endDate' => $endDate,
+        ]);
     }
 
     /**

@@ -8,7 +8,9 @@ use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
-use Modules\Accounting\Pdf\Pdf;
+use App\Repositories\ReportRepository;
+use App\Models\Institution;
+use Auth;
 
 /**
  * @class AccountingReportPdfDailyBookController
@@ -48,8 +50,7 @@ class AccountingReportPdfDailyBookController extends Controller
         $url = 'diaryBook/pdf/'.$initDate.'/'.$endDate;
         AccountingReportHistory::updateOrCreate(
             [
-                                                    'name' => 'Libro Diario',
-                                                    'report' => 3
+                                                    'report' => 'Libro Diario',
                                                 ],
             [
                                                     'url' => $url,
@@ -65,33 +66,26 @@ class AccountingReportPdfDailyBookController extends Controller
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
         $currency = Currency::where('default', true)->first();
 
-        /** @var Object Objeto base para generar el pdf */
-        $pdf = new Pdf('L', 'mm', 'Letter');
-        /*
-         *  Definicion de las caracteristicas generales de la página
-         */
-
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setType('Libro Diario');
-        $pdf->Open();
-        $pdf->AddPage();
-
         $Seating = false;
-        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf', compact('pdf', 'seats', 'Seating', 'currency'))->render();
-        $pdf->SetFont('Courier', 'B', 8);
+        /**
+         * [$pdf base para generar el pdf]
+         * @var [Modules\Accounting\Pdf\Pdf]
+         */
+        $pdf = new ReportRepository();
 
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-
-        $pdf->Output("Libro_Diario_{$initDate}_{$endDate}.pdf");
+        /*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setHeader('Reporte de Contabilidad', 'Reporte de libro diario');
+        $pdf->setFooter();
+        $pdf->setBody('accounting::pdf.accounting_seat_and_daily_book_pdf', true, [
+            'pdf' => $pdf,
+            'seats' => $seats,
+            'currency' => $currency,
+            'Seating' => $Seating,
+        ]);
     }
 
     public function get_checkBreak()

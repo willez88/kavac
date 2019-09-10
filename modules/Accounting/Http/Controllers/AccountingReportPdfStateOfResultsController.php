@@ -11,7 +11,8 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
-use Modules\Accounting\Pdf\Pdf;
+use App\Repositories\ReportRepository;
+use App\Models\Institution;
 use Auth;
 
 /**
@@ -53,8 +54,7 @@ class AccountingReportPdfStateOfResultsController extends Controller
         $url = 'stateOfResults/pdf/'.$date.'/'.$level.'/'.$zero;
         AccountingReportHistory::updateOrCreate(
             [
-                                                    'name' => 'Estado de Resultados',
-                                                    'report' => 6
+                                                    'report' => 'Estado de Resultados',
                                                 ],
             [
                                                     'url' => $url,
@@ -121,31 +121,27 @@ class AccountingReportPdfStateOfResultsController extends Controller
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
         $currency = Currency::where('default', true)->first();
 
-        /** @var Object Objeto base para generar el pdf */
-        $pdf = new Pdf('L', 'mm', 'Letter');
-        
-        /*
-         *  Definicion de las caracteristicas generales de la página
+        /**
+         * [$pdf base para generar el pdf]
+         * @var [Modules\Accounting\Pdf\Pdf]
          */
+        $pdf = new ReportRepository();
 
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setType('Estado de Resultados');
-        $pdf->Open();
-        $pdf->AddPage();
-        $html = \View::make('accounting::pdf.accounting_state_of_results_pdf', compact('pdf', 'records', 'currency', 'level', 'zero', 'endDate'))->render();
-        $pdf->SetFont('Courier', 'B', 8);
-
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $pdf->Output("Estado_de_resultados_al_{$endDate}.pdf");
+        /*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setHeader('Reporte de Contabilidad', 'Reporte de estado de resultados');
+        $pdf->setFooter();
+        $pdf->setBody('accounting::pdf.accounting_state_of_results_pdf', true, [
+            'pdf' => $pdf,
+            'records' => $records,
+            'currency' => $currency,
+            'level' => $level,
+            'zero' => $zero,
+            'endDate' => $endDate,
+        ]);
     }
     
     /**
