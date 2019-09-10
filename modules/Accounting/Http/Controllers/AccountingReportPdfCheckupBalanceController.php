@@ -11,7 +11,8 @@ use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
-use Modules\Accounting\Pdf\Pdf;
+use App\Repositories\ReportRepository;
+use App\Models\Institution;
 use Auth;
 
 /**
@@ -193,13 +194,13 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         $initDate = explode('-', $seating['from_date'])[0].'-'.explode('-', $seating['from_date'])[1];
 
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $endDay = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
+        $endDay = date('d', (mktime(0, 0, 0, explode('-', $date)[1], 1, explode('-', $date)[0])-1));
 
         /** @var Object String en el que establece el mes anterior */
         $endMonth = (((int)explode('-', $date)[1])-1 == 0) ? 12 : (((int)explode('-', $date)[1])-1);
 
         /** @var Object String en el que se establece el año anterior de ser necesario */
-        $endYear = (((int)explode('-', $date)[1])-1 == 0) ? (((int)explode('-', $date)[0])-1) : (((int)explode('-', $date)[0]));
+        $endYear = (((int)explode('-', $date)[0])-1 == 0) ? (((int)explode('-', $date)[0])-1) : (((int)explode('-', $date)[0]));
 
         /** @var Object String en el que se formatea la fecha final de busqueda */
         $endDate = $endYear.'-'.$endMonth;
@@ -239,8 +240,7 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         
         AccountingReportHistory::updateOrCreate(
             [
-                                                    'name' => 'Balance de Comporbación',
-                                                    'report' => 1
+                                                    'report' => 'Balance de Comporbación',
                                                 ],
             [
                                                     'url' => $url,
@@ -290,32 +290,27 @@ class AccountingReportPdfCheckupBalanceController extends Controller
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
         $currency = Currency::where('default', true)->first();
 
-        /** @var Object Objeto base para generar el pdf */
-        $pdf = new Pdf('L', 'mm', 'Letter');
-        
-        /*
-         *  Definicion de las caracteristicas generales de la página
+        /**
+         * [$pdf base para generar el pdf]
+         * @var [Modules\Accounting\Pdf\Pdf]
          */
+        $pdf = new ReportRepository();
 
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setType('Balance de Comprobación');
-        $pdf->Open();
-        $pdf->AddPage();
-
-        $html = \View::make('accounting::pdf.accounting_checkup_balance_pdf', compact('pdf', 'records', 'initDate', 'endDate', 'currency', 'beginningBalance'))->render();
-        $pdf->SetFont('Courier', 'B', 8);
-
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $pdf->Output("Balance_de_Comprobación_{$initDate}_{$endDate}.pdf");
+        /*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setHeader('Reporte de Contabilidad', 'Reporte de Balance de Comprobación');
+        $pdf->setFooter();
+        $pdf->setBody('accounting::pdf.accounting_checkup_balance_pdf', true, [
+            'pdf' => $pdf,
+            'records' => $records,
+            'initDate' => $initDate,
+            'endDate' => $endDate,
+            'currency' => $currency,
+            'beginningBalance' => $beginningBalance,
+        ]);
     }
 
     public function get_checkBreak()

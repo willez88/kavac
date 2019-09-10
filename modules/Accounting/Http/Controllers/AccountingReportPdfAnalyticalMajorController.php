@@ -15,6 +15,9 @@ use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
 
+use App\Repositories\ReportRepository;
+use App\Models\Institution;
+
 /**
  * @class AccountingReportPdfAnalyticalMajorController
  * @brief Controlador para la generación del reporte de Mayor Analítico
@@ -288,8 +291,7 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
 
         AccountingReportHistory::updateOrCreate(
             [
-                                                    'name' => 'Mayor Analítico',
-                                                    'report' => 2
+                                                    'report' => 'Mayor Analítico',
                                                 ],
             [
                                                     'url' => $url,
@@ -312,34 +314,22 @@ class AccountingReportPdfAnalyticalMajorController extends Controller
          * [$pdf base para generar el pdf]
          * @var [Modules\Accounting\Pdf\Pdf]
          */
-        $pdf = new Pdf('L', 'mm', 'Letter');
+        $pdf = new ReportRepository();
 
         /*
-         *  Definicion de las caracteristicas generales de la página
+         *  Definicion de las caracteristicas generales de la página pdf
          */
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-        
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setType('Asientos Contables');
-        $pdf->Open();
-        $pdf->AddPage();
-
-        $OneSeat = false;
-        
-        $html = \View::make('accounting::pdf.accounting_analytical_major_pdf', compact('pdf', 'records', 'initDate', 'endDate', 'currency'))->render();
-        $pdf->SetFont('Courier', 'B', 8);
-
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-
-        $pdf->Output("MayorAnalítico_{$initDate}_{$endDate}.pdf");
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setHeader('Reporte de Contabilidad', 'Reporte de mayor analítico');
+        $pdf->setFooter();
+        $pdf->setBody('accounting::pdf.accounting_analytical_major_pdf', true, [
+            'pdf' => $pdf,
+            'records' => $records,
+            'initDate' => $initDate,
+            'endDate' => $endDate,
+            'currency' => $currency,
+        ]);
     }
 
     public function get_checkBreak()

@@ -12,7 +12,9 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
-use Modules\Accounting\Pdf\Pdf;
+
+use App\Repositories\ReportRepository;
+use App\Models\Institution;
 use Auth;
 
 /**
@@ -53,8 +55,7 @@ class AccountingReportPdfAuxiliaryBookController extends Controller
         $url = 'auxiliaryBook/pdf/'.$account_id.'/'.$date;
         AccountingReportHistory::updateOrCreate(
             [
-                                                    'name' => 'Libro Auxiliar',
-                                                    'report' => 4
+                                                    'report' => 'Libro Auxiliar',
                                                 ],
             [
                                                     'url' => $url,
@@ -122,35 +123,27 @@ class AccountingReportPdfAuxiliaryBookController extends Controller
         $currency = Currency::where('default', true)->first();
 
         /**
-         * [$currency información de la modena por defecto establecida en la aplicación]
-         * @var [Modules\Accounting\Models\Currency]
+         * [$pdf base para generar el pdf]
+         * @var [Modules\Accounting\Pdf\Pdf]
          */
-        $pdf = new Pdf('L', 'mm', 'Letter');
-        
+        $pdf = new ReportRepository();
+
         /*
-         *  Definicion de las caracteristicas generales de la página
+         *  Definicion de las caracteristicas generales de la página pdf
          */
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-        
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setType('Libro Auxiliar');
-        $pdf->Open();
-        $pdf->AddPage();
-
-        $html = \View::make('accounting::pdf.accounting_auxiliary_book_pdf', compact('pdf', 'records', 'account', 'parent_account', 'initDate', 'endDate', 'currency'))->render();
-        $pdf->SetFont('Courier', 'B', 8);
-
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-
-        $pdf->Output("Libro_auxiliar_{$initDate}_{$endDate}.pdf");
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setHeader('Reporte de Contabilidad', 'Reporte de libro Auxiliar');
+        $pdf->setFooter();
+        $pdf->setBody('accounting::pdf.accounting_auxiliary_book_pdf', true, [
+            'pdf' => $pdf,
+            'records' => $records,
+            'initDate' => $initDate,
+            'endDate' => $endDate,
+            'currency' => $currency,
+            'account' => $account,
+            'parent_account' => $parent_account,
+        ]);
     }
 
     public function get_checkBreak()

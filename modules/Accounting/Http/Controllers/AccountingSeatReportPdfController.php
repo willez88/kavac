@@ -7,7 +7,8 @@ use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\AccountingSeat;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
-use Modules\Accounting\Pdf\Pdf;
+use App\Repositories\ReportRepository;
+use App\Models\Institution;
 
 /**
  * @class AccountingSeatReportPdfController
@@ -50,34 +51,28 @@ class AccountingSeatReportPdfController extends Controller
 
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
         $currency = Currency::where('default', true)->first();
-
-        /** @var Object Objeto base para generar el pdf */
-        $pdf = new Pdf('L', 'mm', 'Letter');
-        /*
-         *  Definicion de las caracteristicas generales de la página
-         */
-
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setType('Asientos Contables');
-        $pdf->Open();
-        $pdf->AddPage();
-
+        
         $Seating = true;
-        $html = \View::make('accounting::pdf.accounting_seat_and_daily_book_pdf', compact('seat', 'pdf', 'Seating', 'currency'))->render();
-        $pdf->SetFont('Courier', 'B', 8);
 
-        $pdf->writeHTML($html, true, false, true, false, '');
+        /**
+         * [$pdf base para generar el pdf]
+         * @var [Modules\Accounting\Pdf\Pdf]
+         */
+        $pdf = new ReportRepository();
 
-
-        $pdf->Output("AsientoContable_".$seat['from_date'].".pdf");
+        /*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setHeader('Reporte de Contabilidad', 'Reporte de asiento contable');
+        $pdf->setFooter();
+        $pdf->setBody('accounting::pdf.accounting_seat_and_daily_book_pdf', true, [
+            'pdf' => $pdf,
+            'seat' => $seat,
+            'currency' => $currency,
+            'Seating' => $Seating,
+        ]);
     }
 
     public function get_checkBreak()
