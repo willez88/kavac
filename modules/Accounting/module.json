@@ -1,7 +1,14 @@
 {
     "name": "Accounting",
     "alias": "accounting",
+    "name_es": "Contabilidad",
     "description": "",
+    "authors": [
+        {
+            "name": "Ing. Juan Rosas",
+            "email": ["jrosas@cenditel.gob.ve"]
+        }
+    ],
     "keywords": [],
     "active": 1,
     "order": 0,

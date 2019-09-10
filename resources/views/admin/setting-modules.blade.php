@@ -38,20 +38,21 @@
 											   style="color:{{ $module->icon["color"] ?? '#636E7B' }}"></i>
 										</div>
 										<div class="info-box-title">
-											<h6>{{ $module->name_es ?? $module->name }}</h6>
+											<h6>{{ $module->name_es ?? $module->getName() }}</h6>
 										</div>
 										<div class="info-box-description">
-											<p>{{ $module->description }}</p>
-											@if (count($module->requires) > 0)
+											<p>{{ $module->getDescription() }}</p>
+											@if (count($module->getRequires()) > 0)
 												<p class="text-bold">Requerimientos:</p>
 												<ul>
-													@foreach ($module->requires as $key => $version)
+													@foreach ($module->getRequires() as $key => $version)
 														<li>{{ $key }} v{{ $version }}</li>
 													@endforeach
 												</ul>
 											@endif
 											<p>Autor(es):</p>
-											@if (!is_null($module->authors) && count($module->authors) > 0)
+											{{ dd($module) }}
+											@if (!is_null($module->getAuthors()) && count($module->getAuthors()) > 0)
 												<ul>
 													@foreach ($module->authors as $author)
 														<li>
