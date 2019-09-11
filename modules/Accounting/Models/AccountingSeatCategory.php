@@ -4,16 +4,13 @@ namespace Modules\Accounting\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
-
-class AccountingSeatCategory extends Model //implements Auditable
+class AccountingSeatCategory extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
+    use RecordableTrait;
 
     protected $fillable = ['name','acronym'];
 

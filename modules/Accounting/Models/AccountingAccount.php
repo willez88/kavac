@@ -4,10 +4,8 @@ namespace Modules\Accounting\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * @class AccountingAccount
@@ -16,19 +14,14 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  * Gestiona el modelo de datos para las cuentas del Clasificador Patrimoniales
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL
+ *            </a>
  */
-class AccountingAccount extends Model //implements Auditable
+class AccountingAccount extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
-
-    /**
-     * Establece el uso o no de bitácora de registros para este modelo
-     * @var boolean $revisionCreationsEnabled
-     */
-    protected $revisionCreationsEnabled = true;
+    use RecordableTrait;
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -75,7 +68,8 @@ class AccountingAccount extends Model //implements Auditable
      * @param  [string] $generic     Genérica de la cuenta
      * @param  [string] $specific    Específica de la cuenta
      * @param  [string] $subspecific Subespecífica de la cuenta
-     * @return [boolean|object]      Retorna falso si no existe una cuenta de nivel superior, de lo contrario obtiene los datos de la misma
+     * @return [boolean|object]      Retorna falso si no existe una cuenta de nivel superior,
+     *                               de lo contrario obtiene los datos de la misma
      */
     public static function getParent($group, $subgroup, $item, $generic, $specific, $subspecific)
     {

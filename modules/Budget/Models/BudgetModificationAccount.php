@@ -4,10 +4,8 @@ namespace Modules\Budget\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * @class BudgetModificationAccount
@@ -20,13 +18,10 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class BudgetModificationAccount extends Model //implements Auditable
+class BudgetModificationAccount extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
-
-    protected $revisionCreationsEnabled = true;
+    use RecordableTrait;
 
     /** @var array Establece las relaciones por defecto que se retornan con las consultas */
     protected $with = ['budgetAccount', 'budget_sub_specific_formulation'];
@@ -48,7 +43,7 @@ class BudgetModificationAccount extends Model //implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function budget_modification()
+    public function budgetModification()
     {
         return $this->belongsTo(BudgetModification::class);
     }
@@ -70,7 +65,7 @@ class BudgetModificationAccount extends Model //implements Auditable
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function budget_sub_specific_formulation()
+    public function budgetSubSpecificFormulation()
     {
         return $this->belongsTo(BudgetSubSpecificFormulation::class);
     }

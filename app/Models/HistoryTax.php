@@ -9,11 +9,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-//use Venturecraft\Revisionable\RevisionableTrait;
-
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * @class HistoryTax
@@ -26,17 +23,10 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class HistoryTax extends Model //implements Auditable
+class HistoryTax extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
-
-    /**
-     * Establece el uso o no de bitácora de registros para este modelo
-     * @var boolean $revisionCreationsEnabled
-     */
-    protected $revisionCreationsEnabled = true;
+    use RecordableTrait;
 
     /**
      * Lista de atributos para la gestión de fechas

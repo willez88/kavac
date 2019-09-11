@@ -5,8 +5,8 @@ namespace Modules\Accounting\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 //use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 use Module;
 
 /**
@@ -16,13 +16,14 @@ use Module;
  * Modelo de la tabla pivot entre budget_account y accounting_account
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL
+ *            </a>
  */
-class AccountingAccountConverter extends Model //implements Auditable
+class AccountingAccountConverter extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
+    use RecordableTrait;
 
     protected $fillable = [
         'accounting_account_id',

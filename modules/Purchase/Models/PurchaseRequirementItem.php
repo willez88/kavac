@@ -4,18 +4,13 @@ namespace Modules\Purchase\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
-
-class PurchaseRequirementItem extends Model //implements Auditable
+class PurchaseRequirementItem extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
-
-    protected $revisionCreationsEnabled = true;
+    use RecordableTrait;
 
     /**
      * The attributes that should be mutated to dates.

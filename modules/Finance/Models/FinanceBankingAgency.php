@@ -4,10 +4,8 @@ namespace Modules\Finance\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * @class FinanceBankingAgency
@@ -20,13 +18,10 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class FinanceBankingAgency extends Model //implements Auditable
+class FinanceBankingAgency extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
-
-    protected $revisionCreationsEnabled = true;
+    use RecordableTrait;
 
     /**
      * The attributes that should be mutated to dates.

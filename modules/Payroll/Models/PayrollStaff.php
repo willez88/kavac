@@ -4,9 +4,8 @@ namespace Modules\Payroll\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 use App\Traits\ModelsTrait;
 
 /**
@@ -20,18 +19,11 @@ use App\Traits\ModelsTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class PayrollStaff extends Model //implements Auditable
+class PayrollStaff extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
+    use RecordableTrait;
     use ModelsTrait;
-
-    /**
-     * Establece el uso o no de bitácora de registros para este modelo
-     * @var boolean $revisionCreationsEnabled
-     */
-    protected $revisionCreationsEnabled = true;
 
     protected $table = "payroll_staffs";
 

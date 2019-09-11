@@ -3,8 +3,9 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 use App\Traits\ModelsTrait;
 
 /**
@@ -18,10 +19,11 @@ use App\Traits\ModelsTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class AssetAcquisitionType extends Model //implements Auditable
+class AssetAcquisitionType extends Model implements Recordable
 {
+    use SoftDeletes;
     use ModelsTrait;
-    //use AuditableTrait;
+    use RecordableTrait;
 
     /**
      * Lista de atributos que pueden ser asignados masivamente

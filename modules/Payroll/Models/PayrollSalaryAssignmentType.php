@@ -4,10 +4,8 @@ namespace Modules\Payroll\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * @class PayrollSalaryAssignmentType
@@ -16,19 +14,14 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  * Gestiona el modelo de datos para los tipos de asignaciones salariales
  *
  * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL
+ *            </a>
  */
-class PayrollSalaryAssignmentType extends Model //implements Auditable
+class PayrollSalaryAssignmentType extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
-
-    /**
-     * Establece el uso o no de bitácora de registros para este modelo
-     * @var boolean $revisionCreationsEnabled
-     */
-    protected $revisionCreationsEnabled = true;
+    use RecordableTrait;
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -50,7 +43,7 @@ class PayrollSalaryAssignmentType extends Model //implements Auditable
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payroll_salary_assignment()
+    public function payrollSalaryAssignment()
     {
         return $this->hasMany(PayrollSalaryAssignment::class);
     }

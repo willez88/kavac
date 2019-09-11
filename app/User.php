@@ -5,12 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-//use Venturecraft\Revisionable\RevisionableTrait;
-//use Ultraware\Roles\Traits\HasRoleAndPermission;
 use App\Roles\Traits\HasRoleAndPermission;
-
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Identifiable;
 
 /**
  * @class User
@@ -23,15 +19,11 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class User extends Authenticatable //implements Auditable
+class User extends Authenticatable implements Identifiable
 {
     use Notifiable;
     use SoftDeletes;
-    //use RevisionableTrait;
     use HasRoleAndPermission;
-    //use AuditableTrait;
-
-    protected $revisionCreationsEnabled = true;
 
     /**
      * The attributes that are mass assignable.
@@ -75,5 +67,13 @@ class User extends Authenticatable //implements Auditable
     public function profile()
     {
         return $this->hasOne(Models\Profile::class);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIdentifier()
+    {
+        return $this->getKey();
     }
 }

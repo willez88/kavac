@@ -4,9 +4,8 @@ namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 use App\Traits\ModelsTrait;
 
 /**
@@ -20,19 +19,11 @@ use App\Traits\ModelsTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class AssetDisincorporation extends Model //implements Auditable
+class AssetDisincorporation extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
+    use RecordableTrait;
     use ModelsTrait;
-    //use AuditableTrait;
-
-    /**
-     * Establece el uso o no de bitácora de registros para este modelo
-     *
-     * @var boolean $revisionCreationsEnabled
-     */
-    protected $revisionCreationsEnabled = true;
 
     /**
      * Lista de atributos para la gestión de fechas

@@ -3,9 +3,8 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * @class AssetRequestExtension
@@ -18,9 +17,9 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class AssetRequestExtension extends Model //implements Auditable
+class AssetRequestExtension extends Model implements Recordable
 {
-    //use AuditableTrait;
+    use RecordableTrait;
 
     /**
      * Lista de atributos que pueden ser asignados masivamente

@@ -4,10 +4,8 @@ namespace Modules\Payroll\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * @class PayrollSalaryAssignment
@@ -16,19 +14,14 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  * Gestiona el modelo de datos para las asignaciones salariales
  *
  * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL
+ *            </a>
  */
-class PayrollSalaryAssignment extends Model //implements Auditable
+class PayrollSalaryAssignment extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
-
-    /**
-     * Establece el uso o no de bitácora de registros para este modelo
-     * @var boolean $revisionCreationsEnabled
-     */
-    protected $revisionCreationsEnabled = true;
+    use RecordableTrait;
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -42,7 +35,10 @@ class PayrollSalaryAssignment extends Model //implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['name','description', 'active', 'incidence', 'incidence_type', 'payroll_position_type_id', 'payroll_salary_assignment_type_id', 'payroll_salary_scale_id'];
+    protected $fillable = [
+        'name','description', 'active', 'incidence', 'incidence_type', 'payroll_position_type_id',
+        'payroll_salary_assignment_type_id', 'payroll_salary_scale_id'
+    ];
 
     /**
      * Método que obtiene el tipo de cargo asociado a la asignación salarial
@@ -50,7 +46,7 @@ class PayrollSalaryAssignment extends Model //implements Auditable
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_postition_type()
+    public function payrollPostitionType()
     {
         return $this->belongsTo(PayrollPostitionType::class);
     }
@@ -61,7 +57,7 @@ class PayrollSalaryAssignment extends Model //implements Auditable
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_salary_assignment_type()
+    public function payrollSalaryAssignmentType()
     {
         return $this->belongsTo(PayrollSalaryAssignmentType::class);
     }
@@ -72,7 +68,7 @@ class PayrollSalaryAssignment extends Model //implements Auditable
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_salary_scale()
+    public function payrollSalaryScale()
     {
         return $this->belongsTo(PayrollSalaryScale::class);
     }

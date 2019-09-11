@@ -4,9 +4,8 @@ namespace Modules\Finance\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * @class FinanceCheckBook
@@ -19,10 +18,10 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class FinanceCheckBook extends Model //implements Auditable
+class FinanceCheckBook extends Model implements Recordable
 {
     use SoftDeletes;
-    //use AuditableTrait;
+    use RecordableTrait;
 
     /**
      * The attributes that should be mutated to dates.

@@ -4,10 +4,7 @@ namespace Modules\Payroll\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-//use Venturecraft\Revisionable\RevisionableTrait;
-/*use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;*/
+use Altek\Accountant\Contracts\Recordable;
 
 /**
  * @class CreatePayrollSalaryTabulator
@@ -15,20 +12,14 @@ use OwenIt\Auditing\Auditable as AuditableTrait;*/
  *
  * Gestiona el modelo de datos de los tabuladores salariales
  * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL
+ *            </a>
  */
-class PayrollSalaryTabulator extends Model //implements Auditable
+class PayrollSalaryTabulator extends Model implements Recordable
 {
     use SoftDeletes;
-    //use RevisionableTrait;
-    //use AuditableTrait;
-
-    /**
-     * Establece el uso o no de bitácora de registros para este modelo
-     *
-     * @var boolean $revisionCreationsEnabled
-     */
-    protected $revisionCreationsEnabled = true;
+    use RecordableTrait;
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -42,7 +33,10 @@ class PayrollSalaryTabulator extends Model //implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['name', 'description', 'active', 'payroll_position_type_id', 'payroll_horizontal_salary_scale_id', 'payroll_vertical_salary_scale_id'];
+    protected $fillable = [
+        'name', 'description', 'active', 'payroll_position_type_id', 'payroll_horizontal_salary_scale_id',
+        'payroll_vertical_salary_scale_id'
+    ];
 
     /**
      * Método que obtiene el tipo de cargo al que pertenece el tabulador
@@ -50,7 +44,7 @@ class PayrollSalaryTabulator extends Model //implements Auditable
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_position_type()
+    public function payrollPositionType()
     {
         return $this->belongsTo(PayrollPositionType::class);
     }
@@ -61,7 +55,7 @@ class PayrollSalaryTabulator extends Model //implements Auditable
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_vertical_salary_scale()
+    public function payrollVerticalSalaryScale()
     {
         return $this->belongsTo(PayrollSalaryScale::class);
     }
@@ -72,7 +66,7 @@ class PayrollSalaryTabulator extends Model //implements Auditable
      * @author Henry Paredes (henryp2804@gmail.com)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payroll_horizontal_salary_scale()
+    public function payrollHorizontalSalaryScale()
     {
         return $this->belongsTo(PayrollSalaryScale::class);
     }

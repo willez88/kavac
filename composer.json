@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "^7.3",
+        "altek/accountant": "^1.2",
         "arcanedev/log-viewer": "~5.0",
         "doctrine/dbal": "^2.9",
         "elibyy/tcpdf-laravel": "6.0.*",
