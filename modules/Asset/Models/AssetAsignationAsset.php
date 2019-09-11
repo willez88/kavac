@@ -20,7 +20,7 @@ use Altek\Accountant\Recordable as RecordableTrait;
  */
 class AssetAsignationAsset extends Model implements Recordable
 {
-    use SoftDeletes;
+    //use SoftDeletes;
     use RecordableTrait;
 
     /**
