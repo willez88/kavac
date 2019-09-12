@@ -123,14 +123,16 @@
 						@foreach ($auditables as $audit)
 							@if ($audit->user_id !== null)
 								@php
-									$registro_class = ($audit->event == 'created')?'text-success':'';
-									$registro_class = ($audit->event == 'deleted')?'text-danger':$registro_class;
-									$registro_class = ($audit->event == 'restored')?'text-info':$registro_class;
-									$registro_class = ($audit->event == 'updated')?'text-warning':$registro_class;
+									$registerClass = ($audit->event == 'created')?'text-success':'';
+									$registerClass = ($audit->event == 'deleted')?'text-danger':$registerClass;
+									$registerClass = ($audit->event == 'restored')?'text-info':$registerClass;
+									$registerClass = ($audit->event == 'updated')?'text-warning':$registerClass;
+
+									$badgeClass = str_replace('text', 'badge', $registerClass);
 								@endphp
 								<tr>
 									<th>
-										<i class="ion-android-checkbox-blank {{ $registro_class }}"></i>
+										<i class="ion-android-checkbox-blank {{ $registerClass }}"></i>
 									</th>
 									<td>{{ $audit->created_at->format('d-m-Y h:i:s A') }}</td>
 									<td>{{ $audit->ip_address }}</td>
@@ -173,7 +175,7 @@
 	                                    ]) !!}
 	                                    <div class="modal fade" id="modalAudit{{ $audit->id }}" tabindex="-1"
 	                                    	 role="dialog" aria-hidden="true">
-	                                    	<div class="modal-dialog" role="document">
+	                                    	<div class="modal-dialog" role="document" style="max-width:80%">
 	                                    		<div class="modal-content">
 	                                    			<div class="modal-header">
 	                                    				<h4 style="margin-top:0">Registro</h4>
@@ -183,6 +185,24 @@
 	                                    				</button>
 	                                    			</div>
 	                                    			<div class="modal-body">
+	                                    				<div class="row text-justify">
+	                                    					<div class="col-12">
+	                                    						<p>
+                                    								<span class="badge {{ $badgeClass }}"
+                                    									  style="margin-right:10px">
+                                    									  	@if ($audit->event == 'created')
+                                    									  		NUEVO
+		                                    								@elseif ($audit->event == 'deleted')
+																				ELIMINADO
+		                                    								@elseif ($audit->event == 'restored')
+																				RESTAURADO
+		                                    								@elseif ($audit->event == 'updated')
+																				ACTUALIZADO
+		                                    								@endif
+                                    								</span>
+                                    							</p>
+	                                    					</div>
+	                                    				</div>
 	                                    				<div class="row">
 	                                    					<div class="col-md-6 text-left">
 	                                    						<h5>Datos Anteriores</h5>
