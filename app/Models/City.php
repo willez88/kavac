@@ -9,8 +9,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 use Module;
 use Modules\Finance\Models\FinanceBankingAgency;
@@ -26,10 +26,10 @@ use Modules\Finance\Models\FinanceBankingAgency;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class City extends Model implements Recordable
+class City extends Model implements Auditable
 {
     use SoftDeletes;
-    use RecordableTrait;
+    use AuditableTrait;
     use ModelsTrait;
 
     /**

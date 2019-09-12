@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 //use Venturecraft\Revisionable\RevisionableTrait;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class Asset
@@ -20,10 +20,10 @@ use Altek\Accountant\Recordable as RecordableTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class Asset extends Model implements Recordable
+class Asset extends Model implements Auditable
 {
     use SoftDeletes;
-    use RecordableTrait;
+    use AuditableTrait;
 
     /**
      * Lista de atributos para la gestión de fechas

@@ -4,8 +4,8 @@ namespace Modules\Budget\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class BudgetModification
@@ -18,10 +18,10 @@ use Altek\Accountant\Recordable as RecordableTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class BudgetModification extends Model implements Recordable
+class BudgetModification extends Model implements Auditable
 {
     use SoftDeletes;
-    use RecordableTrait;
+    use AuditableTrait;
 
     /** @var array Establece las relaciones por defecto que se retornan con las consultas */
     protected $with = ['budgetModificationAccounts', 'institution'];

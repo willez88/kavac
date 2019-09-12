@@ -9,8 +9,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class DocumentStatus
@@ -23,10 +23,10 @@ use Altek\Accountant\Recordable as RecordableTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class DocumentStatus extends Model implements Recordable
+class DocumentStatus extends Model implements Auditable
 {
     use SoftDeletes;
-    use RecordableTrait;
+    use AuditableTrait;
 
     /**
      * Nombre de la tabla a usar en la base de datos

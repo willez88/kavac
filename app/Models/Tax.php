@@ -9,8 +9,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class Tax
@@ -23,10 +23,10 @@ use Altek\Accountant\Recordable as RecordableTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class Tax extends Model implements Recordable
+class Tax extends Model implements Auditable
 {
     use SoftDeletes;
-    use RecordableTrait;
+    use AuditableTrait;
 
     /**
      * @var array $dates Lista de atributos para la gestión de fechas

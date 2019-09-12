@@ -5,15 +5,8 @@ namespace Modules\Budget\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
-
-/**
- * Usado para validar la existencia del modulo de contabilidad
- * para la relación en la función account_converters AccountingAccountConverter
- *
- * @author  Juan Rosas <JuanFBass17@gmail.com>
- */
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use Module;
 
 /**
@@ -27,10 +20,10 @@ use Module;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class BudgetAccount extends Model implements Recordable
+class BudgetAccount extends Model implements Auditable
 {
     use SoftDeletes;
-    use RecordableTrait;
+    use AuditableTrait;
 
     /**
      * The attributes that should be mutated to dates.

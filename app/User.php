@@ -6,7 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Roles\Traits\HasRoleAndPermission;
-use Altek\Accountant\Contracts\Identifiable;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class User
@@ -19,11 +20,12 @@ use Altek\Accountant\Contracts\Identifiable;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class User extends Authenticatable implements Identifiable
+class User extends Authenticatable implements Auditable
 {
     use Notifiable;
     use SoftDeletes;
     use HasRoleAndPermission;
+    use AuditableTrait;
 
     /**
      * The attributes that are mass assignable.

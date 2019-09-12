@@ -3,8 +3,8 @@
 namespace Modules\Asset\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
@@ -18,9 +18,9 @@ use App\Traits\ModelsTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class AssetUseFunction extends Model implements Recordable
+class AssetUseFunction extends Model implements Auditable
 {
-    use RecordableTrait;
+    use AuditableTrait;
     use ModelsTrait;
 
     /**

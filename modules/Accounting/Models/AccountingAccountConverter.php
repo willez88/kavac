@@ -5,8 +5,8 @@ namespace Modules\Accounting\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 //use Venturecraft\Revisionable\RevisionableTrait;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use Module;
 
 /**
@@ -20,10 +20,10 @@ use Module;
  *                LICENCIA DE SOFTWARE CENDITEL
  *            </a>
  */
-class AccountingAccountConverter extends Model implements Recordable
+class AccountingAccountConverter extends Model implements Auditable
 {
     use SoftDeletes;
-    use RecordableTrait;
+    use AuditableTrait;
 
     protected $fillable = [
         'accounting_account_id',

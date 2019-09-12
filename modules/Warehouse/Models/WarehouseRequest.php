@@ -4,8 +4,8 @@ namespace Modules\Warehouse\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use Module;
 
 /**
@@ -19,10 +19,10 @@ use Module;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class WarehouseRequest extends Model implements Recordable
+class WarehouseRequest extends Model implements Auditable
 {
     use SoftDeletes;
-    use RecordableTrait;
+    use AuditableTrait;
 
     /**
      * Lista de atributos para la gestión de fechas
