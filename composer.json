@@ -19,6 +19,7 @@
         "maatwebsite/excel": "^3.1",
         "mews/captcha": "~3.0",
         "nwidart/laravel-modules": "6.0.x-dev",
+        "owen-it/laravel-auditing": "^9.3",
         "spatie/laravel-backup": "~6.4",
         "venturecraft/revisionable": "~1.31"
     },
