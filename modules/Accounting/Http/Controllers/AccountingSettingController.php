@@ -10,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
 use Auth;
+use Session;
 
 /**
  * @class AccountingConfigurationCategoryController
@@ -71,7 +72,15 @@ class AccountingSettingController extends Controller
                  * @var string
                  */
                 $model = \Modules\Accounting\Models\AccountingSeat::class;
-
+                dd([
+                    'module' => 'accounting',
+                    'table' => 'accounting_'. $table,
+                    'field' => $field,
+                    'format_prefix' => $prefix,
+                    'format_digits' => $digits,
+                    'format_year' => $sufix,
+                    'model' => $model,
+                ]);
                 CodeSetting::updateOrCreate([
                     'module' => 'accounting',
                     'table' => 'accounting_'. $table,
@@ -103,8 +112,7 @@ class AccountingSettingController extends Controller
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
                 'text' => 'Debe configurar previamente el formato para el código a generar'
                 ]);
-            // return response()->json(['result' => false, 'redirect' => route('asset.settings.index')], 200);
-            return "DEBE configurar";
+            return response()->json(['result' => true, 'redirect' => route('accounting.settings.index')], 200);
         }
 
         $code  = generate_registration_code(

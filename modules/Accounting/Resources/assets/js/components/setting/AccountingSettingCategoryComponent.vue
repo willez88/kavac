@@ -108,17 +108,18 @@ export default{
 	},
 	methods:{
 		/**
-			 * Método que borra todos los datos del formulario
-			 * 
-			 * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
-			 */
-			reset() {
-				this.record = {
-					id: '',
-					name: '',
-					acronym: '',
-				};
-			},
+		 * Método que borra todos los datos del formulario
+		 * 
+		 * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+		 */
+		reset() {
+			this.record = {
+				id: '',
+				name: '',
+				acronym: '',
+			};
+		},
+
 		/**
 		* Valida información del formulario de categoria
 		*
@@ -154,6 +155,7 @@ export default{
 			}
 			return true;
 		},
+		
 		// /**
 		// * Guarda o Actualiza la información de la nueva categoria
 		// *

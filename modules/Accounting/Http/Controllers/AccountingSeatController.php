@@ -125,7 +125,7 @@ class AccountingSeatController extends Controller
         $categories = json_encode($categories);
         $currency = json_encode($currency);
 
-        return view('accounting::seating.create-edit-form', compact('AccountingAccounts', 'categories', 'institutions', 'currency'));
+        return view('accounting::seating.form', compact('AccountingAccounts', 'categories', 'institutions', 'currency'));
     }
 
     /**
@@ -232,7 +232,7 @@ class AccountingSeatController extends Controller
         ];
         $data_edit = json_encode($data_edit);
 
-        return view('accounting::seating.create-edit-form', compact('AccountingAccounts', 'institutions', 'seating', 'categories', 'data_edit', 'currency'));
+        return view('accounting::seating.form', compact('AccountingAccounts', 'institutions', 'seating', 'categories', 'data_edit', 'currency'));
     }
 
     /**

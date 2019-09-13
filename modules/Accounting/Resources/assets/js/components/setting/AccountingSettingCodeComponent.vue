@@ -40,7 +40,12 @@
 </template>
 <script>
     export default{
-        props:['ref_code'],
+        props:{
+            ref_code:{
+                type:Object,
+                default: null
+            }
+        },
         data(){
             return{
                 code:'',

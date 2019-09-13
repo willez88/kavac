@@ -20,46 +20,11 @@ class ComposerStaticInit27317ae414509d650db29ce80ae40050
         ),
     );
 
-    public static $classMap = array (
-        'Modules\\Accounting\\Database\\Seeders\\AccountingAccountsTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/AccountingAccountsTableSeeder.php',
-        'Modules\\Accounting\\Database\\Seeders\\AccountingDatabaseSeeder' => __DIR__ . '/../..' . '/Database/Seeders/AccountingDatabaseSeeder.php',
-        'Modules\\Accounting\\Database\\Seeders\\AccountingRoleAndPermissionsTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/AccountingRoleAndPermissionsTableSeeder.php',
-        'Modules\\Accounting\\Database\\Seeders\\AccountingSeatCategoriesTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/AccountingSeatCategoriesTableSeeder.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingAccountController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingAccountController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingAccountConverterController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingAccountConverterController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingDashboardController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingDashboardController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingReportPdfAnalyticalMajorController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingReportPdfAnalyticalMajorController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingReportPdfAuxiliaryBookController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingReportPdfAuxiliaryBookController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingReportPdfBalanceSheetController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingReportPdfBalanceSheetController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingReportPdfCheckupBalanceController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingReportPdfCheckupBalanceController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingReportPdfDailyBookController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingReportPdfDailyBookController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingReportPdfStateOfResultsController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingReportPdfStateOfResultsController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingReportsController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingReportsController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingSeatController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingSeatController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingSeatReportPdfController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingSeatReportPdfController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingSettingCategoryController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingSettingCategoryController.php',
-        'Modules\\Accounting\\Http\\Controllers\\AccountingSettingController' => __DIR__ . '/../..' . '/Http/Controllers/AccountingSettingController.php',
-        'Modules\\Accounting\\Models\\AccountingAccount' => __DIR__ . '/../..' . '/Models/AccountingAccount.php',
-        'Modules\\Accounting\\Models\\AccountingAccountConverter' => __DIR__ . '/../..' . '/Models/AccountingAccountConverter.php',
-        'Modules\\Accounting\\Models\\AccountingCurrencyExchangeRate' => __DIR__ . '/../..' . '/Models/AccountingCurrencyExchangeRate.php',
-        'Modules\\Accounting\\Models\\AccountingReportHistory' => __DIR__ . '/../..' . '/Models/AccountingReportHistory.php',
-        'Modules\\Accounting\\Models\\AccountingSeat' => __DIR__ . '/../..' . '/Models/AccountingSeat.php',
-        'Modules\\Accounting\\Models\\AccountingSeatAccount' => __DIR__ . '/../..' . '/Models/AccountingSeatAccount.php',
-        'Modules\\Accounting\\Models\\AccountingSeatCategory' => __DIR__ . '/../..' . '/Models/AccountingSeatCategory.php',
-        'Modules\\Accounting\\Models\\Currency' => __DIR__ . '/../..' . '/Models/Currency.php',
-        'Modules\\Accounting\\Models\\Department' => __DIR__ . '/../..' . '/Models/Department.php',
-        'Modules\\Accounting\\Models\\Institution' => __DIR__ . '/../..' . '/Models/Institution.php',
-        'Modules\\Accounting\\Models\\Setting' => __DIR__ . '/../..' . '/Models/Setting.php',
-        'Modules\\Accounting\\Pdf\\Pdf' => __DIR__ . '/../..' . '/Pdf/Pdf.php',
-        'Modules\\Accounting\\Providers\\AccountingServiceProvider' => __DIR__ . '/../..' . '/Providers/AccountingServiceProvider.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit27317ae414509d650db29ce80ae40050::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit27317ae414509d650db29ce80ae40050::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit27317ae414509d650db29ce80ae40050::$classMap;
 
         }, null, ClassLoader::class);
     }
