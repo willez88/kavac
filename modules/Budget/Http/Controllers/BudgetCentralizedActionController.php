@@ -69,19 +69,23 @@ class BudgetCentralizedActionController extends Controller
             'class' => 'form-horizontal',
         ];
         /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
-        $institutions = template_choices(Institution::class, ['acronym', '-', 'name'], ['active' => true]);
+        $institutions = template_choices(Institution::class, ['acronym'], ['active' => true]);
         /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices(Department::class, ['acronym', '-', 'name'], ['active' => true]);
         /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
         $positions = (Module::has('Payroll') && Module::isEnabled('Payroll'))
-                     ? template_choices(\Modules\Payroll\Models\PayrollPosition::class, 'name')
+                     ? template_choices(
+                         \Modules\Payroll\Models\PayrollPosition::class,
+                         'name',
+                         ['relationship' => 'payrollEmploymentInformations', 'where' => ['active' => true]]
+                     )
                      : [];
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
         $staffs = (Module::has('Payroll') && Module::isEnabled('Payroll'))
                   ? template_choices(
                       \Modules\Payroll\Models\PayrollStaff::class,
                       ['id_number', '-', 'full_name'],
-                      ['active' => true]
+                      ['relationship' => 'payrollEmploymentInformation', 'where' => ['active' => true]]
                   )
                   : [];
         return view('budget::centralized_actions.create-edit-form', compact(
@@ -170,19 +174,23 @@ class BudgetCentralizedActionController extends Controller
         $model = $budgetCentralizedAction;
 
         /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
-        $institutions = template_choices('App\Models\Institution', ['acronym', '-', 'name'], ['active' => true]);
+        $institutions = template_choices('App\Models\Institution', ['acronym'], ['active' => true]);
         /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices('App\Models\Department', ['acronym', '-', 'name'], ['active' => true]);
         /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
         $positions = (Module::has('Payroll') && Module::isEnabled('Payroll'))
-                     ? template_choices(\Modules\Payroll\Models\PayrollPosition::class, 'name')
+                     ? template_choices(
+                         \Modules\Payroll\Models\PayrollPosition::class,
+                         'name',
+                         ['relationship' => 'payrollEmploymentInformations', 'where' => ['active' => true]]
+                     )
                      : [];
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
         $staffs = (Module::has('Payroll') && Module::isEnabled('Payroll'))
                   ? template_choices(
                       \Modules\Payroll\Models\PayrollStaff::class,
                       ['id_number', '-', 'full_name'],
-                      ['active' => true]
+                      ['relationship' => 'payrollEmploymentInformation', 'where' => ['active' => true]]
                   )
                   : [];
 

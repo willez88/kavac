@@ -69,13 +69,21 @@ class BudgetProjectController extends Controller
             'class' => 'form-horizontal',
         ];
         /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
-        $institutions = template_choices(Institution::class, ['acronym', '-', 'name'], ['active' => true]);
+        $institutions = template_choices(Institution::class, ['acronym'], ['active' => true]);
         /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices(Department::class, ['acronym', '-', 'name'], ['active' => true]);
         /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
-        $positions = template_choices(PayrollPosition::class, 'name');
+        $positions = template_choices(
+            PayrollPosition::class,
+            'name',
+            ['relationship' => 'payrollEmploymentInformations', 'where' => ['active' => true]]
+        );
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
-        $staffs = template_choices(PayrollStaff::class, ['id_number', '-', 'full_name']);
+        $staffs = template_choices(
+            PayrollStaff::class,
+            ['id_number', '-', 'full_name'],
+            ['relationship' => 'payrollEmploymentInformation', 'where' => ['active' => true]]
+        );
 
         return view('budget::projects.create-edit-form', compact(
             'header',
@@ -155,13 +163,21 @@ class BudgetProjectController extends Controller
         $model = $budgetProject;
 
         /** @var array Arreglo de opciones de instituciones a representar en la plantilla para su selección */
-        $institutions = template_choices(Institution::class, ['acronym', '-', 'name'], ['active' => true]);
+        $institutions = template_choices(Institution::class, ['acronym', '-', 'name']);
         /** @var array Arreglo de opciones de departamentos a representar en la plantilla para su selección */
         $departments = template_choices(Department::class, ['acronym', '-', 'name'], ['active' => true]);
         /** @var array Arreglo de opciones de cargos a representar en la plantilla para su selección */
-        $positions = template_choices(PayrollPosition::class, 'name');
+        $positions = template_choices(
+            PayrollPosition::class,
+            'name',
+            ['relationship' => 'payrollEmploymentInformations', 'where' => ['active' => true]]
+        );
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
-        $staffs = template_choices(PayrollStaff::class, ['id_number', '-', 'full_name'], ['active' => true]);
+        $staffs = template_choices(
+            PayrollStaff::class,
+            ['id_number', '-', 'full_name'],
+            ['relationship' => 'payrollEmploymentInformation', 'where' => ['active' => true]]
+        );
 
         return view('budget::projects.create-edit-form', compact(
             'header',
