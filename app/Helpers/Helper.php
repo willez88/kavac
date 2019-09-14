@@ -86,6 +86,9 @@ if (!function_exists('template_choices')) {
      * @param  string       $model     Nombre de la clase del modelo al cual generar el listado de opciones
      * @param  string|array $fields    Campo(s) a utilizar para mostrar en el listado de opciones
      * @param  array        $filters   Arreglo con los filtros a ser aplicados en la consulta
+     *                                 Ej. sin relación con otro modelo: ['active' => 'true']
+     *                                 Ej. con relación a otro modelo:
+     *                                 ['relationship' => 'metodoRelacion', 'where' => ['active' => true]]
      * @param  boolean      $vuejs     Indica si las opciones a mostrar son para una plantilla
      *                                 normal o para VueJS
      * @param  integer      $except_id Identificador del registro a excluir. Opcional
@@ -95,8 +98,14 @@ if (!function_exists('template_choices')) {
     {
         $records = $model::all();
         if ($filters) {
-            foreach ($filters as $key => $value) {
-                $records = $records->where($key, $value);
+            if (!isset($filters['relationship'])) {
+                $records = $model::where($filters)->get();
+            } else {
+                /** Filtra la información a obtener mediante relaciones */
+                $relationship = $filters['relationship'];
+                $records = $model::whereHas($relationship, function ($q) use ($filters) {
+                    $q->where($filters['where']);
+                })->get();
             }
         }
 
