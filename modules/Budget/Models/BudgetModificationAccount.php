@@ -24,7 +24,7 @@ class BudgetModificationAccount extends Model implements Auditable
     use AuditableTrait;
 
     /** @var array Establece las relaciones por defecto que se retornan con las consultas */
-    protected $with = ['budgetAccount', 'budget_sub_specific_formulation'];
+    protected $with = ['budgetAccount', 'budgetSubSpecificFormulation'];
 
     /**
      * The attributes that should be mutated to dates.

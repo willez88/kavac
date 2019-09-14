@@ -120,7 +120,6 @@ class BudgetModificationController extends Controller
 
         /** @var object Obtiene el registro del documento con estatus aprobado */
         $documentStatus = DocumentStatus::getStatus('AP');
-
         /** @var string Contiene el código generado para el registro a crear */
         $code = generate_registration_code(
             $codeSetting->format_prefix,
@@ -244,7 +243,6 @@ class BudgetModificationController extends Controller
         }
 
         $records = ($tp) ? BudgetModification::where('type', $tp)->get() : [];
-
         return response()->json([
             'records' => $records
         ], 200);
