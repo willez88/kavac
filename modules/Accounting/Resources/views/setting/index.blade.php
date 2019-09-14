@@ -41,7 +41,7 @@
 				</div>
 			</div>
 		</div>
-		{{-- <div class="col-12">
+		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">Configuraciones del módulo de contabilidad</h6>
@@ -60,6 +60,6 @@
 					</div>
 				</div>
 			</div>
-		</div> --}}
+		</div>
 	</div>
 @stop

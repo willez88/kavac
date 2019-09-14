@@ -4,24 +4,6 @@
 			<accounting-show-errors />
 
 			<div class="row">
-
-<!-- 				<div class="col-4"></div>
-
-				<div class="col-4">
-					<label v-if="searchActive && searchBudgetAccount"
-							class="control-label text-center">
-						<h4>Cuentas Presupuestales</h4>
-					</label>
-					<label v-else-if="searchActive && !searchBudgetAccount"
-							class="control-label text-center">
-						<h4>Cuentas Patrimoniales</h4>
-					</label>
-					<label v-else
-							class="control-label text-center">
-					</label>
-				</div>
-				<div class="col-4"></div> -->
-	
 				<div class="col-2">
 					<label for="sel_budget_acc" class="control-label">Por Presupuestos</label>
 					<br>
@@ -71,48 +53,6 @@
 						Buscar
 					<i class="fa fa-search"></i>
 				</button>
-			</div>
-			<div class="row">
-				<div class="col-12">
-					<!-- <v-client-table :columns="columns" :data="records" :options="table_options">
-
-						<div slot="codeBudget" slot-scope="props" class="text-center">
-							{{ props.row.budget_account.group+'.'+
-								props.row.budget_account.item+'.'+
-								props.row.budget_account.generic+'.'+
-								props.row.budget_account.specific+'.'+
-								props.row.budget_account.subspecific }}
-						</div>
-						<div slot="BudgetAccounts" slot-scope="props" class="text-center">
-							{{ props.row.budget_account.denomination }}
-						</div>
-						<div slot="codeAccounting" slot-scope="props" class="text-center">
-							{{ props.row.accounting_account.group+'.'+
-								props.row.accounting_account.subgroup+'.'+
-								props.row.accounting_account.item+'.'+
-								props.row.accounting_account.generic+'.'+
-								props.row.accounting_account.specific+'.'+
-								props.row.accounting_account.subspecific }}
-						</div>
-						<div slot="AccountingAccounts" slot-scope="props" class="text-center">
-							{{ props.row.accounting_account.denomination }}
-						</div>
-						<div slot="id" slot-scope="props" class="text-center">
-							<button class="btn btn-warning btn-xs btn-icon btn-action"
-									title="Modificar registro"
-									data-toggle="tooltip"
-									v-on:click="editForm(props.row.id)">
-								<i class="fa fa-edit"></i>
-                            </button>
-							<button class="btn btn-danger btn-xs btn-icon btn-action"
-									title="Eliminar registro de la lista de cuentas a convertir"
-									data-toggle="tooltip"
-									v-on:click="deleteRecord(props.index,'/accounting/converter')">
-								<i class="fa fa-trash-o"></i>
-							</button>
-						</div>
-					</v-client-table> -->
-				</div>
 			</div>
 		</div>
 	</div>
