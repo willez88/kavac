@@ -34,10 +34,14 @@
 							<div class="col-3">
 								<div class="form-group is-required">
 									{!! Form::label('institution_id', 'Institución', ['class' => 'control-label']) !!}
-									{!! Form::select('institution_id', $institutions, null, [
-										'class' => 'select2', 'data-toggle' => 'tooltip',
-										'title' => 'Seleccione una institución'
-									]) !!}
+									{!! Form::select(
+										'institution_id',
+										$institutions, (isset($model)) ? $model->department->institution->id : null,
+										[
+											'class' => 'select2', 'data-toggle' => 'tooltip',
+											'title' => 'Seleccione una institución'
+										]
+									) !!}
 								</div>
 							</div>
 							<div class="col-3">
@@ -45,7 +49,8 @@
 									{!! Form::label('department_id', 'Dependencia', ['class' => 'control-label']) !!}
 									{!! Form::select('department_id', $departments, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip',
-										'title' => 'Seleccione un departamento o dependencia'
+										'title' => 'Seleccione un departamento o dependencia',
+										'onchange' => 'updateSelect($(this), $("#payroll_position_id"), "PayrollPosition", "Payroll")'
 									]) !!}
 								</div>
 							</div>
@@ -57,6 +62,7 @@
 										]) !!}
 										{!! Form::select('payroll_position_id', $positions, null, [
 											'class' => 'select2', 'data-toggle' => 'tooltip',
+											'id' => 'payroll_position_id',
 											'title' => 'Seleccione el cargo de la persona responsable del proyecto'
 										]) !!}
 									</div>
