@@ -27,6 +27,8 @@ class PayrollStaff extends Model implements Auditable
 
     protected $table = "payroll_staffs";
 
+    protected $with = ['payrollEmploymentInformation'];
+
     /**
      * Lista de atributos para la gestión de fechas
      * @var array $dates
