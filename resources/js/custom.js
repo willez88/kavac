@@ -25,6 +25,7 @@ $(document).ready(function() {
             $('.menu-option').removeClass('text-center');
             $('.menu-option a i').removeClass('fa-2x');
             $('.menu-option a span').show();
+            $('.menu-collapse').attr("data-original-title", "Minimizar panel de menú");
          } else {
             $('.container-left, .content-wrapper').addClass('collapsed');
             $(this).find('i').removeClass('arrows-1_minimal-left');
@@ -33,7 +34,12 @@ $(document).ready(function() {
             $('.menu-option').addClass('text-center');
             $('.menu-option a i').addClass('fa-2x');
             $('.menu-option a span').hide();
+            $('.menu-collapse').attr("data-original-title", "Maximizar panel de menú");
          }
+         $('.menu-collapse').tooltip();
+         setTimeout(function(){
+            $('.menu-collapse').tooltip('hide');
+        }, 2000);
       } else {
          if (!$('body').hasClass('show-left')) {
             $('body').addClass('show-left');

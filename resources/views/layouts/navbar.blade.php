@@ -9,9 +9,9 @@
             <img src="{{ asset('images/app-name-white.png') }}" alt="" />
         </a>
         <div class="float-right">
-            <a href="" class="menu-collapse">
+            <div class="menu-collapse" data-toggle="tooltip" data-placement="right" title="Minimizar panel de menú">
                 <i class="now-ui-icons arrows-1_minimal-left"></i>
-            </a>
+            </div>
         </div>
 	</div>
 	<button class="navbar-toggler navbar-toggler-right" type="button"
