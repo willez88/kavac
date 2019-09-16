@@ -48,6 +48,13 @@ Vue.component('v-multiselect', require('./components/MultiSelectsComponent.vue')
 Vue.component('select2', require('./components/SelectsComponent.vue').default);
 
 /**
+ * Componente genérico para el uso de botones en formularios de ventanas modales
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('modal-form-buttons', require('./components/ButtonsFormModalComponent').default);
+
+/**
  * Componente genérico para la gestión de imágenes
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
