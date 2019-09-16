@@ -18,14 +18,14 @@
         "lodash": "^4.17.15",
         "popper.js": "^1.15.0",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.22.10",
+        "sass": "^1.22.12",
         "sass-loader": "^7.3.1",
-        "vue": "^2.6.10"
+        "vue": "^2.6"
     },
     "dependencies": {
         "@ckeditor/ckeditor5-alignment": "^11.2.0",
         "@ckeditor/ckeditor5-build-classic": "^12.4.0",
-        "bootbox": "^4.4.0",
+        "bootbox": "^5.0",
         "bootstrap-fileinput": "^4.5.3",
         "chart.js": "^2.8.0",
         "gifsicle": "^4.0.1",
@@ -34,7 +34,7 @@
         "moment": "^2.24.0",
         "node-sass": "^4.12.0",
         "select2": "^4.0.10",
-        "sweetalert": "^2.1.2",
+        "sweetalert2": "^8.17.3",
         "vue-multiselect": "^2.1.6",
         "vue-tables-2": "^1.4.70",
         "vue-template-compiler": "^2.6.10"
