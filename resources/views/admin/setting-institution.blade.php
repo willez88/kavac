@@ -155,7 +155,7 @@
 								{!! Form::label(
 									'country_id', 'Pais', []
 								) !!}
-								{!! Form::select('country_id', (isset($countries))?$countries:[], null, [
+								{!! Form::select('country_id', (isset($countries))?$countries:[], (isset($model_institution)) ? $model_institution->city->estate->country->id : null, [
 									'class' => 'form-control select2', 'id' => 'country_id',
 									'onchange' => 'updateSelect($(this), $("#estate_id"), "Estate")'
 								]) !!}
@@ -167,7 +167,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('estate_id', 'Estado', []) !!}
-								{!! Form::select('estate_id', (isset($estates))?$estates:[], null, [
+								{!! Form::select('estate_id', (isset($estates))?$estates:[], (isset($model_institution)) ? $model_institution->city->estate->id : null, [
 									'class' => 'form-control select2', 'id' => 'estate_id',
 									'onchange' => 'updateSelect($(this), $("#municipality_id"), "Municipality"), updateSelect($(this), $("#city_id"), "City")',
 									'disabled' => (!isset($model_institution))
@@ -197,7 +197,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-4">
+						{{-- <div class="col-md-4">
 							<div class="form-group">
 								{!! Form::label('parish_id', 'Parroquia', []) !!}
 								{!! Form::select('parish_id', (isset($parishes))?$parishes:[], null, [
@@ -205,7 +205,7 @@
 									'disabled' => (!isset($model_institution))
 								]) !!}
 							</div>
-						</div>
+						</div> --}}
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								{!! Form::label('postal_code', 'Código Postal', []) !!}

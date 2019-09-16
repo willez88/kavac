@@ -28,6 +28,9 @@
 			@endphp
 			@if ($institution)
 				<div class="navbar-brand">
+					@if ($institution->has('logo'))
+						<img src="{{ $institution->logo->url }}" alt="logo" class="img-fluid">
+					@endif
 					{!! $institution->acronym !!} | {!! $institution->name !!}
 				</div>
 			@endif

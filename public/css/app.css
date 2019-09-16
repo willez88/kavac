@@ -26841,6 +26841,10 @@ a.level-debug:hover {
   display: '';
 }
 
+.navbar .navbar-brand img {
+  max-height: 40px;
+}
+
 .navbar-toggler {
   color: #fff;
 }

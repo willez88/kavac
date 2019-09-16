@@ -70,10 +70,13 @@ class SettingController extends Controller
         $header_parameters = [
             'route' => 'settings.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        $model_institution = Institution::where([
-            'active' => true,
-            'default' => !is_null($paramMultiInstitution)
-        ])->first();
+        $model_institution = null;
+        if (is_null($paramMultiInstitution)) {
+            $model_institution = Institution::where([
+                'active' => true,
+                'default' => true
+            ])->first();
+        }
         $header_institution = [
             'route' => 'institutions.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
             'enctype' => 'multipart/form-data'

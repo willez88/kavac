@@ -82,6 +82,12 @@
 		margin-bottom:0;
 		display:'';
 	}
+
+	.navbar-brand {
+		img {
+			max-height: 40px;
+		}
+	}
 }
 
 .navbar-toggler {
