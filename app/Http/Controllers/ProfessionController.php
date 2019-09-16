@@ -64,8 +64,8 @@ class ProfessionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100|unique:professions,name',
-            'acronym' => 'max:10'
+            'name' => ['required', 'max:100', 'unique:professions,name'],
+            'acronym' => ['max:10']
         ]);
 
         $profession = Profession::create([
@@ -111,8 +111,8 @@ class ProfessionController extends Controller
     public function update(Request $request, Profession $profession)
     {
         $this->validate($request, [
-            'name' => 'required|max:100|unique:professions,name,' . $profession->id,
-            'acronym' => 'max:10'
+            'name' => ['required', 'max:100', 'unique:professions,name,' . $profession->id],
+            'acronym' => ['max:10']
         ]);
 
         $profession->name = $request->name;

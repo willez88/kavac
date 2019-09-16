@@ -38,7 +38,7 @@ class PurchaseSupplierSpecialtyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:purchase_supplier_specialties,name',
+            'name' => ['required', 'unique:purchase_supplier_specialties,name'],
         ]);
 
         $supplierSpecialty = PurchaseSupplierSpecialty::create([
@@ -78,7 +78,7 @@ class PurchaseSupplierSpecialtyController extends Controller
         $supplierSpecialty = PurchaseSupplierSpecialty::find($id);
 
         $this->validate($request, [
-            'name' => 'required|unique:purchase_supplier_specialties,name,' . $supplierSpecialty->id,
+            'name' => ['required', 'unique:purchase_supplier_specialties,name,' . $supplierSpecialty->id],
         ]);
 
         $supplierSpecialty->name = $request->name;

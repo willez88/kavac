@@ -65,7 +65,7 @@ class FinanceAccountTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100|unique:finance_account_types,name',
+            'name' => ['required', 'max:100', 'unique:finance_account_types,name'],
         ]);
 
         $financeAccountType = FinanceAccountType::create([
@@ -104,7 +104,7 @@ class FinanceAccountTypeController extends Controller
         $financeAccountType = FinanceAccountType::find($id);
 
         $this->validate($request, [
-            'name' => 'required|max:100|unique:finance_account_types,name,' . $financeAccountType->id,
+            'name' => ['required', 'max:100', 'unique:finance_account_types,name,' . $financeAccountType->id],
         ]);
 
         $financeAccountType->name = $request->name;

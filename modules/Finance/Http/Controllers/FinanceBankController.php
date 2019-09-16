@@ -65,9 +65,9 @@ class FinanceBankController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required|max:4|unique:finance_banks,code',
-            'name' => 'required|max:100|unique:finance_banks,name',
-            'short_name' => 'required|max:50|unique:finance_banks,short_name'
+            'code' => ['required', 'max:4', 'unique:finance_banks,code'],
+            'name' => ['required', 'max:100', 'unique:finance_banks,name'],
+            'short_name' => ['required', 'max:50', 'unique:finance_banks,short_name']
         ]);
 
         $financeBank = FinanceBank::create([
@@ -110,9 +110,9 @@ class FinanceBankController extends Controller
         $financeBank = FinanceBank::find($id);
 
         $this->validate($request, [
-            'code' => 'required|max:4|unique:finance_banks,code,' . $financeBank->id,
-            'name' => 'required|max:100|unique:finance_banks,name,' . $financeBank->id,
-            'short_name' => 'required|max:50|unique:finance_banks,short_name,' . $financeBank->id
+            'code' => ['required', 'max:4', 'unique:finance_banks,code,' . $financeBank->id],
+            'name' => ['required', 'max:100', 'unique:finance_banks,name,' . $financeBank->id],
+            'short_name' => ['required', 'max:50', 'unique:finance_banks,short_name,' . $financeBank->id]
         ]);
 
         $financeBank->code = $request->code;

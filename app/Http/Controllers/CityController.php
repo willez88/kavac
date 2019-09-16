@@ -64,8 +64,8 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'estate_id' => 'required'
+            'name' => ['required', 'max:100'],
+            'estate_id' => ['required']
         ]);
 
         $city = City::create([
@@ -111,8 +111,8 @@ class CityController extends Controller
     public function update(Request $request, City $city)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'estate_id' => 'required'
+            'name' => ['required', 'max:100'],
+            'estate_id' => ['required']
         ]);
 
         $city->name = $request->name;

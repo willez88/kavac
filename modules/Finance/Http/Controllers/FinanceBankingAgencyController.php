@@ -70,10 +70,10 @@ class FinanceBankingAgencyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'direction' => 'required',
-            'city_id' => 'required',
-            'finance_bank_id' => 'required'
+            'name' => ['required'],
+            'direction' => ['required'],
+            'city_id' => ['required'],
+            'finance_bank_id' => ['required']
         ]);
 
         $bankingAgency = FinanceBankingAgency::create([
@@ -134,10 +134,10 @@ class FinanceBankingAgencyController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'direction' => 'required',
-            'city_id' => 'required',
-            'finance_bank_id' => 'required'
+            'name' => ['required'],
+            'direction' => ['required'],
+            'city_id' => ['required'],
+            'finance_bank_id' => ['required']
         ]);
 
         /** @var object Datos de la agencia bancaria */

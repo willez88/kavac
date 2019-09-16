@@ -64,8 +64,8 @@ class InstitutionTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'acronym' => 'max:4'
+            'name' => ['required', 'max:100'],
+            'acronym' => ['max:4']
         ]);
 
 
@@ -112,8 +112,8 @@ class InstitutionTypeController extends Controller
     public function update(Request $request, InstitutionType $institutionType)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'acronym' => 'max:4'
+            'name' => ['required', 'max:100'],
+            'acronym' => ['max:4']
         ]);
 
         $institutionType->name = $request->name;

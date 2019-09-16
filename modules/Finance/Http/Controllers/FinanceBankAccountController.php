@@ -54,11 +54,11 @@ class FinanceBankAccountController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'ccc_number' => 'required|max:20|unique:finance_bank_accounts,ccc_number',
-            'description' => 'required',
-            'opened_at' => 'required|date',
-            'finance_banking_agency_id' => 'required',
-            'finance_account_type_id' => 'required'
+            'ccc_number' => ['required', 'max:20', 'unique:finance_bank_accounts,ccc_number'],
+            'description' => ['required'],
+            'opened_at' => ['required', 'date'],
+            'finance_banking_agency_id' => ['required'],
+            'finance_account_type_id' => ['required']
         ]);
 
         $financeBankAccount = FinanceBankAccount::create([
@@ -101,14 +101,13 @@ class FinanceBankAccountController extends Controller
         $bankAccount = FinanceBankAccount::find($id);
 
         $this->validate($request, [
-            'ccc_number' => 'required|max:20|unique:finance_bank_accounts,ccc_number,' . substr(
-                $bankAccount->ccc_number,
-                4
-            ),
-            'description' => 'required',
-            'opened_at' => 'required|date',
-            'finance_banking_agency_id' => 'required',
-            'finance_account_type_id' => 'required'
+            'ccc_number' => [
+                'required', 'max:20', 'unique:finance_bank_accounts,ccc_number,' . substr($bankAccount->ccc_number, 4)
+            ],
+            'description' => ['required'],
+            'opened_at' => ['required', 'date'],
+            'finance_banking_agency_id' => ['required'],
+            'finance_account_type_id' => ['required']
         ]);
 
         $bankAccount->ccc_number = $request->bank_code . $request->ccc_number;

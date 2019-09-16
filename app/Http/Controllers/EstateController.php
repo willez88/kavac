@@ -64,9 +64,9 @@ class EstateController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'code' => 'required|max:10',
-            'country_id' => 'required'
+            'name' => ['required', 'max:100'],
+            'code' => ['required', 'max:10'],
+            'country_id' => ['required']
         ]);
 
 
@@ -114,9 +114,9 @@ class EstateController extends Controller
     public function update(Request $request, Estate $estate)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'code' => 'required|max:10',
-            'country_id' => 'required'
+            'name' => ['required', 'max:100'],
+            'code' => ['required', 'max:10'],
+            'country_id' => ['required']
         ]);
 
         $estate->name = $request->name;

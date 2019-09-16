@@ -64,10 +64,15 @@ class DocumentStatusController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:20|unique:document_status,name',
-            'description' => 'required',
-            'color' => 'required|min:4|max:30|unique:document_status,color',
-            'action' => 'required|unique:document_status,action'
+            'name' => ['required', 'max:20', 'unique:document_status,name'],
+            'description' => ['required'],
+            'color' => [
+                'required', 'min:4', 'max:30', 'unique:document_status,color',
+                'not_in:#FFFFFF,#000000'
+            ],
+            'action' => ['required', 'unique:document_status,action']
+        ], [
+            'color.not_in' => 'Color inválido, seleccione un color distinto a blanco o negro'
         ]);
 
 
@@ -116,10 +121,13 @@ class DocumentStatusController extends Controller
     public function update(Request $request, DocumentStatus $documentStatus)
     {
         $this->validate($request, [
-            'name' => 'required|max:20|unique:document_status,name,' . $documentStatus->id,
-            'description' => 'required',
-            'color' => 'required|min:4|max:30|unique:document_status,color,' . $documentStatus->id,
-            'action' => 'required|unique:document_status,action,' . $documentStatus->id,
+            'name' => ['required', 'max:20', 'unique:document_status,name,' . $documentStatus->id],
+            'description' => ['required'],
+            'color' => [
+                'required', 'min:4', 'max:30', 'not_in:#FFFFFF,#000000',
+                'unique:document_status,color,' . $documentStatus->id
+            ],
+            'action' => ['required', 'unique:document_status,action,' . $documentStatus->id],
         ]);
 
         $documentStatus->name = $request->name;

@@ -64,8 +64,8 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'prefix' => 'required|max:3'
+            'name' => ['required', 'max:100'],
+            'prefix' => ['required', 'max:3']
         ]);
 
 
@@ -112,8 +112,8 @@ class CountryController extends Controller
     public function update(Request $request, Country $country)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'prefix' => 'required|max:3'
+            'name' => ['required', 'max:100', 'unique:countries,name,' . $country->id],
+            'prefix' => ['required', 'max:3', 'unique:countries,prefix,' . $country->id]
         ]);
 
         $country->name = $request->name;

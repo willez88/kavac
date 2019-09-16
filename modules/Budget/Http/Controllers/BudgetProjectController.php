@@ -28,6 +28,8 @@ class BudgetProjectController extends Controller
 {
     use ValidatesRequests;
 
+    public $validate_rules;
+
     /**
      * Define la configuración de la clase
      *
@@ -40,6 +42,17 @@ class BudgetProjectController extends Controller
         $this->middleware('permission:budget.project.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:budget.project.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:budget.project.delete', ['only' => 'destroy']);
+
+        /** @var array Define las reglas de validación para el formulario */
+        $this->validate_rules = [
+            'institution_id' => ['required'],
+            'department_id' => ['required'],
+            'payroll_position_id' => ['required'],
+            'payroll_staff_id' => ['required'],
+            'code' => ['required'],
+            'onapre_code' => ['required'],
+            'name' => ['required'],
+        ];
     }
 
     /**
@@ -103,15 +116,7 @@ class BudgetProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'institution_id' => 'required',
-            'department_id' => 'required',
-            'payroll_position_id' => 'required',
-            'payroll_staff_id' => 'required',
-            'code' => 'required',
-            'onapre_code' => 'required',
-            'name' => 'required',
-        ]);
+        $this->validate($request, $this->validate_rules);
 
         /**
          * Registra el nuevo proyecto
@@ -199,15 +204,7 @@ class BudgetProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'institution_id' => 'required',
-            'department_id' => 'required',
-            'payroll_position_id' => 'required',
-            'payroll_staff_id' => 'required',
-            'code' => 'required',
-            'onapre_code' => 'required',
-            'name' => 'required',
-        ]);
+        $this->validate($request, $this->validate_rules);
 
         /** @var object Objeto con información del proyecto a modificar */
         $budgetProject = BudgetProject::find($id);

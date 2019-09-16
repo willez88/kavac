@@ -64,7 +64,7 @@ class MaritalStatusController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
 
         $maritalStatus = MaritalStatus::create(['name' => $request->name]);
@@ -107,7 +107,7 @@ class MaritalStatusController extends Controller
     public function update(Request $request, MaritalStatus $maritalStatus)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
 
         $maritalStatus->name = $request->name;

@@ -64,7 +64,7 @@ class InstitutionSectorController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
+            'name' => ['required', 'max:100'],
         ]);
 
 
@@ -110,7 +110,7 @@ class InstitutionSectorController extends Controller
     public function update(Request $request, InstitutionSector $institutionSector)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
+            'name' => ['required', 'max:100'],
         ]);
 
         $institutionSector->name = $request->name;

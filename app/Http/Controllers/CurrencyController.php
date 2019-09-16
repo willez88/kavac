@@ -61,10 +61,10 @@ class CurrencyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:40',
-            'symbol' => 'required|max:4',
-            'country_id' => 'required',
-            'decimal_places' => 'required|numeric|min:2|max:10'
+            'name' => ['required', 'max:40'],
+            'symbol' => ['required', 'max:4'],
+            'country_id' => ['required'],
+            'decimal_places' => ['required', 'numeric', 'min:2', 'max:10']
         ]);
 
         if ($request->default || !empty($request->default)) {
@@ -118,10 +118,10 @@ class CurrencyController extends Controller
     public function update(Request $request, Currency $currency)
     {
         $this->validate($request, [
-            'name' => 'required|max:40',
-            'symbol' => 'required|max:4',
-            'country_id' => 'required',
-            'decimal_places' => 'required|numeric|min:2|max:10'
+            'name' => ['required', 'max:40'],
+            'symbol' => ['required', 'max:4'],
+            'country_id' => ['required'],
+            'decimal_places' => ['required', 'numeric', 'min:2', 'max:10']
         ]);
 
         $currency->name = $request->name;

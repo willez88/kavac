@@ -90,9 +90,9 @@ class FinanceCheckBookController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required',
-            'finance_bank_account_id' => 'required',
-            'numbers' => 'required|array|min:1'
+            'code' => ['required'],
+            'finance_bank_account_id' => ['required'],
+            'numbers' => ['required', 'array', 'min:1']
         ]);
 
         foreach ($request->numbers as $number) {

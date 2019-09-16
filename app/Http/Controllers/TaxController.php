@@ -62,10 +62,10 @@ class TaxController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:60',
-            'description' => 'required',
-            'operation_date' => 'required|date',
-            'percentage' => 'required'
+            'name' => ['required', 'max:60'],
+            'description' => ['required'],
+            'operation_date' => ['required', 'date'],
+            'percentage' => ['required']
         ]);
 
 
@@ -117,10 +117,10 @@ class TaxController extends Controller
     public function update(Request $request, Tax $tax)
     {
         $this->validate($request, [
-            'name' => 'required|max:60',
-            'description' => 'required',
-            'operation_date' => 'required|date',
-            'percentage' => 'required'
+            'name' => ['required', 'max:60'],
+            'description' => ['required'],
+            'operation_date' => ['required', 'date'],
+            'percentage' => ['required']
         ]);
 
         $tax->name = $request->name;

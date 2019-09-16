@@ -38,7 +38,7 @@ class PurchaseSupplierBranchController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:purchase_supplier_branches,name',
+            'name' => ['required', 'unique:purchase_supplier_branches,name'],
         ]);
 
         $supplierBranch = PurchaseSupplierBranch::create([
@@ -78,7 +78,7 @@ class PurchaseSupplierBranchController extends Controller
         $supplierBranch = PurchaseSupplierBranch::find($request->id);
 
         $this->validate($request, [
-            'name' => 'required|unique:purchase_supplier_branches,name,' . $supplierBranch->id,
+            'name' => ['required', 'unique:purchase_supplier_branches,name,' . $supplierBranch->id],
         ]);
 
         $supplierBranch->name = $request->name;

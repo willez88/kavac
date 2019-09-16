@@ -52,7 +52,7 @@ class RequiredDocumentController extends Controller
     public function store(Request $request, $model, $module = null)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => ['required'],
         ]);
 
 
@@ -98,7 +98,7 @@ class RequiredDocumentController extends Controller
     public function update(Request $request, $model, $module, RequiredDocument $requiredDocument)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => ['required'],
         ]);
 
         $requiredDocument->name = $request->name;

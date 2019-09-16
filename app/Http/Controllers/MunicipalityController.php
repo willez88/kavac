@@ -64,9 +64,9 @@ class MunicipalityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'code' => 'required|max:10',
-            'estate_id' => 'required'
+            'name' => ['required', 'max:100'],
+            'code' => ['required', 'max:10'],
+            'estate_id' => ['required']
         ]);
 
 
@@ -114,9 +114,9 @@ class MunicipalityController extends Controller
     public function update(Request $request, Municipality $municipality)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'code' => 'required|max:10',
-            'estate_id' => 'required'
+            'name' => ['required', 'max:100'],
+            'code' => ['required', 'max:10'],
+            'estate_id' => ['required']
         ]);
 
         $municipality->name = $request->name;

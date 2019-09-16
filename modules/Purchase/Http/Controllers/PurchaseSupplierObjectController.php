@@ -38,8 +38,8 @@ class PurchaseSupplierObjectController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'type' => 'required',
-            'name' => 'required|unique:purchase_supplier_objects,name',
+            'type' => ['required'],
+            'name' => ['required', 'unique:purchase_supplier_objects,name'],
         ]);
 
         $supplierObject = PurchaseSupplierObject::create([
@@ -80,8 +80,8 @@ class PurchaseSupplierObjectController extends Controller
         $supplierObject = PurchaseSupplierObject::find($id);
 
         $this->validate($request, [
-            'type' => 'required',
-            'name' => 'required|unique:purchase_supplier_objects,name,' . $supplierObject->id,
+            'type' => ['required'],
+            'name' => ['required', 'unique:purchase_supplier_objects,name,' . $supplierObject->id],
         ]);
 
         $supplierObject->type = $request->type;

@@ -38,7 +38,7 @@ class PurchaseSupplierTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:purchase_supplier_types,name',
+            'name' => ['required', 'unique:purchase_supplier_types,name'],
         ]);
 
         $supplierType = PurchaseSupplierType::create([
@@ -77,7 +77,7 @@ class PurchaseSupplierTypeController extends Controller
         $supplierType = PurchaseSupplierType::find($id);
 
         $this->validate($request, [
-            'name' => 'required|unique:purchase_supplier_types,name,' . $supplierType->id,
+            'name' => ['required', 'unique:purchase_supplier_types,name,' . $supplierType->id],
         ]);
 
         $supplierType->name = $request->name;

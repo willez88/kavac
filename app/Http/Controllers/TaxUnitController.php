@@ -61,9 +61,9 @@ class TaxUnitController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'value' => 'required',
-            'start_date' => 'required|date',
-            'end_date' => 'date'
+            'value' => ['required'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['date']
         ]);
 
 
@@ -109,9 +109,9 @@ class TaxUnitController extends Controller
     public function update(Request $request, TaxUnit $taxUnit)
     {
         $this->validate($request, [
-            'value' => 'required|numeric',
-            'start_date' => 'required|date',
-            'end_date' => 'date'
+            'value' => ['required', 'numeric'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['date']
         ]);
 
         $taxUnit->value = $request->value;

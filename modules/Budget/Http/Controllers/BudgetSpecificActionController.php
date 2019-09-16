@@ -104,14 +104,14 @@ class BudgetSpecificActionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'from_date' => 'required|date',
-            'to_date' => 'required|date',
-            'code' => 'required',
-            'name' => 'required',
-            'description' => 'required',
-            'project_centralized_action' => 'required',
-            'project_id' => 'required_if:project_centralized_action,project',
-            'centralized_action_id' => 'required_if:project_centralized_action,centralized_action',
+            'from_date' => ['required', 'date'],
+            'to_date' => ['required', 'date'],
+            'code' => ['required'],
+            'name' => ['required'],
+            'description' => ['required'],
+            'project_centralized_action' => ['required'],
+            'project_id' => ['required_if:project_centralized_action,project'],
+            'centralized_action_id' => ['required_if:project_centralized_action,centralized_action'],
         ]);
 
         /** @var object Crea una acción específica */
@@ -191,14 +191,14 @@ class BudgetSpecificActionController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'from_date' => 'required|date',
-            'to_date' => 'required|date',
-            'code' => 'required',
-            'name' => 'required',
-            'description' => 'required',
-            'project_centralized_action' => 'required',
-            'project_id' => 'required_if:project_centralized_action,project',
-            'centralized_action_id' => 'required_if:project_centralized_action,centralized_action',
+            'from_date' => ['required', 'date'],
+            'to_date' => ['required', 'date'],
+            'code' => ['required'],
+            'name' => ['required'],
+            'description' => ['required'],
+            'project_centralized_action' => ['required'],
+            'project_id' => ['required_if:project_centralized_action,project'],
+            'centralized_action_id' => ['required_if:project_centralized_action,centralized_action'],
         ]);
 
         if ($request->project_centralized_action === "project") {

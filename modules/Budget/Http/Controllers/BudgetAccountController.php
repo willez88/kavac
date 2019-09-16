@@ -57,13 +57,13 @@ class BudgetAccountController extends Controller
 
         /** @var array Define las reglas de validación para el formulario */
         $this->validate_rules = [
-            'group' => 'required|digits:1',
-            'item' => 'required|digits:2',
-            'generic' => 'required|digits:2',
-            'specific' => 'required|digits:2',
-            'subspecific' => 'required|digits:2',
-            'denomination' => 'required',
-            'account_type' => 'required',
+            'group' => ['required', 'digits:1'],
+            'item' => ['required', 'digits:2'],
+            'generic' => ['required', 'digits:2'],
+            'specific' => ['required', 'digits:2'],
+            'subspecific' => ['required', 'digits:2'],
+            'denomination' => ['required'],
+            'account_type' => ['required'],
         ];
     }
 

@@ -107,11 +107,11 @@ class BudgetCentralizedActionController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'institution_id' => 'required',
-            'department_id' => 'required',
-            'code' => 'required',
-            'custom_date' => 'required|date',
-            'name' => 'required',
+            'institution_id' => ['required'],
+            'department_id' => ['required'],
+            'code' => ['required'],
+            'custom_date' => ['required', 'date'],
+            'name' => ['required'],
         ];
 
         if (Module::has('Payroll') && Module::isEnabled('Payroll')) {
@@ -215,11 +215,11 @@ class BudgetCentralizedActionController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'institution_id' => 'required',
-            'department_id' => 'required',
-            'code' => 'required',
-            'custom_date' => 'required|date',
-            'name' => 'required',
+            'institution_id' => ['required'],
+            'department_id' => ['required'],
+            'code' => ['required'],
+            'custom_date' => ['required', 'date'],
+            'name' => ['required'],
         ];
 
         if (Module::has('Payroll') && Module::isEnabled('Payroll')) {

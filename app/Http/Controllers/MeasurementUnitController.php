@@ -50,9 +50,9 @@ class MeasurementUnitController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:measurement_units,name',
-            'description' => 'required',
-            'acronym' => 'required|max:6|unique:measurement_units,acronym'
+            'name' => ['required', 'unique:measurement_units,name'],
+            'description' => ['required'],
+            'acronym' => ['required', 'max:6', 'unique:measurement_units,acronym']
         ]);
 
 
@@ -97,9 +97,9 @@ class MeasurementUnitController extends Controller
     public function update(Request $request, MeasurementUnit $measurementUnit)
     {
         $this->validate($request, [
-            'name' => 'required|unique:measurement_units,name,' . $measurementUnit->id,
-            'description' => 'required',
-            'acronym' => 'required|max:6|unique:measurement_units,acronym,' . $measurementUnit->id
+            'name' => ['required', 'unique:measurement_units,name,' . $measurementUnit->id],
+            'description' => ['required'],
+            'acronym' => ['required', 'max:6', 'unique:measurement_units,acronym,' . $measurementUnit->id]
         ]);
 
         $measurementUnit->name = $request->name;

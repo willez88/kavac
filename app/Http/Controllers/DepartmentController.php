@@ -63,8 +63,8 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'institution_id' => 'required'
+            'name' => ['required'],
+            'institution_id' => ['required']
         ]);
 
         $hierarchy = 0;
@@ -122,8 +122,8 @@ class DepartmentController extends Controller
     public function update(Request $request, Department $department)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'institution_id' => 'required'
+            'name' => ['required'],
+            'institution_id' => ['required']
         ]);
 
         $hierarchy = 0;
