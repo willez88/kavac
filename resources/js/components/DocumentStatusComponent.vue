@@ -103,8 +103,12 @@
 							</div>
 						</div>
 	                </div>
+	                <div class="modal-footer">
+	                	<div class="form-group">
+	                		<modal-form-buttons :saveRoute="'document-status'"></modal-form-buttons>
+	                	</div>
+	                </div>
 	                <div class="modal-body modal-table">
-	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="color" slot-scope="props" class="text-left">
 								<i class="ion-android-checkbox-blank" :style="'color:' + props.row.color"></i>
@@ -132,16 +136,6 @@
 	                		</div>
 	                	</v-client-table>
 	                </div>
-	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
-	                			data-dismiss="modal">
-	                		Cerrar
-	                	</button>
-	                	<button type="button" @click="createRecord('document-status')" 
-	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
-	                		Guardar
-		                </button>
-		            </div>
 		        </div>
 		    </div>
 		</div>

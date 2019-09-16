@@ -98,11 +98,11 @@ class BudgetAditionalCreditController extends Controller
     {
         /** @var array Arreglo con las reglas de validación para el registro */
         $rules = [
-            'approved_at' => 'required|date',
-            'description' => 'required',
-            'document' => 'required',
-            'institution_id' => 'required',
-            'budget_account_id' => 'required|array|min:1'
+            'approved_at' => ['required', 'date'],
+            'description' => ['required'],
+            'document' => ['required'],
+            'institution_id' => ['required'],
+            'budget_account_id' => ['required', 'array', 'min:1']
         ];
 
         /** @var array Arreglo con los mensajes para las reglas de validación */

@@ -41,7 +41,15 @@
 
 		.modal-body {
 			&.modal-table {
+				border-top: 1px solid #EEE !important;
 				max-height:400px;overflow:auto;
+				margin-bottom: 25px;
+
+				h1, h2, h3, h4, h5, h6 {
+				    text-transform: uppercase;
+				    text-align: center;
+				    color: #0073b7;
+				}
 			}
 		}
 

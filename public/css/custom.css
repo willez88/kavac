@@ -3136,8 +3136,21 @@ a .btn-simplex:hover {
 }
 
 .modal-dialog.vue-crud .modal-body.modal-table {
+  border-top: 1px solid #EEE !important;
   max-height: 400px;
   overflow: auto;
+  margin-bottom: 25px;
+}
+
+.modal-dialog.vue-crud .modal-body.modal-table h1,
+.modal-dialog.vue-crud .modal-body.modal-table h2,
+.modal-dialog.vue-crud .modal-body.modal-table h3,
+.modal-dialog.vue-crud .modal-body.modal-table h4,
+.modal-dialog.vue-crud .modal-body.modal-table h5,
+.modal-dialog.vue-crud .modal-body.modal-table h6 {
+  text-transform: uppercase;
+  text-align: center;
+  color: #0073b7;
 }
 
 .modal-dialog.vue-crud .modal-footer {
@@ -3479,6 +3492,10 @@ table th {
   display: block;
   margin: auto;
   text-align: center;
+}
+
+.VueTables__limit-field .form-control {
+  padding: 0.375rem 0.75rem;
 }
 
 .bootstrap-switch.bootstrap-switch-mini {

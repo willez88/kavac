@@ -80,8 +80,12 @@
 							</div>
 						</div>
 	                </div>
+	                <div class="modal-footer">
+	                	<div class="form-group">
+	                		<modal-form-buttons :saveRoute="'taxes'"></modal-form-buttons>
+	                	</div>
+	                </div>
 	                <div class="modal-body modal-table">
-	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)" 
@@ -97,50 +101,7 @@
 								</button>
 	                		</div>
 	                	</v-client-table>
-	                    <!--<table class="table table-hover table-striped dt-responsive nowrap datatable">
-							<thead>
-								<tr class="text-center">
-									<th>Nombre</th>
-									<th>Descripción</th>
-									<th>Fecha Vigencia</th>
-									<th>Porcentaje</th>
-									<th>Activo</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(rec, index) in records">
-									<td>{{ rec.name }}</td>
-									<td>{{ rec.description }}</td>
-									<td>{{ rec.histories.operation_date }}</td>
-									<td>{{ rec.histories.percentage }}</td>
-									<td v-if="rec.active">Activo</td>
-									<td v-else>Inactivo</td>
-									<td class="text-center" width="10%">
-										<button @click="initUpdate(index, $event)" 
-												class="btn btn-warning btn-xs btn-icon btn-round" 
-												title="Modificar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button @click="deleteRecord(index, 'taxes')" 
-												class="btn btn-danger btn-xs btn-icon btn-round" title="Eliminar registro" data-toggle="tooltip" type="button">
-											<i class="fa fa-trash-o"></i>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>-->
 	                </div>
-	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
-	                			data-dismiss="modal">
-	                		Cerrar
-	                	</button>
-	                	<button type="button" @click="createRecord('taxes')" 
-	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
-	                		Guardar
-		                </button>
-		            </div>
 		        </div>
 		    </div>
 		</div>

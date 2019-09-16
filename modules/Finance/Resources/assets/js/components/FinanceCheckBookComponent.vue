@@ -73,8 +73,12 @@
 							</div>
 						</div>
 	                </div>
+	                <div class="modal-footer">
+	                	<div class="form-group">
+	                		<modal-form-buttons :saveRoute="'finance/check-books'"></modal-form-buttons>
+	                	</div>
+	                </div>
 	                <div class="modal-body modal-table">
-	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="code" slot-scope="props" class="text-center">
 	                			{{ props.row.code }}
@@ -97,16 +101,6 @@
 	                		</div>
 	                	</v-client-table>
 	                </div>
-	                <div class="modal-footer">
-	                	<button type="button" data-dismiss="modal"
-	                			class="btn btn-default btn-sm btn-round btn-modal-close">
-	                		Cerrar
-	                	</button>
-	                	<button type="button" @click="createRecord('finance/check-books')"
-	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
-	                		Guardar
-		                </button>
-		            </div>
 		        </div>
 		    </div>
 		</div>

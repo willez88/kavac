@@ -32,3 +32,9 @@ table {
 	margin: auto;
 	text-align: center;
 }
+
+.VueTables__limit-field {
+	.form-control {
+		padding: 0.375rem 0.75rem;
+	}
+}

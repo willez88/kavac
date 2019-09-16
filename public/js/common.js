@@ -21,7 +21,8 @@ $(document).ready(function() {
         }
     });
 
-    
+    /** Agrega un título a la tabla de registros */
+    $(".VueTables").closest('.modal-table').prepend('<h6>Registros</h6>');
 });
 
 /**
