@@ -78,10 +78,10 @@ class BudgetSubSpecificFormulationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'institution_id' => 'required',
-            'specific_action_id' => 'required',
-            'currency_id' => 'required',
-            'formulated_accounts.*' => 'required'
+            'institution_id' => ['required'],
+            'specific_action_id' => ['required'],
+            'currency_id' => ['required'],
+            'formulated_accounts.*' => ['required']
         ]);
 
         $year = date("Y");
@@ -200,10 +200,10 @@ class BudgetSubSpecificFormulationController extends Controller
             ]);
         } else {
             $this->validate($request, [
-                'institution_id' => 'required',
-                'specific_action_id' => 'required',
-                'currency_id' => 'required',
-                'formulated_accounts.*' => 'required'
+                'institution_id' => ['required'],
+                'specific_action_id' => ['required'],
+                'currency_id' => ['required'],
+                'formulated_accounts.*' => ['required']
             ]);
 
             DB::transaction(function () use ($request, $formulation) {
