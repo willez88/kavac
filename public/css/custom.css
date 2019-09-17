@@ -3113,6 +3113,10 @@ a .btn-simplex:hover {
   margin: 0 5px;
 }
 
+.bootbox.modal.modal-credits .modal-dialog {
+  max-width: 800px !important;
+}
+
 .modal .modal-footer button {
   margin: 0 5px;
 }

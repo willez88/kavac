@@ -8,6 +8,11 @@
 				margin: 0 5px;
 			}
 		}
+		&.modal-credits {
+			.modal-dialog {
+				max-width: 800px !important;
+			}
+		}
 	}
 }
 .modal {

@@ -321,7 +321,8 @@ $(document).ready(function() {
     /** Evento que permite mostrar datos sobre la aplicación (acerca de) */
     $('.about_app').on('click', function(e) {
         e.preventDefault();
-        const appInfo = new AppInfo([{
+        const appInfo = new AppInfo([
+            {
                 name: 'Roldan Vargas',
                 email: 'rvargas@cenditel.gob.ve | roldandvg@gmail.com',
                 group: 'Lider de proyecto / Diseño / Desarrollo'
@@ -352,6 +353,31 @@ $(document).ready(function() {
                 group: 'Analistas'
             },
             {
+                name: 'Luis Ramírez',
+                email: 'lramirez@cenditel.gob.ve',
+                group: 'Analistas'
+            },
+            {
+                name: 'Hyildayra Colmenares',
+                email: 'hcolmenares@cenditel.gob.ve',
+                group: 'Analistas'
+            },
+            {
+                name: 'Kleibymar Montilla',
+                email: 'kmontilla@cenditel.gob.ve',
+                group: 'Analistas'
+            },
+            {
+                name: 'Daniel Contreras',
+                email: 'dcontreras@cenditel.gob.ve',
+                group: 'Analistas'
+            },
+            {
+                name: 'Marilyn Caballero',
+                email: 'mcaballero@cenditel.gob.ve',
+                group: 'Manuales'
+            },
+            {
                 name: 'William Paéz',
                 email: 'wpaez@cenditel.gob.ve',
                 group: 'Desarrolladores'
@@ -365,11 +391,23 @@ $(document).ready(function() {
                 name: 'Juan Rosas',
                 email: 'jrosas@cenditel.gob.ve',
                 group: 'Desarrolladores'
-            }
+            },
+            {
+                name: 'Jenifer Ramírez',
+                email: 'jramirez@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Argenis Osorio',
+                email: 'aosorio@cenditel.gob.ve',
+                group: 'Director de Desarrollo'
+            },
         ]);
-        bootbox.alert(
-            appInfo.showAbout()
-        );
+        bootbox.alert({
+            className: 'modal-credits',
+            closeButton: false,
+            message: appInfo.showAbout()
+        });
     });
 
     /** Evento que permite mostrar datos sobre el licenciamiento de la aplicación */
@@ -379,12 +417,25 @@ $(document).ready(function() {
             { name: 'Roldan Vargas' },
             { name: 'Julie Vera' },
             { name: 'María González' },
+            { name: 'María Rujano' },
+            { name: 'Mariangel Molero' },
             { name: 'Francisco Berbesí' },
+            { name: 'Luis Ramírez' },
+            { name: 'Hyildayra Colmenares' },
+            { name: 'Kleibymar Montilla' },
+            { name: 'Daniel Contreras' },
+            { name: 'Marilyn Caballero' },
             { name: 'William Paéz' },
             { name: 'Henry Paredes' },
-            { name: 'Juan Rosas' }
+            { name: 'Juan Rosas' },
+            { name: 'Jenifer Ramírez' },
+            { name: 'Argenis Osorio' },
         ]);
-        bootbox.alert(appInfo.showLicense());
+        bootbox.alert({
+            className: 'modal-credits',
+            closeButton: false,
+            message: appInfo.showLicense()
+        });
     });
 
     /** Oculta el tooltip de los elementos bootstrap switch después de unois segundos */
