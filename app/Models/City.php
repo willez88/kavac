@@ -12,8 +12,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
-use Module;
-use Modules\Finance\Models\FinanceBankingAgency;
 
 /**
  * @class City
@@ -63,17 +61,5 @@ class City extends Model implements Auditable
     public function institutions()
     {
         return $this->hasMany(Institution::class);
-    }
-
-    /**
-     * Método que obtiene las agencias bancarias de una Ciudad
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return array|\Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function bankingAgencies()
-    {
-        return (Module::has('Finance'))
-               ? $this->hasMany(FinanceBankingAgency::class) : [];
     }
 }

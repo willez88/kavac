@@ -54,7 +54,7 @@ class FinanceBankingAgency extends Model implements Auditable
      */
     public function city()
     {
-        return $this->belongsTo(\App\Models\City::class);
+        return $this->belongsTo(City::class);
     }
 
     /**

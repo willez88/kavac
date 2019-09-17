@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
-use Module;
 
 /**
  * @class Image
@@ -72,17 +71,5 @@ class Image extends Model implements Auditable
     public function profile()
     {
         return $this->hasMany(Institution::class);
-    }
-
-    /**
-     * Image has many FinanceBank.
-     *
-     * @return array|\Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function financeBanks()
-    {
-        return (Module::has('Finance'))
-               ? $this->hasMany(\Modules\Finance\Models\FinanceBank::class, 'logo_id')
-               : [];
     }
 }

@@ -53,6 +53,6 @@ class FinanceBank extends Model implements Auditable
      */
     public function logo()
     {
-        return $this->belongsTo(\App\Models\Image::class, 'logo_id');
+        return $this->belongsTo(Image::class, 'logo_id');
     }
 }
