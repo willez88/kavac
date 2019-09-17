@@ -23,7 +23,8 @@ use Auth;
  * Clase que gestiona el reporte de balance de comprobación
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
 class AccountingCheckupBalanceController extends Controller
@@ -37,7 +38,9 @@ class AccountingCheckupBalanceController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.checkupbalance', ['only' => ['getAccAccount', 'CalculateBeginningBalance', 'pdf']]);
+        $this->middleware('permission:accounting.report.checkupbalance', [
+            'only' => ['getAccAccount', 'CalculateBeginningBalance', 'pdf']
+        ]);
     }
 
     /** @var Array array en el que se almacenara la información del saldo inicial de cuentas patrimoniales */
@@ -205,13 +208,12 @@ class AccountingCheckupBalanceController extends Controller
             }
         }
         /**
-        build_sorter: function compara y ordena las cuentas segun el orden en el código
+        * build_sorter: function compara y ordena las cuentas segun el orden en el código
         */
 
         usort($records, $this->build_sorter());
-        // dd($records);
         /**
-        Se formatean los datos de las cuentas
+        * Se formatean los datos de las cuentas
         */
         $index = 0;
         foreach ($records as $account) {
@@ -225,11 +227,8 @@ class AccountingCheckupBalanceController extends Controller
                 $beg = (array_key_exists($account->id, $beginningBalance)
                                              ? $beginningBalance[$account->id]:0);
                 array_push($arrAux, [
-                    // 'id_record' => $account->id,
                     'code' => $account->getCodeAttribute(),
                     'denomination' => $account->denomination,
-                    // 'id' => $account->id,
-                    // 'seats' => $account->seatAccount,
                     'beginningBalance' => $beg,
                     'sum_debit' => ($val >= 0) ? $val : null,
                     'sum_assets' => ($val < 0) ? $val : null,
@@ -273,8 +272,9 @@ class AccountingCheckupBalanceController extends Controller
         $endDay = date('d', (mktime(0, 0, 0, explode('-', $date)[1], 1, explode('-', $date)[0])-1));
 
         /** @var Object String en el que se establece el año anterior de ser necesario */
-        $endYear = (((int)explode('-', $date)[0])-1 == 0 || ((int)explode('-', $date)[1])-1 == 0) ? (((int)explode('-', $date)[0])-1)
-                                                          : (((int)explode('-', $date)[0]));
+        $endYear = (((int)explode('-', $date)[0])-1 == 0 || ((int)explode('-', $date)[1])-1 == 0)
+                        ? (((int)explode('-', $date)[0])-1)
+                        : (((int)explode('-', $date)[0]));
         /** @var Object String en el que establece el mes anterior */
         $endMonth = (((int)explode('-', $date)[1])-1 == 0) ? 12 : (((int)explode('-', $date)[1])-1);
 
@@ -333,27 +333,40 @@ class AccountingCheckupBalanceController extends Controller
         /** Cálcula el saldo inicial que tendra la cuenta*/
         $this->CalculateBeginningBalance($initDate, $all);
 
-        /** @var Array Arreglo asociativo con la información del saldo inicial (id => balance) de las cuentas patrimoniales */
+        /**
+         * [$beginningBalance información del saldo inicial (id => balance) de las cuentas patrimoniales]
+         * @var array
+         */
         $beginningBalance = $this->getBeginningBalance();
 
-        
-
-        /** @var Array Arreglo asociativo con la información base (id, id_record y denomination) de las cuentas patrimoniales */
+        /**
+         * [$accountRecords asociativo con la información base]
+         * @var array
+         */
         $accountRecords = $this->getAccAccount($initDate, $endDate, false, $beginningBalance, $all);
-        // dd($accountRecords);
 
-        /** @var Object Cadena de Texto con la fecha inicial del rango */
+        /**
+         * [$initDate fecha inicial del rango]
+         * @var String
+         */
         $initDate = $this->getInitDate();
 
-        /** @var Object Cadena de Texto con la fecha final del rango */
+        /**
+         * [$endDate fecha final del rango]
+         * @var String
+         */
         $endDate = $this->getEndDate();
 
-        // dd($accountRecords);
-
-        /** @var Object configuración general de la apliación */
+        /**
+         * [$setting configuración general de la apliación]
+         * @var Modules\Accounting\Models\Setting
+         */
         $setting = Setting::all()->first();
 
-        /** @var Object con la información de la modena por defecto establecida en la aplicación */
+        /**
+         * [$currency información de la modena por defecto establecida en la aplicación]
+         * @var Modules\Accounting\Models\Currency
+         */
         $currency = Currency::where('default', true)->first();
 
         /**

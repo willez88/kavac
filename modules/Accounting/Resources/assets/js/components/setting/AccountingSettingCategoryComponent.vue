@@ -44,6 +44,11 @@
 							</div>
 						</div>
 	                </div>
+	                <div class="modal-footer">
+	                	<div class="form-group">
+	                		<modal-form-buttons :saveRoute="'/accounting/settings/categories/'"></modal-form-buttons>
+	                	</div>
+	                </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
@@ -67,19 +72,6 @@
 	                		</div>
 	                	</v-client-table>
 	                </div>
-	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-modal-close" 
-	                			data-dismiss="modal">
-	                		Cerrar
-	                	</button>
-						<button class="btn btn-primary btn-sm btn-modal-save" 
-								title="Guardar registro"
-								data-toggle="tooltip"
-								:disabled="record.name=='' || record.acronym==''"
-								@click="storeOrUpdate()">
-								Guardar
-						</button>
-		            </div>
 		        </div>
 		    </div>
 		</div>
@@ -161,14 +153,14 @@ export default{
 		// *
 		// * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		// */
-		storeOrUpdate(){
+		createRecord(url){
 			const vm = this;
 			this.record.acronym = this.record.acronym.toUpperCase();
 
 			if (this.state == 'store') {
 				if (!this.validInformation()) return;
 
-				axios.post('/accounting/settings/categories',this.record).then(response=>{
+				axios.post(url,this.record).then(response=>{
 					this.records = response.data.records;
 					this.record = {
 						name:'',
@@ -180,7 +172,7 @@ export default{
 			}else{
 				if (!this.validInformation(false)) return;
 
-				axios.put('/accounting/settings/categories/'+this.record.id,this.record).then(response=>{
+				axios.put(url+this.record.id,this.record).then(response=>{
 					this.records = response.data.records;
 					this.record = {
 						name:'',

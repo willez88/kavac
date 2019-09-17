@@ -158,8 +158,8 @@
 		},
 		created(){
 
-			EventBus.$on('register:account',()=>{
-				this.sendData();
+			EventBus.$on('register:account',(data)=>{
+				this.sendData(data);
 			});
 			EventBus.$on('load:data-account-form',(data)=>{
 				if (data == null) {
@@ -244,7 +244,7 @@
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
-			sendData:function(){
+			sendData:function(url){
 				if (!this.FormatCode()) { return; }
 
 				var dt = this.record;
@@ -254,7 +254,6 @@
 				this.record.specific = (dt.specific.length < 2) ? '0'+dt.specific : dt.specific ;
 				this.record.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
 
-				var url = '/accounting/accounts/';
 				this.record.active = $('#active').prop('checked');
 				if (this.operation == 'create') {
 					axios.post(url, this.record).then(response=>{

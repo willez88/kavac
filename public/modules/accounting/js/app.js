@@ -2544,8 +2544,8 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    EventBus.$on('register:account', function () {
-      _this.sendData();
+    EventBus.$on('register:account', function (data) {
+      _this.sendData(data);
     });
     EventBus.$on('load:data-account-form', function (data) {
       if (data == null) {
@@ -2631,7 +2631,7 @@ __webpack_require__.r(__webpack_exports__);
     *
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
-    sendData: function sendData() {
+    sendData: function sendData(url) {
       var _this2 = this;
 
       if (!this.FormatCode()) {
@@ -2644,7 +2644,6 @@ __webpack_require__.r(__webpack_exports__);
       this.record.generic = dt.generic.length < 2 ? '0' + dt.generic : dt.generic;
       this.record.specific = dt.specific.length < 2 ? '0' + dt.specific : dt.specific;
       this.record.subspecific = dt.subspecific.length < 2 ? '0' + dt.subspecific : dt.subspecific;
-      var url = '/accounting/accounts/';
       this.record.active = $('#active').prop('checked');
 
       if (this.operation == 'create') {
@@ -2799,13 +2798,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2837,6 +2829,9 @@ __webpack_require__.r(__webpack_exports__);
     reset: function reset() {
       document.getElementById("file").value = "";
       this.records = [];
+    },
+    createRecord: function createRecord(url) {
+      this.$parent.createRecord(url);
     },
     importCalculo: function importCalculo() {
       var _this2 = this;
@@ -4875,20 +4870,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4919,6 +4900,13 @@ __webpack_require__.r(__webpack_exports__);
     reset: function reset() {
       this.formImport = false;
     },
+    createRecord: function createRecord(url) {
+      if (this.formImport) {
+        this.registerImportedAccounts(url);
+      } else {
+        this.registerAccount(url);
+      }
+    },
 
     /**
     * Función que cambia el valor para cambiar el formulario mostrado
@@ -4941,11 +4929,11 @@ __webpack_require__.r(__webpack_exports__);
     * 
     * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
     */
-    registerImportedAccounts: function registerImportedAccounts() {
+    registerImportedAccounts: function registerImportedAccounts(url) {
       var vm = this;
 
       if (vm.accounts != null) {
-        axios.post('/accounting/importedAccounts', {
+        axios.post(url, {
           records: vm.accounts
         }).then(function (response) {
           vm.showMessage('custom', 'Éxito', 'success', 'screen-ok', response.data.message);
@@ -4962,8 +4950,8 @@ __webpack_require__.r(__webpack_exports__);
      * [registerAccount emite un evento para guardar la cuenta patrimonial]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
-    registerAccount: function registerAccount() {
-      EventBus.$emit('register:account');
+    registerAccount: function registerAccount(url) {
+      EventBus.$emit('register:account', url);
     }
   },
   watch: {
@@ -4996,14 +4984,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5162,7 +5142,7 @@ __webpack_require__.r(__webpack_exports__);
     // *
     // * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     // */
-    storeOrUpdate: function storeOrUpdate() {
+    createRecord: function createRecord(url) {
       var _this = this;
 
       var vm = this;
@@ -5170,7 +5150,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.state == 'store') {
         if (!this.validInformation()) return;
-        axios.post('/accounting/settings/categories', this.record).then(function (response) {
+        axios.post(url, this.record).then(function (response) {
           _this.records = response.data.records;
           _this.record = {
             name: '',
@@ -5180,7 +5160,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         if (!this.validInformation(false)) return;
-        axios.put('/accounting/settings/categories/' + this.record.id, this.record).then(function (response) {
+        axios.put(url + this.record.id, this.record).then(function (response) {
           _this.records = response.data.records;
           _this.record = {
             name: '',
@@ -6262,6 +6242,19 @@ var render = function() {
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
+      _c("div", { staticClass: "modal-footer" }, [
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("modal-form-buttons", {
+              attrs: { saveRoute: "/accounting/importedAccounts" }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
       _c(
         "div",
         [
@@ -6287,51 +6280,6 @@ var render = function() {
                             _c("strong", [_vm._v("Inactiva")])
                           ])
                         ])
-                  ])
-                }
-              },
-              {
-                key: "id",
-                fn: function(props) {
-                  return _c("div", { staticClass: "text-center" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "btn btn-warning btn-xs btn-icon btn-action",
-                        attrs: {
-                          title: "Modificar registro",
-                          "data-toggle": "tooltip"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.loadData(props.row)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fa fa-edit" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "btn btn-danger btn-xs btn-icon btn-action",
-                        attrs: {
-                          title: "Eliminar registro",
-                          "data-toggle": "tooltip"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteRecord(
-                              props.index,
-                              "/accounting/accounts"
-                            )
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fa fa-trash-o" })]
-                    )
                   ])
                 }
               }
@@ -9137,6 +9085,21 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              !_vm.formImport
+                ? _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("modal-form-buttons", {
+                          attrs: { saveRoute: "/accounting/accounts/" }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "div",
                 {
@@ -9158,58 +9121,7 @@ var render = function() {
                   })
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default btn-sm btn-modal-close",
-                    attrs: { type: "reset", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("\n                \t\tCerrar\n                \t")]
-                ),
-                _vm._v(" "),
-                _vm.formImport
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-primary btn-modal-close",
-                        attrs: {
-                          type: "button",
-                          title:
-                            "Guardar registros importados desde la hoja de cálculo",
-                          "data-toggle": "tooltip"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.registerImportedAccounts()
-                          }
-                        }
-                      },
-                      [_vm._v("\n\t\t\t\t\t\t\tGuardar\n\t\t\t\t\t")]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                !_vm.formImport
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-primary",
-                        attrs: {
-                          "data-toggle": "tooltip",
-                          title: "Guardar registro"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.registerAccount()
-                          }
-                        }
-                      },
-                      [_vm._v("\n\t\t\t\t\t\t\tGuardar\n\t\t\t\t\t")]
-                    )
-                  : _vm._e()
-              ])
+              )
             ])
           ]
         )
@@ -9401,6 +9313,19 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("modal-form-buttons", {
+                      attrs: { saveRoute: "/accounting/settings/categories/" }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "modal-body modal-table" },
@@ -9485,37 +9410,7 @@ var render = function() {
                   })
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default btn-sm btn-modal-close",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("\n                \t\tCerrar\n                \t")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary btn-sm btn-modal-save",
-                    attrs: {
-                      title: "Guardar registro",
-                      "data-toggle": "tooltip",
-                      disabled:
-                        _vm.record.name == "" || _vm.record.acronym == ""
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.storeOrUpdate()
-                      }
-                    }
-                  },
-                  [_vm._v("\n\t\t\t\t\t\t\tGuardar\n\t\t\t\t\t")]
-                )
-              ])
+              )
             ])
           ]
         )

@@ -47,6 +47,12 @@
 					<div class="modal-body" style="margin-top: -5rem;" v-show="!formImport && records_select.length > 0">
 						<accounting-create-edit-form :records="records_select" />
 	                </div>
+					
+					<div class="modal-footer" v-if="!formImport">
+	                	<div class="form-group">
+	                		<modal-form-buttons :saveRoute="'/accounting/accounts/'"></modal-form-buttons>
+	                	</div>
+	                </div>
 
 					<!-- Tabla de cuentas patrimoniales -->
 
@@ -54,26 +60,6 @@
 	                	<hr>
 						<accounting-accounts-list :records="records_list" />
 	                </div>
-	                <div class="modal-footer">
-	                	<button type="reset" class="btn btn-default btn-sm btn-modal-close"
-	                			data-dismiss="modal">
-	                		Cerrar
-	                	</button>
-	                	<button type="button" class="btn btn-sm btn-primary btn-modal-close"
-								title="Guardar registros importados desde la hoja de cálculo"
-								v-if="formImport"
-								@click="registerImportedAccounts()"
-								data-toggle="tooltip">
-								Guardar
-						</button>
-						<button class='btn btn-sm btn-primary'
-								data-toggle='tooltip'
-								@click="registerAccount()"
-								v-if="!formImport"
-								title='Guardar registro'>
-								Guardar
-						</button>
-		            </div>
 		        </div>
 		    </div>
 		</div>
@@ -111,6 +97,14 @@ export default{
 			this.formImport = false;
 		},
 
+		createRecord:function(url) {
+			if (this.formImport) {
+				this.registerImportedAccounts(url);
+			}else{
+				this.registerAccount(url);
+			}
+		},
+
 		/**
 		* Función que cambia el valor para cambiar el formulario mostrado
 		* @var boolean Usada para cambiar el tipo de formulario que se mostrara
@@ -132,10 +126,10 @@ export default{
 		* 
 		* @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
 		*/
-		registerImportedAccounts:function() {
+		registerImportedAccounts:function(url) {
 			const vm = this;
 			if (vm.accounts != null) {
-				axios.post('/accounting/importedAccounts', { records: vm.accounts }).then(response=>{
+				axios.post(url, { records: vm.accounts }).then(response=>{
 					vm.showMessage(
 						'custom', 'Éxito', 'success', 'screen-ok', 
 						response.data.message
@@ -153,8 +147,8 @@ export default{
 		 * [registerAccount emite un evento para guardar la cuenta patrimonial]
 		 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		 */
-		registerAccount(){
-			EventBus.$emit('register:account');
+		registerAccount(url){
+			EventBus.$emit('register:account',url);
 		}
 	},
 	watch:{

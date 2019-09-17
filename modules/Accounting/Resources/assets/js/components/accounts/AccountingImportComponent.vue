@@ -31,6 +31,12 @@
 				</tbody>
 			</table>
 		</div>
+		
+		<div class="modal-footer">
+        	<div class="form-group">
+        		<modal-form-buttons :saveRoute="'/accounting/importedAccounts'"></modal-form-buttons>
+        	</div>
+        </div>
 
 		<div>
 			<v-client-table :columns="columns" :data="records" :options="table_options">
@@ -41,19 +47,6 @@
 					<div v-else>
 						<span class="badge badge-warning"><strong>Inactiva</strong></span>
 					</div>
-				</div>
-				<div slot="id" slot-scope="props" class="text-center">
-
-					<button @click="loadData(props.row)"
-							class="btn btn-warning btn-xs btn-icon btn-action" 
-							title="Modificar registro" data-toggle="tooltip">
-						<i class="fa fa-edit"></i>
-					</button>
-					<button @click="deleteRecord(props.index,'/accounting/accounts')" 
-							class="btn btn-danger btn-xs btn-icon btn-action" 
-							title="Eliminar registro" data-toggle="tooltip">
-						<i class="fa fa-trash-o"></i>
-					</button>
 				</div>
 			</v-client-table>
 		</div>
@@ -93,6 +86,10 @@
 			reset(){
 				document.getElementById("file").value = "";
 				this.records = [];
+			},
+
+			createRecord(url){
+				this.$parent.createRecord(url);
 			},
 
 			importCalculo(){
