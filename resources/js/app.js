@@ -8,7 +8,7 @@
 
 /** Requerimiento del paquete bootstrap 4 para el diseño de la aplicación */
 require('./bootstrap');
-//require('./loading-message');
+require('./loading-message');
 
 /** @type {object} Requerimiento del paquete vue para la reactividad de la aplicación */
 window.Vue = require('vue');
