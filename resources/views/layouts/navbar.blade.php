@@ -29,7 +29,7 @@
 			@if ($institution)
 				<div class="navbar-brand">
 					@if ($institution->has('logo'))
-						<img src="{{ $institution->logo->url }}" alt="logo" class="img-fluid">
+						<img src="{{ asset($institution->logo->url, Request::secure()) }}" alt="logo" class="img-fluid">
 					@endif
 					{!! $institution->acronym !!} | {!! $institution->name !!}
 				</div>
