@@ -9,7 +9,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name') }} | Sistema de Gestión Administrativa</title>
-        <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('images/favicon.png', Request::secure()) }}">
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css', [], Request::secure()) !!}
         {{-- Icofont --}}
