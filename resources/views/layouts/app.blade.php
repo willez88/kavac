@@ -120,6 +120,14 @@
 
         @include('layouts.messages')
         <script>
+            /*$('.preloader').fadeIn(function() {
+                $('body').css('overflow', 'hidden');
+            });
+            $(window).on('load', function () {
+                $('.preloader').fadeOut(1000, function() {
+                    $('body').css('overflow', 'auto');
+                });
+            });*/
             $(document).ready(function() {
                 if ($('.ckeditor').length && typeof(CkEditor) !== 'undefined') {
                     $('.ckeditor').each(function() {

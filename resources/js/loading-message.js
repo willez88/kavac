@@ -25,7 +25,7 @@ waiting = waiting || (function() {
 });*/
 
 /** Evento que muestra el mensaje de espera cuando la aplicación carga una página */
-waiting.showLoadingMessage();
+//waiting.showLoadingMessage();
 
 /** Evento que oculta el mensaje de espera cuando una página ha sido cargada por completo */
 /*$(document).ready(function() {
@@ -33,8 +33,13 @@ waiting.showLoadingMessage();
 });*/
 
 /** Evento que oculta el mensaje de espera cuando una página ha sido cargada por completo */
-document.onreadystatechange = () => {
+/*document.onreadystatechange = () => {
     if (document.readyState == "complete") {
         waiting.hideLoadingMessage();
     }
-}
+}*/
+
+/*$(window).on('load', function () {
+    //$("#modal-loading").fadeIn("slow");
+    $('.preloader').fadeOut(1000);
+});*/
