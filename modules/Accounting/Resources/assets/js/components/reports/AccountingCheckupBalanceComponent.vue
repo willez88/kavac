@@ -2,7 +2,7 @@
 	<div class="form-horizontal">
 		<div class="card-body">
 			<div class="row">
-				<div class="col-2"></div>
+				<div class="col-1"></div>
 				<div class="col-3">
 					<label><strong>Desde:</strong></label>
 					<br>
@@ -22,6 +22,17 @@
 					<label class="control-label">Año</label>
 					<select2 :options="years" v-model="year_end"></select2>
 				</div>
+				<div class="col-1"></div>
+				<div class="col-2">
+					<label class="text-center"><strong>Mostrar valores en cero</strong>
+					</label>
+					<br><br>
+					<input id="zero"
+						 data-on-label="SI" data-off-label="NO" 
+						 name="zero" 
+						 type="checkbox"
+						 class="form-control text-center bootstrap-switch">
+				</div>
 			</div>
 		</div>
 		<div class="card-footer text-right">
@@ -39,13 +50,13 @@
 	export default{
 		props:{
             year_old:{
-                type:Number,
-                default: 0
+                type:String,
+                default: ''
             },
         },
 		data(){
 			return{
-				url:'/accounting/report/BalanceCheckUp/pdf/',
+				url:'/accounting/report/balanceCheckUp/pdf/',
 			}
 		},
 		created(){
@@ -59,12 +70,12 @@
 			* @return {string} url para el reporte
 			*/
 			getUrlReport:function(){
-				var type = $('input:radio[name=typeBalance]:checked').val();
+				var zero = ($('#zero').prop('checked'))?'true':'';
 
 				var initDate = (this.year_init > this.year_end)?(this.year_end+'-'+this.month_end):(this.year_init+'-'+this.month_init);
 				var endDate  = (this.year_init > this.year_end)?(this.year_init+'-'+this.month_init):(this.year_end+'-'+this.month_end);
 
-				var url = this.url+initDate+'/'+endDate;
+				var url = this.url+initDate+'/'+endDate+'/'+zero;
 				return url;
 			}
 		},

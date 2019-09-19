@@ -60,13 +60,13 @@
 	export default{
 		props:{
             year_old:{
-                type:Number,
-                default: 0
+                type:String,
+                default: ''
             },
         },
 		data(){
 			return {
-				url:'/accounting/report/AnalyticalMajor/pdf',
+				url:'/accounting/report/analyticalMajor',
 				disabledButton:true,
 				InitAcc:0,
 				EndAcc:0,
@@ -90,16 +90,16 @@
 			*/
 			getAccountingAccounts:function(){
 				const vm = this;
-				this.dates = {
+				vm.dates = {
 					initMonth:vm.month_init,
 					initYear:(vm.year_init > vm.year_end)?vm.year_end:vm.year_init,
 					endMonth:vm.month_end,
 					endYear:(vm.year_init > vm.year_end)?vm.year_init:vm.year_end,
 				};
-				axios.post("/accounting/report/AnalyticalMajor/AccAccount",this.dates).then(response=>{
-					this.OptionsAcc = response.data.records;
-					this.InitAcc = '';
-					this.EndAcc = '';
+				axios.post(vm.url+"/AccAccount",vm.dates).then(response=>{
+					vm.OptionsAcc = response.data.records;
+					vm.InitAcc = '';
+					vm.EndAcc = '';
 				});
 			},
 
@@ -110,7 +110,7 @@
 			* @return {string} url para el reporte
 			*/
 			getUrlReport:function(){
-				var url = this.url;
+				var url = this.url+'/pdf';
 				var InitAcc = (this.InitAcc > this.EndAcc)? this.EndAcc  : this.InitAcc;
 				var EndAcc  = (this.InitAcc > this.EndAcc)? this.InitAcc : this.EndAcc;
 
@@ -121,7 +121,7 @@
 
 				if (InitAcc != 0) { url += '/'+InitAcc; }
 
-				if (InitAcc != EndAcc && EndAcc != 0) { url += '/'+EndAcc; }
+				if (EndAcc != 0) { url += '/'+EndAcc; }
 
 				return url;
 			},

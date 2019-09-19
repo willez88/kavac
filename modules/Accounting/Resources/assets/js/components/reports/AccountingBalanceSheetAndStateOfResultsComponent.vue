@@ -2,22 +2,24 @@
 	<div class="form-horizontal">
 		<div class="card-body row">
 			<div class="col-1"></div>
-			<div class="col-4">
+			<div class="col-3">
 				<label class="control-label">Al mes</label>
 				<select2 :options="months" v-model="month_init"></select2>
 				<br>
 				<label class="control-label">Año</label>
 				<select2 :options="years" v-model="year_init"></select2>
 			</div>
-			<div class="col-4">
+			<div class="col-1"></div>
+			<div class="col-3">
 				<label class="control-label">Nivel de consulta</label>
 				<select2 :options="levels" v-model="level"></select2>
 			</div>
+			<div class="col-1"></div>
 			<div class="col-2">
 				<label class="text-center"><strong>Mostrar valores en cero</strong>
 				</label>
 				<br><br>
-				<input id="zero"
+				<input :id="'zero'+this.type_report"
 					 data-on-label="SI" data-off-label="NO" 
 					 name="zero" 
 					 type="checkbox"
@@ -41,8 +43,8 @@
                 default: ''
             },
             year_old:{
-                type:Number,
-                default: 0
+                type:String,
+                default: ''
             },
         },
 		data(){
@@ -72,7 +74,7 @@
 			* @return {string} url para el reporte
 			*/
 			getUrlReport:function() {
-				var zero = ($('#zero').prop('checked'))?'true':'';
+				var zero = ($('#zero'+this.type_report).prop('checked'))?'true':'';
 				return ( this.url+(this.year_init+'-'+this.month_init) )+'/'+this.level+'/'+zero;
 			}
 		}

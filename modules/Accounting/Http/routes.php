@@ -42,7 +42,6 @@ Route::group(['middleware' => 'web',
     Route::post('importedAccounts', 'AccountingAccountController@registerImportedAccounts')
             ->name('accounting.accounts.registerImportedAccounts');
 
-
     Route::resource(
         'accounts',
         'AccountingAccountController',
@@ -115,7 +114,7 @@ Route::group(['middleware' => 'web',
     /**
      * rutas para los pdf de asientos contables
      */
-    Route::get('seating/pdf/{id}', 'AccountingSeatController@pdf')
+    Route::get('seating/pdf/{id}', 'Reports\AccountingSeatController@pdf')
             ->name('accounting.seating.pdf');
 
 
@@ -138,25 +137,25 @@ Route::group(['middleware' => 'web',
     /**
      * rutas para reporte de balance de comprobación
      */
-    Route::get('report/BalanceCheckUp/pdf/{initDate}/{endDate}/{all?}', 'Reports\AccountingCheckupBalanceController@pdf')
+    Route::get('report/balanceCheckUp/pdf/{initDate}/{endDate}/{all?}', 'Reports\AccountingCheckupBalanceController@pdf')
         ->name('accounting.report.BalanceCheckUp.pdf');
 
     /**
      * rutas para reporte del Mayor Analítico
      */
-    Route::post('report/AnalyticalMajor/AccAccount', 'Reports\AccountingAnalyticalMajorController@getAccAccount')
+    Route::post('report/analyticalMajor/AccAccount', 'Reports\AccountingAnalyticalMajorController@getAccAccount')
             ->name('accounting.report.analyticalMajor.AccAccount');
 
     Route::get(
-        'report/AnalyticalMajor/pdf/{initDate}/{endDate}/{initAcc}/{endAcc?}',
+        'report/analyticalMajor/pdf/{initDate}/{endDate}/{initAcc}/{endAcc}',
         'Reports\AccountingAnalyticalMajorController@pdf'
     )->name('accounting.report.analyticalMajor.pdf');
 
     /**
      * rutas para reporte del libro diario
      */
-    Route::get('report/diaryBook/pdf/{initDate}/{endDate}', 'Reports\AccountingDailyBookController@pdf')
-        ->name('accounting.report.diaryBook.pdf');
+    Route::get('report/dailyBook/pdf/{initDate}/{endDate}', 'Reports\AccountingDailyBookController@pdf')
+        ->name('accounting.report.dailyBook.pdf');
 
     /**
      * rutas para reporte de libro auxiliar

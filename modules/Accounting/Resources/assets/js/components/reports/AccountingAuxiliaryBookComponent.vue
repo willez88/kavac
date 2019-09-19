@@ -39,12 +39,14 @@
 	export default{
 		props:{
             records:{
-                type:Object,
-                default: null
+                type:Array,
+                default: function() {
+                	return [];
+                }
             },
             year_old:{
-                type:Number,
-                default: 0
+                type:String,
+                default: ''
             },
         },
 		data(){

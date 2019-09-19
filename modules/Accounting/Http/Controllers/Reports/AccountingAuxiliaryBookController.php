@@ -15,6 +15,7 @@ use Modules\Accounting\Models\Setting;
 
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
+use DateTime;
 use Auth;
 
 /**
@@ -53,34 +54,34 @@ class AccountingAuxiliaryBookController extends Controller
          * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
         $url = 'auxiliaryBook/pdf/'.$account_id.'/'.$date;
-        AccountingReportHistory::updateOrCreate(
-            [
-                                                    'report' => 'Libro Auxiliar',
-                                                ],
-            [
-                                                    'url' => $url,
-                                                ]
-        );
+
+        $currentDate = new DateTime;
+        $currentDate = $currentDate->format('Y-m-d');
 
         /**
-         * [$account cuenta patrimonial]
-         * @var [Modules\Accounting\Models\AccountingSeat]
+         * [$report almacena el registro del reporte del dia si existe]
+         * @var [type]
          */
-        $account = AccountingAccount::find($account_id);
+        $report = AccountingReportHistory::whereBetween('updated_at', [
+                                                                        $currentDate.' 00:00:00',
+                                                                        $currentDate.' 23:59:59'
+                                                                    ])
+                                        ->where('report', 'Libro Auxiliar')->first();
 
-        /** @var Object Objeto que almacena la información de la cuenta padre, si posee */
-        /**
-         * [$parent_account cuenta patrimonial de nivel superior]
-         * @var [Modules\Accounting\Models\AccountingSeat]
-         */
-        $parent_account = $account->getParent(
-            $account->group,
-            $account->subgroup,
-            $account->item,
-            $account->generic,
-            $account->specific,
-            $account->subspecific
-        );
+        /*
+        * se crea o actualiza el registro del reporte
+        */
+        if (!$report) {
+            AccountingReportHistory::create(
+                [
+                    'report' => 'Libro Auxiliar',
+                    'url' => $url,
+                ]
+            );
+        } else {
+            $report->url = $url;
+            $report->save();
+        }
 
         /**
          * [$initDate fecha inicial de busqueda]
@@ -101,17 +102,30 @@ class AccountingAuxiliaryBookController extends Controller
         $endDate = $date.'-'.$day;
 
         /**
-         * [$records cuenta patrimonial seleccionada]
-         * @var [Modules\Accounting\Models\AccountingSeatAccount]
+         * [$account cuenta patrimonial con su relacion en asientos contables]
+         * @var [Modules\Accounting\Models\AccountingSeat]
          */
-        $records = AccountingSeatAccount::with('seating')
-                                    ->where('accounting_account_id', $account_id)
-                                    ->whereHas('seating', function ($query) use ($initDate, $endDate) {
-                                        $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                                    })->orderBy('updated_at', 'ASC')->get();
+        $account = AccountingAccount::with(['seatAccount.seating' => function ($query) use ($initDate, $endDate) {
+            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+            }
+        }])->find($account_id);
 
         /**
-         * [$setting configuración general de la apliación]
+         * [$parent_account cuenta patrimonial de nivel superior]
+         * @var [Modules\Accounting\Models\AccountingSeat]
+         */
+        $parent_account = $account->getParent(
+            $account->group,
+            $account->subgroup,
+            $account->item,
+            $account->generic,
+            $account->specific,
+            $account->subspecific
+        );
+
+        /**
+         * [$setting configuración general de la aplicación]
          * @var [Modules\Accounting\Models\Setting]
          */
         $setting = Setting::all()->first();
@@ -121,6 +135,12 @@ class AccountingAuxiliaryBookController extends Controller
          * @var [Modules\Accounting\Models\Currency]
          */
         $currency = Currency::where('default', true)->first();
+
+        $initDate = new DateTime($initDate);
+        $endDate = new DateTime($endDate);
+
+        $initDate = $initDate->format('d/m/Y');
+        $endDate = $endDate->format('d/m/Y');
 
         /**
          * [$pdf base para generar el pdf]
@@ -137,11 +157,10 @@ class AccountingAuxiliaryBookController extends Controller
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.auxiliary_book', true, [
             'pdf' => $pdf,
-            'records' => $records,
+            'record' => $account,
             'initDate' => $initDate,
             'endDate' => $endDate,
             'currency' => $currency,
-            'account' => $account,
             'parent_account' => $parent_account,
         ]);
     }

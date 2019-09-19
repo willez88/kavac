@@ -20,7 +20,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="row">
-							<div class="card-body" style="margin-bottom: -7rem;">
+							<div class="card-body">
 								<div class="row">
 									<div class="col-1"></div>
 									<div class="form-group col-5 is-required">
@@ -35,7 +35,7 @@
 										<label class="control-label">Acrónimo</label>
 										<input type="text"
 												class="form-control"
-												maxlength="8" 
+												maxlength="4" 
 												title="Ingrese el acrónimo"
 												data-toggle="tooltip"
 												v-model="record.acronym">

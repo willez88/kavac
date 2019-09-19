@@ -111,7 +111,7 @@ Vue.component('accounting-report-checkup-balance', require('./components/reports
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-report-diary-book', require('./components/reports/AccountingDiaryBookComponent.vue').default);
+Vue.component('accounting-report-daily-book', require('./components/reports/AccountingDailyBookComponent.vue').default);
 
 /**
  * Componente index para el reporte del Mayor Analítico

@@ -11,6 +11,7 @@ use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
 use Auth;
+use DateTime;
 
 /**
  * @class AccountingReportPdfDailyBookController
@@ -44,19 +45,49 @@ class AccountingDailyBookController extends Controller
      */
     public function pdf($initDate, $endDate)
     {
+        $initDate = explode('-', $initDate)[2].'-'.explode('-', $initDate)[1].'-'.explode('-', $initDate)[0];
+        $endDate  = explode('-', $endDate)[2].'-'.explode('-', $endDate)[1].'-'.explode('-', $endDate)[0];
         /**
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
-        $url = 'diaryBook/pdf/'.$initDate.'/'.$endDate;
+        $url = 'dailyBook/pdf/'.$initDate.'/'.$endDate;
         AccountingReportHistory::updateOrCreate(
             [
-                                                    'report' => 'Libro Diario',
+                                                    'url' => $url,
                                                 ],
             [
-                                                    'url' => $url,
+                                                    'report' => 'Libro Diario',
                                                 ]
         );
 
+        $currentDate = new DateTime;
+        $currentDate = $currentDate->format('Y-m-d');
+
+        /**
+         * [$report almacena el registro del reporte del dia si existe]
+         * @var [type]
+         */
+        $report = AccountingReportHistory::whereBetween('updated_at', [
+                                                                        $currentDate.' 00:00:00',
+                                                                        $currentDate.' 23:59:59'
+                                                                    ])
+                                        ->where('report', 'Libro Diario')->first();
+
+        /*
+        * se crea o actualiza el registro del reporte
+        */
+        if (!$report) {
+            AccountingReportHistory::create(
+                [
+                    'report' => 'Libro Diario',
+                    'url' => $url,
+                ]
+            );
+        } else {
+            $report->url = $url;
+            $report->save();
+        }
+        
         /** @var Objet objeto con la información del asiento contable */
         $seats = AccountingSeat::with('accountingAccounts.account.accountConverters.budgetAccount')->where('approved', true)->whereBetween("from_date", [$initDate, $endDate])->orderBy('from_date', 'ASC')->get();
 

@@ -141,7 +141,9 @@
 		props:{
             seating:{
                 type:Array,
-                default: []
+                default: function() {
+                	return [];
+                }
             },
             currency:{
                 type:Object,

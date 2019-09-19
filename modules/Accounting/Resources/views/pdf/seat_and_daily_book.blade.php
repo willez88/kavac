@@ -1,7 +1,20 @@
 @php
+	/**
+	 * [$totDebit total por el debe]
+	 * @var float
+	 */
+    $totDebit=0.0;
 
-    $totDebit=0;
-    $totAssets=0;
+    /**
+     * [$totAssets total por el haber]
+     * @var float
+     */
+    $totAssets=0.0;
+
+    /**
+     * [$cont contador de operaciones con asientos contables]
+     * @var integer
+     */
     $cont = 1;
 
 @endphp
@@ -30,23 +43,23 @@
 				<th width="17%" style="font-size:9rem; background-color: #BDBDBD;" align="center">DEBE</th>
 				<th width="17%" style="font-size:9rem; background-color: #BDBDBD;" align="center">HABER</th>
 			</tr>
-			@foreach($seat['accountingAccounts'] as $account)
+			@foreach($seat['accountingAccounts'] as $seatAccount)
 				<tr>
 					<td style="font-size: 9rem;" align="center">
-						{{$account['account']->getCodeAttribute() }}
+						{{$seatAccount['account']->getCodeAttribute() }}
 					</td>
 					<td style="font-size:9rem;">
-						{{' '.$account['account']['denomination'] }}
+						{{' '.$seatAccount['account']['denomination'] }}
 					</td>
 					<td style="font-size:9rem;" align="right">
-						{{' '.number_format($account['debit'], (int)$currency->decimal_places, ',', '.') }}  
+						{{' '.number_format($seatAccount['debit'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					<td style="font-size:9rem;" align="right">
-						{{' '.number_format($account['assets'], (int)$currency->decimal_places, ',', '.') }}  
+						{{' '.number_format($seatAccount['assets'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					@php
-						$totDebit = $totDebit+$account['debit'];
-						$totAssets = $totAssets+$account['assets'];
+						$totDebit = $totDebit+$seatAccount['debit'];
+						$totAssets = $totAssets+$seatAccount['assets'];
 					@endphp
 				</tr>
 			@endforeach
@@ -98,22 +111,22 @@
 		        <td width="15%" style="font-size:9rem; background-color: #BDBDBD;"></td>
 		        <td width="15%" style="font-size:9rem; background-color: #BDBDBD;"></td>
 			</tr>
-			@foreach($seat['accountingAccounts'] as $account)
+			@foreach($seat['accountingAccounts'] as $seatAccount)
 				<tr>
 					<td style="font-size:9rem;"></td>
-					<td style="font-size:9rem;" align="center"> {{ $account['account']->getCodeAttribute() }}</td>
+					<td style="font-size:9rem;" align="center"> {{ $seatAccount['account']->getCodeAttribute() }}</td>
 					<td style="font-size:9rem;">
-						{{' '.$account['account']['denomination'] }} 
+						{{' '.$seatAccount['account']['denomination'] }} 
 					</td>
 					<td style="font-size:9rem;" align="right">
-						{{' '.number_format($account['debit'], (int)$currency->decimal_places, ',', '.') }}  
+						{{' '.number_format($seatAccount['debit'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					<td style="font-size:9rem;" align="right">
-						{{' '.number_format($account['assets'], (int)$currency->decimal_places, ',', '.') }}  
+						{{' '.number_format($seatAccount['assets'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					@php
-						$totDebit = $totDebit+$account['debit'];
-						$totAssets = $totAssets+$account['assets'];
+						$totDebit = $totDebit+$seatAccount['debit'];
+						$totAssets = $totAssets+$seatAccount['assets'];
 					@endphp
 				</tr>
 			@endforeach
@@ -136,5 +149,3 @@
 		</tr>
 	</table>
 @endif
-
-{{-- Totales --}}

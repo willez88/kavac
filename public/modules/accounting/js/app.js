@@ -203,7 +203,7 @@ Vue.component('accounting-report-checkup-balance', __webpack_require__(/*! ./com
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-report-diary-book', __webpack_require__(/*! ./components/reports/AccountingDiaryBookComponent.vue */ "./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue")["default"]);
+Vue.component('accounting-report-daily-book', __webpack_require__(/*! ./components/reports/AccountingDailyBookComponent.vue */ "./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue")["default"]);
 /**
  * Componente index para el reporte del Mayor Analítico
  *
@@ -1351,17 +1351,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue":
+/***/ "./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue":
 /*!*********************************************************************************!*\
-  !*** ./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue ***!
+  !*** ./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue ***!
   \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingDiaryBookComponent_vue_vue_type_template_id_2dcc2726___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingDiaryBookComponent.vue?vue&type=template&id=2dcc2726& */ "./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=template&id=2dcc2726&");
-/* harmony import */ var _AccountingDiaryBookComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingDiaryBookComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AccountingDailyBookComponent_vue_vue_type_template_id_213aae52___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingDailyBookComponent.vue?vue&type=template&id=213aae52& */ "./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52&");
+/* harmony import */ var _AccountingDailyBookComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingDailyBookComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1371,9 +1371,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AccountingDiaryBookComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingDiaryBookComponent_vue_vue_type_template_id_2dcc2726___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingDiaryBookComponent_vue_vue_type_template_id_2dcc2726___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AccountingDailyBookComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountingDailyBookComponent_vue_vue_type_template_id_213aae52___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingDailyBookComponent_vue_vue_type_template_id_213aae52___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1383,38 +1383,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue"
+component.options.__file = "Resources/assets/js/components/reports/AccountingDailyBookComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=script&lang=js&":
+/***/ "./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=script&lang=js& ***!
+  !*** ./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDiaryBookComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingDiaryBookComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDiaryBookComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDailyBookComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingDailyBookComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDailyBookComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=template&id=2dcc2726&":
+/***/ "./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52&":
 /*!****************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=template&id=2dcc2726& ***!
+  !*** ./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52& ***!
   \****************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDiaryBookComponent_vue_vue_type_template_id_2dcc2726___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingDiaryBookComponent.vue?vue&type=template&id=2dcc2726& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=template&id=2dcc2726&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDiaryBookComponent_vue_vue_type_template_id_2dcc2726___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDailyBookComponent_vue_vue_type_template_id_213aae52___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingDailyBookComponent.vue?vue&type=template&id=213aae52& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDailyBookComponent_vue_vue_type_template_id_213aae52___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDiaryBookComponent_vue_vue_type_template_id_2dcc2726___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingDailyBookComponent_vue_vue_type_template_id_213aae52___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -2981,12 +2981,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       records: [],
       url: '/accounting/report/',
-      columns: ['name', 'created_at', 'interval', 'id']
+      columns: ['name', 'created_at', 'range', 'interval', 'id']
     };
   },
   created: function created() {
@@ -2994,6 +2996,7 @@ __webpack_require__.r(__webpack_exports__);
       'created_at': 'FECHA DE GENERACIÓN',
       'interval': 'TIEMPO TRANSCURRIDO',
       'name': 'TIPO DE REPORTE',
+      'range': 'RANGO DEL REPORTE',
       'id': 'ACCIÓN'
     };
     this.table_options.sortable = ['created_at', 'interval', 'name'];
@@ -3014,6 +3017,58 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/accounting/get_report_histories').then(function (response) {
         _this.records = response.data.report_histories;
       });
+    },
+
+    /**
+     * [rangeOfReport calcula el rango de las fechas que abarca el reporte]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  {String} url [url del reporte con informacion del reporte]
+     */
+    rangeOfReport: function rangeOfReport(url) {
+      var aux = url.split('/');
+      var auxDate = '';
+      var endDate = null;
+      var initDate = null;
+
+      for (var i = 0; i < aux.length; i++) {
+        if (aux[i].split('-').length > 1) {
+          if (!initDate) {
+            initDate = aux[i];
+          } else {
+            endDate = aux[i];
+          }
+        }
+      }
+      /*
+       * Se cambia el formato a dd/mm/YYYY
+       */
+
+
+      if (initDate.split('-')[0].length > 2) {
+        for (var i = initDate.split('-').length - 1; i >= 0; i--) {
+          var f = i != 0 ? initDate.split('-')[i] + '-' : initDate.split('-')[i];
+          auxDate += f;
+        }
+
+        initDate = auxDate;
+      }
+      /*
+       * Se cambia el formato a dd/mm/YYYY
+       */
+
+
+      if (endDate && endDate.split('-')[0].length > 2) {
+        auxDate = '';
+
+        for (var i = endDate.split('-').length - 1; i >= 0; i--) {
+          var f = i != 0 ? endDate.split('-')[i] + '-' : endDate.split('-')[i];
+          auxDate += f;
+        }
+
+        endDate = auxDate;
+      }
+
+      return endDate ? initDate + ' al ' + endDate : 'al ' + initDate;
     }
   }
 });
@@ -3209,13 +3264,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
-      type: Number,
-      "default": 0
+      type: String,
+      "default": ''
     }
   },
   data: function data() {
     return {
-      url: '/accounting/report/AnalyticalMajor/pdf',
+      url: '/accounting/report/analyticalMajor',
       disabledButton: true,
       InitAcc: 0,
       EndAcc: 0,
@@ -3240,19 +3295,17 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     getAccountingAccounts: function getAccountingAccounts() {
-      var _this = this;
-
       var vm = this;
-      this.dates = {
+      vm.dates = {
         initMonth: vm.month_init,
         initYear: vm.year_init > vm.year_end ? vm.year_end : vm.year_init,
         endMonth: vm.month_end,
         endYear: vm.year_init > vm.year_end ? vm.year_init : vm.year_end
       };
-      axios.post("/accounting/report/AnalyticalMajor/AccAccount", this.dates).then(function (response) {
-        _this.OptionsAcc = response.data.records;
-        _this.InitAcc = '';
-        _this.EndAcc = '';
+      axios.post(vm.url + "/AccAccount", vm.dates).then(function (response) {
+        vm.OptionsAcc = response.data.records;
+        vm.InitAcc = '';
+        vm.EndAcc = '';
       });
     },
 
@@ -3263,7 +3316,7 @@ __webpack_require__.r(__webpack_exports__);
     * @return {string} url para el reporte
     */
     getUrlReport: function getUrlReport() {
-      var url = this.url;
+      var url = this.url + '/pdf';
       var InitAcc = this.InitAcc > this.EndAcc ? this.EndAcc : this.InitAcc;
       var EndAcc = this.InitAcc > this.EndAcc ? this.InitAcc : this.EndAcc;
       var dates = '/' + this.dates.initYear + '-' + this.dates.initMonth + '/' + this.dates.endYear + '-' + this.dates.endMonth;
@@ -3273,7 +3326,7 @@ __webpack_require__.r(__webpack_exports__);
         url += '/' + InitAcc;
       }
 
-      if (InitAcc != EndAcc && EndAcc != 0) {
+      if (EndAcc != 0) {
         url += '/' + EndAcc;
       }
 
@@ -3360,12 +3413,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     records: {
-      type: Object,
-      "default": null
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
     },
     year_old: {
-      type: Number,
-      "default": 0
+      type: String,
+      "default": ''
     }
   },
   data: function data() {
@@ -3436,6 +3491,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     type_report: {
@@ -3443,8 +3500,8 @@ __webpack_require__.r(__webpack_exports__);
       "default": ''
     },
     year_old: {
-      type: Number,
-      "default": 0
+      type: String,
+      "default": ''
     }
   },
   data: function data() {
@@ -3484,7 +3541,7 @@ __webpack_require__.r(__webpack_exports__);
     * @return {string} url para el reporte
     */
     getUrlReport: function getUrlReport() {
-      var zero = $('#zero').prop('checked') ? 'true' : '';
+      var zero = $('#zero' + this.type_report).prop('checked') ? 'true' : '';
       return this.url + (this.year_init + '-' + this.month_init) + '/' + this.level + '/' + zero;
     }
   }
@@ -3538,16 +3595,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
-      type: Number,
-      "default": 0
+      type: String,
+      "default": ''
     }
   },
   data: function data() {
     return {
-      url: '/accounting/report/BalanceCheckUp/pdf/'
+      url: '/accounting/report/balanceCheckUp/pdf/'
     };
   },
   created: function created() {
@@ -3561,10 +3629,10 @@ __webpack_require__.r(__webpack_exports__);
     * @return {string} url para el reporte
     */
     getUrlReport: function getUrlReport() {
-      var type = $('input:radio[name=typeBalance]:checked').val();
+      var zero = $('#zero').prop('checked') ? 'true' : '';
       var initDate = this.year_init > this.year_end ? this.year_end + '-' + this.month_end : this.year_init + '-' + this.month_init;
       var endDate = this.year_init > this.year_end ? this.year_init + '-' + this.month_init : this.year_end + '-' + this.month_end;
-      var url = this.url + initDate + '/' + endDate;
+      var url = this.url + initDate + '/' + endDate + '/' + zero;
       return url;
     }
   }
@@ -3572,9 +3640,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3615,7 +3683,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      url: '/accounting/report/diaryBook/pdf/',
+      url: '/accounting/report/dailyBook/pdf/',
       dateIni: '',
       dateEnd: ''
     };
@@ -3628,8 +3696,8 @@ __webpack_require__.r(__webpack_exports__);
     * @return {string} url para el reporte
     */
     getUrlReport: function getUrlReport(argument) {
-      var dateIni = this.dateIni.split('-')[2] + '-' + this.dateIni.split('-')[1] + '-' + this.dateIni.split('-')[0];
-      var dateEnd = this.dateEnd.split('-')[2] + '-' + this.dateEnd.split('-')[1] + '-' + this.dateEnd.split('-')[0];
+      var dateIni = this.dateIni;
+      var dateEnd = this.dateEnd;
       var info = this.dateIni <= this.dateEnd ? dateIni + '/' + dateEnd : dateEnd + '/' + dateIni;
       var url = this.url + info;
       return url;
@@ -4751,7 +4819,9 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     seating: {
       type: Array,
-      "default": []
+      "default": function _default() {
+        return [];
+      }
     },
     currency: {
       type: Object,
@@ -6450,60 +6520,66 @@ var render = function() {
     [
       _c("h6", [_vm._v("Reportes generados")]),
       _vm._v(" "),
-      _c(
-        "v-client-table",
-        {
-          attrs: {
-            columns: _vm.columns,
-            data: _vm.records,
-            options: _vm.table_options
-          },
-          scopedSlots: _vm._u([
-            {
-              key: "name",
-              fn: function(props) {
-                return _c("div", { staticClass: "text-left" }, [
-                  _vm._v("\n\t\t\t" + _vm._s(props.row.name) + "\n\t\t")
-                ])
-              }
-            },
-            {
-              key: "created_at",
-              fn: function(props) {
-                return _c("div", { staticClass: "text-center" }, [
-                  _vm._v("\n\t\t\t" + _vm._s(props.row.created_at) + "\n\t\t")
-                ])
-              }
-            },
-            {
-              key: "id",
-              fn: function(props) {
-                return _c("div", { staticClass: "text-center" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-primary btn-xs btn-icon",
-                      attrs: {
-                        "data-toggle": "tooltip",
-                        href: _vm.url + props.row.url,
-                        title: "Generar Reporte",
-                        target: "_blank"
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-print",
-                        staticStyle: { "text-align": "center" }
-                      })
-                    ]
-                  )
-                ])
-              }
-            }
-          ])
+      _c("v-client-table", {
+        attrs: {
+          columns: _vm.columns,
+          data: _vm.records,
+          options: _vm.table_options
         },
-        [_vm._v(" "), _vm._v(" "), _c("div", { staticClass: "interval" })]
-      )
+        scopedSlots: _vm._u([
+          {
+            key: "name",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-left" }, [
+                _vm._v("\n\t\t\t" + _vm._s(props.row.name) + "\n\t\t")
+              ])
+            }
+          },
+          {
+            key: "created_at",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-center" }, [
+                _vm._v("\n\t\t\t" + _vm._s(props.row.created_at) + "\n\t\t")
+              ])
+            }
+          },
+          {
+            key: "range",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-center" }, [
+                _c("strong", [
+                  _vm._v(_vm._s(_vm.rangeOfReport(props.row.url)) + " ")
+                ])
+              ])
+            }
+          },
+          {
+            key: "id",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-center" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary btn-xs btn-icon",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      href: _vm.url + props.row.url,
+                      title: "Generar Reporte",
+                      target: "_blank"
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-print",
+                      staticStyle: { "text-align": "center" }
+                    })
+                  ]
+                )
+              ])
+            }
+          }
+        ])
+      })
     ],
     1
   )
@@ -7117,7 +7193,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-4" },
+        { staticClass: "col-3" },
         [
           _c("label", { staticClass: "control-label" }, [_vm._v("Al mes")]),
           _vm._v(" "),
@@ -7150,9 +7226,11 @@ var render = function() {
         1
       ),
       _vm._v(" "),
+      _c("div", { staticClass: "col-1" }),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-4" },
+        { staticClass: "col-3" },
         [
           _c("label", { staticClass: "control-label" }, [
             _vm._v("Nivel de consulta")
@@ -7172,7 +7250,25 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "col-1" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-2" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control text-center bootstrap-switch",
+          attrs: {
+            id: "zero" + this.type_report,
+            "data-on-label": "SI",
+            "data-off-label": "NO",
+            name: "zero",
+            type: "checkbox"
+          }
+        })
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-right" }, [
@@ -7199,24 +7295,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("label", { staticClass: "text-center" }, [
-        _c("strong", [_vm._v("Mostrar valores en cero")])
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control text-center bootstrap-switch",
-        attrs: {
-          id: "zero",
-          "data-on-label": "SI",
-          "data-off-label": "NO",
-          name: "zero",
-          type: "checkbox"
-        }
-      })
+    return _c("label", { staticClass: "text-center" }, [
+      _c("strong", [_vm._v("Mostrar valores en cero")])
     ])
   }
 ]
@@ -7244,7 +7324,7 @@ var render = function() {
   return _c("div", { staticClass: "form-horizontal" }, [
     _c("div", { staticClass: "card-body" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-2" }),
+        _c("div", { staticClass: "col-1" }),
         _vm._v(" "),
         _c(
           "div",
@@ -7324,7 +7404,11 @@ var render = function() {
             })
           ],
           1
-        )
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }),
+        _vm._v(" "),
+        _vm._m(2)
       ])
     ]),
     _vm._v(" "),
@@ -7361,6 +7445,30 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [_c("strong", [_vm._v("Hasta:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-2" }, [
+      _c("label", { staticClass: "text-center" }, [
+        _c("strong", [_vm._v("Mostrar valores en cero")])
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control text-center bootstrap-switch",
+        attrs: {
+          id: "zero",
+          "data-on-label": "SI",
+          "data-off-label": "NO",
+          name: "zero",
+          type: "checkbox"
+        }
+      })
+    ])
   }
 ]
 render._withStripped = true
@@ -7369,9 +7477,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=template&id=2dcc2726&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52&":
 /*!**********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingDiaryBookComponent.vue?vue&type=template&id=2dcc2726& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52& ***!
   \**********************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -9217,99 +9325,92 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "row" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "card-body",
-                      staticStyle: { "margin-bottom": "-7rem" }
-                    },
-                    [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-1" }),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-group col-5 is-required" },
-                          [
-                            _c("label", { staticClass: "control-label" }, [
-                              _vm._v("Nombre")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.record.name,
-                                  expression: "record.name"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                title: "Ingrese el nombre de la categoria",
-                                "data-toggle": "tooltip"
-                              },
-                              domProps: { value: _vm.record.name },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.record,
-                                    "name",
-                                    $event.target.value
-                                  )
-                                }
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-1" }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-5 is-required" },
+                        [
+                          _c("label", { staticClass: "control-label" }, [
+                            _vm._v("Nombre")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.record.name,
+                                expression: "record.name"
                               }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-group col-5 is-required" },
-                          [
-                            _c("label", { staticClass: "control-label" }, [
-                              _vm._v("Acrónimo")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.record.acronym,
-                                  expression: "record.acronym"
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              title: "Ingrese el nombre de la categoria",
+                              "data-toggle": "tooltip"
+                            },
+                            domProps: { value: _vm.record.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
                                 }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                maxlength: "8",
-                                title: "Ingrese el acrónimo",
-                                "data-toggle": "tooltip"
-                              },
-                              domProps: { value: _vm.record.acronym },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.record,
-                                    "acronym",
-                                    $event.target.value
-                                  )
-                                }
+                                _vm.$set(
+                                  _vm.record,
+                                  "name",
+                                  $event.target.value
+                                )
                               }
-                            })
-                          ]
-                        )
-                      ])
-                    ]
-                  )
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-5 is-required" },
+                        [
+                          _c("label", { staticClass: "control-label" }, [
+                            _vm._v("Acrónimo")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.record.acronym,
+                                expression: "record.acronym"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              maxlength: "4",
+                              title: "Ingrese el acrónimo",
+                              "data-toggle": "tooltip"
+                            },
+                            domProps: { value: _vm.record.acronym },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.record,
+                                  "acronym",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]
+                      )
+                    ])
+                  ])
                 ])
               ]),
               _vm._v(" "),

@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-report-diary-book />
+					<accounting-report-daily-book />
 				</div>
 			</div>
 		</div>

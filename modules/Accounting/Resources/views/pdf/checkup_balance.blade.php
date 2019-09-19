@@ -1,22 +1,28 @@
 @php
-    // @var float total por el debe
-    $totDebit = 0;
-    // @var float total por el haber
-    $totAssets = 0;
-    // @var float total deudor
-    $totDebitor = 0;
-    // @var float total acreedor
-    $totCreditor = 0;
+    /**
+     * [$totDebit total por el debe]
+     * @var float
+     */
+    $totDebit = 0.0;
 
-	$initDate = new DateTime($initDate);
-	$endDate = new DateTime($endDate);
+    /**
+     * [$totAssets total por el haber]
+     * @var float
+     */
+    $totAssets = 0.0;
 
-	// Se formatea la fecha
-	$initDate = $initDate->format('d/m/Y');
+    /**
+     * [$totDebitor total deudor]
+     * @var float
+     */
+    $totDebitor = 0.0;
 
-	// Se formatea la fecha
-	$endDate = $endDate->format('d/m/Y');
-
+    /**
+     * [$totCreditor total acreedor]
+     * @var float
+     */
+    $totCreditor = 0.0;
+    
 @endphp
 
 	<h2 style="font-size: 9rem;" align="center">BALACE DE COMPROBACIÓN DESDE {{ $initDate }} HASTA {{ $endDate }}</h2>

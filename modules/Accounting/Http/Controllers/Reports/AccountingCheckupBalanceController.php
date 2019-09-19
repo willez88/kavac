@@ -14,6 +14,7 @@ use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
+use DateTime;
 use Auth;
 
 /**
@@ -93,13 +94,6 @@ class AccountingCheckupBalanceController extends Controller
     public function getEndDate()
     {
         return $this->endDate;
-    }
-
-    public function build_sorter()
-    {
-        return function ($a, $b) {
-            return strnatcmp($a->getCodeAttribute(), $b->getCodeAttribute());
-        };
     }
 
     /**
@@ -190,64 +184,63 @@ class AccountingCheckupBalanceController extends Controller
             ->orderBy('subspecific', 'ASC')
             ->orderBy('denomination', 'ASC')->get();
         }
+
         foreach ($query as $account) {
-            /** @var boolean bandera que indica si la cuenta ya esta en el array */
-            $add = true;
             /**
-            Ciclo para verificar que la cuenta no se repita en el array
+             * [$add indica si la cuenta ya esta en el array]
+             * @var boolean
+             */
+            $add = true;
+
+            /**
+             * [$lengthRecords tamaño del arreglo]
+             * @var [type]
+             */
+            $lengthRecords = count($records);
+
+            /**
+            * Ciclo para verificar que la cuenta no se repita en el array
             */
-            for ($i=0; $i < count($records); $i++) {
-                if ($records[$i]->id == $account->id) {
+            for ($i=0; $i < $lengthRecords; $i++) {
+                if ($records[$i]['id'] == $account->id) {
                     $add = false;
                     break;
                 }
             }
 
-            if (count($records)==0 || $add) {
-                array_push($records, $account);
-            }
-        }
-        /**
-        * build_sorter: function compara y ordena las cuentas segun el orden en el código
-        */
+            if ($lengthRecords==0 || $add) {
+                if (!$returnArray) {
+                    $val = $this->calculateSum(
+                        (array_key_exists($account->id, $beginningBalance)? $beginningBalance[$account->id]:0),
+                        $account->seatAccount
+                    );
 
-        usort($records, $this->build_sorter());
-        /**
-        * Se formatean los datos de las cuentas
-        */
-        $index = 0;
-        foreach ($records as $account) {
-            $index += 1;
-            if (!$returnArray) {
-                $val = $this->calculateSum(
-                    (array_key_exists($account->id, $beginningBalance)? $beginningBalance[$account->id]:0),
-                    $account->seatAccount
-                );
-
-                $beg = (array_key_exists($account->id, $beginningBalance)
-                                             ? $beginningBalance[$account->id]:0);
-                array_push($arrAux, [
-                    'code' => $account->getCodeAttribute(),
-                    'denomination' => $account->denomination,
-                    'beginningBalance' => $beg,
-                    'sum_debit' => ($val >= 0) ? $val : null,
-                    'sum_assets' => ($val < 0) ? $val : null,
-                    'balance_debit' => (floatval($beg)+$val >= 0) ? floatval($beg)+$val : null ,
-                    'balance_assets' => (floatval($beg)+$val < 0) ? floatval($beg)+$val : null ,
-                ]);
-            } else {
-                array_push($arrAux, [
-                    'id' => $account->id,
-                ]);
+                    $beg = (array_key_exists($account->id, $beginningBalance)
+                                                 ? $beginningBalance[$account->id]:0);
+                    array_push($records, [
+                        'id' => $account->id,
+                        'code' => $account->getCodeAttribute(),
+                        'denomination' => $account->denomination,
+                        'beginningBalance' => $beg,
+                        'sum_debit' => ($val >= 0) ? $val : null,
+                        'sum_assets' => ($val < 0) ? $val : null,
+                        'balance_debit' => (floatval($beg)+$val >= 0) ? floatval($beg)+$val : null ,
+                        'balance_assets' => (floatval($beg)+$val < 0) ? floatval($beg)+$val : null ,
+                    ]);
+                } else {
+                    array_push($records, [
+                        'id' => $account->id,
+                    ]);
+                }
             }
         }
 
         if (!$returnArray) {
-            $this->setRecords($arrAux);
+            $this->setRecords($records);
             $this->setInitDate($initDate);
             $this->setEndDate($endDate);
         }
-        return $arrAux;
+        return $records;
     }
 
     /**
@@ -320,16 +313,35 @@ class AccountingCheckupBalanceController extends Controller
         */
         $url = 'BalanceCheckUp/pdf/'.$initDate.'/'.$endDate;
         $url = $url.'/'.(($all)?'all':'');
-        
-        AccountingReportHistory::updateOrCreate(
-            [
-                'url' => $url,
-            ],
-            [
-                'report' => 'Balance de Comporbación'.(($all)?' - todas las cuentas':' - solo cuentas con operaciones'),
-            ]
-        );
 
+        $currentDate = new DateTime;
+        $currentDate = $currentDate->format('Y-m-d');
+
+        /**
+         * [$report almacena el registro del reporte del dia si existe]
+         * @var [type]
+         */
+        $report = AccountingReportHistory::whereBetween('updated_at', [
+                                                                        $currentDate.' 00:00:00',
+                                                                        $currentDate.' 23:59:59'
+                                                                    ])
+                                        ->where('report', 'Balance de Comporbación'.(($all)?' - todas las cuentas':' - solo cuentas con operaciones'))->first();
+
+        /*
+        * se crea o actualiza el registro del reporte
+        */
+        if (!$report) {
+            AccountingReportHistory::create(
+                [
+                    'report' => 'Balance de Comporbación'.(($all)?' - todas las cuentas':' - solo cuentas con operaciones'),
+                    'url' => $url,
+                ]
+            );
+        } else {
+            $report->url = $url;
+            $report->save();
+        }
+        
         /** Cálcula el saldo inicial que tendra la cuenta*/
         $this->CalculateBeginningBalance($initDate, $all);
 
@@ -356,6 +368,13 @@ class AccountingCheckupBalanceController extends Controller
          * @var String
          */
         $endDate = $this->getEndDate();
+
+
+        $initDate = new DateTime($initDate);
+        $endDate = new DateTime($endDate);
+
+        $initDate = $initDate->format('d/m/Y');
+        $endDate = $endDate->format('d/m/Y');
 
         /**
          * [$setting configuración general de la apliación]

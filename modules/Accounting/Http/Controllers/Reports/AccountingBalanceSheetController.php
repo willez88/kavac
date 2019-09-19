@@ -14,6 +14,7 @@ use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
 use Auth;
+use DateTime;
 
 /**
  * @class AccountingReportPdfBalanceSheetController
@@ -56,14 +57,35 @@ class AccountingBalanceSheetController extends Controller
          * @var string
          */
         $url = 'balanceSheet/pdf/'.$date.'/'.$level.'/'.$zero;
-        AccountingReportHistory::updateOrCreate(
-            [
-                                                    'report' => 'Balance General',
-                                                ],
-            [
-                                                    'url' => $url,
-                                                ]
-        );
+
+        $currentDate = new DateTime;
+        $currentDate = $currentDate->format('Y-m-d');
+
+        /**
+         * [$report almacena el registro del reporte del dia si existe]
+         * @var [type]
+         */
+        $report = AccountingReportHistory::whereBetween('updated_at', [
+                                                                        $currentDate.' 00:00:00',
+                                                                        $currentDate.' 23:59:59'
+                                                                    ])
+                                        ->where('report', 'Balance General')->first();
+
+        /*
+        * se crea o actualiza el registro del reporte
+        */
+        if (!$report) {
+            AccountingReportHistory::create(
+                [
+                    'report' => 'Balance General',
+                    'url' => $url,
+                ]
+            );
+        } else {
+            $report->url = $url;
+            $report->save();
+        }
+        
         /**
          * [$day ultimo dia correspondiente al mes]
          * @var date
@@ -134,11 +156,9 @@ class AccountingBalanceSheetController extends Controller
             ->with([$level_6 => function ($query) use ($endDate) {
                 $query->where('from_date', '<=', $endDate)->where('approved', true);
             }])
-            ->where([
-                ['group', '>=', 0],
-                ['group', '<=', 4]
-            ])
+            ->whereBetween('group', [0, 4])
             ->where('subgroup', 0)
+            ->orderBy('subgroup', 'ASC')
             ->orderBy('group', 'ASC')
             ->orderBy('subgroup', 'ASC')
             ->orderBy('item', 'ASC')
@@ -238,13 +258,6 @@ class AccountingBalanceSheetController extends Controller
         }
         return [];
     }
-
-    /**
-     *
-     *
-     *
-
-     */
 
     /**
      * [calculateValuesInSeating realiza el calculo de saldo de la cuenta tomando en cuenta todos sus subcuentas,

@@ -14,6 +14,7 @@ use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
 use Auth;
+use DateTime;
 
 /**
  * @class AccountingReportPdfStateOfResultsController
@@ -52,14 +53,35 @@ class AccountingStateOfResultsController extends Controller
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
         $url = 'stateOfResults/pdf/'.$date.'/'.$level.'/'.$zero;
-        AccountingReportHistory::updateOrCreate(
-            [
-                                                    'report' => 'Estado de Resultados',
-                                                ],
-            [
-                                                    'url' => $url,
-                                                ]
-        );
+
+        $currentDate = new DateTime;
+        $currentDate = $currentDate->format('Y-m-d');
+
+        /**
+         * [$report almacena el registro del reporte del dia si existe]
+         * @var [type]
+         */
+        $report = AccountingReportHistory::whereBetween('updated_at', [
+                                                                        $currentDate.' 00:00:00',
+                                                                        $currentDate.' 23:59:59'
+                                                                    ])
+                                        ->where('report', 'Estado de Resultados')->first();
+
+        /*
+        * se crea o actualiza el registro del reporte
+        */
+        if (!$report) {
+            AccountingReportHistory::create(
+                [
+                    'report' => 'Estado de Resultados',
+                    'url' => $url,
+                ]
+            );
+        } else {
+            $report->url = $url;
+            $report->save();
+        }
+        
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
         $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
 
@@ -106,12 +128,14 @@ class AccountingStateOfResultsController extends Controller
             ->with([$level_6 => function ($query) use ($endDate) {
                 $query->where('from_date', '<=', $endDate)->where('approved', true);
             }])
-            ->where([
-                ['group', '>=', 5],
-                ['group', '<=', 6]
-            ])
+            ->whereBetween('group', [5, 6])
             ->where('subgroup', 0)
-            ->orderBy('group', 'ASC')->orderBy('subgroup', 'ASC')->orderBy('item', 'ASC')->orderBy('generic', 'ASC')->orderBy('specific', 'ASC')->orderBy('subspecific', 'ASC')->get();
+            ->orderBy('group', 'ASC')
+            ->orderBy('subgroup', 'ASC')
+            ->orderBy('item', 'ASC')
+            ->orderBy('generic', 'ASC')
+            ->orderBy('specific', 'ASC')
+            ->orderBy('subspecific', 'ASC')->get();
 
         $records = $this->FormatDataInArray($records);
         

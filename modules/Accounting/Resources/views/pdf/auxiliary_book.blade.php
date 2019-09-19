@@ -1,27 +1,40 @@
 @php
-    // @var float total por el debe
+    /**
+	* [$totDebit total por el debe de una cuenta]
+	* @var float
+	*/
     $totDebit=0;
 
-    // @var float total por el debe
+    /**
+	* [$totAssets total por el haber de una cuenta]
+	* @var float
+	*/
     $totAssets=0;
 
-    // @var float saldo total
+    /**
+	* [$totBalance total del saldo de la cuenta]
+	* @var float
+	*/
     $totBalance = 0;
 
-    // @var float saldo acumulado en cada iteración
-    $beginningBalance = 0;
+    /**
+	* [$previousBalance saldo acumulado en cada iteración por cuenta]
+	* @var float
+	*/
+    $previousBalance = 0;
 
 @endphp
 {{-- si la cuenta tiene una de nivel superior la muesta de lo contrario solo muesta la cuenta --}}
 @if($parent_account)
 	<h3 style="font-size: 9rem;">CUENTA {{ $parent_account->getCodeAttribute().' '.$parent_account->denomination }} </h3>
-	@if($parent_account->id != $account->id)
-		<h3 style="font-size: 9rem;">SUBCUENTA {{ $account->getCodeAttribute().' '.$account->denomination }}</h3>
+	@if($parent_account->id != $record->id)
+		<h3 style="font-size: 9rem;">SUBCUENTA {{ $record->getCodeAttribute().' '.$record->denomination }}</h3>
 	@endif
 @else
-	<h3 style="font-size: 9rem;">CUENTA {{ $account->getCodeAttribute().' '.$account->denomination }}</h3>
+	<h3 style="font-size: 9rem;">CUENTA {{ $record->getCodeAttribute().' '.$record->denomination }}</h3>
 @endif
 
+<h4 style="font-size: 9rem;">DESDE {{ $initDate }} AL {{ $endDate }}</h4>
 <h4 style="font-size: 9rem;">EXPRESADO EN {{ $currency->symbol }}</h4>
 <table cellspacing="0" cellpadding="1" border="0">
 	<tr style="background-color: #BDBDBD;">
@@ -31,30 +44,32 @@
 		<td style="font-size: 9rem;" width="22%" align="center">DEBITO</td>
 		<td style="font-size: 9rem;" width="22%" align="center">CREDITO</td>
 	</tr>
-	{{-- $record es un array el cual tiene cada registro relacionado con una cuenta en un asiento contable  --}}
-	@foreach($records as $record)
+	{{-- $r es un array el cual tiene cada registro relacionado con una cuenta en un asiento contable  --}}
+	@foreach($record['seatAccount'] as $r)
+	@if($r['seating'])
 		<tr>
-			<td style="font-size: 9rem;"> {{ $record['updated_at']->format('d/m/Y') }}</td>
-			<td style="font-size: 9rem;"> {{ $record['seating']['concept'] }}</td>
-			<td style="font-size: 9rem;"> {{ $record['seating']['reference'] }}</td>
+			<td style="font-size: 9rem;"> {{ $r['updated_at']->format('d/m/Y') }}</td>
+			<td style="font-size: 9rem;"> {{ $r['seating']['concept'] }}</td>
+			<td style="font-size: 9rem;"> {{ $r['seating']['reference'] }}</td>
 			<td style="font-size: 9rem;" align="right">
-				{{ number_format($record['debit'], (int)$currency->decimal_places, ',', '.') }} 
+				{{ number_format($r['debit'], (int)$currency->decimal_places, ',', '.') }} 
 				@php
-					$totDebit += (float)$record['debit'];
+					$totDebit += (float)$r['debit'];
 				@endphp
 			</td>
 			<td style="font-size: 9rem;" align="right">
-				{{ number_format($record['assets'], (int)$currency->decimal_places, ',', '.') }} 
+				{{ number_format($r['assets'], (int)$currency->decimal_places, ',', '.') }} 
 				@php
-					$totAssets += (float)$record['assets'];
+					$totAssets += (float)$r['assets'];
 				@endphp
 			</td>
 			@php
 				// se realizan los calculos para el saldo total
-				$totBalance = ((float)$beginningBalance + (float)$record['debit'] - (float)$record['assets']);
-				$beginningBalance = $totBalance;
+				$totBalance = ((float)$previousBalance + (float)$r['debit'] - (float)$r['assets']);
+				$previousBalance = $totBalance;
 			@endphp
 		</tr>
+	@endif
 	@endforeach
 	<br>
 	<tr>
