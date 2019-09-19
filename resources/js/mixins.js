@@ -9,6 +9,7 @@ import moment from 'moment';
 Vue.mixin({
     data() {
         return {
+            loading: true,
             /**
              * Opciones generales a implementar en tablas
              * @type {JSON}
@@ -707,6 +708,7 @@ Vue.mixin({
     },
     created() {
         this.clearForm();
+        this.loading = false;
     },
     mounted() {
     }

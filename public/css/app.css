@@ -25868,7 +25868,6 @@ body {
   font-size: 13px;
   color: #636E7B;
   background-color: #EBECF1;
-  /*overflow: hidden;*/
 }
 
 footer nav ul {
@@ -29991,19 +29990,19 @@ table th {
 
 .preloader {
   /*position:relative;*/
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
+  /*position:absolute;*/
+  position: fixed;
+  /*top: 0px;
+    bottom:0px;
+    left:0px;*/
   z-index: 9999;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.3);
 }
 
 .preloader p {
-  position: absolute;
-  margin: 20px 80px;
+  padding-top: 20px;
 }
 
 .preloader .preloader-content {
@@ -30067,7 +30066,7 @@ table th {
   position: absolute;
   width: 64px;
   height: 64px;
-  top: 68px;
+  top: 18px;
   left: 68px;
   border-radius: 50%;
   border: 4px solid #000;
@@ -30080,7 +30079,7 @@ table th {
 .lds-double-ring > div:nth-child(4) {
   width: 52px;
   height: 52px;
-  top: 74px;
+  top: 24px;
   left: 74px;
   -webkit-animation: lds-double-ring_reverse 1s linear infinite;
   animation: lds-double-ring_reverse 1s linear infinite;
@@ -30154,7 +30153,7 @@ table th {
 
 .lds-double-ring {
   width: 200px !important;
-  height: 200px !important;
+  height: 100px !important;
   transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
 }
 

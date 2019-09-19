@@ -120,14 +120,6 @@
 
         @include('layouts.messages')
         <script>
-            /*$('.preloader').fadeIn(function() {
-                $('body').css('overflow', 'hidden');
-            });
-            $(window).on('load', function () {
-                $('.preloader').fadeOut(1000, function() {
-                    $('body').css('overflow', 'auto');
-                });
-            });*/
             $(document).ready(function() {
                 if ($('.ckeditor').length && typeof(CkEditor) !== 'undefined') {
                     $('.ckeditor').each(function() {
@@ -165,6 +157,9 @@
                         event.preventDefault();
                     }
                 });
+
+                /** oculta el mensaje de carga al renderizar por completo el DOM de la página */
+                $('.preloader').fadeOut(1000);
             });
             /*
              * Función que permite eliminar registros mediante ajax

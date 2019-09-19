@@ -12,9 +12,9 @@
 		</div>
 	</div>
 </div> --}}
-<section class="preloader" style="display: none">
+<section class="preloader" v-if="loading">
 	<div class="preloader-content">
-		<p class="text-justify">Su petición se está cargando. Por favor espere</p>
+		<p class="text-center">Su petición se está cargando. Por favor espere</p>
 		{{--<img src="{{ asset('images/loader.gif', Request::secure()) }}" alt="Cargando Datos" class="img-fluid">--}}
 		<div class="lds-css ng-scope">
 			<div style="width:100%;height:100%" class="lds-double-ring">
