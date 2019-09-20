@@ -2192,12 +2192,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "478f017a77244ebfa14654cd1aa44d5527b14213"
+                "reference": "6545cafed22eb4b071b1821140b0ba2366a02940"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/478f017a77244ebfa14654cd1aa44d5527b14213",
-                "reference": "478f017a77244ebfa14654cd1aa44d5527b14213",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/6545cafed22eb4b071b1821140b0ba2366a02940",
+                "reference": "6545cafed22eb4b071b1821140b0ba2366a02940",
                 "shasum": ""
             },
             "require": {
@@ -2255,7 +2255,7 @@
                 "nwidart",
                 "rad"
             ],
-            "time": "2019-09-11T12:07:36+00:00"
+            "time": "2019-09-19T08:32:47+00:00"
         },
         {
             "name": "opis/closure",
@@ -2320,16 +2320,16 @@
         },
         {
             "name": "owen-it/laravel-auditing",
-            "version": "v9.3.1",
+            "version": "v9.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/owen-it/laravel-auditing.git",
-                "reference": "71af2b7adc098f64a0339e6f21293868d4a8f940"
+                "reference": "38de27e8d8cdb63b51a7b0a4f8865af529bb0c44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/owen-it/laravel-auditing/zipball/71af2b7adc098f64a0339e6f21293868d4a8f940",
-                "reference": "71af2b7adc098f64a0339e6f21293868d4a8f940",
+                "url": "https://api.github.com/repos/owen-it/laravel-auditing/zipball/38de27e8d8cdb63b51a7b0a4f8865af529bb0c44",
+                "reference": "38de27e8d8cdb63b51a7b0a4f8865af529bb0c44",
                 "shasum": ""
             },
             "require": {
@@ -2341,8 +2341,9 @@
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^4.0",
-                "phpunit/phpunit": "^8.0"
+                "orchestra/testbench": "^3.8",
+                "phpunit/phpunit": "^8.0",
+                "ramsey/uuid": "^3.0"
             },
             "suggest": {
                 "laravelista/lumen-vendor-publish": "Needed to publish the package configuration in Lumen"
@@ -2399,7 +2400,7 @@
                 "revision",
                 "tracking"
             ],
-            "time": "2019-09-12T12:36:36+00:00"
+            "time": "2019-09-19T04:04:20+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -5028,16 +5029,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "1.6.6",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "8fe0ab9850e92aa5e4492c44145b28bc5b83051a"
+                "reference": "4ff9397a24da58b35382802e2d22325b640123ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/8fe0ab9850e92aa5e4492c44145b28bc5b83051a",
-                "reference": "8fe0ab9850e92aa5e4492c44145b28bc5b83051a",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/4ff9397a24da58b35382802e2d22325b640123ea",
+                "reference": "4ff9397a24da58b35382802e2d22325b640123ea",
                 "shasum": ""
             },
             "require": {
@@ -5092,7 +5093,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2019-09-16T19:55:14+00:00"
+            "time": "2019-09-20T09:37:06+00:00"
         },
         {
             "name": "facade/ignition-contracts",
@@ -5780,7 +5781,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🍸 Nette NEON: encodes and decodes NEON file format.",
+            "description": "? Nette NEON: encodes and decodes NEON file format.",
             "homepage": "http://ne-on.org",
             "keywords": [
                 "export",
