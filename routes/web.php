@@ -65,7 +65,14 @@ Route::post('/logs/front-end', 'Admin\LogController@frontEnd')->name('logs.front
  * config/filesystems.php
  */
 Route::group(['middleware' => 'auth'], function () {
-    /** Ruta para acceder a las imágenes almacenadas por la aplicación */
+
+    /**
+     * -----------------------------------------------------------------------
+     * Ruta para mostrar imágenes almacenadas
+     * -----------------------------------------------------------------------
+     *
+     * Permite acceder y mostrar las imágenes almacenadas
+     */
     Route::get('storage/pictures/{image}', function ($image) {
         $path = storage_path('pictures/' . $image);
         if (!File::exists($path)) {
@@ -79,7 +86,14 @@ Route::group(['middleware' => 'auth'], function () {
 
         return $response;
     });
-    /** Ruta para acceder a los documentos almacenados por la aplicación */
+
+    /**
+     * -----------------------------------------------------------------------
+     * Ruta para mostrar documentos almacenados
+     * -----------------------------------------------------------------------
+     *
+     * Permite acceder y mostrar los documentos almacenados
+     */
     Route::get('storage/documents/{document}', function ($document) {
         $path = storage_path('documents/' . $document);
         if (!File::exists($path)) {
@@ -94,31 +108,62 @@ Route::group(['middleware' => 'auth'], function () {
         return $response;
     });
 
-    /** Ruta para la configuración de parámetros de la aplicación */
+    /**
+     * -----------------------------------------------------------------------
+     * Ruta para gestión de parámetros
+     * -----------------------------------------------------------------------
+     *
+     * Ruta para la configuración de parámetros generales de la aplicación y
+     * de los módulos
+     */
     Route::post('parameters', 'ParameterController@store');
 
-    /** Rutas para la gestión de estatus de documentos */
+    /**
+     * -----------------------------------------------------------------------
+     * Rutas para gestión de estatus de documentos
+     * -----------------------------------------------------------------------
+     *
+     * Rutas de recursos para la gestión de estatus de documentos.
+     */
     Route::resource('document-status', 'DocumentStatusController', ['except' => ['show']]);
 
-    /** Rutas para la gestión de documentos requeridos */
-    Route::get('required-documents/{model}/{module?}', 'RequiredDocumentController@index')
-         ->name('required.documents.index');
-    Route::post('required-documents/{model}/{module?}', 'RequiredDocumentController@store')
-         ->name('required.documents.store');
-    Route::patch('required-documents/{model}/{module?}/{requiredDocument}', 'RequiredDocumentController@update')
-         ->name('required.documents.update');
-    Route::delete('required-documents/{model}/{module?}/{requiredDocument}', 'RequiredDocumentController@destroy')
-         ->name('required.documents.destroy');
+    /**
+     * -----------------------------------------------------------------------
+     * Rutas para gestión de documentos requeridos
+     * -----------------------------------------------------------------------
+     *
+     * Rutas para la gestión de documentos requeridos.
+     */
+    Route::get(
+        'required-documents/{model}/{module?}',
+        'RequiredDocumentController@index'
+    )->name('required.documents.index');
+    Route::post(
+        'required-documents/{model}/{module?}',
+        'RequiredDocumentController@store'
+    )->name('required.documents.store');
+    Route::patch(
+        'required-documents/{model}/{module?}/{requiredDocument}',
+        'RequiredDocumentController@update'
+    )->name('required.documents.update');
+    Route::delete(
+        'required-documents/{model}/{module?}/{requiredDocument}',
+        'RequiredDocumentController@destroy'
+    )->name('required.documents.destroy');
 
     /** Rutas para la gestión de estados civiles */
     Route::resource('marital-status', 'MaritalStatusController', ['except' => ['show']]);
-    Route::get('/get-marital-status/{id?}', 'MaritalStatusController@getMaritalStatus')
-         ->name('get-marital-status');
+    Route::get(
+        '/get-marital-status/{id?}',
+        'MaritalStatusController@getMaritalStatus'
+    )->name('get-marital-status');
 
     /** Rutas para la gestión de profesiones */
     Route::resource('professions', 'ProfessionController', ['except' => ['show']]);
-    Route::get('/get-professions/{id?}', 'ProfessionController@getProfessions')
-         ->name('get-professions');
+    Route::get(
+        '/get-professions/{id?}',
+        'ProfessionController@getProfessions'
+    )->name('get-professions');
 
     /** Rutas para la gestión de tipos de instituciones */
     Route::resource('institution-types', 'InstitutionTypeController', ['except' => ['show']]);
@@ -152,27 +197,38 @@ Route::group(['middleware' => 'auth'], function () {
 
     /** Rutas para la gestión de monedas y tipos de cambio */
     Route::resource('currencies', 'CurrencyController');
-    Route::get('currencies/info/{currency_id}', 'CurrencyController@getCurrencyInfo')->name('currency.info');
+    Route::get(
+        'currencies/info/{currency_id}',
+        'CurrencyController@getCurrencyInfo'
+    )->name('currency.info');
 
     /** Ruta para obtener datos de selecs dependientes dinámicamente */
     Route::get(
         'get-select-data/{parent_name}/{parent_id}/{model}/{module_name?}/{fk?}',
         'CommonController@getSelectData'
-    );
+    )->name('get-select-data');
 
     /** Ruta para obtener datos de los departamentos */
-    Route::get('/get-departments/{institution_id}', 'DepartmentController@getDepartments')
-         ->name('get-departments');
+    Route::get(
+        '/get-departments/{institution_id}',
+        'DepartmentController@getDepartments'
+    )->name('get-departments');
 
     /** Ruta para obtener datos de instituciones */
-    Route::get('/get-institutions/{institution_id?}', 'InstitutionController@getInstitutions')
-         ->name('get-institutions');
-    Route::get('/get-execution-year/{institution_id?}/{year?}', 'InstitutionController@getExecutionYear')
-         ->name('get-execution-year');
+    Route::get(
+        '/get-institutions/{institution_id?}',
+        'InstitutionController@getInstitutions'
+    )->name('get-institutions');
+    Route::get(
+        '/get-execution-year/{institution_id?}/{year?}',
+        'InstitutionController@getExecutionYear'
+    )->name('get-execution-year');
 
     /** Ruta para obtener datos de monedas */
-    Route::get('/get-currencies/{currency_id?}', 'CurrencyController@getCurrencies')
-         ->name('get-currencies');
+    Route::get(
+        '/get-currencies/{currency_id?}',
+        'CurrencyController@getCurrencies'
+    )->name('get-currencies');
 
     /** Ruta para la gestión de imágenes */
     Route::resource('upload-image', 'ImageController', [
@@ -274,14 +330,15 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         /** Rutas para gestionar respaldos de la aplicación */
         Route::get('backup', 'BackupController@index')->name('backup.index');
         Route::get('backup/create', 'BackupController@create')->name('backup.create');
-        Route::get('backup/download/{file_name}', 'BackupController@download')
-             ->name('backup.download');
+        Route::get('backup/download/{file_name}', 'BackupController@download')->name('backup.download');
         Route::get('backup/delete/{file_name}', 'BackupController@delete')->name('backup.delete');
 
         /** Obtiene las instituciones registradas */
         Route::get('get-institutions', 'InstitutionController@getInstitutions');
-        Route::get('get-institution/details/{institution}', 'InstitutionController@getDetails')
-             ->name('institution.details');
+        Route::get(
+            'get-institution/details/{institution}',
+            'InstitutionController@getDetails'
+        )->name('institution.details');
     });
 
     /**
@@ -386,7 +443,9 @@ Route::get('test', function () {
         /** Línea de separación entre el encabezado del reporte y el cuerpo */
         $pdf->Line(7, 35, 205, 35, $lineStyle);
 
-        /*$pdf->write1DBarcode('$2y$10$syg39jYYUGB/PDi/i9MI5u53FMza75uWPaBmU8XtYrBgWuloA8Xva', 'C128', 80, 90, 60, 10, '', $barCodeStyle, 'N');*/
+        /*$pdf->write1DBarcode(
+        '$2y$10$syg39jYYUGB/PDi/i9MI5u53FMza75uWPaBmU8XtYrBgWuloA8Xva', 'C128', 80, 90, 60, 10, '', $barCodeStyle, 'N'
+        );*/
         /*$pdf->write1DBarcode('1234567890', 'UPCA', 80, 90, 60, 10, '', $barCodeStyle, 'N');*/
         /*$pdf->write1DBarcode('1234567890', 'CODABAR', 80, 90, 60, 10, '', $barCodeStyle, 'N');*/
         /*$pdf->write1DBarcode('1234567890', 'CODE11', 80, 90, 60, 10, '', $barCodeStyle, 'N');*/

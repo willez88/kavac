@@ -34,11 +34,13 @@ class ComposerStaticInit0fb8635dfe1dc19875091d4283a0a289
         'Modules\\Finance\\Http\\Controllers\\FinanceBankingAgencyController' => __DIR__ . '/../..' . '/Http/Controllers/FinanceBankingAgencyController.php',
         'Modules\\Finance\\Http\\Controllers\\FinanceCheckBookController' => __DIR__ . '/../..' . '/Http/Controllers/FinanceCheckBookController.php',
         'Modules\\Finance\\Http\\Controllers\\FinanceController' => __DIR__ . '/../..' . '/Http/Controllers/FinanceController.php',
+        'Modules\\Finance\\Models\\City' => __DIR__ . '/../..' . '/Models/City.php',
         'Modules\\Finance\\Models\\FinanceAccountType' => __DIR__ . '/../..' . '/Models/FinanceAccountType.php',
         'Modules\\Finance\\Models\\FinanceBank' => __DIR__ . '/../..' . '/Models/FinanceBank.php',
         'Modules\\Finance\\Models\\FinanceBankAccount' => __DIR__ . '/../..' . '/Models/FinanceBankAccount.php',
         'Modules\\Finance\\Models\\FinanceBankingAgency' => __DIR__ . '/../..' . '/Models/FinanceBankingAgency.php',
         'Modules\\Finance\\Models\\FinanceCheckBook' => __DIR__ . '/../..' . '/Models/FinanceCheckBook.php',
+        'Modules\\Finance\\Models\\Image' => __DIR__ . '/../..' . '/Models/Image.php',
         'Modules\\Finance\\Providers\\FinanceServiceProvider' => __DIR__ . '/../..' . '/Providers/FinanceServiceProvider.php',
     );
 
