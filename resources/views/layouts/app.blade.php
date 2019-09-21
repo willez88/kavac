@@ -56,8 +56,10 @@
         @yield('extra-css')
     </head>
     <body class="@guest login-page sidebar-collapse @endguest">
-        {{-- Ventana modal para mostrar mensaje de espera mientras cargan los datos --}}
-        @include('layouts.loading-message')
+        @auth
+            {{-- Ventana modal para mostrar mensaje de espera mientras cargan los datos --}}
+            @include('layouts.loading-message')
+        @endauth
 
         @section('custom-page')
             @guest
