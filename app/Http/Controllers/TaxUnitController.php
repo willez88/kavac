@@ -73,7 +73,7 @@ class TaxUnitController extends Controller
             'value' => $request->value,
             'start_date' => $request->start_date,
             'end_date' => ($request->end_date!==null)?$request->end_date:null,
-            'active' => ($request->active!==null)
+            'active' => $request->active
         ]);
 
         return response()->json(['record' => $taxUnit, 'message' => 'Success'], 200);
