@@ -74,12 +74,6 @@
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a href="#">Impuestos</a>
-                        </li>
-                        <li>
-                            <a href="#">Deducciones</a>
-                        </li>
-                        <li>
                             <a href="#">Ordenes de Pago</a>
                         </li>
                         <li>

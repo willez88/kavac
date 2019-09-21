@@ -32,7 +32,7 @@
                 <hr>
             </div>
         @endif
-        <div class="col-md-4 text-center">
+        <div class="col-md-3 text-center">
             <div class="form-group">
                 <label for="" class="control-label">{{ $permission->name }}</label>
                 <div class="col-12 bootstrap-switch-mini">
