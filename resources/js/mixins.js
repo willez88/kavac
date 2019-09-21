@@ -269,6 +269,7 @@ Vue.mixin({
                         location.href = response.data.redirect;
                     }
                     else {
+                        vm.errors = [];
                         vm.reset();
                         vm.readRecords(url);
                         vm.showMessage('store');
