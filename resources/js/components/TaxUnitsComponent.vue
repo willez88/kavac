@@ -1,8 +1,8 @@
 <template>
 	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="" title="Registros de Unidades Tributarias" data-toggle="tooltip" 
-		   @click="addRecord('add_tax_unit', 'taxes', $event)">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="" title="Registros de Unidades Tributarias" data-toggle="tooltip"
+		   @click="addRecord('add_tax_unit', 'tax-units', $event)">
 			<i class="icofont icofont-chart-line-alt ico-3x"></i>
 			<span>Unidades Tributarias</span>
 		</a>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-chart-line-alt inline-block"></i> 
+							<i class="icofont icofont-chart-line-alt inline-block"></i>
 							Unidades Tributarias
 						</h6>
 					</div>
@@ -28,7 +28,7 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Valor:</label>
-									<input type="number" placeholder="0.00" data-toggle="tooltip" 
+									<input type="number" placeholder="0.00" data-toggle="tooltip"
 										   title="Indique el valor de la unidad tributaria (requerido)"
 										   class="form-control input-sm" v-model="record.value">
 									<input type="hidden" v-model="record.id">
@@ -37,15 +37,15 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Fecha Inicio:</label>
-									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip" 
-										   title="Seleccione una fecha del calendario (requerido)" 
+									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip"
+										   title="Seleccione una fecha del calendario (requerido)"
 										   class="form-control input-sm" v-model="record.start_date">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Fecha fin:</label>
-									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip" 
+									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip"
 										   title="Seleccione una fecha del calendario"
 										   class="form-control input-sm" v-model="record.end_date">
 			                    </div>
@@ -53,10 +53,10 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label class="col-12">Activo:</label>
-									<input type="checkbox" class="form-control bootstrap-switch" 
-										   data-toggle="tooltip" name="active" 
+									<input type="checkbox" class="form-control bootstrap-switch"
+										   data-toggle="tooltip" name="active"
 										   title="Indique si la unidad tributaria esta o no activa"
-										   data-on-label="SI" data-off-label="NO" 
+										   data-on-label="SI" data-off-label="NO"
 										   v-model="record.active" value="true">
 			                    </div>
 							</div>
@@ -69,15 +69,29 @@
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="start_date" slot-scope="props" class="text-center">
+	                			<span>{{ format_date(props.row.start_date) }}</span>
+	                		</div>
+	                		<div slot="end_date" slot-scope="props" class="text-center">
+	                			<span v-if="props.row.end_date">{{ format_date(props.row.end_date) }}</span>
+	                			<span v-else>VIGENTE</span>
+	                		</div>
+	                		<div slot="value" slot-scope="props" class="text-right">
+	                			<span>{{ props.row.value }}</span>
+	                		</div>
+	                		<div slot="active" slot-scope="props" class="text-center">
+	                			<span v-if="props.row.active === true" class="text-bold text-success">SI</span>
+								<span v-else class="text-bold text-danger">NO</span>
+	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'tax-units')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'tax-units')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -99,7 +113,7 @@
 					value: '',
 					start_date: '',
 					end_date: '',
-					active: true
+					active: false
 				},
 				errors: [],
 				records: [],
@@ -109,7 +123,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
@@ -118,7 +132,7 @@
 					value: '',
 					start_date: '',
 					end_date: '',
-					active: true
+					active: false
 				};
 			},
 		},

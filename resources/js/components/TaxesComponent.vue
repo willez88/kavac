@@ -1,7 +1,7 @@
 <template>
 	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="" title="Registros de Impuestos" data-toggle="tooltip" 
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="" title="Registros de Impuestos" data-toggle="tooltip"
 		   @click="addRecord('add_tax', 'taxes', $event)">
 			<i class="icofont icofont-deal ico-3x"></i>
 			<span>Impuestos</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-deal inline-block"></i> 
+							<i class="icofont icofont-deal inline-block"></i>
 							Impuestos
 						</h6>
 					</div>
@@ -28,8 +28,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Impuesto" data-toggle="tooltip" 
-										   title="Indique el nombre del impuesto (requerido)" 
+									<input type="text" placeholder="Impuesto" data-toggle="tooltip"
+										   title="Indique el nombre del impuesto (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -37,23 +37,23 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-									<input type="text" placeholder="Descripción" data-toggle="tooltip" 
-										   title="Indique una descripción breve del impuesto (requerido)" 
+									<input type="text" placeholder="Descripción" data-toggle="tooltip"
+										   title="Indique una descripción breve del impuesto (requerido)"
 										   class="form-control input-sm" v-model="record.description">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Fecha entrada en vigencia:</label>
-									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip" 
-										   title="Seleccione una fecha del calendario (requerido)" 
+									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip"
+										   title="Seleccione una fecha del calendario (requerido)"
 										   class="form-control input-sm" v-model="record.operation_date">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Porcentaje:</label>
-									<input type="number" placeholder="0" step="0.01" data-toggle="tooltip" 
+									<input type="number" placeholder="0" step="0.01" data-toggle="tooltip"
 										   title="Indique el porcentaje del impuesto (requerido)"
 										   class="form-control input-sm" v-model="record.percentage">
 			                    </div>
@@ -61,20 +61,20 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Afecta cuenta de IVA:</label>
-									<input type="checkbox" class="form-control bootstrap-switch" 
-										   data-toggle="tooltip" name="affect_tax" 
-										   title="Indique si afecta la cuenta presupuestaria de IVA" 
-										   data-on-label="SI" data-off-label="NO" 
+									<input type="checkbox" class="form-control bootstrap-switch"
+										   data-toggle="tooltip" name="affect_tax"
+										   title="Indique si afecta la cuenta presupuestaria de IVA"
+										   data-on-label="SI" data-off-label="NO"
 										   v-model="record.affect_tax" value="true">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Activo:</label>
-									<input type="checkbox" class="form-control bootstrap-switch" 
-										   data-toggle="tooltip" name="active" 
-										   title="Indique si el impuesta esta o no activo" 
-										   data-on-label="SI" data-off-label="NO" 
+									<input type="checkbox" class="form-control bootstrap-switch"
+										   data-toggle="tooltip" name="active"
+										   title="Indique si el impuesta esta o no activo"
+										   data-on-label="SI" data-off-label="NO"
 										   v-model="record.active" value="true">
 			                    </div>
 							</div>
@@ -87,15 +87,29 @@
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="histories.operation_date" slot-scope="props" class="text-center">
+	                			<span class="text-center" v-for="history in props.row.histories">
+	                				{{ format_date(history.operation_date) }}
+	                			</span>
+	                		</div>
+	                		<div slot="histories.percentage" slot-scope="props" class="text-center">
+	                			<span class="text-center" v-for="history in props.row.histories">
+	                				{{ history.percentage }} %
+	                			</span>
+	                		</div>
+							<div slot="active" slot-scope="props" class="text-center">
+								<span v-if="props.row.active === true" class="text-bold text-success">SI</span>
+								<span v-else class="text-bold text-danger">NO</span>
+							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'taxes')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'taxes')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -124,7 +138,7 @@
 				errors: [],
 				records: [],
 				columns: [
-					'name', 'description', 'histories.operation_date', 'histories.percentage', 
+					'name', 'description', 'histories.operation_date', 'histories.percentage',
 					'active', 'id'
 				],
 			}
@@ -132,7 +146,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {

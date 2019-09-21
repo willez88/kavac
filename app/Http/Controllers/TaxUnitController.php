@@ -60,12 +60,14 @@ class TaxUnitController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'value' => ['required'],
             'start_date' => ['required', 'date'],
-            'end_date' => ['date']
-        ]);
-
+        ];
+        if (!is_null($request->end_date)) {
+            $rules['end_date'] = ['date'];
+        }
+        $this->validate($request, $rules);
 
         $taxUnit = TaxUnit::create([
             'value' => $request->value,
