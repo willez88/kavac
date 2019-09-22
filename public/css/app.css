@@ -26821,6 +26821,49 @@ a.level-debug:hover {
   left: -168px;
 }
 
+.navbar .nav-item .nav-link.btn.btn-sm.btn-notify {
+  padding: 5px 8px;
+}
+
+.navbar .nav-item.dropdown.dropdown-notify .dropdown-menu {
+  min-width: 20rem;
+  padding: 0;
+}
+
+.navbar .nav-item.dropdown.dropdown-notify .dropdown-menu .dropdown-header {
+  background-color: rgba(222, 222, 222, 0.3);
+  color: #0073b7;
+}
+
+.navbar .nav-item.dropdown.dropdown-notify .dropdown-menu .dropdown-item {
+  padding: 0;
+}
+
+.navbar .nav-item.dropdown.dropdown-notify .dropdown-menu .dropdown-item.dropdown-footer {
+  padding: 0.5rem 1.5rem;
+  background-color: rgba(222, 222, 222, 0.3);
+  color: #0073b7;
+  font-size: 0.7142em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.navbar .nav-item.dropdown.dropdown-notify .dropdown-menu .dropdown-item .media-list {
+  padding-left: 0;
+}
+
+.navbar .nav-item.dropdown.dropdown-notify .dropdown-menu .dropdown-item .media-list.msg-list > li {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.navbar .nav-item.dropdown.dropdown-notify .dropdown-menu .dropdown-item .media-body .date {
+  display: block;
+  margin-top: 2px;
+  line-height: normal;
+  color: #999;
+}
+
 .navbar .nav-item.dropdown .dropdown-menu .dropdown-item {
   color: #868e96;
 }

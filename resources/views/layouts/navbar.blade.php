@@ -42,20 +42,80 @@
 				@if (App\Models\Parameter::where([
 					'active' => true, 'required_by' => 'core', 'p_key' => 'notify', 'p_value' => 'true'
 				])->first())
-					<li class="nav-item">
-						<a class="nav-link btn btn-sm btn-info" href="#" title="Notificaciones del sistema" data-toggle="tooltip">
-							<i class="now-ui-icons ui-1_bell-53"></i>
-							<!-- Mensajes de notificaciones del sistema -->
+					<li class="nav-item dropdown dropdown-notify">
+						<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info btn-notify" data-toggle="dropdown"
+						   aria-expanded="false" title="Notificaciones del sistema" id="list_notifications">
+						   	<i class="now-ui-icons ui-1_bell-53"></i>
+							<!-- Mensajes de Notificación de procesos o usuarios -->
 							<span class="badge badge-primary badge-notify">2</span>
 						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="list_notifications">
+							<a class="dropdown-header text-center">Notificaciones</a>
+							<div class="dropdown-item">
+								<ul class="media-list msg-list">
+		                            <li class="media">
+		                                <div class="media-body">
+		                                	<strong>Título / Módulo</strong> Descripción breve de la notificación
+		                                	<small class="date"><i class="icofont icofont-clock-time"></i> 15 minutes ago</small>
+		                                </div>
+		                            </li>
+		                            <li class="media">
+		                                <div class="media-body">
+		                                	<strong>Título / Módulo</strong> Descripción breve de la notificación
+		                                	<small class="date"><i class="icofont icofont-clock-time"></i> 15 minutes ago</small>
+		                                </div>
+		                            </li>
+		                        </ul>
+							</div>
+							<a class="dropdown-item dropdown-footer text-center" href="#"
+							   title="Ver todas las notificaciones" data-toggle="tooltip" data-placement="left">
+								Ver todas las notificaciones
+							</a>
 					</li>
 				@endif
-				<li class="nav-item">
-					<a class="nav-link btn btn-sm btn-info" href="#" title="Mensajes de procesos o usuarios" data-toggle="tooltip">
-						<i class="now-ui-icons ui-1_email-85"></i>
+				<li class="nav-item dropdown dropdown-notify">
+					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info btn-notify" data-toggle="dropdown"
+					   aria-expanded="false" title="Mensajes" id="list_messages">
+					   	<i class="now-ui-icons ui-1_email-85"></i>
 						<!-- Mensajes de Notificación de procesos o usuarios -->
 						<span class="badge badge-primary badge-notify">2</span>
 					</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="list_messages">
+						<a class="dropdown-header text-center">Mensajes nuevos</a>
+						<div class="dropdown-item">
+							<ul class="media-list msg-list">
+	                            <li class="media unread">
+	                                <div class="media-body">
+	                                    <div class="float-right media-option">
+	                                        <i class="fa fa-paperclip mr5"></i>
+	                                        <small>Ayer 5:51am</small>
+	                                    </div>
+	                                    <h4 class="sender">Nombre persona</h4>
+	                                    <p>
+	                                        <strong class="subject">Asunto!</strong> Descripción breve del mensaje (max 50 carácteres)...
+	                                    </p>
+	                                </div>
+	                            </li>
+	                            <li class="media unread">
+	                                <div class="media-body">
+	                                    <div class="float-right media-option">
+	                                        <i class="fa fa-paperclip mr5"></i>
+	                                        <small>Ayer 5:51am</small>
+	                                    </div>
+	                                    <h4 class="sender">Nombre persona</h4>
+	                                    <p>
+	                                        <strong class="subject">Asunto!</strong> Descripción breve del mensaje (max 50 carácteres)...
+	                                    </p>
+	                                </div>
+	                            </li>
+	                        </ul>
+						</div>
+						<a class="dropdown-item dropdown-footer text-center"
+						   href="{{ url('users/' . auth()->user()->id . '#messages') }}"
+						   title="Ver todos los mensaje" data-toggle="tooltip" data-placement="left">
+							Ver todos los mensajes
+						</a>
+					</div>
 				</li>
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_language"
