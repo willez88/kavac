@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d36441151b22059b07f6275bad5d9e2",
+    "content-hash": "ec7324755784e865926815497d4a3fa8",
     "packages": [
         {
             "name": "altek/accountant",
@@ -2188,7 +2188,7 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "dev-master",
+            "version": "6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
@@ -7820,9 +7820,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "nwidart/laravel-modules": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
