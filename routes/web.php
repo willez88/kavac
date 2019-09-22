@@ -192,6 +192,9 @@ Route::group(['middleware' => 'auth'], function () {
     /** Rutas para la gestión de Unidades Tributarias */
     Route::resource('tax-units', 'TaxUnitController');
 
+    /** Rutas para la gestión de deducciones */
+    Route::resource('deductions', 'DeductionController');
+
     /** Rutas para la gestión de unidades, departamentos o dependencias */
     Route::resource('departments', 'DepartmentController');
 

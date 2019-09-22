@@ -110,3 +110,10 @@ Vue.component('currencies', require('./components/CurrenciesComponent.vue').defa
 * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
 */
 Vue.component('measurement-units', require('./components/MeasurementUnitsComponent.vue').default);
+
+/**
+ * Componente para la gestión de deducciones
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('deductions', require('./components/DeductionsComponent.vue').default);

@@ -30,6 +30,7 @@
 					<currencies></currencies>
 					<taxes></taxes>
 					<tax-units></tax-units>
+					<deductions :accounting-account={{ json_encode(Module::has('Accounting') ? true : false) }}></deductions>
 					<measurement-units></measurement-units>
 					<!--<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary"
