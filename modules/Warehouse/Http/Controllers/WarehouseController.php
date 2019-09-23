@@ -12,7 +12,7 @@ use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
 use Modules\Warehouse\Models\Warehouse;
 
 use App\Models\Institution;
-use App\Models\Setting;
+use App\Models\Parameter;
 
 /**
  * @class WarehouseController
@@ -115,9 +115,12 @@ class WarehouseController extends Controller
             'main'           => !empty($request->main)?$request->input('main'):false,
         ]);
         
-        $setting = Setting::where('active', true)->first();
+        $paramMultiWarehouse = Parameter::where([
+            'active' => true, 'required_by' => 'warehouse',
+            'p_key' => 'multi_warehouse', 'p_value' => 'true'
+        ])->first();
         
-        if (is_null($setting) || ($setting->multi_warehouse == false)) {
+        if (is_null($paramMultiWarehouse) || ($paramMultiWarehouse->p_value == false)) {
             $inst_wares = WarehouseInstitutionWarehouse::where('institution_id', $institution_id)
                 ->with('warehouse')->get();
 
@@ -168,9 +171,12 @@ class WarehouseController extends Controller
 
         $warehouse_institution = WarehouseInstitutionWarehouse::where('institution_id', $institution_id)
                                 ->where('warehouse_id', $warehouse->id)->first();
-        $setting = Setting::where('active', true)->first();
+        $paramMultiWarehouse = Parameter::where([
+            'active' => true, 'required_by' => 'warehouse',
+            'p_key' => 'multi_warehouse', 'p_value' => 'true'
+        ])->first();
         
-        if (is_null($setting) || ($setting->multi_warehouse == false)) {
+        if (is_null($paramMultiWarehouse) || ($paramMultiWarehouse->p_value == false)) {
             $inst_wares = WarehouseInstitutionWarehouse::where('institution_id', $institution_id)
                 ->with('warehouse')->get();
 
