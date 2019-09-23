@@ -13,13 +13,15 @@ class CreatePurchaseSupplierSpecialtiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_supplier_specialties', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->unique()->comment('Nombre de la especialidad de proveedores');
-            $table->text('description')->nullable()->comment('Descripción de la especialidad de proveedores');
-            $table->timestamps();
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-        });
+        if (!Schema::hasTable('purchase_supplier_specialties')) {
+            Schema::create('purchase_supplier_specialties', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name')->unique()->comment('Nombre de la especialidad de proveedores');
+                $table->text('description')->nullable()->comment('Descripción de la especialidad de proveedores');
+                $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+        }
     }
 
     /**

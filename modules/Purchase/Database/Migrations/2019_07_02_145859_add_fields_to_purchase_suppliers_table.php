@@ -14,18 +14,22 @@ class AddFieldsToPurchaseSuppliersTable extends Migration
     public function up()
     {
         Schema::table('purchase_suppliers', function (Blueprint $table) {
-            $table->enum('rnc_status', ['INH', 'ISH', 'IHC', 'NOI'])->default('NOI')
-                  ->comment(
-                      <<<'EOF'
-                      Determina el estatus en el Registro Nacional de Contratistas. Los Valores posibles son: 
-                      (INH) - Inscrito y no habilitado. 
-                      (ISH) - Inscrito y habilitado. 
-                      (IHC) - Inscrito, habilitado y calificado. 
-                      (NOI) - No inscrito
-                      EOF
-                  );
-            $table->string('rnc_certificate_number')->nullable()
-                  ->comment('Número de certificado en el Registro Nacional de Contratistas');
+            if (!Schema::hasColumn('purchase_suppliers', 'rnc_status')) {
+                $table->enum('rnc_status', ['INH', 'ISH', 'IHC', 'NOI'])->default('NOI')
+                      ->comment(
+                          <<<'EOF'
+                          Determina el estatus en el Registro Nacional de Contratistas. Los Valores posibles son: 
+                          (INH) - Inscrito y no habilitado. 
+                          (ISH) - Inscrito y habilitado. 
+                          (IHC) - Inscrito, habilitado y calificado. 
+                          (NOI) - No inscrito
+                          EOF
+                      );
+            }
+            if (!Schema::hasColumn('purchase_suppliers', 'rnc_certificate_number')) {
+                $table->string('rnc_certificate_number')->nullable()
+                      ->comment('Número de certificado en el Registro Nacional de Contratistas');
+            }
         });
     }
 
