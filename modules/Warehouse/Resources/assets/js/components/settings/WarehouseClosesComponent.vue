@@ -73,8 +73,12 @@
 			                    </div>
 							</div>
 						</div>
-						
 	                </div>
+	                <div class="modal-footer">
+                        <div class="form-group">
+                            <modal-form-buttons :saveRoute="'warehouse/closes'"></modal-form-buttons>
+                        </div>
+                    </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
@@ -105,28 +109,11 @@
             			</v-client-table>
 	                	
 	                </div>
-
-	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
-	                			data-dismiss="modal">
-	                		Cerrar
-	                	</button>
-	                	<button type="button" @click="createRecord('warehouse/closes')" 
-	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
-	                		Guardar
-		                </button>
-		            </div>
 		        </div>
 		    </div>
 		</div>
 	</div>
 </template>
-
-<style>
-	.modal-table {
-		padding-top: 0px !important;
-	}
-</style>
 
 <script>
 	export default {

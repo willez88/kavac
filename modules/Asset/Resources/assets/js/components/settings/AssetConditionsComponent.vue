@@ -48,6 +48,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <modal-form-buttons :saveRoute="'asset/conditions'"></modal-form-buttons>
+                        </div>
+                    </div>
                     <div class="modal-body modal-table">
                         <hr>
                         <v-client-table :columns="columns" :data="records" :options="table_options">
@@ -65,18 +70,6 @@
                                 </button>
                             </div>
                         </v-client-table>
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
-                                data-dismiss="modal">
-                            Cerrar
-                        </button>
-                        <button type="button" @click="createRecord('asset/conditions')"
-                                class="btn btn-primary btn-sm btn-round btn-modal-save">
-                            Guardar
-                        </button>
                     </div>
                 </div>
             </div>

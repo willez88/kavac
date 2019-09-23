@@ -80,6 +80,11 @@
 							</div>
 						</div>
 					</div>
+					<div class="modal-footer">
+                        <div class="form-group">
+                            <modal-form-buttons :saveRoute="'asset/specific'"></modal-form-buttons>
+                        </div>
+                    </div>
 	                <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
@@ -98,18 +103,6 @@
 	                		</div>
 	                	</v-client-table>
 	                </div>
-
-	                <div class="modal-footer">
-
-		                <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
-	                			data-dismiss="modal">
-	                		Cerrar
-	                	</button>
-	                	<button type="button" @click="createRecord('asset/specific')"
-	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
-	                		Guardar
-		                </button>
-		            </div>
 		        </div>
 		    </div>
 		</div>
@@ -146,9 +139,9 @@
 			this.table_options.sortable = ['asset_subcategory.name','name', 'code'];
 			this.table_options.filterable = ['asset_subcategory.name','name', 'code'];
 			this.table_options.columnsClasses = {
-                'asset_subcategory.name': 'col-xs-2',
-                'name': 'col-xs-6',
-                'code': 'col-xs-2',
+                'asset_subcategory.name': 'col-xs-5',
+                'name': 'col-xs-4',
+                'code': 'col-xs-1 text-center',
                 'id': 'col-xs-2'
             };
 
