@@ -9,7 +9,7 @@ use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\WarehouseInventoryProduct;
 use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
 use App\Models\Institution;
-use App\Models\Setting;
+use App\Models\Parameter;
 
 use Modules\Warehouse\Pdf\Pdf;
 
@@ -178,14 +178,17 @@ class WarehousePDFController extends Controller
     
     public function createReport($inventory_product)
     {
-        $setting = Setting::all()->first();
         $pdf = new Pdf('L', 'mm', 'Letter');
 
         /*
          *  Definicion de las caracteristicas generales de la página
          */
+        $paramReportBanner = Parameter::where([
+            'active' => true, 'required_by' => 'core',
+            'p_key' => 'report_banner', 'p_value' => 'true'
+        ])->first();
 
-        if (isset($setting) and $setting->report_banner == true) {
+        if (isset($paramReportBanner) and $paramReportBanner->p_value == true) {
             $pdf->SetMargins(10, 65, 10);
         } else {
             $pdf->SetMargins(10, 55, 10);

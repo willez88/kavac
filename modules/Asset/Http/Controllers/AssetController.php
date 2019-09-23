@@ -281,9 +281,19 @@ class AssetController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
      */
-    public function vueList()
+    public function vueList($perPage = 10, $page = 1)
     {
-        return response()->json(['records' => Asset::with('assetCondition', 'assetStatus')->get()], 200);
+        $assets = Asset::with('assetCondition', 'assetStatus')->offset(($page - 1) * $perPage)->limit($perPage)->get();
+        $total = Asset::count();
+        $lastPage = max((int) ceil($total / $perPage), 1);
+        return response()->json(
+            [
+                'records'  => $assets,
+                'total'    => $total,
+                'lastPage' => $lastPage,
+            ],
+            200
+        );
     }
 
     /**

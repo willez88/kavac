@@ -10,7 +10,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Rules\CodeSetting as CodeSettingRule;
 use App\Models\CodeSetting;
 
-use App\Models\Setting;
+use App\Models\Parameter;
+use App\Repositories\ParameterRepository;
 
 /**
  * @class WarehouseRequestController
@@ -44,7 +45,10 @@ class WarehouseSettingController extends Controller
      */
     public function index()
     {
-        $model_setting = Setting::where('active', true)->first();
+        $paramMultiWarehouse = Parameter::where([
+            'active' => true, 'required_by' => 'warehouse',
+            'p_key' => 'multi_warehouse', 'p_value' => 'true'
+        ])->first();
         $header = [
             'route' => 'warehouse.setting-parameter.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
@@ -58,7 +62,7 @@ class WarehouseSettingController extends Controller
 
         return view(
             'warehouse::settings',
-            compact('model_setting', 'header', 'pdCode', 'mvCode', 'rqCode', 'rpCode', 'ivCode')
+            compact('paramMultiWarehouse', 'header', 'pdCode', 'mvCode', 'rqCode', 'rpCode', 'ivCode')
         );
     }
 
@@ -145,27 +149,38 @@ class WarehouseSettingController extends Controller
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function storeParameter(Request $request)
+    public function storeParameter(Request $request, ParameterRepository $parameterRepository)
     {
-        $setting = Setting::updateOrCreate(
-            ['active' => true],
-            [
-                'multi_warehouse' => ($request->multi_warehouse !== null),
-            ]
+        $msgType = ['type' => 'store'];
+        $parameterRepository->updateOrCreate(
+            ['p_key' => 'multi_warehouse', 'required_by' => 'warehouse'],
+            ['p_value' => (!is_null($request->multi_warehouse)) ? 'true' : 'false']
         );
+
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('warehouse.setting.index');
     }
 
     /**
-     * Vizualiza la configuración del sistema
+     * Muesta todos los registros de los parámetros de configuración del requeridos por el módulo de almacén
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function vueSetting()
     {
-        $setting = Setting::where('active', true)->first();
-        return response()->json(['record' => $setting], 200);
+        $paramMultiWarehouse = Parameter::where([
+            'active' => true, 'required_by' => 'warehouse',
+            'p_key' => 'multi_warehouse', 'p_value' => 'true'
+        ])->first();
+        $paramMultiInstitution = Parameter::where([
+            'active' => true, 'required_by' => 'core',
+            'p_key' => 'multi_institution', 'p_value' => 'true'
+        ])->first();
+
+        return response()->json(['record' => [
+            'multi_institution' => is_null($paramMultiInstitution)?false:$paramMultiInstitution->p_value,
+            'multi_warehouse' => is_null($paramMultiWarehouse)?false:$paramMultiWarehouse->p_value]
+        ], 200);
     }
 }

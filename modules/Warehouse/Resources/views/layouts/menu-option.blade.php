@@ -1,6 +1,9 @@
 {{-- Gestión de Almacén --}}
 @php
-    $setting = App\Models\Setting::where('active',true)->first();
+    $paramMultiWarehouse = App\Models\Parameter::where([
+            'active' => true, 'required_by' => 'warehouse',
+            'p_key' => 'multi_warehouse', 'p_value' => 'true'
+        ])->first();
 @endphp
 <li>
     <a href="#" title="Gestión de artículos e inventario" data-toggle="tooltip" 
@@ -28,7 +31,7 @@
                 Solicitudes de Almacén</a>
         </li>
 
-        @if(($setting)&&($setting->multi_warehouse))
+        @if(!is_null($paramMultiWarehouse)&&($paramMultiWarehouse->p_value == true))
         <li class="{!! set_active_menu(['warehouse.movement.index','warehouse.movement.create','warehouse.movement.edit']) !!}" data-toggle="tooltip" data-placement="right"
                 title="Gestión de los Movimientos de artículos entre Almacenes">
 
