@@ -34,6 +34,7 @@
 						<purchase-supplier-specialties></purchase-supplier-specialties>
 						<purchase-supplier-types></purchase-supplier-types>
 						<required-documents module="purchase" model="supplier"></required-documents>
+						<purchase-processes></purchase-processes>
 					</div>
 				</div>
 			</div>
