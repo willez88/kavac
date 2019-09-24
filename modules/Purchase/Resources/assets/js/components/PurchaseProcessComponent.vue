@@ -66,32 +66,43 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6" v-for="list in listSelectDocuments">
-                                <h6>{{ list.title }}</h6>
-                                <ul class="feature-list list-group list-group-flush">
-                                    <li class="list-group-item" v-for="document in list.documents">
-                                        <div class="feature-list-indicator bg-info"></div>
-                                        <div class="feature-list-content p-0">
-                                            <div class="feature-list-content-wrapper">
-                                                <div class="feature-list-content-left">
-                                                    <div class="feature-list-heading">
-                                                        {{ document }}
+                            <div class="col-md-12">
+                                <div class="accordion" id="documentsList" v-for="(list, index) in listSelectDocuments">
+                                    <h6 class="mb-0" style="text-transform:uppercase;font-weight:bold;">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="'#collapseDocumentsList'+index" aria-expanded="true" :aria-controls="'collapseDocumentsList'+index">
+                                            {{ index+1 }}. {{ list.title }}
+                                        </button>
+                                    </h6>
+                                    <hr>
+                                    <div :id="'collapseDocumentsList'+index" class="collapse" :class="{'show': (index===0)}" :aria-labelledby="'heading'+index" data-parent="#documentsList">
+                                        <div class="card-body">
+                                            <ul class="feature-list list-group list-group-flush">
+                                                <li class="list-group-item" v-for="(document, idx) in list.documents">
+                                                    <div class="feature-list-indicator bg-info"></div>
+                                                    <div class="feature-list-content p-0">
+                                                        <div class="feature-list-content-wrapper">
+                                                            <div class="feature-list-content-left mr-2">
+                                                                <div class="custom-checkbox custom-control">
+                                                                    <input type="checkbox" :id="'doc_'+index+'_'+idx" 
+                                                                           class="custom-control-input">
+                                                                    <label class="custom-control-label" 
+                                                                           :for="'doc_'+index+'_'+idx">
+                                                                        &nbsp;
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feature-list-content-left">
+                                                                <div class="feature-list-subheading">
+                                                                    {{ document }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="feature-list-content-right feature-list-content-actions">
-                                                    <div class="bootstrap-switch-mini">
-                                                        <input type="checkbox" class="form-control bootstrap-switch" 
-                                                               name="list_documents" data-toggle="tooltip" 
-                                                               data-on-label="SI" data-off-label="NO" 
-                                                               title="Indique si se solicita este documento" 
-                                                               v-model="record.list_documents" value="true" 
-                                                               data-record="list_documents">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -127,6 +138,27 @@
     </div>
 </template>
 
+<style>
+    .accordion hr {
+        margin-top:0;
+        margin-bottom: 0;
+    }
+    .accordion h6 .btn {
+        font-size: 1em;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .accordion .card-body {
+        padding-top: 0;
+    }
+    .accordion .list-group-item {padding:0;}
+    .custom-control-input:checked ~ .custom-control-label::before {
+        color: #fff;
+        border-color: #f96332;
+        background-color: #f96332;
+    }
+</style>
+
 <script>
     export default {
         data() {
@@ -150,6 +182,8 @@
             /**
              * Método que borra todos los datos del formulario
              *
+             * @method  reset
+             *
              * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
             reset() {
@@ -162,11 +196,13 @@
                 };
                 this.exists = false;
                 this.errors = [];
-                this.processes = [];
-                this.listSelectDocuments = [];
+                this.getProcesses();
+                this.getListDocuments();
             },
             /**
              * Método que obtiene los procesos registrados
+             *
+             * @method  getProcesses
              *
              * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
@@ -178,6 +214,13 @@
                     console.log(error);
                 });
             },
+            /**
+             * Método que obtiene un listado de documentos a solicitar para los procesos de compras
+             *
+             * @method     getListDocuments
+             *
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
             getListDocuments() {
                 const vm = this;
                 vm.record.list_documents = [];
@@ -189,15 +232,16 @@
             }
         },
         created() {
-            this.table_options.headings = {
+            let vm = this;
+            vm.table_options.headings = {
                 'name': 'Nombre',
                 'description': 'Descripción',
                 'require_documents': 'Solicita Documentos',
                 'id': 'Acción'
             };
-            this.table_options.sortable = ['name', 'description'];
-            this.table_options.filterable = ['name', 'description'];
-            this.table_options.columnsClasses = {
+            vm.table_options.sortable = ['name', 'description'];
+            vm.table_options.filterable = ['name', 'description'];
+            vm.table_options.columnsClasses = {
                 'name': 'col-md-2',
                 'description': 'col-md-6',
                 'require_documents': 'col-md-2',
@@ -208,9 +252,12 @@
             let vm = this;
             vm.switchHandler('exists');
             $('input[name=exists].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {
-                vm.getProcesses();
                 vm.exists = $(this).is(':checked');
             });
+
+            /*$('.custom-control-input').on('click', function() {
+                alert($(this).is(':checked'));
+            })*/
         }
     };
 </script>

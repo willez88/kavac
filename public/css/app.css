@@ -26051,6 +26051,10 @@ a.resalt-link {
   font-size: 4rem;
 }
 
+.bg-primary {
+  background-color: #f96332 !important;
+}
+
 .bg-info {
   background-color: #2CA8FF !important;
 }
@@ -30198,5 +30202,24 @@ table th {
   width: 200px !important;
   height: 100px !important;
   transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+}
+
+.acordion hr {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.acordion h6 .btn {
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.acordion .card-body {
+  padding-top: 0;
+}
+
+.acordion .card-body .list-group-item {
+  padding: 0;
 }
 

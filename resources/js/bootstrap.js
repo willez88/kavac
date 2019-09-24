@@ -12,6 +12,8 @@ try {
     /** Required for Bootstrap 4 */
     window.Popper = require('popper.js').default;
     require('bootstrap');
+    /** Requerido para los componentes switch */
+    //require('bootstrap-switch');
     /** JQuery.Complexify required for validate strong password */
     require('jquery.complexify/jquery.complexify.banlist');
     require('jquery.complexify');
