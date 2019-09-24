@@ -4,7 +4,7 @@
 		<div class="card-body">
 
 			<div class="row">
-				<div class="col-4">
+				<div class="col-3">
 					<div class="form-group is-required">
 						<label class="control-label">Fecha
 						</label>
@@ -12,39 +12,46 @@
 								tabindex="1">
 					</div>
 				</div>
-				<div class="col-4">
-					<div class="form-group">
+				<div class="col-3">
+					<div class="form-group is-required">
 						<label class="control-label">Concepto ó Descripción
 						</label>
 						<input type="text" class="form-control" v-model="concept" tabindex="1">
 					</div>
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					<div class="form-group">
 						<label class="control-label">Observaciones
 						</label>
 						<input type="text" class="form-control" v-model="observations" tabindex="1">
 					</div>
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					<div class="form-group is-required">
 						<label class="control-label">Categoría del asiento
 						</label>
 						<select2 :options="categories" v-model="category" tabindex="1"></select2>
 					</div>
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					<div class="form-group">
 						<label class="control-label">Referencia
 						</label>
 						<input type="text" class="form-control" v-model="reference" id="reference" tabindex="1" disabled="">
 					</div>
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					<div class="form-group is-required">
 						<label class="control-label">Institución que genera
 						</label>
-						<select2 :options="institutions" v-model="institution" tabindex="1"></select2>
+						<select2 :options="institutions" v-model="institution_id" tabindex="1"></select2>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="form-group is-required">
+						<label class="control-label">Tipo de moneda
+						</label>
+						<select2 :options="currencies" v-model="currency_id" tabindex="1"></select2>
 					</div>
 				</div>
 			</div>
@@ -58,15 +65,27 @@
 		props:{
             categories:{
                 type:Array,
-                default: []
+                default: function(){
+                	return []
+                }
             },
             institutions:{
                 type:Array,
-                default: []
+                default: function(){
+                	return [{ id:'', text:'Seleccione...'}];
+                }
+            },
+            currencies:{
+                type:Array,
+                default: function(){
+                	return [{ id:'', text:'Seleccione...'}];
+                }
             },
             data_edit:{
                 type:Object,
-                default: null
+                default: function(){
+                	return null
+                }
             },
         },
 		data(){
@@ -77,8 +96,8 @@
 				observations:'',
 				category:'',
 				validated:false,
-				institution:'',
-				institution_id:null,
+				institution_id:'',
+				currency_id:'',
 				data_edit_mutable:null,
 			}
 		},
@@ -89,7 +108,11 @@
 				this.reference = this.data_edit.reference;
 
 				this.category = this.data_edit.category;
-				this.institution = this.data_edit.institution;
+				this.institution_id = this.data_edit.institution;
+				this.currency_id = this.data_edit.currency;
+				this.date = this.data_edit.date;
+				this.concept = this.data_edit.concept;
+				this.observations = this.data_edit.observations;
 			}
 
 			EventBus.$on('reset:accounting-seat-edit-create',()=>{
@@ -99,22 +122,20 @@
 			
 		},
 		mounted(){
-			if (this.data_edit != null) {
-				this.date = this.data_edit.date;
-				this.concept = this.data_edit.concept;
-				this.observations = this.data_edit.observations;
+			if (!this.data_edit) {
+				this.generate_reference_code();
 			}
 		},
 		methods:{
 
 			reset(){
-				this.date = ''
-				this.reference = ''
-				this.concept = ''
-				this.observations = ''
-				this.category = ''
-				this.institution = null
-				this.institution_id = null
+				this.date = '';
+				this.reference = '';
+				this.concept = '';
+				this.observations = '';
+				this.category = '';
+				this.currency_id = null;
+				this.institution_id = null;
 			},
 
 			/**
@@ -138,14 +159,16 @@
 																	  'observations':this.observations,
 																	  'category':this.category,
 																	  'institution_id':this.institution_id,
+																	  'currency_id':this.currency_id,
 																	});
 				}
 
 				if (this.validated == false) {
 					/**
-					 * se verifica que la fecha, la referencia, la institucion y la categoria no esten vacios
+					 * se verifica que la fecha, la referencia, la institucion, la categoria y el tipo de moneda no esten vacios
 					*/ 
-					if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != '') {
+					if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != ''
+						&& this.currency_id != '') {
 						EventBus.$emit('enableInput:seating-account',{'value':true,
 																	  'date':this.date,
 																	  'reference':this.reference,
@@ -153,6 +176,7 @@
 																	  'observations':this.observations,
 																	  'category':this.category,
 																	  'institution_id':this.institution_id,
+																	  'currency_id':this.currency_id,
 																	});
 						this.validated = true;
 					}
@@ -168,14 +192,13 @@
 																  'observations':this.observations,
 																  'category':this.category,
 																  'institution_id':this.institution_id,
+																  'currency_id':this.currency_id,
 																});
 				}
 			},
 
-			generate_reference_code(i){
-				axios.post('/accounting/settings/generate_reference_code',{
-					format_prefix:this.categories[i].acronym
-				}).then(response=>{
+			generate_reference_code(){
+				axios.post('/accounting/settings/generate_reference_code').then(response=>{
 					if (response.data.result) {
 						setTimeout("location.href = '/accounting/settings';", 1000)
 						
@@ -207,14 +230,7 @@
 			},
 			category:function(res) {
 				if (res != '') {
-					for (var i in this.categories) {
-						if (this.categories[i].id == res) {
-							var tam = this.categories[i].acronym.length;
-
-							this.generate_reference_code(i);
-							break;
-						}
-					}
+					this.validateRequired();
 				}
 				else{
 					this.reference = '';
@@ -223,13 +239,16 @@
 				}
 
 			},
-			institution:function(res) {
-				this.institution_id = res;
-				
+			currency_id:function(res){
+				if (res) {
+					EventBus.$emit('change:currency', res);
+				}
+				this.validateRequired();
+			},
+			institution_id:function(res) {
 				if (res == '') {
 					this.validated = false;
 					this.validateRequired();
-				}else{
 				}
 				if (this.data_edit_mutable != null) {
 					/** Se vacia la variable que trae la informacion para no*/

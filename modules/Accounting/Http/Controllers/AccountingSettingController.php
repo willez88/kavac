@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
+use Modules\Accounting\Models\AccountingSeat;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
 use Auth;
@@ -71,16 +71,7 @@ class AccountingSettingController extends Controller
                  * [$model define el modelo asociado a asientos contables]
                  * @var string
                  */
-                $model = \Modules\Accounting\Models\AccountingSeat::class;
-                dd([
-                    'module' => 'accounting',
-                    'table' => 'accounting_'. $table,
-                    'field' => $field,
-                    'format_prefix' => $prefix,
-                    'format_digits' => $digits,
-                    'format_year' => $sufix,
-                    'model' => $model,
-                ]);
+                $model = AccountingSeat::class;
                 CodeSetting::updateOrCreate([
                     'module' => 'accounting',
                     'table' => 'accounting_'. $table,
@@ -114,12 +105,11 @@ class AccountingSettingController extends Controller
                 ]);
             return response()->json(['result' => true, 'redirect' => route('accounting.settings.index')], 200);
         }
-
         $code  = generate_registration_code(
-            $request['format_prefix'],
+            $codeSetting->format_prefix,
             strlen($codeSetting->format_digits),
             (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
-            $codeSetting->model,
+            AccountingSeat::class,
             $codeSetting->field
         );
 

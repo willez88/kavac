@@ -21,9 +21,12 @@ class AccountingSeat extends Model implements Auditable
         'tot_assets',
         'accounting_seat_categories_id',
         'institution_id',
-        'departament_id',
+        'currency_id',
         'approved'
     ];
+
+    protected $with =['currency'];
+    
     /**
      * AccountingSeat has many AccountingSeatAccount.
      *
@@ -55,5 +58,17 @@ class AccountingSeat extends Model implements Auditable
     public function approved()
     {
         return ($this->approved);
+    }
+
+
+    /**
+     * AccountingSeat belongs to Currency.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function currency()
+    {
+        // belongsTo(RelatedModel, foreignKey = curr_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Currency::class);
     }
 }

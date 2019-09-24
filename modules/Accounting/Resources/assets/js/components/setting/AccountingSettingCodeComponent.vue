@@ -11,7 +11,7 @@
                                 title="Formato para el código de los reportes"
                                 name="seats_reference" 
                                 v-model="code"
-                                placeholder="Ej. 00000000-YYYY"
+                                placeholder="Ej. XXX-00000000-YYYY"
                                 :readonly="(ref_code)? true : false">
                     </div>
                 </div>
@@ -22,8 +22,8 @@
                         <span class="form-text">
                             <strong>Formato:</strong> prefijo-digitos-año
                             <ul>
-                                <li>prefijo (requerido): Asignado automatico en base al acronimo de la categoria del asiento.</li>
-                                <li>digitos (requerido): 5 carácteres (mínimo), 8 carácteres (máximo)</li>
+                                <li>prefijo (requerido): 1 a 3 carácteres</li>
+                                <li>digitos (requerido): 6 carácteres (mínimo), 8 carácteres (máximo)</li>
                                 <li>año (requerido): 2 o 4 caracteres (YY o YYYY)</li>
                             </ul>
                             <strong>Longitud total máxima:</strong> 20 carácteres<br>
@@ -53,7 +53,7 @@
         },
         mounted(){
             if (this.ref_code) {
-                this.code = this.ref_code.format_digits+'-'+this.ref_code.format_year;
+                this.code = this.ref_code.format_prefix+'-'+this.ref_code.format_digits+'-'+this.ref_code.format_year;
             }
         },
         methods:{
@@ -66,9 +66,12 @@
                 var res = false;
                 var errors = [];
                 if (this.code != '') {
-                    var digits = this.code.split('-')[0];
-                    var year = this.code.split('-')[1];
-                    if ((!digits || (digits.length < 5 || digits.length > 8)) || (!year || (year != 'YY' && year != 'YYYY'))) {
+                    var prefix = this.code.split('-')[0];
+                    var digits = this.code.split('-')[1];
+                    var year = this.code.split('-')[2];
+                    if ((!prefix || (prefix.length < 1 || prefix.length > 3)) || 
+                        (!digits || (digits.length < 6 || digits.length > 8)) || 
+                        (!year || (year != 'YY' && year != 'YYYY'))) {
                         errors.push('El campo código de referencia no cumple con el formato valido.');
                         res = true;
                     }
@@ -84,9 +87,13 @@
                 if (vm.validatedFormatCode()) {
                     return;
                 }
-                axios.post('/accounting/settings/code', {seats_reference:'XXX-'+vm.code}).then(response=>{
+                axios.post('/accounting/settings/code', {seats_reference:vm.code})
+                .then(response=>{
                     vm.showMessage('store');
                     vm.redirect_back('/accounting/settings');
+                })
+                .catch(errors => {
+                    console.log(errors)
                 });
                 
             }

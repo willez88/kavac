@@ -98,10 +98,6 @@
                 type:Object,
                 default: null
             },
-            currency:{
-                type:Object,
-                default: null
-            },
         },
         data(){
             return{
@@ -119,7 +115,9 @@
                     totDebit:0,
                     totAssets:0,
                     institution_id:null,
+                    currency_id:null,
                 },
+                currency: {symbol:'', decimal_places:0 },
                 enableInput:false,
                 accountingOptions:[],
                 optionIdBudget:'',
@@ -144,7 +142,19 @@
                 this.data.observations = data.observations;
                 this.data.category = data.category;
                 this.data.institution_id = data.institution_id;
+                this.data.currency_id = data.currency_id;
             });
+
+            EventBus.$on('change:currency',(data)=>{
+                if (data != '') {
+                    axios.get('/currencies/info/'+data).then(response => {
+                        this.currency = response.data.currency;
+                    });
+                }else{
+                    this.currency = {symbol:'', decimal_places:0 };
+                }
+            });
+
             // recibe un json con el id de cuenta presupuestal para agregar el registro con la
             // respectiva cuenta patrimonial
             //emisión:  EventBus.$emit('seating:budgetToAccount',{'id':id_budget,'value':compromise_value});
@@ -182,8 +192,8 @@
             }
         },
         beforeDestroy(){
-            this.$EventBus.$off('enableInput:seating-account');
-            this.$EventBus.$off('request:budgetToAccount');
+            EventBus.$off('enableInput:seating-account');
+            EventBus.$off('request:budgetToAccount');
         },
         methods:{
 
@@ -234,7 +244,10 @@
                     errors.push('El campo institución es obligatorio.');
                     res = true;
                 }
-
+                if (!this.data.currency_id) {
+                    errors.push('El tipo de moneda es obligatorio.');
+                    res = true;
+                }
 
                 if (this.recordsAccounting.length < 1) {
                     errors.push('No es permitido guardar asientos contables vacios');
@@ -388,13 +401,9 @@
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
             UpdateSeating:function() {
-                console.log('1')
-                console.log('2')
                 if (this.validateErrors()) {
-                    console.log('3')
                     return ; 
                 }
-                console.log('4')
                 axios.put('/accounting/seating/'+this.seating.id, {'data':this.data,
                                                     'accountingAccounts':this.recordsAccounting,
                                                     'rowsToDelete':this.rowsToDelete })

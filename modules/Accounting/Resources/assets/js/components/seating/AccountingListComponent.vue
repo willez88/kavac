@@ -102,10 +102,10 @@
 											<h6>{{ record.account.denomination }}</h6>
 										</td>
 										<td>
-											<h6><span>{{ currcy.symbol }}</span> {{ parseFloat(record.debit).toFixed(currcy.decimal_places) }}</h6>
+											<h6><span>{{ props.row.currency.symbol }}</span> {{ parseFloat(record.debit).toFixed(props.row.currency.decimal_places) }}</h6>
 										</td>
 										<td>
-											<h6><span>{{ currcy.symbol }}</span> {{ parseFloat(record.assets).toFixed(currcy.decimal_places) }}</h6>
+											<h6><span>{{ props.row.currency.symbol }}</span> {{ parseFloat(record.assets).toFixed(props.row.currency.decimal_places) }}</h6>
 										</td>
 									</tr>
 									<tr>
@@ -115,14 +115,14 @@
 										</td>
 										<td>
 											<h6>
-												<span>{{ currcy.symbol }}</span>
-												<strong>{{ parseFloat(props.row.tot_debit).toFixed(currcy.decimal_places) }}</strong>
+												<span>{{ props.row.currency.symbol }}</span>
+												<strong>{{ parseFloat(props.row.tot_debit).toFixed(props.row.currency.decimal_places) }}</strong>
 											</h6>
 										</td>
 										<td>
 											<h6>
-												<span>{{ currcy.symbol }}</span>
-												<strong>{{ parseFloat(props.row.tot_assets).toFixed(currcy.decimal_places) }}</strong>
+												<span>{{ props.row.currency.symbol }}</span>
+												<strong>{{ parseFloat(props.row.tot_assets).toFixed(props.row.currency.decimal_places) }}</strong>
 											</h6>
 										</td>
 									</tr>
@@ -145,10 +145,6 @@
                 	return [];
                 }
             },
-            currency:{
-                type:Object,
-                default: null
-            },
         },
 		data(){
 			return {
@@ -165,10 +161,8 @@
 			};
 
 			this.table_options.filterable = [];
-
 			if (this.seating) {
 				this.records = this.seating;
-				this.currcy = this.currency;
 			}
 			EventBus.$on('reload:listing',(data)=>{
 				this.records = data;
@@ -176,7 +170,6 @@
 
 			EventBus.$on('list:seating',(data)=>{
 				this.records = data.records;
-				this.currcy = data.currency;
 			});
 		},
 	};

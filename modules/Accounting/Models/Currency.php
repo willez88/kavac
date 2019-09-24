@@ -8,17 +8,13 @@ use App\Models\Currency as BaseCurrency;
 class Currency extends BaseCurrency
 {
     /**
-     * Department has many AccountingCurrencyExchangeRate.
+     * Currency has one AccountingSeat.
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function exchangeRateCurrencyBase()
+    public function accountingSeat()
     {
-        return $this->hasMany(AccountingCurrencyExchangeRate::class, 'currency_base_id');
-    }
-    public function exchangeRateCurrencyId()
-    {
-        return $this->hasMany(AccountingCurrencyExchangeRate::class, 'currency_id');
+        // hasOne(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
+        return $this->hasOne(AccountingSeat::class);
     }
 }

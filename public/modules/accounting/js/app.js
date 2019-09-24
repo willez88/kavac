@@ -3814,10 +3814,6 @@ __webpack_require__.r(__webpack_exports__);
     seating: {
       type: Object,
       "default": null
-    },
-    currency: {
-      type: Object,
-      "default": null
     }
   },
   data: function data() {
@@ -3835,7 +3831,12 @@ __webpack_require__.r(__webpack_exports__);
         category: '',
         totDebit: 0,
         totAssets: 0,
-        institution_id: null
+        institution_id: null,
+        currency_id: null
+      },
+      currency: {
+        symbol: '',
+        decimal_places: 0
       },
       enableInput: false,
       accountingOptions: [],
@@ -3861,6 +3862,19 @@ __webpack_require__.r(__webpack_exports__);
       _this.data.observations = data.observations;
       _this.data.category = data.category;
       _this.data.institution_id = data.institution_id;
+      _this.data.currency_id = data.currency_id;
+    });
+    EventBus.$on('change:currency', function (data) {
+      if (data != '') {
+        axios.get('/currencies/info/' + data).then(function (response) {
+          _this.currency = response.data.currency;
+        });
+      } else {
+        _this.currency = {
+          symbol: '',
+          decimal_places: 0
+        };
+      }
     }); // recibe un json con el id de cuenta presupuestal para agregar el registro con la
     // respectiva cuenta patrimonial
     //emisión:  EventBus.$emit('seating:budgetToAccount',{'id':id_budget,'value':compromise_value});
@@ -3898,8 +3912,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   beforeDestroy: function beforeDestroy() {
-    this.$EventBus.$off('enableInput:seating-account');
-    this.$EventBus.$off('request:budgetToAccount');
+    EventBus.$off('enableInput:seating-account');
+    EventBus.$off('request:budgetToAccount');
   },
   methods: {
     reset: function reset() {
@@ -3949,6 +3963,11 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.data.institution_id) {
         errors.push('El campo institución es obligatorio.');
+        res = true;
+      }
+
+      if (!this.data.currency_id) {
+        errors.push('El tipo de moneda es obligatorio.');
         res = true;
       }
 
@@ -4113,15 +4132,10 @@ __webpack_require__.r(__webpack_exports__);
     UpdateSeating: function UpdateSeating() {
       var _this2 = this;
 
-      console.log('1');
-      console.log('2');
-
       if (this.validateErrors()) {
-        console.log('3');
         return;
       }
 
-      console.log('4');
       axios.put('/accounting/seating/' + this.seating.id, {
         'data': this.data,
         'accountingAccounts': this.recordsAccounting,
@@ -4215,19 +4229,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     categories: {
       type: Array,
-      "default": []
+      "default": function _default() {
+        return [];
+      }
     },
     institutions: {
       type: Array,
-      "default": []
+      "default": function _default() {
+        return [{
+          id: '',
+          text: 'Seleccione...'
+        }];
+      }
+    },
+    currencies: {
+      type: Array,
+      "default": function _default() {
+        return [{
+          id: '',
+          text: 'Seleccione...'
+        }];
+      }
     },
     data_edit: {
       type: Object,
-      "default": null
+      "default": function _default() {
+        return null;
+      }
     }
   },
   data: function data() {
@@ -4238,8 +4277,8 @@ __webpack_require__.r(__webpack_exports__);
       observations: '',
       category: '',
       validated: false,
-      institution: '',
-      institution_id: null,
+      institution_id: '',
+      currency_id: '',
       data_edit_mutable: null
     };
   },
@@ -4250,7 +4289,11 @@ __webpack_require__.r(__webpack_exports__);
       this.data_edit_mutable = this.data_edit;
       this.reference = this.data_edit.reference;
       this.category = this.data_edit.category;
-      this.institution = this.data_edit.institution;
+      this.institution_id = this.data_edit.institution;
+      this.currency_id = this.data_edit.currency;
+      this.date = this.data_edit.date;
+      this.concept = this.data_edit.concept;
+      this.observations = this.data_edit.observations;
     }
 
     EventBus.$on('reset:accounting-seat-edit-create', function () {
@@ -4258,10 +4301,8 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   mounted: function mounted() {
-    if (this.data_edit != null) {
-      this.date = this.data_edit.date;
-      this.concept = this.data_edit.concept;
-      this.observations = this.data_edit.observations;
+    if (!this.data_edit) {
+      this.generate_reference_code();
     }
   },
   methods: {
@@ -4271,7 +4312,7 @@ __webpack_require__.r(__webpack_exports__);
       this.concept = '';
       this.observations = '';
       this.category = '';
-      this.institution = null;
+      this.currency_id = null;
       this.institution_id = null;
     },
 
@@ -4289,15 +4330,16 @@ __webpack_require__.r(__webpack_exports__);
           'concept': this.concept,
           'observations': this.observations,
           'category': this.category,
-          'institution_id': this.institution_id
+          'institution_id': this.institution_id,
+          'currency_id': this.currency_id
         });
       }
 
       if (this.validated == false) {
         /**
-         * se verifica que la fecha, la referencia, la institucion y la categoria no esten vacios
+         * se verifica que la fecha, la referencia, la institucion, la categoria y el tipo de moneda no esten vacios
         */
-        if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != '') {
+        if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != '' && this.currency_id != '') {
           EventBus.$emit('enableInput:seating-account', {
             'value': true,
             'date': this.date,
@@ -4305,7 +4347,8 @@ __webpack_require__.r(__webpack_exports__);
             'concept': this.concept,
             'observations': this.observations,
             'category': this.category,
-            'institution_id': this.institution_id
+            'institution_id': this.institution_id,
+            'currency_id': this.currency_id
           });
           this.validated = true;
         }
@@ -4320,16 +4363,15 @@ __webpack_require__.r(__webpack_exports__);
           'concept': this.concept,
           'observations': this.observations,
           'category': this.category,
-          'institution_id': this.institution_id
+          'institution_id': this.institution_id,
+          'currency_id': this.currency_id
         });
       }
     },
-    generate_reference_code: function generate_reference_code(i) {
+    generate_reference_code: function generate_reference_code() {
       var _this2 = this;
 
-      axios.post('/accounting/settings/generate_reference_code', {
-        format_prefix: this.categories[i].acronym
-      }).then(function (response) {
+      axios.post('/accounting/settings/generate_reference_code').then(function (response) {
         if (response.data.result) {
           setTimeout("location.href = '/accounting/settings';", 1000);
         }
@@ -4360,26 +4402,25 @@ __webpack_require__.r(__webpack_exports__);
     },
     category: function category(res) {
       if (res != '') {
-        for (var i in this.categories) {
-          if (this.categories[i].id == res) {
-            var tam = this.categories[i].acronym.length;
-            this.generate_reference_code(i);
-            break;
-          }
-        }
+        this.validateRequired();
       } else {
         this.reference = '';
         this.validated = false;
         this.validateRequired();
       }
     },
-    institution: function institution(res) {
-      this.institution_id = res;
+    currency_id: function currency_id(res) {
+      if (res) {
+        EventBus.$emit('change:currency', res);
+      }
 
+      this.validateRequired();
+    },
+    institution_id: function institution_id(res) {
       if (res == '') {
         this.validated = false;
         this.validateRequired();
-      } else {}
+      }
 
       if (this.data_edit_mutable != null) {
         /** Se vacia la variable que trae la informacion para no*/
@@ -4822,10 +4863,6 @@ __webpack_require__.r(__webpack_exports__);
       "default": function _default() {
         return [];
       }
-    },
-    currency: {
-      type: Object,
-      "default": null
     }
   },
   data: function data() {
@@ -4847,7 +4884,6 @@ __webpack_require__.r(__webpack_exports__);
 
     if (this.seating) {
       this.records = this.seating;
-      this.currcy = this.currency;
     }
 
     EventBus.$on('reload:listing', function (data) {
@@ -4855,7 +4891,6 @@ __webpack_require__.r(__webpack_exports__);
     });
     EventBus.$on('list:seating', function (data) {
       _this.records = data.records;
-      _this.currcy = data.currency;
     });
   }
 });
@@ -5322,7 +5357,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     if (this.ref_code) {
-      this.code = this.ref_code.format_digits + '-' + this.ref_code.format_year;
+      this.code = this.ref_code.format_prefix + '-' + this.ref_code.format_digits + '-' + this.ref_code.format_year;
     }
   },
   methods: {
@@ -5336,10 +5371,11 @@ __webpack_require__.r(__webpack_exports__);
       var errors = [];
 
       if (this.code != '') {
-        var digits = this.code.split('-')[0];
-        var year = this.code.split('-')[1];
+        var prefix = this.code.split('-')[0];
+        var digits = this.code.split('-')[1];
+        var year = this.code.split('-')[2];
 
-        if (!digits || digits.length < 5 || digits.length > 8 || !year || year != 'YY' && year != 'YYYY') {
+        if (!prefix || prefix.length < 1 || prefix.length > 3 || !digits || digits.length < 6 || digits.length > 8 || !year || year != 'YY' && year != 'YYYY') {
           errors.push('El campo código de referencia no cumple con el formato valido.');
           res = true;
         }
@@ -5359,10 +5395,12 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios.post('/accounting/settings/code', {
-        seats_reference: 'XXX-' + vm.code
+        seats_reference: vm.code
       }).then(function (response) {
         vm.showMessage('store');
         vm.redirect_back('/accounting/settings');
+      })["catch"](function (errors) {
+        console.log(errors);
       });
     }
   },
@@ -7914,7 +7952,7 @@ var render = function() {
       [
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "col-3" }, [
               _c("div", { staticClass: "form-group is-required" }, [
                 _c("label", { staticClass: "control-label" }, [
                   _vm._v("Fecha\n\t\t\t\t\t\t")
@@ -7948,8 +7986,8 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-4" }, [
-              _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "col-3" }, [
+              _c("div", { staticClass: "form-group is-required" }, [
                 _c("label", { staticClass: "control-label" }, [
                   _vm._v("Concepto ó Descripción\n\t\t\t\t\t\t")
                 ]),
@@ -7978,7 +8016,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "col-3" }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { staticClass: "control-label" }, [
                   _vm._v("Observaciones\n\t\t\t\t\t\t")
@@ -8008,7 +8046,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "col-3" }, [
               _c(
                 "div",
                 { staticClass: "form-group is-required" },
@@ -8032,7 +8070,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "col-3" }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { staticClass: "control-label" }, [
                   _vm._v("Referencia\n\t\t\t\t\t\t")
@@ -8067,7 +8105,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "col-3" }, [
               _c(
                 "div",
                 { staticClass: "form-group is-required" },
@@ -8079,11 +8117,35 @@ var render = function() {
                   _c("select2", {
                     attrs: { options: _vm.institutions, tabindex: "1" },
                     model: {
-                      value: _vm.institution,
+                      value: _vm.institution_id,
                       callback: function($$v) {
-                        _vm.institution = $$v
+                        _vm.institution_id = $$v
                       },
-                      expression: "institution"
+                      expression: "institution_id"
+                    }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-3" }, [
+              _c(
+                "div",
+                { staticClass: "form-group is-required" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Tipo de moneda\n\t\t\t\t\t\t")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.currencies, tabindex: "1" },
+                    model: {
+                      value: _vm.currency_id,
+                      callback: function($$v) {
+                        _vm.currency_id = $$v
+                      },
+                      expression: "currency_id"
                     }
                   })
                 ],
@@ -8916,13 +8978,15 @@ var render = function() {
                                   _c("td", [
                                     _c("h6", [
                                       _c("span", [
-                                        _vm._v(_vm._s(_vm.currcy.symbol))
+                                        _vm._v(
+                                          _vm._s(props.row.currency.symbol)
+                                        )
                                       ]),
                                       _vm._v(
                                         " " +
                                           _vm._s(
                                             parseFloat(record.debit).toFixed(
-                                              _vm.currcy.decimal_places
+                                              props.row.currency.decimal_places
                                             )
                                           )
                                       )
@@ -8932,13 +8996,15 @@ var render = function() {
                                   _c("td", [
                                     _c("h6", [
                                       _c("span", [
-                                        _vm._v(_vm._s(_vm.currcy.symbol))
+                                        _vm._v(
+                                          _vm._s(props.row.currency.symbol)
+                                        )
                                       ]),
                                       _vm._v(
                                         " " +
                                           _vm._s(
                                             parseFloat(record.assets).toFixed(
-                                              _vm.currcy.decimal_places
+                                              props.row.currency.decimal_places
                                             )
                                           )
                                       )
@@ -8960,14 +9026,14 @@ var render = function() {
                               _c("td", [
                                 _c("h6", [
                                   _c("span", [
-                                    _vm._v(_vm._s(_vm.currcy.symbol))
+                                    _vm._v(_vm._s(props.row.currency.symbol))
                                   ]),
                                   _vm._v(" "),
                                   _c("strong", [
                                     _vm._v(
                                       _vm._s(
                                         parseFloat(props.row.tot_debit).toFixed(
-                                          _vm.currcy.decimal_places
+                                          props.row.currency.decimal_places
                                         )
                                       )
                                     )
@@ -8978,7 +9044,7 @@ var render = function() {
                               _c("td", [
                                 _c("h6", [
                                   _c("span", [
-                                    _vm._v(_vm._s(_vm.currcy.symbol))
+                                    _vm._v(_vm._s(props.row.currency.symbol))
                                   ]),
                                   _vm._v(" "),
                                   _c("strong", [
@@ -8986,7 +9052,9 @@ var render = function() {
                                       _vm._s(
                                         parseFloat(
                                           props.row.tot_assets
-                                        ).toFixed(_vm.currcy.decimal_places)
+                                        ).toFixed(
+                                          props.row.currency.decimal_places
+                                        )
                                       )
                                     )
                                   ])
@@ -9611,7 +9679,7 @@ var render = function() {
                     "data-toggle": "tooltip",
                     title: "Formato para el código de los reportes",
                     name: "seats_reference",
-                    placeholder: "Ej. 00000000-YYYY",
+                    placeholder: "Ej. XXX-00000000-YYYY",
                     readonly: _vm.ref_code ? true : false
                   },
                   domProps: { value: _vm.code },
@@ -9659,15 +9727,11 @@ var staticRenderFns = [
           _c("strong", [_vm._v("Formato:")]),
           _vm._v(" prefijo-digitos-año\n                        "),
           _c("ul", [
-            _c("li", [
-              _vm._v(
-                "prefijo (requerido): Asignado automatico en base al acronimo de la categoria del asiento."
-              )
-            ]),
+            _c("li", [_vm._v("prefijo (requerido): 1 a 3 carácteres")]),
             _vm._v(" "),
             _c("li", [
               _vm._v(
-                "digitos (requerido): 5 carácteres (mínimo), 8 carácteres (máximo)"
+                "digitos (requerido): 6 carácteres (mínimo), 8 carácteres (máximo)"
               )
             ]),
             _vm._v(" "),

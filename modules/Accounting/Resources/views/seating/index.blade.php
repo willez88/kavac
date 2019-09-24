@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-seat :categories="{{ $categories }}" :currency="{{ $currency }}" :institutions="{{ $institutions }}" year_old="{{ $yearOld }}" route_edit="{{ url('accounting/seating/{id}/edit') }}" />
+					<accounting-seat :categories="{{ $categories }}" :currencies="{{ $currencies }}" :institutions="{{ $institutions }}" year_old="{{ $yearOld }}" route_edit="{{ url('accounting/seating/{id}/edit') }}" />
 				</div>
 			</div>
 		</div>
