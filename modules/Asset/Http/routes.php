@@ -24,7 +24,10 @@ Route::group(
         Route::get('registers/edit/{asset}', 'AssetController@edit')->name('asset.register.edit');
         Route::delete('registers/delete/{asset}', 'AssetController@destroy')->name('asset.register.destroy');
         Route::get('registers/info/{asset}', 'AssetController@vueInfo');
-        Route::get('registers/vue-list/{perPage?}/{page?}', 'AssetController@vueList')->name('asset.register.vuelist');
+        Route::get(
+            'registers/vue-list/{perPage?}/{page?}/{operation?}/{operation_id?}',
+            'AssetController@vueList'
+        )->name('asset.register.vuelist');
         Route::post('registers/search/general', 'AssetController@searchGeneral');
         Route::post('registers/search/clasification', 'AssetController@searchClasification');
         Route::post('registers/search/dependence', 'AssetController@searchDependence');
