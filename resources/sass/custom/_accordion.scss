@@ -1,0 +1,20 @@
+.acordion {
+    hr {
+        margin-top:0;
+        margin-bottom: 0;
+    }
+
+    h6 {
+        .btn {
+            font-size: 1em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+
+    .card-body {
+        padding-top: 0;
+
+        .list-group-item {padding:0;}
+    }
+}
