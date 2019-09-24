@@ -10,7 +10,9 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Asset\Rules\AcquisitionYear;
 use Modules\Asset\Rules\RequiredItem;
-
+use Modules\Asset\Models\AssetRequest;
+use Modules\Asset\Models\AssetAsignation;
+use Modules\Asset\Models\AssetDisincorporation;
 use Modules\Asset\Models\AssetRequiredItem;
 use Modules\Asset\Models\Asset;
 
@@ -281,10 +283,55 @@ class AssetController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
      */
-    public function vueList($perPage = 10, $page = 1)
+    public function vueList($perPage = 10, $page = 1, $operation = null, $operation_id = null)
     {
-        $assets = Asset::with('assetCondition', 'assetStatus')->offset(($page - 1) * $perPage)->limit($perPage)->get();
-        $total = Asset::count();
+        if ($operation == null) {
+            $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id');
+        } elseif ($operation_id == null) {
+            if ($operation == 'asignations') {
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->where('asset_condition_id', 1)->where('asset_status_id', 10);
+            } elseif ($operation == 'disincorporations') {
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->where('asset_status_id', 10);
+            } elseif ($operation == 'requests') {
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->where('asset_status_id', 10);
+            }
+        } else {
+            if ($operation == 'asignations') {
+                $selected = [];
+                $assetAsignationAssets = AssetAsignation::find($operation_id)->assetAsignationAssets()->get();
+                foreach ($assetAsignationAssets as $assetAsignationAsset) {
+                    array_push($selected, $assetAsignationAsset->asset_id);
+                }
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->whereIn('id', $selected)
+                    ->orWhere('asset_status_id', 10)
+                    ->where('asset_condition_id', 1);
+            } elseif ($operation == 'disincorporations') {
+                $selected = [];
+                $assetDisincorporationAssets = AssetDisincorporation::find($operation_id)
+                    ->assetDisincorporationAssets()->get();
+                foreach ($assetDisincorporationAssets as $assetDisincorporationAsset) {
+                    array_push($selected, $assetDisincorporationAsset->asset_id);
+                }
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->whereIn('id', $selected)
+                    ->orWhere('asset_status_id', 10);
+            } elseif ($operation == 'requests') {
+                $selected = [];
+                $assetRequestAssets = AssetRequest::find($operation_id)->assetRequestAssets()->get();
+                foreach ($assetRequestAssets as $assetRequestAsset) {
+                    array_push($selected, $assetRequestAsset->asset_id);
+                }
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->whereIn('id', $selected)
+                    ->orWhere('asset_status_id', 10);
+            }
+        }
+        $total = $assets->count();
+        $assets = $assets->offset(($page - 1) * $perPage)->limit($perPage)->get();
         $lastPage = max((int) ceil($total / $perPage), 1);
         return response()->json(
             [
