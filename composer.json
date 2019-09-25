@@ -6,8 +6,6 @@
     "type": "project",
     "require": {
         "php": "^7.3",
-        "altek/accountant": "^1.2",
-        "altek/eventually": "^1.0",
         "arcanedev/log-viewer": "~5.0",
         "doctrine/dbal": "^2.9",
         "elibyy/tcpdf-laravel": "6.0.*",
@@ -20,8 +18,7 @@
         "mews/captcha": "~3.0",
         "nwidart/laravel-modules": "^6.0",
         "owen-it/laravel-auditing": "^9.3",
-        "spatie/laravel-backup": "~6.4",
-        "venturecraft/revisionable": "~1.31"
+        "spatie/laravel-backup": "~6.4"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
