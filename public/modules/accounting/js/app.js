@@ -4294,16 +4294,13 @@ __webpack_require__.r(__webpack_exports__);
       this.date = this.data_edit.date;
       this.concept = this.data_edit.concept;
       this.observations = this.data_edit.observations;
+    } else {
+      this.generate_reference_code();
     }
 
     EventBus.$on('reset:accounting-seat-edit-create', function () {
       _this.reset();
     });
-  },
-  mounted: function mounted() {
-    if (!this.data_edit) {
-      this.generate_reference_code();
-    }
   },
   methods: {
     reset: function reset() {
