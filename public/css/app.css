@@ -27427,6 +27427,10 @@ table td {
   color: #111111 !important;
 }
 
+.text-info {
+  color: #0073b7 !important;
+}
+
 .level-all {
   color: #111 !important;
   background-color: #b5bbc8 !important;

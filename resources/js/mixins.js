@@ -70,6 +70,11 @@ Vue.mixin({
             default: ''
         }
     },
+    watch: {
+        loading: function() {
+            $('.preloader').attr('style', `display: ${(this.loading) ? 'block' : 'none'}`);
+        }
+    },
     methods: {
         /**
          * Registro de eventos del sistema

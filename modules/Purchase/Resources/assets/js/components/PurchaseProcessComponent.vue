@@ -65,11 +65,15 @@
                                 </div>
                             </div>
                         </div>
+                        <h6 class="text-center text-info">DOCUMENTOS A CONSIGNAR</h6>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="accordion" id="documentsList" v-for="(list, index) in listSelectDocuments">
                                     <h6 class="mb-0" style="text-transform:uppercase;font-weight:bold;">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="'#collapseDocumentsList'+index" aria-expanded="true" :aria-controls="'collapseDocumentsList'+index">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" rel="tooltip" 
+                                                :data-target="'#collapseDocumentsList'+index" 
+                                                aria-expanded="true" :aria-controls="'collapseDocumentsList'+index" 
+                                                title="Presione para mostrar u ocultar la lista de documentos">
                                             {{ index+1 }}. {{ list.title }}
                                         </button>
                                     </h6>
@@ -228,9 +232,11 @@
              */
             getListDocuments() {
                 const vm = this;
+                vm.loading = true;
                 vm.record.list_documents = [];
                 axios.post('/purchase/get-process-documents', {id: vm.record.id}).then(response => {
                     vm.listSelectDocuments = response.data.records;
+                    vm.loading = false;
                 }).catch(error => {
                     console.log(error);
                 })
@@ -259,10 +265,6 @@
             $('input[name=exists].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {
                 vm.exists = $(this).is(':checked');
             });
-
-            /*$('.custom-control-input').on('click', function() {
-                alert($(this).is(':checked'));
-            })*/
         }
     };
 </script>
