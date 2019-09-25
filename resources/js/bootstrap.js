@@ -21,6 +21,8 @@ try {
     require('select2');
     /** Requerido para el uso del componente vue-tables-2 */
     require('vue-tables-2');
+    /** Requerido para componentes personalizados checkbox y radio en vue */
+    require('pretty-checkbox-vue');
     /** Requerido para la gestión de fechas y horas */
     require('moment');
 

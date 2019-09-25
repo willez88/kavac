@@ -123,6 +123,9 @@
         @include('layouts.messages')
         <script>
             $(document).ready(function() {
+                $('.custom-control-input').on('change', evt => {
+    console.log($(evt.target).is(':checked'));
+})
                 if ($('.ckeditor').length && typeof(CkEditor) !== 'undefined') {
                     $('.ckeditor').each(function() {
                         CkEditor.create(document.querySelector('.ckeditor'), {

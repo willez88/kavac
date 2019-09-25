@@ -29,9 +29,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">
-                                        <input type="checkbox" class="form-control bootstrap-switch" 
-                                               name="exists" data-toggle="tooltip" data-on-label="SI" 
-                                               data-off-label="NO" title="Indique si el proceso existe" 
+                                        <input type="checkbox" class="form-control bootstrap-switch"
+                                               name="exists" data-toggle="tooltip" data-on-label="SI"
+                                               data-off-label="NO" title="Indique si el proceso existe"
                                                value="true" data-record="exists">
                                         ¿El proceso existe?
                                     </label>
@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-md-6" v-if="exists">
                                 <div class="form-group">
-                                    <select2 :options="processes" @input="getListDocuments" 
+                                    <select2 :options="processes" @input="getListDocuments"
                                              v-model="record.id"></select2>
                                 </div>
                             </div>
@@ -82,14 +82,19 @@
                                                     <div class="feature-list-content p-0">
                                                         <div class="feature-list-content-wrapper">
                                                             <div class="feature-list-content-left mr-2">
-                                                                <div class="custom-checkbox custom-control">
-                                                                    <input type="checkbox" :id="'doc_'+index+'_'+idx" 
+                                                                <label class="custom-control custom-checkbox">
+                                                                    <!--<input type="checkbox" :id="'doc_'+index+'_'+idx"
                                                                            class="custom-control-input">
-                                                                    <label class="custom-control-label" 
+                                                                    <span class="custom-control-indicator"></span>
+                                                                    <label class="custom-control-label"
                                                                            :for="'doc_'+index+'_'+idx">
                                                                         &nbsp;
-                                                                    </label>
-                                                                </div>
+                                                                    </label>-->
+                                                                    <p-check class="p-icon p-smooth p-plain p-curve"
+                                                                             color="primary-o">
+                                                                        <i slot="extra" class="icon fa fa-check"></i>
+                                                                    </p-check>
+                                                                </label>
                                                             </div>
                                                             <div class="feature-list-content-left">
                                                                 <div class="feature-list-subheading">

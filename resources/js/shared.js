@@ -11,6 +11,11 @@ import {ServerTable, ClientTable, Event} from 'vue-tables-2';
 
 Vue.use(ClientTable);
 
+/** Requerimiento del paquete pretty-checkbox-vue para checkbox y radio inputs personalizados */
+import PrettyCheckbox from 'pretty-checkbox-vue';
+
+Vue.use(PrettyCheckbox);
+
 /**
  * Componente genérico para el uso de listas desplegables de selección multiple
  *
@@ -73,7 +78,7 @@ Vue.component('document-management', require('./components/DocumentManagementCom
  * formulario es muy alta
  *
  * @param string route_list Ruta que muestra el listado de registros cuando se presiona el botón cancelar
- * @param string display    Indica si los botones se muestran en un display al hacer scroll o son estáticos para 
+ * @param string display    Indica si los botones se muestran en un display al hacer scroll o son estáticos para
  *                          colocarlos en el footer de un formulario
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
