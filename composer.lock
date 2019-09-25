@@ -149,16 +149,16 @@
         },
         {
             "name": "arcanedev/log-viewer",
-            "version": "5.0.2",
+            "version": "5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/LogViewer.git",
-                "reference": "39d56464238a4ab41b73c8290875b7f2cbfc054b"
+                "reference": "fc65898036e606d241236817484e16b8db1ba8fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/39d56464238a4ab41b73c8290875b7f2cbfc054b",
-                "reference": "39d56464238a4ab41b73c8290875b7f2cbfc054b",
+                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/fc65898036e606d241236817484e16b8db1ba8fe",
+                "reference": "fc65898036e606d241236817484e16b8db1ba8fe",
                 "shasum": ""
             },
             "require": {
@@ -213,7 +213,7 @@
                 "log-viewer",
                 "logviewer"
             ],
-            "time": "2019-09-14T08:13:15+00:00"
+            "time": "2019-09-25T11:07:09+00:00"
         },
         {
             "name": "arcanedev/support",
@@ -1274,16 +1274,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.0.3",
+            "version": "v6.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "56789e9dec750e0fbe8e9e6ae90a01a4e6887902"
+                "reference": "372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/56789e9dec750e0fbe8e9e6ae90a01a4e6887902",
-                "reference": "56789e9dec750e0fbe8e9e6ae90a01a4e6887902",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08",
+                "reference": "372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08",
                 "shasum": ""
             },
             "require": {
@@ -1415,7 +1415,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-09-10T18:46:24+00:00"
+            "time": "2019-09-24T13:40:36+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -1535,16 +1535,16 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v6.0.1",
+            "version": "v6.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "4aecb0bb71013d1218c70ee02b011944840dcb60"
+                "reference": "2f181aba73390eec13d398bf57877b1cc3bc2588"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/4aecb0bb71013d1218c70ee02b011944840dcb60",
-                "reference": "4aecb0bb71013d1218c70ee02b011944840dcb60",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/2f181aba73390eec13d398bf57877b1cc3bc2588",
+                "reference": "2f181aba73390eec13d398bf57877b1cc3bc2588",
                 "shasum": ""
             },
             "require": {
@@ -1599,7 +1599,7 @@
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "time": "2019-09-05T12:33:18+00:00"
+            "time": "2019-09-23T06:16:50+00:00"
         },
         {
             "name": "league/flysystem",
@@ -3032,16 +3032,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "6.4.0",
+            "version": "6.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "933c90957932dabf43b33bf91661bf3c8db8bc6a"
+                "reference": "b5e712c8d49001b071ec20155d4c9a72e90bb872"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/933c90957932dabf43b33bf91661bf3c8db8bc6a",
-                "reference": "933c90957932dabf43b33bf91661bf3c8db8bc6a",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/b5e712c8d49001b071ec20155d4c9a72e90bb872",
+                "reference": "b5e712c8d49001b071ec20155d4c9a72e90bb872",
                 "shasum": ""
             },
             "require": {
@@ -3103,7 +3103,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2019-09-04T06:42:31+00:00"
+            "time": "2019-09-25T06:51:46+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -4634,16 +4634,16 @@
         },
         {
             "name": "venturecraft/revisionable",
-            "version": "1.31.1",
+            "version": "1.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/VentureCraft/revisionable.git",
-                "reference": "e5951803d8349eb497bbb78940babd6a0ae0f8b2"
+                "reference": "4e288ba15f82a5614cf10bc18698cc8a8f374498"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/e5951803d8349eb497bbb78940babd6a0ae0f8b2",
-                "reference": "e5951803d8349eb497bbb78940babd6a0ae0f8b2",
+                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/4e288ba15f82a5614cf10bc18698cc8a8f374498",
+                "reference": "4e288ba15f82a5614cf10bc18698cc8a8f374498",
                 "shasum": ""
             },
             "require": {
@@ -4683,7 +4683,7 @@
                 "model",
                 "revision"
             ],
-            "time": "2019-09-04T05:30:44+00:00"
+            "time": "2019-09-23T21:20:15+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -5781,7 +5781,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "? Nette NEON: encodes and decodes NEON file format.",
+            "description": "🍸 Nette NEON: encodes and decodes NEON file format.",
             "homepage": "http://ne-on.org",
             "keywords": [
                 "export",
