@@ -5,16 +5,21 @@ namespace Modules\Purchase\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Purchase\Models\PurchaseProcess;
 use App\Models\Parameter;
 
 class PurchaseProcessController extends Controller
 {
+    use ValidatesRequests;
+
     /** @var array Lista de elementos a mostrar */
     protected $data = [];
 
     /**
      * Método constructor de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -28,6 +33,11 @@ class PurchaseProcessController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
+     * @method  index
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return Response
      */
     public function index()
@@ -37,6 +47,11 @@ class PurchaseProcessController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @method  create
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return Response
      */
     public function create()
@@ -46,15 +61,39 @@ class PurchaseProcessController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @method  store
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  Request $request
+     *
      * @return Response
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => ['required', 'unique:purchase_processes,name'],
+            'description' => ['required']
+        ]);
+        
+        $process = PurchaseProcess::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'require_documents' => (count($request->list_documents) > 0),
+            'list_documents' => (count($request->list_documents) > 0) ? json_encode($request->list_documents) : null
+        ]);
+
+        return response()->json(['record' => $process, 'message' => 'Success'], 200);
     }
 
     /**
      * Show the specified resource.
+     *
+     * @method  show
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return Response
      */
     public function show()
@@ -64,6 +103,11 @@ class PurchaseProcessController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @method  edit
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return Response
      */
     public function edit()
@@ -73,21 +117,56 @@ class PurchaseProcessController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @method  update
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  Request $request
+     *
      * @return Response
      */
     public function update(Request $request)
     {
+        $this->validate($request, [
+            'id' => ['required'],
+        ]);
+
+        $process = PurchaseProcess::updateOrCreate(
+            ['id' => $request->id],
+            [
+                'require_documents' => (count($request->list_documents) > 0),
+                'list_documents' => (count($request->list_documents) > 0) ? json_encode($request->list_documents) : null
+            ]
+        );
+
+        return response()->json(['record' => $process, 'message' => 'Success'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @method  destroy
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return Response
      */
-    public function destroy()
+    public function destroy(PurchaseProcess $purchaseProcess)
     {
+        $purchaseProcess->delete();
+        return response()->json(['record' => $purchaseProcess, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Método que permite obtener un listado de procesos de compra ya registrados
+     *
+     * @method     getProcesses
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     Response
+     */
     public function getProcesses()
     {
         foreach (PurchaseProcess::all() as $process) {
@@ -100,9 +179,21 @@ class PurchaseProcessController extends Controller
         return response()->json($this->data);
     }
 
+    /**
+     * Método que permite obtener un listado de documentos a solicitar para los procesos de compra
+     *
+     * @method     getProcessDocuments
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      Request $request    Datos de la petición
+     *
+     * @return     Response
+     */
     public function getProcessDocuments(Request $request)
     {
         $listDocuments = [];
+        $process = null;
         $processDocuments = Parameter::where([
             'p_key' => 'process_documents',
             'required_by' => 'purchase',
@@ -116,12 +207,16 @@ class PurchaseProcessController extends Controller
         if (!is_null($processDocuments)) {
             foreach (json_decode($processDocuments->p_value) as $processDocument) {
                 array_push($listDocuments, [
+                    'id' => $processDocument->id,
                     'title' => $processDocument->title,
                     'documents' => $processDocument->documents
                 ]);
             }
         }
 
-        return response()->json(['records' => $listDocuments], 200);
+        return response()->json([
+            'records' => $listDocuments,
+            'selected' => (!is_null($process) && !is_null($process->list_documents)) ? $process->list_documents : null
+        ], 200);
     }
 }

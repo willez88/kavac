@@ -87,15 +87,10 @@
                                                         <div class="feature-list-content-wrapper">
                                                             <div class="feature-list-content-left mr-2">
                                                                 <label class="custom-control custom-checkbox">
-                                                                    <!--<input type="checkbox" :id="'doc_'+index+'_'+idx"
-                                                                           class="custom-control-input">
-                                                                    <span class="custom-control-indicator"></span>
-                                                                    <label class="custom-control-label"
-                                                                           :for="'doc_'+index+'_'+idx">
-                                                                        &nbsp;
-                                                                    </label>-->
                                                                     <p-check class="p-icon p-smooth p-plain p-curve"
-                                                                             color="primary-o">
+                                                                             color="primary-o" 
+                                                                             :value="list.id + '_' + idx" 
+                                                                             v-model="record.list_documents">
                                                                         <i slot="extra" class="icon fa fa-check"></i>
                                                                     </p-check>
                                                                 </label>
@@ -187,6 +182,11 @@
                 columns: ['name', 'description', 'require_documents', 'id'],
             }
         },
+        watch: {
+            exists: function() {
+                this.record.id = (this.exists) ? this.record.id : '';
+            }
+        },
         methods: {
             /**
              * Método que borra todos los datos del formulario
@@ -236,6 +236,11 @@
                 vm.record.list_documents = [];
                 axios.post('/purchase/get-process-documents', {id: vm.record.id}).then(response => {
                     vm.listSelectDocuments = response.data.records;
+                    vm.record.list_documents = [];
+                    
+                    if (response.data.selected !== null) {
+                        vm.record.list_documents = JSON.parse(response.data.selected);
+                    }
                     vm.loading = false;
                 }).catch(error => {
                     console.log(error);
