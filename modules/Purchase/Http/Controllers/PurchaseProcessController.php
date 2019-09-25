@@ -76,7 +76,7 @@ class PurchaseProcessController extends Controller
             'name' => ['required', 'unique:purchase_processes,name'],
             'description' => ['required']
         ]);
-        
+
         $process = PurchaseProcess::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -132,13 +132,19 @@ class PurchaseProcessController extends Controller
             'id' => ['required'],
         ]);
 
-        $process = PurchaseProcess::updateOrCreate(
-            ['id' => $request->id],
-            [
-                'require_documents' => (count($request->list_documents) > 0),
-                'list_documents' => (count($request->list_documents) > 0) ? json_encode($request->list_documents) : null
-            ]
-        );
+        $data = [
+            'require_documents' => (count($request->list_documents) > 0),
+            'list_documents' => (count($request->list_documents) > 0) ? json_encode($request->list_documents) : null
+        ];
+
+        if (!is_null($request->name)) {
+            $data['name'] = $request->name;
+        }
+        if (!is_null($request->description)) {
+            $data['description'] = $request->description;
+        }
+
+        $process = PurchaseProcess::updateOrCreate(['id' => $request->id], $data);
 
         return response()->json(['record' => $process, 'message' => 'Success'], 200);
     }

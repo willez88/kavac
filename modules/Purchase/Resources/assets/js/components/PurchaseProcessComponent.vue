@@ -70,9 +70,9 @@
                             <div class="col-md-12">
                                 <div class="accordion" id="documentsList" v-for="(list, index) in listSelectDocuments">
                                     <h6 class="mb-0" style="text-transform:uppercase;font-weight:bold;">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" rel="tooltip" 
-                                                :data-target="'#collapseDocumentsList'+index" 
-                                                aria-expanded="true" :aria-controls="'collapseDocumentsList'+index" 
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" rel="tooltip"
+                                                :data-target="'#collapseDocumentsList'+index"
+                                                aria-expanded="true" :aria-controls="'collapseDocumentsList'+index"
                                                 title="Presione para mostrar u ocultar la lista de documentos">
                                             {{ index+1 }}. {{ list.title }}
                                         </button>
@@ -88,8 +88,8 @@
                                                             <div class="feature-list-content-left mr-2">
                                                                 <label class="custom-control custom-checkbox">
                                                                     <p-check class="p-icon p-smooth p-plain p-curve"
-                                                                             color="primary-o" 
-                                                                             :value="list.id + '_' + idx" 
+                                                                             color="primary-o"
+                                                                             :value="list.id + '_' + idx"
                                                                              v-model="record.list_documents">
                                                                         <i slot="extra" class="icon fa fa-check"></i>
                                                                     </p-check>
@@ -122,7 +122,7 @@
                                 <span v-else>NO</span>
                             </div>
                             <div slot="id" slot-scope="props" class="text-center">
-                                <button @click="initUpdate(props.index, $event)"
+                                <button @click="loadDataUpdate(props.index, $event)"
                                         class="btn btn-warning btn-xs btn-icon btn-round"
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
@@ -237,7 +237,7 @@
                 axios.post('/purchase/get-process-documents', {id: vm.record.id}).then(response => {
                     vm.listSelectDocuments = response.data.records;
                     vm.record.list_documents = [];
-                    
+
                     if (response.data.selected !== null) {
                         vm.record.list_documents = JSON.parse(response.data.selected);
                     }
@@ -245,7 +245,36 @@
                 }).catch(error => {
                     console.log(error);
                 })
-            }
+            },
+            loadDataUpdate(index, event) {
+                let vm = this;
+                var list_documents = (vm.records[index - 1].list_documents !== null)
+                                     ? JSON.parse(vm.records[index - 1].list_documents) : [];
+                vm.errors = [];
+                vm.record = vm.records[index - 1];
+                vm.record.list_documents = list_documents;
+
+                /**
+                 * Recorre todos los campos para determinar si existe un elemento booleano para, posteriormente,
+                 * seleccionarlo en el formulario en el caso de que se encuentre activado en BD
+                 */
+                $.each(vm.record, function(el, value) {
+                    if ($("input[name=" + el + "]").hasClass('bootstrap-switch')) {
+                        /** verifica los elementos bootstrap-switch para seleccionar el que corresponda según los registros del sistema */
+                        $("input[name=" + el + "]").each(function() {
+                            if ($(this).val() === value) {
+                                $(this).bootstrapSwitch('state', value, true)
+                            }
+
+                        });
+                    }
+                    if (value === true || value === false) {
+                        $("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
+                    }
+                });
+
+                event.preventDefault();
+            },
         },
         created() {
             let vm = this;
