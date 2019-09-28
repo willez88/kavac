@@ -40,7 +40,9 @@ class TaxController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => Tax::with('histories')->get()], 200);
+        return response()->json(['records' => Tax::with(['histories' => function ($query) {
+            return $query->orderBy('operation_date', 'desc')->first();
+        }])->get()], 200);
     }
 
     /**

@@ -100,9 +100,9 @@
                             <div slot="amount" slot-scope="props">
                                 {{ props.row.to_currency.symbol }} {{ props.row.amount }}
                             </div>
-                            <div slot="active" slot-scope="props">
-                                <span v-if="props.row.active">SI</span>
-                                <span v-else>NO</span>
+                            <div slot="active" slot-scope="props" class="text-center">
+                                <span v-if="props.row.active === true" class="text-bold text-success">SI</span>
+                                <span v-else class="text-bold text-danger">NO</span>
                             </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.index, $event)"

@@ -61,4 +61,37 @@ class ExchangeRate extends Model implements Auditable
     {
         return $this->belongsTo(Currency::class, 'to_currency_id');
     }
+
+    /**
+     * Método mutador que permite obtener información del campo start_at en formato de fecha sin marca de tiempo
+     *
+     * @method     getStartAtAttribute
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     string                 Devuelve la fecha en formato año-mes-día
+     */
+    public function getStartAtAttribute() : ?String
+    {
+        list($year, $month, $day) = explode("-", $this->attributes['start_at']);
+        return "$year-$month-$day";
+    }
+
+    /**
+     * Método mutador que permite obtener información del campo end_at en formato de fecha sin marca de tiempo
+     *
+     * @method     getEndAtAttribute
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     string|null             Devuelve la fecha en formato año-mes-día
+     */
+    public function getEndAtAttribute() : ?String
+    {
+        if (is_null($this->attributes['end_at'])) {
+            return null;
+        }
+        list($year, $month, $day) = explode("-", $this->attributes['end_at']);
+        return "$year-$month-$day";
+    }
 }
