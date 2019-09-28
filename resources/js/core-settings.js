@@ -117,3 +117,10 @@ Vue.component('measurement-units', require('./components/MeasurementUnitsCompone
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('deductions', require('./components/DeductionsComponent.vue').default);
+
+/**
+ * Componente para la gestión de tipos de cambio
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('exchange-rates', require('./components/ExchangeRatesComponent.vue').default);

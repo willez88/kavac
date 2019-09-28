@@ -28,6 +28,9 @@
 					<parishes></parishes>
 					<cities></cities>
 					<currencies></currencies>
+					@if (App\Models\Currency::all()->count() > 1)
+						<exchange-rates></exchange-rates>
+					@endif
 					<taxes></taxes>
 					<tax-units></tax-units>
 					<deductions :accounting-account={{ json_encode(Module::has('Accounting') ? true : false) }}></deductions>

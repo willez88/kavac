@@ -55,4 +55,24 @@ class Currency extends Model implements Auditable
     {
         return $this->belongsTo(Country::class);
     }
+
+    /**
+     * Currency has many ExchangeRate.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fromExchangeRates()
+    {
+        return $this->hasMany(ExchangeRate::class, 'from_currency_id');
+    }
+
+    /**
+     * Currency has many ExchangeRate.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function toExchangeRates()
+    {
+        return $this->hasMany(ExchangeRate::class, 'to_currency_id');
+    }
 }

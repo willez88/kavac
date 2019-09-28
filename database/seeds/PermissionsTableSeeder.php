@@ -11,6 +11,7 @@ use App\Models\Institution;
 use App\Models\Tax;
 use App\Models\TaxUnit;
 use App\Models\RequiredDocument;
+use App\Models\ExchangeRate;
 use OwenIt\Auditing\Models\Audit;
 
 /**
@@ -197,6 +198,30 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Acceso para ver documentos requeridos',
                 'model' => RequiredDocument::class, 'model_prefix' => '0general',
                 'slug_alt' => 'solicitud.documentos.ver', 'short_description' => 'ver documentos requeridos'
+            ],
+            [
+                'name' => 'Crear tipo de cambio', 'slug' => 'exchange.rate.create',
+                'description' => 'Acceso al registro de tipos de cambios',
+                'model' => ExchangeRate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'tipos.cambio.crear', 'short_description' => 'agregar tipos de cambio'
+            ],
+            [
+                'name' => 'Editar tipo de cambio', 'slug' => 'exchange.rate.edit',
+                'description' => 'Acceso para editar tipos de cambio',
+                'model' => ExchangeRate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'tipos.cambio.editar', 'short_description' => 'editar tipos de cambio'
+            ],
+            [
+                'name' => 'Eliminar tipo de cambio', 'slug' => 'exchange.rate.delete',
+                'description' => 'Acceso para eliminar tipos de cambio',
+                'model' => ExchangeRate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'tipos.cambio.eliminar', 'short_description' => 'eliminar tipos de cambio'
+            ],
+            [
+                'name' => 'Ver tipo de cambio', 'slug' => 'exchange.rate.list',
+                'description' => 'Acceso para ver tipos de cambio',
+                'model' => ExchangeRate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'tipos.cambio.ver', 'short_description' => 'ver tipos de cambio'
             ],
         ];
 
