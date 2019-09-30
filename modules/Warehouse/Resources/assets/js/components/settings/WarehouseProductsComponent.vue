@@ -1,7 +1,7 @@
 	<template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de Productos Almacenables" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de Productos Almacenables" data-toggle="tooltip"
 		   @click="addRecord('add_product', 'products', $event)">
 			<i class="icofont icofont-cubes ico-3x"></i>
 			<span>Productos</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-cubes ico-2x"></i> 
+							<i class="icofont icofont-cubes ico-2x"></i>
 							Registros de Productos Almacenables
 						</h6>
 					</div>
@@ -37,7 +37,7 @@
 							</div>
 						</div>
 
-						<div class="row">        
+						<div class="row">
 							<div class="col-md-12">
 								<b>Datos del Producto</b>
 							</div>
@@ -45,8 +45,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre del Producto:</label>
-									<input type="text" placeholder="Nombre del Producto" data-toggle="tooltip" 
-										   title="Indique el nombre del Nuevo producto (requerido)" 
+									<input type="text" placeholder="Nombre del Producto" data-toggle="tooltip"
+										   title="Indique el nombre del Nuevo producto (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -57,7 +57,7 @@
 									<label>Descripción:</label>
 									<textarea   data-toggle="tooltip"
 												placeholder="Descripción del Producto"
-											    title="Indique una breve descripción del nuevo producto (requerido)" 
+											    title="Indique una breve descripción del nuevo producto (requerido)"
 										   		class="form-control input-sm" v-model="record.description">
 								   </textarea>
 			                    </div>
@@ -71,7 +71,7 @@
 				                        <label for="" class="control-label">Atributos Personalizados</label>
 				                        <div class="col-12">
 										<input type="checkbox" class="form-control bootstrap-switch"
-											name="define_attributes" 
+											name="define_attributes"
 											data-on-label="Si" data-off-label="No" value="true"
 											v-model="record.define_attributes">
 									</div>
@@ -92,15 +92,15 @@
 									<div class="d-inline-flex">
 										<div class="col-10">
 											<div class="form-group">
-												<input type="text" placeholder="Nombre del nuevo atributo" data-toggle="tooltip" 
-													   title="Indique el nombre del atributo del producto que desee hacer seguimiento (opcional)" 
+												<input type="text" placeholder="Nombre del nuevo atributo" data-toggle="tooltip"
+													   title="Indique el nombre del atributo del producto que desee hacer seguimiento (opcional)"
 													   v-model="attribute.name" class="form-control input-sm">
 											</div>
 										</div>
 										<div class="col-2">
 											<div class="form-group">
-												<button class="btn btn-sm btn-danger btn-action" type="button" 
-														@click="removeRow(index, record.warehouse_product_attributes)" 
+												<button class="btn btn-sm btn-danger btn-action" type="button"
+														@click="removeRow(index, record.warehouse_product_attributes)"
 														title="Eliminar este dato" data-toggle="tooltip">
 													<i class="fa fa-minus-circle"></i>
 												</button>
@@ -133,14 +133,14 @@
 							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 		                		<div class="d-inline-flex">
-		                			<button @click="initUpdate(props.index, $event)" 
-			                				class="btn btn-warning btn-xs btn-icon btn-action" 
+		                			<button @click="initUpdate(props.index, $event)"
+			                				class="btn btn-warning btn-xs btn-icon btn-action"
 			                				title="Modificar registro" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-edit"></i>
 			                		</button>
-			                		<button @click="deleteRecord(props.index, 'products')" 
-											class="btn btn-danger btn-xs btn-icon btn-action" 
-											title="Eliminar registro" data-toggle="tooltip" 
+			                		<button @click="deleteRecord(props.index, 'products')"
+											class="btn btn-danger btn-xs btn-icon btn-action"
+											title="Eliminar registro" data-toggle="tooltip"
 											type="button">
 										<i class="fa fa-trash-o"></i>
 									</button>
@@ -169,13 +169,13 @@
 				errors: [],
 				records: [],
 				columns: ['name', 'description', 'attributes', 'id'],
-				
+
 			}
 		},
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset()
@@ -190,7 +190,7 @@
 			},
 			/**
 			 * Método que agrega un nuevo campo de atributo al formulario
-			 * 
+			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
 			addAttribute()
@@ -217,7 +217,7 @@
             };
 		},
 		mounted() {
-			
+
 			this.switchHandler('define_attributes');
 		}
 	}

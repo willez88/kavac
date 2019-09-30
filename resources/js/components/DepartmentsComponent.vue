@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="" title="Registros de unidades, departamentos o dependencias" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="" title="Registros de unidades, departamentos o dependencias"
 		   data-toggle="tooltip" @click="addRecord('add_department', 'departments', $event)">
 			<i class="icofont icofont-architecture-alt ico-3x"></i>
 			<span>Unidades / Dependencias</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-architecture-alt inline-block"></i> 
+							<i class="icofont icofont-architecture-alt inline-block"></i>
 							Unidades / Dependencias
 						</h6>
 					</div>
@@ -28,7 +28,7 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Institución:</label>
-									<select2 :options="institutions" v-model="record.institution_id" 
+									<select2 :options="institutions" v-model="record.institution_id"
 											 title="Institución a la cual pertenece" @input="getDepartments()"
 											 data-toggle="tooltip"></select2>
 									<input type="hidden" v-model="record.id">
@@ -37,24 +37,24 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Depende de:</label>
-									<select2 :options="departments" v-model="record.parent_id" 
-											 title="Unidad, Departamento o dependencia de la cual depende. No seleccionar si no es subordinada a otra dependencia" 
+									<select2 :options="departments" v-model="record.parent_id"
+											 title="Unidad, Departamento o dependencia de la cual depende. No seleccionar si no es subordinada a otra dependencia"
 											 data-toggle="tooltip"></select2>
 			                    </div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
 									<label>Siglas:</label>
-									<input type="text" class="form-control input-sm" data-toggle="tooltip" 
-										   title="Siglas o acrónimo para el departamento (si posee)" 
+									<input type="text" class="form-control input-sm" data-toggle="tooltip"
+										   title="Siglas o acrónimo para el departamento (si posee)"
 										   placeholder="SIGLAS" v-model="record.acronym">
 			                    </div>
 							</div>
 							<div class="col-md-10">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" class="form-control input-sm" data-toggle="tooltip" 
-										   placeholder="Nombre de la unidad, departamento o dependencia" 
+									<input type="text" class="form-control input-sm" data-toggle="tooltip"
+										   placeholder="Nombre de la unidad, departamento o dependencia"
 										   v-model="record.name">
 			                    </div>
 							</div>
@@ -62,9 +62,9 @@
 								<div class="form-group is-required">
 									<label>Solicita almacén:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch" name="issue_requests" 
-											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO" 
-											   title="Indique si puede emitir solicitudes de almacén" 
+										<input type="checkbox" class="form-control bootstrap-switch" name="issue_requests"
+											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+											   title="Indique si puede emitir solicitudes de almacén"
 											   v-model="record.issue_requests" value="true">
 									</div>
 			                    </div>
@@ -73,9 +73,9 @@
 								<div class="form-group is-required">
 									<label>Activo:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch" name="active" 
-											   data-toggle="tooltip" title="Indique si se encuentra activo" 
-											   data-on-label="SI" data-off-label="NO" value="true" 
+										<input type="checkbox" class="form-control bootstrap-switch" name="active"
+											   data-toggle="tooltip" title="Indique si se encuentra activo"
+											   data-on-label="SI" data-off-label="NO" value="true"
 											   v-model="record.active">
 									</div>
 			                    </div>
@@ -84,9 +84,9 @@
 								<div class="form-group is-required">
 									<label>Administrativo:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch" 
+										<input type="checkbox" class="form-control bootstrap-switch"
 											   data-toggle="tooltip" title="Indique si la unidad, departamento o dependencia es del área administrativa" name="administrative"
-											   data-on-label="SI" data-off-label="NO" value="true" 
+											   data-on-label="SI" data-off-label="NO" value="true"
 											   v-model="record.administrative">
 									</div>
 			                    </div>
@@ -111,14 +111,14 @@
 								<span v-else>NO</span>
 							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'departments')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'departments')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -157,7 +157,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {

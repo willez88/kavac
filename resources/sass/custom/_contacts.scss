@@ -4,7 +4,7 @@
 }
 
 .nav-contacts li a {
-    color: #666;
+    color: $color-gray-dark;
     font-weight: 400;
     font-size: 13px;
 }
@@ -12,11 +12,11 @@
 .nav-contacts li .badge {
     background: none;
     font-weight: 500;
-    color: #333;
+    color: $color-black-light;
 }
 
 .nav-contacts li.active .badge {
-    color: #fff;
+    color: $color-white;
     background: none;
 }
 
@@ -65,7 +65,7 @@
     margin-left: 5px;
     font-size: 13px;
     font-weight: 400;
-    color: #999;
+    color: $color-gray-strong;
 }
 
 .contact-group .list-group-item {
@@ -89,7 +89,7 @@
     font-size: 16px;
     vertical-align: middle;
     width: 20px;
-    color: #333;
+    color: $color-black-light;
 }
 
 .contact-group .media-content ul {

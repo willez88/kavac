@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de Categorias Generales de Bienes" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de Categorias Generales de Bienes" data-toggle="tooltip"
 		   @click="addRecord('add_category', 'categories', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Categorias<br>Generales</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book ico-2x"></i> 
+							<i class="icofont icofont-read-book ico-2x"></i>
 							Nueva Categoria General de Bienes
 						</h6>
 					</div>
@@ -45,20 +45,20 @@
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-					
+
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Código de la Categoría General:</label>
-									<input type="text" placeholder="Código de Categoría General" data-toggle="tooltip" 
-										   title="Indique el código de la nueva Categoría General (requerido)" 
+									<input type="text" placeholder="Código de Categoría General" data-toggle="tooltip"
+										   title="Indique el código de la nueva Categoría General (requerido)"
 										   class="form-control input-sm" v-model="record.code">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Categoría General:</label>
-									<input type="text" placeholder="Nueva Categoría General" data-toggle="tooltip" 
-										   title="Indique la nueva Categoría General (requerido)" 
+									<input type="text" placeholder="Nueva Categoría General" data-toggle="tooltip"
+										   title="Indique la nueva Categoría General (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -75,14 +75,14 @@
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'categories')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'categories')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -133,7 +133,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {

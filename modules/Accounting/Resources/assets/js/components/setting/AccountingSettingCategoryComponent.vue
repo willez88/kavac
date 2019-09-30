@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de categorias de origen de asientos contables" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de categorias de origen de asientos contables"
 		   data-toggle="tooltip" @click="addRecord('CRUD_categories', '/accounting/settings/categories', $event)">
 			<i class="fa fa-tags ico-3x"></i>
 			<span>Categorias de origen</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="fa fa-tags inline-block"></i> 
+							<i class="fa fa-tags inline-block"></i>
 							Categorias
 						</h6>
 					</div>
@@ -35,7 +35,7 @@
 										<label class="control-label">Acrónimo</label>
 										<input type="text"
 												class="form-control"
-												maxlength="4" 
+												maxlength="4"
 												title="Ingrese el acrónimo"
 												data-toggle="tooltip"
 												v-model="record.acronym">
@@ -59,13 +59,13 @@
 	                			{{ props.row.acronym }}
 	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="loadCategory(props.row)" 
-		                				class="btn btn-warning btn-xs btn-icon" 
+	                			<button @click="loadCategory(props.row)"
+		                				class="btn btn-warning btn-xs btn-icon"
 		                				title="Modificar registro" data-toggle="tooltip">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, '/accounting/settings/categories')" 
-										class="btn btn-danger btn-xs btn-icon" 
+		                		<button @click="deleteRecord(props.index, '/accounting/settings/categories')"
+										class="btn btn-danger btn-xs btn-icon"
 										title="Eliminar registro" data-toggle="tooltip" >
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -101,7 +101,7 @@ export default{
 	methods:{
 		/**
 		 * Método que borra todos los datos del formulario
-		 * 
+		 *
 		 * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
 		 */
 		reset() {
@@ -147,7 +147,7 @@ export default{
 			}
 			return true;
 		},
-		
+
 		// /**
 		// * Guarda o Actualiza la información de la nueva categoria
 		// *

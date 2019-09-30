@@ -36,7 +36,7 @@
 	}
 
 	.white {
-		background: #fff;
+		background: $color-white;
 	}
 
 	.black {
@@ -82,7 +82,7 @@
 	/*min-width:260px;*/
 	float:left;
 	position:relative;
-	/*box-shadow:0 20px 50px #333*/
+	/*box-shadow:0 20px 50px $color-black-light*/
 
 	.jquery-accordion-menu-footer, .jquery-accordion-menu-header {
 		width:100%;
@@ -209,7 +209,7 @@
 	}
 
 	> ul > li.active > a, > ul > li:hover > a {
-		color:#fff;
+		color:$color-white;
 		background:#3b424d;
 	}
 
@@ -251,7 +251,7 @@
 	top:14px;
 	font-size:11px;
 	font-weight:800;
-	color:#555;
+	color:$color-black-thin;
 	text-align:center;
 	line-height:18px;
 	background:#f0f0f0;
@@ -406,8 +406,8 @@
 .white {
 	&.jquery-accordion-menu {
 		.jquery-accordion-menu-footer, .jquery-accordion-menu-header, ul li a {
-			background:#fff;
-			color:#555;
+			background:$color-white;
+			color:$color-black-thin;
 		}
 	}
 
@@ -451,8 +451,8 @@
 				&.submenu {
 					li {
 						a {
-							background: #f7f7f7;
-							color:#555;
+							background: $color-gray-light;
+							color:$color-black-thin;
 						}
 					}
 				}
@@ -469,13 +469,13 @@
 	}
 
 	> ul > li.active > a, > ul > li:hover > a {
-		background:#222;
+		background:$color-black-medium;
 	}
 
 	> ul {
 		> li {
 			> a {
-				border-bottom-color:#222;
+				border-bottom-color:$color-black-medium;
 			}
 		}
 	}
@@ -486,7 +486,7 @@
 				li {
 					&:hover, &.active {
 						> a {
-							border-left-color:#222;
+							border-left-color:$color-black-medium;
 						}
 					}
 				}

@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registro de Asignaciones de Nómina" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registro de Asignaciones de Nómina" data-toggle="tooltip"
 		   @click="addRecord('add_assignment', 'salary-assignments', $event)">
 			<i class="icofont icofont-bill-alt ico-3x"></i>
 			<span>Asignaciones</span>
@@ -14,13 +14,13 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-bill-alt ico-2x"></i> 
+							<i class="icofont icofont-bill-alt ico-2x"></i>
 							Nueva Asignación
 						</h6>
 					</div>
 
 					<div class="modal-body">
-						
+
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
 	                        <li class="nav-item">
 	                            <a class="nav-link" data-toggle="tab" href="#define" id="definition_assignment" role="tab">
@@ -70,7 +70,7 @@
 											<div class="col-md-8">
 												<div class=" form-group is-required">
 													<label>Nombre:</label>
-													<input type="text" placeholder="Nombre de la asignación" 
+													<input type="text" placeholder="Nombre de la asignación"
 																	data-toggle="tooltip"
 																	class="form-control input-sm"
 																	v-model="record.name">
@@ -81,10 +81,10 @@
 												<div class=" form-group">
 													<label>¿Activa?</label>
 													<div class="col-12">
-														<input type="checkbox" class="form-control bootstrap-switch" 
-														   data-toggle="tooltip" name="active" 
+														<input type="checkbox" class="form-control bootstrap-switch"
+														   data-toggle="tooltip" name="active"
 														   title="Indique si la asignación esta activa"
-														   data-on-label="SI" data-off-label="NO" 
+														   data-on-label="SI" data-off-label="NO"
 														   v-model="record.active" value="true">
 													</div>
 												</div>
@@ -98,9 +98,9 @@
 												<div class=" form-group">
 													<label>Valor Absoluto</label>
 													<div class="col-12">
-														<input type="radio" name="incidence_value" 
-																value="Valor Neto" id="sel_neto_value" 
-																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value" 
+														<input type="radio" name="incidence_value"
+																value="Valor Neto" id="sel_neto_value"
+																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
 																data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -109,9 +109,9 @@
 												<div class=" form-group">
 													<label>Unidad Tributaria</label>
 													<div class="col-12">
-														<input type="radio" name="incidence_value" 
-																value="Unidad Tributaria" id="sel_tax_unit" 
-																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value" 
+														<input type="radio" name="incidence_value"
+																value="Unidad Tributaria" id="sel_tax_unit"
+																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
 																data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -120,9 +120,9 @@
 												<div class=" form-group">
 													<label>Porcentaje</label>
 													<div class="col-12">
-														<input type="radio" name="incidence_value" 
-																value="Porcentaje" id="sel_percent" 
-																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value" 
+														<input type="radio" name="incidence_value"
+																value="Porcentaje" id="sel_percent"
+																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
 																data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -139,9 +139,9 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label>Descripción:</label>
-													<textarea  data-toggle="tooltip" 
+													<textarea  data-toggle="tooltip"
 															   title="Indique alguna descripción asociada a la asignación"
-															   rows="2" 
+															   rows="2"
 															   class="form-control" v-model="record.description">
 												   </textarea>
 							                    </div>
@@ -153,7 +153,7 @@
 									<div class="col-md-6">
 										<div class=" form-group is-required">
 											<label>Nombre del Escalafón</label>
-											<input type="text" placeholder="Nombre del Escalafón" 
+											<input type="text" placeholder="Nombre del Escalafón"
 															data-toggle="tooltip"
 															class="form-control input-sm"
 															v-model="record.salary_scale">
@@ -162,7 +162,7 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Descripción:</label>
-											<textarea  data-toggle="tooltip" 
+											<textarea  data-toggle="tooltip"
 													   title="Indique alguna descripción asociada al escalafón"
 													   rows="1"
 													   class="form-control" v-model="record.salary_scale_description">
@@ -193,13 +193,13 @@
 												<td v-for="(field,index) in ladders">
 													<div class="d-inline-flex">
 														<button @click="editScale(index,$event)"
-								                				class="btn btn-warning btn-xs btn-icon btn-action" 
+								                				class="btn btn-warning btn-xs btn-icon btn-action"
 								                				title="Modificar registro" data-toggle="tooltip" type="button">
 								                			<i class="fa fa-edit"></i>
 								                		</button>
-								                		<button @click="removeScale(index,$event)" 
-																class="btn btn-danger btn-xs btn-icon btn-action" 
-																title="Eliminar registro" data-toggle="tooltip" 
+								                		<button @click="removeScale(index,$event)"
+																class="btn btn-danger btn-xs btn-icon btn-action"
+																title="Eliminar registro" data-toggle="tooltip"
 																type="button">
 															<i class="fa fa-trash-o"></i>
 														</button>
@@ -220,7 +220,7 @@
 											<div class="col-md-6">
 												<div class="form-group is-required">
 													<label>Código:</label>
-													<input type="text" placeholder="Código de la Escala" 
+													<input type="text" placeholder="Código de la Escala"
 															data-toggle="tooltip"
 															class="form-control input-sm"
 															v-model="scale.code">
@@ -229,7 +229,7 @@
 											<div class="col-md-6">
 												<div class=" form-group is-required">
 													<label>Valor de Incidencia</label>
-													<input type="number" placeholder="Valor de Incidencia" 
+													<input type="number" placeholder="Valor de Incidencia"
 																	min="0" step=".01"
 																	data-toggle="tooltip"
 																	class="form-control input-sm"
@@ -241,7 +241,7 @@
 											<div class="col-md-12">
 												<div class=" form-group is-required">
 													<label>Nombre:</label>
-													<input type="text" placeholder="Nombre de la Escala" 
+													<input type="text" placeholder="Nombre de la Escala"
 															data-toggle="tooltip"
 															class="form-control input-sm"
 															v-model="scale.name">
@@ -254,32 +254,32 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label>Descripción:</label>
-													<textarea  data-toggle="tooltip" 
+													<textarea  data-toggle="tooltip"
 															   title="Indique alguna descripción asociada a la escala"
 															   class="form-control input-sm"
-															   rows="1" 
+															   rows="1"
 															   v-model="scale.description">
 												   </textarea>
 							                    </div>
 											</div>
 											<div class="col-md-12" style="margin-bottom:0px; margin-top: auto;">
-												<button type="button" @click="addScale($event)"class="btn btn-sm btn-primary btn-custom float-right" 
+												<button type="button" @click="addScale($event)"class="btn btn-sm btn-primary btn-custom float-right"
 														title="Agregar registro a la lista"
 														data-toggle="tooltip">
 													<i class="fa fa-plus-circle"></i>
 													Agregar
 												</button>
-											</div>	
+											</div>
 										</div>
 									</div>
 								</div>
 	                    	</div>
-	                   
+
 	                    	<div class="tab-pane" id="view" role="tabpanel">
 	                    		<div v-if="this.ladders.length > 0">
 		                    		<div class="row">
 		                    			<div class="col-md-12">
-											<button type="button" class="btn btn-sm btn-success btn-custom float-right" 
+											<button type="button" class="btn btn-sm btn-success btn-custom float-right"
 													title="Exportar tabla en formato xls"
 													data-toggle="tooltip">
 												<i class="fa fa-file-excel-o"></i>
@@ -326,14 +326,14 @@
 		                	<hr>
 		                	<v-client-table :columns="columns" :data="records" :options="table_options">
 		                		<div slot="id" slot-scope="props" class="text-center">
-		                			<button @click="initUpdate(props.index, $event)" 
-			                				class="btn btn-warning btn-xs btn-icon 	btn-action" 
+		                			<button @click="initUpdate(props.index, $event)"
+			                				class="btn btn-warning btn-xs btn-icon 	btn-action"
 			                				title="Modificar registro" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-edit"></i>
 			                		</button>
-			                		<button @click="deleteRecord(props.index, 'salary-assignments')" 
-											class="btn btn-danger btn-xs btn-icon btn-action" 
-											title="Eliminar registro" data-toggle="tooltip" 
+			                		<button @click="deleteRecord(props.index, 'salary-assignments')"
+											class="btn btn-danger btn-xs btn-icon btn-action"
+											title="Eliminar registro" data-toggle="tooltip"
 											type="button">
 										<i class="fa fa-trash-o"></i>
 									</button>
@@ -344,7 +344,7 @@
 
 					<div class="modal-footer">
 
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
@@ -445,7 +445,7 @@
 			this.switchHandler('incidence');
 			this.switchHandler('incidence_value');
 
-			
+
 			$("#add_assignment").on('show.bs.modal', function() {
 				vm.getPayrollPositionTypes();
 				vm.getPayrollSalaryAssignmentTypes();
@@ -491,9 +491,9 @@
 					name: '',
 					value: '',
 				};
-				if(vm.editIndex == null)					
+				if(vm.editIndex == null)
 					vm.ladders.push(field);
-				else if(vm.editIndex >= 0 ){				
+				else if(vm.editIndex >= 0 ){
 					vm.ladders.splice(vm.editIndex, 1);
 					vm.ladders.push(field);
 					vm.editIndex = null;

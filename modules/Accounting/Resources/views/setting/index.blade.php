@@ -51,12 +51,8 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-2">
-							<accounting-setting-category />
-						</div>
-						<div class="col-2">
-							<accounting-setting-account />
-						</div>
+						<accounting-setting-category></accounting-setting-category>
+						<accounting-setting-account></accounting-setting-account>
 					</div>
 				</div>
 			</div>

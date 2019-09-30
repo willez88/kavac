@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="" title="Registros de profesiones" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="" title="Registros de profesiones" data-toggle="tooltip"
 		   @click="addRecord('add_profession', 'professions', $event)">
 			<i class="icofont icofont-graduate-alt ico-3x"></i>
 			<span>Profesiones</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-graduate-alt inline-block"></i> 
+							<i class="icofont icofont-graduate-alt inline-block"></i>
 							Profesión
 						</h6>
 					</div>
@@ -28,8 +28,8 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Acrónimo:</label>
-									<input type="text" placeholder="Acrónimo" data-toggle="tooltip" 
-										   title="Indique el acrónimo de la profesión"  
+									<input type="text" placeholder="Acrónimo" data-toggle="tooltip"
+										   title="Indique el acrónimo de la profesión"
 										   class="form-control input-sm" v-model="record.acronym">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -37,8 +37,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Profesión" data-toggle="tooltip" 
-										   title="Indique el nombre de la profesión (requerido)" 
+									<input type="text" placeholder="Profesión" data-toggle="tooltip"
+										   title="Indique el nombre de la profesión (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
@@ -52,14 +52,14 @@
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'professions')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'professions')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -89,7 +89,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {

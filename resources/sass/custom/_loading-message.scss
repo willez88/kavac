@@ -64,7 +64,7 @@
 }
 @-webkit-keyframes textColour {
   0% {
-    color: #fff;
+    color: $color-white;
   }
   100% {
     color: #3BB2D0;
@@ -72,7 +72,7 @@
 }
 @-moz-keyframes textColour {
   0% {
-    color: #fff;
+    color: $color-white;
   }
   100% {
     color: #3BB2D0;
@@ -80,7 +80,7 @@
 }
 @-o-keyframes textColour {
   0% {
-    color: #fff;
+    color: $color-white;
   }
   100% {
     color: #3BB2D0;
@@ -88,7 +88,7 @@
 }
 @keyframes textColour {
   0% {
-    color: #fff;
+    color: $color-white;
   }
   100% {
     color: #3BB2D0;
@@ -104,7 +104,7 @@ body {
   font-family: "Open Sans", sans-serif;
   width: 100vw;
   height: 100vh;
-  background: #FFF;
+  background: $color-white;
 }
 
 .e-loadholder {
@@ -133,7 +133,7 @@ body {
   transform: translate(-51%, -50%);
   content: " ";
   display: block;
-  background: #FFF;
+  background: $color-white;
   transform-origin: center;
   z-index: 0;
 }
@@ -175,7 +175,7 @@ body {
   transform: translate(-51%, -50%);
   content: " ";
   display: block;
-  background: #FFF;
+  background: $color-white;
   transform-origin: center;
   z-index: -1;
 }
@@ -223,7 +223,7 @@ body {
   transform: translate(-51%, -50%);
   content: " ";
   display: block;
-  background: #FFF;
+  background: $color-white;
   transform-origin: center;
   z-index: -1;
 }

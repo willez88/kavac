@@ -107,6 +107,29 @@ $(document).ready(function() {
         return false;
     });
 
+    /** Maximinizar / Minimizar secciones */
+    if ($(".btn-collapse").length) {
+        $(".btn-collapse").on("click", function() {
+            if ($(this).hasClass('collapsed')) {
+                $(this).find("i").removeClass('arrows-1_minimal-down');
+                $(this).find("i").addClass('arrows-1_minimal-up');
+            }
+            else {
+                $(this).find("i").removeClass('arrows-1_minimal-up');
+                $(this).find("i").addClass('arrows-1_minimal-down');
+            }
+        });
+        $(".btn-collapse").tooltip({
+            trigger: "hover",
+            delay: { hide: 100 }
+        });
+        $('.btn-collapse').on('shown.bs.tooltip', function() {
+            setTimeout(function() {
+                $('.close').tooltip('hide');
+            }, 1500);
+        });
+    }
+
     /** Implementación de sliders sencillos */
     if ($('#sliderRegular').length) {
         /** @type {Object} [Estilos personalizados para el uso de esliders] */

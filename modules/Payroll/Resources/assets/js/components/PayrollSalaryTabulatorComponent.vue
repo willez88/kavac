@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros Tabuladores de Nómina" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros Tabuladores de Nómina" data-toggle="tooltip"
 		   @click="addRecord('add_tabulator', 'salary-tabulators', $event)">
 			<i class="icofont icofont-table ico-3x"></i>
 			<span>Tabuladores de Nónima</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-table ico-2x"></i> 
+							<i class="icofont icofont-table ico-2x"></i>
 							 Nuevo Tabulador
 						</h6>
 					</div>
@@ -53,7 +53,7 @@
 											<div class="col-md-8">
 												<div class=" form-group is-required">
 													<label>Nombre</label>
-													<input type="text" placeholder="Nombre del tabulador" 
+													<input type="text" placeholder="Nombre del tabulador"
 															data-toggle="tooltip"
 															class="form-control input-sm"
 															v-model="record.name">
@@ -63,8 +63,8 @@
 												<div class=" form-group">
 													<label>¿Activa?</label>
 													<div class="col-12">
-														<input type="checkbox" class="form-control bootstrap-switch" 
-														   data-toggle="tooltip" name="active" 
+														<input type="checkbox" class="form-control bootstrap-switch"
+														   data-toggle="tooltip" name="active"
 														   title="Indique si el tabulador esta activo"
 														   data-on-label="SI" data-off-label="NO"
 														   v-model="record.active" value="true">
@@ -78,10 +78,10 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label>Descripción:</label>
-													<textarea  data-toggle="tooltip" 
+													<textarea  data-toggle="tooltip"
 															   title="Indique alguna descripción asociada al tabulador"
 															   class="form-control"
-															   rows="3" 
+															   rows="3"
 															   v-model="record.description">
 												   </textarea>
 							                    </div>
@@ -96,7 +96,7 @@
 			                                Escalafón Horizontal
 			                            </a>
 			                        </li>
-			                        
+
 			                        <li class="nav-item">
 			                            <a class="nav-link" data-toggle="tab" href="#vertical" id="tab_vertical" role="tab">
 			                                Escalafón Vertical
@@ -114,8 +114,8 @@
 												<div class=" form-group">
 													<label>Experiencia Laboral</label>
 													<div class="col-12">
-														<input type="radio" name="clasification_ladder" value="experience" id="sel_experience" 
-															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
+														<input type="radio" name="clasification_ladder" value="experience" id="sel_experience"
+															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
 															   data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -125,8 +125,8 @@
 												<div class=" form-group">
 													<label>Antigüedad</label>
 													<div class="col-12">
-														<input type="radio" name="clasification_ladder" value="antiquity" id="sel_antiquity" 
-															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
+														<input type="radio" name="clasification_ladder" value="antiquity" id="sel_antiquity"
+															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
 															   data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -136,8 +136,8 @@
 												<div class=" form-group">
 													<label>Grado de Instrucción</label>
 													<div class="col-12">
-														<input type="radio" name="clasification_ladder" value="instruction_degree" id="sel_instruction_degree" 
-															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
+														<input type="radio" name="clasification_ladder" value="instruction_degree" id="sel_instruction_degree"
+															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
 															   data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -147,8 +147,8 @@
 												<div class=" form-group">
 													<label>Cargo</label>
 													<div class="col-12">
-														<input type="radio" name="clasification_ladder" value="position" id="sel_position" 
-															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
+														<input type="radio" name="clasification_ladder" value="position" id="sel_position"
+															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
 															   data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -159,7 +159,7 @@
 											<div class="col-md-6">
 												<div class=" form-group is-required">
 													<label>Nombre del Escalafón</label>
-													<input type="text" placeholder="Nombre del Escalafón" 
+													<input type="text" placeholder="Nombre del Escalafón"
 																	data-toggle="tooltip"
 																	class="form-control input-sm"
 																	v-model="salary_ladder_h.name">
@@ -168,10 +168,10 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Descripción:</label>
-													<textarea  data-toggle="tooltip" 
+													<textarea  data-toggle="tooltip"
 															   title="Indique alguna descripción asociada al escalafón"
 															   class="form-control input-sm"
-															   rows="1" 
+															   rows="1"
 															   v-model="salary_ladder_h.description">
 												   </textarea>
 							                    </div>
@@ -207,13 +207,13 @@
 															<td v-for="(field,index) in salary_ladder_h.scales">
 																<div class="d-inline-flex">
 																	<button @click="editScale(index,'horizontal',$event)"
-											                				class="btn btn-warning btn-xs btn-icon btn-action" 
+											                				class="btn btn-warning btn-xs btn-icon btn-action"
 											                				title="Modificar registro" data-toggle="tooltip" type="button">
 											                			<i class="fa fa-edit"></i>
 											                		</button>
-											                		<button @click="removeScale(index,'horizontal',$event)" 
-																			class="btn btn-danger btn-xs btn-icon btn-action" 
-																			title="Eliminar registro" data-toggle="tooltip" 
+											                		<button @click="removeScale(index,'horizontal',$event)"
+																			class="btn btn-danger btn-xs btn-icon btn-action"
+																			title="Eliminar registro" data-toggle="tooltip"
 																			type="button">
 																		<i class="fa fa-trash-o"></i>
 																	</button>
@@ -235,7 +235,7 @@
 													<div class="col-md-6">
 														<div class="form-group is-required">
 															<label>Código:</label>
-															<input type="text" placeholder="Código de la Escala" 
+															<input type="text" placeholder="Código de la Escala"
 																	data-toggle="tooltip"
 																	class="form-control input-sm"
 																	v-model="scale.code">
@@ -253,7 +253,7 @@
 													<div class="col-md-12">
 														<div class=" form-group is-required">
 															<label>Nombre:</label>
-															<input type="text" placeholder="Nombre de la Escala" 
+															<input type="text" placeholder="Nombre de la Escala"
 																	data-toggle="tooltip"
 																	class="form-control input-sm"
 																	v-model="scale.name">
@@ -266,22 +266,22 @@
 													<div class="col-md-12">
 														<div class="form-group">
 															<label>Descripción:</label>
-															<textarea  data-toggle="tooltip" 
+															<textarea  data-toggle="tooltip"
 																	   title="Indique alguna descripción asociada a la escala"
 																	   class="form-control input-sm"
-																	   rows="1" 
+																	   rows="1"
 																	   v-model="scale.description">
 														   </textarea>
 									                    </div>
 													</div>
 													<div class="col-md-12" style="margin-bottom:0px; margin-top: auto;">
-														<button type="button" @click="addScale($event, 'horizontal')"class="btn btn-sm btn-primary btn-custom float-right" 
+														<button type="button" @click="addScale($event, 'horizontal')"class="btn btn-sm btn-primary btn-custom float-right"
 																title="Agregar registro a la lista"
 																data-toggle="tooltip">
 															<i class="fa fa-plus-circle"></i>
 															Agregar
 														</button>
-													</div>	
+													</div>
 												</div>
 											</div>
 										</div>
@@ -296,8 +296,8 @@
 												<div class=" form-group">
 													<label>Experiencia Laboral</label>
 													<div class="col-12">
-														<input type="radio" name="clasification_ladder_v" value="experience" id="sel_experience_v" 
-															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
+														<input type="radio" name="clasification_ladder_v" value="experience" id="sel_experience_v"
+															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
 															   data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -307,8 +307,8 @@
 												<div class=" form-group">
 													<label>Antigüedad</label>
 													<div class="col-12">
-														<input type="radio" name="clasification_ladder_v" value="antiquity" id="sel_antiquity_v" 
-															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
+														<input type="radio" name="clasification_ladder_v" value="antiquity" id="sel_antiquity_v"
+															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
 															   data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -318,8 +318,8 @@
 												<div class=" form-group">
 													<label>Grado de Instrucción</label>
 													<div class="col-12">
-														<input type="radio" name="clasification_ladder_v" value="instruction_degree" id="sel_instruction_degree_v" 
-															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
+														<input type="radio" name="clasification_ladder_v" value="instruction_degree" id="sel_instruction_degree_v"
+															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
 															   data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -329,8 +329,8 @@
 												<div class=" form-group">
 													<label>Cargo</label>
 													<div class="col-12">
-														<input type="radio" name="clasification_ladder_v" value="position" id="sel_position_v" 
-															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
+														<input type="radio" name="clasification_ladder_v" value="position" id="sel_position_v"
+															   class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
 															   data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -341,7 +341,7 @@
 											<div class="col-md-6">
 												<div class=" form-group is-required">
 													<label>Nombre del Escalafón</label>
-													<input type="text" placeholder="Nombre del Escalafón" 
+													<input type="text" placeholder="Nombre del Escalafón"
 																	data-toggle="tooltip"
 																	class="form-control input-sm"
 																	v-model="salary_ladder_v.name">
@@ -350,10 +350,10 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Descripción:</label>
-													<textarea  data-toggle="tooltip" 
+													<textarea  data-toggle="tooltip"
 															   title="Indique alguna descripción asociada al escalafón"
 															   class="form-control input-sm"
-															   rows="1" 
+															   rows="1"
 															   v-model="salary_ladder_v.description">
 												   </textarea>
 							                    </div>
@@ -389,13 +389,13 @@
 															<td v-for="(field,index) in salary_ladder_v.scales">
 																<div class="d-inline-flex">
 																	<button @click="editScale(index,'vertical',$event)"
-											                				class="btn btn-warning btn-xs btn-icon btn-action" 
+											                				class="btn btn-warning btn-xs btn-icon btn-action"
 											                				title="Modificar registro" data-toggle="tooltip" type="button">
 											                			<i class="fa fa-edit"></i>
 											                		</button>
-											                		<button @click="removeScale(index,'vertical',$event)" 
-																			class="btn btn-danger btn-xs btn-icon btn-action" 
-																			title="Eliminar registro" data-toggle="tooltip" 
+											                		<button @click="removeScale(index,'vertical',$event)"
+																			class="btn btn-danger btn-xs btn-icon btn-action"
+																			title="Eliminar registro" data-toggle="tooltip"
 																			type="button">
 																		<i class="fa fa-trash-o"></i>
 																	</button>
@@ -418,7 +418,7 @@
 													<div class="col-md-6">
 														<div class="form-group is-required">
 															<label>Código:</label>
-															<input type="text" placeholder="Código de la Escala" 
+															<input type="text" placeholder="Código de la Escala"
 																	data-toggle="tooltip"
 																	class="form-control input-sm"
 																	v-model="scale_v.code">
@@ -436,7 +436,7 @@
 													<div class="col-md-12">
 														<div class=" form-group is-required">
 															<label>Nombre:</label>
-															<input type="text" placeholder="Nombre de la Escala" 
+															<input type="text" placeholder="Nombre de la Escala"
 																	data-toggle="tooltip"
 																	class="form-control input-sm"
 																	v-model="scale_v.name">
@@ -449,22 +449,22 @@
 													<div class="col-md-12">
 														<div class="form-group">
 															<label>Descripción:</label>
-															<textarea  data-toggle="tooltip" 
+															<textarea  data-toggle="tooltip"
 																	   title="Indique alguna descripción asociada a la escala"
 																	   class="form-control input-sm"
-																	   rows="1" 
+																	   rows="1"
 																	   v-model="scale_v.description">
 														   </textarea>
 									                    </div>
 													</div>
 													<div class="col-md-12" style="margin-bottom:0px; margin-top: auto;">
-														<button type="button" @click="addScale($event, 'vertical')"class="btn btn-sm btn-primary btn-custom float-right" 
+														<button type="button" @click="addScale($event, 'vertical')"class="btn btn-sm btn-primary btn-custom float-right"
 																title="Agregar registro a la lista"
 																data-toggle="tooltip">
 															<i class="fa fa-plus-circle"></i>
 															Agregar
 														</button>
-													</div>	
+													</div>
 												</div>
 											</div>
 										</div>
@@ -475,7 +475,7 @@
 			                	<div v-if="((this.salary_ladder_h.scales.length > 0)||(this.salary_ladder_v.scales.length > 0))">
 		                    		<div class="row">
 		                    			<div class="col-md-12">
-											<button type="button" class="btn btn-sm btn-success btn-custom float-right" 
+											<button type="button" class="btn btn-sm btn-success btn-custom float-right"
 													title="Exportar tabulador en formato xls"
 													data-toggle="tooltip">
 												<i class="fa fa-file-excel-o"></i>
@@ -484,7 +484,7 @@
 										</div>
 		                    		</div>
 		                    		<div class="row">
-										
+
 									</div>
 								</div>
 								<div v-else>
@@ -500,11 +500,11 @@
 
 	                <div class="modal-footer">
 
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createTabulator('payroll/salary-tabulators')" 
+	                	<button type="button" @click="createTabulator('payroll/salary-tabulators')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -572,7 +572,7 @@
 					description: '',
 					value_id: ''
 				},
-				
+
 				records: [],
 				errors: [],
 
@@ -617,7 +617,7 @@
 				$('#sel_antiquity_v').bootstrapSwitch('disabled',false);
 				$('#sel_instruction_degree_v').bootstrapSwitch('disabled',false);
 				$('#sel_position_v').bootstrapSwitch('disabled',false);
-				
+
 				$('#sel_experience').bootstrapSwitch('disabled',false);
 				$('#sel_antiquity').bootstrapSwitch('disabled',false);
 				$('#sel_instruction_degree').bootstrapSwitch('disabled',false);
@@ -754,7 +754,7 @@
 			    if ( type == 'horizontal' ) {
 			    	if ( vm.salary_ladder_h.editIndex === null )
 			    		vm.salary_ladder_h.scales.push(scale);
-			    	
+
 			    	else if ( vm.salary_ladder_h.editIndex >= 0 ) {
 						vm.salary_ladder_h.scales.splice(vm.salary_ladder_h.editIndex, 1);
 				    	vm.salary_ladder_h.scales.push(scale);
@@ -783,7 +783,7 @@
 				}
 				else{
 					vm.salary_ladder_v.editIndex = index;
-					vm.scale_v = vm.salary_ladder_v.scales[index];	
+					vm.scale_v = vm.salary_ladder_v.scales[index];
 				}
 				event.preventDefault();
 			},
@@ -813,7 +813,7 @@
 					$('#sel_experience').bootstrapSwitch('disabled',(element == 'sel_experience')?true:false);
 					$('#sel_antiquity').bootstrapSwitch('disabled',(element == 'sel_antiquity')?true:false);
 					$('#sel_instruction_degree').bootstrapSwitch('disabled',(element == 'sel_instruction_degree')?true:false);
-					$('#sel_position').bootstrapSwitch('disabled',(element == 'sel_position')?true:false);	
+					$('#sel_position').bootstrapSwitch('disabled',(element == 'sel_position')?true:false);
 
 				}
 			},
@@ -828,7 +828,7 @@
 			vm.switchHandler('clasification_ladder_v');
 
 			$('.sel_clasification').on('switchChange.bootstrapSwitch', function(e) {
-				
+
 				if(vm.record.clasification_ladder != ''){
 					if (e.target.id === "sel_experience"){
 						vm.getParamenters('horizontal', 'experience');

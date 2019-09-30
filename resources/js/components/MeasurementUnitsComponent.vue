@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
-		   title="Registros de estados de los documentos" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
+		   title="Registros de estados de los documentos" data-toggle="tooltip"
 		   @click="addRecord('add_measurement_unit', 'measurement-units', $event)">
 		   	<i class="icofont icofont-ruler-pencil-alt-1 ico-3x"></i>
 			<span>Unidades de<br>Medida</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-ruler-pencil-alt-1 inline-block"></i> 
+							<i class="icofont icofont-ruler-pencil-alt-1 inline-block"></i>
 							Unidades de Medida
 						</h6>
 					</div>
@@ -28,7 +28,7 @@
 							<div class="col-md-2">
 								<div class="form-group is-required">
 									<label>Acrónimo:</label>
-									<input type="text" placeholder="Acrónimo" data-toggle="tooltip" 
+									<input type="text" placeholder="Acrónimo" data-toggle="tooltip"
 										   title="Indique el acrónimo o abreviación para la unidad de medida (requerido)"
 										   class="form-control input-sm" v-model="record.acronym">
 			                    </div>
@@ -36,8 +36,8 @@
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Nombre" data-toggle="tooltip" 
-										   title="Indique el nombre de la unidad de medida (requerido)" 
+									<input type="text" placeholder="Nombre" data-toggle="tooltip"
+										   title="Indique el nombre de la unidad de medida (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -45,8 +45,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-									<input type="text" placeholder="Descripción" data-toggle="tooltip" 
-										   title="Indique una descripción breve sobre la unidad de medida (requerido)" 
+									<input type="text" placeholder="Descripción" data-toggle="tooltip"
+										   title="Indique una descripción breve sobre la unidad de medida (requerido)"
 										   class="form-control input-sm" v-model="record.description">
 			                    </div>
 							</div>
@@ -60,14 +60,14 @@
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'measurement-units')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'measurement-units')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -101,7 +101,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {

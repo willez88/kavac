@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de Cierres de Almacén" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de Cierres de Almacén" data-toggle="tooltip"
 		   @click="addRecordClose($event)">
 			<i class="icofont icofont-ui-unlock ico-3x"></i>
 			<span>Cierres de Almacén</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-ui-unlock ico-2x"></i> 
+							<i class="icofont icofont-ui-unlock ico-2x"></i>
 							Nuevo Cierre de Almacén
 						</h6>
 					</div>
@@ -49,16 +49,16 @@
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Inicio del Cierre de Almacén:</label>
-									<input type="date" placeholder="Inicio del cierre del almacén" data-toggle="tooltip" 
-													   title="Indique la fecha de inicio del cierre del almacén (requerido)" 
+									<input type="date" placeholder="Inicio del cierre del almacén" data-toggle="tooltip"
+													   title="Indique la fecha de inicio del cierre del almacén (requerido)"
 													   class="form-control input-sm" v-model="record.initial_date">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Fin del Cierre de Almacén:</label>
-									<input type="date" placeholder="Fin del cierre del almacén" data-toggle="tooltip" 
-													   title="Indique la fecha en que culmina el cierre del almacén (requerido)" 
+									<input type="date" placeholder="Fin del cierre del almacén" data-toggle="tooltip"
+													   title="Indique la fecha en que culmina el cierre del almacén (requerido)"
 													   class="form-control input-sm" v-model="record.end_date">
 			                    </div>
 							</div>
@@ -66,8 +66,8 @@
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Observaciones del Cierre de Almacén:</label>
-									<textarea  data-toggle="tooltip" 
-											   title="Indique alguna observación referente al cierre del almacén (requerido)" 
+									<textarea  data-toggle="tooltip"
+											   title="Indique alguna observación referente al cierre del almacén (requerido)"
 											   class="form-control" v-model="record.observations">
 								   </textarea>
 			                    </div>
@@ -85,29 +85,29 @@
 		            		<div slot="id" slot-scope="props" class="text-center">
 		            			<div class="d-inline-flex">
 				            		<div v-if="checkClose(props.index)">
-				            			<button @click="warehouseClose(props.index)" 
-				                				class="btn btn-success btn-xs btn-icon btn-action" 
+				            			<button @click="warehouseClose(props.index)"
+				                				class="btn btn-success btn-xs btn-icon btn-action"
 				                				title="Abrir Almacén" data-toggle="tooltip" type="button">
 				                			<i class="fa fa-check"></i>
 				                		</button>
 				                	</div>
 
-			            			<button @click="initUpdate(props.index, $event)" 
-			                				class="btn btn-warning btn-xs btn-icon btn-action" 
+			            			<button @click="initUpdate(props.index, $event)"
+			                				class="btn btn-warning btn-xs btn-icon btn-action"
 			                				title="Editar Registro" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-edit"></i>
 			                		</button>
 
-			                		<button @click="deleteRecord(props.index, 'closes')" 
-											class="btn btn-danger btn-xs btn-icon btn-action" 
-											title="Eliminar registro" data-toggle="tooltip" 
+			                		<button @click="deleteRecord(props.index, 'closes')"
+											class="btn btn-danger btn-xs btn-icon btn-action"
+											title="Eliminar registro" data-toggle="tooltip"
 											type="button">
 										<i class="fa fa-trash-o"></i>
 									</button>
 		            			</div>
 		            		</div>
             			</v-client-table>
-	                	
+
 	                </div>
 		        </div>
 		    </div>
@@ -135,7 +135,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset()

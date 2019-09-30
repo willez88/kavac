@@ -4,7 +4,7 @@
 
 	.content-header-map {
 		padding: 20px;
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid $color-white-light;
 		padding-bottom: 20px;
 		height: 90px;
 		-webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
@@ -17,7 +17,7 @@
 			height: 50px;
 			background-color: #2BA3F7;
 			display: inline-block;
-			color: #fff;
+			color: $color-white;
 			font-size: 32px;
 			border-radius: 3px;
 			padding-top: 1px;
@@ -29,7 +29,7 @@
 			padding: 0;
 			background: none;
 			font-size: 11px;
-			color: #999;
+			color: $color-gray-strong;
 			line-height: 18px;
 
 			> li {
@@ -37,7 +37,7 @@
 			}
 
 			i {
-				color: #999;
+				color: $color-gray-strong;
 			}
 
 			> li + li:before {
@@ -51,7 +51,7 @@
 			margin: -2px 0 0 0;
 			font-size: 28px;
 			font-weight: 500;
-			color: #999;
+			color: $color-gray-strong;
 			line-height: normal;
 		}
 	}

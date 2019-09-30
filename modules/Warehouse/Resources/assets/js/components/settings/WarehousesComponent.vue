@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de Almacenes" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de Almacenes" data-toggle="tooltip"
 		   @click="addRecord('add_warehouse', 'warehouses', $event)">
 			<i class="icofont icofont-building-alt ico-3x"></i>
 			<span>Almacenes</span>
@@ -15,7 +15,7 @@
 						</button>
 						<div>
 							<h6>
-								<i class="icofont icofont-building-alt ico-2x"></i> 
+								<i class="icofont icofont-building-alt ico-2x"></i>
 								Gestión de Almacenes
 							</h6>
 						</div>
@@ -48,17 +48,17 @@
 											 v-model="record.institution_id">
 									</select2>
 			                    </div>
-							</div>							
+							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Nombre del Almacén:</label>
-									<input type="text" placeholder="Nombre del Almacén" data-toggle="tooltip" 
-										   title="Indique el nombre del Nuevo almacén (requerido)" 
+									<input type="text" placeholder="Nombre del Almacén" data-toggle="tooltip"
+										   title="Indique el nombre del Nuevo almacén (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-							
+
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="" class="control-label">Principal</label>
@@ -90,7 +90,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Pais:</label>
-									<select2 :options="countries" @input="getEstates" 
+									<select2 :options="countries" @input="getEstates"
 											 v-model="record.country_id"></select2>
 			                    </div>
 							</div>
@@ -120,10 +120,10 @@
 									<label>Dirección:</label>
 									<textarea  data-toggle="tooltip"
 												placeholder="Dirección del almacén"
-											    title="Indique una breve dirección del Nuevo almacén (requerido)" 
+											    title="Indique una breve dirección del Nuevo almacén (requerido)"
 										   		class="form-control" v-model="record.address">
 								   </textarea>
-									
+
 			                    </div>
 							</div>
 						</div>
@@ -172,28 +172,28 @@
 	                		<div slot="id" slot-scope="props" class="text-center">
 		                		<div class="d-inline-flex">
 			                		<div v-if="multi_warehouse">
-				                		<button @click="warehouseManage(props.index, $event)" 
-												class="btn btn-danger btn-xs btn-icon btn-action" 
-												title="Dejar de Gestionar Almacén" data-toggle="tooltip" 
+				                		<button @click="warehouseManage(props.index, $event)"
+												class="btn btn-danger btn-xs btn-icon btn-action"
+												title="Dejar de Gestionar Almacén" data-toggle="tooltip"
 												type="button"
 												v-if="props.row.manage">
 											<i class="fa fa-minus-circle"></i>
 										</button>
-										<button @click="warehouseManage(props.index, $event)" 
-				                				class="btn btn-success btn-xs btn-icon btn-action" 
+										<button @click="warehouseManage(props.index, $event)"
+				                				class="btn btn-success btn-xs btn-icon btn-action"
 				                				title="Gestionar Almacén" data-toggle="tooltip" type="button"
 				                				v-else>
 				                			<i class="fa fa-plus-circle"></i>
 				                		</button>
 									</div>
-		                			<button @click="editRecord(props.index, $event)" 
-			                				class="btn btn-warning btn-xs btn-icon btn-action" 
+		                			<button @click="editRecord(props.index, $event)"
+			                				class="btn btn-warning btn-xs btn-icon btn-action"
 			                				title="Modificar registro" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-edit"></i>
 			                		</button>
-			                		<button @click="deleteRecord(props.index, 'warehouses')" 
-											class="btn btn-danger btn-xs btn-icon btn-action" 
-											title="Eliminar registro" data-toggle="tooltip" 
+			                		<button @click="deleteRecord(props.index, 'warehouses')"
+											class="btn btn-danger btn-xs btn-icon btn-action"
+											title="Eliminar registro" data-toggle="tooltip"
 											type="button">
 										<i class="fa fa-trash-o"></i>
 									</button>
@@ -239,7 +239,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset()
@@ -260,7 +260,7 @@
 			},
 			/**
 			 * Método que obtiene la configuración del sistema
-			 * 
+			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
 			getSetting(url)
@@ -277,7 +277,7 @@
 			},
 			/**
 			 * Método que obtiene actualiza la institución que gestiona un almacén
-			 * 
+			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
 			warehouseManage(index)
@@ -295,7 +295,7 @@
 			},
 			/**
 			 * Método que carga los datos de un registro en el formulario para su edición
-			 * 
+			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
 			editRecord(index, event)
@@ -339,7 +339,7 @@
 				'active': 'Estatus',
 				'id': 'Acción'
 			};
-			
+
 			this.table_options.sortable = ['name', 'country', 'estate', 'address', 'institution', 'active'];
 			this.table_options.filterable = ['name', 'country', 'estate', 'address', 'institution', 'active'];
 			this.table_options.columnsClasses = {

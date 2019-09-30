@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
-		   title="Registros de estados civiles" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
+		   title="Registros de estados civiles" data-toggle="tooltip"
 		   @click="addRecord('add_marital_status', 'marital-status', $event)">
 			<i class="fa fa-female ico-3x inline-block"></i>
 			<i class="fa fa-male ico-3x nopadding-left"></i>
@@ -16,7 +16,7 @@
 						</button>
 						<h6>
 							<i class="fa fa-female inline-block"></i>
-							<i class="fa fa-male inline-block"></i> 
+							<i class="fa fa-male inline-block"></i>
 							Estado Civil
 						</h6>
 					</div>
@@ -28,8 +28,8 @@
 						</div>
 						<div class="form-group is-required">
 							<label for="marital_status_name">Nombre:</label>
-							<input type="text" id="name" placeholder="Estado Civil" 
-								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip" 
+							<input type="text" id="name" placeholder="Estado Civil"
+								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
 								   title="Indique el nombre del estado civil (requerido)">
 							<input type="hidden" name="id" id="id" v-model="record.id">
 	                    </div>
@@ -42,14 +42,14 @@
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'marital-status')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'marital-status')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -78,7 +78,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {

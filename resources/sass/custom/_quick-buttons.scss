@@ -10,9 +10,9 @@
   text-align: center;
   text-decoration: none !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-  -webkit-box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
-  border-radius: 15px;background-color: #fff;
+  -webkit-box-shadow: 0px 10px 25px 0px $default-shadow-thin;
+  box-shadow: 0px 10px 25px 0px $default-shadow-thin;
+  border-radius: 15px;background-color: $color-white;
 
   &.btn-simplex-primary {
     border: 3px double #519BF6;
@@ -39,13 +39,13 @@ a {
 /** Square buttons */
 .btn {
     &.btn-square, &.btn-square:hover {
-        background-color: #fff;
+        background-color: $color-white;
     }
 }
 
 .btn-square {
     padding: 5px;
-    border: 3px double #2CA8FF;
+    border: 3px double $color-info;
     color: #337AB7;
     min-height: 120px;
     max-width: 100%;
@@ -53,8 +53,8 @@ a {
     -moz-border-radius: 8px;
     border-radius: 8px;
     margin: 5px;
-    -webkit-box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 10px 25px 0px $default-shadow-thin;
+    box-shadow: 0px 10px 25px 0px $default-shadow-thin;
 
     a {
         text-decoration: none;
@@ -65,42 +65,42 @@ a {
     }
 
     &.btn-square-primary {
-        border: 3px double #F96332;
+        border: 3px double $color-primary;
 
         a {
-            color: #F96332;
+            color: $color-primary;
         }
     }
 
     &.btn-square-success {
-        border: 3px double rgba(24, 206, 15, 0.8);
+        border: 3px double $color-success-opacity-8;
 
         a {
-            color: rgba(24, 206, 15, 0.8);
+            color: $color-success-opacity-8;
         }
     }
 
     &.btn-square-warning {
-        border: 3px double rgba(255, 178, 54, 0.8);
+        border: 3px double $color-warbing-light-thin;
 
         a {
-            color: rgba(255, 178, 54, 0.8);
+            color: $color-warbing-light-thin;
         }
     }
 
     &.btn-square-danger {
-        border: 3px double rgba(255, 54, 54, 0.8);
+        border: 3px double $color-danger-opacity-8;
 
         a {
-            color: rgba(255, 54, 54, 0.8);
+            color: $color-danger-opacity-8;
         }
     }
 
     &.btn-square-info {
-        border: 3px double rgba(44, 168, 255, 0.8);
+        border: 3px double $color-info-opacity-8;
 
         a {
-            color: rgba(44, 168, 255, 0.8);
+            color: $color-info-opacity-8;
         }
     }
 }

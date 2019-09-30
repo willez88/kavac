@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Tipos de Asignaciones de Nómina" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Tipos de Asignaciones de Nómina" data-toggle="tooltip"
 		   @click="addRecord('add_assignment_type', 'salary-assignment-types', $event)">
 			<i class=""></i>
 			<span>Tipos de Asignaciones</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class=""></i> 
+							<i class=""></i>
 							Nuevo Tipo de Asignación
 						</h6>
 					</div>
@@ -30,8 +30,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Tipo de Asignación:</label>
-									<input type="text" placeholder="Nombre del Tipo de Asignación" data-toggle="tooltip" 
-										   title="Indique el nombre del Nuevo Tipo de Asignación (requerido)" 
+									<input type="text" placeholder="Nombre del Tipo de Asignación" data-toggle="tooltip"
+										   title="Indique el nombre del Nuevo Tipo de Asignación (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -39,8 +39,8 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Descripción:</label>
-									<input type="text" placeholder="Descripción del Tipo de Asignación" data-toggle="tooltip" 
-										   title="Indique una breve descripción del Nuevo Tipo de Asignación (opcional)" 
+									<input type="text" placeholder="Descripción del Tipo de Asignación" data-toggle="tooltip"
+										   title="Indique una breve descripción del Nuevo Tipo de Asignación (opcional)"
 										   class="form-control input-sm" v-model="record.description">
 			                    </div>
 							</div>
@@ -50,14 +50,14 @@
 		                	<hr>
 		                	<v-client-table :columns="columns" :data="records" :options="table_options">
 		                		<div slot="id" slot-scope="props" class="text-center">
-		                			<button @click="initUpdate(props.index, $event)" 
-			                				class="btn btn-warning btn-xs btn-icon btn-action" 
+		                			<button @click="initUpdate(props.index, $event)"
+			                				class="btn btn-warning btn-xs btn-icon btn-action"
 			                				title="Modificar registro" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-edit"></i>
 			                		</button>
-			                		<button @click="deleteRecord(props.index, 'salary-assignment-types')" 
-											class="btn btn-danger btn-xs btn-icon btn-action" 
-											title="Eliminar registro" data-toggle="tooltip" 
+			                		<button @click="deleteRecord(props.index, 'salary-assignment-types')"
+											class="btn btn-danger btn-xs btn-icon btn-action"
+											title="Eliminar registro" data-toggle="tooltip"
 											type="button">
 										<i class="fa fa-trash-o"></i>
 									</button>
@@ -69,7 +69,7 @@
 
 					<div class="modal-footer">
 
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
@@ -117,7 +117,7 @@
 				}
 				this.errors = [];
 			},
-			
+
 		},
 	};
 </script>

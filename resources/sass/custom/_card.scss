@@ -10,7 +10,7 @@
             margin-bottom: 0;
 
             .card-title {
-                  a {color:#0073b7;}
+                  a {color:$color-info-dark;}
                   i {font-size: 1.2rem;font-weight: bold;margin-left:10px;}
             }
       }
@@ -18,10 +18,10 @@
       label {
             font-size: 0.8571em;
             margin-bottom: 5px;
-            color: #9A9A9A;
+            color: $color-gray;
       }
 }
-            
+
 .card-category {
       font-size: 1.5em;
 }
@@ -29,7 +29,7 @@
 .category, .card-category {
       text-transform: capitalize;
       font-weight: 400;
-      color: #9A9A9A;
+      color: $color-gray;
 }
 
 .card-btns {
@@ -45,15 +45,15 @@
             }
       }
 }
-            
+
 .btn-card-action {
       background: transparent !important;
-      color: #2CA8FF !important;
+      color: $color-info !important;
 }
 
 .card-footer {
       border-top: 0;
-      border-top: 1px solid #EEE;
+      border-top: 1px solid $color-white-light;
 
       .btn-default {
             background-color: #d2d5d8;

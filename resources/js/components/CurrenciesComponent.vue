@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de Monedas" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de Monedas" data-toggle="tooltip"
 		   @click="addRecord('add_currency', 'currencies', $event)">
 			<i class="icofont icofont-cur-dollar ico-3x"></i>
 			<span>Monedas</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-cur-dollar inline-block"></i> 
+							<i class="icofont icofont-cur-dollar inline-block"></i>
 							Moneda
 						</h6>
 					</div>
@@ -35,24 +35,24 @@
 							<div class="col-md-2">
 								<div class="form-group is-required">
 									<label>Símbolo:</label>
-									<input type="text" placeholder="Símbolo" data-toggle="tooltip" 
-										   title="Indique el símbolo de la moneda (requerido)" 
+									<input type="text" placeholder="Símbolo" data-toggle="tooltip"
+										   title="Indique el símbolo de la moneda (requerido)"
 										   class="form-control" v-model="record.symbol">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Nombre de la moneda" data-toggle="tooltip" 
-										   title="Infique el nombre de la moneda (requerido)" 
+									<input type="text" placeholder="Nombre de la moneda" data-toggle="tooltip"
+										   title="Infique el nombre de la moneda (requerido)"
 										   class="form-control" v-model="record.name">
 			                    </div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group is-required">
 									<label>Decimales</label>
-									<input type="number" placeholder="Cantidad de decimales" data-toggle="tooltip" 
-										   title="Indique la cantidad de decimales para la moneda a registrar" class="form-control" v-model="record.decimal_places" step="1" 
+									<input type="number" placeholder="Cantidad de decimales" data-toggle="tooltip"
+										   title="Indique la cantidad de decimales para la moneda a registrar" class="form-control" v-model="record.decimal_places" step="1"
 										   min="2">
 								</div>
 							</div>
@@ -62,9 +62,9 @@
 								<div class="form-group is-required">
 									<label>Por defecto:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch" 
-											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO" value="true" 
-											   title="Indique si es la moneda por defecto en la aplicación" 
+										<input type="checkbox" class="form-control bootstrap-switch"
+											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO" value="true"
+											   title="Indique si es la moneda por defecto en la aplicación"
 											   v-model="record.default" name="default">
 									</div>
 			                    </div>
@@ -79,14 +79,14 @@
 					<div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'currencies')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'currencies')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -124,7 +124,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {

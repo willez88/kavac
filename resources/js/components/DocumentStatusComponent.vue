@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
-		   title="Registros de estados de los documentos" data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
+		   title="Registros de estados de los documentos" data-toggle="tooltip"
 		   @click="addRecord('add_doc_status', 'document-status', $event)">
 		   	<i class="icofont icofont-ui-copy ico-3x"></i>
 			<span>Estatus<br>Documentos</span>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-ui-copy inline-block"></i> 
+							<i class="icofont icofont-ui-copy inline-block"></i>
 							Estatus de Documento
 						</h6>
 					</div>
@@ -28,7 +28,7 @@
 							<div class="col-md-2">
 								<div class="form-group is-required">
 									<label>Color:</label>
-									<input type="color" placeholder="Color" data-toggle="tooltip" 
+									<input type="color" placeholder="Color" data-toggle="tooltip"
 										   title="Seleccione un color para identificar el estatus de documento (requerido)"
 										   class="form-control input-sm" v-model="record.color">
 			                    </div>
@@ -36,8 +36,8 @@
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
-									<input type="text" placeholder="Nombre" data-toggle="tooltip" 
-										   title="Indique el nombre del estatus de documento (requerido)" 
+									<input type="text" placeholder="Nombre" data-toggle="tooltip"
+										   title="Indique el nombre del estatus de documento (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -45,8 +45,8 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-									<input type="text" placeholder="Descripción" data-toggle="tooltip" 
-										   title="Indique una descripción breve sobre el estatus de documento (requerido)" 
+									<input type="text" placeholder="Descripción" data-toggle="tooltip"
+										   title="Indique una descripción breve sobre el estatus de documento (requerido)"
 										   class="form-control input-sm" v-model="record.description">
 			                    </div>
 							</div>
@@ -60,40 +60,40 @@
 			                    	<div class="row">
 			                    		<div class="col-md-4">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch" 
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si aprueba procesos" 
+					                    		<input type="radio" class="form-control bootstrap-switch"
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si aprueba procesos"
 													   v-model.lazy="record.action" value="AP" data-record="action">
 				                    			Aprueba procesos
 				                    		</label>
 				                    	</div>
 				                    	<div class="col-md-4">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch" 
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si rechaza procesos" 
+					                    		<input type="radio" class="form-control bootstrap-switch"
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si rechaza procesos"
 													   v-model="record.action" value="RE" data-record="action">
 				                    			Rechaza procesos
 				                    		</label>
 				                    	</div>
 				                    	<div class="col-md-4">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch" 
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si elimina procesos" 
+					                    		<input type="radio" class="form-control bootstrap-switch"
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si elimina procesos"
 													   v-model="record.action" value="EL" data-record="action">
 				                    			Elimina procesos
 				                    		</label>
 				                    	</div>
 				                    	<div class="col-md-4">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch" 
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si inicia procesos" 
+					                    		<input type="radio" class="form-control bootstrap-switch"
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si inicia procesos"
 													   v-model="record.action" value="PR" data-record="action">
 				                    			Inicia procesos
 				                    		</label>
 				                    	</div>
 				                    	<div class="col-md-4">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch" 
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si anula procesos" 
+					                    		<input type="radio" class="form-control bootstrap-switch"
+					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si anula procesos"
 													   v-model="record.action" value="AN" data-record="action">
 				                    			Anula procesos
 				                    		</label>
@@ -122,14 +122,14 @@
 								<span v-if="props.row.action === 'AN'">Anulación de procesos</span>
 							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'document-status')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'document-status')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -164,7 +164,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {

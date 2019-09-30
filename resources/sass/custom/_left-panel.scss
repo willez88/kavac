@@ -44,15 +44,15 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: #fff;
+	background-color: $color-white;
 	min-height: 100%;
-	-webkit-box-shadow: 0px 2px 22px 0 rgba(0, 0, 0, 0.2), 0px 2px 30px 0 rgba(0, 0, 0, 0.35);
-	box-shadow: 0px 0px 20px 0 rgba(0, 0, 0, 0.2), 0px 0px 30px 0 rgba(0, 0, 0, 0.35);
+	-webkit-box-shadow: 0px 2px 22px 0 $default-shadow, 0px 2px 30px 0 $default-shadow-thin;
+	box-shadow: 0px 0px 20px 0 $default-shadow, 0px 0px 30px 0 $default-shadow-thin;
 
 	.profile-left {
 		padding: 15px;
 		min-height: 90px;
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid $color-white-light;
 		-webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
 		box-shadow: 0 2px 3px rgba(0,0,0,0.03);
 		margin-right: 1px;
@@ -116,7 +116,7 @@
 	margin-bottom: 0;
 
 	&:not(:first-child) {
-		border-top: 1px solid #EEE !important;
+		border-top: 1px solid $color-white-light !important;
 		border-radius: 0;
 	}
 
@@ -186,6 +186,6 @@
 		height: 3px;
 		border-radius: 3px;
 		margin: 0em 0em 1em 0em;
-		background: #eee;
+		background: $color-white-light;
 	}
 }

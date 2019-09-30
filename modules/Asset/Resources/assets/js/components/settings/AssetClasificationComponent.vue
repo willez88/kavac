@@ -1,8 +1,8 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="" title="Registros de Clasificador de Bienes" 
-		   data-toggle="tooltip" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="" title="Registros de Clasificador de Bienes"
+		   data-toggle="tooltip"
 		   @click="addRecord('add_clasification', 'clasifications',$event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Clasificador<br>Bienes</span>
@@ -15,7 +15,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book ico-2x"></i> 
+							<i class="icofont icofont-read-book ico-2x"></i>
 							Clasificación de Bienes
 						</h6>
 					</div>
@@ -42,7 +42,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Tipo de Bien:</label>
-									<select2 :options="asset_types" @input="checkType()" 
+									<select2 :options="asset_types" @input="checkType()"
 											 v-model="record.asset_type_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -50,18 +50,18 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Tipo de Bienes:</label>
-									<input type="text" placeholder="Nuevo Tipo de Bienes" data-toggle="tooltip" 
+									<input type="text" placeholder="Nuevo Tipo de Bienes" data-toggle="tooltip"
 										   id ="type_id"
-										   title="Indique el nuevo Tipo de Bienes (requerido)" 
+										   title="Indique el nuevo Tipo de Bienes (requerido)"
 										   class="form-control input-sm" v-model="type.name">
 			                    </div>
 							</div>
-					
+
 
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Categoría General:</label>
-									<select2 :options="asset_categories" @input="checkCategory" 
+									<select2 :options="asset_categories" @input="checkCategory"
 											 v-model="record.category_id"></select2>
 			                    </div>
 							</div>
@@ -70,19 +70,19 @@
 									<label>Código de la Categoría:</label>
 									<input type="text" placeholder="Código de la Categoría" data-toggle="tooltip"
 											id="category_code_id"
-										    title="Indique el código de la nueva Categoría (requerido)" 
+										    title="Indique el código de la nueva Categoría (requerido)"
 										    class="form-control input-sm" v-model="category.code">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Categoría General:</label>
-									<input type="text" placeholder="Nueva Categoría General" data-toggle="tooltip" 
+									<input type="text" placeholder="Nueva Categoría General" data-toggle="tooltip"
 											id="category_name_id"
-											title="Indique la nueva Categoría General (requerido)" 
+											title="Indique la nueva Categoría General (requerido)"
 											class="form-control input-sm" v-model="category.name">
 			                    </div>
-							</div>				
+							</div>
 
 							<div class="col-md-4">
 								<div class="form-group">
@@ -96,55 +96,55 @@
 									<label>Código de la SubCategoría:</label>
 									<input type="text" placeholder="Código de la SubCategoría" data-toggle="tooltip"
 											id="subcategory_code_id"
-										    title="Indique el código de la nueva SubCategoría (requerido)" 
+										    title="Indique el código de la nueva SubCategoría (requerido)"
 										    class="form-control input-sm" v-model="subcategory.code">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Subcategoría:</label>
-									<input type="text" placeholder="Nueva SubCategoría" data-toggle="tooltip" 
+									<input type="text" placeholder="Nueva SubCategoría" data-toggle="tooltip"
 											id="subcategory_name_id"
-										    title="Indique la nueva Subcategoría(requerido)" 
+										    title="Indique la nueva Subcategoría(requerido)"
 										    class="form-control input-sm" v-model="subcategory.name">
 			                    </div>
 							</div>
-														
+
 
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Código de la Categoría Específica:</label>
-									<input type="text" placeholder="Código de la Categoría Específica" data-toggle="tooltip" 
-										   title="Indique el código de la nueva Categoría Específica (requerido)" 
+									<input type="text" placeholder="Código de la Categoría Específica" data-toggle="tooltip"
+										   title="Indique el código de la nueva Categoría Específica (requerido)"
 										   class="form-control input-sm" v-model="record.code">
 			                    </div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Categoría Especifica:</label>
-									<input type="text" placeholder="Nueva Categoría Específica" data-toggle="tooltip" 
-										   title="Indique la nueva Categoría Específica (requerido)" 
+									<input type="text" placeholder="Nueva Categoría Específica" data-toggle="tooltip"
+										   title="Indique la nueva Categoría Específica (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
 						</div>
 	                </div>
-	                
+
 	                <div class="modal-body modal-table">
-	                    
+
 
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'clasifications')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'clasifications')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -157,7 +157,7 @@
 
 	                <div class="modal-footer">
 
-		                <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+		                <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
@@ -226,7 +226,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
@@ -261,7 +261,7 @@
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
 			getAssetTypes() {
-				let vm = this;				
+				let vm = this;
 
 				axios.get('/asset/get-types').then(response => {
 					$.each(response.data, function() {
@@ -287,7 +287,7 @@
 			},
 			/**
 			 * Obtiene las Categorias del Tipo de Bien seleccionado
-			 * 
+			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
 			getAssetCategories() {
@@ -298,7 +298,7 @@
 					axios.get('/asset/get-categories/' + this.record.asset_type_id).then(response => {
 						vm.asset_categories = [];
 						$.each(response.data, function() {
-							
+
 							if ( first === true ){
 								first = false;
 								vm.asset_categories.push({
@@ -331,18 +331,18 @@
 			},
 			/**
 			 * Obtiene las Subcategorias de la Categoria seleccionada
-			 * 
+			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
 			getAssetSubcategories() {
 				let vm = this;
 				var first = true;
-				
+
 				if (this.record.asset_category_id > 0) {
 					axios.get('/asset/get-subcategories/' + this.record.asset_category_id).then(response => {
 						vm.asset_subcategories= [];
 						$.each(response.data, function() {
-							
+
 							if ( first === true ){
 								first = false;
 								vm.asset_subcategories.push({
@@ -374,7 +374,7 @@
 				}
 			},
 			checkType(){
-				let index = this.record.asset_type_id;				
+				let index = this.record.asset_type_id;
 				$("#type_id").attr('disabled', (index > 0));
 				if (index > 0){
 					$("#type_id").closest('.form-group').removeClass('is-required');
@@ -383,7 +383,7 @@
 				this.getAssetCategories();
 			},
 			checkCategory(){
-				let index = this.record.asset_category_id;				
+				let index = this.record.asset_category_id;
 				$("#category_name_id").attr('disabled', (index > 0));
 				$("#category_code_id").attr('disabled', (index > 0));
 
@@ -437,7 +437,7 @@
 							name: this.subcategory.name,
 						}
 					};
-					
+
 					axios.post('/' + url, fields).then(response => {
 						vm.reset();
 						vm.readRecords(url);
@@ -454,7 +454,7 @@
 						}
 					});
 				}
-				
+
 			},
 			initUpdate(index, event) {
 				this.errors = [];

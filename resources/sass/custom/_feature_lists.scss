@@ -82,7 +82,7 @@
         height: 1rem;
         pointer-events: none;
         content: "";
-        background-color: #fff;
+        background-color: $color-white;
         border: #adb5bd solid 1px;
     }
     .custom-control-label::after {

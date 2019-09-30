@@ -10,7 +10,7 @@
 			</div>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="form-group">
 							<label for="">Logotipo Institucional</label>
 							{!! Form::open([
@@ -40,7 +40,7 @@
                             {!! Form::close() !!}
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-8">
 						<div class="form-group">
 							<label for="">Banner Institucional</label>
 							{!! Form::open([
@@ -392,7 +392,7 @@
 					</div>
 					@if (!is_null($paramMultiInstitution))
 						<hr>
-						<h6 class="md-title">Instituciones Registradas</h6>
+						<h6 class="md-title card-title">Instituciones Registradas</h6>
 						<div class="row">
 							<div class="col-12 text-right">
 								@include('buttons.new', ['route' => 'javascript:void(0)', 'btnClass' => 'btn-new-institution'])

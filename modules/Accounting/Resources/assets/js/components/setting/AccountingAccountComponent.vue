@@ -1,7 +1,7 @@
 <template>
-	<div class="col-md-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Catálogo de Cuentas patrimoniales" 
+	<div class="col-xs-2 text-center">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Catálogo de Cuentas patrimoniales"
 		   data-toggle="tooltip" @click="addRecord('CRUD_accounts', '/accounting/accounts', $event)">
 			<i class="fa fa-list ico-3x"></i>
 			<span>Catálogo de cuentas</span>
@@ -18,7 +18,7 @@
 								v-show="!formImport">
 								Importar Hoja de Cálculo <i class="fa fa-file-excel-o"></i>
 						</button>
-						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1.8rem; margin-top: -.1rem;" 
+						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1.8rem; margin-top: -.1rem;"
 								title="formulario de creación manual"
 								data-toggle="tooltip"
 								@click="OpenImportForm(false)"
@@ -30,7 +30,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="fa fa-list inline-block"></i> 
+							<i class="fa fa-list inline-block"></i>
 							CUENTAS PATRIMONIALES
 						</h6>
 					</div>
@@ -47,7 +47,7 @@
 					<div class="modal-body" style="margin-top: -5rem;" v-show="!formImport && records_select.length > 0">
 						<accounting-create-edit-form :records="records_select" />
 	                </div>
-					
+
 					<div class="modal-footer" v-if="!formImport">
 	                	<div class="form-group">
 	                		<modal-form-buttons :saveRoute="'/accounting/accounts/'"></modal-form-buttons>
@@ -87,10 +87,10 @@ export default{
 			});
 	},
 	methods:{
-		
+
 		/**
 		 * Método que borra todos los datos del formulario
-		 * 
+		 *
 		 * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
 		 */
 		reset() {
@@ -123,7 +123,7 @@ export default{
 
 		/**
 		* Guarda los registros cargados desde la hora de cálculo
-		* 
+		*
 		* @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
 		*/
 		registerImportedAccounts:function(url) {
@@ -131,7 +131,7 @@ export default{
 			if (vm.accounts != null) {
 				axios.post(url, { records: vm.accounts }).then(response=>{
 					vm.showMessage(
-						'custom', 'Éxito', 'success', 'screen-ok', 
+						'custom', 'Éxito', 'success', 'screen-ok',
 						response.data.message
 					);
 					vm.reset();
@@ -153,7 +153,7 @@ export default{
 	},
 	watch:{
 		records:function(res, ant) {
-			/** 
+			/**
 			 * [records_list listado con las cuentas para la tabla]
 			 * @type {array}
 			 */

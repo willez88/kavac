@@ -90,7 +90,7 @@
 					<hr>
 					<h6>Módulos</h6>
 					<div class="row">
-						<div class="col-3">
+						<div class="col-4">
 							<div class="info-box">
 								<div class="info-box-content info-box-content-lg">
 									<div class="info-box-img">
@@ -104,6 +104,14 @@
 									</div>
 									<div class="info-box-footer buttons">
 										<div class="row">
+											<div class="col" style="">
+												<button class="btn btn-sm btn-info btn-simple btn-round btn-block">Instalar</button>
+											</div>
+											<div class="col text-center" style="border-left: 1px solid rgba(0, 0, 0, 0.24);padding: 8px 15px;">
+												<a href="#">Detalles</a>
+											</div>
+										</div>
+										<!--<div class="row">
 											<div class="col-4 text-left">
 												<a href="" class="btn btn-sm btn-round btn-success"
 												   title="Instalar módulo" data-toggle="tooltip">
@@ -120,7 +128,7 @@
 										</div>
 										<span class="status installed">
 											Instalado
-										</span>
+										</span>-->
 									</div>
 								</div>
 							</div>

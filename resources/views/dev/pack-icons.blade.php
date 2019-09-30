@@ -44,27 +44,47 @@
                                 IONICONS
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#nucleo" role="tab">
+                                NUCLEO
+                            </a>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="icofont" role="tabpanel">
 							<div class="row">
 								@foreach ($icofonts as $key => $icofont)
-									<div class="col-12">
+                                    @php
+                                        $icofontIdx = $loop->index;
+                                    @endphp
+									<div class="col-sm-12">
 										<hr>
-										<h6 class="card-title">{{ $key }}</h6>
+										<h6 class="card-title">
+                                            {{ $key }}
+                                            <a class="btn btn-collapse" data-toggle="collapse"
+                                               href="#icofontContent{{ $icofontIdx }}"
+                                               aria-expanded="true" aria-controls="icofontContent{{ $icofontIdx }}"
+                                               style="padding:4px;font-size:0.7em;background-color: transparent;color:#0073b7" title="Mostrar / Ocultar contenido">
+                                                <i class="now-ui-icons arrows-1_minimal-up"></i>
+                                            </a>
+                                        </h6>
 									</div>
-									@foreach ($icofont as $icon)
-										<div class="col-md-2 text-center">
-											<div class="row">
-												<div class="col-12">
-													<i class="icofont {{ $icon }} ico-2x"></i>
-												</div>
-												<div class="col-12">
-													<label>{{ $icon }}</label>
-												</div>
-											</div>
-										</div>
-									@endforeach
+                                    <div class="col-sm-12 collapse show" id="icofontContent{{ $icofontIdx }}">
+                                        <div class="row">
+                                            @foreach ($icofont as $icon)
+        										<div class="col-md-2 text-center">
+        											<div class="row">
+        												<div class="col-12">
+        													<i class="icofont {{ $icon }} ico-2x"></i>
+        												</div>
+        												<div class="col-12">
+        													<label>icofont {{ $icon }}</label>
+        												</div>
+        											</div>
+        										</div>
+        									@endforeach
+                                        </div>
+                                    </div>
 								@endforeach
 							</div>
                         </div>
@@ -77,7 +97,7 @@
 												<i class="fa {{ $fontawesome }} fa-2x"></i>
 											</div>
 											<div class="col-12">
-												<label>{{ $fontawesome }}</label>
+												<label>fa {{ $fontawesome }}</label>
 											</div>
 										</div>
 									</div>
@@ -93,12 +113,50 @@
 												<i class="ion {{ $ionicon }}" style="font-size: 2em;"></i>
 											</div>
 											<div class="col-12">
-												<label>{{ $ionicon }}</label>
+												<label>ion {{ $ionicon }}</label>
 											</div>
 										</div>
 									</div>
 								@endforeach
 							</div>
+                        </div>
+                        <div class="tab-pane" id="nucleo" role="tabpanel">
+                            <div class="row">
+                                @foreach ($nucleos as $key => $nucleo)
+                                    @php
+                                        $nucleoIdx = $loop->index;
+                                    @endphp
+                                    <div class="col-12">
+                                        <hr>
+                                        <h6 class="card-title">
+                                            {{ $key }}
+                                            <a class="btn btn-collapse" data-toggle="collapse"
+                                               href="#nucleoContent{{ $nucleoIdx }}"
+                                               aria-expanded="true" aria-controls="nucleoContent{{ $nucleoIdx }}"
+                                               style="padding:4px;font-size:0.7em;background-color: transparent;color:#0073b7" title="Mostrar / Ocultar contenido">
+                                                <i class="now-ui-icons arrows-1_minimal-up"></i>
+                                            </a>
+                                        </h6>
+                                    </div>
+                                    <div class="col-sm-12 collapse show" id="nucleoContent{{ $nucleoIdx }}">
+                                        <div class="row">
+                                            @foreach ($nucleo as $nuc)
+                                                <div class="col-md-2 text-center">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <i class="now-ui-icons {{ $nuc }}"
+                                                               style="font-size: 2em;"></i>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label>now-ui-icons {{ $nuc }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
 				</div>

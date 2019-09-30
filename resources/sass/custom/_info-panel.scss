@@ -1,14 +1,14 @@
 /** Panel de información */
 .information_panel {
 	padding: 15px;
-	color: #FFFFFF;
+	color: $color-white;
 	border: none;
 	margin-bottom: 20px;
 	display: block;
 	width: 100%;
 	float: left;
 	border-radius:15px;
-	box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 10px 25px 0px $default-shadow-thin;
 
 	b, strong {
 		font-weight: 700;
@@ -81,7 +81,7 @@
 
 		.icon {
 			font-size: 50px;
-			color: #FFFFFF;
+			color: $color-white;
 			float: left;
 			margin-right: 20px;
 			margin: 17px 0px 0px 14px;
@@ -97,7 +97,7 @@
 	}
 
 	&.success_panel, &.info_panel, &.warning_panel, &.danger_panel {
-		background: #fff;
+		background: $color-white;
 	}
 
 	&.success_panel {

@@ -4996,7 +4996,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     /**
      * Método que borra todos los datos del formulario
-     * 
+     *
      * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
      */
     reset: function reset() {
@@ -5028,7 +5028,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /**
     * Guarda los registros cargados desde la hora de cálculo
-    * 
+    *
     * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
     */
     registerImportedAccounts: function registerImportedAccounts(url) {
@@ -5058,7 +5058,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     records: function records(res, ant) {
-      /** 
+      /**
        * [records_list listado con las cuentas para la tabla]
        * @type {array}
        */
@@ -5188,7 +5188,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     /**
      * Método que borra todos los datos del formulario
-     * 
+     *
      * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
      */
     reset: function reset() {
@@ -9099,7 +9099,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-2 text-center" }, [
+  return _c("div", { staticClass: "col-xs-2 text-center" }, [
     _c(
       "a",
       {
@@ -9322,7 +9322,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("h6", [
       _c("i", { staticClass: "fa fa-list inline-block" }),
-      _vm._v(" \n\t\t\t\t\t\tCUENTAS PATRIMONIALES\n\t\t\t\t\t")
+      _vm._v("\n\t\t\t\t\t\tCUENTAS PATRIMONIALES\n\t\t\t\t\t")
     ])
   }
 ]
@@ -9347,7 +9347,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-2 text-center" }, [
+  return _c("div", { staticClass: "col-xs-2 text-center" }, [
     _c(
       "a",
       {
@@ -9605,7 +9605,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("h6", [
         _c("i", { staticClass: "fa fa-tags inline-block" }),
-        _vm._v(" \n\t\t\t\t\t\tCategorias\n\t\t\t\t\t")
+        _vm._v("\n\t\t\t\t\t\tCategorias\n\t\t\t\t\t")
       ])
     ])
   }
@@ -9866,8 +9866,8 @@ function normalizeComponent (
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/cenditel/Documentos/kavac/modules/Accounting/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /home/cenditel/Documentos/kavac/modules/Accounting/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
+__webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/Accounting/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/Accounting/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
 
 
 /***/ })

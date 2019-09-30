@@ -8,9 +8,9 @@
 .select2-selection {
 
 	&:focus {
-		border:1px solid #2CA8FF !important;
+		border:1px solid $color-info !important;
 	}
-	
+
 }
 .select2-search {
 	input {

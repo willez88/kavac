@@ -32,7 +32,7 @@
     }
 }
 .input-group-focus .input-group-addon, .input-group-focus .form-control, .form-control:focus {
-	border-color: #2CA8FF;
+	border-color: $color-info;
 }
 
 .inline-inputs {
@@ -41,7 +41,7 @@
 		&:nth-child(odd) {
 			padding: 0;
 		}
-		
+
 		input[type=text] {
 			padding: 10px;
 			text-align: center;
@@ -51,7 +51,7 @@
 
 /** Estilos personalizados para campos de tipo radio */
 .radio input[type="radio"]:checked + label::after {
-	background-color: #2CA8FF;border-color: #2CA8FF;
+	background-color: $color-info;border-color: $color-info;
 }
 .radio-inline {
 	span.left {
@@ -63,13 +63,13 @@
 }
 /** Estilos personalizados para campos de tipo checkbox */
 .checkbox label::after {
-	color: #2CA8FF;
+	color: $color-info;
 }
 
 /** Estilos personalizados en campos de tipo color */
 input[type="color"] {
 	min-height:36px;
-	color: #ffffff;
+	color: $color-white;
 	width: 60px;
 	cursor: pointer;
 }
@@ -87,7 +87,7 @@ textarea {
 
 		&:focus,
 	    &:active{
-	        border: 1px solid #2CA8FF;
+	        border: 1px solid $color-info;
 	    }
 	}
 }
@@ -163,19 +163,19 @@ textarea {
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
 	background-color: rgba(249, 99, 50, .7) !important;
-	color: #fff !important;
+	color: $color-white !important;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-	color:#fff !important;
+	color:$color-white !important;
 }
 
-.select2-container--default .select2-selection--single, 
+.select2-container--default .select2-selection--single,
 .select2-container--default .select2-selection--multiple {
 	border: 1px solid #E3E3E3 !important;
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-	border: 1px solid #2CA8FF !important;
+	border: 1px solid $color-info !important;
 }
 
 .form-group .input-group-addon, .input-group .input-group-addon {

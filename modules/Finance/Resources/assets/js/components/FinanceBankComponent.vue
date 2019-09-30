@@ -1,5 +1,5 @@
 <template>
-	<div class="col-md-2 text-center">
+	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de entidades bancarias"
 		   data-toggle="tooltip" @click="addRecord('add_bank', '/finance/banks', $event)">
