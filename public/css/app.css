@@ -27867,6 +27867,11 @@ a.level-debug:hover {
   font-size: .7rem;
 }
 
+.btn-custom.btn-mini {
+  font-size: .7rem;
+  padding: .12rem .24rem;
+}
+
 .btn-custom span {
   margin-left: 5px;
 }
@@ -28279,13 +28284,19 @@ a.level-debug:hover {
   /*font-size: 0.8571em;*/
 }
 
-.input-group-addon {
+.input-group-addon:first-child {
   border-radius: 30px 0 0 30px;
 }
 
-.input-group-addon.readonly {
+.input-group-addon:first-child.readonly {
   background-color: #E3E3E3;
   cursor: not-allowed;
+}
+
+.input-group-addon:last-child {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  padding: 5px 8px 10px 18px !important;
 }
 
 .input-group-focus .input-group-addon,
@@ -28315,6 +28326,11 @@ a.level-debug:hover {
 .inline-inputs .col-6 input[type=text] {
   padding: 10px;
   text-align: center;
+}
+
+.has-success::after,
+.has-danger::after {
+  bottom: 6px;
 }
 
 /** Estilos personalizados para campos de tipo radio */

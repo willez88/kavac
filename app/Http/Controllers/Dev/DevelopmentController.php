@@ -35,6 +35,14 @@ class DevelopmentController extends Controller
                 'view' => 'ui-elements',
                 'vars' => []
             ],
+            'buttons' => [
+                'view' => 'ui-buttons',
+                'vars' => []
+            ],
+            'forms' => [
+                'view' => 'ui-forms',
+                'vars' => []
+            ]
         ];
 
 

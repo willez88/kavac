@@ -1,0 +1,161 @@
+@extends('layouts.app')
+
+@section('maproute-icon')
+    <i class="icofont icofont-idea"></i>
+@stop
+
+@section('maproute-icon-mini')
+    <i class="icofont icofont-idea"></i>
+@stop
+
+@section('maproute-actual')
+    Botones
+@stop
+
+@section('maproute-title')
+    Botones
+@stop
+
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title">Botones</h6>
+                    <div class="card-btns">
+                        @include('buttons.previous', ['route' => route('index')])
+                        @include('buttons.minimize')
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="pad-top-10">Estilos</h6>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" type="button">Por deefecto</button>
+                            <button class="btn btn-primary btn-round" type="button">Redondeado</button>
+                            <button class="btn btn-primary btn-round" type="button">
+                                <i class="now-ui-icons ui-2_favourite-28"></i> Con Icono
+                            </button>
+                            <button class="btn btn-primary btn-icon btn-round" type="button">
+                                <i class="now-ui-icons ui-2_favourite-28"></i>
+                            </button>
+                            <button class="btn btn-primary btn-simple btn-round" type="button">Simple</button>
+                        </div>
+                    </div>
+                    <h6 class="pad-top-10">Tamaños</h6>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary btn-sm">Pequeño</button>
+                            <button class="btn btn-primary">Normal</button>
+                            <button class="btn btn-primary btn-lg">Grande</button>
+                        </div>
+                    </div>
+                    <h6 class="pad-top-10">Colores</h6>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn">Default</button>
+                            <button class="btn btn-primary">Primary</button>
+                            <button class="btn btn-info">Info</button>
+                            <button class="btn btn-success">Success</button>
+                            <button class="btn btn-warning">Warning</button>
+                            <button class="btn btn-danger">Danger</button>
+                            <button class="btn btn-neutral">Neutral</button>
+                        </div>
+                    </div>
+                    <h6 class="pad-top-10">Enlaces</h6>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-link">Default</button>
+                            <button class="btn btn-link btn-primary ">Primary</button>
+                            <button class="btn btn-link btn-info">Info</button>
+                            <button class="btn btn-link btn-success">Success</button>
+                            <button class="btn btn-link btn-warning">Warning</button>
+                            <button class="btn btn-link btn-danger">Danger</button>
+                        </div>
+                    </div>
+                    <h6 class="pad-top-10">Acciones de formularios</h6>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default btn-icon btn-round">
+                                <i class="fa fa-eraser"></i>
+                            </button>
+                            <button class="btn btn-warning btn-icon btn-round">
+                                <i class="fa fa-ban"></i>
+                            </button>
+                            <button class="btn btn-success btn-icon btn-round">
+                                <i class="fa fa-save"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h6 class="pad-top-10">Acciones de Registros</h6>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-sm btn-primary btn-custom btn-mini">
+                                <i class="fa fa-reply"></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary btn-custom btn-mini btn-new">
+                                <i class="fa fa-plus-circle"></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary btn-custom btn-mini btn-new">
+                                <i class="fa fa-print"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-warning btn-xs btn-icon btn-action">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-xs btn-icon btn-action">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            <button class="btn btn-info btn-xs btn-icon btn-action">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button class="btn btn-success btn-xs btn-icon btn-round">
+                                <i class="fa fa-check"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-info btn-sm">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button class="btn btn-sm btn-info btn-import">
+                                <i class="fa fa-upload"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning btn-import">
+                                <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h6 class="pad-top-10">Acciones en gráficos</h6>
+                    <div class="row" style="padding-bottom: 40px">
+                        <div class="col-md-10 offset-2">
+                            <div class="dropdown">
+                                <a href="#" id="list_options_diagram" data-toggle="dropdown" aria-expanded="false"
+                                   class="dropdown-toggle btn btn-sm btn-default btn-custom">
+                                    <i aria-hidden="true" class="fa fa-bar-chart" style="color: white;"></i>
+                                </a>
+                                <div aria-labelledby="list_options_diagram" class="dropdown-menu dropdown-menu-right"
+                                     x-placement="bottom-end" style="position: absolute; transform: translate3d(-122px, 30px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <div class="d-inline-flex">
+                                        <a class="dropdown-item btn btn-sm btn-default">
+                                            <i class="fa fa-bar-chart" style="color: white;"></i>
+                                        </a>
+                                        <a class="dropdown-item btn btn-sm btn-default">
+                                            <i class="fa fa-refresh" style="color: white;"></i>
+                                        </a>
+                                        <a class="dropdown-item btn btn-sm btn-default">
+                                            <i class="fa fa-pie-chart" style="color: white;"></i>
+                                        </a>
+                                        <a class="dropdown-item btn btn-sm btn-default">
+                                            <i class="fa fa-line-chart" style="color: white;"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@stop

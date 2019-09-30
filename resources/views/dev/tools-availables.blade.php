@@ -39,14 +39,14 @@
 						</a>
 					</div>
 					<div class="col-3">
-						<a href="javascript:void(0)"
+						<a href="{{ route('dev.show.element', ['el' => 'buttons']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de estilos de botones">
 							<i class="icofont icofont-idea"></i> Botones
 						</a>
 					</div>
 					<div class="col-3">
-						<a href="javascript:void(0)"
+						<a href="{{ route('dev.show.element', ['el' => 'forms']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de componentes de formulario">
 							<i class="icofont icofont-idea"></i> Formularios
@@ -59,13 +59,13 @@
 							<i class="icofont icofont-idea"></i> Gráficos
 						</a>
 					</div>
-					<div class="col-3">
+					<!--<div class="col-3">
 						<a href="javascript:void(0)"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de estilos de sliders">
 							<i class="icofont icofont-idea"></i> Sliders
 						</a>
-					</div>
+					</div>-->
 					<div class="col-3">
 						<a href="javascript:void(0)"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
