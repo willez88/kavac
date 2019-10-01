@@ -1,5 +1,6 @@
 <?php
 
+/** Configuración base de peticiones de la aplicación */
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;

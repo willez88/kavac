@@ -1,5 +1,6 @@
 <?php
 
+/** Controladores de uso exclusivo para usuarios administradores */
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;

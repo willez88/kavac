@@ -1,4 +1,6 @@
 <?php
+
+/** Repositorios del sistema */
 namespace App\Repositories;
 
 use \Illuminate\Support\Facades\Storage;

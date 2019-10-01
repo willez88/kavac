@@ -1,5 +1,6 @@
 <?php
 
+/** Proveedores de servicios generales del sistema */
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Event;

@@ -1,5 +1,6 @@
 <?php
 
+/** Controladores para la gestión de autenticación de usuarios */
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;

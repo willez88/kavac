@@ -1,10 +1,6 @@
 <?php
-/**
- * Models - Gestión de modelos comúnes
- *
- * @package  Models
- * @author   Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- */
+
+/** Modelos generales de base de datos */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +10,9 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class City
- * @brief Datos de Ciudades
+ * City
+ *
+ * Datos de Ciudades
  *
  * Gestiona el modelo de datos para las Ciudades
  *

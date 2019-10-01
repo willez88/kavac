@@ -1,5 +1,6 @@
 <?php
 
+/** Controladores base de la aplicación */
 namespace App\Http\Controllers;
 
 use App\Models\City;
@@ -12,7 +13,7 @@ use Illuminate\Http\Request;
  * Clase que gestiona las Ciudades
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/' target="_blank">
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */

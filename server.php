@@ -1,4 +1,9 @@
 <?php
+/**
+ * @mainpage
+ * Sistema administrativo para la gestión de procesos en la Administración Pública
+ * {https://gestion.cenditel.gob.ve/trac/wiki/kavac}
+ */
 
 /**
  * Laravel - A PHP Framework For Web Artisans

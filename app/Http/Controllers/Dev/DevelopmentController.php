@@ -1,5 +1,6 @@
 <?php
 
+/** Controladores para la visualización de herramientas para desarrolladores */
 namespace App\Http\Controllers\Dev;
 
 use App\Http\Controllers\Controller;

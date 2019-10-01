@@ -1,5 +1,6 @@
 <?php
 
+/** Repositorios del sistema */
 namespace App\Repositories;
 
 use App\Repositories\Contracts\ReportInterface;

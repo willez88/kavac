@@ -1,5 +1,6 @@
 <?php
 
+/** Controladores base de la aplicación */
 namespace App\Http\Controllers;
 
 use App\Models\Profession;

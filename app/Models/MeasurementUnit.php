@@ -1,5 +1,6 @@
 <?php
 
+/** Modelos generales de base de datos */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

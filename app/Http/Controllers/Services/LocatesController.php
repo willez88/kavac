@@ -1,5 +1,6 @@
 <?php
 
+/** Controladores para la gestión de servicios generales del sistema */
 namespace App\Http\Controllers\Services;
 
 use App\Http\Controllers\Controller;

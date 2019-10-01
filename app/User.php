@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Registros de la aplicación
+ */
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
