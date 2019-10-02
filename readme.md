@@ -44,7 +44,7 @@ A continuación se listan los paquetes previos requeridos para la instalación y
 	7.2
 
 o
-	
+
 	7.3
 
 
@@ -67,7 +67,7 @@ El servidor Nginx se ejecutará en el puerto 80, para verificar si se ejecutó c
 
 	netstat -plntu
 
-Si todo lo mmuestra correctamente, nginx estará instalado y en ejecución. 
+Si todo lo mmuestra correctamente, nginx estará instalado y en ejecución.
 
 ### Instalar PHP-FPM
 
@@ -112,22 +112,22 @@ y se agregara el siguiente contenido:
 		listen 80;
 		# Descomentar si las peticiones solo aceptan el protocolo ipv6
 		# listen [::]:80 ipv6only=on;
-		
+
 		# Log files for Debugging
 		access_log /var/log/nginx/kavac-access.log;
 		error_log /var/log/nginx/kavac-error.log;
-		
+
         # Webroot Directory for kavac project
 		root (ruta-absoluta-de-instalacion)/public;
 		index index.php index.html index.htm;
-		
+
 		# Your Domain Name
 		server_name (nombre-de-dominio-que-atiende-las-peticiones);
-		
+
 		location / {
 			try_files $uri $uri/ /index.php?$query_string;
 		}
-		
+
 		# PHP-FPM Configuration Nginx
 		location ~ \.php$ {
 			try_files $uri =404;
@@ -290,7 +290,7 @@ La aplicación cuenta con una amplia documentación técnica y para usuarios del
 
 ## Licencia
 
-Kavac es una aplicación de código abierto y se distribuye estrictamente bajo la licencia [MIT license](https://opensource.org/licenses/MIT).
+Kavac es una aplicación de código abierto y se distribuye estrictamente bajo la licencia [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/).
 
 ## Comandos básicos laravel-modules
 
