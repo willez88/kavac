@@ -8,36 +8,42 @@
 
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen $doxygenversion"/>
-
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
         <!--BEGIN PROJECT_NAME--><title>$projectname: $title</title><!--END PROJECT_NAME-->
         <!--BEGIN !PROJECT_NAME--><title>$title</title><!--END !PROJECT_NAME-->
-        <!--<link href="$relpath^tabs.css" rel="stylesheet" type="text/css"/>-->
-        <script type="text/javascript" src="$relpath^dynsections.js"></script>
-        $treeview
-        $search
-        $mathjax
         <link href="$relpath^$stylesheet" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="$relpath^bootstrap.min.css">
+        <link rel="stylesheet" href="$relpath^jquery.powertip.min.css">
         $extrastylesheet
-        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <!--<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>-->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="$relpath^jquery.min.js"></script>
+
+        <script type="text/javascript" src="$relpath^jquery.powertip.min.js"></script>
+        <script src="$relpath^bootstrap.min.js"></script>
+        <script type="text/javascript" src="$relpath^dynsections.js"></script>
         <script type="text/javascript" src="$relpath^doxy-boot.js"></script>
+        <script type="text/javascript" src="$relpath^jquery.browser.min.js"></script>
+        <script type="text/javascript" src="$relpath^jquery.smartmenus.min.js"></script>
+        <script type="text/javascript" src="$relpath^navtree.js"></script>
+        <!--$treeview-->
+        $search
+        <!--$mathjax-->
+
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
+
+        
     </head>
     <body>
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
-                <div class="navbar-header">
+                <div class="navbar-header vertical-center">
                     <a class="navbar-brand">$projectname $projectnumber</a>
                 </div>
+		        <img alt="Logo" src="$relpath^$projectlogo"/>
             </div>
         </nav>
         <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
             <div class="content" id="content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-12 panel " style="padding-bottom: 15px;">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
                             <div style="margin-bottom: 15px;">
 <!-- end header part -->
