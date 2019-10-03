@@ -140,8 +140,8 @@ var startGuidedTour = function(steps, stepNumber = true) {
     var intro = introJs();
     intro.setOptions({
         steps: steps,
-        /*nextLabel: 'Siguiente &rarr;',
-        prevLabel: '&larr; Previo',*/
+        nextLabel: 'Siguiente &rarr;',
+        prevLabel: '&larr; Previo',
         skipLabel: 'Omitir',
         doneLabel: 'Finalizar',
         hintButtonLabel: 'Entendido',
