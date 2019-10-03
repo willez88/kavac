@@ -86,7 +86,7 @@ var uploadSingleImage = function(form, input_file, input_hidden, img_tag, img_ta
  * @param  {boolean} force_delete Indica si la eliminación es permanente. Opcional.
  */
 var deleteImage = function(element_delete, id, no_image, force_delete) {
-    var force_delete = (typeof(force_delete) !== undefined && force_delete) 
+    var force_delete = (typeof(force_delete) !== undefined && force_delete)
                        ? {force_delete: force_delete} : {};
     if (id) {
         bootbox.confirm("Esta seguro de querer eliminar la imagen?", function(result) {
@@ -113,4 +113,41 @@ var deleteImage = function(element_delete, id, no_image, force_delete) {
             }
         });
     }
+}
+
+/**
+ * Función que permite mostrar una visita guiada sobre las funcionalidades de la aplicación
+ *
+ * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @param      {array}  steps    Arreglo con los elementos a incorporar en la visita guiada de funcionalidades.
+ *                               Ej. [
+ *                                       {
+ *                                           element: "#elemento1",
+ *                                           intro: "Texto a mostrar en el mensaje",
+ *                                           position: "bottom|left|right|top" //Indicar solo una de estas posiciones
+ *                                        },
+ *                                        {
+ *                                           element: "#elemento2",
+ *                                           intro: "Texto a mostrar en el mensaje",
+ *                                           position: "bottom|left|right|top" //Indicar solo una de estas posiciones
+ *                                        },
+ *                                        ...
+ *                                    ]
+ * @param {boolean} stepNumber Define si se muestra o no el número del elemento en la visita guiada
+ */
+var startGuidedTour = function(steps, stepNumber = true) {
+    var intro = introJs();
+    intro.setOptions({
+        steps: steps,
+        nextLabel: 'Siguiente &rarr;',
+        prevLabel: '&larr; Previo',
+        skipLabel: 'Omitir',
+        doneLabel: 'Finalizar',
+        hintButtonLabel: 'Entendido',
+        showStepNumbers: stepNumber,
+        showProgress: true
+    });
+
+    intro.start();
 }
