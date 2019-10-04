@@ -7,11 +7,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class AccountingSeat extends Model implements Auditable
+class accountingEntry extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
 
+    /**
+     * Lista de atributos para la gestión de fechas
+     * @var array $dates
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Lista de atributos que pueden ser asignados masivamente
+     * @var array $fillable
+     */
     protected $fillable = [
         'from_date',
         'concept',
@@ -19,50 +29,49 @@ class AccountingSeat extends Model implements Auditable
         'reference',
         'tot_debit',
         'tot_assets',
-        'accounting_seat_categories_id',
+        'accounting_entry_categories_id',
         'institution_id',
         'currency_id',
         'approved'
     ];
 
-    protected $with =['currency'];
+    protected $with = ['currency'];
     
     /**
-     * AccountingSeat has many AccountingSeatAccount.
+     * AccountingEntry has many AccountingAccounts.
      *
-     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function accountingAccounts()
     {
-        return $this->hasMany(AccountingSeatAccount::class);
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = accountingEntry_id, localKey = id)
+        return $this->hasMany(AccountingEntryAccount::class);
     }
 
     /**
-     * AccountingSeat belongs to AccountingSeatCategory.
+     * AccountingEntry belongs to AccountingEntryCategory.
      *
-     * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function generatedBy()
+    public function accountingEntryCategory()
     {
-        return $this->belongsTo(AccountingSeatCategory::class);
+        // belongsTo(RelatedModel, foreignKey = accountingEntryCategory_id, keyOnRelatedModel = id)
+        return $this->belongsTo(AccountingEntryCategory::class);
     }
 
     /**
      * Indica si el asiento contable esta aprobado
      *
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return Boolena
+     * @return boolena
      */
     public function approved()
     {
         return ($this->approved);
     }
 
-
     /**
-     * AccountingSeat belongs to Currency.
+     * AccountingEntry belongs to Currency.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

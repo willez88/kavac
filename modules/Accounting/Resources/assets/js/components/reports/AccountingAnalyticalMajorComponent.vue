@@ -2,7 +2,7 @@
 	<div>
 		<div class="card-body">
 			
-			<accounting-show-errors :options="errors" />
+			<accounting-show-errors />
 
 			<div class="row">
 				<div class="col-3">
@@ -31,7 +31,7 @@
 						<select2 :options="years" v-model="year_end"></select2>
 					</div>
 				</div>
-				<div class="col-6">
+				<div class="col-3">
 					<br>
 					<div class="is-required">
 						<label><strong>Cuenta Inicial</strong></label>
@@ -41,6 +41,13 @@
 					<br>
 					<label><strong>Cuenta Final</strong></label>
 					<select2 :options="OptionsAcc" @input="activatedButtonFunc" v-model="EndAcc"></select2>
+				</div>
+				<div class="col-3">
+					<br>
+					<div>
+						<label class="control-label">Expresar en</label>
+						<select2 :options="currencies" v-model="currency"></select2>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -63,16 +70,22 @@
                 type:String,
                 default: ''
             },
+            currencies:{
+				type:Array,
+				default:function(){
+					return [];
+				}
+			}
         },
 		data(){
 			return {
 				url:'/accounting/report/analyticalMajor',
-				disabledButton:true,
 				InitAcc:0,
 				EndAcc:0,
 				dates:null,
 				OptionsAcc:[{id:0,text:'Seleccione...'}],
 				disabledSelect:true,
+				currency:'',
 			}
 		},
 		created(){
@@ -123,20 +136,18 @@
 
 				if (EndAcc != 0) { url += '/'+EndAcc; }
 
+				url += '/'+this.currency;
 				return url;
 			},
-
+		},
+		computed:{
 			/**
 			* valida si se cumplen los requerimientos de información de las cuentas, y cambia el valor de la variable para habilitar el boton
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
-			activatedButtonFunc:function(){
-				if (this.InitAcc == 0 && this.EndAcc == 0) {
-					this.disabledButton = true;
-				}else{
-					this.disabledButton = false;
-				}
+			disabledButton:function(){
+				return (this.InitAcc == 0 || this.EndAcc == 0 || !this.currency)?true:false;
 			},
 		},
 		watch:{

@@ -24,8 +24,8 @@
 					<h6 class="card-title">BUSCADOR DE ASIENTOS CONTABLES APROBADOS</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('accounting.seating.create')])
-						<a href="{{ route('accounting.seating.unapproved') }}"
+						@include('buttons.new', ['route' => route('accounting.entries.create')])
+						<a href="{{ route('accounting.entries.unapproved') }}"
 							class="btn btn-sm btn-primary btn-custom"
 							title="Listado de asientos por aprobar"
 							data-toggle="tooltip">
@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-seat :categories="{{ $categories }}" :currencies="{{ $currencies }}" :institutions="{{ $institutions }}" year_old="{{ $yearOld }}" route_edit="{{ url('accounting/seating/{id}/edit') }}" />
+					<accounting-entry :categories="{{ $categories }}" :currencies="{{ $currencies }}" :institutions="{{ $institutions }}" year_old="{{ $yearOld }}" route_edit="{{ url('accounting/entries/{id}/edit') }}" />
 				</div>
 			</div>
 		</div>
@@ -49,7 +49,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-seat-listing />
+					<accounting-entry-listing />
 				</div>
 			</div>
 		</div>

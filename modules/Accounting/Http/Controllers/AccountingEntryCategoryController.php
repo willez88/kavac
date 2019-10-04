@@ -6,19 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Accounting\Models\AccountingSeatCategory;
+
+use Modules\Accounting\Models\AccountingEntryCategory;
 use Auth;
 
-/**
- * @class AccountingSeatCategoryController
- * @brief Controlador de configuración de categorias de origen de asientos contables
- *
- * Clase que gestiona las categorias de origen de asientos contables
- *
- * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
- */
-class AccountingSeatCategoryController extends Controller
+class AccountingEntryCategoryController extends Controller
 {
     use ValidatesRequests;
 
@@ -37,7 +29,7 @@ class AccountingSeatCategoryController extends Controller
 
     public function index()
     {
-        return response()->json(['records' => AccountingSeatCategory::orderBy('name')->get()], 200);
+        return response()->json(['records' => AccountingEntryCategory::orderBy('name')->get()], 200);
     }
 
     /**
@@ -54,12 +46,12 @@ class AccountingSeatCategoryController extends Controller
             'acronym' => 'required|string',
         ]);
         /** @var object Objeto para almacenar la información para el nuevo registro */
-        AccountingSeatCategory::create([
+        AccountingEntryCategory::create([
                                         'name' => $request->name,
                                         'acronym' => $request->acronym,
                                     ]);
 
-        return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'], 200);
+        return response()->json(['records'=>AccountingEntryCategory::orderBy('name')->get(), 'message'=>'Success'], 200);
     }
 
     /**
@@ -77,12 +69,12 @@ class AccountingSeatCategoryController extends Controller
             'acronym' => 'required|string',
         ]);
         /** @var Object Objeto que contine el registro de conversión a editar */
-        $record = AccountingSeatCategory::find($id);
+        $record = AccountingEntryCategory::find($id);
         $record->name = $request['name'];
         $record->acronym = $request['acronym'];
         $record->save() ;
 
-        return response()->json(['records'=>AccountingSeatCategory::orderBy('name')->get(), 'message'=>'Success'], 200);
+        return response()->json(['records'=>AccountingEntryCategory::orderBy('name')->get(), 'message'=>'Success'], 200);
     }
 
     /**
@@ -94,12 +86,12 @@ class AccountingSeatCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = AccountingSeatCategory::with('accountingSeats')->find($id);
+        $category = AccountingEntryCategory::with('accountingEntries')->find($id);
         if ($category) {
             /**
              * validar si no esta relacionada con algun asiento es permitido eliminarla
              */
-            if (count($category->accountingSeats) > 0) {
+            if (count($category->accountingEntries) > 0) {
                 return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar, debido a que existen asientos relacionados.'], 200);
             }
             $category->delete();
@@ -116,7 +108,7 @@ class AccountingSeatCategoryController extends Controller
     public function getCategories()
     {
         $records = [];
-        foreach (AccountingSeatCategory::all() as $category) {
+        foreach (AccountingEntryCategory::all() as $category) {
             $records[] = [
                 'id' => $category->id,
                 'text' => $category->name,

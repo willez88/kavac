@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingAccountImport;
-use Modules\Accounting\Models\AccountingSeatAccount;
+use Modules\Accounting\Models\AccountingEntryAccount;
 
 /**
  * Clase que gestiona las Cuentas patrimoniales
@@ -191,7 +191,7 @@ class AccountingAccountController extends Controller
 
         if ($AccountingAccount) {
             if (!is_null($AccountingAccount->accountConverters)
-                || !is_null(AccountingSeatAccount::where('accounting_account_id', $id)->first())) {
+                || !is_null(AccountingEntryAccount::where('accounting_account_id', $id)->first())) {
                 return response()->json(
                     [
                         'error' => true,

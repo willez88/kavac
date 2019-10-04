@@ -8,13 +8,13 @@ use App\Models\Currency as BaseCurrency;
 class Currency extends BaseCurrency
 {
     /**
-     * Currency has one AccountingSeat.
+     * Currency has one AccountingEntry.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function accountingSeat()
+    public function accountingEntry()
     {
         // hasOne(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
-        return $this->hasOne(AccountingSeat::class);
+        return $this->hasOne(AccountingEntry::class);
     }
 }

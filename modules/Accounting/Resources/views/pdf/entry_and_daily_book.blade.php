@@ -20,20 +20,20 @@
 @endphp
 <h4 style="font-size:9rem;">EXPRESADO EN {{ $currency->symbol }}</h4>
 
-@if($Seating)
+@if($Entry)
 	@php
-		$from_date = explode('-', $seat['from_date']);
+		$from_date = explode('-', $entry['from_date']);
 	@endphp
 	{{-- Pdf de asiento contable --}}
 	<table cellspacing="0" cellpadding="1" border="0">
 		<tr>
 			{{-- se formatea la fecha de Y-m-d a d-m-Y --}}
 			<th style="font-size:9rem;" width="50%"> Asiento Contable del {{ $from_date[2].'-'.$from_date[1].'-'.$from_date[0] }}</th>
-	        <th style="font-size:9rem;" width="50%"> Ref.: {{ $seat['reference'] }}</th>
+	        <th style="font-size:9rem;" width="50%"> Ref.: {{ $entry['reference'] }}</th>
 		</tr>
 		<tr>
-			<th style="font-size:9rem;" width="50%"> Concepto: {{ $seat['concept'] }}</th>
-			<th style="font-size:9rem;" width="50%"> Observaciones: {{ $seat['observations'] }}</th>
+			<th style="font-size:9rem;" width="50%"> Concepto: {{ $entry['concept'] }}</th>
+			<th style="font-size:9rem;" width="50%"> Observaciones: {{ $entry['observations'] }}</th>
 		</tr>
 		{{-- Cuentas patrimoniales --}}
 		<table cellspacing="1" cellpadding="1" border="0">
@@ -43,23 +43,23 @@
 				<th width="17%" style="font-size:9rem; background-color: #BDBDBD;" align="center">DEBE</th>
 				<th width="17%" style="font-size:9rem; background-color: #BDBDBD;" align="center">HABER</th>
 			</tr>
-			@foreach($seat['accountingAccounts'] as $seatAccount)
+			@foreach($entry['accountingAccounts'] as $entryAccount)
 				<tr>
 					<td style="font-size: 9rem;" align="center">
-						{{$seatAccount['account']->getCodeAttribute() }}
+						{{$entryAccount['account']->getCodeAttribute() }}
 					</td>
 					<td style="font-size:9rem;">
-						{{' '.$seatAccount['account']['denomination'] }}
+						{{' '.$entryAccount['account']['denomination'] }}
 					</td>
 					<td style="font-size:9rem;" align="right">
-						{{' '.number_format($seatAccount['debit'], (int)$currency->decimal_places, ',', '.') }}  
+						{{' '.number_format($entryAccount['debit'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					<td style="font-size:9rem;" align="right">
-						{{' '.number_format($seatAccount['assets'], (int)$currency->decimal_places, ',', '.') }}  
+						{{' '.number_format($entryAccount['assets'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					@php
-						$totDebit = $totDebit+$seatAccount['debit'];
-						$totAssets = $totAssets+$seatAccount['assets'];
+						$totDebit = $totDebit+$entryAccount['debit'];
+						$totAssets = $totAssets+$entryAccount['assets'];
 					@endphp
 				</tr>
 			@endforeach
@@ -93,11 +93,11 @@
 			<th style="font-size:9rem;" width="15%" align="center">HABER</th>
 		</tr>
 	</table>
-	@foreach($seats as $seat)
+	@foreach($entries as $entry)
 		<table cellspacing="0" cellpadding="1" border="0">
 			<tr >
 				@php
-					$from_date = explode('-', $seat['from_date']);
+					$from_date = explode('-', $entry['from_date']);
 				@endphp
 				{{-- se formatea la fecha de Y-m-d a d-m-Y --}}
 				<td width="10%" style="font-size:9rem; background-color: #BDBDBD;" align="left"> {{ $from_date[2].'-'.$from_date[1].'-'.$from_date[0] }}</td>
@@ -111,22 +111,22 @@
 		        <td width="15%" style="font-size:9rem; background-color: #BDBDBD;"></td>
 		        <td width="15%" style="font-size:9rem; background-color: #BDBDBD;"></td>
 			</tr>
-			@foreach($seat['accountingAccounts'] as $seatAccount)
+			@foreach($entry['accountingAccounts'] as $entryAccount)
 				<tr>
 					<td style="font-size:9rem;"></td>
-					<td style="font-size:9rem;" align="center"> {{ $seatAccount['account']->getCodeAttribute() }}</td>
+					<td style="font-size:9rem;" align="center"> {{ $entryAccount['account']->getCodeAttribute() }}</td>
 					<td style="font-size:9rem;">
-						{{' '.$seatAccount['account']['denomination'] }} 
+						{{' '.$entryAccount['account']['denomination'] }} 
 					</td>
 					<td style="font-size:9rem;" align="right">
-						{{' '.number_format($seatAccount['debit'], (int)$currency->decimal_places, ',', '.') }}  
+						{{' '.number_format($entryAccount['debit'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					<td style="font-size:9rem;" align="right">
-						{{' '.number_format($seatAccount['assets'], (int)$currency->decimal_places, ',', '.') }}  
+						{{' '.number_format($entryAccount['assets'], (int)$currency->decimal_places, ',', '.') }}  
 					</td>
 					@php
-						$totDebit = $totDebit+$seatAccount['debit'];
-						$totAssets = $totAssets+$seatAccount['assets'];
+						$totDebit = $totDebit+$entryAccount['debit'];
+						$totAssets = $totAssets+$entryAccount['assets'];
 					@endphp
 				</tr>
 			@endforeach

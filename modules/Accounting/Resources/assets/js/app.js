@@ -39,7 +39,7 @@ Vue.component('accounting-accounts-list', require('./components/accounts/Account
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-create-edit-form', require('./components/accounts/AccountingFormComponent.vue').default);
+Vue.component('accounting-form', require('./components/accounts/AccountingFormComponent.vue').default);
 
 /**
  * Componente con el formulario para importar cuentas patrimoniales desde un excel
@@ -76,28 +76,28 @@ Vue.component('accounting-conversion-form', require('./components/account_conver
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-seat', require('./components/seating/AccountingIndexComponent.vue').default);
+Vue.component('accounting-entry', require('./components/entries/AccountingIndexComponent.vue').default);
 
 /**
  * Componente para cargar la tabla de asientos contables
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-seat-listing', require('./components/seating/AccountingListComponent.vue').default);
+Vue.component('accounting-entry-listing', require('./components/entries/AccountingListComponent.vue').default);
 
 /**
  * Componente para la creación de asientos contable
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-seat-create', require('./components/seating/AccountingFormComponent.vue').default);
+Vue.component('accounting-entry-form', require('./components/entries/AccountingFormComponent.vue').default);
 
 /**
  * Componente para cargar la tabla de cuentas patrimoniales para el asiento contable
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-seat-create-account', require('./components/seating/AccountingAccountsInFormComponent.vue').default);
+Vue.component('accounting-entry-form-account', require('./components/entries/AccountingAccountsInFormComponent.vue').default);
 
 /**
  * Componente index para el reporte de balance de comprobación
@@ -139,7 +139,7 @@ Vue.component('accounting-report-balance-sheet-state-of-results', require('./com
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('dashboard-accounting-info', require('./components/dashboard/AccountingSeatHistoriesComponent.vue').default);
+Vue.component('dashboard-accounting-info', require('./components/dashboard/AccountingEntryHistoriesComponent.vue').default);
 
 /**
  * Componente index para el reporte de Balance General y reporte de satdo de resultados
@@ -227,7 +227,7 @@ Vue.mixin({
 		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		*/
 		approve:function(index) {
-			var url = '/accounting/seating/approve';
+			var url = '/accounting/entries/approve';
 			var records = this.records;
 			var confirmated = false;
 			var index = index - 1;

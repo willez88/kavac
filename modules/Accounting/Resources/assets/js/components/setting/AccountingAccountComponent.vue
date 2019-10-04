@@ -45,7 +45,7 @@
 	                </div>
 	                <hr>
 					<div class="modal-body" style="margin-top: -5rem;" v-show="!formImport && records_select.length > 0">
-						<accounting-create-edit-form :records="records_select" />
+						<accounting-form :records="records_select" />
 	                </div>
 
 					<div class="modal-footer" v-if="!formImport">

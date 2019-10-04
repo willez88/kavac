@@ -117,7 +117,7 @@
 				this.generate_reference_code();
 			}
 
-			EventBus.$on('reset:accounting-seat-edit-create',()=>{
+			EventBus.$on('reset:accounting-entry-edit-create',()=>{
 				this.reset();
 			});
 
@@ -136,7 +136,7 @@
 			},
 
 			/**
-			* Valida las variables del formulario para realizar el filtrado, y emite el evento para actualizar los datos al componente AccountingAccountsInSeatingComponent
+			* Valida las variables del formulario para realizar el filtrado, y emite el evento para actualizar los datos al componente AccountingAccountsInFormComponent
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
@@ -149,7 +149,7 @@
 					this.category == '' ||
 					this.reference == '' || this.institution_id == null)) {
 
-					EventBus.$emit('enableInput:seating-account',{'value':false,
+					EventBus.$emit('enableInput:entries-account',{'value':false,
 																	  'date':this.date,
 																	  'reference':this.reference,
 																	  'concept':this.concept,
@@ -166,7 +166,7 @@
 					*/ 
 					if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != ''
 						&& this.currency_id != '') {
-						EventBus.$emit('enableInput:seating-account',{'value':true,
+						EventBus.$emit('enableInput:entries-account',{'value':true,
 																	  'date':this.date,
 																	  'reference':this.reference,
 																	  'concept':this.concept,
@@ -182,7 +182,7 @@
 					/**
 					 *si se modifica la fecha o la referencia se envia la información actualizada
 					*/
-					EventBus.$emit('enableInput:seating-account',{'value':true,
+					EventBus.$emit('enableInput:entries-account',{'value':true,
 																  'date':this.date,
 																  'reference':this.reference,
 																  'concept':this.concept,
@@ -197,8 +197,7 @@
 			generate_reference_code(){
 				axios.post('/accounting/settings/generate_reference_code').then(response=>{
 					if (response.data.result) {
-						setTimeout("location.href = '/accounting/settings';", 1000)
-						
+						location.href = '/accounting/settings';
 					}
 					this.reference = response.data.code;
 					this.validated = false;

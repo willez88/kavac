@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingAccount;
-use Modules\Accounting\Models\AccountingSeat;
+use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
@@ -89,22 +89,22 @@ class AccountingStateOfResultsController extends Controller
         $endDate = $date.'-'.$day;
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_1 = 'seatAccount.seating';
+        $level_1 = 'entryAccount.entries';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_2 = 'children.seatAccount.seating';
+        $level_2 = 'children.entryAccount.entries';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_3 = 'children.children.seatAccount.seating';
+        $level_3 = 'children.children.entryAccount.entries';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_4 = 'children.children.children.seatAccount.seating';
+        $level_4 = 'children.children.children.entryAccount.entries';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_5 = 'children.children.children.children.seatAccount.seating';
+        $level_5 = 'children.children.children.children.entryAccount.entries';
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
-        $level_6 = 'children.children.children.children.children.seatAccount.seating';
+        $level_6 = 'children.children.children.children.children.entryAccount.entries';
 
         /**
         * Se realiza la consulta de cada cuenta y asiento que pertenezca a INGRESOS Y GASTOS
@@ -194,7 +194,7 @@ class AccountingStateOfResultsController extends Controller
                 array_push($parent, [
                     'code' => $account->getCodeAttribute(),
                     'denomination' => $account->denomination,
-                    'balance' => $this->calculateValuesInSeating($account),
+                    'balance' => $this->calculateValuesInEntries($account),
                     'level' => $level,
                     'children' => [],
                     'show_children' => false,
@@ -222,7 +222,7 @@ class AccountingStateOfResultsController extends Controller
      * @return Float resultado de realizar la operaciones de suma y resta
      */
 
-    public function calculateValuesInSeating($account)
+    public function calculateValuesInEntries($account)
     {
         /** @var Float saldo total en el debe de la cuenta */
         $debit = 0;
@@ -233,10 +233,10 @@ class AccountingStateOfResultsController extends Controller
         /** @var Float saldo total de la suma de los saldos de sus cuentas hijo */
         $balanceChildren = 0;
 
-        foreach ($account->seatAccount as $seatAccount) {
-            if ($seatAccount->seating['approved']) {
-                $debit += (float)$seatAccount['debit'];
-                $assets += (float)$seatAccount['assets'];
+        foreach ($account->entryAccount as $entryAccount) {
+            if ($entryAccount->entries['approved']) {
+                $debit += (float)$entryAccount['debit'];
+                $assets += (float)$entryAccount['assets'];
             }
         }
         if (count($account->children) > 0) {
@@ -244,7 +244,7 @@ class AccountingStateOfResultsController extends Controller
                 /**
                 * llamada recursiva y acumulación
                 */
-                $balanceChildren += $this->calculateValuesInSeating($child);
+                $balanceChildren += $this->calculateValuesInEntries($child);
             }
         }
         /**
