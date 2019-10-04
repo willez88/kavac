@@ -6,10 +6,10 @@
                 <accounting-show-errors />
                 <div class="row">
                     <div class="col-3">
-                        <label for="seats_reference" class="control-label">Código de referencia</label>
+                        <label for="entries_reference" class="control-label">Código de referencia</label>
                         <input type="text" class="form-control" data-toggle="tooltip"
                                 title="Formato para el código de los reportes"
-                                name="seats_reference" 
+                                name="entries_reference" 
                                 v-model="code"
                                 placeholder="Ej. XXX-00000000-YYYY"
                                 :readonly="(ref_code)? true : false">
@@ -87,7 +87,8 @@
                 if (vm.validatedFormatCode()) {
                     return;
                 }
-                axios.post('/accounting/settings/code', {seats_reference:vm.code})
+                console.log(vm.code)
+                axios.post('/accounting/settings/code', {entries_reference:vm.code})
                 .then(response=>{
                     vm.showMessage('store');
                     vm.redirect_back('/accounting/settings');

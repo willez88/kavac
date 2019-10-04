@@ -23,14 +23,14 @@
 				<div class="card-header">
 					<h6 class="card-title">Aprobar asientos contables</h6>
 					<div class="card-btns">
-						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.previous', ['route' => route('accounting.entries.index')])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-seat-listing :seating="{{ $seating }}"
+					<accounting-entry-listing :entries="{{ $entries }}"
 									:show=" 'unapproved'"
-									route_edit="{{ url('accounting/seating/{id}/edit') }}" />
+									route_edit="{{ url('accounting/entries/{id}/edit') }}" />
 				</div>
 			</div>
 		</div>

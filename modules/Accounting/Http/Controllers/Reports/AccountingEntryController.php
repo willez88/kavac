@@ -2,27 +2,18 @@
 
 namespace Modules\Accounting\Http\Controllers\Reports;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use Modules\Accounting\Models\AccountingSeat;
+use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
 
-/**
- * @class AccountingSeatReportPdfController
- * @brief Controlador para la generación del reporte de asiento contable
- *
- * Clase que gestiona el reporte de asiento contable
- *
- * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
- */
-
-class AccountingSeatController extends Controller
+class AccountingEntryController extends Controller
 {
-
     /**
      * Define la configuración de la clase
      *
@@ -31,7 +22,7 @@ class AccountingSeatController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.seating.report', ['only' => 'pdf']);
+        $this->middleware('permission:accounting.entries.report', ['only' => 'pdf']);
     }
 
     /**
@@ -44,7 +35,10 @@ class AccountingSeatController extends Controller
     {
 
         /** @var Objet objeto con la información del asiento contable */
-        $seat = AccountingSeat::with('accountingAccounts.account.accountConverters.budgetAccount')->find($id);
+        $entry = AccountingEntry::with(
+            'accountingAccounts.account.accountConverters.budgetAccount',
+            'currency'
+        )->find($id);
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
@@ -52,7 +46,7 @@ class AccountingSeatController extends Controller
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
         $currency = Currency::where('default', true)->first();
         
-        $Seating = true;
+        $Entry = true;
 
         /**
          * [$pdf base para generar el pdf]
@@ -67,11 +61,11 @@ class AccountingSeatController extends Controller
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de asiento contable');
         $pdf->setFooter();
-        $pdf->setBody('accounting::pdf.seat_and_daily_book', true, [
+        $pdf->setBody('accounting::pdf.entry_and_daily_book', true, [
             'pdf' => $pdf,
-            'seat' => $seat,
-            'currency' => $currency,
-            'Seating' => $Seating,
+            'entry' => $entry,
+            'currency' => $entry->currency,
+            'Entry' => $Entry,
         ]);
     }
 

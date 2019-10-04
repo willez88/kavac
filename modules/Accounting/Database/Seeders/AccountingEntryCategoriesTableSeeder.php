@@ -5,7 +5,7 @@ namespace Modules\Accounting\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Modules\Accounting\Models\AccountingSeatCategory;
+use Modules\Accounting\Models\AccountingEntryCategory;
 
 /**
  * @class AccountingSeatCategoriesTableSeeder
@@ -16,7 +16,7 @@ use Modules\Accounting\Models\AccountingSeatCategory;
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
-class AccountingSeatCategoriesTableSeeder extends Seeder
+class AccountingEntryCategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -43,7 +43,7 @@ class AccountingSeatCategoriesTableSeeder extends Seeder
 
         DB::transaction(function () use ($categories) {
             foreach ($categories as $category) {
-                AccountingSeatCategory::updateOrCreate(
+                AccountingEntryCategory::updateOrCreate(
                     [
                         "name" => $category["name"],
                         "acronym" => $category["acronym"],

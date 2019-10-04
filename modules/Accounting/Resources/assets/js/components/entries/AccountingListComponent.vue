@@ -15,7 +15,7 @@
 									style="display:inline;float: right; margin: 0.6rem;"
 									title="Eliminar Registro"
 									data-toggle="tooltip"
-									@click="deleteRecord(props.index, '/accounting/seating')"
+									@click="deleteRecord(props.index, '/accounting/entries')"
 									v-if="!props.row.approved">
 									<i class="fa fa-close" style="text-align: center;"></i>
 							</button>
@@ -139,7 +139,7 @@
 <script>
 	export default{
 		props:{
-            seating:{
+            entries:{
                 type:Array,
                 default: function() {
                 	return [];
@@ -151,7 +151,7 @@
 				currcy:{},
 				minimized:true,
 				records: [],
-				url:'/accounting/seating', 
+				url:'/accounting/entries', 
 				columns: ['content'],
 			}
 		},
@@ -161,14 +161,14 @@
 			};
 
 			this.table_options.filterable = [];
-			if (this.seating) {
-				this.records = this.seating;
+			if (this.entries) {
+				this.records = this.entries;
 			}
 			EventBus.$on('reload:listing',(data)=>{
 				this.records = data;
 			});
 
-			EventBus.$on('list:seating',(data)=>{
+			EventBus.$on('list:entries',(data)=>{
 				this.records = data.records;
 			});
 		},

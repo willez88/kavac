@@ -23,15 +23,15 @@
 				<div class="card-header">
 					<h6 class="card-title">Gestión de asientos contables</h6>
 					<div class="card-btns">
-						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.previous', ['route' => route('accounting.entries.index')])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					@if(!isset($seating))
-						<accounting-seat-create :categories="{{ $categories }}" :institutions="{{ $institutions }}" :currencies="{{ $currencies }}" />
+					@if(!isset($entries))
+						<accounting-entry-form :categories="{{ $categories }}" :institutions="{{ $institutions }}" :currencies="{{ $currencies }}" />
 					@else
-						<accounting-seat-create :categories="{{ $categories }}" :institutions="{{ $institutions }}" :currencies="{{ $currencies }}" :data_edit="{{ $data_edit }}" />
+						<accounting-entry-form :categories="{{ $categories }}" :institutions="{{ $institutions }}" :currencies="{{ $currencies }}" :data_edit="{{ $data_edit }}" />
 					@endif
 				</div>
 			</div>
@@ -45,10 +45,10 @@
 					</div>
 				</div>
 				<div class="card-body">
-					@if(!isset($seating))
-					<accounting-seat-create-account :accounting_accounts="{{ $AccountingAccounts }}" />
+					@if(!isset($entries))
+					<accounting-entry-form-account :accounting_accounts="{{ $AccountingAccounts }}" />
 					@else
-						<accounting-seat-create-account :accounting_accounts="{{ $AccountingAccounts }}" :seating="{{ $seating }}" route_list="{{ url('accounting/seating/unapproved') }}"/>
+						<accounting-entry-form-account :accounting_accounts="{{ $AccountingAccounts }}" :entries="{{ $entries }}" route_list="{{ url('accounting/entries/unapproved') }}"/>
 					@endif
 				</div>
 			</div>

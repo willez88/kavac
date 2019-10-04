@@ -7,9 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingReportHistory;
-use Modules\Accounting\Models\AccountingSeatAccount;
+use Modules\Accounting\Models\AccountingEntryAccount;
 use Modules\Accounting\Models\AccountingAccount;
-use Modules\Accounting\Models\AccountingSeat;
+use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
@@ -64,8 +64,9 @@ class AccountingReportsController extends Controller
          * se convierte array a JSON
          */
         $records = json_encode($records);
-
-        return view('accounting::reports.accounting_books', compact('yearOld', 'records'));
+        $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
+        
+        return view('accounting::reports.accounting_books', compact('yearOld', 'records', 'currencies'));
     }
     /**
      * Display a listing of the resource.
@@ -87,10 +88,10 @@ class AccountingReportsController extends Controller
     public function CalcualteYearOld()
     {
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::where('approved', true)->orderBy('from_date', 'ASC')->first();
+        $entries = AccountingEntry::where('approved', true)->orderBy('from_date', 'ASC')->first();
         
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $yearOld = explode('-', $seating['from_date'])[0];
+        $yearOld = explode('-', $entries['from_date'])[0];
 
         return $yearOld;
     }

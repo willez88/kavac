@@ -3,7 +3,7 @@
 		<form @submit.prevent="" class="form-horizontal">
 			<div class="card-body">
 				
-				<accounting-show-errors :options="errors" />
+				<accounting-show-errors />
 
 				<div class="alert alert-primary" role="alert" v-if="warnings.length > 0">
 					<div class="container">
@@ -125,7 +125,7 @@
 		</form>
 
 		<div v-if="records.length > 0">
-			<!-- <accounting-seat-listing :seating="records" :currency="currency" :show="'approved'" /> -->
+			<!-- <accounting-entry-listing :seating="records" :currency="currency" :show="'approved'" /> -->
 		</div>
 	</div>
 </template>
@@ -203,25 +203,24 @@
 			* @return {boolean} Devuelve true si la información no cumple algun campo
 			*/
 			ErrorsInForm:function(){
-
+				var errors = [];
 				if (this.typeSearch == 'reference' && this.data.reference == '') {
-					this.errors = [];
-					this.errors.push('El campo referencia es obligatorio');
-					return true;
+					errors.push('El campo referencia es obligatorio');
 				}
 
 				if (this.typeSearch == 'origin') {
 					if (this.filterDate == '') {
-						this.errors = [];
-						this.errors.push('Debe seleccionar un rango de busqueda (por perdiodo o por mes.)');
-						return true;
+						errors.push('Debe seleccionar un rango de busqueda (por perdiodo o por mes.)');
 					}
 
 					if (this.filterDate == 'specific' && (this.data.init == '' || this.data.end == '')) {
-						this.errors = [];
-						this.errors.push('Debe especificar el rango de las fechas');
-						return true;
+						errors.push('Debe especificar el rango de las fechas');
 					}
+				}
+
+				if (errors.length > 0) {
+					EventBus.$emit('show:errors', errors);
+					return true;
 				}
 				return false;
 			},
@@ -238,7 +237,7 @@
 					return ;
 				}
 				const vm = this;
-				axios.post('/accounting/seating/Filter-Records',{
+				axios.post('/accounting/entries/Filter-Records',{
 					'typeSearch':this.typeSearch,
 					'filterDate':this.filterDate,
 					'data':this.data,
@@ -249,7 +248,7 @@
 						this.warnings.push('No se encontraron asientos contables aprobados con los parametros de busqueda dados.')
 					}
 					this.records = response.data.records;
-					EventBus.$emit('list:seating',{
+					EventBus.$emit('list:entries',{
 						records:response.data.records,
 						currency:this.currency,
 					});

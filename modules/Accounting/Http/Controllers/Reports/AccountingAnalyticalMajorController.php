@@ -61,7 +61,6 @@ class AccountingAnalyticalMajorController extends Controller
      */
     public function filterAccounts($initDate, $endYear, $endMonth)
     {
-
         /**
          * [$initDate fecha inicial de busqueda]
          * @var [string]
@@ -86,11 +85,11 @@ class AccountingAnalyticalMajorController extends Controller
          * [$query consulta de las cuentas con relación hacia asientos contables aprobados en un rango de fecha]
          * @var [Modules\Accounting\Models\AccountingAccount]
          */
-        $query = AccountingAccount::with(['seatAccount.seating' => function ($query) use ($initDate, $endDate) {
+        $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
             if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                 $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
             }
-        }])->whereHas('seatAccount.seating', function ($query) use ($initDate, $endDate) {
+        }])->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
             $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
         })
         ->orderBy('group', 'ASC')
@@ -116,7 +115,7 @@ class AccountingAnalyticalMajorController extends Controller
             ]);
 
         foreach ($query as $account) {
-            if ($account['seatAccount']) {
+            if ($account['entryAccount']) {
                 array_push($arrAccounts, [
                     'text' => "{$account->getCodeAttribute()} - {$account->denomination}",
                     'id' => $account->id,
@@ -155,8 +154,9 @@ class AccountingAnalyticalMajorController extends Controller
      * @param String $endDate [rango de fecha final YYYY-mm]
      * @param String $initAcc  [id de cuenta patrimonial inicial]
      * @param String $endAcc   [id de cuenta patrimonial final]
+     * @param Currency $currency moneda en que se expresara el reporte
      */
-    public function pdf($initDate, $endDate, $initAcc, $endAcc)
+    public function pdf($initDate, $endDate, $initAcc, $endAcc, Currency $currency)
     {
         /**
          * [$query almacenara la consulta]
@@ -224,13 +224,13 @@ class AccountingAnalyticalMajorController extends Controller
          * [$records registros de las cuentas patrimoniales seleccionadas]
          * @var Modules\Accounting\Models\AccountingAccount
          */
-        $records = AccountingAccount::with(['seatAccount.seating' => function ($query) use ($initDate, $endDate) {
+        $records = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
             if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                 $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
             }
         }])
             ->whereBetween('id', [$initAcc, $endAcc])
-            ->whereHas('seatAccount.seating', function ($query) use ($initDate, $endDate) {
+            ->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
                 $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
             })
             ->orderBy('group', 'ASC')
@@ -240,18 +240,11 @@ class AccountingAnalyticalMajorController extends Controller
             ->orderBy('specific', 'ASC')
             ->orderBy('subspecific', 'ASC')
             ->orderBy('denomination', 'ASC')->get();
-
         /**
          * [$setting configuración general de la apliación]
          * @var [Modules\Accounting\Models\Setting]
          */
         $setting = Setting::all()->first();
-
-        /**
-         * [$currency información de la modena por defecto establecida en la aplicación]
-         * @var [Modules\Accounting\Models\Currency]
-         */
-        $currency = Currency::where('default', true)->first();
 
         $initDate = new DateTime($initDate);
         $endDate = new DateTime($endDate);

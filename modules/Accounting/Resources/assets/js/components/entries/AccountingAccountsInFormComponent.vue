@@ -31,7 +31,7 @@
                 </td>
                 <td>
                     <div class="text-center">
-                        <button @click="deleteAccount(recordsAccounting.indexOf(record), record.id_seatAcc)" 
+                        <button @click="deleteAccount(recordsAccounting.indexOf(record), record.entryAccountId)" 
                             class="btn btn-danger btn-xs btn-icon btn-action" 
                             title="Eliminar registro" data-toggle="tooltip">
                             <i class="fa fa-trash-o"></i>
@@ -83,7 +83,7 @@
         </tbody>
     </table>
     <div class="card-footer text-right">
-        <buttonsDisplay route_list="/accounting/seating" display="false"/>
+        <buttonsDisplay route_list="/accounting/entries" display="false"/>
     </div>
 </div>
 </template>
@@ -94,7 +94,7 @@
                 type:Array,
                 default: []
             },
-            seating:{
+            entries:{
                 type:Object,
                 default: null
             },
@@ -105,7 +105,7 @@
                 recordsBudget:[],
                 rowsToDelete:[],
                 columns: ['code', 'debit', 'assets', 'id'],
-                urlPrevious:'/accounting/seating',
+                urlPrevious:'/accounting/entries',
                 data:{
                     date:'',
                     reference:'',
@@ -134,7 +134,7 @@
 
             $('#select2').val('');
 
-            EventBus.$on('enableInput:seating-account',(data)=>{
+            EventBus.$on('enableInput:entries-account',(data)=>{
                 this.enableInput = data.value;
                 this.data.date = data.date;
                 this.data.reference = data.reference;
@@ -157,10 +157,10 @@
 
             // recibe un json con el id de cuenta presupuestal para agregar el registro con la
             // respectiva cuenta patrimonial
-            //emisión:  EventBus.$emit('seating:budgetToAccount',{'id':id_budget,'value':compromise_value});
+            //emisión:  EventBus.$emit('entries:budgetToAccount',{'id':id_budget,'value':compromise_value});
 
             // data = id_budget
-            EventBus.$on('seating:budgetToAccount', (data)=>{
+            EventBus.$on('entries:budgetToAccount', (data)=>{
                 const vm = this;
                 axios.get('/accounting/converter/budgetToAccount/'+data).then(response=>{
                     $('#select2').val(response.data.record.id);
@@ -178,27 +178,27 @@
             });
         },
         mounted(){
-            if (this.seating) {
-                for (var i = 0; i < this.seating.accounting_accounts.length; i++) {
+            if (this.entries) {
+                for (var i = 0; i < this.entries.accounting_accounts.length; i++) {
                     this.recordsAccounting.push({
-                        id:this.seating.accounting_accounts[i].accounting_account_id,
-                        id_seatAcc:this.seating.accounting_accounts[i].id,
-                        debit:this.seating.accounting_accounts[i].debit,
-                        assets:this.seating.accounting_accounts[i].assets,
+                        id:this.entries.accounting_accounts[i].accounting_account_id,
+                        entryAccountId:this.entries.accounting_accounts[i].id,
+                        debit:this.entries.accounting_accounts[i].debit,
+                        assets:this.entries.accounting_accounts[i].assets,
                     });
                 }
-                this.data.totDebit = parseFloat(this.seating.tot_debit);
-                this.data.totAssets = parseFloat(this.seating.tot_assets);
+                this.data.totDebit = parseFloat(this.entries.tot_debit);
+                this.data.totAssets = parseFloat(this.entries.tot_assets);
             }
         },
         beforeDestroy(){
-            EventBus.$off('enableInput:seating-account');
+            EventBus.$off('enableInput:entries-account');
             EventBus.$off('request:budgetToAccount');
         },
         methods:{
 
             reset(){
-                EventBus.$emit('reset:accounting-seat-edit-create');
+                EventBus.$emit('reset:accounting-entry-edit-create');
             },
 
             /**
@@ -337,7 +337,7 @@
                         if (this.accounting_accounts[i].id == $('#select2').val()){
                             this.recordsAccounting.push({
                                 id:$('#select2').val(),
-                                id_seatAcc:null,
+                                entryAccountId:null,
                                 debit:0,
                                 assets:0,
                             });
@@ -354,24 +354,24 @@
             * @return {[type]} [description]
             */
             createRecord:function(){
-                if (this.seating == null) {
-                    this.createSeat();
+                if (this.entries == null) {
+                    this.storeEntry();
                 }
                 else{
-                    this.UpdateSeating();
+                    this.updateRecord();
                 }
             },
 
            /**
-            * [createSeat Guarda la información del asiento contable]
+            * [storeEntry Guarda la información del asiento contable]
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
-            createSeat(){
+            storeEntry(){
                 if (this.validateErrors()) { 
                     return ; 
                 }
                 const vm = this;
-                axios.post('/accounting/seating',{'data':this.data,
+                axios.post('/accounting/entries',{'data':this.data,
                                                   'accountingAccounts':this.recordsAccounting
                 }).then(response=>{
                     vm.showMessage('store');
@@ -400,11 +400,11 @@
             *
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
-            UpdateSeating:function() {
+            updateRecord:function() {
                 if (this.validateErrors()) {
                     return ; 
                 }
-                axios.put('/accounting/seating/'+this.seating.id, {'data':this.data,
+                axios.put('/accounting/entries/'+this.entries.id, {'data':this.data,
                                                     'accountingAccounts':this.recordsAccounting,
                                                     'rowsToDelete':this.rowsToDelete })
                 .then(response=>{

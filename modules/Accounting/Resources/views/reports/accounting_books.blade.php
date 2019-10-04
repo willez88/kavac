@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-report-daily-book />
+					<accounting-report-daily-book :currencies="{{ $currencies }}" />
 				</div>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-report-analytical-major year_old="{{ $yearOld }}" />
+					<accounting-report-analytical-major :currencies="{{ $currencies }}" year_old="{{ $yearOld }}" />
 				</div>
 			</div>
 		</div>
@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-report-auxiliary-book :records="{{ $records }}" year_old="{{ $yearOld }}" />
+					<accounting-report-auxiliary-book :currencies="{{ $currencies }}" :records="{{ $records }}" year_old="{{ $yearOld }}" />
 				</div>
 			</div>
 		</div>

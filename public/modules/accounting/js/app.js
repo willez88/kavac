@@ -133,7 +133,7 @@ Vue.component('accounting-accounts-list', __webpack_require__(/*! ./components/a
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-create-edit-form', __webpack_require__(/*! ./components/accounts/AccountingFormComponent.vue */ "./Resources/assets/js/components/accounts/AccountingFormComponent.vue")["default"]);
+Vue.component('accounting-form', __webpack_require__(/*! ./components/accounts/AccountingFormComponent.vue */ "./Resources/assets/js/components/accounts/AccountingFormComponent.vue")["default"]);
 /**
  * Componente con el formulario para importar cuentas patrimoniales desde un excel
  *
@@ -168,28 +168,28 @@ Vue.component('accounting-conversion-form', __webpack_require__(/*! ./components
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-seat', __webpack_require__(/*! ./components/seating/AccountingIndexComponent.vue */ "./Resources/assets/js/components/seating/AccountingIndexComponent.vue")["default"]);
+Vue.component('accounting-entry', __webpack_require__(/*! ./components/entries/AccountingIndexComponent.vue */ "./Resources/assets/js/components/entries/AccountingIndexComponent.vue")["default"]);
 /**
  * Componente para cargar la tabla de asientos contables
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-seat-listing', __webpack_require__(/*! ./components/seating/AccountingListComponent.vue */ "./Resources/assets/js/components/seating/AccountingListComponent.vue")["default"]);
+Vue.component('accounting-entry-listing', __webpack_require__(/*! ./components/entries/AccountingListComponent.vue */ "./Resources/assets/js/components/entries/AccountingListComponent.vue")["default"]);
 /**
  * Componente para la creación de asientos contable
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-seat-create', __webpack_require__(/*! ./components/seating/AccountingFormComponent.vue */ "./Resources/assets/js/components/seating/AccountingFormComponent.vue")["default"]);
+Vue.component('accounting-entry-form', __webpack_require__(/*! ./components/entries/AccountingFormComponent.vue */ "./Resources/assets/js/components/entries/AccountingFormComponent.vue")["default"]);
 /**
  * Componente para cargar la tabla de cuentas patrimoniales para el asiento contable
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-seat-create-account', __webpack_require__(/*! ./components/seating/AccountingAccountsInFormComponent.vue */ "./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue")["default"]);
+Vue.component('accounting-entry-form-account', __webpack_require__(/*! ./components/entries/AccountingAccountsInFormComponent.vue */ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue")["default"]);
 /**
  * Componente index para el reporte de balance de comprobación
  *
@@ -231,7 +231,7 @@ Vue.component('accounting-report-balance-sheet-state-of-results', __webpack_requ
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('dashboard-accounting-info', __webpack_require__(/*! ./components/dashboard/AccountingSeatHistoriesComponent.vue */ "./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue")["default"]);
+Vue.component('dashboard-accounting-info', __webpack_require__(/*! ./components/dashboard/AccountingEntryHistoriesComponent.vue */ "./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue")["default"]);
 /**
  * Componente index para el reporte de Balance General y reporte de satdo de resultados
  *
@@ -344,7 +344,7 @@ Vue.mixin({
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     approve: function approve(index) {
-      var url = '/accounting/seating/approve';
+      var url = '/accounting/entries/approve';
       var records = this.records;
       var confirmated = false;
       var index = index - 1;
@@ -937,6 +937,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue":
+/*!****************************************************************************************!*\
+  !*** ./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AccountingEntryHistoriesComponent_vue_vue_type_template_id_a91bc9b4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingEntryHistoriesComponent.vue?vue&type=template&id=a91bc9b4& */ "./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=template&id=a91bc9b4&");
+/* harmony import */ var _AccountingEntryHistoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingEntryHistoriesComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AccountingEntryHistoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountingEntryHistoriesComponent_vue_vue_type_template_id_a91bc9b4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingEntryHistoriesComponent_vue_vue_type_template_id_a91bc9b4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingEntryHistoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingEntryHistoriesComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingEntryHistoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=template&id=a91bc9b4&":
+/*!***********************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=template&id=a91bc9b4& ***!
+  \***********************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingEntryHistoriesComponent_vue_vue_type_template_id_a91bc9b4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingEntryHistoriesComponent.vue?vue&type=template&id=a91bc9b4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=template&id=a91bc9b4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingEntryHistoriesComponent_vue_vue_type_template_id_a91bc9b4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingEntryHistoriesComponent_vue_vue_type_template_id_a91bc9b4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./Resources/assets/js/components/dashboard/AccountingReportHistoriesComponent.vue":
 /*!*****************************************************************************************!*\
   !*** ./Resources/assets/js/components/dashboard/AccountingReportHistoriesComponent.vue ***!
@@ -1006,17 +1075,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue":
-/*!***************************************************************************************!*\
-  !*** ./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue ***!
-  \***************************************************************************************/
+/***/ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue":
+/*!**************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue ***!
+  \**************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingSeatHistoriesComponent_vue_vue_type_template_id_5514be37___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingSeatHistoriesComponent.vue?vue&type=template&id=5514be37& */ "./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=template&id=5514be37&");
-/* harmony import */ var _AccountingSeatHistoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingSeatHistoriesComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda& */ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda&");
+/* harmony import */ var _AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1026,9 +1095,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AccountingSeatHistoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingSeatHistoriesComponent_vue_vue_type_template_id_5514be37___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingSeatHistoriesComponent_vue_vue_type_template_id_5514be37___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1038,38 +1107,245 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue"
+component.options.__file = "Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************/
+/***/ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSeatHistoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSeatHistoriesComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSeatHistoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=template&id=5514be37&":
-/*!**********************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=template&id=5514be37& ***!
-  \**********************************************************************************************************************/
+/***/ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda&":
+/*!*********************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda& ***!
+  \*********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSeatHistoriesComponent_vue_vue_type_template_id_5514be37___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSeatHistoriesComponent.vue?vue&type=template&id=5514be37& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=template&id=5514be37&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSeatHistoriesComponent_vue_vue_type_template_id_5514be37___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSeatHistoriesComponent_vue_vue_type_template_id_5514be37___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingFormComponent.vue":
+/*!****************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingFormComponent.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AccountingFormComponent_vue_vue_type_template_id_8f034384___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingFormComponent.vue?vue&type=template&id=8f034384& */ "./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=template&id=8f034384&");
+/* harmony import */ var _AccountingFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingFormComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AccountingFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountingFormComponent_vue_vue_type_template_id_8f034384___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingFormComponent_vue_vue_type_template_id_8f034384___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "Resources/assets/js/components/entries/AccountingFormComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingFormComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=template&id=8f034384&":
+/*!***********************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=template&id=8f034384& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_template_id_8f034384___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingFormComponent.vue?vue&type=template&id=8f034384& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=template&id=8f034384&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_template_id_8f034384___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_template_id_8f034384___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingIndexComponent.vue":
+/*!*****************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingIndexComponent.vue ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AccountingIndexComponent_vue_vue_type_template_id_dd08d914___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingIndexComponent.vue?vue&type=template&id=dd08d914& */ "./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=template&id=dd08d914&");
+/* harmony import */ var _AccountingIndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingIndexComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AccountingIndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountingIndexComponent_vue_vue_type_template_id_dd08d914___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingIndexComponent_vue_vue_type_template_id_dd08d914___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "Resources/assets/js/components/entries/AccountingIndexComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingIndexComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=template&id=dd08d914&":
+/*!************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=template&id=dd08d914& ***!
+  \************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_template_id_dd08d914___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingIndexComponent.vue?vue&type=template&id=dd08d914& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=template&id=dd08d914&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_template_id_dd08d914___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_template_id_dd08d914___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingListComponent.vue":
+/*!****************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingListComponent.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AccountingListComponent_vue_vue_type_template_id_4c0b66b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingListComponent.vue?vue&type=template&id=4c0b66b8& */ "./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=template&id=4c0b66b8&");
+/* harmony import */ var _AccountingListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingListComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AccountingListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountingListComponent_vue_vue_type_template_id_4c0b66b8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingListComponent_vue_vue_type_template_id_4c0b66b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "Resources/assets/js/components/entries/AccountingListComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingListComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=template&id=4c0b66b8&":
+/*!***********************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=template&id=4c0b66b8& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_template_id_4c0b66b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingListComponent.vue?vue&type=template&id=4c0b66b8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=template&id=4c0b66b8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_template_id_4c0b66b8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_template_id_4c0b66b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -1420,282 +1696,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue":
-/*!**************************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue ***!
-  \**************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingAccountsInFormComponent_vue_vue_type_template_id_2bc14a00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingAccountsInFormComponent.vue?vue&type=template&id=2bc14a00& */ "./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=template&id=2bc14a00&");
-/* harmony import */ var _AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingAccountsInFormComponent_vue_vue_type_template_id_2bc14a00___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingAccountsInFormComponent_vue_vue_type_template_id_2bc14a00___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=template&id=2bc14a00&":
-/*!*********************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=template&id=2bc14a00& ***!
-  \*********************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_template_id_2bc14a00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountsInFormComponent.vue?vue&type=template&id=2bc14a00& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=template&id=2bc14a00&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_template_id_2bc14a00___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_template_id_2bc14a00___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingFormComponent.vue":
-/*!****************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingFormComponent.vue ***!
-  \****************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingFormComponent_vue_vue_type_template_id_01ebd3eb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingFormComponent.vue?vue&type=template&id=01ebd3eb& */ "./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=template&id=01ebd3eb&");
-/* harmony import */ var _AccountingFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingFormComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AccountingFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingFormComponent_vue_vue_type_template_id_01ebd3eb___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingFormComponent_vue_vue_type_template_id_01ebd3eb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/seating/AccountingFormComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingFormComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=template&id=01ebd3eb&":
-/*!***********************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=template&id=01ebd3eb& ***!
-  \***********************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_template_id_01ebd3eb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingFormComponent.vue?vue&type=template&id=01ebd3eb& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=template&id=01ebd3eb&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_template_id_01ebd3eb___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingFormComponent_vue_vue_type_template_id_01ebd3eb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingIndexComponent.vue":
-/*!*****************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingIndexComponent.vue ***!
-  \*****************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingIndexComponent_vue_vue_type_template_id_75bcd369___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingIndexComponent.vue?vue&type=template&id=75bcd369& */ "./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=template&id=75bcd369&");
-/* harmony import */ var _AccountingIndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingIndexComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AccountingIndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingIndexComponent_vue_vue_type_template_id_75bcd369___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingIndexComponent_vue_vue_type_template_id_75bcd369___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/seating/AccountingIndexComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingIndexComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=template&id=75bcd369&":
-/*!************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=template&id=75bcd369& ***!
-  \************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_template_id_75bcd369___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingIndexComponent.vue?vue&type=template&id=75bcd369& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=template&id=75bcd369&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_template_id_75bcd369___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingIndexComponent_vue_vue_type_template_id_75bcd369___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingListComponent.vue":
-/*!****************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingListComponent.vue ***!
-  \****************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingListComponent_vue_vue_type_template_id_2367c251___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingListComponent.vue?vue&type=template&id=2367c251& */ "./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=template&id=2367c251&");
-/* harmony import */ var _AccountingListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingListComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AccountingListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingListComponent_vue_vue_type_template_id_2367c251___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingListComponent_vue_vue_type_template_id_2367c251___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/seating/AccountingListComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingListComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=template&id=2367c251&":
-/*!***********************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=template&id=2367c251& ***!
-  \***********************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_template_id_2367c251___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingListComponent.vue?vue&type=template&id=2367c251& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=template&id=2367c251&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_template_id_2367c251___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_template_id_2367c251___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./Resources/assets/js/components/setting/AccountingAccountComponent.vue":
 /*!*******************************************************************************!*\
   !*** ./Resources/assets/js/components/setting/AccountingAccountComponent.vue ***!
@@ -1936,6 +1936,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1951,9 +1956,23 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     EventBus.$on('show:errors', function (data) {
-      _this.options = [];
-      _this.options = data;
+      if (Array.isArray(data)) {
+        if (data.length == 0) {
+          _this.options = [];
+        } else {
+          _this.options = data;
+        }
+      } else {
+        _this.options = [];
+
+        _this.options.push(data);
+      }
     });
+  },
+  methods: {
+    reset: function reset() {
+      this.options = [];
+    }
   }
 });
 
@@ -2225,8 +2244,10 @@ __webpack_require__.r(__webpack_exports__);
         this.budgetAccounts = records;
       }
 
-      this.accountSelect.init_id = records[1].id;
-      this.accountSelect.end_id = records[records.length - 1].id;
+      if (records.length > 1) {
+        this.accountSelect.init_id = records[1].id;
+        this.accountSelect.end_id = records[records.length - 1].id;
+      }
     },
 
     /**
@@ -2946,6 +2967,125 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      reload: false,
+      currency: '',
+      records: [],
+      url: '/accounting/seating/',
+      columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'action']
+    };
+  },
+  created: function created() {
+    this.table_options.headings = {
+      'from_date': 'FECHA',
+      'reference': 'REFERENCIA',
+      'concept': 'CONCEPTO',
+      'total': 'TOTAL',
+      'approved': 'ESTADO DEL ASIENTO',
+      'action': 'ACCIÓN'
+    };
+    this.table_options.sortable = [];
+    this.table_options.filterable = [];
+  },
+  mounted: function mounted() {
+    this.loadRecords();
+  },
+  methods: {
+    /**
+     * Redirecciona al formulario de actualización de datos
+     * 
+     * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+     * @param  {integer} id Identificador del registro a actualizar
+     */
+    editForm: function editForm(id) {
+      location.href = this.url + id + '/edit';
+    },
+
+    /**
+     * Obtiene los registros de asientos contable
+     * 
+     * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+     */
+    loadRecords: function loadRecords() {
+      var _this = this;
+
+      axios.post('/accounting/lastOperations').then(function (response) {
+        _this.records = response.data.lastRecords;
+        _this.currency = response.data.currency;
+      });
+    }
+  },
+  watch: {
+    reload: function reload(res) {
+      if (res) {
+        this.loadRecords();
+        this.reload = false;
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingReportHistoriesComponent.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/dashboard/AccountingReportHistoriesComponent.vue?vue&type=script&lang=js& ***!
@@ -3075,10 +3215,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3132,63 +3272,1132 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    accounting_accounts: {
+      type: Array,
+      "default": []
+    },
+    entries: {
+      type: Object,
+      "default": null
+    }
+  },
   data: function data() {
     return {
-      reload: false,
-      currency: '',
-      records: [],
-      url: '/accounting/seating/',
-      columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'action']
+      recordsAccounting: [],
+      recordsBudget: [],
+      rowsToDelete: [],
+      columns: ['code', 'debit', 'assets', 'id'],
+      urlPrevious: '/accounting/entries',
+      data: {
+        date: '',
+        reference: '',
+        concept: '',
+        observations: '',
+        category: '',
+        totDebit: 0,
+        totAssets: 0,
+        institution_id: null,
+        currency_id: null
+      },
+      currency: {
+        symbol: '',
+        decimal_places: 0
+      },
+      enableInput: false,
+      accountingOptions: [],
+      optionIdBudget: '',
+      type: 'debit'
     };
   },
   created: function created() {
+    var _this = this;
+
     this.table_options.headings = {
-      'from_date': 'FECHA',
-      'reference': 'REFERENCIA',
-      'concept': 'CONCEPTO',
-      'total': 'TOTAL',
-      'approved': 'ESTADO DEL ASIENTO',
-      'action': 'ACCIÓN'
+      'code': 'CÓDIGO PATRIMONIAL - DENOMINACIÓN',
+      'debit': 'BEDE',
+      'assets': 'HABER',
+      'id': 'ACCIÓN'
     };
-    this.table_options.sortable = [];
-    this.table_options.filterable = [];
+    $('#select2').val('');
+    EventBus.$on('enableInput:entries-account', function (data) {
+      _this.enableInput = data.value;
+      _this.data.date = data.date;
+      _this.data.reference = data.reference;
+      _this.data.concept = data.concept;
+      _this.data.observations = data.observations;
+      _this.data.category = data.category;
+      _this.data.institution_id = data.institution_id;
+      _this.data.currency_id = data.currency_id;
+    });
+    EventBus.$on('change:currency', function (data) {
+      if (data != '') {
+        axios.get('/currencies/info/' + data).then(function (response) {
+          _this.currency = response.data.currency;
+        });
+      } else {
+        _this.currency = {
+          symbol: '',
+          decimal_places: 0
+        };
+      }
+    }); // recibe un json con el id de cuenta presupuestal para agregar el registro con la
+    // respectiva cuenta patrimonial
+    //emisión:  EventBus.$emit('entries:budgetToAccount',{'id':id_budget,'value':compromise_value});
+    // data = id_budget
+
+    EventBus.$on('entries:budgetToAccount', function (data) {
+      var vm = _this;
+      axios.get('/accounting/converter/budgetToAccount/' + data).then(function (response) {
+        $('#select2').val(response.data.record.id);
+        vm.addAccountingAccount(); // var pos = vm.recordsAccounting.length-1;
+        // 
+        // /* Si es positivo se suma en el lado del debe, sino en el haber */ 
+        // if(data.value >= 0){
+        //     vm.recordsAccounting[pos].value = data.value;
+        // }else{
+        //     vm.recordsAccounting[pos].asset = data.value;
+        // }
+        // vm.CalculateTot();
+      });
+    });
   },
   mounted: function mounted() {
-    this.loadRecords();
+    if (this.entries) {
+      for (var i = 0; i < this.entries.accounting_accounts.length; i++) {
+        this.recordsAccounting.push({
+          id: this.entries.accounting_accounts[i].accounting_account_id,
+          entryAccountId: this.entries.accounting_accounts[i].id,
+          debit: this.entries.accounting_accounts[i].debit,
+          assets: this.entries.accounting_accounts[i].assets
+        });
+      }
+
+      this.data.totDebit = parseFloat(this.entries.tot_debit);
+      this.data.totAssets = parseFloat(this.entries.tot_assets);
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    EventBus.$off('enableInput:entries-account');
+    EventBus.$off('request:budgetToAccount');
   },
   methods: {
-    /**
-     * Redirecciona al formulario de actualización de datos
-     * 
-     * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
-     * @param  {integer} id Identificador del registro a actualizar
-     */
-    editForm: function editForm(id) {
-      location.href = this.url + id + '/edit';
+    reset: function reset() {
+      EventBus.$emit('reset:accounting-entry-edit-create');
     },
 
     /**
-     * Obtiene los registros de asientos contable
-     * 
-     * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+     * [validateTotals valida que los totales sean positivos]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return {boolean}
      */
-    loadRecords: function loadRecords() {
-      var _this = this;
+    validateTotals: function validateTotals() {
+      return !(this.data.totDebit.toFixed(this.currency.decimal_places) >= 0 && this.data.totAssets.toFixed(this.currency.decimal_places) >= 0);
+    },
 
-      axios.post('/accounting/lastOperations').then(function (response) {
-        _this.records = response.data.lastRecords;
-        _this.currency = response.data.currency;
+    /**
+    * Validación de errores
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    */
+    validateErrors: function validateErrors() {
+      /**
+      * se cargan los errores
+      */
+      var errors = [];
+      var res = false;
+
+      if (!this.data.date) {
+        errors.push('El campo fecha es obligatorio.');
+        res = true;
+      }
+
+      if (!this.data.concept) {
+        errors.push('El campo concepto ó descripción es obligatorio.');
+        res = true;
+      }
+
+      if (!this.data.category) {
+        errors.push('El campo categoria es obligatorio.');
+        res = true;
+      }
+
+      if (!this.data.reference) {
+        errors.push('El campo referencia es obligatorio.');
+        res = true;
+      }
+
+      if (!this.data.institution_id) {
+        errors.push('El campo institución es obligatorio.');
+        res = true;
+      }
+
+      if (!this.data.currency_id) {
+        errors.push('El tipo de moneda es obligatorio.');
+        res = true;
+      }
+
+      if (this.recordsAccounting.length < 1) {
+        errors.push('No es permitido guardar asientos contables vacios');
+        res = true;
+      }
+
+      if (this.data.totDebit != this.data.totAssets) {
+        errors.push('El asiento no esta balanceado, Por favor verifique.');
+        res = true;
+      }
+
+      if (this.data.totDebit < 0 || this.data.totAssets < 0) {
+        errors.push('Los valores en la columna del DEBE y el HABER deben ser positivos.');
+        res = true;
+      }
+
+      EventBus.$emit('show:errors', errors);
+      return res;
+    },
+
+    /**
+    * Vacia la información del debe y haber de la columna sin cuenta seleccionada
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    */
+    changeSelectinTable: function changeSelectinTable(record) {
+      // si asigna un select en vacio, vacia los valores del debe y haber de esa fila
+      if (record.id == '') {
+        record.debit = 0;
+        record.assets = 0;
+        this.CalculateTot();
+      }
+    },
+
+    /**
+    * Establece la cantidad de decimales correspondientes a la moneda que se maneja
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    */
+    cualculateLimitDecimal: function cualculateLimitDecimal() {
+      var res = "0.";
+
+      for (var i = 0; i < this.currency.decimal_places - 1; i++) {
+        res += "0";
+      }
+
+      res += "1";
+      return res;
+    },
+
+    /**
+    * Calcula el total del debe y haber del asiento contable
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    */
+    CalculateTot: function CalculateTot() {
+      EventBus.$emit('show:errors', []);
+      this.data.totDebit = 0;
+      this.data.totAssets = 0;
+      /** Se recorren todo el arreglo que tiene todas las filas de las cuentas y saldos para el asiento y se calcula el total */
+
+      for (var i = this.recordsAccounting.length - 1; i >= 0; i--) {
+        if (this.recordsAccounting[i].id != '') {
+          var debit = this.recordsAccounting[i].debit != '' ? this.recordsAccounting[i].debit : 0;
+          var assets = this.recordsAccounting[i].assets != '' ? this.recordsAccounting[i].assets : 0;
+          this.recordsAccounting[i].debit = parseFloat(debit).toFixed(this.currency.decimal_places);
+          this.recordsAccounting[i].assets = parseFloat(assets).toFixed(this.currency.decimal_places);
+
+          if (this.recordsAccounting[i].debit < 0 || this.recordsAccounting[i].assets < 0) {
+            this.enableInput = false;
+            EventBus.$emit('show:errors', ["Los valores en la columna del DEBE y el HABER deben ser positivos."]);
+          } else {
+            this.enableInput = true;
+          }
+
+          this.data.totDebit += this.recordsAccounting[i].debit != '' ? parseFloat(this.recordsAccounting[i].debit) : 0;
+          this.data.totAssets += this.recordsAccounting[i].assets != '' ? parseFloat(this.recordsAccounting[i].assets) : 0;
+        }
+      }
+    },
+
+    /**
+    * Establece la información base para cada fila de cuentas
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    */
+    addAccountingAccount: function addAccountingAccount() {
+      if ($('#select2').val() != '') {
+        for (var i = this.accounting_accounts.length - 1; i >= 0; i--) {
+          if (this.accounting_accounts[i].id == $('#select2').val()) {
+            this.recordsAccounting.push({
+              id: $('#select2').val(),
+              entryAccountId: null,
+              debit: 0,
+              assets: 0
+            });
+            $('#select2').val('');
+            break;
+          }
+        }
+      }
+    },
+
+    /**
+     * [createRecord se valida si el asiento sera actualizado o creado]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return {[type]} [description]
+     */
+    createRecord: function createRecord() {
+      if (this.entries == null) {
+        this.storeEntry();
+      } else {
+        this.updateRecord();
+      }
+    },
+
+    /**
+     * [storeEntry Guarda la información del asiento contable]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     */
+    storeEntry: function storeEntry() {
+      if (this.validateErrors()) {
+        return;
+      }
+
+      var vm = this;
+      axios.post('/accounting/entries', {
+        'data': this.data,
+        'accountingAccounts': this.recordsAccounting
+      }).then(function (response) {
+        vm.showMessage('store');
+        setTimeout(function () {
+          location.href = vm.urlPrevious;
+        }, 1500);
+      })["catch"](function (error) {
+        var errors = [];
+
+        if (typeof error.response != "undefined") {
+          for (var index in error.response.data.errors) {
+            if (error.response.data.errors[index]) {
+              errors.push(error.response.data.errors[index][0]);
+            }
+          }
+        }
+        /**
+        * se cargan los errores
+        */
+
+
+        EventBus.$emit('show:errors', []);
+        EventBus.$emit('show:errors', errors);
+      });
+    },
+
+    /**
+    * Actualiza la información del asiento contable
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    */
+    updateRecord: function updateRecord() {
+      var _this2 = this;
+
+      if (this.validateErrors()) {
+        return;
+      }
+
+      axios.put('/accounting/entries/' + this.entries.id, {
+        'data': this.data,
+        'accountingAccounts': this.recordsAccounting,
+        'rowsToDelete': this.rowsToDelete
+      }).then(function (response) {
+        _this2.showMessage('update');
+
+        var vm = _this2;
+        setTimeout(function () {
+          location.href = vm.route_list;
+        }, 1500);
+      });
+    },
+
+    /**
+    * Elimina la fila de la cuenta y vuelve a calcular el total del asiento
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    */
+    deleteAccount: function deleteAccount(index, id) {
+      this.rowsToDelete.push(id);
+      this.recordsAccounting.splice(index, 1);
+      this.CalculateTot();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    categories: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    institutions: {
+      type: Array,
+      "default": function _default() {
+        return [{
+          id: '',
+          text: 'Seleccione...'
+        }];
+      }
+    },
+    currencies: {
+      type: Array,
+      "default": function _default() {
+        return [{
+          id: '',
+          text: 'Seleccione...'
+        }];
+      }
+    },
+    data_edit: {
+      type: Object,
+      "default": function _default() {
+        return null;
+      }
+    }
+  },
+  data: function data() {
+    return {
+      date: '',
+      reference: '',
+      concept: '',
+      observations: '',
+      category: '',
+      validated: false,
+      institution_id: '',
+      currency_id: '',
+      data_edit_mutable: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    if (this.data_edit) {
+      this.data_edit_mutable = this.data_edit;
+      this.reference = this.data_edit.reference;
+      this.category = this.data_edit.category;
+      this.institution_id = this.data_edit.institution;
+      this.currency_id = this.data_edit.currency;
+      this.date = this.data_edit.date;
+      this.concept = this.data_edit.concept;
+      this.observations = this.data_edit.observations;
+    } else {
+      this.generate_reference_code();
+    }
+
+    EventBus.$on('reset:accounting-entry-edit-create', function () {
+      _this.reset();
+    });
+  },
+  methods: {
+    reset: function reset() {
+      this.date = '';
+      this.reference = '';
+      this.concept = '';
+      this.observations = '';
+      this.category = '';
+      this.currency_id = null;
+      this.institution_id = null;
+    },
+
+    /**
+    * Valida las variables del formulario para realizar el filtrado, y emite el evento para actualizar los datos al componente AccountingAccountsInFormComponent
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    */
+    validateRequired: function validateRequired() {
+      if (!this.validated && (this.date == '' || this.concept == '' || this.observations == '' || this.category == '' || this.reference == '' || this.institution_id == null)) {
+        EventBus.$emit('enableInput:entries-account', {
+          'value': false,
+          'date': this.date,
+          'reference': this.reference,
+          'concept': this.concept,
+          'observations': this.observations,
+          'category': this.category,
+          'institution_id': this.institution_id,
+          'currency_id': this.currency_id
+        });
+      }
+
+      if (this.validated == false) {
+        /**
+         * se verifica que la fecha, la referencia, la institucion, la categoria y el tipo de moneda no esten vacios
+        */
+        if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != '' && this.currency_id != '') {
+          EventBus.$emit('enableInput:entries-account', {
+            'value': true,
+            'date': this.date,
+            'reference': this.reference,
+            'concept': this.concept,
+            'observations': this.observations,
+            'category': this.category,
+            'institution_id': this.institution_id,
+            'currency_id': this.currency_id
+          });
+          this.validated = true;
+        }
+      } else {
+        /**
+         *si se modifica la fecha o la referencia se envia la información actualizada
+        */
+        EventBus.$emit('enableInput:entries-account', {
+          'value': true,
+          'date': this.date,
+          'reference': this.reference,
+          'concept': this.concept,
+          'observations': this.observations,
+          'category': this.category,
+          'institution_id': this.institution_id,
+          'currency_id': this.currency_id
+        });
+      }
+    },
+    generate_reference_code: function generate_reference_code() {
+      var _this2 = this;
+
+      axios.post('/accounting/settings/generate_reference_code').then(function (response) {
+        if (response.data.result) {
+          location.href = '/accounting/settings';
+        }
+
+        _this2.reference = response.data.code;
+        _this2.validated = false;
+
+        _this2.validateRequired();
       });
     }
   },
   watch: {
-    reload: function reload(res) {
+    date: function date(res) {
+      if (res == '') {
+        this.validated = false;
+      } else this.validateRequired();
+    },
+    reference: function reference(res) {
+      if (res == '') {
+        this.validated = false;
+      } else this.validateRequired();
+    },
+    concept: function concept(res) {
+      this.validateRequired();
+    },
+    observations: function observations(res) {
+      this.validateRequired();
+    },
+    category: function category(res) {
+      if (res != '') {
+        this.validateRequired();
+      } else {
+        this.reference = '';
+        this.validated = false;
+        this.validateRequired();
+      }
+    },
+    currency_id: function currency_id(res) {
       if (res) {
-        this.loadRecords();
-        this.reload = false;
+        EventBus.$emit('change:currency', res);
+      }
+
+      this.validateRequired();
+    },
+    institution_id: function institution_id(res) {
+      if (res == '') {
+        this.validated = false;
+        this.validateRequired();
+      }
+
+      if (this.data_edit_mutable != null) {
+        /** Se vacia la variable que trae la informacion para no*/
+        this.data_edit_mutable = null;
+      }
+
+      this.validateRequired();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    categories: {
+      type: Array,
+      "default": []
+    },
+    year_old: {
+      type: [String, Number],
+      "default": 0
+    },
+    institutions: {
+      type: Array,
+      "default": []
+    },
+    currency: {
+      type: Object,
+      "default": null
+    }
+  },
+  data: function data() {
+    return {
+      warnings: [],
+      records: [],
+      typeSearch: 'origin',
+      //states: 'reference', 'origin'
+      filterDate: 'generic',
+      //states: 'generic','specific'
+      data: {
+        reference: '',
+        category: 0,
+        init: '',
+        end: '',
+        year: 0,
+        month: 0,
+        institution: ''
+      }
+    };
+  },
+  created: function created() {
+    this.CalculateOptionsYears(this.year_old, true);
+    this.months.unshift({
+      id: 0,
+      text: 'Todos'
+    });
+  },
+  mounted: function mounted() {
+    /** 
+     * Evento para determinar los datos a requerir segun la busqueda seleccionada
+     */
+    var vm = this;
+    $('.sel_search').on('switchChange.bootstrapSwitch', function (e) {
+      if (e.target.id === "sel_ref") {
+        vm.typeSearch = 'reference';
+      } else if (e.target.id === "sel_origin") {
+        vm.typeSearch = 'origin';
+      }
+    });
+    $('.sel_filterDate').on('switchChange.bootstrapSwitch', function (e) {
+      if (e.target.id === "sel_fil_date_specific") {
+        vm.filterDate = 'specific';
+      } else if (e.target.id === "sel_fil_date_generic") {
+        vm.filterDate = 'generic';
+      }
+    });
+  },
+  methods: {
+    /**
+    * Funcion para la verificación y manejo de errores
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    * @return {boolean} Devuelve true si la información no cumple algun campo
+    */
+    ErrorsInForm: function ErrorsInForm() {
+      var errors = [];
+
+      if (this.typeSearch == 'reference' && this.data.reference == '') {
+        errors.push('El campo referencia es obligatorio');
+      }
+
+      if (this.typeSearch == 'origin') {
+        if (this.filterDate == '') {
+          errors.push('Debe seleccionar un rango de busqueda (por perdiodo o por mes.)');
+        }
+
+        if (this.filterDate == 'specific' && (this.data.init == '' || this.data.end == '')) {
+          errors.push('Debe especificar el rango de las fechas');
+        }
+      }
+
+      if (errors.length > 0) {
+        EventBus.$emit('show:errors', errors);
+        return true;
+      }
+
+      return false;
+    },
+
+    /**
+    * Obtiene la información de los asientos contables
+    *
+    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+    */
+    searchRecords: function searchRecords() {
+      var _this = this;
+
+      // manejo de errores
+      if (this.ErrorsInForm()) {
+        return;
+      }
+
+      var vm = this;
+      axios.post('/accounting/entries/Filter-Records', {
+        'typeSearch': this.typeSearch,
+        'filterDate': this.filterDate,
+        'data': this.data
+      }).then(function (response) {
+        _this.warnings = [];
+        _this.errors = [];
+
+        if (response.data.records.length == 0) {
+          _this.warnings.push('No se encontraron asientos contables aprobados con los parametros de busqueda dados.');
+        }
+
+        _this.records = response.data.records;
+        EventBus.$emit('list:entries', {
+          records: response.data.records,
+          currency: _this.currency
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    entries: {
+      type: Array,
+      "default": function _default() {
+        return [];
       }
     }
+  },
+  data: function data() {
+    return {
+      currcy: {},
+      minimized: true,
+      records: [],
+      url: '/accounting/entries',
+      columns: ['content']
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.table_options.headings = {
+      'content': 'ASIENTOS CONTABLES'
+    };
+    this.table_options.filterable = [];
+
+    if (this.entries) {
+      this.records = this.entries;
+    }
+
+    EventBus.$on('reload:listing', function (data) {
+      _this.records = data;
+    });
+    EventBus.$on('list:entries', function (data) {
+      _this.records = data.records;
+    });
   }
 });
 
@@ -3261,17 +4470,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
       type: String,
       "default": ''
+    },
+    currencies: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
     }
   },
   data: function data() {
     return {
       url: '/accounting/report/analyticalMajor',
-      disabledButton: true,
       InitAcc: 0,
       EndAcc: 0,
       dates: null,
@@ -3279,7 +4500,8 @@ __webpack_require__.r(__webpack_exports__);
         id: 0,
         text: 'Seleccione...'
       }],
-      disabledSelect: true
+      disabledSelect: true,
+      currency: ''
     };
   },
   created: function created() {
@@ -3330,20 +4552,18 @@ __webpack_require__.r(__webpack_exports__);
         url += '/' + EndAcc;
       }
 
+      url += '/' + this.currency;
       return url;
-    },
-
+    }
+  },
+  computed: {
     /**
     * valida si se cumplen los requerimientos de información de las cuentas, y cambia el valor de la variable para habilitar el boton
     *
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
-    activatedButtonFunc: function activatedButtonFunc() {
-      if (this.InitAcc == 0 && this.EndAcc == 0) {
-        this.disabledButton = true;
-      } else {
-        this.disabledButton = false;
-      }
+    disabledButton: function disabledButton() {
+      return this.InitAcc == 0 || this.EndAcc == 0 || !this.currency ? true : false;
     }
   },
   watch: {
@@ -3410,9 +4630,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     records: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    currencies: {
       type: Array,
       "default": function _default() {
         return [];
@@ -3426,7 +4659,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       account_id: 0,
-      url: '/accounting/report/auxiliaryBook/pdf/'
+      url: '/accounting/report/auxiliaryBook/pdf/',
+      currency: ''
     };
   },
   created: function created() {
@@ -3440,7 +4674,7 @@ __webpack_require__.r(__webpack_exports__);
     * @return {string} url para el reporte
     */
     getUrlReport: function getUrlReport() {
-      return this.url + this.account_id + '/' + (this.year_init + '-' + this.month_init);
+      return this.url + this.account_id + '/' + (this.year_init + '-' + this.month_init) + '/' + this.currency;
     }
   }
 });
@@ -3680,12 +4914,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    currencies: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    }
+  },
   data: function data() {
     return {
       url: '/accounting/report/dailyBook/pdf/',
       dateIni: '',
-      dateEnd: ''
+      dateEnd: '',
+      currency: ''
     };
   },
   methods: {
@@ -3699,1196 +4948,9 @@ __webpack_require__.r(__webpack_exports__);
       var dateIni = this.dateIni;
       var dateEnd = this.dateEnd;
       var info = this.dateIni <= this.dateEnd ? dateIni + '/' + dateEnd : dateEnd + '/' + dateIni;
-      var url = this.url + info;
+      var url = this.url + info + '/' + this.currency;
       return url;
     }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    accounting_accounts: {
-      type: Array,
-      "default": []
-    },
-    seating: {
-      type: Object,
-      "default": null
-    }
-  },
-  data: function data() {
-    return {
-      recordsAccounting: [],
-      recordsBudget: [],
-      rowsToDelete: [],
-      columns: ['code', 'debit', 'assets', 'id'],
-      urlPrevious: '/accounting/seating',
-      data: {
-        date: '',
-        reference: '',
-        concept: '',
-        observations: '',
-        category: '',
-        totDebit: 0,
-        totAssets: 0,
-        institution_id: null,
-        currency_id: null
-      },
-      currency: {
-        symbol: '',
-        decimal_places: 0
-      },
-      enableInput: false,
-      accountingOptions: [],
-      optionIdBudget: '',
-      type: 'debit'
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    this.table_options.headings = {
-      'code': 'CÓDIGO PATRIMONIAL - DENOMINACIÓN',
-      'debit': 'BEDE',
-      'assets': 'HABER',
-      'id': 'ACCIÓN'
-    };
-    $('#select2').val('');
-    EventBus.$on('enableInput:seating-account', function (data) {
-      _this.enableInput = data.value;
-      _this.data.date = data.date;
-      _this.data.reference = data.reference;
-      _this.data.concept = data.concept;
-      _this.data.observations = data.observations;
-      _this.data.category = data.category;
-      _this.data.institution_id = data.institution_id;
-      _this.data.currency_id = data.currency_id;
-    });
-    EventBus.$on('change:currency', function (data) {
-      if (data != '') {
-        axios.get('/currencies/info/' + data).then(function (response) {
-          _this.currency = response.data.currency;
-        });
-      } else {
-        _this.currency = {
-          symbol: '',
-          decimal_places: 0
-        };
-      }
-    }); // recibe un json con el id de cuenta presupuestal para agregar el registro con la
-    // respectiva cuenta patrimonial
-    //emisión:  EventBus.$emit('seating:budgetToAccount',{'id':id_budget,'value':compromise_value});
-    // data = id_budget
-
-    EventBus.$on('seating:budgetToAccount', function (data) {
-      var vm = _this;
-      axios.get('/accounting/converter/budgetToAccount/' + data).then(function (response) {
-        $('#select2').val(response.data.record.id);
-        vm.addAccountingAccount(); // var pos = vm.recordsAccounting.length-1;
-        // 
-        // /* Si es positivo se suma en el lado del debe, sino en el haber */ 
-        // if(data.value >= 0){
-        //     vm.recordsAccounting[pos].value = data.value;
-        // }else{
-        //     vm.recordsAccounting[pos].asset = data.value;
-        // }
-        // vm.CalculateTot();
-      });
-    });
-  },
-  mounted: function mounted() {
-    if (this.seating) {
-      for (var i = 0; i < this.seating.accounting_accounts.length; i++) {
-        this.recordsAccounting.push({
-          id: this.seating.accounting_accounts[i].accounting_account_id,
-          id_seatAcc: this.seating.accounting_accounts[i].id,
-          debit: this.seating.accounting_accounts[i].debit,
-          assets: this.seating.accounting_accounts[i].assets
-        });
-      }
-
-      this.data.totDebit = parseFloat(this.seating.tot_debit);
-      this.data.totAssets = parseFloat(this.seating.tot_assets);
-    }
-  },
-  beforeDestroy: function beforeDestroy() {
-    EventBus.$off('enableInput:seating-account');
-    EventBus.$off('request:budgetToAccount');
-  },
-  methods: {
-    reset: function reset() {
-      EventBus.$emit('reset:accounting-seat-edit-create');
-    },
-
-    /**
-     * [validateTotals valida que los totales sean positivos]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return {boolean}
-     */
-    validateTotals: function validateTotals() {
-      return !(this.data.totDebit.toFixed(this.currency.decimal_places) >= 0 && this.data.totAssets.toFixed(this.currency.decimal_places) >= 0);
-    },
-
-    /**
-    * Validación de errores
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    validateErrors: function validateErrors() {
-      /**
-      * se cargan los errores
-      */
-      var errors = [];
-      var res = false;
-
-      if (!this.data.date) {
-        errors.push('El campo fecha es obligatorio.');
-        res = true;
-      }
-
-      if (!this.data.concept) {
-        errors.push('El campo concepto ó descripción es obligatorio.');
-        res = true;
-      }
-
-      if (!this.data.category) {
-        errors.push('El campo categoria es obligatorio.');
-        res = true;
-      }
-
-      if (!this.data.reference) {
-        errors.push('El campo referencia es obligatorio.');
-        res = true;
-      }
-
-      if (!this.data.institution_id) {
-        errors.push('El campo institución es obligatorio.');
-        res = true;
-      }
-
-      if (!this.data.currency_id) {
-        errors.push('El tipo de moneda es obligatorio.');
-        res = true;
-      }
-
-      if (this.recordsAccounting.length < 1) {
-        errors.push('No es permitido guardar asientos contables vacios');
-        res = true;
-      }
-
-      if (this.data.totDebit != this.data.totAssets) {
-        errors.push('El asiento no esta balanceado, Por favor verifique.');
-        res = true;
-      }
-
-      if (this.data.totDebit < 0 || this.data.totAssets < 0) {
-        errors.push('Los valores en la columna del DEBE y el HABER deben ser positivos.');
-        res = true;
-      }
-
-      EventBus.$emit('show:errors', errors);
-      return res;
-    },
-
-    /**
-    * Vacia la información del debe y haber de la columna sin cuenta seleccionada
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    changeSelectinTable: function changeSelectinTable(record) {
-      // si asigna un select en vacio, vacia los valores del debe y haber de esa fila
-      if (record.id == '') {
-        record.debit = 0;
-        record.assets = 0;
-        this.CalculateTot();
-      }
-    },
-
-    /**
-    * Establece la cantidad de decimales correspondientes a la moneda que se maneja
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    cualculateLimitDecimal: function cualculateLimitDecimal() {
-      var res = "0.";
-
-      for (var i = 0; i < this.currency.decimal_places - 1; i++) {
-        res += "0";
-      }
-
-      res += "1";
-      return res;
-    },
-
-    /**
-    * Calcula el total del debe y haber del asiento contable
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    CalculateTot: function CalculateTot() {
-      EventBus.$emit('show:errors', []);
-      this.data.totDebit = 0;
-      this.data.totAssets = 0;
-      /** Se recorren todo el arreglo que tiene todas las filas de las cuentas y saldos para el asiento y se calcula el total */
-
-      for (var i = this.recordsAccounting.length - 1; i >= 0; i--) {
-        if (this.recordsAccounting[i].id != '') {
-          var debit = this.recordsAccounting[i].debit != '' ? this.recordsAccounting[i].debit : 0;
-          var assets = this.recordsAccounting[i].assets != '' ? this.recordsAccounting[i].assets : 0;
-          this.recordsAccounting[i].debit = parseFloat(debit).toFixed(this.currency.decimal_places);
-          this.recordsAccounting[i].assets = parseFloat(assets).toFixed(this.currency.decimal_places);
-
-          if (this.recordsAccounting[i].debit < 0 || this.recordsAccounting[i].assets < 0) {
-            this.enableInput = false;
-            EventBus.$emit('show:errors', ["Los valores en la columna del DEBE y el HABER deben ser positivos."]);
-          } else {
-            this.enableInput = true;
-          }
-
-          this.data.totDebit += this.recordsAccounting[i].debit != '' ? parseFloat(this.recordsAccounting[i].debit) : 0;
-          this.data.totAssets += this.recordsAccounting[i].assets != '' ? parseFloat(this.recordsAccounting[i].assets) : 0;
-        }
-      }
-    },
-
-    /**
-    * Establece la información base para cada fila de cuentas
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    addAccountingAccount: function addAccountingAccount() {
-      if ($('#select2').val() != '') {
-        for (var i = this.accounting_accounts.length - 1; i >= 0; i--) {
-          if (this.accounting_accounts[i].id == $('#select2').val()) {
-            this.recordsAccounting.push({
-              id: $('#select2').val(),
-              id_seatAcc: null,
-              debit: 0,
-              assets: 0
-            });
-            $('#select2').val('');
-            break;
-          }
-        }
-      }
-    },
-
-    /**
-     * [createRecord se valida si el asiento sera actualizado o creado]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return {[type]} [description]
-     */
-    createRecord: function createRecord() {
-      if (this.seating == null) {
-        this.createSeat();
-      } else {
-        this.UpdateSeating();
-      }
-    },
-
-    /**
-     * [createSeat Guarda la información del asiento contable]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     */
-    createSeat: function createSeat() {
-      if (this.validateErrors()) {
-        return;
-      }
-
-      var vm = this;
-      axios.post('/accounting/seating', {
-        'data': this.data,
-        'accountingAccounts': this.recordsAccounting
-      }).then(function (response) {
-        vm.showMessage('store');
-        setTimeout(function () {
-          location.href = vm.urlPrevious;
-        }, 1500);
-      })["catch"](function (error) {
-        var errors = [];
-
-        if (typeof error.response != "undefined") {
-          for (var index in error.response.data.errors) {
-            if (error.response.data.errors[index]) {
-              errors.push(error.response.data.errors[index][0]);
-            }
-          }
-        }
-        /**
-        * se cargan los errores
-        */
-
-
-        EventBus.$emit('show:errors', []);
-        EventBus.$emit('show:errors', errors);
-      });
-    },
-
-    /**
-    * Actualiza la información del asiento contable
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    UpdateSeating: function UpdateSeating() {
-      var _this2 = this;
-
-      if (this.validateErrors()) {
-        return;
-      }
-
-      axios.put('/accounting/seating/' + this.seating.id, {
-        'data': this.data,
-        'accountingAccounts': this.recordsAccounting,
-        'rowsToDelete': this.rowsToDelete
-      }).then(function (response) {
-        _this2.showMessage('update');
-
-        var vm = _this2;
-        setTimeout(function () {
-          location.href = vm.route_list;
-        }, 1500);
-      });
-    },
-
-    /**
-    * Elimina la fila de la cuenta y vuelve a calcular el total del asiento
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    deleteAccount: function deleteAccount(index, id) {
-      this.rowsToDelete.push(id);
-      this.recordsAccounting.splice(index, 1);
-      this.CalculateTot();
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    categories: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    },
-    institutions: {
-      type: Array,
-      "default": function _default() {
-        return [{
-          id: '',
-          text: 'Seleccione...'
-        }];
-      }
-    },
-    currencies: {
-      type: Array,
-      "default": function _default() {
-        return [{
-          id: '',
-          text: 'Seleccione...'
-        }];
-      }
-    },
-    data_edit: {
-      type: Object,
-      "default": function _default() {
-        return null;
-      }
-    }
-  },
-  data: function data() {
-    return {
-      date: '',
-      reference: '',
-      concept: '',
-      observations: '',
-      category: '',
-      validated: false,
-      institution_id: '',
-      currency_id: '',
-      data_edit_mutable: null
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    if (this.data_edit) {
-      this.data_edit_mutable = this.data_edit;
-      this.reference = this.data_edit.reference;
-      this.category = this.data_edit.category;
-      this.institution_id = this.data_edit.institution;
-      this.currency_id = this.data_edit.currency;
-      this.date = this.data_edit.date;
-      this.concept = this.data_edit.concept;
-      this.observations = this.data_edit.observations;
-    } else {
-      this.generate_reference_code();
-    }
-
-    EventBus.$on('reset:accounting-seat-edit-create', function () {
-      _this.reset();
-    });
-  },
-  methods: {
-    reset: function reset() {
-      this.date = '';
-      this.reference = '';
-      this.concept = '';
-      this.observations = '';
-      this.category = '';
-      this.currency_id = null;
-      this.institution_id = null;
-    },
-
-    /**
-    * Valida las variables del formulario para realizar el filtrado, y emite el evento para actualizar los datos al componente AccountingAccountsInSeatingComponent
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    validateRequired: function validateRequired() {
-      if (!this.validated && (this.date == '' || this.concept == '' || this.observations == '' || this.category == '' || this.reference == '' || this.institution_id == null)) {
-        EventBus.$emit('enableInput:seating-account', {
-          'value': false,
-          'date': this.date,
-          'reference': this.reference,
-          'concept': this.concept,
-          'observations': this.observations,
-          'category': this.category,
-          'institution_id': this.institution_id,
-          'currency_id': this.currency_id
-        });
-      }
-
-      if (this.validated == false) {
-        /**
-         * se verifica que la fecha, la referencia, la institucion, la categoria y el tipo de moneda no esten vacios
-        */
-        if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != '' && this.currency_id != '') {
-          EventBus.$emit('enableInput:seating-account', {
-            'value': true,
-            'date': this.date,
-            'reference': this.reference,
-            'concept': this.concept,
-            'observations': this.observations,
-            'category': this.category,
-            'institution_id': this.institution_id,
-            'currency_id': this.currency_id
-          });
-          this.validated = true;
-        }
-      } else {
-        /**
-         *si se modifica la fecha o la referencia se envia la información actualizada
-        */
-        EventBus.$emit('enableInput:seating-account', {
-          'value': true,
-          'date': this.date,
-          'reference': this.reference,
-          'concept': this.concept,
-          'observations': this.observations,
-          'category': this.category,
-          'institution_id': this.institution_id,
-          'currency_id': this.currency_id
-        });
-      }
-    },
-    generate_reference_code: function generate_reference_code() {
-      var _this2 = this;
-
-      axios.post('/accounting/settings/generate_reference_code').then(function (response) {
-        if (response.data.result) {
-          setTimeout("location.href = '/accounting/settings';", 1000);
-        }
-
-        _this2.reference = response.data.code;
-        _this2.validated = false;
-
-        _this2.validateRequired();
-      });
-    }
-  },
-  watch: {
-    date: function date(res) {
-      if (res == '') {
-        this.validated = false;
-      } else this.validateRequired();
-    },
-    reference: function reference(res) {
-      if (res == '') {
-        this.validated = false;
-      } else this.validateRequired();
-    },
-    concept: function concept(res) {
-      this.validateRequired();
-    },
-    observations: function observations(res) {
-      this.validateRequired();
-    },
-    category: function category(res) {
-      if (res != '') {
-        this.validateRequired();
-      } else {
-        this.reference = '';
-        this.validated = false;
-        this.validateRequired();
-      }
-    },
-    currency_id: function currency_id(res) {
-      if (res) {
-        EventBus.$emit('change:currency', res);
-      }
-
-      this.validateRequired();
-    },
-    institution_id: function institution_id(res) {
-      if (res == '') {
-        this.validated = false;
-        this.validateRequired();
-      }
-
-      if (this.data_edit_mutable != null) {
-        /** Se vacia la variable que trae la informacion para no*/
-        this.data_edit_mutable = null;
-      }
-
-      this.validateRequired();
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    categories: {
-      type: Array,
-      "default": []
-    },
-    year_old: {
-      type: [String, Number],
-      "default": 0
-    },
-    institutions: {
-      type: Array,
-      "default": []
-    },
-    currency: {
-      type: Object,
-      "default": null
-    }
-  },
-  data: function data() {
-    return {
-      warnings: [],
-      records: [],
-      typeSearch: 'origin',
-      //states: 'reference', 'origin'
-      filterDate: 'generic',
-      //states: 'generic','specific'
-      data: {
-        reference: '',
-        category: 0,
-        init: '',
-        end: '',
-        year: 0,
-        month: 0,
-        institution: ''
-      }
-    };
-  },
-  created: function created() {
-    this.CalculateOptionsYears(this.year_old, true);
-    this.months.unshift({
-      id: 0,
-      text: 'Todos'
-    });
-  },
-  mounted: function mounted() {
-    /** 
-     * Evento para determinar los datos a requerir segun la busqueda seleccionada
-     */
-    var vm = this;
-    $('.sel_search').on('switchChange.bootstrapSwitch', function (e) {
-      if (e.target.id === "sel_ref") {
-        vm.typeSearch = 'reference';
-      } else if (e.target.id === "sel_origin") {
-        vm.typeSearch = 'origin';
-      }
-    });
-    $('.sel_filterDate').on('switchChange.bootstrapSwitch', function (e) {
-      if (e.target.id === "sel_fil_date_specific") {
-        vm.filterDate = 'specific';
-      } else if (e.target.id === "sel_fil_date_generic") {
-        vm.filterDate = 'generic';
-      }
-    });
-  },
-  methods: {
-    /**
-    * Funcion para la verificación y manejo de errores
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    * @return {boolean} Devuelve true si la información no cumple algun campo
-    */
-    ErrorsInForm: function ErrorsInForm() {
-      if (this.typeSearch == 'reference' && this.data.reference == '') {
-        this.errors = [];
-        this.errors.push('El campo referencia es obligatorio');
-        return true;
-      }
-
-      if (this.typeSearch == 'origin') {
-        if (this.filterDate == '') {
-          this.errors = [];
-          this.errors.push('Debe seleccionar un rango de busqueda (por perdiodo o por mes.)');
-          return true;
-        }
-
-        if (this.filterDate == 'specific' && (this.data.init == '' || this.data.end == '')) {
-          this.errors = [];
-          this.errors.push('Debe especificar el rango de las fechas');
-          return true;
-        }
-      }
-
-      return false;
-    },
-
-    /**
-    * Obtiene la información de los asientos contables
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    searchRecords: function searchRecords() {
-      var _this = this;
-
-      // manejo de errores
-      if (this.ErrorsInForm()) {
-        return;
-      }
-
-      var vm = this;
-      axios.post('/accounting/seating/Filter-Records', {
-        'typeSearch': this.typeSearch,
-        'filterDate': this.filterDate,
-        'data': this.data
-      }).then(function (response) {
-        _this.warnings = [];
-        _this.errors = [];
-
-        if (response.data.records.length == 0) {
-          _this.warnings.push('No se encontraron asientos contables aprobados con los parametros de busqueda dados.');
-        }
-
-        _this.records = response.data.records;
-        EventBus.$emit('list:seating', {
-          records: response.data.records,
-          currency: _this.currency
-        });
-      });
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    seating: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    }
-  },
-  data: function data() {
-    return {
-      currcy: {},
-      minimized: true,
-      records: [],
-      url: '/accounting/seating',
-      columns: ['content']
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    this.table_options.headings = {
-      'content': 'ASIENTOS CONTABLES'
-    };
-    this.table_options.filterable = [];
-
-    if (this.seating) {
-      this.records = this.seating;
-    }
-
-    EventBus.$on('reload:listing', function (data) {
-      _this.records = data;
-    });
-    EventBus.$on('list:seating', function (data) {
-      _this.records = data.records;
-    });
   }
 });
 
@@ -5166,6 +5228,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5210,31 +5273,33 @@ __webpack_require__.r(__webpack_exports__);
     validInformation: function validInformation() {
       var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
       var acronym = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      var jumpOne = this.state == 'update' ? true : false; // verifica que no este repetida la información
+      var jumpOne = this.state == 'update' ? true : false;
+      var errors = []; // verifica que no este repetida la información
       // en caso de estar actualizando se lo salta
 
       for (var i = 0; i < this.records.length; i++) {
-        if (acronym && this.record.acronym == this.records[i].acronym) {
-          if (jumpOne) {
-            jumpOne = false;
-            continue;
-          }
-
-          this.errors = [];
-          this.errors.push('El acrónimo debe ser único.');
-          return false;
-        }
-
         if (name && this.record.name == this.records[i].name) {
           if (jumpOne) {
             jumpOne = false;
             continue;
           }
 
-          this.errors = [];
-          this.errors.push('El nombre debe ser único.');
-          return false;
+          errors.push('El nombre debe ser único.');
         }
+
+        if (acronym && this.record.acronym == this.records[i].acronym) {
+          if (jumpOne) {
+            jumpOne = false;
+            continue;
+          }
+
+          errors.push('El acrónimo debe ser único.');
+        }
+      }
+
+      if (errors.length > 0) {
+        EventBus.$emit('show:errors', errors);
+        return false;
       }
 
       return true;
@@ -5259,6 +5324,7 @@ __webpack_require__.r(__webpack_exports__);
             acronym: ''
           };
           vm.showMessage('store');
+          EventBus.$emit('show:errors', []);
         });
       } else {
         if (!this.validInformation(false)) return;
@@ -5271,6 +5337,7 @@ __webpack_require__.r(__webpack_exports__);
           vm.state = 'store'; // se cambia el estado para mostrar el boton guardar
 
           vm.showMessage('update');
+          EventBus.$emit('show:errors', []);
         });
       }
     },
@@ -5391,8 +5458,9 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      console.log(vm.code);
       axios.post('/accounting/settings/code', {
-        seats_reference: vm.code
+        entries_reference: vm.code
       }).then(function (response) {
         vm.showMessage('store');
         vm.redirect_back('/accounting/settings');
@@ -5435,8 +5503,22 @@ var render = function() {
             _vm._v(" "),
             _c("strong", [_vm._v("Cuidado!")]),
             _vm._v(
-              " Debe verificar los siguientes errores antes de continuar:\n\t\t"
+              " Debe verificar los siguientes errores antes de continuar:\n            "
             ),
+            _c(
+              "button",
+              {
+                staticClass: "close",
+                attrs: {
+                  type: "button",
+                  "data-dismiss": "alert",
+                  "aria-label": "Close"
+                },
+                on: { click: this.reset }
+              },
+              [_vm._m(1)]
+            ),
+            _vm._v(" "),
             _c(
               "ul",
               _vm._l(_vm.options, function(error) {
@@ -5456,6 +5538,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "alert-icon" }, [
       _c("i", { staticClass: "now-ui-icons objects_support-17" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { attrs: { "aria-hidden": "true" } }, [
+      _c("i", { staticClass: "now-ui-icons ui-1_simple-remove" })
     ])
   }
 ]
@@ -6535,101 +6625,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingReportHistoriesComponent.vue?vue&type=template&id=b2791f34&":
-/*!******************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/dashboard/AccountingReportHistoriesComponent.vue?vue&type=template&id=b2791f34& ***!
-  \******************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h6", [_vm._v("Reportes generados")]),
-      _vm._v(" "),
-      _c("v-client-table", {
-        attrs: {
-          columns: _vm.columns,
-          data: _vm.records,
-          options: _vm.table_options
-        },
-        scopedSlots: _vm._u([
-          {
-            key: "name",
-            fn: function(props) {
-              return _c("div", { staticClass: "text-left" }, [
-                _vm._v("\n\t\t\t" + _vm._s(props.row.name) + "\n\t\t")
-              ])
-            }
-          },
-          {
-            key: "created_at",
-            fn: function(props) {
-              return _c("div", { staticClass: "text-center" }, [
-                _vm._v("\n\t\t\t" + _vm._s(props.row.created_at) + "\n\t\t")
-              ])
-            }
-          },
-          {
-            key: "range",
-            fn: function(props) {
-              return _c("div", { staticClass: "text-center" }, [
-                _c("strong", [
-                  _vm._v(_vm._s(_vm.rangeOfReport(props.row.url)) + " ")
-                ])
-              ])
-            }
-          },
-          {
-            key: "id",
-            fn: function(props) {
-              return _c("div", { staticClass: "text-center" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-primary btn-xs btn-icon",
-                    attrs: {
-                      "data-toggle": "tooltip",
-                      href: _vm.url + props.row.url,
-                      title: "Generar Reporte",
-                      target: "_blank"
-                    }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fa fa-print",
-                      staticStyle: { "text-align": "center" }
-                    })
-                  ]
-                )
-              ])
-            }
-          }
-        ])
-      })
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=template&id=5514be37&":
-/*!****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/dashboard/AccountingSeatHistoriesComponent.vue?vue&type=template&id=5514be37& ***!
-  \****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=template&id=a91bc9b4&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/dashboard/AccountingEntryHistoriesComponent.vue?vue&type=template&id=a91bc9b4& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6839,10 +6838,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingAnalyticalMajorComponent.vue?vue&type=template&id=082fa7b8&":
-/*!****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingAnalyticalMajorComponent.vue?vue&type=template&id=082fa7b8& ***!
-  \****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/dashboard/AccountingReportHistoriesComponent.vue?vue&type=template&id=b2791f34&":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/dashboard/AccountingReportHistoriesComponent.vue?vue&type=template&id=b2791f34& ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6854,772 +6853,74 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "card-body" },
-      [
-        _c("accounting-show-errors", { attrs: { options: _vm.errors } }),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Mes")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.months },
-                  model: {
-                    value: _vm.month_init,
-                    callback: function($$v) {
-                      _vm.month_init = $$v
-                    },
-                    expression: "month_init"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Año")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.years },
-                  model: {
-                    value: _vm.year_init,
-                    callback: function($$v) {
-                      _vm.year_init = $$v
-                    },
-                    expression: "year_init"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Mes")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.months },
-                  model: {
-                    value: _vm.month_end,
-                    callback: function($$v) {
-                      _vm.month_end = $$v
-                    },
-                    expression: "month_end"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Año")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.years },
-                  model: {
-                    value: _vm.year_end,
-                    callback: function($$v) {
-                      _vm.year_end = $$v
-                    },
-                    expression: "year_end"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-6" },
-            [
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "is-required" },
-                [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("select2", {
-                    attrs: { options: _vm.OptionsAcc },
-                    on: { input: _vm.activatedButtonFunc },
-                    model: {
-                      value: _vm.InitAcc,
-                      callback: function($$v) {
-                        _vm.InitAcc = $$v
-                      },
-                      expression: "InitAcc"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _vm._m(3),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.OptionsAcc },
-                on: { input: _vm.activatedButtonFunc },
-                model: {
-                  value: _vm.EndAcc,
-                  callback: function($$v) {
-                    _vm.EndAcc = $$v
-                  },
-                  expression: "EndAcc"
-                }
-              })
-            ],
-            1
-          )
-        ])
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-footer text-right" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-sm",
-          attrs: {
-            title: "Generar Reporte",
-            disabled: _vm.disabledButton,
-            "data-toggle": "tooltip"
-          },
-          on: {
-            click: function($event) {
-              _vm.OpenPdf(_vm.getUrlReport(), "_black")
-            }
-          }
-        },
-        [
-          _c("span", [_vm._v("Generar reporte")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-print" })
-        ]
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "control-label" }, [
-      _c("strong", [_vm._v("Fecha Inicial")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "control-label" }, [
-      _c("strong", [_vm._v("Fecha Final")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("strong", [_vm._v("Cuenta Inicial")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("strong", [_vm._v("Cuenta Final")])])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingAuxiliaryBookComponent.vue?vue&type=template&id=cd77f86c&":
-/*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingAuxiliaryBookComponent.vue?vue&type=template&id=cd77f86c& ***!
-  \**************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-horizontal" }, [
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-4" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "is-required" },
-            [
-              _c("label", [_vm._v("Mes")]),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.months },
-                model: {
-                  value: _vm.month_init,
-                  callback: function($$v) {
-                    _vm.month_init = $$v
-                  },
-                  expression: "month_init"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "is-required" },
-            [
-              _c("label", [_vm._v("Año")]),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.years },
-                model: {
-                  value: _vm.year_init,
-                  callback: function($$v) {
-                    _vm.year_init = $$v
-                  },
-                  expression: "year_init"
-                }
-              })
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-8" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("br"),
-            _c("br"),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.records },
-              model: {
-                value: _vm.account_id,
-                callback: function($$v) {
-                  _vm.account_id = $$v
-                },
-                expression: "account_id"
-              }
-            })
-          ],
-          1
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-footer text-right" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-sm",
-          attrs: {
-            "data-toggle": "tooltip",
-            disabled: _vm.account_id == 0,
-            title: "Generar Reporte"
-          },
-          on: {
-            click: function($event) {
-              _vm.OpenPdf(_vm.getUrlReport(), "_blank")
-            }
-          }
-        },
-        [
-          _c("span", [_vm._v("Generar reporte")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-print" })
-        ]
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("strong", [_vm._v("Fecha:")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "control-label" }, [
-      _c("strong", [_vm._v("Cuentas Patrimoniales")])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingBalanceSheetAndStateOfResultsComponent.vue?vue&type=template&id=f8861252&":
-/*!******************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingBalanceSheetAndStateOfResultsComponent.vue?vue&type=template&id=f8861252& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-horizontal" }, [
-    _c("div", { staticClass: "card-body row" }, [
-      _c("div", { staticClass: "col-1" }),
+  return _c(
+    "div",
+    [
+      _c("h6", [_vm._v("Reportes generados")]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-3" },
-        [
-          _c("label", { staticClass: "control-label" }, [_vm._v("Al mes")]),
-          _vm._v(" "),
-          _c("select2", {
-            attrs: { options: _vm.months },
-            model: {
-              value: _vm.month_init,
-              callback: function($$v) {
-                _vm.month_init = $$v
-              },
-              expression: "month_init"
-            }
-          }),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
-          _vm._v(" "),
-          _c("select2", {
-            attrs: { options: _vm.years },
-            model: {
-              value: _vm.year_init,
-              callback: function($$v) {
-                _vm.year_init = $$v
-              },
-              expression: "year_init"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-1" }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-3" },
-        [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v("Nivel de consulta")
-          ]),
-          _vm._v(" "),
-          _c("select2", {
-            attrs: { options: _vm.levels },
-            model: {
-              value: _vm.level,
-              callback: function($$v) {
-                _vm.level = $$v
-              },
-              expression: "level"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-1" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("br"),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control text-center bootstrap-switch",
-          attrs: {
-            id: "zero" + this.type_report,
-            "data-on-label": "SI",
-            "data-off-label": "NO",
-            name: "zero",
-            type: "checkbox"
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-footer text-right" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-sm",
-          on: {
-            click: function($event) {
-              _vm.OpenPdf(_vm.getUrlReport(), "_blank")
-            }
-          }
-        },
-        [
-          _vm._v("\n\t\t\tGenerar Reporte "),
-          _c("i", { staticClass: "fa fa-print" })
-        ]
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-center" }, [
-      _c("strong", [_vm._v("Mostrar valores en cero")])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingCheckupBalanceComponent.vue?vue&type=template&id=01a81f18&":
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingCheckupBalanceComponent.vue?vue&type=template&id=01a81f18& ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-horizontal" }, [
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-1" }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-3" },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.months },
-              model: {
-                value: _vm.month_init,
-                callback: function($$v) {
-                  _vm.month_init = $$v
-                },
-                expression: "month_init"
-              }
-            }),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.years },
-              model: {
-                value: _vm.year_init,
-                callback: function($$v) {
-                  _vm.year_init = $$v
-                },
-                expression: "year_init"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-1" }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-3" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.months },
-              model: {
-                value: _vm.month_end,
-                callback: function($$v) {
-                  _vm.month_end = $$v
-                },
-                expression: "month_end"
-              }
-            }),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.years },
-              model: {
-                value: _vm.year_end,
-                callback: function($$v) {
-                  _vm.year_end = $$v
-                },
-                expression: "year_end"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-1" }),
-        _vm._v(" "),
-        _vm._m(2)
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-footer text-right" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-sm",
-          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
-          on: {
-            click: function($event) {
-              _vm.OpenPdf(_vm.getUrlReport(), "_black")
-            }
-          }
-        },
-        [
-          _c("span", [_vm._v("Generar reporte")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-print" })
-        ]
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("strong", [_vm._v("Desde:")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("strong", [_vm._v("Hasta:")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("label", { staticClass: "text-center" }, [
-        _c("strong", [_vm._v("Mostrar valores en cero")])
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control text-center bootstrap-switch",
+      _c("v-client-table", {
         attrs: {
-          id: "zero",
-          "data-on-label": "SI",
-          "data-off-label": "NO",
-          name: "zero",
-          type: "checkbox"
-        }
-      })
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52&":
-/*!**********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52& ***!
-  \**********************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-horizontal" }, [
-    _c(
-      "div",
-      { staticClass: "card-body", staticStyle: { "min-height": "0px" } },
-      [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-2" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-4" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v("Periodo Inicial")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.dateIni,
-                  expression: "dateIni"
-                }
-              ],
-              staticClass: "form-control is-required",
-              attrs: { type: "date" },
-              domProps: { value: _vm.dateIni },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.dateIni = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-4" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v("Periodo Final")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.dateEnd,
-                  expression: "dateEnd"
-                }
-              ],
-              staticClass: "form-control is-required",
-              attrs: { type: "date" },
-              domProps: { value: _vm.dateEnd },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.dateEnd = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-2" })
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-footer text-right" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-sm",
-          attrs: {
-            "data-toggle": "tooltip",
-            title: "Generar Reporte",
-            disabled: _vm.dateIni == "" || _vm.dateEnd == ""
+          columns: _vm.columns,
+          data: _vm.records,
+          options: _vm.table_options
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "name",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-left" }, [
+                _vm._v("\n\t\t\t" + _vm._s(props.row.name) + "\n\t\t")
+              ])
+            }
           },
-          on: {
-            click: function($event) {
-              _vm.OpenPdf(_vm.getUrlReport(), "_blank")
+          {
+            key: "created_at",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-center" }, [
+                _vm._v("\n\t\t\t" + _vm._s(props.row.created_at) + "\n\t\t")
+              ])
+            }
+          },
+          {
+            key: "range",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-center" }, [
+                _c("strong", [
+                  _vm._v(_vm._s(_vm.rangeOfReport(props.row.url)) + " ")
+                ])
+              ])
+            }
+          },
+          {
+            key: "id",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-center" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary btn-xs btn-icon",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      href: _vm.url + props.row.url,
+                      title: "Generar Reporte",
+                      target: "_blank"
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-print",
+                      staticStyle: { "text-align": "center" }
+                    })
+                  ]
+                )
+              ])
             }
           }
-        },
-        [
-          _c("span", [_vm._v("Generar reporte")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-print" })
-        ]
-      )
-    ])
-  ])
+        ])
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -7628,9 +6929,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=template&id=2bc14a00&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda&":
 /*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/seating/AccountingAccountsInFormComponent.vue?vue&type=template&id=2bc14a00& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda& ***!
   \***************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -7757,7 +7058,7 @@ var render = function() {
                           click: function($event) {
                             _vm.deleteAccount(
                               _vm.recordsAccounting.indexOf(record),
-                              record.id_seatAcc
+                              record.entryAccountId
                             )
                           }
                         }
@@ -7871,7 +7172,7 @@ var render = function() {
         { staticClass: "card-footer text-right" },
         [
           _c("buttonsDisplay", {
-            attrs: { route_list: "/accounting/seating", display: "false" }
+            attrs: { route_list: "/accounting/entries", display: "false" }
           })
         ],
         1
@@ -7920,9 +7221,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=template&id=01ebd3eb&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=template&id=8f034384&":
 /*!*****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/seating/AccountingFormComponent.vue?vue&type=template&id=01ebd3eb& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingFormComponent.vue?vue&type=template&id=8f034384& ***!
   \*****************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -8162,9 +7463,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=template&id=75bcd369&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=template&id=dd08d914&":
 /*!******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/seating/AccountingIndexComponent.vue?vue&type=template&id=75bcd369& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingIndexComponent.vue?vue&type=template&id=dd08d914& ***!
   \******************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -8193,7 +7494,7 @@ var render = function() {
           "div",
           { staticClass: "card-body" },
           [
-            _c("accounting-show-errors", { attrs: { options: _vm.errors } }),
+            _c("accounting-show-errors"),
             _vm._v(" "),
             _vm.warnings.length > 0
               ? _c(
@@ -8642,9 +7943,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=template&id=2367c251&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=template&id=4c0b66b8&":
 /*!*****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/seating/AccountingListComponent.vue?vue&type=template&id=2367c251& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingListComponent.vue?vue&type=template&id=4c0b66b8& ***!
   \*****************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -8730,7 +8031,7 @@ var render = function() {
                                 click: function($event) {
                                   return _vm.deleteRecord(
                                     props.index,
-                                    "/accounting/seating"
+                                    "/accounting/entries"
                                   )
                                 }
                               }
@@ -9084,6 +8385,870 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingAnalyticalMajorComponent.vue?vue&type=template&id=082fa7b8&":
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingAnalyticalMajorComponent.vue?vue&type=template&id=082fa7b8& ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "card-body" },
+      [
+        _c("accounting-show-errors"),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-3" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "is-required" },
+              [
+                _c("label", [_vm._v("Mes")]),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.months },
+                  model: {
+                    value: _vm.month_init,
+                    callback: function($$v) {
+                      _vm.month_init = $$v
+                    },
+                    expression: "month_init"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "is-required" },
+              [
+                _c("label", [_vm._v("Año")]),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.years },
+                  model: {
+                    value: _vm.year_init,
+                    callback: function($$v) {
+                      _vm.year_init = $$v
+                    },
+                    expression: "year_init"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-3" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "is-required" },
+              [
+                _c("label", [_vm._v("Mes")]),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.months },
+                  model: {
+                    value: _vm.month_end,
+                    callback: function($$v) {
+                      _vm.month_end = $$v
+                    },
+                    expression: "month_end"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "is-required" },
+              [
+                _c("label", [_vm._v("Año")]),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.years },
+                  model: {
+                    value: _vm.year_end,
+                    callback: function($$v) {
+                      _vm.year_end = $$v
+                    },
+                    expression: "year_end"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-3" },
+            [
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.OptionsAcc },
+                    on: { input: _vm.activatedButtonFunc },
+                    model: {
+                      value: _vm.InitAcc,
+                      callback: function($$v) {
+                        _vm.InitAcc = $$v
+                      },
+                      expression: "InitAcc"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.OptionsAcc },
+                on: { input: _vm.activatedButtonFunc },
+                model: {
+                  value: _vm.EndAcc,
+                  callback: function($$v) {
+                    _vm.EndAcc = $$v
+                  },
+                  expression: "EndAcc"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-3" }, [
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v("Expresar en")
+                ]),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.currencies },
+                  model: {
+                    value: _vm.currency,
+                    callback: function($$v) {
+                      _vm.currency = $$v
+                    },
+                    expression: "currency"
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        ])
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary btn-sm",
+          attrs: {
+            title: "Generar Reporte",
+            disabled: _vm.disabledButton,
+            "data-toggle": "tooltip"
+          },
+          on: {
+            click: function($event) {
+              _vm.OpenPdf(_vm.getUrlReport(), "_black")
+            }
+          }
+        },
+        [
+          _c("span", [_vm._v("Generar reporte")]),
+          _vm._v(" "),
+          _c("i", { staticClass: "fa fa-print" })
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "control-label" }, [
+      _c("strong", [_vm._v("Fecha Inicial")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "control-label" }, [
+      _c("strong", [_vm._v("Fecha Final")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Cuenta Inicial")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Cuenta Final")])])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingAuxiliaryBookComponent.vue?vue&type=template&id=cd77f86c&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingAuxiliaryBookComponent.vue?vue&type=template&id=cd77f86c& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "form-horizontal" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-3" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "is-required" },
+            [
+              _c("label", [_vm._v("Mes")]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.months },
+                model: {
+                  value: _vm.month_init,
+                  callback: function($$v) {
+                    _vm.month_init = $$v
+                  },
+                  expression: "month_init"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "is-required" },
+            [
+              _c("label", [_vm._v("Año")]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.years },
+                model: {
+                  value: _vm.year_init,
+                  callback: function($$v) {
+                    _vm.year_init = $$v
+                  },
+                  expression: "year_init"
+                }
+              })
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-6" },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("br"),
+            _c("br"),
+            _vm._v(" "),
+            _c("select2", {
+              attrs: { options: _vm.records },
+              model: {
+                value: _vm.account_id,
+                callback: function($$v) {
+                  _vm.account_id = $$v
+                },
+                expression: "account_id"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-3" }, [
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Expresar en")
+              ]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.currencies },
+                model: {
+                  value: _vm.currency,
+                  callback: function($$v) {
+                    _vm.currency = $$v
+                  },
+                  expression: "currency"
+                }
+              })
+            ],
+            1
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary btn-sm",
+          attrs: {
+            "data-toggle": "tooltip",
+            disabled: _vm.account_id == 0 || !_vm.currency,
+            title: "Generar Reporte"
+          },
+          on: {
+            click: function($event) {
+              _vm.OpenPdf(_vm.getUrlReport(), "_blank")
+            }
+          }
+        },
+        [
+          _c("span", [_vm._v("Generar reporte")]),
+          _vm._v(" "),
+          _c("i", { staticClass: "fa fa-print" })
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Fecha:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "control-label" }, [
+      _c("strong", [_vm._v("Cuentas Patrimoniales")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingBalanceSheetAndStateOfResultsComponent.vue?vue&type=template&id=f8861252&":
+/*!******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingBalanceSheetAndStateOfResultsComponent.vue?vue&type=template&id=f8861252& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "form-horizontal" }, [
+    _c("div", { staticClass: "card-body row" }, [
+      _c("div", { staticClass: "col-1" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-3" },
+        [
+          _c("label", { staticClass: "control-label" }, [_vm._v("Al mes")]),
+          _vm._v(" "),
+          _c("select2", {
+            attrs: { options: _vm.months },
+            model: {
+              value: _vm.month_init,
+              callback: function($$v) {
+                _vm.month_init = $$v
+              },
+              expression: "month_init"
+            }
+          }),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
+          _vm._v(" "),
+          _c("select2", {
+            attrs: { options: _vm.years },
+            model: {
+              value: _vm.year_init,
+              callback: function($$v) {
+                _vm.year_init = $$v
+              },
+              expression: "year_init"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-1" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-3" },
+        [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v("Nivel de consulta")
+          ]),
+          _vm._v(" "),
+          _c("select2", {
+            attrs: { options: _vm.levels },
+            model: {
+              value: _vm.level,
+              callback: function($$v) {
+                _vm.level = $$v
+              },
+              expression: "level"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-1" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-2" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control text-center bootstrap-switch",
+          attrs: {
+            id: "zero" + this.type_report,
+            "data-on-label": "SI",
+            "data-off-label": "NO",
+            name: "zero",
+            type: "checkbox"
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary btn-sm",
+          on: {
+            click: function($event) {
+              _vm.OpenPdf(_vm.getUrlReport(), "_blank")
+            }
+          }
+        },
+        [
+          _vm._v("\n\t\t\tGenerar Reporte "),
+          _c("i", { staticClass: "fa fa-print" })
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-center" }, [
+      _c("strong", [_vm._v("Mostrar valores en cero")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingCheckupBalanceComponent.vue?vue&type=template&id=01a81f18&":
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingCheckupBalanceComponent.vue?vue&type=template&id=01a81f18& ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "form-horizontal" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-1" }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-3" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
+            _vm._v(" "),
+            _c("select2", {
+              attrs: { options: _vm.months },
+              model: {
+                value: _vm.month_init,
+                callback: function($$v) {
+                  _vm.month_init = $$v
+                },
+                expression: "month_init"
+              }
+            }),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
+            _vm._v(" "),
+            _c("select2", {
+              attrs: { options: _vm.years },
+              model: {
+                value: _vm.year_init,
+                callback: function($$v) {
+                  _vm.year_init = $$v
+                },
+                expression: "year_init"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-3" },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
+            _vm._v(" "),
+            _c("select2", {
+              attrs: { options: _vm.months },
+              model: {
+                value: _vm.month_end,
+                callback: function($$v) {
+                  _vm.month_end = $$v
+                },
+                expression: "month_end"
+              }
+            }),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
+            _vm._v(" "),
+            _c("select2", {
+              attrs: { options: _vm.years },
+              model: {
+                value: _vm.year_end,
+                callback: function($$v) {
+                  _vm.year_end = $$v
+                },
+                expression: "year_end"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }),
+        _vm._v(" "),
+        _vm._m(2)
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary btn-sm",
+          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
+          on: {
+            click: function($event) {
+              _vm.OpenPdf(_vm.getUrlReport(), "_black")
+            }
+          }
+        },
+        [
+          _c("span", [_vm._v("Generar reporte")]),
+          _vm._v(" "),
+          _c("i", { staticClass: "fa fa-print" })
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Desde:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Hasta:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-2" }, [
+      _c("label", { staticClass: "text-center" }, [
+        _c("strong", [_vm._v("Mostrar valores en cero")])
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control text-center bootstrap-switch",
+        attrs: {
+          id: "zero",
+          "data-on-label": "SI",
+          "data-off-label": "NO",
+          name: "zero",
+          type: "checkbox"
+        }
+      })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/reports/AccountingDailyBookComponent.vue?vue&type=template&id=213aae52& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "form-horizontal" }, [
+    _c(
+      "div",
+      { staticClass: "card-body", staticStyle: { "min-height": "0px" } },
+      [
+        _c("accounting-show-errors"),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-1" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-3" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v("Periodo inicial")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.dateIni,
+                  expression: "dateIni"
+                }
+              ],
+              staticClass: "form-control is-required",
+              attrs: { type: "date" },
+              domProps: { value: _vm.dateIni },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.dateIni = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-3" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v("Periodo final")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.dateEnd,
+                  expression: "dateEnd"
+                }
+              ],
+              staticClass: "form-control is-required",
+              attrs: { type: "date" },
+              domProps: { value: _vm.dateEnd },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.dateEnd = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-3" },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Expresar en")
+              ]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.currencies },
+                model: {
+                  value: _vm.currency,
+                  callback: function($$v) {
+                    _vm.currency = $$v
+                  },
+                  expression: "currency"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-2" })
+        ])
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary btn-sm",
+          attrs: {
+            "data-toggle": "tooltip",
+            title: "Generar Reporte",
+            disabled: !_vm.dateIni || !_vm.dateEnd || !_vm.currency
+          },
+          on: {
+            click: function($event) {
+              _vm.OpenPdf(_vm.getUrlReport(), "_blank")
+            }
+          }
+        },
+        [
+          _c("span", [_vm._v("Generar reporte")]),
+          _vm._v(" "),
+          _c("i", { staticClass: "fa fa-print" })
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=template&id=7972837b&":
 /*!********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=template&id=7972837b& ***!
@@ -9251,7 +9416,7 @@ var render = function() {
                   staticStyle: { "margin-top": "-5rem" }
                 },
                 [
-                  _c("accounting-create-edit-form", {
+                  _c("accounting-form", {
                     attrs: { records: _vm.records_select }
                   })
                 ],
@@ -9388,96 +9553,103 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-1" }),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "form-group col-5 is-required" },
-                        [
-                          _c("label", { staticClass: "control-label" }, [
-                            _vm._v("Nombre")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.record.name,
-                                expression: "record.name"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              title: "Ingrese el nombre de la categoria",
-                              "data-toggle": "tooltip"
-                            },
-                            domProps: { value: _vm.record.name },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                [
+                  _c("accounting-show-errors"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-1" }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-5 is-required" },
+                          [
+                            _c("label", { staticClass: "control-label" }, [
+                              _vm._v("Nombre")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.record.name,
+                                  expression: "record.name"
                                 }
-                                _vm.$set(
-                                  _vm.record,
-                                  "name",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "form-group col-5 is-required" },
-                        [
-                          _c("label", { staticClass: "control-label" }, [
-                            _vm._v("Acrónimo")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.record.acronym,
-                                expression: "record.acronym"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              maxlength: "4",
-                              title: "Ingrese el acrónimo",
-                              "data-toggle": "tooltip"
-                            },
-                            domProps: { value: _vm.record.acronym },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                title: "Ingrese el nombre de la categoria",
+                                "data-toggle": "tooltip"
+                              },
+                              domProps: { value: _vm.record.name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.record,
+                                    "name",
+                                    $event.target.value
+                                  )
                                 }
-                                _vm.$set(
-                                  _vm.record,
-                                  "acronym",
-                                  $event.target.value
-                                )
                               }
-                            }
-                          })
-                        ]
-                      )
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-5 is-required" },
+                          [
+                            _c("label", { staticClass: "control-label" }, [
+                              _vm._v("Acrónimo")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.record.acronym,
+                                  expression: "record.acronym"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                maxlength: "4",
+                                title: "Ingrese el acrónimo",
+                                "data-toggle": "tooltip"
+                              },
+                              domProps: { value: _vm.record.acronym },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.record,
+                                    "acronym",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                        )
+                      ])
                     ])
                   ])
-                ])
-              ]),
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -9656,7 +9828,7 @@ var render = function() {
                   "label",
                   {
                     staticClass: "control-label",
-                    attrs: { for: "seats_reference" }
+                    attrs: { for: "entries_reference" }
                   },
                   [_vm._v("Código de referencia")]
                 ),
@@ -9675,7 +9847,7 @@ var render = function() {
                     type: "text",
                     "data-toggle": "tooltip",
                     title: "Formato para el código de los reportes",
-                    name: "seats_reference",
+                    name: "entries_reference",
                     placeholder: "Ej. XXX-00000000-YYYY",
                     readonly: _vm.ref_code ? true : false
                   },
@@ -9866,8 +10038,8 @@ function normalizeComponent (
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/Accounting/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/Accounting/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
+__webpack_require__(/*! /home/cenditel/Documentos/kavac/modules/Accounting/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /home/cenditel/Documentos/kavac/modules/Accounting/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
 
 
 /***/ })

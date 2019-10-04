@@ -8,8 +8,8 @@ use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingReportHistory;
-use Modules\Accounting\Models\AccountingSeatAccount;
-use Modules\Accounting\Models\AccountingSeat;
+use Modules\Accounting\Models\AccountingEntryAccount;
+use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
@@ -100,15 +100,15 @@ class AccountingCheckupBalanceController extends Controller
      * [calculateSum calcula la suma de los saldos de la cuenta en los asientos consatbles aprobados]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Integer $beginningBalance [saldo inicial en caso de tener]
-     * @param  Array $seatAccounts     [arreglo de tipo Modules\Accounting\Models\AccountingSeatAccount]
+     * @param  Array $entryAccounts     [arreglo de tipo Modules\Accounting\Models\AccountingEntry4Account]
      * @return Float    [suma total]
      */
-    public function calculateSum($beginningBalance, $seatAccounts)
+    public function calculateSum($beginningBalance, $entryAccounts)
     {
         $res = 0;
-        foreach ($seatAccounts as $seatAccount) {
-            if ($seatAccount['seating']) {
-                $res += (floatval($seatAccount['debit']) - floatval($seatAccount['assets']));
+        foreach ($entryAccounts as $entryAccount) {
+            if ($entryAccount['entries']) {
+                $res += (floatval($entryAccount['debit']) - floatval($entryAccount['assets']));
             }
         }
         return $res;
@@ -155,7 +155,7 @@ class AccountingCheckupBalanceController extends Controller
         * Ciclo los registros de cuentas relacionadas con asiento contables
         */
         if ($all) {
-            $query = AccountingAccount::with(['seatAccount.seating' => function ($query) use ($initDate, $endDate) {
+            $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
                 if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                     $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
                 }
@@ -168,12 +168,12 @@ class AccountingCheckupBalanceController extends Controller
             ->orderBy('subspecific', 'ASC')
             ->orderBy('denomination', 'ASC')->get();
         } else {
-            $query = AccountingAccount::with(['seatAccount.seating' => function ($query) use ($initDate, $endDate) {
+            $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
                 if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                     $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
                 }
             }])
-            ->whereHas('seatAccount.seating', function ($query) use ($initDate, $endDate) {
+            ->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
                 $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
             })
             ->orderBy('group', 'ASC')
@@ -212,7 +212,7 @@ class AccountingCheckupBalanceController extends Controller
                 if (!$returnArray) {
                     $val = $this->calculateSum(
                         (array_key_exists($account->id, $beginningBalance)? $beginningBalance[$account->id]:0),
-                        $account->seatAccount
+                        $account->entryAccount
                     );
 
                     $beg = (array_key_exists($account->id, $beginningBalance)
@@ -252,14 +252,14 @@ class AccountingCheckupBalanceController extends Controller
     public function CalculateBeginningBalance($date, $all)
     {
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
-        $seating = AccountingSeat::where('approved', true)->orderBy('from_date', 'ASC')->first();
+        $entries = AccountingEntry::where('approved', true)->orderBy('from_date', 'ASC')->first();
        
         /**
          Se establecen las fechas validas anteriores a la fecha suministrada para realizar la busqueda de registros
         */
 
         /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $initDate = explode('-', $seating['from_date'])[0].'-'.explode('-', $seating['from_date'])[1];
+        $initDate = explode('-', $entries['from_date'])[0].'-'.explode('-', $entries['from_date'])[1];
 
         /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
         $endDay = date('d', (mktime(0, 0, 0, explode('-', $date)[1], 1, explode('-', $date)[0])-1));
@@ -281,9 +281,9 @@ class AccountingCheckupBalanceController extends Controller
         */
         foreach ($accounts as $account) {
             $balance = 0;
-            foreach (AccountingSeatAccount::with('seating', 'account')
+            foreach (AccountingEntryAccount::with('entries', 'account')
                         ->where('accounting_account_id', $account['id'])
-                        ->whereHas('seating', function ($query) use ($initDate, $endDate, $endDay) {
+                        ->whereHas('entries', function ($query) use ($initDate, $endDate, $endDay) {
                             $query->whereBetween('from_date', [$initDate.'-01',($endDate.'-'.$endDay)])
                             ->where('approved', true);
                         })->orderBy('updated_at', 'ASC')->get() as $record) {
@@ -296,13 +296,15 @@ class AccountingCheckupBalanceController extends Controller
     }
 
     /**
-     * vista en la que se genera el reporte en pdf de balance de comprobación
+     * [pdf vista en la que se genera el reporte en pdf de balance de comprobación]
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initDate variable con la fecha inicial
      * @param String $endDate variable con la fecha inicial
+     * @param  Currency $currency moneda en que se expresara el reporte
+     * @param  boolean  $all      si se consultaran todas las cuentas o solo las que tengas actividad
      */
-    public function pdf($initDate, $endDate, $all = false)
+    public function pdf($initDate, $endDate, Currency $currency, $all = false)
     {
         if ($all != false) {
             $all = true;
@@ -381,12 +383,6 @@ class AccountingCheckupBalanceController extends Controller
          * @var Modules\Accounting\Models\Setting
          */
         $setting = Setting::all()->first();
-
-        /**
-         * [$currency información de la modena por defecto establecida en la aplicación]
-         * @var Modules\Accounting\Models\Currency
-         */
-        $currency = Currency::where('default', true)->first();
 
         /**
          * [$pdf base para generar el pdf]

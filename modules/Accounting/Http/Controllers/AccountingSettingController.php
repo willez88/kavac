@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Accounting\Models\AccountingSeat;
+use Modules\Accounting\Models\AccountingEntry;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
 use Auth;
@@ -43,7 +43,7 @@ class AccountingSettingController extends Controller
     public function index()
     {
         $codeSettings = CodeSetting::where('module', 'accounting')->get();
-        $refCode = $codeSettings->where('table', 'accounting_seats')->first();
+        $refCode = $codeSettings->where('table', 'accounting_entries')->first();
         return view('accounting::setting.index', compact('refCode'));
     }
 
@@ -51,7 +51,7 @@ class AccountingSettingController extends Controller
     {
         /** Reglas de validación para la configuración de códigos */
         $this->validate($request, [
-            'seats_reference' => [new CodeSettingRule]
+            'entries_reference' => [new CodeSettingRule]
         ]);
 
         /** @var array Arreglo con información de los campos de códigos configurados */
@@ -71,7 +71,7 @@ class AccountingSettingController extends Controller
                  * [$model define el modelo asociado a asientos contables]
                  * @var string
                  */
-                $model = AccountingSeat::class;
+                $model = AccountingEntry::class;
                 CodeSetting::updateOrCreate([
                     'module' => 'accounting',
                     'table' => 'accounting_'. $table,
@@ -97,11 +97,11 @@ class AccountingSettingController extends Controller
 
     public function generate_reference_code(Request $request)
     {
-        $codeSetting = CodeSetting::where('table', 'accounting_seats')->first();
+        $codeSetting = CodeSetting::where('table', 'accounting_entries')->first();
         if (is_null($codeSetting)) {
             $request->session()->flash('message', [
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
-                'text' => 'Debe configurar previamente el formato para el código a generar'
+                'text' => 'Debe configurar previamente el formato para el código, para poder generar asientos.'
                 ]);
             return response()->json(['result' => true, 'redirect' => route('accounting.settings.index')], 200);
         }
@@ -109,7 +109,7 @@ class AccountingSettingController extends Controller
             $codeSetting->format_prefix,
             strlen($codeSetting->format_digits),
             (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
-            AccountingSeat::class,
+            AccountingEntry::class,
             $codeSetting->field
         );
 
