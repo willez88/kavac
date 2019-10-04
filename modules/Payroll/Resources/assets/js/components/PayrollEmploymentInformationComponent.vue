@@ -119,9 +119,9 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group is-required">
-								<label>Departamento:</label>
-								<select2 :options="departments"
-									v-model="record.department_id">
+								<label>Tipo de Contrato:</label>
+								<select2 :options="payroll_contract_types"
+									v-model="record.payroll_contract_type_id">
 								</select2>
 							</div>
 						</div>
@@ -129,9 +129,17 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group is-required">
-								<label>Tipo de Contrato:</label>
-								<select2 :options="payroll_contract_types"
-									v-model="record.payroll_contract_type_id">
+								<label>Institución:</label>
+								<select2 :options="institutions"
+									v-model="record.institution_id">
+								</select2>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group is-required">
+								<label>Departamento:</label>
+								<select2 :options="departments"
+									v-model="record.department_id">
 								</select2>
 							</div>
 						</div>
@@ -179,7 +187,7 @@
 					payroll_position_id: '',
 					payroll_staff_type_id: '',
 					department_id: '',
-					payroll_contract_type_id: ''
+					payroll_contract_type_id: '',
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -189,6 +197,7 @@
 				payroll_staff_types: [],
 				departments: [],
 				payroll_contract_types: [],
+				institutions: [],
 			}
 		},
 		methods: {
@@ -202,7 +211,7 @@
 			reset() {
 				this.record = {
 					id: '',
-					institution_id: '1',
+					institution_id: '',
 					payroll_staff_id: '',
 					start_date_apn: '',
 					start_date: '',
@@ -220,14 +229,13 @@
 		},
 		created() {
 			this.record.active = true;
-			this.record.institution_id = '1';
 			this.getPayrollStaffs();
 			this.getPayrollInactivityTypes();
 			this.getPayrollPositionTypes();
 			this.getPayrollPositions();
 			this.getPayrollStaffTypes();
-			this.getDepartments();
 			this.getPayrollContractTypes();
+			this.getInstitutions();
 		},
 		mounted() {
 			if(this.payroll_employment_information_id) {
@@ -252,6 +260,11 @@
 					$('#active').bootstrapSwitch('state', true)
 				}
 			});
+		},
+		watch: {
+			'record.institution_id': function() {
+				this.getDepartments();
+			}
 		}
 	};
 </script>

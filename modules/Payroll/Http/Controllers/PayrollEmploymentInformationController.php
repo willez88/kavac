@@ -80,6 +80,7 @@ class PayrollEmploymentInformationController extends Controller
             'payroll_position_type_id' => 'required',
             'payroll_position_id' => 'required',
             'payroll_staff_type_id' => 'required',
+            'institution_id' => 'required',
             'department_id' => 'required',
             'payroll_contract_type_id' => 'required',
         ]);
@@ -101,6 +102,7 @@ class PayrollEmploymentInformationController extends Controller
         $payrollEmploymentInformation->payroll_position_type_id = $request->payroll_position_type_id;
         $payrollEmploymentInformation->payroll_position_id = $request->payroll_position_id;
         $payrollEmploymentInformation->payroll_staff_type_id = $request->payroll_staff_type_id;
+        //$payrollEmploymentInformation->institution_id = $request->institution_id;
         $payrollEmploymentInformation->department_id = $request->department_id;
         $payrollEmploymentInformation->payroll_contract_type_id = $request->payroll_contract_type_id;
         $payrollEmploymentInformation->save();
@@ -165,6 +167,7 @@ class PayrollEmploymentInformationController extends Controller
             'payroll_position_type_id' => 'required',
             'payroll_position_id' => 'required',
             'payroll_staff_type_id' => 'required',
+            'institution_id' => 'required',
             'department_id' => 'required',
             'payroll_contract_type_id' => 'required',
         ]);
@@ -185,6 +188,7 @@ class PayrollEmploymentInformationController extends Controller
         $payrollEmploymentInformation->payroll_position_type_id = $request->payroll_position_type_id;
         $payrollEmploymentInformation->payroll_position_id = $request->payroll_position_id;
         $payrollEmploymentInformation->payroll_staff_type_id = $request->payroll_staff_type_id;
+        //$payrollEmploymentInformation->institution_id = $request->institution_id;
         $payrollEmploymentInformation->department_id = $request->department_id;
         $payrollEmploymentInformation->payroll_contract_type_id = $request->payroll_contract_type_id;
         $payrollEmploymentInformation->save();
