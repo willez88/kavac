@@ -300,3 +300,27 @@ if (! function_exists('generate_code')) {
         return $code;
     }
 }
+
+if (! function_exists('get_json_resource')) {
+    /**
+     * Obtiene el contenido de recursos json
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      string   $file   Nombre del archivo .json del cual se va a obtener su contenido
+     *
+     * @return     object   Objeto con elementos json
+     */
+    function get_json_resource($file, $module = null)
+    {
+        if (!is_null($module)) {
+            return json_decode(
+                file_get_contents(Module::getModulePath($module) . "/Resources/" . $file, true)
+            );
+        }
+
+        return json_decode(
+            file_get_contents(app()->resourcePath($file), true)
+        );
+    }
+}
