@@ -19,6 +19,7 @@
 						</h6>
 					</div>
 					<div class="modal-body">
+						<accounting-show-errors />
 						<div class="row">
 							<div class="card-body">
 								<div class="row">
@@ -122,28 +123,28 @@ export default{
 		*/
 		validInformation(name=true , acronym=true){
 			var jumpOne = (this.state == 'update') ? true : false;
-
+			var errors = [];
 			// verifica que no este repetida la información
 			// en caso de estar actualizando se lo salta
 			for (var i = 0; i < this.records.length; i++) {
-				if (acronym && this.record.acronym == this.records[i].acronym) {
-					if (jumpOne) {
-						jumpOne = false;
-						continue;
-					}
-					this.errors = [];
-					this.errors.push('El acrónimo debe ser único.');
-					return false;
-				}
 				if (name && this.record.name == this.records[i].name) {
 					if (jumpOne) {
 						jumpOne = false;
 						continue;
 					}
-					this.errors = [];
-					this.errors.push('El nombre debe ser único.');
-					return false;
+					errors.push('El nombre debe ser único.');
 				}
+				if (acronym && this.record.acronym == this.records[i].acronym) {
+					if (jumpOne) {
+						jumpOne = false;
+						continue;
+					}
+					errors.push('El acrónimo debe ser único.');
+				}
+			}
+			if (errors.length > 0) {
+				EventBus.$emit('show:errors',errors);
+				return false;
 			}
 			return true;
 		},
@@ -167,6 +168,7 @@ export default{
 						acronym:''
 					};
 					vm.showMessage('store');
+					EventBus.$emit('show:errors',[]);
 				});
 
 			}else{
@@ -180,6 +182,7 @@ export default{
 					};
 					vm.state = 'store'; // se cambia el estado para mostrar el boton guardar
 					vm.showMessage('update');
+					EventBus.$emit('show:errors',[]);
 				});
 			}
 

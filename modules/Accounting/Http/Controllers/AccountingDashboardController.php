@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\AccountingReportHistory;
-use Modules\Accounting\Models\AccountingSeat;
+use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 
 /**
@@ -69,9 +69,9 @@ class AccountingDashboardController extends Controller
 
         /**
          * [$lastRecords información de los ultimos 10 asientos contables generados]
-         * @var [Modules\Accounting\Models\AccountingSeat]
+         * @var [Modules\Accounting\Models\AccountingEntry]
          */
-        $lastRecords = AccountingSeat::orderBy('updated_at', 'DESC')->take(10)->get();
+        $lastRecords = AccountingEntry::orderBy('updated_at', 'DESC')->take(10)->get();
 
         return response()->json(['lastRecords' => $lastRecords, 'currency' => $currency], 200);
     }

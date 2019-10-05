@@ -5,7 +5,7 @@ namespace Modules\Accounting\Http\Controllers\Reports;
 use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingReportHistory;
-use Modules\Accounting\Models\AccountingSeat;
+use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
@@ -35,15 +35,15 @@ class AccountingDailyBookController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:accounting.report.dailybook', ['only' => ['index', 'pdf']]);
     }
-
+    
     /**
-     * vista en la que se genera el reporte en pdf del libro diario
-     *
+     * [pdf vista en la que se genera el reporte en pdf del libro diario]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initDate variable con la fecha inicial
      * @param String $endDate variable con la fecha inicial
+     * @param Currency $currency moneda en que se expresara el reporte
      */
-    public function pdf($initDate, $endDate)
+    public function pdf($initDate, $endDate, Currency $currency)
     {
         $initDate = explode('-', $initDate)[2].'-'.explode('-', $initDate)[1].'-'.explode('-', $initDate)[0];
         $endDate  = explode('-', $endDate)[2].'-'.explode('-', $endDate)[1].'-'.explode('-', $endDate)[0];
@@ -89,15 +89,20 @@ class AccountingDailyBookController extends Controller
         }
         
         /** @var Objet objeto con la información del asiento contable */
-        $seats = AccountingSeat::with('accountingAccounts.account.accountConverters.budgetAccount')->where('approved', true)->whereBetween("from_date", [$initDate, $endDate])->orderBy('from_date', 'ASC')->get();
+        $entries = AccountingEntry::with(
+            'accountingAccounts.account.accountConverters.budgetAccount',
+            'currency'
+        )->where('approved', true)
+        ->whereBetween("from_date", [$initDate, $endDate])
+        ->orderBy('from_date', 'ASC')->get();
 
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
 
         /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $currency = Currency::where('default', true)->first();
+        // $currency = Currency::find();
 
-        $Seating = false;
+        $Entry = false;
         /**
          * [$pdf base para generar el pdf]
          * @var [Modules\Accounting\Pdf\Pdf]
@@ -111,11 +116,11 @@ class AccountingDailyBookController extends Controller
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de libro diario');
         $pdf->setFooter();
-        $pdf->setBody('accounting::pdf.seat_and_daily_book', true, [
+        $pdf->setBody('accounting::pdf.entry_and_daily_book', true, [
             'pdf' => $pdf,
-            'seats' => $seats,
+            'entries' => $entries,
             'currency' => $currency,
-            'Seating' => $Seating,
+            'Entry' => $Entry,
         ]);
     }
 

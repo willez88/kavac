@@ -29,6 +29,7 @@
         ) !!}
         {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
         {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css', [], Request::secure()) !!}
+
         @yield('modules-css')
         <script>
             /** @type {boolean} Define si la condición de acceso */

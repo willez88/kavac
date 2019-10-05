@@ -1,10 +1,6 @@
 <?php
-/**
- * Exceptions - Gestión las excepciones del sistema
- *
- * @package  Exceptions
- * @author   Taylor Otwell <taylor@laravel.com>
- */
+
+/** Gestiona las excepciones generadas por el sistema */
 namespace App\Exceptions;
 
 use Exception;

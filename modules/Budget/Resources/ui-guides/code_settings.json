@@ -1,0 +1,34 @@
+[
+    {
+        "element" : "#helpCodeSetting",
+        "intro" : "Esta sección permite establecer el formato a utilizar por los códigos en cada uno de los registros descritos, para comenzar en su implementación tenga especial cuidado en seguir las instrucciones en cuanto al formato que acepta esta configuración"
+    },
+    {
+        "element" : "#helpCodeFormulations",
+        "intro" : "La configuración de este código permite identificar los registros de formulaciones mediante un formato único, si no se establece esta configuración el sistema generará un código numérico consecutivo"
+    },
+    {
+        "element" : "#helpCodeCommitments",
+        "intro" : "La configuración de este código permite identificar los registros de compromisos presupuestarios mediante un formato único, si no se establece esta configuración el sistema generará un código numérico consecutivo"
+    },
+    {
+        "element" : "#helpCodeCaused",
+        "intro" : "La configuración de este código permite identificar los registros de compromisos presupuestarios causados mediante un formato único, si no se establece esta configuración el sistema generará un código numérico consecutivo"
+    },
+    {
+        "element" : "#helpCodePayed",
+        "intro" : "La configuración de este código permite identificar los registros de compromisos presupuestarios pagados mediante un formato único, si no se establece esta configuración el sistema generará un código numérico consecutivo"
+    },
+    {
+        "element" : "#helpCodeTransfers",
+        "intro" : "La configuración de este código permite identificar los registros de traspasos presupuestarios mediante un formato único, si no se establece esta configuración el sistema generará un código numérico consecutivo"
+    },
+    {
+        "element" : "#helpCodeReductions",
+        "intro" : "La configuración de este código permite identificar los registros de reducciones presupuestarios mediante un formato único, si no se establece esta configuración el sistema generará un código numérico consecutivo"
+    },
+    {
+        "element" : "#helpCodeCredits",
+        "intro" : "La configuración de este código permite identificar los registros de créditos adicionales mediante un formato único, si no se establece esta configuración el sistema generará un código numérico consecutivo"
+    }
+]

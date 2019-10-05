@@ -7,9 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingReportHistory;
-use Modules\Accounting\Models\AccountingSeatAccount;
+use Modules\Accounting\Models\AccountingEntryAccount;
 use Modules\Accounting\Models\AccountingAccount;
-use Modules\Accounting\Models\AccountingSeat;
+use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 
@@ -45,10 +45,11 @@ class AccountingAuxiliaryBookController extends Controller
     /**
      * [pdf vista en la que se genera el reporte en pdf]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  [string] $account_id [variable con el id de la cuenta]
-     * @param  [string] $date       [fecha para la generación de reporte, formato 'YYYY-mm']
+     * @param string $account_id [variable con el id de la cuenta]
+     * @param string $date       [fecha para la generación de reporte, formato 'YYYY-mm']
+     * @param Currency $currency moneda en que se expresara el reporte
      */
-    public function pdf($account_id, $date)
+    public function pdf($account_id, $date, Currency $currency)
     {
         /**
          * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
@@ -103,9 +104,9 @@ class AccountingAuxiliaryBookController extends Controller
 
         /**
          * [$account cuenta patrimonial con su relacion en asientos contables]
-         * @var [Modules\Accounting\Models\AccountingSeat]
+         * @var [Modules\Accounting\Models\AccountingEntry]
          */
-        $account = AccountingAccount::with(['seatAccount.seating' => function ($query) use ($initDate, $endDate) {
+        $account = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
             if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                 $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
             }
@@ -113,7 +114,7 @@ class AccountingAuxiliaryBookController extends Controller
 
         /**
          * [$parent_account cuenta patrimonial de nivel superior]
-         * @var [Modules\Accounting\Models\AccountingSeat]
+         * @var [Modules\Accounting\Models\AccountingEntry]
          */
         $parent_account = $account->getParent(
             $account->group,
@@ -129,12 +130,6 @@ class AccountingAuxiliaryBookController extends Controller
          * @var [Modules\Accounting\Models\Setting]
          */
         $setting = Setting::all()->first();
-
-        /**
-         * [$currency información de la modena por defecto establecida en la aplicación]
-         * @var [Modules\Accounting\Models\Currency]
-         */
-        $currency = Currency::where('default', true)->first();
 
         $initDate = new DateTime($initDate);
         $endDate = new DateTime($endDate);

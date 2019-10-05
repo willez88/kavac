@@ -135,8 +135,11 @@
 				if (type_select == 'budget') {
 					this.budgetAccounts = records;
 				}
-				this.accountSelect.init_id = records[1].id;
-				this.accountSelect.end_id = records[records.length-1].id;
+
+				if (records.length > 1) {
+					this.accountSelect.init_id = records[1].id;
+					this.accountSelect.end_id = records[records.length-1].id;
+				}
 
 			},
 

@@ -1,10 +1,6 @@
 <?php
-/**
- * Exports - Gestión la estructura de datos del sistema a exportar
- *
- * @package  Exports
- * @author   Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- */
+
+/** Gestiona la exportación de datos */
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;

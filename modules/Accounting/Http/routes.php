@@ -88,34 +88,46 @@ Route::group(['middleware' => 'web',
         'except' => ['index']]
     );
 
+
+    /**
+     * ruta para listar los asientos contables no aprobados
+     */
+    Route::get('entries/unapproved', 'AccountingEntryController@unapproved')
+            ->name('accounting.entries.unapproved');
     /**
      * rutas para la gestión de asientos contables
      */
-    Route::get('seating', 'AccountingSeatController@index')
-            ->name('accounting.seating.index');
+    Route::resource(
+        'entries',
+        'AccountingEntryController',
+        ['as' => 'entries']
+    );
+    Route::get('entries', 'AccountingEntryController@index')
+            ->name('accounting.entries.index');
 
-    // ruta para crear asientos contables
-    Route::post('seating/create', 'AccountingSeatController@create')
-            ->name('accounting.seating.create');
+    /**
+     * ruta para crear asientos contables
+     */
+    Route::post('entries/create', 'AccountingEntryController@create')
+            ->name('accounting.entries.create');
 
-    // ruta para el filtrado o busqueda de asientos contables aprobados
-    Route::post('seating/Filter-Records', 'AccountingSeatController@FilterRecords')
-            ->name('accounting.seating.FilterRecords');
+    /**
+     * ruta para el filtrado o busqueda de asientos contables aprobados
+     */
+    Route::post('entries/Filter-Records', 'AccountingEntryController@FilterRecords')
+            ->name('accounting.entries.FilterRecords');
 
-    // aprobar un asiento contable
-    Route::post('seating/approve/{id}', 'AccountingSeatController@approve')
-            ->name('accounting.seating.approve');
-
-    // ruta para listar los asientos contables no aprobados
-    Route::get('seating/unapproved', 'AccountingSeatController@unapproved')
-            ->name('accounting.seating.unapproved');
-
+    /**
+     * aprobar un asiento contable
+     */
+    Route::post('entries/approve/{id}', 'AccountingEntryController@approve')
+            ->name('accounting.entries.approve');
 
     /**
      * rutas para los pdf de asientos contables
      */
-    Route::get('seating/pdf/{id}', 'Reports\AccountingSeatController@pdf')
-            ->name('accounting.seating.pdf');
+    Route::get('entries/pdf/{id}', 'Reports\AccountingEntryController@pdf')
+            ->name('accounting.entries.pdf');
 
 
     /**
@@ -147,20 +159,20 @@ Route::group(['middleware' => 'web',
             ->name('accounting.report.analyticalMajor.AccAccount');
 
     Route::get(
-        'report/analyticalMajor/pdf/{initDate}/{endDate}/{initAcc}/{endAcc}',
+        'report/analyticalMajor/pdf/{initDate}/{endDate}/{initAcc}/{endAcc}/{currency}',
         'Reports\AccountingAnalyticalMajorController@pdf'
     )->name('accounting.report.analyticalMajor.pdf');
 
     /**
      * rutas para reporte del libro diario
      */
-    Route::get('report/dailyBook/pdf/{initDate}/{endDate}', 'Reports\AccountingDailyBookController@pdf')
+    Route::get('report/dailyBook/pdf/{initDate}/{endDate}/{currency}', 'Reports\AccountingDailyBookController@pdf')
         ->name('accounting.report.dailyBook.pdf');
 
     /**
      * rutas para reporte de libro auxiliar
      */
-    Route::get('report/auxiliaryBook/pdf/{account_id}/{date}', 'Reports\AccountingAuxiliaryBookController@pdf')
+    Route::get('report/auxiliaryBook/pdf/{account_id}/{date}/{currency}', 'Reports\AccountingAuxiliaryBookController@pdf')
             ->name('accounting.report.auxiliaryBook.pdf');
 
     /**
@@ -176,16 +188,6 @@ Route::group(['middleware' => 'web',
             ->name('accounting.report.stateOfResults.pdf');
 
     /**
-    * rutas de crud de asientos contables
-    */
-    Route::resource(
-        'seating',
-        'AccountingSeatController',
-        ['as' => 'seating',
-        'except' => ['index']]
-    );
-
-    /**
         Rutas para las vistas de configuración de categorias del modulo de contabilidad
     */
     Route::get('settings', 'AccountingSettingController@index')
@@ -197,10 +199,10 @@ Route::group(['middleware' => 'web',
 
 
     Route::resource(
-        '/settings/categories',
-        'AccountingSeatCategoryController',
+        'settings/categories',
+        'AccountingSettingCategoryController',
         ['as' => 'accounting']
     );
 
-    Route::get('get-categories/', 'AccountingSeatCategoryController@getCategories');
+    Route::get('get-categories/', 'AccountingSettingCategoryController@getCategories');
 });

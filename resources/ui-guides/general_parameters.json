@@ -1,0 +1,47 @@
+[
+    {
+        "element" : "#card_general_params",
+        "intro" : "Opciones de configuración que permiten establecer los parámetros generales de la aplicación",
+        "position" : "top"
+    },
+    {
+        "element" : "#switchSupport",
+        "intro" : "Habilita/Deshabilita la opción de soporte técnico en la aplicación",
+        "position" : "right"
+    },
+    {
+        "element" : "#switchChat",
+        "intro" : "Habilita/Deshabilita la opción de un sistema de comunicación interna (chat)",
+        "position" : "right"
+    },
+    {
+        "element" : "#switchNotify",
+        "intro" : "Habilita/Deshabilita la opción de notificaciones del sistema",
+        "position" : "right"
+    },
+    {
+        "element" : "#switchBannerInReport",
+        "intro" : "Habilita/Deshabilita la opción de mostrar la imagen del banner de la institución en reportes",
+        "position" : "left"
+    },
+    {
+        "element" : "#switchMultiInstitution",
+        "intro" : "Habilita/Deshabilita la opción de gestión para multiples instituciones",
+        "position" : "right"
+    },
+    {
+        "element" : "#switchSign",
+        "intro" : "Habilita/Deshabilita la opción de firma electrónica en los procesos del sistema",
+        "position" : "right"
+    },
+    {
+        "element" : "#switchAppMaintenance",
+        "intro" : "Habilita/Deshabilita la opción para colocar la aplicación en mantenimiento. Una vez activada esta opción, el sistema solo será accesible desde la dirección IP del usuario que la activo.",
+        "position" : "right"
+    },
+    {
+        "element" : "#settingParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "top"
+    }
+]

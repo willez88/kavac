@@ -115,7 +115,7 @@ class BudgetAditionalCreditController extends Controller
 
         if (!$codeSetting) {
             $rules['code'] = 'required';
-            $message['code.required'] = 'Debe configurar previamente el formato para el código a generar';
+            $messages['code.required'] = 'Debe configurar previamente el formato para el código a generar';
         }
 
         $this->validate($request, $rules, $messages);

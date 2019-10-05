@@ -96,37 +96,37 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
             * Asientos Contables
             */
             [
-                'name' => 'listar asientos contables aprobados y no aprobados', 'slug' => 'accounting.seating.list',
+                'name' => 'listar asientos contables aprobados y no aprobados', 'slug' => 'accounting.entries.list',
                 'description' => 'Acceso para listar asientos contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.ver', 'short_description' => 'listar asientos contables'
             ],
             [
-                'name' => 'Crear asiento contable', 'slug' => 'accounting.seating.create',
+                'name' => 'Crear asiento contable', 'slug' => 'accounting.entries.create',
                 'description' => 'Acceso para crear asiento contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.crear', 'short_description' => 'crear asientos contables'
             ],
             [
-                'name' => 'Editar asientos contables', 'slug' => 'accounting.seating.edit',
+                'name' => 'Editar asientos contables', 'slug' => 'accounting.entries.edit',
                 'description' => 'Acceso para editar registro de asientos contables',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.editar', 'short_description' => 'editar asientos contables'
             ],
             [
-                'name' => 'Eliminar asientos contables', 'slug' => 'accounting.seating.delete',
+                'name' => 'Eliminar asientos contables', 'slug' => 'accounting.entries.delete',
                 'description' => 'Acceso para eliminar asiento contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.eliminar', 'short_description' => 'eliminar asiento contable'
             ],
             [
-                'name' => 'Aprobar asientos contables', 'slug' => 'accounting.seating.approve',
+                'name' => 'Aprobar asientos contables', 'slug' => 'accounting.entries.approve',
                 'description' => 'Acceso para aprobar asiento contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.approve', 'short_description' => 'aprobar asiento contable'
             ],
             [
-                'name' => 'reporte pdf de asientos contables', 'slug' => 'accounting.seating.report',
+                'name' => 'reporte pdf de asientos contables', 'slug' => 'accounting.entries.report',
                 'description' => 'Acceso para generar reporte pdf de asiento contable',
                 'model' => 'Modules\Accounting\Models\AccountingSeat', 'model_prefix' => 'contabilidad',
                 'slug_alt' => 'asiento_contable.pdf', 'short_description' => 'reporte pdf de asiento contable'
@@ -223,8 +223,6 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'panel_de_control.ver', 'short_description' => 'Visualizar panel de control del módulo de contabilidad'
             ],
         ];
-
-
 
         $accountingRole->detachAllPermissions();
 

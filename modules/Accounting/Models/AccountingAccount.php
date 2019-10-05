@@ -53,9 +53,9 @@ class AccountingAccount extends Model implements Auditable
         return $this->hasOne(AccountingAccountConverter::class);
     }
 
-    public function seatAccount()
+    public function entryAccount()
     {
-        return $this->hasMany(AccountingSeatAccount::class);
+        return $this->hasMany(AccountingEntryAccount::class);
     }
 
     /**

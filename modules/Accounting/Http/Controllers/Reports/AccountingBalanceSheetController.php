@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingAccount;
-use Modules\Accounting\Models\AccountingSeat;
+use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
@@ -102,37 +102,37 @@ class AccountingBalanceSheetController extends Controller
          * [$level_1 consulta de ralación que se desean realizar]
          * @var string
          */
-        $level_1 = 'seatAccount.seating';
+        $level_1 = 'entryAccount.entries';
 
         /**
          * [$level_2 consulta de ralación que se desean realizar]
          * @var string
          */
-        $level_2 = 'children.seatAccount.seating';
+        $level_2 = 'children.entryAccount.entries';
 
         /**
          * [$level_3 consulta de ralación que se desean realizar]
          * @var string
          */
-        $level_3 = 'children.children.seatAccount.seating';
+        $level_3 = 'children.children.entryAccount.entries';
 
         /**
          * [$level_4 consulta de ralación que se desean realizar]
          * @var string
          */
-        $level_4 = 'children.children.children.seatAccount.seating';
+        $level_4 = 'children.children.children.entryAccount.entries';
 
         /**
          * [$level_5 consulta de ralación que se desean realizar]
          * @var string
          */
-        $level_5 = 'children.children.children.children.seatAccount.seating';
+        $level_5 = 'children.children.children.children.entryAccount.entries';
 
         /**
          * [$level_6 consulta de ralación que se desean realizar]
          * @var string
          */
-        $level_6 = 'children.children.children.children.children.seatAccount.seating';
+        $level_6 = 'children.children.children.children.children.entryAccount.entries';
 
         /**
          * Se realiza la consulta de cada cuenta y asiento que pertenezca a ACTIVO, PASIVO, PATRIMONIO y CUENTA DE ORDEN
@@ -240,7 +240,7 @@ class AccountingBalanceSheetController extends Controller
                 array_push($parent, [
                     'code' => $account->getCodeAttribute(),
                     'denomination' => $account->denomination,
-                    'balance' => $this->calculateValuesInSeating($account),
+                    'balance' => $this->calculateValuesInEntries($account),
                     'level' => $level,
                     'children' => [],
                     'show_children' => false,
@@ -260,14 +260,14 @@ class AccountingBalanceSheetController extends Controller
     }
 
     /**
-     * [calculateValuesInSeating realiza el calculo de saldo de la cuenta tomando en cuenta todos sus subcuentas,
+     * [calculateValuesInEntries realiza el calculo de saldo de la cuenta tomando en cuenta todos sus subcuentas,
      *                           hasta llegar al ultimo nivel de parentela solo se sumaran los valores de los asientos
      *                           contables aprobados]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param [Modules\Accounting\Models\AccountingAccount] $account [registro de una cuenta o subcuenta patrimonial]
      * @return [float] [resultado de realizar la operaciones de suma y resta]
      */
-    public function calculateValuesInSeating($account)
+    public function calculateValuesInEntries($account)
     {
         /**
          * [$debit saldo total en el debe de la cuenta]
@@ -287,10 +287,10 @@ class AccountingBalanceSheetController extends Controller
          */
         $balanceChildren = 0.00;
 
-        foreach ($account->seatAccount as $seatAccount) {
-            if ($seatAccount->seating['approved']) {
-                $debit += (float)$seatAccount['debit'];
-                $assets += (float)$seatAccount['assets'];
+        foreach ($account->entryAccount as $entryAccount) {
+            if ($entryAccount->entries['approved']) {
+                $debit += (float)$entryAccount['debit'];
+                $assets += (float)$entryAccount['assets'];
             }
         }
         if (count($account->children) > 0) {
@@ -298,7 +298,7 @@ class AccountingBalanceSheetController extends Controller
                 /**
                 * llamada recursiva y acumulación
                 */
-                $balanceChildren += $this->calculateValuesInSeating($child);
+                $balanceChildren += $this->calculateValuesInEntries($child);
             }
         }
         

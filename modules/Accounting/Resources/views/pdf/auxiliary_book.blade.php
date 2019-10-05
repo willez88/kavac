@@ -45,12 +45,12 @@
 		<td style="font-size: 9rem;" width="22%" align="center">CREDITO</td>
 	</tr>
 	{{-- $r es un array el cual tiene cada registro relacionado con una cuenta en un asiento contable  --}}
-	@foreach($record['seatAccount'] as $r)
-	@if($r['seating'])
+	@foreach($record['entryAccount'] as $r)
+	@if($r['entries'])
 		<tr>
 			<td style="font-size: 9rem;"> {{ $r['updated_at']->format('d/m/Y') }}</td>
-			<td style="font-size: 9rem;"> {{ $r['seating']['concept'] }}</td>
-			<td style="font-size: 9rem;"> {{ $r['seating']['reference'] }}</td>
+			<td style="font-size: 9rem;"> {{ $r['entries']['concept'] }}</td>
+			<td style="font-size: 9rem;"> {{ $r['entries']['reference'] }}</td>
 			<td style="font-size: 9rem;" align="right">
 				{{ number_format($r['debit'], (int)$currency->decimal_places, ',', '.') }} 
 				@php

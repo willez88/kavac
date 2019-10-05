@@ -23,7 +23,7 @@
 				<div class="card-header">
 					<h6 class="card-title">Crear Conversión</h6>
 					<div class="card-btns">
-						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.previous', ['route' => route('accounting.converter.index')])
 						@include('buttons.minimize')
 					</div>
 				</div>
