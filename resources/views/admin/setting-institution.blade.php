@@ -5,30 +5,8 @@
 				<h6 class="card-title">
 					Configurar Institución
 					@include('buttons.help', [
-						'helpId' => 'Institution',
-						'helpSteps' => [
-							[
-								'element' => '#helpInstitutionImgs',
-								'intro' => 'Corresponde a las imágenes institucionales, logotipo y banner o cintillo'
-							],
-							[
-								'element' => '#helpInstitutionBasicData',
-								'intro' => 'Corresponde a los datos básicos que identifican a la institución. Tome en cuenta que aquellos campos con (*) son obligatorios'
-							],
-							[
-								'element' => '#helpInstitutionComplementaryData',
-								'intro' => 'Corresponde a los datos con información complementaria de la institución, Esta información es opcional'
-							],
-							[
-								'element' => '#helpInstitutionList',
-								'intro' => 'Muestra un listado de instituciones registradas. Este elemento solo será mostrado siempre y cuando la aplicación se encuentre configurada para la gestión de múltiples instituciones'
-							],
-							[
-								'element' => '#helpInstitutionButtons',
-								'intro' => 'Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos de la institución',
-								'position' => 'left'
-							]
-						]
+						'helpId' => 'institution',
+						'helpSteps' => get_json_resource('ui-guides/institution.json')
 					])
 				</h6>
 				<div class="card-btns">
