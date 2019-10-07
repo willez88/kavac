@@ -85,8 +85,7 @@ class UploadDocRepository
                                    'Verifique e intente nuevamente';
             }
         } else {
-            $this->error_msg = 'Error al procesar el archivo. ' .
-                               'Verifique que este correcto e intente nuevamente';
+            $this->error_msg = 'Error al procesar el archivo. Verifique que este correcto e intente nuevamente';
         }
         session()->flash('message', [
             'type' => 'other', 'class' => 'warning', 'title' => 'Alerta!',

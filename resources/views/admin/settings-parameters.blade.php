@@ -2,14 +2,20 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title">Parámetros Generales</h6>
+				<h6 class="card-title">
+					Parámetros Generales
+					@include('buttons.help', [
+						'helpId' => 'GeneralParams',
+						'helpSteps' => get_json_resource('ui-guides/general_parameters.json')
+					])
+				</h6>
 				<div class="card-btns">
 					@include('buttons.previous', ['route' => url()->previous()])
 					@include('buttons.minimize')
 				</div>
 			</div>
 			{!! Form::open($header_parameters) !!}
-				<div class="card-body">
+				<div class="card-body" id="card_general_params">
 					<div class="row">
 						<div class="col-12">
 							<h6>Activar funciones de la aplicación</h6>
@@ -17,7 +23,7 @@
 					</div>
 					@include('layouts.form-errors')
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-3" id="switchSupport">
 							<div class="form-group">
 								<label for="" class="control-label">Soporte Técnico</label>
 								<div class="col-12 bootstrap-switch-mini">
@@ -29,7 +35,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3" id="switchChat">
 							<div class="form-group">
 								<label for="" class="control-label">Chat</label>
 								<div class="col-12 bootstrap-switch-mini">
@@ -41,7 +47,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3" id="switchNotify">
 							<div class="form-group">
 								<label for="" class="control-label">Notificaciones</label>
 								<div class="col-12 bootstrap-switch-mini">
@@ -53,7 +59,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3" id="switchBannerInReport">
 							<div class="form-group">
 								<label for="" class="control-label">Banner en Reportes</label>
 								<div class="col-12 bootstrap-switch-mini">
@@ -65,7 +71,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3" id="switchMultiInstitution">
 							<div class="form-group">
 								<label for="" class="control-label">Multi Gestión (varias instituciones)</label>
 								<div class="col-12 bootstrap-switch-mini">
@@ -80,7 +86,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3" id="switchSign">
 							<div class="form-group">
 								<label for="" class="control-label">Firma Electrónica</label>
 								<div class="col-12 bootstrap-switch-mini">
@@ -92,7 +98,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3" id="switchAppMaintenance">
 							<div class="form-group">
 								<label for="" class="control-label">Mantenimiento</label>
 								<div class="col-12 bootstrap-switch-mini">
@@ -107,7 +113,11 @@
 					</div>
 				</div>
 				<div class="card-footer text-right">
-					@include('layouts.form-buttons')
+					<div class="row">
+						<div class="col-md-3 offset-md-9" id="settingParamButtons">
+							@include('layouts.form-buttons')
+						</div>
+					</div>
 				</div>
 			{!! Form::close() !!}
 		</div>

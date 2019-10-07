@@ -2,7 +2,13 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title">Registros Comúnes</h6>
+				<h6 class="card-title">
+					Registros Comúnes
+					@include('buttons.help', [
+						'helpId' => 'CommonRegs',
+						'helpSteps' => get_json_resource('ui-guides/common_settings.json')
+					])
+				</h6>
 				<div class="card-btns">
 					@include('buttons.previous', ['route' => url()->previous()])
 					@include('buttons.minimize')
@@ -11,30 +17,31 @@
 			<div class="card-body">
 				<div class="row">
 					{{-- Configuración de estatus de documentos --}}
-					<document-status></document-status>
+					<document-status id="helpDocStatus"></document-status>
 					{{-- Configuración de estados civiles --}}
-					<marital-status></marital-status>
+					<marital-status id="helpMaritalStatus"></marital-status>
 					{{-- Configuración de profesiones --}}
-					<professions></professions>
+					<professions id="helpProfessions"></professions>
 					{{-- Configuración de tipos de institución --}}
-					<institution-types></institution-types>
+					<institution-types id="helpInstitutionTypes"></institution-types>
 					{{-- Configuración de sectores de instituciones --}}
-					<institution-sectors></institution-sectors>
+					<institution-sectors id="helpInstitutionSectors"></institution-sectors>
 					{{-- Configuración de Países --}}
-					<countries></countries>
+					<countries id="helpCountries"></countries>
 					{{-- Configuración de Estados --}}
-					<estates></estates>
-					<municipalities></municipalities>
-					<parishes></parishes>
-					<cities></cities>
-					<currencies></currencies>
+					<estates id="helpEstates"></estates>
+					<municipalities id="helpMunicipalities"></municipalities>
+					<parishes id="helpParishes"></parishes>
+					<cities id="helpCities"></cities>
+					<currencies id="helpCurrencies"></currencies>
 					@if (App\Models\Currency::all()->count() > 1)
-						<exchange-rates></exchange-rates>
+						<exchange-rates id="helpExchangeRates"></exchange-rates>
 					@endif
-					<taxes></taxes>
-					<tax-units></tax-units>
-					<deductions :accounting-account={{ json_encode(Module::has('Accounting') ? true : false) }}></deductions>
-					<measurement-units></measurement-units>
+					<taxes id="helpTaxes"></taxes>
+					<tax-units id="helpTaxUnits"></tax-units>
+					<deductions id="helpDeductions"
+								:accounting-account={{ json_encode(Module::has('Accounting') ? true : false) }}></deductions>
+					<measurement-units id="helpMeasurementUnits"></measurement-units>
 					<!--<div class="col-md-2 text-center">
 						<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 						   href="#" title="Registros de Deducciones o Retenciones"
@@ -43,8 +50,8 @@
 							<span>Deducciones</span>
 						</a>
 					</div>-->
-					@if (App\Models\Institution::all()->isEmpty())
-						<departments></departments>
+					@if (!App\Models\Institution::all()->isEmpty())
+						<departments id="helpDepartments"></departments>
 					@endif
 				</div>
 			</div>

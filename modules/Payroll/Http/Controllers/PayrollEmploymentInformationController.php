@@ -80,6 +80,7 @@ class PayrollEmploymentInformationController extends Controller
             'payroll_position_type_id' => 'required',
             'payroll_position_id' => 'required',
             'payroll_staff_type_id' => 'required',
+            'institution_id' => 'required',
             'department_id' => 'required',
             'payroll_contract_type_id' => 'required',
         ]);
@@ -101,6 +102,7 @@ class PayrollEmploymentInformationController extends Controller
         $payrollEmploymentInformation->payroll_position_type_id = $request->payroll_position_type_id;
         $payrollEmploymentInformation->payroll_position_id = $request->payroll_position_id;
         $payrollEmploymentInformation->payroll_staff_type_id = $request->payroll_staff_type_id;
+        //$payrollEmploymentInformation->institution_id = $request->institution_id;
         $payrollEmploymentInformation->department_id = $request->department_id;
         $payrollEmploymentInformation->payroll_contract_type_id = $request->payroll_contract_type_id;
         $payrollEmploymentInformation->save();
@@ -149,22 +151,23 @@ class PayrollEmploymentInformationController extends Controller
     {
         $payrollEmploymentInformation = PayrollEmploymentInformation::find($id);
         $this->validate($request, [
-            'payroll_staff_id' => array(
+            'payroll_staff_id' => [
                 'required',
                 'unique:payroll_employment_informations,payroll_staff_id,'.$payrollEmploymentInformation->id
-            ),
+            ],
             'start_date_apn' => 'required|date',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
             'payroll_inactivity_type_id' => 'nullable',
-            'institution_email' => array(
+            'institution_email' => [
                 'email','nullable',
                 'unique:payroll_employment_informations,institution_email,'.$payrollEmploymentInformation->id
-            ),
+            ],
             'function_description' => 'nullable',
             'payroll_position_type_id' => 'required',
             'payroll_position_id' => 'required',
             'payroll_staff_type_id' => 'required',
+            'institution_id' => 'required',
             'department_id' => 'required',
             'payroll_contract_type_id' => 'required',
         ]);
@@ -185,6 +188,7 @@ class PayrollEmploymentInformationController extends Controller
         $payrollEmploymentInformation->payroll_position_type_id = $request->payroll_position_type_id;
         $payrollEmploymentInformation->payroll_position_id = $request->payroll_position_id;
         $payrollEmploymentInformation->payroll_staff_type_id = $request->payroll_staff_type_id;
+        //$payrollEmploymentInformation->institution_id = $request->institution_id;
         $payrollEmploymentInformation->department_id = $request->department_id;
         $payrollEmploymentInformation->payroll_contract_type_id = $request->payroll_contract_type_id;
         $payrollEmploymentInformation->save();
