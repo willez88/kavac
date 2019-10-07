@@ -1,7 +1,7 @@
 <template>
 	<div class="form-horizontal">
 		<div class="card-body">
-			<accounting-show-errors />
+			<accounting-show-errors ref="accountingConverter" />
 
 			<div class="row">
 				<div class="col-2">
@@ -77,7 +77,6 @@
 			}
 		},
 		created() {
-
 			/** Se realiza la primera busqueda en base a cuentas patrimoniales para los selects */
 			this.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
 		},
@@ -156,11 +155,11 @@
 				/** Boolean que determina si es necesario realizar la consulta de los registros */
 				var query = true;
 
-				if (type_select == 'accounting' && this.accountingAccounts != null) {
+				if (type_select == 'accounting' && this.accountingAccounts) {
 					records = this.accountingAccounts;
 					query = false;
 				}
-				else if (type_select == 'budget' && this.budgetAccounts != null) {
+				else if (type_select == 'budget' && this.budgetAccounts) {
 					records = this.budgetAccounts;
 					query = false;
 				}
@@ -187,21 +186,19 @@
 					.then(response=>{
 						vm.records = [];
 						vm.records = response.data.records;
-
-						if (vm.records.length == 0) {
-							vm.errors = [];
-							EventBus.$emit('show:errors', ['No se encontraron registros de conversiones en el rango dado']);
-						}
 						vm.showMessage(
 							'custom', 'Éxito', 'success', 'screen-ok',
 							'Consulta realizada de manera existosa.'
 						);
-						EventBus.$emit('show:errors', []);
+						if (vm.records.length == 0) {
+							vm.$refs.accountingConverter.showAlertMessages('No se encontraron registros de conversiones en el rango dado','primary');
+						}else{
+							vm.$refs.accountingConverter.reset();
+						}
 						EventBus.$emit('list:conversions', response.data.records);
 					});
 				}else{
-					EventBus.$emit('show:errors', []);
-					EventBus.$emit('show:errors', ['Los campos de selección de cuenta son obligatorios']);
+					vm.$refs.accountingConverter.showAlertMessages('Los campos de selección de cuenta son obligatorios');
 				}
 			},
 		},

@@ -1,36 +1,48 @@
 <template>
 	<div class="form-horizontal">
-		<div class="card-body row">
-			<div class="col-1"></div>
-			<div class="col-3">
-				<label class="control-label">Al mes</label>
-				<select2 :options="months" v-model="month_init"></select2>
-				<br>
-				<label class="control-label">Año</label>
-				<select2 :options="years" v-model="year_init"></select2>
+		<div class="card-body">
+
+			<accounting-show-errors :ref="type_report" />
+
+			<div class="row">
+				<div class="col-3">
+					<label class="control-label">Al mes</label>
+					<br><br>
+					<select2 :options="months" v-model="month_init"></select2>
+					<br><br>
+					<label class="control-label">Año</label>
+					<br><br>
+					<select2 :options="years" v-model="year_init"></select2>
+				</div>
+				<div class="col-3">
+					<label class="control-label">Nivel de consulta</label>
+					<br><br>
+					<select2 :options="levels" v-model="level"></select2>
+				</div>
+				<div class="col-3">
+						<div>
+							<label class="control-label">Expresar en</label>
+							<br><br>
+							<select2 :options="currencies" v-model="currency"></select2>
+						</div>
+					</div>
+				<div class="col-3">
+					<label class="text-center"><strong>Mostrar valores en cero</strong>
+					</label>
+					<br><br>
+					<input :id="'zero'+type_report"
+						 data-on-label="SI" data-off-label="NO" 
+						 name="zero" 
+						 type="checkbox"
+						 class="form-control text-center bootstrap-switch">
+				</div>
 			</div>
-			<div class="col-1"></div>
-			<div class="col-3">
-				<label class="control-label">Nivel de consulta</label>
-				<select2 :options="levels" v-model="level"></select2>
+			<div class="card-footer text-right">
+				<button class="btn btn-primary btn-sm"
+					@click="OpenPdf(getUrlReport(), '_blank')">
+					Generar Reporte <i class="fa fa-print"></i>
+				</button>
 			</div>
-			<div class="col-1"></div>
-			<div class="col-2">
-				<label class="text-center"><strong>Mostrar valores en cero</strong>
-				</label>
-				<br><br>
-				<input :id="'zero'+this.type_report"
-					 data-on-label="SI" data-off-label="NO" 
-					 name="zero" 
-					 type="checkbox"
-					 class="form-control text-center bootstrap-switch">
-			</div>
-		</div>
-		<div class="card-footer text-right">
-			<button class="btn btn-primary btn-sm"
-				@click="OpenPdf(getUrlReport(), '_blank')">
-				Generar Reporte <i class="fa fa-print"></i>
-			</button>
 		</div>
 	</div>
 </template>
@@ -41,6 +53,12 @@
             type_report:{
                 type:String,
                 default: ''
+            },
+            currencies:{
+                type:Array,
+                default: function() {
+                	return [];
+                }
             },
             year_old:{
                 type:String,
@@ -59,6 +77,7 @@
 					{ id:6, text:'Nivel 6' },
 				],
 				url:'/accounting/report/',
+				currency:'',
 			}
 		},
 		created(){
@@ -74,8 +93,20 @@
 			* @return {string} url para el reporte
 			*/
 			getUrlReport:function() {
+
+				var errors = [];
+				if (!this.currency) {
+					errors.push("El tipo de moneda es obligatorio.");
+				}
+
+				if (errors.length > 0) {
+					this.$refs[this.type_report].showAlertMessages(errors);
+					return;
+				}
+				this.$refs[this.type_report].reset();
+
 				var zero = ($('#zero'+this.type_report).prop('checked'))?'true':'';
-				return ( this.url+(this.year_init+'-'+this.month_init) )+'/'+this.level+'/'+zero;
+				return ( this.url+(this.year_init+'-'+this.month_init) )+'/'+this.level+'/'+this.currency+'/'+zero;
 			}
 		}
 	};

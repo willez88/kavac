@@ -218,6 +218,9 @@ Vue.mixin({
 		* @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
 		*/
 		OpenPdf:function(url, type){
+			if (!url) {
+				return;
+			}
 			window.open(url, type);
 		},
 

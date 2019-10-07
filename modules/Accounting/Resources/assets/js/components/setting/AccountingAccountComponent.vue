@@ -37,7 +37,7 @@
 					<!-- Fromulario -->
 					<div class="modal-body">
 
-						<accounting-show-errors :options="errors" />
+						<accounting-show-errors ref="accountingAccountForm" />
 
 					</div>
 	                <div class="modal-body card-body" v-show="formImport">

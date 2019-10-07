@@ -41,12 +41,14 @@ class AccountingBalanceSheetController extends Controller
     }
 
     /**
-     * [pdf vista en la que se genera el reporte en pdf de balance general]
+     * [pdf genera el reporte en pdf de balance general]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param String $initDate variable con la fecha inicial
-     * @param String $endDate variable con la fecha inicial
+     * @param  string   $date     [fecha]
+     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
+     * @param  Currency $currency [moneda en que se expresara el reporte]
+     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
      */
-    public function pdf($date, $level, $zero = false)
+    public function pdf($date, $level, Currency $currency, $zero = false)
     {
         /**
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
@@ -177,12 +179,6 @@ class AccountingBalanceSheetController extends Controller
          * @var [Modules\Accounting\Models\Setting]
          */
         $setting = Setting::all()->first();
-
-        /**
-         * [$currency información de la modena por defecto establecida en la aplicación]
-         * @var [Modules\Accounting\Models\Currency]
-         */
-        $currency = Currency::where('default', true)->first();
 
         /**
          * [$pdf base para generar el pdf]

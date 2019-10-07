@@ -335,6 +335,10 @@ Vue.mixin({
     * @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
     */
     OpenPdf: function OpenPdf(url, type) {
+      if (!url) {
+        return;
+      }
+
       window.open(url, type);
     },
 
@@ -1944,7 +1948,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      options: []
+      options: [],
+      classAlert: 'danger'
     };
   },
   computed: {
@@ -1952,26 +1957,35 @@ __webpack_require__.r(__webpack_exports__);
       return this.options.length > 0;
     }
   },
-  created: function created() {
-    var _this = this;
-
-    EventBus.$on('show:errors', function (data) {
-      if (Array.isArray(data)) {
-        if (data.length == 0) {
-          _this.options = [];
-        } else {
-          _this.options = data;
-        }
-      } else {
-        _this.options = [];
-
-        _this.options.push(data);
-      }
-    });
-  },
   methods: {
+    /**
+     * [reset resetea valores de variables]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     */
     reset: function reset() {
       this.options = [];
+    },
+
+    /**
+     * [showAlertMessages carga la informacion de los errores]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  {string|array} messages mensajes de error
+     */
+    showAlertMessages: function showAlertMessages(messages, classAlert) {
+      this.classAlert = classAlert ? classAlert : 'danger';
+
+      if (Array.isArray(messages)) {
+        if (messages.length == 0) {
+          this.options = [];
+        } else {
+          this.options = messages;
+        }
+      } else if (!messages) {
+        this.options = [];
+      } else {
+        this.options = [];
+        this.options.push(messages);
+      }
     }
   }
 });
@@ -2050,6 +2064,15 @@ __webpack_require__.r(__webpack_exports__);
       this.accountingSelect = this.account_to_edit.accounting_account_id;
     }
   },
+  mounted: function mounted() {
+    if (this.budget_list.length < 2) {
+      this.$refs.accountingConverterForm.showAlertMessages('No se encontraron registros de cuentas presupuestales.');
+    }
+
+    if (this.accounting_list.length < 2) {
+      this.$refs.accountingConverterForm.showAlertMessages('No se encontraron registros de cuentas patrimoniales.');
+    }
+  },
   methods: {
     reset: function reset() {
       this.budgetSelect = '';
@@ -2066,7 +2089,7 @@ __webpack_require__.r(__webpack_exports__);
       var vm = this;
 
       if (vm.budgetSelect == '' || vm.accountingSelect == '') {
-        EventBus.$emit('show:errors', ['Los campos de selección de cuenta son obligatorios.']);
+        vm.$refs.accountingConverterForm.showAlertMessages('Los campos de selección de cuenta son obligatorios.');
         return;
       } // Se creara
 
@@ -2082,7 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
           vm.budgetOptions = [];
           vm.accountingOptions = response.data.records_accounting;
           vm.budgetOptions = response.data.records_busget;
-          EventBus.$emit('show:errors', []);
+          vm.$refs.accountingConverterForm.reset();
           vm.showMessage('store');
         });
       } else {
@@ -2264,10 +2287,10 @@ __webpack_require__.r(__webpack_exports__);
 
       var query = true;
 
-      if (type_select == 'accounting' && this.accountingAccounts != null) {
+      if (type_select == 'accounting' && this.accountingAccounts) {
         records = this.accountingAccounts;
         query = false;
-      } else if (type_select == 'budget' && this.budgetAccounts != null) {
+      } else if (type_select == 'budget' && this.budgetAccounts) {
         records = this.budgetAccounts;
         query = false;
       }
@@ -2293,19 +2316,18 @@ __webpack_require__.r(__webpack_exports__);
         axios.post('/accounting/converter/get-Records', vm.accountSelect).then(function (response) {
           vm.records = [];
           vm.records = response.data.records;
+          vm.showMessage('custom', 'Éxito', 'success', 'screen-ok', 'Consulta realizada de manera existosa.');
 
           if (vm.records.length == 0) {
-            vm.errors = [];
-            EventBus.$emit('show:errors', ['No se encontraron registros de conversiones en el rango dado']);
+            vm.$refs.accountingConverter.showAlertMessages('No se encontraron registros de conversiones en el rango dado', 'primary');
+          } else {
+            vm.$refs.accountingConverter.reset();
           }
 
-          vm.showMessage('custom', 'Éxito', 'success', 'screen-ok', 'Consulta realizada de manera existosa.');
-          EventBus.$emit('show:errors', []);
           EventBus.$emit('list:conversions', response.data.records);
         });
       } else {
-        EventBus.$emit('show:errors', []);
-        EventBus.$emit('show:errors', ['Los campos de selección de cuenta son obligatorios']);
+        vm.$refs.accountingConverter.showAlertMessages('Los campos de selección de cuenta son obligatorios');
       }
     }
   },
@@ -2642,7 +2664,7 @@ __webpack_require__.r(__webpack_exports__);
         res = false;
       }
 
-      EventBus.$emit('show:errors', errors);
+      this.$parent.$refs.accountingAccountForm.showAlertMessages(errors);
       return res;
     },
 
@@ -2653,29 +2675,28 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     sendData: function sendData(url) {
-      var _this2 = this;
+      var vm = this;
 
-      if (!this.FormatCode()) {
+      if (!vm.FormatCode()) {
         return;
       }
 
-      var dt = this.record;
+      var dt = vm.record;
       /** Se formatean los ultimos tres campos del codigo de ser necesario */
 
-      this.record.generic = dt.generic.length < 2 ? '0' + dt.generic : dt.generic;
-      this.record.specific = dt.specific.length < 2 ? '0' + dt.specific : dt.specific;
-      this.record.subspecific = dt.subspecific.length < 2 ? '0' + dt.subspecific : dt.subspecific;
-      this.record.active = $('#active').prop('checked');
+      vm.record.generic = dt.generic.length < 2 ? '0' + dt.generic : dt.generic;
+      vm.record.specific = dt.specific.length < 2 ? '0' + dt.specific : dt.specific;
+      vm.record.subspecific = dt.subspecific.length < 2 ? '0' + dt.subspecific : dt.subspecific;
+      vm.record.active = $('#active').prop('checked');
 
-      if (this.operation == 'create') {
-        axios.post(url, this.record).then(function (response) {
+      if (vm.operation == 'create') {
+        axios.post(url, vm.record).then(function (response) {
           /** Se emite un evento para actualizar el listado de cuentas en el select */
-          _this2.accRecords = [];
-          _this2.accRecords = response.data.records;
+          vm.accRecords = [];
+          vm.accRecords = response.data.records;
           /** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
 
           EventBus.$emit('reload:list-accounts', response.data.records);
-          var vm = _this2;
           vm.showMessage('store');
         })["catch"](function (error) {
           var errors = [];
@@ -2687,18 +2708,17 @@ __webpack_require__.r(__webpack_exports__);
               }
             }
 
-            EventBus.$emit('show:errors', errors);
+            vm.$parent.$refs.accountingAccountForm.showAlertMessages(errors);
           }
         });
       } else {
-        axios.put(url + this.record.id, this.record).then(function (response) {
+        axios.put(url + vm.record.id, vm.record).then(function (response) {
           /** Se emite un evento para actualizar el listado de cuentas en el select */
-          _this2.accRecords = [];
-          _this2.accRecords = response.data.records;
+          vm.accRecords = [];
+          vm.accRecords = response.data.records;
           /** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
 
           EventBus.$emit('reload:list-accounts', response.data.records);
-          var vm = _this2;
           vm.showMessage('update');
         })["catch"](function (error) {
           var errors = [];
@@ -2710,12 +2730,12 @@ __webpack_require__.r(__webpack_exports__);
               }
             }
 
-            EventBus.$emit('show:errors', errors);
+            vm.$parent.$refs.accountingAccountForm.showAlertMessages(errors);
           }
         });
       }
 
-      this.reset();
+      vm.reset();
     }
   },
   watch: {
@@ -2725,14 +2745,14 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     record_select: function record_select(res) {
-      var _this3 = this;
+      var _this2 = this;
 
       if (res != '') {
         axios.get('/accounting/get-children-account/' + res).then(function (response) {
           var account = response.data.account;
           /** Selecciona en pantalla la nueva cuentas */
 
-          _this3.record = {
+          _this2.record = {
             group: account.group,
             subgroup: account.subgroup,
             item: account.item,
@@ -2742,7 +2762,7 @@ __webpack_require__.r(__webpack_exports__);
             denomination: account.denomination,
             active: account.active
           };
-          $('input[name=active]').bootstrapSwitch('state', _this3.record.active);
+          $('input[name=active]').bootstrapSwitch('state', _this2.record.active);
         });
       }
     },
@@ -2858,7 +2878,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.records = [];
-      EventBus.$emit('show:errors', []);
+      this.$parent.$refs.accountingAccountForm.reset();
       /** Se obtiene y da formato para enviar el archivo a la ruta */
 
       var vm = this;
@@ -2877,7 +2897,7 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         if (response.data.errors.length > 0) {
-          EventBus.$emit('show:errors', response.data.errors);
+          _this2.$parent.$refs.accountingAccountForm.showAlertMessages(response.data.errors);
         } else if (response.data.result && response.data.records) {
           _this2.records = response.data.records;
           EventBus.$emit('register:imported-accounts', _this2.records);
@@ -3028,7 +3048,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       reload: false,
-      currency: '',
       records: [],
       url: '/accounting/seating/',
       columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'action']
@@ -3070,7 +3089,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post('/accounting/lastOperations').then(function (response) {
         _this.records = response.data.lastRecords;
-        _this.currency = response.data.currency;
       });
     }
   },
@@ -3494,7 +3512,7 @@ __webpack_require__.r(__webpack_exports__);
         res = true;
       }
 
-      EventBus.$emit('show:errors', errors);
+      this.$refs.AccountingAccountsInForm.showAlertMessages(errors);
       return res;
     },
 
@@ -3534,7 +3552,6 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     CalculateTot: function CalculateTot() {
-      EventBus.$emit('show:errors', []);
       this.data.totDebit = 0;
       this.data.totAssets = 0;
       /** Se recorren todo el arreglo que tiene todas las filas de las cuentas y saldos para el asiento y se calcula el total */
@@ -3548,7 +3565,7 @@ __webpack_require__.r(__webpack_exports__);
 
           if (this.recordsAccounting[i].debit < 0 || this.recordsAccounting[i].assets < 0) {
             this.enableInput = false;
-            EventBus.$emit('show:errors', ["Los valores en la columna del DEBE y el HABER deben ser positivos."]);
+            this.$refs.AccountingAccountsInForm.showAlertMessages('Los valores en la columna del DEBE y el HABER deben ser positivos.');
           } else {
             this.enableInput = true;
           }
@@ -3599,14 +3616,15 @@ __webpack_require__.r(__webpack_exports__);
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      */
     storeEntry: function storeEntry() {
-      if (this.validateErrors()) {
+      var vm = this;
+
+      if (vm.validateErrors()) {
         return;
       }
 
-      var vm = this;
       axios.post('/accounting/entries', {
-        'data': this.data,
-        'accountingAccounts': this.recordsAccounting
+        'data': vm.data,
+        'accountingAccounts': vm.recordsAccounting
       }).then(function (response) {
         vm.showMessage('store');
         setTimeout(function () {
@@ -3627,8 +3645,7 @@ __webpack_require__.r(__webpack_exports__);
         */
 
 
-        EventBus.$emit('show:errors', []);
-        EventBus.$emit('show:errors', errors);
+        vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
       });
     },
 
@@ -3813,7 +3830,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     reset: function reset() {
       this.date = '';
-      this.reference = '';
       this.concept = '';
       this.observations = '';
       this.category = '';
@@ -3909,7 +3925,6 @@ __webpack_require__.r(__webpack_exports__);
       if (res != '') {
         this.validateRequired();
       } else {
-        this.reference = '';
         this.validated = false;
         this.validateRequired();
       }
@@ -3927,8 +3942,7 @@ __webpack_require__.r(__webpack_exports__);
         this.validateRequired();
       }
 
-      if (this.data_edit_mutable != null) {
-        /** Se vacia la variable que trae la informacion para no*/
+      if (!this.data_edit_mutable) {
         this.data_edit_mutable = null;
       }
 
@@ -3948,17 +3962,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4101,7 +4104,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      warnings: [],
       records: [],
       typeSearch: 'origin',
       //states: 'reference', 'origin'
@@ -4170,10 +4172,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (errors.length > 0) {
-        EventBus.$emit('show:errors', errors);
+        this.$refs.accountingEntriesSearch.showAlertMessages(errors);
         return true;
       }
 
+      this.$refs.accountingEntriesSearch.reset();
       return false;
     },
 
@@ -4196,11 +4199,8 @@ __webpack_require__.r(__webpack_exports__);
         'filterDate': this.filterDate,
         'data': this.data
       }).then(function (response) {
-        _this.warnings = [];
-        _this.errors = [];
-
         if (response.data.records.length == 0) {
-          _this.warnings.push('No se encontraron asientos contables aprobados con los parametros de busqueda dados.');
+          _this.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parametros de busqueda dados.', 'primary');
         }
 
         _this.records = response.data.records;
@@ -4476,7 +4476,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
@@ -4538,6 +4537,26 @@ __webpack_require__.r(__webpack_exports__);
     * @return {string} url para el reporte
     */
     getUrlReport: function getUrlReport() {
+      var errors = [];
+
+      if (this.InitAcc <= 0) {
+        errors.push("Debe seleccionar una cuenta de inicio.");
+      }
+
+      if (this.EndAcc <= 0) {
+        errors.push("Debe seleccionar una cuenta de final.");
+      }
+
+      if (!this.currency) {
+        errors.push("El tipo de moneda es obligatorio.");
+      }
+
+      if (errors.length > 0) {
+        this.$refs.errorsAnalyticalMajor.showAlertMessages(errors);
+        return;
+      }
+
+      this.$refs.errorsAnalyticalMajor.reset();
       var url = this.url + '/pdf';
       var InitAcc = this.InitAcc > this.EndAcc ? this.EndAcc : this.InitAcc;
       var EndAcc = this.InitAcc > this.EndAcc ? this.InitAcc : this.EndAcc;
@@ -4554,16 +4573,6 @@ __webpack_require__.r(__webpack_exports__);
 
       url += '/' + this.currency;
       return url;
-    }
-  },
-  computed: {
-    /**
-    * valida si se cumplen los requerimientos de información de las cuentas, y cambia el valor de la variable para habilitar el boton
-    *
-    * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    */
-    disabledButton: function disabledButton() {
-      return this.InitAcc == 0 || this.EndAcc == 0 || !this.currency ? true : false;
     }
   },
   watch: {
@@ -4593,6 +4602,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -4674,6 +4685,22 @@ __webpack_require__.r(__webpack_exports__);
     * @return {string} url para el reporte
     */
     getUrlReport: function getUrlReport() {
+      var errors = [];
+
+      if (this.account_id <= 0) {
+        errors.push("Debe seleccionar una cuenta.");
+      }
+
+      if (!this.currency) {
+        errors.push("El tipo de moneda es obligatorio.");
+      }
+
+      if (errors.length > 0) {
+        this.$refs.errorsAnalyticalMajor.showAlertMessages(errors);
+        return;
+      }
+
+      this.$refs.errorsAnalyticalMajor.reset();
       return this.url + this.account_id + '/' + (this.year_init + '-' + this.month_init) + '/' + this.currency;
     }
   }
@@ -4727,11 +4754,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     type_report: {
       type: String,
       "default": ''
+    },
+    currencies: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
     },
     year_old: {
       type: String,
@@ -4760,7 +4805,8 @@ __webpack_require__.r(__webpack_exports__);
         id: 6,
         text: 'Nivel 6'
       }],
-      url: '/accounting/report/'
+      url: '/accounting/report/',
+      currency: ''
     };
   },
   created: function created() {
@@ -4775,8 +4821,20 @@ __webpack_require__.r(__webpack_exports__);
     * @return {string} url para el reporte
     */
     getUrlReport: function getUrlReport() {
+      var errors = [];
+
+      if (!this.currency) {
+        errors.push("El tipo de moneda es obligatorio.");
+      }
+
+      if (errors.length > 0) {
+        this.$refs[this.type_report].showAlertMessages(errors);
+        return;
+      }
+
+      this.$refs[this.type_report].reset();
       var zero = $('#zero' + this.type_report).prop('checked') ? 'true' : '';
-      return this.url + (this.year_init + '-' + this.month_init) + '/' + this.level + '/' + zero;
+      return this.url + (this.year_init + '-' + this.month_init) + '/' + this.level + '/' + this.currency + '/' + zero;
     }
   }
 });
@@ -4840,16 +4898,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
       type: String,
       "default": ''
+    },
+    currencies: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
     }
   },
   data: function data() {
     return {
-      url: '/accounting/report/balanceCheckUp/pdf/'
+      url: '/accounting/report/balanceCheckUp/pdf/',
+      currency: ''
     };
   },
   created: function created() {
@@ -4863,10 +4935,22 @@ __webpack_require__.r(__webpack_exports__);
     * @return {string} url para el reporte
     */
     getUrlReport: function getUrlReport() {
+      var errors = [];
+
+      if (!this.currency) {
+        errors.push("El tipo de moneda es obligatorio.");
+      }
+
+      if (errors.length > 0) {
+        this.$refs.errorsCheckUpBalance.showAlertMessages(errors);
+        return;
+      }
+
+      this.$refs.errorsCheckUpBalance.reset();
       var zero = $('#zero').prop('checked') ? 'true' : '';
       var initDate = this.year_init > this.year_end ? this.year_end + '-' + this.month_end : this.year_init + '-' + this.month_init;
       var endDate = this.year_init > this.year_end ? this.year_init + '-' + this.month_init : this.year_end + '-' + this.month_end;
-      var url = this.url + initDate + '/' + endDate + '/' + zero;
+      var url = this.url + initDate + '/' + endDate + '/' + this.currency + '/' + zero;
       return url;
     }
   }
@@ -4883,7 +4967,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -4944,7 +5027,27 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     * @return {string} url para el reporte
     */
-    getUrlReport: function getUrlReport(argument) {
+    getUrlReport: function getUrlReport() {
+      var errors = [];
+
+      if (!this.dateIni) {
+        errors.push("La fecha inicial es obligartio.");
+      }
+
+      if (!this.dateEnd) {
+        errors.push("La fecha final es obligartio.");
+      }
+
+      if (!this.currency) {
+        errors.push("El tipo de moneda es obligatorio.");
+      }
+
+      if (errors.length > 0) {
+        this.$refs.errorsDialyBook.showAlertMessages(errors);
+        return;
+      }
+
+      this.$refs.errorsDialyBook.reset();
       var dateIni = this.dateIni;
       var dateEnd = this.dateEnd;
       var info = this.dateIni <= this.dateEnd ? dateIni + '/' + dateEnd : dateEnd + '/' + dateIni;
@@ -5229,6 +5332,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5278,7 +5383,10 @@ __webpack_require__.r(__webpack_exports__);
       // en caso de estar actualizando se lo salta
 
       for (var i = 0; i < this.records.length; i++) {
-        if (name && this.record.name == this.records[i].name) {
+        if (!this.record.name) {
+          errors.push('El campo del nombre es obligatorio.');
+          break;
+        } else if (this.record.name == this.records[i].name) {
           if (jumpOne) {
             jumpOne = false;
             continue;
@@ -5287,7 +5395,10 @@ __webpack_require__.r(__webpack_exports__);
           errors.push('El nombre debe ser único.');
         }
 
-        if (acronym && this.record.acronym == this.records[i].acronym) {
+        if (!this.record.acronym) {
+          errors.push('El campo del acronimo es obligatorio.');
+          break;
+        } else if (this.record.acronym == this.records[i].acronym) {
           if (jumpOne) {
             jumpOne = false;
             continue;
@@ -5298,7 +5409,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (errors.length > 0) {
-        EventBus.$emit('show:errors', errors);
+        this.$refs.originCategories.showAlertMessages(errors);
         return false;
       }
 
@@ -5324,7 +5435,8 @@ __webpack_require__.r(__webpack_exports__);
             acronym: ''
           };
           vm.showMessage('store');
-          EventBus.$emit('show:errors', []);
+
+          _this.$refs.originCategories.reset();
         });
       } else {
         if (!this.validInformation(false)) return;
@@ -5337,7 +5449,8 @@ __webpack_require__.r(__webpack_exports__);
           vm.state = 'store'; // se cambia el estado para mostrar el boton guardar
 
           vm.showMessage('update');
-          EventBus.$emit('show:errors', []);
+
+          _this.$refs.originCategories.reset();
         });
       }
     },
@@ -5448,7 +5561,7 @@ __webpack_require__.r(__webpack_exports__);
         res = true;
       }
 
-      EventBus.$emit('show:errors', errors);
+      this.$refs.settingCode.showAlertMessages(errors);
       return res;
     },
     createRecord: function createRecord() {
@@ -5471,7 +5584,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     code: function code(res) {
-      EventBus.$emit('show:errors', []);
+      this.$refs.settingCode.reset();
     }
   }
 });
@@ -5496,7 +5609,7 @@ var render = function() {
   return _vm.existErrors
     ? _c(
         "div",
-        { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+        { class: "alert alert-" + _vm.classAlert, attrs: { role: "alert" } },
         [
           _c("div", { staticClass: "container" }, [
             _vm._m(0),
@@ -5575,7 +5688,7 @@ var render = function() {
       "div",
       { staticClass: "card-body" },
       [
-        _c("accounting-show-errors", { attrs: { options: _vm.errors } }),
+        _c("accounting-show-errors", { ref: "accountingConverterForm" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-1" }),
@@ -5680,7 +5793,7 @@ var render = function() {
       "div",
       { staticClass: "card-body" },
       [
-        _c("accounting-show-errors"),
+        _c("accounting-show-errors", { ref: "accountingConverter" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _vm._m(0),
@@ -6671,11 +6784,11 @@ var render = function() {
                 _c("strong", [_vm._v("Debe: ")]),
                 _vm._v(
                   " " +
-                    _vm._s(_vm.currency.symbol) +
+                    _vm._s(props.row.currency.symbol) +
                     " " +
                     _vm._s(
                       parseFloat(props.row.tot_debit).toFixed(
-                        _vm.currency.decimal_places
+                        props.row.currency.decimal_places
                       )
                     ) +
                     "\n\t\t\t"
@@ -6685,11 +6798,11 @@ var render = function() {
                 _c("strong", [_vm._v("Haber")]),
                 _vm._v(
                   " " +
-                    _vm._s(_vm.currency.symbol) +
+                    _vm._s(props.row.currency.symbol) +
                     " " +
                     _vm._s(
                       parseFloat(props.row.tot_assets).toFixed(
-                        _vm.currency.decimal_places
+                        props.row.currency.decimal_places
                       )
                     ) +
                     "\n\t\t"
@@ -6947,7 +7060,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("accounting-show-errors"),
+      _c("accounting-show-errors", { ref: "AccountingAccountsInForm" }),
       _vm._v(" "),
       _c("table", { staticClass: "table table-formulation" }, [
         _vm._m(0),
@@ -7494,39 +7607,12 @@ var render = function() {
           "div",
           { staticClass: "card-body" },
           [
-            _c("accounting-show-errors"),
-            _vm._v(" "),
-            _vm.warnings.length > 0
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "alert alert-primary",
-                    attrs: { role: "alert" }
-                  },
-                  [
-                    _c("div", { staticClass: "container" }, [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c("strong", [_vm._v("Atención!")]),
-                      _vm._v(" "),
-                      _c(
-                        "ul",
-                        _vm._l(_vm.warnings, function(warning) {
-                          return _c("li", [
-                            _c("strong", [_vm._v(_vm._s(warning))])
-                          ])
-                        }),
-                        0
-                      )
-                    ])
-                  ]
-                )
-              : _vm._e(),
+            _c("accounting-show-errors", { ref: "accountingEntriesSearch" }),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "col-8 row" }, [
                 _c("div", { staticClass: "col-7" }, [
@@ -7598,9 +7684,9 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "col-8 row" }, [
                 _vm.filterDate == "specific"
@@ -7834,14 +7920,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "alert-icon" }, [
-      _c("i", { staticClass: "now-ui-icons objects_support-17" })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -8405,7 +8483,7 @@ var render = function() {
       "div",
       { staticClass: "card-body" },
       [
-        _c("accounting-show-errors"),
+        _c("accounting-show-errors", { ref: "errorsAnalyticalMajor" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-3" }, [
@@ -8518,7 +8596,6 @@ var render = function() {
                   _vm._v(" "),
                   _c("select2", {
                     attrs: { options: _vm.OptionsAcc },
-                    on: { input: _vm.activatedButtonFunc },
                     model: {
                       value: _vm.InitAcc,
                       callback: function($$v) {
@@ -8537,7 +8614,6 @@ var render = function() {
               _vm._v(" "),
               _c("select2", {
                 attrs: { options: _vm.OptionsAcc },
-                on: { input: _vm.activatedButtonFunc },
                 model: {
                   value: _vm.EndAcc,
                   callback: function($$v) {
@@ -8584,11 +8660,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: {
-            title: "Generar Reporte",
-            disabled: _vm.disabledButton,
-            "data-toggle": "tooltip"
-          },
+          attrs: { title: "Generar Reporte", "data-toggle": "tooltip" },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_black")
@@ -8656,116 +8728,120 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "form-horizontal" }, [
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-3" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("br"),
+    _c(
+      "div",
+      { staticClass: "card-body" },
+      [
+        _c("accounting-show-errors", { ref: "errorAuxiliaryBook" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-3" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "is-required" },
+              [
+                _c("label", [_vm._v("Mes")]),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.months },
+                  model: {
+                    value: _vm.month_init,
+                    callback: function($$v) {
+                      _vm.month_init = $$v
+                    },
+                    expression: "month_init"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "is-required" },
+              [
+                _c("label", [_vm._v("Año")]),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.years },
+                  model: {
+                    value: _vm.year_init,
+                    callback: function($$v) {
+                      _vm.year_init = $$v
+                    },
+                    expression: "year_init"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "is-required" },
+            { staticClass: "col-3" },
             [
-              _c("label", [_vm._v("Mes")]),
+              _vm._m(1),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
               _vm._v(" "),
               _c("select2", {
-                attrs: { options: _vm.months },
+                attrs: { options: _vm.records },
                 model: {
-                  value: _vm.month_init,
+                  value: _vm.account_id,
                   callback: function($$v) {
-                    _vm.month_init = $$v
+                    _vm.account_id = $$v
                   },
-                  expression: "month_init"
+                  expression: "account_id"
                 }
               })
             ],
             1
           ),
           _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "is-required" },
-            [
-              _c("label", [_vm._v("Año")]),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.years },
-                model: {
-                  value: _vm.year_init,
-                  callback: function($$v) {
-                    _vm.year_init = $$v
-                  },
-                  expression: "year_init"
-                }
-              })
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-6" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("br"),
-            _c("br"),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.records },
-              model: {
-                value: _vm.account_id,
-                callback: function($$v) {
-                  _vm.account_id = $$v
-                },
-                expression: "account_id"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-3" }, [
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "div",
-            [
-              _c("label", { staticClass: "control-label" }, [
-                _vm._v("Expresar en")
-              ]),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.currencies },
-                model: {
-                  value: _vm.currency,
-                  callback: function($$v) {
-                    _vm.currency = $$v
-                  },
-                  expression: "currency"
-                }
-              })
-            ],
-            1
-          )
+          _c("div", { staticClass: "col-3" }, [
+            _c(
+              "div",
+              [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v("Expresar en")
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _c("br"),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.currencies },
+                  model: {
+                    value: _vm.currency,
+                    callback: function($$v) {
+                      _vm.currency = $$v
+                    },
+                    expression: "currency"
+                  }
+                })
+              ],
+              1
+            )
+          ])
         ])
-      ])
-    ]),
+      ],
+      1
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-right" }, [
       _c(
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: {
-            "data-toggle": "tooltip",
-            disabled: _vm.account_id == 0 || !_vm.currency,
-            title: "Generar Reporte"
-          },
+          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_blank")
@@ -8819,106 +8895,145 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "form-horizontal" }, [
-    _c("div", { staticClass: "card-body row" }, [
-      _c("div", { staticClass: "col-1" }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-3" },
-        [
-          _c("label", { staticClass: "control-label" }, [_vm._v("Al mes")]),
+    _c(
+      "div",
+      { staticClass: "card-body" },
+      [
+        _c("accounting-show-errors", { ref: _vm.type_report }),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-3" },
+            [
+              _c("label", { staticClass: "control-label" }, [_vm._v("Al mes")]),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.months },
+                model: {
+                  value: _vm.month_init,
+                  callback: function($$v) {
+                    _vm.month_init = $$v
+                  },
+                  expression: "month_init"
+                }
+              }),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.years },
+                model: {
+                  value: _vm.year_init,
+                  callback: function($$v) {
+                    _vm.year_init = $$v
+                  },
+                  expression: "year_init"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("select2", {
-            attrs: { options: _vm.months },
-            model: {
-              value: _vm.month_init,
-              callback: function($$v) {
-                _vm.month_init = $$v
-              },
-              expression: "month_init"
-            }
-          }),
+          _c(
+            "div",
+            { staticClass: "col-3" },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Nivel de consulta")
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.levels },
+                model: {
+                  value: _vm.level,
+                  callback: function($$v) {
+                    _vm.level = $$v
+                  },
+                  expression: "level"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
-          _vm._v(" "),
-          _c("select2", {
-            attrs: { options: _vm.years },
-            model: {
-              value: _vm.year_init,
-              callback: function($$v) {
-                _vm.year_init = $$v
-              },
-              expression: "year_init"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-1" }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-3" },
-        [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v("Nivel de consulta")
+          _c("div", { staticClass: "col-3" }, [
+            _c(
+              "div",
+              [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v("Expresar en")
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _c("br"),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.currencies },
+                  model: {
+                    value: _vm.currency,
+                    callback: function($$v) {
+                      _vm.currency = $$v
+                    },
+                    expression: "currency"
+                  }
+                })
+              ],
+              1
+            )
           ]),
           _vm._v(" "),
-          _c("select2", {
-            attrs: { options: _vm.levels },
-            model: {
-              value: _vm.level,
-              callback: function($$v) {
-                _vm.level = $$v
-              },
-              expression: "level"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-1" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [
-        _vm._m(0),
+          _c("div", { staticClass: "col-3" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("br"),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control text-center bootstrap-switch",
+              attrs: {
+                id: "zero" + _vm.type_report,
+                "data-on-label": "SI",
+                "data-off-label": "NO",
+                name: "zero",
+                type: "checkbox"
+              }
+            })
+          ])
+        ]),
         _vm._v(" "),
-        _c("br"),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control text-center bootstrap-switch",
-          attrs: {
-            id: "zero" + this.type_report,
-            "data-on-label": "SI",
-            "data-off-label": "NO",
-            name: "zero",
-            type: "checkbox"
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-footer text-right" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-sm",
-          on: {
-            click: function($event) {
-              _vm.OpenPdf(_vm.getUrlReport(), "_blank")
-            }
-          }
-        },
-        [
-          _vm._v("\n\t\t\tGenerar Reporte "),
-          _c("i", { staticClass: "fa fa-print" })
-        ]
-      )
-    ])
+        _c("div", { staticClass: "card-footer text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-sm",
+              on: {
+                click: function($event) {
+                  _vm.OpenPdf(_vm.getUrlReport(), "_blank")
+                }
+              }
+            },
+            [
+              _vm._v("\n\t\t\t\tGenerar Reporte "),
+              _c("i", { staticClass: "fa fa-print" })
+            ]
+          )
+        ])
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -8953,95 +9068,122 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "form-horizontal" }, [
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-1" }),
+    _c(
+      "div",
+      { staticClass: "card-body" },
+      [
+        _c("accounting-show-errors", { ref: "errorsCheckUpBalance" }),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-3" },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.months },
-              model: {
-                value: _vm.month_init,
-                callback: function($$v) {
-                  _vm.month_init = $$v
-                },
-                expression: "month_init"
-              }
-            }),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.years },
-              model: {
-                value: _vm.year_init,
-                callback: function($$v) {
-                  _vm.year_init = $$v
-                },
-                expression: "year_init"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-1" }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-3" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.months },
-              model: {
-                value: _vm.month_end,
-                callback: function($$v) {
-                  _vm.month_end = $$v
-                },
-                expression: "month_end"
-              }
-            }),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
-            _vm._v(" "),
-            _c("select2", {
-              attrs: { options: _vm.years },
-              model: {
-                value: _vm.year_end,
-                callback: function($$v) {
-                  _vm.year_end = $$v
-                },
-                expression: "year_end"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-1" }),
-        _vm._v(" "),
-        _vm._m(2)
-      ])
-    ]),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-3" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.months },
+                model: {
+                  value: _vm.month_init,
+                  callback: function($$v) {
+                    _vm.month_init = $$v
+                  },
+                  expression: "month_init"
+                }
+              }),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.years },
+                model: {
+                  value: _vm.year_init,
+                  callback: function($$v) {
+                    _vm.year_init = $$v
+                  },
+                  expression: "year_init"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-3" },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.months },
+                model: {
+                  value: _vm.month_end,
+                  callback: function($$v) {
+                    _vm.month_end = $$v
+                  },
+                  expression: "month_end"
+                }
+              }),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.years },
+                model: {
+                  value: _vm.year_end,
+                  callback: function($$v) {
+                    _vm.year_end = $$v
+                  },
+                  expression: "year_end"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-3" }, [
+            _c(
+              "div",
+              [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v("Expresar en")
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _c("br"),
+                _vm._v(" "),
+                _c("select2", {
+                  attrs: { options: _vm.currencies },
+                  model: {
+                    value: _vm.currency,
+                    callback: function($$v) {
+                      _vm.currency = $$v
+                    },
+                    expression: "currency"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(2)
+        ])
+      ],
+      1
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-right" }, [
       _c(
@@ -9081,7 +9223,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
+    return _c("div", { staticClass: "col-3" }, [
       _c("label", { staticClass: "text-center" }, [
         _c("strong", [_vm._v("Mostrar valores en cero")])
       ]),
@@ -9126,16 +9268,14 @@ var render = function() {
   return _c("div", { staticClass: "form-horizontal" }, [
     _c(
       "div",
-      { staticClass: "card-body", staticStyle: { "min-height": "0px" } },
+      { staticClass: "card-body" },
       [
-        _c("accounting-show-errors"),
+        _c("accounting-show-errors", { ref: "errorsDialyBook" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-1" }),
-          _vm._v(" "),
           _c("div", { staticClass: "col-3" }, [
             _c("label", { staticClass: "control-label" }, [
-              _vm._v("Periodo inicial")
+              _vm._v("Fecha inicial")
             ]),
             _vm._v(" "),
             _c("input", {
@@ -9163,7 +9303,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-3" }, [
             _c("label", { staticClass: "control-label" }, [
-              _vm._v("Periodo final")
+              _vm._v("Fecha final")
             ]),
             _vm._v(" "),
             _c("input", {
@@ -9222,11 +9362,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: {
-            "data-toggle": "tooltip",
-            title: "Generar Reporte",
-            disabled: !_vm.dateIni || !_vm.dateEnd || !_vm.currency
-          },
+          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_blank")
@@ -9375,9 +9511,7 @@ var render = function() {
                 "div",
                 { staticClass: "modal-body" },
                 [
-                  _c("accounting-show-errors", {
-                    attrs: { options: _vm.errors }
-                  })
+                  _c("accounting-show-errors", { ref: "accountingAccountForm" })
                 ],
                 1
               ),
@@ -9557,7 +9691,7 @@ var render = function() {
                 "div",
                 { staticClass: "modal-body" },
                 [
-                  _c("accounting-show-errors"),
+                  _c("accounting-show-errors", { ref: "originCategories" }),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "card-body" }, [
@@ -9820,7 +9954,7 @@ var render = function() {
           "div",
           { staticClass: "card-body" },
           [
-            _c("accounting-show-errors"),
+            _c("accounting-show-errors", { ref: "settingCode" }),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-3" }, [

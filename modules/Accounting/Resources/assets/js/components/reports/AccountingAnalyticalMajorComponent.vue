@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div class="card-body">
-			
-			<accounting-show-errors />
 
+			<accounting-show-errors ref="errorsAnalyticalMajor" />
+	
 			<div class="row">
 				<div class="col-3">
 					<label class="control-label"><strong>Fecha Inicial</strong></label>
@@ -35,12 +35,12 @@
 					<br>
 					<div class="is-required">
 						<label><strong>Cuenta Inicial</strong></label>
-						<select2 :options="OptionsAcc" @input="activatedButtonFunc" v-model="InitAcc"></select2>
+						<select2 :options="OptionsAcc" v-model="InitAcc"></select2>
 					</div>
 
 					<br>
 					<label><strong>Cuenta Final</strong></label>
-					<select2 :options="OptionsAcc" @input="activatedButtonFunc" v-model="EndAcc"></select2>
+					<select2 :options="OptionsAcc" v-model="EndAcc"></select2>
 				</div>
 				<div class="col-3">
 					<br>
@@ -54,7 +54,6 @@
 		<div class="card-footer text-right">
 			<button class="btn btn-primary btn-sm"
 					title="Generar Reporte"
-					:disabled="disabledButton"
 					data-toggle="tooltip"
 					v-on:click="OpenPdf(getUrlReport(),'_black')">
 					<span>Generar reporte</span>
@@ -123,6 +122,24 @@
 			* @return {string} url para el reporte
 			*/
 			getUrlReport:function(){
+				
+				var errors = [];
+				if (this.InitAcc <= 0) {
+					errors.push("Debe seleccionar una cuenta de inicio.");
+				}
+				if (this.EndAcc <= 0) {
+					errors.push("Debe seleccionar una cuenta de final.");
+				}
+				if (!this.currency) {
+					errors.push("El tipo de moneda es obligatorio.");
+				}
+
+				if (errors.length > 0) {
+					this.$refs.errorsAnalyticalMajor.showAlertMessages(errors);
+					return;
+				}
+				this.$refs.errorsAnalyticalMajor.reset();
+
 				var url = this.url+'/pdf';
 				var InitAcc = (this.InitAcc > this.EndAcc)? this.EndAcc  : this.InitAcc;
 				var EndAcc  = (this.InitAcc > this.EndAcc)? this.InitAcc : this.EndAcc;
@@ -138,16 +155,6 @@
 
 				url += '/'+this.currency;
 				return url;
-			},
-		},
-		computed:{
-			/**
-			* valida si se cumplen los requerimientos de información de las cuentas, y cambia el valor de la variable para habilitar el boton
-			*
-			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-			*/
-			disabledButton:function(){
-				return (this.InitAcc == 0 || this.EndAcc == 0 || !this.currency)?true:false;
 			},
 		},
 		watch:{

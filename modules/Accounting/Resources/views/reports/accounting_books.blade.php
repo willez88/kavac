@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Reportes de Libros Contables
+	Reportes de libros contables
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Libro Diario</h6>
+					<h6 class="card-title">Libro diario</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
@@ -36,7 +36,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Mayor Analítico</h6>
+					<h6 class="card-title">Mayor analítico</h6>
 					<div class="card-btns">
 						@include('buttons.minimize')
 					</div>
@@ -50,7 +50,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Libro Auxiliar</h6>
+					<h6 class="card-title">Libro auxiliar</h6>
 					<div class="card-btns">
 						@include('buttons.minimize')
 					</div>

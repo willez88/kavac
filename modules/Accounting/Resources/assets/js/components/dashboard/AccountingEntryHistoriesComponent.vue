@@ -6,9 +6,9 @@
 				{{ formatDate(props.row.from_date) }}
 			</div>
 			<div slot="total" slot-scope="props" class="text-right">
-				<strong>Debe: </strong> {{ currency.symbol }} {{ parseFloat(props.row.tot_debit).toFixed(currency.decimal_places) }}
+				<strong>Debe: </strong> {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_debit).toFixed(props.row.currency.decimal_places) }}
 				<br>
-				<strong>Haber</strong> {{ currency.symbol }} {{ parseFloat(props.row.tot_assets).toFixed(currency.decimal_places) }}
+				<strong>Haber</strong> {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_assets).toFixed(props.row.currency.decimal_places) }}
 			</div>
 			<div slot="approved" slot-scope="props" class="text-center">
 				<span class="badge badge-success" v-show="props.row.approved"><strong>Aprobado</strong></span>
@@ -51,7 +51,6 @@
 		data(){
 			return {
 				reload:false,
-				currency:'',
 				records: [],
 				url:'/accounting/seating/',
 				columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'action']
@@ -91,7 +90,6 @@
 			loadRecords(){
 				axios.post('/accounting/lastOperations').then(response=>{
 					this.records = response.data.lastRecords;
-					this.currency = response.data.currency;
 				});
 			}
 		},
