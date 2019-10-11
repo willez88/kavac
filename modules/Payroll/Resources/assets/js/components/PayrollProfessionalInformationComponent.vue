@@ -121,14 +121,6 @@
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-md-4">
-							<pre>
-								{{ $data }}
-							</pre>
-						</div>
-					</div>
-
 				</div>
 
 				<div class="card-footer pull-right">
