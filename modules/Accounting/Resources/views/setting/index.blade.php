@@ -53,7 +53,6 @@
 					<div class="row">
 						<accounting-setting-category></accounting-setting-category>
 						<accounting-setting-account></accounting-setting-account>
-						{{-- <exchange-rates /> --}}
 					</div>
 				</div>
 			</div>

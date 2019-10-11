@@ -166,8 +166,10 @@ Route::group(['middleware' => 'web',
     /**
      * rutas para reporte del libro diario
      */
-    Route::get('report/dailyBook/pdf/{initDate}/{endDate}/{currency}', 'Reports\AccountingDailyBookController@pdf')
+    Route::get('report/dailyBook/pdfVue/{initDate}/{endDate}/{currency}', 'Reports\AccountingDailyBookController@pdfVue')
         ->name('accounting.report.dailyBook.pdf');
+
+    Route::get('report/dailyBook/pdf/{initDate}/{endDate}/{currency}', 'Reports\AccountingDailyBookController@pdf');
 
     /**
      * rutas para reporte de libro auxiliar

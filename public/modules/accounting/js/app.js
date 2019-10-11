@@ -335,11 +335,19 @@ Vue.mixin({
     * @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
     */
     OpenPdf: function OpenPdf(url, type) {
+      var vm = this;
+
       if (!url) {
         return;
       }
 
-      window.open(url, type);
+      axios.get(url.replace('pdf', 'pdfVue')).then(function (response) {
+        if (!response.data.result) {
+          vm.showMessage('custom', 'Error en conversión', 'danger', 'screen-error', response.data.message);
+        } else {
+          window.open(url, type);
+        }
+      });
     },
 
     /**
