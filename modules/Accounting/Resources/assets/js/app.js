@@ -218,7 +218,19 @@ Vue.mixin({
 		* @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
 		*/
 		OpenPdf:function(url, type){
-			window.open(url, type);
+			const vm = this;
+			if (!url) {
+				return;
+			}
+			axios.get(url.replace('pdf','pdfVue')).then(response=>{
+				if (!response.data.result) {
+					vm.showMessage(
+                            'custom', 'Error en conversión', 'danger', 'screen-error', response.data.message
+                        );
+				}else{
+					window.open(url, type);
+				}
+			})
 		},
 
 		/**

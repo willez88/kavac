@@ -1,6 +1,6 @@
 <template>
 <div>
-    <accounting-show-errors />
+    <accounting-show-errors ref="AccountingAccountsInForm" />
 
     <table class="table table-formulation">
         <thead>
@@ -221,7 +221,6 @@
                 * se cargan los errores
                 */
                 var errors = [];
-
                 var res = false;
 
                 if (!this.data.date) {
@@ -261,7 +260,7 @@
                     errors.push('Los valores en la columna del DEBE y el HABER deben ser positivos.');
                     res = true;
                 }
-                EventBus.$emit('show:errors', errors);
+                this.$refs.AccountingAccountsInForm.showAlertMessages(errors);
                 return res;
             },
 
@@ -300,7 +299,6 @@
             */
             CalculateTot:function(){
 
-                EventBus.$emit('show:errors', []);
                 this.data.totDebit = 0;
                 this.data.totAssets = 0;
 
@@ -315,7 +313,7 @@
 
                         if (this.recordsAccounting[i].debit < 0 || this.recordsAccounting[i].assets < 0) {
                             this.enableInput = false;
-                            EventBus.$emit('show:errors', ["Los valores en la columna del DEBE y el HABER deben ser positivos."]);
+                            this.$refs.AccountingAccountsInForm.showAlertMessages('Los valores en la columna del DEBE y el HABER deben ser positivos.');
                         }else{
                             this.enableInput = true;
                         }
@@ -367,12 +365,12 @@
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
             storeEntry(){
-                if (this.validateErrors()) { 
+                const vm = this;
+                if (vm.validateErrors()) { 
                     return ; 
                 }
-                const vm = this;
-                axios.post('/accounting/entries',{'data':this.data,
-                                                  'accountingAccounts':this.recordsAccounting
+                axios.post('/accounting/entries',{'data':vm.data,
+                                                  'accountingAccounts':vm.recordsAccounting
                 }).then(response=>{
                     vm.showMessage('store');
                     setTimeout(function() {
@@ -390,8 +388,7 @@
                     /**
                     * se cargan los errores
                     */
-                    EventBus.$emit('show:errors', []);
-                    EventBus.$emit('show:errors', errors);
+                    vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
                 });
             },
 

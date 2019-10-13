@@ -3,19 +3,8 @@
 		<form @submit.prevent="" class="form-horizontal">
 			<div class="card-body">
 				
-				<accounting-show-errors />
+				<accounting-show-errors ref="accountingEntriesSearch" />
 
-				<div class="alert alert-primary" role="alert" v-if="warnings.length > 0">
-					<div class="container">
-						<div class="alert-icon">
-							<i class="now-ui-icons objects_support-17"></i>
-						</div>
-						<strong>Atención!</strong>
-						<ul>
-							<li v-for="warning in warnings"><strong>{{ warning }}</strong></li>
-						</ul>
-					</div>
-				</div>
 				<div class="row">
 					<div class="col-2">
 						<div class="form-group">
@@ -152,7 +141,6 @@
         },
 		data(){
 			return {
-				warnings:[],
 				records: [],
 				typeSearch:'origin', //states: 'reference', 'origin'
 				filterDate:'generic', //states: 'generic','specific'
@@ -219,9 +207,10 @@
 				}
 
 				if (errors.length > 0) {
-					EventBus.$emit('show:errors', errors);
+					this.$refs.accountingEntriesSearch.showAlertMessages(errors);
 					return true;
 				}
+				this.$refs.accountingEntriesSearch.reset();
 				return false;
 			},
 
@@ -242,10 +231,8 @@
 					'filterDate':this.filterDate,
 					'data':this.data,
 				}).then(response=>{
-					this.warnings = [];
-					this.errors = [];
 					if (response.data.records.length == 0) {
-						this.warnings.push('No se encontraron asientos contables aprobados con los parametros de busqueda dados.')
+						this.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parametros de busqueda dados.', 'primary');
 					}
 					this.records = response.data.records;
 					EventBus.$emit('list:entries',{

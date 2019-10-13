@@ -96,11 +96,8 @@
 	@foreach($entries as $entry)
 		<table cellspacing="0" cellpadding="1" border="0">
 			<tr >
-				@php
-					$from_date = explode('-', $entry['from_date']);
-				@endphp
 				{{-- se formatea la fecha de Y-m-d a d-m-Y --}}
-				<td width="10%" style="font-size:9rem; background-color: #BDBDBD;" align="left"> {{ $from_date[2].'-'.$from_date[1].'-'.$from_date[0] }}</td>
+				<td width="10%" style="font-size:9rem; background-color: #BDBDBD;" align="left"> {{ $entry['from_date'] }}</td>
 				<td width="15%" style="font-size:9rem; background-color: #BDBDBD;"></td>
 		        <td width="45%" style="font-size:9rem; background-color: #BDBDBD;" align="center">
 		        	{{ $cont }}
@@ -114,9 +111,9 @@
 			@foreach($entry['accountingAccounts'] as $entryAccount)
 				<tr>
 					<td style="font-size:9rem;"></td>
-					<td style="font-size:9rem;" align="center"> {{ $entryAccount['account']->getCodeAttribute() }}</td>
+					<td style="font-size:9rem;" align="center"> {{ $entryAccount['code'] }}</td>
 					<td style="font-size:9rem;">
-						{{' '.$entryAccount['account']['denomination'] }} 
+						{{' '.$entryAccount['denomination'] }} 
 					</td>
 					<td style="font-size:9rem;" align="right">
 						{{' '.number_format($entryAccount['debit'], (int)$currency->decimal_places, ',', '.') }}  

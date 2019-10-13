@@ -2,7 +2,7 @@
     <div class="form-horizontal">
         <div class="card-body">
             
-            <accounting-show-errors :options="errors" />
+            <accounting-show-errors ref="accountingConverterForm" />
 
             <div class="row">
                 <div class="col-1"></div>
@@ -54,6 +54,7 @@
             }
         },
         created(){
+
             this.budgetOptions = this.budget_list;
             this.accountingOptions = this.accounting_list;
 
@@ -61,6 +62,15 @@
             if (this.account_to_edit) {
                 this.budgetSelect = this.account_to_edit.budget_account_id;
                 this.accountingSelect = this.account_to_edit.accounting_account_id;
+            }
+
+        },
+        mounted(){
+            if (this.budget_list.length < 2) {
+                this.$refs.accountingConverterForm.showAlertMessages('No se encontraron registros de cuentas presupuestales.');
+            }
+            if (this.accounting_list.length < 2) {
+                this.$refs.accountingConverterForm.showAlertMessages('No se encontraron registros de cuentas patrimoniales.');
             }
         },
         methods:{
@@ -81,7 +91,7 @@
                 const vm = this;
 
                 if (vm.budgetSelect == '' || vm.accountingSelect == '') {
-                    EventBus.$emit('show:errors', ['Los campos de selección de cuenta son obligatorios.']);
+                    vm.$refs.accountingConverterForm.showAlertMessages('Los campos de selección de cuenta son obligatorios.');
                     return;
                 }
 
@@ -100,7 +110,7 @@
                         vm.budgetOptions = [];
                         vm.accountingOptions = response.data.records_accounting;
                         vm.budgetOptions = response.data.records_busget;
-                        EventBus.$emit('show:errors', []);
+                        vm.$refs.accountingConverterForm.reset();
                         vm.showMessage('store');
                     });
                 } else{

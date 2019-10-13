@@ -1,0 +1,27 @@
+site_name: Documentación de Usuario.
+nav:
+    - Inicio: index.md
+    - Información General: information.md
+    - Aplicaciones:
+            - 'Administración del sistema': 'system_administration.md'
+            - 'Configuración': 'settings.md'
+            - 'Contabilidad y Finanzas': 'accounting_finance.md' 
+            - 'Bienes': 'asset.md' 
+            - 'Presupuesto': 'budget.md' 
+            - 'Firma Electrónica': 'digital_signature.md' 
+            - 'Talento Humano': 'payroll.md'
+            - 'Compras': 'purchase.md' 
+            - 'Soporte Técnico': 'technical_support.md' 
+            - 'Almacén': 'warehouse.md' 
+            - 'Comercialización': 'warehouse.md' 
+            - 'Otras': 'warehouse.md' 
+
+
+markdown_extensions:
+    - toc:
+        permalink: "¶"
+        separator: "_"            
+             
+            
+            
+
