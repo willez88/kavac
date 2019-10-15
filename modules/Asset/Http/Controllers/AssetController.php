@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Asset\Jobs\AssetCreateAssets;
 
 use Modules\Asset\Rules\AcquisitionYear;
 use Modules\Asset\Rules\RequiredItem;
@@ -89,7 +90,7 @@ class AssetController extends Controller
                 'asset_status_id' => 'required',
                 'asset_condition_id' => 'required',
                 'value' => 'required|regex:/^\d+(\.\d+)?$/u',
-                'quantity' => 'regex:/^\d+$/u',
+                'quantity' => 'regex:/^[1-9][0-9]*$/',
                 'currency_id' => 'required',
 
                 'serial' => new RequiredItem($item_required->serial),
@@ -110,47 +111,13 @@ class AssetController extends Controller
                 'asset_status_id' => 'required',
                 'asset_condition_id' => 'required',
                 'value' => 'required|regex:/^\d+(\.\d+)?$/u',
-                'quantity' => 'required|regex:/^\d+$/u',
+                'quantity' => 'required|regex:/^[1-9][0-9]*$/',
                 'currency_id' => 'required',
                 
             ]);
         }
-        $created_at = now();
-
-        $cantidad = $request->quantity;
-        if (is_null($cantidad)) {
-            $cantidad = 1;
-        }
-        while ($cantidad > 0) {
-            $cantidad--;
-            $asset = new Asset;
-
-            $asset->asset_type_id = $request->asset_type_id;
-            $asset->asset_category_id = $request->asset_category_id;
-            $asset->asset_subcategory_id = $request->asset_subcategory_id;
-            $asset->asset_specific_category_id = $request->asset_specific_category_id;
-            $asset->specifications = $request->specifications;
-            //$asset->proveedor_id = $request->proveedor_id;
-            $asset->asset_condition_id = $request->asset_condition_id;
-            $asset->asset_acquisition_type_id = $request->asset_acquisition_type_id;
-            $asset->acquisition_year = $request->acquisition_year;
-            $asset->asset_status_id = $request->asset_status_id;
-            $asset->serial = $request->serial;
-            $asset->marca = $request->marca;
-            $asset->model = $request->model;
-            $asset->value = $request->value;
-            $asset->currency_id = $request->currency_id;
-            $asset->asset_use_function_id = $request->asset_use_function_id;
-            $asset->parish_id = $request->parish_id;
-            $asset->address = $request->address;
-            $asset->created_at = $created_at;
-
-
-            $asset->save();
-            $asset->inventory_serial = $asset->getCode();
-            $asset->save();
-        }
-
+        AssetCreateAssets::dispatch($request->all());
+        
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('asset.register.index')], 200);
     }
