@@ -989,155 +989,203 @@ table td {
   background-color: #ca195a !important;
 }
 
-.text-red {
+.text-success,
+.p-text-success {
+  color: #18ce0f !important;
+}
+
+.text-danger,
+.p-text-danger {
+  color: #ff3636 !important;
+}
+
+.text-red,
+.p-text-red {
   color: #dd4b39 !important;
 }
 
-.text-required {
+.text-required,
+.p-text-required {
   color: #ff3636;
 }
 
-.text-blue {
+.text-blue,
+.p-text-blue {
   color: #0073b7 !important;
 }
 
-.text-aqua {
+.text-aqua,
+.p-text-aqua {
   color: #00c0ef !important;
 }
 
-.text-yellow {
+.text-yellow,
+.p-text-yellow {
   color: #f39c12 !important;
 }
 
-.text-green {
+.text-green,
+.p-text-green {
   color: #00a65a !important;
 }
 
-.text-purple {
+.text-purple,
+.p-text-purple {
   color: #605ca8 !important;
 }
 
-.text-gray {
+.text-gray,
+.p-text-gray {
   color: #d2d6de !important;
 }
 
-.text-gray-light {
+.text-gray-light,
+.p-text-gray-light {
   color: #f7f7f7 !important;
 }
 
-.text-black {
+.text-black,
+.p-text-black {
   color: #111111 !important;
 }
 
-.text-blue {
+.text-blue,
+.p-text-blue {
   color: #0073b7 !important;
 }
 
-.text-light-blue {
+.text-light-blue,
+.p-text-light-blue {
   color: #3c8dbc !important;
 }
 
-.text-navy {
+.text-navy,
+.p-text-navy {
   color: #001f3f !important;
 }
 
-.text-teal {
+.text-teal,
+.p-text-teal {
   color: #39cccc !important;
 }
 
-.text-olive {
+.text-olive,
+.p-text-olive {
   color: #3d9970 !important;
 }
 
-.text-lime {
+.text-lime,
+.p-text-lime {
   color: #01ff70 !important;
 }
 
-.text-orange {
+.text-orange,
+.p-text-orange {
   color: #ff851b !important;
 }
 
-.text-fuchsia {
+.text-fuchsia,
+.p-text-fuchsia {
   color: #f012be !important;
 }
 
-.text-maroon {
+.text-maroon,
+.p-text-maroon {
   color: #d81b60 !important;
 }
 
-.text-gray-active {
+.text-gray-active,
+.p-text-gray-active {
   color: #b5bbc8 !important;
 }
 
-.text-black-active {
+.text-black-active,
+.p-text-black-active {
   color: black !important;
 }
 
-.text-red-active {
+.text-red-active,
+.p-text-red-active {
   color: #d33724 !important;
 }
 
-.text-yellow-active {
+.text-yellow-active,
+.p-text-yellow-active {
   color: #db8b0b !important;
 }
 
-.text-aqua-active {
+.text-aqua-active,
+.p-text-aqua-active {
   color: #00a7d0 !important;
 }
 
-.text-blue-active {
+.text-blue-active,
+.p-text-blue-active {
   color: #005384 !important;
 }
 
-.text-light-blue-active {
+.text-light-blue-active,
+.p-text-light-blue-active {
   color: #357ca5 !important;
 }
 
-.text-green-active {
+.text-green-active,
+.p-text-green-active {
   color: #008d4c !important;
 }
 
-.text-navy-active {
+.text-navy-active,
+.p-text-navy-active {
   color: #001a35 !important;
 }
 
-.text-teal-active {
+.text-teal-active,
+.p-text-teal-active {
   color: #30bbbb !important;
 }
 
-.text-olive-active {
+.text-olive-active,
+.p-text-olive-active {
   color: #368763 !important;
 }
 
-.text-lime-active {
+.text-lime-active,
+.p-text-lime-active {
   color: #00e765 !important;
 }
 
-.text-orange-active {
+.text-orange-active,
+.p-text-orange-active {
   color: #ff7701 !important;
 }
 
-.text-fuchsia-active {
+.text-fuchsia-active,
+.p-text-fuchsia-active {
   color: #db0ead !important;
 }
 
-.text-purple-active {
+.text-purple-active,
+.p-text-purple-active {
   color: #555299 !important;
 }
 
-.text-maroon-active {
+.text-maroon-active,
+.p-text-maroon-active {
   color: #ca195a !important;
 }
 
-.text-white {
+.text-white,
+.p-text-white {
   color: white !important;
 }
 
-.text-black {
+.text-black,
+.p-text-black {
   color: #111111 !important;
 }
 
-.text-info {
+.text-info,
+.p-text-info {
   color: #0073b7 !important;
 }
 

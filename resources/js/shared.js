@@ -98,3 +98,10 @@ Vue.component('phones', require('./components/PhonesComponent.vue').default);
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('required-documents', require('./components/RequiredDocumentsComponent.vue').default);
+
+/**
+ * Componente para la configuración de permisos asociados a roles de usuarios
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('roles-permissions', require('./components/RolesAndPermissionsComponent.vue').default);

@@ -27,7 +27,14 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				{!! Form::open(['route' => 'roles.permissions.settings', 'method' => 'POST']) !!}
+				<div class="card-body">
+					@php
+						$roles = App\Roles\Models\Role::with('permissions')->where('slug', '<>', 'user')->get();
+						$permissions = App\Roles\Models\Permission::with('roles')->orderBy('model_prefix')->get();
+					@endphp
+					<roles-permissions :roles="{{ $roles }}" :permissions="{{ $permissions }}"></roles-permissions>
+				</div>
+				{{-- {!! Form::open(['route' => 'roles.permissions.settings', 'method' => 'POST']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
 						@include('layouts.form-errors')
@@ -36,7 +43,8 @@
 							$permissions = App\Roles\Models\Permission::orderBy('model_prefix')->get();
 							$module = "";
 						@endphp
-						<table class="table table-hover table-striped dt-responsive">
+						<roles-permissions :roles="{{ $roles }}" :permissions="{{ $permissions }}"></roles-permissions>
+						<table class="table table-hover table-striped dt-responsive table-roles-permissions">
 							<thead>
 								<tr>
 									<th class="text-center border-right" rowspan="2">PERMISOS</th>
@@ -62,12 +70,18 @@
 											<th class="text-center" colspan="{{ count($roles) }}">
 												<span class="card-title">
 													MÓDULO [{{ strtoupper((substr($module, 0,1) != '0')?$module:substr($module, 1)) }}]
+													<a class="btn btn-collapse" data-toggle="collapse"
+													   href="#perm{{ $module }}" aria-expanded="true"
+													   aria-controls="perm{{ $module }}" style="padding:4px;font-size:0.7em;background-color: transparent;color:#0073b7"
+													   title="Mostrar / Ocultar permisos">
+														<i class="now-ui-icons arrows-1_minimal-up"></i>
+													</a>
 												</span>
 											</th>
 										</tr>
 									@endif
 									@if ($perm->slug_alt)
-										<tr>
+										<tr class="collapse show" id="perm{{ $module }}">
 											<td title="{{ $perm->description }}" data-toggle="tooltip"
 												class="border-right" style="width: 20%">
 												{{ (!empty($perm->short_description))
@@ -89,6 +103,15 @@
 														]
 													) !!}
 												</td>
+												<td class="text-center">
+													<p-check class="p-icon p-plain" color="text-success"
+															 off-color="text-gray" toggle data-toggle="tooltip"
+															 title="Rol: {!! $role->name !!}">
+														<i class="fa fa-unlock" slot="extra"></i>
+														<i class="fa fa-lock" slot="off-extra"></i>
+														<label slot="off-label"></label>
+													</p-check>
+												</td>
 											@endforeach
 										</tr>
 									@endif
@@ -100,7 +123,7 @@
 						@include('buttons.form-display', ['hide_clear' => true, 'hide_previous' => true])
 						@include('layouts.form-buttons', ['hide_clear' => true, 'hide_previous' => true])
 					</div>
-				{!! Form::close() !!}
+				{!! Form::close() !!} --}}
 			</div>
 		</div>
 	</div>
@@ -148,4 +171,22 @@
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('extra-css')
+	@parent
+	<style>
+		.table-roles-permissions {
+			font-size: .578rem
+		}
+		.table-roles-permissions .pretty {
+			margin: 0 auto;
+			font-weight: bold;
+			font-size: .678rem
+		}
+		.table-roles-permissions .pretty .state label {
+			text-indent: 0;
+			min-width: 0;
+		}
+	</style>
 @stop
