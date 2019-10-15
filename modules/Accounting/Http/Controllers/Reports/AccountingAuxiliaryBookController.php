@@ -10,6 +10,7 @@ use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingEntryAccount;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
+use Modules\Accounting\Models\ExchangeRate;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 

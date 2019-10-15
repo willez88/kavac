@@ -65,11 +65,12 @@ class AccountingDailyBookController extends Controller
         $convertions = [];
         foreach ($entries as $entry) {
             $convertions = $this->calculateExchangeRates($convertions, $entry, $currency['id']);
-            if (!array_key_exists($entry['id'], $convertions)) {
+            if (!array_key_exists($entry['id'], $convertions) && $entry['currency']['id'] != $currency['id']) {
                 return response()->json([
                     'result'=>false,
-                    'message'=>'Imposible expresar asiento contable '.$entry['reference'].' en '
-                                .$currency['symbol'].'('.$currency['name'].')'.
+                    'message'=>'Imposible expresar asiento contable '.$entry['reference']
+                                .' de '.$entry['currency']['symbol']
+                                .' a '.$currency['symbol'].'('.$currency['name'].')'.
                                 ', verificar tipos de cambio configurados.'
                 ], 200);
             }
@@ -87,10 +88,11 @@ class AccountingDailyBookController extends Controller
      */
     public function pdf($initDate, $endDate, Currency $currency)
     {
+        // dd(AccountingAccount::all()->chunk(100));
         $initDateDMY = explode('-', $initDate)[2].'-'.explode('-', $initDate)[1].'-'.explode('-', $initDate)[0];
         $endDateDMY  = explode('-', $endDate)[2].'-'.explode('-', $endDate)[1].'-'.explode('-', $endDate)[0];
 
-        $url = 'dailyBook/pdf/'.$initDateDMY.'/'.$endDateDMY;
+        $url = 'dailyBook/pdf/'.$initDateDMY.'/'.$endDateDMY.'/'.$currency['id'];
 
         /**
          * [$report almacena el registro del reporte del dia si existe]
@@ -143,8 +145,20 @@ class AccountingDailyBookController extends Controller
             $record['accountingAccounts'] = [];
             foreach ($entry['accountingAccounts'] as $r) {
                 array_push($record['accountingAccounts'], [
-                    'debit'=> ($r['debit']  != 0)?$this->calculateOperation($convertions, $entry['id'], $r['debit']):0,
-                    'assets'=>($r['assets'] != 0)?$this->calculateOperation($convertions, $entry['id'], $r['assets']):0,
+                    'debit'=> ($r['debit']  != 0)?
+                                $this->calculateOperation(
+                                    $convertions,
+                                    $entry['id'],
+                                    $r['debit'],
+                                    ($entry['currency']['id'] != $currency['id'])??true
+                                ):0,
+                    'assets'=>($r['assets'] != 0)?
+                                $this->calculateOperation(
+                                    $convertions,
+                                    $entry['id'],
+                                    $r['assets'],
+                                    ($entry['currency']['id'] != $currency['id'])??true
+                                ):0,
                     'code'=>$r['account']->getCodeAttribute(),
                     'denomination'=>$r['account']['denomination']
                 ]);
@@ -153,10 +167,14 @@ class AccountingDailyBookController extends Controller
             array_push($records, $record);
         }
 
-        /** @var Object configuración general de la apliación */
+        /**
+         * [$setting configuración general de la apliación]
+         * @var Setting
+         */
         $setting = Setting::all()->first();
 
         $Entry = false;
+
         /**
          * [$pdf base para generar el pdf]
          * @var [Modules\Accounting\Pdf\Pdf]
@@ -179,8 +197,21 @@ class AccountingDailyBookController extends Controller
         ]);
     }
 
-    public function calculateOperation($convertions, $entry_id, $value)
+    /**
+     * [calculateOperation realiza la conversion de saldo]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  array   $convertions   [lista de tipos cambios para la moneda]
+     * @param  integer $entry_id      [identificador del asiento]
+     * @param  float   $value         [saldo del asiento]
+     * @param  boolean $equalCurrency [bandera que indica si el tipo de moneda en el que esta el asiento es las misma
+     *                                que la que se desea expresar]
+     * @return float                  [resultdado de la operacion]
+     */
+    public function calculateOperation($convertions, $entry_id, $value, $equalCurrency)
     {
+        if (!$equalCurrency) {
+            return $value;
+        }
         if ($entry_id && array_key_exists($entry_id, $convertions) && $convertions[$entry_id]) {
             if ($convertions[$entry_id]['operator'] == 'to') {
                 return ($value * $convertions[$entry_id]['amount']);
@@ -191,6 +222,14 @@ class AccountingDailyBookController extends Controller
         return -1;
     }
 
+    /**
+     * [calculateExchangeRates encuentra el tipo de cambio para un asiento en particular]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  array           $convertions [lista de conversiones]
+     * @param  AccountingEntry $entry       [asiento contable]
+     * @param  integer         $currency_id [identificador de la moneda a la cual se realizara la conversion]
+     * @return array                        [lista de conversiones actualizada]
+     */
     public function calculateExchangeRates($convertions, $entry, $currency_id)
     {
         $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])

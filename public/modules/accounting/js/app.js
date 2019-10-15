@@ -4708,7 +4708,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      this.$refs.errorsAnalyticalMajor.reset();
+      this.$refs.errorAuxiliaryBook.reset();
       return this.url + this.account_id + '/' + (this.year_init + '-' + this.month_init) + '/' + this.currency;
     }
   }
@@ -8671,7 +8671,7 @@ var render = function() {
           attrs: { title: "Generar Reporte", "data-toggle": "tooltip" },
           on: {
             click: function($event) {
-              _vm.OpenPdf(_vm.getUrlReport(), "_black")
+              _vm.OpenPdf(_vm.getUrlReport(), "_blank")
             }
           }
         },
