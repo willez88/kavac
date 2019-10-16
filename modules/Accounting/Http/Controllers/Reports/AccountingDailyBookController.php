@@ -40,7 +40,7 @@ class AccountingDailyBookController extends Controller
     
 
     /**
-     * [pdf vista en la que se genera el reporte en pdf del libro diario]
+     * [pdf verifica las conversiones monetarias de un reporte libro diario]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initDate variable con la fecha inicial
      * @param String $endDate variable con la fecha inicial
@@ -92,7 +92,7 @@ class AccountingDailyBookController extends Controller
         $initDateDMY = explode('-', $initDate)[2].'-'.explode('-', $initDate)[1].'-'.explode('-', $initDate)[0];
         $endDateDMY  = explode('-', $endDate)[2].'-'.explode('-', $endDate)[1].'-'.explode('-', $endDate)[0];
 
-        $url = 'dailyBook/pdf/'.$initDateDMY.'/'.$endDateDMY.'/'.$currency['id'];
+        $url = 'dailyBook/pdf/'.$initDateDMY.'/'.$endDateDMY.'/'.$currency->id;
 
         /**
          * [$report almacena el registro del reporte del dia si existe]

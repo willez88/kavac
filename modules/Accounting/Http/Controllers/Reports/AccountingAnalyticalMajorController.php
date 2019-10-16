@@ -150,7 +150,7 @@ class AccountingAnalyticalMajorController extends Controller
 
 
     /**
-     * [pdfVue vista en la que se genera el reporte en pdf]
+     * [pdfVue verifica las conversiones monetarias de un reporte de mayor analitico]
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initDate [rango de fecha inicial YYYY-mm]
@@ -252,7 +252,7 @@ class AccountingAnalyticalMajorController extends Controller
          * [$url link para consultar ese regporte]
          * @var string
          */
-        $url = 'analyticalMajor/pdf/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc.'/'.$currency;
+        $url = 'analyticalMajor/pdf/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc.'/'.$currency->id;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
