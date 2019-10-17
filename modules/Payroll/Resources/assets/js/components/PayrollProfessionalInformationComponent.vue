@@ -102,21 +102,35 @@
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-md-4">
+					<hr>
+					<h6 class="card-title">
+						Detalles de Idiomas <i class="fa fa-plus-circle cursor-pointer" @click="addLanguage"></i>
+					</h6>
+					<div class="row" v-for="(language, index) in record.languages">
+                        <div class="col-3">
 							<div class="form-group is-required">
 								<label>Idioma:</label>
 								<select2 :options="payroll_languages"
-									v-model="record.payroll_language_id">
+									v-model="language.language_id">
 								</select2>
 							</div>
-						</div>
-						<div class="col-md-4">
+                        </div>
+						<div class="col-3">
 							<div class="form-group is-required">
 								<label>Nivel de Idioma:</label>
 								<select2 :options="payroll_language_levels"
-									v-model="record.payroll_language_level_id">
+									v-model="language.language_level_id">
 								</select2>
+							</div>
+						</div>
+						<div class="col-1">
+							<div class="form-group">
+								<br>
+								<button class="btn btn-sm btn-danger btn-action" type="button"
+									@click="removeRow(index, record.languages)"
+									title="Eliminar este dato" data-toggle="tooltip" data-placement="right">
+									<i class="fa fa-minus-circle"></i>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -152,7 +166,6 @@
 					id: '',
 					payroll_staff_id: '',
 					payroll_instruction_degree_id: '',
-					profession_id: '',
 					instruction_degree_name: '',
 					is_student: '',
 					payroll_study_type_id: '',
@@ -160,7 +173,10 @@
 					class_schedule: '',
 					payroll_language_id: '',
 					payroll_language_level_id: '',
-					professions: ''
+					professions: '',
+					languages: [],
+					payroll_languages: [],
+					payroll_language_levels: []
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -169,6 +185,7 @@
 				payroll_study_types: [],
 				payroll_languages: [],
 				payroll_language_levels: [],
+				var_test: []
 			}
 		},
 		methods: {
@@ -184,7 +201,6 @@
 					id: '',
 					payroll_staff_id: '',
 					payroll_instruction_degree_id: '',
-					profession_id: '',
 					instruction_degree_name: '',
 					is_student: false,
 					payroll_study_type_id: '',
@@ -194,8 +210,21 @@
 					payroll_language_level_id: ''
 				};
 			},
+
+			/**
+			 * Agrega una nueva columna para el registro de detalles de idiomas
+			 *
+			 * @author William Páez <wpaez@cenditel.gob.ve>
+			 */
+			addLanguage() {
+				this.record.languages.push({
+					language_id: '',
+					language_level_id: '',
+				});
+			},
 		},
 		created() {
+			this.record.languages = [];
 			this.record.professions = [];
 			this.getPayrollStaffs();
 			this.getPayrollInstructionDegrees();
