@@ -15,9 +15,11 @@ if (! function_exists('budget_available')) {
     {
         $available = 0;
 
-        $formulation = BudgetSubSpecificFormulation::where([
-            'year' => $year, 'budget_specific_action_id' => $specific_action_id
-        ])->first();
+        $formulation = BudgetSubSpecificFormulation::where(
+            [
+                'year' => $year, 'budget_specific_action_id' => $specific_action_id
+            ]
+        )->first();
 
         if ($formulation) {
             $account_formulated = $formulation->accountOpens()->where('budget_account_id', $account_id)->first();
@@ -26,8 +28,10 @@ if (! function_exists('budget_available')) {
                 $available += $account_formulated->total_year_amount;
             }
 
-            $aditional_credits = $formulation->aditionalCreditAccounts()
-                                             ->where('budget_account_id', $account_id)->get();
+            $aditional_credits = $formulation->aditionalCreditAccounts()->where(
+                'budget_account_id',
+                $account_id
+            )->get();
 
             if ($aditional_credits) {
                 foreach ($aditional_credits as $aditionalCredit) {
@@ -55,9 +59,11 @@ if (! function_exists('budget_check_opened_account')) {
     {
         $opened = false;
 
-        $formulation = BudgetSubSpecificFormulation::where([
+        $formulation = BudgetSubSpecificFormulation::where(
+            [
             'year' => $year, 'budget_specific_action_id' => $specific_action_id
-        ])->first();
+            ]
+        )->first();
 
         if ($formulation) {
             $opened = ($formulation->accountOpens()->where('budget_account_id', $account_id)->first());

@@ -3,7 +3,7 @@
         <h6>Asientos contables</h6>
         <form @submit.prevent="">
             <div class="card-body">
-                <accounting-show-errors />
+                <accounting-show-errors ref="settingCode" />
                 <div class="row">
                     <div class="col-3">
                         <label for="entries_reference" class="control-label">Código de referencia</label>
@@ -79,7 +79,8 @@
                     errors.push('El campo código de referencia es obligatorio.');
                     res = true;
                 }
-                EventBus.$emit('show:errors', errors);
+
+                this.$refs.settingCode.showAlertMessages(errors);
                 return res;
             },
             createRecord(){
@@ -101,7 +102,7 @@
         },
         watch:{
             code:function(res){
-                EventBus.$emit('show:errors', []);
+                this.$refs.settingCode.reset();
             }
         }
     };

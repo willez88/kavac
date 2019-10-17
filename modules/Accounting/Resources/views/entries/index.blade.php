@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">BUSCADOR DE ASIENTOS CONTABLES APROBADOS</h6>
+					<h6 class="card-title">buscador de asientos contables aprobados</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.new', ['route' => route('accounting.entries.create')])

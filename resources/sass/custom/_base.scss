@@ -333,44 +333,46 @@ table {
 .bg-purple-active {background-color: $color-purple-active !important;}
 .bg-maroon-active {background-color: $color-danger-maroon-active !important;}
 
-.text-red {color: $color-danger-dark !important;}
-.text-required {color:$color-danger;}
-.text-blue {color: $color-info-dark !important;}
-.text-aqua {color: $color-info-aqua !important;}
-.text-yellow {color: $color-warning !important;}
-.text-green {color: $color-success-light !important;}
-.text-purple {color: $color-purple !important;}
-.text-gray {color: $color-gray-thin !important;}
-.text-gray-light {color: $color-gray-light !important;}
-.text-black {color: $color-black-strong !important;}
-.text-blue {color: $color-info-dark !important;}
-.text-light-blue {color: $color-info-light !important;}
-.text-navy {color: $color-info-navy !important;}
-.text-teal {color: $color-info-teal !important;}
-.text-olive {color: $color-success-olive !important;}
-.text-lime {color: $color-success-lime !important;}
-.text-orange {color: $color-warning-dark !important;}
-.text-fuchsia {color: $color-danger-fuchsia !important;}
-.text-maroon {color: $color-danger-maroon !important;}
-.text-gray-active {color: $color-gray-active !important;}
-.text-black-active {color: $color-black !important;}
-.text-red-active {color: $color-danger-active !important;}
-.text-yellow-active {color: $color-warning-active !important;}
-.text-aqua-active {color: $color-info-aqua-active !important;}
-.text-blue-active {color: $color-info-dark-active !important;}
-.text-light-blue-active {color: $color-info-light-blue !important;}
-.text-green-active {color: $color-success-light-active !important;}
-.text-navy-active {color: $color-info-navy-active !important;}
-.text-teal-active {color: $color-info-teal-active !important;}
-.text-olive-active {color: $color-success-olive-active !important;}
-.text-lime-active {color: $color-success-lime-active !important;}
-.text-orange-active {color: $color-warning-dark-active !important;}
-.text-fuchsia-active {color: $color-danger-fuchsia-active !important;}
-.text-purple-active {color: $color-purple-active !important;}
-.text-maroon-active {color: $color-danger-maroon-active !important;}
-.text-white {color: $color-white !important;}
-.text-black {color: $color-black-strong !important;}
-.text-info {color:$color-info-dark !important;}
+.text-success, .p-text-success {color:$color-success !important;}
+.text-danger, .p-text-danger {color:$color-danger !important;}
+.text-red, .p-text-red {color: $color-danger-dark !important;}
+.text-required, .p-text-required {color:$color-danger;}
+.text-blue, .p-text-blue {color: $color-info-dark !important;}
+.text-aqua, .p-text-aqua {color: $color-info-aqua !important;}
+.text-yellow, .p-text-yellow {color: $color-warning !important;}
+.text-green, .p-text-green {color: $color-success-light !important;}
+.text-purple, .p-text-purple {color: $color-purple !important;}
+.text-gray, .p-text-gray {color: $color-gray-thin !important;}
+.text-gray-light, .p-text-gray-light {color: $color-gray-light !important;}
+.text-black, .p-text-black {color: $color-black-strong !important;}
+.text-blue, .p-text-blue {color: $color-info-dark !important;}
+.text-light-blue, .p-text-light-blue {color: $color-info-light !important;}
+.text-navy, .p-text-navy {color: $color-info-navy !important;}
+.text-teal, .p-text-teal {color: $color-info-teal !important;}
+.text-olive, .p-text-olive {color: $color-success-olive !important;}
+.text-lime, .p-text-lime {color: $color-success-lime !important;}
+.text-orange, .p-text-orange {color: $color-warning-dark !important;}
+.text-fuchsia, .p-text-fuchsia {color: $color-danger-fuchsia !important;}
+.text-maroon, .p-text-maroon {color: $color-danger-maroon !important;}
+.text-gray-active, .p-text-gray-active {color: $color-gray-active !important;}
+.text-black-active, .p-text-black-active {color: $color-black !important;}
+.text-red-active, .p-text-red-active {color: $color-danger-active !important;}
+.text-yellow-active, .p-text-yellow-active {color: $color-warning-active !important;}
+.text-aqua-active, .p-text-aqua-active {color: $color-info-aqua-active !important;}
+.text-blue-active, .p-text-blue-active {color: $color-info-dark-active !important;}
+.text-light-blue-active, .p-text-light-blue-active {color: $color-info-light-blue !important;}
+.text-green-active, .p-text-green-active {color: $color-success-light-active !important;}
+.text-navy-active, .p-text-navy-active {color: $color-info-navy-active !important;}
+.text-teal-active, .p-text-teal-active {color: $color-info-teal-active !important;}
+.text-olive-active, .p-text-olive-active {color: $color-success-olive-active !important;}
+.text-lime-active, .p-text-lime-active {color: $color-success-lime-active !important;}
+.text-orange-active, .p-text-orange-active {color: $color-warning-dark-active !important;}
+.text-fuchsia-active, .p-text-fuchsia-active {color: $color-danger-fuchsia-active !important;}
+.text-purple-active, .p-text-purple-active {color: $color-purple-active !important;}
+.text-maroon-active, .p-text-maroon-active {color: $color-danger-maroon-active !important;}
+.text-white, .p-text-white {color: $color-white !important;}
+.text-black, .p-text-black {color: $color-black-strong !important;}
+.text-info, .p-text-info {color:$color-info-dark !important;}
 
 .level-all {color: $color-black-strong !important;background-color: $color-gray-active !important;}
 .level-emergency, .level-alert, .level-critical, .level-error, .level-warning, .level-notice,

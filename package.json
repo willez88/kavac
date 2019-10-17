@@ -37,7 +37,7 @@
         "node-sass": "^4.12.0",
         "pretty-checkbox-vue": "^1.1.9",
         "select2": "^4.0.10",
-        "sweetalert2": "^8.18.0",
+        "sweetalert2": "^8.18.1",
         "vue-multiselect": "^2.1.6",
         "vue-tables-2": "^1.4.70",
         "vue-template-compiler": "^2.6.10"

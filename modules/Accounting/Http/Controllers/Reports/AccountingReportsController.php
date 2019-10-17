@@ -74,7 +74,7 @@ class AccountingReportsController extends Controller
      */
     public function financeStatements()
     {
-        $yearOld =$this->CalcualteYearOld();
+        $yearOld = $this->CalcualteYearOld();
 
         /** @var Object String con el tipo de reporte que abrira */
         $type_report_1 = 'balanceSheet';
@@ -82,7 +82,9 @@ class AccountingReportsController extends Controller
         /** @var Object String con el tipo de reporte que abrira */
         $type_report_2 = 'stateOfResults';
 
-        return view('accounting::reports.finance_statements', compact('yearOld', 'type_report_1', 'type_report_2'));
+        $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
+
+        return view('accounting::reports.finance_statements', compact('yearOld', 'type_report_1', 'type_report_2', 'currencies'));
     }
 
     public function CalcualteYearOld()

@@ -235,7 +235,7 @@
 					errors.push('El campo denominación es obligatorio.');
 					res = false;
 				}
-				EventBus.$emit('show:errors', errors);
+				this.$parent.$refs.accountingAccountForm.showAlertMessages(errors);
 				return res;
 			},
 			/**
@@ -245,26 +245,27 @@
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
 			sendData:function(url){
-				if (!this.FormatCode()) { return; }
+				
+				const vm = this;
+				if (!vm.FormatCode()) { return; }
 
-				var dt = this.record;
+				var dt = vm.record;
 
 				/** Se formatean los ultimos tres campos del codigo de ser necesario */
-				this.record.generic = (dt.generic.length < 2) ? '0'+dt.generic : dt.generic ;
-				this.record.specific = (dt.specific.length < 2) ? '0'+dt.specific : dt.specific ;
-				this.record.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
+				vm.record.generic = (dt.generic.length < 2) ? '0'+dt.generic : dt.generic ;
+				vm.record.specific = (dt.specific.length < 2) ? '0'+dt.specific : dt.specific ;
+				vm.record.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
 
-				this.record.active = $('#active').prop('checked');
-				if (this.operation == 'create') {
-					axios.post(url, this.record).then(response=>{
+				vm.record.active = $('#active').prop('checked');
+				if (vm.operation == 'create') {
+					axios.post(url, vm.record).then(response=>{
 
 						/** Se emite un evento para actualizar el listado de cuentas en el select */
-						this.accRecords = [];
-						this.accRecords = response.data.records;
+						vm.accRecords = [];
+						vm.accRecords = response.data.records;
 
 						/** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
 						EventBus.$emit('reload:list-accounts',response.data.records);
-						const vm = this;
 						vm.showMessage('store');
 					}).catch(error=>{
 						var errors = [];
@@ -274,20 +275,19 @@
 									errors.push(error.response.data.errors[index][0]);
 								}
 							}
-							EventBus.$emit('show:errors', errors);
+							vm.$parent.$refs.accountingAccountForm.showAlertMessages(errors);
 						}
 					});
 				} else {
-					axios.put(url+this.record.id, this.record).then(response=>{
+					axios.put(url+vm.record.id, vm.record).then(response=>{
 
 						/** Se emite un evento para actualizar el listado de cuentas en el select */
-						this.accRecords = [];
-						this.accRecords = response.data.records;
+						vm.accRecords = [];
+						vm.accRecords = response.data.records;
 
 						/** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
 						EventBus.$emit('reload:list-accounts',response.data.records);
 
-						const vm = this;
 						vm.showMessage('update');
 					}).catch(error=>{
 						var errors = [];
@@ -297,12 +297,12 @@
 									errors.push(error.response.data.errors[index][0]);
 								}
 							}
-							EventBus.$emit('show:errors', errors);
+							vm.$parent.$refs.accountingAccountForm.showAlertMessages(errors);
 						}
 					});
 				}
 
-				this.reset();
+				vm.reset();
 			},
 		},
 		watch:{
