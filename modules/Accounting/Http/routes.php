@@ -145,8 +145,12 @@ Route::group(['middleware' => 'web',
     Route::get(
         'report/balanceCheckUp/pdf/{initDate}/{endDate}/{currency}/{all?}',
         'Reports\AccountingCheckupBalanceController@pdf'
-    )
-        ->name('accounting.report.BalanceCheckUp.pdf');
+    )->name('accounting.report.BalanceCheckUp.pdf');
+
+    Route::get(
+        'report/balanceCheckUp/pdfVue/{initDate}/{endDate}/{currency}/{all?}',
+        'Reports\AccountingCheckupBalanceController@pdfVue'
+    );
 
     /**
      * rutas para reporte del Mayor Analítico
@@ -200,6 +204,11 @@ Route::group(['middleware' => 'web',
         'Reports\AccountingBalanceSheetController@pdf'
     )->name('accounting.report.balanceSheet.pdf');
 
+    Route::get(
+        'report/balanceSheet/pdfVue/{date}/{level}/{currency}/{zero?}',
+        'Reports\AccountingBalanceSheetController@pdfVue'
+    );
+
     /**
      * rutas para reporte de estado de resultados
      */
@@ -207,6 +216,11 @@ Route::group(['middleware' => 'web',
         'report/stateOfResults/pdf/{date}/{level}/{currency}/{zero?}',
         'Reports\AccountingStateOfResultsController@pdf'
     )->name('accounting.report.stateOfResults.pdf');
+    
+    Route::get(
+        'report/stateOfResults/pdfVue/{date}/{level}/{currency}/{zero?}',
+        'Reports\AccountingStateOfResultsController@pdfVue'
+    );
 
     /**
         Rutas para las vistas de configuración de categorias del modulo de contabilidad

@@ -75,12 +75,11 @@ class AccountingAuxiliaryBookController extends Controller
          * [$query cuenta patrimonial con su relacion en asientos contables]
          * @var [Modules\Accounting\Models\AccountingEntry]
          */
-        $account = AccountingAccount::with('entryAccount.entries.currency')
-            ->with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])->find($account_id);
+        $account = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
+            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+            }
+        }])->find($account_id);
 
         $convertions = [];
 
@@ -174,14 +173,13 @@ class AccountingAuxiliaryBookController extends Controller
          * [$account cuenta patrimonial con su relacion en asientos contables]
          * @var [Modules\Accounting\Models\AccountingEntry]
          */
-        $record = AccountingAccount::with('entryAccount.entries.currency')
-            ->with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
+        $record = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
+            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                 $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-            })->find($account_id);
+            }
+        }])->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
+            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+        })->find($account_id);
 
         $convertions = [];
 

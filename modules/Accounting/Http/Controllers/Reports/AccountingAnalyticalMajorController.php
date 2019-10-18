@@ -187,8 +187,7 @@ class AccountingAnalyticalMajorController extends Controller
          * [$query registros de las cuentas patrimoniales seleccionadas]
          * @var Modules\Accounting\Models\AccountingAccount
          */
-        $query = AccountingAccount::with('entryAccount.entries.currency')
-        ->with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
+        $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
             if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                 $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
             }
@@ -308,8 +307,7 @@ class AccountingAnalyticalMajorController extends Controller
          * [$query registros de las cuentas patrimoniales seleccionadas]
          * @var Modules\Accounting\Models\AccountingAccount
          */
-        $query = AccountingAccount::with('entryAccount.entries.currency')
-        ->with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
+        $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
             if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                 $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
             }

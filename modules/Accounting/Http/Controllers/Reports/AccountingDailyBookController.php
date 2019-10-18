@@ -56,8 +56,7 @@ class AccountingDailyBookController extends Controller
          * @var AccountingEntry
          */
         $entries = AccountingEntry::with(
-            'accountingAccounts.account.accountConverters.budgetAccount',
-            'currency'
+            'accountingAccounts.account.accountConverters.budgetAccount'
         )->where('approved', true)
         ->whereBetween("from_date", [$initDateDMY, $endDateDMY])
         ->orderBy('from_date', 'ASC')->get();
@@ -124,8 +123,7 @@ class AccountingDailyBookController extends Controller
          * @var AccountingEntry
          */
         $entries = AccountingEntry::with(
-            'accountingAccounts.account.accountConverters.budgetAccount',
-            'currency'
+            'accountingAccounts.account.accountConverters.budgetAccount'
         )->where('approved', true)
         ->whereBetween("from_date", [$initDateDMY, $endDateDMY])
         ->orderBy('from_date', 'ASC')->get();
