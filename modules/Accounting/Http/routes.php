@@ -143,7 +143,7 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de balance de comprobación
      */
     Route::get(
-        'report/balanceCheckUp/pdf/{initDate}/{endDate}/{currency}/{all?}',
+        'report/balanceCheckUp/pdf/{report}',
         'Reports\AccountingCheckupBalanceController@pdf'
     )->name('accounting.report.BalanceCheckUp.pdf');
 
@@ -161,7 +161,7 @@ Route::group(['middleware' => 'web',
     )->name('accounting.report.analyticalMajor.AccAccount');
 
     Route::get(
-        'report/analyticalMajor/pdf/{initDate}/{endDate}/{initAcc}/{endAcc}/{currency}',
+        'report/analyticalMajor/pdf/{report}',
         'Reports\AccountingAnalyticalMajorController@pdf'
     )->name('accounting.report.analyticalMajor.pdf');
 
@@ -174,7 +174,7 @@ Route::group(['middleware' => 'web',
      * rutas para reporte del libro diario
      */
     Route::get(
-        'report/dailyBook/pdf/{initDate}/{endDate}/{currency}',
+        'report/dailyBook/pdf/{report}',
         'Reports\AccountingDailyBookController@pdf'
     )->name('accounting.report.dailyBook.pdf');
 
@@ -187,7 +187,7 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de libro auxiliar
      */
     Route::get(
-        'report/auxiliaryBook/pdf/{account_id}/{date}/{currency}',
+        'report/auxiliaryBook/pdf/{report}',
         'Reports\AccountingAuxiliaryBookController@pdf'
     )->name('accounting.report.auxiliaryBook.pdf');
 

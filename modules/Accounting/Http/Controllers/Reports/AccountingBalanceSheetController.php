@@ -153,24 +153,11 @@ class AccountingBalanceSheetController extends Controller
             }
         }
 
-        return response()->json(['result'=>true], 200);
-    }
-
-    /**
-     * [pdf genera el reporte en pdf de balance general]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  string   $date     [fecha]
-     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
-     * @param  Currency $currency [moneda en que se expresara el reporte]
-     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
-     */
-    public function pdf($date, $level, Currency $currency, $zero = false)
-    {
         /**
          * [$url link para el reporte]
          * @var string
          */
-        $url = 'balanceSheet/pdf/'.$date.'/'.$level.'/'.$currency->id.'/'.$zero;
+        $url = 'balanceSheet/pdf/'.$date.'/'.$level.'/'.$zero;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -193,24 +180,30 @@ class AccountingBalanceSheetController extends Controller
                 [
                     'report' => 'Balance General',
                     'url' => $url,
+                    'currency_id' => $currency['id'],
                 ]
             );
         } else {
             $report->url = $url;
+            $report->currency_id = $currency['id'];
             $report->save();
         }
         
-        /**
-         * [$day ultimo dia correspondiente al mes]
-         * @var date
-         */
-        $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
 
-        /**
-         * [$endDate formatea la fecha final de busqueda, (YYYY-mm-dd HH:mm:ss)]
-         * @var [type]
-         */
-        $endDate = $date.'-'.$day;
+        return response()->json(['result'=>true, 'id'=>$report->id], 200);
+    }
+
+    /**
+     * [pdf genera el reporte en pdf de balance general]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  string   $date     [fecha]
+     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
+     * @param  Currency $currency [moneda en que se expresara el reporte]
+     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
+     */
+    public function pdf($report)
+    {
+
 
         /**
          * [$level_1 consulta de ralación que se desean realizar]

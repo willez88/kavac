@@ -106,22 +106,10 @@ class AccountingAuxiliaryBookController extends Controller
             }
         }
 
-        return response()->json(['result'=>true], 200);
-    }
-
-    /**
-     * [pdf vista en la que se genera el reporte en pdf]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param string $account_id [variable con el id de la cuenta]
-     * @param string $date       [fecha para la generación de reporte, formato 'YYYY-mm']
-     * @param Currency $currency moneda en que se expresara el reporte
-     */
-    public function pdf($account_id, $date, Currency $currency)
-    {
         /**
          * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
-        $url = 'auxiliaryBook/pdf/'.$account_id.'/'.$date.'/'.$currency->id;
+        $url = 'auxiliaryBook/pdf/'.$account_id.'/'.$date;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -144,12 +132,30 @@ class AccountingAuxiliaryBookController extends Controller
                 [
                     'report' => 'Libro Auxiliar',
                     'url' => $url,
+                    'currency_id' => $currency->id,
                 ]
             );
         } else {
             $report->url = $url;
+            $report->currency_id = $currency->id;
             $report->save();
         }
+
+        return response()->json(['result'=>true, 'id'=>$report->id], 200);
+    }
+
+    /**
+     * [pdf vista en la que se genera el reporte en pdf]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  integer $id [id de reporte y su informacion]
+     */
+    public function pdf($report)
+    {
+        $report = AccountingReportHistory::with('currency')->find($report);
+        $account_id = explode('/', $report->url)[2];
+        $date  = explode('/', $report->url)[3];
+
+        $currency = $report->currency;
 
         /**
          * [$initDate fecha inicial de busqueda]

@@ -345,6 +345,9 @@ Vue.mixin({
         if (!response.data.result) {
           vm.showMessage('custom', 'Error en conversión', 'danger', 'screen-error', response.data.message);
         } else {
+          url = url.split('pdf')[0];
+          url += 'pdf/' + response.data.id;
+          console.log(url);
           window.open(url, type);
         }
       });

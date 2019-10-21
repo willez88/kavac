@@ -41,7 +41,7 @@ class AccountingCheckupBalanceController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:accounting.report.checkupbalance', [
-            'only' => ['getAccAccount', 'CalculateBeginningBalance', 'pdf']
+            'only' => ['getAccAccount', 'CalculateBeginningBalance', 'pdf','pdfVue']
         ]);
     }
 
@@ -84,10 +84,12 @@ class AccountingCheckupBalanceController extends Controller
     {
         $this->accountRecords = $records;
     }
+
     public function getRecords()
     {
         return $this->accountRecords;
     }
+
     public function setBeginningBalanceRecord($index, $balance)
     {
         return $this->accountRecords[$index]['beginningBalance'] = $balance;
@@ -100,6 +102,7 @@ class AccountingCheckupBalanceController extends Controller
         }
         $this->beginningBalance[$key] = $value;
     }
+
     public function getBeginningBalance()
     {
         return $this->beginningBalance;
@@ -109,6 +112,7 @@ class AccountingCheckupBalanceController extends Controller
     {
         $this->initDate = $date;
     }
+
     public function getInitDate()
     {
         return $this->initDate;
@@ -118,6 +122,7 @@ class AccountingCheckupBalanceController extends Controller
     {
         $this->endDate = $date;
     }
+
     public function getEndDate()
     {
         return $this->endDate;
@@ -135,7 +140,7 @@ class AccountingCheckupBalanceController extends Controller
 
     public function getCurrencyId()
     {
-        return $this->currency->id;
+        return $this->currency['id'];
     }
     
     public function getCurrency()
@@ -165,7 +170,7 @@ class AccountingCheckupBalanceController extends Controller
         $res = 0;
         foreach ($entryAccounts as $entryAccount) {
             if ($entryAccount['entries']) {
-                if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())) {
+                if (!array_key_exists($this->getCurrencyId(), $this->getConvertions())) {
                     $this->setConvertions($this->calculateExchangeRates(
                         $this->getConvertions(),
                         $entryAccount['entries'],
@@ -205,15 +210,6 @@ class AccountingCheckupBalanceController extends Controller
          * @var array
          */
         $query = [];
-
-        /** @var Object String en el que se formatea la fecha inicial de busqueda */
-        $initDate = $initDate.'-01';
-
-        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $endDay = date('d', (mktime(0, 0, 0, explode('-', $endDate)[1]+1, 1, explode('-', $endDate)[0])-1));
-
-        /** @var Object String en el que se formatea la fecha final de busqueda */
-        $endDate = $endDate.'-'.$endDay;
 
         /** @var Array array en el que se almacenaran las cuentas patrimoniales de manera unica en el rango dando */
         $records = [];
@@ -319,33 +315,12 @@ class AccountingCheckupBalanceController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $date variable con la fecha inicial que recibe formato 'YYYY-mm'
      */
-    public function CalculateBeginningBalance($date, $all)
+    public function CalculateBeginningBalance($initDate, $endDate, $all)
     {
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
         $entries = AccountingEntry::where('approved', true)->orderBy('from_date', 'ASC')->first();
        
-        /**
-         Se establecen las fechas validas anteriores a la fecha suministrada para realizar la busqueda de registros
-        */
-
-        /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
-        $initDate = explode('-', $entries['from_date'])[0].'-'.explode('-', $entries['from_date'])[1];
-
-        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $endDay = date('d', (mktime(0, 0, 0, explode('-', $date)[1], 1, explode('-', $date)[0])-1));
-
-        /** @var Object String en el que se establece el año anterior de ser necesario */
-        $endYear = (((int)explode('-', $date)[0])-1 == 0 || ((int)explode('-', $date)[1])-1 == 0)
-                        ? (((int)explode('-', $date)[0])-1)
-                        : (((int)explode('-', $date)[0]));
-        /** @var Object String en el que establece el mes anterior */
-        $endMonth = (((int)explode('-', $date)[1])-1 == 0) ? 12 : (((int)explode('-', $date)[1])-1);
-
-
-        /** @var Object String en el que se formatea la fecha final de busqueda */
-        $endDate = $endYear.'-'.$endMonth;
         $accounts = $this->getAccAccount($initDate, $endDate, true, null, $all);
-        // dd($accounts);
         /**
         * Ciclo en el que se calcula y almancena los saldos iniciales de cada cuenta
         */
@@ -353,8 +328,8 @@ class AccountingCheckupBalanceController extends Controller
             $balance = 0;
             foreach (AccountingEntryAccount::with('entries', 'account')
                         ->where('accounting_account_id', $account['id'])
-                        ->whereHas('entries', function ($query) use ($initDate, $endDate, $endDay) {
-                            $query->whereBetween('from_date', [$initDate.'-01',($endDate.'-'.$endDay)])
+                        ->whereHas('entries', function ($query) use ($initDate, $endDate) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])
                             ->where('approved', true);
                         })->orderBy('updated_at', 'ASC')->get() as $record) {
                 $balance += (float)$record->debit - (float)$record->assets;
@@ -420,56 +395,37 @@ class AccountingCheckupBalanceController extends Controller
             ->orderBy('denomination', 'ASC')->get();
         }
 
-        $convertions = [];
-
         /*
          * Se recorre y evalua la relacion en las conversiones necesarias a realizar
          */
         foreach ($query as $record) {
             foreach ($record['entryAccount'] as $entryAccount) {
-                if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
-                    $convertions = $this->calculateExchangeRates(
-                        $convertions,
+                if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())) {
+                    $co = $this->calculateExchangeRates(
+                        $this->getConvertions(),
                         $entryAccount['entries'],
                         $currency['id']
-                    );
-
-                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
-                        && $entryAccount['entries']['currency']['id'] != $currency['id']) {
-                        return response()->json([
-                                    'result'=>false,
-                                    'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
-                                                .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados.'
-                                ], 200);
-                    }
+                            );
+                    $this->setConvertions($co);
+                }
+                if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())
+                    && $entryAccount['entries']['currency']['id'] != $currency['id']) {
+                    return response()->json([
+                                'result'=>false,
+                                'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                            .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                            ', verificar tipos de cambio configurados.'
+                            ], 200);
                 }
             }
-        }
-
-        return response()->json(['result'=>true], 200);
-    }
-
-    /**
-     * [pdf vista en la que se genera el reporte en pdf de balance de comprobación]
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param String $initDate variable con la fecha inicial
-     * @param String $endDate variable con la fecha inicial
-     * @param  Currency $currency moneda en que se expresara el reporte
-     * @param  boolean  $all      si se consultaran todas las cuentas o solo las que tengas actividad
-     */
-    public function pdf($initDate, $endDate, Currency $currency, $all = false)
-    {
-        if ($all != false) {
-            $all = true;
         }
 
         /**
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
-        $url = 'BalanceCheckUp/pdf/'.$initDate.'/'.$endDate.'/'.$currency->id.'/'.($all)?'true':'';
-        $url = $url.'/'.(($all)?'all':'');
+        $all = ($all != false)?'true':'';
+
+        $url = 'balanceCheckUp/pdf/'.$initDate.'/'.$endDate.'/'.$all;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -492,17 +448,51 @@ class AccountingCheckupBalanceController extends Controller
                 [
                     'report' => 'Balance de Comporbación'.(($all)?' - todas las cuentas':' - solo cuentas con operaciones'),
                     'url' => $url,
+                    'currency_id' => $currency['id'],
                 ]
             );
         } else {
             $report->url = $url;
+            $report->currency_id = $currency['id'];
             $report->save();
         }
 
-        $this->setCurrency($currency);
+
+        return response()->json(['result'=>true, 'id'=>$report->id], 200);
+    }
+
+    /**
+     * [pdf vista en la que se genera el reporte en pdf de balance de comprobación]
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param String $initDate variable con la fecha inicial
+     * @param String $endDate variable con la fecha inicial
+     * @param  Currency $currency moneda en que se expresara el reporte
+     * @param  boolean  $all      si se consultaran todas las cuentas o solo las que tengas actividad
+     */
+    public function pdf($report)
+    {
+        $report = AccountingReportHistory::with('currency')->find($report);
+
+        $this->setInitDate(explode('/', $report->url)[2]);
+        $this->setEndDate(explode('/', $report->url)[3]);
+        $all = explode('/', $report->url)[4];
+        $this->setCurrency($report->currency);
+
+        /**
+         * [$initDate fecha inicial del rango]
+         * @var String
+         */
+        $initDate = $this->getInitDate();
+
+        /**
+         * [$endDate fecha final del rango]
+         * @var String
+         */
+        $endDate = $this->getEndDate();
 
         /** Cálcula el saldo inicial que tendra la cuenta*/
-        $this->CalculateBeginningBalance($initDate, $all);
+        $this->CalculateBeginningBalance($initDate, $endDate, $all);
 
         /**
          * [$beginningBalance información del saldo inicial (id => balance) de las cuentas patrimoniales]
@@ -516,17 +506,6 @@ class AccountingCheckupBalanceController extends Controller
          */
         $accountRecords = $this->getAccAccount($initDate, $endDate, false, $beginningBalance, $all);
 
-        /**
-         * [$initDate fecha inicial del rango]
-         * @var String
-         */
-        $initDate = $this->getInitDate();
-
-        /**
-         * [$endDate fecha final del rango]
-         * @var String
-         */
-        $endDate = $this->getEndDate();
 
         $initDate = new DateTime($initDate);
         $endDate = new DateTime($endDate);
@@ -558,7 +537,7 @@ class AccountingCheckupBalanceController extends Controller
             'records'          => $accountRecords,
             'initDate'         => $initDate,
             'endDate'          => $endDate,
-            'currency'         => $currency,
+            'currency'         => $this->getCurrency(),
             'beginningBalance' => $beginningBalance,
         ]);
     }
@@ -604,6 +583,7 @@ class AccountingCheckupBalanceController extends Controller
                              ->where('from_currency_id', $entry['currency']['id'])
                              ->where('to_currency_id', $currency_id)
                              ->orderBy('end_at', 'DESC')->first();
+        // dd($currency_id);
         if (!$exchangeRate) {
             $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
                          ->where('end_at', '>=', $entry['from_date'])

@@ -231,27 +231,11 @@ class AccountingAnalyticalMajorController extends Controller
             }
         }
 
-        return response()->json(['result'=>true], 200);
-    }
-
-
-    /**
-     * [pdf vista en la que se genera el reporte en pdf]
-     *
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param String $initDate [rango de fecha inicial YYYY-mm]
-     * @param String $endDate [rango de fecha final YYYY-mm]
-     * @param String $initAcc  [id de cuenta patrimonial inicial]
-     * @param String $endAcc   [id de cuenta patrimonial final]
-     * @param Currency $currency moneda en que se expresara el reporte
-     */
-    public function pdf($initDate, $endDate, $initAcc, $endAcc, Currency $currency)
-    {
         /**
          * [$url link para consultar ese regporte]
          * @var string
          */
-        $url = 'analyticalMajor/pdf/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc.'/'.$currency->id;
+        $url = 'analyticalMajor/pdf/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -270,31 +254,38 @@ class AccountingAnalyticalMajorController extends Controller
         * se crea o actualiza el registro del reporte
         */
         if (!$report) {
-            AccountingReportHistory::create(
+            $report = AccountingReportHistory::create(
                 [
                     'report' => 'Mayor Analítico',
                     'url' => $url,
+                    'currency_id' => $currency->id,
                 ]
             );
         } else {
             $report->url = $url;
+            $report->currency_id = $currency->id;
             $report->save();
         }
 
-        $initDate = $initDate.'-01';
+        return response()->json(['result'=>true, 'id'=>$report->id], 200);
+    }
 
-        /** @var Object string en que se almacena el ultimo dia correspondiente al mes */
-        /**
-         * [$endDay ultimo dia correspondiente al mes]
-         * @var [date]
-         */
-        $endDay = date('d', (mktime(0, 0, 0, explode('-', $endDate)[1]+1, 1, explode('-', $endDate)[0])-1));
 
-        /**
-         * [$endDate formatea la fecha final de busqueda]
-         * @var string
-         */
-        $endDate = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1].'-'.$endDay;
+    /**
+     * [pdf vista en la que se genera el reporte en pdf]
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  integer $id [id de reporte y su informacion]
+     */
+    public function pdf($report)
+    {
+        $report = AccountingReportHistory::with('currency')->find($report);
+        $initDate = explode('/', $report->url)[2];
+        $endDate  = explode('/', $report->url)[3];
+        $initAcc = explode('/', $report->url)[4];
+        $endAcc  = explode('/', $report->url)[5];
+
+        $currency = $report->currency;
 
         if (isset($endAcc) && $endAcc < $initAcc) {
             $endAcc = (int)$endAcc;

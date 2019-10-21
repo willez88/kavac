@@ -48,9 +48,6 @@ class AccountingDailyBookController extends Controller
      */
     public function pdfVue($initDate, $endDate, Currency $currency)
     {
-        $initDateDMY = explode('-', $initDate)[2].'-'.explode('-', $initDate)[1].'-'.explode('-', $initDate)[0];
-        $endDateDMY  = explode('-', $endDate)[2].'-'.explode('-', $endDate)[1].'-'.explode('-', $endDate)[0];
-        
         /**
          * [$entries información del asiento contable]
          * @var AccountingEntry
@@ -75,23 +72,14 @@ class AccountingDailyBookController extends Controller
             }
         }
 
-        return response()->json(['result'=>true], 200);
-    }
-
-    /**
-     * [pdf vista en la que se genera el reporte en pdf del libro diario]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param String $initDate variable con la fecha inicial
-     * @param String $endDate variable con la fecha inicial
-     * @param Currency $currency moneda en que se expresara el reporte
-     */
-    public function pdf($initDate, $endDate, Currency $currency)
-    {
-        // dd(AccountingAccount::all()->chunk(100));
         $initDateDMY = explode('-', $initDate)[2].'-'.explode('-', $initDate)[1].'-'.explode('-', $initDate)[0];
         $endDateDMY  = explode('-', $endDate)[2].'-'.explode('-', $endDate)[1].'-'.explode('-', $endDate)[0];
-
-        $url = 'dailyBook/pdf/'.$initDateDMY.'/'.$endDateDMY.'/'.$currency->id;
+        
+        /**
+         * [$url link para consultar ese regporte]
+         * @var string
+         */
+        $url = 'dailyBook/pdf/'.$initDateDMY.'/'.$endDateDMY;
 
         /**
          * [$report almacena el registro del reporte del dia si existe]
@@ -107,17 +95,35 @@ class AccountingDailyBookController extends Controller
         * se crea o actualiza el registro del reporte
         */
         if (!$report) {
-            AccountingReportHistory::create(
+            $report = AccountingReportHistory::create(
                 [
                     'report' => 'Libro Diario',
                     'url' => $url,
+                    'currency_id' => $currency->id,
                 ]
             );
         } else {
             $report->url = $url;
+            $report->currency_id = $currency->id;
             $report->save();
         }
-        
+
+        return response()->json(['result'=>true, 'id'=>$report->id], 200);
+    }
+
+    /**
+     * [pdf vista en la que se genera el reporte en pdf del libro diario]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  integer $id [id de reporte y su informacion]
+     */
+    public function pdf($report)
+    {
+        $report = AccountingReportHistory::with('currency')->find($report);
+        $initDateDMY = explode('/', $report->url)[2];
+        $endDateDMY  = explode('/', $report->url)[3];
+
+        $currency = $report->currency;
+
         /**
          * [$entries información del asiento contable]
          * @var AccountingEntry
