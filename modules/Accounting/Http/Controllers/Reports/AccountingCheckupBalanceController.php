@@ -457,7 +457,6 @@ class AccountingCheckupBalanceController extends Controller
             $report->save();
         }
 
-
         return response()->json(['result'=>true, 'id'=>$report->id], 200);
     }
 
@@ -583,7 +582,6 @@ class AccountingCheckupBalanceController extends Controller
                              ->where('from_currency_id', $entry['currency']['id'])
                              ->where('to_currency_id', $currency_id)
                              ->orderBy('end_at', 'DESC')->first();
-        // dd($currency_id);
         if (!$exchangeRate) {
             $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
                          ->where('end_at', '>=', $entry['from_date'])
