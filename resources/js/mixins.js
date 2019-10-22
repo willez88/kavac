@@ -72,7 +72,13 @@ Vue.mixin({
     },
     watch: {
         loading: function() {
-            $('.preloader').attr('style', `display: ${(this.loading) ? 'block' : 'none'}`);
+            let vm = this;
+            if (!vm.loading) {
+                $('.preloader').fadeOut(2000);
+            }
+            else {
+                $('.preloader').show();
+            }
         }
     },
     methods: {
