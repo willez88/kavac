@@ -27,13 +27,11 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				<div class="card-body">
-					@php
-						$roles = App\Roles\Models\Role::with('permissions')->where('slug', '<>', 'user')->get();
-						$permissions = App\Roles\Models\Permission::with('roles')->orderBy('model_prefix')->get();
-					@endphp
-					<roles-permissions :roles="{{ $roles }}" :permissions="{{ $permissions }}"></roles-permissions>
-				</div>
+				@php
+					$roles = App\Roles\Models\Role::with('permissions')->where('slug', '<>', 'user')->get();
+					$permissions = App\Roles\Models\Permission::with('roles')->orderBy('model_prefix')->get();
+				@endphp
+				<roles-permissions :roles="{{ $roles }}" :permissions="{{ $permissions }}"></roles-permissions>
 				{{-- {!! Form::open(['route' => 'roles.permissions.settings', 'method' => 'POST']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
