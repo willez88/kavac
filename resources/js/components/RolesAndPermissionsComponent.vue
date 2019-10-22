@@ -20,7 +20,7 @@
                             <i class="fa fa-search"></i>
                         </span>
                         <input placeholder="Filtrar" title="Indique el texto para filtrar los permisos"
-                               data-toggle="tooltip" type="text" class="form-control">
+                               data-toggle="tooltip" type="text" class="form-control" v-model="search">
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody v-for="moduleGroup in moduleGroups">
-                    <tr>
+                    <tr :id="moduleGroup">
                         <td>&#160;</td>
                         <td class="text-center" :colspan="roles.length">
                             <span class="card-title text-uppercase text-module">
@@ -53,26 +53,23 @@
                             </span>
                         </td>
                     </tr>
-                    <!--<div class="collapse show" :id="'perm' + moduleGroup">-->
-                        <tr v-for="filteredPermission in filterGroupPermissions(moduleGroup)">
-                            <td class="text-uppercase">
-                                {{ filteredPermission.short_description || filteredPermission.name }}
-                                {{ filteredPermission }}
-                            </td>
-                            <td v-for="cellRole in roles" class="text-center">
-                                <p-check class="p-icon p-plain" :class="'role_' + cellRole.id" color="text-success"
-                                         off-color="text-gray" data-toggle="tooltip" :title="'Rol: ' + cellRole.name"
-                                         :value="cellRole.id + '_' + filteredPermission.id"
-                                         :checked="roleHasPermission(cellRole.id, filteredPermission)"
-                                         :name="cellRole.id + '_' + filteredPermission.id"
-                                         v-model="record.roles_attach_permissions" toggle>
-                                    <i class="fa fa-unlock" slot="extra"></i>
-                                    <i class="fa fa-lock" slot="off-extra"></i>
-                                    <label slot="off-label"></label>
-                                </p-check>
-                            </td>
-                        </tr>
-                    <!--</div>-->
+                    <tr v-for="filteredPermission in filterGroupPermissions(moduleGroup)" 
+                        v-if="searchResult(filteredPermission, moduleGroup)">
+                        <td class="text-uppercase">
+                            {{ filteredPermission.short_description || filteredPermission.name }}
+                        </td>
+                        <td v-for="cellRole in roles" class="text-center">
+                            <p-check class="p-icon p-plain" :class="'role_' + cellRole.id" color="text-success"
+                                     off-color="text-gray" data-toggle="tooltip" :title="'Rol: ' + cellRole.name"
+                                     :value="cellRole.id + '_' + filteredPermission.id"
+                                     :name="cellRole.id + '_' + filteredPermission.id"
+                                     v-model="record.roles_attach_permissions" toggle>
+                                <i class="fa fa-unlock" slot="extra"></i>
+                                <i class="fa fa-lock" slot="off-extra"></i>
+                                <label slot="off-label"></label>
+                            </p-check>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -97,7 +94,9 @@
                     roles_attach_permissions: []
                 },
                 moduleGroups: [],
-                allPermissionByRol: []
+                allPermissionByRol: [],
+                search: '',
+                showGroups: [],
             }
         },
         props: ['roles', 'permissions'],
@@ -171,24 +170,43 @@
                 }
                 vm.loading = false;
             },
-            roleHasPermission: function(roleId, permission) {
-                let vm = this;
-                let hasPerm = vm.roles.filter(function(role) {
-                    return role.id === roleId && role.permissions.filter(function(perm) {
-                        return perm.id === permission.id;
-                    });
-                }).length > 0;
+            /**
+             * Método que permite filtrar los permisos de acuerdo a un campo de búsqueda
+             *
+             * @method     searchResult
+             *
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 
-                /*if (hasPerm) {
-                    vm.record.roles_attach_permissions.push(`${roleId}_${permission.id}`);
-                }*/
-            },
+             * @param      {object}     filteredPermission    Objeto con información del permiso a filtrar
+             * @param      {string}     moduleGroup           Nombre del módulo al cual pertenece el permiso a filtrar
+             *
+             * @return     {boolean}    Devuelve verdadero si el permiso se encuentra en la consulta del usuario 
+             *                          y lo muestra, de lo contrario retorna falso y lo oculta
+             */
+            searchResult: function(filteredPermission, moduleGroup) {
+                let vm = this;
+                let result = vm.search==='' || 
+                             filteredPermission.short_description.indexOf(vm.search) >= 0 || 
+                             filteredPermission.name.indexOf(vm.search) >= 0;
+                return result;
+            }
         },
         mounted() {
             let vm = this;
             vm.setModuleGroups();
             vm.record.roles_attach_permissions = [];
             vm.allPermissionByRol = [];
+
+            /** Establece los permisos actuales asociados a roles */
+            $(document).ready(function() {
+                vm.loading = true;
+                vm.roles.forEach(function(role) {
+                    role.permissions.forEach(function(perm) {
+                        vm.record.roles_attach_permissions.push(`${role.id}_${perm.id}`);
+                    });
+                });
+                vm.loading = false;
+            });
         }
     };
 </script>
