@@ -129,7 +129,6 @@ Route::group(['middleware' => 'web',
     Route::get('entries/pdf/{id}', 'Reports\AccountingEntryController@pdf')
             ->name('accounting.entries.pdf');
 
-
     /**
     * Rutas index para los formularios de los reportes
     */
@@ -140,64 +139,102 @@ Route::group(['middleware' => 'web',
     Route::get('report/financeStatements', 'Reports\AccountingReportsController@financeStatements')
         ->name('accounting.report.financeStatements');
 
-
-
-
-
-
-
     /**
      * rutas para reporte de balance de comprobación
      */
-    Route::get('report/balanceCheckUp/pdf/{initDate}/{endDate}/{currency}/{all?}', 'Reports\AccountingCheckupBalanceController@pdf')
-        ->name('accounting.report.BalanceCheckUp.pdf');
+    Route::get(
+        'report/balanceCheckUp/pdf/{report}',
+        'Reports\AccountingCheckupBalanceController@pdf'
+    )->name('accounting.report.BalanceCheckUp.pdf');
+
+    Route::get(
+        'report/balanceCheckUp/pdfVue/{initDate}/{endDate}/{currency}/{all?}',
+        'Reports\AccountingCheckupBalanceController@pdfVue'
+    );
 
     /**
      * rutas para reporte del Mayor Analítico
      */
-    Route::post('report/analyticalMajor/AccAccount', 'Reports\AccountingAnalyticalMajorController@getAccAccount')
-            ->name('accounting.report.analyticalMajor.AccAccount');
+    Route::post(
+        'report/analyticalMajor/AccAccount',
+        'Reports\AccountingAnalyticalMajorController@getAccAccount'
+    )->name('accounting.report.analyticalMajor.AccAccount');
 
     Route::get(
-        'report/analyticalMajor/pdf/{initDate}/{endDate}/{initAcc}/{endAcc}/{currency}',
+        'report/analyticalMajor/pdf/{report}',
         'Reports\AccountingAnalyticalMajorController@pdf'
     )->name('accounting.report.analyticalMajor.pdf');
+
+    Route::get(
+        'report/analyticalMajor/pdfVue/{initDate}/{endDate}/{initAcc}/{endAcc}/{currency}',
+        'Reports\AccountingAnalyticalMajorController@pdfVue'
+    );
 
     /**
      * rutas para reporte del libro diario
      */
-    Route::get('report/dailyBook/pdfVue/{initDate}/{endDate}/{currency}', 'Reports\AccountingDailyBookController@pdfVue')
-        ->name('accounting.report.dailyBook.pdf');
+    Route::get(
+        'report/dailyBook/pdf/{report}',
+        'Reports\AccountingDailyBookController@pdf'
+    )->name('accounting.report.dailyBook.pdf');
 
-    Route::get('report/dailyBook/pdf/{initDate}/{endDate}/{currency}', 'Reports\AccountingDailyBookController@pdf');
+    Route::get(
+        'report/dailyBook/pdfVue/{initDate}/{endDate}/{currency}',
+        'Reports\AccountingDailyBookController@pdfVue'
+    );
 
     /**
      * rutas para reporte de libro auxiliar
      */
-    Route::get('report/auxiliaryBook/pdf/{account_id}/{date}/{currency}', 'Reports\AccountingAuxiliaryBookController@pdf')
-            ->name('accounting.report.auxiliaryBook.pdf');
+    Route::get(
+        'report/auxiliaryBook/pdf/{report}',
+        'Reports\AccountingAuxiliaryBookController@pdf'
+    )->name('accounting.report.auxiliaryBook.pdf');
+
+    Route::get(
+        'report/auxiliaryBook/pdfVue/{account_id}/{date}/{currency}',
+        'Reports\AccountingAuxiliaryBookController@pdfVue'
+    );
 
     /**
      * rutas para reporte de balance general
      */
-    Route::get('report/balanceSheet/pdf/{date}/{level}/{currency}/{zero?}', 'Reports\AccountingBalanceSheetController@pdf')
-            ->name('accounting.report.balanceSheet.pdf');
+    Route::get(
+        'report/balanceSheet/pdf/{date}/{level}/{currency}/{zero?}',
+        'Reports\AccountingBalanceSheetController@pdf'
+    )->name('accounting.report.balanceSheet.pdf');
+
+    Route::get(
+        'report/balanceSheet/pdfVue/{date}/{level}/{currency}/{zero?}',
+        'Reports\AccountingBalanceSheetController@pdfVue'
+    );
 
     /**
      * rutas para reporte de estado de resultados
      */
-    Route::get('report/stateOfResults/pdf/{date}/{level}/{currency}/{zero?}', 'Reports\AccountingStateOfResultsController@pdf')
-            ->name('accounting.report.stateOfResults.pdf');
+    Route::get(
+        'report/stateOfResults/pdf/{date}/{level}/{currency}/{zero?}',
+        'Reports\AccountingStateOfResultsController@pdf'
+    )->name('accounting.report.stateOfResults.pdf');
+    
+    Route::get(
+        'report/stateOfResults/pdfVue/{date}/{level}/{currency}/{zero?}',
+        'Reports\AccountingStateOfResultsController@pdfVue'
+    );
 
     /**
         Rutas para las vistas de configuración de categorias del modulo de contabilidad
     */
     Route::get('settings', 'AccountingSettingController@index')
             ->name('accounting.settings.index');
+
     Route::post('settings/code', 'AccountingSettingController@code_store')
             ->name('accounting.settings.code.store');
-    Route::post('settings/generate_reference_code', 'AccountingSettingController@generate_reference_code')
-            ->name('accounting.settings.code.generate');
+
+    Route::post(
+        'settings/generate_reference_code',
+        'AccountingSettingController@generate_reference_code'
+    )->name('accounting.settings.code.generate');
 
 
     Route::resource(

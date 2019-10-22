@@ -11,6 +11,7 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
+use Modules\Accounting\Models\ExchangeRate;
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
 use Auth;
@@ -37,6 +38,118 @@ class AccountingStateOfResultsController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:accounting.report.stateofresults', ['only' => ['pdf']]);
+    }
+
+    /**
+     * [$convertions lista de conversiones validas]
+     * @var array
+     */
+    protected $convertions = [];
+
+    /**
+     * [$currency moneda en la que se expresara el reporte]
+     * @var [type]
+     */
+    protected $currency = null;
+
+    public function getConvertions()
+    {
+        return $this->convertions;
+    }
+
+    public function setConvertions($convertions)
+    {
+        $this->convertions = $convertions;
+    }
+
+    public function getCurrencyId()
+    {
+        return $this->currency->id;
+    }
+
+    /**
+     * [setCurrency]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  Currency $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+    }
+
+    /**
+     * [pdf genera el reporte en pdf de balance general]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  string   $date     [fecha]
+     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
+     * @param  Currency $currency [moneda en que se expresara el reporte]
+     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
+     */
+    public function pdfVue($date, $level, Currency $currency, $zero = false)
+    {
+        /**
+         * [$day ultimo dia correspondiente al mes]
+         * @var date
+         */
+        $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
+
+        /**
+         * [$endDate formatea la fecha final de busqueda, (YYYY-mm-dd HH:mm:ss)]
+         * @var [type]
+         */
+        $endDate = $date.'-'.$day;
+
+        /**
+         * consulta de cada cuenta y asiento que pertenezca a ACTIVO, PASIVO, PATRIMONIO y CUENTA DE ORDEN
+         * [$query registros de las cuentas patrimoniales seleccionadas]
+         * @var Modules\Accounting\Models\AccountingAccount
+         */
+        $query = AccountingAccount::with('entryAccount.entries.currency')
+            ->with(['entryAccount.entries' => function ($query) use ($endDate, $date) {
+                if ($query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true)) {
+                    $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+                }
+            }])
+            ->whereHas('entryAccount.entries', function ($query) use ($endDate, $date) {
+                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            })
+            ->whereBetween('group', [5, 6])
+            ->orderBy('group', 'ASC')
+            ->orderBy('subgroup', 'ASC')
+            ->orderBy('item', 'ASC')
+            ->orderBy('generic', 'ASC')
+            ->orderBy('specific', 'ASC')
+            ->orderBy('subspecific', 'ASC')
+            ->orderBy('denomination', 'ASC')->get();
+
+        $convertions = [];
+
+        /*
+         * Se recorre y evalua la relacion en las conversiones necesarias a realizar
+         */
+        foreach ($query as $record) {
+            foreach ($record['entryAccount'] as $entryAccount) {
+                if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
+                    $convertions = $this->calculateExchangeRates(
+                        $convertions,
+                        $entryAccount['entries'],
+                        $currency['id']
+                    );
+
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
+                        && $entryAccount['entries']['currency']['id'] != $currency['id']) {
+                        return response()->json([
+                                    'result'=>false,
+                                    'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                                .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                                ', verificar tipos de cambio configurados.'
+                                ], 200);
+                    }
+                }
+            }
+        }
+
+        return response()->json(['result'=>true], 200);
     }
 
     /**
@@ -137,6 +250,12 @@ class AccountingStateOfResultsController extends Controller
             ->orderBy('specific', 'ASC')
             ->orderBy('subspecific', 'ASC')->get();
 
+        $this->setCurrency($currency);
+
+        /**
+         * [$records con los registros de las cuentas]
+         * @var array
+         */
         $records = $this->FormatDataInArray($records);
         
         /** @var Object configuración general de la apliación */
@@ -166,22 +285,29 @@ class AccountingStateOfResultsController extends Controller
     }
     
     /**
-     * sintetiza la información de una cuenta en un array con sus respectivas subcuentas
-     *
+     * [FormatDataInArray sintetiza la información de una cuenta en un array con sus respectivas subcuentas]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param Object $records registro de una cuenta o subcuenta patrimonial
-     * @param Int $level contador que indica el nivel de profundidad de la recursividad para obtener subcuentas de una cuenta
-     * @return Array $parent arreglo asociativo con la información necesario de la cuenta
+     * @param  Modules\Accounting\Models\AccountingAccount $records registro de una cuenta o subcuenta patrimonial
+     * @param  int $level [contador que indica el nivel de profundidad de la recursividad
+     *                       para obtener subcuentas de una cuenta]
      */
     public function FormatDataInArray($records, $level = 1)
     {
-        /** @var Array arreglo en el qe se formatea la información pertinente de la consultar */
+        /**
+         * [$parent información pertinente de la consultar]
+         * @var array
+         */
         $parent = [];
 
-        /** @var Int contador para ubicar la posición del tipo de cuenta base */
+        /**
+         * [$pos posición de la cuenta base]
+         * @var integer
+         */
         $pos = 0;
 
-        /** condición de parada del ultimo nivel */
+        /**
+         * condición de parada del ultimo nivel
+         */
         if ($level > 6) {
             return [];
         }
@@ -211,31 +337,61 @@ class AccountingStateOfResultsController extends Controller
     }
 
     /**
-     * realiza el calculo de saldo de la cuenta tomando en cuenta todos sus subcuentas, hasta llegar al ultimo nivel de parentela
-     * solo se sumaran los valores de los asientos contables aprobados
-     *
+     * [calculateValuesInEntries calculo de saldo de la cuenta tomando en cuenta todos sus subcuentas,
+     *                             hasta llegar al ultimo nivel de parentela solo se sumaran los valores
+     *                             de los asientos contables aprobados]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param Object $records registro de una cuenta o subcuenta patrimonial
      * @return Float resultado de realizar la operaciones de suma y resta
      */
-
     public function calculateValuesInEntries($account)
     {
-        /** @var Float saldo total en el debe de la cuenta */
+        /**
+         * [$debit saldo total en el debe de la cuenta]
+         * @var float
+         */
         $debit = 0;
 
-        /** @var Float saldo total en el haber de la cuenta */
+        /**
+         * [$assets saldo total en el haber de la cuenta]
+         * @var float
+         */
         $assets = 0;
 
-        /** @var Float saldo total de la suma de los saldos de sus cuentas hijo */
+        /**
+         * [$balanceChildren saldo total de la suma de los saldos de sus cuentas hijo]
+         * @var float
+         */
         $balanceChildren = 0;
 
         foreach ($account->entryAccount as $entryAccount) {
             if ($entryAccount->entries['approved']) {
-                $debit += (float)$entryAccount['debit'];
-                $assets += (float)$entryAccount['assets'];
+                if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())) {
+                    $this->setConvertions($this->calculateExchangeRates(
+                        $this->getConvertions(),
+                        $entryAccount['entries'],
+                        $this->getCurrencyId()
+                            ));
+                }
+
+                $debit += ($entryAccount['debit'] != 0)?
+                            $this->calculateOperation(
+                                $this->getConvertions(),
+                                $entryAccount['entries']['currency']['id'],
+                                $entryAccount['debit'],
+                                ($entryAccount['entries']['currency']['id'] == $this->getCurrencyId())??false
+                            ):0;
+
+                $assets += ($entryAccount['assets'] != 0)?
+                            $this->calculateOperation(
+                                $this->getConvertions(),
+                                $entryAccount['entries']['currency']['id'],
+                                $entryAccount['assets'],
+                                ($entryAccount['entries']['currency']['id'] == $this->getCurrencyId())??false
+                            ):0;
             }
         }
+
         if (count($account->children) > 0) {
             foreach ($account->children as $child) {
                 /**
@@ -244,14 +400,75 @@ class AccountingStateOfResultsController extends Controller
                 $balanceChildren += $this->calculateValuesInEntries($child);
             }
         }
-        /**
-        * si pertenece a los ingresos aumento por el haber
-        */
-        if ($account->group === '5') {
-            return (($assets - $debit) + $balanceChildren);
-        } elseif ($account->group === '6') {
-            return (($debit - $assets) + $balanceChildren);
+        
+        return (($debit - $assets) + $balanceChildren);
+    }
+
+    /**
+     * [calculateOperation realiza la conversion de saldo]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  array   $convertions   [lista de tipos cambios para la moneda]
+     * @param  integer $entry_id      [identificador del asiento]
+     * @param  float   $value         [saldo del asiento]
+     * @param  boolean $equalCurrency [bandera que indica si el tipo de moneda en el que esta el asiento es las misma
+     *                                que la que se desea expresar]
+     * @return float                  [resultdado de la operacion]
+     */
+    public function calculateOperation($convertions, $currency_id, $value, $equalCurrency)
+    {
+        if (!$equalCurrency) {
+            return $value;
         }
+        if ($currency_id && array_key_exists($currency_id, $convertions) && $convertions[$currency_id]) {
+            if ($convertions[$currency_id]['operator'] == 'to') {
+                return ($value * $convertions[$currency_id]['amount']);
+            } else {
+                return ($value / $convertions[$currency_id]['amount']);
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * [calculateExchangeRates encuentra los tipos de cambio]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  array           $convertions [lista de conversiones]
+     * @param  AccountingEntry $entry       [asiento contable]
+     * @param  integer         $currency_id [identificador de la moneda a la cual se realizara la conversion]
+     * @return array                        [lista de conversiones actualizada]
+     */
+    public function calculateExchangeRates($convertions, $entry, $currency_id)
+    {
+        $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
+                             ->where('end_at', '>=', $entry['from_date'])
+                             ->where('active', true)
+                             ->where('from_currency_id', $entry['currency']['id'])
+                             ->where('to_currency_id', $currency_id)
+                             ->orderBy('end_at', 'DESC')->first();
+        if (!$exchangeRate) {
+            $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
+                         ->where('end_at', '>=', $entry['from_date'])
+                         ->where('active', true)
+                         ->where('to_currency_id', $entry['currency']['id'])
+                         ->where('from_currency_id', $currency_id)
+                         ->orderBy('end_at', 'DESC')->first();
+            if ($exchangeRate) {
+                if (!array_key_exists($entry['currency']['id'], $convertions)) {
+                    $convertions[$entry['currency']['id']] = [
+                                                'amount'   => $exchangeRate->amount,
+                                                'operator' => 'from'
+                                            ];
+                }
+            }
+        } else {
+            if (!array_key_exists($entry['currency']['id'], $convertions)) {
+                $convertions[$entry['currency']['id']] = [
+                                                'amount'   => $exchangeRate->amount,
+                                                'operator' => 'to'
+                                            ];
+            }
+        }
+        return $convertions;
     }
 
     public function get_checkBreak()

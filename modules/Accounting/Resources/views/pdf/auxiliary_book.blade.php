@@ -27,11 +27,11 @@
 {{-- si la cuenta tiene una de nivel superior la muesta de lo contrario solo muesta la cuenta --}}
 @if($parent_account)
 	<h3 style="font-size: 9rem;">CUENTA {{ $parent_account->getCodeAttribute().' '.$parent_account->denomination }} </h3>
-	@if($parent_account->id != $record->id)
-		<h3 style="font-size: 9rem;">SUBCUENTA {{ $record->getCodeAttribute().' '.$record->denomination }}</h3>
+	@if($parent_account->id != $record['id'])
+		<h3 style="font-size: 9rem;">SUBCUENTA {{ $record['code'].' '.$record['denomination'] }}</h3>
 	@endif
 @else
-	<h3 style="font-size: 9rem;">CUENTA {{ $record->getCodeAttribute().' '.$record->denomination }}</h3>
+	<h3 style="font-size: 9rem;">CUENTA {{ $record['code'].' '.$record['denomination'] }}</h3>
 @endif
 
 <h4 style="font-size: 9rem;">DESDE {{ $initDate }} AL {{ $endDate }}</h4>
@@ -44,11 +44,11 @@
 		<td style="font-size: 9rem;" width="22%" align="center">DEBITO</td>
 		<td style="font-size: 9rem;" width="22%" align="center">CREDITO</td>
 	</tr>
-	{{-- $r es un array el cual tiene cada registro relacionado con una cuenta en un asiento contable  --}}
+
 	@foreach($record['entryAccount'] as $r)
 	@if($r['entries'])
 		<tr>
-			<td style="font-size: 9rem;"> {{ $r['updated_at']->format('d/m/Y') }}</td>
+			<td style="font-size: 9rem;"> {{ $r['entries']['created_at'] }}</td>
 			<td style="font-size: 9rem;"> {{ $r['entries']['concept'] }}</td>
 			<td style="font-size: 9rem;"> {{ $r['entries']['reference'] }}</td>
 			<td style="font-size: 9rem;" align="right">
@@ -71,6 +71,7 @@
 		</tr>
 	@endif
 	@endforeach
+	
 	<br>
 	<tr>
 		<td></td>

@@ -55,7 +55,7 @@
 			<button class="btn btn-primary btn-sm"
 					title="Generar Reporte"
 					data-toggle="tooltip"
-					v-on:click="OpenPdf(getUrlReport(),'_black')">
+					v-on:click="OpenPdf(getUrlReport(), '_blank')">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
 			</button>

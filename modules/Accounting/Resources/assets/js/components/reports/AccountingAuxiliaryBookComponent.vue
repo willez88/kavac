@@ -95,7 +95,7 @@
                     this.$refs.errorsAnalyticalMajor.showAlertMessages(errors);
                     return;
                 }
-                this.$refs.errorsAnalyticalMajor.reset();
+                this.$refs.errorAuxiliaryBook.reset();
 
 				return ( this.url+this.account_id+'/'+(this.year_init+'-'+this.month_init)+'/'+this.currency );
 			}

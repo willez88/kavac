@@ -1,4 +1,7 @@
 
+<h4 style="font-size: 9rem;">DESDE {{ $initDate }} HASTA {{ $endDate }}</h4>
+<h4 style="font-size: 9rem;">EXPRESADO EN {{ $currency->symbol }}</h4>
+
 @foreach($records as $record)
 	@php
 		/**
@@ -29,8 +32,6 @@
 
 		{{-- HEADER de tablas --}}
 		<h4 style="font-size: 9rem;">MAYOR ANALÍTICO {{ $record['denomination'] }}</h4>
-		<h4 style="font-size: 9rem;">DESDE {{ $initDate }} HASTA {{ $endDate }}</h4>
-		<h4 style="font-size: 9rem;">EXPRESADO EN {{ $currency->symbol }}</h4>
 		<br>
 		<table cellspacing="0" cellpadding="1" border="0">
 			<tr style="background-color: #BDBDBD;">
@@ -44,7 +45,7 @@
 			@foreach($record['entryAccount'] as $r)
 				@if($r['entries'])
 					<tr>
-						<td style="font-size: 9rem;"> {{ $r['updated_at']->format('d/m/Y') }}</td>
+						<td style="font-size: 9rem;"> {{ $r['entries']['created_at'] }}</td>
 						<td style="font-size: 9rem;"> {{ $r['entries']['reference'] }}</td>
 						<td style="font-size: 9rem;"> {{ $r['entries']['concept'] }}</td>
 						<td style="font-size: 9rem;" align="right">
