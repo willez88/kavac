@@ -57,12 +57,13 @@
                         <tr v-for="filteredPermission in filterGroupPermissions(moduleGroup)">
                             <td class="text-uppercase">
                                 {{ filteredPermission.short_description || filteredPermission.name }}
+                                {{ filteredPermission }}
                             </td>
                             <td v-for="cellRole in roles" class="text-center">
                                 <p-check class="p-icon p-plain" :class="'role_' + cellRole.id" color="text-success"
                                          off-color="text-gray" data-toggle="tooltip" :title="'Rol: ' + cellRole.name"
                                          :value="cellRole.id + '_' + filteredPermission.id"
-                                         :checked="roleHasPermission(cellRole.id, filteredPermission.id)"
+                                         :checked="roleHasPermission(cellRole.id, filteredPermission)"
                                          :name="cellRole.id + '_' + filteredPermission.id"
                                          v-model="record.roles_attach_permissions" toggle>
                                     <i class="fa fa-unlock" slot="extra"></i>
@@ -170,19 +171,18 @@
                 }
                 vm.loading = false;
             },
-            roleHasPermission: function(roleId, permId) {
+            roleHasPermission: function(roleId, permission) {
                 let vm = this;
-                return vm.permissions.filter(function(perm) {
-                    return perm.id == permId && perm.roles.length > 0 && perm.roles.filter(function(role) {
-                        return role.id == roleId;
+                let hasPerm = vm.roles.filter(function(role) {
+                    return role.id === roleId && role.permissions.filter(function(perm) {
+                        return perm.id === permission.id;
                     });
                 }).length > 0;
-                /*return vm.roles.filter(function(role) {
-                    return role.id === roleId && role.permissions.length > 0 && role.permissions.filter(function(perm) {
-                        return perm.id === permId;
-                    });
-                });*/
-            }
+
+                /*if (hasPerm) {
+                    vm.record.roles_attach_permissions.push(`${roleId}_${permission.id}`);
+                }*/
+            },
         },
         mounted() {
             let vm = this;
