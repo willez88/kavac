@@ -51,9 +51,25 @@ class PayrollLanguageLevel extends Model implements Auditable
     {
         return $this->belongsToMany(
             PayrollProfessionalInformation::class,
-            'payroll_language_level_payroll_professional',
+            'payroll_language_language_level_professional',
             'payroll_language_level_id',
             'payroll_professional_information_id'
-        )->withTimestamps();
+        )->withPivot('payroll_language_id')->withTimestamps();
+    }
+
+    /**
+     * Método que obtiene
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function payrollLanguages()
+    {
+        return $this->belongsToMany(
+            PayrollLanguage::class,
+            'payroll_language_language_level_professional',
+            'payroll_language_level_id',
+            'payroll_language_id'
+        )->withPivot('payroll_professional_information_id')->withTimestamps();
     }
 }

@@ -98,10 +98,10 @@ class PayrollProfessionalInformation extends Model implements Auditable
     {
         return $this->belongsToMany(
             PayrollLanguage::class,
-            'payroll_language_payroll_professional',
+            'payroll_language_language_level_professional',
             'payroll_professional_information_id',
             'payroll_language_id'
-        )->withTimestamps();
+        )->withPivot('payroll_language_level_id')->withTimestamps();
     }
 
     /**
@@ -114,9 +114,9 @@ class PayrollProfessionalInformation extends Model implements Auditable
     {
         return $this->belongsToMany(
             PayrollLanguageLevel::class,
-            'payroll_language_level_payroll_professional',
+            'payroll_language_language_level_professional',
             'payroll_professional_information_id',
             'payroll_language_level_id'
-        )->withTimestamps();
+        )->withPivot('payroll_language_id')->withTimestamps();
     }
 }
