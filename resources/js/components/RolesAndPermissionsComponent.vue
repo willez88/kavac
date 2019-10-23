@@ -1,79 +1,84 @@
 <template>
-    <div class="row">
-        <div class="col-12">
+    <div>
+        <div class="card-body">
             <div class="row">
-                <div class="col-md-4 panel-legend">
-                    <i class="fa fa-lock text-gray" title="Sin permiso de acceso" data-toggle="tooltip"></i>
-                    <span>Sin permiso otorgado</span>
-                </div>
-            </div>
-            <div class="row mg-bottom-20">
-                <div class="col-md-4 panel-legend">
-                    <i class="fa fa-unlock text-success" title="Permiso de acceso configurado" data-toggle="tooltip"></i>
-                    <span>Permiso otorgado</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3 form-group">
-                    <div class="input-group input-sm">
-                        <span class="input-group-addon">
-                            <i class="fa fa-search"></i>
-                        </span>
-                        <input placeholder="Filtrar" title="Indique el texto para filtrar los permisos"
-                               data-toggle="tooltip" type="text" class="form-control">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-4 panel-legend">
+                            <i class="fa fa-lock text-gray" title="Sin permiso de acceso" data-toggle="tooltip"></i>
+                            <span>Sin permiso otorgado</span>
+                        </div>
                     </div>
+                    <div class="row mg-bottom-20">
+                        <div class="col-md-4 panel-legend">
+                            <i class="fa fa-unlock text-success" title="Permiso de acceso configurado" data-toggle="tooltip"></i>
+                            <span>Permiso otorgado</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 form-group">
+                            <div class="input-group input-sm">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input placeholder="Filtrar" title="Indique el texto para filtrar los permisos"
+                                       data-toggle="tooltip" type="text" class="form-control" v-model="search">
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-striped dt-responsive table-roles-permissions">
+                        <thead>
+                            <tr>
+                                <th class="text-center border-right col-2" rowspan="2">PERMISOS</th>
+                                <th class="text-center col-10" :colspan="roles.length">ROLES</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center" :title="role.description" data-toggle="tooltip" v-for="role in roles">
+                                    <p-check class="p-icon p-plain" color="text-success" off-color="text-gray"
+                                             v-model="allPermissionByRol" :value="role.id"
+                                             @change="togglePermissionsByRol(role.id)"
+                                             data-toggle="tooltip" title="Seleccionar todos los permisos para este rol" toggle>
+                                        <i class="fa fa-unlock" slot="extra"></i>
+                                        <i class="fa fa-lock" slot="off-extra"></i>
+                                        <label slot="off-label"></label>
+                                    </p-check>
+                                    {{ role.name }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="moduleGroup in moduleGroups">
+                            <tr :id="moduleGroup">
+                                <td>&#160;</td>
+                                <td class="text-center" :colspan="roles.length">
+                                    <span class="card-title text-uppercase text-module">
+                                        Módulo [{{ getGroupName(moduleGroup) }}]
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr v-for="filteredPermission in filterGroupPermissions(moduleGroup)" 
+                                v-if="searchResult(filteredPermission, moduleGroup)">
+                                <td class="text-uppercase">
+                                    {{ filteredPermission.short_description || filteredPermission.name }}
+                                </td>
+                                <td v-for="cellRole in roles" class="text-center">
+                                    <p-check class="p-icon p-plain" :class="'role_' + cellRole.id" color="text-success"
+                                             off-color="text-gray" data-toggle="tooltip" :title="'Rol: ' + cellRole.name"
+                                             :value="cellRole.id + '_' + filteredPermission.id"
+                                             :name="cellRole.id + '_' + filteredPermission.id"
+                                             v-model="record.roles_attach_permissions" toggle>
+                                        <i class="fa fa-unlock" slot="extra"></i>
+                                        <i class="fa fa-lock" slot="off-extra"></i>
+                                        <label slot="off-label"></label>
+                                    </p-check>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <table class="table table-hover table-striped dt-responsive table-roles-permissions">
-                <thead>
-                    <tr>
-                        <th class="text-center border-right col-2" rowspan="2">PERMISOS</th>
-                        <th class="text-center col-10" :colspan="roles.length">ROLES</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center" :title="role.description" data-toggle="tooltip" v-for="role in roles">
-                            <p-check class="p-icon p-plain" color="text-success" off-color="text-gray"
-                                     v-model="allPermissionByRol" :value="role.id"
-                                     @change="togglePermissionsByRol(role.id)"
-                                     data-toggle="tooltip" title="Seleccionar todos los permisos para este rol" toggle>
-                                <i class="fa fa-unlock" slot="extra"></i>
-                                <i class="fa fa-lock" slot="off-extra"></i>
-                                <label slot="off-label"></label>
-                            </p-check>
-                            {{ role.name }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody v-for="moduleGroup in moduleGroups">
-                    <tr>
-                        <td>&#160;</td>
-                        <td class="text-center" :colspan="roles.length">
-                            <span class="card-title text-uppercase text-module">
-                                Módulo [{{ getGroupName(moduleGroup) }}]
-                            </span>
-                        </td>
-                    </tr>
-                    <!--<div class="collapse show" :id="'perm' + moduleGroup">-->
-                        <tr v-for="filteredPermission in filterGroupPermissions(moduleGroup)">
-                            <td class="text-uppercase">
-                                {{ filteredPermission.short_description || filteredPermission.name }}
-                            </td>
-                            <td v-for="cellRole in roles" class="text-center">
-                                <p-check class="p-icon p-plain" :class="'role_' + cellRole.id" color="text-success"
-                                         off-color="text-gray" data-toggle="tooltip" :title="'Rol: ' + cellRole.name"
-                                         :value="cellRole.id + '_' + filteredPermission.id"
-                                         :checked="roleHasPermission(cellRole.id, filteredPermission.id)"
-                                         :name="cellRole.id + '_' + filteredPermission.id"
-                                         v-model="record.roles_attach_permissions" toggle>
-                                    <i class="fa fa-unlock" slot="extra"></i>
-                                    <i class="fa fa-lock" slot="off-extra"></i>
-                                    <label slot="off-label"></label>
-                                </p-check>
-                            </td>
-                        </tr>
-                    <!--</div>-->
-                </tbody>
-            </table>
+        </div>
+        <div class="card-footer text-right">
+            <buttonsDisplay></buttonsDisplay>
         </div>
     </div>
 </template>
@@ -96,7 +101,9 @@
                     roles_attach_permissions: []
                 },
                 moduleGroups: [],
-                allPermissionByRol: []
+                allPermissionByRol: [],
+                search: '',
+                showGroups: [],
             }
         },
         props: ['roles', 'permissions'],
@@ -170,18 +177,25 @@
                 }
                 vm.loading = false;
             },
-            roleHasPermission: function(roleId, permId) {
+            /**
+             * Método que permite filtrar los permisos de acuerdo a un campo de búsqueda
+             *
+             * @method     searchResult
+             *
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+
+             * @param      {object}     filteredPermission    Objeto con información del permiso a filtrar
+             * @param      {string}     moduleGroup           Nombre del módulo al cual pertenece el permiso a filtrar
+             *
+             * @return     {boolean}    Devuelve verdadero si el permiso se encuentra en la consulta del usuario 
+             *                          y lo muestra, de lo contrario retorna falso y lo oculta
+             */
+            searchResult: function(filteredPermission, moduleGroup) {
                 let vm = this;
-                return vm.permissions.filter(function(perm) {
-                    return perm.id == permId && perm.roles.length > 0 && perm.roles.filter(function(role) {
-                        return role.id == roleId;
-                    });
-                }).length > 0;
-                /*return vm.roles.filter(function(role) {
-                    return role.id === roleId && role.permissions.length > 0 && role.permissions.filter(function(perm) {
-                        return perm.id === permId;
-                    });
-                });*/
+                let result = vm.search==='' || 
+                             filteredPermission.short_description.indexOf(vm.search) >= 0 || 
+                             filteredPermission.name.indexOf(vm.search) >= 0;
+                return result;
             }
         },
         mounted() {
@@ -189,6 +203,17 @@
             vm.setModuleGroups();
             vm.record.roles_attach_permissions = [];
             vm.allPermissionByRol = [];
+
+            /** Establece los permisos actuales asociados a roles */
+            $(document).ready(function() {
+                vm.loading = true;
+                vm.roles.forEach(function(role) {
+                    role.permissions.forEach(function(perm) {
+                        vm.record.roles_attach_permissions.push(`${role.id}_${perm.id}`);
+                    });
+                });
+                vm.loading = false;
+            });
         }
     };
 </script>
