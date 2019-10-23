@@ -225,6 +225,7 @@ if (!function_exists('rif_exists')) {
     {
         // Comprobar si existe conexión externa para verificar la existencia del RIF
         // Conectar al organismo rector para verificar la existencia del RIF
+        $connectionExists = check_connection();
         return true;
     }
 }
