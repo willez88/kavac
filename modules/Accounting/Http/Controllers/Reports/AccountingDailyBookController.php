@@ -48,6 +48,9 @@ class AccountingDailyBookController extends Controller
      */
     public function pdfVue($initDate, $endDate, Currency $currency)
     {
+        $initDateDMY = explode('-', $initDate)[2].'-'.explode('-', $initDate)[1].'-'.explode('-', $initDate)[0];
+        $endDateDMY  = explode('-', $endDate)[2].'-'.explode('-', $endDate)[1].'-'.explode('-', $endDate)[0];
+        
         /**
          * [$entries información del asiento contable]
          * @var AccountingEntry
@@ -72,9 +75,6 @@ class AccountingDailyBookController extends Controller
             }
         }
 
-        $initDateDMY = explode('-', $initDate)[2].'-'.explode('-', $initDate)[1].'-'.explode('-', $initDate)[0];
-        $endDateDMY  = explode('-', $endDate)[2].'-'.explode('-', $endDate)[1].'-'.explode('-', $endDate)[0];
-        
         /**
          * [$url link para consultar ese regporte]
          * @var string
@@ -116,9 +116,9 @@ class AccountingDailyBookController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id [id de reporte y su informacion]
      */
-    public function pdf($report)
+    public function pdf($report_id)
     {
-        $report = AccountingReportHistory::with('currency')->find($report);
+        $report = AccountingReportHistory::with('currency')->find($report_id);
         $initDateDMY = explode('/', $report->url)[2];
         $endDateDMY  = explode('/', $report->url)[3];
 
@@ -184,7 +184,6 @@ class AccountingDailyBookController extends Controller
          * @var [Modules\Accounting\Pdf\Pdf]
          */
         $pdf = new ReportRepository();
-
         /*
          *  Definicion de las caracteristicas generales de la página pdf
          */

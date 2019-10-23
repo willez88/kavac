@@ -109,13 +109,13 @@ class AccountingBalanceSheetController extends Controller
          * [$query registros de las cuentas patrimoniales seleccionadas]
          * @var Modules\Accounting\Models\AccountingAccount
          */
-        $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($endDate, $date) {
-            if ($query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true)) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+        $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($endDate) {
+            if ($query->where('from_date', '<=', $endDate)->where('approved', true)) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
             }
         }])
-            ->whereHas('entryAccount.entries', function ($query) use ($endDate, $date) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            ->whereHas('entryAccount.entries', function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
             })
             ->whereBetween('group', [0, 4])
             ->orderBy('group', 'ASC')
@@ -152,12 +152,11 @@ class AccountingBalanceSheetController extends Controller
                 }
             }
         }
-
         /**
          * [$url link para el reporte]
          * @var string
          */
-        $url = 'balanceSheet/pdf/'.$date.'/'.$level.'/'.$zero;
+        $url = 'balanceSheet/pdf/'.$endDate.'/'.$level.'/'.$zero;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -180,16 +179,15 @@ class AccountingBalanceSheetController extends Controller
                 [
                     'report' => 'Balance General',
                     'url' => $url,
-                    'currency_id' => $currency['id'],
+                    'currency_id' => $currency->id,
                 ]
             );
         } else {
             $report->url = $url;
-            $report->currency_id = $currency['id'];
+            $report->currency_id = $currency->id;
             $report->save();
         }
         
-
         return response()->json(['result'=>true, 'id'=>$report->id], 200);
     }
 
@@ -203,7 +201,11 @@ class AccountingBalanceSheetController extends Controller
      */
     public function pdf($report)
     {
-
+        $report = AccountingReportHistory::with('currency')->find($report);
+        $endDate = explode('/', $report->url)[2];
+        $level = explode('/', $report->url)[3];
+        $zero = explode('/', $report->url)[4];
+        $this->setCurrency($report->currency);
 
         /**
          * [$level_1 consulta de ralación que se desean realizar]
@@ -245,23 +247,23 @@ class AccountingBalanceSheetController extends Controller
          * Se realiza la consulta de cada cuenta y asiento que pertenezca a ACTIVO, PASIVO, PATRIMONIO y CUENTA DE ORDEN
         */
         $records = AccountingAccount::with($level_1, $level_2, $level_3, $level_4, $level_5, $level_6)
-            ->with([$level_1 => function ($query) use ($endDate, $date) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            ->with([$level_1 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
             }])
-            ->with([$level_2 => function ($query) use ($endDate, $date) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            ->with([$level_2 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
             }])
-            ->with([$level_3 => function ($query) use ($endDate, $date) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            ->with([$level_3 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
             }])
-            ->with([$level_4 => function ($query) use ($endDate, $date) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            ->with([$level_4 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
             }])
-            ->with([$level_5 => function ($query) use ($endDate, $date) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            ->with([$level_5 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
             }])
-            ->with([$level_6 => function ($query) use ($endDate, $date) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            ->with([$level_6 => function ($query) use ($endDate) {
+                $query->where('from_date', '<=', $endDate)->where('approved', true);
             }])
             ->whereBetween('group', [0, 4])
             ->where('subgroup', 0)
@@ -272,9 +274,6 @@ class AccountingBalanceSheetController extends Controller
             ->orderBy('generic', 'ASC')
             ->orderBy('specific', 'ASC')
             ->orderBy('subspecific', 'ASC')->get();
-
-
-        $this->setCurrency($currency);
 
         /**
          * [$records con los registros de las cuentas]
@@ -304,7 +303,7 @@ class AccountingBalanceSheetController extends Controller
         $pdf->setBody('accounting::pdf.balance_sheet', true, [
             'pdf' => $pdf,
             'records' => $records,
-            'currency' => $currency,
+            'currency' => $this->getCurrency(),
             'level' => $level,
             'zero' => $zero,
             'endDate' => $endDate,
@@ -424,7 +423,7 @@ class AccountingBalanceSheetController extends Controller
                 /**
                 * llamada recursiva y acumulación
                 */
-                $balanceChildren += $this->calculateValuesInEntries($child, $this->getCurrency());
+                $balanceChildren += $this->calculateValuesInEntries($child);
             }
         }
         

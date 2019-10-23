@@ -256,7 +256,7 @@ class AccountingStateOfResultsController extends Controller
          * [$records con los registros de las cuentas]
          * @var array
          */
-        $records = $this->FormatDataInArray($records);
+        $records = $this->FormatDataInArray($records, $date, $endDate);
         
         /** @var Object configuración general de la apliación */
         $setting = Setting::all()->first();
@@ -291,7 +291,7 @@ class AccountingStateOfResultsController extends Controller
      * @param  int $level [contador que indica el nivel de profundidad de la recursividad
      *                       para obtener subcuentas de una cuenta]
      */
-    public function FormatDataInArray($records, $level = 1)
+    public function FormatDataInArray(records, $initD, $endD, $level = 1)
     {
         /**
          * [$parent información pertinente de la consultar]
@@ -312,17 +312,30 @@ class AccountingStateOfResultsController extends Controller
             return [];
         }
 
+        $lastOfThePreviousMonth = date('d', (mktime(0, 0, 0, explode('-', $initD)[1], 1, explode('-', $initD)[0])-1));
+
         if (count($records) > 0) {
             foreach ($records as $account) {
                 array_push($parent, [
                     'code' => $account->getCodeAttribute(),
                     'denomination' => $account->denomination,
-                    'balance' => $this->calculateValuesInEntries($account),
+                    // mes seleccionado
+                    'balance' => $this->calculateValuesInEntries(
+                        $account,
+                        explode('-', $endD)[0].'-'.explode('-', $endD)[1].'-01',
+                        $endD
+                    ),
+                    // acumulado de los meses anteriores
+                    'beginningBalance' => $this->calculateValuesInEntries(
+                        $account,
+                        explode('-', $initD)[0].'-01-01',
+                        explode('-', $endD)[0].'-'.(explode('-', $endD)[1]-1).'-'.$lastOfThePreviousMonth,
+                    ),
                     'level' => $level,
                     'children' => [],
                     'show_children' => false,
                 ]);
-                $parent[$pos]['children'] = $this->FormatDataInArray($account->children, $level+1);
+                $parent[$pos]['children'] = $this->FormatDataInArray($account->children, $initD, $endD, $level+1);
 
                 /**
                 * El atributo 'show_children' se establece que si la cuenta tiene hijos estos se mostraran por omisión
@@ -344,8 +357,14 @@ class AccountingStateOfResultsController extends Controller
      * @param Object $records registro de una cuenta o subcuenta patrimonial
      * @return Float resultado de realizar la operaciones de suma y resta
      */
-    public function calculateValuesInEntries($account)
+    public function calculateValuesInEntries($account, $initD, $endD, $cal = false)
     {
+        if (explode('-', $endD)[1]<10) {
+            $endD = explode('-', $endD)[0].'-0'.explode('-', $endD)[1].'-'.explode('-', $endD)[2];
+        }
+        if (explode('-', $initD)[1]<10) {
+            $initD = explode('-', $initD)[0].'-0'.explode('-', $initD)[1].'-'.explode('-', $initD)[2];
+        }
         /**
          * [$debit saldo total en el debe de la cuenta]
          * @var float
@@ -365,7 +384,8 @@ class AccountingStateOfResultsController extends Controller
         $balanceChildren = 0;
 
         foreach ($account->entryAccount as $entryAccount) {
-            if ($entryAccount->entries['approved']) {
+            if ($entryAccount->entries['from_date'] >= $initD && $entryAccount->entries['from_date'] <= $endD &&
+                $entryAccount->entries['approved']) {
                 if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())) {
                     $this->setConvertions($this->calculateExchangeRates(
                         $this->getConvertions(),
@@ -397,7 +417,7 @@ class AccountingStateOfResultsController extends Controller
                 /**
                 * llamada recursiva y acumulación
                 */
-                $balanceChildren += $this->calculateValuesInEntries($child);
+                $balanceChildren += $this->calculateValuesInEntries($child, $initD, $endD);
             }
         }
         

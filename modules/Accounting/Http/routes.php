@@ -200,7 +200,7 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de balance general
      */
     Route::get(
-        'report/balanceSheet/pdf/{date}/{level}/{currency}/{zero?}',
+        'report/balanceSheet/pdf/{report}',
         'Reports\AccountingBalanceSheetController@pdf'
     )->name('accounting.report.balanceSheet.pdf');
 
