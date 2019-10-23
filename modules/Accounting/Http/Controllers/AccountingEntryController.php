@@ -26,7 +26,7 @@ class AccountingEntryController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.entries.list', ['only' => 'index','unapproved']);
+        $this->middleware('permission:accounting.entries.list', ['only' => ['index','unapproved']]);
         $this->middleware('permission:accounting.entries.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:accounting.entries.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:accounting.entries.delete', ['only' => 'destroy']);
@@ -315,7 +315,7 @@ class AccountingEntryController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function FilterRecords(Request $request)
+    public function filterRecords(Request $request)
     {
         /** @var array Arreglo que contendra los registros */
         $records = [];
