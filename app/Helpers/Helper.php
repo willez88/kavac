@@ -269,8 +269,41 @@ if (!function_exists('ci_exists')) {
         // Comprobar si existe conexión externa para verificar la existencia de la cédula
         // de identidad
         // Conectar al organismo rector para verificar la existencia de la cédula
+        $connectionExists = check_connection();
+        $exists = false;
+        $personData = [];
 
-        return true;
+        if ($connectionExists) {
+            $client = new GuzzleHttp\Client();
+            $res = $client->request(
+                'GET',
+                'www.cne.gob.ve/web/registro_civil/buscar_rep.php?nac=' . $nac . '&ced=' . $ci
+            );
+
+            if ($res->getStatusCode() === 200) {
+                preg_match('/<b[^>]*>[^<]*<\/b>/', $res->getBody(), $content);
+                if (count($content) > 0) {
+                    // La cédula existe en el organismo rector
+                    $oneName = strpos($content[0], '  ');
+                    $oneLastName = strpos($content[0], ' </b>');
+                    $filterContent = str_replace("  ", " ", trim($content[0]));
+                    $filterContent = str_replace("<b>", "", trim($filterContent));
+                    $filterContent = str_replace("</b>", "", trim($filterContent));
+                    $data = explode(" ", $filterContent);
+                    $personData = array_merge($personData, [
+                        'firstName' => $data[0],
+                        'secondName' => (!$oneName) ? $data[1] : '',
+                        'firstLastName' => (!$oneName) ? $data[2] : $data[1],
+                        'secondLastName' => (!$oneName)
+                                            ? ((!$oneLastName) ? $data[3] : $data[2])
+                                            : ((!$oneLastName) ? $data[2] : $data[1]),
+                    ]);
+                    $exists = true;
+                }
+            }
+        }
+
+        return compact('exists', 'connectionExists', 'personData');
     }
 }
 
@@ -322,5 +355,23 @@ if (! function_exists('get_json_resource')) {
         return json_decode(
             file_get_contents(app()->resourcePath($file), true)
         );
+    }
+}
+
+if (! function_exists('check_connection')) {
+    /**
+     * Determina si existe o no una conexión externa a Internet
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      string       $host    Dirección IP o URL del servidor al cual realizar la petición para identificar
+     *                                   si existe la conexión
+     * @param      integer      $port    Puerto de conexión al servidor
+     *
+     * @return     boolean               Devuelve verdadero si existe la conexión, de lo contrario retorna falso
+     */
+    function check_connection($host = 'www.google.com', $port = 80)
+    {
+        return (bool)@fsockopen($host, $port, $errno, $errstr, 4);
     }
 }
