@@ -9,16 +9,19 @@ use Illuminate\Database\Migrations\Migration;
  * @brief Crear tabla de tipos de asignaciones de nómina
  *
  * Gestiona la creación o eliminación de la tabla de tipos de asignaciones de nómina
- * 
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class CreatePayrollSalaryAssignmentTypesTable extends Migration
 {
     /**
      * Método que ejecuta las migraciones
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return void
      */
     public function up()
     {
@@ -37,7 +40,8 @@ class CreatePayrollSalaryAssignmentTypesTable extends Migration
     /**
      * Método que elimina las migraciones
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return void
      */
     public function down()
     {

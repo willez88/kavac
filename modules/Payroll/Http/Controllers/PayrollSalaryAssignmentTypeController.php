@@ -15,19 +15,31 @@ use Modules\Payroll\Models\PayrollSalaryAssignmentType;
  *
  * Clase que gestiona los tipos de asignaciones salariales
  *
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class PayrollSalaryAssignmentTypeController extends Controller
 {
     use ValidatesRequests;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        //$this->middleware('permission:asset.setting.salary-assignment-type');
+    }
     
     /**
      * Muestra un listado de los tipos de asignaciones salariales
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -37,9 +49,9 @@ class PayrollSalaryAssignmentTypeController extends Controller
     /**
      * Valida y registra un nuevo tipo de asignación
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request Datos de la petición
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -57,16 +69,16 @@ class PayrollSalaryAssignmentTypeController extends Controller
     }
 
     /**
-     * Actualiza la información del tipo de asignación
+     * Actualiza la información del tipo de asignación salarial
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @param  \Modules\Payroll\Models\PayrollSalaryAssignmentType  $assignment_type (Datos del Tipo de asignación)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request Datos de la petición
+     * @param  \Modules\Payroll\Models\PayrollSalaryAssignmentType  $assignment_type Datos del Tipo de asignación
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    
-    public function update(Request $request, PayrollSalaryAssignmentType $assignment_type)
+    public function update(Request $request, $id)
     {
+        $assignment_type = PayrollSalaryAssignmentType::find($id);
         $this->validate($request, [
             'name' => 'required'
         ]);
@@ -79,21 +91,27 @@ class PayrollSalaryAssignmentTypeController extends Controller
     }
 
     /**
-     * Elimina el Tipo de Bien
+     * Elimina el tipo de asignación salarial
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Modules\Payroll\Models\PayrollSalaryAssignmentType  $assignment_type (Datos del tipo de asignación)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
-    public function destroy(PayrollSalaryAssignmentType $assignment_type)
+    public function destroy($id)
     {
+        $assignment_type = PayrollSalaryAssignmentType::find($id);
         $assignment_type->delete();
         return response()->json(['record' => $assignment_type, 'message' => 'Success'], 200);
     }
 
-    
-    public function getAssignmentTypes(){
-        return template_choices('Modules\Payroll\Models\PayrollSalaryAssignmentType','name','',true);
+    /**
+     * Obtiene el listado de los tipos de asignaciones salariales a implementar en elementos select
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return [Array] Arreglo con los registros a mostrar
+     */
+    public function getAssignmentTypes()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollSalaryAssignmentType', 'name', '', true);
     }
-
 }

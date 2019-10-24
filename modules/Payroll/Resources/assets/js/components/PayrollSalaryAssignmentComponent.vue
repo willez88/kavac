@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registro de Asignaciones de Nómina" data-toggle="tooltip"
 		   @click="addRecord('add_assignment', 'salary-assignments', $event)">
@@ -36,60 +36,85 @@
 	                    <div class="tab-content">
 	                    	<div class="tab-pane active" id="define" role="tabpanel">
 	                    		<div class="alert alert-danger" v-if="errors.length > 0">
-									<ul>
-										<li v-for="error in errors">{{ error }}</li>
-									</ul>
-								</div>
+		                            <div class="container">
+		                                <div class="alert-icon">
+		                                    <i class="now-ui-icons objects_support-17"></i>
+		                                </div>
+		                                <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+		                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+		                                        @click.prevent="errors = []">
+		                                    <span aria-hidden="true">
+		                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+		                                    </span>
+		                                </button>
+		                                <ul>
+		                                    <li v-for="error in errors">{{ error }}</li>
+		                                </ul>
+		                            </div>
+		                        </div>
 
-								<div class="row">
-									<div class="col-md-4">
-										<div class=" form-group is-required">
-											<label>Tipo de Asignación</label>
-											<select2 :options="payroll_salary_assignment_types"
-												v-model="record.assignment_type_id"></select2>
-										</div>
+		                        <div class="row">
+									<div class="col-md-2">
+										<div class="form-group is-required">
+											<label>Código:</label>
+											<input type="text" placeholder="Código" data-toggle="tooltip" 
+												   title="Indique el código de la nueva asignación salarial (requerido)" 
+												   class="form-control input-sm" v-model="record.code">
+											<input type="hidden" v-model="record.id">
+					                    </div>
 									</div>
 									<div class="col-md-4">
 										<div class=" form-group is-required">
-											<label>Tipo de Cargo</label>
-											<select2 :options="payroll_position_types"
-												v-model="record.position_type_id"></select2>
+											<label>Nombre:</label>
+											<input type="text" placeholder="Nombre de la asignación" 
+															data-toggle="tooltip"
+															title="Indique un nombre asociado a la asignación"
+															class="form-control input-sm"
+															v-model="record.name">
 										</div>
 									</div>
-									<div class="col-md-4">
-										<div class=" form-group is-required">
-											<label>Periodicidad</label>
-											<select2 :options="periodicities"
-												v-model="record.periodicity_id"></select2>
+									<div class="col-md-2">
+										<div class=" form-group">
+											<label>¿Activa?</label>
+											<div class="col-12" data-toggle="tooltip" 
+												 title="¿La asignación se encuentra activa actualmente?">
+												<input type="checkbox" class="form-control bootstrap-switch" 
+												   data-toggle="tooltip" name="active" 
+												   title="Indique si la asignación esta activa"
+												   data-on-label="SI" data-off-label="NO" 
+												   v-model="record.active" value="true">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class=" form-group">
+											<label>¿Incide sobre SB.?</label>
+											<div class="col-12" data-toggle="tooltip" 
+												 title="¿Incide sobre el sueldo base?">
+												<input type="checkbox" class="form-control bootstrap-switch" 
+												   name="incidence" 
+												   data-on-label="SI" data-off-label="NO" 
+												   v-model="record.incidence" value="true">
+											</div>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="row">
-											<div class="col-md-8">
-												<div class=" form-group is-required">
-													<label>Nombre:</label>
-													<input type="text" placeholder="Nombre de la asignación"
-																	data-toggle="tooltip"
-																	class="form-control input-sm"
-																	v-model="record.name">
-													<input type="hidden" v-model="record.id">
-												</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>Descripción:</label>
+													<textarea  data-toggle="tooltip" 
+															   title="Indique alguna descripción asociada a la asignación"
+															   rows="1" 
+															   class="form-control" v-model="record.description">
+												   </textarea>
+							                    </div>
 											</div>
-											<div class="col-md-4">
-												<div class=" form-group">
-													<label>¿Activa?</label>
-													<div class="col-12">
-														<input type="checkbox" class="form-control bootstrap-switch"
-														   data-toggle="tooltip" name="active"
-														   title="Indique si la asignación esta activa"
-														   data-on-label="SI" data-off-label="NO"
-														   v-model="record.active" value="true">
-													</div>
-												</div>
-											</div>
-										</div>
+					                    </div>
+									</div>
+									<div class="col-md-6">
 										<div class="row">
 											<div class="col-md-12">
 												<strong>Tipo de Incidencia</strong>
@@ -98,9 +123,9 @@
 												<div class=" form-group">
 													<label>Valor Absoluto</label>
 													<div class="col-12">
-														<input type="radio" name="incidence_value"
-																value="Valor Neto" id="sel_neto_value"
-																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
+														<input type="radio" name="incidence_type" 
+																value="Valor Neto" id="sel_neto_value" 
+																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value" 
 																data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
@@ -109,8 +134,8 @@
 												<div class=" form-group">
 													<label>Unidad Tributaria</label>
 													<div class="col-12">
-														<input type="radio" name="incidence_value"
-																value="Unidad Tributaria" id="sel_tax_unit"
+														<input type="radio" name="incidence_type" 
+																value="Unidad Tributaria" id="sel_tax_unit" 
 																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
 																data-on-label="SI" data-off-label="NO">
 													</div>
@@ -120,192 +145,142 @@
 												<div class=" form-group">
 													<label>Porcentaje</label>
 													<div class="col-12">
-														<input type="radio" name="incidence_value"
-																value="Porcentaje" id="sel_percent"
+														<input type="radio" name="incidence_type" 
+																value="Porcentaje" id="sel_percent" 
 																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
 																data-on-label="SI" data-off-label="NO">
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-md-12">
-												<strong>Propiedades del Escalafón</strong>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="row">
-											<div class="col-md-12">
-												<div class="form-group">
-													<label>Descripción:</label>
-													<textarea  data-toggle="tooltip"
-															   title="Indique alguna descripción asociada a la asignación"
-															   rows="2"
-															   class="form-control" v-model="record.description">
-												   </textarea>
-							                    </div>
-											</div>
-					                    </div>
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<div class=" form-group is-required">
-											<label>Nombre del Escalafón</label>
-											<input type="text" placeholder="Nombre del Escalafón"
-															data-toggle="tooltip"
-															class="form-control input-sm"
-															v-model="record.salary_scale">
+											<label>Institución:</label>
+											<select2 :options="institutions"
+												v-model="record.institution_id"></select2>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Descripción:</label>
-											<textarea  data-toggle="tooltip"
-													   title="Indique alguna descripción asociada al escalafón"
-													   rows="1"
-													   class="form-control" v-model="record.salary_scale_description">
-										   </textarea>
-					                    </div>
+									<div class="col-md-4">
+										<div class=" form-group is-required">
+											<label>Tipo de Asignación</label>
+											<select2 :options="payroll_salary_assignment_types"
+												v-model="record.payroll_salary_assignment_type_id"></select2>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class=" form-group is-required">
+											<label>¿Asignar a?</label>
+											<select2 :options="payroll_assign_to" @input="getAssignableType()"
+												v-model="record.payroll_assign_to_id">
+											</select2>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class=" form-group is-required">
+											<label>Periodicidad</label>
+											<select2 :options="payroll_periodicities"
+												v-model="record.payroll_periodicity_id"></select2>
+										</div>
+									</div>
+									<div class="col-md-4"
+										v-if="viewAssignableTypes()">
+										<div class=" form-group is-required">
+											<label id="assignable_type_label"></label>
+											<label
+												v-if="record.payroll_assign_to_id == 1">
+												Tipo de Personal:
+											</label>
+											<label
+												v-if="record.payroll_assign_to_id == 2">
+												Tipo de Cargo:
+											</label>
+											<label
+												v-if="record.payroll_assign_to_id == 4">
+												Trabajador:
+											</label>
+											<label
+												v-if="record.payroll_assign_to_id == 5">
+												Tabulador:
+											</label>
+											<select2 :options="assignable_types"
+												v-model="record.assignable_id"></select2>
+										</div>
 									</div>
 								</div>
-								<div class="row" v-show="this.ladders.length > 0">
+								<div class="modal-table"
+									v-show="((this.record.payroll_salary_scale_id > 0) &&
+										(this.payroll_salary_scale.payroll_scales.length > 0))">
 									<table class="table table-hover table-striped table-responsive  table-assignment">
 										<thead>
-											<tr class="text-center">
-												<th>{{ record.salary_scale}}:</th>
-												<th v-for="(field,index) in ladders">
-													{{field.name}}
-												</th>
-											</tr>
+											<th :colspan="1 + payroll_salary_scale.payroll_scales.length">
+												<strong>{{ payroll_salary_scale.name }}</strong>
+											</th>
 										</thead>
 										<tbody>
-											<tr class="selected-row text-center">
-												<th>
-													{{ record.incidence_value }}:</th>
-												<td v-for="(field,index) in ladders">
-													{{ field.value}}
+											<tr class="text-center">
+												<th>Código:</th>
+												<td v-for="(field,index) in payroll_salary_scale.payroll_scales">
+													{{field.code}}
 												</td>
 											</tr>
-											<tr class="config-row text-center">
-												<th>Acción:</th>
-												<td v-for="(field,index) in ladders">
-													<div class="d-inline-flex">
-														<button @click="editScale(index,$event)"
-								                				class="btn btn-warning btn-xs btn-icon btn-action"
-								                				title="Modificar registro" data-toggle="tooltip" type="button">
-								                			<i class="fa fa-edit"></i>
-								                		</button>
-								                		<button @click="removeScale(index,$event)"
-																class="btn btn-danger btn-xs btn-icon btn-action"
-																title="Eliminar registro" data-toggle="tooltip"
-																type="button">
-															<i class="fa fa-trash-o"></i>
-														</button>
+											<tr class="text-center">
+												<th>Nombre:</th>
+												<td v-for="(field,index) in payroll_salary_scale.payroll_scales">
+													{{ field.name}}
+												</td>
+											</tr>
+											<tr class="text-center">
+												<th>Incidencia :</th>
+												<td class="td-with-border"
+													v-for="(field,index) in payroll_salary_scale.payroll_scales">
+													<div>
+														<input type="number" class="form-control input-sm" data-toggle="tooltip" min="0" step=".01" :id="'payroll_scale_incidence_value_'+field.id" onfocus="this.select()">
 													</div>
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<strong>Nueva Escala</strong>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group is-required">
-													<label>Código:</label>
-													<input type="text" placeholder="Código de la Escala"
-															data-toggle="tooltip"
-															class="form-control input-sm"
-															v-model="scale.code">
-							                    </div>
-											</div>
-											<div class="col-md-6">
-												<div class=" form-group is-required">
-													<label>Valor de Incidencia</label>
-													<input type="number" placeholder="Valor de Incidencia"
-																	min="0" step=".01"
-																	data-toggle="tooltip"
-																	class="form-control input-sm"
-																	v-model="scale.value">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-12">
-												<div class=" form-group is-required">
-													<label>Nombre:</label>
-													<input type="text" placeholder="Nombre de la Escala"
-															data-toggle="tooltip"
-															class="form-control input-sm"
-															v-model="scale.name">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="row">
-											<div class="col-md-12">
-												<div class="form-group">
-													<label>Descripción:</label>
-													<textarea  data-toggle="tooltip"
-															   title="Indique alguna descripción asociada a la escala"
-															   class="form-control input-sm"
-															   rows="1"
-															   v-model="scale.description">
-												   </textarea>
-							                    </div>
-											</div>
-											<div class="col-md-12" style="margin-bottom:0px; margin-top: auto;">
-												<button type="button" @click="addScale($event)"class="btn btn-sm btn-primary btn-custom float-right"
-														title="Agregar registro a la lista"
-														data-toggle="tooltip">
-													<i class="fa fa-plus-circle"></i>
-													Agregar
+							</div>
+	                    	<div class="tab-pane" id="view" role="tabpanel">
+	                    		<div v-if="payroll_salary_scale.payroll_scales.length > 0">
+		                    		<div class="row">
+		                    			<div class="col-4 offset-md-8">
+											<div class="float-right">
+												<button type="button" @click="exportRecord('payroll/salary-assignments/export')"
+													class="btn btn-sm btn-warning btn-import" 
+														title="Presione para exportar la información."
+														data-toggle="tooltip" v-if="this.record.id">
+													<i class="fa fa-download"></i>
+													Exportar
 												</button>
 											</div>
-										</div>
-									</div>
-								</div>
-	                    	</div>
-
-	                    	<div class="tab-pane" id="view" role="tabpanel">
-	                    		<div v-if="this.ladders.length > 0">
-		                    		<div class="row">
-		                    			<div class="col-md-12">
-											<button type="button" class="btn btn-sm btn-success btn-custom float-right"
-													title="Exportar tabla en formato xls"
-													data-toggle="tooltip">
-												<i class="fa fa-file-excel-o"></i>
-												Exportar
-											</button>
 										</div>
 		                    		</div>
 		                    		<div class="row">
 										<table class="table table-hover table-striped table-responsive  table-assignment">
 											<thead>
 												<tr>
-													<th :colspan="1 + ladders.length"><strong>{{ record.name }}</strong></th>
+													<th :colspan="1 + payroll_salary_scale.payroll_scales.length">
+														{{ record.name }}
+													</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr class="text-center">
-													<th>{{ record.salary_scale}}</th>
-													<th v-for="(field,index) in ladders">
+													<th>{{ payroll_salary_scale.name}}</th>
+													<td v-for="(field,index) in payroll_salary_scale.payroll_scales">
 														{{field.name}}
-													</th>
+													</td>
 												</tr>
-												<tr class="selected-row text-center">
+												<tr class="text-center">
 													<th>
-														{{ record.incidence_value }}</th>
-													<td v-for="(field,index) in ladders">
-														{{ field.value}}
+														{{ record.incidence_type }}</th>
+													<td v-for="(field,index) in payroll_salary_scale.payroll_scales">
+														
 													</td>
 												</tr>
 											</tbody>
@@ -321,8 +296,12 @@
 								</div>
 	                    	</div>
 	                    </div>
-
-						<div class="modal-table">
+	                    <div class="modal-footer">
+	                        <div class="form-group">
+	                            <modal-form-buttons :saveRoute="'payroll/salary-assignments'"></modal-form-buttons>
+	                        </div>
+	                    </div>
+						<div class="modal-body modal-table">
 		                	<hr>
 		                	<v-client-table :columns="columns" :data="records" :options="table_options">
 		                		<div slot="id" slot-scope="props" class="text-center">
@@ -341,19 +320,6 @@
 		                	</v-client-table>
 		                </div>
 					</div>
-
-					<div class="modal-footer">
-
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
-	                			data-dismiss="modal">
-	                		Cerrar
-	                	</button>
-	                	<button type="button" @click="createRecord('payroll/salary-assignments')"
-	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
-	                		Guardar
-		                </button>
-
-		            </div>
 				</div>
 			</div>
 		</div>
@@ -361,7 +327,6 @@
 </template>
 
 <style>
-
 	.table-assignment .form-control {
 		border-radius:.25rem !important;
 		padding: .375rem .1rem;
@@ -377,9 +342,6 @@
 	.table-assignment {
 		margin: 0 auto !important;
 	}
-	.modal {
-		overflow: auto !important;
-	}
 </style>
 
 <script>
@@ -389,17 +351,27 @@
 				record: {
 					id: '',
 					name: '',
-					value: '',
-					active: true,
-					incidence: '',
 					description:'',
-					salary_scale: '',
-					salary_scale_description: '',
-					position_type_id: '',
-					incidence_value: '',
-					assignment_type_id: '',
+					active: '',
+					incidence: '',
+					incidence_type: '',
+
+					assignable_id: '',
+					assignable_type: '',
+
+					payroll_assign_to_id: '',
+					payroll_salary_scale_id: '',
+					
 					periodicity_id: '',
-					ladder_id: '',
+					institution_id: '',
+					
+				},
+				payroll_salary_scale: {
+					id:'',
+					name: '',
+					description: '',
+					active: '',
+					payroll_scales: [],
 				},
 
 				scale: {
@@ -409,46 +381,64 @@
 					description: '',
 					value: '',
 				},
+
 				editIndex: null,
 				errors: [],
 				records: [],
-				columns: ['name', 'assignment_type_id', 'periodicity_id', 'incidence_value', 'id'],
+				columns: ['name', 'payroll_salary_assignment_type_id', 'payroll_periodicity_id', 'incidence_type', 'id'],
 
-				ladders: [],
-				payroll_position_types: [],
+				institutions: [],
+				payroll_salary_scales: [],
 				payroll_salary_assignment_types: [],
+				assignable_types: [],
 
-				periodicities: [
+				payroll_periodicities: [
 					{"id":"","text":"Seleccione..."},
 					{"id":1,"text":"Mensual"},
 					{"id":2,"text":"Bimensual"},
 					{"id":3,"text":"Trimestral"},
 					{"id":4,"text":"Cuatrimestral"},
 					{"id":5,"text":"Semestral"},
-					{"id":6,"text":"Anual"}],
+					{"id":6,"text":"Anual"}
+				],
+				payroll_assign_to: [
+					{"id": '', "text": "Seleccione..."},
+					{"id": 1,  "text": "Tipo de Personal"},
+					{"id": 2,  "text": "Tipo de Cargo"},
+					{"id": 3,  "text": "Todos"},
+					{"id": 4,  "text": "Trabajador"},
+					{"id": 5,  "text": "Tabulador"},
+				],
 			}
 		},
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
-				'assignment_type_id': 'Tipo de Asignación',
-				'periodicity_id': 'Periodicidad',
-				'incidence_value': 'Tipo de Incidencia',
+				'payroll_salary_assignment_type_id': 'Tipo de Asignación',
+				'payroll_periodicity_id': 'Periodicidad',
+				'incidence_type': 'Tipo de Incidencia',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['name', 'assignment_type_id', 'periodicity_id', 'incidence_value'];
-			this.table_options.filterable = ['name', 'assignment_type_id', 'periodicity_id', 'incidence_value'];
+			this.table_options.sortable = ['name', 'payroll_salary_assignment_type_id', 'payroll_periodicity_id', 'incidence_type'];
+			this.table_options.filterable = ['name', 'payroll_salary_assignment_type_id', 'payroll_periodicity_id', 'incidence_type'];
+			this.table_options.columnsClasses = {
+				'name': 'col-xs-2',
+				'payroll_salary_assignment_type_id': 'col-xs-4',
+				'payroll_periodicity_id': 'col-xs-2',
+				'incidence_type': 'col-xs-2',
+				'id': 'col-xs-2',
+			}
 		},
 		mounted() {
 			const vm = this;
 			this.switchHandler('active');
 			this.switchHandler('incidence');
-			this.switchHandler('incidence_value');
+			this.switchHandler('incidence_type');
 
 
 			$("#add_assignment").on('show.bs.modal', function() {
-				vm.getPayrollPositionTypes();
 				vm.getPayrollSalaryAssignmentTypes();
+				vm.getInstitutions();
 			});
 		},
 		methods: {
@@ -456,18 +446,27 @@
 				this.record = {
 					id: '',
 					name: '',
-					value: '',
+					description:'',
 					active: '',
 					incidence: '',
-					description: '',
-					salary_scale: '',
-					salary_scale_description: '',
-					position_type_id: '',
-					incidence_value: '',
-					assignment_type_id: '',
+					incidence_type: '',
+
+					assignable_id: '',
+					assignable_type: '',
+
+					payroll_assign_to_id: '',
+					payroll_salary_scale_id: '',
+					
 					periodicity_id: '',
-					ladder_id: '',
-				}
+					institution_id: ''
+				};
+				this.payroll_salary_scale = {
+					id:'',
+					name: '',
+					description: '',
+					active: '',
+					payroll_scales: [],
+				};
 				this.resetScale();
 				this.errors = [];
 			},
@@ -475,6 +474,8 @@
 				this.scale = {
 					id: '',
 					name: '',
+					code: '',
+					description: '',
 					value: '',
 				};
 			},
@@ -491,11 +492,11 @@
 					name: '',
 					value: '',
 				};
-				if(vm.editIndex == null)
-					vm.ladders.push(field);
-				else if(vm.editIndex >= 0 ){
-					vm.ladders.splice(vm.editIndex, 1);
-					vm.ladders.push(field);
+				if(vm.editIndex == null)					
+					vm.payroll_salary_scale.payroll_scales.push(field);
+				else if(vm.editIndex >= 0 ){				
+					vm.payroll_salary_scale.payroll_scales.splice(vm.editIndex, 1);
+					vm.payroll_salary_scale.payroll_scales.push(field);
 					vm.editIndex = null;
 				}
 				event.preventDefault();
@@ -503,22 +504,76 @@
 			editScale(index,event){
 				const vm = this;
 				vm.editIndex = index;
-				vm.scale = vm.ladders[index];
+				vm.scale = vm.payroll_salary_scale.payroll_scales[index];
 				event.preventDefault();
 			},
 			removeScale(index,event) {
 				const vm = this;
-				vm.ladders.splice(index, 1);
+				vm.payroll_salary_scale.payroll_scales.splice(index, 1);
 				vm.editIndex = null;
 				event.preventDefault();
 			},
 			createRecord(url) {
 				const vm = this;
-				var field = {
-					record: vm.record,
-					salary_scale: vm.ladders,
-				};
-				console.log(field);
+				console.log(vm.record);
+			},
+			exportRecord(url) {
+				const vm = this;
+				axios.get('/' + url + '/' + vm.record.id).then(response => {
+					vm.showMessage('custom', null, null, null, 'Registro exportado exitosamente');
+				}).catch(error => {
+					vm.errors = [];
+
+					if (typeof(error.response) !="undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								vm.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
+				});
+			},
+			getAssignableType() {
+				const vm = this;
+				var url = '';
+				vm.assignable_types = [];
+				var element = document.getElementById('assignable_type_label');
+
+				if (vm.record.payroll_assign_to_id > 0) {
+					if (vm.record.payroll_assign_to_id == 1) {
+						url = 'get-staff-types';
+
+					} else if (vm.record.payroll_assign_to_id == 2) {
+						url = 'get-position-types';
+					} else if (vm.record.payroll_assign_to_id == 4) {
+						url = 'get-staffs';
+					} else if (vm.record.payroll_assign_to_id == 5) {
+						url = 'get-salary-tabulators';
+					} else if (vm.record.payroll_assign_to_id == 6) {
+						url = 'get-salary-scales';
+						return;
+					}
+					if (element && vm.record.payroll_assign_to_id != 3) {
+						element = vm.payroll_assign_to[vm.record.payroll_assign_to_id].text;
+						axios.get('/payroll/' + url).then(response => {
+							vm.assignable_types = response.data;
+						});
+					}
+				}
+			},
+			loadSalaryScale() {
+				const vm = this;
+				if(vm.record.payroll_salary_scale_id > 0) {
+					var id = vm.record.payroll_salary_scale_id;
+					axios.get('/payroll/salary-scales/info/' + id).then(response => {
+						vm.payroll_salary_scale = response.data.record;
+					});
+				}
+
+			},
+			viewAssignableTypes() {
+				const vm = this;
+				return ((vm.record.payroll_assign_to_id != '' ) && (vm.record.payroll_assign_to_id != '3'))?true:false;
 			}
 		},
 	};
