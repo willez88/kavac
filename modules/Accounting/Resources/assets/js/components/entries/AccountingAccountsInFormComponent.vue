@@ -249,7 +249,7 @@
                 }
 
                 if (this.recordsAccounting.length < 1) {
-                    errors.push('No es permitido guardar asientos contables vacios');
+                    errors.push('No está permitido registrar asientos contables vacíos');
                     res = true;
                 }
                 if (this.data.totDebit != this.data.totAssets) {

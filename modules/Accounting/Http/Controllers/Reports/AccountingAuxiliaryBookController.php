@@ -26,7 +26,8 @@ use Auth;
  * Clase que gestiona el reporte de libro auxiliar
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
 class AccountingAuxiliaryBookController extends Controller
@@ -82,12 +83,14 @@ class AccountingAuxiliaryBookController extends Controller
         }])->find($account_id);
 
         $convertions = [];
-
         /*
          * Se recorre y evalua la relacion en las conversiones necesarias a realizar
          */
         foreach ($account['entryAccount'] as $entryAccount) {
-            if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
+            if ($entryAccount['entries'] && !array_key_exists(
+                $entryAccount['entries']['currency']['id'],
+                $convertions
+            )) {
                 $convertions = $this->calculateExchangeRates(
                     $convertions,
                     $entryAccount['entries'],
@@ -100,7 +103,9 @@ class AccountingAuxiliaryBookController extends Controller
                                 'result'=>false,
                                 'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
                                             .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                            ', verificar tipos de cambio configurados.'
+                                            ', verificar tipos de cambio configurados. <br>'.
+                                            'Click aqui: <a href="/settings" style="color: #2BA3F7;">
+                                            TIPOS DE CAMBIO</a>'
                             ], 200);
                 }
             }
@@ -130,13 +135,13 @@ class AccountingAuxiliaryBookController extends Controller
         if (!$report) {
             AccountingReportHistory::create(
                 [
-                    'report' => 'Libro Auxiliar',
-                    'url' => $url,
+                    'report'      => 'Libro Auxiliar',
+                    'url'         => $url,
                     'currency_id' => $currency->id,
                 ]
             );
         } else {
-            $report->url = $url;
+            $report->url         = $url;
             $report->currency_id = $currency->id;
             $report->save();
         }
@@ -155,6 +160,14 @@ class AccountingAuxiliaryBookController extends Controller
         $account_id = explode('/', $report->url)[2];
         $date  = explode('/', $report->url)[3];
 
+        $initMonth = (int)explode('-', $date)[1];
+        $initYear = (int)explode('-', $date)[0];
+
+        if ($initMonth < 10) {
+            $initMonth = '0'.$initMonth;
+        }
+        $date = $initYear.'-'.$initMonth;
+
         $currency = $report->currency;
 
         /**
@@ -162,7 +175,6 @@ class AccountingAuxiliaryBookController extends Controller
          * @var string
          */
         $initDate = $date.'-01';
-
         /**
          * [$day ultimo dia correspondiente al mes]
          * @var date
@@ -183,9 +195,8 @@ class AccountingAuxiliaryBookController extends Controller
             if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                 $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
             }
-        }])->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
-            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-        })->find($account_id);
+        }])->find($account_id);
+        // dd($record);
 
         $convertions = [];
 
@@ -195,45 +206,47 @@ class AccountingAuxiliaryBookController extends Controller
         $acc = [
                     'id'           => $record['id'],
                     'denomination' => $record['denomination'],
-                    'code' => $record->getCodeAttribute(),
+                    'code'         => $record->getCodeAttribute(),
                     'entryAccount' => [],
                 ];
         foreach ($record['entryAccount'] as $entryAccount) {
-            $r = [
-                    'debit'      => '0',
-                    'assets'     => '0',
-                    'entries'    => [
-                        'reference'  => $entryAccount['entries']['reference'],
-                        'concept'    => $entryAccount['entries']['concept'],
-                        'created_at' => $entryAccount['entries']['created_at']->format('d/m/Y'),
-                    ],
-                ];
+            if ($entryAccount['entries']) {
+                $r = [
+                        'debit'      => '0',
+                        'assets'     => '0',
+                        'entries'    => [
+                            'reference'  => $entryAccount['entries']['reference'],
+                            'concept'    => $entryAccount['entries']['concept'],
+                            'created_at' => $entryAccount['entries']['created_at']->format('d/m/Y'),
+                        ],
+                    ];
 
-            if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
-                $convertions = $this->calculateExchangeRates(
-                    $convertions,
-                    $entryAccount['entries'],
-                    $currency['id']
-                );
+                if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
+                    $convertions = $this->calculateExchangeRates(
+                        $convertions,
+                        $entryAccount['entries'],
+                        $currency['id']
+                    );
+                }
+
+                $r['debit'] = ($entryAccount['debit'] != 0)?
+                                $this->calculateOperation(
+                                    $convertions,
+                                    $entryAccount['entries']['currency']['id'],
+                                    $entryAccount['debit'],
+                                    ($entryAccount['entries']['currency']['id'] != $currency['id'])??true
+                                ):0;
+
+                $r['assets'] = ($entryAccount['assets'] != 0)?
+                                $this->calculateOperation(
+                                    $convertions,
+                                    $entryAccount['entries']['currency']['id'],
+                                    $entryAccount['assets'],
+                                    ($entryAccount['entries']['currency']['id'] != $currency['id'])??true
+                                ):0;
+
+                array_push($acc['entryAccount'], $r);
             }
-
-            $r['debit'] = ($entryAccount['debit'] != 0)?
-                            $this->calculateOperation(
-                                $convertions,
-                                $entryAccount['entries']['currency']['id'],
-                                $entryAccount['debit'],
-                                ($entryAccount['entries']['currency']['id'] != $currency['id'])??true
-                            ):0;
-
-            $r['assets'] = ($entryAccount['assets'] != 0)?
-                            $this->calculateOperation(
-                                $convertions,
-                                $entryAccount['entries']['currency']['id'],
-                                $entryAccount['assets'],
-                                ($entryAccount['entries']['currency']['id'] != $currency['id'])??true
-                            ):0;
-
-            array_push($acc['entryAccount'], $r);
         }
 
         /**
@@ -351,7 +364,7 @@ class AccountingAuxiliaryBookController extends Controller
         return $convertions;
     }
 
-    public function get_checkBreak()
+    public function getCheckBreak()
     {
         return $this->PageBreakTrigger;
     }

@@ -32,9 +32,9 @@
 						<div class="col-12">
 							@if(!is_null($refCode))
 								<accounting-setting-code :ref_code="{{ $refCode }}"
-													route_list="{{ url('accounting.settings.index') }}" />
+													route_list="{{ route('accounting.settings.index') }}" />
 							@else
-								<accounting-setting-code route_list="{{ url('accounting.settings.index') }}" />
+								<accounting-setting-code route_list="{{ route('accounting.settings.index') }}" />
 							@endif
 						</div>
 					</div>

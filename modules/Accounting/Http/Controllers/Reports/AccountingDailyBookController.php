@@ -22,7 +22,8 @@ use DateTime;
  * Clase que gestiona el reporte de libro diario
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *            LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingDailyBookController extends Controller
 {
@@ -35,7 +36,7 @@ class AccountingDailyBookController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.dailybook', ['only' => ['index', 'pdf']]);
+        $this->middleware('permission:accounting.report.dailybook', ['only' => ['index', 'pdf', 'pdfVue']]);
     }
     
 
@@ -48,9 +49,6 @@ class AccountingDailyBookController extends Controller
      */
     public function pdfVue($initDate, $endDate, Currency $currency)
     {
-        $initDateDMY = explode('-', $initDate)[2].'-'.explode('-', $initDate)[1].'-'.explode('-', $initDate)[0];
-        $endDateDMY  = explode('-', $endDate)[2].'-'.explode('-', $endDate)[1].'-'.explode('-', $endDate)[0];
-        
         /**
          * [$entries información del asiento contable]
          * @var AccountingEntry
@@ -58,7 +56,7 @@ class AccountingDailyBookController extends Controller
         $entries = AccountingEntry::with(
             'accountingAccounts.account.accountConverters.budgetAccount'
         )->where('approved', true)
-        ->whereBetween("from_date", [$initDateDMY, $endDateDMY])
+        ->whereBetween("from_date", [$initDate, $endDate])
         ->orderBy('from_date', 'ASC')->get();
 
         $convertions = [];
@@ -70,7 +68,9 @@ class AccountingDailyBookController extends Controller
                     'message'=>'Imposible expresar asiento contable '.$entry['reference']
                                 .' de '.$entry['currency']['symbol']
                                 .' a '.$currency['symbol'].'('.$currency['name'].')'.
-                                ', verificar tipos de cambio configurados.'
+                                ', verificar tipos de cambio configurados. <br>'.
+                                'Click aqui: <a href="/settings" style="color: #2BA3F7;">
+                                TIPOS DE CAMBIO</a>'
                 ], 200);
             }
         }
@@ -79,7 +79,7 @@ class AccountingDailyBookController extends Controller
          * [$url link para consultar ese regporte]
          * @var string
          */
-        $url = 'dailyBook/pdf/'.$initDateDMY.'/'.$endDateDMY;
+        $url = 'dailyBook/pdf/'.$initDate.'/'.$endDate;
 
         /**
          * [$report almacena el registro del reporte del dia si existe]
@@ -119,8 +119,8 @@ class AccountingDailyBookController extends Controller
     public function pdf($report_id)
     {
         $report = AccountingReportHistory::with('currency')->find($report_id);
-        $initDateDMY = explode('/', $report->url)[2];
-        $endDateDMY  = explode('/', $report->url)[3];
+        $initDate = explode('/', $report->url)[2];
+        $endDate  = explode('/', $report->url)[3];
 
         $currency = $report->currency;
 
@@ -131,7 +131,7 @@ class AccountingDailyBookController extends Controller
         $entries = AccountingEntry::with(
             'accountingAccounts.account.accountConverters.budgetAccount'
         )->where('approved', true)
-        ->whereBetween("from_date", [$initDateDMY, $endDateDMY])
+        ->whereBetween("from_date", [$initDate, $endDate])
         ->orderBy('from_date', 'ASC')->get();
 
         $convertions = [];
@@ -267,7 +267,7 @@ class AccountingDailyBookController extends Controller
         return $convertions;
     }
 
-    public function get_checkBreak()
+    public function getCheckBreak()
     {
         return $this->PageBreakTrigger;
     }

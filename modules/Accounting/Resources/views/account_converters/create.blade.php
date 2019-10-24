@@ -40,7 +40,9 @@
 							</div>
 						</div>
 					@else
-						<accounting-conversion-form :accounting_list="{{ $accountingList }}" :budget_list="{{ $budgetList }}"/>
+						<accounting-conversion-form :accounting_list="{{ $accountingList }}" 
+													:budget_list="{{ $budgetList }}"
+													route_list="{{ route('accounting.converter.index') }}" />
 					@endif
 
 				</div>

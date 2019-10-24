@@ -37,6 +37,7 @@
 									<div class="form-group col-5 is-required">
 										<label class="control-label">Acrónimo</label>
 										<input type="text"
+												:onkeyup="record.acronym=onlyNumbers(record.acronym,'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')"
 												class="form-control"
 												maxlength="4"
 												title="Ingrese el acrónimo"
@@ -141,7 +142,7 @@ export default{
 					errors.push('El nombre debe ser único.');
 				}
 				if (!this.record.acronym) {
-					errors.push('El campo del acronimo es obligatorio.');
+					errors.push('El campo del acrónimo es obligatorio.');
 					break;
 				}
 				else if (this.record.acronym == this.records[i].acronym) {

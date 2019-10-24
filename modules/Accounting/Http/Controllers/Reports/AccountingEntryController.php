@@ -69,7 +69,7 @@ class AccountingEntryController extends Controller
         ]);
     }
 
-    public function get_checkBreak()
+    public function getCheckBreak()
     {
         return $this->PageBreakTrigger;
     }

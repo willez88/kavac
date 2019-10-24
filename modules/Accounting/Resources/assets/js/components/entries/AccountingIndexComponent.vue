@@ -232,7 +232,7 @@
 					'data':this.data,
 				}).then(response=>{
 					if (response.data.records.length == 0) {
-						this.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parametros de busqueda dados.', 'primary');
+						this.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
 					}
 					this.records = response.data.records;
 					EventBus.$emit('list:entries',{

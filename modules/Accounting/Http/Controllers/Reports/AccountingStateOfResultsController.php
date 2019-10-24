@@ -24,7 +24,8 @@ use DateTime;
  * Clase que gestiona el reporte de estado de resultados
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                    LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
 class AccountingStateOfResultsController extends Controller
@@ -37,7 +38,7 @@ class AccountingStateOfResultsController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.stateofresults', ['only' => ['pdf']]);
+        $this->middleware('permission:accounting.report.stateofresults', ['only' => ['pdf','pdfVue']]);
     }
 
     /**
@@ -65,6 +66,10 @@ class AccountingStateOfResultsController extends Controller
     public function getCurrencyId()
     {
         return $this->currency->id;
+    }
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 
     /**
@@ -106,8 +111,10 @@ class AccountingStateOfResultsController extends Controller
          */
         $query = AccountingAccount::with('entryAccount.entries.currency')
             ->with(['entryAccount.entries' => function ($query) use ($endDate, $date) {
-                if ($query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+                if ($query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                    ->where('approved', true)) {
+                    $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                    ->where('approved', true);
                 }
             }])
             ->whereHas('entryAccount.entries', function ($query) use ($endDate, $date) {
@@ -142,30 +149,25 @@ class AccountingStateOfResultsController extends Controller
                                     'result'=>false,
                                     'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados.'
+                                                ', verificar tipos de cambio configurados. <br>'.
+                                                'Click aqui: <a href="/settings" style="color: #2BA3F7;">
+                                                TIPOS DE CAMBIO</a>'
                                 ], 200);
                     }
                 }
             }
         }
+        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
+        $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
 
-        return response()->json(['result'=>true], 200);
-    }
+        /** @var Object String en el que se formatea la fecha final de busqueda, (YYYY-mm-dd HH:mm:ss) */
+        $endDate = $date.'-'.$day;
 
-    /**
-     * [pdf genera el reporte en pdf de estado de resultados]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  string   $date     [fecha]
-     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
-     * @param  Currency $currency [moneda en que se expresara el reporte]
-     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
-     */
-    public function pdf($date, $level, Currency $currency, $zero = false)
-    {
         /**
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
-        $url = 'stateOfResults/pdf/'.$date.'/'.$level.'/'.$zero;
+        $zero = ($zero)?'true':'';
+        $url = 'stateOfResults/pdf/'.$endDate.'/'.$level.'/'.$zero;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -188,18 +190,34 @@ class AccountingStateOfResultsController extends Controller
                 [
                     'report' => 'Estado de Resultados',
                     'url' => $url,
+                    'currency_id' => $currency->id,
                 ]
             );
         } else {
             $report->url = $url;
+            $report->currency_id = $currency->id;
             $report->save();
         }
-        
-        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
-        $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
+        return response()->json(['result'=>true, 'id'=>$report->id], 200);
+    }
 
-        /** @var Object String en el que se formatea la fecha final de busqueda, (YYYY-mm-dd HH:mm:ss) */
-        $endDate = $date.'-'.$day;
+    /**
+     * [pdf genera el reporte en pdf de estado de resultados]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  string   $date     [fecha]
+     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
+     * @param  Currency $currency [moneda en que se expresara el reporte]
+     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
+     */
+    public function pdf($report)
+    {
+        $report = AccountingReportHistory::with('currency')->find($report);
+        $endDate = explode('/', $report->url)[2];
+        $level = explode('/', $report->url)[3];
+        $zero = explode('/', $report->url)[4];
+        $this->setCurrency($report->currency);
+        $date = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1];
+        // dd($endDate);
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
         $level_1 = 'entryAccount.entries';
@@ -250,15 +268,16 @@ class AccountingStateOfResultsController extends Controller
             ->orderBy('specific', 'ASC')
             ->orderBy('subspecific', 'ASC')->get();
 
-        $this->setCurrency($currency);
-
         /**
          * [$records con los registros de las cuentas]
          * @var array
          */
-        $records = $this->FormatDataInArray($records, $date, $endDate);
-        
-        /** @var Object configuración general de la apliación */
+        $records = $this->formatDataInArray($records, $date, $endDate);
+        // dd($records);
+        /**
+         * [$setting configuración general de la apliación]
+         * @var Setting
+         */
         $setting = Setting::all()->first();
 
         /**
@@ -270,28 +289,33 @@ class AccountingStateOfResultsController extends Controller
         /*
          *  Definicion de las caracteristicas generales de la página pdf
          */
+        $lastOfThePreviousMonth = date('d', (mktime(0, 0, 0, explode('-', $date)[1], 1, explode('-', $date)[0])-1));
+        $last = ($lastOfThePreviousMonth.'/'.(explode('-', $date)[1]-1).'/'.explode('-', $date)[0]);
+
         $institution = Institution::find(1);
+
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de estado de resultados');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.state_of_results', true, [
             'pdf' => $pdf,
             'records' => $records,
-            'currency' => $currency,
+            'currency' => $this->getCurrency(),
             'level' => $level,
             'zero' => $zero,
             'endDate' => $endDate,
+            'monthBefore'=>$last,
         ]);
     }
     
     /**
-     * [FormatDataInArray sintetiza la información de una cuenta en un array con sus respectivas subcuentas]
+     * [formatDataInArray sintetiza la información de una cuenta en un array con sus respectivas subcuentas]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Modules\Accounting\Models\AccountingAccount $records registro de una cuenta o subcuenta patrimonial
      * @param  int $level [contador que indica el nivel de profundidad de la recursividad
      *                       para obtener subcuentas de una cuenta]
      */
-    public function FormatDataInArray(records, $initD, $endD, $level = 1)
+    public function formatDataInArray($records, $initD, $endD, $level = 1)
     {
         /**
          * [$parent información pertinente de la consultar]
@@ -323,19 +347,20 @@ class AccountingStateOfResultsController extends Controller
                     'balance' => $this->calculateValuesInEntries(
                         $account,
                         explode('-', $endD)[0].'-'.explode('-', $endD)[1].'-01',
-                        $endD
+                        $endD,
+                        true
                     ),
                     // acumulado de los meses anteriores
                     'beginningBalance' => $this->calculateValuesInEntries(
                         $account,
                         explode('-', $initD)[0].'-01-01',
-                        explode('-', $endD)[0].'-'.(explode('-', $endD)[1]-1).'-'.$lastOfThePreviousMonth,
+                        explode('-', $endD)[0].'-'.(explode('-', $endD)[1]-1).'-'.$lastOfThePreviousMonth
                     ),
                     'level' => $level,
                     'children' => [],
                     'show_children' => false,
                 ]);
-                $parent[$pos]['children'] = $this->FormatDataInArray($account->children, $initD, $endD, $level+1);
+                $parent[$pos]['children'] = $this->formatDataInArray($account->children, $initD, $endD, $level+1);
 
                 /**
                 * El atributo 'show_children' se establece que si la cuenta tiene hijos estos se mostraran por omisión
@@ -357,14 +382,32 @@ class AccountingStateOfResultsController extends Controller
      * @param Object $records registro de una cuenta o subcuenta patrimonial
      * @return Float resultado de realizar la operaciones de suma y resta
      */
-    public function calculateValuesInEntries($account, $initD, $endD, $cal = false)
+    public function calculateValuesInEntries($account, $initD, $endD, $chi = false)
     {
-        if (explode('-', $endD)[1]<10) {
-            $endD = explode('-', $endD)[0].'-0'.explode('-', $endD)[1].'-'.explode('-', $endD)[2];
+        $initDay = (int)explode('-', $initD)[2];
+        $initMonth = (int)explode('-', $initD)[1];
+        $initYear = (int)explode('-', $initD)[0];
+
+        $endDay = (int)explode('-', $endD)[2];
+        $endMonth = (int)explode('-', $endD)[1];
+        $endYear = (int)explode('-', $endD)[0];
+
+        if ($initDay < 10) {
+            $initDay = '0'.$initDay;
         }
-        if (explode('-', $initD)[1]<10) {
-            $initD = explode('-', $initD)[0].'-0'.explode('-', $initD)[1].'-'.explode('-', $initD)[2];
+        if ($initMonth < 10) {
+            $initMonth = '0'.$initMonth;
         }
+        if ($endDay < 10) {
+            $endDay = '0'.$endDay;
+        }
+        if ($endMonth < 10) {
+            $endMonth = '0'.$endMonth;
+        }
+
+        $initD = $initYear.'-'.$initMonth.'-'.$initDay;
+        $endD = $endYear.'-'.$endMonth.'-'.$endDay;
+
         /**
          * [$debit saldo total en el debe de la cuenta]
          * @var float
@@ -391,7 +434,7 @@ class AccountingStateOfResultsController extends Controller
                         $this->getConvertions(),
                         $entryAccount['entries'],
                         $this->getCurrencyId()
-                            ));
+                    ));
                 }
 
                 $debit += ($entryAccount['debit'] != 0)?
@@ -417,10 +460,12 @@ class AccountingStateOfResultsController extends Controller
                 /**
                 * llamada recursiva y acumulación
                 */
-                $balanceChildren += $this->calculateValuesInEntries($child, $initD, $endD);
+                $balanceChildren += $this->calculateValuesInEntries($child, $initD, $endD, $chi);
             }
         }
-        
+        if ($chi) {
+            dd($balanceChildren);
+        }
         return (($debit - $assets) + $balanceChildren);
     }
 
@@ -436,7 +481,7 @@ class AccountingStateOfResultsController extends Controller
      */
     public function calculateOperation($convertions, $currency_id, $value, $equalCurrency)
     {
-        if (!$equalCurrency) {
+        if ($currency_id && (!$equalCurrency || !array_key_exists($currency_id, $convertions))) {
             return $value;
         }
         if ($currency_id && array_key_exists($currency_id, $convertions) && $convertions[$currency_id]) {
@@ -488,10 +533,11 @@ class AccountingStateOfResultsController extends Controller
                                             ];
             }
         }
+
         return $convertions;
     }
 
-    public function get_checkBreak()
+    public function getCheckBreak()
     {
         return $this->PageBreakTrigger;
     }

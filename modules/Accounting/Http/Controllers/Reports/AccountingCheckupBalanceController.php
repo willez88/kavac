@@ -41,7 +41,7 @@ class AccountingCheckupBalanceController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:accounting.report.checkupbalance', [
-            'only' => ['getAccAccount', 'CalculateBeginningBalance', 'pdf','pdfVue']
+            'only' => ['getAccAccount', 'calculateBeginningBalance', 'pdf','pdfVue']
         ]);
     }
 
@@ -175,14 +175,14 @@ class AccountingCheckupBalanceController extends Controller
                         $this->getConvertions(),
                         $entryAccount['entries'],
                         $this->getCurrencyId()
-                            ));
+                    ));
                 }
                 $res += $this->calculateOperation(
                     $this->getConvertions(),
                     $entryAccount['entries']['currency']['id'],
                     (floatval($entryAccount['debit']) - floatval($entryAccount['assets'])),
                     ($entryAccount['entries']['currency']['id'] == $this->getCurrencyId())??false
-                            );
+                );
             }
         }
 
@@ -196,12 +196,12 @@ class AccountingCheckupBalanceController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $initDate variable con la fecha inicial que recibe formato 'YYYY-mm'
      * @param String $endDate variable con la fecha inicial que recibe formato 'YYYY-mm'
-     * @param Boolean $returnArray bandera con la que se indica si viene de la funcion CalculateBeginningBalance
+     * @param Boolean $returnArray bandera con la que se indica si viene de la funcion calculateBeginningBalance
      *                                      y limita las operaciones que esta requiere
      * @param Array $beginningBalance lista con los saldos uniciales de las cuentas que sean distintos de 0
      * @param Boolean $allRecords Bandera que indica si se consultaran las cuentas con 0 operaciones
      */
-    public function getAccAccount($initDate, $endDate, $returnArray, $beginningBalance = [], $all)
+    public function getAccAccount($initDate, $endDate, $returnArray, $all, $beginningBalance = [])
     {
         $beginningBalance = (!$beginningBalance)?[]:$beginningBalance;
 
@@ -315,12 +315,12 @@ class AccountingCheckupBalanceController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param String $date variable con la fecha inicial que recibe formato 'YYYY-mm'
      */
-    public function CalculateBeginningBalance($initDate, $endDate, $all)
+    public function calculateBeginningBalance($initDate, $endDate, $all)
     {
         /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
         $entries = AccountingEntry::where('approved', true)->orderBy('from_date', 'ASC')->first();
        
-        $accounts = $this->getAccAccount($initDate, $endDate, true, null, $all);
+        $accounts = $this->getAccAccount($initDate, $endDate, true, $all, null);
         /**
         * Ciclo en el que se calcula y almancena los saldos iniciales de cada cuenta
         */
@@ -405,7 +405,7 @@ class AccountingCheckupBalanceController extends Controller
                         $this->getConvertions(),
                         $entryAccount['entries'],
                         $currency['id']
-                            );
+                    );
                     $this->setConvertions($co);
                 }
                 if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())
@@ -414,7 +414,9 @@ class AccountingCheckupBalanceController extends Controller
                                 'result'=>false,
                                 'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
                                             .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                            ', verificar tipos de cambio configurados.'
+                                            ', verificar tipos de cambio configurados. <br>'.
+                                            'Click aqui: <a href="/settings" style="color: #2BA3F7;">
+                                            TIPOS DE CAMBIO</a>'
                             ], 200);
                 }
             }
@@ -438,7 +440,8 @@ class AccountingCheckupBalanceController extends Controller
                                                                         $currentDate.' 00:00:00',
                                                                         $currentDate.' 23:59:59'
                                                                     ])
-                                        ->where('report', 'Balance de Comporbación'.(($all)?' - todas las cuentas':' - solo cuentas con operaciones'))->first();
+                                        ->where('report', 'Balance de Comporbación'.(($all)?' - todas las cuentas':
+                                                                ' - solo cuentas con operaciones'))->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -446,7 +449,8 @@ class AccountingCheckupBalanceController extends Controller
         if (!$report) {
             AccountingReportHistory::create(
                 [
-                    'report' => 'Balance de Comporbación'.(($all)?' - todas las cuentas':' - solo cuentas con operaciones'),
+                    'report' => 'Balance de Comporbación'.(($all)?' - todas las cuentas':
+                                ' - solo cuentas con operaciones'),
                     'url' => $url,
                     'currency_id' => $currency['id'],
                 ]
@@ -491,7 +495,7 @@ class AccountingCheckupBalanceController extends Controller
         $endDate = $this->getEndDate();
 
         /** Cálcula el saldo inicial que tendra la cuenta*/
-        $this->CalculateBeginningBalance($initDate, $endDate, $all);
+        $this->calculateBeginningBalance($initDate, $endDate, $all);
 
         /**
          * [$beginningBalance información del saldo inicial (id => balance) de las cuentas patrimoniales]
@@ -503,7 +507,7 @@ class AccountingCheckupBalanceController extends Controller
          * [$accountRecords asociativo con la información base]
          * @var array
          */
-        $accountRecords = $this->getAccAccount($initDate, $endDate, false, $beginningBalance, $all);
+        $accountRecords = $this->getAccAccount($initDate, $endDate, false, $all, $beginningBalance);
 
 
         $initDate = new DateTime($initDate);
@@ -608,7 +612,7 @@ class AccountingCheckupBalanceController extends Controller
         return $convertions;
     }
 
-    public function get_checkBreak()
+    public function getCheckBreak()
     {
         return $this->PageBreakTrigger;
     }

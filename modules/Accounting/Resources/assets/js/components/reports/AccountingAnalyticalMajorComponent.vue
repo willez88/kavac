@@ -35,12 +35,12 @@
 					<br>
 					<div class="is-required">
 						<label><strong>Cuenta Inicial</strong></label>
-						<select2 :options="OptionsAcc" v-model="InitAcc"></select2>
+						<select2 :options="OptionsAcc" v-model="InitAcc" :disabled="disabledSelect"></select2>
 					</div>
 
 					<br>
 					<label><strong>Cuenta Final</strong></label>
-					<select2 :options="OptionsAcc" v-model="EndAcc"></select2>
+					<select2 :options="OptionsAcc" v-model="EndAcc" :disabled="disabledSelect"></select2>
 				</div>
 				<div class="col-3">
 					<br>
@@ -48,6 +48,14 @@
 						<label class="control-label">Expresar en</label>
 						<select2 :options="currencies" v-model="currency"></select2>
 					</div>
+					<br>
+					<label for="" class="control-label">Seleccionar todas</label>
+					<br>
+					<input type="checkbox"
+								name="sel_account_type"
+								id="sel_all_acc"
+								data-on-label="SI" data-off-label="NO"
+								class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
 				</div>
 			</div>
 		</div>
@@ -83,7 +91,7 @@
 				EndAcc:0,
 				dates:null,
 				OptionsAcc:[{id:0,text:'Seleccione...'}],
-				disabledSelect:true,
+				disabledSelect:false,
 				currency:'',
 			}
 		},
@@ -91,7 +99,27 @@
 			this.CalculateOptionsYears(this.year_old);
 		},
 		mounted(){
-			this.getAccountingAccounts();
+			const vm = this;
+			vm.getAccountingAccounts();
+			/**
+			 * Evento para determinar los datos a requerir segun la busqueda seleccionada
+			 */
+			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
+				if(e.target.id === "sel_all_acc"){
+					if ($('#sel_all_acc').prop('checked')) {
+						if (vm.OptionsAcc.length > 1) {
+							vm.disabledSelect = true;
+							vm.InitAcc = vm.OptionsAcc[1].id;
+							vm.EndAcc = vm.OptionsAcc[vm.OptionsAcc.length-1].id;
+						}
+					}else{
+						vm.disabledSelect = false;
+						vm.InitAcc = 0;
+						vm.EndAcc = 0;
+					}
+				}
+			});
+
 		},
 		methods:{
 

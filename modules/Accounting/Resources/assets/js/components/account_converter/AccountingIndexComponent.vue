@@ -5,7 +5,7 @@
 
 			<div class="row">
 				<div class="col-2">
-					<label for="sel_budget_acc" class="control-label">Por Presupuestos</label>
+					<label for="sel_budget_acc" class="control-label">Por código presupuestal</label>
 					<br>
 						<input type="radio"
 								name="sel_account_type"
@@ -14,7 +14,7 @@
 								class="form-control bootstrap-switch sel_pry_acc">
 				</div>
 				<div class="col-2">
-					<label for="sel_account_type" class="control-label">Por Patrimonial</label>
+					<label for="sel_account_type" class="control-label">Por código patrimonial</label>
 					<br>
 						<input type="radio"
 								name="sel_account_type"

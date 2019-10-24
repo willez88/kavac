@@ -24,7 +24,8 @@ use DateTime;
  * Clase que gestiona el reporte de balance general
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *            LICENCIA DE SOFTWARE CENDITEL</a>
  */
 
 class AccountingBalanceSheetController extends Controller
@@ -146,7 +147,9 @@ class AccountingBalanceSheetController extends Controller
                                     'result'=>false,
                                     'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados.'
+                                                ', verificar tipos de cambio configurados. <br>'.
+                                                'Click aqui: <a href="/settings" style="color: #2BA3F7;">
+                                                TIPOS DE CAMBIO</a>'
                                 ], 200);
                     }
                 }
@@ -279,7 +282,7 @@ class AccountingBalanceSheetController extends Controller
          * [$records con los registros de las cuentas]
          * @var array
          */
-        $records = $this->FormatDataInArray($records);
+        $records = $this->formatDataInArray($records);
 
         /**
          * [$setting configuración general de la apliación]
@@ -311,13 +314,13 @@ class AccountingBalanceSheetController extends Controller
     }
 
     /**
-     * [FormatDataInArray sintetiza la información de una cuenta en un array con sus respectivas subcuentas]
+     * [formatDataInArray sintetiza la información de una cuenta en un array con sus respectivas subcuentas]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Modules\Accounting\Models\AccountingAccount $records registro de una cuenta o subcuenta patrimonial
      * @param  int $level [contador que indica el nivel de profundidad de la recursividad
      *                       para obtener subcuentas de una cuenta]
      */
-    public function FormatDataInArray($records, $level = 1)
+    public function formatDataInArray($records, $level = 1)
     {
         /**
          * [$parent información pertinente de la consultar]
@@ -348,7 +351,7 @@ class AccountingBalanceSheetController extends Controller
                     'children' => [],
                     'show_children' => false,
                 ]);
-                $parent[$pos]['children'] = $this->FormatDataInArray($account->children, $level+1);
+                $parent[$pos]['children'] = $this->formatDataInArray($account->children, $level+1);
 
                 /**
                 * El atributo 'show_children' se establece que si la cuenta tiene hijos estos se mostraran por omisión
@@ -397,7 +400,7 @@ class AccountingBalanceSheetController extends Controller
                         $this->getConvertions(),
                         $entryAccount['entries'],
                         $this->getCurrencyId()
-                            ));
+                    ));
                 }
 
                 $debit += ($entryAccount['debit'] != 0)?
@@ -497,7 +500,7 @@ class AccountingBalanceSheetController extends Controller
         return $convertions;
     }
 
-    public function get_checkBreak()
+    public function getCheckBreak()
     {
         return $this->PageBreakTrigger;
     }

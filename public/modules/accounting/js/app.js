@@ -2393,15 +2393,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2419,9 +2410,10 @@ __webpack_require__.r(__webpack_exports__);
       'accounting_account': 'DENOMINACIÓN',
       'id': 'ACCIÓN'
     };
-    this.table_options.sortable = [];
-    this.table_options.filterable = ['budget_account', 'accounting_account'];
+    this.table_options.sortable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
+    this.table_options.filterable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
     EventBus.$on('list:conversions', function (data) {
+      console.log(data);
       _this.records = data;
     });
   }
@@ -3509,7 +3501,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.recordsAccounting.length < 1) {
-        errors.push('No es permitido guardar asientos contables vacios');
+        errors.push('No está permitido registrar asientos contables vacíos');
         res = true;
       }
 
@@ -4211,7 +4203,7 @@ __webpack_require__.r(__webpack_exports__);
         'data': this.data
       }).then(function (response) {
         if (response.data.records.length == 0) {
-          _this.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parametros de busqueda dados.', 'primary');
+          _this.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
         }
 
         _this.records = response.data.records;
@@ -4487,6 +4479,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
@@ -4510,7 +4510,7 @@ __webpack_require__.r(__webpack_exports__);
         id: 0,
         text: 'Seleccione...'
       }],
-      disabledSelect: true,
+      disabledSelect: false,
       currency: ''
     };
   },
@@ -4518,7 +4518,27 @@ __webpack_require__.r(__webpack_exports__);
     this.CalculateOptionsYears(this.year_old);
   },
   mounted: function mounted() {
-    this.getAccountingAccounts();
+    var vm = this;
+    vm.getAccountingAccounts();
+    /**
+     * Evento para determinar los datos a requerir segun la busqueda seleccionada
+     */
+
+    $('.sel_pry_acc').on('switchChange.bootstrapSwitch', function (e) {
+      if (e.target.id === "sel_all_acc") {
+        if ($('#sel_all_acc').prop('checked')) {
+          if (vm.OptionsAcc.length > 1) {
+            vm.disabledSelect = true;
+            vm.InitAcc = vm.OptionsAcc[1].id;
+            vm.EndAcc = vm.OptionsAcc[vm.OptionsAcc.length - 1].id;
+          }
+        } else {
+          vm.disabledSelect = false;
+          vm.InitAcc = 0;
+          vm.EndAcc = 0;
+        }
+      }
+    });
   },
   methods: {
     /**
@@ -5042,11 +5062,11 @@ __webpack_require__.r(__webpack_exports__);
       var errors = [];
 
       if (!this.dateIni) {
-        errors.push("La fecha inicial es obligartio.");
+        errors.push("La fecha inicial es obligatorio.");
       }
 
       if (!this.dateEnd) {
-        errors.push("La fecha final es obligartio.");
+        errors.push("La fecha final es obligatorio.");
       }
 
       if (!this.currency) {
@@ -5345,6 +5365,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5407,7 +5428,7 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         if (!this.record.acronym) {
-          errors.push('El campo del acronimo es obligatorio.');
+          errors.push('El campo del acrónimo es obligatorio.');
           break;
         } else if (this.record.acronym == this.records[i].acronym) {
           if (jumpOne) {
@@ -5906,7 +5927,7 @@ var staticRenderFns = [
       _c(
         "label",
         { staticClass: "control-label", attrs: { for: "sel_budget_acc" } },
-        [_vm._v("Por Presupuestos")]
+        [_vm._v("Por código presupuestal")]
       ),
       _vm._v(" "),
       _c("br"),
@@ -5931,7 +5952,7 @@ var staticRenderFns = [
       _c(
         "label",
         { staticClass: "control-label", attrs: { for: "sel_account_type" } },
-        [_vm._v("Por Patrimonial")]
+        [_vm._v("Por código patrimonial")]
       ),
       _vm._v(" "),
       _c("br"),
@@ -6010,19 +6031,7 @@ var render = function() {
             fn: function(props) {
               return _c("div", { staticClass: "text-center" }, [
                 _vm._v(
-                  "\n            " +
-                    _vm._s(
-                      props.row.budget_account.group +
-                        "." +
-                        props.row.budget_account.item +
-                        "." +
-                        props.row.budget_account.generic +
-                        "." +
-                        props.row.budget_account.specific +
-                        "." +
-                        props.row.budget_account.subspecific
-                    ) +
-                    "\n        "
+                  "\n            " + _vm._s(props.row.codeBudget) + "\n        "
                 )
               ])
             }
@@ -6033,7 +6042,7 @@ var render = function() {
               return _c("div", { staticClass: "text-center" }, [
                 _vm._v(
                   "\n            " +
-                    _vm._s(props.row.budget_account.denomination) +
+                    _vm._s(props.row.budget_account) +
                     "\n        "
                 )
               ])
@@ -6045,19 +6054,7 @@ var render = function() {
               return _c("div", { staticClass: "text-center" }, [
                 _vm._v(
                   "\n            " +
-                    _vm._s(
-                      props.row.accounting_account.group +
-                        "." +
-                        props.row.accounting_account.subgroup +
-                        "." +
-                        props.row.accounting_account.item +
-                        "." +
-                        props.row.accounting_account.generic +
-                        "." +
-                        props.row.accounting_account.specific +
-                        "." +
-                        props.row.accounting_account.subspecific
-                    ) +
+                    _vm._s(props.row.codeAccounting) +
                     "\n        "
                 )
               ])
@@ -6069,7 +6066,7 @@ var render = function() {
               return _c("div", { staticClass: "text-center" }, [
                 _vm._v(
                   "\n            " +
-                    _vm._s(props.row.accounting_account.denomination) +
+                    _vm._s(props.row.accounting_account) +
                     "\n        "
                 )
               ])
@@ -8606,7 +8603,10 @@ var render = function() {
                   _vm._m(2),
                   _vm._v(" "),
                   _c("select2", {
-                    attrs: { options: _vm.OptionsAcc },
+                    attrs: {
+                      options: _vm.OptionsAcc,
+                      disabled: _vm.disabledSelect
+                    },
                     model: {
                       value: _vm.InitAcc,
                       callback: function($$v) {
@@ -8624,7 +8624,10 @@ var render = function() {
               _vm._m(3),
               _vm._v(" "),
               _c("select2", {
-                attrs: { options: _vm.OptionsAcc },
+                attrs: {
+                  options: _vm.OptionsAcc,
+                  disabled: _vm.disabledSelect
+                },
                 model: {
                   value: _vm.EndAcc,
                   callback: function($$v) {
@@ -8659,7 +8662,27 @@ var render = function() {
                 })
               ],
               1
-            )
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+              _vm._v("Seleccionar todas")
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              staticClass:
+                "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+              attrs: {
+                type: "checkbox",
+                name: "sel_account_type",
+                id: "sel_all_acc",
+                "data-on-label": "SI",
+                "data-off-label": "NO"
+              }
+            })
           ])
         ])
       ],
@@ -9769,6 +9792,10 @@ var render = function() {
                               staticClass: "form-control",
                               attrs: {
                                 type: "text",
+                                onkeyup: (_vm.record.acronym = _vm.onlyNumbers(
+                                  _vm.record.acronym,
+                                  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                )),
                                 maxlength: "4",
                                 title: "Ingrese el acrónimo",
                                 "data-toggle": "tooltip"

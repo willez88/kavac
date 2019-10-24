@@ -3,25 +3,16 @@
     <v-client-table :columns="columns" :data="records" :options="table_options">
 
         <div slot="codeBudget" slot-scope="props" class="text-center">
-            {{ props.row.budget_account.group+'.'+
-                props.row.budget_account.item+'.'+
-                props.row.budget_account.generic+'.'+
-                props.row.budget_account.specific+'.'+
-                props.row.budget_account.subspecific }}
+            {{ props.row.codeBudget }}
         </div>
         <div slot="budget_account" slot-scope="props" class="text-center">
-            {{ props.row.budget_account.denomination }}
+            {{ props.row.budget_account }}
         </div>
         <div slot="codeAccounting" slot-scope="props" class="text-center">
-            {{ props.row.accounting_account.group+'.'+
-                props.row.accounting_account.subgroup+'.'+
-                props.row.accounting_account.item+'.'+
-                props.row.accounting_account.generic+'.'+
-                props.row.accounting_account.specific+'.'+
-                props.row.accounting_account.subspecific }}
+            {{ props.row.codeAccounting }}
         </div>
         <div slot="accounting_account" slot-scope="props" class="text-center">
-            {{ props.row.accounting_account.denomination }}
+            {{ props.row.accounting_account }}
         </div>
         <div slot="id" slot-scope="props" class="text-center">
             <button class="btn btn-warning btn-xs btn-icon btn-action"
@@ -56,11 +47,12 @@
                 'accounting_account': 'DENOMINACIÓN',
                 'id': 'ACCIÓN'
             };
-            this.table_options.sortable = [];
-            this.table_options.filterable = ['budget_account', 'accounting_account'];
+            this.table_options.sortable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
+            this.table_options.filterable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
 
 
             EventBus.$on('list:conversions',(data)=>{
+                console.log(data);
                 this.records = data;
             });
         }

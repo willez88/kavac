@@ -43,7 +43,7 @@
 						<accounting-conversion-form :accounting_list="{{ $accountingAccounts }}" 
 													:budget_list="{{ $budgetAccounts }}" 
 													:account_to_edit="{{ $account }}"
-													route_list="{{ url('/converter') }}" />
+													route_list="{{ route('accounting.converter.index') }}" />
 					@endif
 
 				</div>

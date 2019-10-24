@@ -63,10 +63,10 @@
 
 				var errors = [];
 				if (!this.dateIni) {
-					errors.push("La fecha inicial es obligartio.");
+					errors.push("La fecha inicial es obligatorio.");
 				}
 				if (!this.dateEnd) {
-					errors.push("La fecha final es obligartio.");
+					errors.push("La fecha final es obligatorio.");
 				}
 				if (!this.currency) {
 					errors.push("El tipo de moneda es obligatorio.");

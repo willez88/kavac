@@ -224,7 +224,9 @@ class AccountingAnalyticalMajorController extends Controller
                                     'result'=>false,
                                     'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados.'
+                                                ', verificar tipos de cambio configurados. <br>'.
+                                'Click aqui: <a href="/settings" style="color: #2BA3F7;">
+                                TIPOS DE CAMBIO</a>'
                                 ], 200);
                     }
                 }
@@ -467,7 +469,7 @@ class AccountingAnalyticalMajorController extends Controller
         return $convertions;
     }
 
-    public function get_checkBreak()
+    public function getCheckBreak()
     {
         return $this->PageBreakTrigger;
     }
