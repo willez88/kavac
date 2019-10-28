@@ -21,14 +21,16 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Libro diario</h6>
+					<h6 class="card-title">
+						Libro diario
+					</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-report-daily-book :currencies="{{ $currencies }}" />
+					<accounting-report-daily-book id="helpReportDailyBook" :currencies="{{ $currencies }}" ></accounting-report-daily-book>
 				</div>
 			</div>
 		</div>
@@ -56,7 +58,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-report-auxiliary-book :currencies="{{ $currencies }}" :records="{{ $records }}" year_old="{{ $yearOld }}" />
+					<accounting-report-auxiliary-book :currencies="{{ $currencies }}" :records="{{ $records_auxiliar }}" year_old="{{ $yearOld }}" />
 				</div>
 			</div>
 		</div>

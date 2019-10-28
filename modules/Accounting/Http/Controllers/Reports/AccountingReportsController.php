@@ -39,9 +39,18 @@ class AccountingReportsController extends Controller
 
         /** @var array arreglo que almacenara la lista de cuentas patrimoniales*/
         $records = [];
+        $records_auxiliar = [];
         array_push($records, [
                 'id' => '0',
                 'text' =>  "Seleccione...",
+            ]);
+        array_push($records_auxiliar, [
+                'id' => '0',
+                'text' =>  "Seleccione...",
+            ]);
+        array_push($records_auxiliar, [
+                'id' => '',
+                'text' =>  "Todas",
             ]);
         /**
          * se realiza la busqueda de manera ordenada en base al codigo
@@ -59,14 +68,26 @@ class AccountingReportsController extends Controller
                 'id' => $account->id,
                 'text' =>   "{$account->getCodeAttribute()} - {$account->denomination}",
             ]);
+            if ($account->group > 0 && $account->subgroup > 0 && $account->item > 0) {
+                array_push($records_auxiliar, [
+                    'id' => $account->id,
+                    'text' =>   "{$account->getCodeAttribute()} - {$account->denomination}",
+                ]);
+            }
         }
         /**
          * se convierte array a JSON
          */
+        $records_auxiliar = json_encode($records_auxiliar);
         $records = json_encode($records);
         $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
         
-        return view('accounting::reports.accounting_books', compact('yearOld', 'records', 'currencies'));
+        return view('accounting::reports.accounting_books', compact(
+            'yearOld',
+            'records',
+            'records_auxiliar',
+            'currencies'
+        ));
     }
     /**
      * Display a listing of the resource.

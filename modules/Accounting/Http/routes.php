@@ -191,7 +191,7 @@ Route::group(['middleware' => 'web',
     );
 
     Route::get(
-        'report/auxiliaryBook/pdfVue/{account_id}/{date}/{currency}',
+        'report/auxiliaryBook/pdfVue/{date}/{currency}/{account_id?}',
         'Reports\AccountingAuxiliaryBookController@pdfVue'
     );
 

@@ -149,9 +149,7 @@ class AccountingStateOfResultsController extends Controller
                                     'result'=>false,
                                     'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados. <br>'.
-                                                'Click aqui: <a href="/settings" style="color: #2BA3F7;">
-                                                TIPOS DE CAMBIO</a>'
+                                                ', verificar tipos de cambio configurados. '
                                 ], 200);
                     }
                 }
@@ -186,7 +184,7 @@ class AccountingStateOfResultsController extends Controller
         * se crea o actualiza el registro del reporte
         */
         if (!$report) {
-            AccountingReportHistory::create(
+            $report = AccountingReportHistory::create(
                 [
                     'report' => 'Estado de Resultados',
                     'url' => $url,
@@ -217,7 +215,6 @@ class AccountingStateOfResultsController extends Controller
         $zero = explode('/', $report->url)[4];
         $this->setCurrency($report->currency);
         $date = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1];
-        // dd($endDate);
 
         /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
         $level_1 = 'entryAccount.entries';
@@ -273,7 +270,7 @@ class AccountingStateOfResultsController extends Controller
          * @var array
          */
         $records = $this->formatDataInArray($records, $date, $endDate);
-        // dd($records);
+
         /**
          * [$setting configuración general de la apliación]
          * @var Setting
@@ -347,8 +344,7 @@ class AccountingStateOfResultsController extends Controller
                     'balance' => $this->calculateValuesInEntries(
                         $account,
                         explode('-', $endD)[0].'-'.explode('-', $endD)[1].'-01',
-                        $endD,
-                        true
+                        $endD
                     ),
                     // acumulado de los meses anteriores
                     'beginningBalance' => $this->calculateValuesInEntries(
@@ -382,7 +378,7 @@ class AccountingStateOfResultsController extends Controller
      * @param Object $records registro de una cuenta o subcuenta patrimonial
      * @return Float resultado de realizar la operaciones de suma y resta
      */
-    public function calculateValuesInEntries($account, $initD, $endD, $chi = false)
+    public function calculateValuesInEntries($account, $initD, $endD)
     {
         $initDay = (int)explode('-', $initD)[2];
         $initMonth = (int)explode('-', $initD)[1];
@@ -460,11 +456,8 @@ class AccountingStateOfResultsController extends Controller
                 /**
                 * llamada recursiva y acumulación
                 */
-                $balanceChildren += $this->calculateValuesInEntries($child, $initD, $endD, $chi);
+                $balanceChildren += $this->calculateValuesInEntries($child, $initD, $endD);
             }
-        }
-        if ($chi) {
-            dd($balanceChildren);
         }
         return (($debit - $assets) + $balanceChildren);
     }

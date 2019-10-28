@@ -224,9 +224,7 @@ class AccountingAnalyticalMajorController extends Controller
                                     'result'=>false,
                                     'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados. <br>'.
-                                'Click aqui: <a href="/settings" style="color: #2BA3F7;">
-                                TIPOS DE CAMBIO</a>'
+                                                ', verificar tipos de cambio configurados. '
                                 ], 200);
                     }
                 }
@@ -329,13 +327,17 @@ class AccountingAnalyticalMajorController extends Controller
                         'entryAccount' => [],
                     ];
             foreach ($record['entryAccount'] as $entryAccount) {
+                $from_date = explode('-', $entryAccount['entries']['from_date'])[2].'/'.
+                             explode('-', $entryAccount['entries']['from_date'])[1].'/'.
+                             explode('-', $entryAccount['entries']['from_date'])[0];
+
                 $r = [
                         'debit'      => '0',
                         'assets'     => '0',
                         'entries'    => [
                             'reference'  => $entryAccount['entries']['reference'],
                             'concept'    => $entryAccount['entries']['concept'],
-                            'created_at' => $entryAccount['entries']['created_at']->format('d/m/Y'),
+                            'created_at' => $from_date,
                         ],
                     ];
 

@@ -347,7 +347,6 @@ Vue.mixin({
         } else {
           url = url.split('pdf')[0];
           url += 'pdf/' + response.data.id;
-          console.log(url);
           window.open(url, type);
         }
       });
@@ -4679,6 +4678,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     records: {
@@ -4702,11 +4710,30 @@ __webpack_require__.r(__webpack_exports__);
     return {
       account_id: 0,
       url: '/accounting/report/auxiliaryBook/pdf/',
-      currency: ''
+      currency: '',
+      allAccounts: false
     };
   },
   created: function created() {
     this.CalculateOptionsYears(this.year_old);
+  },
+  mounted: function mounted() {
+    var vm = this;
+    /**
+     * Evento para determinar los datos a requerir segun la busqueda seleccionada
+     */
+
+    $('.sel_pry_acc').on('switchChange.bootstrapSwitch', function (e) {
+      if (e.target.id === "sel_all_acc_auxiliary") {
+        if ($('#sel_all_acc_auxiliary').prop('checked')) {
+          vm.account_id = '';
+          vm.allAccounts = true;
+        } else {
+          vm.account_id = 0;
+          vm.allAccounts = false;
+        }
+      }
+    });
   },
   methods: {
     /**
@@ -4718,7 +4745,7 @@ __webpack_require__.r(__webpack_exports__);
     getUrlReport: function getUrlReport() {
       var errors = [];
 
-      if (this.account_id <= 0) {
+      if (!this.allAccounts && this.account_id <= 0) {
         errors.push("Debe seleccionar una cuenta.");
       }
 
@@ -4727,12 +4754,12 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (errors.length > 0) {
-        this.$refs.errorsAnalyticalMajor.showAlertMessages(errors);
+        this.$refs.errorAuxiliaryBook.showAlertMessages(errors);
         return;
       }
 
       this.$refs.errorAuxiliaryBook.reset();
-      return this.url + this.account_id + '/' + (this.year_init + '-' + this.month_init) + '/' + this.currency;
+      return this.url + (this.year_init + '-' + this.month_init) + '/' + this.currency + '/' + this.account_id;
     }
   }
 });
@@ -4998,6 +5025,21 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8827,7 +8869,7 @@ var render = function() {
               _c("br"),
               _vm._v(" "),
               _c("select2", {
-                attrs: { options: _vm.records },
+                attrs: { options: _vm.records, disabled: _vm.allAccounts },
                 model: {
                   value: _vm.account_id,
                   callback: function($$v) {
@@ -8864,7 +8906,9 @@ var render = function() {
               ],
               1
             )
-          ])
+          ]),
+          _vm._v(" "),
+          _vm._m(2)
         ])
       ],
       1
@@ -8904,6 +8948,31 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "control-label" }, [
       _c("strong", [_vm._v("Cuentas Patrimoniales")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3" }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Seleccionar todas")
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", {
+        staticClass:
+          "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+        attrs: {
+          type: "checkbox",
+          name: "sel_account_type",
+          id: "sel_all_acc_auxiliary",
+          "data-on-label": "SI",
+          "data-off-label": "NO"
+        }
+      })
     ])
   }
 ]
@@ -9386,7 +9455,11 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "col-2" })
-        ])
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm._m(0)
       ],
       1
     ),
@@ -9412,7 +9485,44 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("span", { staticClass: "form-text" }, [
+          _c("strong", [_vm._v("Expresar en:")]),
+          _vm._v(
+            " campo para seleccionar el tipo de moneda al que se convertiran los saldos.\n                        "
+          ),
+          _c("br"),
+          _vm._v(" "),
+          _c("strong", [_vm._v("Tipos de cambios monetarios: ")]),
+          _vm._v(" "),
+          _c("ul", [
+            _c("li", [
+              _vm._v(
+                "Deben ser creados manualmente desde \n                                    "
+              ),
+              _c("strong", [
+                _c(
+                  "a",
+                  {
+                    staticStyle: { color: "#2BA3F7" },
+                    attrs: { href: "/settings" }
+                  },
+                  [_vm._v("configuración > Tipos de cambio")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

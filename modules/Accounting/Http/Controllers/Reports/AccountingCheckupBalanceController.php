@@ -414,9 +414,7 @@ class AccountingCheckupBalanceController extends Controller
                                 'result'=>false,
                                 'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
                                             .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                            ', verificar tipos de cambio configurados. <br>'.
-                                            'Click aqui: <a href="/settings" style="color: #2BA3F7;">
-                                            TIPOS DE CAMBIO</a>'
+                                            ', verificar tipos de cambio configurados. '
                             ], 200);
                 }
             }
@@ -447,7 +445,7 @@ class AccountingCheckupBalanceController extends Controller
         * se crea o actualiza el registro del reporte
         */
         if (!$report) {
-            AccountingReportHistory::create(
+            $report = AccountingReportHistory::create(
                 [
                     'report' => 'Balance de Comporbación'.(($all)?' - todas las cuentas':
                                 ' - solo cuentas con operaciones'),

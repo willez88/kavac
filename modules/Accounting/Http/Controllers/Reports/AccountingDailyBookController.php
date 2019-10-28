@@ -68,9 +68,7 @@ class AccountingDailyBookController extends Controller
                     'message'=>'Imposible expresar asiento contable '.$entry['reference']
                                 .' de '.$entry['currency']['symbol']
                                 .' a '.$currency['symbol'].'('.$currency['name'].')'.
-                                ', verificar tipos de cambio configurados. <br>'.
-                                'Click aqui: <a href="/settings" style="color: #2BA3F7;">
-                                TIPOS DE CAMBIO</a>'
+                                ', verificar tipos de cambio configurados. '
                 ], 200);
             }
         }
