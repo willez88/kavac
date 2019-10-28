@@ -154,32 +154,32 @@ Route::group([
 
     /**
      * ------------------------------------------------------------
+     * Rutas para gestionar los escalafones de nómina
+     * ------------------------------------------------------------
+     */
+    Route::resource('salary-scale', 'PayrollSalaryScaleController', ['except' => ['show','create','edit']]);
+    Route::post('get-salary-scales', 'PayrollSalaryScaleController@getSalaryScales');
+    Route::get('salary-scales/info/{id}', 'PayrollSalaryScaleController@info');
+
+    /**
+     * ------------------------------------------------------------
      * Rutas para gestionar los tabuladores de nómina
      * ------------------------------------------------------------
      */
-
-    Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show']]);
+    Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show','create','edit']]);
+    Route::get('get-salary-tabulators', 'PayrollSalaryTabulatorController@getSalaryTabulators');
 
     /**
      * ------------------------------------------------------------
      * Rutas para gestionar las asignaciones de nómina
      * ------------------------------------------------------------
      */
-
-    Route::resource('salary-assignments', 'PayrollSalaryAssignmentController', ['except' => ['show']]);
+    Route::resource('salary-assignments', 'PayrollSalaryAssignmentController', ['except' => ['show','create','edit']]);
+    Route::get('salary-assignments/export/{assignment}', 'PayrollSalaryAssignmentController@export');
     Route::resource(
         'salary-assignment-types',
         'PayrollSalaryAssignmentTypeController',
         ['except' => ['show','create','edit']]
     );
     Route::get('get-salary-assignment-types', 'PayrollSalaryAssignmentTypeController@getAssignmentTypes');
-
-    /**
-     * ------------------------------------------------------------
-     * Rutas para gestionar los servicios del modulo de nómina
-     * ------------------------------------------------------------
-     */
-
-    Route::get('get-staffs', 'PayrollServiceController@getStaffs');
-    Route::get('get-instruction-degrees', 'PayrollServiceController@getInstructionDegrees');
 });

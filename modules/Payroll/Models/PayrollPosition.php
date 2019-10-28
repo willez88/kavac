@@ -70,4 +70,15 @@ class PayrollPosition extends Model implements Auditable
     {
         return $this->hasMany(PayrollEmploymentInformation::class);
     }
+    
+    /**
+     * Método que obtiene los requerimientos de las escalas asociados a un cargo
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function payrollScaleRequirements()
+    {
+        return $this->morphMany(PayrollScale::class, 'clasificable');
+    }
 }

@@ -6,21 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Traits\ModelsTrait;
 
 /**
- * @class CreatePayrollScales
+ * @class PayrollSalaryScale
  * @brief Datos de las escalas o niveles de un escalafón
  *
  * Gestiona el modelo de datos de las escalas o niveles de un escalafón
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                LICENCIA DE SOFTWARE CENDITEL
- *            </a>
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class PayrollSalaryScale extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
+    use ModelsTrait;
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -34,15 +37,17 @@ class PayrollSalaryScale extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['name', 'description', 'active'];
+    protected $fillable = [
+        'name', 'code', 'description', 'active', 'group_by_years', 'group_by_clasification', 'institution_id'
+    ];
 
     /**
      * Método que obtiene los tabuladores salariales asociados al escalafón
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrollSalaryTabulator()
+    public function payrollSalaryTabulators()
     {
         return $this->hasMany(PayrollSalaryTabulator::class);
     }
@@ -50,10 +55,10 @@ class PayrollSalaryScale extends Model implements Auditable
     /**
      * Método que obtiene las asignaciones salariales asociadas al escalafón
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrollSalaryAssignment()
+    public function payrollSalaryAssignments()
     {
         return $this->hasMany(PayrollSalaryAssignment::class);
     }
@@ -61,10 +66,10 @@ class PayrollSalaryScale extends Model implements Auditable
     /**
      * Método que obtiene las escalas del escalafón salarial
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrollScale()
+    public function payrollScales()
     {
         return $this->hasMany(PayrollScale::class);
     }

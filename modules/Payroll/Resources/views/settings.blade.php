@@ -180,11 +180,19 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
+						{{-- Escalafones Salariales --}}
+						<payroll-salary-scale>
+						</payroll-salary-scale>
+						
 						{{-- Tabuladores de Nómina --}}
 						<payroll-salary-tabulator>
 						</payroll-salary-tabulator>
 
-						{{-- Definición de Asignaciones de Nómina --}}
+						{{-- Asignaciones de Nómina --}}
+						<payroll-salary-assignment-type>
+						</payroll-salary-assignment-type>
+
+						{{-- Asignaciones de Nómina --}}
 						<payroll-salary-assignment>
 						</payroll-salary-assignment>
 					</div>
