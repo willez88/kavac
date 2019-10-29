@@ -38,6 +38,8 @@ return array(
     'Modules\\Asset\\Http\\Controllers\\AssetSubcategoryController' => $baseDir . '/Http/Controllers/AssetSubcategoryController.php',
     'Modules\\Asset\\Http\\Controllers\\AssetTypeController' => $baseDir . '/Http/Controllers/AssetTypeController.php',
     'Modules\\Asset\\Http\\Controllers\\AssetUseFunctionController' => $baseDir . '/Http/Controllers/AssetUseFunctionController.php',
+    'Modules\\Asset\\Jobs\\AssetCreateAssets' => $baseDir . '/Jobs/AssetCreateAssets.php',
+    'Modules\\Asset\\Jobs\\AssetGenerateReport' => $baseDir . '/Jobs/AssetGenerateReport.php',
     'Modules\\Asset\\Models\\Asset' => $baseDir . '/Models/Asset.php',
     'Modules\\Asset\\Models\\AssetAcquisitionType' => $baseDir . '/Models/AssetAcquisitionType.php',
     'Modules\\Asset\\Models\\AssetAsignation' => $baseDir . '/Models/AssetAsignation.php',

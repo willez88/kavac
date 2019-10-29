@@ -7,12 +7,14 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Modules\\Purchase\\Database\\Seeders\\PurchaseDatabaseSeeder' => $baseDir . '/Database/Seeders/PurchaseDatabaseSeeder.php',
+    'Modules\\Purchase\\Database\\Seeders\\PurchaseProcessesTableSeeder' => $baseDir . '/Database/Seeders/PurchaseProcessesTableSeeder.php',
     'Modules\\Purchase\\Database\\Seeders\\PurchaseRoleAndPermissionsTableSeeder' => $baseDir . '/Database/Seeders/PurchaseRoleAndPermissionsTableSeeder.php',
     'Modules\\Purchase\\Database\\Seeders\\PurchaseSupplierBranchesTableSeeder' => $baseDir . '/Database/Seeders/PurchaseSupplierBranchesTableSeeder.php',
     'Modules\\Purchase\\Database\\Seeders\\PurchaseSupplierObjectsTableSeeder' => $baseDir . '/Database/Seeders/PurchaseSupplierObjectsTableSeeder.php',
     'Modules\\Purchase\\Database\\Seeders\\PurchaseSupplierSpecialtiesTableSeeder' => $baseDir . '/Database/Seeders/PurchaseSupplierSpecialtiesTableSeeder.php',
     'Modules\\Purchase\\Database\\Seeders\\PurchaseSupplierTypesTableSeeder' => $baseDir . '/Database/Seeders/PurchaseSupplierTypesTableSeeder.php',
     'Modules\\Purchase\\Http\\Controllers\\PurchaseController' => $baseDir . '/Http/Controllers/PurchaseController.php',
+    'Modules\\Purchase\\Http\\Controllers\\PurchaseProcessController' => $baseDir . '/Http/Controllers/PurchaseProcessController.php',
     'Modules\\Purchase\\Http\\Controllers\\PurchaseRequirementController' => $baseDir . '/Http/Controllers/PurchaseRequirementController.php',
     'Modules\\Purchase\\Http\\Controllers\\PurchaseSettingController' => $baseDir . '/Http/Controllers/PurchaseSettingController.php',
     'Modules\\Purchase\\Http\\Controllers\\PurchaseSupplierBranchController' => $baseDir . '/Http/Controllers/PurchaseSupplierBranchController.php',
@@ -23,6 +25,7 @@ return array(
     'Modules\\Purchase\\Models\\City' => $baseDir . '/Models/City.php',
     'Modules\\Purchase\\Models\\Department' => $baseDir . '/Models/Department.php',
     'Modules\\Purchase\\Models\\FiscalYear' => $baseDir . '/Models/FiscalYear.php',
+    'Modules\\Purchase\\Models\\PurchaseProcess' => $baseDir . '/Models/PurchaseProcess.php',
     'Modules\\Purchase\\Models\\PurchaseRequirement' => $baseDir . '/Models/PurchaseRequirement.php',
     'Modules\\Purchase\\Models\\PurchaseRequirementItem' => $baseDir . '/Models/PurchaseRequirementItem.php',
     'Modules\\Purchase\\Models\\PurchaseSupplier' => $baseDir . '/Models/PurchaseSupplier.php',
