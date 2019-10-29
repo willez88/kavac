@@ -77,8 +77,8 @@ class AccountingAuxiliaryBookController extends Controller
          * [$query cuenta patrimonial con su relacion en asientos contables]
          * @var [Modules\Accounting\Models\AccountingEntry]
          */
-        if ($account_id == -1) {
-            $account = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
+        if (!$account_id) {
+            $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
                 if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                     $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
                 }
@@ -114,11 +114,11 @@ class AccountingAuxiliaryBookController extends Controller
                         if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
                             && $entryAccount['entries']['currency']['id'] != $currency['id']) {
                             return response()->json([
-                                                    'result'  =>false,
-                                                    'message' =>'Imposible expresar '.
-                                                    $entryAccount['entries']['currency']['symbol']
-                                                    .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                    ', verificar tipos de cambio configurados. '
+                                                    'result'  => false,
+                                                    'message' => 'Imposible expresar saldos'.
+                                                                 $entryAccount['entries']['currency']['symbol']
+                                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                                                 ', verificar tipos de cambio configurados. '
                                     ], 200);
                         }
                     }
@@ -147,10 +147,11 @@ class AccountingAuxiliaryBookController extends Controller
                     if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
                         && $entryAccount['entries']['currency']['id'] != $currency['id']) {
                         return response()->json([
-                                    'result'=>false,
-                                    'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
-                                                .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados. '
+                                    'result'  => false,
+                                    'message' => 'Imposible expresar saldos '.
+                                                 $entryAccount['entries']['currency']['symbol']
+                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                                 ', verificar tipos de cambio configurados. '
                                 ], 200);
                     }
                 }
