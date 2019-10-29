@@ -31,7 +31,8 @@
 					$roles = App\Roles\Models\Role::with('permissions')->where('slug', '<>', 'user')->get();
 					$permissions = App\Roles\Models\Permission::with('roles')->orderBy('model_prefix')->get();
 				@endphp
-				<roles-permissions :roles="{{ $roles }}" :permissions="{{ $permissions }}"></roles-permissions>
+				<roles-permissions roles-permissions-url='{!! route('get.roles.permissions') !!}'
+								   save-url='{!! route('roles.permissions.settings') !!}'></roles-permissions>
 				{{-- {!! Form::open(['route' => 'roles.permissions.settings', 'method' => 'POST']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">

@@ -356,6 +356,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         /** Rutas para la configuración de usuarios, roles y permisos */
         Route::get('settings/users', 'UserController@index')->name('access.settings');
 
+        Route::get('get-roles-permissions', 'UserController@getRolesAndPermissions')->name('get.roles.permissions');
+
         /** Ruta de configuración de permisos asociados a los distintos roles del sistema */
         Route::post('settings/roles-permissions', 'UserController@setRolesAndPermissions')
              ->name('roles.permissions.settings');

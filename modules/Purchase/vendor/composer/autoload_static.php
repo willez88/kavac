@@ -22,12 +22,14 @@ class ComposerStaticInitc6d874c8ba1b153a1e3b61cd6e3eb584
 
     public static $classMap = array (
         'Modules\\Purchase\\Database\\Seeders\\PurchaseDatabaseSeeder' => __DIR__ . '/../..' . '/Database/Seeders/PurchaseDatabaseSeeder.php',
+        'Modules\\Purchase\\Database\\Seeders\\PurchaseProcessesTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/PurchaseProcessesTableSeeder.php',
         'Modules\\Purchase\\Database\\Seeders\\PurchaseRoleAndPermissionsTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/PurchaseRoleAndPermissionsTableSeeder.php',
         'Modules\\Purchase\\Database\\Seeders\\PurchaseSupplierBranchesTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/PurchaseSupplierBranchesTableSeeder.php',
         'Modules\\Purchase\\Database\\Seeders\\PurchaseSupplierObjectsTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/PurchaseSupplierObjectsTableSeeder.php',
         'Modules\\Purchase\\Database\\Seeders\\PurchaseSupplierSpecialtiesTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/PurchaseSupplierSpecialtiesTableSeeder.php',
         'Modules\\Purchase\\Database\\Seeders\\PurchaseSupplierTypesTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/PurchaseSupplierTypesTableSeeder.php',
         'Modules\\Purchase\\Http\\Controllers\\PurchaseController' => __DIR__ . '/../..' . '/Http/Controllers/PurchaseController.php',
+        'Modules\\Purchase\\Http\\Controllers\\PurchaseProcessController' => __DIR__ . '/../..' . '/Http/Controllers/PurchaseProcessController.php',
         'Modules\\Purchase\\Http\\Controllers\\PurchaseRequirementController' => __DIR__ . '/../..' . '/Http/Controllers/PurchaseRequirementController.php',
         'Modules\\Purchase\\Http\\Controllers\\PurchaseSettingController' => __DIR__ . '/../..' . '/Http/Controllers/PurchaseSettingController.php',
         'Modules\\Purchase\\Http\\Controllers\\PurchaseSupplierBranchController' => __DIR__ . '/../..' . '/Http/Controllers/PurchaseSupplierBranchController.php',
@@ -38,6 +40,7 @@ class ComposerStaticInitc6d874c8ba1b153a1e3b61cd6e3eb584
         'Modules\\Purchase\\Models\\City' => __DIR__ . '/../..' . '/Models/City.php',
         'Modules\\Purchase\\Models\\Department' => __DIR__ . '/../..' . '/Models/Department.php',
         'Modules\\Purchase\\Models\\FiscalYear' => __DIR__ . '/../..' . '/Models/FiscalYear.php',
+        'Modules\\Purchase\\Models\\PurchaseProcess' => __DIR__ . '/../..' . '/Models/PurchaseProcess.php',
         'Modules\\Purchase\\Models\\PurchaseRequirement' => __DIR__ . '/../..' . '/Models/PurchaseRequirement.php',
         'Modules\\Purchase\\Models\\PurchaseRequirementItem' => __DIR__ . '/../..' . '/Models/PurchaseRequirementItem.php',
         'Modules\\Purchase\\Models\\PurchaseSupplier' => __DIR__ . '/../..' . '/Models/PurchaseSupplier.php',

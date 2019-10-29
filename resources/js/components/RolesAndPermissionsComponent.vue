@@ -47,7 +47,7 @@
                             </tr>
                         </thead>
                         <tbody v-for="moduleGroup in moduleGroups">
-                            <tr :id="moduleGroup">
+                            <tr>
                                 <td>&#160;</td>
                                 <td class="text-center" :colspan="roles.length">
                                     <span class="card-title text-uppercase text-module">
@@ -55,7 +55,7 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr v-for="filteredPermission in filterGroupPermissions(moduleGroup)" 
+                            <tr v-for="filteredPermission in filterGroupPermissions(moduleGroup)"
                                 v-if="searchResult(filteredPermission, moduleGroup)">
                                 <td class="text-uppercase">
                                     {{ filteredPermission.short_description || filteredPermission.name }}
@@ -78,7 +78,19 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <buttonsDisplay></buttonsDisplay>
+            <button type="button" @click="reset" class="btn btn-default btn-icon btn-round"
+                    data-toggle="tooltip" title="Borrar datos del formulario">
+                <i class="fa fa-eraser"></i>
+            </button>
+            <button type="button" @click="redirect_back(route_list)"
+                    class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
+                    title="Cancelar y regresar">
+                <i class="fa fa-ban"></i>
+            </button>
+            <button type="button" @click="createRecord('auth/settings/roles-permissions', false, false)"
+                    class="btn btn-success btn-icon btn-round" data-toggle="tooltip" title="Guardar registro">
+                <i class="fa fa-save"></i>
+            </button>
         </div>
     </div>
 </template>
@@ -104,10 +116,23 @@
                 allPermissionByRol: [],
                 search: '',
                 showGroups: [],
+                roles: [],
+                permissions: []
             }
         },
-        props: ['roles', 'permissions'],
+        props: ['rolesPermissionsUrl', 'saveUrl'],
         methods: {
+            /**
+             * Inicializa los valores del componente
+             *
+             * @method     reset
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
+            reset: function() {
+                let vm = this;
+                vm.record.roles_attach_permissions = [];
+            },
             /**
              * Método que genera un listado de módulos con sus respectivos permisos
              *
@@ -126,6 +151,17 @@
                     }
                 });
             },
+            /**
+             * Obtiene el nombre de un grupo de conjunto de permisos
+             *
+             * @method     getGroupName
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param      {string}         moduleGroup    Nombre del módulo o grupo al que pertenece un permiso
+             *
+             * @return     {string}         Nombre del grupo por el cual asociar un conjunto de permisos
+             */
             getGroupName: function(moduleGroup) {
                 return moduleGroup.substring(0, 1) === '0' ? moduleGroup.substring(1) : moduleGroup;
             },
@@ -187,33 +223,58 @@
              * @param      {object}     filteredPermission    Objeto con información del permiso a filtrar
              * @param      {string}     moduleGroup           Nombre del módulo al cual pertenece el permiso a filtrar
              *
-             * @return     {boolean}    Devuelve verdadero si el permiso se encuentra en la consulta del usuario 
+             * @return     {boolean}    Devuelve verdadero si el permiso se encuentra en la consulta del usuario
              *                          y lo muestra, de lo contrario retorna falso y lo oculta
              */
             searchResult: function(filteredPermission, moduleGroup) {
                 let vm = this;
-                let result = vm.search==='' || 
-                             filteredPermission.short_description.indexOf(vm.search) >= 0 || 
+                let result = vm.search==='' ||
+                             filteredPermission.short_description.indexOf(vm.search) >= 0 ||
                              filteredPermission.name.indexOf(vm.search) >= 0;
+
+                if (result && vm.showGroups.indexOf(moduleGroup) < 0) {
+                    vm.showGroups.push(moduleGroup);
+                }
+
                 return result;
+            },
+            /**
+             * Obtiene los roles y permisos registrados para asignarlo a los datos a mostrar
+             *
+             * @method     getRolesAndPermissions
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
+            getRolesAndPermissions: function() {
+                let vm = this;
+                vm.loading = true;
+                axios.get(vm.rolesPermissionsUrl).then(response => {
+                    if (response.data.result) {
+                        vm.roles = response.data.roles;
+                        vm.permissions = response.data.permissions;
+                        vm.roles.forEach(function(role) {
+                            role.permissions.forEach(function(perm) {
+                                vm.record.roles_attach_permissions.push(`${role.id}_${perm.id}`);
+                            });
+                        });
+                        vm.setModuleGroups();
+                    }
+                    vm.loading = false;
+                }).catch(error => {
+                    console.log(error);
+                    vm.loading = false;
+                });
             }
+        },
+        created() {
+            let vm = this;
+            vm.getRolesAndPermissions();
         },
         mounted() {
             let vm = this;
             vm.setModuleGroups();
             vm.record.roles_attach_permissions = [];
             vm.allPermissionByRol = [];
-
-            /** Establece los permisos actuales asociados a roles */
-            $(document).ready(function() {
-                vm.loading = true;
-                vm.roles.forEach(function(role) {
-                    role.permissions.forEach(function(perm) {
-                        vm.record.roles_attach_permissions.push(`${role.id}_${perm.id}`);
-                    });
-                });
-                vm.loading = false;
-            });
         }
     };
 </script>
