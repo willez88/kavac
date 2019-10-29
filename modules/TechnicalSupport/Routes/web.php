@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('technicalsupport')->group(function() {
+/*Route::prefix('technicalsupport')->group(function() {
     Route::get('/', 'TechnicalSupportController@index');
-});
+});*/
