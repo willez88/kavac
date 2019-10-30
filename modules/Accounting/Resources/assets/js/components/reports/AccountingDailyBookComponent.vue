@@ -5,17 +5,17 @@
 			<accounting-show-errors ref="errorsDialyBook" />
 
 			<div class="row">
-				<div class="col-3">
+				<div class="col-3" id="helpDailyBookInitDate">
 					<label class="control-label">Fecha inicial</label>
 					<input type="date" class="form-control is-required"
 						v-model="dateIni">
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpDailyBookEndDate">
 					<label class="control-label">Fecha final</label>
 					<input type="date" class="form-control is-required"
 						v-model="dateEnd">
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpDailyBookCurrency">
 					<label class="control-label">Expresar en</label>
 					<select2 :options="currencies" v-model="currency"></select2>
 				</div>
@@ -37,11 +37,12 @@
                 </div>
             </div>
 		</div>
-		<div class="card-footer text-right">
+		<div class="card-footer text-right" >
 			<button class="btn btn-primary btn-sm"
 					data-toggle="tooltip"
 					title="Generar Reporte"
-					v-on:click="OpenPdf(getUrlReport(), '_blank')">
+					v-on:click="OpenPdf(getUrlReport(), '_blank')"
+					id="helpDailyBookGenerateReport">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
 			</button>

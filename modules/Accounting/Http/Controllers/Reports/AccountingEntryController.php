@@ -58,7 +58,7 @@ class AccountingEntryController extends Controller
          *  Definicion de las caracteristicas generales de la página pdf
          */
         $institution = Institution::find(1);
-        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url(' entries/pdf/'.$id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de asiento contable');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.entry_and_daily_book', true, [

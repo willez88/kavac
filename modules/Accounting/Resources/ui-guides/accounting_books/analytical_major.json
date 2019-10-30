@@ -1,0 +1,30 @@
+[
+    {
+        "element" : "#helpAnaliticalMajorFrom",
+        "intro" : "Esta sección es el formulario para generar el reporte de mayor analítico."
+    },
+    {
+        "element" : "#helpAnaliticalMajorInitDate",
+        "intro" : "Fecha inicial para la consulta del reporte."
+    },
+    {
+        "element" : "#helpAnaliticalMajorEndDate",
+        "intro" : "Fecha final para la consulta del reporte."
+    },
+    {
+        "element" : "#helpAnaliticalMajorRangeAccount",
+        "intro" : "Rango de cuentas patrimoniales que se desean mostrar en el reporte."
+    },
+    {
+        "element" : "#helpAnaliticalMajorCurrency",
+        "intro" : "Establece la moneda a la cual se realizaran las conversiones monetarias en la que se mostrara el reporte."
+    },
+    {
+        "element" : "#helpAnaliticalMajorAllAccount",
+        "intro" : "Selecciona de manera automatica todo el rango de cuentas patrimoniales."
+    },
+    {
+        "element" : "#helpAnaliticalMajorGenerateReport",
+        "intro" : "Genera el reporte de libro diario."
+    }
+]

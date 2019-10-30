@@ -341,12 +341,12 @@ Vue.mixin({
         return;
       }
 
-      axios.get(url.replace('pdf', 'pdfVue')).then(function (response) {
+      axios.get(url.replace('/pdf', '/pdfVue')).then(function (response) {
         if (!response.data.result) {
           vm.showMessage('custom', 'Error en conversión', 'danger', 'screen-error', response.data.message);
         } else {
-          url = url.split('pdf')[0];
-          url += 'pdf/' + response.data.id;
+          url = url.split('/pdf')[0];
+          url += '/' + response.data.id;
           window.open(url, type);
         }
       });
@@ -4486,6 +4486,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
@@ -5025,6 +5028,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -8536,105 +8540,122 @@ var render = function() {
         _c("accounting-show-errors", { ref: "errorsAnalyticalMajor" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Mes")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.months },
-                  model: {
-                    value: _vm.month_init,
-                    callback: function($$v) {
-                      _vm.month_init = $$v
-                    },
-                    expression: "month_init"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Año")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.years },
-                  model: {
-                    value: _vm.year_init,
-                    callback: function($$v) {
-                      _vm.year_init = $$v
-                    },
-                    expression: "year_init"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Mes")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.months },
-                  model: {
-                    value: _vm.month_end,
-                    callback: function($$v) {
-                      _vm.month_end = $$v
-                    },
-                    expression: "month_end"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Año")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.years },
-                  model: {
-                    value: _vm.year_end,
-                    callback: function($$v) {
-                      _vm.year_end = $$v
-                    },
-                    expression: "year_end"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpAnaliticalMajorInitDate" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Mes")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.months },
+                    model: {
+                      value: _vm.month_init,
+                      callback: function($$v) {
+                        _vm.month_init = $$v
+                      },
+                      expression: "month_init"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Año")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.years },
+                    model: {
+                      value: _vm.year_init,
+                      callback: function($$v) {
+                        _vm.year_init = $$v
+                      },
+                      expression: "year_init"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpAnaliticalMajorEndDate" }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Mes")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.months },
+                    model: {
+                      value: _vm.month_end,
+                      callback: function($$v) {
+                        _vm.month_end = $$v
+                      },
+                      expression: "month_end"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Año")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.years },
+                    model: {
+                      value: _vm.year_end,
+                      callback: function($$v) {
+                        _vm.year_end = $$v
+                      },
+                      expression: "year_end"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpAnaliticalMajorRangeAccount" }
+            },
             [
               _c("br"),
               _vm._v(" "),
@@ -8687,6 +8708,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
+              { attrs: { id: "helpAnaliticalMajorCurrency" } },
               [
                 _c("label", { staticClass: "control-label" }, [
                   _vm._v("Expresar en")
@@ -8708,23 +8730,7 @@ var render = function() {
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
-            _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-              _vm._v("Seleccionar todas")
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              staticClass:
-                "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
-              attrs: {
-                type: "checkbox",
-                name: "sel_account_type",
-                id: "sel_all_acc",
-                "data-on-label": "SI",
-                "data-off-label": "NO"
-              }
-            })
+            _vm._m(4)
           ])
         ])
       ],
@@ -8736,7 +8742,11 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: { title: "Generar Reporte", "data-toggle": "tooltip" },
+          attrs: {
+            title: "Generar Reporte",
+            "data-toggle": "tooltip",
+            id: "helpAnaliticalMajorGenerateReport"
+          },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_blank")
@@ -8780,6 +8790,30 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [_c("strong", [_vm._v("Cuenta Final")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "helpAnaliticalMajorAllAccount" } }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Seleccionar todas")
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", {
+        staticClass:
+          "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+        attrs: {
+          type: "checkbox",
+          name: "sel_account_type",
+          id: "sel_all_acc",
+          "data-on-label": "SI",
+          "data-off-label": "NO"
+        }
+      })
+    ])
   }
 ]
 render._withStripped = true
@@ -9376,65 +9410,73 @@ var render = function() {
         _c("accounting-show-errors", { ref: "errorsDialyBook" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-3" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v("Fecha inicial")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.dateIni,
-                  expression: "dateIni"
-                }
-              ],
-              staticClass: "form-control is-required",
-              attrs: { type: "date" },
-              domProps: { value: _vm.dateIni },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+          _c(
+            "div",
+            { staticClass: "col-3", attrs: { id: "helpDailyBookInitDate" } },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Fecha inicial")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.dateIni,
+                    expression: "dateIni"
                   }
-                  _vm.dateIni = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v("Fecha final")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.dateEnd,
-                  expression: "dateEnd"
-                }
-              ],
-              staticClass: "form-control is-required",
-              attrs: { type: "date" },
-              domProps: { value: _vm.dateEnd },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "form-control is-required",
+                attrs: { type: "date" },
+                domProps: { value: _vm.dateIni },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.dateIni = $event.target.value
                   }
-                  _vm.dateEnd = $event.target.value
                 }
-              }
-            })
-          ]),
+              })
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            { staticClass: "col-3", attrs: { id: "helpDailyBookEndDate" } },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Fecha final")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.dateEnd,
+                    expression: "dateEnd"
+                  }
+                ],
+                staticClass: "form-control is-required",
+                attrs: { type: "date" },
+                domProps: { value: _vm.dateEnd },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.dateEnd = $event.target.value
+                  }
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-3", attrs: { id: "helpDailyBookCurrency" } },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v("Expresar en")
@@ -9469,7 +9511,11 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
+          attrs: {
+            "data-toggle": "tooltip",
+            title: "Generar Reporte",
+            id: "helpDailyBookGenerateReport"
+          },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_blank")

@@ -23,27 +23,36 @@
 				<div class="card-header">
 					<h6 class="card-title">
 						Libro diario
+						@include('buttons.help', [
+							'helpId' => 'AccountingDaily',
+							'helpSteps' => get_json_resource('ui-guides/accounting_books/daily_book.json', 'accounting')
+						])
 					</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
 					</div>
 				</div>
-				<div class="card-body">
-					<accounting-report-daily-book id="helpReportDailyBook" :currencies="{{ $currencies }}" ></accounting-report-daily-book>
+				<div class="card-body" id="helpDailyBookFrom">
+					<accounting-report-daily-book :currencies="{{ $currencies }}" ></accounting-report-daily-book>
 				</div>
 			</div>
 		</div>
-
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Mayor analítico</h6>
+					<h6 class="card-title">
+						Mayor analítico
+						@include('buttons.help', [
+							'helpId' => 'AccountingAnalitical',
+							'helpSteps' => get_json_resource('ui-guides/accounting_books/analytical_major.json', 'accounting')
+						])
+					</h6>
 					<div class="card-btns">
 						@include('buttons.minimize')
 					</div>
 				</div>
-				<div class="card-body">
+				<div class="card-body" id="helpAnaliticalMajorFrom">
 					<accounting-report-analytical-major :currencies="{{ $currencies }}" year_old="{{ $yearOld }}" />
 				</div>
 			</div>
