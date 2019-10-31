@@ -43,7 +43,7 @@ class CreateCitizenServiceRequestsTable extends Migration
                   ->onDelete('restrict')->onUpdate('cascade');
             $table->integer('document_id')->unsigned()
                   ->comment('Identificador unico del archivo adjuntar');
-            $table->foreign('document_id')->references('id')->on('documents_id')
+            $table->foreign('document_id')->references('id')->on('documents')
                   ->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
