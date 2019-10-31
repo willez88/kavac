@@ -1,5 +1,4 @@
 @php
-    $height = $pdf->getPositionY();
     $total = 0;
 @endphp
 
@@ -18,41 +17,6 @@
     </tr>
 
     @foreach($assets as $fields)
-        @php
-            $height += $pdf->getStringHeight(170, ($fields->asset)?($fields->asset->assetSpecificCategory->name . $fields->asset->getDescription()):($fields->assetSpecificCategory->name . $fields->getDescription()),1);
-
-        @endphp
-
-        @if ($height > $pdf->getCheckBreak())
-            <tr>
-                <th width="90.25%" align="R">Total Van</th>
-                <th width="9.75%"  align="R"> {{ $total }} </th>
-            </tr>
-            @php
-                $height = $pdf->getPositionY() + $pdf->getStringHeight(170, ($fields->asset)?($fields->asset->assetSpecificCategory->name . $fields->asset->getDescription()):($fields->assetSpecificCategory->name . $fields->getDescription()),1);
-            @endphp
-            </table>
-
-            <br pagebreak="true" />
-            <table cellspacing="0" cellpadding="1" border="1">
-                <tr align="center" valign="middle">
-                    <th colspan="4" width="27.43%">Clasificación</th>
-                    <th rowspan="2" width="10.83%">N° Identificación</th>
-                    <th rowspan="2" width="51.99%">Nombre y descripción del bien</th>
-                    <th rowspan="2" width="9.75%">Valor unitario</th>
-                </tr>
-                <tr>
-                    <th width="3.91%">Tipo</th>
-                    <th width="7.84%">Categoria</th>
-                    <th width="7.84%">SubCategoria</th>
-                    <th width="7.84%">Cat. Especific.</th>
-                </tr>
-
-                <tr>
-                    <th width="90.25%" align="R">Total Vienen</th>
-                    <th width="9.75%"  align="R"> {{ $total }} </th>
-                </tr>
-        @endif
             <tr align="C">
 
                 <td width="3.91%"> {{ ($fields->asset)?($fields->asset->asset_type_id):($fields->asset_type_id) }} </td>

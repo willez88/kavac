@@ -87,7 +87,7 @@
                     title="Cancelar y regresar">
                 <i class="fa fa-ban"></i>
             </button>
-            <button type="button" @click="createRecord('auth/settings/roles-permissions', false, false)"
+            <button type="button" @click="createRecord(saveUrl, false, false)"
                     class="btn btn-success btn-icon btn-round" data-toggle="tooltip" title="Guardar registro">
                 <i class="fa fa-save"></i>
             </button>

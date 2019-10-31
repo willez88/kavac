@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.settings-access');
+        return view('admin.setting-users');
     }
 
     /**
@@ -295,5 +295,10 @@ class UserController extends Controller
         return response()->json([
             'result' => true, 'user' => $user, 'permissions' => $user->getPermissions()
         ], 200);
+    }
+
+    public function indexRolesPermissions()
+    {
+        return view('admin.settings-access');
     }
 }
