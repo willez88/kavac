@@ -352,5 +352,17 @@ Vue.mixin({
 				this.payroll_contract_types = response.data;
 			});
 		},
+
+		/**
+		 * Obtiene los datos de tipos de contrato registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		 getPayrollSectorTypes() {
+			this.payroll_sector_types = [];
+			axios.get('/payroll/get-sector-types').then(response => {
+				this.payroll_sector_types = response.data;
+			});
+		},
 	},
 });
