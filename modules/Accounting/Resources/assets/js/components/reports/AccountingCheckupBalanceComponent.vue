@@ -5,7 +5,7 @@
 			<accounting-show-errors ref="errorsCheckUpBalance" />
 
 			<div class="row">
-				<div class="col-3">
+				<div class="col-3" id="helpCheckupBalanceInitDate">
 					<label><strong>Desde:</strong></label>
 					<br>
 					<label class="control-label">Mes</label>
@@ -14,7 +14,7 @@
 					<label class="control-label">Año</label>
 					<select2 :options="years" v-model="year_init"></select2>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpCheckupBalanceEndDate">
 					<label><strong>Hasta:</strong></label>
 					<br>
 					<label class="control-label">Mes</label>
@@ -23,14 +23,12 @@
 					<label class="control-label">Año</label>
 					<select2 :options="years" v-model="year_end"></select2>
 				</div>
-				<div class="col-3">
-					<div>
-						<label class="control-label">Expresar en</label>
-						<br><br>
-						<select2 :options="currencies" v-model="currency"></select2>
-					</div>
+				<div class="col-3" id="helpCheckupBalanceCurrency">
+					<label class="control-label">Expresar en</label>
+					<br><br>
+					<select2 :options="currencies" v-model="currency"></select2>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpCheckupBalanceAllAccount">
 					<label class="text-center"><strong>Mostrar valores en cero</strong>
 					</label>
 					<br><br>
@@ -46,7 +44,8 @@
 			<button class="btn btn-primary btn-sm"
 					data-toggle="tooltip"
 					title="Generar Reporte"
-					v-on:click="OpenPdf(getUrlReport(), '_black')">
+					v-on:click="OpenPdf(getUrlReport(), '_black')"
+					id="helpCheckupBalanceGenerateReport">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
 			</button>

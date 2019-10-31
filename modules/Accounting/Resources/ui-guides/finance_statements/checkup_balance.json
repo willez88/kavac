@@ -1,0 +1,26 @@
+[
+    {
+        "element" : "#helpCheckupBalanceFrom",
+        "intro" : "Esta sección es el formulario para generar el reporte de balance de comprobación."
+    },
+    {
+        "element" : "#helpCheckupBalanceInitDate",
+        "intro" : "Fecha inicial para la consulta del reporte."
+    },
+    {
+        "element" : "#helpCheckupBalanceEndDate",
+        "intro" : "Fecha final para la consulta del reporte."
+    },
+    {
+        "element" : "#helpCheckupBalanceCurrency",
+        "intro" : "Establece la moneda a la cual se realizaran las conversiones monetarias en la que se mostrara el reporte."
+    },
+    {
+        "element" : "#helpCheckupBalanceAllAccount",
+        "intro" : "Establece si se desea mostrar en el reporte las cuentas con saldo cero."
+    },
+    {
+        "element" : "#helpCheckupBalanceGenerateReport",
+        "intro" : "Genera el reporte de balance de comprobación."
+    }
+]

@@ -142,12 +142,12 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de balance de comprobación
      */
     Route::get(
-        'report/balanceCheckUp/{report}',
+        'report/BalanceCheckUp/{report}',
         'Reports\AccountingCheckupBalanceController@pdf'
     );
 
     Route::get(
-        'report/balanceCheckUp/pdfVue/{initDate}/{endDate}/{currency}/{all?}',
+        'report/BalanceCheckUp/pdfVue/{initDate}/{endDate}/{currency}/{all?}',
         'Reports\AccountingCheckupBalanceController@pdfVue'
     );
 
@@ -212,12 +212,12 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de estado de resultados
      */
     Route::get(
-        'report/stateOfResults/{report}',
+        'report/StateOfResults/{report}',
         'Reports\AccountingStateOfResultsController@pdf'
     );
     
     Route::get(
-        'report/stateOfResults/pdfVue/{date}/{level}/{currency}/{zero?}',
+        'report/StateOfResults/pdfVue/{date}/{level}/{currency}/{zero?}',
         'Reports\AccountingStateOfResultsController@pdfVue'
     );
 

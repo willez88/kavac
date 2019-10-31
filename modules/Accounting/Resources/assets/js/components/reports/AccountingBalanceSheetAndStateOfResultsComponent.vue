@@ -5,7 +5,7 @@
 			<accounting-show-errors :ref="type_report" />
 
 			<div class="row">
-				<div class="col-3">
+				<div class="col-3" :id="'help'+this.type_report+'InitDate'">
 					<label class="control-label">Al mes</label>
 					<br><br>
 					<select2 :options="months" v-model="month_init"></select2>
@@ -14,19 +14,19 @@
 					<br><br>
 					<select2 :options="years" v-model="year_init"></select2>
 				</div>
-				<div class="col-3">
+				<div class="col-3" :id="'help'+this.type_report+'Level'">
 					<label class="control-label">Nivel de consulta</label>
 					<br><br>
 					<select2 :options="levels" v-model="level"></select2>
 				</div>
-				<div class="col-3">
+				<div class="col-3" :id="'help'+this.type_report+'Currency'">
 						<div>
 							<label class="control-label">Expresar en</label>
 							<br><br>
 							<select2 :options="currencies" v-model="currency"></select2>
 						</div>
 					</div>
-				<div class="col-3">
+				<div class="col-3" :id="'help'+this.type_report+'AllAccount'">
 					<label class="text-center"><strong>Mostrar valores en cero</strong>
 					</label>
 					<br><br>
@@ -39,7 +39,8 @@
 			</div>
 			<div class="card-footer text-right">
 				<button class="btn btn-primary btn-sm"
-					@click="OpenPdf(getUrlReport(), '_blank')">
+					@click="OpenPdf(getUrlReport(), '_blank')"
+					:id="'help'+this.type_report+'GenerateReport'">
 					Generar Reporte <i class="fa fa-print"></i>
 				</button>
 			</div>

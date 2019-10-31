@@ -98,10 +98,10 @@ class AccountingReportsController extends Controller
         $yearOld = $this->calcualteYearOld();
 
         /** @var Object String con el tipo de reporte que abrira */
-        $type_report_1 = 'balanceSheet';
+        $type_report_1 = 'BalanceSheet';
         
         /** @var Object String con el tipo de reporte que abrira */
-        $type_report_2 = 'stateOfResults';
+        $type_report_2 = 'StateOfResults';
 
         $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
 

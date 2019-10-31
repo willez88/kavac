@@ -4689,7 +4689,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     records: {
@@ -4827,6 +4826,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     type_report: {
@@ -4911,7 +4911,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -8845,57 +8844,61 @@ var render = function() {
         _c("accounting-show-errors", { ref: "errorAuxiliaryBook" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Mes")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.months },
-                  model: {
-                    value: _vm.month_init,
-                    callback: function($$v) {
-                      _vm.month_init = $$v
-                    },
-                    expression: "month_init"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Año")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.years },
-                  model: {
-                    value: _vm.year_init,
-                    callback: function($$v) {
-                      _vm.year_init = $$v
-                    },
-                    expression: "year_init"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            { staticClass: "col-3", attrs: { id: "helpAuxiliaryBookDate" } },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Mes")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.months },
+                    model: {
+                      value: _vm.month_init,
+                      callback: function($$v) {
+                        _vm.month_init = $$v
+                      },
+                      expression: "month_init"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Año")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.years },
+                    model: {
+                      value: _vm.year_init,
+                      callback: function($$v) {
+                        _vm.year_init = $$v
+                      },
+                      expression: "year_init"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            { staticClass: "col-3", attrs: { id: "helpAuxiliaryBookAccount" } },
             [
               _vm._m(1),
               _vm._v(" "),
@@ -8916,31 +8919,33 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _c(
-              "div",
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Expresar en")
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.currencies },
-                  model: {
-                    value: _vm.currency,
-                    callback: function($$v) {
-                      _vm.currency = $$v
-                    },
-                    expression: "currency"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpAuxiliaryBookCurrency" }
+            },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Expresar en")
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.currencies },
+                model: {
+                  value: _vm.currency,
+                  callback: function($$v) {
+                    _vm.currency = $$v
+                  },
+                  expression: "currency"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm._m(2)
         ])
@@ -8953,7 +8958,11 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
+          attrs: {
+            "data-toggle": "tooltip",
+            title: "Generar Reporte",
+            id: "helpAuxiliaryBookGenerateReport"
+          },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_blank")
@@ -8988,26 +8997,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-3" }, [
-      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-        _vm._v("Seleccionar todas")
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass:
-          "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
-        attrs: {
-          type: "checkbox",
-          name: "sel_account_type",
-          id: "sel_all_acc_auxiliary",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-3", attrs: { id: "helpAuxiliaryBookAllAccount" } },
+      [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Seleccionar todas")
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass:
+            "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+          attrs: {
+            type: "checkbox",
+            name: "sel_account_type",
+            id: "sel_all_acc_auxiliary",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -9041,7 +9054,10 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "help" + this.type_report + "InitDate" }
+            },
             [
               _c("label", { staticClass: "control-label" }, [_vm._v("Al mes")]),
               _vm._v(" "),
@@ -9083,7 +9099,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "help" + this.type_report + "Level" }
+            },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v("Nivel de consulta")
@@ -9106,49 +9125,63 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _c(
-              "div",
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Expresar en")
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.currencies },
-                  model: {
-                    value: _vm.currency,
-                    callback: function($$v) {
-                      _vm.currency = $$v
-                    },
-                    expression: "currency"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "help" + this.type_report + "Currency" }
+            },
+            [
+              _c(
+                "div",
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Expresar en")
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.currencies },
+                    model: {
+                      value: _vm.currency,
+                      callback: function($$v) {
+                        _vm.currency = $$v
+                      },
+                      expression: "currency"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("br"),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control text-center bootstrap-switch",
-              attrs: {
-                id: "zero" + _vm.type_report,
-                "data-on-label": "SI",
-                "data-off-label": "NO",
-                name: "zero",
-                type: "checkbox"
-              }
-            })
-          ])
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "help" + this.type_report + "AllAccount" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control text-center bootstrap-switch",
+                attrs: {
+                  id: "zero" + _vm.type_report,
+                  "data-on-label": "SI",
+                  "data-off-label": "NO",
+                  name: "zero",
+                  type: "checkbox"
+                }
+              })
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-footer text-right" }, [
@@ -9156,6 +9189,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-primary btn-sm",
+              attrs: { id: "help" + this.type_report + "GenerateReport" },
               on: {
                 click: function($event) {
                   _vm.OpenPdf(_vm.getUrlReport(), "_blank")
@@ -9214,7 +9248,10 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpCheckupBalanceInitDate" }
+            },
             [
               _vm._m(0),
               _vm._v(" "),
@@ -9253,7 +9290,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpCheckupBalanceEndDate" }
+            },
             [
               _vm._m(1),
               _vm._v(" "),
@@ -9290,31 +9330,33 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _c(
-              "div",
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Expresar en")
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.currencies },
-                  model: {
-                    value: _vm.currency,
-                    callback: function($$v) {
-                      _vm.currency = $$v
-                    },
-                    expression: "currency"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpCheckupBalanceCurrency" }
+            },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Expresar en")
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.currencies },
+                model: {
+                  value: _vm.currency,
+                  callback: function($$v) {
+                    _vm.currency = $$v
+                  },
+                  expression: "currency"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm._m(2)
         ])
@@ -9327,7 +9369,11 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
+          attrs: {
+            "data-toggle": "tooltip",
+            title: "Generar Reporte",
+            id: "helpCheckupBalanceGenerateReport"
+          },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_black")
@@ -9360,25 +9406,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-3" }, [
-      _c("label", { staticClass: "text-center" }, [
-        _c("strong", [_vm._v("Mostrar valores en cero")])
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control text-center bootstrap-switch",
-        attrs: {
-          id: "zero",
-          "data-on-label": "SI",
-          "data-off-label": "NO",
-          name: "zero",
-          type: "checkbox"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-3", attrs: { id: "helpCheckupBalanceAllAccount" } },
+      [
+        _c("label", { staticClass: "text-center" }, [
+          _c("strong", [_vm._v("Mostrar valores en cero")])
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control text-center bootstrap-switch",
+          attrs: {
+            id: "zero",
+            "data-on-label": "SI",
+            "data-off-label": "NO",
+            name: "zero",
+            type: "checkbox"
+          }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
