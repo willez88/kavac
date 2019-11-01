@@ -90,6 +90,11 @@ Route::group(['middleware' => 'web',
 
 
     /**
+     * ruta para listar los asientos contables no aprobados
+     */
+    Route::get('entries/unapproved', 'AccountingEntryController@unapproved')
+            ->name('accounting.entries.unapproved');
+    /**
      * rutas para la gestión de asientos contables
      */
     Route::resource(
@@ -105,11 +110,6 @@ Route::group(['middleware' => 'web',
     Route::post('entries/create', 'AccountingEntryController@create')
             ->name('accounting.entries.create');
             
-    /**
-     * ruta para listar los asientos contables no aprobados
-     */
-    Route::get('entries/unapproved', 'AccountingEntryController@unapproved')
-            ->name('accounting.entries.unapproved');
 
     /**
      * ruta para el filtrado o busqueda de asientos contables aprobados
@@ -142,12 +142,12 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de balance de comprobación
      */
     Route::get(
-        'report/balanceCheckUp/pdf/{report}',
+        'report/BalanceCheckUp/{report}',
         'Reports\AccountingCheckupBalanceController@pdf'
     );
 
     Route::get(
-        'report/balanceCheckUp/pdfVue/{initDate}/{endDate}/{currency}/{all?}',
+        'report/BalanceCheckUp/pdfVue/{initDate}/{endDate}/{currency}/{all?}',
         'Reports\AccountingCheckupBalanceController@pdfVue'
     );
 
@@ -160,7 +160,7 @@ Route::group(['middleware' => 'web',
     );
 
     Route::get(
-        'report/analyticalMajor/pdf/{report}',
+        'report/analyticalMajor/{report}',
         'Reports\AccountingAnalyticalMajorController@pdf'
     );
 
@@ -173,7 +173,7 @@ Route::group(['middleware' => 'web',
      * rutas para reporte del libro diario
      */
     Route::get(
-        'report/dailyBook/pdf/{report}',
+        'report/dailyBook/{report}',
         'Reports\AccountingDailyBookController@pdf'
     );
 
@@ -186,7 +186,7 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de libro auxiliar
      */
     Route::get(
-        'report/auxiliaryBook/pdf/{report}',
+        'report/auxiliaryBook/{report}',
         'Reports\AccountingAuxiliaryBookController@pdf'
     );
 
@@ -199,7 +199,7 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de balance general
      */
     Route::get(
-        'report/balanceSheet/pdf/{report}',
+        'report/balanceSheet/{report}',
         'Reports\AccountingBalanceSheetController@pdf'
     );
 
@@ -212,12 +212,12 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de estado de resultados
      */
     Route::get(
-        'report/stateOfResults/pdf/{report}',
+        'report/StateOfResults/{report}',
         'Reports\AccountingStateOfResultsController@pdf'
     );
     
     Route::get(
-        'report/stateOfResults/pdfVue/{date}/{level}/{currency}/{zero?}',
+        'report/StateOfResults/pdfVue/{date}/{level}/{currency}/{zero?}',
         'Reports\AccountingStateOfResultsController@pdfVue'
     );
 
@@ -227,12 +227,12 @@ Route::group(['middleware' => 'web',
     Route::get('settings', 'AccountingSettingController@index')
             ->name('accounting.settings.index');
 
-    Route::post('settings/code', 'AccountingSettingController@code_store')
+    Route::post('settings/code', 'AccountingSettingController@codeStore')
             ->name('accounting.settings.code.store');
 
     Route::post(
-        'settings/generate_reference_code',
-        'AccountingSettingController@generate_reference_code'
+        'settings/generateReferenceCode',
+        'AccountingSettingController@generateReferenceCode'
     )->name('accounting.settings.code.generate');
 
 

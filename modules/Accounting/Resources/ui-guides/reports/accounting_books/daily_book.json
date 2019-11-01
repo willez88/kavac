@@ -1,0 +1,22 @@
+[
+    {
+        "element" : "#helpDailyBookFrom",
+        "intro" : "Esta sección es el formulario para generar el reporte de libro diario."
+    },
+    {
+        "element" : "#helpDailyBookInitDate",
+        "intro" : "Fecha inicial para la consulta del reporte."
+    },
+    {
+        "element" : "#helpDailyBookEndDate",
+        "intro" : "Fecha final para la consulta del reporte."
+    },
+    {
+        "element" : "#helpDailyBookCurrency",
+        "intro" : "Establece la moneda a la cual se realizaran las conversiones monetarias en la que se mostrara el reporte."
+    },
+    {
+        "element" : "#helpDailyBookGenerateReport",
+        "intro" : "Genera el reporte de libro diario."
+    }
+]

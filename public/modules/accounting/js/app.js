@@ -341,12 +341,12 @@ Vue.mixin({
         return;
       }
 
-      axios.get(url.replace('pdf', 'pdfVue')).then(function (response) {
+      axios.get(url.replace('/pdf', '/pdfVue')).then(function (response) {
         if (!response.data.result) {
           vm.showMessage('custom', 'Error en conversión', 'danger', 'screen-error', response.data.message);
         } else {
-          url = url.split('pdf')[0];
-          url += 'pdf/' + response.data.id;
+          url = url.split('/pdf')[0];
+          url += '/' + response.data.id;
           window.open(url, type);
         }
       });
@@ -3822,7 +3822,7 @@ __webpack_require__.r(__webpack_exports__);
       this.concept = this.data_edit.concept;
       this.observations = this.data_edit.observations;
     } else {
-      this.generate_reference_code();
+      this.generateReferenceCode();
     }
 
     EventBus.$on('reset:accounting-entry-edit-create', function () {
@@ -3891,10 +3891,10 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    generate_reference_code: function generate_reference_code() {
+    generateReferenceCode: function generateReferenceCode() {
       var _this2 = this;
 
-      axios.post('/accounting/settings/generate_reference_code').then(function (response) {
+      axios.post('/accounting/settings/generateReferenceCode').then(function (response) {
         if (response.data.result) {
           location.href = '/accounting/settings';
         }
@@ -3964,6 +3964,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -4486,6 +4488,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
@@ -4686,7 +4691,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     records: {
@@ -4824,6 +4828,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     type_report: {
@@ -4908,7 +4913,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -5874,61 +5878,68 @@ var render = function() {
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "col-8 row" }, [
-            _c(
-              "div",
-              { staticClass: "col-5" },
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Desde")
-                ]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: {
-                    id: "sel_acc_init",
-                    options: _vm.accountOptions[0],
-                    disabled: _vm.SelectAll
-                  },
-                  model: {
-                    value: _vm.accountSelect.init_id,
-                    callback: function($$v) {
-                      _vm.$set(_vm.accountSelect, "init_id", $$v)
+          _c(
+            "div",
+            {
+              staticClass: "col-8 row",
+              attrs: { id: "helpSearchRangeAccount" }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "col-5" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Desde")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: {
+                      id: "sel_acc_init",
+                      options: _vm.accountOptions[0],
+                      disabled: _vm.SelectAll
                     },
-                    expression: "accountSelect.init_id"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-5" },
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Hasta")
-                ]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: {
-                    id: "sel_acc_end",
-                    options: _vm.accountOptions[1],
-                    disabled: _vm.SelectAll
-                  },
-                  model: {
-                    value: _vm.accountSelect.end_id,
-                    callback: function($$v) {
-                      _vm.$set(_vm.accountSelect, "end_id", $$v)
+                    model: {
+                      value: _vm.accountSelect.init_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.accountSelect, "init_id", $$v)
+                      },
+                      expression: "accountSelect.init_id"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-5" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Hasta")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: {
+                      id: "sel_acc_end",
+                      options: _vm.accountOptions[1],
+                      disabled: _vm.SelectAll
                     },
-                    expression: "accountSelect.end_id"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm._m(2)
-          ])
+                    model: {
+                      value: _vm.accountSelect.end_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.accountSelect, "end_id", $$v)
+                      },
+                      expression: "accountSelect.end_id"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(2)
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("br"),
@@ -5965,76 +5976,88 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c(
-        "label",
-        { staticClass: "control-label", attrs: { for: "sel_budget_acc" } },
-        [_vm._v("Por código presupuestal")]
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control bootstrap-switch sel_pry_acc",
-        attrs: {
-          type: "radio",
-          name: "sel_account_type",
-          id: "sel_budget_acc",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchSelectBudget" } },
+      [
+        _c(
+          "label",
+          { staticClass: "control-label", attrs: { for: "sel_budget_acc" } },
+          [_vm._v("Por código presupuestal")]
+        ),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control bootstrap-switch sel_pry_acc",
+          attrs: {
+            type: "radio",
+            name: "sel_account_type",
+            id: "sel_budget_acc",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c(
-        "label",
-        { staticClass: "control-label", attrs: { for: "sel_account_type" } },
-        [_vm._v("Por código patrimonial")]
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control bootstrap-switch sel_pry_acc",
-        attrs: {
-          type: "radio",
-          name: "sel_account_type",
-          id: "sel_accounting_acc",
-          checked: "true",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchSelectAccounting" } },
+      [
+        _c(
+          "label",
+          { staticClass: "control-label", attrs: { for: "sel_account_type" } },
+          [_vm._v("Por código patrimonial")]
+        ),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control bootstrap-switch sel_pry_acc",
+          attrs: {
+            type: "radio",
+            name: "sel_account_type",
+            id: "sel_accounting_acc",
+            checked: "true",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-        _vm._v("Seleccionar todas")
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass:
-          "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
-        attrs: {
-          type: "checkbox",
-          name: "sel_account_type",
-          id: "sel_all_acc",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchRangeAll" } },
+      [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Seleccionar todas")
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass:
+            "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+          attrs: {
+            type: "checkbox",
+            name: "sel_account_type",
+            id: "sel_all_acc",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -7665,73 +7688,91 @@ var render = function() {
               _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "col-8 row" }, [
-                _c("div", { staticClass: "col-7" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Por Institución")
-                      ]),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("select2", {
-                        attrs: { options: _vm.institutions },
-                        model: {
-                          value: _vm.data.institution,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "institution", $$v)
-                          },
-                          expression: "data.institution"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ]),
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-7",
+                    attrs: { id: "helpSearchEntriesInstitution" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { staticClass: "control-label" }, [
+                          _vm._v("Por Institución")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("select2", {
+                          attrs: { options: _vm.institutions },
+                          model: {
+                            value: _vm.data.institution,
+                            callback: function($$v) {
+                              _vm.$set(_vm.data, "institution", $$v)
+                            },
+                            expression: "data.institution"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-5" }, [
-                  _c(
-                    "div",
-                    {
-                      class:
-                        _vm.typeSearch != "reference"
-                          ? "form-group"
-                          : "form-group is-required"
-                    },
-                    [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Referencia")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.data.reference,
-                            expression: "data.reference"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          disabled: _vm.typeSearch != "reference",
-                          type: "text",
-                          placeholder: "Referencia"
-                        },
-                        domProps: { value: _vm.data.reference },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-5",
+                    attrs: { id: "helpSearchEntriesInputReference" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        class:
+                          _vm.typeSearch != "reference"
+                            ? "form-group"
+                            : "form-group is-required"
+                      },
+                      [
+                        _c("label", { staticClass: "control-label" }, [
+                          _vm._v("Referencia")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.data.reference,
+                              expression: "data.reference"
                             }
-                            _vm.$set(_vm.data, "reference", $event.target.value)
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            disabled: _vm.typeSearch != "reference",
+                            type: "text",
+                            placeholder: "Referencia"
+                          },
+                          domProps: { value: _vm.data.reference },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.data,
+                                "reference",
+                                $event.target.value
+                              )
+                            }
                           }
-                        }
-                      })
-                    ]
-                  )
-                ])
+                        })
+                      ]
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _vm._m(2),
@@ -7744,7 +7785,8 @@ var render = function() {
                       "div",
                       {
                         staticClass: "col-7 row",
-                        staticStyle: { "padding-right": "0rem" }
+                        staticStyle: { "padding-right": "0rem" },
+                        attrs: { id: "helpSearchEntriesDateRange" }
                       },
                       [
                         _c("div", { staticClass: "col-6" }, [
@@ -7831,7 +7873,8 @@ var render = function() {
                       "div",
                       {
                         staticClass: "col-7 row",
-                        staticStyle: { "padding-right": "0rem" }
+                        staticStyle: { "padding-right": "0rem" },
+                        attrs: { id: "helpSearchEntriesDateRange" }
                       },
                       [
                         _c("div", { staticClass: "col-6" }, [
@@ -7901,7 +7944,8 @@ var render = function() {
                   "div",
                   {
                     staticClass: "col-5",
-                    staticStyle: { "margin-left": "1.8rem" }
+                    staticStyle: { "margin-left": "1.8rem" },
+                    attrs: { id: "helpSearchEntriesInputCategory" }
                   },
                   [
                     _c(
@@ -7974,95 +8018,111 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { staticClass: "control-label" }, [
-          _vm._v("Por Referencia")
-        ]),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control bootstrap-switch sel_search",
-          attrs: {
-            type: "radio",
-            name: "sel_Search",
-            id: "sel_ref",
-            "data-on-label": "SI",
-            "data-off-label": "NO"
-          }
-        })
-      ])
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchEntriesReference" } },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v("Por Referencia")
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control bootstrap-switch sel_search",
+            attrs: {
+              type: "radio",
+              name: "sel_Search",
+              id: "sel_ref",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { staticClass: "control-label" }, [
-          _vm._v("Por Categoría")
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchEntriesCategory" } },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v("Por Categoría")
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control bootstrap-switch sel_search",
+            attrs: {
+              type: "radio",
+              name: "sel_Search",
+              id: "sel_origin",
+              checked: "true",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchEntriesDateSpecific" } },
+      [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Por Período")
         ]),
         _c("br"),
         _vm._v(" "),
         _c("input", {
-          staticClass: "form-control bootstrap-switch sel_search",
+          staticClass: "form-control bootstrap-switch sel_filterDate",
           attrs: {
             type: "radio",
-            name: "sel_Search",
-            id: "sel_origin",
+            name: "sel_filter_date",
+            id: "sel_fil_date_specific",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchEntriesDateGeneric" } },
+      [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Por Mes")
+        ]),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control bootstrap-switch sel_filterDate",
+          attrs: {
+            type: "radio",
+            name: "sel_filter_date",
+            id: "sel_fil_date_generic",
             checked: "true",
             "data-on-label": "SI",
             "data-off-label": "NO"
           }
         })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-        _vm._v("Por Período")
-      ]),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control bootstrap-switch sel_filterDate",
-        attrs: {
-          type: "radio",
-          name: "sel_filter_date",
-          id: "sel_fil_date_specific",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-        _vm._v("Por Mes")
-      ]),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control bootstrap-switch sel_filterDate",
-        attrs: {
-          type: "radio",
-          name: "sel_filter_date",
-          id: "sel_fil_date_generic",
-          checked: "true",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -8536,105 +8596,122 @@ var render = function() {
         _c("accounting-show-errors", { ref: "errorsAnalyticalMajor" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Mes")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.months },
-                  model: {
-                    value: _vm.month_init,
-                    callback: function($$v) {
-                      _vm.month_init = $$v
-                    },
-                    expression: "month_init"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Año")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.years },
-                  model: {
-                    value: _vm.year_init,
-                    callback: function($$v) {
-                      _vm.year_init = $$v
-                    },
-                    expression: "year_init"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Mes")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.months },
-                  model: {
-                    value: _vm.month_end,
-                    callback: function($$v) {
-                      _vm.month_end = $$v
-                    },
-                    expression: "month_end"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Año")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.years },
-                  model: {
-                    value: _vm.year_end,
-                    callback: function($$v) {
-                      _vm.year_end = $$v
-                    },
-                    expression: "year_end"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpAnaliticalMajorInitDate" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Mes")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.months },
+                    model: {
+                      value: _vm.month_init,
+                      callback: function($$v) {
+                        _vm.month_init = $$v
+                      },
+                      expression: "month_init"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Año")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.years },
+                    model: {
+                      value: _vm.year_init,
+                      callback: function($$v) {
+                        _vm.year_init = $$v
+                      },
+                      expression: "year_init"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpAnaliticalMajorEndDate" }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Mes")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.months },
+                    model: {
+                      value: _vm.month_end,
+                      callback: function($$v) {
+                        _vm.month_end = $$v
+                      },
+                      expression: "month_end"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Año")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.years },
+                    model: {
+                      value: _vm.year_end,
+                      callback: function($$v) {
+                        _vm.year_end = $$v
+                      },
+                      expression: "year_end"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpAnaliticalMajorRangeAccount" }
+            },
             [
               _c("br"),
               _vm._v(" "),
@@ -8687,6 +8764,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
+              { attrs: { id: "helpAnaliticalMajorCurrency" } },
               [
                 _c("label", { staticClass: "control-label" }, [
                   _vm._v("Expresar en")
@@ -8708,23 +8786,7 @@ var render = function() {
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
-            _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-              _vm._v("Seleccionar todas")
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              staticClass:
-                "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
-              attrs: {
-                type: "checkbox",
-                name: "sel_account_type",
-                id: "sel_all_acc",
-                "data-on-label": "SI",
-                "data-off-label": "NO"
-              }
-            })
+            _vm._m(4)
           ])
         ])
       ],
@@ -8736,7 +8798,11 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: { title: "Generar Reporte", "data-toggle": "tooltip" },
+          attrs: {
+            title: "Generar Reporte",
+            "data-toggle": "tooltip",
+            id: "helpAnaliticalMajorGenerateReport"
+          },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_blank")
@@ -8780,6 +8846,30 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [_c("strong", [_vm._v("Cuenta Final")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "helpAnaliticalMajorAllAccount" } }, [
+      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _vm._v("Seleccionar todas")
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", {
+        staticClass:
+          "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+        attrs: {
+          type: "checkbox",
+          name: "sel_account_type",
+          id: "sel_all_acc",
+          "data-on-label": "SI",
+          "data-off-label": "NO"
+        }
+      })
+    ])
   }
 ]
 render._withStripped = true
@@ -8811,57 +8901,61 @@ var render = function() {
         _c("accounting-show-errors", { ref: "errorAuxiliaryBook" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Mes")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.months },
-                  model: {
-                    value: _vm.month_init,
-                    callback: function($$v) {
-                      _vm.month_init = $$v
-                    },
-                    expression: "month_init"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "is-required" },
-              [
-                _c("label", [_vm._v("Año")]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.years },
-                  model: {
-                    value: _vm.year_init,
-                    callback: function($$v) {
-                      _vm.year_init = $$v
-                    },
-                    expression: "year_init"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            { staticClass: "col-3", attrs: { id: "helpAuxiliaryBookDate" } },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Mes")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.months },
+                    model: {
+                      value: _vm.month_init,
+                      callback: function($$v) {
+                        _vm.month_init = $$v
+                      },
+                      expression: "month_init"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "is-required" },
+                [
+                  _c("label", [_vm._v("Año")]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.years },
+                    model: {
+                      value: _vm.year_init,
+                      callback: function($$v) {
+                        _vm.year_init = $$v
+                      },
+                      expression: "year_init"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            { staticClass: "col-3", attrs: { id: "helpAuxiliaryBookAccount" } },
             [
               _vm._m(1),
               _vm._v(" "),
@@ -8882,31 +8976,33 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _c(
-              "div",
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Expresar en")
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.currencies },
-                  model: {
-                    value: _vm.currency,
-                    callback: function($$v) {
-                      _vm.currency = $$v
-                    },
-                    expression: "currency"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpAuxiliaryBookCurrency" }
+            },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Expresar en")
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.currencies },
+                model: {
+                  value: _vm.currency,
+                  callback: function($$v) {
+                    _vm.currency = $$v
+                  },
+                  expression: "currency"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm._m(2)
         ])
@@ -8919,7 +9015,11 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
+          attrs: {
+            "data-toggle": "tooltip",
+            title: "Generar Reporte",
+            id: "helpAuxiliaryBookGenerateReport"
+          },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_blank")
@@ -8954,26 +9054,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-3" }, [
-      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-        _vm._v("Seleccionar todas")
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass:
-          "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
-        attrs: {
-          type: "checkbox",
-          name: "sel_account_type",
-          id: "sel_all_acc_auxiliary",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-3", attrs: { id: "helpAuxiliaryBookAllAccount" } },
+      [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Seleccionar todas")
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass:
+            "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+          attrs: {
+            type: "checkbox",
+            name: "sel_account_type",
+            id: "sel_all_acc_auxiliary",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -9007,7 +9111,10 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "help" + this.type_report + "InitDate" }
+            },
             [
               _c("label", { staticClass: "control-label" }, [_vm._v("Al mes")]),
               _vm._v(" "),
@@ -9049,7 +9156,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "help" + this.type_report + "Level" }
+            },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v("Nivel de consulta")
@@ -9072,49 +9182,63 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _c(
-              "div",
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Expresar en")
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.currencies },
-                  model: {
-                    value: _vm.currency,
-                    callback: function($$v) {
-                      _vm.currency = $$v
-                    },
-                    expression: "currency"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "help" + this.type_report + "Currency" }
+            },
+            [
+              _c(
+                "div",
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Expresar en")
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.currencies },
+                    model: {
+                      value: _vm.currency,
+                      callback: function($$v) {
+                        _vm.currency = $$v
+                      },
+                      expression: "currency"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("br"),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control text-center bootstrap-switch",
-              attrs: {
-                id: "zero" + _vm.type_report,
-                "data-on-label": "SI",
-                "data-off-label": "NO",
-                name: "zero",
-                type: "checkbox"
-              }
-            })
-          ])
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "help" + this.type_report + "AllAccount" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control text-center bootstrap-switch",
+                attrs: {
+                  id: "zero" + _vm.type_report,
+                  "data-on-label": "SI",
+                  "data-off-label": "NO",
+                  name: "zero",
+                  type: "checkbox"
+                }
+              })
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-footer text-right" }, [
@@ -9122,6 +9246,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-primary btn-sm",
+              attrs: { id: "help" + this.type_report + "GenerateReport" },
               on: {
                 click: function($event) {
                   _vm.OpenPdf(_vm.getUrlReport(), "_blank")
@@ -9180,7 +9305,10 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpCheckupBalanceInitDate" }
+            },
             [
               _vm._m(0),
               _vm._v(" "),
@@ -9219,7 +9347,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpCheckupBalanceEndDate" }
+            },
             [
               _vm._m(1),
               _vm._v(" "),
@@ -9256,31 +9387,33 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _c(
-              "div",
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Expresar en")
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: { options: _vm.currencies },
-                  model: {
-                    value: _vm.currency,
-                    callback: function($$v) {
-                      _vm.currency = $$v
-                    },
-                    expression: "currency"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "col-3",
+              attrs: { id: "helpCheckupBalanceCurrency" }
+            },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Expresar en")
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("select2", {
+                attrs: { options: _vm.currencies },
+                model: {
+                  value: _vm.currency,
+                  callback: function($$v) {
+                    _vm.currency = $$v
+                  },
+                  expression: "currency"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm._m(2)
         ])
@@ -9293,7 +9426,11 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
+          attrs: {
+            "data-toggle": "tooltip",
+            title: "Generar Reporte",
+            id: "helpCheckupBalanceGenerateReport"
+          },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_black")
@@ -9326,25 +9463,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-3" }, [
-      _c("label", { staticClass: "text-center" }, [
-        _c("strong", [_vm._v("Mostrar valores en cero")])
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control text-center bootstrap-switch",
-        attrs: {
-          id: "zero",
-          "data-on-label": "SI",
-          "data-off-label": "NO",
-          name: "zero",
-          type: "checkbox"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-3", attrs: { id: "helpCheckupBalanceAllAccount" } },
+      [
+        _c("label", { staticClass: "text-center" }, [
+          _c("strong", [_vm._v("Mostrar valores en cero")])
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control text-center bootstrap-switch",
+          attrs: {
+            id: "zero",
+            "data-on-label": "SI",
+            "data-off-label": "NO",
+            name: "zero",
+            type: "checkbox"
+          }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -9376,65 +9517,73 @@ var render = function() {
         _c("accounting-show-errors", { ref: "errorsDialyBook" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-3" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v("Fecha inicial")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.dateIni,
-                  expression: "dateIni"
-                }
-              ],
-              staticClass: "form-control is-required",
-              attrs: { type: "date" },
-              domProps: { value: _vm.dateIni },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+          _c(
+            "div",
+            { staticClass: "col-3", attrs: { id: "helpDailyBookInitDate" } },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Fecha inicial")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.dateIni,
+                    expression: "dateIni"
                   }
-                  _vm.dateIni = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v("Fecha final")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.dateEnd,
-                  expression: "dateEnd"
-                }
-              ],
-              staticClass: "form-control is-required",
-              attrs: { type: "date" },
-              domProps: { value: _vm.dateEnd },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "form-control is-required",
+                attrs: { type: "date" },
+                domProps: { value: _vm.dateIni },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.dateIni = $event.target.value
                   }
-                  _vm.dateEnd = $event.target.value
                 }
-              }
-            })
-          ]),
+              })
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-3" },
+            { staticClass: "col-3", attrs: { id: "helpDailyBookEndDate" } },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v("Fecha final")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.dateEnd,
+                    expression: "dateEnd"
+                  }
+                ],
+                staticClass: "form-control is-required",
+                attrs: { type: "date" },
+                domProps: { value: _vm.dateEnd },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.dateEnd = $event.target.value
+                  }
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-3", attrs: { id: "helpDailyBookCurrency" } },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v("Expresar en")
@@ -9469,7 +9618,11 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary btn-sm",
-          attrs: { "data-toggle": "tooltip", title: "Generar Reporte" },
+          attrs: {
+            "data-toggle": "tooltip",
+            title: "Generar Reporte",
+            id: "helpDailyBookGenerateReport"
+          },
           on: {
             click: function($event) {
               _vm.OpenPdf(_vm.getUrlReport(), "_blank")
@@ -9493,10 +9646,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" }, [
         _c("span", { staticClass: "form-text" }, [
-          _c("strong", [_vm._v("Expresar en:")]),
-          _vm._v(
-            " campo para seleccionar el tipo de moneda al que se convertiran los saldos.\n                        "
-          ),
           _c("br"),
           _vm._v(" "),
           _c("strong", [_vm._v("Tipos de cambios monetarios: ")]),
@@ -10105,45 +10254,49 @@ var render = function() {
             _c("accounting-show-errors", { ref: "settingCode" }),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-3" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "control-label",
-                    attrs: { for: "entries_reference" }
-                  },
-                  [_vm._v("Código de referencia")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
+              _c(
+                "div",
+                { staticClass: "col-3", attrs: { id: "helpCodeReference" } },
+                [
+                  _c(
+                    "label",
                     {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.code,
-                      expression: "code"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    "data-toggle": "tooltip",
-                    title: "Formato para el código de los reportes",
-                    name: "entries_reference",
-                    placeholder: "Ej. XXX-00000000-YYYY",
-                    readonly: _vm.ref_code ? true : false
-                  },
-                  domProps: { value: _vm.code },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                      staticClass: "control-label",
+                      attrs: { for: "entries_reference" }
+                    },
+                    [_vm._v("Código de referencia")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.code,
+                        expression: "code"
                       }
-                      _vm.code = $event.target.value
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tooltip",
+                      title: "Formato para el código de los reportes",
+                      name: "entries_reference",
+                      placeholder: "Ej. XXX-00000000-YYYY",
+                      readonly: _vm.ref_code ? true : false
+                    },
+                    domProps: { value: _vm.code },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.code = $event.target.value
+                      }
                     }
-                  }
-                })
-              ])
+                  })
+                ]
+              )
             ]),
             _vm._v(" "),
             _c("hr"),

@@ -5,7 +5,7 @@
             <accounting-show-errors ref="errorAuxiliaryBook" />
 
 			<div class="row">
-				<div class="col-3">
+				<div class="col-3" id="helpAuxiliaryBookDate">
 					<label><strong>Fecha:</strong></label>
 					<br>
 					<div class="is-required">
@@ -18,19 +18,17 @@
 						<select2 :options="years" v-model="year_init"></select2>
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpAuxiliaryBookAccount">
 					<label class="control-label"><strong>Cuentas Patrimoniales</strong></label>
 					<br><br>
 					<select2 :options="records" v-model="account_id" :disabled="allAccounts"></select2>
 				</div>
-				<div class="col-3">
-					<div>
-						<label class="control-label">Expresar en</label>
-                        <br><br>
-						<select2 :options="currencies" v-model="currency"></select2>
-					</div>
+				<div class="col-3" id="helpAuxiliaryBookCurrency">
+					<label class="control-label">Expresar en</label>
+                    <br><br>
+					<select2 :options="currencies" v-model="currency"></select2>
 				</div>
-                <div class="col-3">
+                <div class="col-3" id="helpAuxiliaryBookAllAccount">
                     <label for="" class="control-label">Seleccionar todas</label>
                     <br><br>
                     <input type="checkbox"
@@ -45,7 +43,8 @@
 			<button class="btn btn-primary btn-sm"
 					data-toggle="tooltip"
 					title="Generar Reporte"
-					@click="OpenPdf(getUrlReport(),'_blank')">
+					@click="OpenPdf(getUrlReport(),'_blank')"
+                    id="helpAuxiliaryBookGenerateReport">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
 			</button>

@@ -1,0 +1,26 @@
+[
+    {
+        "element" : "#helpAuxiliaryBookFrom",
+        "intro" : "Esta sección es el formulario para generar el reporte de libro auxiliar."
+    },
+    {
+        "element" : "#helpAuxiliaryBookDate",
+        "intro" : "Fecha para la consulta del reporte."
+    },
+    {
+        "element" : "#helpAuxiliaryBookAccount",
+        "intro" : "Cuentas patrimoniales a consultar para el reporte."
+    },
+    {
+        "element" : "#helpAuxiliaryBookCurrency",
+        "intro" : "Establece la moneda a la cual se realizaran las conversiones monetarias en la que se mostrara el reporte."
+    },
+    {
+        "element" : "#helpAuxiliaryBookAllAccount",
+        "intro" : "Selecciona de manera automatica todo el rango de cuentas patrimoniales."
+    },
+    {
+        "element" : "#helpAuxiliaryBookGenerateReport",
+        "intro" : "Genera el reporte de libro diario."
+    }
+]

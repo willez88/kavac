@@ -19,7 +19,8 @@ use Session;
  * Clase que gestiona las categorias para asientos contables
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingSettingController extends Controller
 {
@@ -44,10 +45,10 @@ class AccountingSettingController extends Controller
     {
         $codeSettings = CodeSetting::where('module', 'accounting')->get();
         $refCode = $codeSettings->where('table', 'accounting_entries')->first();
-        return view('accounting::setting.index', compact('refCode'));
+        return view('accounting::settings.index', compact('refCode'));
     }
 
-    public function code_store(Request $request)
+    public function codeStore(Request $request)
     {
         /** Reglas de validación para la configuración de códigos */
         $this->validate($request, [
@@ -95,23 +96,25 @@ class AccountingSettingController extends Controller
         return redirect()->back();
     }
 
-    public function generate_reference_code(Request $request)
+    public function generateReferenceCode(Request $request)
     {
         $codeSetting = CodeSetting::where('table', 'accounting_entries')->first();
         if (is_null($codeSetting)) {
-            $request->session()->flash('message', [
-                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
-                'text' => 'Debe configurar previamente el formato para el código, para poder generar asientos.'
-                ]);
-            return response()->json(['result' => true, 'redirect' => route('accounting.settings.index')], 200);
+            $code = AccountingEntry::count();
+        // $request->session()->flash('message', [
+            //     'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+            //     'text' => 'Debe configurar previamente el formato para el código, para poder generar asientos.'
+            //     ]);
+            // return response()->json(['result' => true, 'redirect' => route('accounting.settings.index')], 200);
+        } else {
+            $code  = generate_registration_code(
+                $codeSetting->format_prefix,
+                strlen($codeSetting->format_digits),
+                (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+                AccountingEntry::class,
+                $codeSetting->field
+            );
         }
-        $code  = generate_registration_code(
-            $codeSetting->format_prefix,
-            strlen($codeSetting->format_digits),
-            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
-            AccountingEntry::class,
-            $codeSetting->field
-        );
 
         return response()->json(['code'=>$code], 200);
     }

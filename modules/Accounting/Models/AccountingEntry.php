@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class accountingEntry extends Model implements Auditable
+class AccountingEntry extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;

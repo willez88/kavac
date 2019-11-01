@@ -4,7 +4,7 @@
 			<accounting-show-errors ref="accountingConverter" />
 
 			<div class="row">
-				<div class="col-2">
+				<div class="col-2" id="helpSearchSelectBudget">
 					<label for="sel_budget_acc" class="control-label">Por código presupuestal</label>
 					<br>
 						<input type="radio"
@@ -13,7 +13,7 @@
 								data-on-label="SI" data-off-label="NO"
 								class="form-control bootstrap-switch sel_pry_acc">
 				</div>
-				<div class="col-2">
+				<div class="col-2" id="helpSearchSelectAccounting">
 					<label for="sel_account_type" class="control-label">Por código patrimonial</label>
 					<br>
 						<input type="radio"
@@ -23,7 +23,7 @@
 								data-on-label="SI" data-off-label="NO"
 								class="form-control bootstrap-switch sel_pry_acc">
 				</div>
-				<div class="col-8 row">
+				<div class="col-8 row" id="helpSearchRangeAccount">
 					<div class="col-5">
 						<label class="control-label">Desde</label>
 						<select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id" :disabled="SelectAll"></select2>
@@ -32,7 +32,7 @@
 						<label class="control-label">Hasta</label>
 						<select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id" :disabled="SelectAll"></select2>
 					</div>
-					<div class="col-2">
+					<div class="col-2" id="helpSearchRangeAll">
 						<label for="" class="control-label">Seleccionar todas</label>
 						<br>
 						<input type="checkbox"

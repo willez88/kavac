@@ -5,7 +5,7 @@
             <div class="card-body">
                 <accounting-show-errors ref="settingCode" />
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-3" id="helpCodeReference">
                         <label for="entries_reference" class="control-label">Código de referencia</label>
                         <input type="text" class="form-control" data-toggle="tooltip"
                                 title="Formato para el código de los reportes"
