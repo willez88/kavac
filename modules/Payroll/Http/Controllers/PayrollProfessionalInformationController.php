@@ -86,11 +86,8 @@ class PayrollProfessionalInformationController extends Controller
         $i = 0;
         foreach ($request->language_details as $language_detail) {
             $this->validate($request, [
-                'language_details.'.$i.'.payroll_language_id' => array(
-                    'required',
-                    'unique:payroll_language_language_level_professional,payroll_language_id'
-                ),
-                'language_details.'.$i.'.payroll_language_level_id' => 'required'
+                'language_details.'.$i.'.payroll_language_id' => 'required',
+                'language_details.'.$i.'.payroll_language_level_id' => 'required',
             ]);
             $i++;
         }
@@ -241,8 +238,6 @@ class PayrollProfessionalInformationController extends Controller
             $payrollProfessionalInformation->class_schedule = null;
         }
 
-        //$payrollProfessionalInformation->payroll_language_id = $request->payroll_language_id;
-        //$payrollProfessionalInformation->payroll_language_level_id = $request->payroll_language_level_id;
         $payrollProfessionalInformation->save();
 
         if ($request->payroll_instruction_degree_id == 4 || $request->payroll_instruction_degree_id == 5) {
@@ -259,10 +254,18 @@ class PayrollProfessionalInformationController extends Controller
             }
         }
 
-        // falta agregar los nuevos detalles de idiomas
         foreach ($payrollProfessionalInformation->payrollLanguages as $payrollLanguage) {
             $language = PayrollLanguage::find($payrollLanguage['id']);
             $payrollProfessionalInformation->payrollLanguages()->detach($language->id);
+        }
+
+        foreach ($request->language_details as $language_detail) {
+            $payroll_language = PayrollLanguage::find($language_detail['payroll_language_id']);
+            $payroll_language_level = PayrollLanguageLevel::find($language_detail['payroll_language_level_id']);
+            $payrollProfessionalInformation->payrollLanguages()->attach(
+                $payroll_language->id,
+                ['payroll_language_level_id' => $payroll_language_level->id]
+            );
         }
 
         $request->session()->flash('message', ['type' => 'store']);
