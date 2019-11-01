@@ -1,0 +1,35 @@
+/**
+*--------------------------------------------------------------------------
+* App Scripts
+*--------------------------------------------------------------------------
+*
+* Scripts del Modulo de Nomina a compilar por la aplicación
+*/
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de solicitudes
+ *
+ * @author 
+ */
+Vue.component('citizenservice-request-types', require('./components/settings/CitizenServiceRequestTypesComponent.vue').default);
+
+Vue.component('citizenservice-request-create', require('./components/requests/CitizenServiceRequestCreateComponent.vue').default);
+
+
+
+/**
+ * Opciones de configuración global del módulo de Atención al Ciudadano
+ *
+ * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+ */
+Vue.mixin({
+	methods: {
+	
+		getCitizenServiceRequestTypes() {
+			this.citizen_service_request_types = [];
+			axios.get('/citizenservice/get-request-types').then(response => {
+				this.citizen_service_request_types = response.data;
+			});
+		},
+	},
+});

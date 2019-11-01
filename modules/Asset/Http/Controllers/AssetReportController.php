@@ -151,72 +151,69 @@ class AssetReportController extends Controller
 
     public function showGeneral($code_inventory)
     {
-        $inventory = AssetInventory::where('code', $code_inventory)->first();
-
-        $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
-
-        $setting = Setting::all()->first();
-        $pdf = new Pdf('L', 'mm', 'Letter');
-
         /*
-         *  Definicion de las caracteristicas generales de la página
-         */
+            $inventory = AssetInventory::where('code', $code_inventory)->first();
 
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
+            $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
 
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
+            $setting = Setting::all()->first();
+            $pdf = new Pdf('L', 'mm', 'Letter');
 
-        $pdf->setType(2);
-        $pdf->Open();
-        $pdf->AddPage();
+            if (isset($setting) and $setting->report_banner == true) {
+                $pdf->SetMargins(10, 65, 10);
+            } else {
+                $pdf->SetMargins(10, 55, 10);
+            }
 
-        $view = \View::make('asset::pdf.asset_general', compact('assets', 'pdf'));
-        $html = $view->render();
-        $pdf->SetFont('Courier', 'B', 8);
-        $pdf->writeHTML($html, true, false, true, false, '');
+            $pdf->SetHeaderMargin(10);
+            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+            $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
 
-        $pdf->Output($inventory->code.".pdf");
+            $pdf->setType(2);
+            $pdf->Open();
+            $pdf->AddPage();
+
+            $view = \View::make('asset::pdf.asset_general', compact('assets', 'pdf'));
+            $html = $view->render();
+            $pdf->SetFont('Courier', 'B', 8);
+            $pdf->writeHTML($html, true, false, true, false, '');
+
+            $pdf->Output($inventory->code.".pdf");
+        */
     }
 
     public function showClasification($code_inventory)
     {
-        $inventory = AssetInventory::where('code', $code_inventory)->first();
-
-        $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
-
-        $setting = Setting::all()->first();
-        $pdf = new Pdf('L', 'mm', 'Letter');
-
         /*
-         *  Definicion de las caracteristicas generales de la página
-         */
+            $inventory = AssetInventory::where('code', $code_inventory)->first();
 
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
+            $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
 
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
+            $setting = Setting::all()->first();
+            $pdf = new Pdf('L', 'mm', 'Letter');
 
-        $pdf->setType(1);
-        $pdf->Open();
-        $pdf->AddPage();
 
-        $view = \View::make('asset::pdf.asset_detallado', compact('assets', 'pdf'));
-        $html = $view->render();
-        $pdf->SetFont('Courier', 'B', 8);
-        $pdf->writeHTML($html, true, false, true, false, '');
+            if (isset($setting) and $setting->report_banner == true) {
+                $pdf->SetMargins(10, 65, 10);
+            } else {
+                $pdf->SetMargins(10, 55, 10);
+            }
 
-        $pdf->Output($inventory->code.".pdf");
+            $pdf->SetHeaderMargin(10);
+            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+            $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
+
+            $pdf->setType(1);
+            $pdf->Open();
+            $pdf->AddPage();
+
+            $view = \View::make('asset::pdf.asset_detallado', compact('assets', 'pdf'));
+            $html = $view->render();
+            $pdf->SetFont('Courier', 'B', 8);
+            $pdf->writeHTML($html, true, false, true, false, '');
+
+            $pdf->Output($inventory->code.".pdf");
+        */
     }
 
     public function showDependence($code_inventory)
