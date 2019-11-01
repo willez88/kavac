@@ -127,7 +127,6 @@
 
 			reset(){
 				this.date = '';
-				this.reference = '';
 				this.concept = '';
 				this.observations = '';
 				this.category = '';
@@ -229,7 +228,6 @@
 					this.validateRequired();
 				}
 				else{
-					this.reference = '';
 					this.validated = false;
 					this.validateRequired();
 				}
@@ -246,8 +244,7 @@
 					this.validated = false;
 					this.validateRequired();
 				}
-				if (this.data_edit_mutable != null) {
-					/** Se vacia la variable que trae la informacion para no*/
+				if (!this.data_edit_mutable) {
 					this.data_edit_mutable = null;
 				}
 				this.validateRequired();

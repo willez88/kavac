@@ -4,7 +4,7 @@
     "authors": [
         {
             "name": "Ing. Roldan Vargas",
-            "email": "rvargas@cenditel.gob.ve | roldandvg@gmail.com"
+            "email": "rvargas@cenditel.gob.ve"
         }
     ],
     "extra": {
@@ -13,7 +13,7 @@
                 "Modules\\TechnicalSupport\\Providers\\TechnicalSupportServiceProvider"
             ],
             "aliases": {
-                
+
             }
         }
     },

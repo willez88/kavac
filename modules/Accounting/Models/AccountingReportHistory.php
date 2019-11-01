@@ -11,5 +11,16 @@ class AccountingReportHistory extends Model
      *
      * @var array
      */
-    protected $fillable = ['report','url','name'];
+    protected $fillable = ['report','url','currency_id'];
+
+    /**
+     * AccountingReportHistory belongs to Currency.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function currency()
+    {
+        // belongsTo(RelatedModel, foreignKey = currency_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Currency::class);
+    }
 }

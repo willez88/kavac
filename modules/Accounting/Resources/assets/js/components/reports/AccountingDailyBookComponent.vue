@@ -1,17 +1,17 @@
 <template>
 	<div class="form-horizontal">
-		<div class="card-body" style="min-height: 0px;">
-			<accounting-show-errors />
+		<div class="card-body">
+
+			<accounting-show-errors ref="errorsDialyBook" />
 
 			<div class="row">
-				<div class="col-1"></div>
 				<div class="col-3">
-					<label class="control-label">Periodo inicial</label>
+					<label class="control-label">Fecha inicial</label>
 					<input type="date" class="form-control is-required"
 						v-model="dateIni">
 				</div>
 				<div class="col-3">
-					<label class="control-label">Periodo final</label>
+					<label class="control-label">Fecha final</label>
 					<input type="date" class="form-control is-required"
 						v-model="dateEnd">
 				</div>
@@ -21,12 +21,26 @@
 				</div>
 				<div class="col-2"></div>
 			</div>
+			<br>
+			<div class="row">
+                <div class="col-12">
+                    <span class="form-text">
+                        <strong>Expresar en:</strong> campo para seleccionar el tipo de moneda al que se convertiran los saldos.
+                        <br>
+                        <strong>Tipos de cambios monetarios: </strong>
+                            <ul>
+                                <li>Deben ser creados manualmente desde 
+                                    <strong><a href="/settings" style="color: #2BA3F7;">configuración > Tipos de cambio</a></strong>
+                                </li>
+                            </ul>
+                    </span>
+                </div>
+            </div>
 		</div>
 		<div class="card-footer text-right">
 			<button class="btn btn-primary btn-sm"
 					data-toggle="tooltip"
 					title="Generar Reporte"
-					:disabled="(!dateIni || !dateEnd || !currency)"
 					v-on:click="OpenPdf(getUrlReport(), '_blank')">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
@@ -60,7 +74,25 @@
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			* @return {string} url para el reporte
 			*/
-			getUrlReport:function(argument) {
+			getUrlReport:function() {
+
+				var errors = [];
+				if (!this.dateIni) {
+					errors.push("La fecha inicial es obligatorio.");
+				}
+				if (!this.dateEnd) {
+					errors.push("La fecha final es obligatorio.");
+				}
+				if (!this.currency) {
+					errors.push("El tipo de moneda es obligatorio.");
+				}
+
+				if (errors.length > 0) {
+					this.$refs.errorsDialyBook.showAlertMessages(errors);
+					return;
+				}
+				this.$refs.errorsDialyBook.reset();
+				
 				var dateIni = this.dateIni;
 				var dateEnd = this.dateEnd;
 				var info = (this.dateIni <= this.dateEnd) ? (dateIni+'/'+dateEnd) : (dateEnd+'/'+dateIni) ;

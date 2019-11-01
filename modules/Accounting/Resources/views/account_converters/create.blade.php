@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Crear Conversión</h6>
+					<h6 class="card-title">Crear conversión</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => route('accounting.converter.index')])
 						@include('buttons.minimize')
@@ -35,13 +35,14 @@
 								<div class="alert-icon">
 									<i class="now-ui-icons objects_support-17"></i>
 								</div>
-								<strong>Atención!</strong><br> La funcionalidad de conversión de cuentas presupuestales con patrimoniales
-								esta inhabilitada, para habilitarla debe instalar ó activar el modulo de
+								<strong>Atención!</strong><br> La funcionalidad de conversión de cuentas presupuestales con patrimoniales esta inhabilitada, para habilitarla debe instalar ó activar el modulo de
 								<a href="{{ route('module.list') }}" style="color: black;"><strong>Presupuesto</strong></a>
 							</div>
 						</div>
 					@else
-						<accounting-conversion-form :accounting_list="{{ $accountingList }}" :budget_list="{{ $budgetList }}"/>
+						<accounting-conversion-form :accounting_list="{{ $accountingList }}" 
+													:budget_list="{{ $budgetList }}"
+													route_list="{{ route('accounting.converter.index') }}" />
 					@endif
 
 				</div>

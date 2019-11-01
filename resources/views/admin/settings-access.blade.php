@@ -27,80 +27,12 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				{!! Form::open(['route' => 'roles.permissions.settings', 'method' => 'POST']) !!}
-					{!! Form::token() !!}
-					<div class="card-body">
-						@include('layouts.form-errors')
-						@php
-							$roles = App\Roles\Models\Role::where('slug', '<>', 'user')->get();
-							$permissions = App\Roles\Models\Permission::orderBy('model_prefix')->get();
-							$module = "";
-						@endphp
-						<table class="table table-hover table-striped dt-responsive">
-							<thead>
-								<tr>
-									<th class="text-center border-right" rowspan="2">PERMISOS</th>
-									<th class="text-center" colspan="{{ count($roles) }}">ROLES</th>
-								</tr>
-								<tr>
-									@foreach ($roles as $role)
-										<th class="text-center" title="{{ $role->description }}"
-											data-toggle="tooltip">
-											{{ $role->name }}
-										</th>
-									@endforeach
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($permissions as $perm)
-									@if ($module != $perm->model_prefix)
-										@php
-											$module = $perm->model_prefix;
-										@endphp
-										<tr>
-											<th></th>
-											<th class="text-center" colspan="{{ count($roles) }}">
-												<span class="card-title">
-													MÓDULO [{{ strtoupper((substr($module, 0,1) != '0')?$module:substr($module, 1)) }}]
-												</span>
-											</th>
-										</tr>
-									@endif
-									@if ($perm->slug_alt)
-										<tr>
-											<td title="{{ $perm->description }}" data-toggle="tooltip"
-												class="border-right" style="width: 20%">
-												{{ (!empty($perm->short_description))
-													?strtoupper($perm->short_description)
-													:strtoupper($perm->name) }}
-											</td>
-											@foreach ($roles as $role)
-												<td class="text-center bootstrap-switch-mini">
-													{!! Form::checkbox(
-														'perm[]', $role->id . ":" . $perm->id, (
-															$role->permissions()
-																 ->where('permission_id', $perm->id)
-																 ->first()),
-														[
-															'class' => 'form-control bootstrap-switch ' .
-																	   'bootstrap-switch-mini',
-															'data-on-label' => 'SI',
-															'data-off-label' => 'NO'
-														]
-													) !!}
-												</td>
-											@endforeach
-										</tr>
-									@endif
-								@endforeach
-							</tbody>
-						</table>
-					</div>
-					<div class="card-footer text-right">
-						@include('buttons.form-display', ['hide_clear' => true, 'hide_previous' => true])
-						@include('layouts.form-buttons', ['hide_clear' => true, 'hide_previous' => true])
-					</div>
-				{!! Form::close() !!}
+				@php
+					$roles = App\Roles\Models\Role::with('permissions')->where('slug', '<>', 'user')->get();
+					$permissions = App\Roles\Models\Permission::with('roles')->orderBy('model_prefix')->get();
+				@endphp
+				<roles-permissions roles-permissions-url='{!! route('get.roles.permissions') !!}'
+								   save-url='auth/settings/roles-permissions'></roles-permissions>
 			</div>
 		</div>
 	</div>
@@ -148,4 +80,22 @@
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('extra-css')
+	@parent
+	<style>
+		.table-roles-permissions {
+			font-size: .578rem
+		}
+		.table-roles-permissions .pretty {
+			margin: 0 auto;
+			font-weight: bold;
+			font-size: .678rem
+		}
+		.table-roles-permissions .pretty .state label {
+			text-indent: 0;
+			min-width: 0;
+		}
+	</style>
 @stop

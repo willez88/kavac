@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.settings-access');
+        return view('admin.setting-users');
     }
 
     /**
@@ -160,6 +160,13 @@ class UserController extends Controller
         return response()->json(['record' => $user, 'message' => 'Success'], 200);
     }
 
+    public function getRolesAndPermissions()
+    {
+        $roles = Role::with('permissions')->where('slug', '<>', 'user')->get();
+        $permissions = Permission::with('roles')->orderBy('model_prefix')->get();
+        return response()->json(['result' => true, 'roles' => $roles, 'permissions' => $permissions], 200);
+    }
+
     /**
      * Configuración de permisos asociados a roles de usuarios
      *
@@ -170,9 +177,9 @@ class UserController extends Controller
     public function setRolesAndPermissions(Request $request)
     {
         $this->validate($request, [
-            'perm' => 'required|array|min:1'
+            'roles_attach_permissions' => 'required|array|min:1'
         ], [
-            'perm.required' => 'Se requiere asignar al menos un permiso a un rol'
+            'roles_attach_permissions.required' => 'Se requiere asignar al menos un permiso a un rol'
         ]);
 
         foreach (Role::all() as $r) {
@@ -180,8 +187,8 @@ class UserController extends Controller
         }
 
         $roleConsult = '';
-        foreach ($request->input('perm') as $role_perm) {
-            list($role_id, $perm_id) = explode(":", $role_perm);
+        foreach ($request->roles_attach_permissions as $role_perm) {
+            list($role_id, $perm_id) = explode("_", $role_perm);
             if ($roleConsult !== $role_id) {
                 $role = Role::find($role_id);
                 $roleConsult = $role_id;
@@ -192,9 +199,7 @@ class UserController extends Controller
             }
         }
 
-        $request->session()->flash('message', ['type' => 'store']);
-
-        return redirect()->back();
+        return response()->json(['result' => true], 200);
     }
 
     /**
@@ -290,5 +295,10 @@ class UserController extends Controller
         return response()->json([
             'result' => true, 'user' => $user, 'permissions' => $user->getPermissions()
         ], 200);
+    }
+
+    public function indexRolesPermissions()
+    {
+        return view('admin.settings-access');
     }
 }

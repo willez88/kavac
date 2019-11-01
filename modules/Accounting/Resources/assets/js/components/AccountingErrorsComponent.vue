@@ -1,5 +1,5 @@
 <template>
-	<div class="alert alert-danger" role="alert" v-if="existErrors">
+	<div :class="'alert alert-'+classAlert" role="alert" v-if="existErrors">
 		<div class="container">
 			<div class="alert-icon">
 				<i class="now-ui-icons objects_support-17"></i>
@@ -21,6 +21,7 @@
 		data(){
 			return{
 				options:[],
+				classAlert:'danger'
 			}
 		},
 		computed:{
@@ -28,24 +29,39 @@
 				return (this.options.length > 0);
 			}
 		},
-		created(){
-			EventBus.$on('show:errors',(data)=>{
-				if (Array.isArray(data)) {
-					if (data.length == 0) {
-						this.options = [];	
-					}else{
-						this.options = data;
-					}
-				}else{
-					this.options = [];
-					this.options.push(data);
-				}
-			});
-		},
 		methods:{
+			/**
+			 * [reset resetea valores de variables]
+			 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			 */
 			reset(){
 				this.options = [];
-			}
+			},
+
+			/**
+			 * [showAlertMessages carga la informacion de los errores]
+			 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			 * @param  {string|array} messages mensajes de error
+			 */
+			showAlertMessages(messages, classAlert){
+
+				this.classAlert = (classAlert)?classAlert:'danger';
+
+				if (Array.isArray(messages)) {
+					if (messages.length == 0) {
+						this.options = [];	
+					}else{
+						this.options = messages;
+					}
+				}
+				else if(!messages){
+					this.options = [];
+				}
+				else{
+					this.options = [];
+					this.options.push(messages);
+				}
+			},
 		}
 	};
 </script>

@@ -7,14 +7,12 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use App\Models\CodeSetting;
-use Modules\Asset\Pdf\Pdf;
-
-use Modules\Asset\Models\Asset;
+use Modules\Asset\Jobs\AssetGenerateReport;
 
 use Modules\Asset\Models\AssetInventoryAsset;
 use Modules\Asset\Models\AssetInventory;
 use Modules\Asset\Models\AssetReport;
+use App\Models\CodeSetting;
 use App\Models\Setting;
 
 /**
@@ -137,7 +135,6 @@ class AssetReportController extends Controller
                 'end_date' => $request->input('end_date'),
             ]);
         }
-
         return response()->json(['result' => true, 'redirect' => 'reports/show/'.$report->code], 200);
     }
 
@@ -148,60 +145,53 @@ class AssetReportController extends Controller
     public function show($code_report)
     {
         $report = AssetReport::where('code', $code_report)->first();
+        AssetGenerateReport::dispatch($report);
+    }
 
-        if ($report->type_report == 'general') {
-            $assets = Asset::dateclasification(
-                $report->start_date,
-                $report->end_date,
-                $report->mes,
-                $report->year
-            )->get();
+
+    public function showGeneral($code_inventory)
+    {
+        /*
+            $inventory = AssetInventory::where('code', $code_inventory)->first();
+
+            $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
 
             $setting = Setting::all()->first();
-
             $pdf = new Pdf('L', 'mm', 'Letter');
-            
-            /*
-             *  Definicion de las caracteristicas generales de la página
-             */
 
             if (isset($setting) and $setting->report_banner == true) {
                 $pdf->SetMargins(10, 65, 10);
             } else {
                 $pdf->SetMargins(10, 55, 10);
             }
-            
+
             $pdf->SetHeaderMargin(10);
             $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
             $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
 
             $pdf->setType(2);
             $pdf->Open();
-            $pdf->AddPage("L");
+            $pdf->AddPage();
 
             $view = \View::make('asset::pdf.asset_general', compact('assets', 'pdf'));
             $html = $view->render();
             $pdf->SetFont('Courier', 'B', 8);
-
             $pdf->writeHTML($html, true, false, true, false, '');
-        } elseif ($report->type_report == 'clasification') {
-            if ($report->type_search != '') {
-                $assets = Asset::dateclasification(
-                    $report->start_date,
-                    $request->end_date,
-                    $request->mes_id,
-                    $request->year_id
-                )->get();
-            } else {
-                $assets = Asset::all();
-            }
-            
+
+            $pdf->Output($inventory->code.".pdf");
+        */
+    }
+
+    public function showClasification($code_inventory)
+    {
+        /*
+            $inventory = AssetInventory::where('code', $code_inventory)->first();
+
+            $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
+
             $setting = Setting::all()->first();
             $pdf = new Pdf('L', 'mm', 'Letter');
 
-            /*
-             *  Definicion de las caracteristicas generales de la página
-             */
 
             if (isset($setting) and $setting->report_banner == true) {
                 $pdf->SetMargins(10, 65, 10);
@@ -221,80 +211,9 @@ class AssetReportController extends Controller
             $html = $view->render();
             $pdf->SetFont('Courier', 'B', 8);
             $pdf->writeHTML($html, true, false, true, false, '');
-        }
 
-        $pdf->Output($report->code.".pdf");
-    }
-
-
-    public function showGeneral($code_inventory)
-    {
-        $inventory = AssetInventory::where('code', $code_inventory)->first();
-
-        $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
-
-        $setting = Setting::all()->first();
-        $pdf = new Pdf('L', 'mm', 'Letter');
-
-        /*
-         *  Definicion de las caracteristicas generales de la página
-         */
-
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setType(2);
-        $pdf->Open();
-        $pdf->AddPage();
-
-        $view = \View::make('asset::pdf.asset_general', compact('assets', 'pdf'));
-        $html = $view->render();
-        $pdf->SetFont('Courier', 'B', 8);
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $pdf->Output($inventory->code.".pdf");
-    }
-
-    public function showClasification($code_inventory)
-    {
-        $inventory = AssetInventory::where('code', $code_inventory)->first();
-
-        $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
-
-        $setting = Setting::all()->first();
-        $pdf = new Pdf('L', 'mm', 'Letter');
-
-        /*
-         *  Definicion de las caracteristicas generales de la página
-         */
-
-        if (isset($setting) and $setting->report_banner == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setType(1);
-        $pdf->Open();
-        $pdf->AddPage();
-
-        $view = \View::make('asset::pdf.asset_detallado', compact('assets', 'pdf'));
-        $html = $view->render();
-        $pdf->SetFont('Courier', 'B', 8);
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $pdf->Output($inventory->code.".pdf");
+            $pdf->Output($inventory->code.".pdf");
+        */
     }
 
     public function showDependence($code_inventory)

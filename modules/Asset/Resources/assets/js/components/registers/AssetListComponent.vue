@@ -1,5 +1,17 @@
 <template>
 	<section>
+		<div class="form-group form-inline pull-left VueTables__search-2">
+			<div class="VueTables__search-field">
+				<label class="">
+					Buscar:
+				</label>
+				<input  type="text"
+						class="form-control"
+						placeholder="Buscar..."
+						v-model="search">
+			</div>
+		</div>
+
 		<div class="form-group form-inline pull-right VueTables__limit-2">
 			<div class="VueTables__limit-field">
 				<label class="">Registros</label>
@@ -84,6 +96,9 @@
 </template>
 
 <style type="text/css">
+	.VueTables__search {
+		display: none;
+	}
 	.VueTables__limit {
 		display: none;
 	}
@@ -97,6 +112,7 @@
 		data() {
 			return {
 				records: [],
+				search: '',
 				page: 1,
 				total: '',
 				perPage: 10,

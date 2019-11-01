@@ -72,7 +72,13 @@ Vue.mixin({
     },
     watch: {
         loading: function() {
-            $('.preloader').attr('style', `display: ${(this.loading) ? 'block' : 'none'}`);
+            let vm = this;
+            if (!vm.loading) {
+                $('.preloader').fadeOut(2000);
+            }
+            else {
+                $('.preloader').show();
+            }
         }
     },
     methods: {
@@ -232,10 +238,14 @@ Vue.mixin({
          */
         readRecords(url) {
             const vm = this;
+            vm.loading = true;
             axios.get('/' + url).then(response => {
                 if (typeof(response.data.records) !== "undefined") {
                     vm.records = response.data.records;
                 }
+                vm.loading = false;
+            }).catch(error => {
+                console.log(error);
             });
         },
         /**
@@ -257,14 +267,19 @@ Vue.mixin({
          *
          * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
          *
-         * @param  {string} url Ruta de la acción a ejecutar para la creación o actualización de datos
+         * @param  {string} url    Ruta de la acción a ejecutar para la creación o actualización de datos
+         * @param  {string} list   Condición para establecer si se cargan datos en un listado de tabla.
+         *                         El valor por defecto es verdadero.
+         * @param  {string} reset  Condición que evalúa si se inicializan datos del formulario.
+         *                         El valor por defecto es verdadero.
          */
-        createRecord(url) {
+        createRecord(url, list = true, reset = true) {
             const vm = this;
             if (this.record.id) {
                 this.updateRecord(url);
             }
             else {
+                vm.loading = true;
                 var fields = {};
                 for (var index in this.record) {
                     fields[index] = this.record[index];
@@ -275,10 +290,16 @@ Vue.mixin({
                     }
                     else {
                         vm.errors = [];
-                        vm.reset();
-                        vm.readRecords(url);
+                        if (reset) {
+                            vm.reset();
+                        }
+                        if (list) {
+                            vm.readRecords(url);
+                        }
+                        vm.loading = false;
                         vm.showMessage('store');
                     }
+
                 }).catch(error => {
                     vm.errors = [];
 
@@ -289,6 +310,8 @@ Vue.mixin({
                             }
                         }
                     }
+
+                    vm.loading = false;
                 });
             }
 
@@ -351,6 +374,7 @@ Vue.mixin({
          */
         updateRecord(url) {
             const vm = this;
+            vm.loading = true;
             var fields = {};
             for (var index in this.record) {
                 fields[index] = this.record[index];
@@ -362,8 +386,10 @@ Vue.mixin({
                 else {
                     vm.readRecords(url);
                     vm.reset();
+                    vm.loading = false;
                     vm.showMessage('update');
                 }
+
             }).catch(error => {
                 vm.errors = [];
 
@@ -374,6 +400,7 @@ Vue.mixin({
                         }
                     }
                 }
+                vm.loading = false;
             });
         },
         /**

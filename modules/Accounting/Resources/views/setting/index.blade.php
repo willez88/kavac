@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Formatos de Códigos</h6>
+					<h6 class="card-title">Formatos de códigos</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
@@ -32,9 +32,9 @@
 						<div class="col-12">
 							@if(!is_null($refCode))
 								<accounting-setting-code :ref_code="{{ $refCode }}"
-													route_list="{{ url('accounting.settings.index') }}" />
+													route_list="{{ route('accounting.settings.index') }}" />
 							@else
-								<accounting-setting-code route_list="{{ url('accounting.settings.index') }}" />
+								<accounting-setting-code route_list="{{ route('accounting.settings.index') }}" />
 							@endif
 						</div>
 					</div>
@@ -53,7 +53,6 @@
 					<div class="row">
 						<accounting-setting-category></accounting-setting-category>
 						<accounting-setting-account></accounting-setting-account>
-						{{-- <exchange-rates /> --}}
 					</div>
 				</div>
 			</div>

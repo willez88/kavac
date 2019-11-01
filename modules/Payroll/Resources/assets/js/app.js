@@ -154,25 +154,37 @@ Vue.component('payroll-employment-informations-list', require('./components/Payr
 Vue.component('payroll-employment-information', require('./components/PayrollEmploymentInformationComponent.vue').default);
 
 /**
+ * Componente para la gestión de los escalafones de nomina
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-salary-scale', require('./components/PayrollSalaryScaleComponent.vue').default);
+
+/**
  * Componente para la gestión de tabuladores de nómina
  *
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 Vue.component('payroll-salary-tabulator', require('./components/PayrollSalaryTabulatorComponent.vue').default);
 
 /**
+ * Componente para la gestión de tipos de asignaciones de nómina
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-salary-assignment-type', require('./components/PayrollSalaryAssignmentTypeComponent.vue').default);
+
+/**
  * Componente para la gestión de asignaciones de nómina
  *
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-
-Vue.component('payroll-salary-assignment-type', require('./components/PayrollSalaryAssignmentTypeComponent.vue').default);
 Vue.component('payroll-salary-assignment', require('./components/PayrollSalaryAssignmentComponent.vue').default);
 
 /**
  * Componente para la gestión de calculos de salario
  *
- * @author Henry Paredes (henryp2804@gmail.com)
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 //Vue.component('payroll-salary-simulator', require('./components/PayrollSalarySimulatorComponent.vue').default);
 
@@ -338,6 +350,18 @@ Vue.mixin({
 			this.payroll_contract_types = [];
 			axios.get('/payroll/get-contract-types').then(response => {
 				this.payroll_contract_types = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de tipos de contrato registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		 getPayrollSectorTypes() {
+			this.payroll_sector_types = [];
+			axios.get('/payroll/get-sector-types').then(response => {
+				this.payroll_sector_types = response.data;
 			});
 		},
 	},

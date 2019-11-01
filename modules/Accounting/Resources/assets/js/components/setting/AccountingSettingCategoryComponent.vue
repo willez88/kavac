@@ -19,7 +19,9 @@
 						</h6>
 					</div>
 					<div class="modal-body">
-						<accounting-show-errors />
+
+						<accounting-show-errors ref="originCategories" />
+
 						<div class="row">
 							<div class="card-body">
 								<div class="row">
@@ -35,6 +37,7 @@
 									<div class="form-group col-5 is-required">
 										<label class="control-label">Acrónimo</label>
 										<input type="text"
+												:onkeyup="record.acronym=onlyNumbers(record.acronym,'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')"
 												class="form-control"
 												maxlength="4"
 												title="Ingrese el acrónimo"
@@ -127,14 +130,22 @@ export default{
 			// verifica que no este repetida la información
 			// en caso de estar actualizando se lo salta
 			for (var i = 0; i < this.records.length; i++) {
-				if (name && this.record.name == this.records[i].name) {
+				if (!this.record.name) {
+					errors.push('El campo del nombre es obligatorio.');
+					break;
+				}
+				else if (this.record.name == this.records[i].name) {
 					if (jumpOne) {
 						jumpOne = false;
 						continue;
 					}
 					errors.push('El nombre debe ser único.');
 				}
-				if (acronym && this.record.acronym == this.records[i].acronym) {
+				if (!this.record.acronym) {
+					errors.push('El campo del acrónimo es obligatorio.');
+					break;
+				}
+				else if (this.record.acronym == this.records[i].acronym) {
 					if (jumpOne) {
 						jumpOne = false;
 						continue;
@@ -143,7 +154,7 @@ export default{
 				}
 			}
 			if (errors.length > 0) {
-				EventBus.$emit('show:errors',errors);
+				this.$refs.originCategories.showAlertMessages(errors);
 				return false;
 			}
 			return true;
@@ -168,7 +179,7 @@ export default{
 						acronym:''
 					};
 					vm.showMessage('store');
-					EventBus.$emit('show:errors',[]);
+					this.$refs.originCategories.reset();
 				});
 
 			}else{
@@ -182,7 +193,7 @@ export default{
 					};
 					vm.state = 'store'; // se cambia el estado para mostrar el boton guardar
 					vm.showMessage('update');
-					EventBus.$emit('show:errors',[]);
+					this.$refs.originCategories.reset();
 				});
 			}
 

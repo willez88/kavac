@@ -17,4 +17,15 @@ class Currency extends BaseCurrency
         // hasOne(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
         return $this->hasOne(AccountingEntry::class);
     }
+
+    /**
+     * Currency has many AccountingReportHistory.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function accountingReportHistory()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
+        return $this->hasMany(AccountingReportHitory::class);
+    }
 }

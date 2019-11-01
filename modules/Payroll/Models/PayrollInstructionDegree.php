@@ -50,4 +50,15 @@ class PayrollInstructionDegree extends Model implements Auditable
     {
         return $this->hasMany(PayrollProfessionalInformation::class);
     }
+
+    /**
+     * Método que obtiene los requerimientos de las escalas asociados a un grado de instrucción
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function payrollScaleRequirements()
+    {
+        return $this->morphMany(PayrollScale::class, 'clasificable');
+    }
 }

@@ -42,10 +42,20 @@
                             </a>
                         </li>
                         <li class="{!! set_active_menu('access.settings') !!}">
-                            <a href="{{ route('access.settings') }}" title="Gestión de usuarios, roles y permisos"
+                            <a href="" title="Gestión de usuarios, roles y permisos"
                                data-toggle="tooltip" data-placement="right">
                                 Acceso
                             </a>
+                            <ul class="submenu">
+                                <li class="{!! set_active_menu('access.settings') !!}" data-toggle="tooltip"
+                                    title="Gestión de roles y permisos del sistema" data-placement="right">
+                                    <a href="{{ route('access.settings') }}">Roles / Permisos</a>
+                                </li>
+                                {{-- <li class="{!! set_active_menu('access.settings.users') !!}" data-toggle="tooltip" 
+                                    title="Gestión de usuarios del sistema" data-placement="right">
+                                    <a href="{{ route(access.settings.users) }}">Usuarios</a>
+                                </li> --}}
+                            </ul>
                         </li>
                         <li class="{!! set_active_menu('module.list') !!}">
                             <a href="{{ route('module.list') }}" title="Gestión de módulos del sistema"

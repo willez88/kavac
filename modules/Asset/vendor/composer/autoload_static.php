@@ -53,6 +53,8 @@ class ComposerStaticInitce8a20a66bed9f8b8eb215a77c41d2cb
         'Modules\\Asset\\Http\\Controllers\\AssetSubcategoryController' => __DIR__ . '/../..' . '/Http/Controllers/AssetSubcategoryController.php',
         'Modules\\Asset\\Http\\Controllers\\AssetTypeController' => __DIR__ . '/../..' . '/Http/Controllers/AssetTypeController.php',
         'Modules\\Asset\\Http\\Controllers\\AssetUseFunctionController' => __DIR__ . '/../..' . '/Http/Controllers/AssetUseFunctionController.php',
+        'Modules\\Asset\\Jobs\\AssetCreateAssets' => __DIR__ . '/../..' . '/Jobs/AssetCreateAssets.php',
+        'Modules\\Asset\\Jobs\\AssetGenerateReport' => __DIR__ . '/../..' . '/Jobs/AssetGenerateReport.php',
         'Modules\\Asset\\Models\\Asset' => __DIR__ . '/../..' . '/Models/Asset.php',
         'Modules\\Asset\\Models\\AssetAcquisitionType' => __DIR__ . '/../..' . '/Models/AssetAcquisitionType.php',
         'Modules\\Asset\\Models\\AssetAsignation' => __DIR__ . '/../..' . '/Models/AssetAsignation.php',

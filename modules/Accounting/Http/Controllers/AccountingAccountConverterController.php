@@ -341,10 +341,10 @@ class AccountingAccountConverterController extends Controller
             }
 
             /**
-             * [$records contine los registros de conversión a en un rango de ids]
+             * [$query contine los registros de conversión a en un rango de ids]
              * @var [Modules\Accounting\Models\AccountingAccountConverter]
              */
-            $records = AccountingAccountConverter::with('budgetAccount', 'accountingAccount')
+            $query = AccountingAccountConverter::with('budgetAccount', 'accountingAccount')
                                             ->where('budget_account_id', '>=', $init_id)
                                             ->where('budget_account_id', '<=', $end_id)
                                             ->orderBy('id', 'ASC')->get();
@@ -358,13 +358,27 @@ class AccountingAccountConverterController extends Controller
             }
 
             /**
-             * [$records contine los registros de conversión a en un rango de ids]
+             * [$query contine los registros de conversión a en un rango de ids]
              * @var [Modules\Accounting\Models\AccountingAccountConverter]
              */
-            $records = AccountingAccountConverter::with('budgetAccount', 'accountingAccount')
+            $query = AccountingAccountConverter::with('budgetAccount', 'accountingAccount')
                                             ->where('accounting_account_id', '>=', $init_id)
                                             ->where('accounting_account_id', '<=', $end_id)
                                             ->orderBy('id', 'ASC')->get();
+        }
+
+        $records = [];
+        $cont = 0;
+
+        foreach ($query as $r) {
+            $records[$cont] = [
+                'id'                 => $r['id'],
+                'codeAccounting'     => $r['accountingAccount']->getCodeAttribute(),
+                'accounting_account' => $r['accountingAccount']['denomination'],
+                'codeBudget'         => $r['budgetAccount']->getCodeAttribute(),
+                'budget_account'     => $r['budgetAccount']['denomination'],
+            ];
+            $cont++;
         }
         return response()->json(['records'=>$records, 'message'=>'Success',200]);
     }

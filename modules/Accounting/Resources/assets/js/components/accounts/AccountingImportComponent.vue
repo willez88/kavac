@@ -96,7 +96,7 @@
 
 				this.records = [];
 
-				EventBus.$emit('show:errors', []);
+				this.$parent.$refs.accountingAccountForm.reset();
 
 				/** Se obtiene y da formato para enviar el archivo a la ruta */
 				let vm = this;
@@ -123,7 +123,7 @@
 					}
 
 					if (response.data.errors.length > 0) {
-						EventBus.$emit('show:errors', response.data.errors);
+						this.$parent.$refs.accountingAccountForm.showAlertMessages(response.data.errors);
 					}
 					else if (response.data.result && response.data.records) {
 						this.records = response.data.records;

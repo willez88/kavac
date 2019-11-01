@@ -144,7 +144,7 @@ class SettingController extends Controller
             );
 
             if ($parameter === "online") {
-                if (is_null($request->$parameter)) {
+                /*if (is_null($request->$parameter)) {
                     \Artisan::call('up');
                     $msgType = [
                         'type' => 'other',
@@ -158,7 +158,7 @@ class SettingController extends Controller
                         'text' => 'El sistema esta actualmente en mantenimiento, ' .
                         'solo puede acceder a la aplicación desde este equipo'
                     ];
-                }
+                }*/
             }
         }
 

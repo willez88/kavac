@@ -8,22 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Payroll\Models\PayrollSalaryAssignmentType;
 
 /**
- * @class PayrollSalaryAssignmentType
- * @brief Inicializar tipos de asignaciones salariales
- * 
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @class PayrollSalaryAssignmentTypesTableSeeder
+ * @brief Registrar información por defecto de las asignaciones salariales
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
-class PayrollSalaryAssignmentTypeTableSeeder extends Seeder
+class PayrollSalaryAssignmentTypesTableSeeder extends Seeder
 {
     /**
-     * Método que registra los valores iniciales de los tipos de asignaciones salariales
+     * Método que ejecuta el seeder
      *
-     * @author  Henry Paredes (henryp2804@gmail.com)
+     * @author  Henry Paredes <hparedes@cenditel.gob.ve>
      * @return void
      */
-
     public function run()
     {
         Model::unguard();

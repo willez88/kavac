@@ -5,8 +5,11 @@
         <i class="icofont icofont-users-social"></i><span>Atención / Ciudadano</span>
     </a>
     <ul class="submenu" style="{!! display_submenu('citizenservice') !!}">
-        <li>
-            <a href="#">Configuración</a>
+        <li class="{!! set_active_menu(['citizenservice.setting']) !!}">
+             <a href="{{ route('citizenservice.setting') }}">Configuración</a>
+        </li>
+        <li class="{!! set_active_menu(['citizenservice.request.create']) !!}">
+             <a href="{{ route('citizenservice.request.create') }}">Ingresar Solicitud</a>
         </li>
     </ul>
 </li>

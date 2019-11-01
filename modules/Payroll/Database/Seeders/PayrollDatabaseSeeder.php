@@ -50,6 +50,6 @@ class PayrollDatabaseSeeder extends Seeder
         $this->call(PayrollInactivityTypesTableSeeder::class);
 
         /** Seeder para los tipos de asignacion disponibles en el módulo */
-        $this->call(PayrollSalaryAssignmentTypeTableSeeder::class);
+        $this->call(PayrollSalaryAssignmentTypesTableSeeder::class);
     }
 }
