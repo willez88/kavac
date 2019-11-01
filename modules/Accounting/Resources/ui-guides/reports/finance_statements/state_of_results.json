@@ -1,0 +1,26 @@
+[
+    {
+        "element" : "#helpStateOfResultsFrom",
+        "intro" : "Esta sección es el formulario para generar el reporte de estado de resultados."
+    },
+    {
+        "element" : "#helpStateOfResultsInitDate",
+        "intro" : "Fecha para la consulta del reporte."
+    },
+    {
+        "element" : "#helpStateOfResultsLevel",
+        "intro" : "Nivel de subcuentas que se mostraran en el reporte."
+    },
+    {
+        "element" : "#helpStateOfResultsCurrency",
+        "intro" : "Establece la moneda a la cual se realizaran las conversiones monetarias en la que se mostrara el reporte."
+    },
+    {
+        "element" : "#helpStateOfResultsAllAccount",
+        "intro" : "Establece si se desea mostrar en el reporte las cuentas con saldo cero."
+    },
+    {
+        "element" : "#helpStateOfResultsGenerateReport",
+        "intro" : "Genera el reporte."
+    }
+]

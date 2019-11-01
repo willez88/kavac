@@ -222,14 +222,14 @@ Vue.mixin({
 			if (!url) {
 				return;
 			}
-			axios.get(url.replace('pdf','pdfVue')).then(response=>{
+			axios.get(url.replace('/pdf','/pdfVue')).then(response=>{
 				if (!response.data.result) {
 					vm.showMessage(
                             'custom', 'Error en conversión', 'danger', 'screen-error', response.data.message
                         );
 				}else{
-					url = url.split('pdf')[0];
-					url += 'pdf/'+response.data.id; 
+					url = url.split('/pdf')[0];
+					url += '/'+response.data.id; 
 					window.open(url, type);
 				}
 			})

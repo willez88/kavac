@@ -1,0 +1,26 @@
+[
+    {
+        "element" : "#helpBalanceSheetFrom",
+        "intro" : "Esta sección es el formulario para generar el reporte de balance general."
+    },
+    {
+        "element" : "#helpBalanceSheetInitDate",
+        "intro" : "Fecha para la consulta del reporte."
+    },
+    {
+        "element" : "#helpBalanceSheetLevel",
+        "intro" : "Nivel de subcuentas que se mostraran en el reporte."
+    },
+    {
+        "element" : "#helpBalanceSheetCurrency",
+        "intro" : "Establece la moneda a la cual se realizaran las conversiones monetarias en la que se mostrara el reporte."
+    },
+    {
+        "element" : "#helpBalanceSheetAllAccount",
+        "intro" : "Establece si se desea mostrar en el reporte las cuentas con saldo cero."
+    },
+    {
+        "element" : "#helpBalanceSheetGenerateReport",
+        "intro" : "Genera el reporte."
+    }
+]

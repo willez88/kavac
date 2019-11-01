@@ -5,7 +5,7 @@
 			<accounting-show-errors ref="errorsAnalyticalMajor" />
 	
 			<div class="row">
-				<div class="col-3">
+				<div class="col-3" id="helpAnaliticalMajorInitDate">
 					<label class="control-label"><strong>Fecha Inicial</strong></label>
 					<br>
 					<div class="is-required">
@@ -18,7 +18,7 @@
 						<select2 :options="years" v-model="year_init"></select2>
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpAnaliticalMajorEndDate">
 					<label class="control-label"><strong>Fecha Final</strong></label>
 					<br>
 					<div class="is-required">
@@ -31,7 +31,7 @@
 						<select2 :options="years" v-model="year_end"></select2>
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpAnaliticalMajorRangeAccount">
 					<br>
 					<div class="is-required">
 						<label><strong>Cuenta Inicial</strong></label>
@@ -44,18 +44,20 @@
 				</div>
 				<div class="col-3">
 					<br>
-					<div>
+					<div id="helpAnaliticalMajorCurrency">
 						<label class="control-label">Expresar en</label>
 						<select2 :options="currencies" v-model="currency"></select2>
 					</div>
 					<br>
-					<label for="" class="control-label">Seleccionar todas</label>
-					<br>
-					<input type="checkbox"
-								name="sel_account_type"
-								id="sel_all_acc"
-								data-on-label="SI" data-off-label="NO"
-								class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+					<div id="helpAnaliticalMajorAllAccount">
+						<label for="" class="control-label">Seleccionar todas</label>
+						<br>
+						<input type="checkbox"
+									name="sel_account_type"
+									id="sel_all_acc"
+									data-on-label="SI" data-off-label="NO"
+									class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -63,7 +65,8 @@
 			<button class="btn btn-primary btn-sm"
 					title="Generar Reporte"
 					data-toggle="tooltip"
-					v-on:click="OpenPdf(getUrlReport(), '_blank')">
+					v-on:click="OpenPdf(getUrlReport(), '_blank')"
+					id="helpAnaliticalMajorGenerateReport">
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
 			</button>
