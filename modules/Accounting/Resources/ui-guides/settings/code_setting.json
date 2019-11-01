@@ -1,0 +1,10 @@
+[
+    {
+        "element" : "#helpCodeSettingForm",
+        "intro" : "Esta sección permite establecer el formato a utilizar por los códigos en cada uno de los registros descritos, para comenzar en su implementación tenga especial cuidado en seguir las instrucciones en cuanto al formato que acepta esta configuración"
+    },
+    {
+        "element" : "#helpCodeReference",
+        "intro" : "La configuración de este código permite identificar los registros de asientos contables mediante un formato único, si no se establece esta configuración el sistema generará un código numérico consecutivo"
+    }
+]

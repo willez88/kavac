@@ -227,12 +227,12 @@ Route::group(['middleware' => 'web',
     Route::get('settings', 'AccountingSettingController@index')
             ->name('accounting.settings.index');
 
-    Route::post('settings/code', 'AccountingSettingController@code_store')
+    Route::post('settings/code', 'AccountingSettingController@codeStore')
             ->name('accounting.settings.code.store');
 
     Route::post(
-        'settings/generate_reference_code',
-        'AccountingSettingController@generate_reference_code'
+        'settings/generateReferenceCode',
+        'AccountingSettingController@generateReferenceCode'
     )->name('accounting.settings.code.generate');
 
 

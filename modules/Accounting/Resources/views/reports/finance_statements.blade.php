@@ -25,7 +25,7 @@
 						Balance de comprobación
 						@include('buttons.help', [
 							'helpId' => 'AccountingCheckup',
-							'helpSteps' => get_json_resource('ui-guides/finance_statements/checkup_balance.json', 'accounting')
+							'helpSteps' => get_json_resource('ui-guides/reports/finance_statements/checkup_balance.json', 'accounting')
 						])
 					</h6>
 					<div class="card-btns">
@@ -46,7 +46,7 @@
 						Estado de resultados
 						@include('buttons.help', [
 							'helpId' => 'AccountingState',
-							'helpSteps' => get_json_resource('ui-guides/finance_statements/state_of_results.json', 'accounting')
+							'helpSteps' => get_json_resource('ui-guides/reports/finance_statements/state_of_results.json', 'accounting')
 						])
 					</h6>
 					<div class="card-btns">
@@ -66,7 +66,7 @@
 						Balance general
 						@include('buttons.help', [
 							'helpId' => 'AccountingBalance',
-							'helpSteps' => get_json_resource('ui-guides/finance_statements/balance_sheet.json', 'accounting')
+							'helpSteps' => get_json_resource('ui-guides/reports/finance_statements/balance_sheet.json', 'accounting')
 						])
 					</h6>
 					<div class="card-btns">

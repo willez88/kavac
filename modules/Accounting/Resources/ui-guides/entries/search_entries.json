@@ -1,0 +1,46 @@
+[
+    {
+        "element" : "#helpSearchEntriesForm",
+        "intro" : "Esta sección permite consultar los asientos contables aprobados."
+    },
+    {
+        "element" : "#helpSearchEntriesUnapproved",
+        "intro" : "Carga listado de asientos contables que no han sido aprobados."
+    },
+    {
+        "element" : "#helpSearchEntriesReference",
+        "intro" : "Indica que se realizara la consulta en base al codigo de referencia del asiento contable."
+    },
+    {
+        "element" : "#helpSearchEntriesCategory",
+        "intro" : "Indica que se realizara la consulta en base a la categoria del asiento contable."
+    },
+    {
+        "element" : "#helpSearchEntriesInstitution",
+        "intro" : "Parametro para la busqueda de asientos contables en base a una institución."
+    },
+    {
+        "element" : "#helpSearchEntriesInputReference",
+        "intro" : "Parametro para la busqueda de asientos contables en base a un código de referencia único."
+    },
+    {
+        "element" : "#helpSearchEntriesDateSpecific",
+        "intro" : "Indica que se realizara la consulta en un rango especifico de fechas."
+    },
+    {
+        "element" : "#helpSearchEntriesDateGeneric",
+        "intro" : "Indica que se realizara la consulta en un rango general por mes."
+    },
+    {
+        "element" : "#helpSearchEntriesDateRange",
+        "intro" : "Parametros para la busqueda de asientos contables en un rango de fecha."
+    },
+    {
+        "element" : "#helpSearchEntriesInputCategory",
+        "intro" : "Parametro para la busqueda de asientos contables en base a un código de referencia único."
+    },
+    {
+        "element" : "#helpSearchEntriesApproved",
+        "intro" : "Carga los datos de la consulta realizada."
+    }
+]

@@ -25,7 +25,6 @@
 			<div class="row">
                 <div class="col-12">
                     <span class="form-text">
-                        <strong>Expresar en:</strong> campo para seleccionar el tipo de moneda al que se convertiran los saldos.
                         <br>
                         <strong>Tipos de cambios monetarios: </strong>
                             <ul>

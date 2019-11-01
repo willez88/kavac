@@ -1,0 +1,14 @@
+[
+    {
+        "element" : "#helpSettingForm",
+        "intro" : "Esta sección permite gestionar las configuraciones generales del modulo de contabilidad."
+    },
+    {
+        "element" : "#helpSettingCategory",
+        "intro" : "Gestiona información acerca de las categorias de origen que generan un asiento contable."
+    },
+    {
+        "element" : "#helpSettingAccount",
+        "intro" : "Gestiona información acerca de las cuentas patrimoniales."
+    }
+]

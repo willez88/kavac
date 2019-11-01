@@ -3822,7 +3822,7 @@ __webpack_require__.r(__webpack_exports__);
       this.concept = this.data_edit.concept;
       this.observations = this.data_edit.observations;
     } else {
-      this.generate_reference_code();
+      this.generateReferenceCode();
     }
 
     EventBus.$on('reset:accounting-entry-edit-create', function () {
@@ -3891,10 +3891,10 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    generate_reference_code: function generate_reference_code() {
+    generateReferenceCode: function generateReferenceCode() {
       var _this2 = this;
 
-      axios.post('/accounting/settings/generate_reference_code').then(function (response) {
+      axios.post('/accounting/settings/generateReferenceCode').then(function (response) {
         if (response.data.result) {
           location.href = '/accounting/settings';
         }
@@ -3964,6 +3964,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -5078,7 +5080,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     currencies: {
@@ -5877,61 +5878,68 @@ var render = function() {
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "col-8 row" }, [
-            _c(
-              "div",
-              { staticClass: "col-5" },
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Desde")
-                ]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: {
-                    id: "sel_acc_init",
-                    options: _vm.accountOptions[0],
-                    disabled: _vm.SelectAll
-                  },
-                  model: {
-                    value: _vm.accountSelect.init_id,
-                    callback: function($$v) {
-                      _vm.$set(_vm.accountSelect, "init_id", $$v)
+          _c(
+            "div",
+            {
+              staticClass: "col-8 row",
+              attrs: { id: "helpSearchRangeAccount" }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "col-5" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Desde")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: {
+                      id: "sel_acc_init",
+                      options: _vm.accountOptions[0],
+                      disabled: _vm.SelectAll
                     },
-                    expression: "accountSelect.init_id"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-5" },
-              [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Hasta")
-                ]),
-                _vm._v(" "),
-                _c("select2", {
-                  attrs: {
-                    id: "sel_acc_end",
-                    options: _vm.accountOptions[1],
-                    disabled: _vm.SelectAll
-                  },
-                  model: {
-                    value: _vm.accountSelect.end_id,
-                    callback: function($$v) {
-                      _vm.$set(_vm.accountSelect, "end_id", $$v)
+                    model: {
+                      value: _vm.accountSelect.init_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.accountSelect, "init_id", $$v)
+                      },
+                      expression: "accountSelect.init_id"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-5" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Hasta")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: {
+                      id: "sel_acc_end",
+                      options: _vm.accountOptions[1],
+                      disabled: _vm.SelectAll
                     },
-                    expression: "accountSelect.end_id"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm._m(2)
-          ])
+                    model: {
+                      value: _vm.accountSelect.end_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.accountSelect, "end_id", $$v)
+                      },
+                      expression: "accountSelect.end_id"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(2)
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("br"),
@@ -5968,76 +5976,88 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c(
-        "label",
-        { staticClass: "control-label", attrs: { for: "sel_budget_acc" } },
-        [_vm._v("Por código presupuestal")]
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control bootstrap-switch sel_pry_acc",
-        attrs: {
-          type: "radio",
-          name: "sel_account_type",
-          id: "sel_budget_acc",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchSelectBudget" } },
+      [
+        _c(
+          "label",
+          { staticClass: "control-label", attrs: { for: "sel_budget_acc" } },
+          [_vm._v("Por código presupuestal")]
+        ),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control bootstrap-switch sel_pry_acc",
+          attrs: {
+            type: "radio",
+            name: "sel_account_type",
+            id: "sel_budget_acc",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c(
-        "label",
-        { staticClass: "control-label", attrs: { for: "sel_account_type" } },
-        [_vm._v("Por código patrimonial")]
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control bootstrap-switch sel_pry_acc",
-        attrs: {
-          type: "radio",
-          name: "sel_account_type",
-          id: "sel_accounting_acc",
-          checked: "true",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchSelectAccounting" } },
+      [
+        _c(
+          "label",
+          { staticClass: "control-label", attrs: { for: "sel_account_type" } },
+          [_vm._v("Por código patrimonial")]
+        ),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control bootstrap-switch sel_pry_acc",
+          attrs: {
+            type: "radio",
+            name: "sel_account_type",
+            id: "sel_accounting_acc",
+            checked: "true",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-        _vm._v("Seleccionar todas")
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass:
-          "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
-        attrs: {
-          type: "checkbox",
-          name: "sel_account_type",
-          id: "sel_all_acc",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchRangeAll" } },
+      [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Seleccionar todas")
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass:
+            "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+          attrs: {
+            type: "checkbox",
+            name: "sel_account_type",
+            id: "sel_all_acc",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -7668,73 +7688,91 @@ var render = function() {
               _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "col-8 row" }, [
-                _c("div", { staticClass: "col-7" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Por Institución")
-                      ]),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("select2", {
-                        attrs: { options: _vm.institutions },
-                        model: {
-                          value: _vm.data.institution,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "institution", $$v)
-                          },
-                          expression: "data.institution"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ]),
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-7",
+                    attrs: { id: "helpSearchEntriesInstitution" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { staticClass: "control-label" }, [
+                          _vm._v("Por Institución")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("select2", {
+                          attrs: { options: _vm.institutions },
+                          model: {
+                            value: _vm.data.institution,
+                            callback: function($$v) {
+                              _vm.$set(_vm.data, "institution", $$v)
+                            },
+                            expression: "data.institution"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-5" }, [
-                  _c(
-                    "div",
-                    {
-                      class:
-                        _vm.typeSearch != "reference"
-                          ? "form-group"
-                          : "form-group is-required"
-                    },
-                    [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Referencia")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.data.reference,
-                            expression: "data.reference"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          disabled: _vm.typeSearch != "reference",
-                          type: "text",
-                          placeholder: "Referencia"
-                        },
-                        domProps: { value: _vm.data.reference },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-5",
+                    attrs: { id: "helpSearchEntriesInputReference" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        class:
+                          _vm.typeSearch != "reference"
+                            ? "form-group"
+                            : "form-group is-required"
+                      },
+                      [
+                        _c("label", { staticClass: "control-label" }, [
+                          _vm._v("Referencia")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.data.reference,
+                              expression: "data.reference"
                             }
-                            _vm.$set(_vm.data, "reference", $event.target.value)
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            disabled: _vm.typeSearch != "reference",
+                            type: "text",
+                            placeholder: "Referencia"
+                          },
+                          domProps: { value: _vm.data.reference },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.data,
+                                "reference",
+                                $event.target.value
+                              )
+                            }
                           }
-                        }
-                      })
-                    ]
-                  )
-                ])
+                        })
+                      ]
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _vm._m(2),
@@ -7747,7 +7785,8 @@ var render = function() {
                       "div",
                       {
                         staticClass: "col-7 row",
-                        staticStyle: { "padding-right": "0rem" }
+                        staticStyle: { "padding-right": "0rem" },
+                        attrs: { id: "helpSearchEntriesDateRange" }
                       },
                       [
                         _c("div", { staticClass: "col-6" }, [
@@ -7834,7 +7873,8 @@ var render = function() {
                       "div",
                       {
                         staticClass: "col-7 row",
-                        staticStyle: { "padding-right": "0rem" }
+                        staticStyle: { "padding-right": "0rem" },
+                        attrs: { id: "helpSearchEntriesDateRange" }
                       },
                       [
                         _c("div", { staticClass: "col-6" }, [
@@ -7904,7 +7944,8 @@ var render = function() {
                   "div",
                   {
                     staticClass: "col-5",
-                    staticStyle: { "margin-left": "1.8rem" }
+                    staticStyle: { "margin-left": "1.8rem" },
+                    attrs: { id: "helpSearchEntriesInputCategory" }
                   },
                   [
                     _c(
@@ -7977,95 +8018,111 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { staticClass: "control-label" }, [
-          _vm._v("Por Referencia")
-        ]),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control bootstrap-switch sel_search",
-          attrs: {
-            type: "radio",
-            name: "sel_Search",
-            id: "sel_ref",
-            "data-on-label": "SI",
-            "data-off-label": "NO"
-          }
-        })
-      ])
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchEntriesReference" } },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v("Por Referencia")
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control bootstrap-switch sel_search",
+            attrs: {
+              type: "radio",
+              name: "sel_Search",
+              id: "sel_ref",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { staticClass: "control-label" }, [
-          _vm._v("Por Categoría")
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchEntriesCategory" } },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v("Por Categoría")
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control bootstrap-switch sel_search",
+            attrs: {
+              type: "radio",
+              name: "sel_Search",
+              id: "sel_origin",
+              checked: "true",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchEntriesDateSpecific" } },
+      [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Por Período")
         ]),
         _c("br"),
         _vm._v(" "),
         _c("input", {
-          staticClass: "form-control bootstrap-switch sel_search",
+          staticClass: "form-control bootstrap-switch sel_filterDate",
           attrs: {
             type: "radio",
-            name: "sel_Search",
-            id: "sel_origin",
+            name: "sel_filter_date",
+            id: "sel_fil_date_specific",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "col-2", attrs: { id: "helpSearchEntriesDateGeneric" } },
+      [
+        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+          _vm._v("Por Mes")
+        ]),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control bootstrap-switch sel_filterDate",
+          attrs: {
+            type: "radio",
+            name: "sel_filter_date",
+            id: "sel_fil_date_generic",
             checked: "true",
             "data-on-label": "SI",
             "data-off-label": "NO"
           }
         })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-        _vm._v("Por Período")
-      ]),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control bootstrap-switch sel_filterDate",
-        attrs: {
-          type: "radio",
-          name: "sel_filter_date",
-          id: "sel_fil_date_specific",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
-        _vm._v("Por Mes")
-      ]),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control bootstrap-switch sel_filterDate",
-        attrs: {
-          type: "radio",
-          name: "sel_filter_date",
-          id: "sel_fil_date_generic",
-          checked: "true",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -9589,10 +9646,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" }, [
         _c("span", { staticClass: "form-text" }, [
-          _c("strong", [_vm._v("Expresar en:")]),
-          _vm._v(
-            " campo para seleccionar el tipo de moneda al que se convertiran los saldos.\n                        "
-          ),
           _c("br"),
           _vm._v(" "),
           _c("strong", [_vm._v("Tipos de cambios monetarios: ")]),
@@ -10201,45 +10254,49 @@ var render = function() {
             _c("accounting-show-errors", { ref: "settingCode" }),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-3" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "control-label",
-                    attrs: { for: "entries_reference" }
-                  },
-                  [_vm._v("Código de referencia")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
+              _c(
+                "div",
+                { staticClass: "col-3", attrs: { id: "helpCodeReference" } },
+                [
+                  _c(
+                    "label",
                     {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.code,
-                      expression: "code"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    "data-toggle": "tooltip",
-                    title: "Formato para el código de los reportes",
-                    name: "entries_reference",
-                    placeholder: "Ej. XXX-00000000-YYYY",
-                    readonly: _vm.ref_code ? true : false
-                  },
-                  domProps: { value: _vm.code },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                      staticClass: "control-label",
+                      attrs: { for: "entries_reference" }
+                    },
+                    [_vm._v("Código de referencia")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.code,
+                        expression: "code"
                       }
-                      _vm.code = $event.target.value
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      "data-toggle": "tooltip",
+                      title: "Formato para el código de los reportes",
+                      name: "entries_reference",
+                      placeholder: "Ej. XXX-00000000-YYYY",
+                      readonly: _vm.ref_code ? true : false
+                    },
+                    domProps: { value: _vm.code },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.code = $event.target.value
+                      }
                     }
-                  }
-                })
-              ])
+                  })
+                ]
+              )
             ]),
             _vm._v(" "),
             _c("hr"),

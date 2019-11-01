@@ -1,0 +1,22 @@
+[
+    {
+        "element" : "#helpSearchForm",
+        "intro" : "Esta sección permite gestionar la consulta de la conversion de cuentas entre cuentas presupuestales y patrimoniales."
+    },
+    {
+        "element" : "#helpSearchSelectBudget",
+        "intro" : "Indica que se realizara la consulta en base a cuentas presupuestales."
+    },
+    {
+        "element" : "#helpSearchSelectAccounting",
+        "intro" : "Indica que se realizara la consulta en base a cuentas patrimoniales."
+    },
+    {
+        "element" : "#helpSearchRangeAccount",
+        "intro" : "Rango de cuentas donde iniciara y finalizara la busqueda."
+    },
+    {
+        "element" : "#helpSearchRangeAll",
+        "intro" : "Selecciona de manera automatica todo el rango de cuentas patrimoniales."
+    }
+]

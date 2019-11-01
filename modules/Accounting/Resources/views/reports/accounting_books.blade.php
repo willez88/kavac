@@ -25,7 +25,7 @@
 						Libro diario
 						@include('buttons.help', [
 							'helpId' => 'AccountingDaily',
-							'helpSteps' => get_json_resource('ui-guides/accounting_books/daily_book.json', 'accounting')
+							'helpSteps' => get_json_resource('ui-guides/reports/accounting_books/daily_book.json', 'accounting')
 						])
 					</h6>
 					<div class="card-btns">
@@ -45,7 +45,7 @@
 						Mayor analítico
 						@include('buttons.help', [
 							'helpId' => 'AccountingAnalitical',
-							'helpSteps' => get_json_resource('ui-guides/accounting_books/analytical_major.json', 'accounting')
+							'helpSteps' => get_json_resource('ui-guides/reports/accounting_books/analytical_major.json', 'accounting')
 						])
 					</h6>
 					<div class="card-btns">
@@ -65,7 +65,7 @@
 						Libro auxiliar
 						@include('buttons.help', [
 							'helpId' => 'AccountingAuxiliary',
-							'helpSteps' => get_json_resource('ui-guides/accounting_books/auxiliary_book.json', 'accounting')
+							'helpSteps' => get_json_resource('ui-guides/reports/accounting_books/auxiliary_book.json', 'accounting')
 						])
 					</h6>
 					<div class="card-btns">

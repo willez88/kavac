@@ -114,7 +114,7 @@
 				this.concept = this.data_edit.concept;
 				this.observations = this.data_edit.observations;
 			}else{
-				this.generate_reference_code();
+				this.generateReferenceCode();
 			}
 
 			EventBus.$on('reset:accounting-entry-edit-create',()=>{
@@ -193,8 +193,8 @@
 				}
 			},
 
-			generate_reference_code(){
-				axios.post('/accounting/settings/generate_reference_code').then(response=>{
+			generateReferenceCode(){
+				axios.post('/accounting/settings/generateReferenceCode').then(response=>{
 					if (response.data.result) {
 						location.href = '/accounting/settings';
 					}
