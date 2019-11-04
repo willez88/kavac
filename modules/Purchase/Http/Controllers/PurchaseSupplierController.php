@@ -90,7 +90,7 @@ class PurchaseSupplierController extends Controller
         $this->validate($request, [
             'person_type' => ['required'],
             'company_type' => ['required'],
-            'rif' => ['required'],
+            'rif' => ['required', 'min:10', 'max:10'],
             'name' => ['required'],
             'purchase_supplier_type_id' => ['required'],
             'purchase_supplier_object_id' => ['required'],
