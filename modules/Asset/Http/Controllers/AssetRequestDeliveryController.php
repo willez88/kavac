@@ -49,7 +49,7 @@ class AssetRequestDeliveryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'asset_request_id' => 'required'
+            'asset_request_id' => ['required']
         ]);
     
         $request_delivery = AssetRequestDelivery::create([
@@ -73,8 +73,8 @@ class AssetRequestDeliveryController extends Controller
     public function update(Request $request, AssetRequestDelivery $delivery)
     {
         $this->validate($request, [
-            'state' => 'required',
-            'asset_request_id' => 'required'
+            'state' => ['required'],
+            'asset_request_id' => ['required']
         ]);
 
         $delivery->state = $request->input('state');

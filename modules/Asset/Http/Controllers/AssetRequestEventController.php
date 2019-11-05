@@ -45,9 +45,9 @@ class AssetRequestEventController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'type' => 'required|max:100',
-            'description' => 'required',
-            'asset_request_id' => 'required'
+            'type' => ['required', 'max:100'],
+            'description' => ['required'],
+            'asset_request_id' => ['required']
         ]);
     
         $event = AssetRequestEvent::create([
@@ -71,9 +71,9 @@ class AssetRequestEventController extends Controller
     {
         $event = AssetRequestEvent::find($id);
         $this->validate($request, [
-            'type' => 'required|max:100',
-            'description' => 'required',
-            'asset_request_id' => 'required'
+            'type' => ['required', 'max:100'],
+            'description' => ['required'],
+            'asset_request_id' => ['required']
         ]);
 
         $event->type = $request->input('type');

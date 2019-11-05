@@ -66,27 +66,27 @@ class AssetClasificationController extends Controller
     {
         /** Validación de los datos de la petición */
         $this->validate($request, [
-            'asset_type_id' => 'required',
-            'asset_category_id' => 'required',
-            'asset_subcategory_id' => 'required',
-            'code' => 'required',
-            'name' => 'required',
+            'asset_type_id' => ['required'],
+            'asset_category_id' => ['required'],
+            'asset_subcategory_id' => ['required'],
+            'code' => ['required'],
+            'name' => ['required'],
         ]);
         if ($request->asset_type_id === '-1') {
             $this->validate($request, [
-                'type.name' => 'required',
+                'type.name' => ['required'],
             ]);
         }
         if ($request->asset_category_id === '-1') {
             $this->validate($request, [
-                'category.code' => 'required',
-                'category.name' => 'required',
+                'category.code' => ['required'],
+                'category.name' => ['required'],
             ]);
         }
         if ($request->asset_subcategory_id === '-1') {
             $this->validate($request, [
-                'subcategory.code' => 'required',
-                'subcategory.name' => 'required',
+                'subcategory.code' => ['required'],
+                'subcategory.name' => ['required'],
             ]);
         }
 
@@ -131,27 +131,27 @@ class AssetClasificationController extends Controller
     public function update(Request $request, AssetSpecificCategory $specific)
     {
         $this->validate($request, [
-            'asset_type_id' => 'required',
-            'asset_category_id' => 'required',
-            'asset_subcategory_id' => 'required',
-            'code' => 'required',
-            'name' => 'required',
+            'asset_type_id' => ['required'],
+            'asset_category_id' => ['required'],
+            'asset_subcategory_id' => ['required'],
+            'code' => ['required'],
+            'name' => ['required'],
         ]);
         if ($request->asset_type_id === '-1') {
             $this->validate($request, [
-                'type.name' => 'required',
+                'type.name' => ['required'],
             ]);
         }
         if ($request->asset_category_id === '-1') {
             $this->validate($request, [
-                'category.code' => 'required',
-                'category.name' => 'required',
+                'category.code' => ['required'],
+                'category.name' => ['required'],
             ]);
         }
         if ($request->asset_subcategory_id === '-1') {
             $this->validate($request, [
-                'subcategory.code' => 'required',
-                'subcategory.name' => 'required',
+                'subcategory.code' => ['required'],
+                'subcategory.name' => ['required'],
             ]);
         }
 

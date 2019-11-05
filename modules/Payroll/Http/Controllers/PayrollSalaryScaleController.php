@@ -65,10 +65,10 @@ class PayrollSalaryScaleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code'           => 'required',
-            'name'           => 'required',
-            'institution_id' => 'required',
-            'payroll_scales' => 'required',
+            'code'           => ['required'],
+            'name'           => ['required'],
+            'institution_id' => ['required'],
+            'payroll_scales' => ['required'],
         ]);
         /**
          * Crear regla para validar las escalas (payroll_scales)
@@ -125,10 +125,10 @@ class PayrollSalaryScaleController extends Controller
     {
         $payrollSalaryScale = PayrollSalaryScale::find($id);
         $this->validate($request, [
-            'code'           => 'required',
-            'name'           => 'required',
-            'institution_id' => 'required',
-            'payroll_scales' => 'required',
+            'code'           => ['required'],
+            'name'           => ['required'],
+            'institution_id' => ['required'],
+            'payroll_scales' => ['required'],
         ]);
         DB::transaction(function () use ($request, $payrollSalaryScale) {
             $payrollSalaryScale->code                   = $request->input('code');

@@ -68,7 +68,7 @@ class PayrollGenderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
         $payrollGender = PayrollGender::create(['name' => $request->name]);
         return response()->json(['record' => $payrollGender, 'message' => 'Success'], 200);
@@ -104,7 +104,7 @@ class PayrollGenderController extends Controller
     {
         $payrollGender = PayrollGender::find($id);
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
         $payrollGender->name  = $request->name;
         $payrollGender->save();

@@ -2,7 +2,6 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
-use Auth;
 use App\Imports\DataImport;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -11,7 +10,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
 use Modules\Accounting\Models\AccountingAccount;
-use Modules\Accounting\Models\AccountingAccountImport;
 use Modules\Accounting\Models\AccountingEntryAccount;
 
 /**
@@ -384,7 +382,7 @@ class AccountingAccountController extends Controller
     public function import()
     {
         $this->validate(request(), [
-            'file' => 'required|mimes:xls,xlsx,ods,csv'
+            'file' => ['required', 'mimes:xls,xlsx,ods,csv']
         ]);
 
         /**

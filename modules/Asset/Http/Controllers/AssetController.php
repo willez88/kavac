@@ -81,17 +81,17 @@ class AssetController extends Controller
             ->first();
         if (!is_null($item_required)) {
             $this->validate($request, [
-                'asset_type_id' => 'required',
-                'asset_category_id' => 'required',
-                'asset_subcategory_id' => 'required',
-                'asset_specific_category_id' => 'required',
-                'asset_acquisition_type_id' => 'required',
+                'asset_type_id' => ['required'],
+                'asset_category_id' => ['required'],
+                'asset_subcategory_id' => ['required'],
+                'asset_specific_category_id' => ['required'],
+                'asset_acquisition_type_id' => ['required'],
                 'acquisition_year' => ['required', 'regex:/^\d+$/u', new AcquisitionYear(Date("Y"))],
-                'asset_status_id' => 'required',
-                'asset_condition_id' => 'required',
-                'value' => 'required|regex:/^\d+(\.\d+)?$/u',
-                'quantity' => 'regex:/^[1-9][0-9]*$/',
-                'currency_id' => 'required',
+                'asset_status_id' => ['required'],
+                'asset_condition_id' => ['required'],
+                'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
+                'quantity' => ['regex:/^[1-9][0-9]*$/'],
+                'currency_id' => ['required'],
 
                 'serial' => new RequiredItem($item_required->serial),
                 'marca'  => new RequiredItem($item_required->marca),
@@ -102,17 +102,17 @@ class AssetController extends Controller
             ]);
         } else {
             $this->validate($request, [
-                'asset_type_id' => 'required',
-                'asset_category_id' => 'required',
-                'asset_subcategory_id' => 'required',
-                'asset_specific_category_id' => 'required',
-                'asset_acquisition_type_id' => 'required',
+                'asset_type_id' => ['required'],
+                'asset_category_id' => ['required'],
+                'asset_subcategory_id' => ['required'],
+                'asset_specific_category_id' => ['required'],
+                'asset_acquisition_type_id' => ['required'],
                 'acquisition_year' => ['required', 'regex:/^\d+$/u', new AcquisitionYear(Date("Y"))],
-                'asset_status_id' => 'required',
-                'asset_condition_id' => 'required',
-                'value' => 'required|regex:/^\d+(\.\d+)?$/u',
-                'quantity' => 'required|regex:/^[1-9][0-9]*$/',
-                'currency_id' => 'required',
+                'asset_status_id' => ['required'],
+                'asset_condition_id' => ['required'],
+                'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
+                'quantity' => ['required', 'regex:/^[1-9][0-9]*$/'],
+                'currency_id' => ['required'],
                 
             ]);
         }
@@ -148,29 +148,29 @@ class AssetController extends Controller
         $asset = Asset::find($id);
         $this->validate($request, [
 
-            'asset_type_id' => 'required',
-            'asset_category_id' => 'required',
-            'asset_subcategory_id' => 'required',
-            'asset_specific_category_id' => 'required',
-            'asset_acquisition_type_id' => 'required',
-            'acquisition_year' => 'required|max:8',
-            'asset_status_id' => 'required',
-            'asset_condition_id' => 'required',
-            'value' => 'required|regex:/^\d+(\.\d+)?$/u',
-            'currency_id' => 'required',
+            'asset_type_id' => ['required'],
+            'asset_category_id' => ['required'],
+            'asset_subcategory_id' => ['required'],
+            'asset_specific_category_id' => ['required'],
+            'asset_acquisition_type_id' => ['required'],
+            'acquisition_year' => ['required', 'max:8'],
+            'asset_status_id' => ['required'],
+            'asset_condition_id' => ['required'],
+            'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
+            'currency_id' => ['required'],
         ]);
         
         if ($request->asset_type_id == 1) {
             $this->validate($request, [
-                'serial' => 'required|max:50',
-                'marca'  => 'required|max:50',
-                'model' => 'required|max:50',
+                'serial' => ['required', 'max:50'],
+                'marca'  => ['required', 'max:50'],
+                'model' => ['required', 'max:50'],
             ]);
         } elseif ($request->type_id == 2) {
             $this->validate($request, [
-                'asset_use_function_id' => 'required',
-                'parish_id' => 'required',
-                'address' => 'required',
+                'asset_use_function_id' => ['required'],
+                'parish_id' => ['required'],
+                'address' => ['required'],
             ]);
         }
 

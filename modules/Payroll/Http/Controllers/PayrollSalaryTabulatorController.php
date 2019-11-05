@@ -67,13 +67,13 @@ class PayrollSalaryTabulatorController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code'                            => 'required',
-            'name'                            => 'required',
-            'description'                     => 'required',
-            'currency_id'                     => 'required',
-            //'institution_id'                  => 'required',
-            'payroll_salary_tabulator_scales' => 'required',
-            'payroll_staff_type_id'           => 'required',
+            'code'                            => ['required'],
+            'name'                            => ['required'],
+            'description'                     => ['required'],
+            'currency_id'                     => ['required'],
+            //'institution_id'                  => ['required'],
+            'payroll_salary_tabulator_scales' => ['required'],
+            'payroll_staff_type_id'           => ['required'],
         ]);
         /**
          * Crear regla para validar las escalas (payroll_scales)
@@ -118,13 +118,13 @@ class PayrollSalaryTabulatorController extends Controller
     {
         $salaryTabulator = PayrollSalaryTabulator::where('id', $id)->first();
         $this->validate($request, [
-            'code'                            => 'required',
-            'name'                            => 'required',
-            'description'                     => 'required',
-            'currency_id'                     => 'required',
-            //'institution_id'                  => 'required',
-            'payroll_salary_tabulator_scales' => 'required',
-            'payroll_staff_type_id'           => 'required',
+            'code'                            => ['required'],
+            'name'                            => ['required'],
+            'description'                     => ['required'],
+            'currency_id'                     => ['required'],
+            //'institution_id'                  => ['required'],
+            'payroll_salary_tabulator_scales' => ['required'],
+            'payroll_staff_type_id'           => ['required'],
         ]);
 
         /**

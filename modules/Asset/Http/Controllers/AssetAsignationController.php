@@ -88,7 +88,7 @@ class AssetAsignationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'payroll_staff_id' => 'required',
+            'payroll_staff_id' => ['required'],
         ]);
 
         $codeSetting = CodeSetting::where('table', 'asset_asignations')->first();

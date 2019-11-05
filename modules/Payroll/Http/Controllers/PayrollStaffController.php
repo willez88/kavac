@@ -75,28 +75,28 @@ class PayrollStaffController extends Controller
     {
         $payrollWorkAgeSetting = PayrollWorkAgeSetting::first();
         $this->validate($request, [
-            'first_name' => 'required|max:100',
-            'last_name' => 'required|max:100',
-            'payroll_nationality_id' => 'required',
-            'id_number' => array('required', 'regex:/^([\d]{7}|[\d]{8})$/u','unique:payroll_staffs,id_number'),
-            'passport' => 'nullable|max:20|unique:payroll_staffs,passport',
-            'email' => 'nullable|email|unique:payroll_staffs,email',
-            'birthdate' => 'required|date',
-            'birthdate' => new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0),
-            'payroll_gender_id' => 'required',
-            'emergency_contact' => 'nullable',
-            'emergency_phone' => array('nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'),
-            'parish_id' => 'required',
-            'address' => 'required|max:200'
+            'first_name' => ['required', 'max:100'],
+            'last_name' => ['required', 'max:100'],
+            'payroll_nationality_id' => ['required'],
+            'id_number' => ['required', 'regex:/^([\d]{7}|[\d]{8})$/u', 'unique:payroll_staffs,id_number'],
+            'passport' => ['nullable', 'max:20', 'unique:payroll_staffs,passport'],
+            'email' => ['nullable', 'email', 'unique:payroll_staffs,email'],
+            'birthdate' => ['required', 'date'],
+            'birthdate' => [new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0)],
+            'payroll_gender_id' => ['required'],
+            'emergency_contact' => ['nullable'],
+            'emergency_phone' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
+            'parish_id' => ['required'],
+            'address' => ['required', 'max:200']
         ]);
 
         $i = 0;
         foreach ($request->phones as $phone) {
             $this->validate($request, [
-                'phones.'.$i.'.type' => 'required',
-                'phones.'.$i.'.area_code' => 'required|digits:3',
-                'phones.'.$i.'.number' => 'required|digits:7',
-                'phones.'.$i.'.extension' => 'nullable|digits_between:3,6',
+                'phones.'.$i.'.type' => ['required'],
+                'phones.'.$i.'.area_code' => ['required', 'digits:3'],
+                'phones.'.$i.'.number' => ['required', 'digits:7'],
+                'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
             ]);
             $i++;
         }
@@ -195,30 +195,30 @@ class PayrollStaffController extends Controller
         $payrollWorkAgeSetting = PayrollWorkAgeSetting::first();
         $payrollStaff = PayrollStaff::find($id);
         $this->validate($request, [
-            'first_name' => 'required|max:100',
-            'last_name' => 'required|max:100',
-            'payroll_nationality_id' => 'required',
-            'id_number' => array(
+            'first_name' => ['required', 'max:100'],
+            'last_name' => ['required', 'max:100'],
+            'payroll_nationality_id' => ['required'],
+            'id_number' => [
                 'required', 'regex:/^([\d]{7}|[\d]{8})$/u', 'unique:payroll_staffs,id_number,'.$payrollStaff->id
-            ),
-            'passport' => 'nullable|max:20|unique:payroll_staffs,passport,'.$payrollStaff->id,
-            'email' => 'nullable|email|unique:payroll_staffs,email,'.$payrollStaff->id,
-            'birthdate' => 'required|date',
-            'birthdate' => new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0),
-            'payroll_gender_id' => 'required',
-            'emergency_contact' => 'nullable',
-            'emergency_phone' => array('nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'),
-            'parish_id' => 'required',
-            'address' => 'required|max:200'
+            ],
+            'passport' => ['nullable', 'max:20', 'unique:payroll_staffs,passport,'.$payrollStaff->id],
+            'email' => ['nullable', 'email', 'unique:payroll_staffs,email,'.$payrollStaff->id],
+            'birthdate' => ['required', 'date'],
+            'birthdate' => [new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0)],
+            'payroll_gender_id' => ['required'],
+            'emergency_contact' => ['nullable'],
+            'emergency_phone' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
+            'parish_id' => ['required'],
+            'address' => ['required', 'max:200']
         ]);
 
         $i = 0;
         foreach ($request->phones as $phone) {
             $this->validate($request, [
-                'phones.'.$i.'.type' => 'required',
-                'phones.'.$i.'.area_code' => 'required|digits:3',
-                'phones.'.$i.'.number' => 'required|digits:7',
-                'phones.'.$i.'.extension' => 'nullable|digits_between:3,6',
+                'phones.'.$i.'.type' => ['required'],
+                'phones.'.$i.'.area_code' => ['required', 'digits:3'],
+                'phones.'.$i.'.number' => ['required', 'digits:7'],
+                'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
             ]);
             $i++;
         }

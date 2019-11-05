@@ -57,9 +57,9 @@ class AssetSubcategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'code' => 'required|max:10',
-            'asset_category_id' => 'required'
+            'name' => ['required', 'max:100'],
+            'code' => ['required', 'max:10'],
+            'asset_category_id' => ['required']
         ]);
 
 
@@ -83,9 +83,9 @@ class AssetSubcategoryController extends Controller
     public function update(Request $request, AssetSubcategory $subcategory)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'code' => 'required|max:10',
-            'asset_category_id' => 'required'
+            'name' => ['required', 'max:100'],
+            'code' => ['required', 'max:10'],
+            'asset_category_id' => ['required']
         ]);
  
         $subcategory->name = $request->input('name');

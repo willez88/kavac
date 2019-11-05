@@ -63,7 +63,7 @@ class PayrollWorkAgeSettingController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'age' => 'required|integer|min:1'
+            'age' => ['required', 'integer', 'min:1']
         ]);
         PayrollWorkAgeSetting::updateOrCreate(
             [

@@ -56,7 +56,7 @@ class AssetTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
 
 
@@ -79,7 +79,7 @@ class AssetTypeController extends Controller
     public function update(Request $request, AssetType $type)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
  
         $type->name = $request->input('name');
