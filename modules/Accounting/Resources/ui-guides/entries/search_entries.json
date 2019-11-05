@@ -1,7 +1,7 @@
 [
     {
         "element" : "#helpSearchEntriesForm",
-        "intro" : "Esta sección permite consultar los asientos contables aprobados."
+        "intro" : "Formulario que permite consultar los asientos contables aprobados."
     },
     {
         "element" : "#helpSearchEntriesUnapproved",
@@ -9,38 +9,38 @@
     },
     {
         "element" : "#helpSearchEntriesReference",
-        "intro" : "Indica que se realizara la consulta en base al codigo de referencia del asiento contable."
+        "intro" : "Interruptor que modifica el formulario para realizar la busqueda de asientos contables por el codigo de referencia."
     },
     {
         "element" : "#helpSearchEntriesCategory",
-        "intro" : "Indica que se realizara la consulta en base a la categoria del asiento contable."
+        "intro" : "Interruptor que modifica el formulario para realizar la busqueda de asientos contables por la categoria."
     },
     {
         "element" : "#helpSearchEntriesInstitution",
-        "intro" : "Parametro para la busqueda de asientos contables en base a una institución."
+        "intro" : "Parametro utilizado para filtrar asientos contables por la institución que lo genero."
     },
     {
         "element" : "#helpSearchEntriesInputReference",
-        "intro" : "Parametro para la busqueda de asientos contables en base a un código de referencia único."
+        "intro" : "Parametro utilizado para filtrar asientos contables por su código de referencia."
     },
     {
         "element" : "#helpSearchEntriesDateSpecific",
-        "intro" : "Indica que se realizara la consulta en un rango especifico de fechas."
+        "intro" : "Interruptor que modifica los parametros para realizar la busqueda de asientos contables por un rango especifico de fechas dadas."
     },
     {
         "element" : "#helpSearchEntriesDateGeneric",
-        "intro" : "Indica que se realizara la consulta en un rango general por mes."
+        "intro" : "Interruptor que modifica los parametros para realizar la busqueda de asientos contables por un rango general por mes."
     },
     {
         "element" : "#helpSearchEntriesDateRange",
-        "intro" : "Parametros para la busqueda de asientos contables en un rango de fecha."
+        "intro" : "Parametro utilizado para filtrar asientos contables en un rango de fecha."
     },
     {
         "element" : "#helpSearchEntriesInputCategory",
-        "intro" : "Parametro para la busqueda de asientos contables en base a un código de referencia único."
+        "intro" : "Parametro utilizado para filtrar asientos contables por la categoria de origen."
     },
     {
         "element" : "#helpSearchEntriesApproved",
-        "intro" : "Carga los datos de la consulta realizada."
+        "intro" : "Listado donde se muestran los asientos contables resultantes de la busqueda realizada."
     }
 ]

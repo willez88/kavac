@@ -24,7 +24,7 @@
 					<h6 class="card-title">
 						buscador de asientos contables aprobados
 						@include('buttons.help', [
-							'helpId' => 'AccountingSearchEntries',
+							'helpId' => 'AccountingEntries',
 							'helpSteps' => get_json_resource('ui-guides/entries/search_entries.json', 'accounting')
 						])
 					</h6>

@@ -21,20 +21,6 @@
 				</div>
 				<div class="col-2"></div>
 			</div>
-			<br>
-			<div class="row">
-                <div class="col-12">
-                    <span class="form-text">
-                        <br>
-                        <strong>Tipos de cambios monetarios: </strong>
-                            <ul>
-                                <li>Deben ser creados manualmente desde 
-                                    <strong><a href="/settings" style="color: #2BA3F7;">configuración > Tipos de cambio</a></strong>
-                                </li>
-                            </ul>
-                    </span>
-                </div>
-            </div>
 		</div>
 		<div class="card-footer text-right" >
 			<button class="btn btn-primary btn-sm"

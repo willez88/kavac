@@ -5067,19 +5067,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     currencies: {
@@ -7261,6 +7248,7 @@ var render = function() {
             _c("tr", [
               _c(
                 "td",
+                { attrs: { id: "helpEntriesAccountSelect" } },
                 [
                   _c("select2", {
                     attrs: {
@@ -7278,7 +7266,7 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c("td", [
+              _c("td", { attrs: { id: "helpEntriesTotDebit" } }, [
                 _c("div", { staticClass: "form-group text-center" }, [
                   _vm._v("Total Debe:\n                        "),
                   _c("h6", [
@@ -7313,7 +7301,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("td", [
+              _c("td", { attrs: { id: "helpEntriesTotAssets" } }, [
                 _c("div", { staticClass: "form-group text-center" }, [
                   _vm._v("Total Haber:\n                        "),
                   _c("h6", [
@@ -7436,206 +7424,234 @@ var render = function() {
       [
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-3" }, [
-              _c("div", { staticClass: "form-group is-required" }, [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Fecha\n\t\t\t\t\t\t")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.date,
-                      expression: "date"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    disabled: _vm.data_edit != null,
-                    type: "date",
-                    tabindex: "1"
-                  },
-                  domProps: { value: _vm.date },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.date = $event.target.value
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-3" }, [
-              _c("div", { staticClass: "form-group is-required" }, [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Concepto ó Descripción\n\t\t\t\t\t\t")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.concept,
-                      expression: "concept"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", tabindex: "1" },
-                  domProps: { value: _vm.concept },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.concept = $event.target.value
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-3" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Observaciones\n\t\t\t\t\t\t")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.observations,
-                      expression: "observations"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", tabindex: "1" },
-                  domProps: { value: _vm.observations },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.observations = $event.target.value
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-3" }, [
-              _c(
-                "div",
-                { staticClass: "form-group is-required" },
-                [
+            _c(
+              "div",
+              { staticClass: "col-3", attrs: { id: "helpEntriesDate" } },
+              [
+                _c("div", { staticClass: "form-group is-required" }, [
                   _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Categoría del asiento\n\t\t\t\t\t\t")
+                    _vm._v("Fecha\n\t\t\t\t\t\t")
                   ]),
                   _vm._v(" "),
-                  _c("select2", {
-                    attrs: { options: _vm.categories, tabindex: "1" },
-                    model: {
-                      value: _vm.category,
-                      callback: function($$v) {
-                        _vm.category = $$v
-                      },
-                      expression: "category"
-                    }
-                  })
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-3" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v("Referencia\n\t\t\t\t\t\t")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.reference,
-                      expression: "reference"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "reference",
-                    tabindex: "1",
-                    disabled: ""
-                  },
-                  domProps: { value: _vm.reference },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.date,
+                        expression: "date"
                       }
-                      _vm.reference = $event.target.value
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-3" }, [
-              _c(
-                "div",
-                { staticClass: "form-group is-required" },
-                [
-                  _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Institución que genera\n\t\t\t\t\t\t")
-                  ]),
-                  _vm._v(" "),
-                  _c("select2", {
-                    attrs: { options: _vm.institutions, tabindex: "1" },
-                    model: {
-                      value: _vm.institution_id,
-                      callback: function($$v) {
-                        _vm.institution_id = $$v
-                      },
-                      expression: "institution_id"
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      disabled: _vm.data_edit != null,
+                      type: "date",
+                      tabindex: "1"
+                    },
+                    domProps: { value: _vm.date },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.date = $event.target.value
+                      }
                     }
                   })
-                ],
-                1
-              )
-            ]),
+                ])
+              ]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-3" }, [
-              _c(
-                "div",
-                { staticClass: "form-group is-required" },
-                [
+            _c(
+              "div",
+              { staticClass: "col-3", attrs: { id: "helpEntriesDescription" } },
+              [
+                _c("div", { staticClass: "form-group is-required" }, [
                   _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Tipo de moneda\n\t\t\t\t\t\t")
+                    _vm._v("Concepto ó Descripción\n\t\t\t\t\t\t")
                   ]),
                   _vm._v(" "),
-                  _c("select2", {
-                    attrs: { options: _vm.currencies, tabindex: "1" },
-                    model: {
-                      value: _vm.currency_id,
-                      callback: function($$v) {
-                        _vm.currency_id = $$v
-                      },
-                      expression: "currency_id"
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.concept,
+                        expression: "concept"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", tabindex: "1" },
+                    domProps: { value: _vm.concept },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.concept = $event.target.value
+                      }
                     }
                   })
-                ],
-                1
-              )
-            ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-3", attrs: { id: "helpEntriesObservation" } },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Observaciones\n\t\t\t\t\t\t")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.observations,
+                        expression: "observations"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", tabindex: "1" },
+                    domProps: { value: _vm.observations },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.observations = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-3", attrs: { id: "helpEntriesCategory" } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "form-group is-required" },
+                  [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("Categoría del asiento\n\t\t\t\t\t\t")
+                    ]),
+                    _vm._v(" "),
+                    _c("select2", {
+                      attrs: { options: _vm.categories, tabindex: "1" },
+                      model: {
+                        value: _vm.category,
+                        callback: function($$v) {
+                          _vm.category = $$v
+                        },
+                        expression: "category"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-3", attrs: { id: "helpEntriesReference" } },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Referencia\n\t\t\t\t\t\t")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.reference,
+                        expression: "reference"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "reference",
+                      tabindex: "1",
+                      disabled: ""
+                    },
+                    domProps: { value: _vm.reference },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.reference = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-3", attrs: { id: "helpEntriesInstitution" } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "form-group is-required" },
+                  [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("Institución que genera\n\t\t\t\t\t\t")
+                    ]),
+                    _vm._v(" "),
+                    _c("select2", {
+                      attrs: { options: _vm.institutions, tabindex: "1" },
+                      model: {
+                        value: _vm.institution_id,
+                        callback: function($$v) {
+                          _vm.institution_id = $$v
+                        },
+                        expression: "institution_id"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-3", attrs: { id: "helpEntriesCurrency" } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "form-group is-required" },
+                  [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("Tipo de moneda\n\t\t\t\t\t\t")
+                    ]),
+                    _vm._v(" "),
+                    _c("select2", {
+                      attrs: { options: _vm.currencies, tabindex: "1" },
+                      model: {
+                        value: _vm.currency_id,
+                        callback: function($$v) {
+                          _vm.currency_id = $$v
+                        },
+                        expression: "currency_id"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            )
           ])
         ])
       ]
@@ -9604,11 +9620,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "col-2" })
-        ]),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _vm._m(0)
+        ])
       ],
       1
     ),
@@ -9638,40 +9650,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("span", { staticClass: "form-text" }, [
-          _c("br"),
-          _vm._v(" "),
-          _c("strong", [_vm._v("Tipos de cambios monetarios: ")]),
-          _vm._v(" "),
-          _c("ul", [
-            _c("li", [
-              _vm._v(
-                "Deben ser creados manualmente desde \n                                    "
-              ),
-              _c("strong", [
-                _c(
-                  "a",
-                  {
-                    staticStyle: { color: "#2BA3F7" },
-                    attrs: { href: "/settings" }
-                  },
-                  [_vm._v("configuración > Tipos de cambio")]
-                )
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

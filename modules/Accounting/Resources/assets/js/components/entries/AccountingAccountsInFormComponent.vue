@@ -46,10 +46,10 @@
                 <td></td>
             </tr>
             <tr>
-                <td>
+                <td id="helpEntriesAccountSelect">
                     <select2 :disabled="!enableInput" :options="accounting_accounts" id="select2" @input="addAccountingAccount()"></select2>
                 </td>
-                <td>
+                <td id="helpEntriesTotDebit">
                     <div class="form-group text-center">Total Debe:
                         <h6>
                             <span>{{ currency.symbol }}</span>
@@ -64,7 +64,7 @@
                         </h6>
                     </div>
                 </td>
-                <td>
+                <td id="helpEntriesTotAssets">
                     <div class="form-group text-center">Total Haber:
                         <h6>
                             <span>{{ currency.symbol }}</span>

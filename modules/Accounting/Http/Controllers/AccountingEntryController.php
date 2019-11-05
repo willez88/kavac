@@ -13,6 +13,7 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
+use Auth;
 
 class AccountingEntryController extends Controller
 {
@@ -40,7 +41,7 @@ class AccountingEntryController extends Controller
      */
     public function index()
     {
-
+        // dd(Auth::user());
         /** @var Object objeto que contendra la moneda manejada por defecto */
         $currency = Currency::where('default', true)->first();
 

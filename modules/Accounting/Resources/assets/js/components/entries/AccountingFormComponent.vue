@@ -4,7 +4,7 @@
 		<div class="card-body">
 
 			<div class="row">
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesDate">
 					<div class="form-group is-required">
 						<label class="control-label">Fecha
 						</label>
@@ -12,42 +12,42 @@
 								tabindex="1">
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesDescription">
 					<div class="form-group is-required">
 						<label class="control-label">Concepto ó Descripción
 						</label>
 						<input type="text" class="form-control" v-model="concept" tabindex="1">
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesObservation">
 					<div class="form-group">
 						<label class="control-label">Observaciones
 						</label>
 						<input type="text" class="form-control" v-model="observations" tabindex="1">
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesCategory">
 					<div class="form-group is-required">
 						<label class="control-label">Categoría del asiento
 						</label>
 						<select2 :options="categories" v-model="category" tabindex="1"></select2>
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesReference">
 					<div class="form-group">
 						<label class="control-label">Referencia
 						</label>
 						<input type="text" class="form-control" v-model="reference" id="reference" tabindex="1" disabled="">
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesInstitution">
 					<div class="form-group is-required">
 						<label class="control-label">Institución que genera
 						</label>
 						<select2 :options="institutions" v-model="institution_id" tabindex="1"></select2>
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesCurrency">
 					<div class="form-group is-required">
 						<label class="control-label">Tipo de moneda
 						</label>

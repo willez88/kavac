@@ -101,11 +101,11 @@ class AccountingSettingController extends Controller
         $codeSetting = CodeSetting::where('table', 'accounting_entries')->first();
         if (is_null($codeSetting)) {
             $code = AccountingEntry::count();
-        // $request->session()->flash('message', [
-            //     'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
-            //     'text' => 'Debe configurar previamente el formato para el código, para poder generar asientos.'
-            //     ]);
-            // return response()->json(['result' => true, 'redirect' => route('accounting.settings.index')], 200);
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Se debe configurar previamente el formato para el código de referencia del asiento. 
+                            De lo contrario el sistema les asignara números de forma progresiva'
+                ]);
         } else {
             $code  = generate_registration_code(
                 $codeSetting->format_prefix,
