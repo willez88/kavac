@@ -59,11 +59,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'staff' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
-            'username' => 'required|string|max:25',
-            'role' => 'required_without:permission|array',
-            'permission' => 'required_without:role|array'
+            'staff' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:25'],
+            'role' => ['required_without:permission', 'array'],
+            'permission' => ['required_without:role', 'array']
         ]);
 
         /**
@@ -122,9 +122,9 @@ class UserController extends Controller
     {
         if ($request->input('password')) {
             $this->validate($request, [
-                'password' => 'min:6|confirmed',
-                'password_confirmation' => 'min:6|required_with:password',
-                'complexity-level' => 'numeric|min:43|max:100'
+                'password' => ['min:6', 'confirmed'],
+                'password_confirmation' => ['min:6', 'required_with:password'],
+                'complexity-level' => ['numeric', 'min:43', 'max:100']
             ], [
                 'confirmed' => 'La contraseña no coincide con la verificación',
                 'required_with' => 'Debe confirmar la nueva contraseña',
@@ -223,9 +223,9 @@ class UserController extends Controller
     public function setAccess(Request $request)
     {
         $rules = [
-            'user' => 'required',
-            'role' => 'required_without:permission|array',
-            'permission' => 'required_without:role|array|min:1'
+            'user' => ['required'],
+            'role' => ['required_without:permission', 'array'],
+            'permission' => ['required_without:role', 'array', 'min:1']
         ];
         $messages = [
             'user.required' => 'Se requiere de un usuario para asignar roles y permisos',

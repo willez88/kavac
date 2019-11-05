@@ -53,11 +53,11 @@ class AssetRequestExtensionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'asset_request_id' => 'required'
+            'asset_request_id' => ['required']
         ]);
         $asset_request = AssetRequest::find($request->asset_request_id);
         $this->validate($request, [
-            'date' => new DateExtension($asset_request->delivery_date, '2'),
+            'date' => [new DateExtension($asset_request->delivery_date, '2')],
         ]);
         
         $prorroga = new AssetRequestExtension;

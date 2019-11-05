@@ -68,9 +68,9 @@ class PayrollConceptTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'description' => 'nullable|max:200',
-            'sign' => 'required|max:1'
+            'name' => ['required', 'max:100'],
+            'description' => ['nullable', 'max:200'],
+            'sign' => ['required', 'max:1']
         ]);
         $concept_type = new PayrollConceptType;
         $concept_type->name  = $request->name;
@@ -111,9 +111,9 @@ class PayrollConceptTypeController extends Controller
     public function update(Request $request, PayrollConceptType $concept_type)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'description' => 'nullable|max:200',
-            'sign' => 'required|max:1'
+            'name' => ['required', 'max:100'],
+            'description' => ['nullable', 'max:200'],
+            'sign' => ['required', 'max:1']
         ]);
         $concept_type->name  = $request->name;
         $concept_type->description = $request->description;

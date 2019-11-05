@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\Estate;
 use App\Models\RequiredDocument;
 use App\Models\Phone;
+use App\Rules\Rif as RifRule;
 use Modules\Purchase\Models\PurchaseSupplierBranch;
 use Modules\Purchase\Models\PurchaseSupplierObject;
 use Modules\Purchase\Models\PurchaseSupplierSpecialty;
@@ -90,7 +91,7 @@ class PurchaseSupplierController extends Controller
         $this->validate($request, [
             'person_type' => ['required'],
             'company_type' => ['required'],
-            'rif' => ['required'],
+            'rif' => ['required', 'size:10', new RifRule],
             'name' => ['required'],
             'purchase_supplier_type_id' => ['required'],
             'purchase_supplier_object_id' => ['required'],

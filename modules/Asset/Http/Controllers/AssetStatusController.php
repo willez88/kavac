@@ -56,7 +56,7 @@ class AssetStatusController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
 
 
@@ -79,7 +79,7 @@ class AssetStatusController extends Controller
     public function update(Request $request, AssetStatus $status)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
  
         $status->name = $request->input('name');

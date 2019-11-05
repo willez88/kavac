@@ -92,9 +92,9 @@ class WarehouseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'address' => 'required',
-            'parish_id' => 'required',
+            'name' => ['required', 'max:100'],
+            'address' => ['required'],
+            'parish_id' => ['required'],
             
         ]);
 
@@ -153,9 +153,9 @@ class WarehouseController extends Controller
     public function update(Request $request, Warehouse $warehouse)
     {
         $this->validate($request, [
-            'name'      => 'required|max:100',
-            'address'   => 'required',
-            'parish_id' => 'required',
+            'name'      => ['required', 'max:100'],
+            'address'   => ['required'],
+            'parish_id' => ['required'],
         ]);
  
         $warehouse->name      = $request->input('name');

@@ -102,30 +102,36 @@
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-md-4">
+					<hr>
+					<h6 class="card-title">
+						Detalles de Idiomas <i class="fa fa-plus-circle cursor-pointer" @click="addLanguageDetails"></i>
+					</h6>
+					<div class="row" v-for="(language_detail, index) in record.language_details">
+                        <div class="col-3">
 							<div class="form-group is-required">
 								<label>Idioma:</label>
 								<select2 :options="payroll_languages"
-									v-model="record.payroll_language_id">
+									v-model="language_detail.payroll_language_id">
 								</select2>
 							</div>
-						</div>
-						<div class="col-md-4">
+                        </div>
+						<div class="col-3">
 							<div class="form-group is-required">
 								<label>Nivel de Idioma:</label>
 								<select2 :options="payroll_language_levels"
-									v-model="record.payroll_language_level_id">
+									v-model="language_detail.payroll_language_level_id">
 								</select2>
 							</div>
 						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-4">
-							<pre>
-								{{ $data }}
-							</pre>
+						<div class="col-1">
+							<div class="form-group">
+								<br>
+								<button class="btn btn-sm btn-danger btn-action" type="button"
+									@click="removeRow(index, record.language_details)"
+									title="Eliminar este dato" data-toggle="tooltip" data-placement="right">
+									<i class="fa fa-minus-circle"></i>
+								</button>
+							</div>
 						</div>
 					</div>
 
@@ -160,15 +166,13 @@
 					id: '',
 					payroll_staff_id: '',
 					payroll_instruction_degree_id: '',
-					profession_id: '',
 					instruction_degree_name: '',
 					is_student: '',
 					payroll_study_type_id: '',
 					study_program_name: '',
 					class_schedule: '',
-					payroll_language_id: '',
-					payroll_language_level_id: '',
-					professions: ''
+					professions: [],
+					language_details: [],
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -182,8 +186,30 @@
 		methods: {
 
 			getProfessionalInformation() {
-				axios.get('/payroll/professional-informations/' + this.payroll_professional_information_id).then(response => {
-					this.record = response.data.record;
+				const vm = this;
+				axios.get('/payroll/professional-informations/' + vm.payroll_professional_information_id).then(response => {
+					//vm.record = response.data.record;
+					vm.record.id = response.data.record.id;
+					vm.record.payroll_staff_id = response.data.record.payroll_staff_id;
+					vm.record.payroll_instruction_degree_id = response.data.record.payroll_instruction_degree_id;
+					vm.record.instruction_degree_name = response.data.record.instruction_degree_name;
+					vm.record.is_student = response.data.record.is_student;
+					vm.record.payroll_study_type_id = response.data.record.payroll_study_type_id;
+					vm.record.study_program_name = response.data.record.study_program_name;
+					vm.record.class_schedule = response.data.record.class_schedule;
+					vm.record.professions = response.data.record.professions;
+					vm.record.payroll_staff = response.data.record.payroll_staff;
+					vm.record.payroll_study_type = response.data.record.payroll_study_type;
+					vm.record.payroll_instruction_degree = response.data.record.payroll_instruction_degree;
+					vm.record.payroll_languages = response.data.record.payroll_languages;
+					vm.record.payroll_language_levels = response.data.record.payroll_language_levels;
+
+					for (const a in vm.record.payroll_languages) {
+						vm.record.language_details.push({
+							payroll_language_id: vm.record.payroll_languages[a].id,
+							payroll_language_level_id: vm.record.payroll_language_levels[a].id,
+						});
+					}
 				});
 			},
 
@@ -192,18 +218,30 @@
 					id: '',
 					payroll_staff_id: '',
 					payroll_instruction_degree_id: '',
-					profession_id: '',
 					instruction_degree_name: '',
 					is_student: false,
 					payroll_study_type_id: '',
 					study_program_name: '',
 					class_schedule: '',
-					payroll_language_id: '',
-					payroll_language_level_id: ''
+					professions: [],
+					language_details: []
 				};
+			},
+
+			/**
+			 * Agrega una nueva columna para el registro de detalles de idiomas
+			 *
+			 * @author William Páez <wpaez@cenditel.gob.ve>
+			 */
+			addLanguageDetails() {
+				this.record.language_details.push({
+					payroll_language_id: '',
+					payroll_language_level_id: '',
+				});
 			},
 		},
 		created() {
+			this.record.language_details = [];
 			this.record.professions = [];
 			this.getPayrollStaffs();
 			this.getPayrollInstructionDegrees();

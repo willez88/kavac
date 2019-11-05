@@ -3,7 +3,6 @@
 namespace Modules\Accounting\Http\Controllers\Reports;
 
 use DateTime;
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -135,10 +134,10 @@ class AccountingAnalyticalMajorController extends Controller
     public function getAccAccount(Request $request)
     {
         $this->validate($request, [
-            'initMonth' => 'required',
-            'initYear' => 'required',
-            'endMonth' => 'required',
-            'endYear' => 'required',
+            'initMonth' => ['required'],
+            'initYear' => ['required'],
+            'endMonth' => ['required'],
+            'endYear' => ['required'],
         ]);
 
         return response()->json(['records' => $this->filterAccounts(

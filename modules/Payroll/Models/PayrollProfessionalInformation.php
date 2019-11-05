@@ -41,7 +41,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
     protected $fillable = [
         'payroll_instruction_degree_id', 'instruction_degree_name', 'is_student',
         'payroll_study_type_id', 'study_program_name', 'class_schedule',
-        'payroll_language_id', 'payroll_language_level_id', 'payroll_staff_id'
+        'payroll_staff_id'
     ];
 
     /**
@@ -89,24 +89,34 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información profesional del trabajador asociado a un idioma
+     * Método que obtiene las informaciones profesionales del trabajador que están asociados a muchos idiomas
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function payrollLanguage()
+    public function payrollLanguages()
     {
-        return $this->belongsTo(PayrollLanguage::class);
+        return $this->belongsToMany(
+            PayrollLanguage::class,
+            'payroll_language_language_level_professional',
+            'payroll_professional_information_id',
+            'payroll_language_id'
+        )->withPivot('payroll_language_level_id')->withTimestamps();
     }
 
     /**
-     * Método que obtiene la información profesional del trabajador asociado a un nivel de idioma
+     * Método que obtiene las informaciones profesionales del trabajador que están asociados a muchos niveles de idioma
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function payrollLanguageLevel()
+    public function payrollLanguageLevels()
     {
-        return $this->belongsTo(PayrollLanguageLevel::class);
+        return $this->belongsToMany(
+            PayrollLanguageLevel::class,
+            'payroll_language_language_level_professional',
+            'payroll_professional_information_id',
+            'payroll_language_level_id'
+        )->withPivot('payroll_language_id')->withTimestamps();
     }
 }

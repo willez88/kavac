@@ -62,7 +62,7 @@ class AssetReportController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'type_report' => 'required'
+            'type_report' => ['required']
         ]);
 
 

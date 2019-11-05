@@ -114,23 +114,30 @@
 
                         <hr>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
+                                <h6 class="card-title">
+                                    Detalles de Idioma
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="row" v-for="(payroll_language, index) in record.payroll_languages">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Idioma</label>
                                     <input type="text" data-toggle="tooltip" class="form-control"
-                                        disabled="true" id="payroll_language">
+                                        disabled="true" :value="payroll_language.name">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Dominio del Idioma</label>
                                     <input type="text" data-toggle="tooltip" class="form-control"
-                                        disabled="true" id="payroll_language_level">
+                                        disabled="true" :value="record.payroll_language_levels[index].name">
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
@@ -177,8 +184,6 @@
                     $('#payroll_study_type').val( (this.record.payroll_study_type) ? this.record.payroll_study_type.name : ' ' );
                     $('#study_program_name').val(this.record.study_program_name);
                     $('#class_schedule').val(this.record.class_schedule);
-                    $('#payroll_language').val(this.record.payroll_language.name);
-                    $('#payroll_language_level').val(this.record.payroll_language_level.name);
 				});
                 $('#show_professional_information').modal('show');
             }

@@ -70,19 +70,19 @@ class PayrollEmploymentInformationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'payroll_staff_id' => 'required|unique:payroll_employment_informations,payroll_staff_id',
-            'start_date_apn' => 'required|date',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date',
-            'payroll_inactivity_type_id' => 'nullable',
-            'institution_email' => 'email|nullable|unique:payroll_employment_informations,institution_email',
-            'function_description' => 'nullable',
-            'payroll_position_type_id' => 'required',
-            'payroll_position_id' => 'required',
-            'payroll_staff_type_id' => 'required',
-            'institution_id' => 'required',
-            'department_id' => 'required',
-            'payroll_contract_type_id' => 'required',
+            'payroll_staff_id' => ['required', 'unique:payroll_employment_informations,payroll_staff_id'],
+            'start_date_apn' => ['required', 'date'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['nullable', 'date'],
+            'payroll_inactivity_type_id' => ['nullable'],
+            'institution_email' => ['email', 'nullable', 'unique:payroll_employment_informations,institution_email'],
+            'function_description' => ['nullable'],
+            'payroll_position_type_id' => ['required'],
+            'payroll_position_id' => ['required'],
+            'payroll_staff_type_id' => ['required'],
+            'institution_id' => ['required'],
+            'department_id' => ['required'],
+            'payroll_contract_type_id' => ['required'],
         ]);
         $payrollEmploymentInformation = new PayrollEmploymentInformation;
         $payrollEmploymentInformation->payroll_staff_id  = $request->payroll_staff_id;
@@ -155,21 +155,21 @@ class PayrollEmploymentInformationController extends Controller
                 'required',
                 'unique:payroll_employment_informations,payroll_staff_id,'.$payrollEmploymentInformation->id
             ],
-            'start_date_apn' => 'required|date',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date',
-            'payroll_inactivity_type_id' => 'nullable',
+            'start_date_apn' => ['required', 'date'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['nullable', 'date'],
+            'payroll_inactivity_type_id' => ['nullable'],
             'institution_email' => [
                 'email','nullable',
                 'unique:payroll_employment_informations,institution_email,'.$payrollEmploymentInformation->id
             ],
-            'function_description' => 'nullable',
-            'payroll_position_type_id' => 'required',
-            'payroll_position_id' => 'required',
-            'payroll_staff_type_id' => 'required',
-            'institution_id' => 'required',
-            'department_id' => 'required',
-            'payroll_contract_type_id' => 'required',
+            'function_description' => ['nullable'],
+            'payroll_position_type_id' => ['required'],
+            'payroll_position_id' => ['required'],
+            'payroll_staff_type_id' => ['required'],
+            'institution_id' => ['required'],
+            'department_id' => ['required'],
+            'payroll_contract_type_id' => ['required'],
         ]);
         $payrollEmploymentInformation->payroll_staff_id  = $request->payroll_staff_id;
         $payrollEmploymentInformation->start_date_apn = $request->start_date_apn;
