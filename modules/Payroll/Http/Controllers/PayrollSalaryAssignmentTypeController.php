@@ -56,7 +56,7 @@ class PayrollSalaryAssignmentTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => ['required']
         ]);
 
 
@@ -80,7 +80,7 @@ class PayrollSalaryAssignmentTypeController extends Controller
     {
         $assignment_type = PayrollSalaryAssignmentType::find($id);
         $this->validate($request, [
-            'name' => 'required'
+            'name' => ['required']
         ]);
  
         $assignment_type->name = $request->input('name');

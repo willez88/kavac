@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\UploadImageRepository;
 use App\Models\Institution;
 use App\Models\Setting;
+use App\Rules\Rif as RifRule;
 
 /**
  * @class InstitutionController
@@ -70,18 +71,18 @@ class InstitutionController extends Controller
     public function store(Request $request, UploadImageRepository $up)
     {
         $this->validate($request, [
-            'onapre_code' => 'required|max:20',
-            'rif' => 'required|max:10',
-            'acronym' => 'required|max:100',
-            'name' => 'required|max:100',
-            'business_name' => 'required|max:100',
-            'start_operations_date' => 'required|date',
-            'legal_address' => 'required',
-            'postal_code' => 'required|max:10',
-            'institution_sector_id' => 'required',
-            'institution_type_id' => 'required',
-            'municipality_id' => 'required',
-            'city_id' => 'required'
+            'onapre_code' => ['required', 'max:20'],
+            'rif' => ['required', 'size:10', new RifRule],
+            'acronym' => ['required', 'max:100'],
+            'name' => ['required', 'max:100'],
+            'business_name' => ['required', 'max:100'],
+            'start_operations_date' => ['required', 'date'],
+            'legal_address' => ['required'],
+            'postal_code' => ['required', 'max:10'],
+            'institution_sector_id' => ['required'],
+            'institution_type_id' => ['required'],
+            'municipality_id' => ['required'],
+            'city_id' => ['required']
         ]);
 
         // AGREGAR VALIDACIÓN DE MULTIPLES INSTITUCIONES CUANDO SE DEFINEN COMO TRUE EN

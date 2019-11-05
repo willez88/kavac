@@ -80,12 +80,12 @@ class WarehouseMovementController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'description'            => 'required',
-            'initial_warehouse_id'   => 'required',
-            'end_warehouse_id'       => 'required',
-            'initial_institution_id' => 'required',
-            'end_institution_id'     => 'required',
-            'warehouse_inventory_products'  => 'required',
+            'description'            => ['required'],
+            'initial_warehouse_id'   => ['required'],
+            'end_warehouse_id'       => ['required'],
+            'initial_institution_id' => ['required'],
+            'end_institution_id'     => ['required'],
+            'warehouse_inventory_products'  => ['required'],
         ]);
 
         $codeSetting = CodeSetting::where('table', 'warehouse_movements')->first();
@@ -273,12 +273,12 @@ class WarehouseMovementController extends Controller
     {
         $movement = WarehouseMovement::find($id);
         $this->validate($request, [
-            'description'            => 'required',
-            'initial_warehouse_id'   => 'required',
-            'end_warehouse_id'       => 'required',
-            'initial_institution_id' => 'required',
-            'end_institution_id'     => 'required',
-            'warehouse_inventory_products' => 'required',
+            'description'            => ['required'],
+            'initial_warehouse_id'   => ['required'],
+            'end_warehouse_id'       => ['required'],
+            'initial_institution_id' => ['required'],
+            'end_institution_id'     => ['required'],
+            'warehouse_inventory_products' => ['required'],
         ]);
 
         $end_inst_ware = WarehouseInstitutionWarehouse::where('warehouse_id', $request->end_warehouse_id)

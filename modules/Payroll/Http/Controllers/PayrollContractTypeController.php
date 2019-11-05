@@ -68,7 +68,7 @@ class PayrollContractTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
 
         $payrollContractType = PayrollContractType::create(['name' => $request->name]);
@@ -105,7 +105,7 @@ class PayrollContractTypeController extends Controller
     {
         $payrollContractType = PayrollContractType::find($id);
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
 
         $payrollContractType->name = $request->name;

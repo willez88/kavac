@@ -262,8 +262,8 @@ class AccountingAccountConverterController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'budget_account_id' => 'required',
-            'accounting_account_id' => 'required'
+            'budget_account_id' => ['required'],
+            'accounting_account_id' => ['required']
         ]);
 
         /**

@@ -74,9 +74,9 @@ class AssetSpecificCategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'code' => 'required|max:10',
-            'asset_subcategory_id' => 'required',
+            'name' => ['required', 'max:100'],
+            'code' => ['required', 'max:10'],
+            'asset_subcategory_id' => ['required'],
         ]);
 
 
@@ -122,9 +122,9 @@ class AssetSpecificCategoryController extends Controller
     public function update(Request $request, AssetSpecificCategory $specific_category)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'code' => 'required|max:10',
-            'asset_subcategory_id' => 'required',
+            'name' => ['required', 'max:100'],
+            'code' => ['required', 'max:10'],
+            'asset_subcategory_id' => ['required'],
         ]);
         $specific_category = AssetSpecificCategory::find($request->id);
  

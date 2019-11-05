@@ -56,7 +56,7 @@ class AssetConditionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
 
 
@@ -79,7 +79,7 @@ class AssetConditionController extends Controller
     public function update(Request $request, AssetCondition $condition)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
  
         $condition->name = $request->input('name');

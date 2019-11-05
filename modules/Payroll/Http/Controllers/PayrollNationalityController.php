@@ -8,7 +8,6 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollNationality;
-use Modules\Payroll\Models\Country;
 
 /**
  * @class PayrollNationalityController
@@ -70,8 +69,8 @@ class PayrollNationalityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'country_id' => 'required|unique:payroll_nationalities,country_id'
+            'name' => ['required', 'max:100'],
+            'country_id' => ['required', 'unique:payroll_nationalities,country_id']
         ]);
         $payrollNationality = PayrollNationality::create([
             'name' => $request->name, 'country_id' => $request->country_id
@@ -109,8 +108,8 @@ class PayrollNationalityController extends Controller
     {
         $payrollNationality = PayrollNationality::find($id);
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'country_id' => 'required|unique:payroll_nationalities,country_id,'.$payrollNationality->id
+            'name' => ['required', 'max:100'],
+            'country_id' => ['required', 'unique:payroll_nationalities,country_id,'.$payrollNationality->id]
         ]);
         $payrollNationality->name = $request->name;
         $payrollNationality->country_id = $request->country_id;

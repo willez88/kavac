@@ -69,7 +69,7 @@ class PayrollSectorTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
 
         $payrollSectorType = PayrollSectorType::create(['name' => $request->name]);
@@ -106,7 +106,7 @@ class PayrollSectorTypeController extends Controller
     {
         $payrollSectorType = PayrollSectorType::find($id);
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => ['required', 'max:100']
         ]);
 
         $payrollSectorType->name = $request->name;

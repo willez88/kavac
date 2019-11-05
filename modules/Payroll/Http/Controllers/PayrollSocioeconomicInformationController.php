@@ -71,27 +71,27 @@ class PayrollSocioeconomicInformationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'full_name_twosome' => 'nullable|max:200',
-            'id_number_twosome' => array(
+            'full_name_twosome' => ['nullable', 'max:200'],
+            'id_number_twosome' => [
                 'nullable',
                 'regex:/^([\d]{7}|[\d]{8})$/u',
                 'unique:payroll_socioeconomic_informations,id_number_twosome'
-            ),
-            'birthdate_twosome' => 'nullable|date',
-            'payroll_staff_id' => 'required|unique:payroll_socioeconomic_informations,payroll_staff_id',
-            'marital_status_id' => 'required'
+            ],
+            'birthdate_twosome' => ['nullable', 'date'],
+            'payroll_staff_id' => ['required', 'unique:payroll_socioeconomic_informations,payroll_staff_id'],
+            'marital_status_id' => ['required']
         ]);
 
         $i = 0;
         foreach ($request->payroll_childrens as $payrollChildren) {
             $this->validate($request, [
-                'payroll_childrens.'.$i.'.first_name' => 'required',
-                'payroll_childrens.'.$i.'.last_name' => 'required',
-                'payroll_childrens.'.$i.'.id_number' => array(
+                'payroll_childrens.'.$i.'.first_name' => ['required'],
+                'payroll_childrens.'.$i.'.last_name' => ['required'],
+                'payroll_childrens.'.$i.'.id_number' => [
                     'nullable',
                     'regex:/^([\d]{7}|[\d]{8})$/u'
-                ),
-                'payroll_childrens.'.$i.'.birthdate' => 'required|date',
+                ],
+                'payroll_childrens.'.$i.'.birthdate' => ['required', 'date'],
             ]);
             $i++;
         }
@@ -161,30 +161,30 @@ class PayrollSocioeconomicInformationController extends Controller
     {
         $payrollSocioeconomicInformation = PayrollSocioeconomicInformation::find($id);
         $this->validate($request, [
-            'full_name_twosome' => 'nullable|max:200',
-            'id_number_twosome' => array(
+            'full_name_twosome' => ['nullable', 'max:200'],
+            'id_number_twosome' => [
                 'nullable',
                 'regex:/^([\d]{7}|[\d]{8})$/u',
                 'unique:payroll_socioeconomic_informations,id_number_twosome,'.$payrollSocioeconomicInformation->id
-            ),
-            'birthdate_twosome' => 'nullable|date',
-            'payroll_staff_id' => array(
+            ],
+            'birthdate_twosome' => ['nullable', 'date'],
+            'payroll_staff_id' => [
                 'required',
                 'unique:payroll_socioeconomic_informations,payroll_staff_id,'.$payrollSocioeconomicInformation->id
-            ),
-            'marital_status_id' => 'required'
+            ],
+            'marital_status_id' => ['required']
         ]);
 
         $i = 0;
         foreach ($request->payroll_childrens as $payrollChildren) {
             $this->validate($request, [
-                'payroll_childrens.'.$i.'.first_name' => 'required',
-                'payroll_childrens.'.$i.'.last_name' => 'required',
-                'payroll_childrens.'.$i.'.id_number' => array(
+                'payroll_childrens.'.$i.'.first_name' => ['required'],
+                'payroll_childrens.'.$i.'.last_name' => ['required'],
+                'payroll_childrens.'.$i.'.id_number' => [
                     'nullable',
                     'regex:/^([\d]{7}|[\d]{8})$/u'
-                ),
-                'payroll_childrens.'.$i.'.birthdate' => 'required|date',
+                ],
+                'payroll_childrens.'.$i.'.birthdate' => ['required', 'date'],
             ]);
             $i++;
         }
