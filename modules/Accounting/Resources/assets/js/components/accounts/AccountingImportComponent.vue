@@ -103,6 +103,7 @@
 				var formData = new FormData();
 				var inputFile = document.querySelector('#file');
 				formData.append("file", inputFile.files[0]);
+				vm.loading = true;
 				axios.post('/accounting/import', formData, {
 					headers: {
 						'Content-Type': 'multipart/form-data'
@@ -129,6 +130,7 @@
 						this.records = response.data.records;
 						EventBus.$emit('register:imported-accounts', this.records);
 					}
+					vm.loading = false;
 
 				}).catch(error => {
 					if (typeof(error.response) !== "undefined") {

@@ -95,7 +95,7 @@
                     return;
                 }
 
-                // Se creara
+                vm.loading = true;
                 if (vm.account_to_edit == null) {
                     axios.post('/accounting/converter', {
                                                         'budget_id':vm.budgetSelect,
@@ -112,6 +112,7 @@
                         vm.budgetOptions = response.data.records_busget;
                         vm.$refs.accountingConverterForm.reset();
                         vm.showMessage('store');
+                        vm.loading = false;
                     });
                 } else{
                     axios.put('/accounting/converter/'+vm.account_to_edit.id, {
@@ -120,6 +121,7 @@
                                                         })
                     .then(response=>{
                         vm.showMessage('update');
+                        vm.loading = false;
                         location.href = vm.urlPrevious;
                     });
                 }

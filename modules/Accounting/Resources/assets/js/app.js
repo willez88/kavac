@@ -261,6 +261,7 @@ Vue.mixin({
     			callback: function (result) {
 					if (result) {
     					confirmated = true;
+    					vm.loading = true;
 						axios.post(url + '/' + records[index].id).then(response => {
 							if (typeof(response.data.error) !== "undefined") {
 								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
@@ -270,6 +271,7 @@ Vue.mixin({
 							records.splice(index, 1);
 							vm.showMessage('update');
 							vm.reload = true;
+							vm.loading = false;
 						}).catch(error => {});
     				}
     			}

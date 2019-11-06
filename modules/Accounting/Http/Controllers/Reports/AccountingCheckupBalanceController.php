@@ -452,7 +452,7 @@ class AccountingCheckupBalanceController extends Controller
         */
         $all = ($all != false)?'true':'';
 
-        $url = 'balanceCheckUp/pdf/'.$initDate.'/'.$endDate.'/'.$all;
+        $url = 'balanceCheckUp/'.$initDate.'/'.$endDate.'/'.$all;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -502,9 +502,9 @@ class AccountingCheckupBalanceController extends Controller
     {
         $report = AccountingReportHistory::with('currency')->find($report);
 
-        $this->setInitDate(explode('/', $report->url)[2]);
-        $this->setEndDate(explode('/', $report->url)[3]);
-        $all = explode('/', $report->url)[4];
+        $this->setInitDate(explode('/', $report->url)[1]);
+        $this->setEndDate(explode('/', $report->url)[2]);
+        $all = explode('/', $report->url)[3];
         $this->setCurrency($report->currency);
 
         /**

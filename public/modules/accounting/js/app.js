@@ -377,6 +377,7 @@ Vue.mixin({
         callback: function callback(result) {
           if (result) {
             confirmated = true;
+            vm.loading = true;
             axios.post(url + '/' + records[index].id).then(function (response) {
               if (typeof response.data.error !== "undefined") {
                 /** Muestra un mensaje de error si sucede algún evento en la eliminación */
@@ -387,6 +388,7 @@ Vue.mixin({
               records.splice(index, 1);
               vm.showMessage('update');
               vm.reload = true;
+              vm.loading = false;
             })["catch"](function (error) {});
           }
         }
@@ -2101,8 +2103,9 @@ __webpack_require__.r(__webpack_exports__);
       if (vm.budgetSelect == '' || vm.accountingSelect == '') {
         vm.$refs.accountingConverterForm.showAlertMessages('Los campos de selección de cuenta son obligatorios.');
         return;
-      } // Se creara
+      }
 
+      vm.loading = true;
 
       if (vm.account_to_edit == null) {
         axios.post('/accounting/converter', {
@@ -2117,6 +2120,7 @@ __webpack_require__.r(__webpack_exports__);
           vm.budgetOptions = response.data.records_busget;
           vm.$refs.accountingConverterForm.reset();
           vm.showMessage('store');
+          vm.loading = false;
         });
       } else {
         axios.put('/accounting/converter/' + vm.account_to_edit.id, {
@@ -2124,6 +2128,7 @@ __webpack_require__.r(__webpack_exports__);
           'accounting_account_id': vm.accountingSelect
         }).then(function (response) {
           vm.showMessage('update');
+          vm.loading = false;
           location.href = vm.urlPrevious;
         });
       }
@@ -2289,28 +2294,28 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     getAllRecords_selects_vuejs: function getAllRecords_selects_vuejs(name_func, type_select, type_search) {
-      var _this = this;
-
+      var vm = this;
       /** Array que almacenara los registros de las cuentas para los selects */
+
       var records = null;
       /** Boolean que determina si es necesario realizar la consulta de los registros */
 
       var query = true;
 
-      if (type_select == 'accounting' && this.accountingAccounts) {
-        records = this.accountingAccounts;
+      if (type_select == 'accounting' && vm.accountingAccounts) {
+        records = vm.accountingAccounts;
         query = false;
-      } else if (type_select == 'budget' && this.budgetAccounts) {
-        records = this.budgetAccounts;
+      } else if (type_select == 'budget' && vm.budgetAccounts) {
+        records = vm.budgetAccounts;
         query = false;
       }
 
       if (query) {
         axios.post('/accounting/converter/' + name_func).then(function (response) {
-          _this.setValues(response.data.records, type_select, type_search);
+          vm.setValues(response.data.records, type_select, type_search);
         });
       } else {
-        this.setValues(records, type_select, type_search);
+        vm.setValues(records, type_select, type_search);
       }
     },
 
@@ -2323,6 +2328,7 @@ __webpack_require__.r(__webpack_exports__);
       var vm = this;
 
       if (vm.accountSelect.init_id != '' && vm.accountSelect.end_id != '') {
+        vm.loading = true;
         axios.post('/accounting/converter/get-Records', vm.accountSelect).then(function (response) {
           vm.records = [];
           vm.records = response.data.records;
@@ -2335,6 +2341,7 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           EventBus.$emit('list:conversions', response.data.records);
+          vm.loading = false;
         });
       } else {
         vm.$refs.accountingConverter.showAlertMessages('Los campos de selección de cuenta son obligatorios');
@@ -2690,6 +2697,7 @@ __webpack_require__.r(__webpack_exports__);
       vm.record.specific = dt.specific.length < 2 ? '0' + dt.specific : dt.specific;
       vm.record.subspecific = dt.subspecific.length < 2 ? '0' + dt.subspecific : dt.subspecific;
       vm.record.active = $('#active').prop('checked');
+      vm.loading = true;
 
       if (vm.operation == 'create') {
         axios.post(url, vm.record).then(function (response) {
@@ -2700,6 +2708,7 @@ __webpack_require__.r(__webpack_exports__);
 
           EventBus.$emit('reload:list-accounts', response.data.records);
           vm.showMessage('store');
+          vm.loading = false;
         })["catch"](function (error) {
           var errors = [];
 
@@ -2722,6 +2731,7 @@ __webpack_require__.r(__webpack_exports__);
 
           EventBus.$emit('reload:list-accounts', response.data.records);
           vm.showMessage('update');
+          vm.loading = false;
         })["catch"](function (error) {
           var errors = [];
 
@@ -2887,6 +2897,7 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       var inputFile = document.querySelector('#file');
       formData.append("file", inputFile.files[0]);
+      vm.loading = true;
       axios.post('/accounting/import', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -2904,6 +2915,8 @@ __webpack_require__.r(__webpack_exports__);
           _this2.records = response.data.records;
           EventBus.$emit('register:imported-accounts', _this2.records);
         }
+
+        vm.loading = false;
       })["catch"](function (error) {
         if (typeof error.response !== "undefined") {
           if (error.response.status == 422 || error.response.status == 500) {
@@ -3177,6 +3190,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/accounting/get_report_histories').then(function (response) {
         _this.records = response.data.report_histories;
       });
+    },
+    getUrlReport: function getUrlReport(reportUrl, reportId) {
+      return this.url + reportUrl.split('/')[0] + '/' + reportId;
     },
 
     /**
@@ -3624,10 +3640,11 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      axios.post('/accounting/entries', {
-        'data': vm.data,
-        'accountingAccounts': vm.recordsAccounting
-      }).then(function (response) {
+      vm.data['tot'] = vm.data.totDebit;
+      vm.data['tot_confirmation'] = vm.data.totAssets;
+      vm.data['accountingAccounts'] = vm.recordsAccounting;
+      vm.loading = true;
+      axios.post('/accounting/entries', vm.data).then(function (response) {
         vm.showMessage('store');
         setTimeout(function () {
           location.href = vm.urlPrevious;
@@ -3657,23 +3674,38 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     updateRecord: function updateRecord() {
-      var _this2 = this;
+      var vm = this;
 
-      if (this.validateErrors()) {
+      if (vm.validateErrors()) {
         return;
       }
 
-      axios.put('/accounting/entries/' + this.entries.id, {
-        'data': this.data,
-        'accountingAccounts': this.recordsAccounting,
-        'rowsToDelete': this.rowsToDelete
-      }).then(function (response) {
-        _this2.showMessage('update');
-
-        var vm = _this2;
+      vm.data['tot'] = vm.data.totDebit;
+      vm.data['tot_confirmation'] = vm.data.totAssets;
+      vm.data['accountingAccounts'] = vm.recordsAccounting;
+      vm.data['rowsToDelete'] = vm.rowsToDelete;
+      vm.loading = true;
+      axios.put('/accounting/entries/' + vm.entries.id, vm.data).then(function (response) {
+        vm.showMessage('update');
         setTimeout(function () {
           location.href = vm.route_list;
         }, 1500);
+      })["catch"](function (error) {
+        var errors = [];
+
+        if (typeof error.response != "undefined") {
+          for (var index in error.response.data.errors) {
+            if (error.response.data.errors[index]) {
+              errors.push(error.response.data.errors[index][0]);
+            }
+          }
+        }
+        /**
+        * se cargan los errores
+        */
+
+
+        vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
       });
     },
 
@@ -4190,28 +4222,28 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     searchRecords: function searchRecords() {
-      var _this = this;
+      var vm = this; // manejo de errores
 
-      // manejo de errores
-      if (this.ErrorsInForm()) {
+      if (vm.ErrorsInForm()) {
         return;
       }
 
-      var vm = this;
-      axios.post('/accounting/entries/Filter-Records', {
-        'typeSearch': this.typeSearch,
-        'filterDate': this.filterDate,
-        'data': this.data
-      }).then(function (response) {
+      vm.data['typeSearch'] = vm.typeSearch;
+      vm.data['filterDate'] = vm.filterDate;
+      vm.loading = true;
+      axios.post('/accounting/entries/Filter-Records', vm.data).then(function (response) {
         if (response.data.records.length == 0) {
-          _this.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
+          vm.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
+        } else {
+          vm.showMessage('custom', 'Éxito', 'success', 'screen-ok', 'Busqueda realizada de manera exitosa.');
         }
 
-        _this.records = response.data.records;
+        vm.records = response.data.records;
         EventBus.$emit('list:entries', {
           records: response.data.records,
-          currency: _this.currency
+          currency: vm.currency
         });
+        vm.loading = false;
       });
     }
   }
@@ -5029,7 +5061,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -7074,7 +7105,7 @@ var render = function() {
                     staticClass: "btn btn-primary btn-xs btn-icon",
                     attrs: {
                       "data-toggle": "tooltip",
-                      href: _vm.url + props.row.url,
+                      href: _vm.getUrlReport(props.row.url, props.row.id),
                       title: "Generar Reporte",
                       target: "_blank"
                     }

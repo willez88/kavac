@@ -183,7 +183,7 @@ class AccountingBalanceSheetController extends Controller
          * [$url link para el reporte]
          * @var string
          */
-        $url = 'balanceSheet/pdf/'.$endDate.'/'.$level.'/'.$zero;
+        $url = 'BalanceSheet/'.$endDate.'/'.$level.'/'.$zero;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -229,9 +229,9 @@ class AccountingBalanceSheetController extends Controller
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
-        $endDate = explode('/', $report->url)[2];
-        $level = explode('/', $report->url)[3];
-        $zero = explode('/', $report->url)[4];
+        $endDate = explode('/', $report->url)[1];
+        $level = explode('/', $report->url)[2];
+        $zero = explode('/', $report->url)[3];
         $this->setCurrency($report->currency);
 
         /**

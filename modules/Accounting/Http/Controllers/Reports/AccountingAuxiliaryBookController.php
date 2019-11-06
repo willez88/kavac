@@ -214,7 +214,7 @@ class AccountingAuxiliaryBookController extends Controller
         /**
          * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
-        $url = 'auxiliaryBook/pdf/'.$date.'/'.$account_id;
+        $url = 'auxiliaryBook/'.$date.'/'.$account_id;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -257,8 +257,8 @@ class AccountingAuxiliaryBookController extends Controller
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
-        $date  = explode('/', $report->url)[2];
-        $account_id = explode('/', $report->url)[3];
+        $date  = explode('/', $report->url)[1];
+        $account_id = explode('/', $report->url)[2];
         $initMonth = (int)explode('-', $date)[1];
         $initYear = (int)explode('-', $date)[0];
 

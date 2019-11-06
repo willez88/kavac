@@ -254,7 +254,7 @@ class AccountingAnalyticalMajorController extends Controller
          * [$url link para consultar ese regporte]
          * @var string
          */
-        $url = 'analyticalMajor/pdf/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc;
+        $url = 'analyticalMajor/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -299,10 +299,10 @@ class AccountingAnalyticalMajorController extends Controller
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
-        $initDate = explode('/', $report->url)[2];
-        $endDate  = explode('/', $report->url)[3];
-        $initAcc = explode('/', $report->url)[4];
-        $endAcc  = explode('/', $report->url)[5];
+        $initDate = explode('/', $report->url)[1];
+        $endDate  = explode('/', $report->url)[2];
+        $initAcc = explode('/', $report->url)[3];
+        $endAcc  = explode('/', $report->url)[4];
 
         $currency = $report->currency;
 

@@ -91,7 +91,7 @@ class AccountingDailyBookController extends Controller
          * [$url link para consultar ese regporte]
          * @var string
          */
-        $url = 'dailyBook/pdf/'.$initDate.'/'.$endDate;
+        $url = 'dailyBook/'.$initDate.'/'.$endDate;
 
         /**
          * [$report almacena el registro del reporte del dia si existe]
@@ -131,8 +131,8 @@ class AccountingDailyBookController extends Controller
     public function pdf($report_id)
     {
         $report = AccountingReportHistory::with('currency')->find($report_id);
-        $initDate = explode('/', $report->url)[2];
-        $endDate  = explode('/', $report->url)[3];
+        $initDate = explode('/', $report->url)[1];
+        $endDate  = explode('/', $report->url)[2];
 
         $currency = $report->currency;
 

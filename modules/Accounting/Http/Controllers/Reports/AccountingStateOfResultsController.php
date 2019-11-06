@@ -188,7 +188,7 @@ class AccountingStateOfResultsController extends Controller
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
         $zero = ($zero)?'true':'';
-        $url = 'stateOfResults/pdf/'.$endDate.'/'.$level.'/'.$zero;
+        $url = 'StateOfResults/'.$endDate.'/'.$level.'/'.$zero;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -233,9 +233,9 @@ class AccountingStateOfResultsController extends Controller
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
-        $endDate = explode('/', $report->url)[2];
-        $level = explode('/', $report->url)[3];
-        $zero = explode('/', $report->url)[4];
+        $endDate = explode('/', $report->url)[1];
+        $level = explode('/', $report->url)[2];
+        $zero = explode('/', $report->url)[3];
         $this->setCurrency($report->currency);
         $date = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1];
 

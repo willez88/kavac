@@ -223,24 +223,26 @@
 			*/
 			searchRecords:function(){
 
+				const vm = this;
 				// manejo de errores
-				if (this.ErrorsInForm()) {
+				if (vm.ErrorsInForm()) {
 					return ;
 				}
-				const vm = this;
-				axios.post('/accounting/entries/Filter-Records',{
-					'typeSearch':this.typeSearch,
-					'filterDate':this.filterDate,
-					'data':this.data,
-				}).then(response=>{
+				vm.data['typeSearch'] = vm.typeSearch;
+                vm.data['filterDate'] = vm.filterDate;
+                vm.loading = true;
+				axios.post('/accounting/entries/Filter-Records',vm.data).then(response=>{
 					if (response.data.records.length == 0) {
-						this.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
+						vm.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
+					}else{
+						vm.showMessage('custom', 'Éxito', 'success', 'screen-ok', 'Busqueda realizada de manera exitosa.');
 					}
-					this.records = response.data.records;
+					vm.records = response.data.records;
 					EventBus.$emit('list:entries',{
 						records:response.data.records,
-						currency:this.currency,
+						currency:vm.currency,
 					});
+					vm.loading = false;
 				});
 			},
 		},
