@@ -250,6 +250,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     /** Rutas para la gestión de tipos de cambio */
     Route::resource('exchange-rates', 'ExchangeRateController', ['except' => ['show']]);
+
+    /** Rutas para gestionar notificaciones del sistema */
+    Route::post('system/notify/send', 'SystemNotificationController@send');
 });
 
 /**
