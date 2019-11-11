@@ -5,11 +5,11 @@
     },
     {
         "element" : "#helpDailyBookInitDate",
-        "intro" : "Fecha inicial para la consulta del reporte."
+        "intro" : "Parametro de fecha inicial que abarcara el reporte."
     },
     {
         "element" : "#helpDailyBookEndDate",
-        "intro" : "Fecha final para la consulta del reporte."
+        "intro" : "Parametro de fecha final que abarcara el reporte."
     },
     {
         "element" : "#helpDailyBookCurrency",

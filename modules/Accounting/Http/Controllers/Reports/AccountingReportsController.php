@@ -48,10 +48,6 @@ class AccountingReportsController extends Controller
                 'id' => '0',
                 'text' =>  "Seleccione...",
             ]);
-        array_push($records_auxiliar, [
-                'id' => '',
-                'text' =>  "Todas",
-            ]);
         /**
          * se realiza la busqueda de manera ordenada en base al codigo
          */

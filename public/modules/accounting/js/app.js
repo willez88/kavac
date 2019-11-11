@@ -3155,7 +3155,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4762,7 +4761,7 @@ __webpack_require__.r(__webpack_exports__);
     $('.sel_pry_acc').on('switchChange.bootstrapSwitch', function (e) {
       if (e.target.id === "sel_all_acc_auxiliary") {
         if ($('#sel_all_acc_auxiliary').prop('checked')) {
-          vm.account_id = '';
+          vm.account_id = 0;
           vm.allAccounts = true;
         } else {
           vm.account_id = 0;
@@ -4795,7 +4794,8 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.$refs.errorAuxiliaryBook.reset();
-      return this.url + (this.year_init + '-' + this.month_init) + '/' + this.currency + '/' + this.account_id;
+      var acc = this.account_id == 0 && this.allAccounts ? '' : '0';
+      return this.url + (this.year_init + '-' + this.month_init) + '/' + this.currency + '/' + acc;
     }
   }
 });
@@ -7060,8 +7060,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h6", [_vm._v("Reportes generados")]),
-      _vm._v(" "),
       _c("v-client-table", {
         attrs: {
           columns: _vm.columns,
@@ -9117,7 +9115,7 @@ var staticRenderFns = [
             "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
           attrs: {
             type: "checkbox",
-            name: "sel_account_type",
+            name: "sel_account_type_auxiliary",
             id: "sel_all_acc_auxiliary",
             "data-on-label": "SI",
             "data-off-label": "NO"
