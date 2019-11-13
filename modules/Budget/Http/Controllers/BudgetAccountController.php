@@ -77,7 +77,7 @@ class BudgetAccountController extends Controller
     {
         /** @var object Objeto que contiene todos los registros de cuentas presupuestarias */
         $records = BudgetAccount::all();
-        return view('budget::accounts.list');
+        return view('budget::accounts.list', compact('records'));
     }
 
     /**
