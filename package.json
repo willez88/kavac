@@ -18,7 +18,7 @@
         "lodash": "^4.17.15",
         "popper.js": "^1.16.0",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.23.3",
+        "sass": "^1.23.6",
         "sass-loader": "^7.3.1",
         "vue": "^2.6"
     },
@@ -28,7 +28,7 @@
         "bootbox": "^5.3.4",
         "bootstrap-fileinput": "^4.5.3",
         "bootstrap-switch": "^3.4.0",
-        "chart.js": "^2.9.2",
+        "chart.js": "^2.9.3",
         "gifsicle": "^4.0.1",
         "intro.js": "^2.9.3",
         "jquery.complexify": "^0.5.2",
@@ -39,7 +39,7 @@
         "select2": "^4.0.12",
         "sweetalert2": "^8.19.0",
         "vue-multiselect": "^2.1.6",
-        "vue-tables-2": "^1.5.44",
+        "vue-tables-2": "^1.5.45",
         "vue-template-compiler": "^2.6.10"
     }
 }
