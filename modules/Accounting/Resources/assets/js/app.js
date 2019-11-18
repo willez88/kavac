@@ -11,21 +11,21 @@ Vue.component('accounting-show-errors', require('./components/AccountingErrorsCo
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-setting-code', require('./components/setting/AccountingSettingCodeComponent.vue').default);
+Vue.component('accounting-setting-code', require('./components/settings/AccountingSettingCodeComponent.vue').default);
 
 /**
  * Componente para la configuración de categorias de origen para asientos contables
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-setting-category', require('./components/setting/AccountingSettingCategoryComponent.vue').default);
+Vue.component('accounting-setting-category', require('./components/settings/AccountingSettingCategoryComponent.vue').default);
 
 /**
  * Componente para el CRUD en ventana modal de cuentas patrimoniales
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-setting-account', require('./components/setting/AccountingAccountComponent.vue').default);
+Vue.component('accounting-setting-account', require('./components/settings/AccountingAccountComponent.vue').default);
 
 /**
  * Componente para Listar cuentas patrimoniales
@@ -222,6 +222,7 @@ Vue.mixin({
 			if (!url) {
 				return;
 			}
+			vm.loading = true;
 			axios.get(url.replace('/pdf','/pdfVue')).then(response=>{
 				if (!response.data.result) {
 					vm.showMessage(
@@ -229,7 +230,8 @@ Vue.mixin({
                         );
 				}else{
 					url = url.split('/pdf')[0];
-					url += '/'+response.data.id; 
+					url += '/'+response.data.id;
+					vm.loading = false;
 					window.open(url, type);
 				}
 			})

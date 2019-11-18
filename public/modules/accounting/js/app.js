@@ -105,21 +105,21 @@ Vue.component('accounting-show-errors', __webpack_require__(/*! ./components/Acc
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-setting-code', __webpack_require__(/*! ./components/setting/AccountingSettingCodeComponent.vue */ "./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue")["default"]);
+Vue.component('accounting-setting-code', __webpack_require__(/*! ./components/settings/AccountingSettingCodeComponent.vue */ "./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue")["default"]);
 /**
  * Componente para la configuración de categorias de origen para asientos contables
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-setting-category', __webpack_require__(/*! ./components/setting/AccountingSettingCategoryComponent.vue */ "./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue")["default"]);
+Vue.component('accounting-setting-category', __webpack_require__(/*! ./components/settings/AccountingSettingCategoryComponent.vue */ "./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue")["default"]);
 /**
  * Componente para el CRUD en ventana modal de cuentas patrimoniales
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-setting-account', __webpack_require__(/*! ./components/setting/AccountingAccountComponent.vue */ "./Resources/assets/js/components/setting/AccountingAccountComponent.vue")["default"]);
+Vue.component('accounting-setting-account', __webpack_require__(/*! ./components/settings/AccountingAccountComponent.vue */ "./Resources/assets/js/components/settings/AccountingAccountComponent.vue")["default"]);
 /**
  * Componente para Listar cuentas patrimoniales
  *
@@ -341,12 +341,14 @@ Vue.mixin({
         return;
       }
 
+      vm.loading = true;
       axios.get(url.replace('/pdf', '/pdfVue')).then(function (response) {
         if (!response.data.result) {
           vm.showMessage('custom', 'Error en conversión', 'danger', 'screen-error', response.data.message);
         } else {
           url = url.split('/pdf')[0];
           url += '/' + response.data.id;
+          vm.loading = false;
           window.open(url, type);
         }
       });
@@ -1712,17 +1714,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/setting/AccountingAccountComponent.vue":
-/*!*******************************************************************************!*\
-  !*** ./Resources/assets/js/components/setting/AccountingAccountComponent.vue ***!
-  \*******************************************************************************/
+/***/ "./Resources/assets/js/components/settings/AccountingAccountComponent.vue":
+/*!********************************************************************************!*\
+  !*** ./Resources/assets/js/components/settings/AccountingAccountComponent.vue ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingAccountComponent_vue_vue_type_template_id_7972837b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingAccountComponent.vue?vue&type=template&id=7972837b& */ "./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=template&id=7972837b&");
-/* harmony import */ var _AccountingAccountComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingAccountComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AccountingAccountComponent_vue_vue_type_template_id_c405282c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingAccountComponent.vue?vue&type=template&id=c405282c& */ "./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=template&id=c405282c&");
+/* harmony import */ var _AccountingAccountComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingAccountComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1733,8 +1735,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _AccountingAccountComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingAccountComponent_vue_vue_type_template_id_7972837b___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingAccountComponent_vue_vue_type_template_id_7972837b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AccountingAccountComponent_vue_vue_type_template_id_c405282c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingAccountComponent_vue_vue_type_template_id_c405282c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1744,54 +1746,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/setting/AccountingAccountComponent.vue"
+component.options.__file = "Resources/assets/js/components/settings/AccountingAccountComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************/
+/***/ "./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=template&id=7972837b&":
-/*!**************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=template&id=7972837b& ***!
-  \**************************************************************************************************************/
+/***/ "./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=template&id=c405282c&":
+/*!***************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=template&id=c405282c& ***!
+  \***************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountComponent_vue_vue_type_template_id_7972837b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountComponent.vue?vue&type=template&id=7972837b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=template&id=7972837b&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountComponent_vue_vue_type_template_id_7972837b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountComponent_vue_vue_type_template_id_c405282c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountComponent.vue?vue&type=template&id=c405282c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=template&id=c405282c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountComponent_vue_vue_type_template_id_c405282c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountComponent_vue_vue_type_template_id_7972837b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountComponent_vue_vue_type_template_id_c405282c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue":
-/*!***************************************************************************************!*\
-  !*** ./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue ***!
-  \***************************************************************************************/
+/***/ "./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue":
+/*!****************************************************************************************!*\
+  !*** ./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue ***!
+  \****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingSettingCategoryComponent_vue_vue_type_template_id_17703cda___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingSettingCategoryComponent.vue?vue&type=template&id=17703cda& */ "./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=template&id=17703cda&");
-/* harmony import */ var _AccountingSettingCategoryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingSettingCategoryComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AccountingSettingCategoryComponent_vue_vue_type_template_id_603f4649___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingSettingCategoryComponent.vue?vue&type=template&id=603f4649& */ "./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=template&id=603f4649&");
+/* harmony import */ var _AccountingSettingCategoryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingSettingCategoryComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1802,8 +1804,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _AccountingSettingCategoryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingSettingCategoryComponent_vue_vue_type_template_id_17703cda___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingSettingCategoryComponent_vue_vue_type_template_id_17703cda___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AccountingSettingCategoryComponent_vue_vue_type_template_id_603f4649___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingSettingCategoryComponent_vue_vue_type_template_id_603f4649___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1813,54 +1815,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue"
+component.options.__file = "Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************/
+/***/ "./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCategoryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSettingCategoryComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCategoryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSettingCategoryComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCategoryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=template&id=17703cda&":
-/*!**********************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=template&id=17703cda& ***!
-  \**********************************************************************************************************************/
+/***/ "./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=template&id=603f4649&":
+/*!***********************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=template&id=603f4649& ***!
+  \***********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCategoryComponent_vue_vue_type_template_id_17703cda___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSettingCategoryComponent.vue?vue&type=template&id=17703cda& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=template&id=17703cda&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCategoryComponent_vue_vue_type_template_id_17703cda___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCategoryComponent_vue_vue_type_template_id_603f4649___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSettingCategoryComponent.vue?vue&type=template&id=603f4649& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=template&id=603f4649&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCategoryComponent_vue_vue_type_template_id_603f4649___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCategoryComponent_vue_vue_type_template_id_17703cda___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCategoryComponent_vue_vue_type_template_id_603f4649___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue":
-/*!***********************************************************************************!*\
-  !*** ./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue ***!
-  \***********************************************************************************/
+/***/ "./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue":
+/*!************************************************************************************!*\
+  !*** ./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingSettingCodeComponent_vue_vue_type_template_id_de31dc6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingSettingCodeComponent.vue?vue&type=template&id=de31dc6a& */ "./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=template&id=de31dc6a&");
-/* harmony import */ var _AccountingSettingCodeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingSettingCodeComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AccountingSettingCodeComponent_vue_vue_type_template_id_2bda2aba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingSettingCodeComponent.vue?vue&type=template&id=2bda2aba& */ "./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=template&id=2bda2aba&");
+/* harmony import */ var _AccountingSettingCodeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingSettingCodeComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1871,8 +1873,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _AccountingSettingCodeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingSettingCodeComponent_vue_vue_type_template_id_de31dc6a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingSettingCodeComponent_vue_vue_type_template_id_de31dc6a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AccountingSettingCodeComponent_vue_vue_type_template_id_2bda2aba___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingSettingCodeComponent_vue_vue_type_template_id_2bda2aba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1882,38 +1884,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue"
+component.options.__file = "Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************/
+/***/ "./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCodeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSettingCodeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCodeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSettingCodeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCodeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=template&id=de31dc6a&":
-/*!******************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=template&id=de31dc6a& ***!
-  \******************************************************************************************************************/
+/***/ "./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=template&id=2bda2aba&":
+/*!*******************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=template&id=2bda2aba& ***!
+  \*******************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCodeComponent_vue_vue_type_template_id_de31dc6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSettingCodeComponent.vue?vue&type=template&id=de31dc6a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=template&id=de31dc6a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCodeComponent_vue_vue_type_template_id_de31dc6a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCodeComponent_vue_vue_type_template_id_2bda2aba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingSettingCodeComponent.vue?vue&type=template&id=2bda2aba& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=template&id=2bda2aba&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCodeComponent_vue_vue_type_template_id_2bda2aba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCodeComponent_vue_vue_type_template_id_de31dc6a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingSettingCodeComponent_vue_vue_type_template_id_2bda2aba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -2418,6 +2420,13 @@ __webpack_require__.r(__webpack_exports__);
     };
     this.table_options.sortable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
     this.table_options.filterable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
+    this.table_options.columnsClasses = {
+      'codeBudget': 'col-xs-1',
+      'budget_account': 'col-xs-5',
+      'codeAccounting': 'col-xs-1',
+      'accounting_account': 'col-xs-4',
+      'id': 'col-xs-1'
+    };
     EventBus.$on('list:conversions', function (data) {
       console.log(data);
       _this.records = data;
@@ -2985,8 +2994,14 @@ __webpack_require__.r(__webpack_exports__);
       'status': 'ESTADO DE LA CUENTA',
       'id': 'ACCIÓN'
     };
-    this.table_options.sortable = ['code', 'denomination', 'status'];
-    this.table_options.filterable = ['code', 'denomination', 'status'];
+    this.table_options.sortable = ['code', 'denomination'];
+    this.table_options.filterable = ['code', 'denomination'];
+    this.table_options.columnsClasses = {
+      'code': 'col-xs-1',
+      'denomination': 'col-xs-7',
+      'status': 'col-xs-2',
+      'id': 'col-xs-2'
+    };
   },
   methods: {
     loadData: function loadData(data) {
@@ -3059,13 +3074,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       reload: false,
       records: [],
-      url: '/accounting/seating/',
-      columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'action']
+      url: '/accounting/entries/',
+      columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'id']
     };
   },
   created: function created() {
@@ -3075,10 +3093,18 @@ __webpack_require__.r(__webpack_exports__);
       'concept': 'CONCEPTO',
       'total': 'TOTAL',
       'approved': 'ESTADO DEL ASIENTO',
-      'action': 'ACCIÓN'
+      'id': 'ACCIÓN'
     };
     this.table_options.sortable = [];
     this.table_options.filterable = [];
+    this.table_options.columnsClasses = {
+      'from_date': 'col-xs-1',
+      'reference': 'col-xs-1',
+      'denomination': 'col-xs-5',
+      'total': 'col-xs-2',
+      'approved': 'col-xs-1',
+      'id': 'col-xs-2'
+    };
   },
   mounted: function mounted() {
     this.loadRecords();
@@ -3155,6 +3181,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3173,6 +3201,13 @@ __webpack_require__.r(__webpack_exports__);
     };
     this.table_options.sortable = ['created_at', 'interval', 'name'];
     this.table_options.filterable = [];
+    this.table_options.columnsClasses = {
+      'name': 'col-xs-6',
+      'created_at': 'col-xs-2',
+      'range': 'col-xs-2',
+      'interval': 'col-xs-2',
+      'id': 'col-xs-1'
+    };
   },
   mounted: function mounted() {
     this.loadRecords();
@@ -5154,10 +5189,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5337,21 +5372,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5447,6 +5476,12 @@ __webpack_require__.r(__webpack_exports__);
       'name': 'NOMBRE',
       'acronym': 'ACRÓNIMO',
       'id': 'ACCIÓN'
+    };
+    this.table_options.sortable = ['name', 'acronym'];
+    this.table_options.columnsClasses = {
+      'name': 'col-xs-8',
+      'acronym': 'col-xs-2',
+      'id': 'col-xs-2'
     };
   },
   methods: {
@@ -5567,10 +5602,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5667,14 +5702,11 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      console.log(vm.code);
       axios.post('/accounting/settings/code', {
         entries_reference: vm.code
       }).then(function (response) {
         vm.showMessage('store');
         vm.redirect_back('/accounting/settings');
-      })["catch"](function (errors) {
-        console.log(errors);
       });
     }
   },
@@ -6869,6 +6901,14 @@ var render = function() {
             }
           },
           {
+            key: "reference",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-center" }, [
+                _vm._v("\n\t\t\t" + _vm._s(props.row.reference) + "\n\t\t")
+              ])
+            }
+          },
+          {
             key: "total",
             fn: function(props) {
               return _c("div", { staticClass: "text-right" }, [
@@ -6940,7 +6980,7 @@ var render = function() {
             }
           },
           {
-            key: "action",
+            key: "id",
             fn: function(props) {
               return _c("div", { staticClass: "text-center" }, [
                 !props.row.approved
@@ -6997,7 +7037,7 @@ var render = function() {
                           click: function($event) {
                             return _vm.deleteRecord(
                               props.index,
-                              "/accounting/seating"
+                              "/accounting/entries"
                             )
                           }
                         }
@@ -7080,6 +7120,14 @@ var render = function() {
             fn: function(props) {
               return _c("div", { staticClass: "text-center" }, [
                 _vm._v("\n\t\t\t" + _vm._s(props.row.created_at) + "\n\t\t")
+              ])
+            }
+          },
+          {
+            key: "interval",
+            fn: function(props) {
+              return _c("div", { staticClass: "text-center" }, [
+                _vm._v("\n\t\t\t" + _vm._s(props.row.interval) + "\n\t\t")
               ])
             }
           },
@@ -8445,19 +8493,19 @@ var render = function() {
                       _c("table", { staticClass: "table" }, [
                         _c("thead", [
                           _c("tr", [
-                            _c("td", [
+                            _c("td", { staticClass: "col-xs-1" }, [
                               _c("h6", [_c("strong", [_vm._v("CÓDIGO")])])
                             ]),
                             _vm._v(" "),
-                            _c("td", [
+                            _c("td", { staticClass: "col-xs-7" }, [
                               _c("h6", [_c("strong", [_vm._v("DENOMINACIÓN")])])
                             ]),
                             _vm._v(" "),
-                            _c("td", [
+                            _c("td", { staticClass: "col-xs-2" }, [
                               _c("h6", [_c("strong", [_vm._v("DEBE")])])
                             ]),
                             _vm._v(" "),
-                            _c("td", [
+                            _c("td", { staticClass: "col-xs-2" }, [
                               _c("h6", [_c("strong", [_vm._v("HABER")])])
                             ])
                           ])
@@ -8508,36 +8556,24 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [
                                     _c("h6", [
-                                      _c("span", [
-                                        _vm._v(
-                                          _vm._s(props.row.currency.symbol)
-                                        )
-                                      ]),
                                       _vm._v(
-                                        " " +
-                                          _vm._s(
-                                            parseFloat(record.debit).toFixed(
-                                              props.row.currency.decimal_places
-                                            )
+                                        _vm._s(
+                                          parseFloat(record.debit).toFixed(
+                                            props.row.currency.decimal_places
                                           )
+                                        )
                                       )
                                     ])
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _c("h6", [
-                                      _c("span", [
-                                        _vm._v(
-                                          _vm._s(props.row.currency.symbol)
-                                        )
-                                      ]),
                                       _vm._v(
-                                        " " +
-                                          _vm._s(
-                                            parseFloat(record.assets).toFixed(
-                                              props.row.currency.decimal_places
-                                            )
+                                        _vm._s(
+                                          parseFloat(record.assets).toFixed(
+                                            props.row.currency.decimal_places
                                           )
+                                        )
                                       )
                                     ])
                                   ])
@@ -9686,10 +9722,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=template&id=7972837b&":
-/*!********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/setting/AccountingAccountComponent.vue?vue&type=template&id=7972837b& ***!
-  \********************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=template&id=c405282c&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/settings/AccountingAccountComponent.vue?vue&type=template&id=c405282c& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9932,10 +9968,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=template&id=17703cda&":
-/*!****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/setting/AccountingSettingCategoryComponent.vue?vue&type=template&id=17703cda& ***!
-  \****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=template&id=603f4649&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/settings/AccountingSettingCategoryComponent.vue?vue&type=template&id=603f4649& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10117,30 +10153,6 @@ var render = function() {
                     },
                     scopedSlots: _vm._u([
                       {
-                        key: "name",
-                        fn: function(props) {
-                          return _c("div", {}, [
-                            _vm._v(
-                              "\n                \t\t\t" +
-                                _vm._s(props.row.name) +
-                                "\n                \t\t"
-                            )
-                          ])
-                        }
-                      },
-                      {
-                        key: "acronym",
-                        fn: function(props) {
-                          return _c("div", {}, [
-                            _vm._v(
-                              "\n                \t\t\t" +
-                                _vm._s(props.row.acronym) +
-                                "\n                \t\t"
-                            )
-                          ])
-                        }
-                      },
-                      {
                         key: "id",
                         fn: function(props) {
                           return _c("div", { staticClass: "text-center" }, [
@@ -10227,10 +10239,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=template&id=de31dc6a&":
-/*!************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/setting/AccountingSettingCodeComponent.vue?vue&type=template&id=de31dc6a& ***!
-  \************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=template&id=2bda2aba&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/settings/AccountingSettingCodeComponent.vue?vue&type=template&id=2bda2aba& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

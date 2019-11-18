@@ -95,6 +95,12 @@ Route::group(['middleware' => 'web',
     Route::get('entries/unapproved', 'AccountingEntryController@unapproved')
             ->name('accounting.entries.unapproved');
     /**
+     * aprobar un asiento contable
+     */
+    Route::post('entries/approve/{id}', 'AccountingEntryController@approve')
+            ->name('accounting.entries.approve');
+
+    /**
      * rutas para la gestión de asientos contables
      */
     Route::resource(
@@ -116,12 +122,6 @@ Route::group(['middleware' => 'web',
      */
     Route::post('entries/Filter-Records', 'AccountingEntryController@filterRecords')
             ->name('accounting.entries.FilterRecords');
-
-    /**
-     * aprobar un asiento contable
-     */
-    Route::post('entries/approve/{id}', 'AccountingEntryController@approve')
-            ->name('accounting.entries.approve');
 
     /**
      * rutas para los pdf de asientos contables

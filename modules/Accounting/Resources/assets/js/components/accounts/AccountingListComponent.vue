@@ -45,8 +45,14 @@
 				'status': 'ESTADO DE LA CUENTA',
 				'id': 'ACCIÓN'
 			};
-			this.table_options.sortable = ['code', 'denomination', 'status'];
-			this.table_options.filterable = ['code', 'denomination', 'status'];
+			this.table_options.sortable = ['code', 'denomination'];
+			this.table_options.filterable = ['code', 'denomination'];
+			this.table_options.columnsClasses = {
+	            'code': 'col-xs-1',
+	            'denomination': 'col-xs-7',
+	            'status': 'col-xs-2',
+	            'id': 'col-xs-2'
+	        };
 		},
 		methods:{
 			loadData:function(data) {

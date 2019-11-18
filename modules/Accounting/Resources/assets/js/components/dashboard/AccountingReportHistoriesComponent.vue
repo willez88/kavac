@@ -7,7 +7,9 @@
 			<div slot="created_at" slot-scope="props" class="text-center">
 				{{ props.row.created_at }}
 			</div>
-			
+			<div slot="interval" slot-scope="props" class="text-center">
+				{{ props.row.interval }}
+			</div>
 			<div slot="range"  slot-scope="props" class="text-center">
 				<strong>{{ rangeOfReport(props.row.url) }} </strong>
 			</div>
@@ -44,6 +46,13 @@
 			};
 			this.table_options.sortable = ['created_at','interval', 'name'];
 			this.table_options.filterable = [];
+			this.table_options.columnsClasses = {
+	            'name': 'col-xs-6',
+	            'created_at': 'col-xs-2',
+	            'range': 'col-xs-2',
+	            'interval': 'col-xs-2',
+	            'id': 'col-xs-1'
+	        };
 		},
 		mounted(){
 			this.loadRecords();
