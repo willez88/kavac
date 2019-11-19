@@ -9,7 +9,7 @@ if (! function_exists('format_bank_account')) {
      * @param  boolean  $formatted Establece si se desea una cadena formateada o no
      * @return Devuelve el número de cuenta formateado o no segun el filtro indicado
      */
-    function format_bank_account($account, $formatted = true)
+    function format_bank_account($account, $formatted = null)
     {
         /*$account_formatted = '';
         for ($i = 0; $i < $account; $i++) {

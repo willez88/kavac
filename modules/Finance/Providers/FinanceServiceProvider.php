@@ -94,11 +94,7 @@ class FinanceServiceProvider extends ServiceProvider
     {
         $langPath = resource_path('lang/modules/finance');
 
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'finance');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'finance');
-        }
+        $this->loadTranslationsFrom(is_dir($langPath) ? $langPath : __DIR__ .'/../Resources/lang', 'finance');
     }
 
     /**
