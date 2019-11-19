@@ -29,7 +29,6 @@ use Auth;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *                LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AccountingAuxiliaryBookController extends Controller
 {
 
@@ -73,6 +72,7 @@ class AccountingAuxiliaryBookController extends Controller
         $endDate = $date.'-'.$day;
 
         $convertions = [];
+
         /**
          * [$query cuenta patrimonial con su relacion en asientos contables]
          * @var [Modules\Accounting\Models\AccountingEntry]
@@ -252,7 +252,7 @@ class AccountingAuxiliaryBookController extends Controller
     /**
      * [pdf vista en la que se genera el reporte en pdf]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  integer $id [id de reporte y su informacion]
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
@@ -274,6 +274,7 @@ class AccountingAuxiliaryBookController extends Controller
          * @var string
          */
         $initDate = $date.'-01';
+        
         /**
          * [$day ultimo dia correspondiente al mes]
          * @var date

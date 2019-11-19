@@ -17,6 +17,7 @@ use Modules\Accounting\Pdf\Pdf;
 
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
+use Auth;
 
 /**
  * @class AccountingReportPdfAnalyticalMajorController
@@ -107,7 +108,7 @@ class AccountingAnalyticalMajorController extends Controller
         $arrAccounts = [];
 
         /**
-        Se formatean los datos de las cuentas
+        * Se formatean los datos de las cuentas
         */
         array_push($arrAccounts, [
                 'id' => 0,
@@ -162,7 +163,6 @@ class AccountingAnalyticalMajorController extends Controller
     {
         $initDate = $initDate.'-01';
 
-        /** @var Object string en que se almacena el ultimo dia correspondiente al mes */
         /**
          * [$endDay ultimo dia correspondiente al mes]
          * @var [date]
@@ -294,7 +294,7 @@ class AccountingAnalyticalMajorController extends Controller
      * [pdf vista en la que se genera el reporte en pdf]
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  integer $id [id de reporte y su informacion]
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
@@ -392,7 +392,7 @@ class AccountingAnalyticalMajorController extends Controller
             }
             array_push($records, $acc);
         }
-        // dd($convertions);
+
         /**
          * [$setting configuración general de la apliación]
          * @var [Modules\Accounting\Models\Setting]

@@ -15,6 +15,17 @@ use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Auth;
 
+/**
+ * @class AccountingEntryCategoryController
+ * @brief Controlador para la gestion los asientos contables
+ *
+ * Clase que gestiona los asientos contables
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class AccountingEntryController extends Controller
 {
     use ValidatesRequests;

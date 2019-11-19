@@ -11,7 +11,18 @@ use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
+use Auth;
 
+/**
+ * @class AccountingReportPdfCheckupBalanceController
+ * @brief Controlador para la generación del reporte del asiento contable
+ *
+ * Clase que gestiona de la generación del reporte del asiento contable
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class AccountingEntryController extends Controller
 {
     /**

@@ -7,15 +7,18 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingEntryCategory;
+use Auth;
 
 /**
- * @class AccountingSettingCategoryController
- * @brief Controlador de configuración de categorias de origen de asientos contables
+ * @class AccountingEntryCategoryController
+ * @brief Controlador para la gestion las categorias de origen
  *
- * Clase que gestiona las categorias de origen de asientos contables
+ * Clase que gestiona las categorias de origen
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AccountingSettingCategoryController extends Controller
 {

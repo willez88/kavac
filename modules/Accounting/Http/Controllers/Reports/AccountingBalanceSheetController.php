@@ -221,10 +221,7 @@ class AccountingBalanceSheetController extends Controller
     /**
      * [pdf genera el reporte en pdf de balance general]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  string   $date     [fecha]
-     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
-     * @param  Currency $currency [moneda en que se expresara el reporte]
-     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
@@ -235,37 +232,37 @@ class AccountingBalanceSheetController extends Controller
         $this->setCurrency($report->currency);
 
         /**
-         * [$level_1 consulta de ralación que se desean realizar]
+         * [$level_1 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_1 = 'entryAccount.entries';
 
         /**
-         * [$level_2 consulta de ralación que se desean realizar]
+         * [$level_2 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_2 = 'children.entryAccount.entries';
 
         /**
-         * [$level_3 consulta de ralación que se desean realizar]
+         * [$level_3 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_3 = 'children.children.entryAccount.entries';
 
         /**
-         * [$level_4 consulta de ralación que se desean realizar]
+         * [$level_4 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_4 = 'children.children.children.entryAccount.entries';
 
         /**
-         * [$level_5 consulta de ralación que se desean realizar]
+         * [$level_5 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_5 = 'children.children.children.children.entryAccount.entries';
 
         /**
-         * [$level_6 consulta de ralación que se desean realizar]
+         * [$level_6 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_6 = 'children.children.children.children.children.entryAccount.entries';

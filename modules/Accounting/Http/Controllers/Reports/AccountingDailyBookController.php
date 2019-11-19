@@ -126,7 +126,7 @@ class AccountingDailyBookController extends Controller
     /**
      * [pdf vista en la que se genera el reporte en pdf del libro diario]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  integer $id [id de reporte y su informacion]
+     * @param  integer $report_id [id de reporte y su informacion]
      */
     public function pdf($report_id)
     {

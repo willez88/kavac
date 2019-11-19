@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingAccountConverter;
 use Module;
+use Auth;
 
 /**
  * @class AccountingAccountConverterController
@@ -181,7 +182,6 @@ class AccountingAccountConverterController extends Controller
          */
         $budgetAccounts = [];
 
-
         /**
          * [$records_accounting contiene las cuentas patrimoniales disponibles]
          * @var [Json]
@@ -197,7 +197,6 @@ class AccountingAccountConverterController extends Controller
         /**
          * Cuenta patrimonial a editar
          */
-
         $aux = AccountingAccount::find($account->accounting_account_id);
         $aux['getCodeAttribute'] = $aux->getCodeAttribute();
         /**
@@ -218,9 +217,9 @@ class AccountingAccountConverterController extends Controller
         /**
          * Cuenta Presupuestal a editar
          */
-
         $aux = \Modules\Budget\Models\BudgetAccount::find($account->budget_account_id);
         $aux['getCodeAttribute'] = $aux->getCodeAttribute();
+
         /**
          * agrega al array la cuenta presupuestal que se editara
         */
@@ -407,7 +406,6 @@ class AccountingAccountConverterController extends Controller
         /**
          * ciclo para almacenar en array cuentas patrimoniales disponibles para conversiones
         */
-
         if (!$allRecords) {
             foreach (AccountingAccount::doesnthave('accountConverters')
                     ->orderBy('group', 'ASC')
@@ -475,7 +473,6 @@ class AccountingAccountConverterController extends Controller
             /**
              * ciclo para almacenar en array cuentas presupuestales disponibles para conversiones
             */
-
             if (!$allRecords) {
                 foreach (\Modules\Budget\Models\BudgetAccount::doesnthave('accountConverters')
                     ->orderBy('group', 'ASC')

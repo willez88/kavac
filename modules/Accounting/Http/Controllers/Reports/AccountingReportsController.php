@@ -15,6 +15,16 @@ use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Pdf\Pdf;
 use Auth;
 
+/**
+ * @class AccountingReportPdfCheckupBalanceController
+ * @brief Controlador para el manejo de las vistas y consulta segun el tipo de reporte a generar
+ *
+ * Clase que gestiona el manejo de las vistas y consulta segun el tipo de reporte a generar
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class AccountingReportsController extends Controller
 {
 
