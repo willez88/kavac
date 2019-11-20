@@ -28,7 +28,6 @@ use Auth;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *                LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AccountingCheckupBalanceController extends Controller
 {
 
@@ -452,7 +451,7 @@ class AccountingCheckupBalanceController extends Controller
         */
         $all = ($all != false)?'true':'';
 
-        $url = 'balanceCheckUp/pdf/'.$initDate.'/'.$endDate.'/'.$all;
+        $url = 'balanceCheckUp/'.$initDate.'/'.$endDate.'/'.$all;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -493,18 +492,15 @@ class AccountingCheckupBalanceController extends Controller
      * [pdf vista en la que se genera el reporte en pdf de balance de comprobación]
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param String $initDate variable con la fecha inicial
-     * @param String $endDate variable con la fecha inicial
-     * @param  Currency $currency moneda en que se expresara el reporte
-     * @param  boolean  $all      si se consultaran todas las cuentas o solo las que tengas actividad
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
 
-        $this->setInitDate(explode('/', $report->url)[2]);
-        $this->setEndDate(explode('/', $report->url)[3]);
-        $all = explode('/', $report->url)[4];
+        $this->setInitDate(explode('/', $report->url)[1]);
+        $this->setEndDate(explode('/', $report->url)[2]);
+        $all = explode('/', $report->url)[3];
         $this->setCurrency($report->currency);
 
         /**
@@ -597,7 +593,6 @@ class AccountingCheckupBalanceController extends Controller
                 }
             }
         }
-        dd($equalCurrency);
         return -1;
     }
 

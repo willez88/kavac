@@ -49,7 +49,13 @@
             };
             this.table_options.sortable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
             this.table_options.filterable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
-
+            this.table_options.columnsClasses = {
+                'codeBudget': 'col-xs-1',
+                'budget_account': 'col-xs-5',
+                'codeAccounting': 'col-xs-1',
+                'accounting_account': 'col-xs-4',
+                'id': 'col-xs-1'
+            };
 
             EventBus.$on('list:conversions',(data)=>{
                 console.log(data);

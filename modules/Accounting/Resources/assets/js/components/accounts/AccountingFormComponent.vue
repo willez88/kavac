@@ -257,6 +257,9 @@
 				vm.record.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
 
 				vm.record.active = $('#active').prop('checked');
+
+				vm.loading = true;
+
 				if (vm.operation == 'create') {
 					axios.post(url, vm.record).then(response=>{
 
@@ -267,6 +270,9 @@
 						/** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
 						EventBus.$emit('reload:list-accounts',response.data.records);
 						vm.showMessage('store');
+
+						vm.loading = false;
+						
 					}).catch(error=>{
 						var errors = [];
 						if (typeof(error.response) !='undefined') {
@@ -287,8 +293,8 @@
 
 						/** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
 						EventBus.$emit('reload:list-accounts',response.data.records);
-
 						vm.showMessage('update');
+						vm.loading = false;
 					}).catch(error=>{
 						var errors = [];
 						if (typeof(error.response) != 'undefined') {

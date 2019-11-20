@@ -94,11 +94,7 @@ class BudgetServiceProvider extends ServiceProvider
     {
         $langPath = resource_path('lang/modules/budget');
 
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'budget');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'budget');
-        }
+        $this->loadTranslationsFrom(is_dir($langPath) ? $langPath : __DIR__ .'/../Resources/lang', 'budget');
     }
 
     /**

@@ -14,9 +14,9 @@ use Session;
 
 /**
  * @class AccountingConfigurationCategoryController
- * @brief Controlador de categorias de origen para sientos contables
+ * @brief Controlador de las configuracion de codigo del modulo
  *
- * Clase que gestiona las categorias para asientos contables
+ * Clase que gestiona las configuracion de codigo del modulo
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>

@@ -83,11 +83,7 @@ class PurchaseServiceProvider extends ServiceProvider
     {
         $langPath = resource_path('lang/modules/purchase');
 
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'purchase');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'purchase');
-        }
+        $this->loadTranslationsFrom(is_dir($langPath) ? $langPath : __DIR__ .'/../Resources/lang', 'purchase');
     }
 
     /**

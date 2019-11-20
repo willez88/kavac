@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntryAccount;
+use Auth;
 
 /**
  * Clase que gestiona las Cuentas patrimoniales
@@ -56,7 +57,6 @@ class AccountingAccountController extends Controller
     /**
      * [index Muestra un listado de cuentas patrimoniales]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return [view] [vista]
      */
     public function index()
     {
@@ -326,7 +326,7 @@ class AccountingAccountController extends Controller
 
         /**
          * [$account informacion de la cuenta]
-         * @var [Array]
+         * @var array
          */
         $account = [
             'group'        => (string)$parent->group,
@@ -450,7 +450,8 @@ class AccountingAccountController extends Controller
         foreach ($file as $record) {
 
             /**
-             * @var Array se almacena el código
+            * [$CodeExplode almacena el código]
+            * @var array
             */
             $CodeExplode = explode('.', $record['codigo']);
 
@@ -551,15 +552,11 @@ class AccountingAccountController extends Controller
                     'subspecific' => $account['subspecific'],
                 ],
                 [
-                    'denomination' => $account['denomination'],
-                    'active' => $account['active'],
+                    'denomination'    => $account['denomination'],
+                    'active'          => $account['active'],
                     'inactivity_date' => (!$account['active'])?date('Y-m-d'):null,
-
-                    /**
-                    * Si existe, evita que se asigne en la columna parent_id a si mismo como su parent
-                    */
-                    'parent_id' => ($acc != null && $parent != false) ?
-                    (($acc->id == $parent->id)?null:$parent->id) : (($parent == false)?null:$parent->id) ,
+                    'parent_id'       => ($acc != null && $parent != false) ?
+                    (($acc->id        == $parent->id)?null:$parent->id) : (($parent == false)?null:$parent->id),
                 ]
             );
         }
@@ -582,7 +579,9 @@ class AccountingAccountController extends Controller
          * @var array
          */
         $errors = [];
-        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
+        /**
+         * Se valida el formato y que el valor sea entero en el rango de min 0 y max 9
+
         if (! ctype_digit($record['grupo'])) {
             array_push($errors, 'La columna grupo en la fila '.$currentRow.
                 ' debe ser entero y no debe contener caracteres ni simbolos.');
@@ -592,7 +591,9 @@ class AccountingAccountController extends Controller
                 ' no cumple con el formato valido, Número entero entre 0 y 9.');
         }
 
-        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
+        /**
+         * Se valida el formato y que el valor sea entero en el rango de min 0 y max 9
+         */
         if (! ctype_digit($record['subgrupo'])) {
             array_push($errors, 'La columna subgrupo en la fila '.$currentRow.
                 ' debe ser entero y no debe contener caracteres ni simbolos.');
@@ -603,7 +604,9 @@ class AccountingAccountController extends Controller
                 ' no cumple con el formato valido, Número entero entre 0 y 9.');
         }
 
-        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 9 */
+        /**
+         * Se valida el formato y que el valor sea entero en el rango de min 0 y max 9
+         */
         if (! ctype_digit($record['rubro'])) {
             array_push($errors, 'La columna rubro en la fila '.$currentRow.
                 ' debe ser entero y no debe contener caracteres ni simbolos.');
@@ -613,7 +616,9 @@ class AccountingAccountController extends Controller
                 ' no cumple con el formato valido, Número entero entre 0 y 9.');
         }
 
-        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 99 */
+        /**
+         * Se valida el formato y que el valor sea entero en el rango de min 0 y max 99
+         */
         if (! ctype_digit($record['n_cuenta_orden'])) {
             array_push($errors, 'La columna n_cuenta_orden en la fila '.$currentRow.
                 ' debe ser entero y no debe contener caracteres ni simbolos.');
@@ -623,7 +628,9 @@ class AccountingAccountController extends Controller
                 ' no cumple con el formato valido, Número entero entre 0 y 99.');
         }
 
-        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 99 */
+        /**
+         * Se valida el formato y que el valor sea entero en el rango de min 0 y max 99
+         */
         if (! ctype_digit($record['n_subcuenta_primer_orden'])) {
             array_push($errors, 'La columna n_subcuenta_primer_orden en la fila '.$currentRow.
                 ' debe ser entero y no debe contener caracteres ni simbolos.');
@@ -633,7 +640,9 @@ class AccountingAccountController extends Controller
                 ' no cumple con el formato valido, Número entero entre 0 y 99.');
         }
 
-        /** Se valida el formato y que el valor sea entero en el rango de min 0 y max 99 */
+        /**
+         * Se valida el formato y que el valor sea entero en el rango de min 0 y max 99
+         */
         if (! ctype_digit($record['n_subcuenta_segundo_orden'])) {
             array_push($errors, 'La columna n_subcuenta_segundo_orden en la fila '.$currentRow.
                 ' debe ser entero y no debe contener caracteres ni simbolos.');
@@ -644,7 +653,9 @@ class AccountingAccountController extends Controller
         }
 
 
-        /** Se valida que el valor en la columna de activa */
+        /**
+         * Se valida que el valor en la columna de activa
+         */
         if (strtolower($record['activa']) != 'si' && strtolower($record['activa']) != 'no') {
             array_push($errors, 'La columna activa en la fila '.$currentRow.
                 ' no cumple con el formato valido, SI ó NO.');

@@ -149,27 +149,28 @@
 			*/
 			getAllRecords_selects_vuejs:function(name_func, type_select, type_search){
 
+				const vm = this;
 				/** Array que almacenara los registros de las cuentas para los selects */
 				var records = null;
 
 				/** Boolean que determina si es necesario realizar la consulta de los registros */
 				var query = true;
 
-				if (type_select == 'accounting' && this.accountingAccounts) {
-					records = this.accountingAccounts;
+				if (type_select == 'accounting' && vm.accountingAccounts) {
+					records = vm.accountingAccounts;
 					query = false;
 				}
-				else if (type_select == 'budget' && this.budgetAccounts) {
-					records = this.budgetAccounts;
+				else if (type_select == 'budget' && vm.budgetAccounts) {
+					records = vm.budgetAccounts;
 					query = false;
 				}
 
 				if (query) {
 					axios.post('/accounting/converter/'+name_func).then(response=>{
-						this.setValues(response.data.records, type_select, type_search);
+						vm.setValues(response.data.records, type_select, type_search);
 					});
 				}else{
-					this.setValues(records, type_select, type_search);
+					vm.setValues(records, type_select, type_search);
 				}
 			},
 
@@ -182,6 +183,9 @@
 				let vm = this;
 
 				if (vm.accountSelect.init_id != '' && vm.accountSelect.end_id != '') {
+					
+					vm.loading = true;
+
 					axios.post('/accounting/converter/get-Records',vm.accountSelect)
 					.then(response=>{
 						vm.records = [];
@@ -196,6 +200,7 @@
 							vm.$refs.accountingConverter.reset();
 						}
 						EventBus.$emit('list:conversions', response.data.records);
+						vm.loading = false;
 					});
 				}else{
 					vm.$refs.accountingConverter.showAlertMessages('Los campos de selección de cuenta son obligatorios');

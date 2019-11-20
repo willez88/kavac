@@ -188,7 +188,7 @@ class AccountingStateOfResultsController extends Controller
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
         $zero = ($zero)?'true':'';
-        $url = 'stateOfResults/pdf/'.$endDate.'/'.$level.'/'.$zero;
+        $url = 'StateOfResults/'.$endDate.'/'.$level.'/'.$zero;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -225,36 +225,51 @@ class AccountingStateOfResultsController extends Controller
     /**
      * [pdf genera el reporte en pdf de estado de resultados]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  string   $date     [fecha]
-     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
-     * @param  Currency $currency [moneda en que se expresara el reporte]
-     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
-        $endDate = explode('/', $report->url)[2];
-        $level = explode('/', $report->url)[3];
-        $zero = explode('/', $report->url)[4];
+        $endDate = explode('/', $report->url)[1];
+        $level = explode('/', $report->url)[2];
+        $zero = explode('/', $report->url)[3];
         $this->setCurrency($report->currency);
         $date = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1];
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_1 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_1 = 'entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_2 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_2 = 'children.entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_3 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_3 = 'children.children.entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_4 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_4 = 'children.children.children.entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_5 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_5 = 'children.children.children.children.entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_6 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_6 = 'children.children.children.children.children.entryAccount.entries';
 
         /**
@@ -515,7 +530,6 @@ class AccountingStateOfResultsController extends Controller
                 }
             }
         }
-        dd($equalCurrency);
         return -1;
     }
 

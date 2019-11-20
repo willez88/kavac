@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h6>Reportes generados</h6>
 		<v-client-table :columns="columns" :data="records" :options="table_options">
 			<div slot="name" slot-scope="props" class="text-left">
 				{{ props.row.name }}
@@ -8,7 +7,9 @@
 			<div slot="created_at" slot-scope="props" class="text-center">
 				{{ props.row.created_at }}
 			</div>
-			
+			<div slot="interval" slot-scope="props" class="text-center">
+				{{ props.row.interval }}
+			</div>
 			<div slot="range"  slot-scope="props" class="text-center">
 				<strong>{{ rangeOfReport(props.row.url) }} </strong>
 			</div>
@@ -16,7 +17,7 @@
 			<div slot="id" slot-scope="props" class="text-center">
 				<a class="btn btn-primary btn-xs btn-icon"
 					data-toggle="tooltip"
-					:href="url+props.row.url"
+					:href="getUrlReport(props.row.url,props.row.id)"
 					title="Generar Reporte" 
 					target="_blank">
 					<i class="fa fa-print" style="text-align: center;"></i>
@@ -45,6 +46,13 @@
 			};
 			this.table_options.sortable = ['created_at','interval', 'name'];
 			this.table_options.filterable = [];
+			this.table_options.columnsClasses = {
+	            'name': 'col-xs-6',
+	            'created_at': 'col-xs-2',
+	            'range': 'col-xs-2',
+	            'interval': 'col-xs-2',
+	            'id': 'col-xs-1'
+	        };
 		},
 		mounted(){
 			this.loadRecords();
@@ -59,6 +67,10 @@
 				axios.post('/accounting/get_report_histories').then(response=>{
 					this.records = response.data.report_histories;
 				});
+			},
+
+			getUrlReport(reportUrl, reportId){
+				return (this.url+(reportUrl).split('/')[0]+'/'+reportId);
 			},
 
 			/**

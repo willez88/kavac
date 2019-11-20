@@ -369,9 +369,12 @@
                 if (vm.validateErrors()) { 
                     return ; 
                 }
-                axios.post('/accounting/entries',{'data':vm.data,
-                                                  'accountingAccounts':vm.recordsAccounting
-                }).then(response=>{
+
+                vm.data['tot'] = vm.data.totDebit;
+                vm.data['tot_confirmation'] = vm.data.totAssets;
+                vm.data['accountingAccounts'] = vm.recordsAccounting;
+                vm.loading = true;
+                axios.post('/accounting/entries',vm.data).then(response=>{
                     vm.showMessage('store');
                     setTimeout(function() {
                         location.href = vm.urlPrevious;
@@ -398,18 +401,36 @@
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
             updateRecord:function() {
-                if (this.validateErrors()) {
+                const vm = this;
+                if (vm.validateErrors()) {
                     return ; 
                 }
-                axios.put('/accounting/entries/'+this.entries.id, {'data':this.data,
-                                                    'accountingAccounts':this.recordsAccounting,
-                                                    'rowsToDelete':this.rowsToDelete })
+                vm.data['tot'] = vm.data.totDebit;
+                vm.data['tot_confirmation'] = vm.data.totAssets;
+                vm.data['accountingAccounts'] = vm.recordsAccounting;
+                vm.data['rowsToDelete'] = vm.rowsToDelete;
+
+                vm.loading = true;
+                
+                axios.put('/accounting/entries/'+vm.entries.id, vm.data)
                 .then(response=>{
-                    this.showMessage('update');
-                    const vm = this;
+                    vm.showMessage('update');
                     setTimeout(function() {
                         location.href = vm.route_list;
                     }, 1500);
+                }).catch(error=>{
+                    var errors = [];
+                    if (typeof(error.response) != "undefined") {
+                        for (var index in error.response.data.errors) {
+                            if (error.response.data.errors[index]) {
+                                errors.push(error.response.data.errors[index][0]);
+                            }
+                        }
+                    }
+                    /**
+                    * se cargan los errores
+                    */
+                    vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
                 });
             },
 

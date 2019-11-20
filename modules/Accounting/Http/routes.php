@@ -95,6 +95,12 @@ Route::group(['middleware' => 'web',
     Route::get('entries/unapproved', 'AccountingEntryController@unapproved')
             ->name('accounting.entries.unapproved');
     /**
+     * aprobar un asiento contable
+     */
+    Route::post('entries/approve/{id}', 'AccountingEntryController@approve')
+            ->name('accounting.entries.approve');
+
+    /**
      * rutas para la gestión de asientos contables
      */
     Route::resource(
@@ -118,12 +124,6 @@ Route::group(['middleware' => 'web',
             ->name('accounting.entries.FilterRecords');
 
     /**
-     * aprobar un asiento contable
-     */
-    Route::post('entries/approve/{id}', 'AccountingEntryController@approve')
-            ->name('accounting.entries.approve');
-
-    /**
      * rutas para los pdf de asientos contables
      */
     Route::get('entries/pdf/{id}', 'Reports\AccountingEntryController@pdf');
@@ -142,12 +142,12 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de balance de comprobación
      */
     Route::get(
-        'report/BalanceCheckUp/{report}',
+        'report/balanceCheckUp/{report}',
         'Reports\AccountingCheckupBalanceController@pdf'
     );
 
     Route::get(
-        'report/BalanceCheckUp/pdfVue/{initDate}/{endDate}/{currency}/{all?}',
+        'report/balanceCheckUp/pdfVue/{initDate}/{endDate}/{currency}/{all?}',
         'Reports\AccountingCheckupBalanceController@pdfVue'
     );
 
@@ -199,12 +199,12 @@ Route::group(['middleware' => 'web',
      * rutas para reporte de balance general
      */
     Route::get(
-        'report/balanceSheet/{report}',
+        'report/BalanceSheet/{report}',
         'Reports\AccountingBalanceSheetController@pdf'
     );
 
     Route::get(
-        'report/balanceSheet/pdfVue/{date}/{level}/{currency}/{zero?}',
+        'report/BalanceSheet/pdfVue/{date}/{level}/{currency}/{zero?}',
         'Reports\AccountingBalanceSheetController@pdfVue'
     );
 

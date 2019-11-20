@@ -8,7 +8,19 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Accounting\Models\AccountingEntryCategory;
+use Auth;
 
+/**
+ * @class AccountingEntryCategoryController
+ * @brief Controlador para la gestion de las categorias de asientos contables
+ *
+ * Clase que gestiona las categorias de asientos contables
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class AccountingEntryCategoryController extends Controller
 {
     use ValidatesRequests;
@@ -44,7 +56,10 @@ class AccountingEntryCategoryController extends Controller
             'name' => ['required', 'string'],
             'acronym' => ['required', 'string'],
         ]);
-        /** @var object Objeto para almacenar la información para el nuevo registro */
+
+        /**
+         * almacenar la información para el nuevo registro
+         */
         AccountingEntryCategory::create([
                                         'name' => $request->name,
                                         'acronym' => $request->acronym,
@@ -69,7 +84,10 @@ class AccountingEntryCategoryController extends Controller
             'name' => ['required', 'string'],
             'acronym' => ['required', 'string'],
         ]);
-        /** @var Object Objeto que contine el registro de conversión a editar */
+        /**
+         * [$record contine el registro de conversión a editar]
+         * @var AccountingEntryCategory
+         */
         $record = AccountingEntryCategory::find($id);
         $record->name = $request['name'];
         $record->acronym = $request['acronym'];

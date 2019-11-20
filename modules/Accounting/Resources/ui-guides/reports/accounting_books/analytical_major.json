@@ -5,11 +5,11 @@
     },
     {
         "element" : "#helpAnaliticalMajorInitDate",
-        "intro" : "Fecha inicial para la consulta del reporte."
+        "intro" : "Parametro de fecha inicial que abarcara el reporte."
     },
     {
         "element" : "#helpAnaliticalMajorEndDate",
-        "intro" : "Fecha final para la consulta del reporte."
+        "intro" : "Parametro de fecha final que abarcara el reporte."
     },
     {
         "element" : "#helpAnaliticalMajorRangeAccount",
@@ -21,6 +21,6 @@
     },
     {
         "element" : "#helpAnaliticalMajorAllAccount",
-        "intro" : "Selecciona de manera automatica todo el rango de cuentas patrimoniales."
+        "intro" : "Selecciona de manera automatica todo el rango de cuentas patrimoniales disponibles."
     }
 ]

@@ -5,6 +5,9 @@
 			<div slot="from_date" slot-scope="props" class="text-center">
 				{{ formatDate(props.row.from_date) }}
 			</div>
+			<div slot="reference" slot-scope="props" class="text-center">
+				{{ props.row.reference }}
+			</div>
 			<div slot="total" slot-scope="props" class="text-right">
 				<strong>Debe: </strong> {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_debit).toFixed(props.row.currency.decimal_places) }}
 				<br>
@@ -14,7 +17,7 @@
 				<span class="badge badge-success" v-show="props.row.approved"><strong>Aprobado</strong></span>
 				<span class="badge badge-danger" v-show="!props.row.approved"><strong>No Aprobado</strong></span>
 			</div>
-			<div slot="action" slot-scope="props" class="text-center">
+			<div slot="id" slot-scope="props" class="text-center">
 				<button @click="approve(props.index)"
 						class="btn btn-success btn-xs btn-icon btn-action" 
 						title="Aprobar Registro" data-toggle="tooltip"
@@ -27,7 +30,7 @@
 						v-if="!props.row.approved">
 					<i class="fa fa-edit"></i>
 				</button>
-				<button @click="deleteRecord(props.index,'/accounting/seating')" 
+				<button @click="deleteRecord(props.index,'/accounting/entries')" 
 						class="btn btn-danger btn-xs btn-icon btn-action" 
 						title="Eliminar Registro" data-toggle="tooltip"
 						v-if="!props.row.approved">
@@ -52,8 +55,8 @@
 			return {
 				reload:false,
 				records: [],
-				url:'/accounting/seating/',
-				columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'action']
+				url:'/accounting/entries/',
+				columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'id']
 			}
 		},
 		created() {
@@ -63,10 +66,18 @@
 				'concept': 'CONCEPTO',
 				'total': 'TOTAL',
 				'approved': 'ESTADO DEL ASIENTO',
-				'action': 'ACCIÓN'
+				'id': 'ACCIÓN'
 			};
 			this.table_options.sortable = [];
 			this.table_options.filterable = [];
+			this.table_options.columnsClasses = {
+	            'from_date': 'col-xs-1',
+	            'reference': 'col-xs-1',
+	            'denomination': 'col-xs-5',
+	            'total': 'col-xs-2',
+	            'approved': 'col-xs-1',
+	            'id': 'col-xs-2'
+	        };
 		},
 		mounted(){
 			this.loadRecords();
