@@ -2071,7 +2071,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.budgetOptions = this.budget_list;
-    this.accountingOptions = this.accounting_list; // si existe account_to_edit, el formulario esta en modo editar
+    this.accountingOptions = this.accounting_list;
+    /**
+     * si existe account_to_edit, el formulario esta en modo editar
+     */
 
     if (this.account_to_edit) {
       this.budgetSelect = this.account_to_edit.budget_account_id;
@@ -2114,14 +2117,14 @@ __webpack_require__.r(__webpack_exports__);
           'budget_id': vm.budgetSelect,
           'accounting_id': vm.accountingSelect
         }).then(function (response) {
+          vm.$refs.accountingConverterForm.reset();
+          vm.showMessage('store');
           vm.budgetSelect = '';
           vm.accountingSelect = '';
           vm.accountingOptions = [];
           vm.budgetOptions = [];
           vm.accountingOptions = response.data.records_accounting;
           vm.budgetOptions = response.data.records_busget;
-          vm.$refs.accountingConverterForm.reset();
-          vm.showMessage('store');
           vm.loading = false;
         });
       } else {
@@ -2428,7 +2431,6 @@ __webpack_require__.r(__webpack_exports__);
       'id': 'col-xs-1'
     };
     EventBus.$on('list:conversions', function (data) {
-      console.log(data);
       _this.records = data;
     });
   }
@@ -2445,7 +2447,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -2700,7 +2701,9 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var dt = vm.record;
-      /** Se formatean los ultimos tres campos del codigo de ser necesario */
+      /**
+       * Se formatean los ultimos tres campos del codigo de ser necesario
+       */
 
       vm.record.generic = dt.generic.length < 2 ? '0' + dt.generic : dt.generic;
       vm.record.specific = dt.specific.length < 2 ? '0' + dt.specific : dt.specific;
@@ -2771,7 +2774,9 @@ __webpack_require__.r(__webpack_exports__);
       if (res != '') {
         axios.get('/accounting/get-children-account/' + res).then(function (response) {
           var account = response.data.account;
-          /** Selecciona en pantalla la nueva cuentas */
+          /** 
+           * Selecciona en pantalla la nueva cuentas
+           */
 
           _this2.record = {
             group: account.group,
@@ -3026,6 +3031,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -3534,11 +3541,6 @@ __webpack_require__.r(__webpack_exports__);
         res = true;
       }
 
-      if (!this.data.reference) {
-        errors.push('El campo referencia es obligatorio.');
-        res = true;
-      }
-
       if (!this.data.institution_id) {
         errors.push('El campo institución es obligatorio.');
         res = true;
@@ -3679,10 +3681,11 @@ __webpack_require__.r(__webpack_exports__);
       vm.data['accountingAccounts'] = vm.recordsAccounting;
       vm.loading = true;
       axios.post('/accounting/entries', vm.data).then(function (response) {
-        vm.showMessage('store');
+        vm.loading = false;
+        vm.showMessage('custom', 'Éxito', 'success', 'screen-ok', 'Registro almacenado con éxito. </br> Código de referencia asignado: </br><strong>' + response.data.reference + '</strong>');
         setTimeout(function () {
           location.href = vm.urlPrevious;
-        }, 1500);
+        }, 5000);
       })["catch"](function (error) {
         var errors = [];
 
@@ -3699,6 +3702,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
         vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
+        vm.loading = false;
       });
     },
 
@@ -3887,9 +3891,10 @@ __webpack_require__.r(__webpack_exports__);
       this.date = this.data_edit.date;
       this.concept = this.data_edit.concept;
       this.observations = this.data_edit.observations;
-    } else {
-      this.generateReferenceCode();
-    }
+    } // else{
+    // 	this.generateReferenceCode();
+    // }
+
 
     EventBus.$on('reset:accounting-entry-edit-create', function () {
       _this.reset();
@@ -3911,7 +3916,7 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     validateRequired: function validateRequired() {
-      if (!this.validated && (this.date == '' || this.concept == '' || this.observations == '' || this.category == '' || this.reference == '' || this.institution_id == null)) {
+      if (!this.validated && (this.date == '' || this.concept == '' || this.observations == '' || this.category == '' || this.institution_id == null)) {
         EventBus.$emit('enableInput:entries-account', {
           'value': false,
           'date': this.date,
@@ -3928,7 +3933,7 @@ __webpack_require__.r(__webpack_exports__);
         /**
          * se verifica que la fecha, la referencia, la institucion, la categoria y el tipo de moneda no esten vacios
         */
-        if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != '' && this.currency_id != '') {
+        if (this.date != '' && this.institution_id != null && this.category != '' && this.currency_id != '') {
           EventBus.$emit('enableInput:entries-account', {
             'value': true,
             'date': this.date,
@@ -3956,21 +3961,17 @@ __webpack_require__.r(__webpack_exports__);
           'currency_id': this.currency_id
         });
       }
-    },
-    generateReferenceCode: function generateReferenceCode() {
-      var _this2 = this;
+    } // generateReferenceCode(){
+    // 	axios.post('/accounting/settings/generateReferenceCode').then(response=>{
+    // 		if (response.data.result) {
+    // 			location.href = '/accounting/settings';
+    // 		}
+    // 		this.reference = response.data.code;
+    // 		this.validated = false;
+    // 		this.validateRequired();
+    // 	})
+    // }
 
-      axios.post('/accounting/settings/generateReferenceCode').then(function (response) {
-        if (response.data.result) {
-          location.href = '/accounting/settings';
-        }
-
-        _this2.reference = response.data.code;
-        _this2.validated = false;
-
-        _this2.validateRequired();
-      });
-    }
   },
   watch: {
     date: function date(res) {
@@ -6011,7 +6012,7 @@ var render = function() {
               }
             },
             [
-              _vm._v("\n\t\t\t\t\tBuscar\n\t\t\t\t"),
+              _vm._v("\n                    Buscar\n                "),
               _c("i", { staticClass: "fa fa-search" })
             ]
           )
@@ -6893,9 +6894,9 @@ var render = function() {
             fn: function(props) {
               return _c("div", { staticClass: "text-center" }, [
                 _vm._v(
-                  "\n\t\t\t" +
+                  "\n            " +
                     _vm._s(_vm.formatDate(props.row.from_date)) +
-                    "\n\t\t"
+                    "\n        "
                 )
               ])
             }
@@ -6904,7 +6905,9 @@ var render = function() {
             key: "reference",
             fn: function(props) {
               return _c("div", { staticClass: "text-center" }, [
-                _vm._v("\n\t\t\t" + _vm._s(props.row.reference) + "\n\t\t")
+                _vm._v(
+                  "\n            " + _vm._s(props.row.reference) + "\n        "
+                )
               ])
             }
           },
@@ -6914,7 +6917,7 @@ var render = function() {
               return _c("div", { staticClass: "text-right" }, [
                 _c("strong", [_vm._v("Debe: ")]),
                 _vm._v(
-                  " " +
+                  " \n            " +
                     _vm._s(props.row.currency.symbol) +
                     " " +
                     _vm._s(
@@ -6922,13 +6925,13 @@ var render = function() {
                         props.row.currency.decimal_places
                       )
                     ) +
-                    "\n\t\t\t"
+                    "\n            "
                 ),
                 _c("br"),
                 _vm._v(" "),
                 _c("strong", [_vm._v("Haber")]),
                 _vm._v(
-                  " " +
+                  " \n            " +
                     _vm._s(props.row.currency.symbol) +
                     " " +
                     _vm._s(
@@ -6936,7 +6939,7 @@ var render = function() {
                         props.row.currency.decimal_places
                       )
                     ) +
-                    "\n\t\t"
+                    "\n        "
                 )
               ])
             }
@@ -7111,7 +7114,7 @@ var render = function() {
             key: "name",
             fn: function(props) {
               return _c("div", { staticClass: "text-left" }, [
-                _vm._v("\n\t\t\t" + _vm._s(props.row.name) + "\n\t\t")
+                _vm._v("\n            " + _vm._s(props.row.name) + "\n        ")
               ])
             }
           },
@@ -7119,7 +7122,9 @@ var render = function() {
             key: "created_at",
             fn: function(props) {
               return _c("div", { staticClass: "text-center" }, [
-                _vm._v("\n\t\t\t" + _vm._s(props.row.created_at) + "\n\t\t")
+                _vm._v(
+                  "\n            " + _vm._s(props.row.created_at) + "\n        "
+                )
               ])
             }
           },
@@ -7127,7 +7132,9 @@ var render = function() {
             key: "interval",
             fn: function(props) {
               return _c("div", { staticClass: "text-center" }, [
-                _vm._v("\n\t\t\t" + _vm._s(props.row.interval) + "\n\t\t")
+                _vm._v(
+                  "\n            " + _vm._s(props.row.interval) + "\n        "
+                )
               ])
             }
           },
@@ -7637,45 +7644,6 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "col-3", attrs: { id: "helpEntriesReference" } },
-              [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Referencia\n\t\t\t\t\t\t")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.reference,
-                        expression: "reference"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      id: "reference",
-                      tabindex: "1",
-                      disabled: ""
-                    },
-                    domProps: { value: _vm.reference },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.reference = $event.target.value
-                      }
-                    }
-                  })
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
               { staticClass: "col-3", attrs: { id: "helpEntriesInstitution" } },
               [
                 _c(
@@ -7727,6 +7695,23 @@ var render = function() {
                   ],
                   1
                 )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-3", attrs: { id: "helpEntriesReference" } },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Código Referencia\n\t\t\t\t\t\t")
+                  ]),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "control-label" }, [
+                    _c("strong", [_vm._v(_vm._s(_vm.reference))])
+                  ])
+                ])
               ]
             )
           ])

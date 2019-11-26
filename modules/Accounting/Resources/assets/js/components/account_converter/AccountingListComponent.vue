@@ -58,7 +58,6 @@
             };
 
             EventBus.$on('list:conversions',(data)=>{
-                console.log(data);
                 this.records = data;
             });
         }

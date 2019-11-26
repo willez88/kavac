@@ -13,6 +13,8 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
+use App\Models\CodeSetting;
+use App\Rules\CodeSetting as CodeSettingRule;
 use Auth;
 
 /**
@@ -52,7 +54,7 @@ class AccountingEntryController extends Controller
      */
     public function index()
     {
-        // dd(Auth::user());
+
         /** @var Object objeto que contendra la moneda manejada por defecto */
         $currency = Currency::where('default', true)->first();
 
@@ -106,15 +108,26 @@ class AccountingEntryController extends Controller
     public function create()
     {
 
-        /** @var Object Objeto en el que se almacena la información del tipo de moneda por defecto */
+        /**
+         * [$currency almacena la información del tipo de moneda por defecto]
+         * @var Currency
+         */
         $currency = Currency::where('default', true)->orderBy('id', 'ASC')->first();
 
         $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
 
         $institutions = json_encode(template_choices('App\Models\Institution', 'name', [], true));
-        /** @var JSON Objeto que almacena las cuentas pratrimoniales */
+
+        /**
+         * [$AccountingAccounts almacena las cuentas pratrimoniales]
+         * @var json
+         */
         $AccountingAccounts = $this->getAccountingAccount();
-        /** @var array Arreglo que contendra las categorias */
+
+        /**
+         * [$categories contendra las categorias]
+         * @var array
+         */
         $categories = [];
         array_push($categories, [
             'id' => '',
@@ -128,6 +141,7 @@ class AccountingEntryController extends Controller
                 'acronym' => $category->acronym,
             ]);
         }
+
         /**
          * se convierte array a JSON
          */
@@ -154,7 +168,7 @@ class AccountingEntryController extends Controller
     {
         $this->validate($request, [
             'date'           => 'required|date',
-            'reference'      => 'required|string|unique:accounting_entries,reference',
+            // 'reference'      => 'required|string|unique:accounting_entries,reference',
             'concept'        => 'required|string',
             'observations'   => 'nullable',
             'category'       => 'required|integer',
@@ -165,7 +179,8 @@ class AccountingEntryController extends Controller
             'date.required'           => 'El campo fecha es obligatorio.',
             'date.date'               => 'El campo fecha no tiene el formato adecuado.',
             'reference.required'      => 'El campo referencia es obligatorio.',
-            'reference.unique'        => 'El campo referencia debe ser único.',
+            'reference.unique'        => 'El campo referencia debe ser único, debe verificar que no exista una 
+                                            asiento con el mismo código de referencia.',
             'concept.required'        => 'El campo concepto o descripción es obligatorio.',
             'category.required'       => 'El campo categoria es obligatorio.',
             'category.integer'        => 'El campo categoria no esta en el formato de entero.',
@@ -181,7 +196,7 @@ class AccountingEntryController extends Controller
          */
         $newEntries = AccountingEntry::create([
             'from_date' => $request->date,
-            'reference' => $request->reference,
+            'reference' => $this->generateReferenceCodeAvailable(),
             'concept' => $request->concept,
             'observations' => $request->observations,
             'accounting_entry_categories_id' => ($request->category!='')? $request->category: null,
@@ -202,7 +217,7 @@ class AccountingEntryController extends Controller
                 'assets' => $account['assets'],
             ]);
         }
-        return response()->json(['message'=>'Success'], 200);
+        return response()->json(['message'=>'Success', 'reference' => $newEntries->reference], 200);
     }
 
     /**
@@ -312,9 +327,7 @@ class AccountingEntryController extends Controller
         /**
          * se actualiza la información del registro del asiento contable
          */
-
         $record = AccountingEntry::find($id);
-        $record->reference = $request->reference;
         $record->concept = $request->concept;
         $record->observations = $request->observations;
         $record->tot_debit = $request->totDebit;
@@ -555,5 +568,39 @@ class AccountingEntryController extends Controller
         $entries->approved = true;
         $entries->save();
         return response()->json(['message'=>'Success'], 200);
+    }
+
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
+    public function getInstitution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
+    }
+
+    public function generateReferenceCodeAvailable()
+    {
+        $institution = $this->getInstitution();
+        $codeSetting = CodeSetting::where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
+                                    ->first();
+        if (!is_null($codeSetting)) {
+            $code  = generate_registration_code(
+                $codeSetting->format_prefix,
+                strlen($codeSetting->format_digits),
+                (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+                AccountingEntry::class,
+                $codeSetting->field
+            );
+        } else {
+            $code = 'error';
+        }
+
+        return $code;
     }
 }

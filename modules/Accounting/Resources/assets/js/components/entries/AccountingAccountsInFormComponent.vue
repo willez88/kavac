@@ -135,14 +135,14 @@
             $('#select2').val('');
 
             EventBus.$on('enableInput:entries-account',(data)=>{
-                this.enableInput = data.value;
-                this.data.date = data.date;
-                this.data.reference = data.reference;
-                this.data.concept = data.concept;
-                this.data.observations = data.observations;
-                this.data.category = data.category;
+                this.enableInput         = data.value;
+                this.data.date           = data.date;
+                this.data.reference      = data.reference;
+                this.data.concept        = data.concept;
+                this.data.observations   = data.observations;
+                this.data.category       = data.category;
                 this.data.institution_id = data.institution_id;
-                this.data.currency_id = data.currency_id;
+                this.data.currency_id    = data.currency_id;
             });
 
             EventBus.$on('change:currency',(data)=>{
@@ -235,10 +235,6 @@
                     errors.push('El campo categoria es obligatorio.');
                     res = true;
                 }
-                if (!this.data.reference) {
-                    errors.push('El campo referencia es obligatorio.');
-                    res = true;
-                }
                 if (!this.data.institution_id) {
                     errors.push('El campo institución es obligatorio.');
                     res = true;
@@ -247,7 +243,6 @@
                     errors.push('El tipo de moneda es obligatorio.');
                     res = true;
                 }
-
                 if (this.recordsAccounting.length < 1) {
                     errors.push('No está permitido registrar asientos contables vacíos');
                     res = true;
@@ -375,10 +370,18 @@
                 vm.data['accountingAccounts'] = vm.recordsAccounting;
                 vm.loading = true;
                 axios.post('/accounting/entries',vm.data).then(response=>{
-                    vm.showMessage('store');
+                    vm.loading = false;
+                    vm.showMessage('custom', 
+                                    'Éxito', 
+                                    'success', 
+                                    'screen-ok', 
+                                    'Registro almacenado con éxito. </br> Código de referencia asignado: </br><strong>'+
+                                    response.data.reference+'</strong>');
+
                     setTimeout(function() {
                         location.href = vm.urlPrevious;
-                    }, 1500);
+                    }, 5000);
+
                 }).catch(error=>{
                     var errors = [];
                     if (typeof(error.response) != "undefined") {
@@ -392,6 +395,7 @@
                     * se cargan los errores
                     */
                     vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
+                    vm.loading = false;
                 });
             },
 
