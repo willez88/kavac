@@ -13,6 +13,7 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
+use Modules\Accounting\Jobs\AccountingManageEntries;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
 use Auth;
@@ -107,7 +108,6 @@ class AccountingEntryController extends Controller
      */
     public function create()
     {
-
         /**
          * [$currency almacena la información del tipo de moneda por defecto]
          * @var Currency
@@ -168,7 +168,6 @@ class AccountingEntryController extends Controller
     {
         $this->validate($request, [
             'date'           => 'required|date',
-            // 'reference'      => 'required|string|unique:accounting_entries,reference',
             'concept'        => 'required|string',
             'observations'   => 'nullable',
             'category'       => 'required|integer',
@@ -178,9 +177,6 @@ class AccountingEntryController extends Controller
         ], [
             'date.required'           => 'El campo fecha es obligatorio.',
             'date.date'               => 'El campo fecha no tiene el formato adecuado.',
-            'reference.required'      => 'El campo referencia es obligatorio.',
-            'reference.unique'        => 'El campo referencia debe ser único, debe verificar que no exista una 
-                                            asiento con el mismo código de referencia.',
             'concept.required'        => 'El campo concepto o descripción es obligatorio.',
             'category.required'       => 'El campo categoria es obligatorio.',
             'category.integer'        => 'El campo categoria no esta en el formato de entero.',
@@ -190,34 +186,10 @@ class AccountingEntryController extends Controller
             'currency_id.integer'     => 'El campo moneda no esta en el formato de entero.',
             'tot.confirmed'           => 'El asiento no esta balanceado, Por favor verifique.',
         ]);
+        
+        AccountingManageEntries::dispatch($request->all());
 
-        /**
-         * se crear el asiento contable
-         */
-        $newEntries = AccountingEntry::create([
-            'from_date' => $request->date,
-            'reference' => $this->generateReferenceCodeAvailable(),
-            'concept' => $request->concept,
-            'observations' => $request->observations,
-            'accounting_entry_categories_id' => ($request->category!='')? $request->category: null,
-            'institution_id' => $request->institution_id,
-            'currency_id' => (int)$request->currency_id,
-            'tot_debit' => $request->totDebit,
-            'tot_assets' => $request->totAssets,
-        ]);
-
-        /**
-         * se crea el registro en la tabla pivote entre el asiento contable y las cuentas patrimoniales
-         */
-        foreach ($request->accountingAccounts as $account) {
-            AccountingEntryAccount::create([
-                'accounting_entry_id' => $newEntries->id,
-                'accounting_account_id' => $account['id'],
-                'debit' => $account['debit'],
-                'assets' => $account['assets'],
-            ]);
-        }
-        return response()->json(['message'=>'Success', 'reference' => $newEntries->reference], 200);
+        return response()->json(['message'=>'Success', 'reference' => ''], 200);
     }
 
     /**
@@ -327,42 +299,7 @@ class AccountingEntryController extends Controller
         /**
          * se actualiza la información del registro del asiento contable
          */
-        $record = AccountingEntry::find($id);
-        $record->concept = $request->concept;
-        $record->observations = $request->observations;
-        $record->tot_debit = $request->totDebit;
-        $record->tot_assets = $request->totAssets;
-        $record->institution_id = $request->institution_id;
-        $record->currency_id = (int)$request->currency_id;
-        $record->save();
-
-        foreach ($request->accountingAccounts as $account) {
-            /**
-             * Actualiza la relación de cuenta a ese asiento ya existe lo actualiza,
-             * de lo contrario crea el nuevo registro de cuenta
-             */
-            if ($account['entryAccountId']) {
-                /** @var Object Objeto que contiene el registro de cuanta patrimonial
-                asociada al asiento a actualizar */
-                $record = AccountingEntryAccount::find($account['entryAccountId']);
-                $record->accounting_account_id = $account['id'];
-                $record->debit = $account['debit'];
-                $record->assets = $account['assets'];
-                $record->save();
-            } else {
-                /** @var Object Objeto que contiene el nuevo registro de cuanta patrimonial
-                asociada que se asociara al asiento */
-                AccountingEntryAccount::create([
-                    'accounting_entry_id' => $id,
-                    'accounting_account_id' => $account['id'],
-                    'debit' => $account['debit'],
-                    'assets' => $account['assets'],
-                ]);
-            }
-        }
-
-        /** Se eliminar los registros de las cuentas deseadas */
-        AccountingEntryAccount::destroy($request->rowsToDelete);
+        AccountingManageEntries::dispatch($request->all());
 
         return response()->json(['message'=>'Success'], 200);
     }

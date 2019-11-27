@@ -371,16 +371,10 @@
                 vm.loading = true;
                 axios.post('/accounting/entries',vm.data).then(response=>{
                     vm.loading = false;
-                    vm.showMessage('custom', 
-                                    'Éxito', 
-                                    'success', 
-                                    'screen-ok', 
-                                    'Registro almacenado con éxito. </br> Código de referencia asignado: </br><strong>'+
-                                    response.data.reference+'</strong>');
-
+                    vm.showMessage('store');
                     setTimeout(function() {
                         location.href = vm.urlPrevious;
-                    }, 5000);
+                    }, 2000);
 
                 }).catch(error=>{
                     var errors = [];
@@ -418,10 +412,11 @@
                 
                 axios.put('/accounting/entries/'+vm.entries.id, vm.data)
                 .then(response=>{
+                    vm.loading = false;
                     vm.showMessage('update');
                     setTimeout(function() {
                         location.href = vm.route_list;
-                    }, 1500);
+                    }, 2000);
                 }).catch(error=>{
                     var errors = [];
                     if (typeof(error.response) != "undefined") {
@@ -435,6 +430,7 @@
                     * se cargan los errores
                     */
                     vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
+                    vm.loading = false;
                 });
             },
 
