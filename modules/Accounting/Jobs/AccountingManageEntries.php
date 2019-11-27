@@ -112,6 +112,12 @@ class AccountingManageEntries implements ShouldQueue
         }
     }
 
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
     public function getInstitution($id = null)
     {
         if ($id) {
@@ -120,12 +126,23 @@ class AccountingManageEntries implements ShouldQueue
         return Institution::first();
     }
 
+    /**
+     * [generateReferenceCodeAvailable genera el código disponible]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return string [código que se asignara]
+     */
     public function generateReferenceCodeAvailable()
     {
         $institution = $this->getInstitution();
         $codeSetting = CodeSetting::where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
                                     ->first();
-        if (!is_null($codeSetting)) {
+
+        if (!$codeSetting) {
+            $codeSetting = CodeSetting::where('table', 'accounting_entries')
+                                    ->first();
+        }
+
+        if ($codeSetting) {
             $code  = generate_registration_code(
                 $codeSetting->format_prefix,
                 strlen($codeSetting->format_digits),
@@ -134,7 +151,7 @@ class AccountingManageEntries implements ShouldQueue
                 $codeSetting->field
             );
         } else {
-            $code = 'error';
+            $code = 'error al generar código de referencia';
         }
 
         return $code;
