@@ -188,6 +188,8 @@ class AccountingBalanceSheetController extends Controller
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
 
+        $institution = $this->getInstitution();
+
         /**
          * [$report almacena el registro del reporte del dia si existe]
          * @var [type]
@@ -196,7 +198,8 @@ class AccountingBalanceSheetController extends Controller
                                                                         $currentDate.' 00:00:00',
                                                                         $currentDate.' 23:59:59'
                                                                     ])
-                                        ->where('report', 'Balance General')->first();
+                                        ->where('report', 'Balance General')
+                                        ->where('institution_id', $institution->id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -207,11 +210,13 @@ class AccountingBalanceSheetController extends Controller
                     'report' => 'Balance General',
                     'url' => $url,
                     'currency_id' => $currency->id,
+                    'institution_id' => $institution->id,
                 ]
             );
         } else {
             $report->url = $url;
             $report->currency_id = $currency->id;
+            $report->institution_id = $institution->id;
             $report->save();
         }
         
@@ -518,6 +523,20 @@ class AccountingBalanceSheetController extends Controller
             }
         }
         return $convertions;
+    }
+
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
+    public function getInstitution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
     }
 
     public function getCheckBreak()

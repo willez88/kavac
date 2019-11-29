@@ -103,12 +103,12 @@ class AccountingDashboardController extends Controller
             $datetime2 = new DateTime(date("Y-m-d"));
             $interval = $datetime1->diff($datetime2);
             array_push($report_histories, [
-                                'created_at' => $report['updated_at']->format('d/m/Y'),
-                                'interval'=> (floor(($interval->format('%a') / 7)) . ' semanas con '.
-                                 ($interval->format('%a') % 7) . ' días'),
-                                'name' => $report['report'],
-                                'url' => $report['url'],
-                                'id' => $report['id']
+                                 'id'         => $report['id'],
+                                 'created_at' => $report['updated_at']->format('d/m/Y'),
+                                 'name'       => $report['report'],
+                                 'url'        => $report['url'],
+                                 'interval'   => (floor(($interval->format('%a') / 7)) . ' semanas con '.
+                                                 ($interval->format('%a') % 7) . ' días'),
                                 ]);
         }
 

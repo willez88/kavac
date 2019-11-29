@@ -62,7 +62,7 @@ class AssetGenerateReport implements ShouldQueue
             $multi_inst =  Parameter::where('p_key', 'multi_institution')->where('active', true)->first();
             $institution = Institution::where('default', true)->where('active', true)->first();
             $pdf = new ReportRepository();
-            
+
             /*
              *  Definicion de las caracteristicas generales de la página
              */

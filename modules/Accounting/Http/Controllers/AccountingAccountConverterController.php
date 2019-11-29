@@ -122,8 +122,8 @@ class AccountingAccountConverterController extends Controller
          */
         AccountingAccountConverter::create([
             'accounting_account_id' => $request->accounting_id,
-            'budget_account_id' => $request->budget_id,
-            'active' => true,
+            'budget_account_id'     => $request->budget_id,
+            'active'                => true,
         ]);
 
         /**
@@ -207,7 +207,7 @@ class AccountingAccountConverterController extends Controller
             if (explode(' - ', $accountingAccounts[$i]['text'])[0] > "{$aux->getCodeAttribute}") {
                 array_splice($accountingAccounts, $i, 0, '-');
                 $accountingAccounts[$i] = [
-                    'id' => $aux->id,
+                    'id'   => $aux->id,
                     'text' => "{$aux->getCodeAttribute()} - {$aux->denomination}"
                 ];
                 break;
@@ -227,7 +227,7 @@ class AccountingAccountConverterController extends Controller
             if (explode(' - ', $budgetAccounts[$i]['text'])[0] > "{$aux->getCodeAttribute}") {
                 array_splice($budgetAccounts, $i, 0, '-');
                 $budgetAccounts[$i] = [
-                    'id' => $aux->id,
+                    'id'   => $aux->id,
                     'text' => "{$aux->getCodeAttribute()} - {$aux->denomination}"
                 ];
                 break;
@@ -261,17 +261,17 @@ class AccountingAccountConverterController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'budget_account_id' => ['required'],
+            'budget_account_id'     => ['required'],
             'accounting_account_id' => ['required']
         ]);
 
         /**
          * Actualiza el registro de conversión a editar
          */
-        $record = AccountingAccountConverter::find($id);
-
+        $record                        = AccountingAccountConverter::find($id);
+        
         $record->accounting_account_id = $request['accounting_account_id'];
-        $record->budget_account_id = $request['budget_account_id'];
+        $record->budget_account_id     = $request['budget_account_id'];
         $record->save();
 
         $request->session()->flash('message', ['type' => 'update']);
@@ -326,7 +326,7 @@ class AccountingAccountConverterController extends Controller
 
         if (!$request->all) {
             $init_id = $request->init_id = ($request->init_id > $request->end_id)? $request->end_id : $request->init_id;
-            $end_id = $request->end_id = ($request->init_id > $request->end_id) ? $request->init_id : $request->end_id;
+            $end_id  = $request->end_id = ($request->init_id > $request->end_id) ? $request->init_id : $request->end_id;
         }
 
         if ($request->type == 'budget') {
@@ -336,7 +336,7 @@ class AccountingAccountConverterController extends Controller
                 */
                 $init_id = \Modules\Budget\Models\BudgetAccount::orderBy('created_at', 'ASC')
                                                                 ->where('parent_id', null)->first()->id;
-                $end_id = \Modules\Budget\Models\BudgetAccount::orderBy('created_at', 'DESC')->first()->id;
+                $end_id  = \Modules\Budget\Models\BudgetAccount::orderBy('created_at', 'DESC')->first()->id;
             }
 
             /**
@@ -353,7 +353,7 @@ class AccountingAccountConverterController extends Controller
                  * Se obtienen el primer y ultimo id de las cuentas patrimoniales
                 */
                 $init_id = AccountingAccount::orderBy('created_at', 'ASC')->where('parent_id', null)->first()->id;
-                $end_id = AccountingAccount::orderBy('created_at', 'DESC')->first()->id;
+                $end_id  = AccountingAccount::orderBy('created_at', 'DESC')->first()->id;
             }
 
             /**
@@ -399,7 +399,7 @@ class AccountingAccountConverterController extends Controller
         $records = [];
         $index = 0;
         array_push($records, [
-            'id' => '',
+            'id'   => '',
             'text' =>   "Seleccione..."
         ]);
 
@@ -417,7 +417,7 @@ class AccountingAccountConverterController extends Controller
                     ->orderBy('denomination', 'ASC')
                     ->cursor() as $AccountingAccount) {
                 array_push($records, [
-                        'id' => $AccountingAccount->id,
+                        'id'   => $AccountingAccount->id,
                         'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
                     ]);
                 $index++;
@@ -433,7 +433,7 @@ class AccountingAccountConverterController extends Controller
                     ->orderBy('denomination', 'ASC')
                     ->cursor() as $AccountingAccount) {
                 array_push($records, [
-                        'id' => $AccountingAccount->id,
+                        'id'   => $AccountingAccount->id,
                         'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
                     ]);
                 $index++;
@@ -466,7 +466,7 @@ class AccountingAccountConverterController extends Controller
         if (Module::has('Budget') && Module::isEnabled('Budget')) {
             $records = [];
             array_push($records, [
-                'id' => '',
+                'id'   => '',
                 'text' =>   "Seleccione..."
             ]);
 
@@ -483,7 +483,7 @@ class AccountingAccountConverterController extends Controller
                     ->orderBy('denomination', 'ASC')
                     ->cursor() as $AccountingAccount) {
                     array_push($records, [
-                        'id' => $AccountingAccount->id,
+                        'id'   => $AccountingAccount->id,
                         'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
                     ]);
                     $index++;
@@ -498,7 +498,7 @@ class AccountingAccountConverterController extends Controller
                     ->orderBy('denomination', 'ASC')
                     ->cursor() as $AccountingAccount) {
                     array_push($records, [
-                        'id' => $AccountingAccount->id,
+                        'id'   => $AccountingAccount->id,
                         'text' =>   "{$AccountingAccount->getCodeAttribute()} - {$AccountingAccount->denomination}"
                     ]);
                 }

@@ -93,6 +93,8 @@ class AccountingDailyBookController extends Controller
          */
         $url = 'dailyBook/'.$initDate.'/'.$endDate;
 
+        $institution = $this->getInstitution();
+
         /**
          * [$report almacena el registro del reporte del dia si existe]
          * @var [type]
@@ -101,7 +103,8 @@ class AccountingDailyBookController extends Controller
                                                                         $initDate.' 00:00:00',
                                                                         $endDate.' 23:59:59'
                                                                     ])
-                                        ->where('report', 'Libro Diario')->first();
+                                        ->where('report', 'Libro Diario')
+                                        ->where('institution_id', $institution->id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -109,14 +112,16 @@ class AccountingDailyBookController extends Controller
         if (!$report) {
             $report = AccountingReportHistory::create(
                 [
-                    'report' => 'Libro Diario',
-                    'url' => $url,
-                    'currency_id' => $currency->id,
+                    'report'         => 'Libro Diario',
+                    'url'            => $url,
+                    'currency_id'    => $currency->id,
+                    'institution_id' => $institution->id,
                 ]
             );
         } else {
-            $report->url = $url;
-            $report->currency_id = $currency->id;
+            $report->url            = $url;
+            $report->currency_id    = $currency->id;
+            $report->institution_id = $institution->id;
             $report->save();
         }
 
@@ -130,10 +135,10 @@ class AccountingDailyBookController extends Controller
      */
     public function pdf($report_id)
     {
-        $report = AccountingReportHistory::with('currency')->find($report_id);
+        $report   = AccountingReportHistory::with('currency')->find($report_id);
         $initDate = explode('/', $report->url)[1];
         $endDate  = explode('/', $report->url)[2];
-
+        
         $currency = $report->currency;
 
         /**
@@ -145,17 +150,17 @@ class AccountingDailyBookController extends Controller
         )->where('approved', true)
         ->whereBetween("from_date", [$initDate, $endDate])
         ->orderBy('from_date', 'ASC')->get();
-
+        
         $convertions = [];
-        $records = [];
+        $records     = [];
         foreach ($entries as $entry) {
             $convertions = $this->calculateExchangeRates($convertions, $entry, $currency['id']);
 
             $from_date = explode('-', $entry['from_date']);
             $record = [
-                'id'=>$entry['id'],
-                'from_date'=> $from_date[2].'-'.$from_date[1].'-'.$from_date[0] ,
-                'accountingAccounts'=>[],
+                'id'                 =>$entry['id'],
+                'from_date'          => $from_date[2].'-'.$from_date[1].'-'.$from_date[0] ,
+                'accountingAccounts' =>[],
             ];
 
             $record['accountingAccounts'] = [];
@@ -190,8 +195,8 @@ class AccountingDailyBookController extends Controller
          * @var Setting
          */
         $setting = Setting::all()->first();
-
-        $Entry = false;
+        
+        $Entry   = false;
 
         /**
          * [$pdf base para generar el pdf]
@@ -278,6 +283,20 @@ class AccountingDailyBookController extends Controller
         return $convertions;
     }
 
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
+    public function getInstitution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
+    }
+    
     public function getCheckBreak()
     {
         return $this->PageBreakTrigger;

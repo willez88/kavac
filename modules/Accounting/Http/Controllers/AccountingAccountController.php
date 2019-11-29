@@ -111,13 +111,13 @@ class AccountingAccountController extends Controller
         );
         AccountingAccount::updateOrCreate(
             [
-                'group' => $request['group'], 'subgroup' => $request['subgroup'],
-                'item' => $request['item'], 'generic' => $request['generic'],
+                'group'    => $request['group'], 'subgroup' => $request['subgroup'],
+                'item'     => $request['item'], 'generic' => $request['generic'],
                 'specific' => $request['specific'], 'subspecific' => $request['subspecific'],
             ],
             [
-                'denomination' => $request['denomination'],
-                'active' => $request['active'],
+                'denomination'    => $request['denomination'],
+                'active'          => $request['active'],
                 'inactivity_date' => (!$request['active'])?date('Y-m-d'):null,
 
                 /**
@@ -158,16 +158,16 @@ class AccountingAccountController extends Controller
         /**
          * Actualiza el registro de la cuenta
          */
-        $record = AccountingAccount::find($id);
-
-        $record->group = $request['group'];
-        $record->subgroup = $request['subgroup'];
-        $record->item = $request['item'];
-        $record->generic = $request['generic'];
-        $record->specific = $request['specific'];
-        $record->subspecific = $request['subspecific'];
+        $record               = AccountingAccount::find($id);
+        
+        $record->group        = $request['group'];
+        $record->subgroup     = $request['subgroup'];
+        $record->item         = $request['item'];
+        $record->generic      = $request['generic'];
+        $record->specific     = $request['specific'];
+        $record->subspecific  = $request['subspecific'];
         $record->denomination = $request['denomination'];
-        $record->active = $request['active'];
+        $record->active       = $request['active'];
         $record->save();
 
         return response()->json(['records'=>$this->getAccounts(), 'message'=>'Success']);
@@ -458,9 +458,9 @@ class AccountingAccountController extends Controller
             /**
              * se Agrega un 0 al inicio de ser necesario
             */
-            $n_cuenta_orden = ((int)$CodeExplode[3] > 9) ?
+            $n_cuenta_orden            = ((int)$CodeExplode[3] > 9) ?
                                                     $CodeExplode[3]:'0'.(int)$CodeExplode[3];
-            $n_subcuenta_primer_orden = ((int)$CodeExplode[4] > 9) ?
+            $n_subcuenta_primer_orden  = ((int)$CodeExplode[4] > 9) ?
                                                     $CodeExplode[4]:'0'.(int)$CodeExplode[4];
             $n_subcuenta_segundo_orden = ((int)$CodeExplode[5] > 9) ?
                                                     $CodeExplode[5]:'0'.(int)$CodeExplode[5];
@@ -490,15 +490,15 @@ class AccountingAccountController extends Controller
             $currentRow +=1;
 
             array_push($records, [
-                'code'         =>$record['codigo'],
+                'code'         => $record['codigo'],
                 'denomination' => $record['denominacion'],
-                'active'       =>($record['activa'] == 'si') ? true : false,
-                'group'        =>$recordCode['grupo'],
-                'subgroup'     =>$recordCode['subgrupo'],
-                'item'         =>$recordCode['rubro'],
-                'generic'      =>$recordCode['n_cuenta_orden'],
-                'specific'     =>$recordCode['n_subcuenta_primer_orden'],
-                'subspecific'  =>$recordCode['n_subcuenta_segundo_orden'],
+                'active'       => ($record['activa'] == 'si') ? true : false,
+                'group'        => $recordCode['grupo'],
+                'subgroup'     => $recordCode['subgrupo'],
+                'item'         => $recordCode['rubro'],
+                'generic'      => $recordCode['n_cuenta_orden'],
+                'specific'     => $recordCode['n_subcuenta_primer_orden'],
+                'subspecific'  => $recordCode['n_subcuenta_segundo_orden'],
                 ]);
         }
 
@@ -579,17 +579,6 @@ class AccountingAccountController extends Controller
          * @var array
          */
         $errors = [];
-        /**
-         * Se valida el formato y que el valor sea entero en el rango de min 0 y max 9
-
-        if (! ctype_digit($record['grupo'])) {
-            array_push($errors, 'La columna grupo en la fila '.$currentRow.
-                ' debe ser entero y no debe contener caracteres ni simbolos.');
-        }
-        if ((int)$record['grupo'] > 9 || (int)$record['grupo'] < 0) {
-            array_push($errors, 'La columna grupo en la fila '.$currentRow.
-                ' no cumple con el formato valido, Número entero entre 0 y 9.');
-        }
 
         /**
          * Se valida el formato y que el valor sea entero en el rango de min 0 y max 9

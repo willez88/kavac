@@ -22,7 +22,7 @@ class AccountingEntryCategory extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','acronym'];
+    protected $fillable = ['name','acronym','institution_id'];
 
     /**
      * AccountingEntryCategory has many AccountingEntries.

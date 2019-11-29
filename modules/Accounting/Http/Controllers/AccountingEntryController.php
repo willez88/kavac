@@ -56,19 +56,33 @@ class AccountingEntryController extends Controller
     public function index()
     {
 
-        /** @var Object objeto que contendra la moneda manejada por defecto */
-        $currency = Currency::where('default', true)->first();
-
-        $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
-        $institutions = template_choices('App\Models\Institution', 'name', [], true);
-
+        /**
+         * [$currency contendra la moneda manejada por defecto]
+         * @var Currency
+         */
+        $currency                = Currency::where('default', true)->first();
+        
+        $institutions            = template_choices('App\Models\Institution', 'name', [], true);
+        
         $institutions[0]['text'] = 'Todas';
-        $institutions = json_encode($institutions);
+        $institutions            = json_encode($institutions);
+        $currencies              = json_encode(template_choices(
+            'App\Models\Currency',
+            ['symbol', '-', 'name'],
+            [],
+            true
+        ));
 
-        /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
+        /**
+         * [$entries almacena el registro de asiento contable mas antiguo]
+         * @var AccountingEntry
+         */
         $entries = AccountingEntry::orderBy('from_date', 'ASC')->first();
 
-        /** @var Object String con el cual se determinara el año mas antiguo para el filtrado */
+        /**
+         * [$yearOld determinara el año mas antiguo para el filtrado]
+         * @var date
+         */
         $yearOld = explode('-', $entries['from_date'])[0];
 
         /** si no existe asientos contables la fecha mas antigua es la actual*/
@@ -76,18 +90,21 @@ class AccountingEntryController extends Controller
             $yearOld = date('Y');
         }
 
-        /** @var array Arreglo que contendra las categorias */
+        /**
+         * [$categories contendra las categorias]
+         * @var array
+         */
         $categories = [];
         array_push($categories, [
-            'id' => 0,
-            'text' => 'Todas',
+            'id'      => 0,
+            'text'    => 'Todas',
             'acronym' => ''
         ]);
 
         foreach (AccountingEntryCategory::all() as $category) {
             array_push($categories, [
-                'id' => $category->id,
-                'text' => $category->name,
+                'id'      => $category->id,
+                'text'    => $category->name,
                 'acronym' => $category->acronym,
             ]);
         }
@@ -130,14 +147,14 @@ class AccountingEntryController extends Controller
          */
         $categories = [];
         array_push($categories, [
-            'id' => '',
-            'text' => 'Seleccione...',
+            'id'      => '',
+            'text'    => 'Seleccione...',
             'acronym' => ''
         ]);
         foreach (AccountingEntryCategory::all() as $category) {
             array_push($categories, [
-                'id' => $category->id,
-                'text' => $category->name,
+                'id'      => $category->id,
+                'text'    => $category->name,
                 'acronym' => $category->acronym,
             ]);
         }
@@ -146,7 +163,7 @@ class AccountingEntryController extends Controller
          * se convierte array a JSON
          */
         $categories = json_encode($categories);
-        $currency = json_encode($currency);
+        $currency   = json_encode($currency);
 
         return view('accounting::entries.form', compact(
             'AccountingAccounts',
@@ -204,34 +221,43 @@ class AccountingEntryController extends Controller
         $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
         $institutions = json_encode(template_choices('App\Models\Institution', 'name', [], true));
 
-        /** @var Object Objeto que contendra el asiento contable a editar */
+        /**
+         * [$entries asiento contable a editar]
+         * @var AccountingEntry
+         */
         $entries = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')->find($id);
-        /** @var JSON Objeto que almacena las cuentas pratrimoniales */
+        /**
+         * [$AccountingAccounts cuentas pratrimoniales]
+         * @var Json
+         */
         $AccountingAccounts = $this->getAccountingAccount();
 
         /**
          * se guarda en variables la información necesaria para la edición del asiento contable
          */
         
-        $date = $entries->from_date;
-        $reference = $entries->reference;
-        $concept = $entries->concept;
+        $date         = $entries->from_date;
+        $reference    = $entries->reference;
+        $concept      = $entries->concept;
         $observations = $entries->observations;
-        $category = $entries->accounting_entry_categories_id;
-        $institution = $entries->institution_id;
-        $currency = $entries->currency_id;
+        $category     = $entries->accounting_entry_categories_id;
+        $institution  = $entries->institution_id;
+        $currency     = $entries->currency_id;
 
-        /** @var array Arreglo que contendra las categorias */
+        /**
+         * [$categories lista de categorias]
+         * @var array
+         */
         $categories = [];
         array_push($categories, [
-            'id' => '',
-            'text' => 'Seleccione...',
+            'id'      => '',
+            'text'    => 'Seleccione...',
             'acronym' => ''
         ]);
         foreach (AccountingEntryCategory::all() as $cat) {
             array_push($categories, [
-                'id' => $cat->id,
-                'text' => $cat->name,
+                'id'      => $cat->id,
+                'text'    => $cat->name,
                 'acronym' => $cat->acronym,
             ]);
         }
@@ -242,13 +268,13 @@ class AccountingEntryController extends Controller
         $categories = json_encode($categories);
 
         $data_edit = [
-            'date' => $date,
-            'category' => $category,
-            'reference' => $reference,
-            'concept' => $concept,
+            'date'         => $date,
+            'category'     => $category,
+            'reference'    => $reference,
+            'concept'      => $concept,
             'observations' => $observations,
-            'institution' => $institution,
-            'currency' => $currency
+            'institution'  => $institution,
+            'currency'     => $currency
         ];
         $data_edit = json_encode($data_edit);
 
@@ -328,12 +354,22 @@ class AccountingEntryController extends Controller
      */
     public function filterRecords(Request $request)
     {
-        /** @var array Arreglo que contendra los registros */
+        /**
+         * [$records contendra los registros]
+         * @var array
+         */
         $records = [];
-        /** @var array Arreglo que contendra los registros luego de aplicar el filtrado por categoria de origen */
+
+        /**
+         * [$FilterByOrigin registros luego de aplicar el filtrado por categoria de origen]
+         * @var array
+         */
         $FilterByOrigin = [];
 
-        /** @var int Variable que almacenara el id de la institución o departamento para el filtrado */
+        /**
+         * [$institution_id id de la institución para el filtrado]
+         * @var null
+         */
         $institution_id = null;
         $institution_id = $request->institution;
 
@@ -396,7 +432,10 @@ class AccountingEntryController extends Controller
              * Filtrado para unos meses o años en general
              */
             if ($request->filterDate == 'generic') {
-                /** @var array Arreglo que contendra los registros restantes del primer filtrado general */
+                /**
+                 * [$fltForYear contendra los registros restantes del primer filtrado general]
+                 * @var array
+                 */
                 $fltForYear = [];
                 /**
                  * todas las fechas
@@ -445,10 +484,13 @@ class AccountingEntryController extends Controller
     */
     public function getAccountingAccount()
     {
-        /** @var array Arreglo que contendra los registros */
+        /**
+         * [$records listado de registros]
+         * @var array
+         */
         $records = [];
         array_push($records, [
-                'id' => '',
+                'id'   => '',
                 'text' => 'Seleccione...'
             ]);
         /**
@@ -463,7 +505,7 @@ class AccountingEntryController extends Controller
                                     ->get() as $account) {
             if ($account->active) {
                 array_push($records, [
-                    'id' => $account->id,
+                    'id'   => $account->id,
                     'text' => "{$account->getCodeAttribute()} - {$account->denomination}"
                 ]);
             }
@@ -500,8 +542,11 @@ class AccountingEntryController extends Controller
      */
     public function approve($id)
     {
-        /** @var Object Objeto que contendra el asiento al que se le cambiara el estado */
-        $entries = AccountingEntry::find($id);
+        /**
+         * [$entries contendra el asiento al que se le cambiara el estado]
+         * @var AccountingEntry
+         */
+        $entries           = AccountingEntry::find($id);
         $entries->approved = true;
         $entries->save();
         return response()->json(['message'=>'Success'], 200);

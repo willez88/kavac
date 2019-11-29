@@ -74,7 +74,6 @@ class AccountingAnalyticalMajorController extends Controller
          */
         $endDay = date('d', (mktime(0, 0, 0, $endMonth+1, 1, $endYear)-1));
 
-        /** @var Object string en el que se formatea la fecha final de busqueda */
         /**
          * [$endDate fecha final de busqueda]
          * @var [string]
@@ -111,7 +110,7 @@ class AccountingAnalyticalMajorController extends Controller
         * Se formatean los datos de las cuentas
         */
         array_push($arrAccounts, [
-                'id' => 0,
+                'id'   => 0,
                 'text' => 'Seleccione...',
             ]);
 
@@ -119,7 +118,7 @@ class AccountingAnalyticalMajorController extends Controller
             if ($account['entryAccount']) {
                 array_push($arrAccounts, [
                     'text' => "{$account->getCodeAttribute()} - {$account->denomination}",
-                    'id' => $account->id,
+                    'id'   => $account->id,
                 ]);
             }
         }
@@ -136,9 +135,9 @@ class AccountingAnalyticalMajorController extends Controller
     {
         $this->validate($request, [
             'initMonth' => ['required'],
-            'initYear' => ['required'],
-            'endMonth' => ['required'],
-            'endYear' => ['required'],
+            'initYear'  => ['required'],
+            'endMonth'  => ['required'],
+            'endYear'   => ['required'],
         ]);
 
         return response()->json(['records' => $this->filterAccounts(
@@ -176,10 +175,10 @@ class AccountingAnalyticalMajorController extends Controller
         $endDate = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1].'-'.$endDay;
 
         if (isset($endAcc) && $endAcc < $initAcc) {
-            $endAcc = (int)$endAcc;
-            $aux = $initAcc;
+            $endAcc  = (int)$endAcc;
+            $aux     = $initAcc;
             $initAcc = $endAcc;
-            $endAcc = $aux;
+            $endAcc  = $aux;
         }
 
         /**
@@ -238,12 +237,12 @@ class AccountingAnalyticalMajorController extends Controller
                     if (!$inRange || (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
                                     && $entryAccount['entries']['currency']['id'] != $currency['id'])) {
                         return response()->json([
-                                    'result'=>false,
-                                    'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
-                                                .' ('.$entryAccount['entries']['currency']['name'].')'
-                                                .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados. Para la fecha de '.
-                                                $entryAccount['entries']['from_date'],
+                                    'result'  => false,
+                                    'message' => 'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                                 .' ('.$entryAccount['entries']['currency']['name'].')'
+                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                                 ', verificar tipos de cambio configurados. Para la fecha de '.
+                                                 $entryAccount['entries']['from_date'],
                                 ], 200);
                     }
                 }
@@ -259,6 +258,8 @@ class AccountingAnalyticalMajorController extends Controller
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
 
+        $institution = $this->getInstitution();
+
         /**
          * [$report almacena el registro del reporte del dia si existe]
          * @var [type]
@@ -267,7 +268,8 @@ class AccountingAnalyticalMajorController extends Controller
                                                                         $currentDate.' 00:00:00',
                                                                         $currentDate.' 23:59:59'
                                                                     ])
-                                        ->where('report', 'Mayor Analítico')->first();
+                                        ->where('report', 'Mayor Analítico')
+                                        ->where('institution_id', $institution->id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -275,14 +277,16 @@ class AccountingAnalyticalMajorController extends Controller
         if (!$report) {
             $report = AccountingReportHistory::create(
                 [
-                    'report' => 'Mayor Analítico',
-                    'url' => $url,
-                    'currency_id' => $currency->id,
+                    'report'         => 'Mayor Analítico',
+                    'url'            => $url,
+                    'currency_id'    => $currency->id,
+                    'institution_id' => $institution->id,
                 ]
             );
         } else {
-            $report->url = $url;
-            $report->currency_id = $currency->id;
+            $report->url            = $url;
+            $report->currency_id    = $currency->id;
+            $report->institution_id = $institution->id;
             $report->save();
         }
 
@@ -298,19 +302,19 @@ class AccountingAnalyticalMajorController extends Controller
      */
     public function pdf($report)
     {
-        $report = AccountingReportHistory::with('currency')->find($report);
+        $report   = AccountingReportHistory::with('currency')->find($report);
         $initDate = explode('/', $report->url)[1];
         $endDate  = explode('/', $report->url)[2];
-        $initAcc = explode('/', $report->url)[3];
-        $endAcc  = explode('/', $report->url)[4];
+        $initAcc  = explode('/', $report->url)[3];
+        $endAcc   = explode('/', $report->url)[4];
 
         $currency = $report->currency;
 
         if (isset($endAcc) && $endAcc < $initAcc) {
-            $endAcc = (int)$endAcc;
-            $aux = $initAcc;
+            $endAcc  = (int)$endAcc;
+            $aux     = $initAcc;
             $initAcc = $endAcc;
-            $endAcc = $aux;
+            $endAcc  = $aux;
         }
 
         /**
@@ -335,7 +339,7 @@ class AccountingAnalyticalMajorController extends Controller
             ->orderBy('denomination', 'ASC')->get();
 
         $convertions = [];
-        $records = [];
+        $records     = [];
 
         /*
          * recorrido y formateo de informacion en arreglos para mostrar en pdf
@@ -397,13 +401,13 @@ class AccountingAnalyticalMajorController extends Controller
          * [$setting configuración general de la apliación]
          * @var [Modules\Accounting\Models\Setting]
          */
-        $setting = Setting::all()->first();
-
+        $setting  = Setting::all()->first();
+        
         $initDate = new DateTime($initDate);
-        $endDate = new DateTime($endDate);
-
+        $endDate  = new DateTime($endDate);
+        
         $initDate = $initDate->format('d/m/Y');
-        $endDate = $endDate->format('d/m/Y');
+        $endDate  = $endDate->format('d/m/Y');
 
         /**
          * [$pdf base para generar el pdf]
@@ -419,10 +423,10 @@ class AccountingAnalyticalMajorController extends Controller
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de mayor analítico');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.analytical_major', true, [
-            'pdf' => $pdf,
-            'records' => $records,
+            'pdf'      => $pdf,
+            'records'  => $records,
             'initDate' => $initDate,
-            'endDate' => $endDate,
+            'endDate'  => $endDate,
             'currency' => $currency,
         ]);
     }
@@ -489,6 +493,20 @@ class AccountingAnalyticalMajorController extends Controller
             }
         }
         return $convertions;
+    }
+
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
+    public function getInstitution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
     }
 
     public function getCheckBreak()

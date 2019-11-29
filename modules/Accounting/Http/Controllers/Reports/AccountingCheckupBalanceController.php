@@ -211,10 +211,16 @@ class AccountingCheckupBalanceController extends Controller
          */
         $query = [];
 
-        /** @var Array array en el que se almacenaran las cuentas patrimoniales de manera unica en el rango dando */
+        /**
+         * [$records almacenaran las cuentas patrimoniales de manera unica en el rango dando]
+         * @var array
+         */
         $records = [];
 
-        /** @var Array array auxiliar para guardar las cuentas ordenadas */
+        /**
+         * [$arrAux auxiliar para guardar las cuentas ordenadas]
+         * @var array
+         */
         $arrAux = [];
 
         /**
@@ -284,14 +290,14 @@ class AccountingCheckupBalanceController extends Controller
                     $beg = (array_key_exists($account->id, $beginningBalance)
                                                  ? $beginningBalance[$account->id]:0);
                     array_push($records, [
-                        'id' => $account->id,
-                        'code' => $account->getCodeAttribute(),
-                        'denomination' => $account->denomination,
+                        'id'               => $account->id,
+                        'code'             => $account->getCodeAttribute(),
+                        'denomination'     => $account->denomination,
                         'beginningBalance' => $beg,
-                        'sum_debit' => ($val >= 0) ? $val : null,
-                        'sum_assets' => ($val < 0) ? $val : null,
-                        'balance_debit' => (floatval($beg)+$val >= 0) ? floatval($beg)+$val : null ,
-                        'balance_assets' => (floatval($beg)+$val < 0) ? floatval($beg)+$val : null ,
+                        'sum_debit'        => ($val >= 0) ? $val : null,
+                        'sum_assets'       => ($val < 0) ? $val : null,
+                        'balance_debit'    => (floatval($beg)+$val >= 0) ? floatval($beg)+$val : null ,
+                        'balance_assets'   => (floatval($beg)+$val < 0) ? floatval($beg)+$val : null ,
                     ]);
                 } else {
                     array_push($records, [
@@ -317,7 +323,10 @@ class AccountingCheckupBalanceController extends Controller
      */
     public function calculateBeginningBalance($initDate, $endDate, $all)
     {
-        /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
+        /**
+         * [$entries almacena el registro de asiento contable mas antiguo]
+         * @var AccountingEntry
+         */
         $entries = AccountingEntry::where('approved', true)->orderBy('from_date', 'ASC')->first();
        
         $accounts = $this->getAccAccount($initDate, $endDate, true, $all, null);
@@ -346,13 +355,22 @@ class AccountingCheckupBalanceController extends Controller
             $all = true;
         }
 
-        /** @var Object String en el que se formatea la fecha inicial de busqueda */
+        /**
+         * [$initDate fecha inicial de busqueda]
+         * @var string
+         */
         $initDate = $initDate.'-01';
 
-        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
+        /**
+         * [$endDay ultimo dia correspondiente al mes]
+         * @var string
+         */
         $endDay = date('d', (mktime(0, 0, 0, explode('-', $endDate)[1]+1, 1, explode('-', $endDate)[0])-1));
 
-        /** @var Object String en el que se formatea la fecha final de busqueda */
+        /**
+         * [$endDate fecha final de busqueda]
+         * @var string
+         */
         $endDate = $endDate.'-'.$endDay;
 
         /**
@@ -449,12 +467,14 @@ class AccountingCheckupBalanceController extends Controller
         /**
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
-        $all = ($all != false)?'true':'';
-
-        $url = 'balanceCheckUp/'.$initDate.'/'.$endDate.'/'.$all;
-
+        $all         = ($all != false)?'true':'';
+        
+        $url         = 'balanceCheckUp/'.$initDate.'/'.$endDate.'/'.$all;
+        
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
+        
+        $institution = $this->getInstitution();
 
         /**
          * [$report almacena el registro del reporte del dia si existe]
@@ -465,7 +485,8 @@ class AccountingCheckupBalanceController extends Controller
                                                                         $currentDate.' 23:59:59'
                                                                     ])
                                         ->where('report', 'Balance de Comporbación'.(($all)?' - todas las cuentas':
-                                                                ' - solo cuentas con operaciones'))->first();
+                                                                ' - solo cuentas con operaciones'))
+                                        ->where('institution_id', $institution->id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -473,15 +494,17 @@ class AccountingCheckupBalanceController extends Controller
         if (!$report) {
             $report = AccountingReportHistory::create(
                 [
-                    'report' => 'Balance de Comporbación'.(($all)?' - todas las cuentas':
-                                ' - solo cuentas con operaciones'),
-                    'url' => $url,
-                    'currency_id' => $currency['id'],
+                    'url'            => $url,
+                    'currency_id'    => $currency['id'],
+                    'institution_id' => $institution->id,
+                    'report'         => 'Balance de Comporbación'.(($all)?' - todas las cuentas' :
+                                                                          ' - solo cuentas con operaciones'),
                 ]
             );
         } else {
-            $report->url = $url;
-            $report->currency_id = $currency['id'];
+            $report->url            = $url;
+            $report->currency_id    = $currency['id'];
+            $report->institution_id = $institution->id;
             $report->save();
         }
 
@@ -529,12 +552,12 @@ class AccountingCheckupBalanceController extends Controller
          * @var array
          */
         $accountRecords = $this->getAccAccount($initDate, $endDate, false, $all, $beginningBalance);
-
-        $initDate = new DateTime($initDate);
-        $endDate = new DateTime($endDate);
-
-        $initDate = $initDate->format('d/m/Y');
-        $endDate = $endDate->format('d/m/Y');
+        
+        $initDate       = new DateTime($initDate);
+        $endDate        = new DateTime($endDate);
+        
+        $initDate       = $initDate->format('d/m/Y');
+        $endDate        = $endDate->format('d/m/Y');
 
         /**
          * [$setting configuración general de la apliación]
@@ -627,6 +650,20 @@ class AccountingCheckupBalanceController extends Controller
             }
         }
         return $convertions;
+    }
+
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
+    public function getInstitution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
     }
 
     public function getCheckBreak()

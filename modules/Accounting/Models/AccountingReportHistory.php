@@ -11,7 +11,7 @@ class AccountingReportHistory extends Model
      *
      * @var array
      */
-    protected $fillable = ['report','url','currency_id'];
+    protected $fillable = ['report','url','currency_id','institution_id'];
 
     /**
      * AccountingReportHistory belongs to Currency.

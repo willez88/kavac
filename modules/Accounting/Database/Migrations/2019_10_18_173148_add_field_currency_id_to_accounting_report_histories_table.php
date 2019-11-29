@@ -17,7 +17,7 @@ class AddFieldCurrencyIdToAccountingReportHistoriesTable extends Migration
             if (!Schema::hasColumn('accounting_report_histories', 'currency_id')) {
                 $table->integer('currency_id')->unsigned()->nullable()
                 ->comment('id del tipo de moneda en que se expresa el asiento');
-                
+
                 $table->foreign('currency_id')->references('id')->on('currencies')
                 ->onDelete('cascade')->comment('id del tipo de moneda en que se expresa el asiento');
             }

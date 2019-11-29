@@ -69,15 +69,15 @@ class AccountingAuxiliaryBookController extends Controller
          * [$endDate fecha final de busqueda]
          * @var string
          */
-        $endDate = $date.'-'.$day;
-
+        $endDate     = $date.'-'.$day;
+        
         $convertions = [];
 
-        /**
-         * [$query cuenta patrimonial con su relacion en asientos contables]
-         * @var [Modules\Accounting\Models\AccountingEntry]
-         */
         if (!$account_id) {
+            /**
+             * [$query cuenta patrimonial con su relacion en asientos contables]
+             * @var [Modules\Accounting\Models\AccountingEntry]
+             */
             $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
                 if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
                     $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
@@ -219,6 +219,8 @@ class AccountingAuxiliaryBookController extends Controller
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
 
+        $institution = $this->getInstitution();
+
         /**
          * [$report almacena el registro del reporte del dia si existe]
          * @var [type]
@@ -227,7 +229,8 @@ class AccountingAuxiliaryBookController extends Controller
                                                                         $currentDate.' 00:00:00',
                                                                         $currentDate.' 23:59:59'
                                                                     ])
-                                        ->where('report', 'Libro Auxiliar')->first();
+                                        ->where('report', 'Libro Auxiliar')
+                                        ->where('institution_id', $institution->id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -238,11 +241,13 @@ class AccountingAuxiliaryBookController extends Controller
                     'report'      => 'Libro Auxiliar',
                     'url'         => $url,
                     'currency_id' => $currency->id,
+                    'institution_id' => $institution->id,
                 ]
             );
         } else {
             $report->url         = $url;
             $report->currency_id = $currency->id;
+            $report->institution_id = $institution->id;
             $report->save();
         }
 
@@ -256,17 +261,17 @@ class AccountingAuxiliaryBookController extends Controller
      */
     public function pdf($report)
     {
-        $report = AccountingReportHistory::with('currency')->find($report);
-        $date  = explode('/', $report->url)[1];
+        $report     = AccountingReportHistory::with('currency')->find($report);
+        $date       = explode('/', $report->url)[1];
         $account_id = explode('/', $report->url)[2];
-        $initMonth = (int)explode('-', $date)[1];
-        $initYear = (int)explode('-', $date)[0];
+        $initMonth  = (int)explode('-', $date)[1];
+        $initYear   = (int)explode('-', $date)[0];
 
         if ($initMonth < 10) {
             $initMonth = '0'.$initMonth;
         }
-        $date = $initYear.'-'.$initMonth;
-
+        $date     = $initYear.'-'.$initMonth;
+        
         $currency = $report->currency;
 
         /**
@@ -288,10 +293,6 @@ class AccountingAuxiliaryBookController extends Controller
         $endDate = $date.'-'.$day;
 
         $convertions = [];
-        /**
-         * [$account cuenta patrimonial con su relacion en asientos contables]
-         * @var [Modules\Accounting\Models\AccountingEntry]
-         */
         if (!$account_id) {
             // todas las cuentas auxiliares
             $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
@@ -311,7 +312,7 @@ class AccountingAuxiliaryBookController extends Controller
             ->orderBy('subspecific', 'ASC')
             ->orderBy('denomination', 'ASC')->get();
 
-            $acc = [];
+            $acc  = [];
             $cont = 0;
             foreach ($query as $account) {
                 array_push($acc, [
@@ -428,12 +429,12 @@ class AccountingAuxiliaryBookController extends Controller
          * [$setting configuración general de la aplicación]
          * @var [Modules\Accounting\Models\Setting]
          */
-        $setting = Setting::all()->first();
+        $setting  = Setting::all()->first();
         $initDate = new DateTime($initDate);
-        $endDate = new DateTime($endDate);
-
+        $endDate  = new DateTime($endDate);
+        
         $initDate = $initDate->format('d/m/Y');
-        $endDate = $endDate->format('d/m/Y');
+        $endDate  = $endDate->format('d/m/Y');
 
         /**
          * [$pdf base para generar el pdf]
@@ -449,10 +450,10 @@ class AccountingAuxiliaryBookController extends Controller
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de libro Auxiliar');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.auxiliary_book', true, [
-            'pdf' => $pdf,
-            'record' => $acc,
+            'pdf'      => $pdf,
+            'record'   => $acc,
             'initDate' => $initDate,
-            'endDate' => $endDate,
+            'endDate'  => $endDate,
             'currency' => $currency,
         ]);
     }
@@ -519,6 +520,20 @@ class AccountingAuxiliaryBookController extends Controller
             }
         }
         return $convertions;
+    }
+
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
+    public function getInstitution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
     }
 
     public function getCheckBreak()

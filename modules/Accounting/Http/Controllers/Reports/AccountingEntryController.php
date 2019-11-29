@@ -45,19 +45,22 @@ class AccountingEntryController extends Controller
     public function pdf($id)
     {
 
-        /** @var Objet objeto con la información del asiento contable */
+        /**
+         * [$entry información del asiento contable]
+         * @var AccountingEntry
+         */
         $entry = AccountingEntry::with(
             'accountingAccounts.account.accountConverters.budgetAccount',
             'currency'
         )->find($id);
 
-        /** @var Object configuración general de la apliación */
+        /**
+         * [$setting configuración general de la apliación]
+         * @var Setting
+         */
         $setting = Setting::all()->first();
-
-        /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $currency = Currency::where('default', true)->first();
         
-        $Entry = true;
+        $Entry   = true;
 
         /**
          * [$pdf base para generar el pdf]
@@ -73,10 +76,10 @@ class AccountingEntryController extends Controller
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de asiento contable');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.entry_and_daily_book', true, [
-            'pdf' => $pdf,
-            'entry' => $entry,
+            'pdf'      => $pdf,
+            'entry'    => $entry,
             'currency' => $entry->currency,
-            'Entry' => $Entry,
+            'Entry'    => $Entry,
         ]);
     }
 

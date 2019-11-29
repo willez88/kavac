@@ -58,9 +58,9 @@ class AccountingSettingController extends Controller
      */
     public function index()
     {
-        $institution = $this->getInstitution();
+        $institution  = $this->getInstitution();
         $codeSettings = CodeSetting::where('module', 'accounting')->get();
-        $refCode = $codeSettings->where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
+        $refCode      = $codeSettings->where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
                                 ->first();
         return view('accounting::settings.index', compact('refCode'));
     }
@@ -74,13 +74,22 @@ class AccountingSettingController extends Controller
 
         $institution = $this->getInstitution();
 
-        /** @var array Arreglo con información de los campos de códigos configurados */
+        /**
+         * [$codes información de los campos de códigos configurados]
+         * @var string
+         */
         $codes = $request->input();
-        /** @var boolean Define el estatus verdadero para indicar que no se ha registrado información */
+        /**
+         * [$saved Define el estatus verdadero para indicar que no se ha registrado información]
+         * @var boolean
+         */
         $saved = false;
         
         foreach ($codes as $key => $value) {
-            /** @var string Define el modelo al cual hace referencia el código */
+            /**
+             * [$model Define el modelo al cual hace referencia el código]
+             * @var string
+             */
             $model = '';
 
             if ($key !== '_token' && !is_null($value)) {
@@ -94,16 +103,19 @@ class AccountingSettingController extends Controller
                 $model = AccountingEntry::class;
                 CodeSetting::updateOrCreate([
                     'module' => 'accounting',
-                    'table' => $institution->id.'_'.$institution->acronym.'_accounting_'. $table,
-                    'field' => $field,
+                    'table'  => $institution->id.'_'.$institution->acronym.'_accounting_'. $table,
+                    'field'  => $field,
                 ], [
                     'format_prefix' => $prefix,
                     'format_digits' => $digits,
-                    'format_year' => $sufix,
-                    'model' => $model,
+                    'format_year'   => $sufix,
+                    'model'         => $model,
                 ]);
                 
-                /** @var boolean Define el estatus verdadero para indicar que se ha registrado información */
+                /**
+                 * [$saved Define el estatus verdadero para indicar que se ha registrado información]
+                 * @var boolean
+                 */
                 $saved = true;
             }
         }
@@ -123,10 +135,13 @@ class AccountingSettingController extends Controller
         if (is_null($codeSetting)) {
             $code = AccountingEntry::count();
             $request->session()->flash('message', [
-                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
-                'text' => 'Se debe configurar previamente el formato para el código de referencia del asiento. 
-                            De lo contrario el sistema les asignara números de forma progresiva'
-                ]);
+                'type'  => 'other',
+                'title' => 'Alerta',
+                'icon'  => 'screen-error',
+                'class' => 'growl-danger',
+                'text'  => 'Se debe configurar previamente el formato para el código de referencia del asiento. 
+                De lo contrario el sistema les asignara números de forma progresiva'
+            ]);
         } else {
             $code  = generate_registration_code(
                 $codeSetting->format_prefix,

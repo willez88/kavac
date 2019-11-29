@@ -231,9 +231,9 @@ Vue.mixin({
 				}else{
 					url = url.split('/pdf')[0];
 					url += '/'+response.data.id;
-					vm.loading = false;
 					window.open(url, type);
 				}
+				vm.loading = false;
 			})
 		},
 

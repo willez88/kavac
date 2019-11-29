@@ -178,20 +178,28 @@ class AccountingStateOfResultsController extends Controller
                 }
             }
         }
-        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
+        /**
+         * [$day almacena el ultimo dia correspondiente al mes]
+         * @var date
+         */
         $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
 
-        /** @var Object String en el que se formatea la fecha final de busqueda, (YYYY-mm-dd HH:mm:ss) */
+        /**
+         * [$endDate formatea la fecha final de busqueda, (YYYY-mm-dd HH:mm:ss)]
+         * @var string
+         */
         $endDate = $date.'-'.$day;
 
         /**
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
         $zero = ($zero)?'true':'';
-        $url = 'StateOfResults/'.$endDate.'/'.$level.'/'.$zero;
+        $url  = 'StateOfResults/'.$endDate.'/'.$level.'/'.$zero;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
+
+        $institution = $this->getInstitution();
 
         /**
          * [$report almacena el registro del reporte del dia si existe]
@@ -201,7 +209,8 @@ class AccountingStateOfResultsController extends Controller
                                                                         $currentDate.' 00:00:00',
                                                                         $currentDate.' 23:59:59'
                                                                     ])
-                                        ->where('report', 'Estado de Resultados')->first();
+                                        ->where('report', 'Estado de Resultados')
+                                        ->where('institution_id', $institution->id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -209,14 +218,16 @@ class AccountingStateOfResultsController extends Controller
         if (!$report) {
             $report = AccountingReportHistory::create(
                 [
-                    'report' => 'Estado de Resultados',
-                    'url' => $url,
-                    'currency_id' => $currency->id,
+                    'report'         => 'Estado de Resultados',
+                    'url'            => $url,
+                    'currency_id'    => $currency->id,
+                    'institution_id' => $institution->id,
                 ]
             );
         } else {
-            $report->url = $url;
-            $report->currency_id = $currency->id;
+            $report->url            = $url;
+            $report->currency_id    = $currency->id;
+            $report->institution_id = $institution->id;
             $report->save();
         }
         return response()->json(['result'=>true, 'id'=>$report->id], 200);
@@ -229,12 +240,12 @@ class AccountingStateOfResultsController extends Controller
      */
     public function pdf($report)
     {
-        $report = AccountingReportHistory::with('currency')->find($report);
+        $report  = AccountingReportHistory::with('currency')->find($report);
         $endDate = explode('/', $report->url)[1];
-        $level = explode('/', $report->url)[2];
-        $zero = explode('/', $report->url)[3];
+        $level   = explode('/', $report->url)[2];
+        $zero    = explode('/', $report->url)[3];
+        $date    = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1];
         $this->setCurrency($report->currency);
-        $date = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1];
 
         /**
          * [$level_1 establece la consulta de ralación que se desean realizar]
@@ -325,21 +336,21 @@ class AccountingStateOfResultsController extends Controller
          *  Definicion de las caracteristicas generales de la página pdf
          */
         $lastOfThePreviousMonth = date('d', (mktime(0, 0, 0, explode('-', $date)[1], 1, explode('-', $date)[0])-1));
-        $last = ($lastOfThePreviousMonth.'/'.(explode('-', $date)[1]-1).'/'.explode('-', $date)[0]);
-
-        $institution = Institution::find(1);
+        $last                   = ($lastOfThePreviousMonth.'/'.(explode('-', $date)[1]-1).'/'.explode('-', $date)[0]);
+        
+        $institution            = Institution::find(1);
 
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/stateOfResults/'.$report->id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de estado de resultados');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.state_of_results', true, [
-            'pdf' => $pdf,
-            'records' => $records,
-            'currency' => $this->getCurrency(),
-            'level' => $level,
-            'zero' => $zero,
-            'endDate' => $endDate,
-            'monthBefore'=>$last,
+            'pdf'         => $pdf,
+            'records'     => $records,
+            'currency'    => $this->getCurrency(),
+            'level'       => $level,
+            'zero'        => $zero,
+            'endDate'     => $endDate,
+            'monthBefore' =>$last,
         ]);
     }
     
@@ -376,10 +387,10 @@ class AccountingStateOfResultsController extends Controller
         if (count($records) > 0) {
             foreach ($records as $account) {
                 array_push($parent, [
-                    'code' => $account->getCodeAttribute(),
-                    'denomination' => $account->denomination,
                     // mes seleccionado
-                    'balance' => $this->calculateValuesInEntries(
+                    'code'         => $account->getCodeAttribute(),
+                    'denomination' => $account->denomination,
+                    'balance'      => $this->calculateValuesInEntries(
                         $account,
                         explode('-', $endD)[0].'-'.explode('-', $endD)[1].'-01',
                         $endD
@@ -390,8 +401,8 @@ class AccountingStateOfResultsController extends Controller
                         explode('-', $initD)[0].'-01-01',
                         explode('-', $endD)[0].'-'.(explode('-', $endD)[1]-1).'-'.$lastOfThePreviousMonth
                     ),
-                    'level' => $level,
-                    'children' => [],
+                    'level'         => $level,
+                    'children'      => [],
                     'show_children' => false,
                 ]);
                 $parent[$pos]['children'] = $this->formatDataInArray($account->children, $initD, $endD, $level+1);
@@ -440,7 +451,7 @@ class AccountingStateOfResultsController extends Controller
         }
 
         $initD = $initYear.'-'.$initMonth.'-'.$initDay;
-        $endD = $endYear.'-'.$endMonth.'-'.$endDay;
+        $endD  = $endYear.'-'.$endMonth.'-'.$endDay;
 
         /**
          * [$debit saldo total en el debe de la cuenta]
@@ -564,6 +575,20 @@ class AccountingStateOfResultsController extends Controller
             }
         }
         return $convertions;
+    }
+
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
+    public function getInstitution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
     }
 
     public function getCheckBreak()
