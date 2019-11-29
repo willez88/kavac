@@ -16,6 +16,6 @@ class CitizenServiceDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(CitizenServiceRequestTypesTableSeeder::class);
     }
 }

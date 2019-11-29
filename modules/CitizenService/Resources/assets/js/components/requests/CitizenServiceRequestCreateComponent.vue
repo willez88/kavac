@@ -50,16 +50,14 @@
 					</div>
 					 <div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="cedula">Cedula de Identidad</label>
+							<label for="id_number">Cédula de Identidad</label>
         					<input type="text"
         								   class="form-control input-sm" data-toggle="tooltip"
-        								   title="Indique la cedula de identidad del solicitante"
+        								   title="Indique la cédula de identidad del solicitante"
         								   v-model="record.id_number">
 						    
 						</div>
 					</div>
-				</div>
-				<div class="row">
                     <div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="email">Correo Electrónico</label>
@@ -70,17 +68,54 @@
 						    
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<label for="phone">Teléfono</label>
-        					<input type="text" id="phone"
-        								   class="form-control input-sm" data-toggle="tooltip"
-        								   title="Indique el teléfono del solicitante"
-        								   v-model="record.phone">
-						    
-						</div>
-					</div>
 				</div>
+                <h6 class="card-title">
+                    Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
+                </h6>
+                <div class="row" v-for="(phone, index) in record.phones">
+                    <div class="col-3">
+                        <div class="form-group is-required">
+                            <select data-toggle="tooltip" v-model="phone.type"
+                                    class="select2"
+                                    title="Seleccione el tipo de número telefónico">
+                                <option value="">Seleccione...</option>
+                                <option value="M">Móvil</option>
+                                <option value="T">Teléfono</option>
+                                <option value="F">Fax</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group is-required">
+                            <input type="text" placeholder="Cod. Area" data-toggle="tooltip"
+                                   title="Indique el código de área" v-model="phone.area_code"
+                                   class="form-control input-sm">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group is-required">
+                            <input type="text" placeholder="Número" data-toggle="tooltip"
+                                   title="Indique el número telefónico"
+                                   v-model="phone.number" class="form-control input-sm">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group is-required">
+                            <input type="text" placeholder="Extensión" data-toggle="tooltip"
+                                   title="Indique la extención telefónica (opcional)"
+                                   v-model="phone.extension" class="form-control input-sm">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="form-group">
+                            <button class="btn btn-sm btn-danger btn-action" type="button"
+                                    @click="removeRow(index, record.phones)"
+                                    title="Eliminar este dato" data-toggle="tooltip">
+                                <i class="fa fa-minus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 			    <hr>
 				<h6 class="card-title">
 					Datos de la Solicitud
@@ -89,7 +124,7 @@
                     <div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="date">Fecha</label>
-        					<input type="text" id="date"
+        					<input type="date" id="date"
         								   class="form-control input-sm" data-toggle="tooltip"
         								   title="Indique la fecha de solicitud"
         								   v-model="record.date">
@@ -99,7 +134,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="payroll_sector_type_id">Tipo de Institución</label>
+							<label for="payroll_sector_type_id">Sector de Institución</label>
 							<select2 :options="payroll_sector_types"
 									 v-model="record.payroll_sector_type_id"></select2>
 						
@@ -211,8 +246,8 @@
 					<div class="row">
                     <div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="data">Fecha</label>
-        					<input type="text" id="date"
+							<label for="date">Fecha</label>
+        					<input type="date" id="date"
         								   class="form-control input-sm" data-toggle="tooltip"
         								   title="Indique la fecha de solicitud"
         								   v-model="record.date">
@@ -244,10 +279,10 @@
 				<div class="row">
                     <div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="id_number">Cedula de Identidad</label>
+							<label for="id_number">Cédula de Identidad</label>
         					<input type="text" id="id_number"
         								   class="form-control input-sm" data-toggle="tooltip"
-        								   title="Indique la cedula de identidad del solicitante"
+        								   title="Indique la cédula de identidad del solicitante"
         								   v-model="record.id_number">
 						    
 						</div>
@@ -258,7 +293,7 @@
         					<input type="text" id="institution"
         								   class="form-control input-sm" data-toggle="tooltip"
         								   title="Indique la institución"
-        								   v-model="record.institucion">
+        								   v-model="record.institution">
 						   
 						</div>
 					</div>
@@ -423,7 +458,7 @@
 					last_name: '',
 					id_number: '',
 					email: '',
-					phone: '',
+					phones: [],
 					date: '',
 					payroll_sector_type_id: '',
 					institution_name: '',
@@ -443,9 +478,7 @@
         			code: '',
         			entryhour: '',
         			exithour: '',
-        			informationteam: '',
-        			direction_id: ''
-
+        			informationteam: ''
 				},
 				errors: [],
 				records: [],
@@ -504,7 +537,7 @@
 					last_name: '',
 					id_number: '',
 					email: '',
-					phone: '',
+					phones: [],
 					date: '',
 					payroll_sector_type_id: '',
 					institution_name: '',
@@ -533,6 +566,7 @@
 			vm.getCountries();
 			vm.getCitizenServiceRequestTypes();
 			vm.getPayrollSectorTypes();
+            vm.record.phones = [];
 		},
 	};
 </script>

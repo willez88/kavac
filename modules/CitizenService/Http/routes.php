@@ -11,7 +11,8 @@ Route::group([
     })->name('citizenservice.setting');
 
     Route::get('/requests/create', 'CitizenServiceRequestController@create')->name('citizenservice.request.create');
-    Route::post('/requests/store', 'CitizenServiceRequestController@store')->name('citizenservice.request.store');
+    Route::post('/requests', 'CitizenServiceRequestController@store')->name('citizenservice.request.store');
+    Route::get('/requests', 'CitizenServiceRequestController@index')->name('citizenservice.request.index');
 
     Route::resource(
         'request-types',
