@@ -38,6 +38,17 @@ class AssetReport extends Model implements Auditable
     protected $fillable = [
         'code', 'type_report', 'type_search', 'asset_type_id', 'asset_category_id',
         'asset_subcategory_id', 'asset_specific_category_id', 'institution_id', 'department_id', 'mes',
-        'year', 'start_date', 'end_date'
+        'year', 'start_date', 'end_date', 'document_id', 'status'
     ];
+
+    /**
+     * Método que obtiene la información del documento asociado al registro
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Document
+     */
+    public function document()
+    {
+        return $this->belongsTo(\App\Models\Document::class);
+    }
 }
