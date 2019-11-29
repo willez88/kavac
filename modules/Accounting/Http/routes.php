@@ -120,7 +120,7 @@ Route::group(['middleware' => 'web',
     /**
      * ruta para el filtrado o busqueda de asientos contables aprobados
      */
-    Route::post('entries/Filter-Records', 'AccountingEntryController@filterRecords')
+    Route::post('entries/Filter-Records/{perPage?}/{page?}', 'AccountingEntryController@filterRecords')
             ->name('accounting.entries.FilterRecords');
 
     /**

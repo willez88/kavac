@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
+use Modules\Accounting\Models\Institution;
 
 /**
  * @class AccountingAccountConverterController
@@ -61,19 +62,15 @@ class AccountingDashboardController extends Controller
          * [$currency información de la modena por defecto establecida en la aplicación]
          * @var [Modules\Accounting\Models\Currency]
          */
-        $currency = Currency::where('default', true)->first();
+        $currency    = Currency::where('default', true)->first();
 
-        /**
-         * [$report_histories información de los reportes]
-         * @var [Modules\Accounting\Models\AccountingReportHistory]
-         */
-        $report_histories = AccountingReportHistory::orderBy('updated_at', 'DESC')->get();
-
+        $institution = $this->getInstitution();
         /**
          * [$lastRecords información de los ultimos 10 asientos contables generados]
          * @var [Modules\Accounting\Models\AccountingEntry]
          */
-        $lastRecords = AccountingEntry::orderBy('updated_at', 'DESC')->take(10)->get();
+        $lastRecords = AccountingEntry::where('institution_id', $institution->id)
+                                        ->orderBy('updated_at', 'DESC')->take(10)->get();
 
         return response()->json(['lastRecords' => $lastRecords, 'currency' => $currency], 200);
     }
@@ -91,8 +88,11 @@ class AccountingDashboardController extends Controller
          * @var array
          */
         $report_histories = [];
+        
+        $institution      = $this->getInstitution();
 
-        $reports = AccountingReportHistory::orderBy('updated_at', 'DESC')->get();
+        $reports = AccountingReportHistory::where('institution_id', $institution->id)
+                                            ->orderBy('updated_at', 'DESC')->get();
         foreach ($reports as $report) {
 
             /**
@@ -113,5 +113,19 @@ class AccountingDashboardController extends Controller
         }
 
         return response()->json(['report_histories' => $report_histories], 200);
+    }
+
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
+    public function getInstitution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
     }
 }

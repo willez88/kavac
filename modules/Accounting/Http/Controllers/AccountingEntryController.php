@@ -352,7 +352,7 @@ class AccountingEntryController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function filterRecords(Request $request)
+    public function filterRecords(Request $request, $perPage = 10, $page = 1)
     {
         /**
          * [$records contendra los registros]
@@ -382,14 +382,12 @@ class AccountingEntryController extends Controller
                 /**
                  * Se seleccionan los registros por institución
                 */
-                $allRecords = AccountingEntry::with('accountingAccounts.account')
-                                ->where('approved', true)
+                $allRecords = AccountingEntry::where('approved', true)
                                 ->where('institution_id', $institution_id)
-                                ->orderBy('from_date', 'ASC')->get();
+                                ->orderBy('from_date', 'ASC');
             } else {
-                $allRecords = AccountingEntry::with('accountingAccounts.account')
-                                ->where('approved', true)
-                                ->orderBy('from_date', 'ASC')->get();
+                $allRecords = AccountingEntry::where('approved', true)
+                                ->orderBy('from_date', 'ASC');
             }
             foreach ($allRecords as $entries) {
                 if (count(explode($request['reference'], $entries->reference)) > 1) {
@@ -408,24 +406,20 @@ class AccountingEntryController extends Controller
                  * Se seleccionan los registros por institución
                 */
                 $FilterByOrigin = ($request->category == 0) ?
-                                    AccountingEntry::with('accountingAccounts.account')
-                                    ->where('institution_id', $institution_id)
+                                    AccountingEntry::where('institution_id', $institution_id)
                                     ->where('approved', true)
-                                    ->orderBy('from_date', 'ASC')->get() :
-                                    AccountingEntry::with('accountingAccounts.account')
-                                    ->where('institution_id', $institution_id)
+                                    ->orderBy('from_date', 'ASC') :
+                                    AccountingEntry::where('institution_id', $institution_id)
                                     ->where('approved', true)
                                     ->where('accounting_entry_categories_id', $request->category)
-                                    ->orderBy('from_date', 'ASC')->get();
+                                    ->orderBy('from_date', 'ASC');
             } else {
                 $FilterByOrigin = ($request->category == 0) ?
-                                    AccountingEntry::with('accountingAccounts.account')
-                                    ->where('approved', true)
-                                    ->orderBy('from_date', 'ASC')->get() :
-                                    AccountingEntry::with('accountingAccounts.account')
-                                    ->where('approved', true)
+                                    AccountingEntry::where('approved', true)
+                                    ->orderBy('from_date', 'ASC') :
+                                    AccountingEntry::where('approved', true)
                                     ->where('accounting_entry_categories_id', $request->category)
-                                    ->orderBy('from_date', 'ASC')->get();
+                                    ->orderBy('from_date', 'ASC');
             }
 
             /**
@@ -475,8 +469,91 @@ class AccountingEntryController extends Controller
                 $records = $FilterByOrigin->whereBetween("from_date", [$request->init,$request->end]);
             }
         }
-        return response()->json(['records'=>$records,'message'=>'Success', 200]);
+        // $perPage = 10;
+        // $page = 1;
+        // dd($perPage);
+        // dd($page);
+        $total = $records->count();
+        $records = $records->offset(($page - 1) * $perPage)->limit($perPage)->get();
+        $lastPage = max((int) ceil($total / $perPage), 1);
+        return response()->json(
+            [
+                'records'  => $records,
+                'total'    => $total,
+                'lastPage' => $lastPage
+            ],
+            200
+        );
+
+        // return response()->json(['records'=>$records,'message'=>'Success', 200]);
     }
+
+    /**
+     * Otiene un listado de los bienes registradas
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function vueList($perPage = 10, $page = 1, $operation = null, $operation_id = null)
+    {
+        if ($operation == null) {
+            $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id');
+        } elseif ($operation_id == null) {
+            if ($operation == 'asignations') {
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->where('asset_condition_id', 1)->where('asset_status_id', 10);
+            } elseif ($operation == 'disincorporations') {
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->where('asset_status_id', 10);
+            } elseif ($operation == 'requests') {
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->where('asset_status_id', 10);
+            }
+        } else {
+            if ($operation == 'asignations') {
+                $selected = [];
+                $assetAsignationAssets = AssetAsignation::find($operation_id)->assetAsignationAssets()->get();
+                foreach ($assetAsignationAssets as $assetAsignationAsset) {
+                    array_push($selected, $assetAsignationAsset->asset_id);
+                }
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->whereIn('id', $selected)
+                    ->orWhere('asset_status_id', 10)
+                    ->where('asset_condition_id', 1);
+            } elseif ($operation == 'disincorporations') {
+                $selected = [];
+                $assetDisincorporationAssets = AssetDisincorporation::find($operation_id)
+                    ->assetDisincorporationAssets()->get();
+                foreach ($assetDisincorporationAssets as $assetDisincorporationAsset) {
+                    array_push($selected, $assetDisincorporationAsset->asset_id);
+                }
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->whereIn('id', $selected)
+                    ->orWhere('asset_status_id', 10);
+            } elseif ($operation == 'requests') {
+                $selected = [];
+                $assetRequestAssets = AssetRequest::find($operation_id)->assetRequestAssets()->get();
+                foreach ($assetRequestAssets as $assetRequestAsset) {
+                    array_push($selected, $assetRequestAsset->asset_id);
+                }
+                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
+                    ->whereIn('id', $selected)
+                    ->orWhere('asset_status_id', 10);
+            }
+        }
+        $total = $assets->count();
+        $assets = $assets->offset(($page - 1) * $perPage)->limit($perPage)->get();
+        $lastPage = max((int) ceil($total / $perPage), 1);
+        return response()->json(
+            [
+                'records'  => $assets,
+                'total'    => $total,
+                'lastPage' => $lastPage,
+            ],
+            200
+        );
+    }
+
     /**
      * Obtiene los registros de las cuentas patrimoniales
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

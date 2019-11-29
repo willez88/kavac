@@ -28,9 +28,11 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-entry-listing :entries="{{ $entries }}"
-									:show=" 'unapproved'"
-									route_edit="{{ url('accounting/entries/{id}/edit') }}" />
+					<accounting-entry-listing 
+					route_list = "{{ url('accounting/entries/Filter-Records') }}"
+					route_edit = "{{ url('accounting/entries/{id}/edit') }}" 
+					:entries = "{{ $entries }}" 
+					:show = " 'unapproved'" />
 				</div>
 			</div>
 		</div>

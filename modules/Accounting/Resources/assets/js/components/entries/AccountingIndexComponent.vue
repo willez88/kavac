@@ -230,20 +230,12 @@
 				}
 				vm.data['typeSearch'] = vm.typeSearch;
                 vm.data['filterDate'] = vm.filterDate;
+                vm.data['firstSearch'] = true;
+                
                 vm.loading = true;
-				axios.post('/accounting/entries/Filter-Records',vm.data).then(response=>{
-					if (response.data.records.length == 0) {
-						vm.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
-					}else{
-						vm.showMessage('custom', 'Éxito', 'success', 'screen-ok', 'Busqueda realizada de manera exitosa.');
-					}
-					vm.records = response.data.records;
-					EventBus.$emit('list:entries',{
-						records:response.data.records,
-						currency:vm.currency,
-					});
-					vm.loading = false;
-				});
+
+                EventBus.$emit('list:entries',vm.data);
+				vm.loading = false;
 			},
 		},
 	};

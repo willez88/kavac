@@ -53,61 +53,65 @@ class AccountingManageEntries implements ShouldQueue
     public function handle()
     {
         $created_at = now();
+        for ($i=0; $i < 500; $i++) {
+            $newEntries = AccountingEntry::where('reference', $this->data['reference'])->first();
 
-        $newEntries = AccountingEntry::where('reference', $this->data['reference'])->first();
-
-        /**
-         * Para actualizar
-         */
-        if ($newEntries) {
-            $newEntries->concept= $this->data['concept'];
-            $newEntries->observations = $this->data['observations'];
-            $newEntries->accounting_entry_categories_id = ($this->data['category']!='')? $this->data['category']: null;
-            $newEntries->institution_id = $this->data['institution_id'];
-            $newEntries->currency_id = $this->data['currency_id'];
-            $newEntries->tot_debit = $this->data['totDebit'];
-            $newEntries->tot_assets = $this->data['totAssets'];
-        } else {
             /**
-             * Para crear
+             * Para actualizar
              */
-            $newEntries = AccountingEntry::create([
-                'from_date'                      => $this->data['date'],
-                'reference'                      => ($this->data['reference'])??$this->generateReferenceCodeAvailable(),
-                'concept'                        => $this->data['concept'],
-                'observations'                   => $this->data['observations'],
-                'accounting_entry_categories_id' => ($this->data['category']!='')? $this->data['category']: null,
-                'institution_id'                 => $this->data['institution_id'],
-                'currency_id'                    => $this->data['currency_id'],
-                'tot_debit'                      => $this->data['totDebit'],
-                'tot_assets'                     => $this->data['totAssets'],
-                'created_at'                     => $created_at
-            ]);
-            $newEntries->save();
-        }
-
-        foreach ($this->data['accountingAccounts'] as $account) {
-            /**
-             * Se actualiza o crea la relación de cuenta a ese asiento si ya existe existe lo actualiza,
-             * de lo contrario crea el nuevo registro de cuenta
-             */
-            if ($account['entryAccountId']) {
-                /**
-                 * [$record contiene el registro de cuanta patrimonial asociada al asiento a actualizar]
-                 * @var AccountingEntryAccount
-                 */
-                $record = AccountingEntryAccount::find($account['entryAccountId']);
-                $record->accounting_account_id = $account['id'];
-                $record->debit = $account['debit'];
-                $record->assets = $account['assets'];
-                $record->save();
+            if ($newEntries) {
+                $newEntries->concept= $this->data['concept'];
+                $newEntries->observations = $this->data['observations'];
+                $newEntries->accounting_entry_categories_id = ($this->data['category']!='')?
+                $this->data['category']: null;
+                $newEntries->institution_id = $this->data['institution_id'];
+                $newEntries->currency_id = $this->data['currency_id'];
+                $newEntries->tot_debit = $this->data['totDebit'];
+                $newEntries->tot_assets = $this->data['totAssets'];
             } else {
-                AccountingEntryAccount::create([
-                    'accounting_entry_id' => $newEntries->id,
-                    'accounting_account_id' => $account['id'],
-                    'debit' => $account['debit'],
-                    'assets' => $account['assets'],
+                /**
+                 * Para crear
+                 */
+                $newEntries = AccountingEntry::create([
+                    'from_date'                      => $this->data['date'],
+                    'reference'                      => ($this->data['reference'])??
+                    $this->generateReferenceCodeAvailable(),
+                    'concept'                        => $this->data['concept'],
+                    'observations'                   => $this->data['observations'],
+                    'accounting_entry_categories_id' => ($this->data['category']!='')? $this->data['category']: null,
+                    'institution_id'                 => $this->data['institution_id'],
+                    'currency_id'                    => $this->data['currency_id'],
+                    'tot_debit'                      => $this->data['totDebit'],
+                    'tot_assets'                     => $this->data['totAssets'],
+                    'approved'                     => true,
+                    'created_at'                     => $created_at
                 ]);
+                $newEntries->save();
+            }
+
+            foreach ($this->data['accountingAccounts'] as $account) {
+                /**
+                 * Se actualiza o crea la relación de cuenta a ese asiento si ya existe existe lo actualiza,
+                 * de lo contrario crea el nuevo registro de cuenta
+                 */
+                if ($account['entryAccountId']) {
+                    /**
+                     * [$record contiene el registro de cuanta patrimonial asociada al asiento a actualizar]
+                     * @var AccountingEntryAccount
+                     */
+                    $record = AccountingEntryAccount::find($account['entryAccountId']);
+                    $record->accounting_account_id = $account['id'];
+                    $record->debit = $account['debit'];
+                    $record->assets = $account['assets'];
+                    $record->save();
+                } else {
+                    AccountingEntryAccount::create([
+                        'accounting_entry_id' => $newEntries->id,
+                        'accounting_account_id' => $account['id'],
+                        'debit' => $account['debit'],
+                        'assets' => $account['assets'],
+                    ]);
+                }
             }
         }
     }
