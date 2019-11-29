@@ -16,6 +16,8 @@ use Modules\Payroll\Models\PayrollInstructionDegree;
 use Modules\Payroll\Models\PayrollScaleRequirement;
 use App\Models\Institution;
 
+use Modules\Payroll\Rules\PayrollScaleRequirements;
+
 /**
  * @class PayrollSalaryScaleController
  * @brief Controlador de los escalafones salariales
@@ -68,12 +70,12 @@ class PayrollSalaryScaleController extends Controller
             'code'           => ['required'],
             'name'           => ['required'],
             'institution_id' => ['required'],
-            'payroll_scales' => ['required'],
+            'payroll_scales' => ['required', new PayrollScaleRequirements(
+                $request->group_by_years,
+                $request->group_by_clasification
+            )],
         ]);
-        /**
-         * Crear regla para validar las escalas (payroll_scales)
-         * y los requerimentos de las mismas (payroll_scale_requirements)
-         */
+        
         DB::transaction(function () use ($request) {
             $salaryScale = PayrollSalaryScale::create([
                 'code'                   => $request->input('code'),
@@ -128,7 +130,10 @@ class PayrollSalaryScaleController extends Controller
             'code'           => ['required'],
             'name'           => ['required'],
             'institution_id' => ['required'],
-            'payroll_scales' => ['required'],
+            'payroll_scales' => ['required', new PayrollScaleRequirements(
+                $request->group_by_years,
+                $request->group_by_clasification
+            )],
         ]);
         DB::transaction(function () use ($request, $payrollSalaryScale) {
             $payrollSalaryScale->code                   = $request->input('code');
