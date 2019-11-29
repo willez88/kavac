@@ -85,23 +85,23 @@ class AssetRequestController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'type_id' => 'required',
-            'motive' => 'required',
-            'delivery_date' => 'required',
+            'type_id' => ['required'],
+            'motive' => ['required'],
+            'delivery_date' => ['required'],
 
         ]);
 
         if ($request->type == 2) {
             $this->validate($request, [
-                'ubication'  => 'required',
+                'ubication'  => ['required'],
             ]);
         }
         if ($request->type == 3) {
             $this->validate($request, [
-                'ubication'  => 'required',
-                'agent_name' => 'required',
-                'agent_telf' => 'required',
-                'agent_email' => 'required',
+                'ubication'  => ['required'],
+                'agent_name' => ['required'],
+                'agent_telf' => ['required'],
+                'agent_email' => ['required'],
             ]);
         }
 
@@ -174,22 +174,22 @@ class AssetRequestController extends Controller
         $asset_request = AssetRequest::find($id);
         
         $this->validate($request, [
-            'type_id' => 'required',
-            'motive' => 'required',
-            'delivery_date' => 'required',
+            'type_id' => ['required'],
+            'motive' => ['required'],
+            'delivery_date' => ['required'],
         ]);
 
         if ($request->type == 2) {
             $this->validate($request, [
-                'ubication'  => 'required',
+                'ubication'  => ['required'],
             ]);
         }
         if ($request->type == 3) {
             $this->validate($request, [
-                'ubication'  => 'required',
-                'agent_name' => 'required',
-                'agent_telf' => 'required',
-                'agent_email' => 'required',
+                'ubication'  => ['required'],
+                'agent_name' => ['required'],
+                'agent_telf' => ['required'],
+                'agent_email' => ['required'],
             ]);
         }
 
@@ -365,8 +365,24 @@ class AssetRequestController extends Controller
             'id' => 2,
             'text' => 'PERDIDO'
         ];
-        
-
         return response()->json($this->data);
+    }
+
+    public function getEquipments($id)
+    {
+        $assetRequest = AssetRequest::where('id', $id)->with(
+            ['assetRequestAssets' => function ($query) {
+                $query->with('asset');
+            }]
+        )->first();
+
+        /** Inicia la opción vacia por defecto */
+        $options = [['id' => '', 'text' => 'Seleccione...']];
+        foreach ($assetRequest->assetRequestAssets as $field) {
+            $text = $field->asset->inventory_serial;
+            array_push($options, ['id' => $field->id, 'text' => $text]);
+        }
+
+        return $options;
     }
 }

@@ -4,6 +4,9 @@ namespace Modules\Asset\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Queue\Events\JobProcessed;
+use Illuminate\Queue\Events\JobProcessing;
 
 class AssetServiceProvider extends ServiceProvider
 {
@@ -26,6 +29,30 @@ class AssetServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+
+        /**
+         * Se ejecuta antes de que se procese el trabajo
+         */
+
+        Queue::before(function (JobProcessing $event) {
+            // echo "before";
+            // Acceder al reporte del trabajo y cambiar estatus de
+            // pendiente por ejecutar a en proceso
+        });
+
+        /**
+         * Se ejecuta despues de que se procesa el trabajo
+         */
+        
+        Queue::after(function (JobProcessed $event) {
+            //$data = $event->job->payload;
+            //echo get_class($event->job->getRawBody());
+            //echo 'data' . get_class($data);
+            // echo "after";
+            // Acceder al reporte del trabajo y cambiar estatus de
+            // en proceso a terminado
+            // Lanzar evento descrito en el trabajo (abrir al finalizar o forzar descarga)
+        });
     }
 
     /**
@@ -49,7 +76,8 @@ class AssetServiceProvider extends ServiceProvider
             __DIR__.'/../Config/config.php' => config_path('asset.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', 'asset'
+            __DIR__.'/../Config/config.php',
+            'asset'
         );
     }
 
@@ -66,7 +94,7 @@ class AssetServiceProvider extends ServiceProvider
 
         $this->publishes([
             $sourcePath => $viewPath
-        ],'views');
+        ], 'views');
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
             return $path . '/modules/asset';
@@ -91,7 +119,7 @@ class AssetServiceProvider extends ServiceProvider
 
     /**
      * Register an additional directory of factories.
-     * 
+     *
      * @return void
      */
     public function registerFactories()

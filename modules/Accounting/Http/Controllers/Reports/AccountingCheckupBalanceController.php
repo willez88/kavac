@@ -28,7 +28,6 @@ use Auth;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *                LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AccountingCheckupBalanceController extends Controller
 {
 
@@ -181,6 +180,7 @@ class AccountingCheckupBalanceController extends Controller
                     $this->getConvertions(),
                     $entryAccount['entries']['currency']['id'],
                     (floatval($entryAccount['debit']) - floatval($entryAccount['assets'])),
+                    $entryAccount['entries']['from_date'],
                     ($entryAccount['entries']['currency']['id'] == $this->getCurrencyId())??false
                 );
             }
@@ -400,22 +400,48 @@ class AccountingCheckupBalanceController extends Controller
          */
         foreach ($query as $record) {
             foreach ($record['entryAccount'] as $entryAccount) {
-                if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())) {
-                    $co = $this->calculateExchangeRates(
-                        $this->getConvertions(),
-                        $entryAccount['entries'],
-                        $currency['id']
-                    );
-                    $this->setConvertions($co);
-                }
-                if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())
-                    && $entryAccount['entries']['currency']['id'] != $currency['id']) {
-                    return response()->json([
+                $inRange = false;
+                if ($entryAccount['entries']) {
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())
+                        && $entryAccount['entries']['currency']['id'] != $currency->id) {
+                        $this->setConvertions($this->calculateExchangeRates(
+                            $this->getConvertions(),
+                            $entryAccount['entries'],
+                            $currency['id']
+                        ));
+                    }
+
+                    foreach ($this->getConvertions() as $convertion) {
+                        foreach ($convertion as $convert) {
+                            if ($entryAccount['entries']['from_date'] >= $convert['start_at'] &&
+                                $entryAccount['entries']['from_date'] <= $convert['end_at']) {
+                                $inRange = true;
+                            }
+                        }
+                    }
+
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())
+                        && $entryAccount['entries']['currency']['id'] != $currency['id']) {
+                        return response()->json([
+                            'result'=>false,
+                            'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                        .' ('.$entryAccount['entries']['currency']['name'].')'
+                                        .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                        ', verificar tipos de cambio configurados. Para la fecha de '.
+                                        $entryAccount['entries']['from_date'],
+                        ], 200);
+                    } elseif (!$inRange) {
+                        if ($entryAccount['entries']['currency']['id'] != $currency->id) {
+                            return response()->json([
                                 'result'=>false,
                                 'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                            .' ('.$entryAccount['entries']['currency']['name'].')'
                                             .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                            ', verificar tipos de cambio configurados. '
+                                            ', verificar tipos de cambio configurados. Para la fecha de '.
+                                            $entryAccount['entries']['from_date'],
                             ], 200);
+                        }
+                    }
                 }
             }
         }
@@ -425,7 +451,7 @@ class AccountingCheckupBalanceController extends Controller
         */
         $all = ($all != false)?'true':'';
 
-        $url = 'balanceCheckUp/pdf/'.$initDate.'/'.$endDate.'/'.$all;
+        $url = 'balanceCheckUp/'.$initDate.'/'.$endDate.'/'.$all;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -466,18 +492,15 @@ class AccountingCheckupBalanceController extends Controller
      * [pdf vista en la que se genera el reporte en pdf de balance de comprobación]
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param String $initDate variable con la fecha inicial
-     * @param String $endDate variable con la fecha inicial
-     * @param  Currency $currency moneda en que se expresara el reporte
-     * @param  boolean  $all      si se consultaran todas las cuentas o solo las que tengas actividad
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
 
-        $this->setInitDate(explode('/', $report->url)[2]);
-        $this->setEndDate(explode('/', $report->url)[3]);
-        $all = explode('/', $report->url)[4];
+        $this->setInitDate(explode('/', $report->url)[1]);
+        $this->setEndDate(explode('/', $report->url)[2]);
+        $all = explode('/', $report->url)[3];
         $this->setCurrency($report->currency);
 
         /**
@@ -507,7 +530,6 @@ class AccountingCheckupBalanceController extends Controller
          */
         $accountRecords = $this->getAccAccount($initDate, $endDate, false, $all, $beginningBalance);
 
-
         $initDate = new DateTime($initDate);
         $endDate = new DateTime($endDate);
 
@@ -530,7 +552,7 @@ class AccountingCheckupBalanceController extends Controller
          *  Definicion de las caracteristicas generales de la página pdf
          */
         $institution = Institution::find(1);
-        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/balanceCheckUp/'.$report->id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de Balance de Comprobación');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.checkup_balance', true, [
@@ -549,20 +571,26 @@ class AccountingCheckupBalanceController extends Controller
      * @param  array   $convertions   [lista de tipos cambios para la moneda]
      * @param  integer $entry_id      [identificador del asiento]
      * @param  float   $value         [saldo del asiento]
+     * @param  float   $date         [fecha del asiento]
      * @param  boolean $equalCurrency [bandera que indica si el tipo de moneda en el que esta el asiento es las misma
      *                                que la que se desea expresar]
      * @return float                  [resultdado de la operacion]
      */
-    public function calculateOperation($convertions, $currency_id, $value, $equalCurrency)
+    public function calculateOperation($convertions, $currency_id, $value, $date, $equalCurrency)
     {
         if ($equalCurrency) {
             return $value;
         }
+
         if ($currency_id && array_key_exists($currency_id, $convertions) && $convertions[$currency_id]) {
-            if ($convertions[$currency_id]['operator'] == 'to') {
-                return ($value * $convertions[$currency_id]['amount']);
-            } else {
-                return ($value / $convertions[$currency_id]['amount']);
+            foreach ($convertions[$currency_id] as $convertion) {
+                if ($date >= $convertion['start_at'] && $date <= $convertion['end_at']) {
+                    if ($convertion['operator'] == 'to') {
+                        return ($value * $convertion['amount']);
+                    } else {
+                        return ($value / $convertion['amount']);
+                    }
+                }
             }
         }
         return -1;
@@ -578,33 +606,24 @@ class AccountingCheckupBalanceController extends Controller
      */
     public function calculateExchangeRates($convertions, $entry, $currency_id)
     {
-        $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
-                             ->where('end_at', '>=', $entry['from_date'])
-                             ->where('active', true)
-                             ->where('from_currency_id', $entry['currency']['id'])
-                             ->where('to_currency_id', $currency_id)
-                             ->orderBy('end_at', 'DESC')->first();
-        if (!$exchangeRate) {
-            $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
-                         ->where('end_at', '>=', $entry['from_date'])
-                         ->where('active', true)
-                         ->where('to_currency_id', $entry['currency']['id'])
-                         ->where('from_currency_id', $currency_id)
-                         ->orderBy('end_at', 'DESC')->first();
-            if ($exchangeRate) {
-                if (!array_key_exists($entry['currency']['id'], $convertions)) {
-                    $convertions[$entry['currency']['id']] = [
-                                                'amount'   => $exchangeRate->amount,
-                                                'operator' => 'from'
-                                            ];
-                }
-            }
-        } else {
+        $exchangeRate = ExchangeRate::where('active', true)
+                            ->whereIn('to_currency_id', [$entry['currency']['id'], $currency_id])
+                            ->whereIn('from_currency_id', [$entry['currency']['id'], $currency_id])
+                             ->orderBy('end_at', 'DESC')->get();
+        if (count($exchangeRate) != 0) {
             if (!array_key_exists($entry['currency']['id'], $convertions)) {
-                $convertions[$entry['currency']['id']] = [
-                                                'amount'   => $exchangeRate->amount,
-                                                'operator' => 'to'
-                                            ];
+                $convertions[$entry['currency']['id']] = [];
+                foreach ($exchangeRate as $recordExchangeRate) {
+                    array_push(
+                        $convertions[$entry['currency']['id']],
+                        [
+                            'amount'   => $recordExchangeRate->amount,
+                            'operator' => ($currency_id == $recordExchangeRate->from_currency_id)?'from':'to',
+                            'start_at' => $recordExchangeRate->start_at,
+                            'end_at'   => $recordExchangeRate->end_at
+                        ]
+                    );
+                }
             }
         }
         return $convertions;

@@ -25,7 +25,7 @@ class Profile extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'first_name', 'last_name', 'image_id', 'user_id'
+        'first_name', 'last_name', 'image_id', 'user_id', 'institution_id', 'employee_id'
     ];
 
     /**

@@ -1,0 +1,22 @@
+[
+    {
+        "element" : "#helpStateOfResultsFrom",
+        "intro" : "Esta sección es el formulario para generar el reporte de estado de resultados."
+    },
+    {
+        "element" : "#helpStateOfResultsInitDate",
+        "intro" : "Fecha para la consulta del reporte."
+    },
+    {
+        "element" : "#helpStateOfResultsLevel",
+        "intro" : "Nivel de subcuentas que se mostraran en el reporte."
+    },
+    {
+        "element" : "#helpStateOfResultsCurrency",
+        "intro" : "Permite generar reportes en diferentes monedas. <br><br> Para poder ejecutar este proceso debe ir a <strong><a href='/settings' style='color: #2BA3F7;'>configuración general</a></strong> y dirigirse al formulario (Tipos de cambio), y configurar el tipo de cambio en el que desea generar el reporte, si no ejecuta la configuración el sistema no genera el reporte."
+    },
+    {
+        "element" : "#helpStateOfResultsAllAccount",
+        "intro" : "Establece si se desea mostrar en el reporte las cuentas con saldo cero."
+    }
+]

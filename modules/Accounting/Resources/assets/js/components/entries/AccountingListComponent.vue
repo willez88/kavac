@@ -78,10 +78,10 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<td><h6><strong>CÓDIGO</strong></h6></td>
-										<td><h6><strong>DENOMINACIÓN</strong></h6></td>
-										<td><h6><strong>DEBE</strong></h6></td>
-										<td><h6><strong>HABER</strong></h6></td>
+										<td class="col-xs-1"><h6><strong>CÓDIGO</strong></h6></td>
+										<td class="col-xs-7"><h6><strong>DENOMINACIÓN</strong></h6></td>
+										<td class="col-xs-2"><h6><strong>DEBE</strong></h6></td>
+										<td class="col-xs-2"><h6><strong>HABER</strong></h6></td>
 									</tr>
 								</thead>
 								<tbody>
@@ -102,10 +102,10 @@
 											<h6>{{ record.account.denomination }}</h6>
 										</td>
 										<td>
-											<h6><span>{{ props.row.currency.symbol }}</span> {{ parseFloat(record.debit).toFixed(props.row.currency.decimal_places) }}</h6>
+											<h6>{{ parseFloat(record.debit).toFixed(props.row.currency.decimal_places) }}</h6>
 										</td>
 										<td>
-											<h6><span>{{ props.row.currency.symbol }}</span> {{ parseFloat(record.assets).toFixed(props.row.currency.decimal_places) }}</h6>
+											<h6>{{ parseFloat(record.assets).toFixed(props.row.currency.decimal_places) }}</h6>
 										</td>
 									</tr>
 									<tr>

@@ -11,21 +11,21 @@ Vue.component('accounting-show-errors', require('./components/AccountingErrorsCo
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-setting-code', require('./components/setting/AccountingSettingCodeComponent.vue').default);
+Vue.component('accounting-setting-code', require('./components/settings/AccountingSettingCodeComponent.vue').default);
 
 /**
  * Componente para la configuración de categorias de origen para asientos contables
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-setting-category', require('./components/setting/AccountingSettingCategoryComponent.vue').default);
+Vue.component('accounting-setting-category', require('./components/settings/AccountingSettingCategoryComponent.vue').default);
 
 /**
  * Componente para el CRUD en ventana modal de cuentas patrimoniales
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-setting-account', require('./components/setting/AccountingAccountComponent.vue').default);
+Vue.component('accounting-setting-account', require('./components/settings/AccountingAccountComponent.vue').default);
 
 /**
  * Componente para Listar cuentas patrimoniales
@@ -222,14 +222,16 @@ Vue.mixin({
 			if (!url) {
 				return;
 			}
-			axios.get(url.replace('pdf','pdfVue')).then(response=>{
+			vm.loading = true;
+			axios.get(url.replace('/pdf','/pdfVue')).then(response=>{
 				if (!response.data.result) {
 					vm.showMessage(
                             'custom', 'Error en conversión', 'danger', 'screen-error', response.data.message
                         );
 				}else{
-					url = url.split('pdf')[0];
-					url += 'pdf/'+response.data.id; 
+					url = url.split('/pdf')[0];
+					url += '/'+response.data.id;
+					vm.loading = false;
 					window.open(url, type);
 				}
 			})
@@ -261,6 +263,7 @@ Vue.mixin({
     			callback: function (result) {
 					if (result) {
     					confirmated = true;
+    					vm.loading = true;
 						axios.post(url + '/' + records[index].id).then(response => {
 							if (typeof(response.data.error) !== "undefined") {
 								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
@@ -270,6 +273,7 @@ Vue.mixin({
 							records.splice(index, 1);
 							vm.showMessage('update');
 							vm.reload = true;
+							vm.loading = false;
 						}).catch(error => {});
     				}
     			}

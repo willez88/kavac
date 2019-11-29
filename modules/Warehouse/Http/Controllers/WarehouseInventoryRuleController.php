@@ -68,8 +68,8 @@ class WarehouseInventoryRuleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'minimum' => 'required',
-            'warehouse_inventory_product_id' => 'required',
+            'minimum' => ['required'],
+            'warehouse_inventory_product_id' => ['required'],
         ]);
 
         $rule = WarehouseInventoryRule::create([
@@ -93,7 +93,7 @@ class WarehouseInventoryRuleController extends Controller
     public function update(Request $request, WarehouseInventoryRule $rule)
     {
         $this->validate($request, [
-            'minimum' => 'required',
+            'minimum' => ['required'],
         ]);
         
         $rule->minimum = $request->minimum;

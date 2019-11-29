@@ -69,8 +69,8 @@ class PayrollStudyTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'description' => 'nullable|max:200'
+            'name' => ['required', 'max:100'],
+            'description' => ['nullable', 'max:200']
         ]);
         $payrollStudyType = PayrollStudyType::create(['name' => $request->name,'description' => $request->description]);
         return response()->json(['record' => $payrollStudyType, 'message' => 'Success'], 200);
@@ -106,8 +106,8 @@ class PayrollStudyTypeController extends Controller
     {
         $payrollStudyType = PayrollStudyType::find($id);
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'description' => 'nullable|max:200'
+            'name' => ['required', 'max:100'],
+            'description' => ['nullable', 'max:200']
         ]);
         $payrollStudyType->name  = $request->name;
         $payrollStudyType->description = $request->description;

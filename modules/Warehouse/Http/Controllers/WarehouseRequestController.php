@@ -75,10 +75,10 @@ class WarehouseRequestController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'warehouse_products.*' => 'required',
-            'budget_specific_action_id' => 'required',
-            'department_id' => 'required',
-            'motive' => 'required'
+            'warehouse_products.*' => ['required'],
+            'budget_specific_action_id' => ['required'],
+            'department_id' => ['required'],
+            'motive' => ['required']
 
         ]);
 
@@ -177,10 +177,10 @@ class WarehouseRequestController extends Controller
     {
         $warehouse_request = WarehouseRequest::find($id);
         $this->validate($request, [
-            'warehouse_products.*' => 'required',
-            'budget_specific_action_id' => 'required',
-            'department_id' => 'required',
-            'motive' => 'required'
+            'warehouse_products.*' => ['required'],
+            'budget_specific_action_id' => ['required'],
+            'department_id' => ['required'],
+            'motive' => ['required']
 
         ]);
             

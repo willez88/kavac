@@ -1,0 +1,22 @@
+[
+    {
+        "element" : "#helpCheckupBalanceFrom",
+        "intro" : "Esta sección es el formulario para generar el reporte de balance de comprobación."
+    },
+    {
+        "element" : "#helpCheckupBalanceInitDate",
+        "intro" : "Parametro de fecha inicial que abarcara el reporte."
+    },
+    {
+        "element" : "#helpCheckupBalanceEndDate",
+        "intro" : "Parametro de fecha final que abarcara el reporte."
+    },
+    {
+        "element" : "#helpCheckupBalanceCurrency",
+        "intro" : "Permite generar reportes en diferentes monedas. <br><br> Para poder ejecutar este proceso debe ir a <strong><a href='/settings' style='color: #2BA3F7;'>configuración general</a></strong> y dirigirse al formulario (Tipos de cambio), y configurar el tipo de cambio en el que desea generar el reporte, si no ejecuta la configuración el sistema no genera el reporte."
+    },
+    {
+        "element" : "#helpCheckupBalanceAllAccount",
+        "intro" : "Establece si se desea mostrar en el reporte las cuentas con saldo cero."
+    }
+]

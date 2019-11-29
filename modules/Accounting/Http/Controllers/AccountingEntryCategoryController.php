@@ -10,6 +10,17 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingEntryCategory;
 use Auth;
 
+/**
+ * @class AccountingEntryCategoryController
+ * @brief Controlador para la gestion de las categorias de asientos contables
+ *
+ * Clase que gestiona las categorias de asientos contables
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class AccountingEntryCategoryController extends Controller
 {
     use ValidatesRequests;
@@ -42,16 +53,21 @@ class AccountingEntryCategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|string',
-            'acronym' => 'required|string',
+            'name' => ['required', 'string'],
+            'acronym' => ['required', 'string'],
         ]);
-        /** @var object Objeto para almacenar la información para el nuevo registro */
+
+        /**
+         * almacenar la información para el nuevo registro
+         */
         AccountingEntryCategory::create([
                                         'name' => $request->name,
                                         'acronym' => $request->acronym,
                                     ]);
 
-        return response()->json(['records'=>AccountingEntryCategory::orderBy('name')->get(), 'message'=>'Success'], 200);
+        return response()->json([
+            'records'=>AccountingEntryCategory::orderBy('name')->get(), 'message'=>'Success'
+        ], 200);
     }
 
     /**
@@ -65,16 +81,21 @@ class AccountingEntryCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|string',
-            'acronym' => 'required|string',
+            'name' => ['required', 'string'],
+            'acronym' => ['required', 'string'],
         ]);
-        /** @var Object Objeto que contine el registro de conversión a editar */
+        /**
+         * [$record contine el registro de conversión a editar]
+         * @var AccountingEntryCategory
+         */
         $record = AccountingEntryCategory::find($id);
         $record->name = $request['name'];
         $record->acronym = $request['acronym'];
         $record->save() ;
 
-        return response()->json(['records'=>AccountingEntryCategory::orderBy('name')->get(), 'message'=>'Success'], 200);
+        return response()->json([
+            'records'=>AccountingEntryCategory::orderBy('name')->get(), 'message'=>'Success'
+        ], 200);
     }
 
     /**
@@ -92,7 +113,10 @@ class AccountingEntryCategoryController extends Controller
              * validar si no esta relacionada con algun asiento es permitido eliminarla
              */
             if (count($category->accountingEntries) > 0) {
-                return response()->json(['error' => true, 'message' => 'El registro no se puede eliminar, debido a que existen asientos relacionados.'], 200);
+                return response()->json([
+                    'error' => true,
+                    'message' => 'El registro no se puede eliminar, debido a que existen asientos relacionados.'
+                ], 200);
             }
             $category->delete();
         }

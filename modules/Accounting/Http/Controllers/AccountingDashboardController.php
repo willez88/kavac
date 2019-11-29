@@ -15,7 +15,7 @@ use Modules\Accounting\Models\Currency;
  * @class AccountingAccountConverterController
  * @brief Controlador para el manejo del dashboard
  *
- * Clase que gestiona la conversión entre cuentas presupuestales y patrimoniales
+ * Clase que gestiona la informacion del dashboard de contabilidad
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
@@ -31,7 +31,9 @@ class AccountingDashboardController extends Controller
      */
     public function __construct()
     {
-        /** Establece permisos de acceso para cada método del controlador */
+        /**
+         * Establece permisos de acceso para cada método del controlador
+         */
         $this->middleware(
             'permission:accounting.dashboard',
             ['only' => ['index', 'get_operations', 'get_report_histories']]

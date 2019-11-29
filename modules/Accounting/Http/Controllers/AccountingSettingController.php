@@ -9,17 +9,19 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingEntry;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
+use Modules\Accounting\Models\Institution;
 use Auth;
 use Session;
 
 /**
  * @class AccountingConfigurationCategoryController
- * @brief Controlador de categorias de origen para sientos contables
+ * @brief Controlador de las configuracion de codigo del modulo
  *
- * Clase que gestiona las categorias para asientos contables
+ * Clase que gestiona las configuracion de codigo del modulo
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL</a>
  */
 class AccountingSettingController extends Controller
 {
@@ -37,22 +39,40 @@ class AccountingSettingController extends Controller
     }
 
     /**
+     * [getInstitution obtiene la informacion de una institución]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  int|null $id [identificador unico de la institución]
+     * @return Institution     [informacion de la institución]
+     */
+    public function getInstitution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
+    }
+
+    /**
      * Muestra la vista la configuración del modulo
      * @return view
      */
     public function index()
     {
+        $institution = $this->getInstitution();
         $codeSettings = CodeSetting::where('module', 'accounting')->get();
-        $refCode = $codeSettings->where('table', 'accounting_entries')->first();
-        return view('accounting::setting.index', compact('refCode'));
+        $refCode = $codeSettings->where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
+                                ->first();
+        return view('accounting::settings.index', compact('refCode'));
     }
 
-    public function code_store(Request $request)
+    public function codeStore(Request $request)
     {
         /** Reglas de validación para la configuración de códigos */
         $this->validate($request, [
             'entries_reference' => [new CodeSettingRule]
         ]);
+
+        $institution = $this->getInstitution();
 
         /** @var array Arreglo con información de los campos de códigos configurados */
         $codes = $request->input();
@@ -74,7 +94,7 @@ class AccountingSettingController extends Controller
                 $model = AccountingEntry::class;
                 CodeSetting::updateOrCreate([
                     'module' => 'accounting',
-                    'table' => 'accounting_'. $table,
+                    'table' => $institution->id.'_'.$institution->acronym.'_accounting_'. $table,
                     'field' => $field,
                 ], [
                     'format_prefix' => $prefix,
@@ -95,23 +115,27 @@ class AccountingSettingController extends Controller
         return redirect()->back();
     }
 
-    public function generate_reference_code(Request $request)
+    public function generateReferenceCode(Request $request)
     {
-        $codeSetting = CodeSetting::where('table', 'accounting_entries')->first();
+        $institution = $this->getInstitution();
+        $codeSetting = CodeSetting::where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
+        ->first();
         if (is_null($codeSetting)) {
+            $code = AccountingEntry::count();
             $request->session()->flash('message', [
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
-                'text' => 'Debe configurar previamente el formato para el código, para poder generar asientos.'
+                'text' => 'Se debe configurar previamente el formato para el código de referencia del asiento. 
+                            De lo contrario el sistema les asignara números de forma progresiva'
                 ]);
-            return response()->json(['result' => true, 'redirect' => route('accounting.settings.index')], 200);
+        } else {
+            $code  = generate_registration_code(
+                $codeSetting->format_prefix,
+                strlen($codeSetting->format_digits),
+                (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+                AccountingEntry::class,
+                $codeSetting->field
+            );
         }
-        $code  = generate_registration_code(
-            $codeSetting->format_prefix,
-            strlen($codeSetting->format_digits),
-            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
-            AccountingEntry::class,
-            $codeSetting->field
-        );
 
         return response()->json(['code'=>$code], 200);
     }

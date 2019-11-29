@@ -1,0 +1,46 @@
+[
+    {
+        "element" : "#helpEntriesForm",
+        "intro" : "Formulario de información de asiento contable."
+    },
+    {
+        "element" : "#helpEntriesDate",
+        "intro" : "Parametro utilizado para establecer la fecha del asiento contable."
+    },
+    {
+        "element" : "#helpEntriesDescription",
+        "intro" : "Parametro en el cual se da una breve descripción ó concepto por el cual se genera el asiento contable."
+    },
+    {
+        "element" : "#helpEntriesObservation",
+        "intro" : "Parametro en el cual se da una observación con respecto al asiento contable."
+    },
+    {
+        "element" : "#helpEntriesCategory",
+        "intro" : "Parametro utilizado para indicar la categoria del asiento contable."
+    },
+    {
+        "element" : "#helpEntriesInstitution",
+        "intro" : "Parametro que establece la institución que genera el asiento contable."
+    },
+    {
+        "element" : "#helpEntriesCurrency",
+        "intro" : "Parametro que establece la moneda en la cual se expresa el asiento contable."
+    },
+    {
+        "element" : "#helpEntriesReference",
+        "intro" : "Parametro utilizado para establecer el código único de referencia para el asiento contable. <br> <br> Este código es generado de forma automatica por el sistema al guardar el asiento. El formato se establece en las configuraciones del modulo. De no estar configurado previamente el sistema asignara un número de manera sucesiva."
+    },
+    {
+        "element" : "#helpEntriesAccountSelect",
+        "intro" : "Cuenta patrimonial que se agregara al asiento contable."
+    },
+    {
+        "element" : "#helpEntriesTotDebit",
+        "intro" : "Monto por el debe del asiento contable."
+    },
+    {
+        "element" : "#helpEntriesTotAssets",
+        "intro" : "Monto por el haber del asiento contable."
+    }
+]

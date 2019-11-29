@@ -3,7 +3,6 @@
 namespace Modules\Accounting\Http\Controllers\Reports;
 
 use DateTime;
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -18,6 +17,7 @@ use Modules\Accounting\Pdf\Pdf;
 
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
+use Auth;
 
 /**
  * @class AccountingReportPdfAnalyticalMajorController
@@ -108,7 +108,7 @@ class AccountingAnalyticalMajorController extends Controller
         $arrAccounts = [];
 
         /**
-        Se formatean los datos de las cuentas
+        * Se formatean los datos de las cuentas
         */
         array_push($arrAccounts, [
                 'id' => 0,
@@ -135,10 +135,10 @@ class AccountingAnalyticalMajorController extends Controller
     public function getAccAccount(Request $request)
     {
         $this->validate($request, [
-            'initMonth' => 'required',
-            'initYear' => 'required',
-            'endMonth' => 'required',
-            'endYear' => 'required',
+            'initMonth' => ['required'],
+            'initYear' => ['required'],
+            'endMonth' => ['required'],
+            'endYear' => ['required'],
         ]);
 
         return response()->json(['records' => $this->filterAccounts(
@@ -163,7 +163,6 @@ class AccountingAnalyticalMajorController extends Controller
     {
         $initDate = $initDate.'-01';
 
-        /** @var Object string en que se almacena el ultimo dia correspondiente al mes */
         /**
          * [$endDay ultimo dia correspondiente al mes]
          * @var [date]
@@ -210,21 +209,41 @@ class AccountingAnalyticalMajorController extends Controller
          * Se recorre y evalua la relacion en las conversiones necesarias a realizar
          */
         foreach ($query as $record) {
+            /**
+             * [$inRange indica si la fecha del asiento esta en el rango de alguna conversion]
+             * @var boolean
+             */
+            $cont = 0;
             foreach ($record['entryAccount'] as $entryAccount) {
-                if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
-                    $convertions = $this->calculateExchangeRates(
-                        $convertions,
-                        $entryAccount['entries'],
-                        $currency['id']
-                    );
+                $inRange = false;
+                if ($entryAccount['entries']) {
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions) &&
+                        $entryAccount['entries']['currency']['id'] != $currency->id) {
+                        $convertions = $this->calculateExchangeRates(
+                            $convertions,
+                            $entryAccount['entries'],
+                            $currency['id']
+                        );
+                    }
 
-                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
-                        && $entryAccount['entries']['currency']['id'] != $currency['id']) {
+                    foreach ($convertions as $convertion) {
+                        foreach ($convertion as $convert) {
+                            if ($entryAccount['entries']['from_date'] >= $convert['start_at'] &&
+                                $entryAccount['entries']['from_date'] <= $convert['end_at']) {
+                                $inRange = true;
+                            }
+                        }
+                    }
+
+                    if (!$inRange || (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
+                                    && $entryAccount['entries']['currency']['id'] != $currency['id'])) {
                         return response()->json([
                                     'result'=>false,
                                     'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                                .' ('.$entryAccount['entries']['currency']['name'].')'
                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados. '
+                                                ', verificar tipos de cambio configurados. Para la fecha de '.
+                                                $entryAccount['entries']['from_date'],
                                 ], 200);
                     }
                 }
@@ -235,7 +254,7 @@ class AccountingAnalyticalMajorController extends Controller
          * [$url link para consultar ese regporte]
          * @var string
          */
-        $url = 'analyticalMajor/pdf/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc;
+        $url = 'analyticalMajor/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -275,15 +294,15 @@ class AccountingAnalyticalMajorController extends Controller
      * [pdf vista en la que se genera el reporte en pdf]
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  integer $id [id de reporte y su informacion]
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
-        $initDate = explode('/', $report->url)[2];
-        $endDate  = explode('/', $report->url)[3];
-        $initAcc = explode('/', $report->url)[4];
-        $endAcc  = explode('/', $report->url)[5];
+        $initDate = explode('/', $report->url)[1];
+        $endDate  = explode('/', $report->url)[2];
+        $initAcc = explode('/', $report->url)[3];
+        $endAcc  = explode('/', $report->url)[4];
 
         $currency = $report->currency;
 
@@ -327,45 +346,49 @@ class AccountingAnalyticalMajorController extends Controller
                         'entryAccount' => [],
                     ];
             foreach ($record['entryAccount'] as $entryAccount) {
-                $from_date = explode('-', $entryAccount['entries']['from_date'])[2].'/'.
-                             explode('-', $entryAccount['entries']['from_date'])[1].'/'.
-                             explode('-', $entryAccount['entries']['from_date'])[0];
+                if ($entryAccount['entries']) {
+                    $from_date = explode('-', $entryAccount['entries']['from_date'])[2].'/'.
+                                 explode('-', $entryAccount['entries']['from_date'])[1].'/'.
+                                 explode('-', $entryAccount['entries']['from_date'])[0];
 
-                $r = [
-                        'debit'      => '0',
-                        'assets'     => '0',
-                        'entries'    => [
-                            'reference'  => $entryAccount['entries']['reference'],
-                            'concept'    => $entryAccount['entries']['concept'],
-                            'created_at' => $from_date,
-                        ],
-                    ];
+                    $r = [
+                            'debit'      => '0',
+                            'assets'     => '0',
+                            'entries'    => [
+                                'reference'  => $entryAccount['entries']['reference'],
+                                'concept'    => $entryAccount['entries']['concept'],
+                                'created_at' => $from_date,
+                            ],
+                        ];
 
-                if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
-                    $convertions = $this->calculateExchangeRates(
-                        $convertions,
-                        $entryAccount['entries'],
-                        $currency['id']
-                    );
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
+                        $convertions = $this->calculateExchangeRates(
+                            $convertions,
+                            $entryAccount['entries'],
+                            $currency['id']
+                        );
+                    }
+
+                    $r['debit'] = ($entryAccount['debit'] != 0)?
+                                    $this->calculateOperation(
+                                        $convertions,
+                                        $entryAccount['entries']['currency']['id'],
+                                        $entryAccount['debit'],
+                                        $entryAccount['entries']['from_date'],
+                                        ($entryAccount['entries']['currency']['id'] == $currency['id'])??false
+                                    ):0;
+
+                    $r['assets'] = ($entryAccount['assets'] != 0)?
+                                    $this->calculateOperation(
+                                        $convertions,
+                                        $entryAccount['entries']['currency']['id'],
+                                        $entryAccount['assets'],
+                                        $entryAccount['entries']['from_date'],
+                                        ($entryAccount['entries']['currency']['id'] == $currency['id'])??false
+                                    ):0;
+
+                    array_push($acc['entryAccount'], $r);
                 }
-
-                $r['debit'] = ($entryAccount['debit'] != 0)?
-                                $this->calculateOperation(
-                                    $convertions,
-                                    $entryAccount['entries']['currency']['id'],
-                                    $entryAccount['debit'],
-                                    ($entryAccount['entries']['currency']['id'] != $currency['id'])??true
-                                ):0;
-
-                $r['assets'] = ($entryAccount['assets'] != 0)?
-                                $this->calculateOperation(
-                                    $convertions,
-                                    $entryAccount['entries']['currency']['id'],
-                                    $entryAccount['assets'],
-                                    ($entryAccount['entries']['currency']['id'] != $currency['id'])??true
-                                ):0;
-
-                array_push($acc['entryAccount'], $r);
             }
             array_push($records, $acc);
         }
@@ -392,7 +415,7 @@ class AccountingAnalyticalMajorController extends Controller
          *  Definicion de las caracteristicas generales de la página pdf
          */
         $institution = Institution::find(1);
-        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/analyticalMajor/'.$report->id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de mayor analítico');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.analytical_major', true, [
@@ -410,20 +433,26 @@ class AccountingAnalyticalMajorController extends Controller
      * @param  array   $convertions   [lista de tipos cambios para la moneda]
      * @param  integer $entry_id      [identificador del asiento]
      * @param  float   $value         [saldo del asiento]
+     * @param  float   $date         [fecha del asiento]
      * @param  boolean $equalCurrency [bandera que indica si el tipo de moneda en el que esta el asiento es las misma
      *                                que la que se desea expresar]
      * @return float                  [resultdado de la operacion]
      */
-    public function calculateOperation($convertions, $currency_id, $value, $equalCurrency)
+    public function calculateOperation($convertions, $currency_id, $value, $date, $equalCurrency)
     {
-        if (!$equalCurrency) {
+        if ($equalCurrency) {
             return $value;
         }
+
         if ($currency_id && array_key_exists($currency_id, $convertions) && $convertions[$currency_id]) {
-            if ($convertions[$currency_id]['operator'] == 'to') {
-                return ($value * $convertions[$currency_id]['amount']);
-            } else {
-                return ($value / $convertions[$currency_id]['amount']);
+            foreach ($convertions[$currency_id] as $convertion) {
+                if ($date >= $convertion['start_at'] && $date <= $convertion['end_at']) {
+                    if ($convertion['operator'] == 'to') {
+                        return ($value * $convertion['amount']);
+                    } else {
+                        return ($value / $convertion['amount']);
+                    }
+                }
             }
         }
         return -1;
@@ -439,33 +468,24 @@ class AccountingAnalyticalMajorController extends Controller
      */
     public function calculateExchangeRates($convertions, $entry, $currency_id)
     {
-        $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
-                             ->where('end_at', '>=', $entry['from_date'])
-                             ->where('active', true)
-                             ->where('from_currency_id', $entry['currency']['id'])
-                             ->where('to_currency_id', $currency_id)
-                             ->orderBy('end_at', 'DESC')->first();
-        if (!$exchangeRate) {
-            $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
-                         ->where('end_at', '>=', $entry['from_date'])
-                         ->where('active', true)
-                         ->where('to_currency_id', $entry['currency']['id'])
-                         ->where('from_currency_id', $currency_id)
-                         ->orderBy('end_at', 'DESC')->first();
-            if ($exchangeRate) {
-                if (!array_key_exists($entry['currency']['id'], $convertions)) {
-                    $convertions[$entry['currency']['id']] = [
-                                                'amount'   => $exchangeRate->amount,
-                                                'operator' => 'from'
-                                            ];
-                }
-            }
-        } else {
+        $exchangeRate = ExchangeRate::where('active', true)
+                            ->whereIn('to_currency_id', [$entry['currency']['id'], $currency_id])
+                            ->whereIn('from_currency_id', [$entry['currency']['id'], $currency_id])
+                             ->orderBy('end_at', 'DESC')->get();
+        if (count($exchangeRate) != 0) {
             if (!array_key_exists($entry['currency']['id'], $convertions)) {
-                $convertions[$entry['currency']['id']] = [
-                                                'amount'   => $exchangeRate->amount,
-                                                'operator' => 'to'
-                                            ];
+                $convertions[$entry['currency']['id']] = [];
+                foreach ($exchangeRate as $recordExchangeRate) {
+                    array_push(
+                        $convertions[$entry['currency']['id']],
+                        [
+                            'amount'   => $recordExchangeRate->amount,
+                            'operator' => ($currency_id == $recordExchangeRate->from_currency_id)?'from':'to',
+                            'start_at' => $recordExchangeRate->start_at,
+                            'end_at'   => $recordExchangeRate->end_at
+                        ]
+                    );
+                }
             }
         }
         return $convertions;

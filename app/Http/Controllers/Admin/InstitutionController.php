@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\UploadImageRepository;
 use App\Models\Institution;
 use App\Models\Setting;
+use App\Rules\Rif as RifRule;
 
 /**
  * @class InstitutionController
@@ -67,37 +67,26 @@ class InstitutionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, UploadImageRepository $up)
+    public function store(Request $request)
     {
         $this->validate($request, [
-            'onapre_code' => 'required|max:20',
-            'rif' => 'required|max:10',
-            'acronym' => 'required|max:100',
-            'name' => 'required|max:100',
-            'business_name' => 'required|max:100',
-            'start_operations_date' => 'required|date',
-            'legal_address' => 'required',
-            'postal_code' => 'required|max:10',
-            'institution_sector_id' => 'required',
-            'institution_type_id' => 'required',
-            'municipality_id' => 'required',
-            'city_id' => 'required'
+            'onapre_code' => ['required', 'max:20'],
+            'rif' => ['required', 'size:10', new RifRule],
+            'acronym' => ['required', 'max:100'],
+            'name' => ['required', 'max:100'],
+            'business_name' => ['required', 'max:100'],
+            'start_operations_date' => ['required', 'date'],
+            'legal_address' => ['required'],
+            'postal_code' => ['required', 'max:10'],
+            'institution_sector_id' => ['required'],
+            'institution_type_id' => ['required'],
+            'municipality_id' => ['required'],
+            'city_id' => ['required']
         ]);
 
         // AGREGAR VALIDACIÓN DE MULTIPLES INSTITUCIONES CUANDO SE DEFINEN COMO TRUE EN
         // LA CONFIGURACION DE PARAMETROS
 
-        /*$logo = $banner = null;
-        if ($request->file('logo_id')) {
-            if ($up->uploadImage($request->file('logo_id'), 'pictures')) {
-                $logo = $up->getImageStored()->id;
-            }
-        }
-        if ($request->file('banner_id')) {
-            if ($up->uploadImage($request->file('banner_id'), 'pictures')) {
-                $banner = $up->getImageStored()->id;
-            }
-        }*/
         $logo = (!empty($request->logo_id)) ? $request->logo_id : null;
         $banner = (!empty($request->banner_id)) ? $request->banner_id : null;
 

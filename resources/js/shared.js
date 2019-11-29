@@ -105,3 +105,10 @@ Vue.component('required-documents', require('./components/RequiredDocumentsCompo
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('roles-permissions', require('./components/RolesAndPermissionsComponent.vue').default);
+
+/**
+ * Componente para la gestión de usuarios del sistema
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('users', require('./components/UsersComponent.vue').default);

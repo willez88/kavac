@@ -134,21 +134,47 @@ class AccountingBalanceSheetController extends Controller
          */
         foreach ($query as $record) {
             foreach ($record['entryAccount'] as $entryAccount) {
-                if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
-                    $convertions = $this->calculateExchangeRates(
-                        $convertions,
-                        $entryAccount['entries'],
-                        $currency->id
-                    );
-
+                $inRange = false;
+                if ($entryAccount['entries']) {
                     if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
                         && $entryAccount['entries']['currency']['id'] != $currency->id) {
+                        $convertions = $this->calculateExchangeRates(
+                            $convertions,
+                            $entryAccount['entries'],
+                            $currency->id
+                        );
+                    }
+                    
+                    foreach ($convertions as $convertion) {
+                        foreach ($convertion as $convert) {
+                            if ($entryAccount['entries']['from_date'] >= $convert['start_at'] &&
+                                $entryAccount['entries']['from_date'] <= $convert['end_at']) {
+                                $inRange = true;
+                            }
+                        }
+                    }
+
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
+                            && $entryAccount['entries']['currency']['id'] != $currency->id) {
                         return response()->json([
-                                    'result'=>false,
-                                    'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
-                                                .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados. '
-                                ], 200);
+                            'result'=>false,
+                            'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                        .' ('.$entryAccount['entries']['currency']['name'].')'
+                                        .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                        ', verificar tipos de cambio configurados. Para la fecha de '.
+                                        $entryAccount['entries']['from_date'],
+                        ], 200);
+                    } elseif (!$inRange) {
+                        if ($entryAccount['entries']['currency']['id'] != $currency->id) {
+                            return response()->json([
+                                'result'=>false,
+                                'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                            .' ('.$entryAccount['entries']['currency']['name'].')'
+                                            .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                            ', verificar tipos de cambio configurados. Para la fecha de '.
+                                            $entryAccount['entries']['from_date'],
+                            ], 200);
+                        }
                     }
                 }
             }
@@ -157,7 +183,7 @@ class AccountingBalanceSheetController extends Controller
          * [$url link para el reporte]
          * @var string
          */
-        $url = 'balanceSheet/pdf/'.$endDate.'/'.$level.'/'.$zero;
+        $url = 'BalanceSheet/'.$endDate.'/'.$level.'/'.$zero;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -195,51 +221,48 @@ class AccountingBalanceSheetController extends Controller
     /**
      * [pdf genera el reporte en pdf de balance general]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  string   $date     [fecha]
-     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
-     * @param  Currency $currency [moneda en que se expresara el reporte]
-     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
-        $endDate = explode('/', $report->url)[2];
-        $level = explode('/', $report->url)[3];
-        $zero = explode('/', $report->url)[4];
+        $endDate = explode('/', $report->url)[1];
+        $level = explode('/', $report->url)[2];
+        $zero = explode('/', $report->url)[3];
         $this->setCurrency($report->currency);
 
         /**
-         * [$level_1 consulta de ralación que se desean realizar]
+         * [$level_1 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_1 = 'entryAccount.entries';
 
         /**
-         * [$level_2 consulta de ralación que se desean realizar]
+         * [$level_2 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_2 = 'children.entryAccount.entries';
 
         /**
-         * [$level_3 consulta de ralación que se desean realizar]
+         * [$level_3 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_3 = 'children.children.entryAccount.entries';
 
         /**
-         * [$level_4 consulta de ralación que se desean realizar]
+         * [$level_4 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_4 = 'children.children.children.entryAccount.entries';
 
         /**
-         * [$level_5 consulta de ralación que se desean realizar]
+         * [$level_5 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_5 = 'children.children.children.children.entryAccount.entries';
 
         /**
-         * [$level_6 consulta de ralación que se desean realizar]
+         * [$level_6 establece la consulta de ralación que se desean realizar]
          * @var string
          */
         $level_6 = 'children.children.children.children.children.entryAccount.entries';
@@ -298,7 +321,7 @@ class AccountingBalanceSheetController extends Controller
          *  Definicion de las caracteristicas generales de la página pdf
          */
         $institution = Institution::find(1);
-        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/balanceSheet/'.$report->id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de Balance General');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.balance_sheet', true, [
@@ -406,6 +429,7 @@ class AccountingBalanceSheetController extends Controller
                                 $this->getConvertions(),
                                 $entryAccount['entries']['currency']['id'],
                                 $entryAccount['debit'],
+                                $entryAccount['entries']['from_date'],
                                 ($entryAccount['entries']['currency']['id'] == $this->getCurrencyId())??false
                             ):0;
 
@@ -414,6 +438,7 @@ class AccountingBalanceSheetController extends Controller
                                 $this->getConvertions(),
                                 $entryAccount['entries']['currency']['id'],
                                 $entryAccount['assets'],
+                                $entryAccount['entries']['from_date'],
                                 ($entryAccount['entries']['currency']['id'] == $this->getCurrencyId())??false
                             ):0;
             }
@@ -437,20 +462,26 @@ class AccountingBalanceSheetController extends Controller
      * @param  array   $convertions   [lista de tipos cambios para la moneda]
      * @param  integer $entry_id      [identificador del asiento]
      * @param  float   $value         [saldo del asiento]
+     * @param  float   $date         [fecha del asiento]
      * @param  boolean $equalCurrency [bandera que indica si el tipo de moneda en el que esta el asiento es las misma
      *                                que la que se desea expresar]
      * @return float                  [resultdado de la operacion]
      */
-    public function calculateOperation($convertions, $currency_id, $value, $equalCurrency)
+    public function calculateOperation($convertions, $currency_id, $value, $date, $equalCurrency)
     {
         if ($equalCurrency) {
             return $value;
         }
+
         if ($currency_id && array_key_exists($currency_id, $convertions) && $convertions[$currency_id]) {
-            if ($convertions[$currency_id]['operator'] == 'to') {
-                return ($value * $convertions[$currency_id]['amount']);
-            } else {
-                return ($value / $convertions[$currency_id]['amount']);
+            foreach ($convertions[$currency_id] as $convertion) {
+                if ($date >= $convertion['start_at'] && $date <= $convertion['end_at']) {
+                    if ($convertion['operator'] == 'to') {
+                        return ($value * $convertion['amount']);
+                    } else {
+                        return ($value / $convertion['amount']);
+                    }
+                }
             }
         }
         return -1;
@@ -466,33 +497,24 @@ class AccountingBalanceSheetController extends Controller
      */
     public function calculateExchangeRates($convertions, $entry, $currency_id)
     {
-        $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
-                             ->where('end_at', '>=', $entry['from_date'])
-                             ->where('active', true)
-                             ->where('from_currency_id', $entry['currency']['id'])
-                             ->where('to_currency_id', $currency_id)
-                             ->orderBy('end_at', 'DESC')->first();
-        if (!$exchangeRate) {
-            $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
-                         ->where('end_at', '>=', $entry['from_date'])
-                         ->where('active', true)
-                         ->where('to_currency_id', $entry['currency']['id'])
-                         ->where('from_currency_id', $currency_id)
-                         ->orderBy('end_at', 'DESC')->first();
-            if ($exchangeRate) {
-                if (!array_key_exists($entry['currency']['id'], $convertions)) {
-                    $convertions[$entry['currency']['id']] = [
-                                                'amount'   => $exchangeRate->amount,
-                                                'operator' => 'from'
-                                            ];
-                }
-            }
-        } else {
+        $exchangeRate = ExchangeRate::where('active', true)
+                            ->whereIn('to_currency_id', [$entry['currency']['id'], $currency_id])
+                            ->whereIn('from_currency_id', [$entry['currency']['id'], $currency_id])
+                             ->orderBy('end_at', 'DESC')->get();
+        if (count($exchangeRate) != 0) {
             if (!array_key_exists($entry['currency']['id'], $convertions)) {
-                $convertions[$entry['currency']['id']] = [
-                                                'amount'   => $exchangeRate->amount,
-                                                'operator' => 'to'
-                                            ];
+                $convertions[$entry['currency']['id']] = [];
+                foreach ($exchangeRate as $recordExchangeRate) {
+                    array_push(
+                        $convertions[$entry['currency']['id']],
+                        [
+                            'amount'   => $recordExchangeRate->amount,
+                            'operator' => ($currency_id == $recordExchangeRate->from_currency_id)?'from':'to',
+                            'start_at' => $recordExchangeRate->start_at,
+                            'end_at'   => $recordExchangeRate->end_at
+                        ]
+                    );
+                }
             }
         }
         return $convertions;

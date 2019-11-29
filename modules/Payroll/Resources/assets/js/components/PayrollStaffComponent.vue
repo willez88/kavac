@@ -253,6 +253,7 @@
 				payroll_nationalities: [],
 				payroll_genders: [],
                 countries: [],
+				setEstate: '',
                 estates: [],
                 municipalities: [],
                 parishes: [],
@@ -269,13 +270,10 @@
 			},
 
 			getStaff() {
-				axios.get('/payroll/staffs/' + this.payroll_staff_id).then(response => {
-					this.record = response.data.record;
-					// Para actualizar los datos (no se porque los selects no se cargan)
-					$('#country_id').val(this.record.parish.municipality.estate.country_id).change();
-					$('#estate_id').val(this.record.parish.municipality.estate_id).change();
-					$('#municipality_id').val(this.record.parish.municipality_id).change();
-					$('#parish_id').val(this.record.parish_id).change();
+				let vm = this;
+				axios.get(`/payroll/staffs/${vm.payroll_staff_id}`).then(response => {
+					vm.record = response.data.record;
+					vm.record.country_id = response.data.record.parish.municipality.estate.country.id;
 				});
 			},
 		},

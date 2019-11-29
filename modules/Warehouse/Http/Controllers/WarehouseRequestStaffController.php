@@ -64,10 +64,10 @@ class WarehouseRequestStaffController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'warehouse_products.*' => 'required',
-            'department_id' => 'required',
-            'payroll_staff_id' => 'required',
-            'motive' => 'required'
+            'warehouse_products.*' => ['required'],
+            'department_id' => ['required'],
+            'payroll_staff_id' => ['required'],
+            'motive' => ['required']
 
         ]);
 
@@ -166,10 +166,10 @@ class WarehouseRequestStaffController extends Controller
     {
         $warehouse_request = WarehouseRequest::find($id);
         $this->validate($request, [
-            'warehouse_products.*' => 'required',
-            'department_id' => 'required',
-            'payroll_staff_id' => 'required',
-            'motive' => 'required'
+            'warehouse_products.*' => ['required'],
+            'department_id' => ['required'],
+            'payroll_staff_id' => ['required'],
+            'motive' => ['required']
 
         ]);
             

@@ -11,7 +11,18 @@ use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use App\Repositories\ReportRepository;
 use App\Models\Institution;
+use Auth;
 
+/**
+ * @class AccountingReportPdfCheckupBalanceController
+ * @brief Controlador para la generación del reporte del asiento contable
+ *
+ * Clase que gestiona de la generación del reporte del asiento contable
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class AccountingEntryController extends Controller
 {
     /**
@@ -58,7 +69,7 @@ class AccountingEntryController extends Controller
          *  Definicion de las caracteristicas generales de la página pdf
          */
         $institution = Institution::find(1);
-        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url(' entries/pdf/'.$id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de asiento contable');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.entry_and_daily_book', true, [

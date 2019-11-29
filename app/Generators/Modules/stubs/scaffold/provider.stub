@@ -82,11 +82,7 @@ class $CLASS$ extends ServiceProvider
     {
         $langPath = resource_path('lang/modules/$LOWER_NAME$');
 
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, '$LOWER_NAME$');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../$PATH_LANG$', '$LOWER_NAME$');
-        }
+        $this->loadTranslationsFrom(is_dir($langPath) ? $langPath : __DIR__ .'/../$PATH_LANG$', '$LOWER_NAME$');
     }
 
     /**

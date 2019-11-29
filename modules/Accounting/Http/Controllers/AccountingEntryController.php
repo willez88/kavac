@@ -13,7 +13,22 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
+use Modules\Accounting\Jobs\AccountingManageEntries;
+use App\Models\CodeSetting;
+use App\Rules\CodeSetting as CodeSettingRule;
+use Auth;
 
+/**
+ * @class AccountingEntryCategoryController
+ * @brief Controlador para la gestion los asientos contables
+ *
+ * Clase que gestiona los asientos contables
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class AccountingEntryController extends Controller
 {
     use ValidatesRequests;
@@ -93,16 +108,26 @@ class AccountingEntryController extends Controller
      */
     public function create()
     {
-
-        /** @var Object Objeto en el que se almacena la información del tipo de moneda por defecto */
+        /**
+         * [$currency almacena la información del tipo de moneda por defecto]
+         * @var Currency
+         */
         $currency = Currency::where('default', true)->orderBy('id', 'ASC')->first();
 
         $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
 
         $institutions = json_encode(template_choices('App\Models\Institution', 'name', [], true));
-        /** @var JSON Objeto que almacena las cuentas pratrimoniales */
+
+        /**
+         * [$AccountingAccounts almacena las cuentas pratrimoniales]
+         * @var json
+         */
         $AccountingAccounts = $this->getAccountingAccount();
-        /** @var array Arreglo que contendra las categorias */
+
+        /**
+         * [$categories contendra las categorias]
+         * @var array
+         */
         $categories = [];
         array_push($categories, [
             'id' => '',
@@ -116,6 +141,7 @@ class AccountingEntryController extends Controller
                 'acronym' => $category->acronym,
             ]);
         }
+
         /**
          * se convierte array a JSON
          */
@@ -140,33 +166,30 @@ class AccountingEntryController extends Controller
      */
     public function store(Request $request)
     {
-        /**
-         * se crear el asiento contable
-         */
-        $newEntries = AccountingEntry::create([
-            'from_date' => $request->data['date'],
-            'reference' => $request->data['reference'],
-            'concept' => $request->data['concept'],
-            'observations' => $request->data['observations'],
-            'accounting_entry_categories_id' => ($request->data['category']!='')? $request->data['category']: null,
-            'institution_id' => $request->data['institution_id'],
-            'currency_id' => (int)$request->data['currency_id'],
-            'tot_debit' => $request->data['totDebit'],
-            'tot_assets' => $request->data['totAssets'],
+        $this->validate($request, [
+            'date'           => 'required|date',
+            'concept'        => 'required|string',
+            'observations'   => 'nullable',
+            'category'       => 'required|integer',
+            'institution_id' => 'required|integer',
+            'currency_id'    => 'required|integer',
+            'tot'            => 'required|confirmed',
+        ], [
+            'date.required'           => 'El campo fecha es obligatorio.',
+            'date.date'               => 'El campo fecha no tiene el formato adecuado.',
+            'concept.required'        => 'El campo concepto o descripción es obligatorio.',
+            'category.required'       => 'El campo categoria es obligatorio.',
+            'category.integer'        => 'El campo categoria no esta en el formato de entero.',
+            'institution_id.required' => 'El campo institución es obligatorio.',
+            'institution_id.integer'  => 'El campo intitución no esta en el formato de entero.',
+            'currency_id.required'    => 'El campo moneda es obligatorio.',
+            'currency_id.integer'     => 'El campo moneda no esta en el formato de entero.',
+            'tot.confirmed'           => 'El asiento no esta balanceado, Por favor verifique.',
         ]);
 
-        /**
-         * se crea el registro en la tabla pivote entre el asiento contable y las cuentas patrimoniales
-         */
-        foreach ($request->accountingAccounts as $account) {
-            AccountingEntryAccount::create([
-                'accounting_entry_id' => $newEntries->id,
-                'accounting_account_id' => $account['id'],
-                'debit' => $account['debit'],
-                'assets' => $account['assets'],
-            ]);
-        }
-        return response()->json(['message'=>'Success'], 200);
+        AccountingManageEntries::dispatch($request->all());
+
+        return response()->json(['message'=>'Success', 'reference' => ''], 200);
     }
 
     /**
@@ -249,46 +272,34 @@ class AccountingEntryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'date'           => 'required|date',
+            'reference'      => 'required|string|unique:accounting_entries,reference,'.$id,
+            'concept'        => 'required|string',
+            'observations'   => 'nullable',
+            'category'       => 'required|integer',
+            'institution_id' => 'required|integer',
+            'currency_id'    => 'required|integer',
+            'tot'            => 'required|confirmed',
+        ], [
+            'date.required'           => 'El campo fecha es obligatorio.',
+            'date.date'               => 'El campo fecha no tiene el formato adecuado.',
+            'reference.required'      => 'El campo referencia es obligatorio.',
+            'reference.unique'        => 'El campo referencia debe ser único.',
+            'concept.required'        => 'El campo concepto o descripción es obligatorio.',
+            'category.required'       => 'El campo categoria es obligatorio.',
+            'category.integer'        => 'El campo categoria no esta en el formato de entero.',
+            'institution_id.required' => 'El campo institución es obligatorio.',
+            'institution_id.integer'  => 'El campo intitución no esta en el formato de entero.',
+            'currency_id.required'    => 'El campo moneda es obligatorio.',
+            'currency_id.integer'     => 'El campo moneda no esta en el formato de entero.',
+            'tot.confirmed'           => 'El asiento no esta balanceado, Por favor verifique.',
+        ]);
+
         /**
          * se actualiza la información del registro del asiento contable
          */
-        $record = AccountingEntry::find($id);
-        $record->reference = $request->data['reference'];
-        $record->concept = $request->data['concept'];
-        $record->observations = $request->data['observations'];
-        $record->tot_debit = $request->data['totDebit'];
-        $record->tot_assets = $request->data['totAssets'];
-        $record->institution_id = $request->data['institution_id'];
-        $record->currency_id = (int)$request->data['currency_id'];
-        $record->save();
-
-        foreach ($request->accountingAccounts as $account) {
-            /**
-             * Actualiza la relación de cuenta a ese asiento ya existe lo actualiza,
-             * de lo contrario crea el nuevo registro de cuenta
-             */
-            if ($account['entryAccountId']) {
-                /** @var Object Objeto que contiene el registro de cuanta patrimonial
-                asociada al asiento a actualizar */
-                $record = AccountingEntryAccount::find($account['entryAccountId']);
-                $record->accounting_account_id = $account['id'];
-                $record->debit = $account['debit'];
-                $record->assets = $account['assets'];
-                $record->save();
-            } else {
-                /** @var Object Objeto que contiene el nuevo registro de cuanta patrimonial
-                asociada que se asociara al asiento */
-                AccountingEntryAccount::create([
-                    'accounting_entry_id' => $id,
-                    'accounting_account_id' => $account['id'],
-                    'debit' => $account['debit'],
-                    'assets' => $account['assets'],
-                ]);
-            }
-        }
-
-        /** Se eliminar los registros de las cuentas deseadas */
-        AccountingEntryAccount::destroy($request->rowsToDelete);
+        AccountingManageEntries::dispatch($request->all());
 
         return response()->json(['message'=>'Success'], 200);
     }
@@ -324,7 +335,7 @@ class AccountingEntryController extends Controller
 
         /** @var int Variable que almacenara el id de la institución o departamento para el filtrado */
         $institution_id = null;
-        $institution_id = $request->data['institution'];
+        $institution_id = $request->institution;
 
         if ($request->typeSearch == 'reference') {
             $allRecords = [];
@@ -345,7 +356,7 @@ class AccountingEntryController extends Controller
                                 ->orderBy('from_date', 'ASC')->get();
             }
             foreach ($allRecords as $entries) {
-                if (count(explode($request->data['reference'], $entries->reference)) > 1) {
+                if (count(explode($request['reference'], $entries->reference)) > 1) {
                     array_push($records, $entries);
                 }
             }
@@ -360,7 +371,7 @@ class AccountingEntryController extends Controller
                 /**
                  * Se seleccionan los registros por institución
                 */
-                $FilterByOrigin = ($request->data['category'] == 0) ?
+                $FilterByOrigin = ($request->category == 0) ?
                                     AccountingEntry::with('accountingAccounts.account')
                                     ->where('institution_id', $institution_id)
                                     ->where('approved', true)
@@ -368,16 +379,16 @@ class AccountingEntryController extends Controller
                                     AccountingEntry::with('accountingAccounts.account')
                                     ->where('institution_id', $institution_id)
                                     ->where('approved', true)
-                                    ->where('accounting_entry_categories_id', $request->data['category'])
+                                    ->where('accounting_entry_categories_id', $request->category)
                                     ->orderBy('from_date', 'ASC')->get();
             } else {
-                $FilterByOrigin = ($request->data['category'] == 0) ?
+                $FilterByOrigin = ($request->category == 0) ?
                                     AccountingEntry::with('accountingAccounts.account')
                                     ->where('approved', true)
                                     ->orderBy('from_date', 'ASC')->get() :
                                     AccountingEntry::with('accountingAccounts.account')
                                     ->where('approved', true)
-                                    ->where('accounting_entry_categories_id', $request->data['category'])
+                                    ->where('accounting_entry_categories_id', $request->category)
                                     ->orderBy('from_date', 'ASC')->get();
             }
 
@@ -390,17 +401,17 @@ class AccountingEntryController extends Controller
                 /**
                  * todas las fechas
                  */
-                if ($request->data['year'] == 0 && $request->data['month'] == 0) {
+                if ($request->year == 0 && $request->month == 0) {
                     $records = $FilterByOrigin;
                 } else {
                     /**
                      * filtardo por año
                      */
-                    if ($request->data['year'] == 0) { // todos los años
+                    if ($request->year == 0) { // todos los años
                         $fltForYear = $FilterByOrigin;
                     } else {
                         foreach ($FilterByOrigin as $record) {
-                            if (explode('-', $record->from_date)[0] == $request->data['year']) {
+                            if (explode('-', $record->from_date)[0] == $request->year) {
                                 array_push($fltForYear, $record);
                             }
                         }
@@ -408,11 +419,11 @@ class AccountingEntryController extends Controller
                     /**
                      * filtrado por mes
                      */
-                    if ($request->data['month'] == 0) { // todos los meses
+                    if ($request->month == 0) { // todos los meses
                         $records = $fltForYear;
                     } else {
                         foreach ($fltForYear as $record) {
-                            if (explode('-', $record->from_date)[1] == $request->data['month']) {
+                            if (explode('-', $record->from_date)[1] == $request->month) {
                                 array_push($records, $record);
                             }
                         }
@@ -422,7 +433,7 @@ class AccountingEntryController extends Controller
                 /**
                  * Filtrado en un rango especifico de fechas
                  */
-                $records = $FilterByOrigin->whereBetween("from_date", [$request->data['init'],$request->data['end']]);
+                $records = $FilterByOrigin->whereBetween("from_date", [$request->init,$request->end]);
             }
         }
         return response()->json(['records'=>$records,'message'=>'Success', 200]);

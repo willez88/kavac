@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetRequestEvent;
+use App\Repositories\UploadDocRepository;
 
 /**
  * @class AssetRequestEventController
@@ -42,12 +43,15 @@ class AssetRequestEventController extends Controller
      * @param  \Illuminate\Http\Request  $request   Datos de la petición
      * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadDocRepository $up)
     {
+        // Falta agregar validación y guardado del documento
         $this->validate($request, [
-            'type' => 'required|max:100',
-            'description' => 'required',
-            'asset_request_id' => 'required'
+            'type' => ['required', 'max:100'],
+            'description' => ['required'],
+            'asset_request_id' => ['required'],
+            'equipments' => ['required'],
+
         ]);
     
         $event = AssetRequestEvent::create([
@@ -71,9 +75,9 @@ class AssetRequestEventController extends Controller
     {
         $event = AssetRequestEvent::find($id);
         $this->validate($request, [
-            'type' => 'required|max:100',
-            'description' => 'required',
-            'asset_request_id' => 'required'
+            'type' => ['required', 'max:100'],
+            'description' => ['required'],
+            'asset_request_id' => ['required']
         ]);
 
         $event->type = $request->input('type');

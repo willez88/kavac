@@ -67,7 +67,7 @@ class BudgetAditionalCreditController extends Controller
     {
         /** @var object Objeto con información de las modificaciones presupuestarias del tipo Crédito Adicional */
         $records = BudgetModification::where('type', 'C')->get();
-        return view('budget::aditional_credits.list');
+        return view('budget::aditional_credits.list', compact('records'));
     }
 
     /**

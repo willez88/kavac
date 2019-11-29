@@ -80,9 +80,9 @@ class WarehouseReceptionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'warehouse_inventory_products' => 'required',
-            'warehouse_id' => 'required',
-            'institution_id' => 'required',
+            'warehouse_inventory_products' => ['required'],
+            'warehouse_id' => ['required'],
+            'institution_id' => ['required'],
 
         ]);
         
@@ -118,11 +118,11 @@ class WarehouseReceptionController extends Controller
             $att = count($attributes);
             $j=0;
             $this->validate($request, [
-                'warehouse_inventory_products.'.$i.'.warehouse_product_id' => 'required',
-                'warehouse_inventory_products.'.$i.'.quantity' => 'required',
-                'warehouse_inventory_products.'.$i.'.measurement_unit_id' => 'required',
-                'warehouse_inventory_products.'.$i.'.currency_id' => 'required',
-                'warehouse_inventory_products.'.$i.'.unit_value' => 'required',
+                'warehouse_inventory_products.'.$i.'.warehouse_product_id' => ['required'],
+                'warehouse_inventory_products.'.$i.'.quantity' => ['required'],
+                'warehouse_inventory_products.'.$i.'.measurement_unit_id' => ['required'],
+                'warehouse_inventory_products.'.$i.'.currency_id' => ['required'],
+                'warehouse_inventory_products.'.$i.'.unit_value' => ['required'],
                 
             ]);
             /*
@@ -130,8 +130,8 @@ class WarehouseReceptionController extends Controller
              */
             for ($j=0; $j < $att; $j++) {
                 $this->validate($request, [
-                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.name' => 'required',
-                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.value' => 'required',
+                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.name' => ['required'],
+                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.value' => ['required'],
                 ]);
             }
         }
@@ -300,9 +300,9 @@ class WarehouseReceptionController extends Controller
     {
         $warehouse_movement = WarehouseMovement::find($id);
         $this->validate($request, [
-            'warehouse_inventory_products' => 'required',
-            'warehouse_id' => 'required',
-            'institution_id' => 'required',
+            'warehouse_inventory_products' => ['required'],
+            'warehouse_id' => ['required'],
+            'institution_id' => ['required'],
 
         ]);
 
@@ -311,18 +311,18 @@ class WarehouseReceptionController extends Controller
             $attributes = $request->warehouse_inventory_products[$i]['warehouse_product_attributes'];
             $att = count($attributes);
             $this->validate($request, [
-                'warehouse_inventory_products.'.$i.'.warehouse_product_id' => 'required',
-                'warehouse_inventory_products.'.$i.'.quantity' => 'required',
-                'warehouse_inventory_products.'.$i.'.measurement_unit_id' => 'required',
-                'warehouse_inventory_products.'.$i.'.currency_id' => 'required',
-                'warehouse_inventory_products.'.$i.'.unit_value' => 'required',
+                'warehouse_inventory_products.'.$i.'.warehouse_product_id' => ['required'],
+                'warehouse_inventory_products.'.$i.'.quantity' => ['required'],
+                'warehouse_inventory_products.'.$i.'.measurement_unit_id' => ['required'],
+                'warehouse_inventory_products.'.$i.'.currency_id' => ['required'],
+                'warehouse_inventory_products.'.$i.'.unit_value' => ['required'],
                 
             ]);
 
             for ($j=0; $j < $att; $j++) {
                 $this->validate($request, [
-                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.name' => 'required',
-                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.value' => 'required',
+                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.name' => ['required'],
+                    'warehouse_inventory_products.'.$i.'.warehouse_product_attributes.'.$j.'.value' => ['required'],
                 ]);
             }
         }

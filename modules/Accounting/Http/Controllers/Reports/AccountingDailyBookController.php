@@ -58,26 +58,40 @@ class AccountingDailyBookController extends Controller
         )->where('approved', true)
         ->whereBetween("from_date", [$initDate, $endDate])
         ->orderBy('from_date', 'ASC')->get();
-
         $convertions = [];
         foreach ($entries as $entry) {
-            $convertions = $this->calculateExchangeRates($convertions, $entry, $currency['id']);
-            if (!array_key_exists($entry['id'], $convertions) && $entry['currency']['id'] != $currency['id']) {
-                return response()->json([
-                    'result'=>false,
-                    'message'=>'Imposible expresar asiento contable '.$entry['reference']
-                                .' de '.$entry['currency']['symbol']
-                                .' a '.$currency['symbol'].'('.$currency['name'].')'.
-                                ', verificar tipos de cambio configurados. '
-                ], 200);
+            $inRange = false;
+            if (!array_key_exists($entry['currency']['id'], $convertions) &&
+                $entry['currency']['id'] != $currency->id) {
+                $convertions = $this->calculateExchangeRates($convertions, $entry, $currency->id);
+
+                foreach ($convertions as $convertion) {
+                    foreach ($convertion as $convert) {
+                        if ($entry['from_date'] >= $convert['start_at'] &&
+                            $entry['from_date'] <= $convert['end_at']) {
+                            $inRange = true;
+                        }
+                    }
+                }
+                if (!$inRange || (!array_key_exists($entry['currency']['id'], $convertions)
+                                    && $entry['currency']['id'] != $currency['id'])) {
+                    return response()->json([
+                        'result'  => false,
+                        'message' => 'Imposible expresar asiento contable '.$entry['reference']
+                                     .' de '.$entry['currency']['symbol']
+                                     .' ('.$entry['currency']['name'].')'
+                                     .' a '.$currency['symbol'].'('.$currency['name'].')'.
+                                     ', verificar tipos de cambio configurados. Para la fecha de '.
+                                     $entry['from_date'],
+                    ], 200);
+                }
             }
         }
-
         /**
          * [$url link para consultar ese regporte]
          * @var string
          */
-        $url = 'dailyBook/pdf/'.$initDate.'/'.$endDate;
+        $url = 'dailyBook/'.$initDate.'/'.$endDate;
 
         /**
          * [$report almacena el registro del reporte del dia si existe]
@@ -112,13 +126,13 @@ class AccountingDailyBookController extends Controller
     /**
      * [pdf vista en la que se genera el reporte en pdf del libro diario]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  integer $id [id de reporte y su informacion]
+     * @param  integer $report_id [id de reporte y su informacion]
      */
     public function pdf($report_id)
     {
         $report = AccountingReportHistory::with('currency')->find($report_id);
-        $initDate = explode('/', $report->url)[2];
-        $endDate  = explode('/', $report->url)[3];
+        $initDate = explode('/', $report->url)[1];
+        $endDate  = explode('/', $report->url)[2];
 
         $currency = $report->currency;
 
@@ -147,22 +161,24 @@ class AccountingDailyBookController extends Controller
             $record['accountingAccounts'] = [];
             foreach ($entry['accountingAccounts'] as $r) {
                 array_push($record['accountingAccounts'], [
-                    'debit'=> ($r['debit']  != 0)?
-                                $this->calculateOperation(
-                                    $convertions,
-                                    $entry['id'],
-                                    $r['debit'],
-                                    ($entry['currency']['id'] != $currency['id'])??true
-                                ):0,
-                    'assets'=>($r['assets'] != 0)?
-                                $this->calculateOperation(
-                                    $convertions,
-                                    $entry['id'],
-                                    $r['assets'],
-                                    ($entry['currency']['id'] != $currency['id'])??true
-                                ):0,
-                    'code'=>$r['account']->getCodeAttribute(),
-                    'denomination'=>$r['account']['denomination']
+                    'debit'                   => ($r['debit']  != 0)?
+                    $this->calculateOperation(
+                        $convertions,
+                        $entry['currency']['id'],
+                        $r['debit'],
+                        $entry['from_date'],
+                        ($entry['currency']['id'] != $currency->id)??true
+                    ):0,
+                    'assets'                  => ($r['assets'] != 0)?
+                    $this->calculateOperation(
+                        $convertions,
+                        $entry['currency']['id'],
+                        $r['assets'],
+                        $entry['from_date'],
+                        ($entry['currency']['id'] != $currency->id)??true
+                    ):0,
+                    'code'                    => $r['account']->getCodeAttribute(),
+                    'denomination'            => $r['account']['denomination']
                 ]);
             }
 
@@ -186,7 +202,7 @@ class AccountingDailyBookController extends Controller
          *  Definicion de las caracteristicas generales de la página pdf
          */
         $institution = Institution::find(1);
-        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/auxiliaryBook/'.$report->id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de libro diario');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.entry_and_daily_book', true, [
@@ -204,27 +220,33 @@ class AccountingDailyBookController extends Controller
      * @param  array   $convertions   [lista de tipos cambios para la moneda]
      * @param  integer $entry_id      [identificador del asiento]
      * @param  float   $value         [saldo del asiento]
+     * @param  float   $date         [fecha del asiento]
      * @param  boolean $equalCurrency [bandera que indica si el tipo de moneda en el que esta el asiento es las misma
      *                                que la que se desea expresar]
      * @return float                  [resultdado de la operacion]
      */
-    public function calculateOperation($convertions, $entry_id, $value, $equalCurrency)
+    public function calculateOperation($convertions, $currency_id, $value, $date, $equalCurrency)
     {
         if (!$equalCurrency) {
             return $value;
         }
-        if ($entry_id && array_key_exists($entry_id, $convertions) && $convertions[$entry_id]) {
-            if ($convertions[$entry_id]['operator'] == 'to') {
-                return ($value * $convertions[$entry_id]['amount']);
-            } else {
-                return ($value / $convertions[$entry_id]['amount']);
+
+        if ($currency_id && array_key_exists($currency_id, $convertions) && $convertions[$currency_id]) {
+            foreach ($convertions[$currency_id] as $convertion) {
+                if ($date >= $convertion['start_at'] && $date <= $convertion['end_at']) {
+                    if ($convertion['operator'] == 'to') {
+                        return ($value * $convertion['amount']);
+                    } else {
+                        return ($value / $convertion['amount']);
+                    }
+                }
             }
         }
         return -1;
     }
 
     /**
-     * [calculateExchangeRates encuentra el tipo de cambio para un asiento en particular]
+     * [calculateExchangeRates encuentra los tipos de cambio]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  array           $convertions [lista de conversiones]
      * @param  AccountingEntry $entry       [asiento contable]
@@ -233,33 +255,24 @@ class AccountingDailyBookController extends Controller
      */
     public function calculateExchangeRates($convertions, $entry, $currency_id)
     {
-        $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
-                             ->where('end_at', '>=', $entry['from_date'])
-                             ->where('active', true)
-                             ->where('from_currency_id', $entry['currency']['id'])
-                             ->where('to_currency_id', $currency_id)
-                             ->orderBy('end_at', 'DESC')->first();
-        if (!$exchangeRate) {
-            $exchangeRate = ExchangeRate::where('start_at', '<=', $entry['from_date'])
-                         ->where('end_at', '>=', $entry['from_date'])
-                         ->where('active', true)
-                         ->where('to_currency_id', $entry['currency']['id'])
-                         ->where('from_currency_id', $currency_id)
-                         ->orderBy('end_at', 'DESC')->first();
-            if ($exchangeRate) {
-                if (!array_key_exists($entry['id'], $convertions)) {
-                    $convertions[$entry['id']] = [
-                                                'amount'   => $exchangeRate->amount,
-                                                'operator' => 'from'
-                                            ];
+        $exchangeRate = ExchangeRate::where('active', true)
+                            ->whereIn('to_currency_id', [$entry['currency']['id'], $currency_id])
+                            ->whereIn('from_currency_id', [$entry['currency']['id'], $currency_id])
+                             ->orderBy('end_at', 'DESC')->get();
+        if (count($exchangeRate) != 0) {
+            if (!array_key_exists($entry['currency']['id'], $convertions)) {
+                $convertions[$entry['currency']['id']] = [];
+                foreach ($exchangeRate as $recordExchangeRate) {
+                    array_push(
+                        $convertions[$entry['currency']['id']],
+                        [
+                            'amount'   => $recordExchangeRate->amount,
+                            'operator' => ($currency_id == $recordExchangeRate->from_currency_id)?'from':'to',
+                            'start_at' => $recordExchangeRate->start_at,
+                            'end_at'   => $recordExchangeRate->end_at
+                        ]
+                    );
                 }
-            }
-        } else {
-            if (!array_key_exists($entry['id'], $convertions)) {
-                $convertions[$entry['id']] = [
-                                                'amount'   => $exchangeRate->amount,
-                                                'operator' => 'to'
-                                            ];
             }
         }
         return $convertions;

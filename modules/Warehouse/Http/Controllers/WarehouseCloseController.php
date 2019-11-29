@@ -61,9 +61,9 @@ class WarehouseCloseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'initial_date'    => 'required',
-            'observations'  => 'required',
-            'warehouse_id' => 'required',
+            'initial_date'    => ['required'],
+            'observations'  => ['required'],
+            'warehouse_id' => ['required'],
         ]);
 
         $warehouse = Warehouse::find($request->warehouse_id);
@@ -98,9 +98,9 @@ class WarehouseCloseController extends Controller
     public function update(Request $request, WarehouseClose $close)
     {
         $this->validate($request, [
-            'initial_date'  => 'required',
-            'observations'  => 'required',
-            'warehouse_id'  => 'required',
+            'initial_date'  => ['required'],
+            'observations'  => ['required'],
+            'warehouse_id'  => ['required'],
         ]);
 
         if ($close->initial_user_id == Auth::id()) {

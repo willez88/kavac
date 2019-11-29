@@ -50,8 +50,8 @@ class WarehouseProductAttributeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'product_id' => 'required',
+            'name' => ['required', 'max:100'],
+            'product_id' => ['required'],
         ]);
         
         $id = $request->input('product_id');
@@ -72,8 +72,8 @@ class WarehouseProductAttributeController extends Controller
     public function update(Request $request, WarehouseProductAttribute $attribute)
     {
         $this->validate($request, [
-            'name' => 'required|max:100',
-            'product_id' => 'required',
+            'name' => ['required', 'max:100'],
+            'product_id' => ['required'],
         ]);
  
         $attribute->name = $request->input('name');

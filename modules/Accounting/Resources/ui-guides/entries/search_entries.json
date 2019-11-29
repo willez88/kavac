@@ -1,0 +1,46 @@
+[
+    {
+        "element" : "#helpSearchEntriesForm",
+        "intro" : "Formulario que permite consultar los asientos contables aprobados."
+    },
+    {
+        "element" : "#helpSearchEntriesUnapproved",
+        "intro" : "Carga listado de asientos contables que no han sido aprobados."
+    },
+    {
+        "element" : "#helpSearchEntriesReference",
+        "intro" : "Interruptor que modifica el formulario para realizar la busqueda de asientos contables por el codigo de referencia."
+    },
+    {
+        "element" : "#helpSearchEntriesCategory",
+        "intro" : "Interruptor que modifica el formulario para realizar la busqueda de asientos contables por la categoria."
+    },
+    {
+        "element" : "#helpSearchEntriesInstitution",
+        "intro" : "Parametro utilizado para filtrar asientos contables por la institución que lo genero."
+    },
+    {
+        "element" : "#helpSearchEntriesInputReference",
+        "intro" : "Parametro utilizado para filtrar asientos contables por su código de referencia."
+    },
+    {
+        "element" : "#helpSearchEntriesDateSpecific",
+        "intro" : "Interruptor que modifica los parametros para realizar la busqueda de asientos contables por un rango especifico de fechas dadas."
+    },
+    {
+        "element" : "#helpSearchEntriesDateGeneric",
+        "intro" : "Interruptor que modifica los parametros para realizar la busqueda de asientos contables por un rango general por mes."
+    },
+    {
+        "element" : "#helpSearchEntriesDateRange",
+        "intro" : "Parametro utilizado para filtrar asientos contables en un rango de fecha."
+    },
+    {
+        "element" : "#helpSearchEntriesInputCategory",
+        "intro" : "Parametro utilizado para filtrar asientos contables por la categoria de origen."
+    },
+    {
+        "element" : "#helpSearchEntriesApproved",
+        "intro" : "Listado donde se muestran los asientos contables resultantes de la busqueda realizada."
+    }
+]

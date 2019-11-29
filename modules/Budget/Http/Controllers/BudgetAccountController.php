@@ -77,7 +77,7 @@ class BudgetAccountController extends Controller
     {
         /** @var object Objeto que contiene todos los registros de cuentas presupuestarias */
         $records = BudgetAccount::all();
-        return view('budget::accounts.list');
+        return view('budget::accounts.list', compact('records'));
     }
 
     /**
@@ -263,7 +263,7 @@ class BudgetAccountController extends Controller
      *                               en cuyo caso incluye la inicialización de variables para cada cuenta
      * @return \Illuminate\Http\JsonResponse
      */
-    public function egressAccounts($to_formulate = false)
+    public function egressAccounts($to_formulate = null)
     {
         /** @var array Arreglo de cuentas presupuestarias */
         $records = [];
@@ -279,7 +279,7 @@ class BudgetAccountController extends Controller
                 'specific' => $account->specific, 'subspecific' => $account->subspecific,
                 'tax_id' => $account->tax_id
             ];
-            if ($to_formulate) {
+            if (!is_null($to_formulate) && $to_formulate) {
                 /**
                  * @var array Arreglo que agrega información extra a la cuenta presupuestaria en caso de que la misma
                  * sea para una formulación de presupuesto

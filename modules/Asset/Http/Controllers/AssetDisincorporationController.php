@@ -75,9 +75,9 @@ class AssetDisincorporationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date' => 'required',
-            'asset_disincorporation_motive_id' => 'required',
-            'observation' => 'required'
+            'date' => ['required'],
+            'asset_disincorporation_motive_id' => ['required'],
+            'observation' => ['required']
 
         ]);
 
@@ -158,9 +158,9 @@ class AssetDisincorporationController extends Controller
     {
         $disincorporation = AssetDisincorporation::find($id);
         $this->validate($request, [
-            'date' => 'required',
-            'asset_disincorporation_motive_id' => 'required',
-            'observation' => 'required'
+            'date' => ['required'],
+            'asset_disincorporation_motive_id' => ['required'],
+            'observation' => ['required']
 
         ]);
 

@@ -4,7 +4,7 @@
 		<div class="card-body">
 
 			<div class="row">
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesDate">
 					<div class="form-group is-required">
 						<label class="control-label">Fecha
 						</label>
@@ -12,46 +12,46 @@
 								tabindex="1">
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesDescription">
 					<div class="form-group is-required">
 						<label class="control-label">Concepto ó Descripción
 						</label>
 						<input type="text" class="form-control" v-model="concept" tabindex="1">
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesObservation">
 					<div class="form-group">
 						<label class="control-label">Observaciones
 						</label>
 						<input type="text" class="form-control" v-model="observations" tabindex="1">
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesCategory">
 					<div class="form-group is-required">
 						<label class="control-label">Categoría del asiento
 						</label>
 						<select2 :options="categories" v-model="category" tabindex="1"></select2>
 					</div>
 				</div>
-				<div class="col-3">
-					<div class="form-group">
-						<label class="control-label">Referencia
-						</label>
-						<input type="text" class="form-control" v-model="reference" id="reference" tabindex="1" disabled="">
-					</div>
-				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesInstitution">
 					<div class="form-group is-required">
 						<label class="control-label">Institución que genera
 						</label>
 						<select2 :options="institutions" v-model="institution_id" tabindex="1"></select2>
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-3" id="helpEntriesCurrency">
 					<div class="form-group is-required">
 						<label class="control-label">Tipo de moneda
 						</label>
 						<select2 :options="currencies" v-model="currency_id" tabindex="1"></select2>
+					</div>
+				</div>
+				<div class="col-3" id="helpEntriesReference">
+					<div class="form-group">
+						<label class="control-label">Código Referencia
+						</label><br>
+						<h5 class="control-label"><strong>{{ reference }}</strong></h5>
 					</div>
 				</div>
 			</div>
@@ -113,9 +113,10 @@
 				this.date = this.data_edit.date;
 				this.concept = this.data_edit.concept;
 				this.observations = this.data_edit.observations;
-			}else{
-				this.generate_reference_code();
 			}
+			// else{
+			// 	this.generateReferenceCode();
+			// }
 
 			EventBus.$on('reset:accounting-entry-edit-create',()=>{
 				this.reset();
@@ -146,7 +147,7 @@
 					this.concept == '' || 
 					this.observations == '' || 
 					this.category == '' ||
-					this.reference == '' || this.institution_id == null)) {
+					this.institution_id == null)) {
 
 					EventBus.$emit('enableInput:entries-account',{'value':false,
 																	  'date':this.date,
@@ -163,7 +164,7 @@
 					/**
 					 * se verifica que la fecha, la referencia, la institucion, la categoria y el tipo de moneda no esten vacios
 					*/ 
-					if (this.date != '' && this.reference != '' && this.institution_id != null && this.category != ''
+					if (this.date != '' && this.institution_id != null && this.category != ''
 						&& this.currency_id != '') {
 						EventBus.$emit('enableInput:entries-account',{'value':true,
 																	  'date':this.date,
@@ -193,16 +194,16 @@
 				}
 			},
 
-			generate_reference_code(){
-				axios.post('/accounting/settings/generate_reference_code').then(response=>{
-					if (response.data.result) {
-						location.href = '/accounting/settings';
-					}
-					this.reference = response.data.code;
-					this.validated = false;
-					this.validateRequired();
-				})
-			}
+			// generateReferenceCode(){
+			// 	axios.post('/accounting/settings/generateReferenceCode').then(response=>{
+			// 		if (response.data.result) {
+			// 			location.href = '/accounting/settings';
+			// 		}
+			// 		this.reference = response.data.code;
+			// 		this.validated = false;
+			// 		this.validateRequired();
+			// 	})
+			// }
 		},
 		watch:{
 			date:function(res) {

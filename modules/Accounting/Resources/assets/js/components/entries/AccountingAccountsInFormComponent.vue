@@ -46,10 +46,10 @@
                 <td></td>
             </tr>
             <tr>
-                <td>
+                <td id="helpEntriesAccountSelect">
                     <select2 :disabled="!enableInput" :options="accounting_accounts" id="select2" @input="addAccountingAccount()"></select2>
                 </td>
-                <td>
+                <td id="helpEntriesTotDebit">
                     <div class="form-group text-center">Total Debe:
                         <h6>
                             <span>{{ currency.symbol }}</span>
@@ -64,7 +64,7 @@
                         </h6>
                     </div>
                 </td>
-                <td>
+                <td id="helpEntriesTotAssets">
                     <div class="form-group text-center">Total Haber:
                         <h6>
                             <span>{{ currency.symbol }}</span>
@@ -135,14 +135,14 @@
             $('#select2').val('');
 
             EventBus.$on('enableInput:entries-account',(data)=>{
-                this.enableInput = data.value;
-                this.data.date = data.date;
-                this.data.reference = data.reference;
-                this.data.concept = data.concept;
-                this.data.observations = data.observations;
-                this.data.category = data.category;
+                this.enableInput         = data.value;
+                this.data.date           = data.date;
+                this.data.reference      = data.reference;
+                this.data.concept        = data.concept;
+                this.data.observations   = data.observations;
+                this.data.category       = data.category;
                 this.data.institution_id = data.institution_id;
-                this.data.currency_id = data.currency_id;
+                this.data.currency_id    = data.currency_id;
             });
 
             EventBus.$on('change:currency',(data)=>{
@@ -235,10 +235,6 @@
                     errors.push('El campo categoria es obligatorio.');
                     res = true;
                 }
-                if (!this.data.reference) {
-                    errors.push('El campo referencia es obligatorio.');
-                    res = true;
-                }
                 if (!this.data.institution_id) {
                     errors.push('El campo institución es obligatorio.');
                     res = true;
@@ -247,7 +243,6 @@
                     errors.push('El tipo de moneda es obligatorio.');
                     res = true;
                 }
-
                 if (this.recordsAccounting.length < 1) {
                     errors.push('No está permitido registrar asientos contables vacíos');
                     res = true;
@@ -369,13 +364,18 @@
                 if (vm.validateErrors()) { 
                     return ; 
                 }
-                axios.post('/accounting/entries',{'data':vm.data,
-                                                  'accountingAccounts':vm.recordsAccounting
-                }).then(response=>{
+
+                vm.data['tot'] = vm.data.totDebit;
+                vm.data['tot_confirmation'] = vm.data.totAssets;
+                vm.data['accountingAccounts'] = vm.recordsAccounting;
+                vm.loading = true;
+                axios.post('/accounting/entries',vm.data).then(response=>{
+                    vm.loading = false;
                     vm.showMessage('store');
                     setTimeout(function() {
                         location.href = vm.urlPrevious;
-                    }, 1500);
+                    }, 2000);
+
                 }).catch(error=>{
                     var errors = [];
                     if (typeof(error.response) != "undefined") {
@@ -389,6 +389,7 @@
                     * se cargan los errores
                     */
                     vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
+                    vm.loading = false;
                 });
             },
 
@@ -398,18 +399,38 @@
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
             updateRecord:function() {
-                if (this.validateErrors()) {
+                const vm = this;
+                if (vm.validateErrors()) {
                     return ; 
                 }
-                axios.put('/accounting/entries/'+this.entries.id, {'data':this.data,
-                                                    'accountingAccounts':this.recordsAccounting,
-                                                    'rowsToDelete':this.rowsToDelete })
+                vm.data['tot'] = vm.data.totDebit;
+                vm.data['tot_confirmation'] = vm.data.totAssets;
+                vm.data['accountingAccounts'] = vm.recordsAccounting;
+                vm.data['rowsToDelete'] = vm.rowsToDelete;
+
+                vm.loading = true;
+                
+                axios.put('/accounting/entries/'+vm.entries.id, vm.data)
                 .then(response=>{
-                    this.showMessage('update');
-                    const vm = this;
+                    vm.loading = false;
+                    vm.showMessage('update');
                     setTimeout(function() {
                         location.href = vm.route_list;
-                    }, 1500);
+                    }, 2000);
+                }).catch(error=>{
+                    var errors = [];
+                    if (typeof(error.response) != "undefined") {
+                        for (var index in error.response.data.errors) {
+                            if (error.response.data.errors[index]) {
+                                errors.push(error.response.data.errors[index][0]);
+                            }
+                        }
+                    }
+                    /**
+                    * se cargan los errores
+                    */
+                    vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
+                    vm.loading = false;
                 });
             },
 
