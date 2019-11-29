@@ -186,7 +186,7 @@ class AccountingEntryController extends Controller
             'currency_id.integer'     => 'El campo moneda no esta en el formato de entero.',
             'tot.confirmed'           => 'El asiento no esta balanceado, Por favor verifique.',
         ]);
-        
+
         AccountingManageEntries::dispatch($request->all());
 
         return response()->json(['message'=>'Success', 'reference' => ''], 200);
@@ -505,39 +505,5 @@ class AccountingEntryController extends Controller
         $entries->approved = true;
         $entries->save();
         return response()->json(['message'=>'Success'], 200);
-    }
-
-    /**
-     * [getInstitution obtiene la informacion de una institución]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  int|null $id [identificador unico de la institución]
-     * @return Institution     [informacion de la institución]
-     */
-    public function getInstitution($id = null)
-    {
-        if ($id) {
-            return Institution::find($id);
-        }
-        return Institution::first();
-    }
-
-    public function generateReferenceCodeAvailable()
-    {
-        $institution = $this->getInstitution();
-        $codeSetting = CodeSetting::where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
-                                    ->first();
-        if (!is_null($codeSetting)) {
-            $code  = generate_registration_code(
-                $codeSetting->format_prefix,
-                strlen($codeSetting->format_digits),
-                (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
-                AccountingEntry::class,
-                $codeSetting->field
-            );
-        } else {
-            $code = 'error';
-        }
-
-        return $code;
     }
 }

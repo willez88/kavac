@@ -276,10 +276,10 @@
 								</thead>
 								<tbody>
 									<tr class="text-center">
-										<th>Código:</th>
+										<th>Nombre:</th>
 										<th
 											v-for="(field_h, index) in payroll_salary_scale_h.payroll_scales">
-											{{field_h.code}}
+											{{field_h.name}}
 										</th>
 									</tr>
 									<tr class="text-center"
@@ -303,7 +303,7 @@
 										<th
 											v-if="((record.payroll_vertical_salary_scale_id > 0) &&
 												(payroll_salary_scale_v.payroll_scales.length > 0))">
-											{{field_v.code}}
+											{{field_v.name}}
 										</th>
 										<td class="td-with-border"
 											v-for="(field_h, index_h) in payroll_salary_scale_h.payroll_scales">
@@ -335,7 +335,7 @@
 									<tr class="text-center"
 										v-for="(field, index) in payroll_salary_scale_v.payroll_scales">
 										<th>
-											{{field.code}}
+											{{field.name}}
 										</th>
 										<td>
 											<div>
@@ -360,7 +360,7 @@
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button 
+	                			<button @click="exportRecord(props.index, $event)"
                 						class="btn btn-primary btn-xs btn-icon btn-action" 
                 					    title="Descargar/Exportar tabulador"
 										data-toggle="tooltip"
@@ -623,6 +623,12 @@
 	                    }
 	                });
 	            }
+			},
+			exportRecord(index, event) {
+				const vm = this;
+				var fields = vm.records[index - 1];
+				window.open('/payroll/salary-tabulators/export/'+ fields.id);
+				event.preventDefault();
 			},
 			editRecord(index, event) {
 				const vm = this;

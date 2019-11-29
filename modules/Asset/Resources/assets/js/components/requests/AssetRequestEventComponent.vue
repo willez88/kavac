@@ -60,6 +60,56 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group is-required">
+									<label>Equipos:</label>
+									<v-multiselect :options="equipments" track_by="text"
+										:hide_selected="false" :selected="record.equipments" v-model="record.equipments">
+									</v-multiselect>
+			                    </div>
+							</div>
+							<div class="col-md-6" v-if="record.type == 2">
+								<input type="hidden" id="documents" name="documents" readonly>
+				                <div class="feature-list-indicator bg-info"></div>
+				                <div class="feature-list-content p-0">
+				                    <div class="feature-list-content-wrapper">
+				                        <div class="feature-list-content-left">
+				                            <div class="feature-list-heading">
+				                                Informe de Especificación
+				                                <div class="badge badge-danger ml-2"
+				                                	 title="El documento aún no ha sido cargado"
+				                                	 data-toggle="tooltip">
+				                                	por cargar
+				                                </div>
+				                            </div>
+				                            <div class="feature-list-subheading">
+				                            	<i>Especificación de eventos</i>
+				                            </div>
+				                        </div>
+				                        <div class="feature-list-content-right feature-list-content-actions">
+				                        	<button class="btn btn-simple btn-success btn-events"
+				                        			title="Presione para cargar el documento"
+				                        			data-toggle="tooltip" type="button"
+				                        			onclick="$('#doc').click()">
+				                        		<i class="fa fa-cloud-upload fa-2x"></i>
+				                        	</button>
+				                        	<button class="btn btn-simple btn-primary btn-events"
+				                        			title="Presione para descargar el documento"
+				                        			data-toggle="tooltip" type="button">
+				                        		<i class="fa fa-cloud-download fa-2x"></i>
+				                        	</button>
+			                                <button class="btn btn-sm btn-danger btn-action" type="button"
+			                                        title="Eliminar documento" data-toggle="tooltip">
+			                                    <i class="fa fa-minus-circle"></i>
+			                                </button>
+				                        	<input type="file" id="doc" name="doc" style="display:none"
+				                        		   accept=".doc, .pdf, .odt, .docx" @change="processFile($event)">
+				                        </div>
+				                    </div>
+				                </div>
+							</div>
+						</div>
 
 	                </div>
 
@@ -115,9 +165,12 @@
 					type: '',
 					asset_request_id: '',
 					description: '',
+					equipments: [],
+					document_id: ''
 
 				},
 				types: [],
+				equipments: [],
 				records: [],
 				errors: [],
 				columns: ['type', 'description', 'id'],
@@ -139,6 +192,8 @@
 					type: '',
 					asset_request_id: '',
 					description: '',
+					equipments: [],
+					document_id: ''
 				};
 			},
 			createRequest(url){
@@ -151,11 +206,18 @@
 					this.types = response.data;
 				});
 			},
+			getEquipments() {
+				axios.get('/asset/requests/get-equipments/' + this.id).then(response => {
+					this.equipments = response.data;
+				});
+			},
 			viewMessage() {
             	const vm = this;
             	vm.showMessage('custom', 'Alerta', 'danger', 'screen-error', 'La solicitud está en un tramite que no le permite acceder a esta funcionalidad');
             	return false;
             },
+            processFile(event) {
+			},
 		},
 		created() {
 			this.table_options.headings = {
@@ -167,6 +229,8 @@
 			this.table_options.filterable = ['type'];
 
 			this.getTypes();
+			this.getEquipments();
+			this.record.equipments = [];
 		},
 	}
 </script>

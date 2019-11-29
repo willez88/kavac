@@ -42,7 +42,7 @@ class CitizenServiceRequestTypeController extends Controller
     {
         $this->validate($request, [
             'name'        => ['required', 'max:100'],
-            'description' => ['max:200']
+            'description' => ['required', 'max:200']
         ]);
         $citizenserviceRequestType = CitizenServiceRequestType::create([
             'name'        => $request->name,
