@@ -4417,60 +4417,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     entries: {
@@ -4515,6 +4461,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     page: function page(res) {
       this.initRecords(this.url + '/' + this.perPage + '/' + res, '');
+    },
+    search: function search(res) {
+      this.changePage(1);
+      this.initRecords(this.url);
     }
   },
   methods: {
@@ -4556,9 +4506,10 @@ __webpack_require__.r(__webpack_exports__);
     */
     initRecords: function initRecords(url) {
       var vm = this;
+      vm.dataForm['search'] = vm.search;
       axios.post(url, vm.dataForm).then(function (response) {
         if (response.data.records.length == 0) {
-          vm.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
+          vm.showMessage('custom', 'Error', 'danger', 'screen-error', "No se encontraron asientos contables aprobados con los parámetros de busqueda dados.");
         } else {
           if (vm.dataForm['firstSearch']) {
             vm.showMessage('custom', 'Éxito', 'success', 'screen-ok', 'Busqueda realizada de manera exitosa.');
@@ -4612,6 +4563,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.records = data;
     });
     EventBus.$on('list:entries', function (data) {
+      _this.search = '';
       _this.dataForm = data;
 
       _this.initRecords(_this.url);
@@ -9389,7 +9341,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(1),
                 _vm._v(" "),
-                _vm.lastPage != _vm.page
+                _vm.lastPage && _vm.lastPage != _vm.page
                   ? _c(
                       "li",
                       {
@@ -9423,15 +9375,7 @@ var render = function() {
         ])
       ],
       1
-    ),
-    _vm._v(" "),
-    _c("br"),
-    _c("br"),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("br"),
-    _c("br")
+    )
   ])
 }
 var staticRenderFns = [
