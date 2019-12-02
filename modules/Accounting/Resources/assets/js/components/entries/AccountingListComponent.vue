@@ -89,7 +89,7 @@
                     <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-chunk disabled">
                         <a class="page-link">&gt;&gt;</a>
                     </li>
-                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk" v-if="lastPage != page">
+                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk" v-if="lastPage && lastPage != page">
                         <a class="page-link" @click="changePage(lastPage)">ÚLTIMO</a>
                     </li>
 				</ul>
@@ -97,60 +97,6 @@
 			</nav>
 		</div>
 	</section>
-
-
-		<br><br>
-		<hr>
-		<br><br>
-
-
-		<!-- <v-client-table :columns="columns" :data="records" :options="table_options">
-            <div slot="from_date" slot-scope="props" class="text-center">
-                {{ formatDate(props.row.from_date) }}
-            </div>
-            <div slot="reference" slot-scope="props" class="text-center">
-                {{ props.row.reference }}
-            </div>
-            <div slot="total" slot-scope="props" class="text-right">
-                <strong>Debe: </strong> 
-                {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_debit).toFixed(props.row.currency.decimal_places) }}
-                <br>
-                <strong>Haber</strong> 
-                {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_assets).toFixed(props.row.currency.decimal_places) }}
-            </div>
-            <div slot="approved" slot-scope="props" class="text-center">
-                <span class="badge badge-success" v-show="props.row.approved"><strong>Aprobado</strong></span>
-                <span class="badge badge-danger" v-show="!props.row.approved"><strong>No Aprobado</strong></span>
-            </div>
-            <div slot="id" slot-scope="props" class="text-center">
-                <button @click="approve(props.index)"
-                        class="btn btn-success btn-xs btn-icon btn-action" 
-                        title="Aprobar Registro" data-toggle="tooltip"
-                        v-if="!props.row.approved">
-                    <i class="fa fa-check"></i>
-                </button>
-                <button @click="editForm(props.row.id)"
-                        class="btn btn-warning btn-xs btn-icon btn-action" 
-                        title="Modificar registro" data-toggle="tooltip"
-                        v-if="!props.row.approved">
-                    <i class="fa fa-edit"></i>
-                </button>
-                <button @click="deleteRecord(props.index,'/accounting/entries')" 
-                        class="btn btn-danger btn-xs btn-icon btn-action" 
-                        title="Eliminar Registro" data-toggle="tooltip"
-                        v-if="!props.row.approved">
-                    <i class="fa fa-trash-o"></i>
-                </button>
-                <a class="btn btn-primary btn-xs btn-icon"
-                        :href="url+'/pdf/'+props.row.id"
-                        title="Imprimir Registro" 
-                        data-toggle="tooltip"
-                        target="_blank"
-                        v-if="props.row.approved">
-                        <i class="fa fa-print" style="text-align: center;"></i>
-                </a>
-            </div>
-        </v-client-table> -->
 	</div>
 </template>
 <style type="text/css">
@@ -214,6 +160,10 @@
             },
             page(res) {
                 this.initRecords(this.url + '/' + this.perPage + '/' + res, '');
+            },
+            search(res){
+            	this.changePage(1);
+            	this.initRecords(this.url);
             }
         },
         methods:{
@@ -253,10 +203,12 @@
 	         */
 	        initRecords(url) {
 	            const vm = this;
-
+	            vm.dataForm['search'] = vm.search;
 	            axios.post(url, vm.dataForm).then(response=>{
 					if (response.data.records.length == 0) {
-						vm.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
+						vm.showMessage(
+                                'custom', 'Error', 'danger', 'screen-error', "No se encontraron asientos contables aprobados con los parámetros de busqueda dados."
+                            );
 					}else{
 						if (vm.dataForm['firstSearch']) {
 							vm.showMessage('custom', 'Éxito', 'success', 'screen-ok', 'Busqueda realizada de manera exitosa.');
@@ -310,6 +262,7 @@
 			});
 
 			EventBus.$on('list:entries',(data)=>{
+				this.search = '';
 				this.dataForm = data;
 				this.initRecords(this.url);
 			});

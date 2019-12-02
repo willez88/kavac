@@ -80,4 +80,22 @@ class AccountingEntry extends Model implements Auditable
         // belongsTo(RelatedModel, foreignKey = curr_id, keyOnRelatedModel = id)
         return $this->belongsTo(Currency::class);
     }
+
+    /**
+     * Query scope Column.
+     *
+     * @param
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  [type] $column [nombre de la columna en la que se desea buscar]
+     * @param  [type] $search [texto que se buscara]
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeColumn($query, $column, $search)
+    {
+        if ($column && $search === '') {
+            return $query;
+        } elseif ($column && $search) {
+            return $query->orWhere($column, 'LIKE', "%$search%");
+        }
+    }
 }

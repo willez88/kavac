@@ -348,8 +348,11 @@ class AccountingEntryController extends Controller
     }
 
     /**
-     * consulta y filta los registros de asientos contables
-     * @param Request $request
+     * [filterRecords consulta y filta los registros de asientos contables]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  Request $request
+     * @param  integer $perPage [pagina anterior]
+     * @param  integer $page    [pagina actual a mostrar]
      * @return Response
      */
     public function filterRecords(Request $request, $perPage = 10, $page = 1)
@@ -375,107 +378,123 @@ class AccountingEntryController extends Controller
 
         if ($request->typeSearch == 'reference') {
             $allRecords = [];
+
+            $search = (!$request->search)?$request->reference:$request->search;
             /**
-             * Se realiza la consulta si selecciono una institución o departamento para el filtrado
+             * Se realiza la consulta si selecciono una institución para el filtrado
             */
-            if (!is_null($institution_id)) {
-                /**
-                 * Se seleccionan los registros por institución
-                */
-                $allRecords = AccountingEntry::where('approved', true)
-                                ->where('institution_id', $institution_id)
-                                ->orderBy('from_date', 'ASC');
+            if ($institution_id) {
+                $allRecords = AccountingEntry::column('reference', $search)
+                                                ->column('from_date', $search)
+                                                ->column('reference', $search)
+                                                ->column('concept', $search)
+                                                ->where('institution_id', $institution_id);
             } else {
-                $allRecords = AccountingEntry::where('approved', true)
-                                ->orderBy('from_date', 'ASC');
-            }
-            foreach ($allRecords as $entries) {
-                if (count(explode($request['reference'], $entries->reference)) > 1) {
-                    array_push($records, $entries);
-                }
+                $allRecords = AccountingEntry::column('reference', $search)
+                                                ->column('from_date', $search)
+                                                ->column('reference', $search)
+                                                ->column('concept', $search);
             }
         } elseif ($request->typeSearch == 'origin') {
             /**
              * realiza busqueda de todos los asientos, de lo contrario solo por una categoria especifica
              * Se realiza la consulta si selecciono una institución o departamento para el filtrado
             */
-            $FilterByOrigin = [];
+            $allRecords = [];
 
-            if (!is_null($institution_id)) {
-                /**
-                 * Se seleccionan los registros por institución
-                */
-                $FilterByOrigin = ($request->category == 0) ?
+            if ($request->search) {
+                if ($institution_id) {
+                    /**
+                     * Se seleccionan los registros por institución
+                    */
+                    $allRecords = ($request->category == 0) ?
+                                    AccountingEntry::where('institution_id', $institution_id) :
                                     AccountingEntry::where('institution_id', $institution_id)
-                                    ->where('approved', true)
-                                    ->orderBy('from_date', 'ASC') :
-                                    AccountingEntry::where('institution_id', $institution_id)
-                                    ->where('approved', true)
-                                    ->where('accounting_entry_categories_id', $request->category)
-                                    ->orderBy('from_date', 'ASC');
-            } else {
-                $FilterByOrigin = ($request->category == 0) ?
-                                    AccountingEntry::where('approved', true)
-                                    ->orderBy('from_date', 'ASC') :
-                                    AccountingEntry::where('approved', true)
-                                    ->where('accounting_entry_categories_id', $request->category)
-                                    ->orderBy('from_date', 'ASC');
-            }
-
-            /**
-             * Filtrado para unos meses o años en general
-             */
-            if ($request->filterDate == 'generic') {
-                /**
-                 * [$fltForYear contendra los registros restantes del primer filtrado general]
-                 * @var array
-                 */
-                $fltForYear = [];
-                /**
-                 * todas las fechas
-                 */
-                if ($request->year == 0 && $request->month == 0) {
-                    $records = $FilterByOrigin;
+                                    ->where('accounting_entry_categories_id', $request->category);
                 } else {
+                    $allRecords = ($request->category == 0) ?
+                                    AccountingEntry::all() :
+                                    AccountingEntry::where('accounting_entry_categories_id', $request->category);
+                }
+            } else {
+                if ($institution_id) {
                     /**
-                     * filtardo por año
-                     */
-                    if ($request->year == 0) { // todos los años
-                        $fltForYear = $FilterByOrigin;
-                    } else {
-                        foreach ($FilterByOrigin as $record) {
-                            if (explode('-', $record->from_date)[0] == $request->year) {
-                                array_push($fltForYear, $record);
-                            }
-                        }
-                    }
-                    /**
-                     * filtrado por mes
-                     */
-                    if ($request->month == 0) { // todos los meses
-                        $records = $fltForYear;
-                    } else {
-                        foreach ($fltForYear as $record) {
-                            if (explode('-', $record->from_date)[1] == $request->month) {
-                                array_push($records, $record);
-                            }
+                     * Se seleccionan los registros por institución
+                    */
+                    $query = AccountingEntry::column('from_date', $request->search)
+                                            ->column('reference', $request->search)
+                                            ->column('concept', $request->search);
+
+                    $allRecords = ($request->category == 0) ?
+                                    $query->where('institution_id', $institution_id) :
+                                    
+                                    $query->where('institution_id', $institution_id)
+                                            ->where('accounting_entry_categories_id', $request->category);
+                } else {
+                    $allRecords = ($request->category == 0) ?
+                                    $query :
+                                    $query->where('accounting_entry_categories_id', $request->category);
+                }
+            }
+        }
+        $allRecords = $allRecords->where('approved', true)
+                                ->orderBy('id', 'ASC')
+                                ->orderBy('from_date', 'ASC')
+                                ->orderBy('reference', 'ASC');
+        /**
+         * Filtrado para unos meses o años en general
+         */
+
+        if ($request->filterDate == 'generic') {
+            /**
+             * [$fltForYear contendra los registros restantes del primer filtrado general]
+             * @var array
+             */
+            $fltForYear = [];
+            /**
+             * todas las fechas
+             */
+            if ($request->year == 0 && $request->month == 0) {
+                $records = $allRecords;
+            } else {
+                /**
+                 * filtardo por año
+                 */
+                if ($request->year == 0) { // todos los años
+                    $fltForYear = $allRecords;
+                } else {
+                    foreach ($allRecords as $record) {
+                        if (explode('-', $record->from_date)[0] == $request->year) {
+                            array_push($fltForYear, $record);
                         }
                     }
                 }
-            } else {
                 /**
-                 * Filtrado en un rango especifico de fechas
+                 * filtrado por mes
                  */
-                $records = $FilterByOrigin->whereBetween("from_date", [$request->init,$request->end]);
+                if ($request->month == 0) { // todos los meses
+                    $records = $fltForYear;
+                } else {
+                    foreach ($fltForYear as $record) {
+                        if (explode('-', $record->from_date)[1] == $request->month) {
+                            array_push($records, $record);
+                        }
+                    }
+                }
             }
+        } else {
+            /**
+             * Filtrado en un rango especifico de fechas
+             */
+            $records = $allRecords->whereBetween("from_date", [$request->init,$request->end])
+                                ->orderBy('reference', 'ASC');
         }
-        // $perPage = 10;
-        // $page = 1;
-        // dd($perPage);
-        // dd($page);
-        $total = $records->count();
-        $records = $records->offset(($page - 1) * $perPage)->limit($perPage)->get();
+        
+
+        $total = $allRecords->count();
+        $records = $allRecords->offset(($page - 1) * $perPage)->limit($perPage)->get();
         $lastPage = max((int) ceil($total / $perPage), 1);
+
         return response()->json(
             [
                 'records'  => $records,
@@ -484,75 +503,8 @@ class AccountingEntryController extends Controller
             ],
             200
         );
-
-        // return response()->json(['records'=>$records,'message'=>'Success', 200]);
     }
 
-    /**
-     * Otiene un listado de los bienes registradas
-     *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
-     */
-    public function vueList($perPage = 10, $page = 1, $operation = null, $operation_id = null)
-    {
-        if ($operation == null) {
-            $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id');
-        } elseif ($operation_id == null) {
-            if ($operation == 'asignations') {
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->where('asset_condition_id', 1)->where('asset_status_id', 10);
-            } elseif ($operation == 'disincorporations') {
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->where('asset_status_id', 10);
-            } elseif ($operation == 'requests') {
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->where('asset_status_id', 10);
-            }
-        } else {
-            if ($operation == 'asignations') {
-                $selected = [];
-                $assetAsignationAssets = AssetAsignation::find($operation_id)->assetAsignationAssets()->get();
-                foreach ($assetAsignationAssets as $assetAsignationAsset) {
-                    array_push($selected, $assetAsignationAsset->asset_id);
-                }
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->whereIn('id', $selected)
-                    ->orWhere('asset_status_id', 10)
-                    ->where('asset_condition_id', 1);
-            } elseif ($operation == 'disincorporations') {
-                $selected = [];
-                $assetDisincorporationAssets = AssetDisincorporation::find($operation_id)
-                    ->assetDisincorporationAssets()->get();
-                foreach ($assetDisincorporationAssets as $assetDisincorporationAsset) {
-                    array_push($selected, $assetDisincorporationAsset->asset_id);
-                }
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->whereIn('id', $selected)
-                    ->orWhere('asset_status_id', 10);
-            } elseif ($operation == 'requests') {
-                $selected = [];
-                $assetRequestAssets = AssetRequest::find($operation_id)->assetRequestAssets()->get();
-                foreach ($assetRequestAssets as $assetRequestAsset) {
-                    array_push($selected, $assetRequestAsset->asset_id);
-                }
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->whereIn('id', $selected)
-                    ->orWhere('asset_status_id', 10);
-            }
-        }
-        $total = $assets->count();
-        $assets = $assets->offset(($page - 1) * $perPage)->limit($perPage)->get();
-        $lastPage = max((int) ceil($total / $perPage), 1);
-        return response()->json(
-            [
-                'records'  => $assets,
-                'total'    => $total,
-                'lastPage' => $lastPage,
-            ],
-            200
-        );
-    }
 
     /**
      * Obtiene los registros de las cuentas patrimoniales
