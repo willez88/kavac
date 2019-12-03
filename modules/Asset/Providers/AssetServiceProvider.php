@@ -36,6 +36,8 @@ class AssetServiceProvider extends ServiceProvider
 
         Queue::before(function (JobProcessing $event) {
             // echo "before";
+            // Acceder al reporte del trabajo y cambiar estatus de
+            // pendiente por ejecutar a en proceso
         });
 
         /**
@@ -43,7 +45,13 @@ class AssetServiceProvider extends ServiceProvider
          */
         
         Queue::after(function (JobProcessed $event) {
+            //$data = $event->job->payload;
+            //echo get_class($event->job->getRawBody());
+            //echo 'data' . get_class($data);
             // echo "after";
+            // Acceder al reporte del trabajo y cambiar estatus de
+            // en proceso a terminado
+            // Lanzar evento descrito en el trabajo (abrir al finalizar o forzar descarga)
         });
     }
 

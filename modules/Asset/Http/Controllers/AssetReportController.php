@@ -9,11 +9,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Jobs\AssetGenerateReport;
 
-use Modules\Asset\Models\AssetInventoryAsset;
-use Modules\Asset\Models\AssetInventory;
 use Modules\Asset\Models\AssetReport;
 use App\Models\CodeSetting;
-use App\Models\Setting;
 
 /**
  * @class AssetReportController
@@ -65,7 +62,6 @@ class AssetReportController extends Controller
             'type_report' => ['required']
         ]);
 
-
         $codeSetting = CodeSetting::where('table', 'asset_reports')->first();
         if (is_null($codeSetting)) {
             $request->session()->flash('message', [
@@ -75,67 +71,61 @@ class AssetReportController extends Controller
             return response()->json(['result' => false, 'redirect' => route('asset.setting.index')], 200);
         }
 
-        if ($request->type_report == 'general') {
-            if ($request->type_search == 'date') {
-                $report = AssetReport::where('type_report', $request->type_report)
-                                     ->where('type_search', $request->type_search)
-                                     ->where('start_date', $request->start_date)
-                                     ->where('end_date', $request->end_date)->first();
-            } elseif ($request->type_search == 'mes') {
-                $report = AssetReport::where('type_report', $request->type_report)
-                                     ->where('type_search', $request->type_search)
-                                     ->where('mes', $request->mes_id)
-                                     ->where('year', $request->year)->first();
-            } else {
-                $report = AssetReport::where('type_report', $request->type_report)
-                                     ->where('type_search', $request->type_search)
-                                     ->where('start_date', null)
-                                     ->where('end_date', null)
-                                     ->where('mes', null)
-                                     ->where('year', null)->first();
-            }
-        } elseif ($request->type_report == 'clasification') {
-            $report = AssetReport::where('type_report', $request->type_report)
-                                     ->where('asset_type_id', $request->asset_type_id)
-                                     ->where('asset_category_id', $request->asset_category_id)
-                                     ->where('asset_subcategory_id', $request->asset_subcategory_id)
-                                     ->where('asset_specific_category_id', $request->asset_specific_category_id)
-                                     ->first();
-        } elseif ($request->type_report == 'dependence') {
-            $report = AssetReport::where('type_report', $request->type_report)
-                                     ->where('institution_id', $request->institution_id)
-                                     ->where('department_id', $request->department_id)->first();
-        }
+        $code = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
+        
+        $report = AssetReport::create([
+            'code' => $code,
+            'type_report' => $request->input('type_report'),
+            'type_search' => $request->input('type_search'),
+
+            'asset_type_id' => $request->input('asset_type_id'),
+            'asset_category_id' => $request->input('asset_category_id'),
+            'asset_subcategory_id' => $request->input('asset_subcategory_id'),
+            'asset_specific_category_id' => $request->input('asset_specific_category_id'),
+
+            'institution_id' => $request->input('institution_id'),
+            'department_id' => $request->input('department_id'),
+            'mes' => $request->input('mes_id'),
+            'year' => $request->input('year'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+        ]);
+        if ($request->input('operation') == 'open') {
+            /**
+             * Si selecciona la opción (abrir documento)
+             *
+             * Special Requirements: Abrir documento al finalizar
+             */
+        } elseif ($request->input('operation') == 'download') {
+            /**
+             * Si selecciona la opción (descargar documento)
+             *
+             * Special Requirements: Forzar descarga del documento
+             */
+        };
 
         if (is_null($report)) {
-            $code = generate_registration_code(
-                $codeSetting->format_prefix,
-                strlen($codeSetting->format_digits),
-                (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
-                $codeSetting->model,
-                $codeSetting->field
-            );
-            
-
-            $report = AssetReport::create([
-                'code' => $code,
-                'type_report' => $request->input('type_report'),
-                'type_search' => $request->input('type_search'),
-
-                'asset_type_id' => $request->input('asset_type_id'),
-                'asset_category_id' => $request->input('asset_category_id'),
-                'asset_subcategory_id' => $request->input('asset_subcategory_id'),
-                'asset_specific_category_id' => $request->input('asset_specific_category_id'),
-
-                'institution_id' => $request->input('institution_id'),
-                'department_id' => $request->input('department_id'),
-                'mes' => $request->input('mes_id'),
-                'year' => $request->input('year'),
-                'start_date' => $request->input('start_date'),
-                'end_date' => $request->input('end_date'),
-            ]);
+            $message = [
+                'type'  => 'other',
+                'title' => 'Alerta',
+                'icon'  => 'screen-error',
+                'class' => 'growl-danger',
+                'text'  => 'No se pudo completar la operación'
+            ];
+            return response()->json(['result' => false, 'message' => $message], 200);
+        } else {
+            $body = ($report->type_report == 'general')
+                    ? 'asset::pdf.asset_general'
+                    : 'asset::pdf.asset_detallado';
+            AssetGenerateReport::dispatch($report, $body);
+            return response()->json(['result' => true], 200);
         }
-        return response()->json(['result' => true, 'redirect' => 'reports/show/'.$report->code], 200);
     }
 
     /**
@@ -144,80 +134,8 @@ class AssetReportController extends Controller
      */
     public function show($code_report)
     {
-        $report = AssetReport::where('code', $code_report)->first();
-        AssetGenerateReport::dispatch($report);
-    }
-
-
-    public function showGeneral($code_inventory)
-    {
-        /*
-            $inventory = AssetInventory::where('code', $code_inventory)->first();
-
-            $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
-
-            $setting = Setting::all()->first();
-            $pdf = new Pdf('L', 'mm', 'Letter');
-
-            if (isset($setting) and $setting->report_banner == true) {
-                $pdf->SetMargins(10, 65, 10);
-            } else {
-                $pdf->SetMargins(10, 55, 10);
-            }
-
-            $pdf->SetHeaderMargin(10);
-            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-            $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-            $pdf->setType(2);
-            $pdf->Open();
-            $pdf->AddPage();
-
-            $view = \View::make('asset::pdf.asset_general', compact('assets', 'pdf'));
-            $html = $view->render();
-            $pdf->SetFont('Courier', 'B', 8);
-            $pdf->writeHTML($html, true, false, true, false, '');
-
-            $pdf->Output($inventory->code.".pdf");
-        */
-    }
-
-    public function showClasification($code_inventory)
-    {
-        /*
-            $inventory = AssetInventory::where('code', $code_inventory)->first();
-
-            $assets = AssetInventoryAsset::where('asset_inventory_id', $inventory->id)->with('asset')->get();
-
-            $setting = Setting::all()->first();
-            $pdf = new Pdf('L', 'mm', 'Letter');
-
-
-            if (isset($setting) and $setting->report_banner == true) {
-                $pdf->SetMargins(10, 65, 10);
-            } else {
-                $pdf->SetMargins(10, 55, 10);
-            }
-
-            $pdf->SetHeaderMargin(10);
-            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-            $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-            $pdf->setType(1);
-            $pdf->Open();
-            $pdf->AddPage();
-
-            $view = \View::make('asset::pdf.asset_detallado', compact('assets', 'pdf'));
-            $html = $view->render();
-            $pdf->SetFont('Courier', 'B', 8);
-            $pdf->writeHTML($html, true, false, true, false, '');
-
-            $pdf->Output($inventory->code.".pdf");
-        */
-    }
-
-    public function showDependence($code_inventory)
-    {
-        return;
+        $report = AssetReport::where('code', $code_report)->with('document')->first();
+        $pdf    = new ReportRepository();
+        $pdf->show($report->document->file);
     }
 }

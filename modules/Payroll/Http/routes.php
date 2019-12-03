@@ -144,6 +144,18 @@ Route::group([
         'PayrollSectorTypeController@getPayrollSectorTypes'
     )->name('payroll.get-payroll-sector-types');
 
+    Route::resource(
+        'license-degrees',
+        'PayrollLicenseDegreeController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+
+    Route::resource(
+        'blood-types',
+        'PayrollBloodTypeController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+
     Route::resource('employment-informations', 'PayrollEmploymentInformationController', ['as' => 'payroll']);
     Route::get(
         'employment-informations/show/vue-list',

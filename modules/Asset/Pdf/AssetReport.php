@@ -401,11 +401,13 @@ class AssetReport implements ReportInterface
         });
     }
 
-    public function show($file = null)
+    public function show($file = null, $dest = 'I')
     {
-        $filename = storage_path() . '/reports/' . $file ?? 'report' . Carbon::now() . '.pdf';
-        $this->pdf->Output($filename, 'F');
-        return Response::download($filename);
+        $filename = storage_path() . '/reports/' . $file ?? 'asset-report-' . Carbon::now() . '.pdf';
+        $this->pdf->Output($filename, $dest);
+        if ($dest == 'F') {
+            return Response::download($filename);
+        };
     }
 
     public function getCheckBreak()

@@ -160,6 +160,12 @@
 
 						{{-- tipos de sector --}}
 						<payroll-sector-types></payroll-sector-types>
+
+						{{-- grados de licencia de conducir --}}
+						<payroll-license-degrees></payroll-license-degrees>
+
+						{{-- tipos de sangre --}}
+						<payroll-blood-types></payroll-blood-types>
 					</div>
 				</div>
 			</div>
@@ -183,7 +189,7 @@
 						{{-- Escalafones Salariales --}}
 						<payroll-salary-scale>
 						</payroll-salary-scale>
-						
+
 						{{-- Tabuladores de Nómina --}}
 						<payroll-salary-tabulator>
 						</payroll-salary-tabulator>

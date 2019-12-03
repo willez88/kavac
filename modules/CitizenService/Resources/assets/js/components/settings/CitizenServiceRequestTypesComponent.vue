@@ -35,7 +35,7 @@
         	                    </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group is-required">
         							<label for="description">Descripción:</label>
         							<input type="text" id="description" placeholder="Descripción"
         								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
@@ -57,7 +57,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'positions')"
+		                		<button @click="deleteRecord(props.index, 'request-types')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
