@@ -401,6 +401,12 @@ class AccountingEntryController extends Controller
              * Se realiza la consulta si selecciono una institución o departamento para el filtrado
             */
             $allRecords = [];
+            
+            $search = ($request->search)?$request->search:'';
+
+            $query = AccountingEntry::column('from_date', (($search)?$search:''))
+                                    ->column('reference', (($search)?$search:''))
+                                    ->column('concept', (($search)?$search:''));
 
             if ($request->search) {
                 if ($institution_id) {
@@ -408,22 +414,19 @@ class AccountingEntryController extends Controller
                      * Se seleccionan los registros por institución
                     */
                     $allRecords = ($request->category == 0) ?
-                                    AccountingEntry::where('institution_id', $institution_id) :
-                                    AccountingEntry::where('institution_id', $institution_id)
+                                    $query->where('institution_id', $institution_id) :
+                                    $query->where('institution_id', $institution_id)
                                     ->where('accounting_entry_categories_id', $request->category);
                 } else {
                     $allRecords = ($request->category == 0) ?
-                                    AccountingEntry::all() :
-                                    AccountingEntry::where('accounting_entry_categories_id', $request->category);
+                                    $query :
+                                    $query->where('accounting_entry_categories_id', $request->category);
                 }
             } else {
                 if ($institution_id) {
                     /**
                      * Se seleccionan los registros por institución
                     */
-                    $query = AccountingEntry::column('from_date', $request->search)
-                                            ->column('reference', $request->search)
-                                            ->column('concept', $request->search);
 
                     $allRecords = ($request->category == 0) ?
                                     $query->where('institution_id', $institution_id) :
