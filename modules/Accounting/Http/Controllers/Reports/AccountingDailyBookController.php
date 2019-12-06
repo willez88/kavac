@@ -39,7 +39,17 @@ class AccountingDailyBookController extends Controller
         $this->middleware('permission:accounting.report.dailybook', ['only' => ['index', 'pdf', 'pdfVue']]);
     }
     
+    protected $records     = [];
 
+    public function getRecords()
+    {
+        return $this->records;
+    }
+
+    public function setRecords($records)
+    {
+        $this->records = array_merge($this->records, $records);
+    }
     /**
      * [pdf verifica las conversiones monetarias de un reporte libro diario]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
@@ -57,7 +67,8 @@ class AccountingDailyBookController extends Controller
             'accountingAccounts.account.accountConverters.budgetAccount'
         )->where('approved', true)
         ->whereBetween("from_date", [$initDate, $endDate])
-        ->orderBy('from_date', 'ASC')->get();
+        ->orderBy('from_date', 'ASC');
+
         $convertions = [];
         foreach ($entries as $entry) {
             $inRange = false;
@@ -138,57 +149,61 @@ class AccountingDailyBookController extends Controller
         $report   = AccountingReportHistory::with('currency')->find($report_id);
         $initDate = explode('/', $report->url)[1];
         $endDate  = explode('/', $report->url)[2];
-        
+
         $currency = $report->currency;
 
         /**
          * [$entries información del asiento contable]
          * @var AccountingEntry
          */
-        $entries = AccountingEntry::with(
+        $entries = '';
+
+
+        $convertions = [];
+
+        AccountingEntry::with(
             'accountingAccounts.account.accountConverters.budgetAccount'
         )->where('approved', true)
         ->whereBetween("from_date", [$initDate, $endDate])
-        ->orderBy('from_date', 'ASC')->get();
-        
-        $convertions = [];
-        $records     = [];
-        foreach ($entries as $entry) {
-            $convertions = $this->calculateExchangeRates($convertions, $entry, $currency['id']);
+        ->orderBy('from_date', 'ASC')->chunk(250, function ($entries) use ($convertions, $currency) {
+            $records = [];
+            foreach ($entries as $entry) {
+                $convertions = $this->calculateExchangeRates($convertions, $entry, $currency['id']);
 
-            $from_date = explode('-', $entry['from_date']);
-            $record = [
-                'id'                 =>$entry['id'],
-                'from_date'          => $from_date[2].'-'.$from_date[1].'-'.$from_date[0] ,
-                'accountingAccounts' =>[],
-            ];
+                $from_date = explode('-', $entry['from_date']);
+                $record = [
+                    'id'                 => $entry['id'],
+                    'from_date'          => $from_date[2].'-'.$from_date[1].'-'.$from_date[0] ,
+                    'accountingAccounts' => [],
+                ];
 
-            $record['accountingAccounts'] = [];
-            foreach ($entry['accountingAccounts'] as $r) {
-                array_push($record['accountingAccounts'], [
-                    'debit'                   => ($r['debit']  != 0)?
-                    $this->calculateOperation(
-                        $convertions,
-                        $entry['currency']['id'],
-                        $r['debit'],
-                        $entry['from_date'],
-                        ($entry['currency']['id'] != $currency->id)??true
-                    ):0,
-                    'assets'                  => ($r['assets'] != 0)?
-                    $this->calculateOperation(
-                        $convertions,
-                        $entry['currency']['id'],
-                        $r['assets'],
-                        $entry['from_date'],
-                        ($entry['currency']['id'] != $currency->id)??true
-                    ):0,
-                    'code'                    => $r['account']->getCodeAttribute(),
-                    'denomination'            => $r['account']['denomination']
-                ]);
+                $record['accountingAccounts'] = [];
+                foreach ($entry['accountingAccounts'] as $r) {
+                    array_push($record['accountingAccounts'], [
+                        'debit'                   => ($r['debit']  != 0)?
+                        $this->calculateOperation(
+                            $convertions,
+                            $entry['currency']['id'],
+                            $r['debit'],
+                            $entry['from_date'],
+                            ($entry['currency']['id'] != $currency->id)??true
+                        ):0,
+                        'assets'                  => ($r['assets'] != 0)?
+                        $this->calculateOperation(
+                            $convertions,
+                            $entry['currency']['id'],
+                            $r['assets'],
+                            $entry['from_date'],
+                            ($entry['currency']['id'] != $currency->id)??true
+                        ):0,
+                        'code'                    => $r['account']->getCodeAttribute(),
+                        'denomination'            => $r['account']['denomination']
+                    ]);
+                }
+                array_push($records, $record);
             }
-
-            array_push($records, $record);
-        }
+            $this->setRecords($records);
+        });
 
         /**
          * [$setting configuración general de la apliación]
@@ -212,7 +227,7 @@ class AccountingDailyBookController extends Controller
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.entry_and_daily_book', true, [
             'pdf'         => $pdf,
-            'entries'     => $records,
+            'entries'     => $this->getRecords(),
             'convertions' => $convertions,
             'currency'    => $currency,
             'Entry'       => $Entry,

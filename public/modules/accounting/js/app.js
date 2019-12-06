@@ -8190,15 +8190,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "text-uppercase" }, [
+        _c("th", { staticClass: "text-uppercase", attrs: { width: "55%" } }, [
           _vm._v("CÓDIGO DE CUENTA - DENOMINACIÓN")
         ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-uppercase" }, [_vm._v("DEBE")]),
+        _c("th", { staticClass: "text-uppercase", attrs: { width: "20%" } }, [
+          _vm._v("DEBE")
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-uppercase" }, [_vm._v("HABER")]),
+        _c("th", { staticClass: "text-uppercase", attrs: { width: "20%" } }, [
+          _vm._v("HABER")
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-uppercase" }, [_vm._v("ACCIÓN")])
+        _c("th", { staticClass: "text-uppercase", attrs: { width: "5%" } }, [
+          _vm._v("ACCIÓN")
+        ])
       ])
     ])
   },

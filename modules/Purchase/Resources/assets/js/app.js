@@ -40,6 +40,14 @@ Vue.component('purchase-suppliers-list', require('./components/PurchaseSupplierL
 Vue.component('purchase-processes', require('./components/PurchaseProcessComponent.vue').default);
 
 /**
+ * Componente para la gestión de creacion y actualización de requerimientos 
+ * 
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('purchase-requirements-form', require('./components/requirements/PurchaseFormComponent.vue').default);
+
+
+/**
  * Opciones de configuración global del módulo de compras
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

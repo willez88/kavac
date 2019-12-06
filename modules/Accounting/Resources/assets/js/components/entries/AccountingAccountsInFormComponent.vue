@@ -5,10 +5,10 @@
     <table class="table table-formulation">
         <thead>
             <tr>
-                <th class="text-uppercase">CÓDIGO DE CUENTA - DENOMINACIÓN</th>
-                <th class="text-uppercase">DEBE</th>
-                <th class="text-uppercase">HABER</th>
-                <th class="text-uppercase">ACCIÓN</th>
+                <th class="text-uppercase" width="55%">CÓDIGO DE CUENTA - DENOMINACIÓN</th>
+                <th class="text-uppercase" width="20%">DEBE</th>
+                <th class="text-uppercase" width="20%">HABER</th>
+                <th class="text-uppercase" width="5%">ACCIÓN</th>
             </tr>
         </thead>
         <tbody>

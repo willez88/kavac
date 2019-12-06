@@ -234,8 +234,8 @@ class AccountingAnalyticalMajorController extends Controller
                         }
                     }
 
-                    if (!$inRange || (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
-                                    && $entryAccount['entries']['currency']['id'] != $currency['id'])) {
+                    if ((!$inRange || !array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) &&
+                        $entryAccount['entries']['currency']['id'] != $currency['id']) {
                         return response()->json([
                                     'result'  => false,
                                     'message' => 'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
