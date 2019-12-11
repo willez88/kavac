@@ -85,4 +85,15 @@ class PayrollSalaryTabulator extends Model implements Auditable
     {
         return $this->hasMany(PayrollSalaryTabulatorScale::class);
     }
+
+    /**
+     * Método que obtiene la institución asociada al tabulador salarial
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function institution()
+    {
+        return $this->belongsTo(\App\Models\Institution::class);
+    }
 }

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollSalaryTabulator;
 use Modules\Payroll\Models\PayrollSalaryTabulatorScale;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Payroll\Exports\PayrollSalaryTabulatorExport;
 
 /**
  * @class PayrollSalaryTabulatorController
@@ -254,5 +256,20 @@ class PayrollSalaryTabulatorController extends Controller
     public function getSalaryTabulators()
     {
         return template_choices('Modules\Payroll\Models\PayrollSalaryTabulator', 'name', '', true);
+    }
+
+    /**
+     * Exporta un tabulador salarial
+     * @param  Integer $id                   Identificador único del tabulador salarial a exportar
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function export($id)
+    {
+        $payrollSalaryTabulator = PayrollSalaryTabulator::where('id', $id)->first();
+        if ($payrollSalaryTabulator) {
+            $export = new PayrollSalaryTabulatorExport(PayrollSalaryTabulator::class);
+            $export->setSalaryTabulatorId($payrollSalaryTabulator->id);
+            return Excel::download($export, 'salary_tabulator'. $payrollSalaryTabulator->created_at . '.xlsx');
+        }
     }
 }

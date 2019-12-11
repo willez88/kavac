@@ -179,6 +179,7 @@ Route::group([
      * ------------------------------------------------------------
      */
     Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show','create','edit']]);
+    Route::get('salary-tabulators/export/{tabulator}', 'PayrollSalaryTabulatorController@export');
     Route::get('get-salary-tabulators', 'PayrollSalaryTabulatorController@getSalaryTabulators');
 
     /**
