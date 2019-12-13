@@ -104,7 +104,7 @@ class AccountingDailyBookController extends Controller
          */
         $url = 'dailyBook/'.$initDate.'/'.$endDate;
 
-        $institution = $this->getInstitution();
+        $institution = get_institution();
 
         /**
          * [$report almacena el registro del reporte del dia si existe]
@@ -296,20 +296,6 @@ class AccountingDailyBookController extends Controller
             }
         }
         return $convertions;
-    }
-
-    /**
-     * [getInstitution obtiene la informacion de una institución]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  int|null $id [identificador unico de la institución]
-     * @return Institution     [informacion de la institución]
-     */
-    public function getInstitution($id = null)
-    {
-        if ($id) {
-            return Institution::find($id);
-        }
-        return Institution::first();
     }
     
     public function getCheckBreak()

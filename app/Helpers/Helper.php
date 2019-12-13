@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Institution;
+
 if (! function_exists('set_active_menu')) {
     /**
      * Define la opción activa del menú según la URL actual
@@ -375,5 +377,24 @@ if (! function_exists('check_connection')) {
     function check_connection($host = 'www.google.com', $port = 80)
     {
         return (bool)@fsockopen($host, $port, $errno, $errstr, 4);
+    }
+}
+
+if (! function_exists('get_institution')) {
+    /**
+     * [getInstitution obtiene la informacion de una institución]
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     *
+     * @param  int|null $id [identificador unico de la institución]
+     *
+     * @return Institution     [informacion de la institución]
+     */
+    function get_institution($id = null)
+    {
+        if ($id) {
+            return Institution::find($id);
+        }
+        return Institution::first();
     }
 }

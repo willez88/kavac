@@ -29,9 +29,11 @@
                 </div>
                 <div class="card-body">
                     <purchase-requirements-form :supplier_objects="{{ $supplier_objects }}" 
-                                                :acc="{{ $acc }}"
-                                                :date="{{ date("d").'/'.date("m").'/'.date("Y") }}" 
-                                                :year="{{ date('Y') }}" />
+                                                :date="{{ $date }}"
+                                                :institutions="{{ $institutions }}"
+                                                :purchase_supplier_types="{{ $purchase_supplier_types }}"
+                                                :fiscal_years="{{ $fiscal_years }}"
+                                                 />
                 </div>
             </div>
         </div>

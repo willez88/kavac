@@ -64,7 +64,7 @@ class AccountingDashboardController extends Controller
          */
         $currency    = Currency::where('default', true)->first();
 
-        $institution = $this->getInstitution();
+        $institution = get_institution();
         /**
          * [$lastRecords información de los ultimos 10 asientos contables generados]
          * @var [Modules\Accounting\Models\AccountingEntry]
@@ -89,7 +89,7 @@ class AccountingDashboardController extends Controller
          */
         $report_histories = [];
         
-        $institution      = $this->getInstitution();
+        $institution      = get_institution();
 
         $reports = AccountingReportHistory::where('institution_id', $institution->id)
                                             ->orderBy('updated_at', 'DESC')->get();
@@ -113,19 +113,5 @@ class AccountingDashboardController extends Controller
         }
 
         return response()->json(['report_histories' => $report_histories], 200);
-    }
-
-    /**
-     * [getInstitution obtiene la informacion de una institución]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  int|null $id [identificador unico de la institución]
-     * @return Institution     [informacion de la institución]
-     */
-    public function getInstitution($id = null)
-    {
-        if ($id) {
-            return Institution::find($id);
-        }
-        return Institution::first();
     }
 }

@@ -14,8 +14,6 @@ use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Jobs\AccountingManageEntries;
-use App\Models\CodeSetting;
-use App\Rules\CodeSetting as CodeSettingRule;
 use Auth;
 
 /**
@@ -198,7 +196,7 @@ class AccountingEntryController extends Controller
             'category.required'       => 'El campo categoria es obligatorio.',
             'category.integer'        => 'El campo categoria no esta en el formato de entero.',
             'institution_id.required' => 'El campo institución es obligatorio.',
-            'institution_id.integer'  => 'El campo intitución no esta en el formato de entero.',
+            'institution_id.integer'  => 'El campo institución no esta en el formato de entero.',
             'currency_id.required'    => 'El campo moneda es obligatorio.',
             'currency_id.integer'     => 'El campo moneda no esta en el formato de entero.',
             'tot.confirmed'           => 'El asiento no esta balanceado, Por favor verifique.',

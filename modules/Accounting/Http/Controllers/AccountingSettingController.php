@@ -39,28 +39,14 @@ class AccountingSettingController extends Controller
     }
 
     /**
-     * [getInstitution obtiene la informacion de una institución]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  int|null $id [identificador unico de la institución]
-     * @return Institution     [informacion de la institución]
-     */
-    public function getInstitution($id = null)
-    {
-        if ($id) {
-            return Institution::find($id);
-        }
-        return Institution::first();
-    }
-
-    /**
      * Muestra la vista la configuración del modulo
      * @return view
      */
     public function index()
     {
-        $institution  = $this->getInstitution();
+        $institution  = get_institution();
         $codeSettings = CodeSetting::where('module', 'accounting')->get();
-        $refCode      = $codeSettings->where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
+        $refCode      = $codeSettings->where('table', 'accounting_entries')
                                 ->first();
         return view('accounting::settings.index', compact('refCode'));
     }
@@ -72,7 +58,7 @@ class AccountingSettingController extends Controller
             'entries_reference' => [new CodeSettingRule]
         ]);
 
-        $institution = $this->getInstitution();
+        $institution = get_institution();
 
         /**
          * [$codes información de los campos de códigos configurados]
@@ -103,7 +89,7 @@ class AccountingSettingController extends Controller
                 $model = AccountingEntry::class;
                 CodeSetting::updateOrCreate([
                     'module' => 'accounting',
-                    'table'  => $institution->id.'_'.$institution->acronym.'_accounting_'. $table,
+                    'table'  => 'accounting_'. $table,
                     'field'  => $field,
                 ], [
                     'format_prefix' => $prefix,
@@ -129,8 +115,8 @@ class AccountingSettingController extends Controller
 
     public function generateReferenceCode(Request $request)
     {
-        $institution = $this->getInstitution();
-        $codeSetting = CodeSetting::where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
+        $institution = get_institution();
+        $codeSetting = CodeSetting::where('table', 'accounting_entries')
         ->first();
         if (is_null($codeSetting)) {
             $code = AccountingEntry::count();

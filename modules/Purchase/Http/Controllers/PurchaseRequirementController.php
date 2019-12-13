@@ -5,12 +5,24 @@ namespace Modules\Purchase\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use Modules\Purchase\Models\PurchaseSupplierObject;
-use Modules\Accounting\Models\AccountingAccount;
+use Modules\Purchase\Models\PurchaseSupplierType;
+use Modules\Purchase\Jobs\PurchaseManageRequirements;
+
+use Modules\Warehouse\Models\WarehouseProduct;
+use Modules\Warehouse\Models\Warehouse;
+
+use App\Models\CodeSetting;
+use App\Rules\CodeSetting as CodeSettingRule;
+// use App\Models\Institution;
+use App\Models\FiscalYear;
+use Auth;
 
 class PurchaseRequirementController extends Controller
 {
+    use ValidatesRequests;
+
     protected $supplier_objects;
 
     public function __construct()
@@ -23,7 +35,7 @@ class PurchaseRequirementController extends Controller
         ];
         // dd($supplier_objects);
         // $pos = 1;
-        foreach (PurchaseSupplierObject::all() as $so) {
+        foreach (PurchaseSupplierType::all() as $so) {
             $type = ($so->type === 'B') ? 'Bienes' : (($so->type === 'O') ? 'Obras' : 'Servicios');
 
             for ($i=1; $i < count($supplier_objects); $i++) {
@@ -51,18 +63,37 @@ class PurchaseRequirementController extends Controller
      */
     public function create()
     {
+        $institutions = template_choices('App\Models\Institution', 'name', [], true);
+        $currency     = template_choices('App\Models\Currency', 'name', [], true);
+        $warehouses   = template_choices('Modules\Warehouse\Models\Warehouse', 'name', [], true);
+        $purchase_supplier_types   = template_choices('Modules\Purchase\Models\PurchaseSupplierType', 'name', [], true);
+
+        $fiscal_years = FiscalYear::where('active', true)->first();
+
         $supplier_objects = $this->supplier_objects;
-        $acc = AccountingAccount::where('id', '<', 10)->get();
         $acc = [
             ['id' => '',          'text' => 'Seleccione...'],
-            ['id' => 'Bienes',    'text' => 'asd'],
-            ['id' => 'Obras',     'text' => 'asd2'],
-            ['id' => 'Servicios', 'text' => 'asd3']
+            ['id' => 'Bienes',    'text' => 'producto 1'],
+            ['id' => 'Obras',     'text' => 'producto 2'],
+            ['id' => 'Servicios', 'text' => 'producto 3']
+        ];
+        $department = [
+            ['id' => '',           'text' => 'Seleccione...'],
+            ['id' => 'warehouse',  'text' => 'Almacen'],
+            ['id' => 'accounting', 'text' => 'Contabilidad'],
         ];
 
-        // dd($supplier_objects);
-        return view('purchase::requirements.form', ['supplier_objects' => json_encode($supplier_objects),
-                                                    'acc' => $acc]);
+
+        
+        $date = date('d-m-Y');
+        
+        return view('purchase::requirements.form', [
+                                                    'supplier_objects'        => json_encode($supplier_objects),
+                                                    'date'                    => json_encode($date),
+                                                    'institutions'            => json_encode($institutions),
+                                                    'purchase_supplier_types' => json_encode($purchase_supplier_types),
+                                                    'fiscal_years' => $fiscal_years,
+                                                ]);
     }
 
     /**
@@ -72,6 +103,61 @@ class PurchaseRequirementController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
+        $this->validate($request, [
+            'description'               => 'required|string',
+            'institution_id'            => 'required|integer',
+            'contracting_department_id' => 'required|integer',
+            'user_department_id'        => 'required|integer',
+            'warehouse_id'              => 'required|integer',
+            'purchase_supplier_type_id' => 'required|integer'
+        ], [
+            'description'                        => 'El campo descripcióm es obligatorio.',
+            'institution_id.required'            => 'El campo institución es obligatorio.',
+            'institution_id.integer'             => 'El campo institución no esta en el formato de entero.',
+            'contracting_department_id.required' => 'El campo unidad contratante es obligatorio.',
+            'contracting_department_id.integer'  => 'El campo unidad contratante no esta en el formato de entero.',
+            'user_department_id.required'        => 'El campo unidad usuaria es obligatorio.',
+            'user_department_id.integer'         => 'El campo unidad usuaria no esta en el formato de entero.',
+            'warehouse_id.required'              => 'El campo almacen es obligatorio.',
+            'warehouse_id.integer'               => 'El campo almacen no esta en el formato de entero.',
+            'purchase_supplier_type_id.required' => 'El campo tipo es obligatorio.',
+            'purchase_supplier_type_id.integer'  => 'El campo tipo no esta en el formato de entero.'
+        ]);
+
+        PurchaseManageRequirements::dispatch($request->all());
+        dd("creado");
+    }
+
+    /**
+     * [generateReferenceCodeAvailable genera el código disponible]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return string [código que se asignara]
+     */
+    public function generateReferenceCodeAvailable()
+    {
+        $institution = $this->getInstitution();
+        $codeSetting = CodeSetting::where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
+                                    ->first();
+
+        if (!$codeSetting) {
+            $codeSetting = CodeSetting::where('table', 'accounting_entries')
+                                    ->first();
+        }
+
+        if ($codeSetting) {
+            $code  = generate_registration_code(
+                $codeSetting->format_prefix,
+                strlen($codeSetting->format_digits),
+                (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+                AccountingEntry::class,
+                $codeSetting->field
+            );
+        } else {
+            $code = 'error al generar código de referencia';
+        }
+
+        return $code;
     }
 
     /**

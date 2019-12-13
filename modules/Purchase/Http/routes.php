@@ -72,5 +72,9 @@ Route::group([
      *
      * Gestiona los datos de los requerimientos de compras
      */
-    Route::resource('requirements', 'PurchaseRequirementController', ['as' => 'purchase', 'except' => ['show']]);
+    Route::post('purchase/requirements', 'PurchaseRequirementController@store');
+    Route::resource('requirements', 'PurchaseRequirementController', [
+        'as'     => 'purchase',
+        'except' => ['show']
+    ]);
 });

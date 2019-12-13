@@ -75,7 +75,7 @@ class AccountingManageEntries implements ShouldQueue
             $newEntries = AccountingEntry::create([
                     'from_date'                      => $this->data['date'],
                     'reference'                      => ($this->data['reference'])??
-                    $this->generateReferenceCodeAvailable(),
+                    $this->generateCodeAvailable(),
                     'concept'                        => $this->data['concept'],
                     'observations'                   => $this->data['observations'],
                     'accounting_entry_categories_id' => ($this->data['category']!='')? $this->data['category']: null,
@@ -117,28 +117,14 @@ class AccountingManageEntries implements ShouldQueue
     }
 
     /**
-     * [getInstitution obtiene la informacion de una institución]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  int|null $id [identificador unico de la institución]
-     * @return Institution     [informacion de la institución]
-     */
-    public function getInstitution($id = null)
-    {
-        if ($id) {
-            return Institution::find($id);
-        }
-        return Institution::first();
-    }
-
-    /**
-     * [generateReferenceCodeAvailable genera el código disponible]
+     * [generateCodeAvailable genera el código disponible]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return string [código que se asignara]
      */
-    public function generateReferenceCodeAvailable()
+    public function generateCodeAvailable()
     {
-        $institution = $this->getInstitution();
-        $codeSetting = CodeSetting::where('table', $institution->id.'_'.$institution->acronym.'_accounting_entries')
+        $institution = get_institution();
+        $codeSetting = CodeSetting::where('table', 'accounting_entries')
                                     ->first();
 
         if (!$codeSetting) {

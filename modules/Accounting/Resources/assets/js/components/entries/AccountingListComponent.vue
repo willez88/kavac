@@ -237,20 +237,20 @@
 			this.table_options.headings = {
                 'from_date': 'FECHA',
                 'reference': 'REFERENCIA',
-                'concept': 'CONCEPTO',
-                'total': 'TOTAL',
-                'approved': 'ESTADO DEL ASIENTO',
-                'id': 'ACCIÓN'
+                'concept'  : 'CONCEPTO',
+                'total'    : 'TOTAL',
+                'approved' : 'ESTADO DEL ASIENTO',
+                'id'       : 'ACCIÓN'
             };
             this.table_options.sortable   = [];
             this.table_options.filterable = [];
             this.table_options.columnsClasses = {
-                'from_date': 'col-xs-1',
-                'reference': 'col-xs-1',
+                'from_date'   : 'col-xs-1',
+                'reference'   : 'col-xs-1',
                 'denomination': 'col-xs-5',
-                'total': 'col-xs-2',
-                'approved': 'col-xs-1',
-                'id': 'col-xs-2'
+                'total'       : 'col-xs-2',
+                'approved'    : 'col-xs-1',
+                'id'          : 'col-xs-2'
             };
 
 			this.table_options.filterable = [];

@@ -57,7 +57,7 @@ class AccountingEntryCategoryController extends Controller
             'acronym' => ['required', 'string'],
         ]);
 
-        $institution = $this->getInstitution();
+        $institution = get_institution();
 
         /**
          * almacenar la información para el nuevo registro
@@ -148,19 +148,5 @@ class AccountingEntryCategoryController extends Controller
         }
 
         return response()->json($records);
-    }
-
-    /**
-     * [getInstitution obtiene la informacion de una institución]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  int|null $id [identificador unico de la institución]
-     * @return Institution     [informacion de la institución]
-     */
-    public function getInstitution($id = null)
-    {
-        if ($id) {
-            return Institution::find($id);
-        }
-        return Institution::first();
     }
 }

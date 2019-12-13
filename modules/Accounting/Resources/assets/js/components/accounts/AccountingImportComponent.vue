@@ -73,7 +73,7 @@
             this.table_options.filterable = ['code', 'denomination'];
 
             EventBus.$on('reset:import-form',()=>{
-                this.reset();   
+                this.reset();
             });
         },
         methods:{

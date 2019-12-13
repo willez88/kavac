@@ -44,10 +44,8 @@ class CreatePurchaseRequirementItemsTable extends Migration
                 */
                 $table->integer('warehouse_product_id')->unsigned()->nullable()
                       ->comment(
-                          <<<'EOF'
-                          Identificador del producto a solicitar para su compra si ya existe un producto registrado con 
-                          las mismas características
-                          EOF
+                          'Identificador del producto a solicitar para su compra si ya existe un producto 
+                                registrado con las mismas características'
                       );
                 if (Module::has('Wareouse')) {
                     $table->foreign('warehouse_product_id')->references('id')
