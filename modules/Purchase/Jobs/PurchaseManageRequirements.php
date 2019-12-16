@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 use Modules\Purchase\Models\PurchaseRequirement;
+use Modules\Purchase\Models\PurchaseRequirementItem;
 
 use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\Warehouse;
@@ -51,7 +52,7 @@ class PurchaseManageRequirements implements ShouldQueue
     public function __construct(array $data, integer $id = null)
     {
         $this->data = $data;
-        $this->id = $id;
+        $this->id   = $id;
     }
 
     /**
@@ -69,6 +70,17 @@ class PurchaseManageRequirements implements ShouldQueue
             $requirement = PurchaseRequirement::create($data);
 
             foreach ($data['products'] as $prod) {
+                $prod['purchase_requirement_id'] = $requirement->id;
+                $warehouseProd = WarehouseProduct::find($prod['id']);
+                PurchaseRequirementItem::create([
+                    'name'                     => $warehouseProd->name,
+                    'description'              => $warehouseProd->description,
+                    'technical_specifications' => $prod['technical_specifications'],
+                    'quantity'                 => $prod['qty'],
+                    'measurement_unit_id'      => $prod['measurement_unit_id'],
+                    'warehouse_product_id'     => $prod['id'],
+                    'purchase_requirement_id'  => $requirement->id
+                ]);
             }
         }
     }

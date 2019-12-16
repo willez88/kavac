@@ -42,7 +42,14 @@ Vue.component('purchase-processes', require('./components/PurchaseProcessCompone
 /**
  * Componente para la gestión de creacion y actualización de requerimientos 
  * 
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-requirements', require('./components/requirements/PurchaseIndexComponent.vue').default);
+
+/**
+ * Componente para la gestión de creacion y actualización de requerimientos 
+ * 
+ * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
  */
 Vue.component('purchase-requirements-form', require('./components/requirements/PurchaseFormComponent.vue').default);
 

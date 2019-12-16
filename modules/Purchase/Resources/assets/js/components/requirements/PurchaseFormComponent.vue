@@ -1,6 +1,11 @@
 <template>
     <div class="form-horizontal">
         <div class="card-body">
+            <div class="alert alert-danger" v-if="errors.length > 0">
+                <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                </ul>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <b>Información base del requerimiento</b>
@@ -66,15 +71,6 @@
                         <select2 :options="products" v-model="product"></select2>
                     </div>
                 </div>
-                <!-- <div class="col-4"></div> -->
-                <!-- <div class="col-2">
-                    <button type="button" @click="addProduct()" class="btn btn-sm btn-primary btn-custom float-right" 
-                            title="Agregar registro a la lista"
-                            data-toggle="tooltip">
-                        <i class="fa fa-plus-circle"></i>
-                        Agregar
-                    </button>
-                </div> -->
             </div>
 
             <hr>
@@ -84,12 +80,16 @@
                         {{ props.row.text }}
                     </span>
                 </div>
+                <div slot="measurement_unit" slot-scope="props" class="text-center">
+                    <select2 :options="measurement_units" v-model="props.row.measurement_unit_id"
+                            @input="changeMeasurementUnit(props.index, props.row.measurement_unit_id)"></select2>
+                </div>
                 <div slot="technical_specifications" slot-scope="props" class="text-center">
                     <span>
                         <input type="text" :id="props.index" 
                             v-model="props.row.technical_specifications" 
                             class="form-control" 
-                            @input="changeDesc" >
+                            @input="changeTecnicalSpecifications">
                     </span>
                 </div>
                 <div slot="quantity" slot-scope="props">
@@ -121,7 +121,7 @@
 </template>
 <script>
     export default{
-        props:['supplier_objects','date','institutions','purchase_supplier_types', 'fiscal_years'],
+        props:['date','institutions','purchase_supplier_types', 'fiscal_years','measurement_units'],
         data(){
             return {
                 record:{
@@ -134,28 +134,27 @@
                     fiscal_year_id            : '',
                     products                  : [],
                 },
-                aa:0,
                 product:{},
                 products:[],
                 warehouses:[],
                 compare_warehouse_id: '',
                 departments:[],
-                date_recibe:'',
                 record_products:[],
                 errors:[],
-                isWarehouse:false,
-                columns: ['name','technical_specifications', 'quantity', 'id'],
+                columns: ['name','measurement_unit','technical_specifications', 'quantity', 'id'],
             }
         },
         created(){
             this.table_options.headings = {
                 'name': 'Producto',
-                'technical_specifications': 'Producto',
+                'measurement_unit': 'Unidad de Medida',
+                'technical_specifications': 'Especificaciones tecnicas',
                 'quantity': 'Cantidad',
                 'id': 'ACCIÓN'
             };
             this.table_options.columnsClasses = {
-                'name'    : 'col-xs-5',
+                'name'    : 'col-xs-4',
+                'measurement_unit': 'col-xs-1',
                 'technical_specifications'    : 'col-xs-4',
                 'quantity': 'col-xs-2',
                 'id'      : 'col-xs-1'
@@ -182,9 +181,24 @@
                 };
             },
             createRecord(){
-                this.record.products = this.record_products;
-                axios.post('/purchase/requirements',this.record).then(response=>{
-                    console.log("paso")
+                const vm = this;
+                vm.record.products = vm.record_products;
+                vm.loading = true;
+                axios.post('/purchase/requirements',vm.record).then(response=>{
+                    vm.loading = false;
+                    vm.showMessage('store');
+                    setTimeout(function() {
+                        location.href = '/purchase/requirements';
+                    }, 2000);
+                }).catch(error=>{
+                    this.errors = [];
+                    if (typeof(error.response) != 'undefined') {
+                        for (var index in error.response.data.errors) {
+                            if (error.response.data.errors[index]) {
+                                this.errors.push(error.response.data.errors[index][0]);
+                            }
+                        }
+                    }
                 });
             },
             
@@ -221,6 +235,12 @@
             changeQty({ type, target }){
                 this.record_products[target.id-1].qty = target.value;
             },
+            changeTecnicalSpecifications({ type, target }){
+                this.record_products[target.id-1].technical_specifications = target.value;
+            },
+            changeMeasurementUnit(index, id){
+                this.record_products[index-1].measurement_unit_id = id;
+            },
             fetchDataRecord(){
                 if (this.record.warehouse_id != '' && this.record.warehouse_id != this.compare_warehouse_id) {
                     this.compare_warehouse_id = this.record.warehouse_id;
@@ -242,6 +262,7 @@
                                 text:this.products[i].text,
                                 qty:0,
                                 technical_specifications:'',
+                                measurement_unit_id:'',
                             });
                         }
                     }

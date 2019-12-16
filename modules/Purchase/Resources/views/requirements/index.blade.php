@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    
+                    <purchase-requirements :requirements="{{ $requirements }}" />
                 </div>
             </div>
         </div>

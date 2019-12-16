@@ -1,102 +1,102 @@
 <template>
 	<div>
 		<section>
-		<div class="form-group form-inline pull-left VueTables__search-2">
-			<div class="VueTables__search-field">
-				<label class="">
-					Buscar:
-				</label>
-				<input  type="text"
-						class="form-control"
-						placeholder="Buscar..."
-						v-model="search">
-			</div>
-		</div>
+    		<div class="form-group form-inline pull-left VueTables__search-2">
+    			<div class="VueTables__search-field">
+    				<label class="">
+    					Buscar:
+    				</label>
+    				<input  type="text"
+    						class="form-control"
+    						placeholder="Buscar..."
+    						v-model="search">
+    			</div>
+    		</div>
 
-		<div class="form-group form-inline pull-right VueTables__limit-2">
-			<div class="VueTables__limit-field">
-				<label class="">Registros</label>
-				<select2 :options="perPageValues"
-					v-model="perPage">
-				</select2>
-			</div>
-		</div>
-		<v-client-table :columns="columns" :data="records" :options="table_options" ref="tableMax">
-			<div slot="from_date" slot-scope="props" class="text-center">
-                {{ formatDate(props.row.from_date) }}
-            </div>
-            <div slot="reference" slot-scope="props" class="text-center">
-                {{ props.row.reference }}
-            </div>
-            <div slot="total" slot-scope="props" class="text-right">
-                <strong>Debe: </strong> 
-                {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_debit).toFixed(props.row.currency.decimal_places) }}
-                <br>
-                <strong>Haber</strong> 
-                {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_assets).toFixed(props.row.currency.decimal_places) }}
-            </div>
-            <div slot="approved" slot-scope="props" class="text-center">
-                <span class="badge badge-success" v-show="props.row.approved"><strong>Aprobado</strong></span>
-                <span class="badge badge-danger" v-show="!props.row.approved"><strong>No Aprobado</strong></span>
-            </div>
-            <div slot="id" slot-scope="props" class="text-center">
-                <button @click="approve(props.index)"
-                        class="btn btn-success btn-xs btn-icon btn-action" 
-                        title="Aprobar Registro" data-toggle="tooltip"
-                        v-if="!props.row.approved">
-                    <i class="fa fa-check"></i>
-                </button>
-                <button @click="editForm(props.row.id)"
-                        class="btn btn-warning btn-xs btn-icon btn-action" 
-                        title="Modificar registro" data-toggle="tooltip"
-                        v-if="!props.row.approved">
-                    <i class="fa fa-edit"></i>
-                </button>
-                <button @click="deleteRecord(props.index,'/accounting/entries')" 
-                        class="btn btn-danger btn-xs btn-icon btn-action" 
-                        title="Eliminar Registro" data-toggle="tooltip"
-                        v-if="!props.row.approved">
-                    <i class="fa fa-trash-o"></i>
-                </button>
-                <a class="btn btn-primary btn-xs btn-icon"
-                        :href="urlPdf+'/pdf/'+props.row.id"
-                        title="Imprimir Registro" 
-                        data-toggle="tooltip"
-                        target="_blank"
-                        v-if="props.row.approved">
-                        <i class="fa fa-print" style="text-align: center;"></i>
-                </a>
-            </div>
-		</v-client-table>
-		<div class="VuePagination-2 row col-md-12 ">
-			<nav class="text-center">
-				<ul class="pagination VuePagination__pagination" style="">
-					<li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk" v-if="page != 1">
-                        <a class="page-link" @click="changePage(1)">PRIMERO</a>
-                    </li>
-					<li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk disabled">
-                        <a class="page-link">&lt;&lt;</a>
-                    </li>
-                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page" v-if="page > 1">
-                        <a class="page-link" @click="changePage(page - 1)">&lt;</a>
-                    </li>
-                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="number in pageValues" v-if="number <= lastPage">
-                        <a class="page-link active" role="button" @click="changePage(number)">{{number}}</a>
-                    </li>
-                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page" v-if="page < lastPage">
-                        <a class="page-link" @click="changePage(page + 1)">&gt;</a>
-                    </li>
-                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-chunk disabled">
-                        <a class="page-link">&gt;&gt;</a>
-                    </li>
-                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk" v-if="lastPage && lastPage != page">
-                        <a class="page-link" @click="changePage(lastPage)">ÚLTIMO</a>
-                    </li>
-				</ul>
-				<p class="VuePagination__count text-center col-md-12" style=""> </p>
-			</nav>
-		</div>
-	</section>
+    		<div class="form-group form-inline pull-right VueTables__limit-2">
+    			<div class="VueTables__limit-field">
+    				<label class="">Registros</label>
+    				<select2 :options="perPageValues"
+    					v-model="perPage">
+    				</select2>
+    			</div>
+    		</div>
+    		<v-client-table :columns="columns" :data="records" :options="table_options" ref="tableMax">
+    			<div slot="from_date" slot-scope="props" class="text-center">
+                    {{ formatDate(props.row.from_date) }}
+                </div>
+                <div slot="reference" slot-scope="props" class="text-center">
+                    {{ props.row.reference }}
+                </div>
+                <div slot="total" slot-scope="props" class="text-right">
+                    <strong>Debe: </strong> 
+                    {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_debit).toFixed(props.row.currency.decimal_places) }}
+                    <br>
+                    <strong>Haber</strong> 
+                    {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_assets).toFixed(props.row.currency.decimal_places) }}
+                </div>
+                <div slot="approved" slot-scope="props" class="text-center">
+                    <span class="badge badge-success" v-show="props.row.approved"><strong>Aprobado</strong></span>
+                    <span class="badge badge-danger" v-show="!props.row.approved"><strong>No Aprobado</strong></span>
+                </div>
+                <div slot="id" slot-scope="props" class="text-center">
+                    <button @click="approve(props.index)"
+                            class="btn btn-success btn-xs btn-icon btn-action" 
+                            title="Aprobar Registro" data-toggle="tooltip"
+                            v-if="!props.row.approved">
+                        <i class="fa fa-check"></i>
+                    </button>
+                    <button @click="editForm(props.row.id)"
+                            class="btn btn-warning btn-xs btn-icon btn-action" 
+                            title="Modificar registro" data-toggle="tooltip"
+                            v-if="!props.row.approved">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button @click="deleteRecord(props.index,'/accounting/entries')" 
+                            class="btn btn-danger btn-xs btn-icon btn-action" 
+                            title="Eliminar Registro" data-toggle="tooltip"
+                            v-if="!props.row.approved">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                    <a class="btn btn-primary btn-xs btn-icon"
+                            :href="urlPdf+'/pdf/'+props.row.id"
+                            title="Imprimir Registro" 
+                            data-toggle="tooltip"
+                            target="_blank"
+                            v-if="props.row.approved">
+                            <i class="fa fa-print" style="text-align: center;"></i>
+                    </a>
+                </div>
+    		</v-client-table>
+    		<div class="VuePagination-2 row col-md-12 ">
+    			<nav class="text-center">
+    				<ul class="pagination VuePagination__pagination" style="">
+    					<li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk" v-if="page != 1">
+                            <a class="page-link" @click="changePage(1)">PRIMERO</a>
+                        </li>
+    					<li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk disabled">
+                            <a class="page-link">&lt;&lt;</a>
+                        </li>
+                        <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page" v-if="page > 1">
+                            <a class="page-link" @click="changePage(page - 1)">&lt;</a>
+                        </li>
+                        <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="number in pageValues" v-if="number <= lastPage">
+                            <a class="page-link active" role="button" @click="changePage(number)">{{number}}</a>
+                        </li>
+                        <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page" v-if="page < lastPage">
+                            <a class="page-link" @click="changePage(page + 1)">&gt;</a>
+                        </li>
+                        <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-chunk disabled">
+                            <a class="page-link">&gt;&gt;</a>
+                        </li>
+                        <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk" v-if="lastPage && lastPage != page">
+                            <a class="page-link" @click="changePage(lastPage)">ÚLTIMO</a>
+                        </li>
+    				</ul>
+    				<p class="VuePagination__count text-center col-md-12" style=""> </p>
+    			</nav>
+    		</div>
+    	</section>
 	</div>
 </template>
 <style type="text/css">

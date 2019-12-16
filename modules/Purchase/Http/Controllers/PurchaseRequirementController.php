@@ -7,16 +7,18 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use Modules\Purchase\Models\PurchaseSupplierType;
 use Modules\Purchase\Jobs\PurchaseManageRequirements;
+use Modules\Purchase\Models\PurchaseRequirement;
+use Modules\Purchase\Models\PurchaseRequirementItem;
+use Modules\Purchase\Models\PurchaseSupplierType;
 
 use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\Warehouse;
 
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
-// use App\Models\Institution;
 use App\Models\FiscalYear;
+use App\Models\MeasurementUnit;
 use Auth;
 
 class PurchaseRequirementController extends Controller
@@ -54,7 +56,13 @@ class PurchaseRequirementController extends Controller
      */
     public function index()
     {
-        return view('purchase::requirements.index');
+        $requirements = PurchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment',
+            'purchaseSupplierType',
+            'fiscalYear'
+        )->orderBy('code', 'ASC')->get();
+        return view('purchase::requirements.index', ['requirements' => $requirements]);
     }
 
     /**
@@ -63,12 +71,13 @@ class PurchaseRequirementController extends Controller
      */
     public function create()
     {
-        $institutions = template_choices('App\Models\Institution', 'name', [], true);
-        $currency     = template_choices('App\Models\Currency', 'name', [], true);
-        $warehouses   = template_choices('Modules\Warehouse\Models\Warehouse', 'name', [], true);
-        $purchase_supplier_types   = template_choices('Modules\Purchase\Models\PurchaseSupplierType', 'name', [], true);
-
-        $fiscal_years = FiscalYear::where('active', true)->first();
+        $currency                = template_choices('App\Models\Currency', 'name', [], true);
+        $institutions            = template_choices('App\Models\Institution', 'name', [], true);
+        $measurement_units       = template_choices('App\Models\MeasurementUnit', 'name', [], true);
+        $purchase_supplier_types = template_choices('Modules\Purchase\Models\PurchaseSupplierType', 'name', [], true);
+        $warehouses              = template_choices('Modules\Warehouse\Models\Warehouse', 'name', [], true);
+        
+        $fiscal_years            = FiscalYear::where('active', true)->first();
 
         $supplier_objects = $this->supplier_objects;
         $acc = [
@@ -92,7 +101,8 @@ class PurchaseRequirementController extends Controller
                                                     'date'                    => json_encode($date),
                                                     'institutions'            => json_encode($institutions),
                                                     'purchase_supplier_types' => json_encode($purchase_supplier_types),
-                                                    'fiscal_years' => $fiscal_years,
+                                                    'measurement_units'       => json_encode($measurement_units),
+                                                    'fiscal_years'            => $fiscal_years,
                                                 ]);
     }
 
@@ -103,7 +113,6 @@ class PurchaseRequirementController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $this->validate($request, [
             'description'               => 'required|string',
             'institution_id'            => 'required|integer',
@@ -126,7 +135,7 @@ class PurchaseRequirementController extends Controller
         ]);
 
         PurchaseManageRequirements::dispatch($request->all());
-        dd("creado");
+        return response()->json(['message'=>'success'], 200);
     }
 
     /**
@@ -191,7 +200,15 @@ class PurchaseRequirementController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        foreach (PurchaseRequirementItem::where('purchase_requirement_id', $id)->get() as $record) {
+            $record->delete();
+        }
+        $record = PurchaseRequirement::find($id);
+        if ($record) {
+            $record->delete();
+        }
+        return response()->json(['message'=>'success'], 200);
     }
 }

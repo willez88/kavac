@@ -33,6 +33,7 @@
                                                 :institutions="{{ $institutions }}"
                                                 :purchase_supplier_types="{{ $purchase_supplier_types }}"
                                                 :fiscal_years="{{ $fiscal_years }}"
+                                                :measurement_units="{{ $measurement_units }}"
                                                  />
                 </div>
             </div>
