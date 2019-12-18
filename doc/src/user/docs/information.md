@@ -22,15 +22,19 @@
 
 ![Screenshot](img/programa-said.jpg)
 
+##¿Por qué KAVAC?
+
+   Ante las debilidades que comenzo a presentar el Sistema Administrativo para Instituciones públicas Decentralizadas (SAID),  dada la demanda de distintos requerimientos que eran necesarios llevar a cabo en las instituciones que usaban el sistema y el uso de un lenguaje obsoleto.   Se inicia desde CENDITEL el desarrollo del sistema Kavac con elementos actualizados siguiendo la primicia de “software libre”.   Un Sistema desarrollado bajo elementos innovadores y versatiles en el area de desarrollo con el proposito de reducir líneas de código y establecer un sistema escalable a partir de su código y framework de desarrollo.     
+
 ## Tecnología empleada
 
-   KAVAC está siendo desarrollado en el lenguaje PHP y el framework Laravel bajo un esquema de programación orientada a objetos (POO) y una arquitectura cliente / servidor, el uso de este framework permite solventar algunas deficiencias del lenguaje en sí como lo es la gestión de grandes volúmenes de datos y cálculos inherentes a la información, con la implementación de métodos dispuestos en la capa ORM ( Object-Relational mapping) que optimizan la respuesta obtenida por el servidor de base de datos ante distintas magnitudes de consultas, además de contar con funciones que permiten realizar diferentes tareas enfocadas al mejor rendimiento de la aplicación.
+   Kavac está siendo desarrollado en el lenguaje PHP y el framework Laravel bajo un esquema de programación orientada a objetos (POO) y una arquitectura cliente / servidor, el uso de este framework permite solventar algunas deficiencias del lenguaje en sí como lo es la gestión de grandes volúmenes de datos y cálculos inherentes a la información, con la implementación de métodos dispuestos en la capa ORM ( Object-Relational mapping) que optimizan la respuesta obtenida por el servidor de base de datos ante distintas magnitudes de consultas, además de contar con funciones que permiten realizar diferentes tareas enfocadas al mejor rendimiento de la aplicación.
 
    PHP es considerado uno de los lenguajes “open source” más utilizados en el desarrollo de aplicaciones web y el lenguaje primordial en la mayor parte de servidores de hospedaje. Como parte de su constante proceso de evolución, en sus últimas versiones (a partir de la 7.x) ha mejorado en cuanto a sintaxis (menos código por mismo resultado y mejoras en sus funcionalidades), rendimiento, de fácil configuración, con una amplia gama de paquetes disponibles para su uso libre y mejoras en el tratamiento de información.
 
    Laravel es un framework de desarrollo para PHP el cual cuenta con una gran cantidad de funcionalidades que permiten entre otras cosas: mejorar el rendimiento de los procesos, prevenir la exposición ante ataques conocidos, continua actualización en pro de mejoras sustanciales, amplia comunidad de desarrollo, núcleo basado en symfony, documentación sustancial en todos los componentes del framework, disponibilidad de cientos de paquetes “open source” que pueden ser implementados sin complejidad, configuración sencilla, gestión de recursos del servidor de aplicación y base de datos de una forma óptima, sintaxis intuitiva, entre otros.
 
-   En el desarrollo de la aplicación administrativa para la gestión de recursos KAVAC se plantea implementar, en cuanto a la optimización de algunos procesos que requieren cálculos a gran escala, el uso de:
+   En el desarrollo de la aplicación administrativa para la gestión de recursos Kavac se plantea implementar, en cuanto a la optimización de algunos procesos que requieren cálculos a gran escala, el uso de:
 
    1. Procedimientos almacenados: No dependen del lenguaje de desarrollo sino de la capacidad del gestor de base de datos en las tareas de cálculo y gestión de la información.
 
@@ -101,7 +105,7 @@
 
 ####Acciones de registro
 
-   Estos elementos corresponden a las funciones de regresar, crer nuevo registro e imprimir respectivamente.
+   Estos elementos corresponden a las funciones de regresar, crear nuevo registro e imprimir respectivamente.
 
 ![Screenshot](img/acciones_registro-1.png)
    
@@ -127,15 +131,26 @@
 
 ##Licencia
 
-###Nombre del producto: KAVAC Sistema de Gestión de Recursos
+###Nombre del producto: Kavac Sistema de Gestión de Recursos
 
    Nombre del licenciante y año: Fundación CENDITEL (Año)
 
-   Autores: Ing. Roldan Vargas (Líder del Proyecto - Desarrollador), Ing. William Páez (Desarrollador), Ing. Henry Paredes (Desarrollador), Ing. Juan Rosas (Desarrollador), Econ. Julie Vera (Analista funcional), Ing. Mariangel Molero (Analista Funcional), Ing. Kleivymar Montilla (Analista funcional), Ing. Yennifer Ramírez (Desarrolladora), Hildayra Colmenares (Analista Funcional), Luis Ramírez (Analista funcional y documentador).
+   Autores: 
+   
+   - Ing. Roldan Vargas (Líder del Proyecto - Desarrollador)
+   - Ing. William Páez (Desarrollador)
+   - Ing. Henry Paredes (Desarrollador)
+   - Ing. Juan Rosas (Desarrollador) 
+   - Econ. Julie Vera (Analista funcional) 
+   - Ing. Mariangel Molero (Analista Funcional) 
+   - Ing. Kleivymar Montilla (Analista funcional) 
+   - Ing. Yennifer Ramírez (Desarrolladora)
+   - Hildayra Colmenares (Analista Funcional)
+   - Luis Ramírez (Analista funcional y documentador)
 
 ###Licencia Combinada de Software y Contenidos de la Fundación CENDITEL   
 
-   La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para Educación Universitaria, Ciencia y Tecnología (MPPEUCT), concede permiso, por un lado, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el SOFTWARE KAVAC Sistema de Gestión (sin garantía alguna) y, por el otro, para copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
+   La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología, concede permiso, por un lado, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el SOFTWARE Kavac Sistema de Gestión (sin garantía alguna) y, por el otro, para copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
 
    Cada vez que copie y distribuya este producto debe acompañarlo de una copia de las licencias. Para más información sobre los términos y condiciones de las licencias visite las siguientes direcciones electrónicas:  
 

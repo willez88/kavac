@@ -2,7 +2,7 @@
 ****************************
 
 <div style="text-align: justify;">
-La aplicación inicialmente contará con una configuración por defecto que el usuario administrador debe completar a través de los elementos funcionales del sistema, que permitirán ajustar el uso del KAVAC a la estructura organizativa y características de la institución usuaria.   A través del panel de control y la configuración se definirán los parámetros útiles para la consolidación del sistema con relación a las instituciones, sus sedes y características organizacionales.   
+La aplicación inicialmente contará con una configuración por defecto que el usuario administrador debe completar a través de los elementos funcionales del sistema, que permitirán ajustar el uso del Kavac a la estructura organizativa y características de la institución usuaria.   A través del panel de control y la configuración se definirán los parámetros útiles para la consolidación del sistema con relación a las instituciones, sus sedes y características organizacionales.   
 </div>
 
 ##Configuración 
@@ -110,7 +110,7 @@ Una vez iniciado el registro de usuario, se despliega una ventana titulada Gesti
 ###Aplicaciones
 
 <div style="text-align: justify;">
-El rol de usuario como desarrollador habilita la funcionalidad de configuración del sistema para la gestión de módulos como incorporación o desincorporación, haciendo accesible algunas opciones de configuración avanzadas en toda la aplicación.  KAVAC, está diseñado con el objetivo de garantizar independencia entre los módulos para con el sistema base ,de modo que, no afecta en ningun sentido la incorporación o desincorporación de alguno de los módulos.    
+El rol de usuario como desarrollador habilita la funcionalidad de configuración del sistema para la gestión de módulos como incorporación o desincorporación, haciendo accesible algunas opciones de configuración avanzadas en toda la aplicación.  Kavac, está diseñado con el objetivo de garantizar independencia entre los módulos para con el sistema base ,de modo que, no afecta en ningun sentido la incorporación o desincorporación de alguno de los módulos.    
 </div>
 
 ###Gestión de módulos 

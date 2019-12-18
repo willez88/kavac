@@ -203,14 +203,14 @@
 
    El comando anterior instala todas las dependencias de node requeridas por el sistema.
    
-   El último paso en el proceso de instalación es modificar los usuarios y permisos para el acceso del servidor a la aplicación KAVAC, para lo cual le indicamos la permisología y usuario correspondiente.
+   El último paso en el proceso de instalación es modificar los usuarios y permisos para el acceso del servidor a la aplicación Kavac, para lo cual le indicamos la permisología y usuario correspondiente.
 
     > chown -R www-data:root (ruta-absoluta-de-instalacion)
     > chmod 755 (ruta-absoluta-de-instalacion)/storage 
 
 ##Base de datos
 
-   El Sistema Administrativo KAVAC puede ser ejecutado con diferentes gestores de Base de Datos tales como PostgreSQL, MySQL, SQLite, entre otros, sin embargo se recomienda el uso del gestor de Base de Datos PostgreSQL por su capacidad en la gestión de información.
+   El Sistema Administrativo Kavac puede ser ejecutado con diferentes gestores de Base de Datos tales como PostgreSQL, MySQL, SQLite, entre otros, sin embargo se recomienda el uso del gestor de Base de Datos PostgreSQL por su capacidad en la gestión de información.
 
    Debe crear una base de datos en el gestor de su preferencia y configurarlo en el archivo .env con los datos de 
    acceso. Ejemplo:
@@ -230,7 +230,7 @@
 
 ##Registros iniciales
     
-   KAVAC, cuenta con información inicial requerida para la gestión de la aplicación, para lo cual se debe ejecutar el comando:
+   Kavac, cuenta con información inicial requerida para la gestión de la aplicación, para lo cual se debe ejecutar el comando:
 
     > php artisan db:seed
 

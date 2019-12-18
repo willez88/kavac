@@ -2,7 +2,7 @@
 ****************************
 
 <div style="text-align: justify;">
-La aplicación inicialmente contará con una configuración por defecto que el usuario administrador debe completar a través de los elementos funcionales del sistema, que permitirán ajustar el uso del KAVAC a la estructura organizativa y características de la institución usuaria.   A través del panel de control y la configuración se definirán los parámetros útiles para la consolidación del sistema con relación a las instituciones, sus sedes y características organizacionales.   
+La aplicación inicialmente contará con una configuración por defecto que el usuario administrador debe completar a través de los elementos funcionales del sistema, que permitirán ajustar el uso del Kavac a la estructura organizativa y características de la institución usuaria.   A través del panel de control y la configuración se definirán los parámetros útiles para la consolidación del sistema con relación a las instituciones, sus sedes y características organizacionales.   
 </div>
 
 ##Panel de control  
@@ -14,7 +14,7 @@ El panel de control es una herramienta de administración del sistema kavac que 
 ###Herramientas para desarrolladores 
 
 <div style="text-align: justify;">
-Esta sección esta dirigida para usuarios desarrolladores, muestra elementos útiles para la construcción de nuevas funcionalidades de la aplicación.  A través de esta sección se administran las herramientas de la interfaz gráfica como los iconos disponibles para usar a lo largo del sistema, botones, gestión de formularios, registro de eventos, estructura de gráficos y tablas.   Así mismo, se muestra una opción de ajustes para configurar el estado del sistema ya sea modo mantenimiento, demostración o depuración. 
+Esta sección está dirigida para usuarios desarrolladores, muestra elementos útiles para la construcción de nuevas funcionalidades de la aplicación.  A través de esta sección se administran las herramientas de la interfaz gráfica como los iconos disponibles para usar a lo largo del sistema, botones, gestión de formularios, registro de eventos, estructura de gráficos y tablas.   Así mismo, se muestra una opción de ajustes para configurar el estado del sistema ya sea modo mantenimiento, demostración o depuración. 
 </div>
 
 ![Screenshot](img/herramientas-desarrolladores.png)
@@ -25,7 +25,7 @@ Esta sección esta dirigida para usuarios desarrolladores, muestra elementos út
 ###Acceso a la aplicación
 
 <div style="text-align: justify;">
-Esta sección permite visualizar y gestionar información de cuentas de usuarios registradas. Desde esta herramienta el usuario administrador puede visualizar los roles de usuarios, nombre de usuarios, direcciones IP, estatus ( usuario conectado o desconectado) y ultima conexión.   La sección permite al usuario administrador gestionar la cuenta de usuario a través de la columna titulada “Acción”.
+Esta sección permite visualizar y gestionar información de cuentas de usuarios registradas. Desde esta herramienta el usuario administrador puede visualizar los roles de usuarios, nombre de usuarios, direcciones IP, estatus (usuario conectado o desconectado) y ultima conexión.   La sección permite al usuario administrador gestionar la cuenta de usuario a través de la columna titulada “Acción”.
 </div>
 
 ![Screenshot](img/acceso-aplicacion.png)
@@ -50,11 +50,11 @@ Para realizar una auditoría o seguimiento de un registro de cuenta usuario, es 
 ###Restaurar registros eliminados 
 
 <div style="text-align: justify;">
-Esta sección permite renovar los registros que han sido eliminados, la sección presenta un historial de registros eliminados con información relacionada  de forma tabulada.  Para completar la restauración de un registro es necesario ingresar al panel de control del sistema luego dirigirse a la sección de restaurar registros eliminados y a través de los parámetros de busqueda es posible filtrar los datos y facilitar la busqueda.   En los parámetros de busqueda se establece un intervalo de fechas que compren los registros realizados dentro de ese intervalo de fechas.  Es posible también filtrar la información por módulo. 
+Esta sección permite renovar los registros que han sido eliminados, la sección presenta un historial de registros eliminados con información relacionada  de forma tabulada.  Para completar la restauración de un registro es necesario ingresar al panel de control del sistema luego dirigirse a la sección de restaurar registros eliminados y a través de los parámetros de búsqueda es posible filtrar los datos y facilitar la búsqueda.   En los parámetros de búsqueda se establece un intervalo de fechas que compren los registros realizados dentro de ese intervalo de fechas.  Es posible también filtrar la información por módulo. 
 </div>
 
 <div style="text-align: justify;">
- Mediante el uso del botón ubicado en los datos tabulados especificamente en la columna titulada acción es posible completar la restauración del registro. 
+ Mediante el uso del botón ubicado en los datos tabulados específicamente en la columna titulada "Acción" es posible completar la restauración del registro. 
 </div>
 
 ![Screenshot](img/restaurar-registros.png)
@@ -63,7 +63,7 @@ Esta sección permite renovar los registros que han sido eliminados, la sección
 
 
 <div style="text-align: justify;">
-A través del panel de control es posible realizar un seguimiento de los asientos contables registrados en el sistema a partir de la sección de operaciones en el módulo de contabilidad del panel de control.   En esta sección se muestra en forma tabulada registros de asientos contables con información relacionada con la fecha de registro, referencia, concepto referente a la operación, total relacionado con la partida doble (debe y haber del asiento), el estado  del asiento contable y la posibilidad de generar una impresión a través del botón que se muestra en la columna titulada acción. 
+A través del panel de control es posible realizar un seguimiento de los asientos contables registrados en el sistema a partir de la sección de operaciones en el módulo de contabilidad del panel de control.   En esta sección se muestra en forma tabulada registros de asientos contables con información relacionada con la fecha de registro, referencia, concepto referente a la operación, total relacionado con la partida doble (debe y haber del asiento), el estado  del asiento contable y la posibilidad de generar una impresión a través del botón que se muestra en la columna titulada "Acción". 
 </div>
 
 ![Screenshot](img/operaciones-contabilidad.png)
@@ -83,7 +83,7 @@ En el panel de control se presentan dos secciones relacionadas con las operacion
 ![Screenshot](img/graficos-bienes.png)
 
 <div style="text-align: justify;">
-En esta sección es posible seleccionar un modo de visualización de gráficas, ya sea gráfica de barras, circular o lineal (estas gráficas son configuradas previamente por el desarrollador en el panel de control).    De igual forma, es posible seleccionar los datos que el sistema representará gráficamente ya sean existentes, mas solicitados o menos solicitados.  
+En esta sección es posible seleccionar un modo de visualización de gráficas, ya sea gráfica de barras, circular o lineal (estas gráficas son configuradas previamente por el desarrollador en el panel de control).    De igual forma, es posible seleccionar los datos que el sistema representará gráficamente ya sean existentes, más solicitados o menos solicitados.  
 </div>
 
 ###Historial de operaciones módulo de bienes
@@ -94,7 +94,7 @@ En esta sección es posible seleccionar un modo de visualización de gráficas, 
 ##Módulo de almacén 
 
 <div style="text-align: justify;">
-El panel de control a través de tres secciones relacionadas con el módulo de almacén permite tener un control de algunas operaciones especificas que se llevan a cabo sobre este módulo.  La sección del estado del inventario permite visualizar la disponibilidad de productos expresado en terminos porcentuales, además de expresar estos datos de manera gráfica.   De igual forma, se muestra un historial de operaciones del módulo de almacén.   
+El panel de control a través de tres secciones relacionadas con el módulo de almacén permite tener un control de algunas operaciones específicas que se llevan a cabo sobre este módulo.  La sección del estado del inventario permite visualizar la disponibilidad de productos expresado en términos porcentuales, además de expresar estos datos de manera gráfica.   De igual forma, se muestra un historial de operaciones del módulo de almacén.   
 </div>
 
 ![Screenshot](img/inventario-almacen.png)
