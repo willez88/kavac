@@ -37,10 +37,10 @@ class CitizenServiceRequest extends Model implements Auditable
      */
     protected $fillable = [
         'first_name','last_name','id_number','email', 'date',
-        'payroll_sector_type_id', 'institution_name','city_id', 'municipality_id',
-        'institution_address',
+        'city_id', 'municipality_id', 'address', 'motive_request', 'state', 'institution_name',
+        'institution_address', 'rif',
         'web','citizen_service_request_type_id',
-        'information'
+        
 
     ];
 

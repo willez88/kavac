@@ -13,6 +13,11 @@ Route::group([
     Route::get('/requests/create', 'CitizenServiceRequestController@create')->name('citizenservice.request.create');
     Route::post('/requests', 'CitizenServiceRequestController@store')->name('citizenservice.request.store');
     Route::get('/requests', 'CitizenServiceRequestController@index')->name('citizenservice.request.index');
+    Route::get('requests/edit/{request}', 'CitizenServiceRequestController@edit')->name('citizenservice.request.edit');
+    Route::delete('/requests/delete/{request}', 'CitizenServiceRequestController@destroy')->name('citizenservice.request.delete');
+    Route::get('requests/vue-list', 'CitizenServiceRequestController@vueList');
+    Route::get('requests/vue-info/{request}', 'CitizenServiceRequestController@vueInfo');
+    
 
     Route::resource(
         'request-types',
