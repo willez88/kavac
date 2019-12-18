@@ -81,6 +81,8 @@ Route::group(
         Route::get('requests/vue-info/{request}', 'AssetRequestController@vueInfo');
         Route::get('requests/vue-list', 'AssetRequestController@vueList');
         Route::get('requests/get-equipments/{request}', 'AssetRequestController@getEquipments');
+        Route::post('requests/upload-document', 'AssetRequestEventController@uploadDocument')
+            ->name('asset.request.uploadDocument');
 
         /**
          * Rutas para gestionar las solicitudes de equipos pendientes

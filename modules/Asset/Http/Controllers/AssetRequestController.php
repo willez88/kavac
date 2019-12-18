@@ -375,14 +375,6 @@ class AssetRequestController extends Controller
                 $query->with('asset');
             }]
         )->first();
-
-        /** Inicia la opción vacia por defecto */
-        $options = [['id' => '', 'text' => 'Seleccione...']];
-        foreach ($assetRequest->assetRequestAssets as $field) {
-            $text = $field->asset->inventory_serial;
-            array_push($options, ['id' => $field->id, 'text' => $text]);
-        }
-
-        return $options;
+        return $assetRequest->assetRequestAssets;
     }
 }
