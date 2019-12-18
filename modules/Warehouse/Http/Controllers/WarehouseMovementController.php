@@ -136,7 +136,6 @@ class WarehouseMovementController extends Controller
                             $end_inst_ware->id
                         )
                             ->where('warehouse_product_id', $inventory_product_init->warehouse_product_id)
-                            ->where('measurement_unit_id', $inventory_product_init->measurement_unit_id)
                             ->where('unit_value', $inventory_product_init->unit_value)->get();
                             
                         /** Si existe se comparan los atributos perzonalizados si los tiene */
@@ -200,7 +199,6 @@ class WarehouseMovementController extends Controller
                             $inventory_product_finish = WarehouseInventoryProduct::create([
                                 'code' => $codep,
                                 'warehouse_product_id' => $inventory_product_init->warehouse_product_id,
-                                'measurement_unit_id' => $inventory_product_init->measurement_unit_id,
                                 'unit_value' => $inventory_product_init->unit_value,
                                 'currency_id' => $inventory_product_init->currency_id,
                                 'warehouse_institution_warehouse_id' => $end_inst_ware->id,
@@ -314,9 +312,6 @@ class WarehouseMovementController extends Controller
                         )->where(
                             'warehouse_product_id',
                             $inventory_product_init->warehouse_product_id
-                        )->where(
-                            'measurement_unit_id',
-                            $inventory_product_init->measurement_unit_id
                         )->where('unit_value', $inventory_product_init->unit_value)->get();
                             
                         /** Si existe un registro se comparan los atributos perzonalizados, si los tiene */
@@ -385,7 +380,6 @@ class WarehouseMovementController extends Controller
                             $inventory_product_finish = WarehouseInventoryProduct::create([
                                 'code' => $codep,
                                 'warehouse_product_id' => $inventory_product_init->warehouse_product_id,
-                                'measurement_unit_id' => $inventory_product_init->measurement_unit_id,
                                 'unit_value' => $inventory_product_init->unit_value,
                                 'currency_id' => $inventory_product_init->currency_id,
                                 'warehouse_institution_warehouse_id' => $end_inst_ware->id,
@@ -481,9 +475,11 @@ class WarehouseMovementController extends Controller
             ->with(
                 ['warehouseInventoryProductMovements' => function ($query) {
                     $query->with(['warehouseInventoryProduct' => function ($query) {
-                        $query->with(['warehouseProduct', 'warehouseProductValues' => function ($query) {
+                        $query->with(['warehouseProduct' => function ($query) {
+                            $query->with('measurementUnit');
+                        }, 'warehouseProductValues' => function ($query) {
                             $query->with('warehouseProductAttribute');
-                        }, 'measurementUnit', 'currency']);
+                        }, 'currency']);
                     }]);
                 },'warehouseInstitutionWarehouseInitial', 'warehouseInstitutionWarehouseEnd']
             )->first()

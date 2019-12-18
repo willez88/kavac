@@ -120,7 +120,6 @@ class WarehouseReceptionController extends Controller
             $this->validate($request, [
                 'warehouse_inventory_products.'.$i.'.warehouse_product_id' => ['required'],
                 'warehouse_inventory_products.'.$i.'.quantity' => ['required'],
-                'warehouse_inventory_products.'.$i.'.measurement_unit_id' => ['required'],
                 'warehouse_inventory_products.'.$i.'.currency_id' => ['required'],
                 'warehouse_inventory_products.'.$i.'.unit_value' => ['required'],
                 
@@ -155,7 +154,6 @@ class WarehouseReceptionController extends Controller
                 
             foreach ($request->warehouse_inventory_products as $product) {
                 $product_id = $product['warehouse_product_id'];
-                $unit = $product['measurement_unit_id'];
                 $currency = $product['currency_id'];
                 $quantity = $product['quantity'];
                 $value = $product['unit_value'];
@@ -163,7 +161,6 @@ class WarehouseReceptionController extends Controller
                 /** Se busca en el inventario por producto y unidad si existe un registro previo */
 
                 $inventory = WarehouseInventoryProduct::where('warehouse_product_id', $product_id)
-                    ->where('measurement_unit_id', $unit)
                     ->where('warehouse_institution_warehouse_id', $inst_ware->id)
                     ->where('unit_value', $value)->get();
 
@@ -225,7 +222,6 @@ class WarehouseReceptionController extends Controller
                     $product_inventory = WarehouseInventoryProduct::create([
                         'code' => $codep,
                         'warehouse_product_id' => $product_id,
-                        'measurement_unit_id' => $unit,
                         'currency_id' => $currency,
                         'unit_value' => $value,
                         'warehouse_institution_warehouse_id' => $inst_ware->id,
@@ -313,7 +309,6 @@ class WarehouseReceptionController extends Controller
             $this->validate($request, [
                 'warehouse_inventory_products.'.$i.'.warehouse_product_id' => ['required'],
                 'warehouse_inventory_products.'.$i.'.quantity' => ['required'],
-                'warehouse_inventory_products.'.$i.'.measurement_unit_id' => ['required'],
                 'warehouse_inventory_products.'.$i.'.currency_id' => ['required'],
                 'warehouse_inventory_products.'.$i.'.unit_value' => ['required'],
                 
@@ -346,7 +341,6 @@ class WarehouseReceptionController extends Controller
 
             foreach ($request->warehouse_inventory_products as $product) {
                 $product_id = $product['warehouse_product_id'];
-                $unit = $product['measurement_unit_id'];
                 $currency = $product['currency_id'];
                 $quantity = $product['quantity'];
                 $value = $product['unit_value'];
@@ -354,7 +348,6 @@ class WarehouseReceptionController extends Controller
                 /** Se busca en el inventario por producto y unidad si existe un registro previo */
 
                 $inventory = WarehouseInventoryProduct::where('warehouse_product_id', $product_id)
-                    ->where('measurement_unit_id', $unit)
                     ->where('warehouse_institution_warehouse_id', $inst_ware->id)
                     ->where('unit_value', $value)->get();
 
@@ -419,7 +412,6 @@ class WarehouseReceptionController extends Controller
                     $product_inventory = WarehouseInventoryProduct::create([
                         'code' => $codep,
                         'warehouse_product_id' => $product_id,
-                        'measurement_unit_id' => $unit,
                         'currency_id' => $currency,
                         'unit_value' => $value,
                         'warehouse_institution_warehouse_id' => $inst_ware->id,
@@ -492,9 +484,11 @@ class WarehouseReceptionController extends Controller
                 [
                     'warehouseInventoryProductMovements' => function ($query) {
                         $query->with(['warehouseInventoryProduct' => function ($query) {
-                            $query->with(['warehouseProduct', 'warehouseProductValues' => function ($query) {
+                            $query->with(['warehouseProduct' => function ($query) {
+                                $query->with('measurementUnit');
+                            }, 'warehouseProductValues' => function ($query) {
                                 $query->with('warehouseProductAttribute');
-                            }, 'measurementUnit', 'currency']);
+                            }, 'currency']);
                         }]);
                     }, 'warehouseInstitutionWarehouseInitial', 'warehouseInstitutionWarehouseEnd', 'user']
             )->first()], 200);

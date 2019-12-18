@@ -97,7 +97,7 @@
 										<div slot="quantity" slot-scope="props">
 											<span>
 												{{ props.row.quantity }} 
-												{{ props.row.warehouse_inventory_product.measurement_unit.acronym }}
+												{{ props.row.warehouse_inventory_product.warehouse_product.measurement_unit.acronym }}
 											</span>
 										</div>
 										<div slot="unit_value" slot-scope="props">

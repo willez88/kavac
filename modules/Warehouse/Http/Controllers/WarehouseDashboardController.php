@@ -62,9 +62,11 @@ class WarehouseDashboardController extends Controller
                 ->with(
                     ['warehouseInventoryProductMovements' => function ($query) {
                         $query->with(['warehouseInventoryProduct' => function ($query) {
-                            $query->with(['warehouseProduct', 'warehouseProductValues' => function ($query) {
+                            $query->with(['warehouseProduct' => function ($query) {
+                                $query->with('measurementUnit');
+                            }, 'warehouseProductValues' => function ($query) {
                                 $query->with('warehouseProductAttribute');
-                            }, 'measurementUnit', 'currency']);
+                            }, 'currency']);
                         }]);
                     }]
                 )->first();
@@ -75,7 +77,9 @@ class WarehouseDashboardController extends Controller
                     [
                         'warehouseInventoryProductRequests' => function ($query) {
                             $query->with(['warehouseInventoryProduct' => function ($query) {
-                                $query->with('warehouseProduct', 'measurementUnit', 'currency');
+                                $query->with(['warehouseProduct' => function ($query) {
+                                    $query->with('measurementUnit');
+                                }, 'currency']);
                             }]);
                         }
                     ]
@@ -90,13 +94,14 @@ class WarehouseDashboardController extends Controller
     {
         $fields = WarehouseInventoryProduct::with(
             [
-                'warehouseProduct',
+                'warehouseProduct' => function ($query) {
+                    $query->with('measurementUnit');
+                },
                 'warehouseProductValues' => function ($query) {
                     $query->with('warehouseProductAttribute');
                 },
                 'warehouseInventoryRule',
                 'currency',
-                'measurementUnit',
                 'warehouseInstitutionWarehouse' => function ($query) {
                     $query->with('warehouse', 'institution');
                 },
@@ -117,7 +122,7 @@ class WarehouseDashboardController extends Controller
                 'free' => $product_free,
                 'currency' => $field->currency,
                 'unit_value' => $field->unit_value,
-                'measurement_unit' => $field->measurementUnit,
+                'measurement_unit' => $field->warehouseProduct->measurementUnit,
                 'warehouse_product' => $field->warehouseProduct,
                 'warehouse_product_values' => $field->warehouseProductValues,
                 'warehouse_institution_warehouse' => $field->warehouseInstitutionWarehouse,
