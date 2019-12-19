@@ -19,6 +19,8 @@ Vue.component('citizenservice-request-list', require('./components/requests/Citi
 
 Vue.component('citizenservice-request-info', require('./components/requests/CitizenServiceRequestInfoComponent.vue').default);
 
+Vue.component('citizenservice-request-list-pending', require('./components/requests/CitizenServiceRequestListPendingComponent.vue').default);
+
 /**
  * Opciones de configuración global del módulo de Atención al Ciudadano
  *

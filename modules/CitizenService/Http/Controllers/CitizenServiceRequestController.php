@@ -264,4 +264,33 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest = CitizenServiceRequest::where('id', $id)->with('phones')->first();
         return response()->json(['record' => $citizenServiceRequest], 200);
     }
+    public function vueListPending()
+    {
+        return response()->json(['records' => CitizenServiceRequest::where('state', 'Pendiente')->get()], 200);
+    }
+
+    public function approved(Request $request, $id)
+    {
+        $citizenServiceRequest = CitizenServiceRequest::find($id);
+        $citizenServiceRequest->state = 'Aprobado';
+
+      
+        $citizenServiceRequest->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('citizenservice.request.index')], 200);
+    }
+
+
+    public function rejected(Request $request, $id)
+    {
+        $citizenServiceRequest = CitizenServiceRequest::find($id);
+        $citizenServiceRequest->state = 'Rechazado';
+      
+
+        $citizenServiceRequest->save();
+        
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('citizenservice.request.index')], 200);
+    }
 }
