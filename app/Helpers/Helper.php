@@ -118,7 +118,7 @@ if (!function_exists('template_choices')) {
             if (is_array($fields)) {
                 $text = '';
                 foreach ($fields as $field) {
-                    $text .= ($field !== "-") ? $rec->$field : " {$field} ";
+                    $text .= ($field !== "-" && $field !== " ") ? $rec->$field : (($field === " ") ? $field : " {$field} ");
                 }
             } else {
                 $text = $rec->$fields;
