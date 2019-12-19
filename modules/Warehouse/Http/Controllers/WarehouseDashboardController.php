@@ -122,7 +122,9 @@ class WarehouseDashboardController extends Controller
                 'free' => $product_free,
                 'currency' => $field->currency,
                 'unit_value' => $field->unit_value,
-                'measurement_unit' => $field->warehouseProduct->measurementUnit,
+                'measurement_unit' => ($field->warehouseProduct->measurement_unit_id != null)
+                    ? $field->warehouseProduct->measurementUnit
+                    : null,
                 'warehouse_product' => $field->warehouseProduct,
                 'warehouse_product_values' => $field->warehouseProductValues,
                 'warehouse_institution_warehouse' => $field->warehouseInstitutionWarehouse,

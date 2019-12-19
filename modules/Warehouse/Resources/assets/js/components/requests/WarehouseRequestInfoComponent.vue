@@ -97,13 +97,19 @@
 										<div slot="quantity" slot-scope="props">
 											<span>
 												{{ props.row.quantity }} 
-												{{ props.row.warehouse_inventory_product.warehouse_product.measurement_unit.acronym }}
+												{{ (props.row.warehouse_inventory_product.warehouse_product.measurement_unit)
+													? props.row.warehouse_inventory_product.warehouse_product.measurement_unit.acronym
+													: ''
+												}}
 											</span>
 										</div>
 										<div slot="unit_value" slot-scope="props">
 											<span>
 												{{ props.row.warehouse_inventory_product.unit_value }} 
-												{{ props.row.warehouse_inventory_product.currency.symbol }}
+												{{ (props.row.warehouse_inventory_product.currency)
+													? props.row.warehouse_inventory_product.currency.symbol
+													: ''
+												}}
 											</span>
 										</div>
 									</v-client-table>
