@@ -7,10 +7,14 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Auth;
 use Modules\Asset\Models\AssetRequestEvent;
 use Modules\Asset\Models\Asset;
 use App\Models\Document;
 use App\Repositories\UploadDocRepository;
+
+use Modules\TechnicalSupport\Models\TechnicalSupportRequestRepair;
+use Modules\TechnicalSupport\Models\TechnicalSupportRequestRepairAsset;
 
 /**
  * @class AssetRequestEventController
@@ -75,12 +79,24 @@ class AssetRequestEventController extends Controller
             'description'      => $request->input('description'),
             'asset_request_id' => $request->input('asset_request_id')
         ]);
+        /** Si se selecciona la opción averiado */
+        if ($request->type == 1) {
+            $technicalSupportRequestRepair = TechnicalSupportRequestRepair::create([
+                'state'   => 'Pendiente',
+                'user_id' => Auth::id(),
+            ]);
+        };
+        
         foreach ($request->equipments as $equipment) {
             $asset = Asset::find($equipment);
             /** Si se selecciona la opción averiado */
             if ($request->type == 1) {
                 $asset->asset_condition_id = 4;
                 $asset->save();
+                $technicalSupportRequestRepairAsset = TechnicalSupportRequestRepairAsset::create([
+                    'asset_id'                            => $asset->id,
+                    'technical_support_request_repair_id' => $technicalSupportRequestRepair->id,
+                ]);
             }
             /** Falta agregar para el caso de perdido */
         }
