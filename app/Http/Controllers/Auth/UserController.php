@@ -81,7 +81,7 @@ class UserController extends Controller
         $profile = Profile::find($request->staff);
         $password = generate_hash();
         $user = User::create([
-            'name' => $profile->first_name . $profile->last_name ?? '',
+            'name' => trim($profile->first_name . ' ' .$profile->last_name ?? ''),
             'email' => $request->email,
             'username' => $request->username,
             'password' => bcrypt($password),
@@ -105,7 +105,7 @@ class UserController extends Controller
          */
         $request->session()->flash('message', ['type' => 'store']);
 
-        return redirect()->route('index');
+        return redirect()->route('access.settings.users');
     }
 
     /**
