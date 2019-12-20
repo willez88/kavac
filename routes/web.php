@@ -329,6 +329,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         /** Rutas para la gestión de módulos de la aplicación */
         Route::group(['prefix' => 'modules'], function () {
             Route::get('list', 'ModuleController@index')->name('module.list');
+            Route::post('enable', 'ModuleController@enable')->name('module.enable');
+            Route::post('disable', 'ModuleController@disable')->name('module.disable');
         });
         /** Ruta para la gestión de información sobre la(s) institución(es) */
         Route::resource('institutions', 'InstitutionController');
