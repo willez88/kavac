@@ -49,4 +49,14 @@ class Profile extends Model implements Auditable
     {
         return $this->belongsTo(Image::class);
     }
+
+    /**
+     * Profile belongs to Institution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
+    }
 }

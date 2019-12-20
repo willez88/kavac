@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 
@@ -46,7 +47,18 @@ class UserController extends Controller
             'method' => 'POST',
             'role' => 'form',
         ];
-        return view('auth.register', compact('header'));
+
+        $persons = template_choices(Profile::class, ['first_name', ' ', 'last_name'], $filters = ['user_id' => null]);
+
+        foreach ($persons as $key => $person) {
+            if ($key && $key !== "0" && $profile = Profile::find($key)) {
+                if ($profile->institution) {
+                    $persons[$key] = $profile->institution->acronym . " - " . $persons[$key];
+                }
+            }
+        }
+
+        return view('auth.register', compact('header', 'persons'));
     }
 
     /**
@@ -66,12 +78,32 @@ class UserController extends Controller
             'permission' => ['required_without:role', 'array']
         ]);
 
+        $profile = Profile::find($request->staff);
+        $password = generate_hash();
+        $user = User::create([
+            'name' => $profile->first_name . $profile->last_name ?? '',
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => bcrypt($password),
+            'level' => 2
+        ]);
+
+        $profile->user_id = $user->id;
+        $profile->save();
+
+        if (isset($request->role)) {
+            $user->syncRoles($request->role);
+        }
+        if (isset($request->permissions)) {
+            $user->syncPermissions($request->permission);
+        }
+
         /**
          * TODO:
-         * - Extraer nombre de  la persona desde los datos personales mediante el campo staff
-         * - Generar contraseña aleatoria
          * - Enviar datos de acceso por correo electrónico
+         * - colocar en cola correo a enviar
          */
+        $request->session()->flash('message', ['type' => 'store']);
 
         return redirect()->route('index');
     }

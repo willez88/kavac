@@ -118,7 +118,9 @@ if (!function_exists('template_choices')) {
             if (is_array($fields)) {
                 $text = '';
                 foreach ($fields as $field) {
-                    $text .= ($field !== "-" && $field !== " ") ? $rec->$field : (($field === " ") ? $field : " {$field} ");
+                    $text .= ($field !== "-" && $field !== " ")
+                             ? $rec->$field
+                             : (($field === " ") ? $field : " {$field} ");
                 }
             } else {
                 $text = $rec->$fields;
@@ -382,7 +384,7 @@ if (! function_exists('check_connection')) {
 
 if (! function_exists('get_institution')) {
     /**
-     * [getInstitution obtiene la informacion de una institución]
+     * Obtiene la informacion de una institución
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
@@ -396,5 +398,45 @@ if (! function_exists('get_institution')) {
             return Institution::find($id);
         }
         return Institution::first();
+    }
+}
+
+if (! function_exists('generate_hash')) {
+    /**
+     * Genera una cadena aleatoria
+     *
+     * @method     generate_hash
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      integer          $length          Longitud de la cadena a generar
+     * @param      boolean          $specialChars    Condición que determina si se incluyen o no carácteres especiales
+     *
+     * @return     string           Devuelve una cadena aleatoria
+     */
+    function generate_hash($length = 8, $specialChars = false)
+    {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+
+        $chars = '';
+
+        if ($specialChars) {
+            $chars = '%$[](-_)@/#{}';
+            $alphabet .= $chars;
+        }
+        $pass = [];
+        $alphaLength = strlen($alphabet) - 1;
+        $i = 0;
+        while ($i < $length) {
+            $n = rand(0, $alphaLength);
+            if (in_array($alphabet[$n], $pass) && !empty($chars) && strpos($chars, $alphabet[$n])) {
+                continue;
+            }
+            $pass[] = $alphabet[$n];
+            $i++;
+        }
+
+        $hash = implode($pass);
+        return $hash;
     }
 }

@@ -115,4 +115,14 @@ class Institution extends Model implements Auditable
     {
         return $this->hasMany(Department::class);
     }
+
+    /**
+     * Institution has many Profiles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function profiles()
+    {
+        return $this->hasMany(Profile::class);
+    }
 }
