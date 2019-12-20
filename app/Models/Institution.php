@@ -125,4 +125,24 @@ class Institution extends Model implements Auditable
     {
         return $this->hasMany(Profile::class);
     }
+
+    /**
+     * Filtra datos de la institución de acuerdo al usuario autenticado
+     *
+     * @method     newQuery
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      boolean          $excludeDeleted    Determina si se excluyen los registros eliminados de la consulta
+     *
+     * @return     object           Objeto que contiene la consulta
+     */
+    public function newQuery($excludeDeleted = true)
+    {
+        if (!is_null(auth()->user()->profile) && property_exists(auth()->user()->profile, 'institution')) {
+            return parent::newQuery($excludeDeleted)->where('id', auth()->user()->profile->institution->id);
+        }
+
+        return parent::newQuery($excludeDeleted);
+    }
 }
