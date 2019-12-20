@@ -55,6 +55,13 @@ Vue.component('purchase-requirements-form', require('./components/requirements/P
 
 
 /**
+ *  Componente generico del modulo de contabilidad para mostrar errores
+ * 
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-show-errors', require('./components/PurchaseShowErrorsComponent.vue').default);
+
+/**
  * Opciones de configuración global del módulo de compras
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

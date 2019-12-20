@@ -2003,6 +2003,7 @@ __webpack_require__.r(__webpack_exports__);
      * [showAlertMessages carga la informacion de los errores]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  {string|array} messages mensajes de error
+     * @param  {string} messages clase de mensaje
      */
     showAlertMessages: function showAlertMessages(messages, classAlert) {
       this.classAlert = classAlert ? classAlert : 'danger';
@@ -8985,7 +8986,9 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "VueTables__search-field" }, [
-              _c("label", {}, [_vm._v("\n\t\t\t\t\tBuscar:\n\t\t\t\t")]),
+              _c("label", {}, [
+                _vm._v("\n    \t\t\t\t\tBuscar:\n    \t\t\t\t")
+              ]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -9053,9 +9056,9 @@ var render = function() {
               fn: function(props) {
                 return _c("div", { staticClass: "text-center" }, [
                   _vm._v(
-                    "\n                " +
+                    "\n                    " +
                       _vm._s(_vm.formatDate(props.row.from_date)) +
-                      "\n            "
+                      "\n                "
                   )
                 ])
               }
@@ -9065,9 +9068,9 @@ var render = function() {
               fn: function(props) {
                 return _c("div", { staticClass: "text-center" }, [
                   _vm._v(
-                    "\n                " +
+                    "\n                    " +
                       _vm._s(props.row.reference) +
-                      "\n            "
+                      "\n                "
                   )
                 ])
               }
@@ -9078,7 +9081,7 @@ var render = function() {
                 return _c("div", { staticClass: "text-right" }, [
                   _c("strong", [_vm._v("Debe: ")]),
                   _vm._v(
-                    " \n                " +
+                    " \n                    " +
                       _vm._s(props.row.currency.symbol) +
                       " " +
                       _vm._s(
@@ -9086,13 +9089,13 @@ var render = function() {
                           props.row.currency.decimal_places
                         )
                       ) +
-                      "\n                "
+                      "\n                    "
                   ),
                   _c("br"),
                   _vm._v(" "),
                   _c("strong", [_vm._v("Haber")]),
                   _vm._v(
-                    " \n                " +
+                    " \n                    " +
                       _vm._s(props.row.currency.symbol) +
                       " " +
                       _vm._s(
@@ -9100,7 +9103,7 @@ var render = function() {
                           props.row.currency.decimal_places
                         )
                       ) +
-                      "\n            "
+                      "\n                "
                   )
                 ])
               }

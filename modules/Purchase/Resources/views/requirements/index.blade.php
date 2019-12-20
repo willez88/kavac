@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <purchase-requirements :requirements="{{ $requirements }}" />
+                    <purchase-requirements :requirements="{{ $requirements }}" route_edit="/purchase/requirements/{id}/edit" />
                 </div>
             </div>
         </div>

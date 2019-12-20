@@ -4,6 +4,12 @@
             <v-client-table :columns="columns" :data="records" :options="table_options" class="row">
                 <div slot="id" slot-scope="props" class="text-center">
                     <div class="d-inline-flex">
+                        <button class="btn btn-warning btn-xs btn-icon btn-action"
+                                title="Modificar registro"
+                                data-toggle="tooltip"
+                                v-on:click="editForm(props.row.id)">
+                            <i class="fa fa-edit"></i>
+                        </button>
                         <button @click="deleteRecord(props.index,'/purchase/requirements')"
                                 class="btn btn-danger btn-xs btn-icon btn-action" 
                                 title="Eliminar registro" data-toggle="tooltip" 
