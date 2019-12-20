@@ -51,10 +51,10 @@
                                     title="Gestión de roles y permisos del sistema" data-placement="right">
                                     <a href="{{ route('access.settings') }}">Roles / Permisos</a>
                                 </li>
-                                {{-- <li class="{!! set_active_menu('access.settings.users') !!}" data-toggle="tooltip" 
+                                <li class="{!! set_active_menu('access.settings.users') !!}" data-toggle="tooltip"
                                     title="Gestión de usuarios del sistema" data-placement="right">
-                                    <a href="{{ route(access.settings.users) }}">Usuarios</a>
-                                </li> --}}
+                                    <a href="{{ route('access.settings.users') }}">Usuarios</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="{!! set_active_menu('module.list') !!}">

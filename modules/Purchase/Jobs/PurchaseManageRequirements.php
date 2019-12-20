@@ -49,7 +49,7 @@ class PurchaseManageRequirements implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(array $data, integer $id = null)
+    public function __construct(array $data, int $id = null)
     {
         $this->data = $data;
         $this->id   = $id;
@@ -64,7 +64,35 @@ class PurchaseManageRequirements implements ShouldQueue
     {
         $data = $this->data;
         if ($this->id) {
-            $newEntries = PurchaseRequirement::find($this->id);
+            $requirement = PurchaseRequirement::find($this->id);
+
+            foreach ($data['toDelete'] as $toDeleteId) {
+                PurchaseRequirementItem::find($toDeleteId)->delete();
+            }
+
+            foreach ($data['products'] as $prod) {
+                $p = PurchaseRequirementItem::find($prod['id']);
+
+                if ($p) {
+                    $p['purchase_requirement_id'] = $requirement->id;
+                    $p['technical_specifications'] = $prod['technical_specifications'];
+                    $p['quantity'] = $prod['quantity'];
+                    $p['measurement_unit_id'] = $prod['measurement_unit_id'];
+                    $p->save();
+                } else {
+                    $prod['purchase_requirement_id'] = $requirement->id;
+                    $warehouseProd = WarehouseProduct::find($prod['id']);
+                    PurchaseRequirementItem::create([
+                        'name'                     => $warehouseProd->name,
+                        'description'              => $warehouseProd->description,
+                        'technical_specifications' => $prod['technical_specifications'],
+                        'quantity'                 => $prod['quantity'],
+                        'measurement_unit_id'      => $prod['measurement_unit_id'],
+                        'warehouse_product_id'     => $prod['id'],
+                        'purchase_requirement_id'  => $requirement->id
+                    ]);
+                }
+            }
         } else {
             $data['code'] = $this->generateCodeAvailable();
             $requirement = PurchaseRequirement::create($data);
@@ -76,7 +104,7 @@ class PurchaseManageRequirements implements ShouldQueue
                     'name'                     => $warehouseProd->name,
                     'description'              => $warehouseProd->description,
                     'technical_specifications' => $prod['technical_specifications'],
-                    'quantity'                 => $prod['qty'],
+                    'quantity'                 => $prod['quantity'],
                     'measurement_unit_id'      => $prod['measurement_unit_id'],
                     'warehouse_product_id'     => $prod['id'],
                     'purchase_requirement_id'  => $requirement->id

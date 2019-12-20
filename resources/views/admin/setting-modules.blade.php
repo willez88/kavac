@@ -71,21 +71,26 @@
 										<div class="info-box-footer buttons">
 											<div class="row">
 												<div class="col-4 text-left">
-													<a href="" class="btn btn-sm btn-round btn-success"
+													<a href="javascript:void(0)" data-module="{!! $module->getName() !!}"
+													   class="btn btn-sm btn-round btn-success btn-enable"
 													   title="Instalar módulo" data-toggle="tooltip">
 														<i class="ion ion-android-done"></i>
 													</a>
 												</div>
 												<div class="col-4"></div>
 												<div class="col-4 text-right">
-													<a href="" class="btn btn-sm btn-round btn-danger"
+													<a href="javascript:void(0)" data-module="{!! $module->getName() !!}"
+													   class="btn btn-sm btn-round btn-danger btn-disable"
 													   title="Desinstalar módulo" data-toggle="tooltip">
 														<i class="ion ion-android-close"></i>
 													</a>
 												</div>
 											</div>
-											<span class="status installed">
-												Instalado
+											@php
+												$moduleStatus = ($module->isEnabled()) ? 'installed' : 'uninstalled';
+											@endphp
+											<span class="status {!! $moduleStatus !!}">
+												{{ ($moduleStatus === "installed") ? 'Instalado' : 'Desinstalado' }}
 											</span>
 										</div>
 									</div>
@@ -97,6 +102,58 @@
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('extra-js')
+	@parent
+	<script>
+		$(document).ready(function() {
+			$(".btn-enable").on("click", function() {
+				axios.post('{{ route('module.enable') }}', {
+					module: $(this).data('module')
+				}).then(response => {
+					if (response.data.result) {
+						$.gritter.add({
+                            title: 'Éxito!',
+                            text: 'Módulo habilitado satisfactoriamente',
+                            class_name: 'growl-success',
+                            image: "{{ asset('images/screen-ok.png') }}",
+                            sticky: false,
+                            time: 2500
+                        });
+
+                        setTimeout(function() {
+                        	location.href = '{{ route('module.list') }}'
+                        }, 2500);
+					}
+				}).catch(error => {
+					console.log(error);
+				});
+			});
+			$(".btn-disable").on("click", function() {
+				axios.post('{{ route('module.disable') }}', {
+					module: $(this).data('module')
+				}).then(response => {
+					if (response.data.result) {
+						$.gritter.add({
+                            title: 'Éxito!',
+                            text: 'Módulo deshabilitado satisfactoriamente',
+                            class_name: 'growl-success',
+                            image: "{{ asset('images/screen-ok.png') }}",
+                            sticky: false,
+                            time: 2500
+                        });
+
+                        setTimeout(function() {
+                        	location.href = '{{ route('module.list') }}'
+                        }, 2500);
+					}
+				}).catch(error => {
+					console.log(error);
+				});
+			});
+		});
+	</script>
 @stop
 {{-- <div class="row">
 	<div class="col-12">

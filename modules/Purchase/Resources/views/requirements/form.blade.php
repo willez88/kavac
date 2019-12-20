@@ -28,13 +28,25 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <purchase-requirements-form :supplier_objects="{{ $supplier_objects }}" 
-                                                :date="{{ $date }}"
-                                                :institutions="{{ $institutions }}"
-                                                :purchase_supplier_types="{{ $purchase_supplier_types }}"
-                                                :fiscal_years="{{ $fiscal_years }}"
-                                                :measurement_units="{{ $measurement_units }}"
-                                                 />
+                    @if(isset($requirement_edit))
+                        <purchase-requirements-form :supplier_objects="{{ $supplier_objects }}" 
+                                                    :date="{{ $date }}"
+                                                    :institutions="{{ $institutions }}"
+                                                    :purchase_supplier_types="{{ $purchase_supplier_types }}"
+                                                    :fiscal_years="{{ $fiscal_years }}"
+                                                    :measurement_units="{{ $measurement_units }}"
+                                                    :requirement_edit="{{ $requirement_edit }}"
+                                                    :department_list="{{ $department_list }}"
+                                                     />
+                    @else
+                        <purchase-requirements-form :supplier_objects="{{ $supplier_objects }}" 
+                                                    :date="{{ $date }}"
+                                                    :institutions="{{ $institutions }}"
+                                                    :purchase_supplier_types="{{ $purchase_supplier_types }}"
+                                                    :fiscal_years="{{ $fiscal_years }}"
+                                                    :measurement_units="{{ $measurement_units }}"
+                                                     />
+                    @endif
                 </div>
             </div>
         </div>

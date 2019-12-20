@@ -33,7 +33,7 @@
                         <thead>
                             <tr class="text-center">
                                 <th class="col-md-3">Usuario</th>
-                                <th class="col-md-7">Unidad / Departamento</th>
+                                <th class="col-md-7">Institución</th>
                                 <th class="col-md-2">Acciones</th>
                             </tr>
                         </thead>
@@ -41,7 +41,14 @@
                             @foreach (App\User::all() as $user)
                                 <tr>
                                     <td>{{ $user->username }}</td>
-                                    <td></td>
+                                    <td>
+                                        @php
+                                            $institution = ($user->profile && $user->profile->institution)
+                                                           ? $user->profile->institution->acronym
+                                                           : 'NO ASIGNADA';
+                                        @endphp
+                                        {{ $institution }}
+                                    </td>
                                     <td class="text-center">
                                         {!! Form::button('<i class="fa fa-info-circle"></i>', [
                                             'class' => 'btn btn-info btn-xs btn-icon btn-action',

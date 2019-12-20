@@ -26,6 +26,7 @@ class PurchaseRequirementController extends Controller
     use ValidatesRequests;
 
     protected $supplier_objects;
+    protected $fiscal_years;
 
     public function __construct()
     {
@@ -35,8 +36,7 @@ class PurchaseRequirementController extends Controller
             ['id' => 'Obras',     'text' => []],
             ['id' => 'Servicios', 'text' => []]
         ];
-        // dd($supplier_objects);
-        // $pos = 1;
+
         foreach (PurchaseSupplierType::all() as $so) {
             $type = ($so->type === 'B') ? 'Bienes' : (($so->type === 'O') ? 'Obras' : 'Servicios');
 
@@ -46,8 +46,9 @@ class PurchaseRequirementController extends Controller
                 }
             }
         }
-        // dd($supplier_objects);
+
         $this->supplier_objects = $supplier_objects;
+        $this->fiscal_years     = FiscalYear::where('active', true)->first();
     }
 
     /**
@@ -76,8 +77,6 @@ class PurchaseRequirementController extends Controller
         $measurement_units       = template_choices('App\Models\MeasurementUnit', 'name', [], true);
         $purchase_supplier_types = template_choices('Modules\Purchase\Models\PurchaseSupplierType', 'name', [], true);
         $warehouses              = template_choices('Modules\Warehouse\Models\Warehouse', 'name', [], true);
-        
-        $fiscal_years            = FiscalYear::where('active', true)->first();
 
         $supplier_objects = $this->supplier_objects;
         $acc = [
@@ -92,8 +91,6 @@ class PurchaseRequirementController extends Controller
             ['id' => 'accounting', 'text' => 'Contabilidad'],
         ];
 
-
-        
         $date = date('d-m-Y');
         
         return view('purchase::requirements.form', [
@@ -102,7 +99,7 @@ class PurchaseRequirementController extends Controller
                                                     'institutions'            => json_encode($institutions),
                                                     'purchase_supplier_types' => json_encode($purchase_supplier_types),
                                                     'measurement_units'       => json_encode($measurement_units),
-                                                    'fiscal_years'            => $fiscal_years,
+                                                    'fiscal_years'            => $this->fiscal_years,
                                                 ]);
     }
 
@@ -118,7 +115,6 @@ class PurchaseRequirementController extends Controller
             'institution_id'            => 'required|integer',
             'contracting_department_id' => 'required|integer',
             'user_department_id'        => 'required|integer',
-            'warehouse_id'              => 'required|integer',
             'purchase_supplier_type_id' => 'required|integer'
         ], [
             'description'                        => 'El campo descripcióm es obligatorio.',
@@ -128,8 +124,6 @@ class PurchaseRequirementController extends Controller
             'contracting_department_id.integer'  => 'El campo unidad contratante no esta en el formato de entero.',
             'user_department_id.required'        => 'El campo unidad usuaria es obligatorio.',
             'user_department_id.integer'         => 'El campo unidad usuaria no esta en el formato de entero.',
-            'warehouse_id.required'              => 'El campo almacen es obligatorio.',
-            'warehouse_id.integer'               => 'El campo almacen no esta en el formato de entero.',
             'purchase_supplier_type_id.required' => 'El campo tipo es obligatorio.',
             'purchase_supplier_type_id.integer'  => 'El campo tipo no esta en el formato de entero.'
         ]);
@@ -182,9 +176,43 @@ class PurchaseRequirementController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('purchase::edit');
+        $requirement_edit        = PurchaseRequirement::with('purchaseRequirementItems', 'fiscalYear')->find($id);
+        $institutions            = template_choices('App\Models\Institution', 'name', [], true);
+        $department_list         = template_choices('App\Models\Department', 'name', [], true);
+        $measurement_units       = template_choices('App\Models\MeasurementUnit', 'name', [], true);
+        $purchase_supplier_types = template_choices('Modules\Purchase\Models\PurchaseSupplierType', 'name', [], true);
+        $warehouses              = template_choices('Modules\Warehouse\Models\Warehouse', 'name', [], true);
+
+
+        $supplier_objects = $this->supplier_objects;
+        $acc = [
+            ['id' => '',          'text' => 'Seleccione...'],
+            ['id' => 'Bienes',    'text' => 'producto 1'],
+            ['id' => 'Obras',     'text' => 'producto 2'],
+            ['id' => 'Servicios', 'text' => 'producto 3']
+        ];
+        $department = [
+            ['id' => '',           'text' => 'Seleccione...'],
+            ['id' => 'warehouse',  'text' => 'Almacen'],
+            ['id' => 'accounting', 'text' => 'Contabilidad'],
+        ];
+
+
+        
+        $date = date('d-m-Y');
+        
+        return view('purchase::requirements.form', [
+                                                    'supplier_objects'        => json_encode($supplier_objects),
+                                                    'date'                    => json_encode($date),
+                                                    'institutions'            => json_encode($institutions),
+                                                    'department_list'         => json_encode($department_list),
+                                                    'purchase_supplier_types' => json_encode($purchase_supplier_types),
+                                                    'measurement_units'       => json_encode($measurement_units),
+                                                    'requirement_edit'        => $requirement_edit,
+                                                    'fiscal_years'            => $this->fiscal_years,
+                                                ]);
     }
 
     /**
@@ -192,8 +220,28 @@ class PurchaseRequirementController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'description'               => 'required|string',
+            'institution_id'            => 'required|integer',
+            'contracting_department_id' => 'required|integer',
+            'user_department_id'        => 'required|integer',
+            'purchase_supplier_type_id' => 'required|integer'
+        ], [
+            'description'                        => 'El campo descripcióm es obligatorio.',
+            'institution_id.required'            => 'El campo institución es obligatorio.',
+            'institution_id.integer'             => 'El campo institución no esta en el formato de entero.',
+            'contracting_department_id.required' => 'El campo unidad contratante es obligatorio.',
+            'contracting_department_id.integer'  => 'El campo unidad contratante no esta en el formato de entero.',
+            'user_department_id.required'        => 'El campo unidad usuaria es obligatorio.',
+            'user_department_id.integer'         => 'El campo unidad usuaria no esta en el formato de entero.',
+            'purchase_supplier_type_id.required' => 'El campo tipo es obligatorio.',
+            'purchase_supplier_type_id.integer'  => 'El campo tipo no esta en el formato de entero.'
+        ]);
+
+        PurchaseManageRequirements::dispatch($request->all(), $id);
+        return response()->json(['message'=>'success'], 200);
     }
 
     /**
