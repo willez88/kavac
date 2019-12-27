@@ -4,11 +4,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
+use App\Mail\UserRegister;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * @class UserController
@@ -103,6 +105,7 @@ class UserController extends Controller
          * - Enviar datos de acceso por correo electrónico
          * - colocar en cola correo a enviar
          */
+        Mail::to($user)->send(new UserRegister($user, $password));
         $request->session()->flash('message', ['type' => 'store']);
 
         return redirect()->route('access.settings.users');
