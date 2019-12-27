@@ -32,7 +32,7 @@ class PurchaseRequirement extends Model implements Auditable
 
     protected $fillable = [
         'code', 'description', 'fiscal_year_id', 'contracting_department_id', 'user_department_id',
-        'purchase_supplier_type_id'
+        'purchase_supplier_type_id', 'requirement_status'
     ];
 
     /**

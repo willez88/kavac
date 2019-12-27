@@ -77,4 +77,7 @@ Route::group([
         'as'     => 'purchase',
         'except' => ['show']
     ]);
+    Route::get('purchase/requirements/base-budget', 'PurchaseRequirementController@baseBudget')
+    ->name('purchase.requirements.base_budget');
+    Route::get('purchase/requirement-items', 'PurchaseRequirementController@getRequirementItems');
 });

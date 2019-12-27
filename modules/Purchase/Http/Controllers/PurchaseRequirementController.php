@@ -259,4 +259,27 @@ class PurchaseRequirementController extends Controller
         }
         return response()->json(['message'=>'success'], 200);
     }
+
+    /**
+     * [baseBudget description]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @return [type] [description]
+     */
+    public function baseBudget()
+    {
+        $requirements = PurchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment',
+            'purchaseSupplierType',
+            'fiscalYear',
+            'purchaseRequirementItems.measurementUnit'
+        )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
+        return view('purchase::requirements.base_budget', ['requirements' => $requirements]);
+    }
+
+    public function getRequirementItems($id)
+    {
+        $items = PurchaseRequirementItem::where('purchase_requirement_id', $id)->get();
+        return response()->json(['items'=>$items], 200);
+    }
 }

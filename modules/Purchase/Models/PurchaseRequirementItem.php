@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Models\MeasurementUnit;
 
 /**
  * @class PurchaseRequirementItem
@@ -32,7 +33,7 @@ class PurchaseRequirementItem extends Model implements Auditable
 
     protected $fillable = [
         'name', 'description', 'technical_specifications', 'quantity', 'measurement_unit_id',
-        'warehouse_product_id', 'purchase_requirement_id'
+        'warehouse_product_id', 'purchase_requirement_id', 'unit_price'
     ];
 
     /**
@@ -43,5 +44,15 @@ class PurchaseRequirementItem extends Model implements Auditable
     public function purchaseRequirement()
     {
         return $this->belongsTo(PurchaseRequirement::class);
+    }
+    /**
+     * PurchaseRequirementItem belongs to MeasurementUnit.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function measurementUnit()
+    {
+        // belongsTo(RelatedModel, foreignKey = measurementUnit_id, keyOnRelatedModel = id)
+        return $this->belongsTo(MeasurementUnit::class);
     }
 }

@@ -74,7 +74,7 @@
                                                 :data-target="'#collapseDocumentsList'+index"
                                                 aria-expanded="true" :aria-controls="'collapseDocumentsList'+index"
                                                 title="Presione para mostrar u ocultar la lista de documentos">
-                                            {{ index+1 }}. {{ list.title }}
+                                            {{ index+1 }}. {{ list.title }} 
                                         </button>
                                     </h6>
                                     <hr>
