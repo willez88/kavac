@@ -5,16 +5,40 @@ namespace Modules\TechnicalSupport\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
-class TechnicalSupportController extends Controller
+/**
+ * @class TechnicalSupportRepairController
+ * @brief Controlador de las reparaciones de bienes institucionales
+ *
+ * Clase que gestiona las reparaciones de bienes institucionales
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
+class TechnicalSupportRepairController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        //$this->middleware('permission:technicalsupport.repair', ['only' => 'index']);
+    }
+
+    /**
+     * Muestra el formulario con un listado de reparaciones de bienes institucionales
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function index()
     {
-        return view('technicalsupport::index');
+        return view('technicalsupport::repairs.list');
     }
 
     /**
@@ -68,10 +92,5 @@ class TechnicalSupportController extends Controller
      */
     public function destroy()
     {
-    }
-
-    public function getTechnicalSupportStaff()
-    {
-        return template_choices('App\User', 'name', '', true);
     }
 }
