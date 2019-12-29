@@ -21,10 +21,11 @@
         "spatie/laravel-backup": "~6.4"
     },
     "require-dev": {
-        "facade/ignition": "^1.4",
         "barryvdh/laravel-debugbar": "~3.2",
         "beyondcode/laravel-dump-server": "^1.3",
+        "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
+        "laravel/ui": "^1.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "nunomaduro/larastan": "^0.4",
