@@ -524,3 +524,11 @@ Route::get('test', function () {
      */
     PDF::Output($filename . '.pdf', 'I');
 });
+
+
+Route::get('mail', function () {
+    $user = App\User::find(1);
+
+    return (new App\Notifications\UserRegistered($user, '123456'))
+                ->toMail($user);
+});
