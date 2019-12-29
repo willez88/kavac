@@ -5,6 +5,7 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\User;
 
 class UserRegistered extends Notification
 {
@@ -32,7 +33,7 @@ class UserRegistered extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -48,11 +49,14 @@ class UserRegistered extends Notification
                     ->subject('Registro de usuario - ' . config('app.name'))
                     ->greeting('Bienvenido, ' . $this->user->name)
                     ->line('Se ha registrado un usuario en la plataforma con las siguientes credenciales de acceso:')
-                    ->line('Usuario: ' . $this->user->username)
-                    ->line('Contraseña: ' . $this->password)
+                    ->line('**Usuario:** ' . $this->user->username)
+                    ->line('**Contraseña:** ' . $this->password)
                     ->line('Para acceder pulse sobre el botón a continuación')
                     ->action('Acceso', route('index'))
-                    ->line('Este correo es enviado de manera automática por la aplicación y no esta monitoreado!');
+                    ->line(
+                        'Este correo es enviado de manera automática por la aplicación y no esta siendo monitoreado. ' .
+                        'Por favor no responda a este correo!'
+                    );
     }
 
     /**
@@ -64,7 +68,7 @@ class UserRegistered extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'message' => 'Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso'
         ];
     }
 }

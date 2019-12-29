@@ -35,8 +35,13 @@
 
 {{-- Outro Lines --}}
 @foreach ($outroLines as $line)
+@if (is_array($line))
+@foreach ($line as $ln)
+##### {!! $ln !!}
+@endforeach
+@else
 {{ $line }}
-
+@endif
 @endforeach
 
 {{-- Salutation --}}
@@ -44,7 +49,7 @@
 {{ $salutation }}
 @else
 @lang('Saludos'),<br>
-{{ config('app.name') }}
+Equipo {{ config('app.name') }}
 @endif
 
 {{-- Subcopy --}}
