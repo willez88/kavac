@@ -27,8 +27,8 @@ class CreateWarehouseRequestsTable extends Migration
     {
         if (!Schema::hasTable('warehouse_requests')) {
             Schema::create('warehouse_requests', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
-                
+                $table->bigIncrements('id')->comment('Identificador único del registro');
+
                 $table->string('code', 20)->unique()->comment('Código identificador de la solicitud');
                 $table->string('state', 100)->nullable()->comment('Estado de la solicitud');
                 $table->text('observations')->nullable()->comment('Observaciones de la solicitud');
@@ -39,16 +39,16 @@ class CreateWarehouseRequestsTable extends Migration
                 $table->date('delivery_date')->nullable()
                       ->comment('Fecha en la que se hizo la entrega de la solicitud');
 
-                $table->integer('budget_specific_action_id')->nullable()->unsigned()
+                $table->bigInteger('budget_specific_action_id')->nullable()->unsigned()
                       ->comment('Identificador único de la acción específica asociada a la solicitud');
                 $table->foreign('budget_specific_action_id')->references('id')->on('budget_specific_actions')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('payroll_staff_id')->nullable()->unsigned()
+                $table->bigInteger('payroll_staff_id')->nullable()->unsigned()
                       ->comment('Identificador único del trabajador que realiza la solicitud');
                 $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs');
 
-                $table->integer('department_id')->nullable()->unsigned()
+                $table->bigInteger('department_id')->nullable()->unsigned()
                       ->comment('Identificador único del departamento o dependencia que solicita los productos');
                 $table->foreign('department_id')->references('id')->on('departments')
                       ->onDelete('restrict')->onUpdate('cascade');

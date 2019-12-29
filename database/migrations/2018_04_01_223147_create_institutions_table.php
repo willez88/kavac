@@ -15,7 +15,7 @@ class CreateInstitutionsTable extends Migration
     {
         if (!Schema::hasTable('institutions')) {
             Schema::create('institutions', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('onapre_code', 20)->nullable()
                       ->comment('Código otorgado por la Oficina Nacional de Presupuesto (ONAPRE)');
                 $table->string('rif', 10)->comment('Número de registro fiscal');
@@ -40,17 +40,17 @@ class CreateInstitutionsTable extends Migration
                       ->comment('Institución por defecto. (true) SI, (false) NO');
                 $table->boolean('retention_agent')->default(false)
                       ->comment('Agente de retención de impuestos. (true) SI, (false) NO');
-                $table->integer('institution_sector_id')->unsigned()
+                $table->bigInteger('institution_sector_id')->unsigned()
                       ->comment('Identificador asociado al sector al que pertenece');
-                $table->integer('municipality_id')->nullable()->unsigned()
+                $table->bigInteger('municipality_id')->nullable()->unsigned()
                       ->comment('Identificador asociado al municipio en donde se encuentra ubicada');
-                $table->integer('city_id')->nullable()->unsigned()
+                $table->bigInteger('city_id')->nullable()->unsigned()
                       ->comment('Identificador asociado a la ciudad en donde se encuentra ubicada');
-                $table->integer('institution_type_id')->unsigned()
+                $table->bigInteger('institution_type_id')->unsigned()
                       ->comment('Identificador asociado al tipo de institución');
-                $table->integer('logo_id')->nullable()->unsigned()
+                $table->bigInteger('logo_id')->nullable()->unsigned()
                       ->comment('Identificador asociado al logotipo institucional');
-                $table->integer('banner_id')->nullable()->unsigned()
+                $table->bigInteger('banner_id')->nullable()->unsigned()
                       ->comment('Identificador asociado al cintillo institucional');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

@@ -16,7 +16,7 @@ class CreateLedgersTable extends Migration
     public function up(): void
     {
         Schema::create('ledgers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('user_type')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->morphs('recordable');

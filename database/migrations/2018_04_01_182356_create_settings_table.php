@@ -15,7 +15,7 @@ class CreateSettingsTable extends Migration
     {
         if (!Schema::hasTable('settings')) {
             Schema::create('settings', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->boolean('support')->default(false)->comment('Contacto con soporte técnico');
                 $table->boolean('chat')->default(false)->comment('Comunicación interna por chat');
                 $table->boolean('notify')->default(false)->comment('Notificaciones del sistema');

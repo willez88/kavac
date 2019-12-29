@@ -29,7 +29,7 @@ class RemoveFieldEmployeeIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             if (!Schema::hasColumn('users', 'employee_id')) {
-                $table->integer('employee_id')->unsigned()->nullable()
+                $table->bigInteger('employee_id')->unsigned()->nullable()
                       ->comment('Identificador del empleado asociado al usuario');
             }
         });

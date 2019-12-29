@@ -27,14 +27,14 @@ class CreatePayrollScaleRequirementsTable extends Migration
     {
         if (!Schema::hasTable('payroll_scale_requirements')) {
             Schema::create('payroll_scale_requirements', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->integer('scale_years_minimum')->unsigned()->nullable()
                       ->comment('Cantidad minima de años requeridas por la escala');
                 $table->integer('scale_years_maximum')->unsigned()->nullable()
                       ->comment('Cantidad minima de años requeridas por la escala');
 
-                $table->integer('payroll_scale_id')->unsigned()
+                $table->bigInteger('payroll_scale_id')->unsigned()
                       ->comment('Identificador único de la escala o nivel asociado al registro');
                 $table->foreign('payroll_scale_id')->references('id')->on('payroll_scales')
                       ->onDelete('restrict')->onUpdate('cascade');

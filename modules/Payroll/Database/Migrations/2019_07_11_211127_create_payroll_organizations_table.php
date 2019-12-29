@@ -27,17 +27,17 @@ class CreatePayrollOrganizationsTable extends Migration
     {
         if (!Schema::hasTable('payroll_organizations')) {
             Schema::create('payroll_organizations', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre de la organización');
                 $table->date('start_date')->comment('Fecha de ingreso');
                 $table->date('end_date')->comment('Fecha de egreso');
 
-                $table->integer('payroll_sector_type_id')->unsigned()
+                $table->bigInteger('payroll_sector_type_id')->unsigned()
                       ->comment('identificador del tipo de sector que pertenece a la organización');
                 $table->foreign('payroll_sector_type_id')->references('id')->on('payroll_sector_types')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('payroll_employment_information_id')->unsigned()
+                $table->bigInteger('payroll_employment_information_id')->unsigned()
                       ->comment('identificador de la información laboral que pertenece a la organización');
                 $table->foreign('payroll_employment_information_id')
                       ->references('id')->on('payroll_employment_informations')

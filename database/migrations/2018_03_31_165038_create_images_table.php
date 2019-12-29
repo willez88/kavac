@@ -15,7 +15,7 @@ class CreateImagesTable extends Migration
     {
         if (!Schema::hasTable('images')) {
             Schema::create('images', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('file')->comment('Nombre del archivo');
                 $table->string('url')->comment('URL de la imagen');
                 $table->timestamps();

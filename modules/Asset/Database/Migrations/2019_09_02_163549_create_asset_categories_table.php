@@ -27,11 +27,11 @@ class CreateAssetCategoriesTable extends Migration
     {
         if (!Schema::hasTable('asset_categories')) {
             Schema::create('asset_categories', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('code', 10)->comment('Código de la categoria general');
                 $table->string('name', 100)->comment('Nombre de la categoria general del bien');
-                
-                $table->integer('asset_type_id')->unsigned()->comment('Identificador único del tipo de bien');
+
+                $table->bigInteger('asset_type_id')->unsigned()->comment('Identificador único del tipo de bien');
                 $table->foreign('asset_type_id')->references('id')->on('asset_types')
                       ->onDelete('restrict')->onUpdate('cascade');
 

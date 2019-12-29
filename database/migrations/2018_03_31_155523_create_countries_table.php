@@ -26,7 +26,7 @@ class CreateCountriesTable extends Migration
     {
         if (!Schema::hasTable('countries')) {
             Schema::create('countries', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre del Pais');
                 $table->string('prefix', 3)->comment('Prefijo único del Pais');
                 $table->timestamps();

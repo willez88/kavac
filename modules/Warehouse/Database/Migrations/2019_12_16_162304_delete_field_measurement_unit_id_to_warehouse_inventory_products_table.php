@@ -46,7 +46,7 @@ class DeleteFieldMeasurementUnitIdToWarehouseInventoryProductsTable extends Migr
         if (Schema::hasTable('warehouse_inventory_products')) {
             Schema::table('warehouse_inventory_products', function (Blueprint $table) {
                 if (!Schema::hasColumn('warehouse_inventory_products', 'measurement_unit_id')) {
-                    $table->integer('measurement_unit_id')->unsigned()->nullable()
+                    $table->bigInteger('measurement_unit_id')->unsigned()->nullable()
                           ->comment('Identificador único de la unidad de medida del producto');
                     $table->foreign('measurement_unit_id')
                           ->references('id')->on('measurement_units')

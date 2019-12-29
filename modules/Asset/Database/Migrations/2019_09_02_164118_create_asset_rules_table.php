@@ -27,8 +27,8 @@ class CreateAssetRulesTable extends Migration
     {
         if (!Schema::hasTable('asset_rules')) {
             Schema::create('asset_rules', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
-                $table->integer('asset_inventory_id')->unsigned()
+                $table->bigIncrements('id')->comment('Identificador único del registro');
+                $table->bigInteger('asset_inventory_id')->unsigned()
                       ->comment('Identificador único del articulo en la tabla de inventario de bienes');
                 $table->foreign('asset_inventory_id')->references('id')->on('asset_inventories')
                       ->onDelete('restrict')->onUpdate('cascade');
@@ -38,7 +38,7 @@ class CreateAssetRulesTable extends Migration
                 $table->integer('max')->nullable()->unsigned()
                       ->comment('Cantidad maxima permitida en el inventario de bienes');
 
-                $table->integer('user_id')->unsigned()
+                $table->bigInteger('user_id')->unsigned()
                       ->comment('Identificador único del usuario que realiza el cambio de regla');
                 $table->foreign('user_id')->references('id')->on('users')
                       ->onDelete('restrict')->onUpdate('cascade');

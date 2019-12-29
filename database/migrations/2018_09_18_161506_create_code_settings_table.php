@@ -15,7 +15,7 @@ class CreateCodeSettingsTable extends Migration
     {
         if (!Schema::hasTable('code_settings')) {
             Schema::create('code_settings', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('module')->nullable()->comment('Nombre del módulo si aplica');
                 $table->string('model')->comment('Namespace del modelo donde aplica la configuración');
                 $table->string('table')->comment('Tabla en donde se aplicará la configuración del código');

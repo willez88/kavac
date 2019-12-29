@@ -40,12 +40,12 @@ class DeleteFieldsToPayrollProfessionalInformationsTable extends Migration
     public function down()
     {
         Schema::table('payroll_professional_informations', function (Blueprint $table) {
-            $table->integer('payroll_language_id')->unsigned()->nullable()
+            $table->bigInteger('payroll_language_id')->unsigned()->nullable()
                   ->comment('identificador del idioma que pertenecen a la información profesional');
             $table->foreign('payroll_language_id')->references('id')->on('payroll_languages')
                   ->onDelete('restrict')->onUpdate('cascade');
 
-            $table->integer('payroll_language_level_id')->unsigned()->nullable()
+            $table->bigInteger('payroll_language_level_id')->unsigned()->nullable()
                   ->comment('identificador del mivel de idioma que pertenecen a la información profesional');
             $table->foreign('payroll_language_level_id')->references('id')->on('payroll_language_levels')
                   ->onDelete('restrict')->onUpdate('cascade');

@@ -27,7 +27,7 @@ class CreateAssetDisincorporationMotivesTable extends Migration
     {
         if (!Schema::hasTable('asset_disincorporation_motives')) {
             Schema::create('asset_disincorporation_motives', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre del motivo de la desincorporación');
 
                 $table->timestamps();

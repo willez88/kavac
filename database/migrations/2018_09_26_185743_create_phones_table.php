@@ -15,7 +15,7 @@ class CreatePhonesTable extends Migration
     {
         if (!Schema::hasTable('phones')) {
             Schema::create('phones', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('area_code')->comment('Código de área');
                 $table->string('number')->comment('Número telefónico');
                 $table->enum('type', ['M', 'T', 'F'])->default('T')

@@ -27,15 +27,15 @@ class CreateAssetRequiredItemsTable extends Migration
     {
         if (!Schema::hasTable('asset_required_items')) {
             Schema::create('asset_required_items', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->boolean('use_function')->default(false)->comment('Define si la función de uso es requerida');
                 $table->boolean('serial')->default(false)->comment('Define si el serial es requerido');
                 $table->boolean('marca')->default(false)->comment('Define si la marca es requerida');
                 $table->boolean('model')->default(false)->comment('Define si el modelo es requerido');
                 $table->boolean('address')->default(false)->comment('Define si la dirección es requerida');
-                
-                $table->integer('asset_specific_category_id')
+
+                $table->bigInteger('asset_specific_category_id')
                       ->comment('Identificador único de la clasificación asociada a los requerimentos');
                 $table->foreign('asset_specific_category_id')->references('id')->on('asset_specific_categories')
                       ->onDelete('restrict')->onUpdate('cascade');

@@ -33,7 +33,7 @@ class AddFieldsToPayrollSalaryTabulatorsTable extends Migration
                 }
 
                 if (!Schema::hasColumn('payroll_salary_tabulators', 'institution_id')) {
-                    $table->integer('institution_id')->unsigned()->nullable()
+                    $table->bigInteger('institution_id')->unsigned()->nullable()
                           ->comment('Identificador único de la institución asociada al tabulador');
                     $table->foreign('institution_id')
                           ->references('id')->on('institutions')
@@ -41,7 +41,7 @@ class AddFieldsToPayrollSalaryTabulatorsTable extends Migration
                 }
 
                 if (!Schema::hasColumn('payroll_salary_tabulators', 'currency_id')) {
-                    $table->integer('currency_id')->unsigned()->nullable()
+                    $table->bigInteger('currency_id')->unsigned()->nullable()
                           ->comment('Identificador único de la moneda asociada al tabulador');
                     $table->foreign('currency_id')
                           ->references('id')->on('currencies')
@@ -54,7 +54,7 @@ class AddFieldsToPayrollSalaryTabulatorsTable extends Migration
                 }
 
                 if (!Schema::hasColumn('payroll_salary_tabulators', 'payroll_staff_type_id')) {
-                    $table->integer('payroll_staff_type_id')->unsigned()->nullable()
+                    $table->bigInteger('payroll_staff_type_id')->unsigned()->nullable()
                           ->comment('Identificador único del tipo de personal al que se aplica el tabulador salarial');
                     $table->foreign('payroll_staff_type_id')->references('id')->on('payroll_staff_types')
                           ->onDelete('restrict')->onUpdate('cascade');
@@ -92,7 +92,7 @@ class AddFieldsToPayrollSalaryTabulatorsTable extends Migration
             }
 
             if (!Schema::hasColumn('payroll_salary_tabulators', 'payroll_position_type_id')) {
-                $table->integer('payroll_position_type_id')->unsigned()->nullable()
+                $table->bigInteger('payroll_position_type_id')->unsigned()->nullable()
                       ->comment('Identificador único del tipo de cargo al que se aplica el tabulador salarial');
                 $table->foreign('payroll_position_type_id')->references('id')->on('payroll_position_types')
                       ->onDelete('restrict')->onUpdate('cascade');

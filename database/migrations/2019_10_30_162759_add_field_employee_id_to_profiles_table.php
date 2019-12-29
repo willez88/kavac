@@ -15,7 +15,7 @@ class AddFieldEmployeeIdToProfilesTable extends Migration
     {
         Schema::table('profiles', function (Blueprint $table) {
             if (!Schema::hasColumn('profiles', 'employee_id')) {
-                $table->integer('employee_id')->unsigned()->nullable()
+                $table->bigInteger('employee_id')->unsigned()->nullable()
                       ->comment('Identificador del empleado al que pertenece el perfil');
             }
         });

@@ -14,11 +14,11 @@ class CreateBudgetCompromisesTable extends Migration
     public function up()
     {
         Schema::create('budget_compromises', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->date('compromised_at')->comment("Fecha en la que se establece el compromiso");
             $table->text('description')->comment("Descripción del compromiso");
             $table->string('code', 20)->unique()->comment("Código único que identifica el compromiso");
-            $table->integer('document_status_id')->unsigned()
+            $table->bigInteger('document_status_id')->unsigned()
                   ->comment('Identificador del estatus del documento');
             $table->foreign('document_status_id')->references('id')
                   ->on('document_status')->onDelete('restrict')->onUpdate('cascade');

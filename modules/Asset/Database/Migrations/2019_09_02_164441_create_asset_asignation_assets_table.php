@@ -27,13 +27,13 @@ class CreateAssetAsignationAssetsTable extends Migration
     {
         if (!Schema::hasTable('asset_asignation_assets')) {
             Schema::create('asset_asignation_assets', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
-                $table->integer('asset_id')->unsigned()->nullable()
+                $table->bigInteger('asset_id')->unsigned()->nullable()
                       ->comment('Identificador único del bien en la tabla de bienes');
                 $table->foreign('asset_id')->references('id')->on('assets')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('asset_asignation_id')->unsigned()->nullable()
+                $table->bigInteger('asset_asignation_id')->unsigned()->nullable()
                       ->comment('Identificador único de la asignación generada');
                 $table->foreign('asset_asignation_id')->references('id')->on('asset_asignations')
                       ->onDelete('restrict')->onUpdate('cascade');

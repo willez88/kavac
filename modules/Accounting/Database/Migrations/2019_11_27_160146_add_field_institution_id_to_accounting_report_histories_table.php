@@ -17,7 +17,7 @@ class AddFieldInstitutionIdToAccountingReportHistoriesTable extends Migration
             'accounting_report_histories',
             function (Blueprint $table) {
                 if (!Schema::hasColumn('accounting_report_histories', 'institution_id')) {
-                    $table->integer('institution_id')->unsigned()->nullable()
+                    $table->bigInteger('institution_id')->unsigned()->nullable()
                     ->comment('id de la institucion a relacionar con el registro');
 
                     $table->foreign('institution_id')->references('id')->on('currencies')

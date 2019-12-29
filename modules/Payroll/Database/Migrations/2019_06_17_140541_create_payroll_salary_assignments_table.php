@@ -27,25 +27,25 @@ class CreatePayrollSalaryAssignmentsTable extends Migration
     {
         if (!Schema::hasTable('payroll_salary_assignments')) {
             Schema::create('payroll_salary_assignments', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name')->comment('Nombre del tipo de asignación de nómina');
                 $table->string('description')->nullable()->comment('Descripción del tipo de asignación de nómina');
                 $table->boolean('active')->default(true)->comment('Indica si la asignación esta activa');
-                
+
                 $table->enum('incidence_type', ['absolute_value', 'tax_unit', 'percent'])
                       ->comment('Tipo de incidencia de la asignación, valor absoluto, unidad tributaria o porcentaje');
 
-                $table->integer('payroll_position_type_id')->unsigned()->nullable()
+                $table->bigInteger('payroll_position_type_id')->unsigned()->nullable()
                   ->comment('Identificador único del tipo de cargo al que se aplica la asignación salarial');
                 $table->foreign('payroll_position_type_id')->references('id')->on('payroll_position_types')
                   ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('payroll_salary_assignment_type_id')->unsigned()->nullable()
+                $table->bigInteger('payroll_salary_assignment_type_id')->unsigned()->nullable()
                   ->comment('Identificador único del tipo de asignación salarial');
                 $table->foreign('payroll_salary_assignment_type_id')->references('id')
                       ->on('payroll_salary_assignment_types')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('payroll_salary_scale_id')->unsigned()->nullable()
+                $table->bigInteger('payroll_salary_scale_id')->unsigned()->nullable()
                   ->comment('Identificador único del escalafón asociado a la asignación salarial');
                 $table->foreign('payroll_salary_scale_id')->references('id')->on('payroll_salary_assignment_types')
                   ->onDelete('restrict')->onUpdate('cascade');

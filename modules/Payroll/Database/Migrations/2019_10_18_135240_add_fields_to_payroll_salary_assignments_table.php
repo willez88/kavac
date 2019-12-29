@@ -28,7 +28,7 @@ class AddFieldsToPayrollSalaryAssignmentsTable extends Migration
         if (Schema::hasTable('payroll_salary_assignments')) {
             Schema::table('payroll_salary_assignments', function (Blueprint $table) {
                 if (!Schema::hasColumn('payroll_salary_assignments', 'institution_id')) {
-                    $table->integer('institution_id')->unsigned()->nullable()
+                    $table->bigInteger('institution_id')->unsigned()->nullable()
                           ->comment('Identificador único de la institución asociada al tabulador');
                     $table->foreign('institution_id')
                           ->references('id')->on('institutions')
@@ -36,7 +36,7 @@ class AddFieldsToPayrollSalaryAssignmentsTable extends Migration
                 }
 
                 if (!Schema::hasColumn('payroll_salary_assignments', 'currency_id')) {
-                    $table->integer('currency_id')->unsigned()->nullable()
+                    $table->bigInteger('currency_id')->unsigned()->nullable()
                           ->comment('Identificador único de la moneda asociada al tabulador');
                     $table->foreign('currency_id')
                           ->references('id')->on('currencies')

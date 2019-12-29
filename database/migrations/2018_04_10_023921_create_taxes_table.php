@@ -15,7 +15,7 @@ class CreateTaxesTable extends Migration
     {
         if (!Schema::hasTable('taxes')) {
             Schema::create('taxes', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 60)->unique()->comment('Nombre del impuesto');
                 $table->text('description')->comment('Descripción del impuesto');
                 $table->boolean('affect_tax')->default(false)

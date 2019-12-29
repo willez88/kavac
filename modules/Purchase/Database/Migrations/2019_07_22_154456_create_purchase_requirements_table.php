@@ -15,7 +15,7 @@ class CreatePurchaseRequirementsTable extends Migration
     {
         if (!Schema::hasTable('purchase_requirements')) {
             Schema::create('purchase_requirements', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('code', 20)->unique()->comment('Código único para el requerimiento de compra');
                 $table->text('description')->comment("Descripción del requerimiento");
 
@@ -26,7 +26,7 @@ class CreatePurchaseRequirementsTable extends Migration
                 *
                 * Define la estructura de relación al año fiscal
                 */
-                $table->integer('fiscal_year_id')->unsigned()
+                $table->bigInteger('fiscal_year_id')->unsigned()
                       ->comment('Identificador del año fiscal');
                 $table->foreign('fiscal_year_id')->references('id')
                       ->on('fiscal_years')->onDelete('restrict')
@@ -40,7 +40,7 @@ class CreatePurchaseRequirementsTable extends Migration
                 * Define la estructura de relación a la unidad o departamento contratante del
                 * requerimiento a registrar
                 */
-                $table->integer('contracting_department_id')->unsigned()->nullable()
+                $table->bigInteger('contracting_department_id')->unsigned()->nullable()
                       ->comment('Identificador de la unidad o departamento contratante. Opcional');
                 $table->foreign('contracting_department_id')->references('id')
                       ->on('departments')->onDelete('restrict')
@@ -54,7 +54,7 @@ class CreatePurchaseRequirementsTable extends Migration
                 * Define la estructura de relación a la unidad o departamento usuaria del
                 * requerimiento a registrar
                 */
-                $table->integer('user_department_id')->unsigned()
+                $table->bigInteger('user_department_id')->unsigned()
                       ->comment('Identificador de la unidad o departamento usuaria del requerimiento');
                 $table->foreign('user_department_id')->references('id')
                       ->on('departments')->onDelete('restrict')
@@ -68,7 +68,7 @@ class CreatePurchaseRequirementsTable extends Migration
                 * Define la estructura de relación al tipo de proveedor según el requerimiento
                 * a ser registrado
                 */
-                $table->integer('purchase_supplier_type_id')->unsigned()
+                $table->bigInteger('purchase_supplier_type_id')->unsigned()
                       ->comment('Identificador del tipo de requerimiento (tipo de proveedor)');
                 $table->foreign('purchase_supplier_type_id')->references('id')
                       ->on('purchase_supplier_types')->onDelete('restrict')

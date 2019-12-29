@@ -40,7 +40,7 @@ class AddFieldsToPayrollSalaryScalesTable extends Migration
                     ->comment('Tipo de agrupación, (position) cargo, (instruction_degree) grado de instrucción');
                 }
                 if (!Schema::hasColumn('payroll_salary_scales', 'institution_id')) {
-                    $table->integer('institution_id')->unsigned()->nullable()
+                    $table->bigInteger('institution_id')->unsigned()->nullable()
                           ->comment('Identificador único de la institución asociada al escalafón');
                     $table->foreign('institution_id')
                           ->references('id')->on('institutions')

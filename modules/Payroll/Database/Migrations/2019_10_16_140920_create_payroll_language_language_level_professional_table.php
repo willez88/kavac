@@ -27,15 +27,15 @@ class CreatePayrollLanguageLanguageLevelProfessionalTable extends Migration
     {
         if (!Schema::hasTable('payroll_language_language_level_professional')) {
             Schema::create('payroll_language_language_level_professional', function (Blueprint $table) {
-                $table->increments('id')->unsigned();
-                $table->integer('payroll_language_id')->unsigned();
+                $table->bigIncrements('id')->unsigned();
+                $table->bigInteger('payroll_language_id')->unsigned();
                 //$table->foreign('payroll_language_id')->references('id')->on('payroll_languages')->onDelete('cascade');
 
-                $table->integer('payroll_language_level_id')->unsigned()->index();
+                $table->bigInteger('payroll_language_level_id')->unsigned()->index();
                 /*$table->foreign('payroll_language_level_id')
                       ->references('id')->on('payroll_language_levels')->onDelete('cascade');*/
 
-                $table->integer('payroll_professional_information_id')->unsigned()->index();
+                $table->bigInteger('payroll_professional_information_id')->unsigned()->index();
                 /*$table->foreign('payroll_professional_information_id')
                       ->references('id')->on('payroll_professional_informations')->onDelete('cascade');*/
 

@@ -27,7 +27,7 @@ class CreatePayrollGendersTable extends Migration
     {
         if (!Schema::hasTable('payroll_genders')) {
             Schema::create('payroll_genders', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre del género');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

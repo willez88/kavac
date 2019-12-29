@@ -14,7 +14,7 @@ class AddFieldCityIdToFinanceBankingAgenciesTable extends Migration
     public function up()
     {
         Schema::table('finance_banking_agencies', function (Blueprint $table) {
-            $table->integer('city_id')->unsigned()->nullable()
+            $table->bigInteger('city_id')->unsigned()->nullable()
                   ->comment('Identificador de la ciudad donde esta ubicada la agencia');
             $table->foreign('city_id')->references('id')
                   ->on('cities')->onDelete('restrict')->onUpdate('cascade');

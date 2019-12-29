@@ -27,7 +27,7 @@ class CreatePayrollWorkAgeSettingsTable extends Migration
     {
         if (!Schema::hasTable('payroll_work_age_settings')) {
             Schema::create('payroll_work_age_settings', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->integer('age')->unsigned()->default(0)
                       ->comment('Edad laboral permitida para trabajar en una institución o empresa');
                 $table->timestamps();

@@ -27,7 +27,7 @@ class CreatePayrollStudyTypesTable extends Migration
     {
         if (!Schema::hasTable('payroll_study_types')) {
             Schema::create('payroll_study_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre del tipo de estudio');
                 $table->string('description', 200)->nullable()->comment('Descripción del tipo de estudio');
                 $table->timestamps();

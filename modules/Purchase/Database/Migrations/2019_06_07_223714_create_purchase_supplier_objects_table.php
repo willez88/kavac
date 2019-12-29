@@ -15,7 +15,7 @@ class CreatePurchaseSupplierObjectsTable extends Migration
     {
         if (!Schema::hasTable('purchase_supplier_objects')) {
             Schema::create('purchase_supplier_objects', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->enum('type', ['B', 'O', 'S'])
                       ->comment('Tipo de objeto de la empresa. (B)ienes, (O)bras y (S)ervicios');
                 $table->string('name')->comment('Nombre del objeto del proveedor');

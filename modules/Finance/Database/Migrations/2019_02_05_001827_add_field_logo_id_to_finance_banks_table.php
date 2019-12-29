@@ -14,7 +14,7 @@ class AddFieldLogoIdToFinanceBanksTable extends Migration
     public function up()
     {
         Schema::table('finance_banks', function (Blueprint $table) {
-            $table->integer('logo_id')->unsigned()->nullable()
+            $table->bigInteger('logo_id')->unsigned()->nullable()
                   ->comment('Identificador del logotipo del banco');
             $table->foreign('logo_id')->references('id')
                   ->on('images')->onDelete('restrict')->onUpdate('cascade');

@@ -27,14 +27,14 @@ class CreatePayrollScalesTable extends Migration
     {
         if (!Schema::hasTable('payroll_scales')) {
             Schema::create('payroll_scales', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
-                
+                $table->bigIncrements('id')->comment('Identificador único del registro');
+
                 $table->string('name')->comment('Nombre de la escala o nivel');
                 $table->string('code', 5)->nullable()->comment('Código de la escala o nivel');
                 $table->text('description')->nullable()->comment('Descripción de la escala o nivel');
-                
-                
-                $table->integer('payroll_salary_scale_id')->unsigned()
+
+
+                $table->bigInteger('payroll_salary_scale_id')->unsigned()
                       ->comment('Identificador único del escalafón salarial al que pertenece la escala o nivel');
                 $table->foreign('payroll_salary_scale_id')->references('id')->on('payroll_salary_scales')
                       ->onDelete('restrict')->onUpdate('cascade');

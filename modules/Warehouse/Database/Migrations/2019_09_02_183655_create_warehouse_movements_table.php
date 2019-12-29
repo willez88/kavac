@@ -27,7 +27,7 @@ class CreateWarehouseMovementsTable extends Migration
     {
         if (!Schema::hasTable('warehouse_movements')) {
             Schema::create('warehouse_movements', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('code', 20)->unique()->comment('Código identificador del movimiento');
 
                 $table->enum('type', ['C', 'M', 'V'])
@@ -38,17 +38,17 @@ class CreateWarehouseMovementsTable extends Migration
                 $table->text('observations')->nullable()->comment('Observaciones sobre la operación');
                 $table->string('state', 100)->nullable()->comment('Estado de la operación');
 
-                $table->integer('warehouse_institution_warehouse_initial_id')->unsigned()->nullable()
+                $table->bigInteger('warehouse_institution_warehouse_initial_id')->unsigned()->nullable()
                   ->comment('Identificador único de la ubicación inicial del producto en la tabla institución-almacén');
                 $table->foreign('warehouse_institution_warehouse_initial_id')->references('id')
                       ->on('warehouse_institution_warehouses')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('warehouse_institution_warehouse_end_id')->unsigned()->nullable()
+                $table->bigInteger('warehouse_institution_warehouse_end_id')->unsigned()->nullable()
                   ->comment('Identificador único de la ubicación final del producto en la tabla institución-almacén)');
                 $table->foreign('warehouse_institution_warehouse_end_id')->references('id')
                       ->on('warehouse_institution_warehouses')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('user_id')->unsigned()
+                $table->bigInteger('user_id')->unsigned()
                       ->comment('Identificador único del usuario que registra el movimiento');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
 

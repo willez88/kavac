@@ -15,7 +15,7 @@ class CreatePurchaseSupplierTypesTable extends Migration
     {
         if (!Schema::hasTable('purchase_supplier_types')) {
             Schema::create('purchase_supplier_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name')->unique()->comment('Tipos de proveedores');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

@@ -27,20 +27,20 @@ class CreateAssetAsignationsTable extends Migration
     {
         if (!Schema::hasTable('asset_asignations')) {
             Schema::create('asset_asignations', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('code', 20)->unique()->comment('Código identificador de la asignación');
 
-                $table->integer('payroll_staff_id')->nullable()->unsigned()
+                $table->bigInteger('payroll_staff_id')->nullable()->unsigned()
                       ->comment('Identificador único del trabajador responsable del bien');
                 $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
                       ->onDelete('restrict')->onUpdate('cascade');
-                
-                $table->integer('department_id')->nullable()->unsigned()
+
+                $table->bigInteger('department_id')->nullable()->unsigned()
                       ->comment('Identificador único del departamento donde recide el bien mueble');
                 $table->foreign('department_id')->references('id')->on('departments')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('user_id')->comment('Identificador único del usuario que realiza la asignación');
+                $table->bigInteger('user_id')->comment('Identificador único del usuario que realiza la asignación');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

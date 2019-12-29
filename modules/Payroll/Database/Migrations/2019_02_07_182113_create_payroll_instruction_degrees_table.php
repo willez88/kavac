@@ -27,7 +27,7 @@ class CreatePayrollInstructionDegreesTable extends Migration
     {
         if (!Schema::hasTable('payroll_instruction_degree')) {
             Schema::create('payroll_instruction_degrees', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre del grado de instrucción');
                 $table->string('description', 200)->nullable()->comment('Descripción del grado de instrucción');
                 $table->timestamps();

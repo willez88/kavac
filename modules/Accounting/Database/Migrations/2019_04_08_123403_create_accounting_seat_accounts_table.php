@@ -13,15 +13,14 @@ class CreateAccountingSeatAccountsTable extends Migration
      */
     public function up()
     {
-
         if (!Schema::hasTable('accounting_seat_accounts')) {
             Schema::create('accounting_seat_accounts', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
 
-                $table->integer('accounting_seat_id')->unsigned()->comment('id del asiento contable');
+                $table->bigInteger('accounting_seat_id')->unsigned()->comment('id del asiento contable');
                 $table->foreign('accounting_seat_id')->references('id')->on('accounting_seats')->onDelete('cascade')->comment('id del asiento contable');
 
-                $table->integer('accounting_account_id')->unsigned()->nullable()->comment('registro de cuentas patrimoniales en el asiento contable');
+                $table->bigInteger('accounting_account_id')->unsigned()->nullable()->comment('registro de cuentas patrimoniales en el asiento contable');
                 $table->foreign('accounting_account_id')->references('id')->on('accounting_accounts')->onDelete('cascade')->comment('registro de cuentas patrimoniales en el asiento contable');
 
                 $table->float('debit', 30, 2)->comment('Monto asignado al Debe total del asiento');

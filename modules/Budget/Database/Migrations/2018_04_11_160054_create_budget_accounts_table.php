@@ -15,7 +15,7 @@ class CreateBudgetAccountsTable extends Migration
     {
         if (!Schema::hasTable('budget_accounts')) {
             Schema::create('budget_accounts', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->char('group', 1)->comment('Grupo al que pertenece la cuenta');
                 $table->char('item', 2)->comment('Item de la cuenta');
                 $table->char('generic', 2)->comment('Código genérico de la cuenta');
@@ -28,9 +28,9 @@ class CreateBudgetAccountsTable extends Migration
                 $table->boolean('egress')->comment('Indica si es una cuenta de egresos');
                 $table->boolean('original')->default(true)
                       ->comment('Indica si la cuenta es del clasificador presupuestario original');
-                $table->integer('tax_id')->nullable()->unsigned()
+                $table->bigInteger('tax_id')->nullable()->unsigned()
                       ->comment('Identificador asociado al impuesto');
-                $table->integer('parent_id')->nullable()->unsigned()
+                $table->bigInteger('parent_id')->nullable()->unsigned()
                       ->comment('Identificador asociado a la cuenta padre');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

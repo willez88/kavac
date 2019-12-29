@@ -15,7 +15,7 @@ class CreateAuditsTable extends Migration
     {
         if (!Schema::hasTable('audits')) {
             Schema::create('audits', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('user_type')->nullable();
                 $table->unsignedBigInteger('user_id')->nullable();
                 $table->string('event');

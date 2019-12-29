@@ -14,7 +14,7 @@ class CreatePermissionsTable extends Migration
     {
         if (!Schema::hasTable('permissions')) {
             Schema::create('permissions', function (Blueprint $table) {
-                $table->increments('id')->unsigned();
+                $table->bigIncrements('id')->unsigned();
                 $table->string('name');
                 $table->string('slug')->unique();
                 $table->string('description')->nullable();

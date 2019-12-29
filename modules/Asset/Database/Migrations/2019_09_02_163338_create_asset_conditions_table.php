@@ -27,7 +27,7 @@ class CreateAssetConditionsTable extends Migration
     {
         if (!Schema::hasTable('asset_conditions')) {
             Schema::create('asset_conditions', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre de la condición física del bien');
 
                 $table->timestamps();

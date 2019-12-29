@@ -27,7 +27,7 @@ class CreateAssetRequestsTable extends Migration
     {
         if (!Schema::hasTable('asset_requests')) {
             Schema::create('asset_requests', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('code', 20)->unique()->comment('Código identificador de la solicitud');
                 $table->integer('type')->nullable()->comment('Identificador único del tipo de solicitud');
                 $table->string('motive')->nullable()->comment('Motivo de la solicitud');
@@ -36,8 +36,8 @@ class CreateAssetRequestsTable extends Migration
                 $table->string('agent_name')->nullable()->comment('Nombre del agente externo');
                 $table->string('agent_telf')->nullable()->comment('Teléfono del agente externo');
                 $table->string('agent_email')->nullable()->comment('Correo del agente externo');
-                
-                $table->integer('user_id')->comment('Identificador único del usuario que realiza la solicitud');
+
+                $table->bigInteger('user_id')->comment('Identificador único del usuario que realiza la solicitud');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

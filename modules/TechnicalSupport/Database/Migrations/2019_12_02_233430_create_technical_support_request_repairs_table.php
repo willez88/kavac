@@ -29,8 +29,8 @@ class CreateTechnicalSupportRequestRepairsTable extends Migration
             Schema::create('technical_support_request_repairs', function (Blueprint $table) {
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('state')->comment('Estado de la solicitud');
-                
-                $table->integer('user_id')->comment('Identificador único del usuario que solicita la reparación');
+
+                $table->bigInteger('user_id')->comment('Identificador único del usuario que solicita la reparación');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

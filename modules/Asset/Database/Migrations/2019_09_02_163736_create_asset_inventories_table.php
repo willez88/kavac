@@ -27,7 +27,7 @@ class CreateAssetInventoriesTable extends Migration
     {
         if (!Schema::hasTable('asset_inventories')) {
             Schema::create('asset_inventories', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('code', 20)->unique()->comment('Código identificador del inventario');
                 $table->integer('registered')->unsigned()->default(0)->comment('Cantidad de bienes en registrados');
                 $table->integer('assigned')->unsigned()->default(0)->comment('Cantidad de bienes en asignados');

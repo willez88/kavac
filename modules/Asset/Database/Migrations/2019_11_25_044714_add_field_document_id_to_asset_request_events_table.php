@@ -28,7 +28,7 @@ class AddFieldDocumentIdToAssetRequestEventsTable extends Migration
         if (Schema::hasTable('asset_request_events')) {
             Schema::table('asset_request_events', function (Blueprint $table) {
                 if (!Schema::hasColumn('asset_request_events', 'document_id')) {
-                    $table->integer('document_id')->unsigned()->nullable()
+                    $table->bigInteger('document_id')->unsigned()->nullable()
                           ->comment('Identificador único del documento físico asociado al reporte');
                     $table->foreign('document_id')
                           ->references('id')->on('documents')

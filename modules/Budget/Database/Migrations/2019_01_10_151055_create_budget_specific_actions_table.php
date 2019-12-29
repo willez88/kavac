@@ -15,7 +15,7 @@ class CreateBudgetSpecificActionsTable extends Migration
     {
         if (!Schema::hasTable('budget_specific_actions')) {
             Schema::create('budget_specific_actions', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->date('from_date')->comment('Fecha de inicio del proyecto o acción central');
                 $table->date('to_date')->comment('Fecha de fin del proyecto o acción central');
                 $table->string('code')->comment('Código de la acción específica');

@@ -15,7 +15,7 @@ class CreateDepartmentsTable extends Migration
     {
         if (!Schema::hasTable('departments')) {
             Schema::create('departments', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name')->comment('Nombre de la unidad, departamento o dependencia');
                 $table->string('acronym', 4)->nullable()
                       ->comment('Siglas de la unidad, departamento o dependencia');
@@ -27,9 +27,9 @@ class CreateDepartmentsTable extends Migration
                       ->comment('Indica si se encuentra activa');
                 $table->boolean('administrative')->default(false)
                       ->comment('Es una unidad, departamento o dependencia administrativa');
-                $table->integer('parent_id')->unsigned()->nullable()
+                $table->bigInteger('parent_id')->unsigned()->nullable()
                       ->comment('Unidad, departamento o dependencia a la cual esta subordinado');
-                $table->integer('institution_id')->unsigned()
+                $table->bigInteger('institution_id')->unsigned()
                       ->comment('Identificador del Pais al que pertenece el Estado');
                 $table->foreign('institution_id')->references('id')
                       ->on('institutions')->onDelete('restrict')->onUpdate('cascade');

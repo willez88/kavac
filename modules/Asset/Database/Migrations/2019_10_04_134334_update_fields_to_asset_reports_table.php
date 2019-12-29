@@ -28,7 +28,7 @@ class UpdateFieldsToAssetReportsTable extends Migration
         if (Schema::hasTable('asset_reports')) {
             Schema::table('asset_reports', function (Blueprint $table) {
                 if (!Schema::hasColumn('asset_reports', 'document_id')) {
-                    $table->integer('document_id')->unsigned()->nullable()
+                    $table->bigInteger('document_id')->unsigned()->nullable()
                           ->comment('Identificador único del documento físico asociado al reporte');
                     $table->foreign('document_id')
                           ->references('id')->on('documents')

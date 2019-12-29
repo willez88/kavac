@@ -17,7 +17,7 @@ class AddFieldInstitutionIdToAccountingEntryCategoriesTable extends Migration
             'accounting_entry_categories',
             function (Blueprint $table) {
                 if (!Schema::hasColumn('accounting_entry_categories', 'institution_id')) {
-                    $table->integer('institution_id')->unsigned()->nullable()
+                    $table->bigInteger('institution_id')->unsigned()->nullable()
                     ->comment('id de la institucion a relacionar con el registro');
 
                     $table->foreign('institution_id')->references('id')->on('currencies')

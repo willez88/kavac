@@ -15,16 +15,16 @@ class CreateBudgetProjectsTable extends Migration
     {
         if (!Schema::hasTable('budget_projects')) {
             Schema::create('budget_projects', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name')->comment('Nombre del Proyecto');
                 $table->string('code')->unique()->comment('Código del Proyecto');
                 $table->string('onapre_code')->nullable()->comment('Código otorgado por la ONAPRE');
                 $table->boolean('active')->default(true)->comment('Indica si el proyecto esta activo');
-                $table->integer('department_id')->unsigned()
+                $table->bigInteger('department_id')->unsigned()
                       ->comment('Identificador asociado al departamento o dependencia administrativa');
-                $table->integer('payroll_position_id')->unsigned()
+                $table->bigInteger('payroll_position_id')->unsigned()
                       ->comment('Identificador asociado al cargo de la persona responsable del proyecto');
-                $table->integer('payroll_staff_id')->unsigned()
+                $table->bigInteger('payroll_staff_id')->unsigned()
                       ->comment('Identificador asociado al cargo de la persona responsable del proyecto');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

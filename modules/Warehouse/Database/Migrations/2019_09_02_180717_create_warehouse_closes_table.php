@@ -27,21 +27,21 @@ class CreateWarehouseClosesTable extends Migration
     {
         if (!Schema::hasTable('warehouse_closes')) {
             Schema::create('warehouse_closes', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->date('initial_date')->comment('Fecha y hora en que inicia el cierre de almacén');
                 $table->date('end_date')->nullable()->comment('Fecha y hora en que termina el cierre de almacén');
 
-                $table->integer('initial_user_id')
+                $table->bigInteger('initial_user_id')
                       ->comment('Identificador único del usuario que inicia el cierre de almacén');
                 $table->foreign('initial_user_id')->references('id')->on('users')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('end_user_id')->nullable()
+                $table->bigInteger('end_user_id')->nullable()
                       ->comment('Identificador único del usuario que termina el cierre de almacén');
                 $table->foreign('end_user_id')->references('id')->on('users')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('warehouse_id')->comment('Identificador único del almacén que cierra sus funciones');
+                $table->bigInteger('warehouse_id')->comment('Identificador único del almacén que cierra sus funciones');
                 $table->foreign('warehouse_id')->references('id')->on('warehouses')
                       ->onDelete('restrict')->onUpdate('cascade');
 

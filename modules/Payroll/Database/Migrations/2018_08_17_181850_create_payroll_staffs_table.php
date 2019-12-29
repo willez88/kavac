@@ -27,7 +27,7 @@ class CreatePayrollStaffsTable extends Migration
     {
         if (!Schema::hasTable('payroll_staffs')) {
             Schema::create('payroll_staffs', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('code', 20)->unique()->comment('Código identificador del personal');
                 $table->string('first_name', 100)->comment('Nombres del personal');
                 $table->string('last_name', 100)->comment('Apellidos del personal');
@@ -39,7 +39,7 @@ class CreatePayrollStaffsTable extends Migration
                       ->comment('Nombre y apellido del contacto de emergencia');
                 $table->string('emergency_phone', 20)->nullable()->comment('Teléfono del contacto de emergencia');
                 $table->string('address', 200)->comment('Dirección de habitación del personal');
-                $table->integer('parish_id')->unsigned()
+                $table->bigInteger('parish_id')->unsigned()
                       ->comment('identificador de la parroquia al que pertenece el personal');
                 $table->foreign('parish_id')->references('id')->on('parishes')
                       ->onDelete('restrict')->onUpdate('cascade');

@@ -27,7 +27,7 @@ class CreatePayrollPositionTypesTable extends Migration
     {
         if (!Schema::hasTable('payroll_position_types')) {
             Schema::create('payroll_position_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre del tipo de cargo');
                 $table->string('description', 200)->nullable()->comment('Descripción del tipo de cargo');
                 $table->timestamps();

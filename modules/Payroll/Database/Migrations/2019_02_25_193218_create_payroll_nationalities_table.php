@@ -27,9 +27,9 @@ class CreatePayrollNationalitiesTable extends Migration
     {
         if (!Schema::hasTable('payroll_nationalities')) {
             Schema::create('payroll_nationalities', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre de la nacionalidad de la persona');
-                $table->integer('country_id')->unsigned()
+                $table->bigInteger('country_id')->unsigned()
                       ->comment('identificador del país al que pertenece el gentilicio');
                 $table->foreign('country_id')->references('id')->on('countries')
                       ->onDelete('restrict')->onUpdate('cascade');

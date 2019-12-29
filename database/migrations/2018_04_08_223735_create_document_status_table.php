@@ -15,7 +15,7 @@ class CreateDocumentStatusTable extends Migration
     {
         if (!Schema::hasTable('document_status')) {
             Schema::create('document_status', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 20)->unique()->comment('Nombre del estatus del documento');
                 $table->text('description')->nullable()
                       ->comment('Descripción detallada para el estatus del documento');

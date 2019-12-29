@@ -34,11 +34,11 @@ class CreateTechnicalSupportRepairsTable extends Migration
                 $table->date('start_date')->nullable()->comment('Fecha de inicio de reparación');
                 $table->date('end_date')->nullable()->comment('Fecha de culminación de reparación');
 
-                $table->integer('user_id')->unsigned()
+                $table->bigInteger('user_id')->unsigned()
                       ->comment('Identificador único del usuario responsable de la reparación');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('technical_support_request_repair_id')->unsigned()
+                $table->bigInteger('technical_support_request_repair_id')->unsigned()
                       ->comment('Identificador único de la solcitud asociada a la reparación');
                 $table->foreign('technical_support_request_repair_id')->references('id')
                       ->on('technical_support_request_repairs')->onDelete('restrict')->onUpdate('cascade');

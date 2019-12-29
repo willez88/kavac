@@ -26,7 +26,7 @@ class AddFieldNationalityIdToPayrollStaffsTable extends Migration
     public function up()
     {
         Schema::table('payroll_staffs', function (Blueprint $table) {
-            $table->integer('payroll_nationality_id')->unsigned()->nullable()
+            $table->bigInteger('payroll_nationality_id')->unsigned()->nullable()
                   ->comment('identificador de nacionalidad que pertenece al personal');
             $table->foreign('payroll_nationality_id')->references('id')->on('payroll_nationalities')
                   ->onDelete('restrict')->onUpdate('cascade');

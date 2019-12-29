@@ -27,7 +27,7 @@ class CreatePayrollStaffClassificationsTable extends Migration
     {
         if (!Schema::hasTable('payroll_staff_classifications')) {
             Schema::create('payroll_staff_classifications', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre de la clasificación del personal');
                 $table->string('description', 200)->nullable()->comment('Descripción de la clasificación del personal');
                 $table->timestamps();

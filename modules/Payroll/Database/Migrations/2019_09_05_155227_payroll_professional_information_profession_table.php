@@ -27,12 +27,12 @@ class PayrollProfessionalInformationProfessionTable extends Migration
     {
         if (!Schema::hasTable('payroll_professional_information_profession')) {
             Schema::create('payroll_professional_information_profession', function (Blueprint $table) {
-                $table->increments('id')->unsigned();
-                $table->integer('payroll_professional_information_id')->unsigned()->index();
+                $table->bigIncrements('id')->unsigned();
+                $table->bigInteger('payroll_professional_information_id')->unsigned()->index();
                 $table->foreign('payroll_professional_information_id')
                       ->references('id')->on('payroll_professional_informations')->onDelete('cascade');
 
-                $table->integer('profession_id')->unsigned()->index();
+                $table->bigInteger('profession_id')->unsigned()->index();
                 $table->foreign('profession_id')->references('id')->on('professions')->onDelete('cascade');
                 $table->timestamps();
             });

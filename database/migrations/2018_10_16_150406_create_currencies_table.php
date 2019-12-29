@@ -15,11 +15,11 @@ class CreateCurrenciesTable extends Migration
     {
         if (!Schema::hasTable('currencies')) {
             Schema::create('currencies', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('symbol', 4)->comment('Símbolo de la moneda');
                 $table->string('name', 40)->comment('Nombre de la moneda');
                 $table->boolean('default')->default(false)->comment('Moneda por defecto');
-                $table->integer('country_id')->unsigned()
+                $table->bigInteger('country_id')->unsigned()
                       ->comment('Identificador del Pais al que pertenece la moneda');
                 $table->foreign('country_id')->references('id')
                       ->on('countries')->onDelete('restrict')->onUpdate('cascade');

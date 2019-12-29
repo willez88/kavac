@@ -27,7 +27,7 @@ class CreatePayrollLanguagesTable extends Migration
     {
         if (!Schema::hasTable('payroll_languages')) {
             Schema::create('payroll_languages', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre del idioma');
                 $table->string('acronym', 10)->comment('Acrónimo del idioma');
                 $table->timestamps();

@@ -15,7 +15,7 @@ class CreateAccountingAccountsTable extends Migration
     {
         if (!Schema::hasTable('accounting_accounts')) {
             Schema::create('accounting_accounts', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->char('group', 1)->comment('Grupo al que pertenece la cuenta');
                 $table->char('subgroup', 1)->comment('SubGrupo al que pertenece la cuenta');
                 $table->char('item', 1)->comment('Rubro al que pertenece la cuenta');
