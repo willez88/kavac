@@ -143,8 +143,8 @@
 											$model_user = $audit->user_type;
 											$user = $model_user::find($audit->user_id);
 										@endphp
-										<b>Nombre:</b> {{ $user->name }}<br>
-										<b>Usuario:</b> {{ $user->username }}
+										<b>Nombre:</b> {{ ($user) ? $user->name : '' }}<br>
+										<b>Usuario:</b> {{ ($user) ? $user->username : '' }}
 									</td>
 									{{-- <td>
 										@if (empty($audit->old_values))
