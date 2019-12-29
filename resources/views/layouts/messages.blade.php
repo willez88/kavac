@@ -45,6 +45,17 @@
             });
         @endif
 
+        @if (session('verified'))
+            $.gritter.add({
+                title: 'Éxito!',
+                text: "La verificación de la cuenta se realizó satisfactoriamente",
+                class_name: 'growl-success',
+                image: "{{ asset('images/screen-ok.png') }}",
+                sticky: false,
+                time: 2500
+            });
+        @endif
+
         @role('admin')
             @if (App\Models\Institution::all()->isEmpty())
                 $.gritter.add({
