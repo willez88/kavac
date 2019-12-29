@@ -105,6 +105,7 @@ class UserController extends Controller
          * - colocar en cola correo a enviar
          */
         $user->notify(new UserRegistered($user, $password));
+        $user->sendEmailVerificationNotification();
         $request->session()->flash('message', ['type' => 'store']);
 
         return redirect()->route('access.settings.users');
