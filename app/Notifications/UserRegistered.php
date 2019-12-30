@@ -71,4 +71,13 @@ class UserRegistered extends Notification
             'message' => 'Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso'
         ];
     }
+
+    public function toDatabase($notifiable)
+    {
+        return [
+            'title' => 'Modificar contraseña',
+            'module' => null,
+            'description' => 'Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso',
+        ];
+    }
 }
