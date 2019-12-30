@@ -151,6 +151,30 @@ Vue.mixin({
             return moment(String(value)).format('DD/MM/YYYY hh:mm:ss');
         },
         /**
+         * Método que calcula la diferencia entre dos fechas con marca de tiempo
+         *
+         * @method     diff_datetimes
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param      {string}  dateThen    Fecha a comparar para obtener la diferencia con respecto a la fecha actual
+         *
+         * @return     {[type]}  Objeto con información de la diferencia obtenida entre las dos fechas
+         */
+        diff_datetimes: function(dateThen) {
+            var now = moment().format("YYYY-MM-DD HH:mm:ss");
+            var ms = moment(dateThen,"YYYY-MM-DD HH:mm:ss").diff(moment(now,"YYYY-MM-DD HH:mm:ss"));
+            var d = moment.duration(ms);
+            return {
+                years: d._data.years,
+                months: d._data.months,
+                days: d._data.days,
+                hours: d._data.hours,
+                minutes: d._data.minutes,
+                seconds: d._data.seconds
+            };
+        },
+        /**
          * Método que permite convertir elementos de medida y peso
          *
          * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

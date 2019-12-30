@@ -286,6 +286,16 @@ Route::group(['middleware' => ['auth', 'verified'], 'namespace' => 'Services'], 
     Route::get('get-cities/{estate_id}', 'LocatesController@getCities');
     /** Obtiene las parroquias de un municipio */
     Route::get('get-parishes/{municipality_id}', 'LocatesController@getParishes');
+
+    /** Grupo de rutas para la gestión de notificaciones */
+    Route::group(['prefix' => 'notifications'], function () {
+        /** Obtiene las notificaciones no leídas */
+        Route::get('unreaded', 'NotificationsController@getUnreaded');
+        /** Obtiene las notificaciones leídas */
+        Route::get('readed', 'NotificationsController@getUnreaded');
+        /** Obtiene todas las notificaciones del usuario */
+        Route::get('all', 'NotificationsController@getAll');
+    });
 });
 
 /**

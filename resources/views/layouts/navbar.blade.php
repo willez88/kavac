@@ -1,5 +1,5 @@
 {{-- Barra de Navegación Superior --}}
-<nav class="navbar navbar-expand-lg bg-info fixed-top">
+<nav class="navbar navbar-expand-lg bg-info fixed-top" id="app-nav">
 	{{-- <div>
 		<img src="{{ App\Models\Institution::where('default', true)->first()->banner->url }}" alt="">
 	</div> --}}
@@ -42,37 +42,7 @@
 					@if (App\Models\Parameter::where([
 						'active' => true, 'required_by' => 'core', 'p_key' => 'notify', 'p_value' => 'true'
 					])->first())
-						<li class="nav-item dropdown dropdown-notify">
-							<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info btn-notify" data-toggle="dropdown"
-							   aria-expanded="false" title="Notificaciones del sistema" id="list_notifications">
-							   	<i class="now-ui-icons ui-1_bell-53"></i>
-								<!-- Mensajes de Notificación de procesos o usuarios -->
-								<span class="badge badge-primary badge-notify">2</span>
-							</a>
-							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="list_notifications">
-								<a class="dropdown-header text-center">Notificaciones</a>
-								<div class="dropdown-item">
-									<ul class="media-list msg-list">
-			                            <li class="media">
-			                                <div class="media-body">
-			                                	<strong>Título / Módulo</strong> Descripción breve de la notificación
-			                                	<small class="date"><i class="icofont icofont-clock-time"></i> 15 minutes ago</small>
-			                                </div>
-			                            </li>
-			                            <li class="media">
-			                                <div class="media-body">
-			                                	<strong>Título / Módulo</strong> Descripción breve de la notificación
-			                                	<small class="date"><i class="icofont icofont-clock-time"></i> 15 minutes ago</small>
-			                                </div>
-			                            </li>
-			                        </ul>
-								</div>
-								<a class="dropdown-item dropdown-footer text-center" href="#"
-								   title="Ver todas las notificaciones" data-toggle="tooltip" data-placement="left">
-									Ver todas las notificaciones
-								</a>
-							</div>
-						</li>
+                        <notifications></notifications>
 					@endif
 
 					<li class="nav-item dropdown dropdown-notify">

@@ -366,6 +366,10 @@
             var app = new Vue({
                 el: '#app',
             });
+
+            var appNav = new Vue({
+                el: '#app-nav',
+            });
         </script>
     </body>
 </html>
