@@ -27272,6 +27272,11 @@ a.resalt-link {
   color: #f96332 !important;
 }
 
+.divider {
+  background-color: whitesmoke;
+  height: 1px;
+}
+
 .text-bold {
   font-weight: bold;
 }
