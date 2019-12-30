@@ -12,7 +12,9 @@
 */
 
 Route::group([
-    'middleware' => 'web', 'prefix' => '$LOWER_NAME$', 'namespace' => '$MODULE_NAMESPACE$\Http\Controllers'
+    'middleware' => ['web', 'auth', 'verified'],
+    'prefix' => '$LOWER_NAME$',
+    'namespace' => '$MODULE_NAMESPACE$\Http\Controllers'
 ], function () {
     Route::get('/', '$STUDLY_NAME$Controller@index');
 });
