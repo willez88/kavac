@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'middleware' => ['web', 'auth'],
+    'middleware' => ['web', 'auth', 'verified'],
     'prefix' => 'purchase',
     'namespace' => 'Modules\Purchase\Http\Controllers'
 ], function () {

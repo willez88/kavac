@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'middleware' => 'web',
+    'middleware' => ['web', 'auth', 'verified'],
     'prefix' => 'citizenservice',
     'namespace' => 'Modules\CitizenService\Http\Controllers'
 ], function () {
@@ -22,7 +22,7 @@ Route::group([
 
     Route::put('requests/request-approved/{request}', 'CitizenServiceRequestController@approved');
     Route::put('requests/request-rejected/{request}', 'CitizenServiceRequestController@rejected');
-    
+
 
     Route::resource(
         'request-types',

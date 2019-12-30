@@ -10,7 +10,9 @@
  */
 
 Route::group(
-    ['middleware' => 'web', 'prefix' => 'warehouse', 'namespace' => 'Modules\Warehouse\Http\Controllers'],
+    ['middleware' => ['web', 'auth', 'verified'],
+    'prefix' => 'warehouse',
+    'namespace' => 'Modules\Warehouse\Http\Controllers'],
     function () {
         /*
          * Ruta para acceder al home del Modulo de Almacen
@@ -28,7 +30,7 @@ Route::group(
             'setting-parameters',
             'WarehouseSettingController@storeParameter'
         )->name('warehouse.setting-parameter.store');
-    
+
         /**
          * ------------------------------------------------------------
          * Rutas para gestionar los Elementos select del Modulo de Almacén
@@ -90,7 +92,7 @@ Route::group(
             'receptions/reception-approved/{reception}',
             'WarehouseReceptionController@approvedReception'
         );
-        
+
 
         /**
          * ------------------------------------------------------------
@@ -195,7 +197,7 @@ Route::group(
          * Rutas para gestionar Observadores en el Modulo de Almacén
          * ------------------------------------------------------------
          */
-    
+
         /*
          * Ruta para consultar si esta activa la gestión de multiples instituciones en almacen
          */
@@ -223,7 +225,7 @@ Route::group(
         Route::get('dashboard/get-operation/{type_report}/{code}', 'WarehouseDashboardController@getOperation');
         Route::get('dashboard/vue-list-min-products', 'WarehouseDashboardController@vueListMinProducts');
         Route::get('dashboard/operations/info/{operation}/{created_at}', 'WarehouseDashboardController@vueInfo');
-    
+
         /**
          * ------------------------------------------------------------
          * Rutas para gestionar los Elementos vue del Modulo de Almacén
@@ -240,7 +242,7 @@ Route::group(
          * Rutas para gestionar los Cierres de Almacenes
          */
         Route::resource('closes', 'WarehouseCloseController', ['except' => ['show']]);
-    
+
         /**
          * Rutas para gestionar los productos de almacén
          */

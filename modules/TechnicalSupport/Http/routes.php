@@ -9,7 +9,9 @@
  *
  */
 Route::group([
-    'middleware' => 'web', 'prefix' => 'technicalsupport', 'namespace' => 'Modules\TechnicalSupport\Http\Controllers'
+    'middleware' => ['web', 'auth', 'verified'],
+    'prefix' => 'technicalsupport',
+    'namespace' => 'Modules\TechnicalSupport\Http\Controllers'
 ], function () {
     Route::get('/', 'TechnicalSupportController@index');
 

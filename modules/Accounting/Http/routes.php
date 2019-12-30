@@ -8,7 +8,7 @@
  * Permite gestionar las cuentas patrimoniales, asientos contables y generar reportes
  *
  */
-Route::group(['middleware' => 'web',
+Route::group(['middleware' => ['web', 'auth', 'verified'],
               'prefix' => 'accounting',
               'namespace' => 'Modules\Accounting\Http\Controllers'
 ], function () {
@@ -73,7 +73,7 @@ Route::group(['middleware' => 'web',
         'converter/getAllRecordsAccounting_vuejs',
         'AccountingAccountConverterController@getAllRecordsAccountingVuejs'
     )->name('accounting.converter.getAllRecordsAccounting_vuejs');
-            
+
     Route::post(
         'converter/getAllRecordsBudget_vuejs',
         'AccountingAccountConverterController@getAllRecordsBudgetVuejs'
@@ -115,7 +115,7 @@ Route::group(['middleware' => 'web',
      */
     Route::post('entries/create', 'AccountingEntryController@create')
             ->name('accounting.entries.create');
-            
+
 
     /**
      * ruta para el filtrado o busqueda de asientos contables aprobados
@@ -215,7 +215,7 @@ Route::group(['middleware' => 'web',
         'report/StateOfResults/{report}',
         'Reports\AccountingStateOfResultsController@pdf'
     );
-    
+
     Route::get(
         'report/StateOfResults/pdfVue/{date}/{level}/{currency}/{zero?}',
         'Reports\AccountingStateOfResultsController@pdfVue'

@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'middleware' => ['web', 'auth'],
+    'middleware' => ['web', 'auth', 'verified'],
     'prefix' => 'payroll',
     'namespace' => 'Modules\Payroll\Http\Controllers'
 ], function () {

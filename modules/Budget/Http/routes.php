@@ -4,7 +4,7 @@
  */
 Route::group(
     [
-        'middleware' => ['web', 'auth'],
+        'middleware' => ['web', 'auth', 'verified'],
         'prefix' => 'budget',
         'namespace' => 'Modules\Budget\Http\Controllers'
     ],
