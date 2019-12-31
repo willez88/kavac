@@ -70,11 +70,11 @@ var uploadSingleImage = function(form, input_file, input_hidden, img_tag, img_ta
                 $(`#${input_hidden}`).val(image.id);
 
             }).catch(error => {
-                logs('custom.js', 46, error, 'uploadImage');
+                logs('custom.js', 96, error, 'uploadImage');
             });
         }
     }).catch(error => {
-        logs('custom.js', 50, error, 'uploadImage');
+        logs('custom.js', 100, error, 'uploadImage');
     });
 }
 
@@ -108,7 +108,7 @@ var deleteImage = function(element_delete, id, no_image, force_delete) {
                                       .find('img').attr('src', `/images/no-image${no_image}.png`);
                     }
                 }).catch(error => {
-                    logs('common.js', 88, `Error con la petición solicitada. Detalles: ${error}`);
+                    logs('common.js', 88, error, 'deleteImage');
                 });
             }
         });

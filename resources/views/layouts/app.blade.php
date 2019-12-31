@@ -140,7 +140,7 @@
                             // Descomentar para entornos de desarrollo
                             //console.log(Array.from( window.editor.ui.componentFactory.names() ));
                         }).catch(error => {
-                            console.error( error.stack );
+                            logs('app', 143, error);
                         });
 
                     });
@@ -241,7 +241,7 @@
                             });
                         }
                     }).catch(error => {
-                        console.log(error)
+                        logs('app', 244, error, 'updateSelect');
                     })
                 }
                 else {
@@ -312,7 +312,7 @@
 
                         bootbox.alert(userDetail.showInfo());
                     }).catch(error => {
-                        logs('app', 272, error, 'view_user_info');
+                        logs('app', 315, error, 'view_user_info');
                     });
                 };
             @endrole
@@ -326,19 +326,26 @@
              * @param  {string}  lg Mensaje
              * @param  {string}  f  Función. Opcional
              */
-            var logs = function(v, l, lg, f) {
+            var logs = function(v, l, e, f) {
                 var f = (typeof(f) !== "undefined") ? f : false;
+                var err = e.toJSON();
                 var p = {
-                    v: v,
-                    l: l,
-                    lg: lg
+                    view: v,
+                    line: l,
+                    code: e.response.status,
+                    type: e.response.statusText,
+                    message: err.message,
+                    url: e.response.config.url,
+                    method: e.response.config.method
                 };
                 if (f) {
-                    p.f = f;
+                    p.function = f;
                 }
-                axios.post(window.log_url, p).catch(error => {
-                    console.log(error);
-                });
+
+                if (window.debug) {
+                    console.error("Se ha generado un error con la siguiente información:", p);
+                    console.trace();
+                }
             }
 
             /*try {
@@ -367,9 +374,11 @@
                 el: '#app',
             });
 
-            var appNav = new Vue({
-                el: '#app-nav',
-            });
+            if ($("#app-nav").length) {
+                var appNav = new Vue({
+                    el: '#app-nav',
+                });
+            }
         </script>
     </body>
 </html>

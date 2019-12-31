@@ -33,10 +33,29 @@ class LogController extends Controller
         /** @var integer Línea que genera el error */
         $line = $request->l;
         /** @var string Mensaje o descripción del evento de error generado */
-        $log  = $request->lg;
+        $msg  = $request->e->message;
+        /** @var integer Código de error generado */
+        $code = $request->e->code;
+        /** @var string Tipo de error generado */
+        $errorType = $request->e->type;
+        /** @var string URL que genera el error */
+        $url = $request->e->url;
+        /** @var string Método de la petición (get|post|put|patch|delete) */
+        $method = $request->e->method;
+        /** @var string|object Datos acerca de la traza de errores */
+        //$stacktrace = json_encode($request->r->config->data);
         /** @var string Nombre de la función que generó el log. Esta variable es opcional */
         $function = (isset($request->f)) ? " en la función [{$request->f}]" : '';
-        Log::channel('front_end')->error("Error generado por la vista [{$view}] en la línea [$line]$function: {$log}");
+
+
+        Log::channel('front_end')->error(
+            "Error generado por la vista [{$view}] en la línea [$line]$function. Datos del error:\n" .
+            "Código: {$code}\n" .
+            "Tipo: {$errorType}\n" .
+            "URL: {$url}\n" .
+            "Método: {$method}\n" .
+            "Mensaje: {$msg}"
+        );
 
         return response()->json(['result' => true], 200);
     }

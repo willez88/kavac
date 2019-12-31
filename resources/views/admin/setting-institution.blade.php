@@ -486,7 +486,7 @@
 			        }).then(editor => {
 			            window.editor = editor;
 			        }).catch(error => {
-			            console.error( error.stack );
+			            logs('setting-institution', 489, error);
 			        });
 				});
 			}
@@ -591,7 +591,7 @@
 				    $("#onapre_code").focus();
 				}
 			}).catch(error => {
-				logs('setting-institution', 129, error, 'loadInstitution');
+				logs('setting-institution', 594, error, 'loadInstitution');
 			});
 		}
 	</script>

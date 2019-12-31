@@ -117,14 +117,14 @@
                         vm.$emit('changeImage', vm.id);
                         $('#imgDelete').tooltip({delay: {hide:100}});
                     }).catch(error => {
-                        console.log(error);
+                        vm.logs('ImageManagementComponent', 120, error, 'uploadImage');
                     });
                 }
                 else {
                     axios.put(`${window.app_url}/upload-image/${id}`).then(response => {
                         // Lógica para actualizar una imagen
                     }).catch(error => {
-                        console.log(error);
+                        vm.logs('ImageManagementComponent', 127, error, 'uploadImage');
                     });
                 }
             },
@@ -162,7 +162,7 @@
 
                                 }
                             }).catch(error => {
-                                console.log(error);
+                                vm.logs('ImageManagementComponent', 165, error, 'deleteImage');
                             });
                         }
                     });

@@ -127,7 +127,7 @@
                         }, 2500);
 					}
 				}).catch(error => {
-					console.log(error);
+					logs('setting-modules', 130, error);
 				});
 			});
 			$(".btn-disable").on("click", function() {
@@ -149,7 +149,7 @@
                         }, 2500);
 					}
 				}).catch(error => {
-					console.log(error);
+					logs('setting-modules', 152, error);
 				});
 			});
 		});

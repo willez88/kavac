@@ -89,22 +89,35 @@ Vue.mixin({
          *
          * @param  {string}  v  Vista
          * @param  {integer} l  Línea
-         * @param  {string}  lg Mensaje
+         * @param  {object}  e  Objeto con datos del error
          * @param  {string}  f  Función. Opcional
          */
-        logs: function(v, l, lg, f) {
+        logs: function(v, l, e, f) {
+            let vm = this;
             var f = (typeof(f) !== "undefined") ? f : false;
+            var err = e.toJSON();
             var p = {
-                v: v,
-                l: l,
-                lg: lg
+                view: v,
+                line: l,
+                code: e.response.status,
+                type: e.response.statusText,
+                message: err.message,
+                url: e.response.config.url,
+                method: e.response.config.method
             };
             if (f) {
-                p.f = f;
+                p.function = f;
             }
-            axios.post(window.log_url, p).catch(error => {
-                logs('app', 297, error);
-            });
+
+            if (window.debug) {
+                console.error("Se ha generado un error con la siguiente información:", p);
+                console.trace();
+            }
+            /*axios.post(window.log_url, p).catch(error => {
+                if (window.debug) {
+                    console.log(error);
+                }
+            });*/
         },
         /**
          * Redirecciona a una url esecífica si fue suministrada
@@ -269,7 +282,7 @@ Vue.mixin({
                 }
                 vm.loading = false;
             }).catch(error => {
-                console.log(error);
+                vm.logs('mixins.js', 285, error, 'readRecords');
             });
         },
         /**
@@ -481,7 +494,9 @@ Vue.mixin({
                             }
                             records.splice(index, 1);
                             vm.showMessage('destroy');
-                        }).catch(error => {});
+                        }).catch(error => {
+                            vm.logs('mixins.js', 498, error, 'deleteRecord');
+                        });
                     }
                 }
             });

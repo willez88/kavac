@@ -45,6 +45,13 @@
             }
         },
         methods: {
+            /**
+             * Método que permite obtener las notificaciones no leídas
+             *
+             * @method     getUnreaded
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
             getUnreaded: function() {
                 let vm = this;
                 axios.get('/notifications/unreaded').then(response => {
@@ -53,7 +60,7 @@
                         vm.count = vm.notifications.length;
                     }
                 }).catch(error => {
-                    console.log(error);
+                    vm.logs('NotificationsComponent', 63, error, 'getUnreaded');
                 });
             }
         },
