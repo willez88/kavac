@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Roles\Models\Role;
+use App\Notifications\System as SystemNotification;
 
 /**
  * @class LogController
@@ -29,33 +31,41 @@ class LogController extends Controller
     public function frontEnd(Request $request)
     {
         /** @var string Vista que genera el error */
-        $view = $request->v;
+        $view = $request->view;
         /** @var integer Línea que genera el error */
-        $line = $request->l;
+        $line = $request->line;
         /** @var string Mensaje o descripción del evento de error generado */
-        $msg  = $request->e->message;
+        $msg  = $request->message;
         /** @var integer Código de error generado */
-        $code = $request->e->code;
+        $code = $request->code;
         /** @var string Tipo de error generado */
-        $errorType = $request->e->type;
+        $errorType = $request->type;
         /** @var string URL que genera el error */
-        $url = $request->e->url;
+        $url = $request->url;
         /** @var string Método de la petición (get|post|put|patch|delete) */
-        $method = $request->e->method;
+        $method = $request->method;
         /** @var string|object Datos acerca de la traza de errores */
         //$stacktrace = json_encode($request->r->config->data);
         /** @var string Nombre de la función que generó el log. Esta variable es opcional */
-        $function = (isset($request->f)) ? " en la función [{$request->f}]" : '';
+        $function = (!is_null($request->func)) ? " en la función [{$request->func}]" : '';
 
+        $errorMessage = "Error generado por la vista [{$view}] en la línea [$line]$function. Datos del error:\n" .
+                        "Código: {$code}\n" .
+                        "Tipo: {$errorType}\n" .
+                        "URL: {$url}\n" .
+                        "Método: {$method}\n" .
+                        "Mensaje: {$msg}";
 
-        Log::channel('front_end')->error(
-            "Error generado por la vista [{$view}] en la línea [$line]$function. Datos del error:\n" .
-            "Código: {$code}\n" .
-            "Tipo: {$errorType}\n" .
-            "URL: {$url}\n" .
-            "Método: {$method}\n" .
-            "Mensaje: {$msg}"
-        );
+        Log::channel('front_end')->error($errorMessage);
+
+        $devRole = Role::where('slug', 'dev')->first();
+        if ($devRole) {
+            foreach ($devRole->users()->where('active', true)->get() as $user) {
+                $user->notify(
+                    new SystemNotification('Error en instrucción', null, $errorMessage)
+                );
+            }
+        }
 
         return response()->json(['result' => true], 200);
     }
