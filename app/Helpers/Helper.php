@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Institution;
 
 if (! function_exists('set_active_menu')) {
@@ -438,5 +438,23 @@ if (! function_exists('generate_hash')) {
 
         $hash = implode($pass);
         return $hash;
+    }
+}
+
+if (! function_exists('execution_year')) {
+    /**
+     * Obtiene el año de ejecución del ejercicio económico
+     *
+     * @method     execution_year
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      string|hash   $year   Cadena con el año del ejercicio económico
+     *
+     * @return     string        Devuelve el año del ejercicio económico
+     */
+    function execution_year($year)
+    {
+        return (strlen($year) === 4) ? $year : Crypt::encrypt($year);
     }
 }
