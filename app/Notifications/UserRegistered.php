@@ -3,11 +3,12 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\User;
 
-class UserRegistered extends Notification
+class UserRegistered extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -68,7 +69,9 @@ class UserRegistered extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso'
+            'title' => 'Modificar contraseña',
+            'module' => null,
+            'description' => 'Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso',
         ];
     }
 
