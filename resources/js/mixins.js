@@ -107,7 +107,7 @@ Vue.mixin({
                 func: null
             };
             if (f) {
-                p.function = f;
+                p.func = f;
             }
 
             if (window.debug) {
@@ -123,7 +123,7 @@ Vue.mixin({
                     message: p.message,
                     url: p.url,
                     method: p.method,
-                    function: p.function
+                    func: p.func
                 });
             }
         },

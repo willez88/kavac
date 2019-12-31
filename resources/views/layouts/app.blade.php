@@ -336,15 +336,28 @@
                     type: e.response.statusText,
                     message: err.message,
                     url: e.response.config.url,
-                    method: e.response.config.method
+                    method: e.response.config.method,
+                    func: null
                 };
                 if (f) {
-                    p.function = f;
+                    p.func = f;
                 }
 
                 if (window.debug) {
                     console.error("Se ha generado un error con la siguiente información:", p);
                     console.trace();
+                }
+                else {
+                    axios.post(window.log_url, {
+                        view: p.view,
+                        line: p.line,
+                        code: p.code,
+                        type: p.type,
+                        message: p.message,
+                        url: p.url,
+                        method: p.method,
+                        func: p.func
+                    });
                 }
             }
 
