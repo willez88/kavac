@@ -455,6 +455,6 @@ if (! function_exists('execution_year')) {
      */
     function execution_year($year)
     {
-        return (strlen($year) === 4) ? $year : Crypt::encrypt($year);
+        return (strlen($year) === 4) ? $year : Crypt::decrypt($year);
     }
 }

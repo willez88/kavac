@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 
 use App\Models\Institution;
 use App\Models\DocumentStatus;
+use App\Models\FiscalYear;
 use Carbon\Carbon;
 use Module;
 
@@ -124,8 +125,7 @@ class InstitutionController extends Controller
     public function getExecutionYear($institution_id = null, $year = null)
     {
         $year = $year ?? Carbon::now()->format("Y");
-        $exec_year = Crypt::encrypt($year);
-
+        $execution = '';
         $filter = ['active' => true];
         $filter[(is_null($institution_id)) ? 'default' : 'id'] = (is_null($institution_id)) ? true : $institution_id;
 
@@ -133,16 +133,17 @@ class InstitutionController extends Controller
 
         $documentStatus = DocumentStatus::where('action', 'AP')->first();
 
-        if ($institution) {
-            $execution = (Module::has('Budget'))
-                          ? \Modules\Budget\Models\BudgetSubSpecificFormulation::where([
-                              'year' => $year, 'assigned' => true, 'document_status_id' => $documentStatus->id,
-                              'institution_id' => $institution->id
-                          ])->first()
-                          : '';
 
-            $exec_year = Crypt::encrypt(($execution) ? $execution->year : $year);
+        if ($institution && Module::has('Budget')) {
+            $execution = \Modules\Budget\Models\BudgetSubSpecificFormulation::where([
+                'year' => $year, 'assigned' => true, 'document_status_id' => $documentStatus->id,
+                'institution_id' => $institution->id
+            ])->first();
         }
+        $fiscalYear = FiscalYear::firstOrCreate(
+            ['year' => ($execution) ? $execution->year : $year, 'active' => true]
+        );
+        $exec_year = Crypt::encrypt($fiscalYear->year);
 
         return response()->json(['result' => true, 'year' => $exec_year], 200);
     }
