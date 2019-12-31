@@ -37,6 +37,8 @@ class NotificationsController extends Controller
      */
     public function getReaded()
     {
+        $notifications = auth()->user()->notifications()->whereNotNull('read_at')->get();
+        return response()->json(['result' => true, 'notifications' => $notifications], 200);
     }
 
     /**
@@ -47,5 +49,7 @@ class NotificationsController extends Controller
      */
     public function getAll()
     {
+        $notifications = auth()->user()->notifications()->get();
+        return response()->json(['result' => true, 'notifications' => $notifications], 200);
     }
 }

@@ -292,7 +292,7 @@ Route::group(['middleware' => ['auth', 'verified'], 'namespace' => 'Services'], 
         /** Obtiene las notificaciones no leídas */
         Route::get('unreaded', 'NotificationsController@getUnreaded');
         /** Obtiene las notificaciones leídas */
-        Route::get('readed', 'NotificationsController@getUnreaded');
+        Route::get('readed', 'NotificationsController@getReaded');
         /** Obtiene todas las notificaciones del usuario */
         Route::get('all', 'NotificationsController@getAll');
     });

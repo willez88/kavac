@@ -4,22 +4,27 @@
            aria-expanded="false" title="Notificaciones del sistema" id="list_notifications">
             <i class="now-ui-icons ui-1_bell-53"></i>
             <!-- Mensajes de Notificación de procesos o usuarios -->
-            <span class="badge badge-primary badge-notify">{{ count }}</span>
+            <span class="badge badge-primary badge-notify" v-show="count > 0">{{ count }}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="list_notifications">
             <a class="dropdown-header text-center">Notificaciones</a>
             <div class="dropdown-item">
-                <ul class="media-list msg-list">
-                    <li class="media" v-for="notify in notifications">
+                <ul class="media-list msg-list" v-if="notifications.length">
+                    <li class="media unread" v-for="notify in notifications">
                         <div class="media-body">
                             <strong>
                                 {{ notify.data.title }}{{ (notify.data.module) ? ' / ' + notify.data.module : '' }}
                             </strong><br>
                             {{ notify.data.description }}
                             <small class="date">
-                                <i class="icofont icofont-clock-time"></i>{{ showNotifyTime(notify.created_at) }}
+                                <i class="icofont icofont-clock-time"></i>{{ format_timestamp(notify.created_at) }}
                             </small>
                         </div>
+                    </li>
+                </ul>
+                <ul class="media-list msg-list" v-else>
+                    <li class="media">
+                        <div class="media-body text-center">Sin notificaciones</div>
                     </li>
                 </ul>
             </div>
@@ -50,29 +55,6 @@
                 }).catch(error => {
                     console.log(error);
                 });
-            },
-            showNotifyTime(created_at) {
-                let timeData = this.diff_datetimes(created_at);
-                var timeText = "Hace ";
-                if (timeData.years > 0) {
-                    timeText += `${timeData.years} años, `;
-                }
-                if (timeData.months > 0) {
-                    timeText += `${timeData.months} meses, `;
-                }
-                if (timeData.days > 0) {
-                    timeText += `${timeData.days} días, `;
-                }
-                if (timeData.hours > 0) {
-                    timeText += `${timeData.hours} horas, `;
-                }
-                if (timeData.minutes > 0) {
-                    timeText += `${timeData.minutes} minutos, `;
-                }
-                if (timeData.seconds > 0) {
-                    timeText += `${timeData.seconds} segundos, `;
-                }
-                return timeText;
             }
         },
         created() {
