@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "axios": "^0.19",
-        "bootstrap": "^4.3.1",
+        "bootstrap": "^4.4.1",
         "cross-env": "^5.2",
         "jquery": "^3.4.1",
         "laravel-mix": "^4.1.4",
@@ -20,7 +20,7 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.24.0",
         "sass-loader": "^7.3.1",
-        "vue": "^2.6"
+        "vue": "^2.6.11"
     },
     "dependencies": {
         "@ckeditor/ckeditor5-alignment": "^11.2.0",
@@ -40,6 +40,6 @@
         "sweetalert2": "^8.19.0",
         "vue-multiselect": "^2.1.6",
         "vue-tables-2": "^1.6.22",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.11"
     }
 }
