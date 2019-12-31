@@ -54,7 +54,7 @@
              */
             getUnreaded: function() {
                 let vm = this;
-                axios.get('/notifications/unreaded2').then(response => {
+                axios.get('/notifications/unreaded').then(response => {
                     if (response.data.result) {
                         vm.notifications = response.data.notifications;
                         vm.count = vm.notifications.length;

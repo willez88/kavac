@@ -110,7 +110,7 @@ Vue.mixin({
                 p.function = f;
             }
 
-            if (!window.debug) {
+            if (window.debug) {
                 console.error("Se ha generado un error con la siguiente información:", p);
                 console.trace();
             }
