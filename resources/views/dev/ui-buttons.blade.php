@@ -126,7 +126,7 @@
                             </button>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Acciones en gráficos</h6>
+                    <h6 class="pad-top-10">{{ __('Acciones en gráficos') }}</h6>
                     <div class="row" style="padding-bottom: 40px">
                         <div class="col-md-10 offset-2">
                             <div class="dropdown">
