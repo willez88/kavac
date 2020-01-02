@@ -14,7 +14,7 @@ class ReportController extends Controller
     {
         $institution = Institution::find(1);
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
-        $pdf->setHeader('Formulación de Presupuesto', 'Mes de Septiembre');
+        $pdf->setHeader(__('Formulación de Presupuesto'), __('Mes de Septiembre'));
         $pdf->setFooter();
         $pdf->setBody('budget::reports.formulation', true, [
             'formulation' => \Modules\Budget\Models\BudgetSubSpecificFormulation::find(1)

@@ -120,7 +120,7 @@ class CityController extends Controller
         $city->estate_id = $request->estate_id;
         $city->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

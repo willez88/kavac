@@ -121,7 +121,7 @@ class InstitutionTypeController extends Controller
         $institutionType->acronym = ($request->acronym)?$request->acronym:null;
         $institutionType->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

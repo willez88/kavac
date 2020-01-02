@@ -3,7 +3,7 @@
 		<div class="card">
 			<div class="card-header">
 				<h6 class="card-title">
-					Registros Comúnes
+					{{ __('Registros Comúnes') }}
 					@include('buttons.help', [
 						'helpId' => 'CommonRegs',
 						'helpSteps' => get_json_resource('ui-guides/common_settings.json')

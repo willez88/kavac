@@ -20,6 +20,6 @@ class PermissionDeniedException extends AccessDeniedException
     public function __construct($permission)
     {
         parent::__construct($permission);
-        $this->message = sprintf("You don't have a required ['%s'] permission.", $permission);
+        $this->message = __('You don\'t have a required [:permission] permission.', ['permission' => $permission]);
     }
 }

@@ -57,13 +57,13 @@ class ExchangeRateController extends Controller
             'from_currency_id' => ['required'],
             'to_currency_id' => ['required']
         ], [
-            'start_at.required' => 'La fecha de inicio es requerida',
-            'start_at.date' => 'La fecha de inicio es inválida',
-            'end_at.date' => 'La fecha final es inválida',
-            'from_currency_id.required' => 'La moneda desde la cual realizar la conversión es requerida',
-            'to_currency_id.required' => 'La moneda a la cual realizar la conversión es requerida',
-            'amount.required' => 'El monto de conversión es requerido',
-            'amount.numeric' => 'El monto de conversión debe ser numérico',
+            'start_at.required' => __('La fecha de inicio es requerida'),
+            'start_at.date' => __('La fecha de inicio es inválida'),
+            'end_at.date' => __('La fecha final es inválida'),
+            'from_currency_id.required' => __('La moneda desde la cual realizar la conversión es requerida'),
+            'to_currency_id.required' => __('La moneda a la cual realizar la conversión es requerida'),
+            'amount.required' => __('El monto de conversión es requerido'),
+            'amount.numeric' => __('El monto de conversión debe ser numérico'),
         ]);
 
         $exchangeRate = ExchangeRate::create($request->all());
@@ -109,13 +109,13 @@ class ExchangeRateController extends Controller
             'from_currency_id' => ['required'],
             'to_currency_id' => ['required']
         ], [
-            'start_at.required' => 'La fecha de inicio es requerida',
-            'start_at.date' => 'La fecha de inicio es inválida',
-            'end_at.date' => 'La fecha final es inválida',
-            'from_currency_id.required' => 'La moneda desde la cual realizar la conversión es requerida',
-            'to_currency_id.required' => 'La moneda a la cual realizar la conversión es requerida',
-            'amount.required' => 'El monto de conversión es requerido',
-            'amount.numeric' => 'El monto de conversión debe ser numérico',
+            'start_at.required' => __('La fecha de inicio es requerida'),
+            'start_at.date' => __('La fecha de inicio es inválida'),
+            'end_at.date' => __('La fecha final es inválida'),
+            'from_currency_id.required' => __('La moneda desde la cual realizar la conversión es requerida'),
+            'to_currency_id.required' => __('La moneda a la cual realizar la conversión es requerida'),
+            'amount.required' => __('El monto de conversión es requerido'),
+            'amount.numeric' => __('El monto de conversión debe ser numérico'),
         ]);
 
         $exchangeRate->update($request->all());

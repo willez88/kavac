@@ -50,7 +50,7 @@ class DevelopmentController extends Controller
         if ($el === "icons") {
             /** @var array Arreglo de classes del paquete de íconos ICOFONTS */
             $icofonts = [
-                'General' => [
+                __('General') => [
                     'icofont-angry-monster', 'icofont-bathtub', 'icofont-bird-wings', 'icofont-bow',
                     'icofont-brain-alt', 'icofont-butterfly-alt', 'icofont-castle', 'icofont-circuit',
                     'icofont-dart', 'icofont-dice-alt', 'icofont-disability-race', 'icofont-diving-goggle',
@@ -75,7 +75,7 @@ class DevelopmentController extends Controller
                     'icofont-chart-histogram-alt', 'icofont-chart-histogram', 'icofont-chart-line-alt',
                     'icofont-chart-line', 'icofont-chart-pie-alt', 'icofont-chart-pie', 'icofont-chart-radar-graph',
                 ],
-                'Animales' => [
+                __('Animales') => [
                     'icofont-animal-bat', 'icofont-animal-bear-tracks', 'icofont-animal-bear',
                     'icofont-animal-bird-alt', 'icofont-animal-bird', 'icofont-animal-bone', 'icofont-animal-bull',
                     'icofont-animal-camel-alt', 'icofont-animal-camel-head', 'icofont-animal-camel',
@@ -110,7 +110,7 @@ class DevelopmentController extends Controller
                     'icofont-animal-tiger-alt', 'icofont-animal-tiger', 'icofont-animal-turtle',
                     'icofont-animal-whale', 'icofont-animal-woodpecker', 'icofont-animal-zebra',
                 ],
-                'Marcas' => [
+                __('Marcas') => [
                     'icofont-brand-acer', 'icofont-brand-adidas', 'icofont-brand-adobe',
                     'icofont-brand-air-new-zealand', 'icofont-brand-airbnb', 'icofont-brand-aircell',
                     'icofont-brand-airtel', 'icofont-brand-alcatel', 'icofont-brand-alibaba',
@@ -173,7 +173,7 @@ class DevelopmentController extends Controller
                     'icofont-brand-wire', 'icofont-brand-yahoobuzz', 'icofont-brand-yamaha', 'icofont-brand-youtube',
                     'icofont-brand-zain', 'icofont-brand-joomla', 'icofont-brand-drupal', 'icofont-brand-wordpress',
                 ],
-                'Monedas' => [
+                __('Monedas') => [
                     'icofont-cur-afghani-false', 'icofont-cur-afghani-minus',
                     'icofont-cur-afghani-plus', 'icofont-cur-afghani-true', 'icofont-cur-afghani',
                     'icofont-cur-baht-false', 'icofont-cur-baht-minus', 'icofont-cur-baht-plus',
@@ -207,7 +207,7 @@ class DevelopmentController extends Controller
                     'icofont-cur-yen-false', 'icofont-cur-yen-minus', 'icofont-cur-yen-plus', 'icofont-cur-yen-true',
                     'icofont-cur-yen',
                 ],
-                'Archivos y Carpetas' => [
+                __('Archivos y Carpetas') => [
                     'icofont-file-audio', 'icofont-file-avi-mp4', 'icofont-file-bmp', 'icofont-file-code',
                     'icofont-file-css', 'icofont-file-document', 'icofont-file-eps', 'icofont-file-excel',
                     'icofont-file-exe', 'icofont-file-file', 'icofont-file-flv', 'icofont-file-gif',
@@ -219,7 +219,7 @@ class DevelopmentController extends Controller
                     'icofont-file-svg', 'icofont-file-text', 'icofont-file-tiff', 'icofont-file-video',
                     'icofont-file-wave', 'icofont-file-wmv', 'icofont-file-word', 'icofont-file-zip'
                 ],
-                "Emoticones" => [
+                __('Emoticones') => [
                     'icofont-emo-angry', 'icofont-emo-astonished', 'icofont-emo-confounded', 'icofont-emo-confused',
                     'icofont-emo-crying', 'icofont-emo-dizzy', 'icofont-emo-expressionless', 'icofont-emo-heart-eyes',
                     'icofont-emo-laughing', 'icofont-emo-nerd-smile', 'icofont-emo-open-mouth', 'icofont-emo-rage',
@@ -227,7 +227,7 @@ class DevelopmentController extends Controller
                     'icofont-emo-slightly-smile', 'icofont-emo-smirk', 'icofont-emo-stuck-out-tongue',
                     'icofont-emo-wink-smile', 'icofont-emo-worried'
                 ],
-                "Interfaz de Usuario" => [
+                __('Interfaz de Usuario') => [
                     'icofont-ui-add',
                     'icofont-ui-alarm', 'icofont-ui-battery', 'icofont-ui-block', 'icofont-ui-bluetooth',
                     'icofont-ui-brightness', 'icofont-ui-browser', 'icofont-ui-calculator', 'icofont-ui-calendar',
@@ -253,7 +253,7 @@ class DevelopmentController extends Controller
                     'icofont-ui-video-message', 'icofont-ui-video-play', 'icofont-ui-video', 'icofont-ui-volume',
                     'icofont-ui-weather', 'icofont-ui-wifi', 'icofont-ui-zoom-in', 'icofont-ui-zoom-out',
                 ],
-                "Usuarios" => [
+                __('Usuarios') => [
                     'icofont-user-alt-1', 'icofont-user-alt-2', 'icofont-user-alt-3', 'icofont-user-alt-4',
                     'icofont-user-alt-5', 'icofont-user-alt-6', 'icofont-user-alt-7', 'icofont-user-female',
                     'icofont-user-male', 'icofont-user-suited', 'icofont-user', 'icofont-users-alt-1',
@@ -264,7 +264,7 @@ class DevelopmentController extends Controller
                     'icofont-girl', 'icofont-hotel-boy-alt', 'icofont-hotel-boy', 'icofont-man-in-glasses',
                     'icofont-waiter', 'icofont-woman-in-glasses'
                 ],
-                "Redes Sociales" => [
+                __('Redes Sociales') => [
                     'icofont-social-aim', 'icofont-social-badoo', 'icofont-social-bebo',
                     'icofont-social-behance', 'icofont-social-blogger', 'icofont-social-bootstrap',
                     'icofont-social-brightkite', 'icofont-social-cloudapp', 'icofont-social-concrete5',
@@ -302,7 +302,7 @@ class DevelopmentController extends Controller
                     'icofont-social-whatsapp', 'icofont-social-youku', 'icofont-social-youtube-play',
                     'icofont-social-youtube'
                 ],
-                "Métodos de Pago" => [
+                __('Métodos de Pago') => [
                     'icofont-american-express-alt', 'icofont-american-express',
                     'icofont-apple-pay-alt', 'icofont-apple-pay', 'icofont-bank-transfer-alt', 'icofont-bank-transfer',
                     'icofont-braintree-alt', 'icofont-braintree', 'icofont-cash-on-delivery-alt',
@@ -316,7 +316,7 @@ class DevelopmentController extends Controller
                     'icofont-skrill', 'icofont-stripe-alt', 'icofont-stripe', 'icofont-visa-alt',
                     'icofont-visa-electron', 'icofont-visa', 'icofont-western-union-alt', 'icofont-western-union'
                 ],
-                'Alimentos y Bebidas' => [
+                __('Alimentos y Bebidas') => [
                     'icofont-apple',
                     'icofont-arabian-coffee', 'icofont-artichoke', 'icofont-asparagus', 'icofont-avocado',
                     'icofont-baby-food', 'icofont-banana', 'icofont-bbq', 'icofont-beans', 'icofont-beer',
@@ -340,7 +340,7 @@ class DevelopmentController extends Controller
                     'icofont-sushi', 'icofont-taco', 'icofont-tea-pot', 'icofont-tea', 'icofont-tomato',
                     'icofont-waiter-alt', 'icofont-watermelon',
                 ],
-                'Deporte' => [
+                __('Deporte') => [
                     'icofont-badminton-birdie', 'icofont-baseball', 'icofont-baseballer',
                     'icofont-basketball-hoop', 'icofont-basketball', 'icofont-billiard-ball', 'icofont-boot-alt-1',
                     'icofont-boot-alt-2', 'icofont-bowling-alt', 'icofont-bowling', 'icofont-canoe',
@@ -363,7 +363,7 @@ class DevelopmentController extends Controller
                     'icofont-trophy-alt', 'icofont-trophy', 'icofont-volleyball-alt', 'icofont-volleyball-fire',
                     'icofont-volleyball', 'icofont-water-bottle', 'icofont-whisle', 'icofont-win-trophy'
                 ],
-                'Transporte' => [
+                __('Transporte') => [
                     'icofont-air-balloon', 'icofont-airplane-alt', 'icofont-airplane',
                     'icofont-ambulance-crescent', 'icofont-ambulance-cross', 'icofont-articulated-truck',
                     'icofont-auto-rickshaw', 'icofont-bicycle-alt-1', 'icofont-bicycle-alt-2', 'icofont-bull-dozer',
@@ -379,7 +379,7 @@ class DevelopmentController extends Controller
                     'icofont-tram', 'icofont-truck-alt', 'icofont-truck-loaded', 'icofont-truck', 'icofont-van-alt',
                     'icofont-van', 'icofont-yacht'
                 ],
-                'Clima' => [
+                __('Clima') => [
                     'icofont-celsius',
                     'icofont-clouds', 'icofont-cloudy', 'icofont-compass-alt', 'icofont-dust', 'icofont-eclipse',
                     'icofont-fahrenheit', 'icofont-forest-fire', 'icofont-full-night', 'icofont-full-sunny',
@@ -402,7 +402,7 @@ class DevelopmentController extends Controller
                     'icofont-wind', 'icofont-windy-hail', 'icofont-windy-night', 'icofont-windy-raining',
                     'icofont-windy-sunny', 'icofont-windy-thunder-raining', 'icofont-windy-thunder', 'icofont-windy'
                 ],
-                'Aplicaciones Web' => [
+                __('Aplicaciones Web') => [
                     'icofont-android-nexus', 'icofont-android-tablet', 'icofont-apple-watch',
                     'icofont-drwaing-tablet', 'icofont-earphone', 'icofont-flash-drive', 'icofont-game-control',
                     'icofont-headphone-alt', 'icofont-htc-one', 'icofont-imac', 'icofont-ipad-touch', 'icofont-iphone',
@@ -1000,80 +1000,80 @@ class DevelopmentController extends Controller
             ];
 
             $nucleos = [
-                "Flechas" => [
+                __('Flechas') => [
                     'arrows-1_cloud-download-93', 'arrows-1_cloud-upload-94', 'arrows-1_minimal-down',
                     'arrows-1_minimal-left', 'arrows-1_minimal-right', 'arrows-1_minimal-up',
                     'arrows-1_refresh-69', 'arrows-1_share-66'
                 ],
-                "Negocio" => [
+                __('Negocio') => [
                     "business_badge", "business_bank", "business_briefcase-24", "business_bulb-63",
                     "business_chart-bar-32", "business_chart-pie-36", "business_globe",
                     "business_money-coins"
                 ],
-                "Ropa y Accesorios" => [
+                __('Ropa y Accesorios') => [
                     "clothes_tie-bow"
                 ],
-                "Diseño y Desarrollo" => [
+                __('Diseño y Desarrollo') => [
                     "design_vector", "design_app", "design_bullet-list-67", "design_image", "design_palette",
                     "design_scissors", "design-2_html5", "design-2_ruler-pencil"
                 ],
-                "Emoticones" => [
+                __('Emoticones') => [
                     "emoticons_satisfied"
                 ],
-                "Archivos y Carpetas" => [
+                __('Archivos y Carpetas') => [
                     "files_box", "files_paper", "files_single-copy-04"
                 ],
-                "Salud y Medicina" => [
+                __('Salud y Medicina') => [
                     "health_ambulance"
                 ],
-                "Cargadores" => [
+                __('Cargadores') => [
                     'loader_gear spin', 'loader_refresh spin'
                 ],
-                "Mapas y Localización" => [
+                __('Mapas y Localización') => [
                     'location_bookmark', 'location_compass-05', 'location_map-big', 'location_pin', 'location_world'
                 ],
-                "Media" => [
+                _('Media') => [
                     'media-1_album', 'media-1_button-pause', 'media-1_button-play', 'media-1_button-power',
                     'media-1_camera-compact', 'media-2_note-03', 'media-2_sound-wave'
                 ],
-                "Objetos" => [
+                __('Objetos') => [
                     'objects_diamond', 'objects_globe', 'objects_key-25', 'objects_planet', 'objects_spaceship',
                     'objects_support-17', 'objects_umbrella-13'
                 ],
-                "Escuela y Educación" => [
+                __('Escuela y Educación') => [
                     'education_agenda-bookmark', 'education_atom', 'education_glasses', 'education_hat',
                     'education_paper'
                 ],
-                "Compras" => [
+                __('Compras') => [
                     'shopping_bag-16', 'shopping_basket', 'shopping_box', 'shopping_cart-simple',
                     'shopping_credit-card', 'shopping_delivery-fast', 'shopping_shop', 'shopping_tag-content'
                 ],
-                "Deporte" => [
+                __('Deporte') => [
                     'sport_trophy', 'sport_user-run'
                 ],
-                "Tecnología" => [
+                __('Tecnología') => [
                     'tech_controller-modern', 'tech_headphones', 'tech_laptop', 'tech_mobile', 'tech_tablet',
                     'tech_tv', 'tech_watch-time'
                 ],
-                "Edición de texto" => [
+                __('Edición de texto') => [
                     'text_align-center', 'text_align-left', 'text_bold', 'text_caps-small'
                 ],
-                "Gestos táctiles" => [
+                __('Gestos táctiles') => [
                     'gestures_tap-01'
                 ],
-                "Transporte" => [
+                __('Transporte') => [
                     'transportation_air-baloon', 'transportation_bus-front-12'
                 ],
-                "Viaje" => [
+                __('Viaje') => [
                     'travel_info', 'travel_istanbul'
                 ],
-                "Interfaz de usuario" => [
+                __('Interfaz de usuario') => [
                     "ui-1_check", "ui-1_email-85", 'ui-1_bell-53', 'ui-1_calendar-60', 'ui-1_lock-circle-open',
                     'ui-1_send', 'ui-1_settings-gear-63', 'ui-1_simple-add', 'ui-1_simple-delete',
                     'ui-1_simple-remove', 'ui-1_zoom-bold', 'ui-2_chat-round', 'ui-2_favourite-28', 'ui-2_like',
                     'ui-2_settings-90', 'ui-2_time-alarm'
                 ],
-                "Usuarios" => [
+                __('Usuarios') => [
                     "users_circle-08", "users_single-02"
                 ]
             ];

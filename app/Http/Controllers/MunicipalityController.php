@@ -125,7 +125,7 @@ class MunicipalityController extends Controller
         $municipality->estate_id = $request->estate_id;
         $municipality->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

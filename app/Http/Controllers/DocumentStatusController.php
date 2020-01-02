@@ -73,7 +73,7 @@ class DocumentStatusController extends Controller
             ],
             'action' => ['required', 'unique:document_status,action']
         ], [
-            'color.not_in' => 'Color inválido, seleccione un color distinto a blanco o negro'
+            'color.not_in' => __('Color inválido, seleccione un color distinto a blanco o negro')
         ]);
 
 
@@ -137,7 +137,7 @@ class DocumentStatusController extends Controller
         $documentStatus->action = $request->action;
         $documentStatus->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

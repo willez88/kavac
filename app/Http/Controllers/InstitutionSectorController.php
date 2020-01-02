@@ -117,7 +117,7 @@ class InstitutionSectorController extends Controller
         $institutionSector->name = $request->name;
         $institutionSector->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

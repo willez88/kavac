@@ -90,7 +90,7 @@ class DeductionController extends Controller
         $deduction->active = (!is_null($request->active) && $request->active !== false);
         $deduction->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

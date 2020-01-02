@@ -20,6 +20,6 @@ class RoleDeniedException extends AccessDeniedException
     public function __construct($role)
     {
         parent::__construct($role);
-        $this->message = sprintf("You don't have a required ['%s'] role.", $role);
+        $this->message = __('You don\'t have a required [:role] role.', ['role' => $role]);
     }
 }

@@ -14,6 +14,8 @@ class UserRegistered extends Notification //implements ShouldQueue
 
     public $user;
     public $password;
+    public $notifyTitle;
+    public $notifyDescription;
 
     /**
      * Create a new notification instance.
@@ -24,6 +26,8 @@ class UserRegistered extends Notification //implements ShouldQueue
     {
         $this->user = $user;
         $this->password = $password;
+        $this->notifyTitle = __('Modificar contraseña');
+        $this->notifyDescription = __('Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso');
     }
 
     /**
@@ -47,17 +51,19 @@ class UserRegistered extends Notification //implements ShouldQueue
     {
         return (new MailMessage)
                     ->from(config('mail.from.address'), config('mail.from.name'))
-                    ->subject('Registro de usuario - ' . config('app.name'))
-                    ->greeting('Bienvenido, ' . $this->user->name)
-                    ->line('Se ha registrado un usuario en la plataforma con las siguientes credenciales de acceso:')
-                    ->line('**Usuario:** ' . $this->user->username)
-                    ->line('**Contraseña:** ' . $this->password)
-                    ->line('Para acceder pulse sobre el botón a continuación')
-                    ->action('Acceso', route('index'))
+                    ->subject(__('Registro de usuario') . ' - ' . config('app.name'))
+                    ->greeting(__('Bienvenido, :username', ['username' => $this->user->name]))
                     ->line(
+                        __('Se ha registrado un usuario en la plataforma con las siguientes credenciales de acceso:')
+                    )
+                    ->line(__('**Usuario:** :username', ['username' => $this->user->username]))
+                    ->line(__('**Contraseña:** :password', ['password' => $this->password]))
+                    ->line(__('Para acceder pulse sobre el botón a continuación'))
+                    ->action(__('Acceso'), route('index'))
+                    ->line(__(
                         'Este correo es enviado de manera automática por la aplicación y no esta siendo monitoreado. ' .
                         'Por favor no responda a este correo!'
-                    );
+                    ));
     }
 
     /**
@@ -69,18 +75,18 @@ class UserRegistered extends Notification //implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Modificar contraseña',
+            'title' => $this->notifyTitle,
             'module' => null,
-            'description' => 'Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso',
+            'description' => $this->notifyDescription,
         ];
     }
 
     public function toDatabase($notifiable)
     {
         return [
-            'title' => 'Modificar contraseña',
+            'title' => $this->notifyTitle,
             'module' => null,
-            'description' => 'Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso',
+            'description' => $this->notifyDescription,
         ];
     }
 }

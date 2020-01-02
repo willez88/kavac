@@ -161,10 +161,12 @@ class UserController extends Controller
                 'password_confirmation' => ['min:6', 'required_with:password'],
                 'complexity-level' => ['numeric', 'min:43', 'max:100']
             ], [
-                'confirmed' => 'La contraseña no coincide con la verificación',
-                'required_with' => 'Debe confirmar la nueva contraseña',
-                'complexity-level' => 'Contraseña muy débil. Intente incorporar símbolos, letras y números, ' .
-                                      'en cominación con mayúsculas y minúsculas.',
+                'confirmed' => __('La contraseña no coincide con la verificación'),
+                'required_with' => __('Debe confirmar la nueva contraseña'),
+                'complexity-level' => __(
+                    'Contraseña muy débil. Intente incorporar símbolos, letras y números, ' .
+                    'en cominación con mayúsculas y minúsculas.'
+                ),
             ]);
 
             $user->password = bcrypt($request->input('password'));
@@ -172,7 +174,7 @@ class UserController extends Controller
 
             $request->session()->flash('message', ['type' => 'update']);
         } else {
-            $request->session()->flash('message', ['type' => 'other', 'text' => 'No se indicaron modificaciones']);
+            $request->session()->flash('message', ['type' => 'other', 'text' => __('No se indicaron modificaciones')]);
         }
 
         return redirect()->back();
@@ -188,7 +190,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if (auth()->user()->id === $user->id) {
-            return response()->json(['result' => false, 'message' => 'Usted no puede eliminarse a si mismo'], 200);
+            return response()->json(['result' => false, 'message' => __('Usted no puede eliminarse a si mismo')], 200);
         }
 
         $user->delete();
@@ -214,7 +216,7 @@ class UserController extends Controller
         $this->validate($request, [
             'roles_attach_permissions' => 'required|array|min:1'
         ], [
-            'roles_attach_permissions.required' => 'Se requiere asignar al menos un permiso a un rol'
+            'roles_attach_permissions.required' => __('Se requiere asignar al menos un permiso a un rol')
         ]);
 
         foreach (Role::all() as $r) {
@@ -263,9 +265,9 @@ class UserController extends Controller
             'permission' => ['required_without:role', 'array', 'min:1']
         ];
         $messages = [
-            'user.required' => 'Se requiere de un usuario para asignar roles y permisos',
-            'role.max' => 'Solo puede asignar un rol al usuario',
-            'permission.min' => 'Se requiere al menos un permiso asignado al usuario'
+            'user.required' => __('Se requiere de un usuario para asignar roles y permisos'),
+            'role.max' => __('Solo puede asignar un rol al usuario'),
+            'permission.min' => __('Se requiere al menos un permiso asignado al usuario')
         ];
 
         $user = User::find($request->user);
@@ -275,10 +277,14 @@ class UserController extends Controller
                 if (Role::find($role)->permissions->isEmpty()) {
                     $rules['permission'] = str_replace('required_without:role', 'required', $rules['permission']);
                     if (count($request->role) > 1) {
-                        $msg = 'Uno de los roles seleccionados no tiene permisos asignados, ' .
-                               'debe indicar los permisos de acceso';
+                        $msg = __(
+                            'Uno de los roles seleccionados no tiene permisos asignados, ' .
+                            'debe indicar los permisos de acceso'
+                        );
                     } else {
-                        $msg = 'El rol seleccionado no tiene permisos asignados, debe indicar los permisos de acceso';
+                        $msg = __(
+                            'El rol seleccionado no tiene permisos asignados, debe indicar los permisos de acceso'
+                        );
                     }
                     $messages['permission.required'] = $msg;
                     break;
