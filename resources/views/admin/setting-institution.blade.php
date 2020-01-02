@@ -18,7 +18,7 @@
 				<div class="row" id="helpInstitutionImgs">
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="">{{ __('Logotipo Institucional') }</label>
+							<label for="">{{ __('Logotipo Institucional') }}</label>
 							{!! Form::open([
                                 'id' => 'formImgLogo', 'method' => 'POST', 'route' => 'upload-image.store',
                                 'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
@@ -50,7 +50,7 @@
 					</div>
 					<div class="col-md-8">
 						<div class="form-group">
-							<label for="">{{ __('Banner Institucional') }</label>
+							<label for="">{{ __('Banner Institucional') }}</label>
 							{!! Form::open([
                                 'id' => 'formImgBanner', 'method' => 'POST', 'route' => 'upload-image.store',
                                 'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
