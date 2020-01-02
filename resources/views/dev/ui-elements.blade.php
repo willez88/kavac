@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-    UI Elements
+    {{ __('UI Elements') }}
 @stop
 
 @section('maproute-title')
-    UI Elements
+    {{ __('UI Elements') }}
 @stop
 
 @section('content')
@@ -21,14 +21,14 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Componentes</h6>
+					<h6 class="card-title">{{ __('Componentes') }}</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => route('index')])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<h6>Tarjetas informativas</h6>
+					<h6>{{ __('Tarjetas informativas') }}</h6>
 					<div class="row">
 						<div class="col-3">
 							<div class="info-box">
@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					<hr>
-					<h6>Módulos</h6>
+					<h6>{{ __('Módulos') }}</h6>
 					<div class="row">
 						<div class="col-4">
 							<div class="info-box">
@@ -243,11 +243,11 @@
 						</div>
 					</div>
 					<hr>
-					<h6>Listas</h6>
+					<h6>{{ __('Listas') }}</h6>
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
-								<b>Listas de funcionalidades / tareas</b>
+								<b>{{ __('Listas de funcionalidades') }} / {{ __('tareas') }}</b>
 							</div>
 							@foreach (['warning', 'default', 'primary', 'success', 'info', 'danger'] as $listType)
 								<ul class="feature-list list-group list-group-flush">
@@ -264,8 +264,8 @@
 						                        <div class="feature-list-content-left">
 						                            <div class="feature-list-heading">
 						                                Título
-						                                <div class="badge badge-danger ml-2" title="mensaje tooltip a mostrar"
-						                                	 data-toggle="tooltip">
+						                                <div class="badge badge-danger ml-2" data-toggle="tooltip"
+                                                             title="{{ __('mensaje tooltip a mostrar') }}">
 						                                	estatus / acción
 						                                </div>
 						                            </div>
@@ -273,11 +273,13 @@
 						                        </div>
 						                        <div class="feature-list-content-right feature-list-content-actions">
 						                        	<button class="btn btn-simple btn-primary btn-events"
-						                        			title="mensaje tooltip a mostrar" data-toggle="tooltip">
+						                        			title="{{ __('mensaje tooltip a mostrar') }}"
+                                                            data-toggle="tooltip">
 						                        		<i class="fa fa-cloud-upload fa-2x"></i>
 						                        	</button>
 						                        	<button class="btn btn-simple btn-primary btn-events"
-						                        			title="mensaje tooltip a mostrar" data-toggle="tooltip">
+						                        			title="{{ __('mensaje tooltip a mostrar') }}"
+                                                            data-toggle="tooltip">
 						                        		<i class="fa fa-cloud-download fa-2x"></i>
 						                        	</button>
 						                        </div>
@@ -297,7 +299,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Paleta de colores</h6>
+					<h6 class="card-title">{{ __('Paleta de colores') }}</h6>
 					<div class="card-btns">
 						@include('buttons.minimize')
 					</div>

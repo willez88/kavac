@@ -3,22 +3,22 @@
         @if (session('message'))
             {{-- Mensajes de la aplicación --}}
             var msg_title = '', msg_text = '', msg_class = '', msg_icon = '';
-            msg_title = 'Éxito';
+            msg_title = '{{ __('Éxito') }}';
             msg_icon = 'screen-ok';
             msg_class = 'growl-success';
             @if (session('message')['type'] == 'store')
-                msg_text = 'Registro almacenado con éxito';
+                msg_text = '{{ __('Registro almacenado con éxito') }}';
             @elseif (session('message')['type'] == 'update')
-                msg_text = 'Registro actualizado con éxito';
+                msg_text = '{{ __('Registro actualizado con éxito') }}';
             @elseif (session('message')['type'] == 'destroy')
-                msg_text = 'Registro eliminado con éxito';
+                msg_text = '{{ __('Registro eliminado con éxito') }}';
             @elseif (session('message')['type'] == 'restore')
-                msg_text = 'Registro restaurado con éxito';
+                msg_text = '{{ __('Registro restaurado con éxito') }}';
             @elseif (session('message')['type'] == 'deny')
-                msg_title = 'Acceso Denegado';
+                msg_title = '{{ __('Acceso Denegado') }}';
                 msg_icon = 'screen-error';
                 msg_class = 'growl-danger';
-                msg_text = 'Usted no tiene acceso a la petición solicitada';
+                msg_text = '{{ __('Usted no tiene acceso a la petición solicitada') }}';
                 @if (session('message')['msg'])
                     msg_text = '{!! session('message')['msg'] !!}';
                 @endif
@@ -47,8 +47,8 @@
 
         @if (session('verified'))
             $.gritter.add({
-                title: 'Éxito!',
-                text: "La verificación de la cuenta se realizó satisfactoriamente",
+                title: '{{ __('Éxito!') }}',
+                text: "{{ __('La verificación de la cuenta se realizó satisfactoriamente') }}",
                 class_name: 'growl-success',
                 image: "{{ asset('images/screen-ok.png') }}",
                 sticky: false,
@@ -59,8 +59,8 @@
         @role('admin')
             @if (App\Models\Institution::all()->isEmpty())
                 $.gritter.add({
-                    title: 'Alerta!',
-                    text: "Para comenzar a utilizar la aplicación debe configurar una Institución",
+                    title: '{{ __('Alerta!') }}',
+                    text: "{{ __('Para comenzar a utilizar la aplicación debe configurar una Institución') }}",
                     class_name: 'growl-danger',
                     image: "{{ asset('images/screen-error.png') }}",
                     sticky: false,

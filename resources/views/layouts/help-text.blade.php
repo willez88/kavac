@@ -4,14 +4,14 @@
 	<div class="row">
 		<div class="col-12">
 			<span class="form-text">
-				<strong>Formato:</strong> prefijo-digitos-año
+				<strong>{{ __('Formato') }}:</strong> {{ __('prefijo-digitos-año') }}
 				<ul>
-					<li>prefijo (requerido): 1 a 3 carácteres</li>
-					<li>digitos (requerido): 4 carácteres (mínimo), 8 carácteres (máximo)</li>
-					<li>año (requerido): 2 o 4 caracteres (YY o YYYY)</li>
+					<li>{{ __('prefijo (requerido): 1 a 3 carácteres') }}</li>
+					<li>{{ __('digitos (requerido): 4 carácteres (mínimo), 8 carácteres (máximo)') }}</li>
+					<li>{{ __('año (requerido): 2 o 4 caracteres (YY o YYYY)') }}</li>
 				</ul>
-				<strong>Longitud total máxima:</strong> 20 carácteres<br>
-				<strong>Ej.</strong> XXX-000000000-YYYY
+				<strong>{{ __('Longitud total máxima') }}:</strong> {{ __('20 carácteres') }}<br>
+				<strong>{{ __('Ej.') }}</strong> XXX-000000000-YYYY
 			</span>
 		</div>
 	</div>

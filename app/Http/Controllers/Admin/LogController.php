@@ -49,12 +49,12 @@ class LogController extends Controller
         /** @var string Nombre de la función que generó el log. Esta variable es opcional */
         $function = (!is_null($request->func)) ? " en la función [{$request->func}]" : '';
 
-        $errorMessage = "Error generado por la vista [{$view}] en la línea [$line]$function. Datos del error:<br>" .
-                        "Código: {$code}<br>" .
-                        "Tipo: {$errorType}<br>" .
-                        "URL: {$url}<br>" .
-                        "Método: {$method}<br>" .
-                        "Mensaje: {$msg}";
+        $errorMessage = __('Error generado por la vista [:view]', ['view' => $view]) . "\n";
+        $errorMessage.= __('Código: :code', ['code' => $code]) . "\n";
+        $errorMessage.= __('Tipo: :type', ['type' => $errorType]) . "\n";
+        $errorMessage.= __('URL: :url', ['url' => $url]) . '\n';
+        $errorMessage.= __('Método: :method', ['method' => $method]) . "\n";
+        $errorMessage.= __('Mensaje: :msg', ['msg' => $msg]);
 
         Log::channel('front_end')->error($errorMessage);
 

@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Módulos
+	{{ __('Módulos') }}
 @stop
 
 @section('maproute-title')
-	Módulos
+	{{ __('Módulos') }}
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Módulos</h6>
+					<h6 class="card-title">{{ __('Módulos') }}</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
@@ -43,7 +43,7 @@
 										<div class="info-box-description">
 											<p>{{ $module->getDescription() }}</p>
 											@if (count($module->getRequires()) > 0)
-												<p class="text-bold">Requerimientos:</p>
+												<p class="text-bold">{{ __('Requerimientos') }}:</p>
 												<ul>
 													@foreach ($module->getRequires() as $key => $version)
 														<li>{{ $key }} v{{ $version }}</li>
@@ -51,7 +51,7 @@
 												</ul>
 											@endif
 											@if (!is_null($module->get('authors')) && count($module->get('authors')) > 0)
-												<p>Autor(es):</p>
+												<p>{{ __('Autor(es)') }}:</p>
 												<ul>
 													@foreach ($module->get('authors') as $author)
 														<li>
@@ -73,7 +73,7 @@
 												<div class="col-4 text-left">
 													<a href="javascript:void(0)" data-module="{!! $module->getName() !!}"
 													   class="btn btn-sm btn-round btn-success btn-enable"
-													   title="Instalar módulo" data-toggle="tooltip">
+													   title="{{ __('Instalar módulo') }}" data-toggle="tooltip">
 														<i class="ion ion-android-done"></i>
 													</a>
 												</div>
@@ -81,7 +81,7 @@
 												<div class="col-4 text-right">
 													<a href="javascript:void(0)" data-module="{!! $module->getName() !!}"
 													   class="btn btn-sm btn-round btn-danger btn-disable"
-													   title="Desinstalar módulo" data-toggle="tooltip">
+													   title="{{ __('Desinstalar módulo') }}" data-toggle="tooltip">
 														<i class="ion ion-android-close"></i>
 													</a>
 												</div>
@@ -90,7 +90,7 @@
 												$moduleStatus = ($module->isEnabled()) ? 'installed' : 'uninstalled';
 											@endphp
 											<span class="status {!! $moduleStatus !!}">
-												{{ ($moduleStatus === "installed") ? 'Instalado' : 'Desinstalado' }}
+												{{ ($moduleStatus === "installed") ? __('Instalado') : __('Desinstalado') }}
 											</span>
 										</div>
 									</div>

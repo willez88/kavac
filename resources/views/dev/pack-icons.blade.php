@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-    Pack Iconos
+    {{ __('Pack Iconos') }}
 @stop
 
 @section('maproute-title')
-    Pack Iconos
+    {{ __('Pack Iconos') }}
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Pack Iconos</h6>
+					<h6 class="card-title">{{ __('Pack Iconos') }}</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
@@ -64,7 +64,7 @@
                                             <a class="btn btn-collapse" data-toggle="collapse"
                                                href="#icofontContent{{ $icofontIdx }}"
                                                aria-expanded="true" aria-controls="icofontContent{{ $icofontIdx }}"
-                                               style="padding:4px;font-size:0.7em;background-color: transparent;color:#0073b7" title="Mostrar / Ocultar contenido">
+                                               style="padding:4px;font-size:0.7em;background-color: transparent;color:#0073b7" title="{{ __('Mostrar / Ocultar contenido') }}">
                                                 <i class="now-ui-icons arrows-1_minimal-up"></i>
                                             </a>
                                         </h6>
@@ -133,7 +133,7 @@
                                             <a class="btn btn-collapse" data-toggle="collapse"
                                                href="#nucleoContent{{ $nucleoIdx }}"
                                                aria-expanded="true" aria-controls="nucleoContent{{ $nucleoIdx }}"
-                                               style="padding:4px;font-size:0.7em;background-color: transparent;color:#0073b7" title="Mostrar / Ocultar contenido">
+                                               style="padding:4px;font-size:0.7em;background-color: transparent;color:#0073b7" title="{{ __('Mostrar / Ocultar contenido') }}">
                                                 <i class="now-ui-icons arrows-1_minimal-up"></i>
                                             </a>
                                         </h6>

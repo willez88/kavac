@@ -1,15 +1,15 @@
-<h1>Bienvenido a {{ $appName }}</h1>
+<h1>{{ __('Bienvenido a :app', ['app' => $appName]) }}</h1>
 
-<p>Se ha registrado un usuario en la plataforma con las siguientes credenciales de acceso:</p>
+<p>{{ __('Se ha registrado un usuario en la plataforma con las siguientes credenciales de acceso') }}:</p>
 
 <ul>
-    <li>Usuario: {{ $user->username }}</li>
-    <li>Contraseña: {{ $password }}</li>
+    <li>{{ __('Usuario') }}: {{ $user->username }}</li>
+    <li>{{ __('Contraseña') }}: {{ $password }}</li>
 </ul>
 
-<p>Para acceder visite la URL {{ $appUrl }} e indique sus credenciales de acceso.</p>
+<p>{{ __('Para acceder visite la URL :url e indique sus credenciales de acceso.', ['url' => $appUrl]) }}</p>
 
-<p>Se le ha asignado los siguientes roles:</p>
+<p>{{ __('Se le ha asignado los siguientes roles') }}:</p>
 
 <ul>
     @foreach ($user->getRoles() as $role)
@@ -17,7 +17,7 @@
     @endforeach
 </ul>
 
-<p>y se le han otorgado los siguientes permisos de acceso:</p>
+<p>{{ __('y se le han otorgado los siguientes permisos de acceso') }}:</p>
 
 <ul>
     @foreach ($user->getPermissions() as $permission)
@@ -25,6 +25,8 @@
     @endforeach
 </ul>
 
-<p><strong>NOTA:</strong> Una vez acceda al sistema, se recomienda modificar la contraseña generada.</p>
+<p>
+    <strong>{{ __('NOTA') }}:</strong> {{ __('Una vez acceda al sistema, se recomienda modificar la contraseña generada') }}.
+</p>
 
-<p>Este correo es enviado de manera automática por la aplicación {{ $appName }}.</p>
+<p>{{ __('Este correo es enviado de manera automática por la aplicación :app', ['app' => $appName]) }}.</p>

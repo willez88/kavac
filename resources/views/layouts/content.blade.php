@@ -15,9 +15,9 @@
                             @show
                         </a>
                     </li>
-                    <li>@yield('maproute-actual', 'Panel de Control')</li>
+                    <li>@yield('maproute-actual', __('Panel de Control'))</li>
                 </ul>
-                <h4>@yield('maproute-title', 'Panel de Control')</h4>
+                <h4>@yield('maproute-title', __('Panel de Control'))</h4>
             </div>
         </div>
     </div>

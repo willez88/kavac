@@ -1,5 +1,21 @@
 @extends('layouts.app')
 
+@section('maproute-icon')
+    <i class="icofont icofont-ui-user"></i>
+@stop
+
+@section('maproute-icon-mini')
+    <i class="icofont icofont-ui-user"></i>
+@stop
+
+@section('maproute-actual')
+    {{ __('Mi Perfil') }}
+@stop
+
+@section('maproute-title')
+    {{ __('Mi Perfil') }}
+@stop
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -17,7 +33,8 @@
                                 @endphp
                                 <img src="{{ asset($img_profile ?? 'images/default-avatar.png') }}"
                                      alt="{{ $model->name ?? auth()->user()->name }}"
-                                     class="img-profile" style="cursor:pointer" title="Click para modificar imagen de perfil"
+                                     class="img-profile" style="cursor:pointer"
+                                     title="{{ __('Click para modificar imagen de perfil') }}"
                                      data-toggle="tooltip" onclick="$('input[name=profile_image]').click()">
                                 <input type="file" id="profile_image" name="profile_image" style="display:none"
                                        onchange="uploadProfileImage()">
@@ -25,13 +42,13 @@
                         </div>
                         <div class="col-12 text-center">
                             <h4>{{ auth()->user()->name }}</h4>
-                            <h5>Cargo</h5>
+                            <h5>{{ __('Cargo') }}</h5>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <button type="button" class="btn btn-info btn-block">
-                                Bloquear Pantalla
+                                {{ __('Bloquear Pantalla') }}
                             </button>
                         </div>
                     </div>
@@ -40,22 +57,22 @@
                     <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">
-                                <i class="ion-android-person"></i> Perfil
+                                <i class="ion-android-person"></i> {{ __('Perfil') }}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#activity" role="tab">
-                                <i class="ion-arrow-swap"></i> Actividad
+                                <i class="ion-arrow-swap"></i> {{ __('Actividad') }}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
-                                <i class="ion-android-mail"></i> Mensajes
+                                <i class="ion-android-mail"></i> {{ __('Mensajes') }}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#directory" role="tab">
-                                <i class="ion-android-contacts"></i> Directorio
+                                <i class="ion-android-contacts"></i> {{ __('Directorio') }}
                             </a>
                         </li>
                     </ul>
@@ -67,7 +84,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {!! Form::label('name', 'Nombre y Apellido', []) !!}
+                                            {!! Form::label('name', __('Nombre y Apellido'), []) !!}
                                             <div class="input-group input-sm">
                                                 <span class="input-group-addon readonly">
                                                     <i class="now-ui-icons users_single-02"></i>
@@ -76,16 +93,18 @@
                                                     'class' => 'form-control input-sm',
                                                     'readonly' => 'readonly', 'id' => 'first_name',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Nombre y Apellido. Este dato solo ' .
-                                                               'puede ser modificado por personal ' .
-                                                               'autorizado.'
+                                                    'title' => __(
+                                                        'Nombre y Apellido. Este dato solo ' .
+                                                        'puede ser modificado por personal ' .
+                                                        'autorizado.'
+                                                    )
                                                 ]) !!}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {!! Form::label('position', 'Cargo', []) !!}
+                                            {!! Form::label('position', __('Cargo'), []) !!}
                                             <div class="input-group input-sm">
                                                 <span class="input-group-addon readonly">
                                                     <i class="now-ui-icons education_agenda-bookmark">
@@ -95,9 +114,11 @@
                                                     'class' => 'form-control input-sm',
                                                     'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Cargo en la institución. Este dato ' .
-                                                               'solo puede ser modificado por ' .
-                                                               'personal autorizado.'
+                                                    'title' => __(
+                                                        'Cargo en la institución. Este dato ' .
+                                                        'solo puede ser modificado por ' .
+                                                        'personal autorizado.'
+                                                    )
                                                 ]) !!}
                                             </div>
                                         </div>
@@ -106,7 +127,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {!! Form::label('email', 'Correo Electrónico', []) !!}
+                                            {!! Form::label('email', __('Correo Electrónico'), []) !!}
                                             <div class="input-group input-sm">
                                                 <span class="input-group-addon readonly">
                                                     <i class="now-ui-icons ui-1_email-85"></i>
@@ -115,16 +136,18 @@
                                                     'class' => 'form-control input-sm',
                                                     'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Correo electrónico. Este dato solo ' .
-                                                               'puede ser modificado por personal ' .
-                                                               'autorizado.'
+                                                    'title' => __(
+                                                        'Correo electrónico. Este dato solo ' .
+                                                        'puede ser modificado por personal ' .
+                                                        'autorizado.'
+                                                    )
                                                 ]) !!}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {!! Form::label('username', 'Usuario', []) !!}
+                                            {!! Form::label('username', __('Usuario'), []) !!}
                                             <div class="input-group input-sm">
                                                 <span class="input-group-addon readonly">
                                                     <i class="now-ui-icons users_circle-08"></i>
@@ -132,9 +155,11 @@
                                                 {!! Form::text('username', $model->username, [
                                                     'class' => 'form-control', 'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Nombre de usuario para acceso al ' .
-                                                               'sistema. Este dato solo puede ser ' .
-                                                               'modificado por personal autorizado.'
+                                                    'title' => __(
+                                                        'Nombre de usuario para acceso al ' .
+                                                        'sistema. Este dato solo puede ser ' .
+                                                        'modificado por personal autorizado.'
+                                                    )
                                                 ]) !!}
                                             </div>
                                         </div>
@@ -143,7 +168,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {!! Form::label('password', 'Nueva Contraseña', []) !!}
+                                            {!! Form::label('password', __('Nueva Contraseña'), []) !!}
                                             <div class="input-group input-sm">
                                                 <span class="input-group-addon">
                                                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
@@ -151,14 +176,13 @@
                                                 {!! Form::password('password', [
                                                     'class' => 'form-control input-sm',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Introduzca la nueva contraseña de ' .
-                                                               'acceso al sistema'
+                                                    'title' => __('Introduzca la nueva contraseña de acceso al sistema')
                                                 ]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="progress-container">
-                                                <span class="progress-badge">Débil</span>
+                                                <span class="progress-badge">{{ __('Débil') }}</span>
                                                 <div class="progress">
                                                     <div id="complexity-bar" class="progress-bar" role="progressbar">
                                                     </div>
@@ -170,7 +194,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {!! Form::label('password_confirmation', 'Confirmar Contraseña', []) !!}
+                                            {!! Form::label('password_confirmation', __('Confirmar Contraseña'), []) !!}
                                             <div class="input-group input-sm">
                                                 <span class="input-group-addon">
                                                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
@@ -178,8 +202,9 @@
                                                 {!! Form::password('password_confirmation', [
                                                     'class' => 'form-control input-sm',
                                                     'data-toggle' => 'tooltip',
-                                                    'title' => 'Introduzca nuevamente la nueva ' .
-                                                               'contraseña de acceso al sistema'
+                                                    'title' => __(
+                                                        'Introduzca nuevamente la nueva contraseña de acceso al sistema'
+                                                    )
                                                 ]) !!}
                                             </div>
                                         </div>
@@ -191,7 +216,7 @@
                                     <div class="col-sm-12 text-right">
                                         {!! Form::button('<i class="fa fa-save"></i>', [
                                             'class' => 'btn btn-success btn-icon btn-round', 'type' => 'submit',
-                                            'data-toggle' => 'tooltip', 'title' => 'Guardar registro',
+                                            'data-toggle' => 'tooltip', 'title' => __('Guardar registro'),
                                         ]) !!}
                                     </div>
                                 </div>
@@ -204,7 +229,7 @@
                                 <div class="col-md-3">
                                     {!! Form::text('search_timeline', null, [
                                         'class' => 'form-control input-sm', 'id' => 'search_timeline',
-                                        'placeholder' => 'buscar...'
+                                        'placeholder' => __('buscar...')
                                     ]) !!}
                                 </div>
                             </div>
@@ -269,7 +294,7 @@
                             <ul class="media-list msg-list">
                                 <li class="media unread">
                                     <div class="float-left">
-                                        <input type="checkbox" name="checkbox1" id="checkbox1" class="form-control bootstrap-switch" data-on-label="SI" data-off-label="NO">
+                                        <input type="checkbox" name="checkbox1" id="checkbox1" class="form-control bootstrap-switch" data-on-label="{{ __('SI') }}" data-off-label="{{ __('NO') }}">
                                         <label for="checkbox1"></label>
                                     </div>
                                     <a href="#" class="float-left">
@@ -393,7 +418,7 @@
                                                                 <div class="float-left">
                                                                     <img class="img-circle img-online"
                                                                          src="{{ asset('images/default-avatar.png') }}"
-                                                                         alt="usuario">
+                                                                         alt="{{ __('usuario') }}">
                                                                 </div>
                                                                 <div class="media-body">
                                                                     <h4 class="media-heading">Nombre <small>Cargo</small></h4>
@@ -760,8 +785,8 @@
                 var up = response.data;
                 if (up.result) {
                     $.gritter.add({
-                        title: 'Exito!',
-                        text: "La imagen de perfil ha sido actualizada",
+                        title: '{{ __('Exito') }}!',
+                        text: "{{ __('La imagen de perfil ha sido actualizada') }}",
                         class_name: 'growl-success',
                         image: "{{ asset('images/screen-ok.png') }}",
                         sticky: false,

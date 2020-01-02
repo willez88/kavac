@@ -1,4 +1,4 @@
-<a id="back-to-top" href="#" class="btn btn-primary btn-md back-to-top" title="Ir al inicio de la página"
+<a id="back-to-top" href="#" class="btn btn-primary btn-md back-to-top" title="{{ __('Ir al inicio de la página') }}"
    data-toggle="tooltip" data-placement="top">
 	<i class="fa fa-chevron-up"></i>
 </a>

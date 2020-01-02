@@ -9,17 +9,17 @@
 @stop
 
 @section('maproute-actual')
-    Usuarios
+    {{ __('Usuarios') }}
 @stop
 
 @section('maproute-title')
-    Usuarios
+    {{ __('Usuarios') }}
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h6 class="card-title">Gestión de usuario</h6>
+            <h6 class="card-title">{{ __('Gestión de usuario') }}</h6>
             <div class="card-btns">
                 @include('buttons.previous', ['route' => url()->previous()])
                 @include('buttons.minimize')
@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group">
-                            {!! Form::label('staff', 'Empleado', []) !!}
+                            {!! Form::label('staff', __('Empleado'), []) !!}
                             {!! Form::select('staff', (isset($persons))?$persons:[], null, [
                                     'class' => 'form-control select2',
                                     'onchange' => '' // En el evento onchange agregar instrucción para obtener datos de la persona configurada en expediente de nómina (Ej. correo)
@@ -42,21 +42,21 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            {!! Form::label('email', 'Correo electrónico', []) !!}
+                            {!! Form::label('email', __'Correo electrónico'(), []) !!}
                             {!! Form::text('email', (isset($model))?$model->email:old('email'), [
                                 'class' => 'form-control input-sm',
                                 'data-toggle' => 'tooltip',
-                                'title' => 'Indique el correo electrónico al cual envíar los datos de acceso'
+                                'title' => __('Indique el correo electrónico al cual envíar los datos de acceso')
                             ]) !!}
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            {!! Form::label('username', 'Usuario', []) !!}
+                            {!! Form::label('username', __('Usuario'), []) !!}
                             {!! Form::text('username', (isset($model))?$model->username:old('username'), [
                                 'class' => 'form-control input-sm',
                                 'data-toggle' => 'tooltip',
-                                'title' => 'Indique el nombre de usuario'
+                                'title' => __('Indique el nombre de usuario')
                             ]) !!}
                         </div>
                     </div>

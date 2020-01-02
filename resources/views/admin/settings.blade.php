@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Configuración
+	{{ __('Configuración') }}
 @stop
 
 @section('maproute-title')
-	Configuración
+	{{ __('Configuración') }}
 @stop
 
 @section('content')
@@ -29,41 +29,42 @@
 	<script>
 		$(document).ready(function() {
 			$('#active').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Institución activa?',
+	            'title': '{{ __('Institución activa?') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#retention_agent').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Es agente de retención de impuestos?',
+	            'title': '{{ __('Es agente de retención de impuestos?') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#support').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Activar la comunicación con soporte técnico',
+	            'title': '{{ __('Activar la comunicación con soporte técnico') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#chat').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Activar la comunicación por chat interno',
+	            'title': '{{ __('Activar la comunicación por chat interno') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#notify').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Activar las notificaciones del sistema',
+	            'title': '{{ __('Activar las notificaciones del sistema') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#report_banner').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Incluir imagen de banner en reportes',
+	            'title': '{{ __('Incluir imagen de banner en reportes') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#multi_institution').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Activar gestión administrativa para el uso con multiples instituciones',
+	            'title': '{{ __('Activar gestión administrativa para el uso con multiples instituciones') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#digital_sign').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Activar firma electrónica para todos los procesos del sistema?. Requiere conexión externa.',
+	            'title': '{{ __('Activar firma electrónica para todos los procesos del sistema?') }}. ' +
+                         '{{ __('Requiere conexión externa') }}.',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#online').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Establecer la aplicación en modo de mantenimiento. ' +
-	            		 'Ningún usuario podrá acceder a la aplicación mientras esta opción este activa. ' +
-	            		 'Solo usuarios autorizados podrán acceder mientras este en modo mantenimiento.',
+	            'title': '{{ __('Establecer la aplicación en modo de mantenimiento') }}. ' +
+	            		 '{{ __('Ningún usuario podrá acceder a la aplicación mientras esta opción este activa') }}. ' +
+	            		 '{{ __('Solo usuarios autorizados podrán acceder mientras este en modo mantenimiento') }}.',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 		});

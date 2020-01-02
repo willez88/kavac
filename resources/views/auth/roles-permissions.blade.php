@@ -1,4 +1,4 @@
-<h5 class="card-title text-center">Roles</h5>
+<h5 class="card-title text-center">{{ __('Roles') }}</h5>
 <div class="row">
     @foreach (App\Roles\Models\Role::all() as $role)
         <div class="col-md-2 text-center">
@@ -7,14 +7,14 @@
                 <div class="col-12 bootstrap-switch-mini">
                     {!! Form::checkbox('role[]', $role->id, ($user) ? $user->hasRole($role->id) : null, [
                         'class' => 'form-control bootstrap-switch bootstrap-switch-mini role',
-                        'data-on-label' => 'SI', 'data-off-label' => 'NO'
+                        'data-on-label' => __('SI'), 'data-off-label' => __('NO')
                     ]) !!}
                 </div>
             </div>
         </div>
     @endforeach
 </div>
-<h5 class="card-title text-center">Permisos</h5>
+<h5 class="card-title text-center">{{ __('Permisos') }}</h5>
 @php
     $module = "";
 @endphp
@@ -27,7 +27,9 @@
             <div class="col-12" style="padding:20px 0">
                 <hr>
                 <h6 class="card-title text-center">
-                    MÓDULO [{{ strtoupper((substr($module, 0,1) != '0')?$module:substr($module, 1)) }}]
+                    {{ __('MÓDULO [:module]', [
+                        'module' => strtoupper((substr($module, 0,1) != '0')?$module:substr($module, 1))
+                    ]) }}
                 </h6>
                 <hr>
             </div>
@@ -42,7 +44,7 @@
                     {!! Form::checkbox(
                         'permission[]', $permission->id, (!is_null($userPerm) && !$userPerm->isEmpty()) ? true : null, [
                             'class' => 'form-control bootstrap-switch bootstrap-switch-mini permission',
-                            'data-on-label' => 'SI', 'data-off-label' => 'NO'
+                            'data-on-label' => __('SI'), 'data-off-label' => __('NO')
                         ]
                     ) !!}
                 </div>

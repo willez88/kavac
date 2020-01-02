@@ -8,7 +8,7 @@
         {{-- CSRF Token --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name') }} | Sistema de Gestión Administrativa</title>
+        <title>{{ config('app.name') }} | {{ __('Sistema de Gestión Administrativa') }}</title>
         <link rel="shortcut icon" href="{{ asset('images/favicon.png', Request::secure()) }}">
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css', [], Request::secure()) !!}
@@ -134,7 +134,7 @@
                                 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
                                 'undo', 'redo'
                             ],
-                            language: 'es',
+                            language: '{{ app()->getLocale() }}',
                         }).then(editor => {
                             window.editor = editor;
                             // Descomentar para entornos de desarrollo
@@ -172,7 +172,7 @@
              * @return Un mensaje al usuario solicitando confirmación de la eliminación del registro
              */
             function delete_record(url) {
-                bootbox.confirm('Esta seguro de querer eliminar este registro?', function (result) {
+                bootbox.confirm('{{ __('Esta seguro de querer eliminar este registro?') }}', function (result) {
                     if (result) {
                         /** Ajax config csrf token */
                         $.ajaxSetup({
@@ -193,7 +193,7 @@
                                 }
                                 else {
                                     $.gritter.add({
-                                        title: 'Alerta!',
+                                        title: '{{ __('Alerta!') }}',
                                         text: data.message,
                                         class_name: 'growl-danger',
                                         image: "{{ asset('images/screen-error.png') }}",
@@ -204,8 +204,9 @@
                             },
                             error: function error(jqxhr, textStatus, _error) {
                                 var err = textStatus + ", " + _error;
-                                bootbox.alert('Error interno del servidor al eliminar el registro.');
-                                logs('app', 160, `Error con la petición solicitada. Detalles: ${err}`);
+                                if (window.debug) {
+                                    console.log(`Error con la petición solicitada. Detalles: ${err}`);
+                                }
                             }
                         });
                     }
@@ -226,7 +227,7 @@
                 var parent_id = parent_element.val();
                 var parent_name = parent_element.attr('id');
 
-                target_element.empty().append('<option value="">Seleccione...</option>');
+                target_element.empty().append('<option value="">{{ __('Seleccione...') }}</option>');
 
                 if (parent_id) {
                     axios.get(
@@ -256,7 +257,7 @@
              * @param  {string} url URL que recibe la petición y ejecuta la acción
              */
             function undelete_record(url) {
-                bootbox.confirm('Esta seguro de querer restaurar este registro?', function (result) {
+                bootbox.confirm('{{ __('Esta seguro de querer restaurar este registro?') }}', function (result) {
                     if (result) {
                         /** Ajax config csrf token */
                         $.ajaxSetup({
@@ -278,8 +279,9 @@
                             },
                             error: function error(jqxhr, textStatus, _error) {
                                 var err = textStatus + ", " + _error;
-                                bootbox.alert('Error interno del servidor al restaurar el registro.');
-                                logs('app', 234, `Error con la petición solicitada. Detalles: ${err}`, 'undelete_record');
+                                if (window.debug) {
+                                    console.log(`Error con la petición solicitada. Detalles: ${err}`);
+                                }
                             }
                         });
                     }
@@ -344,7 +346,7 @@
                 }
 
                 if (window.debug) {
-                    console.error("Se ha generado un error con la siguiente información:", p);
+                    console.error("{{ __('Se ha generado un error con la siguiente información') }}:", p);
                     console.trace();
                 }
                 else {

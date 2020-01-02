@@ -34,7 +34,7 @@ class InstitutionController extends Controller
     {
         $this->data[0] = [
             'id' => '',
-            'text' => 'Seleccione...'
+            'text' => __('Seleccione...')
         ];
     }
 
