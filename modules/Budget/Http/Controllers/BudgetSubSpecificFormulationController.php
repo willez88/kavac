@@ -184,14 +184,23 @@ class BudgetSubSpecificFormulationController extends Controller
         $formulation = BudgetSubSpecificFormulation::find($id);
 
         if (isset($request->assigned) && $request->assigned) {
+            // Instrucciones para la asignación de presupuesto
             $formulation->assigned = $request->assigned;
             $documentStatus = DocumentStatus::where('action', 'AP')->first();
             $formulation->document_status_id = $documentStatus->id;
             $formulation->save();
 
+            $fiscalYear = FiscalYear::firstOrCreate([
+                'year' => $formulation->year, 'institution_id' => $formulation->institution_id
+            ]);
+
             $request->session()->flash('message', [
                 'type' => 'other', 'icon' => 'screen-ok',
-                'text' => 'La formulación de presupuesto fue asignada y no puede ser modificada'
+                'text' => __(
+                    'La formulación de presupuesto fue asignada para el ejercicio fiscal ' .
+                    ':year y no puede ser modificada',
+                    ['year' => $formulation->year]
+                )
             ]);
         } elseif ($formulation->assigned) {
             $request->session()->flash('message', [
