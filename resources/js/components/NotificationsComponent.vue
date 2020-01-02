@@ -15,7 +15,7 @@
                             <strong>
                                 {{ notify.data.title }}{{ (notify.data.module) ? ' / ' + notify.data.module : '' }}
                             </strong><br>
-                            {{ notify.data.description }}
+                            <p v-html="notify.data.description.replace(/(?:\r\n|\r|\n)/g, '<br>')"></p>
                             <small class="date">
                                 <i class="icofont icofont-clock-time"></i>{{ format_timestamp(notify.created_at) }}
                             </small>

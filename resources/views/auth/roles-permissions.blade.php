@@ -37,10 +37,10 @@
                 <label for="" class="control-label">{{ $permission->name }}</label>
                 <div class="col-12 bootstrap-switch-mini">
                     @php
-                        $userPerm = $permission->users()->where('user_id', $user->id)->get();
+                        $userPerm = ($user) ? $permission->users()->where('user_id', $user->id)->get() : null;
                     @endphp
                     {!! Form::checkbox(
-                        'permission[]', $permission->id, (!$userPerm->isEmpty()) ? true : null, [
+                        'permission[]', $permission->id, (!is_null($userPerm) && !$userPerm->isEmpty()) ? true : null, [
                             'class' => 'form-control bootstrap-switch bootstrap-switch-mini permission',
                             'data-on-label' => 'SI', 'data-off-label' => 'NO'
                         ]
