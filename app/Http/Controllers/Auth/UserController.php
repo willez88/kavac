@@ -95,7 +95,7 @@ class UserController extends Controller
         if (isset($request->role)) {
             $user->syncRoles($request->role);
         }
-        if (isset($request->permissions)) {
+        if (isset($request->permission)) {
             $user->syncPermissions($request->permission);
         }
 
