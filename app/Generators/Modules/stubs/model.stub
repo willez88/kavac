@@ -8,10 +8,10 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
-class $CLASS$ extends Model implements Recordable
+class $CLASS$ extends Model implements Auditable
 {
     use SoftDeletes;
-    use RecordableTrait;
+    use AuditableTrait;
     use ModelsTrait;
 
     /**
