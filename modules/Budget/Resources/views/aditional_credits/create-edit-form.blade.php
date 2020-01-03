@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Presupuesto
+	{{ __('Presupuesto') }}
 @stop
 
 @section('maproute-title')
-	Créditos Adicionales
+	{{ ___('Créditos Adicionales') }}
 @stop
 
 @section('content')
@@ -22,7 +22,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						Crédito Adicional
+						{{ __('Crédito Adicional') }}
 						@include('buttons.help')
 					</h6>
 					<div class="card-btns">

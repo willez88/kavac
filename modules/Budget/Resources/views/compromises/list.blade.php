@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-    Presupuesto
+    {{ __('Presupuesto') }}
 @stop
 
 @section('maproute-title')
-    Compromisos
+    {{ __('Compromisos') }}
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Listado de Compromisos</h6>
+                    <h6 class="card-title">{{ __('Listado de Compromisos') }}</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
                         @include(

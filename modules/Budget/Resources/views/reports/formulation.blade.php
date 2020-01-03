@@ -1,9 +1,9 @@
 <table width="100%" cellpadding="4">
     <thead>
         <tr align="center" style="font-weight: bold;">
-            <td width="15%">Código</td>
-            <td width="60%">Denominación</td>
-            <td width="25%">Total Año</td>
+            <td width="15%">{{ __('Código') }}</td>
+            <td width="60%">{{ __('Denominación') }}</td>
+            <td width="25%">{{ __('Total Año') }}</td>
         </tr>
     </thead>
     <tbody>

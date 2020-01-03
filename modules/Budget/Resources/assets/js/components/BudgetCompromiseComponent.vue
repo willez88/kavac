@@ -7,12 +7,12 @@
                 </ul>
             </div>
             <div class="row">
-                <div class="col-2">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label for="" class="control-label">Institución</label>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                     <div class="form-group is-required">
                         <select2 :options="institutions" v-model="record.institution_id"></select2>
                         <input type="hidden" v-model="record.id">
@@ -20,37 +20,85 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-2">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label for="" class="control-label">Fecha</label>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                     <div class="form-group is-required">
                         <input type="date" class="form-control input-sm" v-model="record.compromised_at"
                                title="Indique la fecha del compromiso" id="compromised_at" data-toggle="tooltip">
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-md-2">
                     <div class="form-group">
-                        <label for="" class="control-label">Documento Origen</label>
+                        <label for="" class="control-label">
+                            Documento Origen
+                            <a class="btn btn-sm btn-info btn-action btn-tooltip" href="javascript:void(0)"
+                               data-original-title="Buscar documento" data-toggle="modal"
+                               data-target="#add_source">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </label>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                     <div class="form-group is-required">
                         <input type="text" v-model="record.source_document" class="form-control input-sm"
                                title="Indique el número de documento de origen que genera el compromiso"
                                data-toggle="tooltip">
                     </div>
                 </div>
+                <div class="modal fade" tabindex="-1" role="dialog" id="add_source">
+                    <div class="modal-dialog vue-crud" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h6>
+                                    <i class="ion-arrow-graph-up-right"></i>
+                                    Agregar documento
+                                </h6>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group is-required">
+                                            <label>Tipo de Documento:</label>
+                                            <select2 :options="document_types" v-model="document_type_id"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group is-required">
+                                            <label>Número de Documento:</label>
+                                            <select2 :options="document_numbers" v-model="document_number_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
+                                        data-dismiss="modal">
+                                    Cerrar
+                                </button>
+                                <button type="button" @click="addDocument"
+                                        class="btn btn-primary btn-sm btn-round btn-modal-save">
+                                    Agregar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
-                <div class="col-2">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label for="" class="control-label">Descripción</label>
                     </div>
                 </div>
-                <div class="col-10">
+                <div class="col-md-10">
                     <div class="form-group is-required">
                         <textarea v-model="record.description" class="form-control" rows="3" data-toggle="tooltip"
                                   title="Indique una descripción para el compromiso" id="description"></textarea>
@@ -61,8 +109,8 @@
             <div class="pad-top-40">
                 <h6 class="text-center card-title">Cuentas presupuestarias de gastos</h6>
                 <div class="row">
-                    <div class="col-12 pad-top-20">
-                        <table class="table">
+                    <div class="col-md-12 pad-top-20">
+                        <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Acción Específica</th>
@@ -99,10 +147,12 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div class="pad-top-40">
                 <h6 class="text-center card-title">Cuentas presupuestarias de impuestos</h6>
                 <div class="row">
-                    <div class="col-12 pad-top-20">
-                        <table class="table">
+                    <div class="col-md-12 pad-top-20">
+                        <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Acción Específica</th>
@@ -127,6 +177,84 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="modal fade" tabindex="-1" role="dialog" id="add_account">
+                    <div class="modal-dialog vue-crud" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h6>
+                                    <i class="ion-arrow-graph-up-right"></i>
+                                    Agregar cuentas
+                                </h6>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-danger" v-if="errors.length > 0">
+                                    <ul>
+                                        <li v-for="error in errors">{{ error }}</li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group is-required">
+                                            <label>Acción Específica:</label>
+                                            <select2 :options="specific_actions" v-model="specific_action_id"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group is-required">
+                                            <label>Cuenta:</label>
+                                            <select2 :options="accounts" v-model="account_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Descripción:</label>
+                                        <input type="text" class="form-control" data-toggle="tooltip"
+                                               v-model="account_description" readonly
+                                               title="Denominación de la cuenta presupuestaria">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Concepto:</label>
+                                        <input type="text" class="form-control" data-toggle="tooltip"
+                                               v-model="account_concept"
+                                               title="Indique el concepto de la cuenta presupuestaria a agregar">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group is-required">
+                                            <label>Monto:</label>
+                                            <input type="number" onfocus="$(this).select()"
+                                                   class="form-control numeric"
+                                                   data-toggle="tooltip"
+                                                   title="Indique el monto a asignar para la cuenta seleccionada"
+                                                   v-model="account_amount">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group is-required">
+                                            <label>Impuesto:</label>
+                                            <select2 :options="taxes" v-model="account_tax_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
+                                        data-dismiss="modal">
+                                    Cerrar
+                                </button>
+                                <button type="button" @click="addAccount"
+                                        class="btn btn-primary btn-sm btn-round btn-modal-save">
+                                    Agregar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -162,7 +290,28 @@
                     tax_accounts: []
                 },
                 errors: [],
-                institutions: []
+                institutions: [],
+
+                /**
+                 * Campos temporales para agregar las cuentas presupuestarias a comprometer
+                 */
+                taxes: [],
+                specific_actions: [],
+                specific_action_id: '',
+                accounts: [],
+                account_id: '',
+                account_description: '',
+                account_concept: '',
+                account_amount: 0,
+                account_tax_id: '',
+
+                /**
+                 * Campos temporales para agregar documentos al compromiso
+                 */
+                document_types: [],
+                document_type_id: '',
+                document_numbers: [],
+                document_number_id: ''
             }
         },
         methods: {
@@ -181,6 +330,27 @@
                 this.description = '';
                 this.errors = [];
                 this.institutions = [];
+
+                /**
+                 * Campos temporales para agregar las cuentas presupuestarias a comprometer
+                 */
+                this.taxes = [];
+                this.specific_actions = [];
+                this.specific_action_id = '';
+                this.accounts = [];
+                this.account_id = '';
+                this.account_description = '';
+                this.account_concept = '';
+                this.account_amount = 0;
+                this.account_tax_id = '';
+
+                /**
+                 * Campos temporales para agregar documentos al compromiso
+                 */
+                this.document_types = [];
+                this.document_type_id = '';
+                this.document_numbers = [];
+                this.document_number_id = '';
             },
             /**
              * Elimina una cuenta del listado de cuentas agregadas
@@ -209,6 +379,34 @@
                     }
                 });
             },
+            /**
+             * Agrega una cuenta presupuestaria al compromiso
+             *
+             * @method     addAccount
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
+            addAccount() {
+
+            },
+            /**
+             * Agrega un documento al compromiso
+             *
+             * @method     addDocument
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
+            addDocument() {
+
+            },
+            /**
+             * Obtiene las Acciones Específicas
+             *
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             * @param {string} type Tipo de registro
+             */
+            getSpecificActions() {
+            },
         },
         created() {
 
@@ -216,6 +414,7 @@
         mounted() {
             let vm = this;
             vm.getInstitutions();
+            vm.getSpecificActions();
         }
     };
 </script>

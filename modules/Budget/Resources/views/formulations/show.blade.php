@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Presupuesto
+	{{ __('Presupuesto') }}
 @stop
 
 @section('maproute-title')
-	Formulación
+	{{ __('Formulación') }}
 @stop
 
 @section('content')
@@ -22,7 +22,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						Formulación de Presupuesto
+						{{ __('Formulación de Presupuesto') }}
 						@include('buttons.help')
 					</h6>
 					<div class="card-btns">
@@ -32,11 +32,11 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<h5 class="card-title text-center">Oficina de programación y Presupuesto</h5>
-					<h6 class="card-title text-center">Presupuesto de Gastos por Sub Específicas</h6>
+					<h5 class="card-title text-center">{{ __('Oficina de programación y Presupuesto') }}</h5>
+					<h6 class="card-title text-center">{{ __('Presupuesto de Gastos por Sub Específicas') }}</h6>
 					<div class="row form-group">
 						<div class="col-3 text-bold text-uppercase">
-							{{ ($formulation->assigned)?'Presupuesto Asignado':'Asignar Presupuesto' }}:
+							{{ ($formulation->assigned)?__('Presupuesto Asignado'):__('Asignar Presupuesto') }}:
 						</div>
 						<div class="col-9">
 							<label>
@@ -47,24 +47,24 @@
 									{!! Form::token() !!}
 									{!! Form::checkbox('assigned', true, ($formulation->assigned), [
 										'class' => 'form-control bootstrap-switch bootstrap-switch-mini budget-assign',
-										'data-on-label' => 'SI', 'data-off-label' => 'NO',
+										'data-on-label' => __('SI'), 'data-off-label' => __('NO'),
 										'disabled' => ($formulation->assigned), 'data-toggle' => 'tooltip',
-										'title' => 'Asignar presupuesto'
+										'title' => __('Asignar presupuesto')
 									]) !!}
 								{!! Form::close() !!}
 							</label>
 						</div>
 					</div>
 					<div class="row form-group">
-						<div class="col-3 text-bold text-uppercase">Institución:</div>
+						<div class="col-3 text-bold text-uppercase">{{ __('Institución') }}:</div>
 						<div class="col-9">{{ $formulation->specificAction->institution }}</div>
 					</div>
 					<div class="row form-group">
-						<div class="col-3 text-bold text-uppercase">Moneda:</div>
+						<div class="col-3 text-bold text-uppercase">{{ __('Moneda') }}:</div>
 						<div class="col-9">{{ $formulation->currency->description }}</div>
 					</div>
 					<div class="row form-group">
-						<div class="col-3 text-bold text-uppercase">Presupuesto:</div>
+						<div class="col-3 text-bold text-uppercase">{{ __('Presupuesto') }}:</div>
 						<div class="col-9">{{ $formulation->year }}</div>
 					</div>
 					<div class="row form-group">
@@ -72,11 +72,11 @@
 						<div class="col-9">{{ $formulation->specificAction->specificable->description }}</div>
 					</div>
 					<div class="row form-group">
-						<div class="col-3 text-bold text-uppercase">Acción Específica:</div>
+						<div class="col-3 text-bold text-uppercase">{{ __('Acción Específica') }}:</div>
 						<div class="col-9">{{ $formulation->specificAction->description }}</div>
 					</div>
 					<div class="row form-group">
-						<div class="col-3 text-bold text-uppercase">Total Formulado:</div>
+						<div class="col-3 text-bold text-uppercase">{{ __('Total Formulado') }}:</div>
 						<div class="col-9">
 							{{ $formulation->currency->symbol }}&#160;
 							{{ number_format(
@@ -86,11 +86,11 @@
 					<table class="table table-bordered table-hover">
 						<thead>
 							<tr>
-								<th>Código</th>
-								<th>Denominación</th>
-								<!--<th>Real</th>
-								<th>Estimado</th>-->
-								<th>Total Año</th>
+								<th>{{ __('Código') }}</th>
+								<th>{{ __('Denominación') }}</th>
+								{{-- <th>{{ __('Real') }}</th>
+                                <th>{{ __('Estimado') }}</th> --}}
+								<th>{{ __('Total Año') }}</th>
 								{{-- @foreach (['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'] as $month)
 									<th>{{ $month }}</th>
 								@endforeach --}}
@@ -141,8 +141,8 @@
 				 * ya se encuentra asignada
 				 */
 				$.gritter.add({
-                    title: 'Advertencia!',
-                    text: 'Este presupuesto ya se encuentra asignado y no puede ser modificado',
+                    title: '{{ __('Advertencia!') }}',
+                    text: '{{ __('Este presupuesto ya se encuentra asignado y no puede ser modificado') }}',
                     class_name: 'growl-danger',
                     image: "{{ asset('images/screen-warning.png') }}",
                     sticky: false,
@@ -154,7 +154,7 @@
 				console.log($(this).is(':checked'));
 				if ($(this).is(':checked')) {
 					bootbox.confirm(
-						'Esta seguro de asignar esta formulación?. Una vez asignado no puede ser modificado',
+						'{{ __('Esta seguro de asignar esta formulación?. Una vez asignado no puede ser modificado') }}',
 						function(result) {
 							if (result) {
 								$("#form_assign").submit();

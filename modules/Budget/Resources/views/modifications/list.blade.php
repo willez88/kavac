@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Presupuesto
+	{{ __('Presupuesto') }}
 @stop
 
 @section('maproute-title')
-	Modificaciones Presupuestarias
+	{{ __('Modificaciones Presupuestarias') }}
 @stop
 
 @section('content')
@@ -22,7 +22,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						Listado de Créditos Adicionales
+						{{ __('Listado de Créditos Adicionales') }}
 						@include('buttons.help')
 					</h6>
 					<div class="card-btns">
@@ -48,7 +48,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Listado de Reducciones</h6>
+					<h6 class="card-title">{{ __('Listado de Reducciones') }}</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include(
@@ -72,7 +72,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Listado de Traspasos</h6>
+					<h6 class="card-title">{{ __('Listado de Traspasos') }}</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include(
