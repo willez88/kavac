@@ -9,7 +9,10 @@ import moment from 'moment';
 Vue.mixin({
     data() {
         return {
+            /** @type {Boolean} Establece si se esta o no cargando una petición del sistema */
             loading: true,
+            /** @type {Object} Objeto que contiene los atributos y métodos para obtener traducciones del sistema  */
+            i18n: Lang,
             /**
              * Opciones generales a implementar en tablas
              * @type {JSON}
@@ -71,6 +74,13 @@ Vue.mixin({
         }
     },
     watch: {
+        /**
+         * Método que permite mostrar el mensaje de espera al usuario cuando cambia el estatus de la variable "loading"
+         *
+         * @method     loading
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
         loading: function() {
             let vm = this;
             if (!vm.loading) {

@@ -15,6 +15,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "~6.0",
         "maatwebsite/excel": "^3.1",
+        "mariuzzo/laravel-js-localization": "^1.5",
         "mews/captcha": "~3.0",
         "nwidart/laravel-modules": "^6.0",
         "owen-it/laravel-auditing": "^9.3",
