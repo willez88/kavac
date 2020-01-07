@@ -84,6 +84,7 @@ Vue.mixin(
     {
         data() {
             return {
+                /** @type {String} Especifica el año de ejercicio presupuestario en curso */
                 execution_year: ''
             }
         },
