@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchaseBaseBudgetTable extends Migration
+class CreatePurchaseBaseBudgetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreatePurchaseBaseBudgetTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_base_budget', function (Blueprint $table) {
+        Schema::create('purchase_base_budgets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+            $table->integer('currency_id')->unsigned()->nullable()
+                  ->comment('Unidad monetaria en la que se expresara el presupuesto base.');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });
@@ -28,6 +29,6 @@ class CreatePurchaseBaseBudgetTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_base_budget');
+        Schema::dropIfExists('purchase_base_budgets');
     }
 }

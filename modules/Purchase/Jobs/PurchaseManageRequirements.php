@@ -14,6 +14,7 @@ use Modules\Purchase\Models\PurchaseRequirementItem;
 use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\Warehouse;
 use App\Models\CodeSetting;
+use App\Models\Institution;
 use App\Rules\CodeSetting as CodeSettingRule;
 use App\Models\FiscalYear;
 
@@ -120,7 +121,6 @@ class PurchaseManageRequirements implements ShouldQueue
      */
     public function generateCodeAvailable()
     {
-        $institution = get_institution();
         $codeSetting = CodeSetting::where('table', 'purchase_requirements')
                                     ->first();
 

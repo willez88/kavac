@@ -25,17 +25,27 @@
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
                         @include('buttons.new', ['route' => route('purchase.requirements.create')])
-                        <a href="{{ route('purchase.requirements.base_budget') }}"
-                            class="btn btn-sm btn-primary btn-custom"
-                            title="Presupuesto base"
-                            data-toggle="tooltip">
-                            PRESUPUESTO BASE <i class="fa fa-list"></i>
-                        </a>
                         @include('buttons.minimize')
                     </div>
                 </div>
                 <div class="card-body">
-                    <purchase-requirements :records="{{ $requirements }}" add_buttons_action="{{ 'true' }}" route_edit="/purchase/requirements/{id}/edit" />
+                    <purchase-requirements :record_list="{{ $requirements }}" route_edit="/purchase/requirements/{id}/edit" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title">Presupuesto base</h6>
+                    <div class="card-btns">
+                        @include('buttons.previous', ['route' => url()->previous()])
+                        @include('buttons.new', ['route' => route('purchase.base_budget.create')])
+                        @include('buttons.minimize')
+                    </div>
+                </div>
+                <div class="card-body">
+                    <purchase-base-budget :record_list="{{ $baseBudget }}" route_edit="/purchase/base_budget/{id}/edit" />
                 </div>
             </div>
         </div>

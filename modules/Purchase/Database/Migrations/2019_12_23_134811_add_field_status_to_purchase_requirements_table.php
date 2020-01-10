@@ -34,7 +34,7 @@ class AddFieldStatusToPurchaseRequirementsTable extends Migration
     public function down()
     {
         Schema::table('purchase_requirements', function (Blueprint $table) {
-            if (!Schema::hasColumn('purchase_requirements', 'requirement_status')) {
+            if (Schema::hasColumn('purchase_requirements', 'requirement_status')) {
                 $table->dropColumn('requirement_status');
             }
         });
