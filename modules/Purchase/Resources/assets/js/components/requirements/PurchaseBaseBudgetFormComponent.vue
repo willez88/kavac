@@ -9,7 +9,7 @@
                     <div slot="requirement_status" slot-scope="props" class="text-center">
                         <div class="d-inline-flex">
                             <span class="badge badge-danger"  v-show="props.row.requirement_status == 'WAIT'">     <strong>EN ESPERA</strong></span>
-                            <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PRECESADO</strong></span>
+                            <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PROCESADO</strong></span>
                             <span class="badge badge-success" v-show="props.row.requirement_status == 'BOUGHT'">   <strong>COMPRADO </strong></span>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                     return null;
                 }
             },
-            record_edit:{
+            base_budget_edit:{
                 type:Object,
                 default: function() {
                     return null;
@@ -143,6 +143,7 @@
             return {
                 record_items:[],
                 requirement_list:[],
+                requirement_list_deleted:[],
                 columns: [  'code',
                             'description',
                             'fiscal_year.year',
@@ -165,24 +166,40 @@
                 // 
             },
             indexOf(list, id, returnBoolean){
-                for (var i = this.requirement_list.length - 1; i >= 0; i--) {
-                    if (this.requirement_list[i].id == id) {
+                for (var i = list.length - 1; i >= 0; i--) {
+                    if (list[i].id == id) {
                         return (returnBoolean) ? true : i;
                     }
                 }
                 return (returnBoolean) ? false : -1;
             },
             requirementCheck(record){
+
                 var pos = this.indexOf(this.requirement_list, record.id);
+                // se agregan a la lista a guardar
                 if (pos == -1) {
                     for (var i = 0; i < record.purchase_requirement_items.length; i++) {
                         record.purchase_requirement_items[i].unit_price = 0;
                         record.purchase_requirement_items[i].requirement_code = record.code;
                     }
+
+                    // saca de la lista de registros eliminar
+                    pos = this.indexOf(this.requirement_list_deleted, record.id);
+                    if (pos != -1) {
+                        this.requirement_list_deleted.splice(pos,1);
+                    }
+
                     this.requirement_list.push(record);
                     this.record_items = this.record_items.concat(record.purchase_requirement_items);
                 }else{
-                    this.requirement_list.splice(pos,1);
+                    // se sacan de la lista a guardar
+                    var record_copy = this.requirement_list.splice(pos,1)[0];
+                    var pos = this.indexOf(this.requirement_list_deleted, record_copy.id); 
+
+                    // agrega a la lista de registros a eliminar
+                    if (pos == -1) {
+                        this.requirement_list_deleted.push(record_copy);
+                    }
 
                     for (var i = 0; i < record.purchase_requirement_items.length; i++) {
                         for (var x = 0; x < this.record_items.length; x++) {
@@ -194,9 +211,18 @@
                         }
                     }
                 }
+                this.CalculateTot();
             },
             createRecord(){
                 this.$refs.PurchaseBaseBudgetComponent.reset();
+                if (!this.record_tax) {
+                    this.$refs.PurchaseBaseBudgetComponent.showAlertMessages("Debe configurar el IVA en el sistema.");
+                    this.showMessage(
+                        'custom', 'Error', 'danger', 'screen-error', 
+                        'Debe configurar el IVA en el sistema.'
+                    );
+                    return;
+                }
                 if (!this.currency_id) {
                     this.$refs.PurchaseBaseBudgetComponent.showAlertMessages("Debe seleccionar un tipo de moneda.");
                     this.showMessage(
@@ -216,28 +242,54 @@
                     }
                     this.record_items[i].qty_price = (this.record_items[i].qty_price).toFixed((this.currency)?this.currency.decimal_places:'');
                 }
-                axios.post('/purchase/base_budget',{   
-                        'list':this.requirement_list, 
-                        'currency_id':this.currency_id 
-                    }).then(response=>{
-                    this.showMessage('store');
-                }).catch(error=>{
-                    this.loading = false;
-                    this.$refs.PurchaseBaseBudgetComponent.reset();
-                    var errors = [];
-                    if (typeof(error.response) != 'undefined') {
-                        for (var index in error.response.data.errors) {
-                            if (error.response.data.errors[index]) {
-                                errors.push(error.response.data.errors[index][0]);
-                                this.showMessage(
-                                    'custom', 'Error', 'danger', 'screen-error', 
-                                    error.response.data.errors[index][0]
-                                );
+                if(!this.base_budget_edit){
+                    axios.post('/purchase/base_budget',{   
+                            'list':this.requirement_list, 
+                            'currency_id':this.currency_id
+                        }).then(response=>{
+                        this.showMessage('store');
+                    }).catch(error=>{
+                        this.loading = false;
+                        this.$refs.PurchaseBaseBudgetComponent.reset();
+                        var errors = [];
+                        if (typeof(error.response) != 'undefined') {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    errors.push(error.response.data.errors[index][0]);
+                                    this.showMessage(
+                                        'custom', 'Error', 'danger', 'screen-error', 
+                                        error.response.data.errors[index][0]
+                                    );
+                                }
                             }
                         }
-                    }
-                    this.$refs.PurchaseBaseBudgetComponent.showAlertMessages(errors);
-                });
+                        this.$refs.PurchaseBaseBudgetComponent.showAlertMessages(errors);
+                    });
+                }else{
+                    axios.put('/purchase/base_budget/'+this.base_budget_edit.id,{   
+                            'list':this.requirement_list, 
+                            'list_to_delete':this.requirement_list_deleted, 
+                            'currency_id':this.currency_id
+                        }).then(response=>{
+                        this.showMessage('update');
+                    }).catch(error=>{
+                        this.loading = false;
+                        this.$refs.PurchaseBaseBudgetComponent.reset();
+                        var errors = [];
+                        if (typeof(error.response) != 'undefined') {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    errors.push(error.response.data.errors[index][0]);
+                                    this.showMessage(
+                                        'custom', 'Error', 'danger', 'screen-error', 
+                                        error.response.data.errors[index][0]
+                                    );
+                                }
+                            }
+                        }
+                        this.$refs.PurchaseBaseBudgetComponent.showAlertMessages(errors);
+                    });
+                }
             },
 
             CalculateQtyPrice(qty_price){
@@ -285,8 +337,8 @@
                 'contrating_department.name': 'Departamento contatante',
                 'user_department.name': 'Departamento Usuario',
                 'purchase_supplier_type.name': 'Tipo de Proveedor',
-                'requirement_status': 'Estado del requerimiento',
-                'id': 'ACCIÓN'
+                'requirement_status': 'Estado',
+                'id': 'Selección'
             };
             this.table_options.columnsClasses = {
                 'code'    : 'col-xs-1',
@@ -301,15 +353,36 @@
         },
         mounted(){
             if (!this.record_tax) {
-                this.$refs.PurchaseBaseBudgetComponent.showAlertMessages('Debe configurar el IVA.');
+                this.$refs.PurchaseBaseBudgetComponent.showAlertMessages('Debe configurar el IVA en el sistema.');
             }
-            // this.records_table = this.records;
+            if (this.base_budget_edit) {
+                this.currency_id = this.base_budget_edit.currency_id;
+
+                for (var i = 0; i < this.base_budget_edit.purchase_requirement.length; i++) {
+                    var requirement = this.base_budget_edit.purchase_requirement[i];
+
+                    if (this.requirement_list.indexOf(requirement) == -1) {
+                        this.requirement_list.push(requirement);
+                    }
+
+                    var items = requirement.purchase_requirement_items;
+
+                    for (var x = 0; x < items.length; x++) {
+                        items[x].requirement_code = requirement.code;
+                        items[x].qty_price = items[x].quantity * items[x].unit_price;
+                        
+                        this.record_items = this.record_items.concat(items[x]);
+                    }
+                }
+                this.CalculateTot();
+            }
         },
         watch:{
             currency_id(res){
                 if (res) {
                     axios.get('/currencies/info/'+res).then(response=>{
                         this.currency = response.data.currency;
+                        this.CalculateTot();
                     });
                 }
             }

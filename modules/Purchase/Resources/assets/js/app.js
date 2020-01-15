@@ -52,6 +52,7 @@ Vue.component('purchase-requirements', require('./components/requirements/Purcha
  * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
  */
 Vue.component('purchase-requirements-form', require('./components/requirements/PurchaseFormComponent.vue').default);
+Vue.component('purchase-requirements-form-show', require('./components/requirements/PurchaseFormShowComponent.vue').default);
 
 /**
  * Componente para listar los presupuesto base 

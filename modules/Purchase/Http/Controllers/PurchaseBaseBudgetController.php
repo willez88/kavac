@@ -8,6 +8,9 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use Modules\Purchase\Jobs\PurchaseManageBaseBudget;
+
+
 use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
@@ -65,16 +68,9 @@ class PurchaseBaseBudgetController extends Controller
             'currency_id.required' => 'El campo moneda es obligatorio.',
             'currency_id.array'    => 'El campo moneda debe ser numerico.',
         ]);
-        $baseBudget = PurchaseBaseBudget::create(['currency_id'=>$request->currency_id]);
-        foreach ($request->list as $requirement) {
-            foreach ($requirement['purchase_requirement_items'] as $item) {
-                $it = PurchaseRequirementItem::find($item['id']);
-                $it['unit_price'] = $item['unit_price'];
-                $it['base_budget_id'] = $baseBudget['id'];
-                $it->save();
-            }
-        }
-        // PurchaseManageRequirements::dispatch($request->all());
+        $data = $request->all();
+        $data['action'] = 'create';
+        PurchaseManageBaseBudget::dispatch($data);
         return response()->json(['message'=>'success'], 200);
     }
 
@@ -93,6 +89,14 @@ class PurchaseBaseBudgetController extends Controller
      */
     public function edit($id)
     {
+        $baseBudget = PurchaseBaseBudget::with(
+            'purchaseRequirement.contratingDepartment',
+            'purchaseRequirement.userDepartment',
+            'purchaseRequirement.purchaseSupplierType',
+            'purchaseRequirement.fiscalYear',
+            'purchaseRequirement.purchaseRequirementItems.measurementUnit',
+        )->find($id);
+
         $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {
             $query->where('active', true);
         })->where('operation_date', '<=', date('Y-m-d'))->orderBy('operation_date', 'DESC')->first();
@@ -104,10 +108,12 @@ class PurchaseBaseBudgetController extends Controller
             'fiscalYear',
             'purchaseRequirementItems.measurementUnit'
         )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
+
         return view('purchase::requirements.base_budget', [
-                    'requirements' => $requirements,
+                    'requirements' => $baseBudget['purchaseRequirement']->merge($requirements),
                     'tax'          => json_encode($historyTax),
                     'currencies'   => json_encode($this->currencies),
+                    'baseBudget'   => $baseBudget,
         ]);
     }
 
@@ -116,8 +122,23 @@ class PurchaseBaseBudgetController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'list'        => 'required|array',
+            'currency_id' => 'required|int',
+        ], [
+            'list.required'        => 'No es permitido guardar presupuesto base vacios.',
+            'list.array'           => 'Los registros deben estar en una lista.',
+            'currency_id.required' => 'El campo moneda es obligatorio.',
+            'currency_id.array'    => 'El campo moneda debe ser numerico.',
+        ]);
+
+        $data = $request->all();
+        $data['id_edit'] = $id;
+        $data['action'] = 'update';
+        PurchaseManageBaseBudget::dispatch($data);
+        return response()->json(['message'=>'success'], 200);
     }
 
     /**

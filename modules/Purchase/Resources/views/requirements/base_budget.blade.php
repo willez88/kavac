@@ -28,9 +28,16 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <purchase-base-budget-form :records="{{ $requirements }}"
-                                               :record_tax="{{ $tax }}"
-                                               :currencies="{{ $currencies }}" />
+                    @if(isset($baseBudget))
+                        <purchase-base-budget-form :records="{{ $requirements }}"
+                                                   :record_tax="{{ $tax }}"
+                                                   :currencies="{{ $currencies }}"
+                                                   :base_budget_edit="{{ $baseBudget }}" />
+                    @else
+                        <purchase-base-budget-form :records="{{ $requirements }}"
+                                                   :record_tax="{{ $tax }}"
+                                                   :currencies="{{ $currencies }}" />
+                    @endif
                 </div>
             </div>
         </div>

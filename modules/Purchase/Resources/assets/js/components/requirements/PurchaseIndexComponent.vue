@@ -4,22 +4,25 @@
             <div slot="requirement_status" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
                     <span class="badge badge-danger"  v-show="props.row.requirement_status == 'WAIT'">     <strong>EN ESPERA</strong></span>
-                    <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PRECESADO</strong></span>
+                    <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PROCESADO</strong></span>
                     <span class="badge badge-success" v-show="props.row.requirement_status == 'BOUGHT'">   <strong>COMPRADO </strong></span>
                 </div>
             </div>
             <div slot="id" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
-                    <button class="btn btn-warning btn-xs btn-icon btn-action"
+                    <purchase-requirements-form-show :id="props.row.id" :route_show="'/purchase/requirements/'+props.row.id" />
+                    <button v-if="props.row.requirement_status == 'WAIT'"
+                            @click="editForm(props.row.id)"
+                            class="btn btn-warning btn-xs btn-icon btn-action"
                             title="Modificar registro"
-                            data-toggle="tooltip"
-                            v-on:click="editForm(props.row.id)">
+                            data-toggle="tooltip">
                         <i class="fa fa-edit"></i>
                     </button>
-                    <button @click="deleteRecord(props.index,'/purchase/requirements')"
+                    <button v-if="props.row.requirement_status == 'WAIT'"
+                            @click="deleteRecord(props.index,'/purchase/requirements')"
                             class="btn btn-danger btn-xs btn-icon btn-action" 
-                            title="Eliminar registro" data-toggle="tooltip" 
-                            type="button">
+                            title="Eliminar registro" 
+                            data-toggle="tooltip" >
                         <i class="fa fa-trash-o"></i>
                     </button>
                 </div>

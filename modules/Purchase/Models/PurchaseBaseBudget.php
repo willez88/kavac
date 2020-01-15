@@ -36,4 +36,15 @@ class PurchaseBaseBudget extends Model implements Auditable
         // belongsTo(RelatedModel, foreignKey = currency_id, keyOnRelatedModel = id)
         return $this->belongsTo(Currency::class);
     }
+
+    /**
+     * PurchaseBaseBudget has many PurchaseRequirement.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchaseRequirement()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
+        return $this->hasMany(PurchaseRequirement::class);
+    }
 }

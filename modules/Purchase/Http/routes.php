@@ -75,13 +75,11 @@ Route::group([
     Route::post('requirements', 'PurchaseRequirementController@store');
     Route::resource('requirements', 'PurchaseRequirementController', [
         'as'     => 'purchase',
-        'except' => ['show']
     ]);
 
     Route::post('base_budget', 'PurchaseBaseBudgetController@store');
     Route::resource('base_budget', 'PurchaseBaseBudgetController', [
         'as'     => 'purchase',
-        'except' => ['show']
     ]);
     // Route::get('base-budget', 'PurchaseRequirementController@baseBudget')
     // ->name('purchase.base_budget');

@@ -33,7 +33,7 @@ class PurchaseRequirementItem extends Model implements Auditable
 
     protected $fillable = [
         'name', 'description', 'technical_specifications', 'quantity', 'measurement_unit_id',
-        'warehouse_product_id', 'purchase_requirement_id', 'unit_price', 'base_budget_id'
+        'warehouse_product_id', 'purchase_requirement_id', 'unit_price'
     ];
 
     /**

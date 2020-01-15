@@ -134,7 +134,9 @@ class PurchaseRequirementController extends Controller
             'purchase_supplier_type_id.integer'  => 'El campo tipo no esta en el formato de entero.'
         ]);
 
-        PurchaseManageRequirements::dispatch($request->all());
+        $data = $request->all();
+        $data['action'] = 'create';
+        PurchaseManageRequirements::dispatch($data);
         return response()->json(['message'=>'success'], 200);
     }
 
@@ -173,9 +175,15 @@ class PurchaseRequirementController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('purchase::show');
+        return response()->json(['records'=>PurchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment',
+            'purchaseSupplierType',
+            'fiscalYear',
+            'purchaseRequirementItems.measurementUnit'
+        )->find($id)], 200);
     }
 
     /**
@@ -246,7 +254,10 @@ class PurchaseRequirementController extends Controller
             'purchase_supplier_type_id.integer'  => 'El campo tipo no esta en el formato de entero.'
         ]);
 
-        PurchaseManageRequirements::dispatch($request->all(), $id);
+        $data = $request->all();
+        $data['id_edit'] = $id;
+        $data['action'] = 'update';
+        PurchaseManageRequirements::dispatch($data);
         return response()->json(['message'=>'success'], 200);
     }
 
