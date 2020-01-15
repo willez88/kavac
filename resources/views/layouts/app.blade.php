@@ -395,5 +395,11 @@
                 });
             }
         </script>
+        <script>
+            Echo.channel('home').listen('NewMessage', (e) => {
+                console.log("entro");
+                console.log(e.message);
+            });
+        </script>
     </body>
 </html>

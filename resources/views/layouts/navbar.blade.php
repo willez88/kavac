@@ -42,7 +42,7 @@
 					@if (App\Models\Parameter::where([
 						'active' => true, 'required_by' => 'core', 'p_key' => 'notify', 'p_value' => 'true'
 					])->first())
-                        <notifications></notifications>
+                        <notifications :user={!! auth()->user()->id !!}></notifications>
 					@endif
 
 					<li class="nav-item dropdown dropdown-notify">

@@ -66,6 +66,20 @@
         },
         created() {
             this.getUnreaded();
+            Echo.private('App.User.' + this.$attrs.user).notification((notification) => {
+                console.log(notification.type);
+            });
+
+            /*Echo.join(`home`)
+                .here((users) => {
+                    console.log('presets user ', users);
+                })
+                .joining((user) => {
+                    console.log(user.name);
+                })
+                .leaving((user) => {
+                    console.log(user.name);
+                });*/
         },
         mounted() {
 

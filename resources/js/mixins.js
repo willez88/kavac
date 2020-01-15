@@ -12,7 +12,7 @@ Vue.mixin({
             /** @type {Boolean} Establece si se esta o no cargando una petición del sistema */
             loading: true,
             /** @type {Object} Objeto que contiene los atributos y métodos para obtener traducciones del sistema  */
-            i18n: Lang,
+            //i18n: Lang,
             /**
              * Opciones generales a implementar en tablas
              * @type {JSON}
