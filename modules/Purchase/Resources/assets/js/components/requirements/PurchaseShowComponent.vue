@@ -22,6 +22,8 @@
                     <!-- Fromulario -->
                     <div class="modal-body">
                         <purchase-show-errors ref="accountingAccountForm" />
+                        <hr>
+                        <h6>INFORMACIÓN DEL REQUERIMIENTO</h6>
                         <br>
                         <div class="row">
                             <div class="col-3"><strong>Código del requerimiento:</strong> {{ records.code }}</div>
@@ -38,6 +40,21 @@
                             <div class="col-12"><strong>Descripción: </strong>{{ description }}</div>
                         </div>
                         <hr>
+                        <v-client-table :columns="columns" :data="purchase_requirement_items" :options="table_options">
+                            <div slot="measurement_unit" slot-scope="props" class="text-center">
+                                {{ props.row.measurement_unit.name }}
+                            </div>
+                            <div slot="technical_specifications" slot-scope="props" class="text-center">
+                                <span>
+                                    {{ props.row.technical_specifications }}
+                                </span>
+                            </div>
+                            <div slot="quantity" slot-scope="props">
+                                <span>
+                                    {{ props.row.quantity }}
+                                </span>
+                            </div>
+                        </v-client-table>
                     </div>
                 </div>
             </div>
@@ -52,10 +69,22 @@ export default{
     data(){
         return{
             records:[],
+            columns: ['name','measurement_unit','technical_specifications', 'quantity'],
         }
     },
     created(){
-
+        this.table_options.headings = {
+                'name': 'Producto',
+                'measurement_unit': 'Unidad de Medida',
+                'technical_specifications': 'Especificaciones tecnicas',
+                'quantity': 'Cantidad',
+            };
+        this.table_options.columnsClasses = {
+            'name'    : 'col-xs-4',
+            'measurement_unit': 'col-xs-2',
+            'technical_specifications'    : 'col-xs-4',
+            'quantity': 'col-xs-2',
+        };
     },
     mounted(){
         
@@ -105,6 +134,12 @@ export default{
             if (this.records.description) {
                 return this.records.description;
             }
+        },
+        purchase_requirement_items: function(){
+            if (this.records.purchase_requirement_items) {
+                return this.records.purchase_requirement_items;
+            }
+            return [];
         },
     }
 };

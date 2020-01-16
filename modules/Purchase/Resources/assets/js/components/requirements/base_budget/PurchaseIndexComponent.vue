@@ -8,6 +8,7 @@
             </div>
             <div slot="id" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
+                    <purchase-base-budget-show :id="props.row.id" :route_show="'/purchase/base_budget/'+props.row.id" />
                     <button class="btn btn-warning btn-xs btn-icon btn-action"
                             title="Modificar registro"
                             data-toggle="tooltip"

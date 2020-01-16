@@ -10,7 +10,7 @@
             </div>
             <div slot="id" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
-                    <purchase-requirements-form-show :id="props.row.id" :route_show="'/purchase/requirements/'+props.row.id" />
+                    <purchase-requirements-show :id="props.row.id" :route_show="'/purchase/requirements/'+props.row.id" />
                     <button v-if="props.row.requirement_status == 'WAIT'"
                             @click="editForm(props.row.id)"
                             class="btn btn-warning btn-xs btn-icon btn-action"
