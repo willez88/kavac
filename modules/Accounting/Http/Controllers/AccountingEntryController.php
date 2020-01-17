@@ -14,6 +14,7 @@ use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Jobs\AccountingManageEntries;
+use App\Models\Profile;
 use Auth;
 
 /**
@@ -53,17 +54,14 @@ class AccountingEntryController extends Controller
      */
     public function index()
     {
-
         /**
          * [$currency contendra la moneda manejada por defecto]
          * @var Currency
          */
-        $currency                = Currency::where('default', true)->first();
+        $currency     = Currency::where('default', true)->first();
         
-        $institutions            = template_choices('App\Models\Institution', 'name', [], true);
-        
-        $institutions[0]['text'] = 'Todas';
-        $institutions            = json_encode($institutions);
+        $institutions = json_encode($this->getInstitutionAvailables());
+
         $currencies              = json_encode(template_choices(
             'App\Models\Currency',
             ['symbol', '-', 'name'],
@@ -127,11 +125,11 @@ class AccountingEntryController extends Controller
          * [$currency almacena la información del tipo de moneda por defecto]
          * @var Currency
          */
-        $currency = Currency::where('default', true)->orderBy('id', 'ASC')->first();
-
-        $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
-
-        $institutions = json_encode(template_choices('App\Models\Institution', 'name', [], true));
+        $currency     = Currency::where('default', true)->orderBy('id', 'ASC')->first();
+        
+        $currencies   = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
+        
+        $institutions = json_encode($this->getInstitutionAvailables());
 
         /**
          * [$AccountingAccounts almacena las cuentas pratrimoniales]
@@ -208,6 +206,19 @@ class AccountingEntryController extends Controller
     }
 
     /**
+     * Show the specified resource.
+     * @return Response
+     */
+    public function show($id)
+    {
+        return response()->json(['records' => AccountingEntry::with(
+            'accountingEntryCategory',
+            'accountingAccounts.account.accountConverters.budgetAccount',
+            'institution',
+        )->find($id)], 200);
+    }
+
+    /**
      * Muestra el formulario para la edición de asientos contables
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
@@ -217,7 +228,7 @@ class AccountingEntryController extends Controller
     public function edit($id)
     {
         $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
-        $institutions = json_encode(template_choices('App\Models\Institution', 'name', [], true));
+        $institutions = json_encode($this->getInstitutionAvailables());
 
         /**
          * [$entries asiento contable a editar]
@@ -580,5 +591,22 @@ class AccountingEntryController extends Controller
         $entries->approved = true;
         $entries->save();
         return response()->json(['message'=>'Success'], 200);
+    }
+
+    public function getInstitutionAvailables()
+    {
+        $institutions = [];
+        $profile      = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($profile) {
+            array_push($institutions, [
+                'id'   => $profile->institution->id,
+                'text' => $profile->institution->name,
+            ]);
+        } elseif (!$profile && auth()->user()->hasRole('admin')) {
+            $institutions            = template_choices('App\Models\Institution', 'name', [], true);
+            $institutions[0]['text'] = 'Todas';
+        }
+        return $institutions;
     }
 }

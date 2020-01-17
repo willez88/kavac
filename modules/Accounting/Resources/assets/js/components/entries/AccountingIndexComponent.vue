@@ -153,13 +153,14 @@
 					end:'',
 					year:0,
 					month:0,
-					institution:'',
+					institution:0,
 				},
 			}
 		},
 		created(){
 			this.CalculateOptionsYears(this.year_old, true);
 			this.months.unshift({id:0, text:'Todos'});
+			this.data.institution = this.institutions[0]['id'];
 		},
 		mounted(){
 

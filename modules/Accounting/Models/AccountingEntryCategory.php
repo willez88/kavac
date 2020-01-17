@@ -32,6 +32,6 @@ class AccountingEntryCategory extends Model implements Auditable
     public function accountingEntries()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = accountingEntryCategory_id, localKey = id)
-        return $this->hasMany(AccountingEntry::class, 'accounting_entry_categories_id');
+        return $this->hasMany(AccountingEntry::class);
     }
 }

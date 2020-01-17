@@ -56,7 +56,7 @@ class AccountingEntry extends Model implements Auditable
     public function accountingEntryCategory()
     {
         // belongsTo(RelatedModel, foreignKey = accountingEntryCategory_id, keyOnRelatedModel = id)
-        return $this->belongsTo(AccountingEntryCategory::class);
+        return $this->belongsTo(AccountingEntryCategory::class, 'accounting_entry_categories_id');
     }
 
     /**
@@ -80,14 +80,24 @@ class AccountingEntry extends Model implements Auditable
         // belongsTo(RelatedModel, foreignKey = curr_id, keyOnRelatedModel = id)
         return $this->belongsTo(Currency::class);
     }
+    /**
+     * AccountingEntry belongs to Institution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function institution()
+    {
+        // belongsTo(RelatedModel, foreignKey = institution_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Institution::class);
+    }
 
     /**
      * Query scope Column.
      *
      * @param
      * @param  \Illuminate\Database\Eloquent\Builder $query
-     * @param  [type] $column [nombre de la columna en la que se desea buscar]
-     * @param  [type] $search [texto que se buscara]
+     * @param  String $column [nombre de la columna en la que se desea buscar]
+     * @param  String $search [texto que se buscara]
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeColumn($query, $column, $search)

@@ -183,9 +183,6 @@ export default{
             'quantity': 'col-xs-2',
         };
     },
-    mounted(){
-        
-    },
     methods:{
 
         /**
@@ -239,9 +236,6 @@ export default{
             res += "1";
             return res;
         },
-    },
-    watch:{
-        // 
     },
     computed:{
         record_tax: function(){

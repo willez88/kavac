@@ -93,11 +93,18 @@ Vue.component('accounting-entry-listing', require('./components/entries/Accounti
 Vue.component('accounting-entry-form', require('./components/entries/AccountingFormComponent.vue').default);
 
 /**
+ * Componente para viasualizar en modal asiento contable
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('accounting-entry-show', require('./components/entries/AccountingShowComponent.vue').default);
+
+/**
  * Componente para cargar la tabla de cuentas patrimoniales para el asiento contable
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-entry-form-account', require('./components/entries/AccountingAccountsInFormComponent.vue').default);
+Vue.component('accounting-entry-form-account', require('./components/entries/AccountingAccountFormsComponent.vue').default);
 
 /**
  * Componente index para el reporte de balance de comprobación

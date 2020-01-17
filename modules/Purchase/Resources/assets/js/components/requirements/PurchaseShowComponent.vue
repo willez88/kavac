@@ -73,9 +73,6 @@ export default{
             'quantity': 'col-xs-2',
         };
     },
-    mounted(){
-        
-    },
     methods:{
 
         /**
@@ -86,15 +83,6 @@ export default{
         reset() {
             
         },
-    },
-    watch:{
-        records:function(res, ant) {
-            /**
-             * [records_list listado con las cuentas para la tabla]
-             * @type {array}
-             */
-            this.records_list = res;
-        }
     },
     computed:{
         contracting_department: function(){

@@ -60,14 +60,15 @@ class AccountingManageEntries implements ShouldQueue
          * Para actualizar
          */
         if ($newEntries) {
-            $newEntries->concept= $this->data['concept'];
-            $newEntries->observations = $this->data['observations'];
+            $newEntries->concept                        = $this->data['concept'];
+            $newEntries->observations                   = $this->data['observations'];
             $newEntries->accounting_entry_categories_id = ($this->data['category']!='')?
                 $this->data['category']: null;
-            $newEntries->institution_id = $this->data['institution_id'];
-            $newEntries->currency_id = $this->data['currency_id'];
-            $newEntries->tot_debit = $this->data['totDebit'];
-            $newEntries->tot_assets = $this->data['totAssets'];
+            $newEntries->institution_id                 = $this->data['institution_id'];
+            $newEntries->currency_id                    = $this->data['currency_id'];
+            $newEntries->tot_debit                      = $this->data['totDebit'];
+            $newEntries->tot_assets                     = $this->data['totAssets'];
+            $newEntries->save();
         } else {
             /**
              * Para crear
@@ -75,7 +76,7 @@ class AccountingManageEntries implements ShouldQueue
             $newEntries = AccountingEntry::create([
                     'from_date'                      => $this->data['date'],
                     'reference'                      => ($this->data['reference'])??
-                    $this->generateCodeAvailable(),
+                        $this->generateCodeAvailable(),
                     'concept'                        => $this->data['concept'],
                     'observations'                   => $this->data['observations'],
                     'accounting_entry_categories_id' => ($this->data['category']!='')? $this->data['category']: null,
@@ -83,10 +84,9 @@ class AccountingManageEntries implements ShouldQueue
                     'currency_id'                    => $this->data['currency_id'],
                     'tot_debit'                      => $this->data['totDebit'],
                     'tot_assets'                     => $this->data['totAssets'],
-                    'approved'                     => true,
+                    'approved'                       => false,
                     'created_at'                     => $created_at
                 ]);
-            $newEntries->save();
         }
 
         foreach ($this->data['accountingAccounts'] as $account) {
@@ -123,7 +123,6 @@ class AccountingManageEntries implements ShouldQueue
      */
     public function generateCodeAvailable()
     {
-        $institution = get_institution();
         $codeSetting = CodeSetting::where('table', 'accounting_entries')
                                     ->first();
 
