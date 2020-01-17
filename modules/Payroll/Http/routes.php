@@ -113,6 +113,10 @@ Route::group([
         'professional-informations/show/vue-list',
         'PayrollProfessionalInformationController@vueList'
     )->name('payroll.professional-informations.vue-list');
+    Route::get(
+        'get-json-professions',
+        'PayrollProfessionalInformationController@getJsonProfessions'
+    )->name('payroll.get-json-professions');
 
     Route::resource(
         'inactivity-types',

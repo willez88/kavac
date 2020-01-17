@@ -300,4 +300,15 @@ class PayrollProfessionalInformationController extends Controller
             'payrollStudyType','payrollLanguages'
         ])->get()], 200);
     }
+
+    /**
+     * Obtiene las profesiones sin usar template_choices
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de las profesiones
+     */
+    public function getJsonProfessions()
+    {
+        return response()->json(['jsonProfessions' => Profession::all()], 200);
+    }
 }

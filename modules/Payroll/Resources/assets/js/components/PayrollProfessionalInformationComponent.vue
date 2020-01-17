@@ -44,7 +44,7 @@
 						<div class="col-md-4" v-show="record.payroll_instruction_degree_id == 4 || record.payroll_instruction_degree_id == 5">
 							<div class="form-group is-required">
 								<label>Profesiones:</label>
-								<v-multiselect :options="professions" v-if="payroll_professional_information_id" track_by="name"
+								<v-multiselect :options="json_professions" v-if="payroll_professional_information_id" track_by="name"
 									:hide_selected="false" :selected="record.professions" v-model="record.professions">
 								</v-multiselect>
 								<v-multiselect :options="professions" v-else track_by="text"
@@ -178,6 +178,7 @@
 				payroll_staffs: [],
 				payroll_instruction_degrees: [],
 				professions: [],
+				json_professions: [],
 				payroll_study_types: [],
 				payroll_languages: [],
 				payroll_language_levels: [],
@@ -254,6 +255,7 @@
 		mounted() {
 			if(this.payroll_professional_information_id) {
 				this.getProfessionalInformation();
+				this.getJsonProfessions();
 			}
 			//Falta revisión en esta rutina, a veces sale el error de recursión
 			//No actualiza el campo switch al primer momento de cargar el componente

@@ -332,6 +332,18 @@ Vue.mixin({
 		},
 
 		/**
+		 * Obtiene los datos de las profesiones (pruebas)
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		getJsonProfessions() {
+			this.json_professions = [];
+			axios.get('/payroll/get-json-professions').then(response => {
+				this.json_professions = response.data.jsonProfessions;
+			});
+		},
+
+		/**
 		 * Obtiene los datos de tipos de inactividad registrados
 		 *
 		 * @author William Páez <wpaez@cenditel.gob.ve>
