@@ -3,9 +3,9 @@
 namespace Modules\Purchase\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Currency as BaseCurrency;
+use App\Models\Tax as BaseTax;
 
-class Currency extends BaseCurrency
+class Tax extends BaseTax
 {
     /**
      * Currency has many PurchaseBaseBudget.

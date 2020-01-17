@@ -62,11 +62,15 @@ class PurchaseBaseBudgetController extends Controller
         $this->validate($request, [
             'list'        => 'required|array',
             'currency_id' => 'required|int',
+            'tax_id'      => 'required|int',
         ], [
             'list.required'        => 'No es permitido guardar presupuesto base vacios.',
             'list.array'           => 'Los registros deben estar en una lista.',
             'currency_id.required' => 'El campo moneda es obligatorio.',
-            'currency_id.array'    => 'El campo moneda debe ser numerico.',
+            'currency_id.int'      => 'El campo moneda debe ser numerico.',
+            'tax_id.required'      => 'El campo del IVA es obligatorio, verifique que este registrado en la 
+            configuración base del sistema',
+            'tax_id.int'           => 'El campo del IVA debe ser numerico.',
         ]);
         $data = $request->all();
         $data['action'] = 'create';
@@ -78,9 +82,17 @@ class PurchaseBaseBudgetController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('purchase::show');
+        return response()->json(['records' => PurchaseBaseBudget::with(
+            'currency',
+            'tax.histories',
+            'purchaseRequirement.contratingDepartment',
+            'purchaseRequirement.userDepartment',
+            'purchaseRequirement.purchaseSupplierType',
+            'purchaseRequirement.fiscalYear',
+            'purchaseRequirement.purchaseRequirementItems.measurementUnit',
+        )->find($id)], 200);
     }
 
     /**
@@ -90,6 +102,7 @@ class PurchaseBaseBudgetController extends Controller
     public function edit($id)
     {
         $baseBudget = PurchaseBaseBudget::with(
+            'tax.histories',
             'purchaseRequirement.contratingDepartment',
             'purchaseRequirement.userDepartment',
             'purchaseRequirement.purchaseSupplierType',
@@ -127,11 +140,15 @@ class PurchaseBaseBudgetController extends Controller
         $this->validate($request, [
             'list'        => 'required|array',
             'currency_id' => 'required|int',
+            'tax_id' => 'required|int',
         ], [
             'list.required'        => 'No es permitido guardar presupuesto base vacios.',
             'list.array'           => 'Los registros deben estar en una lista.',
             'currency_id.required' => 'El campo moneda es obligatorio.',
-            'currency_id.array'    => 'El campo moneda debe ser numerico.',
+            'currency_id.int'      => 'El campo moneda debe ser numerico.',
+            'tax_id.required'      => 'El campo del IVA es obligatorio, verifique que este registrado en la 
+            configuración base del sistema',
+            'tax_id.int'           => 'El campo del IVA debe ser numerico.',
         ]);
 
         $data = $request->all();
@@ -148,6 +165,10 @@ class PurchaseBaseBudgetController extends Controller
     public function destroy($id)
     {
         PurchaseBaseBudget::find($id)->delete();
+        foreach (PurchaseRequirement::where('purchase_base_budget_id', $id) as $record) {
+            $record->purchase_base_budget_id = null;
+            $record->save();
+        }
         return response()->json(['message'=>'success'], 200);
     }
 }

@@ -86,13 +86,13 @@ class PurchaseRequirement extends Model implements Auditable
     }
     
     /**
-     * PurchaseRequirementItem belongs to purchaseBaseBudget.
+     * PurchaseRequirementItem belongs to PurchaseBaseBudget.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function purchaseBaseBudget()
     {
         // belongsTo(RelatedModel, foreignKey = purchaseBaseBudget_id, keyOnRelatedModel = id)
-        return $this->belongsTo(purchaseBaseBudget::class);
+        return $this->belongsTo(PurchaseBaseBudget::class);
     }
 }
