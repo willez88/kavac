@@ -108,4 +108,12 @@ class AccountingEntry extends Model implements Auditable
             return $query->orWhere($column, 'LIKE', "%$search%");
         }
     }
+
+    public function queryAccess($id)
+    {
+        if ($id != $this->institution_id && !auth()->user()->isAdmin()) {
+            return true;
+        }
+        return false;
+    }
 }

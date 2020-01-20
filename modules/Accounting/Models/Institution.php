@@ -17,4 +17,15 @@ class Institution extends BaseInstitution
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = institution_id, localKey = id)
         return $this->hasMany(AccoutingEntry::class);
     }
+
+    /**
+     * Institution has many .
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function accountingReportHistory()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = institution_id, localKey = id)
+        return $this->hasMany(AccountingReportHistory::class);
+    }
 }

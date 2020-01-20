@@ -9,10 +9,12 @@ use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
+use Modules\Accounting\Models\Profile;
+use Modules\Accounting\Models\Institution;
 use App\Repositories\ReportRepository;
-use App\Models\Institution;
 use Auth;
 
+// http://127.0.0.1:8000/accounting/entries/pdf/81158
 /**
  * @class AccountingReportPdfCheckupBalanceController
  * @brief Controlador para la generación del reporte del asiento contable
@@ -44,15 +46,22 @@ class AccountingEntryController extends Controller
     */
     public function pdf($id)
     {
-
-        /**
-         * [$entry información del asiento contable]
-         * @var AccountingEntry
-         */
         $entry = AccountingEntry::with(
             'accountingAccounts.account.accountConverters.budgetAccount',
             'currency'
         )->find($id);
+
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
+
+        // Se valida el acceso del usuario pertenezca a la institucion y distinto del admin
+        // if ($user_profile['institution']['id'] != $entry['institution_id'] && !auth()->user()->isAdmin()) {
+        //     return view('errors.403');
+        // }
 
         /**
          * [$setting configuración general de la apliación]
@@ -60,7 +69,7 @@ class AccountingEntryController extends Controller
          */
         $setting = Setting::all()->first();
         
-        $Entry   = true;
+        $OnlyOneEntry   = true;
 
         /**
          * [$pdf base para generar el pdf]
@@ -79,7 +88,7 @@ class AccountingEntryController extends Controller
             'pdf'      => $pdf,
             'entry'    => $entry,
             'currency' => $entry->currency,
-            'Entry'    => $Entry,
+            'Entry'    => $OnlyOneEntry,
         ]);
     }
 

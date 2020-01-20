@@ -3291,11 +3291,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       records: [],
       url: '/accounting/report/',
-      columns: ['name', 'created_at', 'range', 'interval', 'id']
+      columns: ['institution_name', 'name', 'created_at', 'range', 'interval', 'id']
     };
   },
   created: function created() {
     this.table_options.headings = {
+      'institution_name': 'INSTITUCIÓN',
       'created_at': 'FECHA DE GENERACIÓN',
       'interval': 'TIEMPO TRANSCURRIDO',
       'name': 'TIPO DE REPORTE',
@@ -3305,8 +3306,9 @@ __webpack_require__.r(__webpack_exports__);
     this.table_options.sortable = ['created_at', 'interval', 'name'];
     this.table_options.filterable = [];
     this.table_options.columnsClasses = {
-      'name': 'col-xs-6',
-      'created_at': 'col-xs-2',
+      'institution_name': 'col-xs-4',
+      'name': 'col-xs-2',
+      'created_at': 'col-xs-1',
       'range': 'col-xs-2',
       'interval': 'col-xs-2',
       'id': 'col-xs-1'
@@ -4712,6 +4714,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -4760,6 +4769,16 @@ __webpack_require__.r(__webpack_exports__);
     currency: function currency() {
       if (this.records.currency) {
         return this.records.currency.name;
+      }
+    },
+    currency_decimal_places: function currency_decimal_places() {
+      if (this.records.currency) {
+        return this.records.currency.decimal_places;
+      }
+    },
+    currency_symbol: function currency_symbol() {
+      if (this.records.currency) {
+        return this.records.currency.symbol;
       }
     },
     concept: function concept() {
@@ -9765,7 +9784,41 @@ var render = function() {
                       columns: _vm.columns,
                       data: _vm.accounting_accounts,
                       options: _vm.table_options
-                    }
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "debit",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(
+                                  props.debit.toFixed(
+                                    _vm.currency_decimal_places
+                                  )
+                                ) +
+                                "\n                        "
+                            )
+                          ])
+                        }
+                      },
+                      {
+                        key: "assets",
+                        fn: function(props) {
+                          return _c("div", { staticClass: "text-center" }, [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(
+                                  props.debit.toFixed(
+                                    _vm.currency_decimal_places
+                                  )
+                                ) +
+                                "\n                        "
+                            )
+                          ])
+                        }
+                      }
+                    ])
                   })
                 ],
                 1
