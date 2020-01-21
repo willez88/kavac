@@ -14,6 +14,7 @@ use Modules\Purchase\Models\PurchaseRequirementItem;
 use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\Warehouse;
 use App\Models\CodeSetting;
+use App\Models\Institution;
 use App\Rules\CodeSetting as CodeSettingRule;
 use App\Models\FiscalYear;
 
@@ -29,14 +30,6 @@ class PurchaseManageRequirements implements ShouldQueue
     protected $data;
 
     /**
-     * identificador que indica si se actualizara o se creara
-     *
-     * @var String $id
-     */
-    protected $id;
-
-
-    /**
      * Variable que contiene el tiempo de espera para la ejecución del trabajo,
      * si no se quiere limite de tiempo, se define en 0
      *
@@ -49,10 +42,9 @@ class PurchaseManageRequirements implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(array $data, int $id = null)
+    public function __construct(array $data)
     {
         $this->data = $data;
-        $this->id   = $id;
     }
 
     /**
@@ -63,8 +55,8 @@ class PurchaseManageRequirements implements ShouldQueue
     public function handle()
     {
         $data = $this->data;
-        if ($this->id) {
-            $requirement = PurchaseRequirement::find($this->id);
+        if ($data['action'] == 'create') {
+            $requirement = PurchaseRequirement::find($data['id_edit']);
 
             foreach ($data['toDelete'] as $toDeleteId) {
                 PurchaseRequirementItem::find($toDeleteId)->delete();
@@ -93,7 +85,7 @@ class PurchaseManageRequirements implements ShouldQueue
                     ]);
                 }
             }
-        } else {
+        } elseif ($data['action'] == 'update') {
             $data['code'] = $this->generateCodeAvailable();
             $requirement = PurchaseRequirement::create($data);
 
@@ -120,7 +112,6 @@ class PurchaseManageRequirements implements ShouldQueue
      */
     public function generateCodeAvailable()
     {
-        $institution = get_institution();
         $codeSetting = CodeSetting::where('table', 'purchase_requirements')
                                     ->first();
 

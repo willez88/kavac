@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Crypt;
-use App\Models\Institution;
 
 if (! function_exists('set_active_menu')) {
     /**
@@ -395,9 +394,9 @@ if (! function_exists('get_institution')) {
     function get_institution($id = null)
     {
         if ($id) {
-            return Institution::find($id);
+            return App\Models\Institution::find($id);
         }
-        return Institution::first();
+        return App\Models\Institution::first();
     }
 }
 

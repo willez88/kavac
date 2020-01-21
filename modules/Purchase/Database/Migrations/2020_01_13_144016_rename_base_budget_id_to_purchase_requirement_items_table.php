@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchaseBaseBudgetTable extends Migration
+class RenameBaseBudgetIdToPurchaseRequirementItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreatePurchaseBaseBudgetTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_base_budget', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            
-            $table->timestamps();
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+        Schema::table('purchase_requirement_items', function (Blueprint $table) {
+            if (Schema::hasColumn('purchase_requirement_items', 'base_budget_id')) {
+                $table->renameColumn('base_budget_id', 'purchase_base_budget_id');
+            }
         });
     }
 
@@ -28,6 +27,6 @@ class CreatePurchaseBaseBudgetTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_base_budget');
+        //
     }
 }
