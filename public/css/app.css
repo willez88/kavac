@@ -28272,6 +28272,12 @@ a.resalt-link {
   border-radius: 5px;
 }
 
+/** Estilos para captcha */
+
+.captcha-reload.vertical-middle {
+  margin: 25% auto;
+}
+
 /** Separadores superiores e inferiores */
 
 .pad-top-10 {

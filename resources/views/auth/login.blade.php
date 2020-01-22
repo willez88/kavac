@@ -46,11 +46,11 @@
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-8 text-right">
+                    <div class="col-md-9 text-right">
                         <div class="captcha-addon">{!! Captcha::img(); !!}</div>
                     </div>
-                    <div class="col-md-4 text-left">
-                        <i class="now-ui-icons arrows-1_refresh-69 cursor-pointer vertical-middle"
+                    <div class="col-md-3 text-left">
+                        <i class="now-ui-icons arrows-1_refresh-69 cursor-pointer captcha-reload vertical-middle"
                            onclick="refresh_captcha()" data-toggle="tooltip"
                            title="{{ __('Presione este botón para generar una nueva imagen de captcha') }}"></i>
                     </div>
