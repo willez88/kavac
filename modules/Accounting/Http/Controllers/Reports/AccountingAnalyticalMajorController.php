@@ -14,10 +14,10 @@ use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\ExchangeRate;
+use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Pdf\Pdf;
 
 use App\Repositories\ReportRepository;
-use App\Models\Institution;
 use Auth;
 
 /**
@@ -230,7 +230,7 @@ class AccountingAnalyticalMajorController extends Controller
             ->orderBy('generic', 'ASC')
             ->orderBy('specific', 'ASC')
             ->orderBy('subspecific', 'ASC')
-            ->orderBy('denomination', 'ASC')->get();
+            ->orderBy('denomination', 'ASC');
 
         $convertions = [];
 

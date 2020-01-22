@@ -11,6 +11,7 @@ use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\ExchangeRate;
+
 use App\Repositories\ReportRepository;
 
 use Auth;

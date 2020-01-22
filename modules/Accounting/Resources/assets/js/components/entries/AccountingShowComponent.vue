@@ -31,21 +31,64 @@
                                 <span class="badge badge-success" v-if="records.approved"> <strong>APROBADO </strong></span>
                                 <span class="badge badge-danger"  v-if="!records.approved">   <strong>NO APROBADO</strong></span>
                             </div>
-                            <div class="col-3"><strong>Categoria:</strong> {{ accounting_entry_category }}</div>
-                            <div class="col-3"><strong>Tipo de moneda:</strong> {{ currency }}</div>
+                            <div class="col-2"><strong>Categoria:</strong> {{ accounting_entry_category }}</div>
+                            <div class="col-4"><strong>Tipo de moneda:</strong> {{ currency }} (<strong>{{ currency_symbol }}</strong>)</div>
                             <div class="col-4"><strong>Institición:</strong> {{ institution }}</div>
                             <div class="col-4"><strong>Descripción ó concepto:</strong> {{ concept }}</div>
                             <div class="col-4"><strong>Observaciones:</strong> {{ observations }}</div>
                         </div>
                         <hr>
-                        <v-client-table :columns="columns" :data="accounting_accounts" :options="table_options">
-                            <div slot="debit" slot-scope="props" class="text-center">
-                                {{ props.debit.toFixed(currency_decimal_places) }}
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr class="row">
+                                            <th tabindex="0" class="col-8" style="border: 1px solid #dee2e6; position: relative;">
+                                                Denominación
+                                            </th>
+                                            <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">
+                                                Debe
+                                            </th>
+                                            <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">
+                                                Haber
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="row in accounting_accounts" class="row">
+                                            <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8 text-left">
+                                                {{ row.account.denomination }}
+                                            </td>
+                                            <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2 text-right">
+                                                {{ addDecimals(row.debit) }}
+                                            </td>
+                                            <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2 text-right">
+                                                {{ addDecimals(row.assets) }}
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8 text-left">
+                                                Totales Debe / Haber
+                                            </td>
+                                            <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2 text-right">
+                                                {{ currency_symbol }} {{ addDecimals(records.tot_debit) }}
+                                            </td>
+                                            <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2 text-right">
+                                                {{ currency_symbol }} {{ addDecimals(records.tot_assets) }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div slot="assets" slot-scope="props" class="text-center">
-                                {{ props.debit.toFixed(currency_decimal_places) }}
+                        </div>
+                        <!-- <v-client-table :columns="columns" :data="accounting_accounts" :options="table_options">
+                            <div slot="debit" slot-scope="props" class="text-right">
+                                {{ addDecimals(props.row.debit) }}
                             </div>
-                        </v-client-table>
+                            <div slot="assets" slot-scope="props" class="text-right">
+                                {{ addDecimals(props.row.assets) }}
+                            </div>
+                        </v-client-table> -->
                         
                     </div>
                 </div>
@@ -88,6 +131,9 @@ export default{
          */
         reset() {
             
+        },
+        addDecimals(value){
+            return parseFloat(value).toFixed(this.currency_decimal_places);
         },
     },
     computed:{

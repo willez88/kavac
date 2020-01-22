@@ -3602,6 +3602,9 @@ __webpack_require__.r(__webpack_exports__);
     reset: function reset() {
       EventBus.$emit('reset:accounting-entry-edit-create');
     },
+    addDecimals: function addDecimals(value) {
+      return parseFloat(value).toFixed(this.currency.decimal_places);
+    },
 
     /**
      * [validateTotals valida que los totales sean positivos]
@@ -4721,6 +4724,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -4748,7 +4794,10 @@ __webpack_require__.r(__webpack_exports__);
      *
      * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
      */
-    reset: function reset() {}
+    reset: function reset() {},
+    addDecimals: function addDecimals(value) {
+      return parseFloat(value).toFixed(this.currency_decimal_places);
+    }
   },
   computed: {
     reference: function reference() {
@@ -8337,24 +8386,12 @@ var render = function() {
                     _vm.data.totDebit.toFixed(_vm.currency.decimal_places) >= 0
                       ? _c("span", { staticStyle: { color: "#18ce0f" } }, [
                           _c("strong", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.data.totDebit.toFixed(
-                                  _vm.currency.decimal_places
-                                )
-                              )
-                            )
+                            _vm._v(_vm._s(_vm.addDecimals(_vm.data.totDebit)))
                           ])
                         ])
                       : _c("span", { staticStyle: { color: "#FF3636" } }, [
                           _c("strong", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.data.totDebit.toFixed(
-                                  _vm.currency.decimal_places
-                                )
-                              )
-                            )
+                            _vm._v(_vm._s(_vm.addDecimals(_vm.data.totDebit)))
                           ])
                         ])
                   ])
@@ -8372,24 +8409,12 @@ var render = function() {
                     _vm.data.totAssets.toFixed(_vm.currency.decimal_places) >= 0
                       ? _c("span", { staticStyle: { color: "#18ce0f" } }, [
                           _c("strong", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.data.totAssets.toFixed(
-                                  _vm.currency.decimal_places
-                                )
-                              )
-                            )
+                            _vm._v(_vm._s(_vm.addDecimals(_vm.data.totAssets)))
                           ])
                         ])
                       : _c("span", { staticStyle: { color: "#FF3636" } }, [
                           _c("strong", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.data.totAssets.toFixed(
-                                  _vm.currency.decimal_places
-                                )
-                              )
-                            )
+                            _vm._v(_vm._s(_vm.addDecimals(_vm.data.totAssets)))
                           ])
                         ])
                   ])
@@ -9751,14 +9776,16 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-3" }, [
+                    _c("div", { staticClass: "col-2" }, [
                       _c("strong", [_vm._v("Categoria:")]),
                       _vm._v(" " + _vm._s(_vm.accounting_entry_category))
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-3" }, [
+                    _c("div", { staticClass: "col-4" }, [
                       _c("strong", [_vm._v("Tipo de moneda:")]),
-                      _vm._v(" " + _vm._s(_vm.currency))
+                      _vm._v(" " + _vm._s(_vm.currency) + " ("),
+                      _c("strong", [_vm._v(_vm._s(_vm.currency_symbol))]),
+                      _vm._v(")")
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-4" }, [
@@ -9779,47 +9806,145 @@ var render = function() {
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
-                  _c("v-client-table", {
-                    attrs: {
-                      columns: _vm.columns,
-                      data: _vm.accounting_accounts,
-                      options: _vm.table_options
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "debit",
-                        fn: function(props) {
-                          return _c("div", { staticClass: "text-center" }, [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(
-                                  props.debit.toFixed(
-                                    _vm.currency_decimal_places
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c(
+                        "table",
+                        { staticClass: "table table-striped table-hover" },
+                        [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            [
+                              _vm._l(_vm.accounting_accounts, function(row) {
+                                return _c("tr", { staticClass: "row" }, [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "col-8 text-left",
+                                      staticStyle: {
+                                        border: "1px solid #dee2e6"
+                                      },
+                                      attrs: { tabindex: "0" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(row.account.denomination) +
+                                          "\n                                        "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "col-2 text-right",
+                                      staticStyle: {
+                                        border: "1px solid #dee2e6"
+                                      },
+                                      attrs: { tabindex: "0" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.addDecimals(row.debit)) +
+                                          "\n                                        "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "col-2 text-right",
+                                      staticStyle: {
+                                        border: "1px solid #dee2e6"
+                                      },
+                                      attrs: { tabindex: "0" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.addDecimals(row.assets)) +
+                                          "\n                                        "
+                                      )
+                                    ]
                                   )
-                                ) +
-                                "\n                        "
-                            )
-                          ])
-                        }
-                      },
-                      {
-                        key: "assets",
-                        fn: function(props) {
-                          return _c("div", { staticClass: "text-center" }, [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(
-                                  props.debit.toFixed(
-                                    _vm.currency_decimal_places
-                                  )
-                                ) +
-                                "\n                        "
-                            )
-                          ])
-                        }
-                      }
+                                ])
+                              }),
+                              _vm._v(" "),
+                              _c("tr", { staticClass: "row" }, [
+                                _c(
+                                  "td",
+                                  {
+                                    staticClass: "col-8 text-left",
+                                    staticStyle: {
+                                      border: "1px solid #dee2e6"
+                                    },
+                                    attrs: { tabindex: "0" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Totales Debe / Haber\n                                        "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    staticClass: "col-2 text-right",
+                                    staticStyle: {
+                                      border: "1px solid #dee2e6"
+                                    },
+                                    attrs: { tabindex: "0" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(_vm.currency_symbol) +
+                                        " " +
+                                        _vm._s(
+                                          _vm.addDecimals(_vm.records.tot_debit)
+                                        ) +
+                                        "\n                                        "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    staticClass: "col-2 text-right",
+                                    staticStyle: {
+                                      border: "1px solid #dee2e6"
+                                    },
+                                    attrs: { tabindex: "0" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(_vm.currency_symbol) +
+                                        " " +
+                                        _vm._s(
+                                          _vm.addDecimals(
+                                            _vm.records.tot_assets
+                                          )
+                                        ) +
+                                        "\n                                        "
+                                    )
+                                  ]
+                                )
+                              ])
+                            ],
+                            2
+                          )
+                        ]
+                      )
                     ])
-                  })
+                  ])
                 ],
                 1
               )
@@ -9853,6 +9978,56 @@ var staticRenderFns = [
         _c("i", { staticClass: "fa fa-list inline-block" }),
         _vm._v(
           "\n                        Asiento contable\n                    "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "row" }, [
+        _c(
+          "th",
+          {
+            staticClass: "col-8",
+            staticStyle: { border: "1px solid #dee2e6", position: "relative" },
+            attrs: { tabindex: "0" }
+          },
+          [
+            _vm._v(
+              "\n                                            Denominación\n                                        "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "col-2",
+            staticStyle: { border: "1px solid #dee2e6", position: "relative" },
+            attrs: { tabindex: "0" }
+          },
+          [
+            _vm._v(
+              "\n                                            Debe\n                                        "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "col-2",
+            staticStyle: { border: "1px solid #dee2e6", position: "relative" },
+            attrs: { tabindex: "0" }
+          },
+          [
+            _vm._v(
+              "\n                                            Haber\n                                        "
+            )
+          ]
         )
       ])
     ])

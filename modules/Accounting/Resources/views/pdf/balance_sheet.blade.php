@@ -29,7 +29,8 @@
 		@if($level >= 2 )
 		{{-- $parent['children'] es un array con las cuenta de nivel 2 --}}
 		@foreach($parent['children'] as $children2)
-			@if($parent['show_children'] || $parent['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
+
+			@if($parent['level'] > $level && $parent['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
 				{{-- No muestra nada --}}
 			@else
 				<tr>
@@ -43,7 +44,7 @@
 			@if($level >= 3 )
 			{{-- $children2['children'] es un array con las cuenta de nivel 3 --}}
 			@foreach($children2['children'] as $children3)
-				@if($children2['show_children'] || $children2['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
+				@if($children2['level'] > $level && $children2['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
 					{{-- No muestra nada --}}
 				@else
 					<tr>
@@ -56,7 +57,7 @@
 				@if($level >= 4 )
 				{{-- $children3['children'] es un array con las cuenta de nivel 4 --}}
 				@foreach($children3['children'] as $children4)
-					@if($children3['show_children'] || $children3['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
+					@if($children3['level'] > $level && $children3['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
 						{{-- No muestra nada --}}
 					@else
 						<tr>
@@ -69,7 +70,7 @@
 					@if($level >= 5 )
 					{{-- $children4['children'] es un array con las cuenta de nivel 5 --}}
 					@foreach($children4['children'] as $children5)
-						@if($children4['show_children'] || $children4['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
+						@if($children4['level'] > $level && $children4['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
 							{{-- No muestra nada --}}
 						@else
 							<tr>
@@ -82,7 +83,7 @@
 						@if($level == 6 )
 						{{-- $children5['children'] es un array con las cuenta de nivel 6 --}}
 						@foreach($children5['children'] as $children6)
-							@if($children5['show_children'] || $children5['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
+							@if($children5['level'] > $level && $children5['balance'] == number_format(0, (int)$currency->decimal_places, ',', '.') && !$zero)
 								{{-- No muestra nada --}}
 							@else
 								<tr>

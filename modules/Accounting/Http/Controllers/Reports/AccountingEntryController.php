@@ -11,6 +11,7 @@ use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\Institution;
+
 use App\Repositories\ReportRepository;
 use Auth;
 
@@ -57,11 +58,6 @@ class AccountingEntryController extends Controller
         if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
             return view('errors.403');
         }
-
-        // Se valida el acceso del usuario pertenezca a la institucion y distinto del admin
-        // if ($user_profile['institution']['id'] != $entry['institution_id'] && !auth()->user()->isAdmin()) {
-        //     return view('errors.403');
-        // }
 
         /**
          * [$setting configuración general de la apliación]

@@ -12,8 +12,11 @@ use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\ExchangeRate;
+use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Profile;
+
 use App\Repositories\ReportRepository;
-use App\Models\Institution;
+
 use Auth;
 use DateTime;
 
@@ -104,21 +107,39 @@ class AccountingStateOfResultsController extends Controller
          */
         $endDate = $date.'-'.$day;
 
+        $institution_id = null;
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        $is_admin = auth()->user()->isAdmin();
+
         /**
          * consulta de cada cuenta y asiento que pertenezca a ACTIVO, PASIVO, PATRIMONIO y CUENTA DE ORDEN
          * [$query registros de las cuentas patrimoniales seleccionadas]
          * @var Modules\Accounting\Models\AccountingAccount
          */
         $query = AccountingAccount::with('entryAccount.entries.currency')
-            ->with(['entryAccount.entries' => function ($query) use ($endDate, $date) {
-                if ($query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
-                    ->where('approved', true)) {
-                    $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
-                    ->where('approved', true);
+            ->with(['entryAccount.entries' => function ($query) use ($endDate, $date, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    if ($query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                        ->where('approved', true)->where('institution_id', $institution_id)) {
+                        $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                        ->where('approved', true)->where('institution_id', $institution_id);
+                    }
+                } else {
+                    if ($is_admin) {
+                        $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                        ->where('approved', true)->where('institution_id', $institution_id);
+                    }
                 }
             }])
-            ->whereHas('entryAccount.entries', function ($query) use ($endDate, $date) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            ->whereHas('entryAccount.entries', function ($query) use ($endDate, $date, $institution_id, $is_admin) {
+                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                        ->where('approved', true)->where('institution_id', $institution_id);
             })
             ->whereBetween('group', [5, 6])
             ->orderBy('group', 'ASC')
@@ -199,8 +220,6 @@ class AccountingStateOfResultsController extends Controller
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
 
-        $institution = get_institution();
-
         /**
          * [$report almacena el registro del reporte del dia si existe]
          * @var [type]
@@ -210,7 +229,7 @@ class AccountingStateOfResultsController extends Controller
                                                                         $currentDate.' 23:59:59'
                                                                     ])
                                         ->where('report', 'Estado de Resultados')
-                                        ->where('institution_id', $institution->id)->first();
+                                        ->where('institution_id', $institution_id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -221,13 +240,13 @@ class AccountingStateOfResultsController extends Controller
                     'report'         => 'Estado de Resultados',
                     'url'            => $url,
                     'currency_id'    => $currency->id,
-                    'institution_id' => $institution->id,
+                    'institution_id' => $institution_id,
                 ]
             );
         } else {
             $report->url            = $url;
             $report->currency_id    = $currency->id;
-            $report->institution_id = $institution->id;
+            $report->institution_id = $institution_id;
             $report->save();
         }
         return response()->json(['result'=>true, 'id'=>$report->id], 200);
@@ -241,11 +260,24 @@ class AccountingStateOfResultsController extends Controller
     public function pdf($report)
     {
         $report  = AccountingReportHistory::with('currency')->find($report);
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
         $endDate = explode('/', $report->url)[1];
         $level   = explode('/', $report->url)[2];
         $zero    = explode('/', $report->url)[3];
         $date    = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1];
         $this->setCurrency($report->currency);
+
+        $institution_id = null;
+
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        $is_admin = auth()->user()->isAdmin();
 
         /**
          * [$level_1 establece la consulta de ralación que se desean realizar]
@@ -287,23 +319,53 @@ class AccountingStateOfResultsController extends Controller
         * Se realiza la consulta de cada cuenta y asiento que pertenezca a INGRESOS Y GASTOS
         */
         $records = AccountingAccount::with($level_1, $level_2, $level_3, $level_4, $level_5, $level_6)
-            ->with([$level_1 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_1 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_2 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_2 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_3 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_3 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_4 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_4 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_5 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_5 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_6 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_6 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
             ->whereBetween('group', [5, 6])
             ->where('subgroup', 0)
@@ -403,15 +465,9 @@ class AccountingStateOfResultsController extends Controller
                     ),
                     'level'         => $level,
                     'children'      => [],
-                    'show_children' => false,
                 ]);
                 $parent[$pos]['children'] = $this->formatDataInArray($account->children, $initD, $endD, $level+1);
 
-                /**
-                * El atributo 'show_children' se establece que si la cuenta tiene hijos estos se mostraran por omisión
-                * aun si no se deseanmostrar cuentas con saldo 0
-                */
-                $parent[$pos]['show_children'] = (count($parent[$pos]['children']) > 0)?false:true;
                 $pos++;
             }
             return $parent;
