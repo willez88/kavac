@@ -81,8 +81,17 @@ Route::group([
     Route::resource('base_budget', 'PurchaseBaseBudgetController', [
         'as'     => 'purchase',
     ]);
-    // Route::get('base-budget', 'PurchaseRequirementController@baseBudget')
-    // ->name('purchase.base_budget');
-
     Route::get('requirement-items', 'PurchaseRequirementController@getRequirementItems');
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de planes de compras
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los plan de compras
+     */
+    // Route::post('purchase_plans', 'PurchasePlanController@store');
+    Route::resource('purchase_plans', 'PurchasePlanController', [
+        'as'     => 'purchase',
+    ]);
 });

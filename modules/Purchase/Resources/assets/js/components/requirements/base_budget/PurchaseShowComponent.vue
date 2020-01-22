@@ -36,67 +36,69 @@
                     </div>
                     <hr>
                     <div class="modal-body">
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr class="row">
-                                    <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">Código de requerimiento</th>
-                                    <th tabindex="0" class="col-3" style="border: 1px solid #dee2e6; position: relative;">Nombre</th>
-                                    <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">Unidad de medida</th>
-                                    <th tabindex="0" class="col-1" style="border: 1px solid #dee2e6; position: relative;">Cantidad</th>
-                                    <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">Precio Unitario sin IVA</th>
-                                    <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">cantidad * Precio unitario</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="varr in purchase_requirement_items" class="row">
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        {{ varr.requirement_code }}
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-3">
-                                        {{ varr.name }}
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        {{ varr.measurement_unit.acronym }}
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-1">
-                                        {{ varr.quantity }}
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        {{ varr.unit_price }}
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        <h6 align="right">{{ CalculateQtyPrice(varr.qty_price) }}</h6>
-                                    </td>
-                                </tr>
-                                <tr class="row">
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        <h6 align="right">SUB TOTAL {{ currency_symbol }}</h6>
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        <h6 align="right">{{ (sub_total).toFixed((currency)?currency.decimal_places:'') }}</h6>
-                                    </td>
-                                </tr>
-                                <tr class="row">
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        <h6 align="right">{{ (record_tax)?record_tax.percentage:'' }} % IVA {{ currency_symbol }}</h6>
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        <h6 align="right">{{ (tax).toFixed((currency)?currency.decimal_places:'') }}</h6>
-                                    </td>
-                                </tr>
-                                <tr class="row">
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        <h6 align="right">TOTAL {{ currency_symbol }}</h6>
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                        <h6 align="right">{{ (total).toFixed((currency)?currency.decimal_places:'') }}</h6>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="row col-12">
+                            <table class="table table-striped table-hover" style="margin-left: 2rem;">
+                                <thead>
+                                    <tr class="row">
+                                        <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">Código de requerimiento</th>
+                                        <th tabindex="0" class="col-3" style="border: 1px solid #dee2e6; position: relative;">Nombre</th>
+                                        <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">Unidad de medida</th>
+                                        <th tabindex="0" class="col-1" style="border: 1px solid #dee2e6; position: relative;">Cantidad</th>
+                                        <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">Precio Unitario sin IVA</th>
+                                        <th tabindex="0" class="col-2" style="border: 1px solid #dee2e6; position: relative;">cantidad * Precio unitario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="varr in purchase_requirement_items" class="row">
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
+                                            {{ varr.requirement_code }}
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-3">
+                                            {{ varr.name }}
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
+                                            {{ varr.measurement_unit.acronym }}
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-1">
+                                            {{ varr.quantity }}
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2 text-right">
+                                            {{ addDecimals(varr.unit_price) }}
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
+                                            <h6 align="right">{{ CalculateQtyPrice(varr.qty_price) }}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr class="row">
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8"></td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
+                                            <h6 align="right">SUB TOTAL {{ currency_symbol }}</h6>
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
+                                            <h6 align="right">{{ (sub_total).toFixed((currency)?currency.decimal_places:'') }}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr class="row">
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8"></td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
+                                            <h6 align="right">{{ (record_tax)?record_tax.percentage:'' }} % IVA {{ currency_symbol }}</h6>
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
+                                            <h6 align="right">{{ (tax).toFixed((currency)?currency.decimal_places:'') }}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr class="row">
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8"></td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
+                                            <h6 align="right">TOTAL {{ currency_symbol }}</h6>
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
+                                            <h6 align="right">{{ (total).toFixed((currency)?currency.decimal_places:'') }}</h6>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,6 +196,10 @@ export default{
             
         },
 
+        addDecimals(value){
+            return parseFloat(value).toFixed(this.currency_decimal_places);
+        },
+
         CalculateQtyPrice(qty_price){
             return (qty_price)?(qty_price).toFixed((this.currency)?this.currency.decimal_places:''):0;
         },
@@ -245,6 +251,11 @@ export default{
         },
         currency_symbol: function(){
             return (this.records.currency)?this.records.currency.symbol:'';
+        },
+        currency_decimal_places: function(){
+            if (this.records.currency) {
+                return this.records.currency.decimal_places;
+            }
         },
         currency:function(){
             return (this.records.currency)?this.records.currency:null;

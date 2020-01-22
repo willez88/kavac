@@ -17,12 +17,12 @@ use Modules\Purchase\Models\PurchaseSupplierType;
 use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\Warehouse;
 
+use Modules\Purchase\Models\FiscalYear;
+use Modules\Purchase\Models\Currency;
+use Modules\Purchase\Models\MeasurementUnit;
+
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
-use App\Models\FiscalYear;
-use App\Models\Currency;
-use App\Models\HistoryTax;
-use App\Models\MeasurementUnit;
 use Auth;
 
 class PurchaseRequirementController extends Controller
