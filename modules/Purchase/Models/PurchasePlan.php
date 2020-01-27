@@ -24,5 +24,27 @@ class PurchasePlan extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['init_date', 'end_date', 'purchase_processes_id'];
+    protected $fillable = ['init_date', 'end_date', 'purchase_processes_id', 'purchase_type_id'];
+
+    /**
+     * PurchasePlan belongs to PurchaseProcess.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseProcess()
+    {
+        // belongsTo(RelatedModel, foreignKey = purchaseProcess_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseProcess::class, 'purchase_processes_id');
+    }
+
+    /**
+     * PurchasePlan belongs to PurchaseType.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseType()
+    {
+        // belongsTo(RelatedModel, foreignKey = purchaseType_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseType::class);
+    }
 }

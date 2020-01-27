@@ -7,14 +7,14 @@
             <div class="row">
                 <div class="col-3">
                     <div class="form-group is-required">
-                        <label class="control-label" for="purchase_types">Modo de compra</label><br>
-                        <select2 :options="purchase_types" id="purchase_types" v-model="record.purchase_type_id"></select2>
+                        <label class="control-label" for="purchase_types">Tipo de compra</label><br>
+                        <select2 :options="purchase_types" id="purchase_types" @input="loadPurchaseProcess()" v-model="record.purchase_type_id"></select2>
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group is-required">
-                        <label class="control-label" for="purchase_proccess">Proceso de compra</label><br>
-                        <select2 :options="purchase_proccess" id="purchase_proccess" v-model="record.purchase_proccess_id"></select2>
+                        <label class="control-label" for="purchase_process">Proceso de compra</label><br>
+                        <select2 :options="purchase_process" :disabled="disabledInputProcess" id="purchase_process" v-model="record.purchase_processes_id"></select2>
                     </div>
                 </div>
                 <div class="col-3">
@@ -54,7 +54,7 @@
                     return [];
                 }
             },
-            purchase_proccess:{
+            purchase_process:{
                 type:Array,
                 default: function(){
                     return [];
@@ -79,9 +79,10 @@
                     end_date:'',
                     init_date:'',
                     purchase_type_id:'',
-                    purchase_proccess_id:'',
+                    purchase_processes_id:'',
                     empelados_responsable_id:'',
                 },
+                disabledInputProcess:false,
             }
         },
         mounted(){
@@ -95,17 +96,75 @@
                     end_date:'',
                     init_date:'',
                     purchase_type_id:'',
-                    purchase_proccess_id:'',
+                    purchase_processes_id:'',
                     empelados_responsable_id:'',
                 };
                 this.$refs.PurchaseFormComponent.reset();
             },
 
             createRecord(){
-                if (!this.record_edit) {
+                const vm = this;
+
+                vm.loading = true;
+                if (!vm.record_edit) {
+                    axios.post('/purchase/purchase_plans', vm.record).then(response=>{
+                        vm.loading = false;
+                        vm.showMessage('store');
+                        setTimeout(function() {
+                            location.href = '/purchase/purchase_plans';
+                        }, 2000);
+                    }).catch(error=>{
+                        vm.loading = false;
+                        vm.$refs.PurchaseFormComponent.reset();
+                        var errors = [];
+                        if (typeof(error.response) != 'undefined') {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    errors.push(error.response.data.errors[index][0]);
+                                }
+                            }
+                        }
+                        vm.$refs.PurchaseFormComponent.showAlertMessages(errors);
+                    });
                     console.log('crear registro');
                 }else{
+                    axios.put('/purchase/purchase_plans/'+this.record_edit.id, vm.record).then(response=>{
+                        vm.loading = false;
+                        vm.showMessage('update');
+                        setTimeout(function() {
+                            location.href = '/purchase/purchase_plans';
+                        }, 2000);
+                    }).catch(error=>{
+                        vm.loading = false;
+                        vm.$refs.PurchaseFormComponent.reset();
+                        var errors = [];
+                        if (typeof(error.response) != 'undefined') {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    errors.push(error.response.data.errors[index][0]);
+                                }
+                            }
+                        }
+                        vm.$refs.PurchaseFormComponent.showAlertMessages(errors);
+                    });
                     console.log('editar registro');
+                }
+            },
+            loadPurchaseProcess(){
+                for (var i = 0; i < this.purchase_types.length; i++) {
+                    if(this.purchase_types[i].id == this.record.purchase_type_id){
+                        if (this.record.purchase_processes_id != this.purchase_types[i].purchase_processes_id) {
+                            this.record.purchase_processes_id = this.purchase_types[i].purchase_processes_id;
+
+                            this.disabledInputProcess = true;
+
+                            if (!this.purchase_types[i].purchase_processes_id) {
+                                this.disabledInputProcess = false;    
+                            }
+
+                            break;
+                        }
+                    }
                 }
             },
 

@@ -21,7 +21,6 @@
                     </div>
                     <!-- Fromulario -->
                     <div class="modal-body">
-                        <purchase-show-errors ref="accountingAccountForm" />
                         <hr>
                         <h6>INFORMACIÓN DEL REQUERIMIENTO</h6>
                         <br>

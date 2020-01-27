@@ -94,4 +94,16 @@ Route::group([
     Route::resource('purchase_plans', 'PurchasePlanController', [
         'as'     => 'purchase',
     ]);
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de tipos de compras
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los tipos de compras
+     */
+    // Route::post('purchase_plans', 'PurchasePlanController@store');
+    Route::resource('purchase_types', 'PurchaseTypesController', [
+        'as'     => 'purchase',
+    ]);
 });

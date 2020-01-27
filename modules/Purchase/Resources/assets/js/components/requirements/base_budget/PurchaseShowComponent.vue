@@ -21,7 +21,6 @@
                     </div>
                     <!-- Fromulario -->
                     <div class="modal-body">
-                        <purchase-show-errors ref="accountingAccountForm" />
                         <h6>INFORMACIÓN DE LOS REQUERIMIENTOS</h6>
                         <hr>
                         <v-client-table :columns="column_requirements" :data="purchase_requirement" :options="table_option_requirements">
