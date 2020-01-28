@@ -98,6 +98,20 @@ Vue.component('payroll-contract-types', require('./components/settings/PayrollCo
 Vue.component('payroll-sector-types', require('./components/settings/PayrollSectorTypesComponent.vue').default);
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de grados de licencia de conducir
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-license-degrees', require('./components/settings/PayrollLicenseDegreesComponent.vue').default);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de sangre
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-blood-types', require('./components/settings/PayrollBloodTypesComponent.vue').default);
+
+/**
  * Componente para mostrar listado de información personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>

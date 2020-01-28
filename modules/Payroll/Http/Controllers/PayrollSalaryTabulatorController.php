@@ -11,6 +11,12 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollSalaryTabulator;
 use Modules\Payroll\Models\PayrollSalaryTabulatorScale;
 
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Payroll\Exports\PayrollSalaryTabulatorExport;
+
+use Illuminate\Validation\Rule;
+use Modules\Payroll\Rules\PayrollSalaryScales;
+
 /**
  * @class PayrollSalaryTabulatorController
  * @brief Controlador de los tabuladores salariales
@@ -67,17 +73,13 @@ class PayrollSalaryTabulatorController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code'                            => ['required'],
+            'code'                            => ['required', Rule::unique('payroll_salary_tabulators')],
             'name'                            => ['required'],
-            'description'                     => ['required'],
             'currency_id'                     => ['required'],
-            //'institution_id'                  => ['required'],
-            'payroll_salary_tabulator_scales' => ['required'],
+            'institution_id'                  => ['required'],
+            'payroll_salary_tabulator_scales' => ['required', new PayrollSalaryScales()],
             'payroll_staff_type_id'           => ['required'],
         ]);
-        /**
-         * Crear regla para validar las escalas (payroll_scales)
-         */
         
         DB::transaction(function () use ($request) {
             $salaryTabulator = PayrollSalaryTabulator::create([
@@ -118,18 +120,18 @@ class PayrollSalaryTabulatorController extends Controller
     {
         $salaryTabulator = PayrollSalaryTabulator::where('id', $id)->first();
         $this->validate($request, [
-            'code'                            => ['required'],
+            'code'                            => [
+                                                    'required',
+                                                    Rule::unique('payroll_salary_tabulators')
+                                                        ->ignore($salaryTabulator->id)
+                                                 ],
             'name'                            => ['required'],
-            'description'                     => ['required'],
             'currency_id'                     => ['required'],
-            //'institution_id'                  => ['required'],
-            'payroll_salary_tabulator_scales' => ['required'],
+            'institution_id'                  => ['required'],
+            'payroll_salary_tabulator_scales' => ['required', new PayrollSalaryScales()],
             'payroll_staff_type_id'           => ['required'],
         ]);
 
-        /**
-         * Crear regla para validar las escalas (payroll_scales)
-         */
         DB::transaction(function () use ($request, $salaryTabulator) {
             $salaryTabulator->update([
                 'code'                               => $request->input('code'),
@@ -254,5 +256,20 @@ class PayrollSalaryTabulatorController extends Controller
     public function getSalaryTabulators()
     {
         return template_choices('Modules\Payroll\Models\PayrollSalaryTabulator', 'name', '', true);
+    }
+
+    /**
+     * Exporta un tabulador salarial
+     * @param  Integer $id                   Identificador único del tabulador salarial a exportar
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function export($id)
+    {
+        $payrollSalaryTabulator = PayrollSalaryTabulator::where('id', $id)->first();
+        if ($payrollSalaryTabulator) {
+            $export = new PayrollSalaryTabulatorExport(PayrollSalaryTabulator::class);
+            $export->setSalaryTabulatorId($payrollSalaryTabulator->id);
+            return Excel::download($export, 'salary_tabulator'. $payrollSalaryTabulator->created_at . '.xlsx');
+        }
     }
 }

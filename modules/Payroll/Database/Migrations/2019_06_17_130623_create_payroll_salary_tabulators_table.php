@@ -27,22 +27,22 @@ class CreatePayrollSalaryTabulatorsTable extends Migration
     {
         if (!Schema::hasTable('payroll_salary_tabulators')) {
             Schema::create('payroll_salary_tabulators', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name')->comment('Nombre del tabulador salarial');
                 $table->text('description')->nullable()->comment('Descripción del tabulador salarial');
                 $table->boolean('active')->default(true)->comment('Indica si el tabulador esta activo');
 
-                $table->integer('payroll_position_type_id')->unsigned()->nullable()
+                $table->bigInteger('payroll_position_type_id')->unsigned()->nullable()
                       ->comment('Identificador único del tipo de cargo al que se aplica el tabulador salarial');
                 $table->foreign('payroll_position_type_id')->references('id')->on('payroll_position_types')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('payroll_horizontal_salary_scale_id')->unsigned()->nullable()
+                $table->bigInteger('payroll_horizontal_salary_scale_id')->unsigned()->nullable()
                       ->comment('Identificador único del escalafón salarial horizontal asociado al tabulador');
                 $table->foreign('payroll_horizontal_salary_scale_id')->references('id')->on('payroll_salary_scales')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('payroll_vertical_salary_scale_id')->unsigned()->nullable()
+                $table->bigInteger('payroll_vertical_salary_scale_id')->unsigned()->nullable()
                       ->comment('Identificador único del escalafón vertical salarial asociado al tabulador');
                 $table->foreign('payroll_vertical_salary_scale_id')->references('id')->on('payroll_salary_scales')
                       ->onDelete('restrict')->onUpdate('cascade');

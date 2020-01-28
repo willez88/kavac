@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-    Botones
+    {{ __('Botones') }}
 @stop
 
 @section('maproute-title')
-    Botones
+    {{ __('Botones') }}
 @stop
 
 @section('content')
@@ -21,59 +21,59 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Botones</h6>
+                    <h6 class="card-title">{{ __('Botones') }}</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="pad-top-10">Estilos</h6>
+                    <h6 class="pad-top-10">{{ __('Estilos') }}</h6>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-primary" type="button">Por deefecto</button>
-                            <button class="btn btn-primary btn-round" type="button">Redondeado</button>
+                            <button class="btn btn-primary" type="button">{{ __('Por defecto') }}</button>
+                            <button class="btn btn-primary btn-round" type="button">{{ __('Redondeado') }}</button>
                             <button class="btn btn-primary btn-round" type="button">
-                                <i class="now-ui-icons ui-2_favourite-28"></i> Con Icono
+                                <i class="now-ui-icons ui-2_favourite-28"></i> {{ __('Con Icono') }}
                             </button>
                             <button class="btn btn-primary btn-icon btn-round" type="button">
                                 <i class="now-ui-icons ui-2_favourite-28"></i>
                             </button>
-                            <button class="btn btn-primary btn-simple btn-round" type="button">Simple</button>
+                            <button class="btn btn-primary btn-simple btn-round" type="button">{{ __('Simple') }}</button>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Tamaños</h6>
+                    <h6 class="pad-top-10">{{ __('Tamaños') }}</h6>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-primary btn-sm">Pequeño</button>
-                            <button class="btn btn-primary">Normal</button>
-                            <button class="btn btn-primary btn-lg">Grande</button>
+                            <button class="btn btn-primary btn-sm">{{ __('Pequeño') }}</button>
+                            <button class="btn btn-primary">{{ __('Normal') }}</button>
+                            <button class="btn btn-primary btn-lg">{{ __('Grande') }}</button>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Colores</h6>
+                    <h6 class="pad-top-10">{{ __('Colores') }}</h6>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn">Default</button>
-                            <button class="btn btn-primary">Primary</button>
-                            <button class="btn btn-info">Info</button>
-                            <button class="btn btn-success">Success</button>
-                            <button class="btn btn-warning">Warning</button>
-                            <button class="btn btn-danger">Danger</button>
-                            <button class="btn btn-neutral">Neutral</button>
+                            <button class="btn">{{ __('Default') }}</button>
+                            <button class="btn btn-primary">{{ __('Primary') }}</button>
+                            <button class="btn btn-info">{{ __('Info') }}</button>
+                            <button class="btn btn-success">{{ __('Success') }}</button>
+                            <button class="btn btn-warning">{{ __('Warning') }}</button>
+                            <button class="btn btn-danger">{{ __('Danger') }}</button>
+                            <button class="btn btn-neutral">{{ __('Neutral') }}</button>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Enlaces</h6>
+                    <h6 class="pad-top-10">{{ __('Enlaces') }}</h6>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-link">Default</button>
-                            <button class="btn btn-link btn-primary ">Primary</button>
-                            <button class="btn btn-link btn-info">Info</button>
-                            <button class="btn btn-link btn-success">Success</button>
-                            <button class="btn btn-link btn-warning">Warning</button>
-                            <button class="btn btn-link btn-danger">Danger</button>
+                            <button class="btn btn-link">{{ __('Default') }}</button>
+                            <button class="btn btn-link btn-primary ">{{ __('Primary') }}</button>
+                            <button class="btn btn-link btn-info">{{ __('Info') }}</button>
+                            <button class="btn btn-link btn-success">{{ __('Success') }}</button>
+                            <button class="btn btn-link btn-warning">{{ __('Warning') }}</button>
+                            <button class="btn btn-link btn-danger">{{ __('Danger') }}</button>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Acciones de formularios</h6>
+                    <h6 class="pad-top-10">{{ __('Acciones de formularios') }}</h6>
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-default btn-icon btn-round">
@@ -87,7 +87,7 @@
                             </button>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Acciones de Registros</h6>
+                    <h6 class="pad-top-10">{{ __('Acciones de Registros') }}</h6>
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-sm btn-primary btn-custom btn-mini">
@@ -126,7 +126,7 @@
                             </button>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Acciones en gráficos</h6>
+                    <h6 class="pad-top-10">{{ __('Acciones en gráficos') }}</h6>
                     <div class="row" style="padding-bottom: 40px">
                         <div class="col-md-10 offset-2">
                             <div class="dropdown">

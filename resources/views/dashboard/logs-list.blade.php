@@ -2,7 +2,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title">Auditoria de Registros</h6>
+				<h6 class="card-title">{{ __('Auditoria de Registros') }}</h6>
 				<div class="card-btns">
 					@include('buttons.minimize')
 				</div>
@@ -11,7 +11,7 @@
 				<form action="" method="get" accept-charset="utf-8">
 					<div class="row">
 						<div class="col-md-2">
-							<b>Filtros</b>
+							<b>{{ __('Filtros') }}</b>
 						</div>
 						<div class="form-group col-md-2">
 							<div class="input-group input-sm">
@@ -19,8 +19,8 @@
 			                        <i class="now-ui-icons ui-1_calendar-60"></i>
 			                    </span>
 			                    {!! Form::date('start_date', old('start_date'), [
-			                        'class' => 'form-control', 'placeholder' => 'Desde',
-			                        'title' => 'Fecha de inicio de la consulta', 'data-toggle' => 'tooltip'
+			                        'class' => 'form-control', 'placeholder' => __('Desde'),
+			                        'title' => __('Fecha de inicio de la consulta'), 'data-toggle' => 'tooltip'
 			                    ]) !!}
 			                </div>
 						</div>
@@ -30,8 +30,8 @@
 			                        <i class="now-ui-icons ui-1_calendar-60"></i>
 			                    </span>
 			                    {!! Form::date('end_date', old('end_date'), [
-			                        'class' => 'form-control', 'placeholder' => 'Hasta',
-			                        'title' => 'Fecha final de la consulta', 'data-toggle' => 'tooltip'
+			                        'class' => 'form-control', 'placeholder' => __('Hasta'),
+			                        'title' => __('Fecha final de la consulta'), 'data-toggle' => 'tooltip'
 			                    ]) !!}
 			                </div>
 						</div>
@@ -41,8 +41,8 @@
 			                        <i class="now-ui-icons users_circle-08"></i>
 			                    </span>
 			                    {!! Form::text('user', old('user'), [
-			                        'class' => 'form-control', 'placeholder' => 'Usuario',
-			                        'title' => 'Consulta por usuario', 'data-toggle' => 'tooltip'
+			                        'class' => 'form-control', 'placeholder' => __('Usuario'),
+			                        'title' => __('Consulta por usuario'), 'data-toggle' => 'tooltip'
 			                    ]) !!}
 			                </div>
 						</div>
@@ -52,16 +52,16 @@
 			                        <i class="now-ui-icons design_app"></i>
 			                    </span>
 			                    {!! Form::text('module', old('module'), [
-			                        'class' => 'form-control', 'placeholder' => 'Modulo',
-			                        'title' => 'Consulta por módulo de la aplicación', 'data-toggle' => 'tooltip'
+			                        'class' => 'form-control', 'placeholder' => __('Modulo'),
+			                        'title' => __('Consulta por módulo de la aplicación'), 'data-toggle' => 'tooltip'
 			                    ]) !!}
 			                </div>
 						</div>
 						<div class="form-group col-md-2">
-							{!! Form::button('Buscar <i class="fa fa-search"></i>', [
+							{!! Form::button(__('Buscar') . ' <i class="fa fa-search"></i>', [
                                 'class' => 'btn btn-sm btn-info',
                                 'data-toggle' => 'tooltip', 'onclick' => '#',
-                                'title' => 'Buscar registros del sistema',
+                                'title' => __('Buscar registros del sistema'),
                             ]) !!}
 						</div>
 					</div>
@@ -69,37 +69,41 @@
 				<div class="row">
 					<div class="col-12">
 						<span class="text-muted">
-							A continuación se muestran los registros de las más recientes acciones en la aplicación. Si desea obtener mayor información, debe indicar los parámetros de búsqueda.
+							{{ __(
+                                'A continuación se muestran los registros de las más recientes acciones en la ' .
+                                'aplicación. Si desea obtener mayor información, debe indicar los parámetros ' .
+                                'de búsqueda.'
+                            ) }}
 						</span>
 					</div>
 				</div>
 				<hr>
 				<div class="row">
 					<div class="col-md-4 panel-legend">
-						<i class="ion-android-checkbox-blank text-success" title="Registros nuevos"
+						<i class="ion-android-checkbox-blank text-success" title="{{ __('Registros nuevos') }}"
 						   data-toggle="tooltip"></i>
-						<span>nuevos</span>
+						<span>{{ __('nuevos') }}</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4 panel-legend">
-						<i class="ion-android-checkbox-blank text-warning" title="Registros actualizados"
+						<i class="ion-android-checkbox-blank text-warning" title="{{ __('Registros actualizados') }}"
 						   data-toggle="tooltip"></i>
-						<span>actualizados</span>
+						<span>{{ __('actualizados') }}</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4 panel-legend">
-						<i class="ion-android-checkbox-blank text-info" title="Registros reestablecidos"
+						<i class="ion-android-checkbox-blank text-info" title="{{ __('Registros reestablecidos') }}"
 						   data-toggle="tooltip"></i>
-						<span>restaurados después de eliminación</span>
+						<span>{{ __('restaurados después de eliminación') }}</span>
 					</div>
 				</div>
 				<div class="row mg-bottom-20">
 					<div class="col-md-4 panel-legend">
-						<i class="ion-android-checkbox-blank text-danger" title="Registros eliminados"
+						<i class="ion-android-checkbox-blank text-danger" title="{{ __('Registros eliminados') }}"
 						   data-toggle="tooltip"></i>
-						<span>eliminados</span>
+						<span>{{ __('eliminados') }}</span>
 					</div>
 				</div>
 				@php
@@ -109,11 +113,11 @@
 					<thead>
 						<tr class="text-center">
 							<th class="col-1"></th>
-							<th class="col-2">Fecha - Hora</th>
-							<th class="col-1">IP</th>
-							<th class="col-4">Módulo</th>
-							<th class="col-2">Usuario</th>
-							<th class="col-2">Acción</th>
+							<th class="col-2">{{ __('Fecha') }} - {{ __('Hora') }}</th>
+							<th class="col-1">{{ __('IP') }}</th>
+							<th class="col-4">{{ __('Módulo') }}</th>
+							<th class="col-2">{{ __('Usuario') }}</th>
+							<th class="col-2">{{ __('Acción') }}</th>
 							<!--<th>URL</th>
 							<th>Datos anteriores</th>
 							<th>Datos nuevos</th>-->
@@ -143,8 +147,8 @@
 											$model_user = $audit->user_type;
 											$user = $model_user::find($audit->user_id);
 										@endphp
-										<b>Nombre:</b> {{ $user->name }}<br>
-										<b>Usuario:</b> {{ $user->username }}
+										<b>Nombre:</b> {{ ($user) ? $user->name : '' }}<br>
+										<b>Usuario:</b> {{ ($user) ? $user->username : '' }}
 									</td>
 									{{-- <td>
 										@if (empty($audit->old_values))
@@ -171,14 +175,14 @@
 	                                        'class' => 'btn btn-info btn-xs btn-icon btn-action',
 	                                        'data-toggle' => 'tooltip',
 	                                        'onclick' => '$("#modalAudit' . $audit->id . '").modal("show")',
-	                                        'title' => 'Ver detalles del registro',
+	                                        'title' => __('Ver detalles del registro'),
 	                                    ]) !!}
 	                                    <div class="modal fade" id="modalAudit{{ $audit->id }}" tabindex="-1"
 	                                    	 role="dialog" aria-hidden="true">
 	                                    	<div class="modal-dialog" role="document" style="max-width:80%">
 	                                    		<div class="modal-content">
 	                                    			<div class="modal-header">
-	                                    				<h4 style="margin-top:0">Registro</h4>
+	                                    				<h4 style="margin-top:0">{{ __('Registro') }}</h4>
 	                                    				<button type="button" class="close btn btn-default"
 	                                    						data-dismiss="modal" aria-label="Close">
 	                                    					<span aria-hidden="true">&times;</span>
@@ -191,13 +195,13 @@
                                     								<span class="badge {{ $badgeClass }}"
                                     									  style="margin-right:10px">
                                     									  	@if ($audit->event == 'created')
-                                    									  		NUEVO
+                                    									  		{{ __('NUEVO') }}
 		                                    								@elseif ($audit->event == 'deleted')
-																				ELIMINADO
+																				{{ __('ELIMINADO') }}
 		                                    								@elseif ($audit->event == 'restored')
-																				RESTAURADO
+																				{{ __('RESTAURADO') }}
 		                                    								@elseif ($audit->event == 'updated')
-																				ACTUALIZADO
+																				{{ __('ACTUALIZADO') }}
 		                                    								@endif
                                     								</span>
                                     							</p>
@@ -205,10 +209,10 @@
 	                                    				</div>
 	                                    				<div class="row">
 	                                    					<div class="col-md-6 text-left">
-	                                    						<h5>Datos Anteriores</h5>
+	                                    						<h5>{{ __('Datos Anteriores') }}</h5>
 	                                    						<div>
 	                                    							@if (empty($audit->old_values))
-		                                    							N/A
+		                                    							{{ __('N/A') }}
 		                                    						@else
 		                                    							@foreach ($audit->old_values as $key => $value)
 		                                    								<b>{{ $key }}:</b> {{ $value }}
@@ -218,10 +222,10 @@
 	                                    						</div>
 	                                    					</div>
 	                                    					<div class="col-md-6 text-left">
-	                                    						<h5>Datos nuevos</h5>
+	                                    						<h5>{{ __('Datos nuevos') }}</h5>
 	                                    						<div>
 	                                    							@if (empty($audit->new_values))
-																		N/A
+																		{{ __('N/A') }}
 																	@else
 																		@foreach ($audit->new_values as $key => $value)
 																			<b>{{ $key }}:</b> {{ $value }}
@@ -235,7 +239,7 @@
 	                                    					<button class="btn btn-primary"
 	                                    							data-dismiss="modal"
 	                                    							aria-label="Close">
-	                                    						Cerrar
+	                                    						{{ __('Cerrar') }}
 	                                    					</button>
 	                                    				</div>
 	                                    			</div>

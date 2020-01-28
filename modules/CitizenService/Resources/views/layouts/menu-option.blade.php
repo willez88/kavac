@@ -8,8 +8,8 @@
         <li class="{!! set_active_menu(['citizenservice.setting']) !!}">
              <a href="{{ route('citizenservice.setting') }}">Configuración</a>
         </li>
-        <li class="{!! set_active_menu(['citizenservice.request.create']) !!}">
-             <a href="{{ route('citizenservice.request.create') }}">Ingresar Solicitud</a>
+        <li class="{!! set_active_menu(['citizenservice.request.index']) !!}">
+             <a href="{{ route('citizenservice.request.index') }}">Solicitudes</a>
         </li>
     </ul>
 </li>

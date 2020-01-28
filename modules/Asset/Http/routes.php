@@ -10,11 +10,11 @@
  *
  */
 Route::group(
-    ['middleware' => ['web','auth'], 'prefix' => 'asset', 'namespace' => 'Modules\Asset\Http\Controllers'],
+    ['middleware' => ['web','auth', 'verified'], 'prefix' => 'asset', 'namespace' => 'Modules\Asset\Http\Controllers'],
     function () {
         Route::get('settings', 'AssetSettingController@index')->name('asset.setting.index');
         Route::post('settings', 'AssetSettingController@store')->name('asset.setting.store');
-    
+
         /**
          * Rutas para gestionar los registros de bienes
          */
@@ -44,7 +44,7 @@ Route::group(
                 ->name('asset.asignation.asset-assign');
         Route::get('asignations/edit/{asignation}', 'AssetAsignationController@edit')
                 ->name('asset.asignation.edit');
-    
+
         Route::delete('asignations/delete/{asignation}', 'AssetAsignationController@destroy')
                 ->name('asset.asignation.destroy');
         Route::get('asignations/vue-info/{asignation}', 'AssetAsignationController@vueInfo');
@@ -64,11 +64,11 @@ Route::group(
                 ->name('asset.disincorporation.edit');
         Route::delete('disincorporations/delete/{disincorporation}', 'AssetDisincorporationController@destroy')
                 ->name('asset.disincorporation.destroy');
-    
+
         Route::get('disincorporations/get-motives', 'AssetDisincorporationController@getAssetDisincorporationMotives');
         Route::get('disincorporations/vue-info/{disincorporation}', 'AssetDisincorporationController@vueInfo');
         Route::get('disincorporations/vue-list', 'AssetDisincorporationController@vueList');
-    
+
         /**
          * Rutas para gestionar las solicitudes de bienes institucionales
          */
@@ -80,6 +80,9 @@ Route::group(
         Route::delete('requests/delete/{request}', 'AssetRequestController@destroy')->name('asset.request.destroy');
         Route::get('requests/vue-info/{request}', 'AssetRequestController@vueInfo');
         Route::get('requests/vue-list', 'AssetRequestController@vueList');
+        Route::get('requests/get-equipments/{request}', 'AssetRequestController@getEquipments');
+        Route::post('requests/upload-document', 'AssetRequestEventController@uploadDocument')
+            ->name('asset.request.uploadDocument');
 
         /**
          * Rutas para gestionar las solicitudes de equipos pendientes
@@ -90,7 +93,7 @@ Route::group(
             ->name('asset.request.approved');
         Route::put('requests/request-rejected/{request}', 'AssetRequestController@rejected')
             ->name('asset.request.rejected');
-    
+
         /**
          * Rutas para gestionar las solicitudes de prorrogas pendientes
          */
@@ -129,13 +132,6 @@ Route::group(
         Route::resource('reports', 'AssetReportController', ['only' => ['store']]);
         Route::get('reports/show/{code_report}', 'AssetReportController@show')->name('asset.report.show');
         Route::get('reports', 'AssetReportController@index')->name('asset.report.index');
-
-        Route::get('reports/general/show/{code_inventory}', 'AssetReportController@showGeneral')
-            ->name('asset.report.general');
-        Route::get('reports/clasification/show/{code_inventory}', 'AssetReportController@showClasification')
-            ->name('asset.report.clasification');
-        Route::get('reports/dependence/show/{code_inventory}', 'AssetReportController@showDependence')
-            ->name('asset.report.dependence');
 
         /**
          * Rutas de uso común del módulo de bienes
@@ -176,7 +172,7 @@ Route::group(
          * Rutas para gestionar los tipos de bienes
          */
         Route::resource('types', 'AssetTypeController', ['except' => ['show']]);
-    
+
         /**
          * Rutas para gestionar las categorias de bienes
          */

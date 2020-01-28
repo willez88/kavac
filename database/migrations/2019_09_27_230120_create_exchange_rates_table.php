@@ -21,11 +21,11 @@ class CreateExchangeRatesTable extends Migration
                       ->comment('Fecha a partir de la cual dejo de estar en vigencia la conversión');
                 $table->float('amount', 20, 2)->comment('Monto de la conversión');
                 $table->boolean('active')->default(false)->comment('Indica si el tipo de cambio se encuentra activo');
-                $table->integer('from_currency_id')->unsigned()
+                $table->bigInteger('from_currency_id')->unsigned()
                       ->comment('Identificador asociado a la moneda desde la cual realizar la conversión');
                 $table->foreign('from_currency_id')->references('id')
                       ->on('currencies')->onUpdate('cascade')->onDelete('restrict');
-                $table->integer('to_currency_id')->unsigned()
+                $table->bigInteger('to_currency_id')->unsigned()
                       ->comment('Identificador asociado a la moneda a la cual realizar la conversión');
                 $table->foreign('to_currency_id')->references('id')
                       ->on('currencies')->onUpdate('cascade')->onDelete('restrict');

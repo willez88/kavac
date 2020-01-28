@@ -35,7 +35,7 @@ class WarehouseProduct extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['name', 'description', 'define_attributes'];
+    protected $fillable = ['name', 'description', 'define_attributes', 'measurement_unit_id'];
 
     /**
      * Método que obtiene los atributos personalizados de un producto
@@ -47,5 +47,17 @@ class WarehouseProduct extends Model implements Auditable
     public function warehouseProductAttributes()
     {
         return $this->hasMany(WarehouseProductAttribute::class);
+    }
+
+    /**
+     * Método que obtiene la unidad de medida del producto registrado
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * MeasurementUnit
+     */
+    public function measurementUnit()
+    {
+        return $this->belongsTo(\App\Models\MeasurementUnit::class);
     }
 }

@@ -2,7 +2,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title">Herramientas para Desarrolladores</h6>
+				<h6 class="card-title">{{ __('Herramientas para Desarrolladores') }}</h6>
 				<div class="card-btns">
 					@include('buttons.minimize')
 				</div>
@@ -11,7 +11,7 @@
 				<div class="row">
 					<div class="col-12">
 						<span class="text-muted">
-							Acceso a herramientas para desarrolladores
+							{{ __('Acceso a herramientas para desarrolladores') }}
 							<a href="javascript:void(0)">
 								<i class="ion ion-ios-help-outline"></i>
 							</a>
@@ -23,8 +23,8 @@
 				<div class="row">
 					<div class="col-12">
 						<a href="{{ route('pack.icons') }}" class="btn btn-primary btn-simple btn-lg"
-						   data-toggle="tooltip" title="Listado de íconos disponibles en la aplicación">
-							<i class="icofont icofont-idea"></i> Iconos
+						   data-toggle="tooltip" title="{{ __('Listado de íconos disponibles en la aplicación') }}">
+							<i class="icofont icofont-idea"></i> {{ __('Iconos') }}
 						</a>
 					</div>
 				</div>
@@ -33,70 +33,70 @@
 				<div class="row">
 					<div class="col-md-2">
 						<div class="form-group">
-							<label for="" class="control-label">Mantenimiento</label>
+							<label for="" class="control-label">{{ __('Mantenimiento') }}</label>
 							<div class="col-12">
 								{!! Form::checkbox('maintenance', true, false, [
 									'id' => 'maintenance', 'class' => 'form-control bootstrap-switch',
-									'data-on-label' => 'SI', 'data-off-label' => 'NO'
+									'data-on-label' => __('SI'), 'data-off-label' => __('NO')
 								]) !!}
 							</div>
 						</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">
-							<label for="" class="control-label">Demostración</label>
+							<label for="" class="control-label">{{ __('Demostración') }}</label>
 							<div class="col-12">
 								{!! Form::checkbox('demo', true, false, [
 									'id' => 'demo', 'class' => 'form-control bootstrap-switch',
-									'data-on-label' => 'SI', 'data-off-label' => 'NO'
+									'data-on-label' => __('SI'), 'data-off-label' => __('NO')
 								]) !!}
 							</div>
 						</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">
-							<label for="" class="control-label">Debug</label>
+							<label for="" class="control-label">{{ __('Debug') }}</label>
 							<div class="col-12">
 								{!! Form::checkbox('debug', true, false, [
 									'id' => 'debug', 'class' => 'form-control bootstrap-switch',
-									'data-on-label' => 'SI', 'data-off-label' => 'NO'
+									'data-on-label' => __('SI'), 'data-off-label' => __('NO')
 								]) !!}
 							</div>
 						</div>
 					</div>
 				</div>
 				<hr>
-				<h6>Visor de logs</h6>
+				<h6>{{ __('Visor de logs') }}</h6>
 				<div class="row mg-bottom-20">
 					<div class="col-md-2 panel-legend">
 						<i class="ion-android-checkbox-blank text-green"
-						   title="Generó un registro de información"
+						   title="{{ __('Generó un registro de información') }}"
 						   data-toggle="tooltip"></i>
-						<span>información</span>
+						<span>{{ __('información') }}</span>
 					</div>
 					<div class="col-md-2 panel-legend">
 						<i class="ion-android-checkbox-blank text-warning"
-						   title="Generó un registro de error en la aplicación"
+						   title="{{ __('Generó un registro de error en la aplicación') }}"
 						   data-toggle="tooltip"></i>
-						<span>error</span>
+						<span>{{ __('error') }}</span>
 					</div>
 					<div class="col-md-2 panel-legend">
 						<i class="ion-android-checkbox-blank text-blue"
-						   title="Generó un evento de notificación"
+						   title="{{ __('Generó un evento de notificación') }}"
 						   data-toggle="tooltip"></i>
-						<span>notificación</span>
+						<span>{{ __('notificación') }}</span>
 					</div>
 					<div class="col-md-2 panel-legend">
 						<i class="ion-android-checkbox-blank text-danger"
-						   title="Generó un evento crítico en la aplicación"
+						   title="{{ __('Generó un evento crítico en la aplicación') }}"
 						   data-toggle="tooltip"></i>
-						<span>critico</span>
+						<span>{{ __('crítico') }}</span>
 					</div>
 					<div class="col-md-2 panel-legend">
 						<i class="ion-android-checkbox-blank text-gray"
-						   title="Generó un evento sobre alguna funcionalidad de la aplicación"
+						   title="{{ __('Generó un evento sobre alguna funcionalidad de la aplicación') }}"
 						   data-toggle="tooltip"></i>
-						<span>debug</span>
+						<span>{{ __('debug') }}</span>
 					</div>
 				</div>
 				<div class="row">
@@ -122,19 +122,19 @@
 	<script>
 		$(document).ready(function() {
 			$('input[name=demo]').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Establecer la aplicación en modo demostración',
+	            'title': '{{ __('Establecer la aplicación en modo demostración') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({
 	        	trigger:"hover"
 	        });
 	        $('input[name=maintenance]').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Establecer la aplicación en modo de mantenimiento',
+	            'title': '{{ __('Establecer la aplicación en modo de mantenimiento') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({
 	        	trigger:"hover"
 	        });
 	        $('input[name=debug]').closest('.bootstrap-switch-wrapper').attr({
-	            'title': 'Mostrar eventos y/o errores de la aplicación',
+	            'title': '{{ __('Mostrar eventos y/o errores de la aplicación') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({
 	        	trigger:"hover"

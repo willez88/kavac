@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-    Logs del Sistema
+    {{ __('Logs del Sistema') }}
 @stop
 
 @section('maproute-title')
-    Logs del Sistema
+    {{ __('Logs del Sistema') }}
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Registros de Logs</h6>
+                    <h6 class="card-title">{{ __('Registros de Logs') }}</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
@@ -44,7 +44,8 @@
                                                 <span class="info-box-text">{{ $item['name'] }}</span>
                                                 <span class="info-box-number">
                                                     <small>
-                                                        {{ $item['count'] }} registros - {!! $item['percent'] !!}%
+                                                        {{ __(':count registros', ['count' => $item['count']]) }} -
+                                                        {!! $item['percent'] !!}%
                                                     </small>
                                                 </span>
                                                 <div class="progress">
@@ -59,7 +60,7 @@
                         </div>
                     </div>
                     <hr>
-                    <h6 class="card-title">Lista de Logs</h6>
+                    <h6 class="card-title">{{ __('Lista de Logs') }}</h6>
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
@@ -78,7 +79,7 @@
                                                     @endif
                                                 </th>
                                             @endforeach
-                                            <th scope="col" class="text-center">Acciones</th>
+                                            <th scope="col" class="text-center">{{ __('Acciones') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -103,7 +104,7 @@
                                                                 <a href="{{ route('log-viewer::logs.filter', [
                                                                     $date, $key
                                                                 ]) }}" class="text-level-{{ $key }}"
-                                                                title="{{ $value }} incidencias registradas el {{ $titleDate->format('d-m-Y') }}" data-toggle="tooltip" data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
+                                                                title="{{ $value }} {{ __('incidencias registradas el') }} {{ $titleDate->format('d-m-Y') }}" data-toggle="tooltip" data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
                                                                     {{ $value }}
                                                                 </a>
                                                             @endif
@@ -112,17 +113,17 @@
                                                     <td class="text-right">
                                                         <a href="{{ route('log-viewer::logs.show', [$date]) }}"
                                                            class="btn btn-xs btn-info btn-icon btn-action"
-                                                           title="Ver incidencias registradas en esta fecha"
+                                                           title="{{ __('Ver incidencias registradas en esta fecha') }}"
                                                            data-toggle="tooltip" data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
                                                             <i class="fa fa-search"></i>
                                                         </a>
-                                                        <a href="{{ route('log-viewer::logs.download', [$date]) }}" class="btn btn-xs btn-success btn-icon btn-action" title="Descargar archivo de log" data-toggle="tooltip"
+                                                        <a href="{{ route('log-viewer::logs.download', [$date]) }}" class="btn btn-xs btn-success btn-icon btn-action" title="{{ __('Descargar archivo de log') }}" data-toggle="tooltip"
                                                         data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
                                                             <i class="fa fa-download"></i>
                                                         </a>
                                                         <a href="#delete-log-modal"
                                                            class="btn btn-xs btn-danger btn-icon btn-action"
-                                                           data-log-date="{{ (!empty($titleDate)) ? $titleDate->format('d-m-Y'):$date }}" title="Eliminar este registro" data-toggle="tooltip" data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
+                                                           data-log-date="{{ (!empty($titleDate)) ? $titleDate->format('d-m-Y'):$date }}" title="{{ __('Eliminar este registro') }}" data-toggle="tooltip" data-placement="{{ ($rows->count() < 2) ? 'bottom' : 'top' }}">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </td>
@@ -160,7 +161,7 @@
                 <input type="hidden" name="date" value="">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">ELIMINAR ARCHIVO DE LOG</h5>
+                        <h5 class="modal-title">{{ __('ELIMINAR ARCHIVO DE LOG') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -169,9 +170,9 @@
                         <p></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancelar') }}</button>
                         <button type="submit" class="btn btn-primary" data-loading-text="Loading&hellip;">
-                            Eliminar Archivo
+                            {{ __('Eliminar Archivo') }}
                         </button>
                     </div>
                 </div>
@@ -205,7 +206,7 @@
                 var date = $(this).data('log-date');
                 deleteLogForm.find('input[name=date]').val(date);
                 deleteLogModal.find('.modal-body p').html(
-                    'Esta seguro de <span class="badge badge-danger">ELIMINAR</span> el archivo de log del <span class="badge badge-primary">' + date + '</span> ?'
+                    'Esta seguro de <span class="badge badge-danger">{{ __('ELIMINAR') }}</span> {{ __('el archivo de log del') }} <span class="badge badge-primary">' + date + '</span> ?'
                 );
 
                 deleteLogModal.modal('show');

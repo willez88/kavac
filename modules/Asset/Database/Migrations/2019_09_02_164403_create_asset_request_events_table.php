@@ -27,12 +27,12 @@ class CreateAssetRequestEventsTable extends Migration
     {
         if (!Schema::hasTable('asset_request_events')) {
             Schema::create('asset_request_events', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
-                
+                $table->bigIncrements('id')->comment('Identificador único del registro');
+
                 $table->string('type', 100)->comment('Tipo de evento');
                 $table->text('description')->comment('Descripción del evento');
-                
-                $table->integer('asset_request_id')
+
+                $table->bigInteger('asset_request_id')
                       ->comment('Identificador único de la solicitud asociada al evento en la tabla asset_requests');
                 $table->foreign('asset_request_id')->references('id')->on('asset_requests')
                       ->onDelete('restrict')->onUpdate('cascade');

@@ -27,13 +27,13 @@ class CreateAssetRequestAssetsTable extends Migration
     {
         if (!Schema::hasTable('asset_request_assets')) {
             Schema::create('asset_request_assets', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
-                $table->integer('asset_id')->unsigned()->nullable()
+                $table->bigInteger('asset_id')->unsigned()->nullable()
                       ->comment('Identificador único del bien en la tabla de bienes');
                 $table->foreign('asset_id')->references('id')->on('assets')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('asset_request_id')->unsigned()->nullable()
+                $table->bigInteger('asset_request_id')->unsigned()->nullable()
                       ->comment('Identificador único de la solicitud generada');
                 $table->foreign('asset_request_id')->references('id')->on('asset_requests')
                       ->onDelete('restrict')->onUpdate('cascade');

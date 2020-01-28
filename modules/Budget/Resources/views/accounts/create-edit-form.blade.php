@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Presupuesto
+	{{ __('Presupuesto') }}
 @stop
 
 @section('maproute-title')
-	Catálogo de Cuentas
+	{{ __('Catálogo de Cuentas') }}
 @stop
 
 @section('content')
@@ -22,7 +22,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						Cuenta Presupuestaria
+						{{ __('Cuenta Presupuestaria') }}
 						@include('buttons.help')
 					</h6>
 					<div class="card-btns">
@@ -36,49 +36,49 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="" class="control-label">Cuenta</label>
+									<label for="" class="control-label">{{ __('Cuenta') }</label>
 									{!! Form::select('parent_id', $budget_accounts, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip', 'id' => 'parent_id',
-										'title' => 'Seleccione una cuenta presupuestaria'
+										'title' => __('Seleccione una cuenta presupuestaria')
 									]) !!}
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="" class="control-label">Código</label>
+									<label for="" class="control-label">{{ __('Código') }}</label>
 									<div class="row inline-inputs">
 										<div class="col-1">
 											{!! Form::text('group', old('group'), [
 												'class' => 'form-control', 'placeholder' => '0', 'data-toggle' => 'tooltip',
-												'title' => 'Grupo al que pertenece la cuenta', 'maxlength' => '1'
+												'title' => __('Grupo al que pertenece la cuenta'), 'maxlength' => '1'
 											]) !!}
 										</div>
 										<div class="col-1">.</div>
 										<div class="col-1">
 											{!! Form::text('item', old('item'), [
 												'class' => 'form-control', 'placeholder' => '00', 'data-toggle' => 'tooltip',
-												'title' => 'Ítem al que pertenece la cuenta', 'maxlength' => '2'
+												'title' => __('Ítem al que pertenece la cuenta'), 'maxlength' => '2'
 											]) !!}
 										</div>
 										<div class="col-1">.</div>
 										<div class="col-1">
 											{!! Form::text('generic', old('generic'), [
 												'class' => 'form-control', 'placeholder' => '00', 'data-toggle' => 'tooltip',
-												'title' => 'Genérica a la que pertenece la cuenta', 'maxlength' => '2'
+												'title' => __('Genérica a la que pertenece la cuenta'), 'maxlength' => '2'
 											]) !!}
 										</div>
 										<div class="col-1">.</div>
 										<div class="col-1">
 											{!! Form::text('specific', old('specific'), [
 												'class' => 'form-control', 'placeholder' => '00', 'data-toggle' => 'tooltip',
-												'title' => 'Específica a la que pertenece la cuenta', 'maxlength' => '2'
+												'title' => __('Específica a la que pertenece la cuenta'), 'maxlength' => '2'
 											]) !!}
 										</div>
 										<div class="col-1">.</div>
 										<div class="col-1">
 											{!! Form::text('subspecific', old('subspecific'), [
 												'class' => 'form-control', 'placeholder' => '00', 'data-toggle' => 'tooltip',
-												'title' => 'Subespecífica a la que pertenece la cuenta', 'maxlength' => '2'
+												'title' => __('Subespecífica a la que pertenece la cuenta'), 'maxlength' => '2'
 											]) !!}
 										</div>
 									</div>
@@ -86,10 +86,10 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="" class="control-label">Denominación</label>
+									<label for="" class="control-label">{{ __('Denominación') }}</label>
 									{!! Form::text('denomination', old('denomination'), [
-										'class' => 'form-control', 'placeholder' => 'descripción de la cuenta',
-										'title' => 'Denominacón o concepto de la cuenta',  'data-toggle' => 'tooltip',
+										'class' => 'form-control', 'placeholder' => __('descripción de la cuenta'),
+										'title' => __('Denominacón o concepto de la cuenta'),  'data-toggle' => 'tooltip',
 									]) !!}
 								</div>
 							</div>
@@ -97,44 +97,45 @@
 								<div class="row">
 									<div class="col-3">
 										<div class="form-group">
-											<label for="" class="control-label">Recurso</label>
+											<label for="" class="control-label">{{ __('Recurso') }</label>
 											<div class="col-12">
 												{!! Form::radio('account_type', 'resource', (isset($model) && $model->resource), [
 													'id' => 'account_type', 'class' => 'form-control bootstrap-switch',
-													'data-on-label' => 'SI', 'data-off-label' => 'NO'
+													'data-on-label' => __('SI'), 'data-off-label' => __('NO')
 												]) !!}
 											</div>
 										</div>
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label for="" class="control-label">Egreso</label>
+											<label for="" class="control-label">{{ __('Egreso') }}</label>
 											<div class="col-12">
 												{!! Form::radio('account_type', 'egress', (isset($model) && $model->egress), [
 													'id' => 'account_type', 'class' => 'form-control bootstrap-switch',
-													'data-on-label' => 'SI', 'data-off-label' => 'NO'
+													'data-on-label' => __('SI'), 'data-off-label' => __('NO')
 												]) !!}
 											</div>
 										</div>
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label for="" class="control-label">Original</label>
+											<label for="" class="control-label">{{ __('Original') }}</label>
 											<div class="col-12">
 												{!! Form::checkbox('original', true, (isset($model) && $model->original), [
 													'id' => 'original', 'class' => 'form-control bootstrap-switch',
-													'data-on-label' => 'SI', 'data-off-label' => 'NO'
+													'data-on-label' => __('SI'), 'data-off-label' => __('NO')
 												]) !!}
 											</div>
 										</div>
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label for="" class="control-label">Activa</label>
+											<label for="" class="control-label">{{ __('Activa') }}</label>
 											<div class="col-12">
 												{!! Form::checkbox('active', true, (isset($model) && $model->active), [
 													'id' => 'active', 'class' => 'form-control bootstrap-switch',
-													'data-on-label' => 'SI', 'data-off-label' => 'NO', 'checked' => true
+													'data-on-label' => __('SI'), 'data-off-label' => __('NO'),
+                                                    'checked' => true
 												]) !!}
 											</div>
 										</div>
@@ -177,7 +178,7 @@
 							$("input[value=resource]").bootstrapSwitch("state", new_account.resource);
 						}
 					}).catch(error => {
-						console.log(error);
+						log('budget::accounts.create-edit-form', 181, error);
 					});
 				}
 			});

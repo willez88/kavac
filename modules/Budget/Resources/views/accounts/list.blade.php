@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Presupuesto
+	{{ __('Presupuesto') }}
 @stop
 
 @section('maproute-title')
-	Catálogo de Cuentas
+	{{ __('Catálogo de Cuentas') }}
 @stop
 
 @section('content')
@@ -22,7 +22,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						Catálogo de Cuentas Presupuestarias
+						{{ __('Catálogo de Cuentas Presupuestarias') }}
 						@include('buttons.help')
 					</h6>
 					<div class="card-btns">

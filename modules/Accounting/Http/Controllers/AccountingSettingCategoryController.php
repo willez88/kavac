@@ -7,15 +7,18 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingEntryCategory;
+use Auth;
 
 /**
- * @class AccountingSettingCategoryController
- * @brief Controlador de configuración de categorias de origen de asientos contables
+ * @class AccountingEntryCategoryController
+ * @brief Controlador para la gestion las categorias de origen
  *
- * Clase que gestiona las categorias de origen de asientos contables
+ * Clase que gestiona las categorias de origen
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class AccountingSettingCategoryController extends Controller
 {
@@ -49,10 +52,10 @@ class AccountingSettingCategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'string'],
+            'name'    => ['required', 'string'],
             'acronym' => ['required', 'string'],
         ]);
-        /** @var object Objeto para almacenar la información para el nuevo registro */
+
         AccountingEntryCategory::create($request->all());
 
         return response()->json([
@@ -71,12 +74,15 @@ class AccountingSettingCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => ['required', 'string'],
+            'name'    => ['required', 'string'],
             'acronym' => ['required', 'string'],
         ]);
-        /** @var Object Objeto que contine el registro de conversión a editar */
-        $record = AccountingEntryCategory::find($id);
-        $record->name = $request['name'];
+        /**
+         * [$record registro de conversión a editar]
+         * @var AccountingEntryCategory
+         */
+        $record          = AccountingEntryCategory::find($id);
+        $record->name    = $request['name'];
         $record->acronym = $request['acronym'];
         $record->save() ;
 
@@ -101,7 +107,7 @@ class AccountingSettingCategoryController extends Controller
              */
             if (count($category->accountingEntries) > 0) {
                 return response()->json([
-                    'error' => true,
+                    'error'   => true,
                     'message' => 'El registro no se puede eliminar, debido a que existen asientos relacionados.'
                 ], 200);
             }
@@ -121,8 +127,8 @@ class AccountingSettingCategoryController extends Controller
         $records = [];
         foreach (AccountingEntryCategory::all() as $category) {
             $records[] = [
-                'id' => $category->id,
-                'text' => $category->name,
+                'id'      => $category->id,
+                'text'    => $category->name,
                 'acronym' => $category->acronym,
             ];
         }

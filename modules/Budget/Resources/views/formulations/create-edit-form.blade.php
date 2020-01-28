@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Presupuesto
+	{{ __('Presupuesto') }}
 @stop
 
 @section('maproute-title')
-	Formulaciones
+	{{ __('Formulaciones') }}
 @stop
 
 @section('content')

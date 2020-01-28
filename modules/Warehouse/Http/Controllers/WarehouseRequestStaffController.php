@@ -246,7 +246,9 @@ class WarehouseRequestStaffController extends Controller
                 'department',
                 'warehouseInventoryProductRequests' => function ($query) {
                     $query->with(['warehouseInventoryProduct' => function ($query) {
-                        $query->with('warehouseProduct', 'measurementUnit', 'currency');
+                        $query->with(['warehouseProduct' => function ($query) {
+                            $query->with('measurementUnit');
+                        }, 'currency']);
                     }]);
                 }
             ]

@@ -27,13 +27,13 @@ class CreatePayrollChildrensTable extends Migration
     {
         if (!Schema::hasTable('payroll_childrens')) {
             Schema::create('payroll_childrens', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('first_name', 100)->comment('Nombre del hijo del trabajador');
                 $table->string('last_name', 100)->comment('Apellido del hijo del trabajador');
                 $table->string('id_number', 12)->nullable()->comment('Cédula del hijo del trabajador');
                 $table->date('birthdate')->comment('Fecha de nacimiento del hijo del trabajador');
 
-                $table->integer('payroll_socioeconomic_information_id')->unsigned()
+                $table->bigInteger('payroll_socioeconomic_information_id')->unsigned()
                       ->comment('identificador de la información socioeconómica que pertenece al hijo');
                 $table->foreign('payroll_socioeconomic_information_id')
                       ->references('id')->on('payroll_socioeconomic_informations')

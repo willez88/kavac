@@ -37,7 +37,7 @@ class WarehouseInventoryProduct extends Model implements Auditable
      */
     protected $fillable = [
         'code', 'exist', 'reserved', 'unit_value', 'currency_id', 'warehouse_product_id',
-        'measurement_unit_id', 'warehouse_institution_warehouse_id'
+        'warehouse_institution_warehouse_id'
     ];
 
     /**
@@ -73,19 +73,6 @@ class WarehouseInventoryProduct extends Model implements Auditable
     public function currency()
     {
         return $this->belongsTo(\App\Models\Currency::class);
-    }
-
-
-    /**
-     * Método que obtiene la unidad de medida del producto registrado
-     *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
-     * MeasurementUnit
-     */
-    public function measurementUnit()
-    {
-        return $this->belongsTo(\App\Models\MeasurementUnit::class);
     }
 
     /**

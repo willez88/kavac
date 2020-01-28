@@ -15,7 +15,7 @@ class CreateFinanceBanksTable extends Migration
     {
         if (!Schema::hasTable('finance_banks')) {
             Schema::create('finance_banks', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('code', 4)->unique()->comment('Codigo de la entidad bancaria');
                 $table->string('name', 100)->unique()->comment('Nombre del banco');
                 $table->string('short_name', 50)->comment('Nombre corto del banco');

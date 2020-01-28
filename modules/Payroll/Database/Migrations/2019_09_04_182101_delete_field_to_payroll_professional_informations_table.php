@@ -39,7 +39,7 @@ class DeleteFieldToPayrollProfessionalInformationsTable extends Migration
     public function down()
     {
         Schema::table('payroll_professional_informations', function (Blueprint $table) {
-            $table->integer('profession_id')->unsigned()->nullable()
+            $table->bigInteger('profession_id')->unsigned()->nullable()
                   ->comment('identificador de la profesión que pertenecen a la información profesional');
             $table->foreign('profession_id')->references('id')->on('professions')
                   ->onDelete('restrict')->onUpdate('cascade');

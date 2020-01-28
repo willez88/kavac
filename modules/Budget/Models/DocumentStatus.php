@@ -27,4 +27,14 @@ class DocumentStatus extends BaseDocumentStatus
     {
         return $this->hasMany(BudgetModification::class);
     }
+
+    /**
+     * DocumentStatus has many BudgetCompromise.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budgetCompromise()
+    {
+        return $this->hasMany(BudgetCompromise::class);
+    }
 }

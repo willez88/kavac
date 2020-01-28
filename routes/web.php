@@ -20,7 +20,7 @@
  * autenticado en el sistema, si lo está, redirecciona a la página principal
  * de lo contrario muestra la interfaz de autenticación
  */
-Route::get('/', 'DashboardController@index')->name('index');
+Route::get('/', 'DashboardController@index')->middleware('verified')->name('index');
 
 /**
  * -----------------------------------------------------------------------
@@ -34,7 +34,7 @@ Route::get('/', 'DashboardController@index')->name('index');
  * - password/reset
  * - password/reset/{token}
  */
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 /**
  * -----------------------------------------------------------------------
@@ -64,7 +64,7 @@ Route::post('/logs/front-end', 'Admin\LogController@frontEnd')->name('logs.front
  * el acceso a los distintos discos establecidos en la configuración de
  * config/filesystems.php
  */
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
 
     /**
      * -----------------------------------------------------------------------
@@ -263,7 +263,7 @@ Route::group(['middleware' => 'auth'], function () {
  * Gestiona los controladores que se encuentran en el namespace Auth y que
  * requieren de que el usuario se encuentre autenticado en el sistema
  */
-Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function () {
+Route::group(['middleware' => ['auth', 'verified'], 'namespace' => 'Auth'], function () {
     /** Ruta de recursos para la gestión de usuarios */
     Route::resource('users', 'UserController');
     Route::get('user-info/{user}', 'UserController@info')->name('user-info');
@@ -278,7 +278,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Auth'], function () {
  * en formato json, estos a su vez requieren de que el usuario se encuentre
  * autenticado en el sistema para poder hacer uso de ellos
  */
-Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function () {
+Route::group(['middleware' => ['auth', 'verified'], 'namespace' => 'Services'], function () {
     /** Obtiene los países registrados */
     Route::get('get-countries', 'LocatesController@getCountries');
     /** Obtiene los estados de un país */
@@ -289,6 +289,16 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function () {
     Route::get('get-cities/{estate_id}', 'LocatesController@getCities');
     /** Obtiene las parroquias de un municipio */
     Route::get('get-parishes/{municipality_id}', 'LocatesController@getParishes');
+
+    /** Grupo de rutas para la gestión de notificaciones */
+    Route::group(['prefix' => 'notifications'], function () {
+        /** Obtiene las notificaciones no leídas */
+        Route::get('unreaded', 'NotificationsController@getUnreaded');
+        /** Obtiene las notificaciones leídas */
+        Route::get('readed', 'NotificationsController@getReaded');
+        /** Obtiene todas las notificaciones del usuario */
+        Route::get('all', 'NotificationsController@getAll');
+    });
 });
 
 /**
@@ -299,7 +309,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Services'], function () {
  * Gestiona las rutas que solo pueden accederse si el usuario autenticado
  * es un desarrollador del sistema
  */
-Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefix' => 'dev'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'role:dev'], 'namespace' => 'Dev', 'prefix' => 'dev'], function () {
     /** Muestra un listado de íconos a utilizar en el sistema */
     Route::get('show/{el}', 'DevelopmentController@getElement')->name('dev.show.element');
     /** Rutas para el visor de logs */
@@ -316,7 +326,7 @@ Route::group(['middleware' => ['auth', 'role:dev'], 'namespace' => 'Dev', 'prefi
  * Gestiona las rutas que solo pueden accederse si el usuario autenticado
  * es administrador del sistema
  */
-Route::group(['middleware' => ['auth', 'role:admin']], function () {
+Route::group(['middleware' => ['auth', 'verified', 'role:admin']], function () {
     Route::get('restore/{model}/{id}', 'DashboardController@restore');
 
     /**
@@ -332,6 +342,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         /** Rutas para la gestión de módulos de la aplicación */
         Route::group(['prefix' => 'modules'], function () {
             Route::get('list', 'ModuleController@index')->name('module.list');
+            Route::post('enable', 'ModuleController@enable')->name('module.enable');
+            Route::post('disable', 'ModuleController@disable')->name('module.disable');
         });
         /** Ruta para la gestión de información sobre la(s) institución(es) */
         Route::resource('institutions', 'InstitutionController');
@@ -524,4 +536,12 @@ Route::get('test', function () {
      * E: Devuelve el documento del tipo mime base64 para ser adjuntado en correos electrónicos
      */
     PDF::Output($filename . '.pdf', 'I');
+});
+
+
+Route::get('mail', function () {
+    $user = App\User::find(1);
+
+    return (new App\Notifications\UserRegistered($user, '123456'))
+                ->toMail($user);
 });

@@ -45,11 +45,11 @@ class BackupRepository
             /** log the results */
             Log::info(
                 "Backpack\BackupManager -- " .
-                "se ha generado un nuevo backup desde la interfaz administrativa. \r\n" .
+                __('se ha generado un nuevo backup desde la interfaz administrativa') . ". \r\n" .
                 $output
             );
 
-            Session::flash('message', ['type' => 'other', 'text' => 'Nuevo backup generado']);
+            Session::flash('message', ['type' => 'other', 'text' => __('Nuevo backup generado')]);
         } catch (Exception $e) {
             Session::flash('message', ['type' => 'other', 'text' => $e->getMessage()]);
         }

@@ -7,7 +7,7 @@
             <div class="logo-container">
                 @include('layouts.logo-images', ['logo_mini' => true, 'logo_name' => true])
             </div>
-            <h6>Reiniciar Contraseña</h6>
+            <h6>{{ __('Reiniciar Contraseña') }}</h6>
         </div>
         <div class="content">
             @if (session('status'))
@@ -21,8 +21,9 @@
                         <i class="now-ui-icons ui-1_email-85"></i>
                     </span>
                     {!! Form::email('email', old('email'), [
-                        'class' => 'form-control', 'placeholder' => 'Correo', 'required' => 'required',
-                        'data-toggle' => 'tooltip', 'title' => 'Indique el correo a donde enviar el enlace de modificación'
+                        'class' => 'form-control', 'placeholder' => __('Correo'), 'required' => 'required',
+                        'data-toggle' => 'tooltip',
+                        'title' => __('Indique el correo a donde enviar el enlace de modificación')
                     ]) !!}
                 </div>
                 @if ($errors->has('email'))
@@ -34,15 +35,15 @@
             <div class="footer text-center">
                 <div class="row">
                     <div class="col-6">
-                        <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" title="Presione el botón para regresar"
-                                onclick="location.href='/'" type="button">
-                            Cancelar
+                        <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" type="button"
+                                title="{{ __('Presione el botón para regresar') }}" onclick="location.href='/'">
+                            {{ __('Cancelar') }}
                         </button>
                     </div>
                     <div class="col-6">
                         <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip"
-                                title="Presione el botón para enviar el enlace de modificación">
-                            Enviar enlace
+                                title="{{ __('Presione el botón para enviar el enlace de modificación') }}">
+                            {{ __('Enviar enlace') }}
                         </button>
                     </div>
                 </div>

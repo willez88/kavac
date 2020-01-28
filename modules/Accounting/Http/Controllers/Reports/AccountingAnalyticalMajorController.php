@@ -12,11 +12,13 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
+use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\ExchangeRate;
+use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Pdf\Pdf;
 
 use App\Repositories\ReportRepository;
-use App\Models\Institution;
+use Auth;
 
 /**
  * @class AccountingReportPdfAnalyticalMajorController
@@ -73,7 +75,6 @@ class AccountingAnalyticalMajorController extends Controller
          */
         $endDay = date('d', (mktime(0, 0, 0, $endMonth+1, 1, $endYear)-1));
 
-        /** @var Object string en el que se formatea la fecha final de busqueda */
         /**
          * [$endDate fecha final de busqueda]
          * @var [string]
@@ -107,10 +108,10 @@ class AccountingAnalyticalMajorController extends Controller
         $arrAccounts = [];
 
         /**
-        Se formatean los datos de las cuentas
+        * Se formatean los datos de las cuentas
         */
         array_push($arrAccounts, [
-                'id' => 0,
+                'id'   => 0,
                 'text' => 'Seleccione...',
             ]);
 
@@ -118,7 +119,7 @@ class AccountingAnalyticalMajorController extends Controller
             if ($account['entryAccount']) {
                 array_push($arrAccounts, [
                     'text' => "{$account->getCodeAttribute()} - {$account->denomination}",
-                    'id' => $account->id,
+                    'id'   => $account->id,
                 ]);
             }
         }
@@ -135,9 +136,9 @@ class AccountingAnalyticalMajorController extends Controller
     {
         $this->validate($request, [
             'initMonth' => ['required'],
-            'initYear' => ['required'],
-            'endMonth' => ['required'],
-            'endYear' => ['required'],
+            'initYear'  => ['required'],
+            'endMonth'  => ['required'],
+            'endYear'   => ['required'],
         ]);
 
         return response()->json(['records' => $this->filterAccounts(
@@ -162,7 +163,6 @@ class AccountingAnalyticalMajorController extends Controller
     {
         $initDate = $initDate.'-01';
 
-        /** @var Object string en que se almacena el ultimo dia correspondiente al mes */
         /**
          * [$endDay ultimo dia correspondiente al mes]
          * @var [date]
@@ -176,32 +176,61 @@ class AccountingAnalyticalMajorController extends Controller
         $endDate = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1].'-'.$endDay;
 
         if (isset($endAcc) && $endAcc < $initAcc) {
-            $endAcc = (int)$endAcc;
-            $aux = $initAcc;
+            $endAcc  = (int)$endAcc;
+            $aux     = $initAcc;
             $initAcc = $endAcc;
-            $endAcc = $aux;
+            $endAcc  = $aux;
         }
+
+        $institution_id = null;
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+        $is_admin = auth()->user()->isAdmin();
 
         /**
          * [$query registros de las cuentas patrimoniales seleccionadas]
          * @var Modules\Accounting\Models\AccountingAccount
          */
-        $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-            }
-        }])
+        $query = AccountingAccount::with(['entryAccount.entries' =>
+                function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])
             ->whereBetween('id', [$initAcc, $endAcc])
-            ->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
-                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-            })
-            ->orderBy('group', 'ASC')
+            ->whereHas(
+                'entryAccount.entries',
+                function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                    } else {
+                        if ($is_admin) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                        }
+                    }
+                }
+            )->orderBy('group', 'ASC')
             ->orderBy('subgroup', 'ASC')
             ->orderBy('item', 'ASC')
             ->orderBy('generic', 'ASC')
             ->orderBy('specific', 'ASC')
             ->orderBy('subspecific', 'ASC')
-            ->orderBy('denomination', 'ASC')->get();
+            ->orderBy('denomination', 'ASC');
 
         $convertions = [];
 
@@ -235,15 +264,15 @@ class AccountingAnalyticalMajorController extends Controller
                         }
                     }
 
-                    if (!$inRange || (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
-                                    && $entryAccount['entries']['currency']['id'] != $currency['id'])) {
+                    if ((!$inRange || !array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) &&
+                        $entryAccount['entries']['currency']['id'] != $currency['id']) {
                         return response()->json([
-                                    'result'=>false,
-                                    'message'=>'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
-                                                .' ('.$entryAccount['entries']['currency']['name'].')'
-                                                .' en '.$currency['symbol'].'('.$currency['name'].')'.
-                                                ', verificar tipos de cambio configurados. Para la fecha de '.
-                                                $entryAccount['entries']['from_date'],
+                                    'result'  => false,
+                                    'message' => 'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                                 .' ('.$entryAccount['entries']['currency']['name'].')'
+                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                                 ', verificar tipos de cambio configurados. Para la fecha de '.
+                                                 $entryAccount['entries']['from_date'],
                                 ], 200);
                     }
                 }
@@ -254,7 +283,7 @@ class AccountingAnalyticalMajorController extends Controller
          * [$url link para consultar ese regporte]
          * @var string
          */
-        $url = 'analyticalMajor/pdf/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc;
+        $url = 'analyticalMajor/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -267,7 +296,8 @@ class AccountingAnalyticalMajorController extends Controller
                                                                         $currentDate.' 00:00:00',
                                                                         $currentDate.' 23:59:59'
                                                                     ])
-                                        ->where('report', 'Mayor Analítico')->first();
+                                        ->where('report', 'Mayor Analítico')
+                                        ->where('institution_id', $institution_id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -275,14 +305,16 @@ class AccountingAnalyticalMajorController extends Controller
         if (!$report) {
             $report = AccountingReportHistory::create(
                 [
-                    'report' => 'Mayor Analítico',
-                    'url' => $url,
-                    'currency_id' => $currency->id,
+                    'report'         => 'Mayor Analítico',
+                    'url'            => $url,
+                    'currency_id'    => $currency->id,
+                    'institution_id' => $institution_id,
                 ]
             );
         } else {
-            $report->url = $url;
-            $report->currency_id = $currency->id;
+            $report->url            = $url;
+            $report->currency_id    = $currency->id;
+            $report->institution_id = $institution_id;
             $report->save();
         }
 
@@ -294,39 +326,71 @@ class AccountingAnalyticalMajorController extends Controller
      * [pdf vista en la que se genera el reporte en pdf]
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  integer $id [id de reporte y su informacion]
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
-        $report = AccountingReportHistory::with('currency')->find($report);
-        $initDate = explode('/', $report->url)[2];
-        $endDate  = explode('/', $report->url)[3];
-        $initAcc = explode('/', $report->url)[4];
-        $endAcc  = explode('/', $report->url)[5];
+        $report   = AccountingReportHistory::with('currency')->find($report);
+
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
+        
+        $initDate = explode('/', $report->url)[1];
+        $endDate  = explode('/', $report->url)[2];
+        $initAcc  = explode('/', $report->url)[3];
+        $endAcc   = explode('/', $report->url)[4];
 
         $currency = $report->currency;
 
         if (isset($endAcc) && $endAcc < $initAcc) {
-            $endAcc = (int)$endAcc;
-            $aux = $initAcc;
+            $endAcc  = (int)$endAcc;
+            $aux     = $initAcc;
             $initAcc = $endAcc;
-            $endAcc = $aux;
+            $endAcc  = $aux;
         }
+
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+        $is_admin = auth()->user()->isAdmin();
 
         /**
          * [$query registros de las cuentas patrimoniales seleccionadas]
          * @var Modules\Accounting\Models\AccountingAccount
          */
-        $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-            }
-        }])
+        $query = AccountingAccount::with(['entryAccount.entries' =>
+                function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])
             ->whereBetween('id', [$initAcc, $endAcc])
-            ->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
-                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-            })
-            ->orderBy('group', 'ASC')
+            ->whereHas(
+                'entryAccount.entries',
+                function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                    } else {
+                        if ($is_admin) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                        }
+                    }
+                }
+            )->orderBy('group', 'ASC')
             ->orderBy('subgroup', 'ASC')
             ->orderBy('item', 'ASC')
             ->orderBy('generic', 'ASC')
@@ -335,7 +399,7 @@ class AccountingAnalyticalMajorController extends Controller
             ->orderBy('denomination', 'ASC')->get();
 
         $convertions = [];
-        $records = [];
+        $records     = [];
 
         /*
          * recorrido y formateo de informacion en arreglos para mostrar en pdf
@@ -392,18 +456,18 @@ class AccountingAnalyticalMajorController extends Controller
             }
             array_push($records, $acc);
         }
-        // dd($convertions);
+
         /**
          * [$setting configuración general de la apliación]
          * @var [Modules\Accounting\Models\Setting]
          */
-        $setting = Setting::all()->first();
-
+        $setting  = Setting::all()->first();
+        
         $initDate = new DateTime($initDate);
-        $endDate = new DateTime($endDate);
-
+        $endDate  = new DateTime($endDate);
+        
         $initDate = $initDate->format('d/m/Y');
-        $endDate = $endDate->format('d/m/Y');
+        $endDate  = $endDate->format('d/m/Y');
 
         /**
          * [$pdf base para generar el pdf]
@@ -419,10 +483,10 @@ class AccountingAnalyticalMajorController extends Controller
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de mayor analítico');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.analytical_major', true, [
-            'pdf' => $pdf,
-            'records' => $records,
+            'pdf'      => $pdf,
+            'records'  => $records,
             'initDate' => $initDate,
-            'endDate' => $endDate,
+            'endDate'  => $endDate,
             'currency' => $currency,
         ]);
     }

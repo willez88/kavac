@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Presupuesto
+	{{ __('Presupuesto') }}
 @stop
 
 @section('maproute-title')
-	Configuración
+	{{ __('Configuración') }}
 @stop
 
 @section('content')
@@ -22,7 +22,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						Formatos de Códigos
+						{{ __('Formatos de Códigos') }}
 						@include('buttons.help', [
 							'helpId' => 'BudgetCodeSetting',
 							'helpSteps' => get_json_resource('ui-guides/code_settings.json', 'budget')
@@ -39,16 +39,16 @@
 						@include('layouts.form-errors')
 						<div class="row">
 							<div class="col-12">
-								<h6>Formulación</h6>
+								<h6>{{ __('Formulación') }}</h6>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4" id="helpCodeFormulations">
 								<div class="form-group">
-									{!! Form::label('formulations_code', 'Código de Formulación', []) !!}
+									{!! Form::label('formulations_code', __('Código de Formulación'), []) !!}
 									{!! Form::text('formulations_code', ($fCode) ? $fCode->format_code : old('formulations_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
-										'title' => 'Formato para el código de la formulación de presupuesto',
+										'title' => __('Formato para el código de la formulación de presupuesto'),
 										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($fCode) ? true : false
 									]) !!}
@@ -64,10 +64,10 @@
 						<div class="row">
 							<div class="col-md-4" id="helpCodeCommitments">
 								<div class="form-group">
-									{!! Form::label('commitments_code', 'Código de Compromiso', []) !!}
+									{!! Form::label('commitments_code', __('Código de Compromiso'), []) !!}
 									{!! Form::text('commitments_code', ($cCode) ? $cCode->format_code : old('commitments_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
-										'title' => 'Formato para el código del compromiso',
+										'title' => __('Formato para el código del compromiso'),
 										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($cCode) ? true : false
 									]) !!}
@@ -75,10 +75,10 @@
 							</div>
 							<div class="col-md-4" id="helpCodeCaused">
 								<div class="form-group">
-									{!! Form::label('caused_code', 'Código de Causado', []) !!}
+									{!! Form::label('caused_code', __('Código de Causado'), []) !!}
 									{!! Form::text('caused_code', ($caCode) ? $caCode->format_code : old('caused_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
-										'title' => 'Formato para el código del causado',
+										'title' => __('Formato para el código del causado'),
 										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($caCode) ? true : false
 									]) !!}
@@ -86,10 +86,10 @@
 							</div>
 							<div class="col-md-4" id="helpCodePayed">
 								<div class="form-group">
-									{!! Form::label('payed_code', 'Código de Pagado', []) !!}
+									{!! Form::label('payed_code', __('Código de Pagado'), []) !!}
 									{!! Form::text('payed_code', ($pCode) ? $pCode->format_code : old('payed_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
-										'title' => 'Formato para el código del pagado',
+										'title' => __('Formato para el código del pagado'),
 										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($pCode) ? true : false
 									]) !!}
@@ -97,10 +97,10 @@
 							</div>
 							<div class="col-md-4" id="helpCodeTransfers">
 								<div class="form-group">
-									{!! Form::label('transfers_code', 'Código de Traspaso', []) !!}
+									{!! Form::label('transfers_code', __('Código de Traspaso'), []) !!}
 									{!! Form::text('transfers_code', ($tCode) ? $tCode->format_code : old('transfers_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
-										'title' => 'Formato para el código del traspaso',
+										'title' => __('Formato para el código del traspaso'),
 										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($tCode) ? true : false
 									]) !!}
@@ -108,10 +108,10 @@
 							</div>
 							<div class="col-md-4" id="helpCodeReductions">
 								<div class="form-group">
-									{!! Form::label('reductions_code', 'Código de Reducción', []) !!}
+									{!! Form::label('reductions_code', __('Código de Reducción'), []) !!}
 									{!! Form::text('reductions_code', ($rCode) ? $rCode->format_code : old('reductions_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
-										'title' => 'Formato para el código de reducciones',
+										'title' => __('Formato para el código de reducciones'),
 										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($rCode) ? true : false
 									]) !!}
@@ -119,10 +119,10 @@
 							</div>
 							<div class="col-md-4" id="helpCodeCredits">
 								<div class="form-group">
-									{!! Form::label('credits_code', 'Código de Crédito Adicional', []) !!}
+									{!! Form::label('credits_code', __('Código de Crédito Adicional'), []) !!}
 									{!! Form::text('credits_code', ($crCode) ? $crCode->format_code : old('credits_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
-										'title' => 'Formato para el código de créditos adicionales',
+										'title' => __('Formato para el código de créditos adicionales'),
 										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($crCode) ? true : false
 									]) !!}
@@ -143,7 +143,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						Proyectos
+						{{ __('Proyectos') }}
 						@include('buttons.help')
 					</h6>
 					<div class="card-btns">
@@ -166,7 +166,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						Acciones Centralizadas
+						{{ __('Acciones Centralizadas') }}
 						@include('buttons.help')
 					</h6>
 					<div class="card-btns">
@@ -189,7 +189,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						Acciones Específicas
+						{{ __('Acciones Específicas') }}
 						@include('buttons.help')
 					</h6>
 					<div class="card-btns">

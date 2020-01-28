@@ -27,12 +27,12 @@ class CreateWarehouseProductAttributesTable extends Migration
     {
         if (!Schema::hasTable('warehouse_product_attributes')) {
             Schema::create('warehouse_product_attributes', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->string('name', 100)->nullable()
                       ->comment('Nombre o descripción del atributo o característica específica del producto');
 
-                $table->integer('warehouse_product_id')->comment('Identificador único del producto');
+                $table->bigInteger('warehouse_product_id')->comment('Identificador único del producto');
                 $table->foreign('warehouse_product_id')->references('id')->on('warehouse_products')
                       ->onDelete('restrict')->onUpdate('cascade');
 

@@ -27,7 +27,7 @@ class CreateWarehouseProductsTable extends Migration
     {
         if (!Schema::hasTable('warehouse_products')) {
             Schema::create('warehouse_products', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->string('name', 100)->nullable()->comment('Nombre del producto');
                 $table->text('description')->nullable()->comment('Descripción del producto');

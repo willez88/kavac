@@ -10,12 +10,14 @@ use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
+use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Profile;
 
 /**
  * @class AccountingAccountConverterController
  * @brief Controlador para el manejo del dashboard
  *
- * Clase que gestiona la conversión entre cuentas presupuestales y patrimoniales
+ * Clase que gestiona la informacion del dashboard de contabilidad
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
@@ -31,7 +33,9 @@ class AccountingDashboardController extends Controller
      */
     public function __construct()
     {
-        /** Establece permisos de acceso para cada método del controlador */
+        /**
+         * Establece permisos de acceso para cada método del controlador
+         */
         $this->middleware(
             'permission:accounting.dashboard',
             ['only' => ['index', 'get_operations', 'get_report_histories']]
@@ -55,25 +59,32 @@ class AccountingDashboardController extends Controller
      */
     public function getOperations()
     {
+
         /**
          * [$currency información de la modena por defecto establecida en la aplicación]
          * @var [Modules\Accounting\Models\Currency]
          */
-        $currency = Currency::where('default', true)->first();
-
+        $currency    = Currency::where('default', true)->first();
         /**
-         * [$report_histories información de los reportes]
-         * @var [Modules\Accounting\Models\AccountingReportHistory]
+         * [$records información de los ultimos 10 asientos contables generados]
+         * @var array
          */
-        $report_histories = AccountingReportHistory::orderBy('updated_at', 'DESC')->get();
+        $records = [];
 
-        /**
-         * [$lastRecords información de los ultimos 10 asientos contables generados]
-         * @var [Modules\Accounting\Models\AccountingEntry]
-         */
-        $lastRecords = AccountingEntry::orderBy('updated_at', 'DESC')->take(10)->get();
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        return response()->json(['lastRecords' => $lastRecords, 'currency' => $currency], 200);
+        if ($user_profile['institution']['id']) {
+            $records = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
+                        ->where('institution_id', $user_profile['institution']['id'])
+                        ->orderBy('from_date', 'ASC')->get();
+        } else {
+            if (auth()->user()->isAdmin()) {
+                $records = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
+                        ->orderBy('from_date', 'ASC')->get();
+            }
+        }
+
+        return response()->json(['lastRecords' => $records, 'currency' => $currency], 200);
     }
 
     /**
@@ -90,7 +101,21 @@ class AccountingDashboardController extends Controller
          */
         $report_histories = [];
 
-        $reports = AccountingReportHistory::orderBy('updated_at', 'DESC')->get();
+        $reports = [];
+        
+        $institution      = get_institution();
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']['id']) {
+            $reports = AccountingReportHistory::with('institution')
+                        ->where('institution_id', $user_profile['institution']['id'])
+                                            ->orderBy('updated_at', 'DESC')->get();
+        } else {
+            if (auth()->user()->isAdmin()) {
+                $reports = AccountingReportHistory::with('institution')->orderBy('updated_at', 'DESC')->get();
+            }
+        }
         foreach ($reports as $report) {
 
             /**
@@ -101,12 +126,13 @@ class AccountingDashboardController extends Controller
             $datetime2 = new DateTime(date("Y-m-d"));
             $interval = $datetime1->diff($datetime2);
             array_push($report_histories, [
-                                'created_at' => $report['updated_at']->format('d/m/Y'),
-                                'interval'=> (floor(($interval->format('%a') / 7)) . ' semanas con '.
-                                 ($interval->format('%a') % 7) . ' días'),
-                                'name' => $report['report'],
-                                'url' => $report['url'],
-                                'id' => $report['id']
+                                 'id'         => $report['id'],
+                                 'institution_name' => $report['institution']['name'],
+                                 'created_at' => $report['updated_at']->format('d/m/Y'),
+                                 'name'       => $report['report'],
+                                 'url'        => $report['url'],
+                                 'interval'   => (floor(($interval->format('%a') / 7)) . ' semanas con '.
+                                                 ($interval->format('%a') % 7) . ' días'),
                                 ]);
         }
 

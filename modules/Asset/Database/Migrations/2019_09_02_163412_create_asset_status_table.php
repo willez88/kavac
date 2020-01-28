@@ -27,7 +27,7 @@ class CreateAssetStatusTable extends Migration
     {
         if (!Schema::hasTable('asset_status')) {
             Schema::create('asset_status', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre del estatus de uso');
 
                 $table->timestamps();

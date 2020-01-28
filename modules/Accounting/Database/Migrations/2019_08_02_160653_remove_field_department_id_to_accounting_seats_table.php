@@ -26,7 +26,7 @@ class RemoveFieldDepartmentIdToAccountingSeatsTable extends Migration
     public function down()
     {
         Schema::table('accounting_seats', function (Blueprint $table) {
-            $table->integer('department_id')->unsigned()->nullable()->comment('id del departamento de institución que genero el asiento contable');
+            $table->bigInteger('department_id')->unsigned()->nullable()->comment('id del departamento de institución que genero el asiento contable');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade')->comment('id del departamento de institución que genero el asiento contable');
         });
     }

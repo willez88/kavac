@@ -12,8 +12,11 @@ use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\ExchangeRate;
+use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Profile;
+
 use App\Repositories\ReportRepository;
-use App\Models\Institution;
+
 use Auth;
 use DateTime;
 
@@ -104,21 +107,39 @@ class AccountingStateOfResultsController extends Controller
          */
         $endDate = $date.'-'.$day;
 
+        $institution_id = null;
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        $is_admin = auth()->user()->isAdmin();
+
         /**
          * consulta de cada cuenta y asiento que pertenezca a ACTIVO, PASIVO, PATRIMONIO y CUENTA DE ORDEN
          * [$query registros de las cuentas patrimoniales seleccionadas]
          * @var Modules\Accounting\Models\AccountingAccount
          */
         $query = AccountingAccount::with('entryAccount.entries.currency')
-            ->with(['entryAccount.entries' => function ($query) use ($endDate, $date) {
-                if ($query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
-                    ->where('approved', true)) {
-                    $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
-                    ->where('approved', true);
+            ->with(['entryAccount.entries' => function ($query) use ($endDate, $date, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    if ($query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                        ->where('approved', true)->where('institution_id', $institution_id)) {
+                        $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                        ->where('approved', true)->where('institution_id', $institution_id);
+                    }
+                } else {
+                    if ($is_admin) {
+                        $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                        ->where('approved', true)->where('institution_id', $institution_id);
+                    }
                 }
             }])
-            ->whereHas('entryAccount.entries', function ($query) use ($endDate, $date) {
-                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])->where('approved', true);
+            ->whereHas('entryAccount.entries', function ($query) use ($endDate, $date, $institution_id, $is_admin) {
+                $query->whereBetween('from_date', [explode('-', $date)[0].'-01-01', $endDate])
+                        ->where('approved', true)->where('institution_id', $institution_id);
             })
             ->whereBetween('group', [5, 6])
             ->orderBy('group', 'ASC')
@@ -178,17 +199,23 @@ class AccountingStateOfResultsController extends Controller
                 }
             }
         }
-        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
+        /**
+         * [$day almacena el ultimo dia correspondiente al mes]
+         * @var date
+         */
         $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
 
-        /** @var Object String en el que se formatea la fecha final de busqueda, (YYYY-mm-dd HH:mm:ss) */
+        /**
+         * [$endDate formatea la fecha final de busqueda, (YYYY-mm-dd HH:mm:ss)]
+         * @var string
+         */
         $endDate = $date.'-'.$day;
 
         /**
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
         $zero = ($zero)?'true':'';
-        $url = 'stateOfResults/pdf/'.$endDate.'/'.$level.'/'.$zero;
+        $url  = 'StateOfResults/'.$endDate.'/'.$level.'/'.$zero;
 
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
@@ -201,7 +228,8 @@ class AccountingStateOfResultsController extends Controller
                                                                         $currentDate.' 00:00:00',
                                                                         $currentDate.' 23:59:59'
                                                                     ])
-                                        ->where('report', 'Estado de Resultados')->first();
+                                        ->where('report', 'Estado de Resultados')
+                                        ->where('institution_id', $institution_id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -209,14 +237,16 @@ class AccountingStateOfResultsController extends Controller
         if (!$report) {
             $report = AccountingReportHistory::create(
                 [
-                    'report' => 'Estado de Resultados',
-                    'url' => $url,
-                    'currency_id' => $currency->id,
+                    'report'         => 'Estado de Resultados',
+                    'url'            => $url,
+                    'currency_id'    => $currency->id,
+                    'institution_id' => $institution_id,
                 ]
             );
         } else {
-            $report->url = $url;
-            $report->currency_id = $currency->id;
+            $report->url            = $url;
+            $report->currency_id    = $currency->id;
+            $report->institution_id = $institution_id;
             $report->save();
         }
         return response()->json(['result'=>true, 'id'=>$report->id], 200);
@@ -225,59 +255,117 @@ class AccountingStateOfResultsController extends Controller
     /**
      * [pdf genera el reporte en pdf de estado de resultados]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  string   $date     [fecha]
-     * @param  string   $level    [nivel de sub cuentas maximo a mostrar]
-     * @param  Currency $currency [moneda en que se expresara el reporte]
-     * @param  boolean  $zero     [si se tomaran cuentas con saldo cero]
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
-        $report = AccountingReportHistory::with('currency')->find($report);
-        $endDate = explode('/', $report->url)[2];
-        $level = explode('/', $report->url)[3];
-        $zero = explode('/', $report->url)[4];
+        $report  = AccountingReportHistory::with('currency')->find($report);
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
+        $endDate = explode('/', $report->url)[1];
+        $level   = explode('/', $report->url)[2];
+        $zero    = explode('/', $report->url)[3];
+        $date    = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1];
         $this->setCurrency($report->currency);
-        $date = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1];
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        $institution_id = null;
+
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        $is_admin = auth()->user()->isAdmin();
+
+        /**
+         * [$level_1 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_1 = 'entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_2 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_2 = 'children.entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_3 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_3 = 'children.children.entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_4 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_4 = 'children.children.children.entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_5 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_5 = 'children.children.children.children.entryAccount.entries';
 
-        /** @var Object String en el que se establece la consulta de ralación que se desean realizar  */
+        /**
+         * [$level_6 establece la consulta de ralación que se desean realizar]
+         * @var string
+         */
         $level_6 = 'children.children.children.children.children.entryAccount.entries';
 
         /**
         * Se realiza la consulta de cada cuenta y asiento que pertenezca a INGRESOS Y GASTOS
         */
         $records = AccountingAccount::with($level_1, $level_2, $level_3, $level_4, $level_5, $level_6)
-            ->with([$level_1 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_1 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_2 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_2 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_3 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_3 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_4 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_4 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_5 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_5 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
-            ->with([$level_6 => function ($query) use ($endDate) {
-                $query->where('from_date', '<=', $endDate)->where('approved', true);
+            ->with([$level_6 => function ($query) use ($endDate, $institution_id, $is_admin) {
+                if ($institution_id) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                } elseif ($is_admin) {
+                    $query->where('from_date', '<=', $endDate)->where('approved', true);
+                }
             }])
             ->whereBetween('group', [5, 6])
             ->where('subgroup', 0)
@@ -310,21 +398,21 @@ class AccountingStateOfResultsController extends Controller
          *  Definicion de las caracteristicas generales de la página pdf
          */
         $lastOfThePreviousMonth = date('d', (mktime(0, 0, 0, explode('-', $date)[1], 1, explode('-', $date)[0])-1));
-        $last = ($lastOfThePreviousMonth.'/'.(explode('-', $date)[1]-1).'/'.explode('-', $date)[0]);
-
-        $institution = Institution::find(1);
+        $last                   = ($lastOfThePreviousMonth.'/'.(explode('-', $date)[1]-1).'/'.explode('-', $date)[0]);
+        
+        $institution            = Institution::find(1);
 
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/stateOfResults/'.$report->id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de estado de resultados');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.state_of_results', true, [
-            'pdf' => $pdf,
-            'records' => $records,
-            'currency' => $this->getCurrency(),
-            'level' => $level,
-            'zero' => $zero,
-            'endDate' => $endDate,
-            'monthBefore'=>$last,
+            'pdf'         => $pdf,
+            'records'     => $records,
+            'currency'    => $this->getCurrency(),
+            'level'       => $level,
+            'zero'        => $zero,
+            'endDate'     => $endDate,
+            'monthBefore' =>$last,
         ]);
     }
     
@@ -361,10 +449,10 @@ class AccountingStateOfResultsController extends Controller
         if (count($records) > 0) {
             foreach ($records as $account) {
                 array_push($parent, [
-                    'code' => $account->getCodeAttribute(),
-                    'denomination' => $account->denomination,
                     // mes seleccionado
-                    'balance' => $this->calculateValuesInEntries(
+                    'code'         => $account->getCodeAttribute(),
+                    'denomination' => $account->denomination,
+                    'balance'      => $this->calculateValuesInEntries(
                         $account,
                         explode('-', $endD)[0].'-'.explode('-', $endD)[1].'-01',
                         $endD
@@ -375,17 +463,11 @@ class AccountingStateOfResultsController extends Controller
                         explode('-', $initD)[0].'-01-01',
                         explode('-', $endD)[0].'-'.(explode('-', $endD)[1]-1).'-'.$lastOfThePreviousMonth
                     ),
-                    'level' => $level,
-                    'children' => [],
-                    'show_children' => false,
+                    'level'         => $level,
+                    'children'      => [],
                 ]);
                 $parent[$pos]['children'] = $this->formatDataInArray($account->children, $initD, $endD, $level+1);
 
-                /**
-                * El atributo 'show_children' se establece que si la cuenta tiene hijos estos se mostraran por omisión
-                * aun si no se deseanmostrar cuentas con saldo 0
-                */
-                $parent[$pos]['show_children'] = (count($parent[$pos]['children']) > 0)?false:true;
                 $pos++;
             }
             return $parent;
@@ -425,7 +507,7 @@ class AccountingStateOfResultsController extends Controller
         }
 
         $initD = $initYear.'-'.$initMonth.'-'.$initDay;
-        $endD = $endYear.'-'.$endMonth.'-'.$endDay;
+        $endD  = $endYear.'-'.$endMonth.'-'.$endDay;
 
         /**
          * [$debit saldo total en el debe de la cuenta]
@@ -515,7 +597,6 @@ class AccountingStateOfResultsController extends Controller
                 }
             }
         }
-        dd($equalCurrency);
         return -1;
     }
 

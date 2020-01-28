@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'middleware' => ['web', 'auth'],
+    'middleware' => ['web', 'auth', 'verified'],
     'prefix' => 'finance',
     'namespace' => 'Modules\Finance\Http\Controllers'
 ], function () {

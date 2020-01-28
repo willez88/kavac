@@ -15,10 +15,10 @@ class CreateHistoryTaxesTable extends Migration
     {
         if (!Schema::hasTable('history_taxes')) {
             Schema::create('history_taxes', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->date('operation_date')->comment('Fecha de entrada en vigencia del impuesto');
                 $table->decimal('percentage', 5, 2)->comment('Porcentaje del impuesto');
-                $table->integer('tax_id')->unsigned()
+                $table->bigInteger('tax_id')->unsigned()
                       ->comment('Identificador asociado al impuesto');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

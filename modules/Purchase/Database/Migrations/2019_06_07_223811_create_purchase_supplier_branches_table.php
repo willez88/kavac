@@ -15,7 +15,7 @@ class CreatePurchaseSupplierBranchesTable extends Migration
     {
         if (!Schema::hasTable('purchase_supplier_branches')) {
             Schema::create('purchase_supplier_branches', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name')->comment('Nombre de la rama del proveedor');
                 $table->text('description')->nullable()
                       ->comment('Descripción de la rama del proveedor. Opcional');

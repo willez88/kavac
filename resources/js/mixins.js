@@ -9,7 +9,10 @@ import moment from 'moment';
 Vue.mixin({
     data() {
         return {
+            /** @type {Boolean} Establece si se esta o no cargando una petición del sistema */
             loading: true,
+            /** @type {Object} Objeto que contiene los atributos y métodos para obtener traducciones del sistema  */
+            //i18n: Lang,
             /**
              * Opciones generales a implementar en tablas
              * @type {JSON}
@@ -71,6 +74,13 @@ Vue.mixin({
         }
     },
     watch: {
+        /**
+         * Método que permite mostrar el mensaje de espera al usuario cuando cambia el estatus de la variable "loading"
+         *
+         * @method     loading
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
         loading: function() {
             let vm = this;
             if (!vm.loading) {
@@ -89,22 +99,43 @@ Vue.mixin({
          *
          * @param  {string}  v  Vista
          * @param  {integer} l  Línea
-         * @param  {string}  lg Mensaje
+         * @param  {object}  e  Objeto con datos del error
          * @param  {string}  f  Función. Opcional
          */
-        logs: function(v, l, lg, f) {
+        logs: function(v, l, e, f) {
+            let vm = this;
             var f = (typeof(f) !== "undefined") ? f : false;
+            var err = e.toJSON();
             var p = {
-                v: v,
-                l: l,
-                lg: lg
+                view: v,
+                line: l,
+                code: e.response.status,
+                type: e.response.statusText,
+                message: err.message,
+                url: e.response.config.url,
+                method: e.response.config.method,
+                func: null
             };
             if (f) {
-                p.f = f;
+                p.func = f;
             }
-            axios.post(window.log_url, p).catch(error => {
-                logs('app', 297, error);
-            });
+
+            if (window.debug) {
+                console.error("Se ha generado un error con la siguiente información:", p);
+                console.trace();
+            }
+            else {
+                axios.post(window.log_url, {
+                    view: p.view,
+                    line: p.line,
+                    code: p.code,
+                    type: p.type,
+                    message: p.message,
+                    url: p.url,
+                    method: p.method,
+                    func: p.func
+                });
+            }
         },
         /**
          * Redirecciona a una url esecífica si fue suministrada
@@ -149,6 +180,30 @@ Vue.mixin({
          */
         format_timestamp: function(value) {
             return moment(String(value)).format('DD/MM/YYYY hh:mm:ss');
+        },
+        /**
+         * Método que calcula la diferencia entre dos fechas con marca de tiempo
+         *
+         * @method     diff_datetimes
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param      {string}  dateThen    Fecha a comparar para obtener la diferencia con respecto a la fecha actual
+         *
+         * @return     {[type]}  Objeto con información de la diferencia obtenida entre las dos fechas
+         */
+        diff_datetimes: function(dateThen) {
+            var now = moment().format("YYYY-MM-DD HH:mm:ss");
+            var ms = moment(dateThen,"YYYY-MM-DD HH:mm:ss").diff(moment(now,"YYYY-MM-DD HH:mm:ss"));
+            var d = moment.duration(ms);
+            return {
+                years: d._data.years,
+                months: d._data.months,
+                days: d._data.days,
+                hours: d._data.hours,
+                minutes: d._data.minutes,
+                seconds: d._data.seconds
+            };
         },
         /**
          * Método que permite convertir elementos de medida y peso
@@ -245,7 +300,7 @@ Vue.mixin({
                 }
                 vm.loading = false;
             }).catch(error => {
-                console.log(error);
+                vm.logs('mixins.js', 285, error, 'readRecords');
             });
         },
         /**
@@ -457,7 +512,9 @@ Vue.mixin({
                             }
                             records.splice(index, 1);
                             vm.showMessage('destroy');
-                        }).catch(error => {});
+                        }).catch(error => {
+                            vm.logs('mixins.js', 498, error, 'deleteRecord');
+                        });
                     }
                 }
             });

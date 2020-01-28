@@ -114,7 +114,7 @@ class MaritalStatusController extends Controller
         $maritalStatus->name = $request->name;
         $maritalStatus->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

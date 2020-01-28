@@ -27,7 +27,7 @@ class CreatePayrollSalaryAssignmentTypesTable extends Migration
     {
         if (!Schema::hasTable('payroll_salary_assignment_types')) {
             Schema::create('payroll_salary_assignment_types', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name')->comment('Nombre del tipo de asignación de nómina');
                 $table->string('description')->nullable()->comment('Descripción del tipo de asignación de nómina');
 

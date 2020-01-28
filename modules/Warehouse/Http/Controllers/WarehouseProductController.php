@@ -59,26 +59,29 @@ class WarehouseProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'description' => ['required'],
+            'name'                => ['required', 'max:100'],
+            'description'         => ['required'],
+            'measurement_unit_id' => ['required']
             
         ]);
 
         $product = WarehouseProduct::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'define_attributes' => !empty($request->define_attributes)?$request->input('define_attributes'):false,
+            'name'                => $request->input('name'),
+            'description'         => $request->input('description'),
+            'define_attributes'   => !empty($request->define_attributes)
+                                        ? $request->input('define_attributes')
+                                        : false,
+            'measurement_unit_id' => $request->input('measurement_unit_id')
         ]);
 
         if ($product->define_attributes) {
             foreach ($request->warehouse_product_attributes as $att) {
                 $attribute = WarehouseProductAttribute::create([
-                    'name' => $att['name'],
+                    'name'                 => $att['name'],
                     'warehouse_product_id' => $product->id
                 ]);
             }
         };
-
         return response()->json(['record' => $product, 'message' => 'Success'], 200);
     }
 
@@ -93,13 +96,17 @@ class WarehouseProductController extends Controller
     public function update(Request $request, WarehouseProduct $product)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'description' => ['required'],
+            'name'                => ['required', 'max:100'],
+            'description'         => ['required'],
+            'measurement_unit_id' => ['required']
         ]);
 
-        $product->name = $request->input('name');
-        $product->description = $request->input('description');
-        $product->define_attributes =  !empty($request->define_attributes)?$request->input('define_attributes'):false;
+        $product->name                = $request->input('name');
+        $product->description         = $request->input('description');
+        $product->define_attributes   =  !empty($request->define_attributes)
+                                          ? $request->input('define_attributes')
+                                          : false;
+        $product->measurement_unit_id = $request->input('measurement_unit_id');
         $product->save();
 
         $product_attributes = WarehouseProductAttribute::where('warehouse_product_id', $product->id)->get();
@@ -197,7 +204,9 @@ class WarehouseProductController extends Controller
      */
     public function getInventoryProducts($type, $order = 'desc')
     {
-        $fields = WarehouseInventoryProduct::with('warehouseProduct', 'currency', 'measurementUnit');
+        $fields = WarehouseInventoryProduct::with(['warehouseProduct' => function ($query) {
+            $query->with('measurementUnit');
+        }], 'currency');
         if ($type == 'exist') {
             $fields = ($order == 'desc')?$fields->orderBy('exist', 'desc')->get():
                 $fields->orderBy('exist', 'asc')->get();

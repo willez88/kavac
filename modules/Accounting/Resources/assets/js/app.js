@@ -11,21 +11,21 @@ Vue.component('accounting-show-errors', require('./components/AccountingErrorsCo
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-setting-code', require('./components/setting/AccountingSettingCodeComponent.vue').default);
+Vue.component('accounting-setting-code', require('./components/settings/AccountingSettingCodeComponent.vue').default);
 
 /**
  * Componente para la configuración de categorias de origen para asientos contables
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-setting-category', require('./components/setting/AccountingSettingCategoryComponent.vue').default);
+Vue.component('accounting-setting-category', require('./components/settings/AccountingSettingCategoryComponent.vue').default);
 
 /**
  * Componente para el CRUD en ventana modal de cuentas patrimoniales
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-setting-account', require('./components/setting/AccountingAccountComponent.vue').default);
+Vue.component('accounting-setting-account', require('./components/settings/AccountingAccountComponent.vue').default);
 
 /**
  * Componente para Listar cuentas patrimoniales
@@ -93,11 +93,18 @@ Vue.component('accounting-entry-listing', require('./components/entries/Accounti
 Vue.component('accounting-entry-form', require('./components/entries/AccountingFormComponent.vue').default);
 
 /**
+ * Componente para viasualizar en modal asiento contable
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('accounting-entry-show', require('./components/entries/AccountingShowComponent.vue').default);
+
+/**
  * Componente para cargar la tabla de cuentas patrimoniales para el asiento contable
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-entry-form-account', require('./components/entries/AccountingAccountsInFormComponent.vue').default);
+Vue.component('accounting-entry-form-account', require('./components/entries/AccountingAccountFormsComponent.vue').default);
 
 /**
  * Componente index para el reporte de balance de comprobación
@@ -222,6 +229,7 @@ Vue.mixin({
 			if (!url) {
 				return;
 			}
+			vm.loading = true;
 			axios.get(url.replace('/pdf','/pdfVue')).then(response=>{
 				if (!response.data.result) {
 					vm.showMessage(
@@ -229,9 +237,10 @@ Vue.mixin({
                         );
 				}else{
 					url = url.split('/pdf')[0];
-					url += '/'+response.data.id; 
+					url += '/'+response.data.id;
 					window.open(url, type);
 				}
+				vm.loading = false;
 			})
 		},
 
@@ -261,6 +270,7 @@ Vue.mixin({
     			callback: function (result) {
 					if (result) {
     					confirmated = true;
+    					vm.loading = true;
 						axios.post(url + '/' + records[index].id).then(response => {
 							if (typeof(response.data.error) !== "undefined") {
 								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
@@ -270,6 +280,7 @@ Vue.mixin({
 							records.splice(index, 1);
 							vm.showMessage('update');
 							vm.reload = true;
+							vm.loading = false;
 						}).catch(error => {});
     				}
     			}

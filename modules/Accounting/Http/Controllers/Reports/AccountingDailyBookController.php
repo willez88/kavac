@@ -9,7 +9,9 @@ use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\ExchangeRate;
+
 use App\Repositories\ReportRepository;
 
 use Auth;
@@ -39,7 +41,17 @@ class AccountingDailyBookController extends Controller
         $this->middleware('permission:accounting.report.dailybook', ['only' => ['index', 'pdf', 'pdfVue']]);
     }
     
+    protected $records     = [];
 
+    public function getRecords()
+    {
+        return $this->records;
+    }
+
+    public function setRecords($records)
+    {
+        $this->records = array_merge($this->records, $records);
+    }
     /**
      * [pdf verifica las conversiones monetarias de un reporte libro diario]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
@@ -53,12 +65,30 @@ class AccountingDailyBookController extends Controller
          * [$entries información del asiento contable]
          * @var AccountingEntry
          */
-        $entries = AccountingEntry::with(
-            'accountingAccounts.account.accountConverters.budgetAccount'
-        )->where('approved', true)
-        ->whereBetween("from_date", [$initDate, $endDate])
-        ->orderBy('from_date', 'ASC')->get();
+        $entries = [];
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']['id']) {
+            $entries = AccountingEntry::with(
+                'accountingAccounts.account.accountConverters.budgetAccount'
+            )->where('approved', true)
+            ->where('institution_id', $user_profile['institution']['id'])
+            ->whereBetween("from_date", [$initDate, $endDate])
+            ->orderBy('from_date', 'ASC');
+        } else {
+            if (auth()->user()->isAdmin()) {
+                $entries = AccountingEntry::with(
+                    'accountingAccounts.account.accountConverters.budgetAccount'
+                )->where('approved', true)
+                ->whereBetween("from_date", [$initDate, $endDate])
+                ->orderBy('from_date', 'ASC');
+            }
+        }
+
         $convertions = [];
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
         foreach ($entries as $entry) {
             $inRange = false;
             if (!array_key_exists($entry['currency']['id'], $convertions) &&
@@ -91,7 +121,7 @@ class AccountingDailyBookController extends Controller
          * [$url link para consultar ese regporte]
          * @var string
          */
-        $url = 'dailyBook/pdf/'.$initDate.'/'.$endDate;
+        $url = 'dailyBook/'.$initDate.'/'.$endDate;
 
         /**
          * [$report almacena el registro del reporte del dia si existe]
@@ -101,7 +131,8 @@ class AccountingDailyBookController extends Controller
                                                                         $initDate.' 00:00:00',
                                                                         $endDate.' 23:59:59'
                                                                     ])
-                                        ->where('report', 'Libro Diario')->first();
+                                        ->where('report', 'Libro Diario')
+                                        ->where('institution_id', $user_profile['institution']['id'])->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -109,14 +140,16 @@ class AccountingDailyBookController extends Controller
         if (!$report) {
             $report = AccountingReportHistory::create(
                 [
-                    'report' => 'Libro Diario',
-                    'url' => $url,
-                    'currency_id' => $currency->id,
+                    'report'         => 'Libro Diario',
+                    'url'            => $url,
+                    'currency_id'    => $currency->id,
+                    'institution_id' => $user_profile['institution']['id'],
                 ]
             );
         } else {
-            $report->url = $url;
-            $report->currency_id = $currency->id;
+            $report->url            = $url;
+            $report->currency_id    = $currency->id;
+            $report->institution_id = $user_profile['institution']['id'];
             $report->save();
         }
 
@@ -126,13 +159,18 @@ class AccountingDailyBookController extends Controller
     /**
      * [pdf vista en la que se genera el reporte en pdf del libro diario]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  integer $id [id de reporte y su informacion]
+     * @param  integer $report_id [id de reporte y su informacion]
      */
     public function pdf($report_id)
     {
-        $report = AccountingReportHistory::with('currency')->find($report_id);
-        $initDate = explode('/', $report->url)[2];
-        $endDate  = explode('/', $report->url)[3];
+        $report   = AccountingReportHistory::with('currency')->find($report_id);
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
+        $initDate = explode('/', $report->url)[1];
+        $endDate  = explode('/', $report->url)[2];
 
         $currency = $report->currency;
 
@@ -140,58 +178,77 @@ class AccountingDailyBookController extends Controller
          * [$entries información del asiento contable]
          * @var AccountingEntry
          */
-        $entries = AccountingEntry::with(
-            'accountingAccounts.account.accountConverters.budgetAccount'
-        )->where('approved', true)
-        ->whereBetween("from_date", [$initDate, $endDate])
-        ->orderBy('from_date', 'ASC')->get();
+        $entries = '';
 
         $convertions = [];
-        $records = [];
-        foreach ($entries as $entry) {
-            $convertions = $this->calculateExchangeRates($convertions, $entry, $currency['id']);
 
-            $from_date = explode('-', $entry['from_date']);
-            $record = [
-                'id'=>$entry['id'],
-                'from_date'=> $from_date[2].'-'.$from_date[1].'-'.$from_date[0] ,
-                'accountingAccounts'=>[],
-            ];
 
-            $record['accountingAccounts'] = [];
-            foreach ($entry['accountingAccounts'] as $r) {
-                array_push($record['accountingAccounts'], [
-                    'debit'                   => ($r['debit']  != 0)?
-                    $this->calculateOperation(
-                        $convertions,
-                        $entry['currency']['id'],
-                        $r['debit'],
-                        $entry['from_date'],
-                        ($entry['currency']['id'] != $currency->id)??true
-                    ):0,
-                    'assets'                  => ($r['assets'] != 0)?
-                    $this->calculateOperation(
-                        $convertions,
-                        $entry['currency']['id'],
-                        $r['assets'],
-                        $entry['from_date'],
-                        ($entry['currency']['id'] != $currency->id)??true
-                    ):0,
-                    'code'                    => $r['account']->getCodeAttribute(),
-                    'denomination'            => $r['account']['denomination']
-                ]);
+
+        if ($user_profile['institution']['id']) {
+            $r = AccountingEntry::with(
+                'accountingAccounts.account.accountConverters.budgetAccount'
+            )->where('approved', true)
+            ->where('institution_id', $user_profile['institution']['id'])
+            ->whereBetween("from_date", [$initDate, $endDate])
+            ->orderBy('from_date', 'ASC');
+        } else {
+            if (auth()->user()->isAdmin()) {
+                $r = AccountingEntry::with(
+                    'accountingAccounts.account.accountConverters.budgetAccount'
+                )->where('approved', true)
+                ->whereBetween("from_date", [$initDate, $endDate])
+                ->orderBy('from_date', 'ASC');
             }
-
-            array_push($records, $record);
         }
+
+
+        $r->chunk(250, function ($entries) use ($convertions, $currency) {
+            $records = [];
+            foreach ($entries as $entry) {
+                $convertions = $this->calculateExchangeRates($convertions, $entry, $currency['id']);
+
+                $from_date = explode('-', $entry['from_date']);
+                $record = [
+                    'id'                 => $entry['id'],
+                    'from_date'          => $from_date[2].'-'.$from_date[1].'-'.$from_date[0] ,
+                    'accountingAccounts' => [],
+                ];
+
+                $record['accountingAccounts'] = [];
+                foreach ($entry['accountingAccounts'] as $r) {
+                    array_push($record['accountingAccounts'], [
+                        'debit'                   => ($r['debit']  != 0)?
+                        $this->calculateOperation(
+                            $convertions,
+                            $entry['currency']['id'],
+                            $r['debit'],
+                            $entry['from_date'],
+                            ($entry['currency']['id'] != $currency->id)??true
+                        ):0,
+                        'assets'                  => ($r['assets'] != 0)?
+                        $this->calculateOperation(
+                            $convertions,
+                            $entry['currency']['id'],
+                            $r['assets'],
+                            $entry['from_date'],
+                            ($entry['currency']['id'] != $currency->id)??true
+                        ):0,
+                        'code'                    => $r['account']->getCodeAttribute(),
+                        'denomination'            => $r['account']['denomination']
+                    ]);
+                }
+                array_push($records, $record);
+            }
+            $this->setRecords($records);
+        });
 
         /**
          * [$setting configuración general de la apliación]
          * @var Setting
          */
         $setting = Setting::all()->first();
-
-        $Entry = false;
+        
+        $Entry   = false;
 
         /**
          * [$pdf base para generar el pdf]
@@ -207,7 +264,7 @@ class AccountingDailyBookController extends Controller
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.entry_and_daily_book', true, [
             'pdf'         => $pdf,
-            'entries'     => $records,
+            'entries'     => $this->getRecords(),
             'convertions' => $convertions,
             'currency'    => $currency,
             'Entry'       => $Entry,
@@ -277,7 +334,7 @@ class AccountingDailyBookController extends Controller
         }
         return $convertions;
     }
-
+    
     public function getCheckBreak()
     {
         return $this->PageBreakTrigger;

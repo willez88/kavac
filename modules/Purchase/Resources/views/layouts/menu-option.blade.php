@@ -20,7 +20,10 @@
             </a>
         </li>
         <li>
-            <a href="#">Requermientos</a>
+            <a href="{{ route('purchase.requirements.index') }}"
+                title="Gestión de Requerimientos" data-toggle="tooltip" data-placement="right"
+                >Requermientos
+            </a>
         </li>
         <li>
             <a href="#">Cotización</a>
@@ -29,7 +32,10 @@
             <a href="#">Acta</a>
         </li>
         <li>
-            <a href="#">Orden de Compra / Servicio</a>
+            <a href="{{ route('purchase.purchase_plans.index') }}"
+                title="Gestión de Requerimientos" data-toggle="tooltip" data-placement="right">
+                Orden de Compra / Servicio
+            </a>
         </li>
         <li>
             <a href="#">Reintegro</a>

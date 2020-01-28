@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-    Formularios
+    {{ __('Formularios') }}
 @stop
 
 @section('maproute-title')
-    Formularios
+    {{ __('Formularios') }}
 @stop
 
 @section('extra-css')
@@ -47,18 +47,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Elementos de formularios</h6>
+                    <h6 class="card-title">{{ __('Elementos de formularios') }}</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="pad-top-10">Inputs</h6>
+                    <h6 class="pad-top-10">{{ __('Inputs') }}</h6>
                     <div class="row">
                         <div class="col-sm-6 col-lg-3">
                             <div class="form-group">
-                                <input type="text" value="" placeholder="Regular" class="form-control input-sm">
+                                <input type="text" value="" placeholder="{{ __('Regular') }}" class="form-control input-sm">
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-3">
@@ -92,70 +92,72 @@
                             </div>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Acciones</h6>
+                    <h6 class="pad-top-10">{{ __('Acciones') }}</h6>
                     <div class="row">
                         <div class="col-sm-6 col-lg-3">
-                            <p class="category">Checkboxes</p>
+                            <p class="category">{{ __('Checkboxes') }}</p>
                             <div class="checkbox">
                                 <input id="checkbox1" type="checkbox">
                                 <label for="checkbox1">
-                                    No seleccionado
+                                    {{ __('No seleccionado') }}
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <input id="checkbox2" type="checkbox" checked="">
                                 <label for="checkbox2">
-                                    Seleccionado
+                                    {{ __('Seleccionado') }}
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <input id="checkbox3" type="checkbox" disabled="">
                                 <label for="checkbox3">
-                                    Deshabilitado no seleccionado
+                                    {{ __('Deshabilitado no seleccionado') }}
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <input id="checkbox4" type="checkbox" checked="" disabled="">
                                 <label for="checkbox4">
-                                    Deshabilitado seleccionado
+                                    {{ __('Deshabilitado seleccionado') }}
                                 </label>
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-3">
-                            <p class="category">Radios</p>
+                            <p class="category">{{ __('Radios') }}</p>
                             <div class="radio">
                                 <input type="radio" name="radio1" id="radio1" value="option1">
                                 <label for="radio1">
-                                    Radio esta descativado
+                                    {{ __('Radio esta descativado') }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <input type="radio" name="radio1" id="radio2" value="option2" checked="">
                                 <label for="radio2">
-                                    Radio esta activado
+                                    {{ __('Radio esta activado') }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <input type="radio" name="radio3" id="radio3" value="option3" disabled="">
                                 <label for="radio3">
-                                    Radio esta desactivado y deshabilitado
+                                    {{ __('Radio esta desactivado y deshabilitado') }}
                                 </label>
                             </div>
                             <div class="radio">
                                 <input type="radio" name="radio4" id="radio4" value="option4" checked="" disabled="">
                                 <label for="radio4">
-                                    Radio esta activado y deshabilitado
+                                    {{ __('Radio esta activado y deshabilitado') }}
                                 </label>
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-3">
-                            <p class="category">Botones de selección</p>
-                            <input type="checkbox" name="checkbox" class="bootstrap-switch" checked="">
+                            <p class="category">{{ __('Botones de selección') }}</p>
+                            <input type="checkbox" name="checkbox" class="bootstrap-switch"
+                                   data-on-label="{{ __('SI') }}" data-off-label="{{ __('NO') }}" checked>
                             <br>
-                            <input type="checkbox" name="checkbox" class="bootstrap-switch" data-on-label="ON" data-off-label="OFF">
+                            <input type="checkbox" name="checkbox" class="bootstrap-switch"
+                                   data-on-label="{{ __('SI') }}" data-off-label="{{ __('NO') }}">
                         </div>
                         <div class="col-sm-6 col-lg-3">
-                            <p class="category">Sliders</p>
+                            <p class="category">{{ __('Sliders') }}</p>
                             <div id="sliderRegular" class="slider"></div>
                             <br>
                             <div id="sliderDouble" class="slider slider-primary"></div>
@@ -163,7 +165,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Barras de progreso</h4>
+                            <h4>{{ __('Barras de progreso') }}</h4>
                             <div class="progress-container">
                                 <span class="progress-badge">Default</span>
                                 <div class="progress">
@@ -181,7 +183,7 @@
                                 </div>
                             </div>
                             <br />
-                            <h4>Navegación Pills</h4>
+                            <h4>{{ __('Navegación Pills') }}</h4>
                             <ul class="nav nav-pills nav-pills-primary" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#active" role="tablist">
@@ -206,7 +208,7 @@
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <h4>Paginación</h4>
+                            <h4>{{ __('Paginación') }}</h4>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination pagination-primary">
                                     <li class="page-item active">
@@ -248,7 +250,7 @@
                                 </ul>
                             </nav>
                             <br>
-                            <h4>Etiquetas</h4>
+                            <h4>{{ __('Etiquetas') }}</h4>
                             <span class="badge badge-default">Default</span>
                             <span class="badge badge-primary">Primary</span>
                             <span class="badge badge-success">Success</span>
@@ -257,7 +259,7 @@
                             <span class="badge badge-danger">Danger</span>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Notificaciones</h6>
+                    <h6 class="pad-top-10">{{ __('Notificaciones') }}</h6>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="alert alert-success" role="alert">
@@ -320,7 +322,7 @@
                             </div>
                         </div>
                     </div>
-                    <h6 class="pad-top-10">Tipografía</h6>
+                    <h6 class="pad-top-10">{{ __('Tipografía') }}</h6>
                     <div id="typography">
                         <div class="row">
                             <div class="col-md-12">

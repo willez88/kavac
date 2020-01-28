@@ -25,7 +25,7 @@ class Profile extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'first_name', 'last_name', 'image_id', 'user_id'
+        'first_name', 'last_name', 'image_id', 'user_id', 'institution_id', 'employee_id'
     ];
 
     /**
@@ -48,5 +48,15 @@ class Profile extends Model implements Auditable
     public function image()
     {
         return $this->belongsTo(Image::class);
+    }
+
+    /**
+     * Profile belongs to Institution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
     }
 }

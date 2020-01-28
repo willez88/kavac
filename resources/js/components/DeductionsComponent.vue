@@ -255,7 +255,7 @@
                         });
                     }
                 }).catch(error => {
-                    console.log(error);
+                    vm.logs('DeductionsComponent', 258, error, 'getAccountingAccounts');
                 });
             }
         },

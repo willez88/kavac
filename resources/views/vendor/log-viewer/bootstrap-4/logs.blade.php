@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="page-header mb-4">
-        <h1>Logs</h1>
+        <h1>{{ __('Logs') }}</h1>
     </div>
 
     <div class="table-responsive">
@@ -20,7 +20,7 @@
                         @endif
                     </th>
                     @endforeach
-                    <th scope="col" class="text-right">Actions</th>
+                    <th scope="col" class="text-right">{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,7 +77,7 @@
                 <input type="hidden" name="date" value="">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">DELETE LOG FILE</h5>
+                        <h5 class="modal-title">{{ __('DELETE LOG FILE') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -86,8 +86,12 @@
                         <p></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-secondary mr-auto" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="Loading&hellip;">DELETE FILE</button>
+                        <button type="button" class="btn btn-sm btn-secondary mr-auto" data-dismiss="modal">
+                            {{ __('Cancel') }}
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="Loading&hellip;">
+                            {{ __('DELETE FILE') }}
+                        </button>
                     </div>
                 </div>
             </form>
@@ -107,7 +111,7 @@
                 var date = $(this).data('log-date');
                 deleteLogForm.find('input[name=date]').val(date);
                 deleteLogModal.find('.modal-body p').html(
-                    'Are you sure you want to <span class="badge badge-danger">DELETE</span> this log file <span class="badge badge-primary">' + date + '</span> ?'
+                    'Are you sure you want to <span class="badge badge-danger">{{ __('DELETE') }}</span> {{ __('this log file') }} <span class="badge badge-primary">' + date + '</span> ?'
                 );
 
                 deleteLogModal.modal('show');

@@ -62,6 +62,20 @@ Vue.component('budget-mod-list', require('./components/BudgetModificationListCom
 Vue.component('budget-aditional-credit-add', require('./components/BudgetAditionalCreditAddComponent.vue').default);
 
 /**
+ * Componente para mostrar listado de compromisos
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('budget-compromise-list', require('./components/BudgetCompromisesListComponent.vue').default);
+
+/**
+ * Componente para getionar los compromisos presupuestarios
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('budget-compromise', require('./components/BudgetCompromiseComponent.vue').default);
+
+/**
  * Opciones de configuración global del módulo de presupuesto
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -70,6 +84,7 @@ Vue.mixin(
     {
         data() {
             return {
+                /** @type {String} Especifica el año de ejercicio presupuestario en curso */
                 execution_year: ''
             }
         },

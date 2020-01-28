@@ -365,8 +365,16 @@ class AssetRequestController extends Controller
             'id' => 2,
             'text' => 'PERDIDO'
         ];
-        
-
         return response()->json($this->data);
+    }
+
+    public function getEquipments($id)
+    {
+        $assetRequest = AssetRequest::where('id', $id)->with(
+            ['assetRequestAssets' => function ($query) {
+                $query->with('asset');
+            }]
+        )->first();
+        return $assetRequest->assetRequestAssets;
     }
 }

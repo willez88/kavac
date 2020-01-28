@@ -27,17 +27,17 @@ class CreateWarehouseReportsTable extends Migration
     {
         if (!Schema::hasTable('warehouse_reports')) {
             Schema::create('warehouse_reports', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->string('code', 20)->unique()->comment('Código identificador del reporte');
-                
+
                 $table->string('type_report', 20)->nullable()->comment('Tipo de reporte');
 
-                $table->integer('warehouse_product_id')->nullable()->unsigned()
+                $table->bigInteger('warehouse_product_id')->nullable()->unsigned()
                       ->comment('Identificador único del producto almacenable asociado al reporte');
-                $table->integer('warehouse_id')->nullable()->unsigned()
+                $table->bigInteger('warehouse_id')->nullable()->unsigned()
                       ->comment('Identificador único del almacén asociado al reporte');
-                $table->integer('institution_id')->nullable()->unsigned()
+                $table->bigInteger('institution_id')->nullable()->unsigned()
                       ->comment('Identificador único de la institución asociada al reporte');
 
                 $table->timestamps();

@@ -35,7 +35,8 @@ class UsersTableSeeder extends Seeder
                     'email' => 'admin@admin.com',
                     'password' => bcrypt('123456'),
                     'level' => 1,
-                    'created_at' => Carbon::now()
+                    'created_at' => Carbon::now(),
+                    'email_verified_at' => Carbon::now()
                 ]
             );
             if (!$user_admin) {
@@ -66,7 +67,8 @@ class UsersTableSeeder extends Seeder
                         'email' => 'user@kavac-testing.com',
                         'password' => bcrypt('123456'),
                         'level' => 2,
-                        'created_at' => Carbon::now()
+                        'created_at' => Carbon::now(),
+                        'email_verified_at' => Carbon::now()
                     ]
                 );
             }

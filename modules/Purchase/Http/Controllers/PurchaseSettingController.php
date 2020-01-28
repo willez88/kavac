@@ -111,7 +111,6 @@ class PurchaseSettingController extends Controller
                         $model = null;
                         break;
                 }
-
                 $codeSetting = CodeSetting::updateOrCreate([
                     'module' => 'purchase',
                     'table' => 'purchase_' . str_replace("-", "_", $table),

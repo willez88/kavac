@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Usuario
+	{{ __('Usuario') }}
 @stop
 
 @section('maproute-title')
-	Permisos de Acceso
+	{{ __('Permisos de Acceso') }}
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Usuario ({{ $user->name }}) - Roles y Permisos</h6>
+					<h6 class="card-title">{{ __('Usuario (:user)', ['user' => $user->name]) }} - {{ __('Roles y Permisos') }}</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')

@@ -15,16 +15,16 @@ class CreateBudgetCentralizedActionsTable extends Migration
     {
         if (!Schema::hasTable('budget_centralized_actions')) {
             Schema::create('budget_centralized_actions', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->date('custom_date')->comment('Fecha de creación personalizada indicada por el usuario');
                 $table->string('name')->comment('Nombre de la Acción Centralizada');
                 $table->string('code')->unique()->comment('Código de la Acción Centralizada');
                 $table->boolean('active')->default(true)->comment('Indica si la acción centralizada esta activa');
-                $table->integer('department_id')->unsigned()
+                $table->bigInteger('department_id')->unsigned()
                       ->comment('Identificador asociado al departamento o dependencia administrativa');
-                $table->integer('payroll_position_id')->unsigned()
+                $table->bigInteger('payroll_position_id')->unsigned()
                       ->comment('Identificador asociado al cargo de la persona responsable de la acción centralizada');
-                $table->integer('payroll_staff_id')->unsigned()
+                $table->bigInteger('payroll_staff_id')->unsigned()
                       ->comment('Identificador asociado al cargo de la persona responsable de la acción centralizada');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

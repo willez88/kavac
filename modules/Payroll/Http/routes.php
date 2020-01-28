@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'middleware' => ['web', 'auth'],
+    'middleware' => ['web', 'auth', 'verified'],
     'prefix' => 'payroll',
     'namespace' => 'Modules\Payroll\Http\Controllers'
 ], function () {
@@ -144,6 +144,18 @@ Route::group([
         'PayrollSectorTypeController@getPayrollSectorTypes'
     )->name('payroll.get-payroll-sector-types');
 
+    Route::resource(
+        'license-degrees',
+        'PayrollLicenseDegreeController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+
+    Route::resource(
+        'blood-types',
+        'PayrollBloodTypeController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+
     Route::resource('employment-informations', 'PayrollEmploymentInformationController', ['as' => 'payroll']);
     Route::get(
         'employment-informations/show/vue-list',
@@ -167,6 +179,7 @@ Route::group([
      * ------------------------------------------------------------
      */
     Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show','create','edit']]);
+    Route::get('salary-tabulators/export/{tabulator}', 'PayrollSalaryTabulatorController@export');
     Route::get('get-salary-tabulators', 'PayrollSalaryTabulatorController@getSalaryTabulators');
 
     /**

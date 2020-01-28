@@ -27,7 +27,7 @@ class CreateAssetTypesTable extends Migration
     {
         if (!Schema::hasTable('asset_types')) {
             Schema::create('asset_types', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre del tipo de bien');
 
                 $table->timestamps();

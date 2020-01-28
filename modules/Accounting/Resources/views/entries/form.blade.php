@@ -34,7 +34,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					@if(!isset($entries))
+					@if(!isset($entry))
 						<accounting-entry-form :categories="{{ $categories }}" :institutions="{{ $institutions }}" :currencies="{{ $currencies }}" />
 					@else
 						<accounting-entry-form :categories="{{ $categories }}" :institutions="{{ $institutions }}" :currencies="{{ $currencies }}" :data_edit="{{ $data_edit }}" />
@@ -51,10 +51,10 @@
 					</div>
 				</div>
 				<div class="card-body">
-					@if(!isset($entries))
+					@if(!isset($entry))
 					<accounting-entry-form-account :accounting_accounts="{{ $AccountingAccounts }}" />
 					@else
-						<accounting-entry-form-account :accounting_accounts="{{ $AccountingAccounts }}" :entries="{{ $entries }}" route_list="{{ url('accounting/entries/unapproved') }}"/>
+						<accounting-entry-form-account :accounting_accounts="{{ $AccountingAccounts }}" :entries="{{ $entry }}" route_list="{{ url('accounting/entries/unapproved') }}"/>
 					@endif
 				</div>
 			</div>

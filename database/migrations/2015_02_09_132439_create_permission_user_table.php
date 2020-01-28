@@ -14,10 +14,10 @@ class CreatePermissionUserTable extends Migration
     {
         if (!Schema::hasTable('permission_user')) {
             Schema::create('permission_user', function (Blueprint $table) {
-                $table->increments('id')->unsigned();
-                $table->integer('permission_id')->unsigned()->index();
+                $table->bigIncrements('id')->unsigned();
+                $table->bigInteger('permission_id')->unsigned()->index();
                 $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
-                $table->integer('user_id')->unsigned()->index();
+                $table->bigInteger('user_id')->unsigned()->index();
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
                 $table->timestamps();
             });

@@ -14,13 +14,13 @@ class CreateBudgetAditionalCreditAccountsTable extends Migration
     public function up()
     {
         Schema::create('budget_aditional_credit_accounts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->float('amount', 30, 10)->comment('Monto asignado a la cuenta presupuestaria');
-            $table->integer('budget_sub_specific_formulation_id')->unsigned()->nullable()
+            $table->bigInteger('budget_sub_specific_formulation_id')->unsigned()->nullable()
                   ->comment('Identificador asociado a la Formulación');
-            $table->integer('budget_account_id')->unsigned()->nullable()
+            $table->bigInteger('budget_account_id')->unsigned()->nullable()
                   ->comment('Identificador asociado a la cuenta presupuestaria');
-            $table->integer('budget_aditional_credit_id')->unsigned()->nullable()
+            $table->bigInteger('budget_aditional_credit_id')->unsigned()->nullable()
                   ->comment('Identificador asociado al crédito adicional');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

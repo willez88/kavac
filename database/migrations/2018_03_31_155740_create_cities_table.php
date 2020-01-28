@@ -15,9 +15,9 @@ class CreateCitiesTable extends Migration
     {
         if (!Schema::hasTable('cities')) {
             Schema::create('cities', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre de la Ciudad');
-                $table->integer('estate_id')->unsigned()->unsigned()
+                $table->bigInteger('estate_id')->unsigned()->unsigned()
                       ->comment('Identificador asociado al Estado al que pertenece la Ciudad');
                 $table->foreign('estate_id')->references('id')->on('estates')
                       ->onDelete('restrict')->onUpdate('cascade');

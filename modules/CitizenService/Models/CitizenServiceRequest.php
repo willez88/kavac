@@ -36,11 +36,22 @@ class CitizenServiceRequest extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'first_name','last_name','id_number','email', 'phone', 'date',
-        'payroll_sector_type_id', 'institution_name','city_id', 'municipality_id',
-        'institution_address',
+        'first_name','last_name','id_number','email', 'date',
+        'city_id', 'municipality_id', 'address', 'motive_request', 'state', 'institution_name',
+        'institution_address', 'rif',
         'web','citizen_service_request_type_id',
-        'information', 'document_id'
+        
 
     ];
+
+    /**
+     * Obtiene todos los número telefónicos asociados a la solicitud
+     *
+
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function phones()
+    {
+        return $this->morphMany(\App\Models\Phone::class, 'phoneable');
+    }
 }

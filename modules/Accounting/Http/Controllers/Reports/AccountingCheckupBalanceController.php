@@ -13,8 +13,10 @@ use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\ExchangeRate;
+use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Profile;
+
 use App\Repositories\ReportRepository;
-use App\Models\Institution;
 use DateTime;
 use Auth;
 
@@ -28,7 +30,6 @@ use Auth;
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *                LICENCIA DE SOFTWARE CENDITEL</a>
  */
-
 class AccountingCheckupBalanceController extends Controller
 {
 
@@ -212,46 +213,81 @@ class AccountingCheckupBalanceController extends Controller
          */
         $query = [];
 
-        /** @var Array array en el que se almacenaran las cuentas patrimoniales de manera unica en el rango dando */
+        /**
+         * [$records almacenaran las cuentas patrimoniales de manera unica en el rango dando]
+         * @var array
+         */
         $records = [];
 
-        /** @var Array array auxiliar para guardar las cuentas ordenadas */
+        /**
+         * [$arrAux auxiliar para guardar las cuentas ordenadas]
+         * @var array
+         */
         $arrAux = [];
+        
+        $institution_id = null;
 
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        $is_admin = auth()->user()->isAdmin();
+        if ($all) {
+            $query = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }]);
+        } else {
+            $query = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id);
+                        }
+                    } elseif ($is_admin) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                        }
+                    }
+                }])
+                ->whereHas(
+                    'entryAccount.entries',
+                    function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                        if ($institution_id) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id);
+                        } elseif ($is_admin) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                        }
+                    }
+                );
+        }
+        $query = $query->orderBy('group', 'ASC')
+                        ->orderBy('subgroup', 'ASC')
+                        ->orderBy('item', 'ASC')
+                        ->orderBy('generic', 'ASC')
+                        ->orderBy('specific', 'ASC')
+                        ->orderBy('subspecific', 'ASC')
+                        ->orderBy('denomination', 'ASC')->get();
         /**
         * Ciclo los registros de cuentas relacionadas con asiento contables
         */
-        if ($all) {
-            $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])
-            ->orderBy('group', 'ASC')
-            ->orderBy('subgroup', 'ASC')
-            ->orderBy('item', 'ASC')
-            ->orderBy('generic', 'ASC')
-            ->orderBy('specific', 'ASC')
-            ->orderBy('subspecific', 'ASC')
-            ->orderBy('denomination', 'ASC')->get();
-        } else {
-            $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])
-            ->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
-                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-            })
-            ->orderBy('group', 'ASC')
-            ->orderBy('subgroup', 'ASC')
-            ->orderBy('item', 'ASC')
-            ->orderBy('generic', 'ASC')
-            ->orderBy('specific', 'ASC')
-            ->orderBy('subspecific', 'ASC')
-            ->orderBy('denomination', 'ASC')->get();
-        }
-
         foreach ($query as $account) {
             /**
              * [$add indica si la cuenta ya esta en el array]
@@ -285,14 +321,14 @@ class AccountingCheckupBalanceController extends Controller
                     $beg = (array_key_exists($account->id, $beginningBalance)
                                                  ? $beginningBalance[$account->id]:0);
                     array_push($records, [
-                        'id' => $account->id,
-                        'code' => $account->getCodeAttribute(),
-                        'denomination' => $account->denomination,
+                        'id'               => $account->id,
+                        'code'             => $account->getCodeAttribute(),
+                        'denomination'     => $account->denomination,
                         'beginningBalance' => $beg,
-                        'sum_debit' => ($val >= 0) ? $val : null,
-                        'sum_assets' => ($val < 0) ? $val : null,
-                        'balance_debit' => (floatval($beg)+$val >= 0) ? floatval($beg)+$val : null ,
-                        'balance_assets' => (floatval($beg)+$val < 0) ? floatval($beg)+$val : null ,
+                        'sum_debit'        => ($val >= 0) ? $val : null,
+                        'sum_assets'       => ($val < 0) ? $val : null,
+                        'balance_debit'    => (floatval($beg)+$val >= 0) ? floatval($beg)+$val : null ,
+                        'balance_assets'   => (floatval($beg)+$val < 0) ? floatval($beg)+$val : null ,
                     ]);
                 } else {
                     array_push($records, [
@@ -318,10 +354,24 @@ class AccountingCheckupBalanceController extends Controller
      */
     public function calculateBeginningBalance($initDate, $endDate, $all)
     {
-        /** @var Object Objeto en el que se almacena el registro de asiento contable mas antiguo */
+        /**
+         * [$entries almacena el registro de asiento contable mas antiguo]
+         * @var AccountingEntry
+         */
         $entries = AccountingEntry::where('approved', true)->orderBy('from_date', 'ASC')->first();
        
         $accounts = $this->getAccAccount($initDate, $endDate, true, $all, null);
+
+        $institution_id = null;
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        $is_admin = auth()->user()->isAdmin();
+
         /**
         * Ciclo en el que se calcula y almancena los saldos iniciales de cada cuenta
         */
@@ -329,9 +379,15 @@ class AccountingCheckupBalanceController extends Controller
             $balance = 0;
             foreach (AccountingEntryAccount::with('entries', 'account')
                         ->where('accounting_account_id', $account['id'])
-                        ->whereHas('entries', function ($query) use ($initDate, $endDate) {
-                            $query->whereBetween('from_date', [$initDate,$endDate])
-                            ->where('approved', true);
+                        ->whereHas('entries', function ($query) use ($initDate, $institution_id, $is_admin) {
+                            if ($institution_id) {
+                                $query->where('from_date', '<', $initDate)->where('approved', true)
+                                    ->where('institution_id', $institution_id);
+                            } else {
+                                if ($is_admin) {
+                                    $query->where('from_date', '<', $initDate)->where('approved', true);
+                                }
+                            }
                         })->orderBy('updated_at', 'ASC')->get() as $record) {
                 $balance += (float)$record->debit - (float)$record->assets;
             }
@@ -347,13 +403,22 @@ class AccountingCheckupBalanceController extends Controller
             $all = true;
         }
 
-        /** @var Object String en el que se formatea la fecha inicial de busqueda */
+        /**
+         * [$initDate fecha inicial de busqueda]
+         * @var string
+         */
         $initDate = $initDate.'-01';
 
-        /** @var Object String en que se almacena el ultimo dia correspondiente al mes */
+        /**
+         * [$endDay ultimo dia correspondiente al mes]
+         * @var string
+         */
         $endDay = date('d', (mktime(0, 0, 0, explode('-', $endDate)[1]+1, 1, explode('-', $endDate)[0])-1));
 
-        /** @var Object String en el que se formatea la fecha final de busqueda */
+        /**
+         * [$endDate fecha final de busqueda]
+         * @var string
+         */
         $endDate = $endDate.'-'.$endDay;
 
         /**
@@ -365,37 +430,66 @@ class AccountingCheckupBalanceController extends Controller
         /**
         * Ciclo los registros de cuentas relacionadas con asiento contables
         */
-        if ($all) {
-            $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])
-            ->orderBy('group', 'ASC')
-            ->orderBy('subgroup', 'ASC')
-            ->orderBy('item', 'ASC')
-            ->orderBy('generic', 'ASC')
-            ->orderBy('specific', 'ASC')
-            ->orderBy('subspecific', 'ASC')
-            ->orderBy('denomination', 'ASC')->get();
-        } else {
-            $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])
-            ->whereHas('entryAccount.entries', function ($query) use ($initDate, $endDate) {
-                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-            })
-            ->orderBy('group', 'ASC')
-            ->orderBy('subgroup', 'ASC')
-            ->orderBy('item', 'ASC')
-            ->orderBy('generic', 'ASC')
-            ->orderBy('specific', 'ASC')
-            ->orderBy('subspecific', 'ASC')
-            ->orderBy('denomination', 'ASC')->get();
+        $institution_id = null;
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
         }
 
+        $is_admin = auth()->user()->isAdmin();
+        if ($all) {
+            $query = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }]);
+        } else {
+            $query = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id);
+                        }
+                    } elseif ($is_admin) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                        }
+                    }
+                }])
+                ->whereHas(
+                    'entryAccount.entries',
+                    function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                        if ($institution_id) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                                ->where('institution_id', $institution_id);
+                        } elseif ($is_admin) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                        }
+                    }
+                );
+        }
+        $query = $query->orderBy('group', 'ASC')
+                        ->orderBy('subgroup', 'ASC')
+                        ->orderBy('item', 'ASC')
+                        ->orderBy('generic', 'ASC')
+                        ->orderBy('specific', 'ASC')
+                        ->orderBy('subspecific', 'ASC')
+                        ->orderBy('denomination', 'ASC')->get();
         /*
          * Se recorre y evalua la relacion en las conversiones necesarias a realizar
          */
@@ -450,10 +544,10 @@ class AccountingCheckupBalanceController extends Controller
         /**
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
-        $all = ($all != false)?'true':'';
-
-        $url = 'balanceCheckUp/pdf/'.$initDate.'/'.$endDate.'/'.$all;
-
+        $all         = ($all != false)?'true':'';
+        
+        $url         = 'balanceCheckUp/'.$initDate.'/'.$endDate.'/'.$all;
+        
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
 
@@ -466,7 +560,8 @@ class AccountingCheckupBalanceController extends Controller
                                                                         $currentDate.' 23:59:59'
                                                                     ])
                                         ->where('report', 'Balance de Comporbación'.(($all)?' - todas las cuentas':
-                                                                ' - solo cuentas con operaciones'))->first();
+                                                                ' - solo cuentas con operaciones'))
+                                        ->where('institution_id', $institution_id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -474,15 +569,17 @@ class AccountingCheckupBalanceController extends Controller
         if (!$report) {
             $report = AccountingReportHistory::create(
                 [
-                    'report' => 'Balance de Comporbación'.(($all)?' - todas las cuentas':
-                                ' - solo cuentas con operaciones'),
-                    'url' => $url,
-                    'currency_id' => $currency['id'],
+                    'url'            => $url,
+                    'currency_id'    => $currency['id'],
+                    'institution_id' => $institution_id,
+                    'report'         => 'Balance de Comporbación'.(($all)?' - todas las cuentas' :
+                                                                          ' - solo cuentas con operaciones'),
                 ]
             );
         } else {
-            $report->url = $url;
-            $report->currency_id = $currency['id'];
+            $report->url            = $url;
+            $report->currency_id    = $currency['id'];
+            $report->institution_id = $institution_id;
             $report->save();
         }
 
@@ -493,18 +590,19 @@ class AccountingCheckupBalanceController extends Controller
      * [pdf vista en la que se genera el reporte en pdf de balance de comprobación]
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param String $initDate variable con la fecha inicial
-     * @param String $endDate variable con la fecha inicial
-     * @param  Currency $currency moneda en que se expresara el reporte
-     * @param  boolean  $all      si se consultaran todas las cuentas o solo las que tengas actividad
+     * @param  integer $report [id de reporte y su informacion]
      */
     public function pdf($report)
     {
         $report = AccountingReportHistory::with('currency')->find($report);
-
-        $this->setInitDate(explode('/', $report->url)[2]);
-        $this->setEndDate(explode('/', $report->url)[3]);
-        $all = explode('/', $report->url)[4];
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
+        $this->setInitDate(explode('/', $report->url)[1]);
+        $this->setEndDate(explode('/', $report->url)[2]);
+        $all = explode('/', $report->url)[3];
         $this->setCurrency($report->currency);
 
         /**
@@ -527,18 +625,18 @@ class AccountingCheckupBalanceController extends Controller
          * @var array
          */
         $beginningBalance = $this->getBeginningBalance();
-
+        
         /**
          * [$accountRecords asociativo con la información base]
          * @var array
          */
         $accountRecords = $this->getAccAccount($initDate, $endDate, false, $all, $beginningBalance);
-
-        $initDate = new DateTime($initDate);
-        $endDate = new DateTime($endDate);
-
-        $initDate = $initDate->format('d/m/Y');
-        $endDate = $endDate->format('d/m/Y');
+        
+        $initDate       = new DateTime($initDate);
+        $endDate        = new DateTime($endDate);
+        
+        $initDate       = $initDate->format('d/m/Y');
+        $endDate        = $endDate->format('d/m/Y');
 
         /**
          * [$setting configuración general de la apliación]
@@ -597,7 +695,6 @@ class AccountingCheckupBalanceController extends Controller
                 }
             }
         }
-        dd($equalCurrency);
         return -1;
     }
 

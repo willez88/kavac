@@ -55,12 +55,14 @@
         },
         created(){
 
-            this.budgetOptions = this.budget_list;
+            this.budgetOptions     = this.budget_list;
             this.accountingOptions = this.accounting_list;
 
-            // si existe account_to_edit, el formulario esta en modo editar
+            /**
+             * si existe account_to_edit, el formulario esta en modo editar
+             */
             if (this.account_to_edit) {
-                this.budgetSelect = this.account_to_edit.budget_account_id;
+                this.budgetSelect     = this.account_to_edit.budget_account_id;
                 this.accountingSelect = this.account_to_edit.accounting_account_id;
             }
 
@@ -76,7 +78,7 @@
         methods:{
 
             reset(){
-                this.budgetSelect = '';
+                this.budgetSelect     = '';
                 this.accountingSelect = '';
             },
 
@@ -95,7 +97,7 @@
                     return;
                 }
 
-                // Se creara
+                vm.loading = true;
                 if (vm.account_to_edit == null) {
                     axios.post('/accounting/converter', {
                                                         'budget_id':vm.budgetSelect,
@@ -103,15 +105,17 @@
                                                         })
                     .then(response=>{
                         
-                        vm.budgetSelect = '';
-                        vm.accountingSelect = '';
-
-                        vm.accountingOptions = [];
-                        vm.budgetOptions = [];
-                        vm.accountingOptions = response.data.records_accounting;
-                        vm.budgetOptions = response.data.records_busget;
                         vm.$refs.accountingConverterForm.reset();
                         vm.showMessage('store');
+                        
+                        vm.budgetSelect      = '';
+                        vm.accountingSelect  = '';
+                        vm.accountingOptions = [];
+                        vm.budgetOptions     = [];
+                        vm.accountingOptions = response.data.records_accounting;
+                        vm.budgetOptions     = response.data.records_busget;
+                        vm.loading           = false;
+
                     });
                 } else{
                     axios.put('/accounting/converter/'+vm.account_to_edit.id, {
@@ -120,6 +124,7 @@
                                                         })
                     .then(response=>{
                         vm.showMessage('update');
+                        vm.loading    = false;
                         location.href = vm.urlPrevious;
                     });
                 }

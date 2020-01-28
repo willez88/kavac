@@ -261,7 +261,7 @@
                     }
                     vm.loading = false;
                 }).catch(error => {
-                    console.log(error);
+                    vm.logs('RolesAndPermissionsComponent', 264, error, 'getRolesAndPermissions');
                     vm.loading = false;
                 });
             }

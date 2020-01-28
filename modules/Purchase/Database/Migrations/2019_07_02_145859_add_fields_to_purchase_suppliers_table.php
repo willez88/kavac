@@ -17,13 +17,11 @@ class AddFieldsToPurchaseSuppliersTable extends Migration
             if (!Schema::hasColumn('purchase_suppliers', 'rnc_status')) {
                 $table->enum('rnc_status', ['INH', 'ISH', 'IHC', 'NOI'])->default('NOI')
                       ->comment(
-                          <<<'EOF'
-                          Determina el estatus en el Registro Nacional de Contratistas. Los Valores posibles son: 
+                          'Determina el estatus en el Registro Nacional de Contratistas. Los Valores posibles son: 
                           (INH) - Inscrito y no habilitado. 
                           (ISH) - Inscrito y habilitado. 
                           (IHC) - Inscrito, habilitado y calificado. 
-                          (NOI) - No inscrito
-                          EOF
+                          (NOI) - No inscrito'
                       );
             }
             if (!Schema::hasColumn('purchase_suppliers', 'rnc_certificate_number')) {

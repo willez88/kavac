@@ -15,7 +15,7 @@ class CreatePurchaseRequirementItemsTable extends Migration
     {
         if (!Schema::hasTable('purchase_requirement_items')) {
             Schema::create('purchase_requirement_items', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name')->comment('Nombre del producto a solicitar para su compra');
                 $table->string('description')->nullable()->comment('descripción del producto a solicitar');
                 $table->longText('technical_specifications')->nullable()
@@ -29,7 +29,7 @@ class CreatePurchaseRequirementItemsTable extends Migration
                 *
                 * Define la estructura de relación al producto
                 */
-                $table->integer('measurement_unit_id')->unsigned()
+                $table->bigInteger('measurement_unit_id')->unsigned()
                       ->comment('Identificador de la unidad de medida');
                 $table->foreign('measurement_unit_id')->references('id')
                       ->on('measurement_units')->onDelete('restrict')
@@ -42,12 +42,10 @@ class CreatePurchaseRequirementItemsTable extends Migration
                 *
                 * Define la estructura de relación al producto
                 */
-                $table->integer('warehouse_product_id')->unsigned()->nullable()
+                $table->bigInteger('warehouse_product_id')->unsigned()->nullable()
                       ->comment(
-                          <<<'EOF'
-                          Identificador del producto a solicitar para su compra si ya existe un producto registrado con 
-                          las mismas características
-                          EOF
+                          'Identificador del producto a solicitar para su compra si ya existe un producto
+                                registrado con las mismas características'
                       );
                 if (Module::has('Wareouse')) {
                     $table->foreign('warehouse_product_id')->references('id')
@@ -62,7 +60,7 @@ class CreatePurchaseRequirementItemsTable extends Migration
                 *
                 * Define la estructura de relación al requerimiento
                 */
-                $table->integer('purchase_requirement_id')->unsigned()
+                $table->bigInteger('purchase_requirement_id')->unsigned()
                       ->comment('Identificador del requerimiento de compra');
                 $table->foreign('purchase_requirement_id')->references('id')
                       ->on('purchase_requirements')->onDelete('restrict')

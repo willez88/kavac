@@ -15,7 +15,7 @@ class CreateAccountingSeatCategoriesTable extends Migration
     {
         if (!Schema::hasTable('accounting_seat_categories')) {
             Schema::create('accounting_seat_categories', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->text('name')->comment('Nombre de la categoria u origen del cual se genero el asiento contable');
                 $table->text('acronym')->comment('acrónimo utilizado al generar un asiento de manera automatica');
                 $table->timestamps();

@@ -15,10 +15,10 @@ class CreateMunicipalitiesTable extends Migration
     {
         if (!Schema::hasTable('municipalities')) {
             Schema::create('municipalities', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre del Municipio');
                 $table->string('code', 10)->nullable()->comment('Código que identifica al Municipio');
-                $table->integer('estate_id')->unsigned()
+                $table->bigInteger('estate_id')->unsigned()
                       ->comment('Identificador al Estado al que pertenece el Municipio');
                 $table->foreign('estate_id')->references('id')->on('estates')
                       ->onDelete('restrict')->onUpdate('cascade');

@@ -58,9 +58,16 @@ class UploadImageRepository
 
             if (in_array($this->image_extension, $this->allowed_upload) || !$checkAllowed) {
                 if ($verifySize == true && !$this->verifySize($file)) {
-                    $this->error_msg = 'La imagen debe tener al menos ' . $this->min_sizes['width'] . 'px X ' .
-                    $this->min_sizes['height'] . 'px, y no debe ser mayor a ' . $this->max_sizes['width'] . 'px X ' .
-                    $this->max_sizes['height'] . 'px.';
+                    $this->error_msg = __(
+                        'La imagen debe tener al menos :minwidth px X :minheight , ' .
+                        'y no debe ser mayor a :maxwidth px X :maxheight px',
+                        [
+                            'minwidth' => $this->min_sizes['width'],
+                            'minheight' => $this->min_sizes['height'],
+                            'maxwidth' => $this->max_sizes['width'],
+                            'maxheight' => $this->max_sizes['height']
+                        ]
+                    );
                 } else {
                     $upload = Storage::disk($store)->put($this->image_name, File::get($file));
                     if ($upload) {
@@ -71,18 +78,20 @@ class UploadImageRepository
 
                         return true;
                     } else {
-                        $this->error_msg = 'Error al subir el archivo, verifique e intente de nuevo';
+                        $this->error_msg = __('Error al subir el archivo, verifique e intente de nuevo');
                     }
                 }
             } else {
-                $this->error_msg = 'La extensión del archivo es inválida. Verifique e intente nuevamente';
+                $this->error_msg = __('La extensión del archivo es inválida. Verifique e intente nuevamente');
             }
         } else {
-            $this->error_msg = 'Error al procesar el archivo. Verifique que este correcto y ' .
-                               'sea del tamaño permitido e intente nuevamente';
+            $this->error_msg = __(
+                'Error al procesar el archivo. Verifique que este correcto y ' .
+                'sea del tamaño permitido e intente nuevamente'
+            );
         }
         session()->flash('message', [
-            'type' => 'other', 'class' => 'warning', 'title' => 'Alerta!', 'msg' => $this->error_msg
+            'type' => 'other', 'class' => 'warning', 'title' => __('Alerta!'), 'msg' => $this->error_msg
         ]);
         return false;
     }

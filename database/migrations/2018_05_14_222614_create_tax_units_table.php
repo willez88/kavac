@@ -15,7 +15,7 @@ class CreateTaxUnitsTable extends Migration
     {
         if (!Schema::hasTable('tax_units')) {
             Schema::create('tax_units', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->float('value', 20, 2)->comment('Valor de la unidad tributaria');
                 $table->date('start_date')
                       ->comment('Fecha de entrada en vigencia de la unidad tributaria');

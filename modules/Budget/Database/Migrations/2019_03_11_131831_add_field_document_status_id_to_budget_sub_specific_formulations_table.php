@@ -14,7 +14,7 @@ class AddFieldDocumentStatusIdToBudgetSubSpecificFormulationsTable extends Migra
     public function up()
     {
         Schema::table('budget_sub_specific_formulations', function (Blueprint $table) {
-            $table->integer('document_status_id')->unsigned()->nullable()
+            $table->bigInteger('document_status_id')->unsigned()->nullable()
                   ->comment('Identificador asociado a la institución');
             $table->foreign('document_status_id')->references('id')->on('document_status')->onUpdate('cascade');
         });

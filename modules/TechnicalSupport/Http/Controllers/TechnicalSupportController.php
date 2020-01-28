@@ -69,4 +69,9 @@ class TechnicalSupportController extends Controller
     public function destroy()
     {
     }
+
+    public function getTechnicalSupportStaff()
+    {
+        return template_choices('App\User', 'name', '', true);
+    }
 }

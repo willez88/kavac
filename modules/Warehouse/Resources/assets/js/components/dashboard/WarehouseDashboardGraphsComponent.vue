@@ -365,13 +365,19 @@
 						$.each(fields, function(indice, field) {
 							data.push(field.exist);
 							labels.push(field.code);
-							descriptions.push('Unidad: ' + field.measurement_unit.name);
+							descriptions.push((field.warehouse_product.measurement_unit)
+                                ? ('Unidad: ' + field.warehouse_product.measurement_unit)
+                                : ''
+                            );
 						});
 					} else {
 						$.each(fields, function(indice, field) {
 							data.push((field.reserved == null)?0:field.reserved);
 							labels.push(field.code);
-							descriptions.push('Unidad: ' + field.measurement_unit.name);
+							descriptions.push((field.warehouse_product.measurement_unit)
+                                ? ('Unidad: ' + field.warehouse_product.measurement_unit)
+                                : ''
+                            );
 						});
 					}
 					vm.data = data;

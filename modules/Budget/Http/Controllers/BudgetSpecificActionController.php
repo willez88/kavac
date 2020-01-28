@@ -306,7 +306,7 @@ class BudgetSpecificActionController extends Controller
      * @param boolean $formulated     Indica si se debe validar con una formulación de presupuesto
      * @return JSON                   JSON con los datos de las acciones específicas
      */
-    public function getGroupAllSpecificActions($formulated_year = '', $formulated = false)
+    public function getGroupAllSpecificActions($formulated_year = '', $formulated = null)
     {
         if ($formulated_year && strlen($formulated_year) > 4) {
             try {
@@ -332,7 +332,7 @@ class BudgetSpecificActionController extends Controller
 
         /** Agrega las acciones específicas para cada grupo */
         foreach ($sp_accs as $sp_acc) {
-            $filter = ($formulated) ? BudgetSubSpecificFormulation::where(
+            $filter = (!is_null($formulated) && $formulated) ? BudgetSubSpecificFormulation::where(
                 [
                     'budget_specific_action_id' => $sp_acc->specificable_id,
                     'assigned' => true
@@ -349,7 +349,7 @@ class BudgetSpecificActionController extends Controller
                     'id' => $sp_acc->id,
                     'text' => "{$sp_acc->specificable->code} - {$sp_acc->code} | {$sp_acc->name}"
                 ]);
-            } elseif ($formulated && is_null($filter)) {
+            } elseif (!is_null($formulated) && $formulated && is_null($filter)) {
                 array_push($data, ['text' => 'Sin formulaciones registradas', 'children' => []]);
             }
         }

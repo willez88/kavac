@@ -15,7 +15,7 @@ class CreateProfessionsTable extends Migration
     {
         if (!Schema::hasTable('professions')) {
             Schema::create('professions', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 200)->unique()->comment('Nombre de la profesión');
                 $table->string('acronym', 10)->nullable()->comment('Siglas o acrónimo de la profesión');
                 $table->timestamps();

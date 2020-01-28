@@ -153,13 +153,14 @@
 					end:'',
 					year:0,
 					month:0,
-					institution:'',
+					institution:0,
 				},
 			}
 		},
 		created(){
 			this.CalculateOptionsYears(this.year_old, true);
 			this.months.unshift({id:0, text:'Todos'});
+			this.data.institution = this.institutions[0]['id'];
 		},
 		mounted(){
 
@@ -223,25 +224,19 @@
 			*/
 			searchRecords:function(){
 
+				const vm = this;
 				// manejo de errores
-				if (this.ErrorsInForm()) {
+				if (vm.ErrorsInForm()) {
 					return ;
 				}
-				const vm = this;
-				axios.post('/accounting/entries/Filter-Records',{
-					'typeSearch':this.typeSearch,
-					'filterDate':this.filterDate,
-					'data':this.data,
-				}).then(response=>{
-					if (response.data.records.length == 0) {
-						this.$refs.accountingEntriesSearch.showAlertMessages('No se encontraron asientos contables aprobados con los parámetros de busqueda dados.', 'primary');
-					}
-					this.records = response.data.records;
-					EventBus.$emit('list:entries',{
-						records:response.data.records,
-						currency:this.currency,
-					});
-				});
+				vm.data['typeSearch'] = vm.typeSearch;
+                vm.data['filterDate'] = vm.filterDate;
+                vm.data['firstSearch'] = true;
+                
+                vm.loading = true;
+
+                EventBus.$emit('list:entries',vm.data);
+				vm.loading = false;
 			},
 		},
 	};

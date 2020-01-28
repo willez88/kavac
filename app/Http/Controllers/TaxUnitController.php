@@ -123,7 +123,7 @@ class TaxUnitController extends Controller
         $taxUnit->active = ($request->active);
         $taxUnit->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

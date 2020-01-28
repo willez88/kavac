@@ -14,7 +14,7 @@ class AddFieldParentIdToAccountingAccounts extends Migration
     public function up()
     {
         Schema::table('accounting_accounts', function (Blueprint $table) {
-            $table->integer('parent_id')->nullable()->unsigned()
+            $table->bigInteger('parent_id')->nullable()->unsigned()
                       ->comment('Identificador asociado a la cuenta padre');
             $table->foreign('parent_id')->references('id')->on('accounting_accounts')->onUpdate('cascade')->comment('Identificador asociado a la cuenta padre');
         });

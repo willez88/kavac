@@ -27,15 +27,15 @@ class CreateWarehouseInventoryProductRequestsTable extends Migration
     {
         if (!Schema::hasTable('warehouse_inventory_product_requests')) {
             Schema::create('warehouse_inventory_product_requests', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->integer('quantity')->unsigned()->comment('Cantidad solicitada del producto');
 
-                $table->integer('warehouse_request_id')->nullable()->unsigned()
+                $table->bigInteger('warehouse_request_id')->nullable()->unsigned()
                       ->comment('Identificador único de la solicitud');
                 $table->foreign('warehouse_request_id')->references('id')->on('warehouse_requests')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('warehouse_inventory_product_id')->nullable()->unsigned()
+                $table->bigInteger('warehouse_inventory_product_id')->nullable()->unsigned()
                       ->comment('Identificador único del producto solicitado en el inventario');
                 $table->foreign('warehouse_inventory_product_id')->references('id')->on('warehouse_inventory_products')
                       ->onDelete('restrict')->onUpdate('cascade');

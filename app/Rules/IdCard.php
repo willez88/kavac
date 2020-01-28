@@ -46,6 +46,6 @@ class IdCard implements Rule
      */
     public function message()
     {
-        return 'El número de cédula es incorrecto o no existe.';
+        return __('El número de cédula es incorrecto o no existe.');
     }
 }

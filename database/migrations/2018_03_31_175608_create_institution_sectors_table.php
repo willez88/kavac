@@ -15,7 +15,7 @@ class CreateInstitutionSectorsTable extends Migration
     {
         if (!Schema::hasTable('institution_sectors')) {
             Schema::create('institution_sectors', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 150)->comment('Nombre del sector');
                 $table->timestamps();
                 $table->unique('name')->comment('Clave única del registro');

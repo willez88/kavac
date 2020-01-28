@@ -27,22 +27,22 @@ class CreateWarehouseInventoryProductMovementsTable extends Migration
     {
         if (!Schema::hasTable('warehouse_inventory_product_movements')) {
             Schema::create('warehouse_inventory_product_movements', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->integer('quantity')->unsigned()->comment('Cantidad del producto movilizado');
                 $table->float('new_value')->comment('Nuevo precio del producto movilizado');
 
-                $table->integer('warehouse_movement_id')->unsigned()
+                $table->bigInteger('warehouse_movement_id')->unsigned()
                       ->comment('Identificador único del movimiento de almacén realizado');
                 $table->foreign('warehouse_movement_id')->references('id')->on('warehouse_movements')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('warehouse_initial_inventory_product_id')->nullable()->unsigned()
+                $table->bigInteger('warehouse_initial_inventory_product_id')->nullable()->unsigned()
                       ->comment('Identificador único de la ubicación inicial del producto en el inventario');
                 $table->foreign('warehouse_initial_inventory_product_id')->references('id')
                       ->on('warehouse_inventory_products')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('warehouse_inventory_product_id')->unsigned()
+                $table->bigInteger('warehouse_inventory_product_id')->unsigned()
                       ->comment('Identificador único del producto en el inventario');
                 $table->foreign('warehouse_inventory_product_id')->references('id')
                       ->on('warehouse_inventory_products')->onDelete('restrict')->onUpdate('cascade');

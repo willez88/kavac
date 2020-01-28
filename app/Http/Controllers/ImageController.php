@@ -58,7 +58,7 @@ class ImageController extends Controller
                 return response()->json(['result' => true, 'image_id' => $image_id, 'image_url' => $image_url], 200);
             }
         }
-        return response()->json(['result' => false, 'message' => 'No se pudo subir la imagen'], 200);
+        return response()->json(['result' => false, 'message' => __('No se pudo subir la imagen')], 200);
     }
 
     /**
@@ -107,7 +107,7 @@ class ImageController extends Controller
 
         if (is_null($image)) {
             return response()->json([
-                'result' => false, 'message' => 'La imagen no existe o ya fue eliminada'
+                'result' => false, 'message' => __('La imagen no existe o ya fue eliminada')
             ], 200);
         }
 

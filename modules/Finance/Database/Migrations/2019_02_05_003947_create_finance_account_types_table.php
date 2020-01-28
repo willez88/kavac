@@ -14,7 +14,7 @@ class CreateFinanceAccountTypesTable extends Migration
     public function up()
     {
         Schema::create('finance_account_types', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name')->comment('nombre del tipo de cuenta bancaria');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

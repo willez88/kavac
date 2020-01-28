@@ -15,10 +15,10 @@ class CreateEstatesTable extends Migration
     {
         if (!Schema::hasTable('estates')) {
             Schema::create('estates', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre del Estado');
                 $table->string('code', 10)->nullable()->comment('Código que identifica al Estado');
-                $table->integer('country_id')->unsigned()
+                $table->bigInteger('country_id')->unsigned()
                       ->comment('Identificador del Pais al que pertenece el Estado');
                 $table->foreign('country_id')->references('id')
                       ->on('countries')->onDelete('restrict')->onUpdate('cascade');

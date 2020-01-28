@@ -27,19 +27,19 @@ class CreateWarehouseInventoryRulesTable extends Migration
     {
         if (!Schema::hasTable('warehouse_inventory_rules')) {
             Schema::create('warehouse_inventory_rules', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->integer('minimum')->unsigned()->nullable()
                       ->comment('Cantidad mínima permitida de un producto en el almacén');
                 $table->integer('maximum')->unsigned()->nullable()
                       ->comment('Cantidad máxima permitida de un producto en el almacén');
 
-                $table->integer('warehouse_inventory_product_id')->unsigned()
+                $table->bigInteger('warehouse_inventory_product_id')->unsigned()
                       ->comment('Identificador único del producto inventariado');
                 $table->foreign('warehouse_inventory_product_id')->references('id')->on('warehouse_inventory_products')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('user_id')->unsigned()
+                $table->bigInteger('user_id')->unsigned()
                       ->comment('Identificador único del usuario que registra el cambio de regla');
                 $table->foreign('user_id')->references('id')->on('users')
                       ->onDelete('restrict')->onUpdate('cascade');

@@ -68,12 +68,6 @@
 				</div>
 				<div class="col-md-3">
 					<div class="form-group is-required">
-						<label>Unidad de Medida:</label>
-						<select2 :options="measurement_units" v-model="warehouse_inventory_product.measurement_unit_id"></select2>
-                    </div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group is-required">
 						<label>Cantidad:</label>
 						<input type="number" min="1" placeholder="Cantidad del Producto" data-toggle="tooltip" 								   
 							   class="form-control input-sm"
@@ -196,11 +190,10 @@
 					unit_value:'',
 					currency_id: '',
 					warehouse_product_id: '',
-					measurement_unit_id: '',
 					warehouse_product_attributes: [],
 				},
 				
-				columns: ['name', 'quantity', 'measurement_unit.name', 'warehouse_product_attributes', 'id'],
+				columns: ['name', 'quantity', 'warehouse_product_attributes', 'id'],
 				records: [],
 				errors: [],
 				
@@ -211,7 +204,6 @@
 				institutions: [],
 				warehouses: [],
 				warehouse_products: [],
-				measurement_units: [],
 				currencies: [],
 
 				/** Revisar */
@@ -234,9 +226,6 @@
 
 					warehouse_product_id: '',
 					warehouse_product_name: '',
-
-					measurement_unit_id: '',
-					measurement_unit_name: '',
 
 					warehouse_product_attributes: [],
 				},
@@ -271,15 +260,6 @@
 				}
 			},
 
-			getMeasurementUnits() {
-				const vm = this;
-				vm.measurement_units = [];
-
-				axios.get('/warehouse/get-measurement-units').then(response => {
-					vm.measurement_units = response.data;
-				});
-			},
-
 			getWarehouseProductAttributes() {
 				const vm = this;
 				var product_id = vm.warehouse_inventory_product.warehouse_product_id;
@@ -309,7 +289,6 @@
 
 				var att = [];
 				var currency_name = '';
-				var measurement_unit_name = '';
 				var warehouse_product_name = '';
 				
 				vm.warehouse_product_attributes.map(function(campo, index) {
@@ -325,20 +304,11 @@
 			                warehouse_product_name = campo.text;
 			        });
 				}
-				if (vm.warehouse_inventory_product.measurement_unit_id != '') {
-			        $.each(vm.measurement_units, function(index, campo) {
-			            if (campo.id == vm.warehouse_inventory_product.measurement_unit_id)
-			                measurement_unit_name = campo.text;
-			        });
-			    }
 			    if (vm.warehouse_inventory_product.currency_id != '') {
 			        $.each(vm.currencies, function(index, campo) {
 			            if (campo.id == vm.warehouse_inventory_product.currency_id)
 			                currency_name = campo.text;
 			        });
-			    }
-			    vm.warehouse_inventory_product.measurement_unit = {
-			    	name: measurement_unit_name,
 			    }
 			    vm.warehouse_inventory_product.warehouse_product = {
 			    	name: warehouse_product_name,
@@ -409,10 +379,6 @@
 							warehouse_product: {
 								name: campo.warehouse_inventory_product.warehouse_product.name,
 							},
-							measurement_unit_id: campo.warehouse_inventory_product.measurement_unit_id,
-							measurement_unit: {
-								name: campo.warehouse_inventory_product.measurement_unit.name,
-							},
 							warehouse_product_attributes: atts,
 						};
 						vm.records.push(warehouse_inventory_product);
@@ -424,16 +390,14 @@
 			this.table_options.headings = {
 				'name': 'Producto',
 				'quantity': 'Cantidad',
-				'measurement_unit.name': 'Unidad',
 				'warehouse_product_attributes': 'Detalles',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['name', 'quantity', 'measurement_unit.name'];
-			this.table_options.filterable = ['name', 'quantity', 'measurement_unit.name'];
+			this.table_options.sortable = ['name', 'quantity'];
+			this.table_options.filterable = ['name', 'quantity'];
 
 			this.getInstitutions();
 			this.getWarehouses();
-			this.getMeasurementUnits();
 			this.getCurrencies();
 
 			if (this.receptionid) {

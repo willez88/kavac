@@ -15,7 +15,7 @@ class CreateBudgetAccountOpensTable extends Migration
     {
         if (!Schema::hasTable('budget_account_opens')) {
             Schema::create('budget_account_opens', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->float('jan_amount', 30, 10)->default(0)->comment('Monto del mes de Enero');
                 $table->float('feb_amount', 30, 10)->default(0)->comment('Monto del mes de Febrero');
                 $table->float('mar_amount', 30, 10)->default(0)->comment('Monto del mes de Marzo');
@@ -32,9 +32,9 @@ class CreateBudgetAccountOpensTable extends Migration
                 $table->float('total_real_amount', 30, 10)->comment('Monto o cantidad total real del año anterior');
                 $table->float('total_estimated_amount', 30, 10)
                       ->comment('Monto o cantidad total estimada para el año de formulación');
-                $table->integer('budget_account_id')->unsigned()
+                $table->bigInteger('budget_account_id')->unsigned()
                       ->comment('Identificador asociado a la cuenta patrimonial');
-                $table->integer('budget_sub_specific_formulation_id')->unsigned()
+                $table->bigInteger('budget_sub_specific_formulation_id')->unsigned()
                       ->comment('Identificación asociado a la formulación');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

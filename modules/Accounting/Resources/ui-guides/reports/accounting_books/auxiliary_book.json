@@ -5,7 +5,7 @@
     },
     {
         "element" : "#helpAuxiliaryBookDate",
-        "intro" : "Fecha para la consulta del reporte."
+        "intro" : "Parametro decha que indica el rango de busque de las operaciones."
     },
     {
         "element" : "#helpAuxiliaryBookAccount",

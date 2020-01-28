@@ -26,7 +26,7 @@ class AssetRequestEvent extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['type', 'description', 'asset_request_id'];
+    protected $fillable = ['type', 'description', 'asset_request_id', 'document_id'];
 
     /**
      * Método que obtiene la solicitud asociada al registro
@@ -38,5 +38,16 @@ class AssetRequestEvent extends Model implements Auditable
     public function assetRequest()
     {
         return $this->belongsTo(AssetRequest::class);
+    }
+
+    /**
+     * Método que obtiene la información del documento asociado al registro
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Document
+     */
+    public function document()
+    {
+        return $this->belongsTo(\App\Models\Document::class);
     }
 }

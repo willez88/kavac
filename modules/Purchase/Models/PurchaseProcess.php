@@ -25,4 +25,26 @@ class PurchaseProcess extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['name', 'description', 'require_documents', 'list_documents'];
+
+    /**
+     * PurchaseProcess has many PurchaseType.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchaseType()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseProcess_id, localKey = id)
+        return $this->hasMany(PurchaeType::class);
+    }
+
+    /**
+     * PurchaseProcess has many PurchasePlan.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchasePlan()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseProcess_id, localKey = id)
+        return $this->hasMany(PurchasePlan::class);
+    }
 }

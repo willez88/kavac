@@ -15,7 +15,7 @@ class AddFieldInstitutionIdToProfilesTable extends Migration
     {
         Schema::table('profiles', function (Blueprint $table) {
             if (!Schema::hasColumn('profiles', 'institution_id')) {
-                $table->integer('institution_id')->unsigned()->nullable()
+                $table->bigInteger('institution_id')->unsigned()->nullable()
                       ->comment('Identificador de la institución');
                 $table->foreign('institution_id')->references('id')
                       ->on('institutions')->onDelete('restrict')->onUpdate('cascade');

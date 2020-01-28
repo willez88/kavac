@@ -46,6 +46,6 @@ class Rif implements Rule
      */
     public function message()
     {
-        return 'El número de RIF es incorrecto o no existe.';
+        return __('El número de RIF es incorrecto o no existe.');
     }
 }

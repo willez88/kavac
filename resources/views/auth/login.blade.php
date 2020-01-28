@@ -7,7 +7,7 @@
             <div class="logo-container">
                 @include('layouts.logo-images', ['logo_mini' => true, 'logo_name' => true])
             </div>
-            <h6>Acceso</h6>
+            <h6>{{ __('Acceso') }}</h6>
         </div>
         <div class="content">
             <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
@@ -16,8 +16,8 @@
                         <i class="now-ui-icons users_circle-08"></i>
                     </span>
                     {!! Form::text('username', old('username'), [
-                        'class' => 'form-control', 'placeholder' => 'Usuario', 'required' => 'required',
-                        'title' => 'Indique el nombre del usuario.',
+                        'class' => 'form-control', 'placeholder' => __('Usuario'), 'required' => 'required',
+                        'title' => __('Indique el nombre del usuario.'),
                         'data-toggle' => 'tooltip', 'data-placement' => 'right'
                     ]) !!}
                 </div>
@@ -33,8 +33,8 @@
                         <i class="now-ui-icons ui-1_lock-circle-open"></i>
                     </span>
                     {!! Form::password('password', [
-                        'class' => 'form-control', 'placeholder' => 'Contraseña', 'required' => 'required',
-                        'title' => 'Indique la contraseña de acceso.',
+                        'class' => 'form-control', 'placeholder' => __('Contraseña'), 'required' => 'required',
+                        'title' => __('Indique la contraseña de acceso.'),
                         'data-toggle' => 'tooltip', 'data-placement' => 'right'
                     ]) !!}
                 </div>
@@ -46,13 +46,13 @@
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-8 text-right">
+                    <div class="col-md-9 text-right">
                         <div class="captcha-addon">{!! Captcha::img(); !!}</div>
                     </div>
-                    <div class="col-md-4 text-left">
-                        <i class="now-ui-icons arrows-1_refresh-69 cursor-pointer vertical-middle"
+                    <div class="col-md-3 text-left">
+                        <i class="now-ui-icons arrows-1_refresh-69 cursor-pointer captcha-reload vertical-middle"
                            onclick="refresh_captcha()" data-toggle="tooltip"
-                           title="Presione este botón para generar una nueva imagen de captcha"></i>
+                           title="{{ __('Presione este botón para generar una nueva imagen de captcha') }}"></i>
                     </div>
                 </div>
             </div>
@@ -62,9 +62,9 @@
                         <i class="now-ui-icons design_image"></i>
                     </span>
                     {!! Form::text('captcha', old('captcha'), [
-                        'class' => 'form-control', 'placeholder' => 'Captcha', 'required' => 'required',
+                        'class' => 'form-control', 'placeholder' => __('Captcha'), 'required' => 'required',
                         'id' => 'captcha', 'onfocus' => '$(this).val("")', 'data-toggle' => 'tooltip',
-                        'title' => 'Introduzca los carácteres de la imagen', 'data-placement' => 'right'
+                        'title' => __('Introduzca los carácteres de la imagen'), 'data-placement' => 'right'
                     ]) !!}
                 </div>
                 @if ($errors->has('captcha'))
@@ -76,19 +76,19 @@
         </div>
         <div class="footer text-center">
             <label>
-                <span style="margin-right:10px">Recuerdame</span>
+                <span style="margin-right:10px">{{ __('Recuerdame') }}</span>
                 <input type="checkbox" name="checkbox" class="form-control bootstrap-switch"
                        data-on-label="SI" data-off-label="NO" data-toggle="tooltip" data-placement="right"
-                       title="Seleccione si desea que el sistema recuerde sus datos" />
+                       title="{{ __('Seleccione si desea que el sistema recuerde sus datos') }}" />
             </label>
 
             <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" data-placement="right"
-                    title="Presione el botón para validar los datos y acceder al sistema">
-                Acceso
+                    title="{{ __('Presione el botón para validar los datos y acceder al sistema') }}">
+                {{ __('Acceso') }}
             </button>
-            <a class="btn btn-link" href="{{ route('password.request') }}" data-toggle="tooltip"
-               title="¿Olvido su contraseña?, presione sobre el enlace para modificarla" data-placement="right">
-                ¿Olvidaste la contraseña?
+            <a class="btn btn-link" href="{{ route('password.request') }}" data-toggle="tooltip" data-placement="right"
+               title="{{ __('¿Olvido su contraseña?, presione sobre el enlace para modificarla') }}">
+                {{ __('¿Olvidaste la contraseña?') }}
             </a>
         </div>
     </form>
@@ -98,7 +98,7 @@
     <script>
         $(document).ready(function() {
             $('.bootstrap-switch-wrapper').attr({
-                'title': 'Seleccione si desea que el sistema recuerde sus datos',
+                'title': '{{ __('Seleccione si desea que el sistema recuerde sus datos') }}',
                 'data-toggle': 'tooltip'
             }).tooltip({
                 trigger:"hover",

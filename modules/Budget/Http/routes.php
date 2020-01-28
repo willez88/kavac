@@ -4,7 +4,7 @@
  */
 Route::group(
     [
-        'middleware' => ['web', 'auth'],
+        'middleware' => ['web', 'auth', 'verified'],
         'prefix' => 'budget',
         'namespace' => 'Modules\Budget\Http\Controllers'
     ],
@@ -200,5 +200,19 @@ Route::group(
             'modifications/vue-list/{type}',
             'BudgetModificationController@vueList'
         )->name('budget.modifications.vuelist');
+
+        /**
+         * -----------------------------------------------------------------------
+         * Rutas para la gestión de compromisos presupuestarios
+         * -----------------------------------------------------------------------
+         *
+         * Gestiona los datos de las modificaciones presupuestarias (créditos adicionales,
+         * reducciones y/o traspasos)
+         */
+        Route::resource('compromises', 'BudgetCompromiseController', ['as' => 'budget']);
+        Route::get(
+            'compromises/vue-list',
+            'BudgetCompromiseController@vueList'
+        )->name('budget.compromises.vuelist');
     }
 );

@@ -503,7 +503,7 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
              */
             [
                 'name' => 'Ver los datos de información laboral', 'slug' => 'payroll.employment.informations.list',
-                'description' => 'Acceso para ver los datos de información socioeconómica',
+                'description' => 'Acceso para ver los datos de información laboral',
                 'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
                 'slug_alt' => 'informacion.laboral.ver'
             ],
@@ -550,6 +550,76 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'description' => 'Acceso para visualizar el panel de control del módulo',
                 'model' => '', 'model_prefix' => 'nomina', 'slug_alt' => 'panel.de.control.ver',
                 'short_description' => 'Visualizar panel de control del módulo de nómina'
+            ],
+            /**
+             * driver licenses
+             */
+            [
+                'name' => 'Ver los datos de grados de licencia de conducir',
+                'slug' => 'payroll.license.degrees.list',
+                'description' => 'Acceso para ver los datos de grados de licencia de conducir',
+                'model' => 'Modules\Payroll\Models\PayrollLicenseDegree',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'grado.licencia.ver'
+            ],
+            [
+                'name' => 'Crear datos de grados de licencia de conducir',
+                'slug' => 'payroll.license.degrees.create',
+                'description' => 'Acceso para crear datos de grados de licencia de conducir',
+                'model' => 'Modules\Payroll\Models\PayrollLicenseDegree',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'grado.licencia.crear'
+            ],
+            [
+                'name' => 'Editar datos de grados de licencia de conducir',
+                'slug' => 'payroll.license.degrees.edit',
+                'description' => 'Acceso para editar datos de grados de licencia de conducir',
+                'model' => 'Modules\Payroll\Models\PayrollLicenseDegree',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'grado.licencia.editar'
+            ],
+            [
+                'name' => 'Eliminar datos de grado de licencia de conducir',
+                'slug' => 'payroll.license.degrees.delete',
+                'description' => 'Acceso para eliminar datos de grados de licencia de conducir',
+                'model' => 'Modules\Payroll\Models\PayrollLicenseDegree',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'grado.licencia.eliminar'
+            ],
+            /**
+             * blood types
+             */
+            [
+                'name' => 'Ver los datos de tipos de sangre',
+                'slug' => 'payroll.blood.types.list',
+                'description' => 'Acceso para ver los datos de tipos de sangre',
+                'model' => 'Modules\Payroll\Models\PayrollBloodType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.sangre.ver'
+            ],
+            [
+                'name' => 'Crear datos de tipos de sangre',
+                'slug' => 'payroll.blood.types.create',
+                'description' => 'Acceso para crear datos de tipos de sangre',
+                'model' => 'Modules\Payroll\Models\PayrollBloodType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.sangre.crear'
+            ],
+            [
+                'name' => 'Editar datos de tipos de sangre',
+                'slug' => 'payroll.blood.types.edit',
+                'description' => 'Acceso para editar datos de tipos de sangre',
+                'model' => 'Modules\Payroll\Models\PayrollBloodType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.sangre.editar'
+            ],
+            [
+                'name' => 'Eliminar datos de tipos de sangre',
+                'slug' => 'payroll.blood.types.delete',
+                'description' => 'Acceso para eliminar datos de tipos de sangre',
+                'model' => 'Modules\Payroll\Models\PayrollBloodType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.sangre.eliminar'
             ],
         ];
 

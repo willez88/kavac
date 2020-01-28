@@ -146,7 +146,7 @@ class DepartmentController extends Controller
         $department->institution_id = $request->institution_id;
         $department->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollEmploymentInformation;
+use App\Models\Profile;
+use Modules\Payroll\Models\PayrollStaff;
 
 /**
  * @class PayrollEmploymentInformationController
@@ -102,10 +104,18 @@ class PayrollEmploymentInformationController extends Controller
         $payrollEmploymentInformation->payroll_position_type_id = $request->payroll_position_type_id;
         $payrollEmploymentInformation->payroll_position_id = $request->payroll_position_id;
         $payrollEmploymentInformation->payroll_staff_type_id = $request->payroll_staff_type_id;
-        //$payrollEmploymentInformation->institution_id = $request->institution_id;
         $payrollEmploymentInformation->department_id = $request->department_id;
         $payrollEmploymentInformation->payroll_contract_type_id = $request->payroll_contract_type_id;
         $payrollEmploymentInformation->save();
+
+        // Registrar ciertos datos del perfil
+        $payrollStaff = PayrollStaff::find($request->payroll_staff_id);
+        $profile = Profile::create([
+            'first_name' => $payrollStaff->first_name, 'last_name' => $payrollStaff->last_name,
+            'institution_id' => $payrollEmploymentInformation->department->institution_id,
+            'employee_id' => $payrollEmploymentInformation->id,
+        ]);
+
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('payroll.employment-informations.index')], 200);
     }

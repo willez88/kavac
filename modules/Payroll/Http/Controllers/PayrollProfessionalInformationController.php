@@ -121,7 +121,6 @@ class PayrollProfessionalInformationController extends Controller
             $payrollProfessionalInformation->study_program_name = null;
             $payrollProfessionalInformation->class_schedule = null;
         }
-
         $payrollProfessionalInformation->save();
 
         if ($request->payroll_instruction_degree_id == 4 || $request->payroll_instruction_degree_id == 5) {

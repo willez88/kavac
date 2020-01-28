@@ -46,6 +46,7 @@ class UploadDocRepository
     public function uploadDoc(
         $file,
         $store,
+        $code = null,
         $sign = false,
         $public_url = false,
         $originalName = false,
@@ -68,7 +69,7 @@ class UploadDocRepository
                     // Procedimiento para guardar el documento en la tabla respectiva,
                     // incluyendo al documento mismo que DEBE ser almacenado en la base de datos
                     $this->doc_stored = Document::create([
-                        'code' => '',
+                        'code' => $code ?? generate_code(Document::class, 'code'),
                         'file' => $this->doc_name,
                         'url' => ($public_url)
                                  ? 'public/documents/'. $this->doc_name
@@ -78,17 +79,16 @@ class UploadDocRepository
                     ]);
                     return true;
                 } else {
-                    $this->error_msg = 'Error al subir el archivo, verifique e intente de nuevo';
+                    $this->error_msg = __('Error al subir el archivo, verifique e intente de nuevo');
                 }
             } else {
-                $this->error_msg = 'La extensión del archivo es inválida. ' .
-                                   'Verifique e intente nuevamente';
+                $this->error_msg = __('La extensión del archivo es inválida. Verifique e intente nuevamente');
             }
         } else {
-            $this->error_msg = 'Error al procesar el archivo. Verifique que este correcto e intente nuevamente';
+            $this->error_msg = __('Error al procesar el archivo. Verifique que este correcto e intente nuevamente');
         }
         session()->flash('message', [
-            'type' => 'other', 'class' => 'warning', 'title' => 'Alerta!',
+            'type' => 'other', 'class' => 'warning', 'title' => __('Alerta!'),
             'msg' => $this->error_msg
         ]);
         return false;

@@ -9,9 +9,23 @@ use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
-use App\Repositories\ReportRepository;
-use App\Models\Institution;
+use Modules\Accounting\Models\Profile;
+use Modules\Accounting\Models\Institution;
 
+use App\Repositories\ReportRepository;
+use Auth;
+
+// http://127.0.0.1:8000/accounting/entries/pdf/81158
+/**
+ * @class AccountingReportPdfCheckupBalanceController
+ * @brief Controlador para la generación del reporte del asiento contable
+ *
+ * Clase que gestiona de la generación del reporte del asiento contable
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL</a>
+ */
 class AccountingEntryController extends Controller
 {
     /**
@@ -33,20 +47,25 @@ class AccountingEntryController extends Controller
     */
     public function pdf($id)
     {
-
-        /** @var Objet objeto con la información del asiento contable */
         $entry = AccountingEntry::with(
             'accountingAccounts.account.accountConverters.budgetAccount',
             'currency'
         )->find($id);
 
-        /** @var Object configuración general de la apliación */
-        $setting = Setting::all()->first();
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        /** @var Object con la información de la modena por defecto establecida en la aplicación */
-        $currency = Currency::where('default', true)->first();
+        if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
+
+        /**
+         * [$setting configuración general de la apliación]
+         * @var Setting
+         */
+        $setting = Setting::all()->first();
         
-        $Entry = true;
+        $OnlyOneEntry   = true;
 
         /**
          * [$pdf base para generar el pdf]
@@ -62,10 +81,10 @@ class AccountingEntryController extends Controller
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de asiento contable');
         $pdf->setFooter();
         $pdf->setBody('accounting::pdf.entry_and_daily_book', true, [
-            'pdf' => $pdf,
-            'entry' => $entry,
+            'pdf'      => $pdf,
+            'entry'    => $entry,
             'currency' => $entry->currency,
-            'Entry' => $Entry,
+            'Entry'    => $OnlyOneEntry,
         ]);
     }
 

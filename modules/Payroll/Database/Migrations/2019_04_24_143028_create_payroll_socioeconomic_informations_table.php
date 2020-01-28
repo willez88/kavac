@@ -27,19 +27,19 @@ class CreatePayrollSocioeconomicInformationsTable extends Migration
     {
         if (!Schema::hasTable('payroll_socioeconomic_informations')) {
             Schema::create('payroll_socioeconomic_informations', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('full_name_twosome', 200)->nullable()
                       ->comment('Nombres y apellidos de la pareja del trabajador');
                 $table->string('id_number_twosome', 12)->nullable()->comment('cédula de la pareja del trabajador');
                 $table->date('birthdate_twosome')->nullable()
                       ->comment('Fecha de nacimiento de la pareja del trabajador');
 
-                $table->integer('payroll_staff_id')->unsigned()->unique()
+                $table->bigInteger('payroll_staff_id')->unsigned()->unique()
                       ->comment('identificador del trabajador que pertenece al dato socioeconómico');
                 $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('marital_status_id')->unsigned()
+                $table->bigInteger('marital_status_id')->unsigned()
                       ->comment('identificador del estado civil que pertenece al dato socioeconómico');
                 $table->foreign('marital_status_id')->references('id')->on('marital_status')
                       ->onDelete('restrict')->onUpdate('cascade');

@@ -27,7 +27,7 @@ class CreatePayrollLanguageLevelsTable extends Migration
     {
         if (!Schema::hasTable('payroll_language_levels')) {
             Schema::create('payroll_language_levels', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre del nivel de dominio del idioma');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

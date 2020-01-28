@@ -27,25 +27,25 @@ class CreateAssetReportsTable extends Migration
     {
         if (!Schema::hasTable('asset_reports')) {
             Schema::create('asset_reports', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->string('code', 20)->unique()->comment('Código identificador del reporte');
-                
+
                 $table->string('type_report', 20)->nullable()->comment('Tipo de reporte');
                 $table->string('type_search', 20)->nullable()->comment('Tipo de búsqueda');
 
-                $table->integer('asset_type_id')->nullable()->unsigned()
+                $table->bigInteger('asset_type_id')->nullable()->unsigned()
                       ->comment('Identificador único del tipo de bien');
-                $table->integer('asset_category_id')->nullable()->unsigned()
+                $table->bigInteger('asset_category_id')->nullable()->unsigned()
                       ->comment('Identificador único de la categoria de bien');
-                $table->integer('asset_subcategory_id')->nullable()->unsigned()
+                $table->bigInteger('asset_subcategory_id')->nullable()->unsigned()
                       ->comment('Identificador único de la subcategoria de bien');
-                $table->integer('asset_specific_category_id')->nullable()->unsigned()
+                $table->bigInteger('asset_specific_category_id')->nullable()->unsigned()
                       ->comment('Identificador único de la categoria especifica de bien');
 
-                $table->integer('department_id')->nullable()->unsigned()
+                $table->bigInteger('department_id')->nullable()->unsigned()
                       ->comment('Identificador único del departamento');
-                $table->integer('institution_id')->nullable()->unsigned()
+                $table->bigInteger('institution_id')->nullable()->unsigned()
                       ->comment('Identificador único de la institución');
 
                 $table->integer('mes')->nullable()->unsigned()->comment('Identificador único del mes de busqueda');

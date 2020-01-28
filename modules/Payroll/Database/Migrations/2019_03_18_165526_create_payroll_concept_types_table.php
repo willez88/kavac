@@ -26,7 +26,7 @@ class CreatePayrollConceptTypesTable extends Migration
     {
         if (!Schema::hasTable('payroll_concept_types')) {
             Schema::create('payroll_concept_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre del tipo de concepto');
                 $table->string('description', 200)->nullable()->comment('Descripción del tipo de concepto');
                 $table->string('sign', 1)->comment('Signo para el tipo de concepto');

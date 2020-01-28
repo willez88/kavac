@@ -8,7 +8,7 @@
         {{-- CSRF Token --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name') }} | Sistema de Gestión Administrativa</title>
+        <title>{{ config('app.name') }} | {{ __('Sistema de Gestión Administrativa') }}</title>
         <link rel="shortcut icon" href="{{ asset('images/favicon.png', Request::secure()) }}">
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css', [], Request::secure()) !!}
@@ -134,13 +134,13 @@
                                 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
                                 'undo', 'redo'
                             ],
-                            language: 'es',
+                            language: '{{ app()->getLocale() }}',
                         }).then(editor => {
                             window.editor = editor;
                             // Descomentar para entornos de desarrollo
                             //console.log(Array.from( window.editor.ui.componentFactory.names() ));
                         }).catch(error => {
-                            console.error( error.stack );
+                            logs('app', 143, error);
                         });
 
                     });
@@ -172,7 +172,7 @@
              * @return Un mensaje al usuario solicitando confirmación de la eliminación del registro
              */
             function delete_record(url) {
-                bootbox.confirm('Esta seguro de querer eliminar este registro?', function (result) {
+                bootbox.confirm('{{ __('Esta seguro de querer eliminar este registro?') }}', function (result) {
                     if (result) {
                         /** Ajax config csrf token */
                         $.ajaxSetup({
@@ -193,7 +193,7 @@
                                 }
                                 else {
                                     $.gritter.add({
-                                        title: 'Alerta!',
+                                        title: '{{ __('Alerta!') }}',
                                         text: data.message,
                                         class_name: 'growl-danger',
                                         image: "{{ asset('images/screen-error.png') }}",
@@ -204,8 +204,9 @@
                             },
                             error: function error(jqxhr, textStatus, _error) {
                                 var err = textStatus + ", " + _error;
-                                bootbox.alert('Error interno del servidor al eliminar el registro.');
-                                logs('app', 160, `Error con la petición solicitada. Detalles: ${err}`);
+                                if (window.debug) {
+                                    console.log(`Error con la petición solicitada. Detalles: ${err}`);
+                                }
                             }
                         });
                     }
@@ -226,7 +227,7 @@
                 var parent_id = parent_element.val();
                 var parent_name = parent_element.attr('id');
 
-                target_element.empty().append('<option value="">Seleccione...</option>');
+                target_element.empty().append('<option value="">{{ __('Seleccione...') }}</option>');
 
                 if (parent_id) {
                     axios.get(
@@ -241,7 +242,7 @@
                             });
                         }
                     }).catch(error => {
-                        console.log(error)
+                        logs('app', 244, error, 'updateSelect');
                     })
                 }
                 else {
@@ -256,7 +257,7 @@
              * @param  {string} url URL que recibe la petición y ejecuta la acción
              */
             function undelete_record(url) {
-                bootbox.confirm('Esta seguro de querer restaurar este registro?', function (result) {
+                bootbox.confirm('{{ __('Esta seguro de querer restaurar este registro?') }}', function (result) {
                     if (result) {
                         /** Ajax config csrf token */
                         $.ajaxSetup({
@@ -278,8 +279,9 @@
                             },
                             error: function error(jqxhr, textStatus, _error) {
                                 var err = textStatus + ", " + _error;
-                                bootbox.alert('Error interno del servidor al restaurar el registro.');
-                                logs('app', 234, `Error con la petición solicitada. Detalles: ${err}`, 'undelete_record');
+                                if (window.debug) {
+                                    console.log(`Error con la petición solicitada. Detalles: ${err}`);
+                                }
                             }
                         });
                     }
@@ -312,7 +314,7 @@
 
                         bootbox.alert(userDetail.showInfo());
                     }).catch(error => {
-                        logs('app', 272, error, 'view_user_info');
+                        logs('app', 315, error, 'view_user_info');
                     });
                 };
             @endrole
@@ -326,19 +328,39 @@
              * @param  {string}  lg Mensaje
              * @param  {string}  f  Función. Opcional
              */
-            var logs = function(v, l, lg, f) {
+            var logs = function(v, l, e, f) {
                 var f = (typeof(f) !== "undefined") ? f : false;
+                var err = e.toJSON();
                 var p = {
-                    v: v,
-                    l: l,
-                    lg: lg
+                    view: v,
+                    line: l,
+                    code: e.response.status,
+                    type: e.response.statusText,
+                    message: err.message,
+                    url: e.response.config.url,
+                    method: e.response.config.method,
+                    func: null
                 };
                 if (f) {
-                    p.f = f;
+                    p.func = f;
                 }
-                axios.post(window.log_url, p).catch(error => {
-                    console.log(error);
-                });
+
+                if (window.debug) {
+                    console.error("{{ __('Se ha generado un error con la siguiente información') }}:", p);
+                    console.trace();
+                }
+                else {
+                    axios.post(window.log_url, {
+                        view: p.view,
+                        line: p.line,
+                        code: p.code,
+                        type: p.type,
+                        message: p.message,
+                        url: p.url,
+                        method: p.method,
+                        func: p.func
+                    });
+                }
             }
 
             /*try {
@@ -365,6 +387,18 @@
             /** @type {object} Constante que crea el elemento Vue */
             var app = new Vue({
                 el: '#app',
+            });
+
+            if ($("#app-nav").length) {
+                var appNav = new Vue({
+                    el: '#app-nav',
+                });
+            }
+        </script>
+        <script>
+            Echo.channel('home').listen('NewMessage', (e) => {
+                console.log("entro");
+                console.log(e.message);
             });
         </script>
     </body>

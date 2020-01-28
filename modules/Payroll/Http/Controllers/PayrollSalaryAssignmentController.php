@@ -12,26 +12,40 @@ use Modules\Payroll\Models\PayrollSalaryAssignment;
 use Modules\Payroll\Models\PayrollSalaryScale;
 use Modules\Payroll\Models\PayrollScale;
 
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Payroll\Exports\PayrollSalaryAssignmentExport;
+use App\User;
+
 /**
  * @class PayrollSalaryAssignmentController
  * @brief Controlador de las asignaciones de nómina
  *
  * Clase que gestiona los tipos de asignaciones de nómina
  *
- * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                LICENCIA DE SOFTWARE CENDITEL
- *            </a>
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
-
 class PayrollSalaryAssignmentController extends Controller
 {
     use ValidatesRequests;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        //$this->middleware('permission:asset.setting.salary-assignment');
+    }
     
     /**
      * Muestra un listado de las asignaciones salariales registradas (activas e inactivas)
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function index()
@@ -42,7 +56,7 @@ class PayrollSalaryAssignmentController extends Controller
     /**
      * Valida y registra un nueva asignación salarial
      *
-     * @author Henry Paredes (henryp2804@gmail.com)
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
@@ -60,6 +74,7 @@ class PayrollSalaryAssignmentController extends Controller
         DB::transaction(function () use ($request) {
             /**
              * Objeto con la información del nuevo escalafón salarial
+             *
              * @var object $salary_scale
              */
             $salary_scale = PayrollSalaryScale::create([
@@ -105,19 +120,40 @@ class PayrollSalaryAssignmentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de una asignación salarial
+     *
+     * @param  \Illuminate\Http\Request      $request Datos de la petición
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
      */
     public function update(Request $request)
     {
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina una asignación salarial
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
      */
     public function destroy()
     {
+    }
+
+    /**
+     * Exporta una asignacion salarial
+     * @param  [Integer] $id Identificador único de la asignación salarial a exportar
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function export($id)
+    {
+        /*
+        $salary_assignment = PayrollSalaryAssignment::find($id);
+        if (!is_null($salary_assignment)) {
+            $export = new PayrollSalaryAssignmentExport();
+            $export->setSalaryAssignmentId($salary_assignment->id);
+            return Excel::download($export, 'salary_assignment'. $salary_assignment->created_at . '.xlsx');
+        } else {
+            return response()->json(['result' => false], 200);
+        }*/
     }
 }

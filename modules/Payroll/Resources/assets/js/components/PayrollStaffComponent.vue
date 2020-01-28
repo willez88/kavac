@@ -75,7 +75,7 @@
 
                     <div class="row">
 						<div class="col-md-4">
-							<div class="form-group">
+							<div class="form-group is-required">
 								<label>Fecha de Nacimiento</label>
 								<input type="date" class="form-control input-sm"
 									v-model="record.birthdate"/>

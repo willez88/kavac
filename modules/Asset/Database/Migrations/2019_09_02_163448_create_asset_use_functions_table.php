@@ -27,7 +27,7 @@ class CreateAssetUseFunctionsTable extends Migration
     {
         if (!Schema::hasTable('asset_use_functions')) {
             Schema::create('asset_use_functions', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre de la función de uso');
 
                 $table->timestamps();

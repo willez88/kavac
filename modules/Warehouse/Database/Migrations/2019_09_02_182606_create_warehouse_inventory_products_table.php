@@ -27,7 +27,7 @@ class CreateWarehouseInventoryProductsTable extends Migration
     {
         if (!Schema::hasTable('warehouse_inventory_products')) {
             Schema::create('warehouse_inventory_products', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('code', 20)->unique()->comment('Código identificador del producto en el inventario');
                 $table->integer('exist')->unsigned()->nullable()
                       ->comment('Cantidad de productos en existencia, incluye los reservados por solicitudes almacén');
@@ -35,20 +35,20 @@ class CreateWarehouseInventoryProductsTable extends Migration
                       ->comment('Cantidad de productos reservados por solicitudes de almacén');
                 $table->float('unit_value')->unsigned()->comment('Valor por unidad del producto en el almacén');
 
-                $table->integer('currency_id')->unsigned()->nullable()
+                $table->bigInteger('currency_id')->unsigned()->nullable()
                       ->comment('Identificador único asociado a la moneda');
                 $table->foreign('currency_id')->references('id')->on('currencies')->onUpdate('cascade');
 
-                $table->integer('warehouse_product_id')->unsigned()->comment('Identificador único del producto');
+                $table->bigInteger('warehouse_product_id')->unsigned()->comment('Identificador único del producto');
                 $table->foreign('warehouse_product_id')->references('id')->on('warehouse_products')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('measurement_unit_id')->unsigned()
+                $table->bigInteger('measurement_unit_id')->unsigned()
                       ->comment('Identificador único de la unidad de medida del producto');
                 $table->foreign('measurement_unit_id')->references('id')->on('measurement_units')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('warehouse_institution_warehouse_id')->nullable()
+                $table->bigInteger('warehouse_institution_warehouse_id')->nullable()
                       ->comment('Identificador único de la institución que gestiona el almacén donde está el producto');
                 $table->foreign('warehouse_institution_warehouse_id')->references('id')
                       ->on('warehouse_institution_warehouses')->onDelete('restrict')->onUpdate('cascade');

@@ -27,14 +27,14 @@ class CreateWarehousesTable extends Migration
     {
         if (!Schema::hasTable('warehouses')) {
             Schema::create('warehouses', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
-                
+                $table->bigIncrements('id')->comment('Identificador único del registro');
+
                 $table->string('name', 100)->comment('Nombre o descripción del almacen');
                 $table->boolean('active')->default(true)
                       ->comment('Estatus de actividad. (true) activo, (false) inactivo');
                 $table->text('address')->comment('Dirección física del almacen');
-                
-                $table->integer('parish_id')->nullable()->comment('Parroquia está ubicado el almacen');
+
+                $table->bigInteger('parish_id')->nullable()->comment('Parroquia está ubicado el almacen');
                 $table->foreign('parish_id')->references('id')->on('parishes')
                       ->onDelete('restrict')->onUpdate('cascade');
 

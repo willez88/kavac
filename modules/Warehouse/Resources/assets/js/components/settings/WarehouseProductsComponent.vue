@@ -65,6 +65,12 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4">
+								<div class="form-group is-required">
+									<label>Unidad de Medida:</label>
+									<select2 :options="measurement_units" v-model="record.measurement_unit_id"></select2>
+			                    </div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
 									<a  data-toggle="tooltip"
 				                        title="Establecer los atributos del producto para gestionar las variantes">
@@ -163,12 +169,14 @@
 					name: '',
 					description: '',
 					define_attributes: false,
+					measurement_unit_id: '',
 					warehouse_product_attributes: [],
 				},
 
 				errors: [],
 				records: [],
 				columns: ['name', 'description', 'attributes', 'id'],
+				measurement_units: [],
 
 			}
 		},
@@ -185,6 +193,7 @@
 					name: '',
 					description: '',
 					define_attributes: false,
+					measurement_unit_id: '',
 					warehouse_product_attributes: []
 				};
 			},
@@ -198,18 +207,32 @@
 				var field = {id: '', name: '', warehouse_product_id: ''};
 				this.record.warehouse_product_attributes.push(field);
 			},
+			/**
+			 * Método que obtiene las unidades de medida del producto
+			 *
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
+			 */
+			getMeasurementUnits() {
+				const vm = this;
+				vm.measurement_units = [];
+
+				axios.get('/warehouse/get-measurement-units').then(response => {
+					vm.measurement_units = response.data;
+				});
+			},
 
 		},
 		created() {
-			this.table_options.headings = {
+			const vm = this;
+			vm.table_options.headings = {
 				'name': 'Producto',
 				'description': 'Descripción',
 				'attributes': 'Atributos',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['name', 'description'];
-			this.table_options.filterable = ['name', 'description'];
-			this.table_options.columnsClasses = {
+			vm.table_options.sortable = ['name', 'description'];
+			vm.table_options.filterable = ['name', 'description'];
+			vm.table_options.columnsClasses = {
                 'name': 'col-xs-2',
                 'description': 'col-xs-4',
                 'attributes': 'col-xs-4',
@@ -217,8 +240,9 @@
             };
 		},
 		mounted() {
-
-			this.switchHandler('define_attributes');
+			const vm = this;
+			vm.getMeasurementUnits();
+			vm.switchHandler('define_attributes');
 		}
 	}
 </script>

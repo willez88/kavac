@@ -27,16 +27,16 @@ class CreateAssetRequestExtensionsTable extends Migration
     {
         if (!Schema::hasTable('asset_request_extensions')) {
             Schema::create('asset_request_extensions', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
-                
+                $table->bigIncrements('id')->comment('Identificador único del registro');
+
                 $table->date('delivery_date')->comment('Nueva fecha de entrega de la solicitud asociada');
                 $table->string('state')->nullable()->comment('Estado de la solicitud');
-                $table->integer('asset_request_id')
+                $table->bigInteger('asset_request_id')
                       ->comment('Identificador único de la solicitud asociada a la prorroga');
                 $table->foreign('asset_request_id')->references('id')->on('asset_requests')
                       ->onDelete('restrict')->onUpdate('cascade');
-                
-                $table->integer('user_id')->comment('Identificador único del usuario que solicita la prorroga');
+
+                $table->bigInteger('user_id')->comment('Identificador único del usuario que solicita la prorroga');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

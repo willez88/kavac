@@ -14,7 +14,7 @@ class AddFieldInstitutionIdToBudgetSubSpecificFormulationsTable extends Migratio
     public function up()
     {
         Schema::table('budget_sub_specific_formulations', function (Blueprint $table) {
-            $table->integer('institution_id')->unsigned()->nullable()
+            $table->bigInteger('institution_id')->unsigned()->nullable()
                   ->comment('Identificador asociado a la institución');
             $table->foreign('institution_id')->references('id')->on('institutions')->onUpdate('cascade');
         });

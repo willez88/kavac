@@ -15,13 +15,13 @@ class CreateProfilesTable extends Migration
     {
         if (!Schema::hasTable('profiles')) {
             Schema::create('profiles', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('first_name')->comment('Nombres');
                 $table->string('last_name')->nullable()->comment('Apellidos');
-                $table->integer('image_id')->nullable()->unsigned()
+                $table->bigInteger('image_id')->nullable()->unsigned()
                       ->comment('Identificador asociado a la imagen de perfil');
                 $table->foreign('image_id')->references('id')->on('images')->onUpdate('cascade');
-                $table->integer('user_id')->unsigned()->nullable()
+                $table->bigInteger('user_id')->unsigned()->nullable()
                       ->comment('Identificador del usuario');
                 $table->foreign('user_id')->references('id')
                       ->on('users')->onDelete('restrict')->onUpdate('cascade');

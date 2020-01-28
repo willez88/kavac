@@ -288,7 +288,7 @@ class ReportRepository implements ReportInterface
         /** @var string Contenido del reporte */
         $htmlContent = $body;
         /** Configuración sobre el autor del reporte */
-        $this->pdf->SetAuthor('Sistema de Gestión de Recursos - ' . config('app.name'));
+        $this->pdf->SetAuthor(__('Sistema de Gestión de Recursos - :app', ['app' => config('app.name')]));
         /** Configuración del título de reporte */
         $this->pdf->SetTitle($this->title);
         /** Configuración sobre el asunto del reporte */
@@ -344,7 +344,7 @@ class ReportRepository implements ReportInterface
             $pdf->SetFont($fontFamily, 'I', 8);
             if ($pages) {
                 /** @var Número de página del reporte [description] */
-                $pageNumber = 'Pág. '.$pdf->getAliasNumPage().'/'.$pdf->getAliasNbPages();
+                $pageNumber = __('Pág. ').$pdf->getAliasNumPage().'/'.$pdf->getAliasNbPages();
                 /** Texto a mostrar para el número de página */
                 $pdf->MultiCell(20, 4, $pageNumber, 0, 'R', false, 1, 185, -8, true, 1, false, true, 1, 'T', true);
             }

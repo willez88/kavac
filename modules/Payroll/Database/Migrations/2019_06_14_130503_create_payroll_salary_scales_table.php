@@ -27,10 +27,10 @@ class CreatePayrollSalaryScalesTable extends Migration
     {
         if (!Schema::hasTable('payroll_salary_scales')) {
             Schema::create('payroll_salary_scales', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name')->comment('Nombre del escalafón salarial');
                 $table->text('description')->nullable()->comment('Descripción del escalafón salarial');
-                
+
                 $table->boolean('active')->default(false)->comment('Indica si el escalafón esta activo');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

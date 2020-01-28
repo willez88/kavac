@@ -17,11 +17,11 @@ class ResetAccountingReportHistoriesTable extends Migration
             Schema::dropIfExists('accounting_report_histories');
 
             Schema::create('accounting_report_histories', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('url');
                 $table->string('report')->comment('Tipo de reporte')
                 ->comment(
-                    'Tipo de reporte generado: (1)Balance de comprobacion, 
+                    'Tipo de reporte generado: (1)Balance de comprobacion,
                     (2)Mayor Analítico, (3) Libro Diario, (4)Libro Auxiliar,
                      (5)Balance general, (6)Estado de resultados'
                 );
@@ -43,7 +43,7 @@ class ResetAccountingReportHistoriesTable extends Migration
                 $table->string('url');
                 $table->string('report')->comment('Tipo de reporte')
                 ->comment(
-                    'Tipo de reporte generado: (1)Balance de comprobacion, 
+                    'Tipo de reporte generado: (1)Balance de comprobacion,
                     (2)Mayor Analítico, (3) Libro Diario, (4)Libro Auxiliar,
                      (5)Balance general, (6)Estado de resultados'
                 );

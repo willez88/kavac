@@ -27,17 +27,17 @@ class CreateAssetInventoryAssetsTable extends Migration
     {
         if (!Schema::hasTable('asset_inventory_assets')) {
             Schema::create('asset_inventory_assets', function (Blueprint $table) {
-                $table->increments('id')->comment('Identificador único del registro');
+                $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->string('asset_condition')->nullable()->comment('Condicion física actual del bien');
                 $table->string('asset_status')->nullable()->comment('Estatus de uso actual del bien');
                 $table->string('asset_use_function')->nullable()->comment('Función de uso actual del bien');
 
-                $table->integer('asset_id')->unsigned()->nullable()
+                $table->bigInteger('asset_id')->unsigned()->nullable()
                       ->comment('Identificador único del bien en la tabla de bienes');
                 $table->foreign('asset_id')->references('id')->on('assets')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->integer('asset_inventory_id')->unsigned()->nullable()
+                $table->bigInteger('asset_inventory_id')->unsigned()->nullable()
                       ->comment('Identificador único del registro de inventario generado');
                 $table->foreign('asset_inventory_id')->references('id')->on('asset_inventories')
                       ->onDelete('restrict')->onUpdate('cascade');

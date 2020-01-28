@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'middleware' => ['web', 'auth'],
+    'middleware' => ['web', 'auth', 'verified'],
     'prefix' => 'purchase',
     'namespace' => 'Modules\Purchase\Http\Controllers'
 ], function () {
@@ -72,5 +72,38 @@ Route::group([
      *
      * Gestiona los datos de los requerimientos de compras
      */
-    Route::resource('requirements', 'PurchaseRequirementController', ['as' => 'purchase', 'except' => ['show']]);
+    Route::post('requirements', 'PurchaseRequirementController@store');
+    Route::resource('requirements', 'PurchaseRequirementController', [
+        'as'     => 'purchase',
+    ]);
+
+    Route::post('base_budget', 'PurchaseBaseBudgetController@store');
+    Route::resource('base_budget', 'PurchaseBaseBudgetController', [
+        'as'     => 'purchase',
+    ]);
+    Route::get('requirement-items', 'PurchaseRequirementController@getRequirementItems');
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de planes de compras
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los plan de compras
+     */
+    // Route::post('purchase_plans', 'PurchasePlanController@store');
+    Route::resource('purchase_plans', 'PurchasePlanController', [
+        'as'     => 'purchase',
+    ]);
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de tipos de compras
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los tipos de compras
+     */
+    // Route::post('purchase_plans', 'PurchasePlanController@store');
+    Route::resource('purchase_types', 'PurchaseTypesController', [
+        'as'     => 'purchase',
+    ]);
 });

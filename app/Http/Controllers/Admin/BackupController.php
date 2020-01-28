@@ -73,7 +73,7 @@ class BackupController extends Controller
         );
 
         if (!$down[0]) {
-            abort(404, "El archivo de respaldo no existe.");
+            abort(404, __('El archivo de respaldo no existe.'));
         }
 
         $stream = $down['stream'];
@@ -109,7 +109,7 @@ class BackupController extends Controller
         );
 
         if (!$removed) {
-            abort(404, "El archivo de respaldo no existe.");
+            abort(404, __('El archivo de respaldo no existe.'));
         }
 
         return redirect()->back();

@@ -112,3 +112,6 @@ Vue.component('roles-permissions', require('./components/RolesAndPermissionsComp
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
 Vue.component('users', require('./components/UsersComponent.vue').default);
+
+
+Vue.component('notifications', require('./components/NotificationsComponent.vue').default);

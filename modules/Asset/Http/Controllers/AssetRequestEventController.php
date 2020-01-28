@@ -7,7 +7,14 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Auth;
 use Modules\Asset\Models\AssetRequestEvent;
+use Modules\Asset\Models\Asset;
+use App\Models\Document;
+use App\Repositories\UploadDocRepository;
+
+use Modules\TechnicalSupport\Models\TechnicalSupportRequestRepair;
+use Modules\TechnicalSupport\Models\TechnicalSupportRequestRepairAsset;
 
 /**
  * @class AssetRequestEventController
@@ -42,20 +49,57 @@ class AssetRequestEventController extends Controller
      * @param  \Illuminate\Http\Request  $request   Datos de la petición
      * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadDocRepository $up)
     {
         $this->validate($request, [
-            'type' => ['required', 'max:100'],
-            'description' => ['required'],
-            'asset_request_id' => ['required']
+            'type'             => ['required', 'max:100'],
+            'description'      => ['required'],
+            'asset_request_id' => ['required'],
+            'equipments'       => ['required']
+
         ]);
-    
+        if ($request->type == 2) {
+            $this->validate($request, [
+                'file' => ['required', 'mimes:doc,pdf,odt,docx']
+            ]);
+            $doc = null;
+            if ($request->file('file')) {
+                /** Gestiona la carga del archivo del documento al servidor y la asigna al campo correspondiente */
+                if ($up->uploadDoc($request->file('file'), 'documents')) {
+                    $doc = $up->getDocStored()->id;
+                }
+            }
+            $document = Document::find($doc);
+        }
+        $request->equipments = json_decode($request->equipments);
+
         $event = AssetRequestEvent::create([
-            'type' => $request->input('type'),
-            'description' => $request->input('description'),
+            'type'             => $request->input('type'),
+            'document_id'      => $document->id ?? null,
+            'description'      => $request->input('description'),
             'asset_request_id' => $request->input('asset_request_id')
         ]);
-
+        /** Si se selecciona la opción averiado */
+        if ($request->type == 1) {
+            $technicalSupportRequestRepair = TechnicalSupportRequestRepair::create([
+                'state'   => 'Pendiente',
+                'user_id' => Auth::id(),
+            ]);
+        };
+        
+        foreach ($request->equipments as $equipment) {
+            $asset = Asset::find($equipment);
+            /** Si se selecciona la opción averiado */
+            if ($request->type == 1) {
+                $asset->asset_condition_id = 4;
+                $asset->save();
+                $technicalSupportRequestRepairAsset = TechnicalSupportRequestRepairAsset::create([
+                    'asset_id'                            => $asset->id,
+                    'technical_support_request_repair_id' => $technicalSupportRequestRepair->id,
+                ]);
+            }
+            /** Falta agregar para el caso de perdido */
+        }
         return response()->json(['record' => $event, 'message' => 'Success'], 200);
     }
 

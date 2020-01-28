@@ -134,7 +134,7 @@ class TaxController extends Controller
         $tax->active = ($request->active);
         $tax->save();
 
-        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
 
     /**

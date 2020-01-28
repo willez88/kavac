@@ -37,10 +37,11 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => true,
-                'host' => env('PUSHER_APP_HOST', 'localhost'),
-                'port' => env('PUSHER_APP_PORT', 6001),
-                'scheme' => env('PUSHER_APP_PROTOCOL', 'http')
+                'useTLS' => false,
+                'encrypted' => true,
+                'host' => env('WEBSOCKETS_HOST', '127.0.0.1'),
+                'port' => env('WEBSOCKETS_PORT', 6001),
+                'scheme' => 'http'
             ],
         ],
 
