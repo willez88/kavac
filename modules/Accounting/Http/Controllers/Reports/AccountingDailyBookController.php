@@ -9,7 +9,9 @@ use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\ExchangeRate;
+
 use App\Repositories\ReportRepository;
 
 use Auth;
@@ -63,13 +65,30 @@ class AccountingDailyBookController extends Controller
          * [$entries información del asiento contable]
          * @var AccountingEntry
          */
-        $entries = AccountingEntry::with(
-            'accountingAccounts.account.accountConverters.budgetAccount'
-        )->where('approved', true)
-        ->whereBetween("from_date", [$initDate, $endDate])
-        ->orderBy('from_date', 'ASC');
+        $entries = [];
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']['id']) {
+            $entries = AccountingEntry::with(
+                'accountingAccounts.account.accountConverters.budgetAccount'
+            )->where('approved', true)
+            ->where('institution_id', $user_profile['institution']['id'])
+            ->whereBetween("from_date", [$initDate, $endDate])
+            ->orderBy('from_date', 'ASC');
+        } else {
+            if (auth()->user()->isAdmin()) {
+                $entries = AccountingEntry::with(
+                    'accountingAccounts.account.accountConverters.budgetAccount'
+                )->where('approved', true)
+                ->whereBetween("from_date", [$initDate, $endDate])
+                ->orderBy('from_date', 'ASC');
+            }
+        }
 
         $convertions = [];
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
         foreach ($entries as $entry) {
             $inRange = false;
             if (!array_key_exists($entry['currency']['id'], $convertions) &&
@@ -104,8 +123,6 @@ class AccountingDailyBookController extends Controller
          */
         $url = 'dailyBook/'.$initDate.'/'.$endDate;
 
-        $institution = get_institution();
-
         /**
          * [$report almacena el registro del reporte del dia si existe]
          * @var [type]
@@ -115,7 +132,7 @@ class AccountingDailyBookController extends Controller
                                                                         $endDate.' 23:59:59'
                                                                     ])
                                         ->where('report', 'Libro Diario')
-                                        ->where('institution_id', $institution->id)->first();
+                                        ->where('institution_id', $user_profile['institution']['id'])->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -126,13 +143,13 @@ class AccountingDailyBookController extends Controller
                     'report'         => 'Libro Diario',
                     'url'            => $url,
                     'currency_id'    => $currency->id,
-                    'institution_id' => $institution->id,
+                    'institution_id' => $user_profile['institution']['id'],
                 ]
             );
         } else {
             $report->url            = $url;
             $report->currency_id    = $currency->id;
-            $report->institution_id = $institution->id;
+            $report->institution_id = $user_profile['institution']['id'];
             $report->save();
         }
 
@@ -147,6 +164,11 @@ class AccountingDailyBookController extends Controller
     public function pdf($report_id)
     {
         $report   = AccountingReportHistory::with('currency')->find($report_id);
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
         $initDate = explode('/', $report->url)[1];
         $endDate  = explode('/', $report->url)[2];
 
@@ -158,14 +180,29 @@ class AccountingDailyBookController extends Controller
          */
         $entries = '';
 
-
         $convertions = [];
 
-        AccountingEntry::with(
-            'accountingAccounts.account.accountConverters.budgetAccount'
-        )->where('approved', true)
-        ->whereBetween("from_date", [$initDate, $endDate])
-        ->orderBy('from_date', 'ASC')->chunk(250, function ($entries) use ($convertions, $currency) {
+
+
+        if ($user_profile['institution']['id']) {
+            $r = AccountingEntry::with(
+                'accountingAccounts.account.accountConverters.budgetAccount'
+            )->where('approved', true)
+            ->where('institution_id', $user_profile['institution']['id'])
+            ->whereBetween("from_date", [$initDate, $endDate])
+            ->orderBy('from_date', 'ASC');
+        } else {
+            if (auth()->user()->isAdmin()) {
+                $r = AccountingEntry::with(
+                    'accountingAccounts.account.accountConverters.budgetAccount'
+                )->where('approved', true)
+                ->whereBetween("from_date", [$initDate, $endDate])
+                ->orderBy('from_date', 'ASC');
+            }
+        }
+
+
+        $r->chunk(250, function ($entries) use ($convertions, $currency) {
             $records = [];
             foreach ($entries as $entry) {
                 $convertions = $this->calculateExchangeRates($convertions, $entry, $currency['id']);

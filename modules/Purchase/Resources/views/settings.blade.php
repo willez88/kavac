@@ -35,6 +35,7 @@
 						<purchase-supplier-types></purchase-supplier-types>
 						<required-documents module="purchase" model="supplier"></required-documents>
 						<purchase-processes></purchase-processes>
+						<purchase-type></purchase-type>
 					</div>
 				</div>
 			</div>

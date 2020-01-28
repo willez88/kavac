@@ -242,12 +242,19 @@
                     }
                     this.record_items[i].qty_price = (this.record_items[i].qty_price).toFixed((this.currency)?this.currency.decimal_places:'');
                 }
+                this.loading = true;
                 if(!this.base_budget_edit){
                     axios.post('/purchase/base_budget',{   
                             'list':this.requirement_list, 
-                            'currency_id':this.currency_id
+                            'currency_id':this.currency_id,
+                            'tax_id':this.record_tax.id,
                         }).then(response=>{
+                        console.log('creo')
+                        this.loading = false;
                         this.showMessage('store');
+                        setTimeout(function() {
+                            location.href = '/purchase/requirements';
+                        }, 2000);
                     }).catch(error=>{
                         this.loading = false;
                         this.$refs.PurchaseBaseBudgetComponent.reset();
@@ -269,9 +276,15 @@
                     axios.put('/purchase/base_budget/'+this.base_budget_edit.id,{   
                             'list':this.requirement_list, 
                             'list_to_delete':this.requirement_list_deleted, 
-                            'currency_id':this.currency_id
+                            'currency_id':this.currency_id,
+                            'tax_id':this.record_tax.id,
                         }).then(response=>{
+                            console.log('edito')
+                        this.loading = false;
                         this.showMessage('update');
+                        setTimeout(function() {
+                            location.href = '/purchase/requirements';
+                        }, 2000);
                     }).catch(error=>{
                         this.loading = false;
                         this.$refs.PurchaseBaseBudgetComponent.reset();
@@ -390,7 +403,7 @@
         computed:{
             currency_symbol:function(){
                 return (this.currency)?this.currency.symbol:'';
-            }   
+            }
         }
     };
 </script>

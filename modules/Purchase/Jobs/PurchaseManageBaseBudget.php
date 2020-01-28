@@ -50,7 +50,10 @@ class PurchaseManageBaseBudget implements ShouldQueue
     {
         $data = $this->data;
         if ($data['action'] == 'create') {
-            $baseBudget = PurchaseBaseBudget::create(['currency_id'=>$data['currency_id']]);
+            $baseBudget = PurchaseBaseBudget::create([
+                                                        'currency_id' => $data['currency_id'],
+                                                        'tax_id'      => $data['tax_id'],
+                                                    ]);
             foreach ($data['list'] as $requirement) {
                 $rq = PurchaseRequirement::find($requirement['id']);
                 $rq->requirement_status = 'PROCESSED';
@@ -66,6 +69,7 @@ class PurchaseManageBaseBudget implements ShouldQueue
         } elseif ($data['action'] == 'update') {
             $baseBudget = PurchaseBaseBudget::find($data['id_edit']);
             $baseBudget->currency_id = $data['currency_id'];
+            $baseBudget->tax_id = $data['tax_id'];
             $baseBudget->save();
 
             foreach ($data['list_to_delete'] as $requirement) {

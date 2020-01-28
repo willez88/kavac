@@ -56,10 +56,10 @@
                             <span v-if="data.totDebit.toFixed(currency.decimal_places) == data.totAssets.toFixed(currency.decimal_places) &&
                                         data.totDebit.toFixed(currency.decimal_places) >= 0" 
                                 style="color:#18ce0f;">
-                                <strong>{{ data.totDebit.toFixed(currency.decimal_places) }}</strong>
+                                <strong>{{ addDecimals(data.totDebit) }}</strong>
                             </span>
                             <span v-else style="color:#FF3636;">
-                                <strong>{{ data.totDebit.toFixed(currency.decimal_places) }}</strong>
+                                <strong>{{ addDecimals(data.totDebit) }}</strong>
                             </span>
                         </h6>
                     </div>
@@ -71,10 +71,10 @@
                             <span v-if="data.totDebit.toFixed(currency.decimal_places) == data.totAssets.toFixed(currency.decimal_places) &&
                                         data.totAssets.toFixed(currency.decimal_places) >= 0"
                                 style="color:#18ce0f;">
-                                <strong>{{ data.totAssets.toFixed(currency.decimal_places) }}</strong>
+                                <strong>{{ addDecimals(data.totAssets) }}</strong>
                             </span>
                             <span v-else style="color:#FF3636;">
-                                <strong>{{ data.totAssets.toFixed(currency.decimal_places) }}</strong>
+                                <strong>{{ addDecimals(data.totAssets) }}</strong>
                             </span>
                         </h6>
                     </div>
@@ -199,6 +199,10 @@
 
             reset(){
                 EventBus.$emit('reset:accounting-entry-edit-create');
+            },
+
+            addDecimals(value){
+                return parseFloat(value).toFixed(this.currency.decimal_places);
             },
 
             /**

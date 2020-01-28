@@ -13,6 +13,7 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
+use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Jobs\AccountingManageEntries;
 use Auth;
 
@@ -53,17 +54,14 @@ class AccountingEntryController extends Controller
      */
     public function index()
     {
-
         /**
          * [$currency contendra la moneda manejada por defecto]
          * @var Currency
          */
-        $currency                = Currency::where('default', true)->first();
+        $currency     = Currency::where('default', true)->first();
         
-        $institutions            = template_choices('App\Models\Institution', 'name', [], true);
-        
-        $institutions[0]['text'] = 'Todas';
-        $institutions            = json_encode($institutions);
+        $institutions = json_encode($this->getInstitutionAvailables('Todas'));
+
         $currencies              = json_encode(template_choices(
             'App\Models\Currency',
             ['symbol', '-', 'name'],
@@ -127,11 +125,11 @@ class AccountingEntryController extends Controller
          * [$currency almacena la información del tipo de moneda por defecto]
          * @var Currency
          */
-        $currency = Currency::where('default', true)->orderBy('id', 'ASC')->first();
-
-        $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
-
-        $institutions = json_encode(template_choices('App\Models\Institution', 'name', [], true));
+        $currency     = Currency::where('default', true)->orderBy('id', 'ASC')->first();
+        
+        $currencies   = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
+        
+        $institutions = json_encode($this->getInstitutionAvailables('Seleccione...'));
 
         /**
          * [$AccountingAccounts almacena las cuentas pratrimoniales]
@@ -208,6 +206,19 @@ class AccountingEntryController extends Controller
     }
 
     /**
+     * Show the specified resource.
+     * @return Response
+     */
+    public function show($id)
+    {
+        return response()->json(['records' => AccountingEntry::with(
+            'accountingEntryCategory',
+            'accountingAccounts.account.accountConverters.budgetAccount',
+            'institution',
+        )->find($id)], 200);
+    }
+
+    /**
      * Muestra el formulario para la edición de asientos contables
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
@@ -216,14 +227,22 @@ class AccountingEntryController extends Controller
      */
     public function edit($id)
     {
-        $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
-        $institutions = json_encode(template_choices('App\Models\Institution', 'name', [], true));
-
         /**
-         * [$entries asiento contable a editar]
+         * [$entry asiento contable a editar]
          * @var AccountingEntry
          */
-        $entries = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')->find($id);
+        $entry = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')->find($id);
+
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
+
+        $currencies = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
+        $institutions = json_encode($this->getInstitutionAvailables('Seleccione...'));
+
         /**
          * [$AccountingAccounts cuentas pratrimoniales]
          * @var Json
@@ -234,13 +253,13 @@ class AccountingEntryController extends Controller
          * se guarda en variables la información necesaria para la edición del asiento contable
          */
         
-        $date         = $entries->from_date;
-        $reference    = $entries->reference;
-        $concept      = $entries->concept;
-        $observations = $entries->observations;
-        $category     = $entries->accounting_entry_categories_id;
-        $institution  = $entries->institution_id;
-        $currency     = $entries->currency_id;
+        $date         = $entry->from_date;
+        $reference    = $entry->reference;
+        $concept      = $entry->concept;
+        $observations = $entry->observations;
+        $category     = $entry->accounting_entry_categories_id;
+        $institution  = $entry->institution_id;
+        $currency     = $entry->currency_id;
 
         /**
          * [$categories lista de categorias]
@@ -278,7 +297,7 @@ class AccountingEntryController extends Controller
 
         return view('accounting::entries.form', compact(
             'AccountingAccounts',
-            'entries',
+            'entry',
             'categories',
             'data_edit',
             'currencies',
@@ -372,7 +391,14 @@ class AccountingEntryController extends Controller
          * @var null
          */
         $institution_id = null;
-        $institution_id = $request->institution;
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']['id'] == $request->institution) {
+            $institution_id = $request->institution;
+        } elseif (auth()->user()->isAdmin() && $request->institution) {
+            $institution_id = $request->institution;
+        }
 
         if ($request->typeSearch == 'reference') {
             $allRecords = [];
@@ -388,10 +414,12 @@ class AccountingEntryController extends Controller
                                                 ->column('concept', $search)
                                                 ->where('institution_id', $institution_id);
             } else {
-                $allRecords = AccountingEntry::column('reference', $search)
-                                                ->column('from_date', $search)
-                                                ->column('reference', $search)
-                                                ->column('concept', $search);
+                if (auth()->user()->isAdmin()) {
+                    $allRecords = AccountingEntry::column('reference', $search)
+                                                    ->column('from_date', $search)
+                                                    ->column('reference', $search)
+                                                    ->column('concept', $search);
+                }
             }
         } elseif ($request->typeSearch == 'origin') {
             /**
@@ -555,11 +583,27 @@ class AccountingEntryController extends Controller
     public function unapproved()
     {
         /**
-         * [$entries registros resultantes de la busqueda]
-         * @var
+         * [$entries listado de los asientos contables no aprobados]
+         * @var array
          */
-        $entries = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
-                    ->where('approved', false)->orderBy('from_date', 'ASC')->get();
+        $entries = [];
+
+        /**
+         * [$user_profile informacion del perfil del usuario logueado]
+         * @var Profile
+         */
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']['id']) {
+            $entries = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
+                        ->where('approved', false)->where('institution_id', $user_profile['institution']['id'])
+                        ->orderBy('from_date', 'ASC')->get();
+        } else {
+            if (auth()->user()->isAdmin()) {
+                $entries = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
+                        ->where('approved', false)->orderBy('from_date', 'ASC')->get();
+            }
+        }
 
         return view('accounting::entries.listing', compact('entries'));
     }
@@ -580,5 +624,22 @@ class AccountingEntryController extends Controller
         $entries->approved = true;
         $entries->save();
         return response()->json(['message'=>'Success'], 200);
+    }
+
+    public function getInstitutionAvailables($text)
+    {
+        $institutions = [];
+        $profile      = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($profile) {
+            array_push($institutions, [
+                'id'   => $profile->institution->id,
+                'text' => $profile->institution->name,
+            ]);
+        } elseif (!$profile && auth()->user()->hasRole('admin')) {
+            $institutions            = template_choices('App\Models\Institution', 'name', [], true);
+            $institutions[0]['text'] = $text;
+        }
+        return $institutions;
     }
 }

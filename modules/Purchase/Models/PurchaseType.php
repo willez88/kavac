@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
-class PurchaseProcess extends Model implements Auditable
+class PurchaseType extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -24,27 +24,27 @@ class PurchaseProcess extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name', 'description', 'require_documents', 'list_documents'];
+    protected $fillable = ['name', 'description', 'purchase_processes_id'];
 
     /**
-     * PurchaseProcess has many PurchaseType.
+     * PurchaseType belongs to PurchaseProcess.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchaseType()
+    public function purchaseProcess()
     {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseProcess_id, localKey = id)
-        return $this->hasMany(PurchaeType::class);
+        // belongsTo(RelatedModel, foreignKey = purchaseProcess_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseProcess::class, 'purchase_processes_id');
     }
 
     /**
-     * PurchaseProcess has many PurchasePlan.
+     * PurchaseType has many PurchasePlan.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function purchasePlan()
     {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseProcess_id, localKey = id)
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseType_id, localKey = id)
         return $this->hasMany(PurchasePlan::class);
     }
 }

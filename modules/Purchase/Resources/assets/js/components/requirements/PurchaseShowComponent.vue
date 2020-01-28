@@ -1,13 +1,13 @@
 <template>
     <div>
-        <button @click="addRecord('show_form_requirement_'+id, route_show, $event)"
+        <button @click="addRecord('show_requirement_'+id, route_show, $event)"
                 class="btn btn-info btn-xs btn-icon btn-action" 
                 title="Visualizar requerimiento" 
                 data-toggle="tooltip" >
             <i class="fa fa-eye"></i>
         </button>
 
-        <div class="modal fade text-left" tabindex="-1" role="dialog" :id="'show_form_requirement_'+id">
+        <div class="modal fade text-left" tabindex="-1" role="dialog" :id="'show_requirement_'+id">
             <div class="modal-dialog vue-crud" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -21,7 +21,6 @@
                     </div>
                     <!-- Fromulario -->
                     <div class="modal-body">
-                        <purchase-show-errors ref="accountingAccountForm" />
                         <hr>
                         <h6>INFORMACIÓN DEL REQUERIMIENTO</h6>
                         <br>
@@ -41,19 +40,6 @@
                         </div>
                         <hr>
                         <v-client-table :columns="columns" :data="purchase_requirement_items" :options="table_options">
-                            <div slot="measurement_unit" slot-scope="props" class="text-center">
-                                {{ props.row.measurement_unit.name }}
-                            </div>
-                            <div slot="technical_specifications" slot-scope="props" class="text-center">
-                                <span>
-                                    {{ props.row.technical_specifications }}
-                                </span>
-                            </div>
-                            <div slot="quantity" slot-scope="props">
-                                <span>
-                                    {{ props.row.quantity }}
-                                </span>
-                            </div>
                         </v-client-table>
                     </div>
                 </div>
@@ -69,25 +55,22 @@ export default{
     data(){
         return{
             records:[],
-            columns: ['name','measurement_unit','technical_specifications', 'quantity'],
+            columns: ['name','measurement_unit.name','technical_specifications', 'quantity'],
         }
     },
     created(){
         this.table_options.headings = {
                 'name': 'Producto',
-                'measurement_unit': 'Unidad de Medida',
+                'measurement_unit.name': 'Unidad de Medida',
                 'technical_specifications': 'Especificaciones tecnicas',
                 'quantity': 'Cantidad',
             };
         this.table_options.columnsClasses = {
             'name'    : 'col-xs-4',
-            'measurement_unit': 'col-xs-2',
+            'measurement_unit.name': 'col-xs-2',
             'technical_specifications'    : 'col-xs-4',
             'quantity': 'col-xs-2',
         };
-    },
-    mounted(){
-        
     },
     methods:{
 
@@ -99,15 +82,6 @@ export default{
         reset() {
             
         },
-    },
-    watch:{
-        records:function(res, ant) {
-            /**
-             * [records_list listado con las cuentas para la tabla]
-             * @type {array}
-             */
-            this.records_list = res;
-        }
     },
     computed:{
         contracting_department: function(){

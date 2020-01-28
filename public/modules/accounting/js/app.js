@@ -184,12 +184,19 @@ Vue.component('accounting-entry-listing', __webpack_require__(/*! ./components/e
 
 Vue.component('accounting-entry-form', __webpack_require__(/*! ./components/entries/AccountingFormComponent.vue */ "./Resources/assets/js/components/entries/AccountingFormComponent.vue")["default"]);
 /**
+ * Componente para viasualizar en modal asiento contable
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+
+Vue.component('accounting-entry-show', __webpack_require__(/*! ./components/entries/AccountingShowComponent.vue */ "./Resources/assets/js/components/entries/AccountingShowComponent.vue")["default"]);
+/**
  * Componente para cargar la tabla de cuentas patrimoniales para el asiento contable
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
 
-Vue.component('accounting-entry-form-account', __webpack_require__(/*! ./components/entries/AccountingAccountsInFormComponent.vue */ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue")["default"]);
+Vue.component('accounting-entry-form-account', __webpack_require__(/*! ./components/entries/AccountingAccountFormsComponent.vue */ "./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue")["default"]);
 /**
  * Componente index para el reporte de balance de comprobación
  *
@@ -1094,17 +1101,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue":
-/*!**************************************************************************************!*\
-  !*** ./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue ***!
-  \**************************************************************************************/
+/***/ "./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue":
+/*!************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda& */ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda&");
-/* harmony import */ var _AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AccountingAccountFormsComponent_vue_vue_type_template_id_8d3ec680___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingAccountFormsComponent.vue?vue&type=template&id=8d3ec680& */ "./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=template&id=8d3ec680&");
+/* harmony import */ var _AccountingAccountFormsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingAccountFormsComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1114,9 +1121,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AccountingAccountFormsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountingAccountFormsComponent_vue_vue_type_template_id_8d3ec680___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingAccountFormsComponent_vue_vue_type_template_id_8d3ec680___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1126,38 +1133,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue"
+component.options.__file = "Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************/
+/***/ "./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountFormsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountFormsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountFormsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda&":
-/*!*********************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda& ***!
-  \*********************************************************************************************************************/
+/***/ "./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=template&id=8d3ec680&":
+/*!*******************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=template&id=8d3ec680& ***!
+  \*******************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountFormsComponent_vue_vue_type_template_id_8d3ec680___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingAccountFormsComponent.vue?vue&type=template&id=8d3ec680& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=template&id=8d3ec680&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountFormsComponent_vue_vue_type_template_id_8d3ec680___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountsInFormComponent_vue_vue_type_template_id_be994cda___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingAccountFormsComponent_vue_vue_type_template_id_8d3ec680___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -1383,6 +1390,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_template_id_4c0b66b8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingListComponent_vue_vue_type_template_id_4c0b66b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingShowComponent.vue":
+/*!****************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingShowComponent.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AccountingShowComponent_vue_vue_type_template_id_6b3934a5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountingShowComponent.vue?vue&type=template&id=6b3934a5& */ "./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=template&id=6b3934a5&");
+/* harmony import */ var _AccountingShowComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountingShowComponent.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AccountingShowComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountingShowComponent_vue_vue_type_template_id_6b3934a5___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountingShowComponent_vue_vue_type_template_id_6b3934a5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "Resources/assets/js/components/entries/AccountingShowComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingShowComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingShowComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingShowComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=template&id=6b3934a5&":
+/*!***********************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=template&id=6b3934a5& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingShowComponent_vue_vue_type_template_id_6b3934a5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountingShowComponent.vue?vue&type=template&id=6b3934a5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=template&id=6b3934a5&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingShowComponent_vue_vue_type_template_id_6b3934a5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountingShowComponent_vue_vue_type_template_id_6b3934a5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -3215,11 +3291,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       records: [],
       url: '/accounting/report/',
-      columns: ['name', 'created_at', 'range', 'interval', 'id']
+      columns: ['institution_name', 'name', 'created_at', 'range', 'interval', 'id']
     };
   },
   created: function created() {
     this.table_options.headings = {
+      'institution_name': 'INSTITUCIÓN',
       'created_at': 'FECHA DE GENERACIÓN',
       'interval': 'TIEMPO TRANSCURRIDO',
       'name': 'TIPO DE REPORTE',
@@ -3229,8 +3306,9 @@ __webpack_require__.r(__webpack_exports__);
     this.table_options.sortable = ['created_at', 'interval', 'name'];
     this.table_options.filterable = [];
     this.table_options.columnsClasses = {
-      'name': 'col-xs-6',
-      'created_at': 'col-xs-2',
+      'institution_name': 'col-xs-4',
+      'name': 'col-xs-2',
+      'created_at': 'col-xs-1',
       'range': 'col-xs-2',
       'interval': 'col-xs-2',
       'id': 'col-xs-1'
@@ -3312,10 +3390,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3523,6 +3601,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     reset: function reset() {
       EventBus.$emit('reset:accounting-entry-edit-create');
+    },
+    addDecimals: function addDecimals(value) {
+      return parseFloat(value).toFixed(this.currency.decimal_places);
     },
 
     /**
@@ -3904,6 +3985,8 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
+    this.institution_id = this.institutions[0]['id'];
+
     if (this.data_edit) {
       this.data_edit_mutable = this.data_edit;
       this.reference = this.data_edit.reference;
@@ -3913,10 +3996,7 @@ __webpack_require__.r(__webpack_exports__);
       this.date = this.data_edit.date;
       this.concept = this.data_edit.concept;
       this.observations = this.data_edit.observations;
-    } // else{
-    // 	this.generateReferenceCode();
-    // }
-
+    }
 
     EventBus.$on('reset:accounting-entry-edit-create', function () {
       _this.reset();
@@ -4209,7 +4289,7 @@ __webpack_require__.r(__webpack_exports__);
         end: '',
         year: 0,
         month: 0,
-        institution: ''
+        institution: 0
       }
     };
   },
@@ -4219,6 +4299,7 @@ __webpack_require__.r(__webpack_exports__);
       id: 0,
       text: 'Todos'
     });
+    this.data.institution = this.institutions[0]['id'];
   },
   mounted: function mounted() {
     /** 
@@ -4306,6 +4387,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -4569,6 +4653,202 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.initRecords(_this.url);
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id'],
+  data: function data() {
+    return {
+      records: [],
+      columns: ['account.denomination', 'debit', 'assets']
+    };
+  },
+  created: function created() {
+    this.table_options.headings = {
+      'account.denomination': 'Denominación',
+      'debit': 'Debe',
+      'assets': 'Haber'
+    };
+    this.table_options.columnsClasses = {
+      'account.denomination': 'col-xs-8',
+      'debit': 'col-xs-2',
+      'assets': 'col-xs-2'
+    };
+  },
+  mounted: function mounted() {},
+  methods: {
+    /**
+     * Método que borra todos los datos del formulario
+     *
+     * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+     */
+    reset: function reset() {},
+    addDecimals: function addDecimals(value) {
+      return parseFloat(value).toFixed(this.currency_decimal_places);
+    }
+  },
+  computed: {
+    reference: function reference() {
+      if (this.records.reference) {
+        return this.records.reference;
+      }
+    },
+    accounting_entry_category: function accounting_entry_category() {
+      if (this.records.accounting_entry_category) {
+        return this.records.accounting_entry_category.name;
+      }
+    },
+    institution: function institution() {
+      if (this.records.institution) {
+        return this.records.institution.name;
+      }
+    },
+    currency: function currency() {
+      if (this.records.currency) {
+        return this.records.currency.name;
+      }
+    },
+    currency_decimal_places: function currency_decimal_places() {
+      if (this.records.currency) {
+        return this.records.currency.decimal_places;
+      }
+    },
+    currency_symbol: function currency_symbol() {
+      if (this.records.currency) {
+        return this.records.currency.symbol;
+      }
+    },
+    concept: function concept() {
+      if (this.records.concept) {
+        return this.records.concept;
+      }
+    },
+    observations: function observations() {
+      if (this.records.observations) {
+        return this.records.observations;
+      }
+
+      return [];
+    },
+    accounting_accounts: function accounting_accounts() {
+      if (this.records.accounting_accounts) {
+        return this.records.accounting_accounts;
+      }
+
+      return [];
+    }
   }
 });
 
@@ -7931,10 +8211,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda&":
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingAccountsInFormComponent.vue?vue&type=template&id=be994cda& ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=template&id=8d3ec680&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingAccountFormsComponent.vue?vue&type=template&id=8d3ec680& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8106,24 +8386,12 @@ var render = function() {
                     _vm.data.totDebit.toFixed(_vm.currency.decimal_places) >= 0
                       ? _c("span", { staticStyle: { color: "#18ce0f" } }, [
                           _c("strong", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.data.totDebit.toFixed(
-                                  _vm.currency.decimal_places
-                                )
-                              )
-                            )
+                            _vm._v(_vm._s(_vm.addDecimals(_vm.data.totDebit)))
                           ])
                         ])
                       : _c("span", { staticStyle: { color: "#FF3636" } }, [
                           _c("strong", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.data.totDebit.toFixed(
-                                  _vm.currency.decimal_places
-                                )
-                              )
-                            )
+                            _vm._v(_vm._s(_vm.addDecimals(_vm.data.totDebit)))
                           ])
                         ])
                   ])
@@ -8141,24 +8409,12 @@ var render = function() {
                     _vm.data.totAssets.toFixed(_vm.currency.decimal_places) >= 0
                       ? _c("span", { staticStyle: { color: "#18ce0f" } }, [
                           _c("strong", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.data.totAssets.toFixed(
-                                  _vm.currency.decimal_places
-                                )
-                              )
-                            )
+                            _vm._v(_vm._s(_vm.addDecimals(_vm.data.totAssets)))
                           ])
                         ])
                       : _c("span", { staticStyle: { color: "#FF3636" } }, [
                           _c("strong", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.data.totAssets.toFixed(
-                                  _vm.currency.decimal_places
-                                )
-                              )
-                            )
+                            _vm._v(_vm._s(_vm.addDecimals(_vm.data.totAssets)))
                           ])
                         ])
                   ])
@@ -9150,89 +9406,103 @@ var render = function() {
               key: "id",
               fn: function(props) {
                 return _c("div", { staticClass: "text-center" }, [
-                  !props.row.approved
-                    ? _c(
-                        "button",
-                        {
-                          staticClass:
-                            "btn btn-success btn-xs btn-icon btn-action",
-                          attrs: {
-                            title: "Aprobar Registro",
-                            "data-toggle": "tooltip"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.approve(props.index)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-check" })]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !props.row.approved
-                    ? _c(
-                        "button",
-                        {
-                          staticClass:
-                            "btn btn-warning btn-xs btn-icon btn-action",
-                          attrs: {
-                            title: "Modificar registro",
-                            "data-toggle": "tooltip"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.editForm(props.row.id)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-edit" })]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !props.row.approved
-                    ? _c(
-                        "button",
-                        {
-                          staticClass:
-                            "btn btn-danger btn-xs btn-icon btn-action",
-                          attrs: {
-                            title: "Eliminar Registro",
-                            "data-toggle": "tooltip"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteRecord(
-                                props.index,
-                                "/accounting/entries"
-                              )
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-trash-o" })]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  props.row.approved
-                    ? _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-primary btn-xs btn-icon",
-                          attrs: {
-                            href: _vm.urlPdf + "/pdf/" + props.row.id,
-                            title: "Imprimir Registro",
-                            "data-toggle": "tooltip",
-                            target: "_blank"
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-print",
-                            staticStyle: { "text-align": "center" }
-                          })
-                        ]
-                      )
-                    : _vm._e()
+                  _c(
+                    "div",
+                    { staticClass: "d-inline-flex" },
+                    [
+                      !props.row.approved
+                        ? _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-success btn-xs btn-icon btn-action",
+                              attrs: {
+                                title: "Aprobar Registro",
+                                "data-toggle": "tooltip"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.approve(props.index)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-check" })]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("accounting-entry-show", {
+                        attrs: {
+                          id: props.row.id,
+                          route_show: "/accounting/entries/" + props.row.id
+                        }
+                      }),
+                      _vm._v(" "),
+                      !props.row.approved
+                        ? _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-warning btn-xs btn-icon btn-action",
+                              attrs: {
+                                title: "Modificar registro",
+                                "data-toggle": "tooltip"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editForm(props.row.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-edit" })]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !props.row.approved
+                        ? _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-danger btn-xs btn-icon btn-action",
+                              attrs: {
+                                title: "Eliminar Registro",
+                                "data-toggle": "tooltip"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteRecord(
+                                    props.index,
+                                    "/accounting/entries"
+                                  )
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-trash-o" })]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      props.row.approved
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-primary btn-xs btn-icon",
+                              attrs: {
+                                href: _vm.urlPdf + "/pdf/" + props.row.id,
+                                title: "Imprimir Registro",
+                                "data-toggle": "tooltip",
+                                target: "_blank"
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-print",
+                                staticStyle: { "text-align": "center" }
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 ])
               }
             }
@@ -9413,6 +9683,354 @@ var staticRenderFns = [
       },
       [_c("a", { staticClass: "page-link" }, [_vm._v(">>")])]
     )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=template&id=6b3934a5&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/entries/AccountingShowComponent.vue?vue&type=template&id=6b3934a5& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-info btn-xs btn-icon btn-action",
+        attrs: { title: "Visualizar requerimiento", "data-toggle": "tooltip" },
+        on: {
+          click: function($event) {
+            return _vm.addRecord("show_entry_" + _vm.id, _vm.route_show, $event)
+          }
+        }
+      },
+      [_c("i", { staticClass: "fa fa-eye" })]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade text-left",
+        attrs: { tabindex: "-1", role: "dialog", id: "show_entry_" + _vm.id }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog vue-crud", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                [
+                  _c("accounting-show-errors", {
+                    ref: "accountingAccountForm"
+                  }),
+                  _vm._v(" "),
+                  _c("h6", [_vm._v("INFORMACIÓN DEL ASIENTO CONTABLE")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-2" }, [
+                      _c("strong", [_vm._v("Código:")]),
+                      _vm._v(" " + _vm._s(_vm.records.reference))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-2" }, [
+                      _c("strong", [_vm._v("Fecha:")]),
+                      _vm._v(
+                        " " + _vm._s(_vm.format_date(_vm.records.from_date))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-2" }, [
+                      _c("strong", [_vm._v("Estatus:")]),
+                      _vm._v(" "),
+                      _vm.records.approved
+                        ? _c("span", { staticClass: "badge badge-success" }, [
+                            _c("strong", [_vm._v("APROBADO ")])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.records.approved
+                        ? _c("span", { staticClass: "badge badge-danger" }, [
+                            _c("strong", [_vm._v("NO APROBADO")])
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-2" }, [
+                      _c("strong", [_vm._v("Categoria:")]),
+                      _vm._v(" " + _vm._s(_vm.accounting_entry_category))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("strong", [_vm._v("Tipo de moneda:")]),
+                      _vm._v(" " + _vm._s(_vm.currency) + " ("),
+                      _c("strong", [_vm._v(_vm._s(_vm.currency_symbol))]),
+                      _vm._v(")")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("strong", [_vm._v("Institición:")]),
+                      _vm._v(" " + _vm._s(_vm.institution))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("strong", [_vm._v("Descripción ó concepto:")]),
+                      _vm._v(" " + _vm._s(_vm.concept))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("strong", [_vm._v("Observaciones:")]),
+                      _vm._v(" " + _vm._s(_vm.observations))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c(
+                        "table",
+                        { staticClass: "table table-striped table-hover" },
+                        [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            [
+                              _vm._l(_vm.accounting_accounts, function(row) {
+                                return _c("tr", { staticClass: "row" }, [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "col-8 text-left",
+                                      staticStyle: {
+                                        border: "1px solid #dee2e6"
+                                      },
+                                      attrs: { tabindex: "0" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(row.account.denomination) +
+                                          "\n                                        "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "col-2 text-right",
+                                      staticStyle: {
+                                        border: "1px solid #dee2e6"
+                                      },
+                                      attrs: { tabindex: "0" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.addDecimals(row.debit)) +
+                                          "\n                                        "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "col-2 text-right",
+                                      staticStyle: {
+                                        border: "1px solid #dee2e6"
+                                      },
+                                      attrs: { tabindex: "0" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.addDecimals(row.assets)) +
+                                          "\n                                        "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              }),
+                              _vm._v(" "),
+                              _c("tr", { staticClass: "row" }, [
+                                _c(
+                                  "td",
+                                  {
+                                    staticClass: "col-8 text-left",
+                                    staticStyle: {
+                                      border: "1px solid #dee2e6"
+                                    },
+                                    attrs: { tabindex: "0" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Totales Debe / Haber\n                                        "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    staticClass: "col-2 text-right",
+                                    staticStyle: {
+                                      border: "1px solid #dee2e6"
+                                    },
+                                    attrs: { tabindex: "0" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(_vm.currency_symbol) +
+                                        " " +
+                                        _vm._s(
+                                          _vm.addDecimals(_vm.records.tot_debit)
+                                        ) +
+                                        "\n                                        "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    staticClass: "col-2 text-right",
+                                    staticStyle: {
+                                      border: "1px solid #dee2e6"
+                                    },
+                                    attrs: { tabindex: "0" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(_vm.currency_symbol) +
+                                        " " +
+                                        _vm._s(
+                                          _vm.addDecimals(
+                                            _vm.records.tot_assets
+                                          )
+                                        ) +
+                                        "\n                                        "
+                                    )
+                                  ]
+                                )
+                              ])
+                            ],
+                            2
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                ],
+                1
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "reset",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+      _vm._v(" "),
+      _c("h6", [
+        _c("i", { staticClass: "fa fa-list inline-block" }),
+        _vm._v(
+          "\n                        Asiento contable\n                    "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "row" }, [
+        _c(
+          "th",
+          {
+            staticClass: "col-8",
+            staticStyle: { border: "1px solid #dee2e6", position: "relative" },
+            attrs: { tabindex: "0" }
+          },
+          [
+            _vm._v(
+              "\n                                            Denominación\n                                        "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "col-2",
+            staticStyle: { border: "1px solid #dee2e6", position: "relative" },
+            attrs: { tabindex: "0" }
+          },
+          [
+            _vm._v(
+              "\n                                            Debe\n                                        "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "col-2",
+            staticStyle: { border: "1px solid #dee2e6", position: "relative" },
+            attrs: { tabindex: "0" }
+          },
+          [
+            _vm._v(
+              "\n                                            Haber\n                                        "
+            )
+          ]
+        )
+      ])
+    ])
   }
 ]
 render._withStripped = true
