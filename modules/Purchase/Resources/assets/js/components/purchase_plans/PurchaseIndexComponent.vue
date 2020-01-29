@@ -1,8 +1,17 @@
 <template>
     <section>
         <v-client-table :columns="columns" :data="records" :options="table_options">
+            <div slot="init_date" slot-scope="props" class="text-center">
+                {{ format_date(props.row.init_date) }}
+            </div>
+            <div slot="end_date" slot-scope="props" class="text-center">
+                {{ format_date(props.row.end_date) }}
+            </div>
             <div slot="id" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
+                    
+                    <purchase-plan-show :id="props.row.id" :route_show="'/purchase/purchase_plans/'+props.row.id" />
+                    
                     <button @click="editForm(props.row.id)"
                             class="btn btn-warning btn-xs btn-icon btn-action"
                             title="Modificar registro"
@@ -16,7 +25,6 @@
                         <i class="fa fa-trash-o"></i>
                     </button>
                 </div>
-            </div>
             </div>
         </v-client-table>
         <hr>

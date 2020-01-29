@@ -5,10 +5,16 @@
 
         <form method="post" enctype="multipart/form-data" @submit.prevent="">
             <label>Cargar Hoja de calculo. Formatos permitidos:<strong>.xls .xlsx .ods</strong></label><br>
+            <button type="button" data-toggle="tooltip"
+                    class="btn btn-sm btn-info btn-import"
+                    title="Presione para importar la información. Los archivos permitidos son: .csv, .ods, .xls o .xlsx"
+                    @click="setFile('import_account')">
+                <i class="fa fa-upload"></i>
+            </button>
             <input type="file" 
-                    id="file" 
-                    name="file"
-                    @change="importCalculo()">
+                    id="import_account" 
+                    name="import_account"
+                    @change="importCalculo()" style="display:none">
             <br>
         </form>
 
@@ -84,7 +90,7 @@
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
             reset(){
-                document.getElementById("file").value = "";
+                document.getElementById("import_account").value = "";
                 this.records = [];
             },
 
@@ -101,7 +107,7 @@
                 /** Se obtiene y da formato para enviar el archivo a la ruta */
                 let vm = this;
                 var formData = new FormData();
-                var inputFile = document.querySelector('#file');
+                var inputFile = document.querySelector('#import_account');
                 formData.append("file", inputFile.files[0]);
                 vm.loading = true;
                 axios.post('/accounting/import', formData, {
@@ -140,6 +146,7 @@
                             );
                         }
                     }
+                    vm.loading = false;
                 });
             },
         }

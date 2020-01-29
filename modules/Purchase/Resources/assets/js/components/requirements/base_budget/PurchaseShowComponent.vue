@@ -120,7 +120,7 @@ export default{
                                 'purchase_supplier_type.name',
                                 'requirement_status'
                             ],
-            columns: ['name','measurement_unit.name','technical_specifications', 'unit_price', 'quantity'],
+            // columns: ['name','measurement_unit.name','technical_specifications', 'unit_price', 'quantity'],
             table_option_requirements: {
                 pagination: { edge: true },
                 //filterByColumn: true,
@@ -169,20 +169,20 @@ export default{
             'requirement_status': 'col-xs-1',
         };
 
-        this.table_options.headings = {
-                'name': 'Producto',
-                'measurement_unit.name': 'Unidad de Medida',
-                'technical_specifications': 'Especificaciones tecnicas',
-                'unit_price':'Precio unitario sin IVA',
-                'quantity': 'Cantidad',
-            };
-        this.table_options.columnsClasses = {
-            'name'    : 'col-xs-3',
-            'measurement_unit.name': 'col-xs-2',
-            'technical_specifications'    : 'col-xs-3',
-            'unit_price':'col-xs-2',
-            'quantity': 'col-xs-2',
-        };
+        // this.table_options.headings = {
+        //         'name': 'Producto',
+        //         'measurement_unit.name': 'Unidad de Medida',
+        //         'technical_specifications': 'Especificaciones tecnicas',
+        //         'unit_price':'Precio unitario sin IVA',
+        //         'quantity': 'Cantidad',
+        //     };
+        // this.table_options.columnsClasses = {
+        //     'name'    : 'col-xs-3',
+        //     'measurement_unit.name': 'col-xs-2',
+        //     'technical_specifications'    : 'col-xs-3',
+        //     'unit_price':'col-xs-2',
+        //     'quantity': 'col-xs-2',
+        // };
     },
     methods:{
 

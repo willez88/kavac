@@ -14,8 +14,7 @@ use Modules\Purchase\Jobs\PurchaseManageBaseBudget;
 use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
-
-use App\Models\HistoryTax;
+use Modules\Purchase\Models\HistoryTax;
 
 class PurchaseBaseBudgetController extends Controller
 {

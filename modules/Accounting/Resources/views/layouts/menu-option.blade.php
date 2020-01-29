@@ -10,20 +10,20 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('accounting.converter.index') }}">Convertidor de Cuentas</a>
+            <a href="{{ route('accounting.converter.index') }}">Convertidor de cuentas</a>
         </li>
         <li>
-            <a href="{{ route('accounting.entries.index') }}">Asientos Contables</a>
+            <a href="{{ route('accounting.entries.index') }}">Asientos contables</a>
         </li>
         <li>
             <a href="">Reportes</a>
             <ul class="submenu">
-                <li><a href="{{ route('accounting.report.accountingBooks') }}">Libros Contables</a></li>
-                <li><a href="{{ route('accounting.report.financeStatements') }}">Estados Financieros</a></li>
+                <li><a href="{{ route('accounting.report.accountingBooks') }}">Libros contables</a></li>
+                <li><a href="{{ route('accounting.report.financeStatements') }}">Estados financieros</a></li>
             </ul>
         </li>
         <li>
-            <a href="{{ route('accounting.dashboard.test') }}">Panel de Control</a>
+            <a href="{{ route('accounting.dashboard.test') }}">Panel de control</a>
         </li>
     </ul>
 </li>
