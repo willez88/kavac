@@ -37,7 +37,7 @@ class System extends Notification //implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return $this->notifyToEmail ? ['mail'] : ['database'];
+        return $this->notifyToEmail ? ['mail'] : ['database', 'broadcast'];
     }
 
     /**

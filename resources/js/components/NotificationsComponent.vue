@@ -65,9 +65,11 @@
             }
         },
         created() {
-            this.getUnreaded();
-            Echo.private('App.User.' + this.$attrs.user).notification((notification) => {
-                console.log(notification.type);
+            let vm = this;
+            vm.getUnreaded();
+            Echo.private('App.User.' + vm.$attrs.user).notification((notification) => {
+                vm.getUnreaded();
+                console.log(notification);
             });
 
             /*Echo.join(`home`)
