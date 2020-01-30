@@ -205,11 +205,6 @@
                 this.record_products = this.requirement_edit.purchase_requirement_items;
             }
         },
-        computed: {
-            changeFormatDate: function(){
-                return (this.date.split('-')[2]+'-'+this.date.split('-')[1]+'-'+this.date.split('-')[0]);
-            }
-        },
         methods:{
             reset(){
                 this.record = {

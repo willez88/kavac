@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Purchase\Models\PurchaseSupplierObject;
+use Modules\Purchase\Models\PurchaseSupplier;
 
 class PurchaseSupplierObjectController extends Controller
 {
@@ -102,5 +103,16 @@ class PurchaseSupplierObjectController extends Controller
         $supplierObject = PurchaseSupplierObject::find($id);
         $supplierObject->delete();
         return response()->json(['record' => $supplierObject, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * [getPurchaseSupplierObject retorna el obeto del proveedor]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  [type] $id [id del proveedor]
+     * @return [type]     [description]
+     */
+    public function getPurchaseSupplierObject($id)
+    {
+        return response()->json(PurchaseSupplier::find($id)->PurchaseSupplierObject);
     }
 }

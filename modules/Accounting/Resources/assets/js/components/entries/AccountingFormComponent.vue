@@ -102,6 +102,7 @@
 			}
 		},
 		created(){
+			this.institution_id = this.institutions[0]['id'];
 			if (this.data_edit) {
 				this.data_edit_mutable = this.data_edit;
 
@@ -114,9 +115,6 @@
 				this.concept = this.data_edit.concept;
 				this.observations = this.data_edit.observations;
 			}
-			// else{
-			// 	this.generateReferenceCode();
-			// }
 
 			EventBus.$on('reset:accounting-entry-edit-create',()=>{
 				this.reset();

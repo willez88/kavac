@@ -21,14 +21,23 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Presupuesto base</h6>
+                    <h6 class="card-title">Gestión de presupuesto base</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => route('purchase.requirements.index')])
                         @include('buttons.minimize')
                     </div>
                 </div>
                 <div class="card-body">
-                    <purchase-requirements :records="{{ $requirements }}" add_buttons_action="{{ 'false' }}" />
+                    @if(isset($baseBudget))
+                        <purchase-base-budget-form :records="{{ $requirements }}"
+                                                   :record_tax="{{ $tax }}"
+                                                   :currencies="{{ $currencies }}"
+                                                   :base_budget_edit="{{ $baseBudget }}" />
+                    @else
+                        <purchase-base-budget-form :records="{{ $requirements }}"
+                                                   :record_tax="{{ $tax }}"
+                                                   :currencies="{{ $currencies }}" />
+                    @endif
                 </div>
             </div>
         </div>

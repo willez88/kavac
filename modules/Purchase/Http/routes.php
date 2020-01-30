@@ -54,6 +54,28 @@ Route::group([
 
     /*
      * -----------------------------------------------------------------------
+     * Rutas para la gestión de tipos de compras
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los tipos de compras
+     */
+    Route::resource('purchase_types', 'PurchaseTypeController', [
+        'as'     => 'purchase',
+    ]);
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de tipos de contratación
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los tipos de contratación
+     */
+    Route::resource('type_hiring', 'PurchaseTypeHiringController', [
+        'as'     => 'purchase',
+    ]);
+
+    /*
+     * -----------------------------------------------------------------------
      * Rutas para la gestión de proveedores
      * -----------------------------------------------------------------------
      *
@@ -65,6 +87,11 @@ Route::group([
         'PurchaseSupplierController@vueList'
     )->name('purchase.suppliers.vuelist');
 
+    Route::get(
+        'get-purchase-supplier-object/{id}',
+        'PurchaseSupplierObjectController@getPurchaseSupplierObject'
+    );
+
     /*
      * -----------------------------------------------------------------------
      * Rutas para la gestión de requerimientos
@@ -72,12 +99,38 @@ Route::group([
      *
      * Gestiona los datos de los requerimientos de compras
      */
-    Route::post('purchase/requirements', 'PurchaseRequirementController@store');
+    Route::post('requirements', 'PurchaseRequirementController@store');
     Route::resource('requirements', 'PurchaseRequirementController', [
         'as'     => 'purchase',
-        'except' => ['show']
     ]);
-    Route::get('purchase/requirements/base-budget', 'PurchaseRequirementController@baseBudget')
-    ->name('purchase.requirements.base_budget');
-    Route::get('purchase/requirement-items', 'PurchaseRequirementController@getRequirementItems');
+
+    Route::post('base_budget', 'PurchaseBaseBudgetController@store');
+    Route::resource('base_budget', 'PurchaseBaseBudgetController', [
+        'as'     => 'purchase',
+    ]);
+    Route::get('requirement-items', 'PurchaseRequirementController@getRequirementItems');
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de planes de compras
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los plan de compras
+     */
+    Route::resource('purchase_plans', 'PurchasePlanController', [
+        'as'     => 'purchase',
+    ]);
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de ordenes de compras
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de ordenes de compras
+     */
+    Route::resource('purchase_order', 'PurchaseOrderController', [
+        'as'     => 'purchase',
+    ]);
+
+    Route::get('get-convertion/{currency_id}/{base_budget_currency_id}', 'PurchaseOrderController@getConvertion');
 });

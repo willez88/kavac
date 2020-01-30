@@ -11,6 +11,7 @@ use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Profile;
 
 /**
  * @class AccountingAccountConverterController
@@ -58,21 +59,32 @@ class AccountingDashboardController extends Controller
      */
     public function getOperations()
     {
+
         /**
          * [$currency información de la modena por defecto establecida en la aplicación]
          * @var [Modules\Accounting\Models\Currency]
          */
         $currency    = Currency::where('default', true)->first();
-
-        $institution = get_institution();
         /**
-         * [$lastRecords información de los ultimos 10 asientos contables generados]
-         * @var [Modules\Accounting\Models\AccountingEntry]
+         * [$records información de los ultimos 10 asientos contables generados]
+         * @var array
          */
-        $lastRecords = AccountingEntry::where('institution_id', $institution->id)
-                                        ->orderBy('updated_at', 'DESC')->take(10)->get();
+        $records = [];
 
-        return response()->json(['lastRecords' => $lastRecords, 'currency' => $currency], 200);
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']['id']) {
+            $records = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
+                        ->where('institution_id', $user_profile['institution']['id'])
+                        ->orderBy('from_date', 'ASC')->get();
+        } else {
+            if (auth()->user()->isAdmin()) {
+                $records = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
+                        ->orderBy('from_date', 'ASC')->get();
+            }
+        }
+
+        return response()->json(['lastRecords' => $records, 'currency' => $currency], 200);
     }
 
     /**
@@ -88,11 +100,22 @@ class AccountingDashboardController extends Controller
          * @var array
          */
         $report_histories = [];
+
+        $reports = [];
         
         $institution      = get_institution();
 
-        $reports = AccountingReportHistory::where('institution_id', $institution->id)
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile['institution']['id']) {
+            $reports = AccountingReportHistory::with('institution')
+                        ->where('institution_id', $user_profile['institution']['id'])
                                             ->orderBy('updated_at', 'DESC')->get();
+        } else {
+            if (auth()->user()->isAdmin()) {
+                $reports = AccountingReportHistory::with('institution')->orderBy('updated_at', 'DESC')->get();
+            }
+        }
         foreach ($reports as $report) {
 
             /**
@@ -104,6 +127,7 @@ class AccountingDashboardController extends Controller
             $interval = $datetime1->diff($datetime2);
             array_push($report_histories, [
                                  'id'         => $report['id'],
+                                 'institution_name' => $report['institution']['name'],
                                  'created_at' => $report['updated_at']->format('d/m/Y'),
                                  'name'       => $report['report'],
                                  'url'        => $report['url'],

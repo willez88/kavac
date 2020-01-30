@@ -12,10 +12,11 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\ExchangeRate;
 use Modules\Accounting\Models\Currency;
+use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\Setting;
 
 use App\Repositories\ReportRepository;
-use App\Models\Institution;
 use DateTime;
 use Auth;
 
@@ -71,6 +72,16 @@ class AccountingAuxiliaryBookController extends Controller
          */
         $endDate     = $date.'-'.$day;
         
+        $institution_id = null;
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        $is_admin = auth()->user()->isAdmin();
+
         $convertions = [];
 
         if (!$account_id) {
@@ -78,14 +89,24 @@ class AccountingAuxiliaryBookController extends Controller
              * [$query cuenta patrimonial con su relacion en asientos contables]
              * @var [Modules\Accounting\Models\AccountingEntry]
              */
-            $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])
+            $query = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])
             ->where('group', '>', 0)
             ->where('subgroup', '>', 0)
-            ->where('item', '>', 0)
             ->orderBy('group', 'ASC')
             ->orderBy('subgroup', 'ASC')
             ->orderBy('item', 'ASC')
@@ -150,11 +171,22 @@ class AccountingAuxiliaryBookController extends Controller
                 }
             }
         } elseif ($account_id) {
-            $account = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])->find($account_id);
+            $account = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])->find($account_id);
             /*
              * Se recorre y evalua la relacion en las conversiones necesarias a realizar
              */
@@ -219,8 +251,6 @@ class AccountingAuxiliaryBookController extends Controller
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
 
-        $institution = get_institution();
-
         /**
          * [$report almacena el registro del reporte del dia si existe]
          * @var [type]
@@ -230,7 +260,7 @@ class AccountingAuxiliaryBookController extends Controller
                                                                         $currentDate.' 23:59:59'
                                                                     ])
                                         ->where('report', 'Libro Auxiliar')
-                                        ->where('institution_id', $institution->id)->first();
+                                        ->where('institution_id', $institution_id)->first();
 
         /*
         * se crea o actualiza el registro del reporte
@@ -241,13 +271,13 @@ class AccountingAuxiliaryBookController extends Controller
                     'report'      => 'Libro Auxiliar',
                     'url'         => $url,
                     'currency_id' => $currency->id,
-                    'institution_id' => $institution->id,
+                    'institution_id' => $institution_id,
                 ]
             );
         } else {
             $report->url         = $url;
             $report->currency_id = $currency->id;
-            $report->institution_id = $institution->id;
+            $report->institution_id = $institution_id;
             $report->save();
         }
 
@@ -262,6 +292,11 @@ class AccountingAuxiliaryBookController extends Controller
     public function pdf($report)
     {
         $report     = AccountingReportHistory::with('currency')->find($report);
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+            return view('errors.403');
+        }
         $date       = explode('/', $report->url)[1];
         $account_id = explode('/', $report->url)[2];
         $initMonth  = (int)explode('-', $date)[1];
@@ -292,18 +327,35 @@ class AccountingAuxiliaryBookController extends Controller
          */
         $endDate = $date.'-'.$day;
 
+        $institution_id = null;
+
+        if ($user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        $is_admin = auth()->user()->isAdmin();
+
         $convertions = [];
         if (!$account_id) {
             // todas las cuentas auxiliares
-            $query = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])
+            $query = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])
             ->where('group', '>', '0')
             ->where('subgroup', '>', '0')
-            ->where('item', '>', '0')
-            ->where('id', '<', 50)
             ->orderBy('group', 'ASC')
             ->orderBy('subgroup', 'ASC')
             ->orderBy('item', 'ASC')
@@ -368,11 +420,22 @@ class AccountingAuxiliaryBookController extends Controller
             }
         } elseif ($account_id) {
             // Una sola cuenta auxiliar
-            $account = AccountingAccount::with(['entryAccount.entries' => function ($query) use ($initDate, $endDate) {
-                if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
-                    $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
-                }
-            }])->find($account_id);
+            $account = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])->find($account_id);
 
             $acc[0] = [
                 'id'             => $account['id'],

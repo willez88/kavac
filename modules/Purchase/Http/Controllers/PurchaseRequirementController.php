@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Purchase\Jobs\PurchaseManageRequirements;
+
+use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
 use Modules\Purchase\Models\PurchaseSupplierType;
@@ -15,10 +17,12 @@ use Modules\Purchase\Models\PurchaseSupplierType;
 use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\Warehouse;
 
+use Modules\Purchase\Models\FiscalYear;
+use Modules\Purchase\Models\Currency;
+use Modules\Purchase\Models\MeasurementUnit;
+
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
-use App\Models\FiscalYear;
-use App\Models\MeasurementUnit;
 use Auth;
 
 class PurchaseRequirementController extends Controller
@@ -27,6 +31,7 @@ class PurchaseRequirementController extends Controller
 
     protected $supplier_objects;
     protected $fiscal_years;
+    protected $currencies;
 
     public function __construct()
     {
@@ -49,6 +54,7 @@ class PurchaseRequirementController extends Controller
 
         $this->supplier_objects = $supplier_objects;
         $this->fiscal_years     = FiscalYear::where('active', true)->first();
+        $this->currencies       = template_choices('App\Models\Currency', 'name', [], true);
     }
 
     /**
@@ -63,7 +69,9 @@ class PurchaseRequirementController extends Controller
             'purchaseSupplierType',
             'fiscalYear'
         )->orderBy('code', 'ASC')->get();
-        return view('purchase::requirements.index', ['requirements' => $requirements]);
+
+        $baseBudget = PurchaseBaseBudget::with('currency')->orderBy('id', 'ASC')->get();
+        return view('purchase::requirements.index', ['requirements' => $requirements, 'baseBudget' => $baseBudget]);
     }
 
     /**
@@ -72,11 +80,9 @@ class PurchaseRequirementController extends Controller
      */
     public function create()
     {
-        $currency                = template_choices('App\Models\Currency', 'name', [], true);
         $institutions            = template_choices('App\Models\Institution', 'name', [], true);
         $measurement_units       = template_choices('App\Models\MeasurementUnit', 'name', [], true);
         $purchase_supplier_types = template_choices('Modules\Purchase\Models\PurchaseSupplierType', 'name', [], true);
-        $warehouses              = template_choices('Modules\Warehouse\Models\Warehouse', 'name', [], true);
 
         $supplier_objects = $this->supplier_objects;
         $acc = [
@@ -128,7 +134,9 @@ class PurchaseRequirementController extends Controller
             'purchase_supplier_type_id.integer'  => 'El campo tipo no esta en el formato de entero.'
         ]);
 
-        PurchaseManageRequirements::dispatch($request->all());
+        $data = $request->all();
+        $data['action'] = 'create';
+        PurchaseManageRequirements::dispatch($data);
         return response()->json(['message'=>'success'], 200);
     }
 
@@ -167,9 +175,15 @@ class PurchaseRequirementController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('purchase::show');
+        return response()->json(['records'=>PurchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment',
+            'purchaseSupplierType',
+            'fiscalYear',
+            'purchaseRequirementItems.measurementUnit'
+        )->find($id)], 200);
     }
 
     /**
@@ -240,7 +254,10 @@ class PurchaseRequirementController extends Controller
             'purchase_supplier_type_id.integer'  => 'El campo tipo no esta en el formato de entero.'
         ]);
 
-        PurchaseManageRequirements::dispatch($request->all(), $id);
+        $data = $request->all();
+        $data['id_edit'] = $id;
+        $data['action'] = 'update';
+        PurchaseManageRequirements::dispatch($data);
         return response()->json(['message'=>'success'], 200);
     }
 
@@ -258,23 +275,6 @@ class PurchaseRequirementController extends Controller
             $record->delete();
         }
         return response()->json(['message'=>'success'], 200);
-    }
-
-    /**
-     * [baseBudget description]
-     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return [type] [description]
-     */
-    public function baseBudget()
-    {
-        $requirements = PurchaseRequirement::with(
-            'contratingDepartment',
-            'userDepartment',
-            'purchaseSupplierType',
-            'fiscalYear',
-            'purchaseRequirementItems.measurementUnit'
-        )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
-        return view('purchase::requirements.base_budget', ['requirements' => $requirements]);
     }
 
     public function getRequirementItems($id)

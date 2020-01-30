@@ -32,7 +32,7 @@ class PurchaseRequirement extends Model implements Auditable
 
     protected $fillable = [
         'code', 'description', 'fiscal_year_id', 'contracting_department_id', 'user_department_id',
-        'purchase_supplier_type_id', 'requirement_status'
+        'purchase_supplier_type_id', 'requirement_status', 'purchase_base_budget_id', 'purchase_order_id'
     ];
 
     /**
@@ -83,5 +83,27 @@ class PurchaseRequirement extends Model implements Auditable
     public function purchaseRequirementItems()
     {
         return $this->hasMany(PurchaseRequirementItem::class);
+    }
+    
+    /**
+     * PurchaseRequirementItem belongs to PurchaseBaseBudget.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseBaseBudget()
+    {
+        // belongsTo(RelatedModel, foreignKey = purchaseBaseBudget_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseBaseBudget::class);
+    }
+
+    /**
+     * PurchaseRequirement belongs to PurchaseOrder.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseOrder()
+    {
+        // belongsTo(RelatedModel, foreignKey = purchaseOrder_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseOrder::class);
     }
 }

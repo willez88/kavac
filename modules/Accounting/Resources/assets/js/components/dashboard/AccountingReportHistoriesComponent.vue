@@ -33,11 +33,12 @@
             return {
                 records: [],
                 url:'/accounting/report/',
-                columns: ['name', 'created_at', 'range', 'interval', 'id'],
+                columns: ['institution_name', 'name', 'created_at', 'range', 'interval', 'id'],
             }
         },
         created() {
             this.table_options.headings = {
+                'institution_name':'INSTITUCIÓN',
                 'created_at': 'FECHA DE GENERACIÓN',
                 'interval': 'TIEMPO TRANSCURRIDO',
                 'name': 'TIPO DE REPORTE',
@@ -47,8 +48,9 @@
             this.table_options.sortable   = ['created_at','interval', 'name'];
             this.table_options.filterable = [];
             this.table_options.columnsClasses = {
-                'name': 'col-xs-6',
-                'created_at': 'col-xs-2',
+                'institution_name':'col-xs-4',
+                'name': 'col-xs-2',
+                'created_at': 'col-xs-1',
                 'range': 'col-xs-2',
                 'interval': 'col-xs-2',
                 'id': 'col-xs-1'

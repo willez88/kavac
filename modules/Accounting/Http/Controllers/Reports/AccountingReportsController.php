@@ -12,6 +12,7 @@ use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
+
 use Modules\Accounting\Pdf\Pdf;
 use Auth;
 
@@ -80,7 +81,7 @@ class AccountingReportsController extends Controller
                 'id'   => $account->id,
                 'text' =>   "{$account->getCodeAttribute()} - {$account->denomination}",
             ]);
-            if ($account->group > 0 && $account->subgroup > 0 && $account->item > 0) {
+            if ($account->group > 0 && $account->subgroup > 0) {
                 array_push($records_auxiliar, [
                     'id'   => $account->id,
                     'text' =>   "{$account->getCodeAttribute()} - {$account->denomination}",
