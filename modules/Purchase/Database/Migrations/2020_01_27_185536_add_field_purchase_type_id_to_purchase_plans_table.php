@@ -14,8 +14,6 @@ class AddFieldPurchaseTypeIdToPurchasePlansTable extends Migration
     public function up()
     {
         Schema::table('purchase_plans', function (Blueprint $table) {
-        });
-        Schema::table('purchase_plans', function (Blueprint $table) {
             if (!Schema::hasColumn('purchase_plans', 'purchase_type_id')) {
                 $table->integer('purchase_type_id')->unsigned()->nullable()
                       ->comment('identificador del registro del tipo de compra');

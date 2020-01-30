@@ -166,6 +166,7 @@ class PurchaseBaseBudgetController extends Controller
         PurchaseBaseBudget::find($id)->delete();
         foreach (PurchaseRequirement::where('purchase_base_budget_id', $id) as $record) {
             $record->purchase_base_budget_id = null;
+            $record->requirement_status = 'WAIT';
             $record->save();
         }
         return response()->json(['message'=>'success'], 200);

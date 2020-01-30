@@ -24,5 +24,16 @@ class PurchaseOrder extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [];
+    protected $fillable = ['purchase_supplier_id', 'currency_id'];
+
+    /**
+     * PurchaseOrder has many PurchaseRequirement.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchaseRequirement()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseOrder_id, localKey = id)
+        return $this->hasMany(PurchaseRequirement::class);
+    }
 }

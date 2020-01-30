@@ -15,6 +15,8 @@ use Modules\Purchase\Models\Currency;
 
 use Modules\Purchase\Models\PurchaseSupplier;
 
+use App\Models\ExchangeRate;
+
 class PurchaseOrderController extends Controller
 {
     /**
@@ -32,22 +34,23 @@ class PurchaseOrderController extends Controller
      */
     public function create()
     {
-        $suppliers = template_choices('Modules\Purchase\Models\PurchaseSupplier', ['rif','-', 'name'], [], true);
-
+        $suppliers  = template_choices('Modules\Purchase\Models\PurchaseSupplier', ['rif','-', 'name'], [], true);
+        
         $currencies = template_choices('Modules\Purchase\Models\Currency', ['name'], [], true);
-
-        $historyTax   = HistoryTax::with('tax')->whereHas('tax', function ($query) {
+        
+        $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {
             $query->where('active', true);
         })->where('operation_date', '<=', date('Y-m-d'))->orderBy('operation_date', 'DESC')->first();
 
-        $taxUnit      = TaxUnit::where('active', true)->first();
+        $taxUnit    = TaxUnit::where('active', true)->first();
         
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
             'purchaseSupplierType',
             'fiscalYear',
             'userDepartment',
-            'purchaseRequirementItems.measurementUnit'
+            'purchaseRequirementItems.measurementUnit',
+            'purchaseBaseBudget.currency'
         )->where('requirement_status', 'PROCESSED')
         ->orderBy('id', 'ASC')->get();
         return view('purchase::purchase_order.form', [
@@ -101,5 +104,17 @@ class PurchaseOrderController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function getConvertion($currency_id, $base_budget_currency_id)
+    {
+        $record = ExchangeRate::where('active', true)
+                        ->where('start_at', '>=', date('Y-m-d'))
+                        ->where('end_at', '<=', date('Y-m-d'))
+                        ->whereIn('to_currency_id', [$base_budget_currency_id, $currency_id])
+                        ->whereIn('from_currency_id', [$base_budget_currency_id, $currency_id])
+                         ->orderBy('end_at', 'DESC')->first();
+
+        return response()->json(['record'=> $record]);
     }
 }

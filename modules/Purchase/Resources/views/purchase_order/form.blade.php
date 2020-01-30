@@ -24,7 +24,6 @@
                     <h6 class="card-title">Gestión de ordenes de compra</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
-                        @include('buttons.new', ['route' => route('purchase.purchase_order.create')])
                         @include('buttons.minimize')
                     </div>
                 </div>

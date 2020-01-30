@@ -87,6 +87,11 @@ Route::group([
         'PurchaseSupplierController@vueList'
     )->name('purchase.suppliers.vuelist');
 
+    Route::get(
+        'get-purchase-supplier-object/{id}',
+        'PurchaseSupplierObjectController@getPurchaseSupplierObject'
+    );
+
     /*
      * -----------------------------------------------------------------------
      * Rutas para la gestión de requerimientos
@@ -126,4 +131,6 @@ Route::group([
     Route::resource('purchase_order', 'PurchaseOrderController', [
         'as'     => 'purchase',
     ]);
+
+    Route::get('get-convertion/{currency_id}/{base_budget_currency_id}', 'PurchaseOrderController@getConvertion');
 });
