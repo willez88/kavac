@@ -44,7 +44,7 @@
 						<div class="col-md-4" v-show="record.payroll_instruction_degree_id == 4 || record.payroll_instruction_degree_id == 5">
 							<div class="form-group is-required">
 								<label>Profesiones:</label>
-								<v-multiselect :options="professions" v-if="payroll_professional_information_id" track_by="name"
+								<v-multiselect :options="json_professions" v-if="payroll_professional_information_id" track_by="name"
 									:hide_selected="false" :selected="record.professions" v-model="record.professions">
 								</v-multiselect>
 								<v-multiselect :options="professions" v-else track_by="text"
@@ -67,7 +67,7 @@
 							<div class="form-group">
 								<label>¿Es Estudiante?</label>
 								<div class="col-md-12">
-									<input id="is_student" type="checkbox" class="form-control bootstrap-switch"
+									<input id="is_student" name="is_student" type="checkbox" class="form-control bootstrap-switch"
 										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
 										title="Indique si el trabajador es estudiante o no"
 										v-model="record.is_student" value="true"/>
@@ -94,10 +94,11 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label>Horario de Clase:</label>
-								<textarea class="form-control"
-									v-model="record.class_schedule">
-								</textarea>
+								<label for="class_schedule">
+									Horario de Clase:
+	                            </label>
+								<input id="class_schedule" name="class_schedule" type="file"
+									accept=".odt, .pdf" multiple>
 							</div>
 						</div>
 					</div>
@@ -131,6 +132,28 @@
 									title="Eliminar este dato" data-toggle="tooltip" data-placement="right">
 									<i class="fa fa-minus-circle"></i>
 								</button>
+							</div>
+						</div>
+					</div>
+					<hr>
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="course">
+									Cursos:
+	                            </label>
+								<input id="course" name="course" type="file"
+									accept=".png, .jpg, .pdf, .odt" multiple>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="acknowledgment">
+									Reconocimientos:
+	                            </label>
+								<input id="acknowledgment" name="acknowledgment" type="file"
+									accept=".png, .jpg, .pdf, .odt" multiple>
 							</div>
 						</div>
 					</div>
@@ -178,6 +201,7 @@
 				payroll_staffs: [],
 				payroll_instruction_degrees: [],
 				professions: [],
+				json_professions: [],
 				payroll_study_types: [],
 				payroll_languages: [],
 				payroll_language_levels: [],
@@ -254,26 +278,24 @@
 		mounted() {
 			if(this.payroll_professional_information_id) {
 				this.getProfessionalInformation();
+				this.getJsonProfessions();
 			}
-			//Falta revisión en esta rutina, a veces sale el error de recursión
-			//No actualiza el campo switch al primer momento de cargar el componente
-			const vm = this;
-			vm.switchHandler('is_student');
-			$('#is_student').on('switchChange.bootstrapSwitch', function(e) {
-				e.target.id;
-				if (vm.record.is_student) {
-					vm.record.is_student = false;
-					$('#is_student').bootstrapSwitch('state', false)
-					$('#block_student').addClass('d-none');
-					//alert('Falso');
+			this.switchHandler('is_student');
+		},
+		watch: {
+			record: {
+				deep: true,
+				handler: function() {
+					const vm = this;
+					if (vm.record.is_student) {
+						$('#is_student').bootstrapSwitch('state', true, true);
+						$('#block_student').removeClass('d-none');
+					}
+					else {
+						$('#block_student').addClass('d-none');
+					}
 				}
-				else {
-					vm.record.is_student = true;
-					$('#is_student').bootstrapSwitch('state', true)
-					$('#block_student').removeClass('d-none');
-					//alert('Verdadero');
-				}
-			});
+			}
 		}
 	};
 </script>

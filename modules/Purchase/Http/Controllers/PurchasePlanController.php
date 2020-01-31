@@ -85,9 +85,9 @@ class PurchasePlanController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('purchase::show');
+        return response()->json(['records'=>PurchasePlan::with('purchaseType', 'PurchaseProcess')->find($id)], 200);
     }
 
     /**
