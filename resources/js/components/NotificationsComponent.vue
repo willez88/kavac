@@ -4,7 +4,9 @@
            aria-expanded="false" title="Notificaciones del sistema" id="list_notifications">
             <i class="now-ui-icons ui-1_bell-53"></i>
             <!-- Mensajes de Notificación de procesos o usuarios -->
-            <span class="badge badge-primary badge-notify" v-show="count > 0">{{ count }}</span>
+            <span class="badge badge-primary badge-notify" v-show="notifications.length > 0">
+                {{ notifications.length }}
+            </span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="list_notifications">
             <a class="dropdown-header text-center">Notificaciones</a>
@@ -40,10 +42,10 @@
     export default {
         data() {
             return {
-                count: 0,
-                notifications: []
+                notifications: this.unreads
             }
         },
+        props: ['unreads', 'userId'],
         methods: {
             /**
              * Método que permite obtener las notificaciones no leídas
@@ -57,7 +59,6 @@
                 axios.get('/notifications/unreaded').then(response => {
                     if (response.data.result) {
                         vm.notifications = response.data.notifications;
-                        vm.count = vm.notifications.length;
                     }
                 }).catch(error => {
                     vm.logs('NotificationsComponent', 63, error, 'getUnreaded');
@@ -66,12 +67,6 @@
         },
         created() {
             let vm = this;
-            vm.getUnreaded();
-            Echo.private('App.User.' + vm.$attrs.user).notification((notification) => {
-                vm.getUnreaded();
-                console.log(notification);
-            });
-
             /*Echo.join(`home`)
                 .here((users) => {
                     console.log('presets user ', users);
@@ -84,7 +79,19 @@
                 });*/
         },
         mounted() {
-
+            let vm = this;
+            Echo.private(`App.User.${vm.userId}`).notification((notification) => {
+                //vm.getUnreaded();
+                console.log(notification);
+                let newNotifications = {
+                    data: {
+                        title: notification.title,
+                        module: notification.module,
+                        description: notification.description
+                    }
+                };
+                vm.notifications.push(newNotifications);
+            });
         }
     };
 </script>

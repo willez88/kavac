@@ -29,9 +29,7 @@
     </nav>
     <div class="copyright">
         &copy;
-        <script>
-            document.write(new Date().getFullYear());
-        </script>, {{ __('Diseñado por') }}
+        <span class="currentYear"></span>, {{ __('Diseñado por') }}
         <a href="mailto:rvargas@cenditel.gob.ve" data-toggle="tooltip"
            title="{{ __('Envíanos tus sugerencias o comentarios') }}">
             Ing. Roldan Vargas

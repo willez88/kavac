@@ -1,5 +1,5 @@
 {{-- Barra de Navegación Superior --}}
-<nav class="navbar navbar-expand-lg bg-info fixed-top" id="app-nav">
+<nav class="navbar navbar-expand-lg bg-info fixed-top">
 	{{-- <div>
 		<img src="{{ App\Models\Institution::where('default', true)->first()->banner->url }}" alt="">
 	</div> --}}
@@ -42,7 +42,8 @@
 					@if (App\Models\Parameter::where([
 						'active' => true, 'required_by' => 'core', 'p_key' => 'notify', 'p_value' => 'true'
 					])->first())
-                        <notifications :user={!! auth()->user()->id !!}></notifications>
+                        <notifications :unreads="{{ auth()->user()->unreadNotifications }}" 
+                                       :user-id="{!! auth()->user()->id !!}"></notifications>
 					@endif
 
 					<li class="nav-item dropdown dropdown-notify">
