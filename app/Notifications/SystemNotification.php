@@ -3,24 +3,28 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class SystemNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $details;
+    public $title;
+    public $details;
+    public $currentTimestamp;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($title, $details, $currentTimestamp = null)
     {
+        $this->title = $title;
         $this->details = $details;
+        $this->currentTimestamp = $currentTimestamp ?? \Carbon\Carbon::now()->toDateString();
     }
 
     /**
@@ -35,20 +39,6 @@ class SystemNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
-
-    /**
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -57,7 +47,9 @@ class SystemNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'title' => $this->title,
+            'message' => $this->details,
+            'currentTimestamp' => $this->currentTimestamp
         ];
     }
 
@@ -70,7 +62,18 @@ class SystemNotification extends Notification implements ShouldQueue
     public function toDatabase($notifiable)
     {
         return [
-            
+            'title' => $this->title,
+            'message' => $this->details,
+            'currentTimestamp' => $this->currentTimestamp
         ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'title' => $this->title,
+            'message' => $this->details,
+            'currentTimestamp' => $this->currentTimestamp
+        ]);
     }
 }

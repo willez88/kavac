@@ -1,10 +1,10 @@
 <?php
 use App\User;
-use App\Notifications\System as SystemNotification;
+use App\Notifications\SystemNotification;
 
 Route::get('test-notify', function () {
     $user = User::find(1);
-    $user->notify(new SystemNotification('prueba', '', 'prueba de notificación'));
+    $user->notify(new SystemNotification('prueba', 'prueba de notificación'));
     echo "Notificación enviada";
 });
 /*

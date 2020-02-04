@@ -13,13 +13,15 @@
             <div class="dropdown-item">
                 <ul class="media-list msg-list" v-if="notifications.length">
                     <li class="media unread" v-for="notify in notifications">
-                        <div class="media-body">
+                        <div class="media-body" v-if="notify.data.title && notify.data.message">
                             <strong>
-                                {{ notify.data.title }}{{ (notify.data.module) ? ' / ' + notify.data.module : '' }}
+                                <i class="fa fa-envelope-o cursor-pointer" title="Marcar como leído" 
+                                   data-toggle="tooltip" @click.prevent="markAsReaded(notify.id)"></i>
+                                {{ notify.data.title }}
                             </strong><br>
-                            <p v-html="notify.data.description.replace(/(?:\r\n|\r|\n)/g, '<br>')"></p>
-                            <small class="date">
-                                <i class="icofont icofont-clock-time"></i>{{ format_timestamp(notify.created_at) }}
+                            <p v-html="notify.data.message.replace(/(?:\r\n|\r|\n)/g, '<br>')"></p>
+                            <small class="date" v-if="(typeof(notify.created_at)!=='undefined')">
+                                <i class="icofont icofont-clock-time"></i>{{ notify.created_at }}
                             </small>
                         </div>
                     </li>
@@ -47,23 +49,9 @@
         },
         props: ['unreads', 'userId'],
         methods: {
-            /**
-             * Método que permite obtener las notificaciones no leídas
-             *
-             * @method     getUnreaded
-             *
-             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-             */
-            getUnreaded: function() {
-                let vm = this;
-                axios.get('/notifications/unreaded').then(response => {
-                    if (response.data.result) {
-                        vm.notifications = response.data.notifications;
-                    }
-                }).catch(error => {
-                    vm.logs('NotificationsComponent', 63, error, 'getUnreaded');
-                });
-            }
+            markAsReaded: function(id) {
+                console.log(id)
+            },
         },
         created() {
             let vm = this;
@@ -80,14 +68,14 @@
         },
         mounted() {
             let vm = this;
-            Echo.private(`App.User.${vm.userId}`).notification((notification) => {
-                //vm.getUnreaded();
+            window.Echo.private(`App.User.${vm.userId}`).notification((notification) => {
                 console.log(notification);
+                
                 let newNotifications = {
+                    id: notification.id,
                     data: {
                         title: notification.title,
-                        module: notification.module,
-                        description: notification.description
+                        message: notification.message
                     }
                 };
                 vm.notifications.push(newNotifications);

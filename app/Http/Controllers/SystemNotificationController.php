@@ -37,10 +37,10 @@ class SystemNotificationController extends Controller
     {
         if (is_array($this->toUser)) {
             foreach ($this->toUser as $toUser) {
-                $toUser->notify(new SystemNotification($request->details));
+                $toUser->notify(new SystemNotification('Notificación del sistema', $request->details));
             }
         } else {
-            $this->toUser->notify(new SystemNotification($request->details));
+            $this->toUser->notify(new SystemNotification('Notificación del sistema', $request->details));
         }
 
         return response()->json(['result' => true, 'message' => 'Success'], 200);
