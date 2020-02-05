@@ -153,12 +153,20 @@ Route::group([
         'PayrollLicenseDegreeController',
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
+    Route::get(
+        'get-license-degrees',
+        'PayrollLicenseDegreeController@getPayrollLicenseDegrees'
+    )->name('payroll.get-payroll-license-degrees');
 
     Route::resource(
         'blood-types',
         'PayrollBloodTypeController',
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
+    Route::get(
+        'get-blood-types',
+        'PayrollBloodTypeController@getPayrollBloodTypes'
+    )->name('payroll.get-payroll-blood-types');
 
     Route::resource('employment-informations', 'PayrollEmploymentInformationController', ['as' => 'payroll']);
     Route::get(

@@ -390,5 +390,29 @@ Vue.mixin({
 				this.payroll_sector_types = response.data;
 			});
 		},
+
+		/**
+		 * Obtiene los datos de grados de licencia de conducir registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		 getPayrollLicenseDegrees() {
+			this.payroll_license_degrees = [];
+			axios.get('/payroll/get-license-degrees').then(response => {
+				this.payroll_license_degrees = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de tipos de sangre registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		 getPayrollBloodTypes() {
+			this.payroll_blood_types = [];
+			axios.get('/payroll/get-blood-types').then(response => {
+				this.payroll_blood_types = response.data;
+			});
+		},
 	},
 });

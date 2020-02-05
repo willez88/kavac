@@ -128,4 +128,15 @@ class PayrollBloodTypeController extends Controller
         $payrollBloodType->delete();
         return response()->json(['record' => $payrollBloodType, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Obtiene los tipos de sangre
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los tipos de sangre
+     */
+    public function getPayrollBloodTypes()
+    {
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollBloodType', 'name', '', true));
+    }
 }

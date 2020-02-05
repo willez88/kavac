@@ -118,6 +118,54 @@
                                 </div>
                             </div>
                         </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>¿Posee una Discapacidad?</label>
+                                    <input id="has_disability" class="form-control bootstrap-switch"
+                                        data-on-label="SI" data-off-label="NO" type="checkbox" :value="record.has_disability">
+                                </div>
+                            </div>
+                            <div class="col-md-4" v-show="record.has_disability">
+                                <div class="form-group">
+                                    <label>Discapacidad</label>
+                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                        disabled="true" id="disability">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Tipo de Sangre</label>
+                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                        disabled="true" id="payroll_blood_type">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Seguro Social</label>
+                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                        disabled="true" id="social_security">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>¿Posee Licencia de Conducir?</label>
+                                    <input id="has_driver_license" class="form-control bootstrap-switch"
+                                        data-on-label="SI" data-off-label="NO" type="checkbox" :value="record.has_driver_license">
+                                </div>
+                            </div>
+                            <div class="col-md-4" v-show="record.has_driver_license">
+                                <div class="form-group">
+                                    <label>Grado de la Licencia de Conducir</label>
+                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                        disabled="true" id="payroll_license_degree">
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -157,6 +205,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <hr>
                         <h6 class="card-title">
                             Números Telefónicos</i>
@@ -242,6 +291,12 @@
                     $('#payroll_gender').val(this.record.payroll_gender.name);
                     $('#emergency_contact').val(this.record.emergency_contact);
                     $('#emergency_phone').val(this.record.emergency_phone);
+                    (this.record.has_disability) ? $('#has_disability').bootstrapSwitch('state', true) : $('#has_disability').bootstrapSwitch('state', false);
+                    $('#disability').val(this.record.disability);
+                    $('#payroll_blood_type').val(this.record.payroll_blood_type.name);
+                    $('#social_security').val(this.record.social_security);
+                    (this.record.has_driver_license) ? $('#has_driver_license').bootstrapSwitch('state', true) : $('#has_driver_license').bootstrapSwitch('state', false);
+                    $('#payroll_license_degree').val( (this.record.payroll_license_degree) ? this.record.payroll_license_degree.name : ' ' );
                     $('#country').val(this.record.parish.municipality.estate.country.name);
                     $('#estate').val(this.record.parish.municipality.estate.name);
                     $('#municipality').val(this.record.parish.municipality.name);
