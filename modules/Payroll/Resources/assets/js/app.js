@@ -112,6 +112,13 @@ Vue.component('payroll-license-degrees', require('./components/settings/PayrollL
 Vue.component('payroll-blood-types', require('./components/settings/PayrollBloodTypesComponent.vue').default);
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de roles del trabajador
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ */
+Vue.component('payroll-roles', require('./components/settings/PayrollRolesComponent.vue').default);
+
+/**
  * Componente para mostrar listado de información personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>

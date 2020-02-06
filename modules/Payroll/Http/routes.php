@@ -168,6 +168,16 @@ Route::group([
         'PayrollBloodTypeController@getPayrollBloodTypes'
     )->name('payroll.get-payroll-blood-types');
 
+    Route::resource(
+        'roles',
+        'PayrollRoleController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+    Route::get(
+        'get-roles',
+        'PayrollRoleController@getPayrollRoles'
+    )->name('payroll.get-payroll-roles');
+
     Route::resource('employment-informations', 'PayrollEmploymentInformationController', ['as' => 'payroll']);
     Route::get(
         'employment-informations/show/vue-list',

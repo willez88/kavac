@@ -42,7 +42,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     protected $fillable = [
         'active', 'payroll_inactivity_type', 'start_date_apn', 'start_date', 'end_date', 'institution_email',
         'function_description', 'payroll_position_type_id', 'payroll_position_id', 'deparment_id',
-        'payroll_staff_type_id', 'payroll_contract_type_id', 'payroll_staff_id'
+        'payroll_staff_type_id', 'payroll_contract_type_id', 'payroll_staff_id', 'payroll_role_id'
     ];
 
     /**
@@ -131,5 +131,16 @@ class PayrollEmploymentInformation extends Model implements Auditable
     public function payrollContractType()
     {
         return $this->belongsTo(PayrollContractType::class);
+    }
+
+    /**
+     * Método que obtiene la información laboral del trabajador asociado a un rol
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollRole()
+    {
+        return $this->belongsTo(PayrollRole::class);
     }
 }

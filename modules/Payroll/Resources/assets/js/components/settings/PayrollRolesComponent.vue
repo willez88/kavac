@@ -1,12 +1,12 @@
 <template>
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
-		   title="Registros de géneros" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_gender', 'genders', $event)">
-           <i class="icofont icofont-group-students ico-3x"></i>
-		   <span>Géneros</span>
+		   title="Registros de Roles" data-toggle="tooltip"
+		   @click="addRecord('add_payroll_role', 'roles', $event)">
+           <i class="icofont icofont-user ico-3x"></i>
+		   <span>Roles</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_gender">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_role">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -14,8 +14,8 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-group-students ico-3x"></i>
-							Género
+							<i class="icofont icofont-dna ico-3x"></i>
+							Rol
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -24,21 +24,29 @@
 								<li v-for="error in errors">{{ error }}</li>
 							</ul>
 						</div>
-                        <div class="row">
-                            <div class="col-md-12">
+						<div class="row">
+                            <div class="col-md-6">
         						<div class="form-group is-required">
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"
         								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
-        								   title="Indique el nombre del género (requerido)">
+        								   title="Indique el nombre del rol (requerido)">
         							<input type="hidden" name="id" id="id" v-model="record.id">
+        	                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group is-required">
+        							<label for="description">Descripción:</label>
+        							<input type="text" id="description" placeholder="Descripción"
+        								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
+        								   title="Indique la descripción del rol (requerido)">
         	                    </div>
                             </div>
                         </div>
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'payroll/genders'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="'payroll/roles'"></modal-form-buttons>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -49,7 +57,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'genders')"
+		                		<button @click="deleteRecord(props.index, 'roles')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
@@ -70,11 +78,12 @@
 			return {
 				record: {
 					id: '',
-					name: ''
+					name: '',
+					description: '',
 				},
 				errors: [],
 				records: [],
-				columns: ['name', 'id'],
+				columns: ['name', 'description', 'id'],
 			}
 		},
 		methods: {
@@ -86,19 +95,22 @@
 			reset() {
 				this.record = {
 					id: '',
-					name: ''
+					name: '',
+					description: '',
 				};
 			},
 		},
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
+				'description': 'Descripción',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
 			this.table_options.columnsClasses = {
-				'name': 'col-md-10',
+				'name': 'col-md-5',
+				'description': 'col-md-5',
 				'id': 'col-md-2'
 			};
 		},
