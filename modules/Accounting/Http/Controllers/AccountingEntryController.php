@@ -634,6 +634,7 @@ class AccountingEntryController extends Controller
         if ($profile) {
             if (auth()->user()->hasRole('admin')) {
                 $institutions            = template_choices('App\Models\Institution', 'name', [], true);
+                $institutions[0]['text'] = $text;
             } else {
                 array_push($institutions, [
                     'id'   => $profile->institution->id,
