@@ -632,10 +632,14 @@ class AccountingEntryController extends Controller
         $profile      = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
         if ($profile) {
-            array_push($institutions, [
-                'id'   => $profile->institution->id,
-                'text' => $profile->institution->name,
-            ]);
+            if (auth()->user()->hasRole('admin')) {
+                $institutions            = template_choices('App\Models\Institution', 'name', [], true);
+            } else {
+                array_push($institutions, [
+                    'id'   => $profile->institution->id,
+                    'text' => $profile->institution->name,
+                ]);
+            }
         } elseif (!$profile && auth()->user()->hasRole('admin')) {
             $institutions            = template_choices('App\Models\Institution', 'name', [], true);
             $institutions[0]['text'] = $text;
