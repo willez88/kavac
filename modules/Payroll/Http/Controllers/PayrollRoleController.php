@@ -7,20 +7,20 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Payroll\Models\PayrollBloodType;
+use Modules\Payroll\Models\PayrollRole;
 
 /**
- * @class PayrollBloodTypeController
- * @brief Controlador de tipos de sangre
+ * @class PayrollRoleController
+ * @brief Controlador de roles del trabajador
  *
- * Clase que gestiona los tipos de sangre
+ * Clase que gestiona los roles
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class PayrollBloodTypeController extends Controller
+class PayrollRoleController extends Controller
 {
     use ValidatesRequests;
 
@@ -32,21 +32,21 @@ class PayrollBloodTypeController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.blood.types.list', ['only' => 'index']);
-        $this->middleware('permission:payroll.blood.types.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:payroll.blood.types.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:payroll.blood.types.delete', ['only' => 'destroy']);
+        $this->middleware('permission:payroll.roles.list', ['only' => 'index']);
+        $this->middleware('permission:payroll.roles.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:payroll.roles.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:payroll.roles.delete', ['only' => 'destroy']);
     }
 
     /**
-     * Muestra todos los registros de tipos de sangre
+     * Muestra todos los registros de roles
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Http\JsonResponse    Json con los datos
      */
     public function index()
     {
-        return response()->json(['records' => PayrollBloodType::all()], 200);
+        return response()->json(['records' => PayrollRole::all()], 200);
     }
 
     /**
@@ -59,7 +59,7 @@ class PayrollBloodTypeController extends Controller
     }
 
     /**
-     * Valida y registra un nuevo tipo de sangre
+     * Valida y registra un nuevo rol
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
@@ -68,13 +68,15 @@ class PayrollBloodTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:50']
+            'name' => ['required', 'max:50'],
+            'description' => ['required', 'max:100'],
         ]);
 
-        $payrollBloodType = PayrollBloodType::create([
-            'name' => $request->name
+        $payrollRole = PayrollRole::create([
+            'name' => $request->name,
+            'description' => $request->description
         ]);
-        return response()->json(['record' => $payrollBloodType, 'message' => 'Success'], 200);
+        return response()->json(['record' => $payrollRole, 'message' => 'Success'], 200);
     }
 
     /**
@@ -96,47 +98,49 @@ class PayrollBloodTypeController extends Controller
     }
 
     /**
-     * Actualiza la información de tipos de sangre
+     * Actualiza la información de roles
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
-     * @param  integer $id                          Identificador del tipo de sangre a actualizar
+     * @param  integer $id                          Identificador del rol a actualizar
      * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
      */
     public function update(Request $request, $id)
     {
-        $payrollBloodType = PayrollBloodType::find($id);
+        $payrollRole = PayrollRole::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:50']
+            'name' => ['required', 'max:50'],
+            'description' => ['required', 'max:100']
         ]);
 
-        $payrollBloodType->name = $request->name;
-        $payrollBloodType->save();
+        $payrollRole->name = $request->name;
+        $payrollRole->description = $request->description;
+        $payrollRole->save();
         return response()->json(['message' => 'Success'], 200);
     }
 
     /**
-     * Elimina el tipo de sangre
+     * Elimina el rol
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @param  integer $id                      Identificador del tipo de sangre a eliminar
+     * @param  integer $id                      Identificador del rol a eliminar
      * @return \Illuminate\Http\JsonResponse    Json con mensaje de confirmación de la operación
      */
     public function destroy($id)
     {
-        $payrollBloodType = PayrollBloodType::find($id);
-        $payrollBloodType->delete();
-        return response()->json(['record' => $payrollBloodType, 'message' => 'Success'], 200);
+        $payrollRole = PayrollRole::find($id);
+        $payrollRole->delete();
+        return response()->json(['record' => $payrollRole, 'message' => 'Success'], 200);
     }
 
     /**
-     * Obtiene los tipos de sangre
+     * Obtiene los roles
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Json con los datos de los tipos de sangre
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los roles
      */
-    public function getPayrollBloodTypes()
+    public function getPayrollRoles()
     {
-        return response()->json(template_choices('Modules\Payroll\Models\PayrollBloodType', 'name', '', true));
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollRole', 'name', '', true));
     }
 }

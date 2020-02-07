@@ -621,6 +621,41 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.sangre.eliminar'
             ],
+            /**
+             * roles
+             */
+            [
+                'name' => 'Ver los datos de roles',
+                'slug' => 'payroll.roles.list',
+                'description' => 'Acceso para ver los datos de roles',
+                'model' => 'Modules\Payroll\Models\PayrollRole',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'rol.ver'
+            ],
+            [
+                'name' => 'Crear datos de roles',
+                'slug' => 'payroll.roles.create',
+                'description' => 'Acceso para crear datos de roles',
+                'model' => 'Modules\Payroll\Models\PayrollRoles',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'rol.crear'
+            ],
+            [
+                'name' => 'Editar datos de roles',
+                'slug' => 'payroll.roles.edit',
+                'description' => 'Acceso para editar datos de roles',
+                'model' => 'Modules\Payroll\Models\PayrollRole',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'rol.editar'
+            ],
+            [
+                'name' => 'Eliminar datos de roles',
+                'slug' => 'payroll.roles.delete',
+                'description' => 'Acceso para eliminar datos de roles',
+                'model' => 'Modules\Payroll\Models\PayrollRole',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'rol.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {

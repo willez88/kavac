@@ -166,6 +166,9 @@
 
 						{{-- tipos de sangre --}}
 						<payroll-blood-types></payroll-blood-types>
+
+						{{-- Roles de los trabajadores --}}
+						<payroll-roles></payroll-roles>
 					</div>
 				</div>
 			</div>
