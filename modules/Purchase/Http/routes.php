@@ -131,6 +131,7 @@ Route::group([
     Route::resource('purchase_order', 'PurchaseOrderController', [
         'as'     => 'purchase',
     ]);
+    Route::post('purchase_order/{id}', 'PurchaseOrderController@updatePurchaseOrder');
 
     Route::get('get-convertion/{currency_id}/{base_budget_currency_id}', 'PurchaseOrderController@getConvertion');
 });
