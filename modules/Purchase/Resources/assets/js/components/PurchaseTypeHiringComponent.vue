@@ -16,7 +16,7 @@
                         </button>
                         <h6>
                             <i class="icofont icofont-box inline-block"></i>
-                            Tipos de contratación
+                            Tipo
                         </h6>
                     </div>
                     <div class="modal-body">
