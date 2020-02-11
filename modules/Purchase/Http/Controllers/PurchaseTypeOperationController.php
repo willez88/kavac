@@ -6,15 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
+
+use Modules\Purchase\Models\PurchaseTypeOperation;
+
 class PurchaseTypeOperationController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('purchase::index');
+        return response()->json(['records' => PurchaseTypeOperation::orderBy('id')->get()], 200);
     }
 
     /**
@@ -33,6 +39,15 @@ class PurchaseTypeOperationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+        ], [
+            'name.required' => 'El campo nombre es obligatorio.',
+        ]);
+
+        PurchaseTypeOperation::create($request->all());
+        return response()->json(['records' => PurchaseTypeOperation::orderBy('id')->get(),
+            'message' => 'Success'], 200);
     }
 
     /**
@@ -58,15 +73,36 @@ class PurchaseTypeOperationController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name'        => 'required',
+        ], [
+            'name.required'        => 'El campo nombre es obligatorio.',
+        ]);
+
+        $record                        = PurchaseTypeOperation::find($id);
+        $record->name                  = $request->name;
+        $record->description           = $request->description;
+        $record->save();
+        return response()->json(['records' => PurchaseTypeOperation::orderBy('id')->get(),
+            'message'=>'Success'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        PurchaseTypeOperation::find($id)->delete();
+        return response()->json(['records' => PurchaseTypeOperation::orderBy('id')->get(),
+            'message'=>'Success'], 200);
+    }
+
+    public function getRecords()
+    {
+        $records = template_choices('Modules\Purchase\Models\PurchaseTypeOperation', 'name', [], true);
+        return response()->json(['records' => $records], 200);
     }
 }

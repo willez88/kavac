@@ -37,6 +37,7 @@
 						<purchase-processes></purchase-processes>
 						<purchase-type></purchase-type>
 						<purchase-type-hiring></purchase-type-hiring>
+						<purchase-type-operations></purchase-type-operations>
 					</div>
 				</div>
 			</div>

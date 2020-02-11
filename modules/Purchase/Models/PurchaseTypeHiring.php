@@ -24,5 +24,16 @@ class PurchaseTypeHiring extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['date', 'active', 'type', 'ut'];
+    protected $fillable = ['date', 'active', 'purchase_type_operation_id', 'ut'];
+
+    /**
+     * PurchaseTypeHiring belongs to PurchaseTypeOperation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseTypeOperation()
+    {
+        // belongsTo(RelatedModel, foreignKey = purchaseTypeOperation_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseTypeOperation::class);
+    }
 }

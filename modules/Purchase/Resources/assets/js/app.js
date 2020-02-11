@@ -131,6 +131,13 @@ Vue.component('purchase-type', require('./components/PurchaseTypeComponent.vue')
  */
 Vue.component('purchase-type-hiring', require('./components/PurchaseTypeHiringComponent.vue').default);
 
+/**
+ * Componente para la gestión de plan de compras
+ * 
+ * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-type-operations', require('./components/PurchaseTypeOperationComponent.vue').default);
+
 
 /**
  *  Componente generico del modulo de contabilidad para mostrar errores

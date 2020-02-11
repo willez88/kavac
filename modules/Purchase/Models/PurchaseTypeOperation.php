@@ -24,5 +24,16 @@ class PurchaseTypeOperation extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [];
+    protected $fillable = ['name', 'description'];
+
+    /**
+     * PurchaseTypeOperation has many PurchaseTypeHiring.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchaseTypeHiring()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseTypeOperation_id, localKey = id)
+        return $this->hasMany(PurchaeTypeHiring::class);
+    }
 }

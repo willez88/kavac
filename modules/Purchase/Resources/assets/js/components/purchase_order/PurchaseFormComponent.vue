@@ -425,7 +425,7 @@ export default{
             formData.append("currency_id", this.currency_id);
             formData.append("requirement_list", JSON.stringify(this.requirement_list) );
             formData.append("requirement_list_deleted", JSON.stringify(this.requirement_list_deleted));
-            // vm.loading = true;
+            vm.loading = true;
              
             if (!this.record_edit) {
                 axios.post('/purchase/purchase_order', formData, {

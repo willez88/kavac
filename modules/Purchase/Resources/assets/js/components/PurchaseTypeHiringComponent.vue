@@ -16,7 +16,7 @@
                         </button>
                         <h6>
                             <i class="icofont icofont-box inline-block"></i>
-                            Tipo
+                            Tipo de contratación
                         </h6>
                     </div>
                     <div class="modal-body">
@@ -33,10 +33,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="type">Tipo de contratación:</label><br>
-                                    <select2 :options="objects" id="type" 
+                                    <label class="control-label" for="purchase_type_operation_id">Tipo:</label><br>
+                                    <select2 :options="type_operations" id="purchase_type_operation_id" 
                                             placeholder="Tipo de contratación"
-                                            v-model="record.type">
+                                            v-model="record.purchase_type_operation_id">
                                             </select2>
                                 </div>
                             </div>
@@ -71,11 +71,6 @@
                         <v-client-table :columns="columns" :data="records" :options="table_options">}
                             <div slot="date" slot-scope="props">
                                 <strong>{{ format_date(props.row.date) }}</strong>
-                            </div>
-                            <div slot="type" slot-scope="props">
-                                <span v-if="props.row.type==='B'">Bienes</span>
-                                <span v-if="props.row.type==='O'">Obras</span>
-                                <span v-if="props.row.type==='S'">Servicios</span>
                             </div>
                             <div slot="ut" slot-scope="props">
                                 <strong>{{ props.row.ut+' UT' }}</strong>
@@ -117,19 +112,14 @@
         data() {
             return {
                 records:[],
-                columns: ['date', 'type', 'ut', 'active', 'id'],
+                columns: ['date', 'purchase_type_operation.name', 'ut', 'active', 'id'],
                 record: {
                     date:'',
-                    type:'',
+                    purchase_type_operation_id:'',
                     ut:'0.00',
                     active:false,
                 },
-                objects: [
-                    {id: '',  text: 'Seleccione...'},
-                    {id: 'B', text: 'Bienes'},
-                    {id: 'O', text: 'Obras'},
-                    {id: 'S', text: 'Servicios'},
-                ],
+                type_operations:[],
                 purchaseProcesses:[],
                 edit:false,
             }
@@ -138,14 +128,14 @@
             /**
              * Método que borra todos los datos del formulario
              *
-             * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
              */
             reset() {
                 this.edit = false;
                 this.record = {
                     id: '',
                     date: '',
-                    type: '',
+                    purchase_type_operation: '',
                     ut: '',
                     active: false,
                 };
@@ -171,27 +161,29 @@
                 this.edit = true;
                 this.record = record;
             },
-            refreshActive(){
-                console.log('acs')
-            }
         },
         created() {
             this.table_options.headings = {
                 'date': 'Fecha',
-                'type': 'Tipo',
+                'purchase_type_operation.name': 'Tipo',
                 'ut': 'Unidades tributarias',
                 'active': 'Estatus',
                 'id':'Acción'
             };
-            this.table_options.sortable = ['date', 'type', 'ut', 'active'];
-            this.table_options.filterable = ['date', 'type', 'ut', 'active'];
+            this.table_options.sortable = ['date', 'purchase_type_operation.name', 'ut', 'active'];
+            this.table_options.filterable = ['date', 'purchase_type_operation.name', 'ut', 'active'];
             this.table_options.columnsClasses = {
                 'date': 'col-xs-2 text-center',
-                'type': 'col-xs-4',
+                'purchase_type_operation.name': 'col-xs-4',
                 'ut': 'col-xs-3',
                 'active': 'col-xs-2',
                 'id': 'col-xs-1'
             };
+        },
+        mounted(){
+            axios.get('/purchase/get-type-operations').then(response=>{
+                this.type_operations = response.data.records;
+            });
         },
     };
 </script>
