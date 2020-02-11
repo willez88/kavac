@@ -75,7 +75,7 @@
                                         data-on-label="SI" data-off-label="NO" type="checkbox">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" v-if="!record.active">
                                 <div class="form-group">
                                     <label>Tipo de la Inactividad</label>
                                     <input type="text" data-toggle="tooltip" class="form-control"
@@ -110,6 +110,13 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label>Rol del Trabajador</label>
+                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                        disabled="true" id="payroll_role">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label>Cargo</label>
                                     <input type="text" data-toggle="tooltip" class="form-control"
                                         disabled="true" id="payroll_position">
@@ -122,6 +129,8 @@
                                         disabled="true" id="payroll_staff_type">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tipo de Contrato</label>
@@ -129,8 +138,6 @@
                                         disabled="true" id="payroll_contract_type">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Institución</label>
@@ -194,6 +201,7 @@
                     $('#institution_email').val(this.record.institution_email);
                     $('#function_description').val(this.record.function_description);
                     $('#payroll_position_type').val(this.record.payroll_position_type.name);
+                    $('#payroll_role').val(this.record.payroll_role.name);
                     $('#payroll_position').val(this.record.payroll_position.name);
                     $('#payroll_staff_type').val(this.record.payroll_staff_type.name);
                     $('#institution').val(this.record.department.institution.name);

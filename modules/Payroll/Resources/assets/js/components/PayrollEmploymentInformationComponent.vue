@@ -60,10 +60,10 @@
 							<div class="form-group">
 								<label>¿Está Activo?</label>
 								<div class="col-md-12">
-									<input id="active" type="checkbox" class="form-control bootstrap-switch"
+									<input id="active" name="active" type="checkbox" class="form-control bootstrap-switch"
 										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
 										title="Indique si el trabajador está activo o no"
-										v-model="record.active"/>
+										v-model="record.active" value="true"/>
 								</div>
 							</div>
 						</div>
@@ -103,6 +103,14 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group is-required">
+								<label>Rol del Trabajador:</label>
+								<select2 :options="payroll_roles"
+									v-model="record.payroll_role_id">
+								</select2>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group is-required">
 								<label>Cargo:</label>
 								<select2 :options="payroll_positions"
 									v-model="record.payroll_position_id">
@@ -117,6 +125,8 @@
 								</select2>
 							</div>
 						</div>
+					</div>
+					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Tipo de Contrato:</label>
@@ -125,8 +135,6 @@
 								</select2>
 							</div>
 						</div>
-					</div>
-					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Institución:</label>
@@ -182,6 +190,7 @@
 					institution_email: '',
 					function_description: '',
 					payroll_position_type_id: '',
+					payroll_role_id: '',
 					payroll_position_id: '',
 					payroll_staff_type_id: '',
 					institution_id: '',
@@ -193,6 +202,7 @@
 				payroll_inactivity_types: [],
 				payroll_position_types: [],
 				payroll_positions: [],
+				payroll_roles: [],
 				payroll_staff_types: [],
 				departments: [],
 				payroll_contract_types: [],
@@ -225,6 +235,7 @@
 					institution_email: '',
 					function_description: '',
 					payroll_position_type_id: '',
+					payroll_role_id: '',
 					payroll_position_id: '',
 					payroll_staff_type_id: '',
 					department_id: '',
@@ -248,6 +259,7 @@
 			this.getPayrollStaffs();
 			this.getPayrollInactivityTypes();
 			this.getPayrollPositionTypes();
+			this.getPayrollRoles();
 			this.getPayrollPositions();
 			this.getPayrollStaffTypes();
 			this.getPayrollContractTypes();
@@ -257,25 +269,18 @@
 			if(this.payroll_employment_information_id) {
 				this.getEmploymentInformation();
 			}
-
 			this.switchHandler('active');
-			const vm = this;
-
-			/**
-			 * En la funcionalidad de actualizar, el botón booleano sigue sin actualizarse según
-			 *  el valor que se carga de la bd
-			 */
-			$('#active').on('switchChange.bootstrapSwitch', function(e) {
-				e.target.id;
-				if (vm.record.active) {
-					vm.record.active = false;
-					$('#active').bootstrapSwitch('state', false)
-				}
-				else {
-					vm.record.active = true;
-					$('#active').bootstrapSwitch('state', true)
-				}
-			});
 		},
+		watch: {
+			record: {
+				deep: true,
+				handler: function() {
+					const vm = this;
+					if (!vm.record.active) {
+						$('#active').bootstrapSwitch('state', false, true);
+					}
+				}
+			}
+		}
 	};
 </script>
