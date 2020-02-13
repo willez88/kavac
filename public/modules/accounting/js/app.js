@@ -391,7 +391,7 @@ Vue.mixin({
             axios.post(url + '/' + records[index].id).then(function (response) {
               if (typeof response.data.error !== "undefined") {
                 /** Muestra un mensaje de error si sucede algún evento en la eliminación */
-                vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
+                vm.showMessage('custom', 'Alerta!', 'danger', 'screen-error', response.data.message);
                 return false;
               }
 
@@ -2961,6 +2961,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2990,7 +2996,7 @@ __webpack_require__.r(__webpack_exports__);
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     */
     reset: function reset() {
-      document.getElementById("file").value = "";
+      document.getElementById("import_account").value = "";
       this.records = [];
     },
     createRecord: function createRecord(url) {
@@ -3005,7 +3011,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var vm = this;
       var formData = new FormData();
-      var inputFile = document.querySelector('#file');
+      var inputFile = document.querySelector('#import_account');
       formData.append("file", inputFile.files[0]);
       vm.loading = true;
       axios.post('/accounting/import', formData, {
@@ -3033,6 +3039,8 @@ __webpack_require__.r(__webpack_exports__);
             vm.showMessage('custom', 'Error', 'danger', 'screen-error', "El documento debe ser un archivo en formato: .xls .xlsx .ods");
           }
         }
+
+        vm.loading = false;
       });
     }
   }
@@ -7684,8 +7692,32 @@ var render = function() {
           _vm._m(0),
           _c("br"),
           _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-info btn-import",
+              attrs: {
+                type: "button",
+                "data-toggle": "tooltip",
+                title:
+                  "Presione para importar la información. Los archivos permitidos son: .csv, .ods, .xls o .xlsx"
+              },
+              on: {
+                click: function($event) {
+                  return _vm.setFile("import_account")
+                }
+              }
+            },
+            [_c("i", { staticClass: "fa fa-upload" })]
+          ),
+          _vm._v(" "),
           _c("input", {
-            attrs: { type: "file", id: "file", name: "file" },
+            staticStyle: { display: "none" },
+            attrs: {
+              type: "file",
+              id: "import_account",
+              name: "import_account"
+            },
             on: {
               change: function($event) {
                 return _vm.importCalculo()

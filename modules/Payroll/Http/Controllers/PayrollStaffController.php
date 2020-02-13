@@ -84,6 +84,8 @@ class PayrollStaffController extends Controller
             'birthdate' => ['required', 'date'],
             'birthdate' => [new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0)],
             'payroll_gender_id' => ['required'],
+            'payroll_blood_type_id' => ['required'],
+            'social_security' => ['nullable'],
             'emergency_contact' => ['nullable'],
             'emergency_phone' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
             'parish_id' => ['required'],
@@ -126,6 +128,32 @@ class PayrollStaffController extends Controller
         $payrollStaff->email = $request->email;
         $payrollStaff->birthdate = $request->birthdate;
         $payrollStaff->payroll_gender_id = $request->payroll_gender_id;
+
+        if ($request->has_disability) {
+            $this->validate($request, [
+                'disability' => ['required'],
+            ]);
+            $payrollStaff->has_disability = ($request->has_disability!==null);
+            $payrollStaff->disability = $request->disability;
+        } else {
+            $payrollStaff->has_disability = false;
+            $payrollStaff->disability = null;
+        }
+
+        if ($request->has_driver_license) {
+            $this->validate($request, [
+                'payroll_license_degree_id' => ['required'],
+            ]);
+            $payrollStaff->has_driver_license = ($request->has_driver_license!==null);
+            $payrollStaff->payroll_license_degree_id = $request->payroll_license_degree_id;
+        } else {
+            $payrollStaff->has_driver_license = false;
+            $payrollStaff->payroll_license_degree_id = null;
+        }
+
+        $payrollStaff->social_security = $request->social_security;
+        $payrollStaff->payroll_blood_type_id = $request->payroll_blood_type_id;
+
         $payrollStaff->emergency_contact = $request->emergency_contact;
         $payrollStaff->emergency_phone = $request->emergency_phone;
         $payrollStaff->parish_id = $request->parish_id;
@@ -157,7 +185,7 @@ class PayrollStaffController extends Controller
     public function show($id)
     {
         $payrollStaff = PayrollStaff::where('id', $id)->with([
-            'payrollNationality','payrollGender',
+            'payrollNationality','payrollGender','payrollLicenseDegree','payrollBloodType',
             'parish' => function ($query) {
                 $query->with(['municipality' => function ($query) {
                     $query->with(['estate' => function ($query) {
@@ -206,6 +234,8 @@ class PayrollStaffController extends Controller
             'birthdate' => ['required', 'date'],
             'birthdate' => [new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0)],
             'payroll_gender_id' => ['required'],
+            'payroll_blood_type_id' => ['required'],
+            'social_security' => ['nullable'],
             'emergency_contact' => ['nullable'],
             'emergency_phone' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
             'parish_id' => ['required'],
@@ -231,6 +261,32 @@ class PayrollStaffController extends Controller
         $payrollStaff->email  = $request->email;
         $payrollStaff->birthdate = $request->birthdate;
         $payrollStaff->payroll_gender_id = $request->payroll_gender_id;
+
+        if ($request->has_disability) {
+            $this->validate($request, [
+                'disability' => ['required'],
+            ]);
+            $payrollStaff->has_disability = ($request->has_disability!==null);
+            $payrollStaff->disability = $request->disability;
+        } else {
+            $payrollStaff->has_disability = false;
+            $payrollStaff->disability = null;
+        }
+
+        if ($request->has_driver_license) {
+            $this->validate($request, [
+                'payroll_license_degree_id' => ['required'],
+            ]);
+            $payrollStaff->has_driver_license = ($request->has_driver_license!==null);
+            $payrollStaff->payroll_license_degree_id = $request->payroll_license_degree_id;
+        } else {
+            $payrollStaff->has_driver_license = false;
+            $payrollStaff->payroll_license_degree_id = null;
+        }
+
+        $payrollStaff->social_security = $request->social_security;
+        $payrollStaff->payroll_blood_type_id = $request->payroll_blood_type_id;
+
         $payrollStaff->emergency_contact = $request->emergency_contact;
         $payrollStaff->emergency_phone = $request->emergency_phone;
         $payrollStaff->parish_id = $request->parish_id;
@@ -283,7 +339,7 @@ class PayrollStaffController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollStaff::with([
-            'payrollNationality','payrollGender','parish'
+            'payrollNationality','payrollGender','parish','payrollLicenseDegree','payrollBloodType'
         ])->get()], 200);
     }
 

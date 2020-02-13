@@ -205,7 +205,7 @@ class PurchaseProcessController extends Controller
             'required_by' => 'purchase',
             'active' => true,
         ])->first();
-
+        // return $request->all();
         if ($request->id) {
             $process = PurchaseProcess::find($request->id);
         }

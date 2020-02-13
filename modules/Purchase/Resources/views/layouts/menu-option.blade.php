@@ -26,15 +26,21 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('purchase.purchase_plans.index') }}"
+                title="Gestión de plan de compra" data-toggle="tooltip" data-placement="right">
+                Plan de compra
+            </a>
+        </li>
+        <li>
             <a href="#">Cotización</a>
         </li>
         <li>
             <a href="#">Acta</a>
         </li>
         <li>
-            <a href="{{ route('purchase.purchase_plans.index') }}"
-                title="Gestión de Requerimientos" data-toggle="tooltip" data-placement="right">
-                Orden de Compra / Servicio
+            <a href="{{ route('purchase.purchase_order.index') }}"
+                title="Gestión de ordenes de compra" data-toggle="tooltip" data-placement="right">
+                Orden de compra / servicio
             </a>
         </li>
         <li>

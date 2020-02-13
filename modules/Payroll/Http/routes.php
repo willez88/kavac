@@ -113,6 +113,10 @@ Route::group([
         'professional-informations/show/vue-list',
         'PayrollProfessionalInformationController@vueList'
     )->name('payroll.professional-informations.vue-list');
+    Route::get(
+        'get-json-professions',
+        'PayrollProfessionalInformationController@getJsonProfessions'
+    )->name('payroll.get-json-professions');
 
     Route::resource(
         'inactivity-types',
@@ -149,12 +153,30 @@ Route::group([
         'PayrollLicenseDegreeController',
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
+    Route::get(
+        'get-license-degrees',
+        'PayrollLicenseDegreeController@getPayrollLicenseDegrees'
+    )->name('payroll.get-payroll-license-degrees');
 
     Route::resource(
         'blood-types',
         'PayrollBloodTypeController',
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
+    Route::get(
+        'get-blood-types',
+        'PayrollBloodTypeController@getPayrollBloodTypes'
+    )->name('payroll.get-payroll-blood-types');
+
+    Route::resource(
+        'roles',
+        'PayrollRoleController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+    Route::get(
+        'get-roles',
+        'PayrollRoleController@getPayrollRoles'
+    )->name('payroll.get-payroll-roles');
 
     Route::resource('employment-informations', 'PayrollEmploymentInformationController', ['as' => 'payroll']);
     Route::get(

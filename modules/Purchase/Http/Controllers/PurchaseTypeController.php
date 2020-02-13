@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Modules\Purchase\Models\PurchaseType;
 
-class PurchaseTypesController extends Controller
+class PurchaseTypeController extends Controller
 {
     /**
      * Display a listing of the resource.

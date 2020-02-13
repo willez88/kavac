@@ -126,11 +126,13 @@
                     axios.post(url,this.record).then(response=>{
                         this.records = response.data.records;
                         this.showMessage("store");
+                        this.reset();
                     });
                 }else if(this.edit && this.record.id){
                     axios.put(url+'/'+this.record.id, this.record).then(response=>{
                         this.records = response.data.records;
                         this.showMessage("update");
+                        this.reset();
                     });
                 }
             },

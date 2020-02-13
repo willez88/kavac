@@ -274,7 +274,7 @@ Vue.mixin({
 						axios.post(url + '/' + records[index].id).then(response => {
 							if (typeof(response.data.error) !== "undefined") {
 								/** Muestra un mensaje de error si sucede algún evento en la eliminación */
-    							vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
+    							vm.showMessage('custom', 'Alerta!', 'danger', 'screen-error', response.data.message);
     							return false;
 							}
 							records.splice(index, 1);

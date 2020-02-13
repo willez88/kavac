@@ -126,7 +126,6 @@
                         }
                         vm.$refs.PurchaseFormComponent.showAlertMessages(errors);
                     });
-                    console.log('crear registro');
                 }else{
                     axios.put('/purchase/purchase_plans/'+this.record_edit.id, vm.record).then(response=>{
                         vm.loading = false;
@@ -147,7 +146,6 @@
                         }
                         vm.$refs.PurchaseFormComponent.showAlertMessages(errors);
                     });
-                    console.log('editar registro');
                 }
             },
             loadPurchaseProcess(){
@@ -161,7 +159,6 @@
                             if (!this.purchase_types[i].purchase_processes_id) {
                                 this.disabledInputProcess = false;    
                             }
-
                             break;
                         }
                     }

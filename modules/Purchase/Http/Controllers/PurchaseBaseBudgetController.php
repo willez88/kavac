@@ -14,8 +14,7 @@ use Modules\Purchase\Jobs\PurchaseManageBaseBudget;
 use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
-
-use App\Models\HistoryTax;
+use Modules\Purchase\Models\HistoryTax;
 
 class PurchaseBaseBudgetController extends Controller
 {
@@ -167,6 +166,7 @@ class PurchaseBaseBudgetController extends Controller
         PurchaseBaseBudget::find($id)->delete();
         foreach (PurchaseRequirement::where('purchase_base_budget_id', $id) as $record) {
             $record->purchase_base_budget_id = null;
+            $record->requirement_status = 'WAIT';
             $record->save();
         }
         return response()->json(['message'=>'success'], 200);

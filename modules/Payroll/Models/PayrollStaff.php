@@ -42,7 +42,8 @@ class PayrollStaff extends Model implements Auditable
      */
     protected $fillable = [
         'code','first_name','last_name','payroll_nationality_id','id_number','passport','email','birthdate',
-        'payroll_gender_id','emergency_contact','emergency_phone','parish_id','address'
+        'payroll_gender_id','emergency_contact','emergency_phone','parish_id','address','has_disability',
+        'disability','social_security','has_driver_license','payroll_license_degree_id','payroll_blood_type_id'
     ];
 
     /**
@@ -151,5 +152,27 @@ class PayrollStaff extends Model implements Auditable
     public function payrollEmploymentInformation()
     {
         return $this->hasOne(PayrollEmploymentInformation::class);
+    }
+
+    /**
+     * Método que obtiene la información personal del trabajador asociada a un grado de licencia de conducir
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollLicenseDegree()
+    {
+        return $this->belongsTo(PayrollLicenseDegree::class);
+    }
+
+    /**
+     * Método que obtiene la información personal del trabajador asociada a un tipo de sangre
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollBloodType()
+    {
+        return $this->belongsTo(PayrollBloodType::class);
     }
 }
