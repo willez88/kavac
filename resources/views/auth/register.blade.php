@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            {!! Form::label('email', __'Correo electrónico'(), []) !!}
+                            {!! Form::label('email', __('Correo electrónico'), []) !!}
                             {!! Form::text('email', (isset($model))?$model->email:old('email'), [
                                 'class' => 'form-control input-sm',
                                 'data-toggle' => 'tooltip',

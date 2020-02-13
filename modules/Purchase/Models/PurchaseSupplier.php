@@ -101,4 +101,15 @@ class PurchaseSupplier extends Model implements Auditable
     {
         return $this->belongsTo(PurchaseSupplierObject::class);
     }
+
+    /**
+     * PurchaseSupplier has many PurchaseOrder.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchaseOrder()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseSupplier_id, localKey = id)
+        return $this->hasMany(PurchaseOrder::class);
+    }
 }

@@ -1,5 +1,12 @@
 <?php
+use App\User;
+use App\Notifications\SystemNotification;
 
+Route::get('test-notify', function () {
+    $user = User::find(1);
+    $user->notify(new SystemNotification('prueba', 'prueba de notificación'));
+    echo "Notificación enviada";
+});
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -250,6 +257,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     /** Rutas para la gestión de tipos de cambio */
     Route::resource('exchange-rates', 'ExchangeRateController', ['except' => ['show']]);
+
+    /** Rutas para gestionar notificaciones del sistema */
+    Route::post('system/notify/send', 'SystemNotificationController@send');
 });
 
 /**

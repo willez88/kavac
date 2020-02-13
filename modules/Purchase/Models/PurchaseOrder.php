@@ -36,4 +36,26 @@ class PurchaseOrder extends Model implements Auditable
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseOrder_id, localKey = id)
         return $this->hasMany(PurchaseRequirement::class);
     }
+
+    /**
+     * PurchaseOrder belongs to PurchaseSupplier.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseSupplier()
+    {
+        // belongsTo(RelatedModel, foreignKey = purchaseSupplier_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseSupplier::class);
+    }
+
+    /**
+     * PurchaseOrder belongs to Currency.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function currency()
+    {
+        // belongsTo(RelatedModel, foreignKey = currency_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Currency::class);
+    }
 }

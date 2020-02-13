@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Crypt;
+use Carbon\Carbon;
 
 if (! function_exists('set_active_menu')) {
     /**
@@ -455,5 +456,21 @@ if (! function_exists('execution_year')) {
     function execution_year($year)
     {
         return (strlen($year) === 4) ? $year : Crypt::decrypt($year);
+    }
+}
+
+if (! function_exists('set_current_timestamp')) {
+    /**
+     * Establece la fecha actual con marca de tiempo
+     *
+     * @method     set_current_timestamp
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    string        Devuelve una cadena de texto con la fecha y marca de tiempo actual
+     */
+    function set_current_timestamp()
+    {
+        return Carbon::now();
     }
 }

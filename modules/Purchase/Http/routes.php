@@ -76,6 +76,18 @@ Route::group([
 
     /*
      * -----------------------------------------------------------------------
+     * Rutas para la gestión de tipos de operaciones
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los tipos de operaciones
+     */
+    Route::resource('type_operations', 'PurchaseTypeOperationController', [
+        'as'     => 'purchase',
+    ]);
+    Route::get('get-type-operations', 'PurchaseTypeOperationController@getRecords');
+
+    /*
+     * -----------------------------------------------------------------------
      * Rutas para la gestión de proveedores
      * -----------------------------------------------------------------------
      *
@@ -131,6 +143,7 @@ Route::group([
     Route::resource('purchase_order', 'PurchaseOrderController', [
         'as'     => 'purchase',
     ]);
+    Route::post('purchase_order/{id}', 'PurchaseOrderController@updatePurchaseOrder');
 
     Route::get('get-convertion/{currency_id}/{base_budget_currency_id}', 'PurchaseOrderController@getConvertion');
 });

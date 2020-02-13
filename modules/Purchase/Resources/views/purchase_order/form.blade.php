@@ -28,12 +28,20 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <purchase-order-form :requirements="{{ $requirements }}"
-                                         :currencies="{{ $currencies }}"
-                                         :tax="{{ $tax }}"
-                                         :tax_unit="{{ $tax_unit }}"
-                                         :suppliers="{{ $suppliers }}"
-                                          route_edit="/purchase/purchase_order/{id}/edit" />
+                    @if(!isset($record_edit))
+                        <purchase-order-form :requirements="{{ $requirements }}"
+                                             :currencies="{{ $currencies }}"
+                                             :tax="{{ $tax }}"
+                                             :tax_unit="{{ $tax_unit }}"
+                                             :suppliers="{{ $suppliers }}" />
+                    @else
+                        <purchase-order-form :requirements="{{ $requirements }}"
+                                                 :currencies="{{ $currencies }}"
+                                                 :tax="{{ $tax }}"
+                                                 :tax_unit="{{ $tax_unit }}"
+                                                 :suppliers="{{ $suppliers }}"
+                                                 :record_edit="{{ $record_edit }}"/>
+                    @endif
                 </div>
             </div>
         </div>

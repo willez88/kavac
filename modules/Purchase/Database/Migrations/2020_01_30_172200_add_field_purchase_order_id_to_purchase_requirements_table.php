@@ -18,8 +18,7 @@ class AddFieldPurchaseOrderIdToPurchaseRequirementsTable extends Migration
                 $table->integer('purchase_order_id')->unsigned()->nullable()
                       ->comment('identificador del registro de la orden de compra');
                 $table->foreign('purchase_order_id')->references('id')
-                      ->on('taxes')->onDelete('restrict')
-                      ->onUpdate('cascade');
+                      ->on('taxes')->onDelete('cascade');
             }
         });
     }

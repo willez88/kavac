@@ -102,6 +102,13 @@ Vue.component('purchase-plan-form', require('./components/purchase_plans/Purchas
  */
 Vue.component('purchase-order-form', require('./components/purchase_order/PurchaseFormComponent.vue').default);
 
+/**
+ * Componente para la gestión de ordend e compra
+ * 
+ * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-order-list', require('./components/purchase_order/PurchaseListComponent.vue').default);
+
 
 /**
  * Componente para la visualizacion requerimientos 
@@ -123,6 +130,13 @@ Vue.component('purchase-type', require('./components/PurchaseTypeComponent.vue')
  * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
  */
 Vue.component('purchase-type-hiring', require('./components/PurchaseTypeHiringComponent.vue').default);
+
+/**
+ * Componente para la gestión de plan de compras
+ * 
+ * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-type-operations', require('./components/PurchaseTypeOperationComponent.vue').default);
 
 
 /**

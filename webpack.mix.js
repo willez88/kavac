@@ -65,6 +65,35 @@ modules.forEach(function(m) {
    mix.sass(scss, `public/modules/${m}/css/app.css`);
 });*/
 
+/*
+ |--------------------------------------------------------------------------
+ | Webpack Shell Plugin
+ |--------------------------------------------------------------------------
+ |
+ | Permite la ejecución de comandos en consola
+ |
+ */
+const WebpackShellPlugin = require('webpack-shell-plugin');
+
+mix.webpackConfig({
+    plugins: [
+        new WebpackShellPlugin({
+            onBuildStart:['php artisan lang:js --quiet'],
+            onBuildEnd: []
+        })
+    ]
+});
+
+
+/*
+ |--------------------------------------------------------------------------
+ | Sección para entornos de producción
+ |--------------------------------------------------------------------------
+ |
+ | Especifica las condiciones e instrucciones a ejecutar para entornos de
+ | producción.
+ |
+ */
 /** Publica la versión de la compilación */
 if (mix.inProduction()) {
    mix.version();

@@ -4,20 +4,24 @@
            aria-expanded="false" title="Notificaciones del sistema" id="list_notifications">
             <i class="now-ui-icons ui-1_bell-53"></i>
             <!-- Mensajes de Notificación de procesos o usuarios -->
-            <span class="badge badge-primary badge-notify" v-show="count > 0">{{ count }}</span>
+            <span class="badge badge-primary badge-notify" v-show="notifications.length > 0">
+                {{ notifications.length }}
+            </span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="list_notifications">
             <a class="dropdown-header text-center">Notificaciones</a>
             <div class="dropdown-item">
                 <ul class="media-list msg-list" v-if="notifications.length">
                     <li class="media unread" v-for="notify in notifications">
-                        <div class="media-body">
+                        <div class="media-body" v-if="notify.data.title && notify.data.message">
                             <strong>
-                                {{ notify.data.title }}{{ (notify.data.module) ? ' / ' + notify.data.module : '' }}
+                                <i class="fa fa-envelope-o cursor-pointer" title="Marcar como leído" 
+                                   data-toggle="tooltip" @click.prevent="markAsReaded(notify.id)"></i>
+                                {{ notify.data.title }}
                             </strong><br>
-                            <p v-html="notify.data.description.replace(/(?:\r\n|\r|\n)/g, '<br>')"></p>
-                            <small class="date">
-                                <i class="icofont icofont-clock-time"></i>{{ format_timestamp(notify.created_at) }}
+                            <p v-html="notify.data.message.replace(/(?:\r\n|\r|\n)/g, '<br>')"></p>
+                            <small class="date" v-if="(typeof(notify.created_at)!=='undefined')">
+                                <i class="icofont icofont-clock-time"></i>{{ notify.created_at }}
                             </small>
                         </div>
                     </li>
@@ -40,35 +44,42 @@
     export default {
         data() {
             return {
-                count: 0,
-                notifications: []
+                notifications: this.unreads
             }
         },
+        props: ['unreads', 'userId'],
         methods: {
-            /**
-             * Método que permite obtener las notificaciones no leídas
-             *
-             * @method     getUnreaded
-             *
-             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-             */
-            getUnreaded: function() {
-                let vm = this;
-                axios.get('/notifications/unreaded').then(response => {
-                    if (response.data.result) {
-                        vm.notifications = response.data.notifications;
-                        vm.count = vm.notifications.length;
-                    }
-                }).catch(error => {
-                    vm.logs('NotificationsComponent', 63, error, 'getUnreaded');
-                });
-            }
+            markAsReaded: function(id) {
+                console.log(id)
+            },
         },
         created() {
-            this.getUnreaded();
+            let vm = this;
+            /*Echo.join(`home`)
+                .here((users) => {
+                    console.log('presets user ', users);
+                })
+                .joining((user) => {
+                    console.log(user.name);
+                })
+                .leaving((user) => {
+                    console.log(user.name);
+                });*/
         },
         mounted() {
-
+            let vm = this;
+            window.Echo.private(`App.User.${vm.userId}`).notification((notification) => {
+                console.log(notification);
+                
+                let newNotifications = {
+                    id: notification.id,
+                    data: {
+                        title: notification.title,
+                        message: notification.message
+                    }
+                };
+                vm.notifications.push(newNotifications);
+            });
         }
     };
 </script>
