@@ -4,7 +4,7 @@
 		   title="Registros de nacionalidades" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_nationality', 'nationalities', $event)">
            <i class="icofont icofont-id-card ico-3x"></i>
-		   <span>Nacionaidades</span>
+		   <span>Nacionalidades</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_nationality">
 			<div class="modal-dialog vue-crud" role="document">

@@ -38,6 +38,8 @@ class UploadDocRepository
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  object  $file         Objeto con el archivo a subir
      * @param  string  $store        Ruta en la que se va a almacenar el archivo
+     * @param  string  $model        Modelo con el que se relaciona
+     * @param  integer $id           Id del modelo con el q se relaciona
      * @param  boolean $sign         Indica si el archivo a subir será firmado digitalmente
      * @param  boolean $originalName Indica si el archivo a subir es con el nombre original del mismo
      * @param  boolean $checkAllowed Indica si se va a verificar el tipo de archivo permitido para subir
@@ -46,6 +48,8 @@ class UploadDocRepository
     public function uploadDoc(
         $file,
         $store,
+        $model,
+        $id,
         $sign = false,
         $public_url = false,
         $originalName = false,
@@ -74,7 +78,9 @@ class UploadDocRepository
                                  ? 'public/documents/'. $this->doc_name
                                  : 'storage/documents/'. $this->doc_name,
                         'signs' => ($sign && isset($signCrypt) && $signCrypt)
-                                   ? $sygnCrypt : null
+                                   ? $sygnCrypt : null,
+                        'documentable_type' => $model,
+                        'documentable_id' => $id
                     ]);
                     return true;
                 } else {

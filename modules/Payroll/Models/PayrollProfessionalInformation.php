@@ -119,4 +119,15 @@ class PayrollProfessionalInformation extends Model implements Auditable
             'payroll_language_level_id'
         )->withPivot('payroll_language_id')->withTimestamps();
     }
+
+    /**
+     * Obtiene todos los documentos asociados a la información profesional del trabajador
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function documents()
+    {
+        return $this->morphMany(\App\Models\Document::class, 'documentable');
+    }
 }

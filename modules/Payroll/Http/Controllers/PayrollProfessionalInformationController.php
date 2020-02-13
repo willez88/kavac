@@ -12,6 +12,7 @@ use Modules\Payroll\Models\Profession as BaseProfession;
 use Modules\Payroll\Models\PayrollLanguage;
 use Modules\Payroll\Models\PayrollLanguageLevel;
 use Modules\Payroll\Models\PayrollInstructionDegree;
+use App\Repositories\UploadDocRepository;
 
 /**
  * @class PayrollProfessionalInformationController
@@ -71,12 +72,16 @@ class PayrollProfessionalInformationController extends Controller
      * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
      * @return \Illuminate\Http\JsonResponse        Json: result en verdadero y redirect con la url a donde ir
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadDocRepository $upDoc)
     {
         $this->validate($request, [
             'payroll_staff_id' => ['required', 'unique:payroll_professional_informations,payroll_staff_id'],
             'payroll_instruction_degree_id' => ['required']
         ]);
+
+        /*$this->validate($request, [
+            'acknowledgment' => ['required', 'max:5000', 'mimes:jpg,png,pdf,odt'],
+        ]);*/
 
         $payrollInstructionDegree1 = PayrollInstructionDegree::where('name', 'TSU Universitario')->first()->id;
         $payrollInstructionDegree2 = PayrollInstructionDegree::where('name', 'Universitario Pregrado')->first()->id;
@@ -131,6 +136,13 @@ class PayrollProfessionalInformationController extends Controller
             $payrollProfessionalInformation->class_schedule = null;
         }
         $payrollProfessionalInformation->save();
+
+        //return response()->json(['result' => true, 'hola' => $request->acknowledgment], 200);
+        if ($upDoc->uploadDoc($request->file('acknowledgment'), 'documents')) {
+            $doc_id = $upDoc->getDocStored()->id;
+            $doc_url = $upDoc->getDocStored()->url;
+            //return response()->json(['result' => true, 'doc_id' => $doc_id, 'doc_url' => $doc_url], 200);
+        }
 
         if ($request->payroll_instruction_degree_id == $payrollInstructionDegree1 ||
             $request->payroll_instruction_degree_id == $payrollInstructionDegree2
