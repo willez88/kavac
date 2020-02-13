@@ -31,6 +31,44 @@
                     <select2 :options="currencies" id="currencies" v-model="currency_id"></select2>
                 </div>
             </div>
+            <div class="col-12 row">
+                <div class="col-3">
+                    <label for="acta_inicio">Acta de inicio</label>
+                    <label class="custom-control">
+                        <button type="button" data-toggle="tooltip"
+                                class="btn btn-sm btn-info btn-import"
+                                title="Presione para subir el archivo del documento."
+                                @click="setFile('acta_inicio')">
+                            <i class="fa fa-upload"></i>
+                        </button>
+                        <input type="file" 
+                                id="acta_inicio" 
+                                @change="uploadFile('acta_inicio')"
+                                style="display:none;">
+                        <span class="badge badge-success" id="status_acta_inicio" style="display:none;">
+                            <strong>Documento Cargado.</strong>
+                        </span>
+                    </label>
+                </div>
+                <div class="col-3">
+                    <label for="invitation_bussiness">Acta de inicio</label>
+                    <label class="custom-control">
+                        <button type="button" data-toggle="tooltip"
+                                class="btn btn-sm btn-info btn-import"
+                                title="Presione para subir el archivo del documento."
+                                @click="setFile('invitation_bussiness')">
+                            <i class="fa fa-upload"></i>
+                        </button>
+                        <input type="file" 
+                                id="invitation_bussiness" 
+                                @change="uploadFile('invitation_bussiness')"
+                                style="display:none;">
+                        <span class="badge badge-success" id="status_invitation_bussiness" style="display:none;">
+                            <strong>Documento Cargado.</strong>
+                        </span>
+                    </label>
+                </div>
+            </div>
             <div class="col-12">
                 <v-client-table :columns="columns" :data="requirements" :options="table_options">
                     <div slot="requirement_status" slot-scope="props" class="text-center">
@@ -415,6 +453,11 @@ export default{
         },
 
         uploadFile(id){
+
+            if (id == 'acta_inicio' || id == 'invitation_bussiness') {
+                $('#status_'+id).show('slow');
+                return;
+            }
 
             /** Se obtiene y da formato para enviar el archivo a la ruta */
             let vm = this;

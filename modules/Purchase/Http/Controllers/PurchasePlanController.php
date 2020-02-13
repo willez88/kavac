@@ -2,6 +2,8 @@
 
 namespace Modules\Purchase\Http\Controllers;
 
+use App\Repositories\UploadDocRepository;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -50,7 +52,7 @@ class PurchasePlanController extends Controller
         }
         return view('purchase::purchase_plans.form', [
             'purchase_process' => json_encode($purchase_process),
-            'purchase_types'    => json_encode($purchase_types)
+            'purchase_types'   => json_encode($purchase_types)
         ]);
     }
 
@@ -117,8 +119,8 @@ class PurchasePlanController extends Controller
 
         return view('purchase::purchase_plans.form', [
             'purchase_process' => json_encode($purchase_process),
-            'purchase_types'    => json_encode($purchase_types),
-            'record_edit'       => $record_edit,
+            'purchase_types'   => json_encode($purchase_types),
+            'record_edit'      => $record_edit,
         ]);
     }
 
@@ -146,5 +148,28 @@ class PurchasePlanController extends Controller
     {
         PurchasePlan::find($id)->delete();
         return response()->json(['message'=>'Success'], 200);
+    }
+
+    public function uploadFile(Request $request)
+    {
+        $this->validate($request, [
+            'file'             => 'required|mimes:pdf',
+            'purchase_plan_id' => 'required|integer',
+        ], [
+            'file.required'             => 'El archivo es obligatorio.',
+            'file.mimes'                => 'El archivo debe estar en formato pdf.',
+            'purchase_plan_id.required' => 'El campo plan de compra es obligatorio.',
+            'purchase_plan_id.integer'  => 'El campo plan de compra debe ser numerico.',
+        ]);
+
+        // Se guarda el archivo
+        $file = new UploadDocRepository();
+        $file->uploadDoc(
+            $request->file('file'),
+            'documents',
+            'Modules\Purchase\Models\PurchasePlan',
+            $request->id,
+            true
+        );
     }
 }

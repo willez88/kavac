@@ -132,6 +132,7 @@ Route::group([
     Route::resource('purchase_plans', 'PurchasePlanController', [
         'as'     => 'purchase',
     ]);
+    Route::post('purchase_plan_upload_file', 'PurchasePlanController@uploadFile');
 
     /*
      * -----------------------------------------------------------------------

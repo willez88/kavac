@@ -2,7 +2,7 @@
     <div>
         <button @click="addRecord('show_purchase_plan_'+id, route_show, $event)"
                 class="btn btn-info btn-xs btn-icon btn-action" 
-                title="Iniciar diagnostico" 
+                title="Visualizar registro" 
                 data-toggle="tooltip" >
             <i class="fa fa-eye"></i>
         </button>
@@ -53,7 +53,7 @@
                                                     <div class="feature-list-indicator bg-info"></div>
                                                     <div class="feature-list-content p-0">
                                                         <div class="feature-list-content-wrapper">
-                                                            <!-- <div class="feature-list-content-left mr-2">
+                                                            <div class="feature-list-content-left mr-2">
                                                                 <label class="custom-control">
 
                                                                     <button type="button" data-toggle="tooltip"
@@ -67,7 +67,7 @@
                                                                             @change="uploadFile('file_document_'+(index+1)+'_'+idx)"
                                                                             style="display:none;">
                                                                 </label>
-                                                            </div> -->
+                                                            </div>
                                                             <div class="feature-list-content-left">
                                                                 <div class="feature-list-subheading">
                                                                     {{ document }}
@@ -156,6 +156,13 @@ export default{
                 console.log(error);
             })
         },
+
+        /**
+         * [showListDocuments carga en variables el listado de los documentos del proceso de compra]
+         * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+         * @param  {[type]} idx [description]
+         * @return {[type]}     [description]
+         */
         showListDocuments(idx){
             const vm = this;
             if (vm.records.purchase_process) {
@@ -172,9 +179,38 @@ export default{
             }
         },
         uploadFile(input_id){
+            let vm = this;
             if (document.querySelector(`#${input_id}`)) {
-                this.files[input_id] = document.querySelector(`#${input_id}`).files[0];
-                $('#status_'+input_id).show("slow");
+                vm.loading = false;
+                vm.files[input_id] = document.querySelector(`#${input_id}`).files[0];
+
+                /** Se obtiene y da formato para enviar el archivo a la ruta */
+                var formData = new FormData();
+                var inputFile = document.querySelector('#'+input_id);
+                formData.append("file", inputFile.files[0]);
+                formData.append("purchase_plan_id", vm.id);
+
+                axios.post('/purchase/purchase_plan_upload_file', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(response => {
+                    vm.showMessage('update');
+                    vm.loading = false;
+                    $('#status_'+input_id).show("slow");
+
+                }).catch(error => {
+                    if (typeof(error.response) !== "undefined") {
+                        if (error.response.status == 422 || error.response.status == 500) {
+                            for (const i in error.response.data.errors){
+                                vm.showMessage(
+                                    'custom', 'Error', 'danger', 'screen-error', error.response.data.errors[i][0]
+                                );
+                            }
+                        }
+                    }
+                    vm.loading = false;
+                });
             }
         },
     },
