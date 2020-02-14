@@ -13,5 +13,8 @@
         "cross-env": "^5.1.4",
         "laravel-mix": "^4.0.7",
         "laravel-mix-merge-manifest": "^0.1.2"
+    },
+    "dependencies": {
+        "vue-simple-uploader": "^0.7.4"
     }
 }

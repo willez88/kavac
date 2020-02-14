@@ -18,7 +18,7 @@
 						</h6>
 					</div>
 
-					<div class="model-body">	
+					<div class="modal-body">	
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>
 								<li v-for="error in errors">{{ error }}</li>

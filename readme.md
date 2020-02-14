@@ -1,3 +1,4 @@
+
 # KAVAC | Sistema de Gestión Administrativa
 
 ## Sobre la aplicación

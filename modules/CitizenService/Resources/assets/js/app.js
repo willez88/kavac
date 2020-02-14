@@ -21,6 +21,12 @@ Vue.component('citizenservice-request-info', require('./components/requests/Citi
 
 Vue.component('citizenservice-request-list-pending', require('./components/requests/CitizenServiceRequestListPendingComponent.vue').default);
 
+Vue.component('citizenservice-request-list-closing', require('./components/requests/CitizenServiceRequestListClosingComponent.vue').default);
+
+Vue.component('citizenservice-request-close', require('./components/requests/CitizenServiceRequestCloseComponent.vue').default);
+
+Vue.component('citizenservice-report-create', require('./components/reports/CitizenServiceReportCreateComponent.vue').default);
+
 /**
  * Opciones de configuración global del módulo de Atención al Ciudadano
  *
@@ -37,3 +43,10 @@ Vue.mixin({
 		},
 	},
 });
+
+
+//import uploader from 'vue-simple-uploader'
+
+
+//Vue.use(uploader)
+

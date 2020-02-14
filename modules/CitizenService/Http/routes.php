@@ -19,6 +19,8 @@ Route::group([
     Route::get('requests/vue-list', 'CitizenServiceRequestController@vueList');
     Route::get('requests/vue-info/{request}', 'CitizenServiceRequestController@vueInfo');
     Route::get('requests/vue-pending-list', 'CitizenServiceRequestController@vueListPending');
+    Route::get('requests/vue-list-closing', 'CitizenServiceRequestController@vueListClosing');
+  
 
     Route::put('requests/request-approved/{request}', 'CitizenServiceRequestController@approved');
     Route::put('requests/request-rejected/{request}', 'CitizenServiceRequestController@rejected');
@@ -30,4 +32,17 @@ Route::group([
         ['as' => 'citizenservice', 'except' => ['create','edit','show']]
     );
     Route::get('/get-request-types', 'CitizenServiceRequestTypeController@getRequestTypes');
+    
+    Route::resource(
+        'request-close',
+        'CitizenServiceRequestCloseController',
+        ['as' => 'citizenservice', 'except' => ['create','edit','show']]
+    );
+    Route::get('requests/vue-close/{id}', 'CitizenServiceRequestCloseController@vueClose');
+    Route::post('requests/validate-document', 'CitizenServiceRequestCloseController@store');
+
+    /**
+     * Rutas para generar reporte
+     */
+    Route::get('reports', 'CitizenServiceReportController@index')->name('citizenservice.report.index');
 });

@@ -1,17 +1,18 @@
 <?php
 
-/** Modelos generales de base de datos */
-namespace App\Models;
+namespace Modules\CitizenService\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Traits\ModelsTrait;
 
-class Document extends Model implements Auditable
+class CitizenServiceReport extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
+    use ModelsTrait;
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -21,15 +22,11 @@ class Document extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
+     * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'file', 'url', 'signs', 'archive_number', 'physical_support', 'digital_support_original',
-        'digital_support_signed'
+        'type_search', 'start_date', 'end_date', 'period', 'date'
     ];
-
-    public function documentable()
-    {
-        return $this->morphTo();
-    }
 }
