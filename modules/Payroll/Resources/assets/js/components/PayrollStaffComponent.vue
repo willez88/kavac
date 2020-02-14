@@ -109,6 +109,68 @@
 						</div>
 					</div>
 
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>¿Posee una Discapacidad?</label>
+								<div class="col-md-12">
+									<input id="has_disability" name="has_disability" type="checkbox"
+										class="form-control bootstrap-switch sel_has_disability"
+										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+										title="Indique si el trabajador posee una discapacidad o no"
+										v-model="record.has_disability" value="true"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4" v-if="record.has_disability">
+							<div class="form-group is-required">
+								<label>Discapacidad</label>
+								<input type="text" class="form-control input-sm"
+									title="Indique la descripción de la discapacidad"
+									v-model="record.disability"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group is-required">
+								<label>Tipo de Sangre</label>
+								<select2 :options="payroll_blood_types"
+                                    v-model="record.payroll_blood_type_id">
+                                </select2>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Seguro Social</label>
+								<input type="text" class="form-control input-sm"
+									title="Indique el número de seguro social"
+									v-model="record.social_security"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>¿Posee Licencia de Conducir?</label>
+								<div class="col-md-12">
+									<input id="has_driver_license" name="has_driver_license" type="checkbox"
+										class="form-control bootstrap-switch sel_has_driver_license"
+										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+										title="Indique si el trabajador posee licencia de conducir o no"
+										v-model="record.has_driver_license" value="true"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4" v-if="record.has_driver_license">
+							<div class="form-group is-required">
+								<label>Grado de Licencia de Conducir</label>
+								<select2 :options="payroll_license_degrees"
+                                    v-model="record.payroll_license_degree_id">
+                                </select2>
+							</div>
+						</div>
+					</div>
+
                     <div class="row">
                         <div class="col-md-4">
 							<div class="form-group is-required">
@@ -240,6 +302,12 @@
                     email: '',
                     birthdate: '',
                     payroll_gender_id: '',
+					has_disability: '',
+					disability: '',
+					payroll_blood_type_id: '',
+					social_security: '',
+					has_driver_license: '',
+					payroll_license_degree_id: '',
                     emergency_contact: '',
                     emergency_phone: '',
 					country_id: '',
@@ -257,6 +325,8 @@
                 estates: [],
                 municipalities: [],
                 parishes: [],
+				payroll_license_degrees: [],
+				payroll_blood_types: [],
 			}
 		},
 		methods: {
@@ -273,7 +343,17 @@
 				let vm = this;
 				axios.get(`/payroll/staffs/${vm.payroll_staff_id}`).then(response => {
 					vm.record = response.data.record;
-					vm.record.country_id = response.data.record.parish.municipality.estate.country.id;
+					/*vm.record.id = response.data.record.id;
+					vm.record.first_name = response.data.record.first_name;
+					vm.record.last_name = response.data.record.last_name;
+					vm.record.payroll_nationality_id = response.data.record.payroll_nationality_id;
+					vm.record.id_number = response.data.record.id_number;
+					vm.record.passport = response.data.record.passport;
+					vm.record.email = response.data.record.email;
+					vm.record.birthdate = response.data.record.birthdate;
+					vm.record.payroll_gender_id = response.data.record.payroll_gender_id;
+					vm.record.has_disability = response.data.record.has_disability;
+					vm.record.disability = response.data.record.disability;*/
 				});
 			},
 		},
@@ -283,12 +363,18 @@
 			this.getCountries();
 			this.getEstates();
             this.getMunicipalities();
+			this.getPayrollLicenseDegrees();
+			this.getPayrollBloodTypes();
+			this.record.has_disability = false;
+			this.record.has_driver_license = true;
 			this.record.phones = [];
 		},
 		mounted() {
 			if(this.payroll_staff_id) {
 				this.getStaff();
 			}
+			this.switchHandler('has_disability');
+			this.switchHandler('has_driver_license');
 		}
 	};
 </script>

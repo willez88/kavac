@@ -32,6 +32,9 @@
 
         @yield('modules-css')
         <script>
+            window.Laravel = {!! json_encode([
+                'csrfToken' => csrf_token(),
+            ]) !!}
             /** @type {boolean} Define si la condición de acceso */
             window.access = true;
             /** @type {string} Define la URI para el registro de eventos del sistema */
@@ -78,10 +81,12 @@
                     </footer>
                 </div>
             @else
-                @include('layouts.navbar')
-                <div class="content-wrapper">
-                    @include('layouts.left-panel')
-                    @include('layouts.content')
+                <div id="app">
+                    @include('layouts.navbar')
+                    <div class="content-wrapper">
+                        @include('layouts.left-panel')
+                        @include('layouts.content')
+                    </div>
                 </div>
             @endguest
         @show
@@ -124,6 +129,9 @@
         @include('layouts.messages')
         <script>
             $(document).ready(function() {
+                /** Coloca el año actual en el pie de página */
+                $('.currentYear').text(new Date().getFullYear());
+
                 if ($('.ckeditor').length && typeof(CkEditor) !== 'undefined') {
                     $('.ckeditor').each(function() {
                         CkEditor.create(document.querySelector('.ckeditor'), {
@@ -389,17 +397,20 @@
                 el: '#app',
             });
 
-            if ($("#app-nav").length) {
+            /*if ($("#app-nav").length) {
                 var appNav = new Vue({
                     el: '#app-nav',
                 });
-            }
+            }*/
         </script>
         <script>
-            Echo.channel('home').listen('NewMessage', (e) => {
+            /*Echo.channel('home').listen('NewMessage', (e) => {
                 console.log("entro");
                 console.log(e.message);
-            });
+            });*/
         </script>
     </body>
 </html>
+<script>
+            document.write();
+        </script>

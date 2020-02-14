@@ -339,6 +339,20 @@ class AccountingEntryController extends Controller
             'tot.confirmed'           => 'El asiento no esta balanceado, Por favor verifique.',
         ]);
 
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        
+        /**
+         * [$entry informaciónd el asiento contable]
+         * @var AccountingEntry
+         */
+        $entry = AccountingEntry::find($id);
+
+        if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
+            return response()->json(['message'=>'No tiene acceso para modificar el registro',
+                'redirect' => route('errors.403')], 403);
+        }
+
         /**
          * se actualiza la información del registro del asiento contable
          */
@@ -356,6 +370,13 @@ class AccountingEntryController extends Controller
      */
     public function destroy($id)
     {
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
+            return response()->json(['error' => true, 'message'=>'No tiene acceso para eliminar el registro.', 403]);
+        }
+
         /** El registro de asiento contable a eliminar */
         AccountingEntryAccount::where('accounting_entry_id', $id)->delete();
 
@@ -616,13 +637,21 @@ class AccountingEntryController extends Controller
      */
     public function approve($id)
     {
+        // Validar acceso para el registro
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        
         /**
-         * [$entries contendra el asiento al que se le cambiara el estado]
+         * [$entry contendra el asiento al que se le cambiara el estado]
          * @var AccountingEntry
          */
-        $entries           = AccountingEntry::find($id);
-        $entries->approved = true;
-        $entries->save();
+        $entry           = AccountingEntry::find($id);
+
+        if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
+            return response()->json(['error' => true, 'message'=>'No tiene acceso para modificar el registro.', 403]);
+        }
+
+        $entry->approved = true;
+        $entry->save();
         return response()->json(['message'=>'Success'], 200);
     }
 
@@ -632,10 +661,15 @@ class AccountingEntryController extends Controller
         $profile      = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
         if ($profile) {
-            array_push($institutions, [
-                'id'   => $profile->institution->id,
-                'text' => $profile->institution->name,
-            ]);
+            if (auth()->user()->hasRole('admin')) {
+                $institutions            = template_choices('App\Models\Institution', 'name', [], true);
+                $institutions[0]['text'] = $text;
+            } else {
+                array_push($institutions, [
+                    'id'   => $profile->institution->id,
+                    'text' => $profile->institution->name,
+                ]);
+            }
         } elseif (!$profile && auth()->user()->hasRole('admin')) {
             $institutions            = template_choices('App\Models\Institution', 'name', [], true);
             $institutions[0]['text'] = $text;

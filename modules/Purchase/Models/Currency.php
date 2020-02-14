@@ -17,4 +17,15 @@ class Currency extends BaseCurrency
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
         return $this->hasMany(PurchaseBaseBudget::class);
     }
+
+    /**
+     * Currency has many PurchaseOrder.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchaseOrder()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
+        return $this->hasMany(PurchaseOrder::class);
+    }
 }

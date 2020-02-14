@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de nivel del idioma" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_language_level', 'language-levels', $event)">

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class System extends Notification //implements ShouldQueue
 {
@@ -82,5 +83,20 @@ class System extends Notification //implements ShouldQueue
             'module' => $this->module,
             'description' => $this->description,
         ];
+    }
+
+    /**
+     * Get the array representation of the notification
+     *
+     * @param   mixed $notifiable
+     * @return  array
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'title' => $this->title,
+            'module' => $this->module ?? '',
+            'description' => $this->description,
+        ]);
     }
 }

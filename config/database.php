@@ -88,7 +88,7 @@ return [
                 'use_single_transaction',
                 'timeout' => 60 * 20, // 20 minute timeout
                 //'exclude_tables' => ['table1', 'table2'],
-                'add_extra_option' => '-o -b -Ft',
+                'add_extra_option' => '-a -b -O --inserts', //'add_extra_option' => '-o -b -Ft',
             ]
         ],
 

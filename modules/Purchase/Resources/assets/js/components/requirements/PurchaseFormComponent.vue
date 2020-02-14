@@ -11,7 +11,7 @@
                 <div class="col-3">
                     <div class="form-group">
                         <label class="control-label">Fecha de generación</label><br>
-                        <label class="control-label"><h5>{{ date }}</h5></label>
+                        <label class="control-label"><h5>{{ format_date((requirement_edit)?requirement_edit.created_at:date) }}</h5></label>
                     </div>
                 </div>
                 <div class="col-3">

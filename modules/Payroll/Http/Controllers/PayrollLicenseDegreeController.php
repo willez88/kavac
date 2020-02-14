@@ -131,4 +131,15 @@ class PayrollLicenseDegreeController extends Controller
         $payrollLicenseDegree->delete();
         return response()->json(['record' => $payrollLicenseDegree, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Obtiene los grados de licencia de conducir
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los grados de licencia de conducir
+     */
+    public function getPayrollLicenseDegrees()
+    {
+        return response()->json(template_choices('Modules\Payroll\Models\PayrollLicenseDegree', 'name', '', true));
+    }
 }
