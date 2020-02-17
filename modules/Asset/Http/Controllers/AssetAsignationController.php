@@ -13,6 +13,7 @@ use App\Models\CodeSetting;
 use Modules\Asset\Models\AssetAsignationAsset;
 use Modules\Asset\Models\AssetAsignation;
 use Modules\Asset\Models\Asset;
+use App\Models\Profile;
 
 /**
  * @class AssetAsignationController
@@ -234,6 +235,17 @@ class AssetAsignationController extends Controller
      */
     public function vueList()
     {
-        return response()->json(['records' => AssetAsignation::with('payrollStaff')->get()], 200);
+        $user_profile = Profile::where('user_id', auth()->user()->id)->first();
+        $institution_id = isset($user_profile->institution_id)
+            ? $user_profile->institution_id
+            : null;
+
+        if (Auth()->user()->isAdmin()) {
+            $assetAsignations = AssetAsignation::with('payrollStaff')->get();
+        } else {
+            $assetAsignations = AssetAsignation::where('institution_id', $institution_id)
+                ->with('payrollStaff')->get();
+        }
+        return response()->json(['records' => $assetAsignations ], 200);
     }
 }

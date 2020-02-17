@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 //use Venturecraft\Revisionable\RevisionableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Models\Institution;
 
 /**
  * @class Asset
@@ -41,7 +42,7 @@ class Asset extends Model implements Auditable
         'asset_type_id', 'asset_category_id', 'asset_subcategory_id', 'asset_specific_category_id',
         'asset_condition_id', 'asset_acquisition_type_id', 'acquisition_year', 'asset_status_id',
         'serial', 'marca', 'model', 'inventory_serial', 'value', 'asset_use_function_id',
-        'specifications', 'address', 'parish_id', 'currency_id'
+        'specifications', 'address', 'parish_id', 'currency_id', 'institution_id'
     ];
 
     /**
@@ -239,6 +240,17 @@ class Asset extends Model implements Auditable
     public function currency()
     {
         return $this->belongsTo(\App\Models\Currency::class);
+    }
+
+    /**
+     * Método que obtiene la institución a la que pertenece el bien
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Institution
+     */
+    public function institution()
+    {
+        return $this->belongsTo(\App\Models\Institution::class);
     }
 
     /**
