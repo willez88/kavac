@@ -46,6 +46,7 @@ class UploadDocRepository
     public function uploadDoc(
         $file,
         $store,
+        $code = null,
         $sign = false,
         $public_url = false,
         $originalName = false,
@@ -68,7 +69,7 @@ class UploadDocRepository
                     // Procedimiento para guardar el documento en la tabla respectiva,
                     // incluyendo al documento mismo que DEBE ser almacenado en la base de datos
                     $this->doc_stored = Document::create([
-                        'code' => '',
+                        'code' => $code ?? generate_code(Document::class, 'code'),
                         'file' => $this->doc_name,
                         'url' => ($public_url)
                                  ? 'public/documents/'. $this->doc_name

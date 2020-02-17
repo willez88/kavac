@@ -3,11 +3,11 @@
 		<div class="card-header">
 			<h6 class="card-title text-uppercase">Registro Manual de Bienes Institucionales</h6>
 			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
+				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
 				   title="Ir atrás" data-toggle="tooltip">
 					<i class="fa fa-reply"></i>
 				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
+				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 				   data-toggle="tooltip">
 					<i class="now-ui-icons arrows-1_minimal-up"></i>
 				</a>
@@ -34,13 +34,24 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group is-required">
+						<label>institución:</label>
+						<select2 :options="institutions"
+								data-toggle="tooltip"
+								title="Seleccione un registro de la lista"
+								v-model="record.institution_id"></select2>
+						<input type="hidden" v-model="record.id">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group is-required">
 						<label>Tipo de Bien:</label>
 						<select2 :options="asset_types" id="asset_types_select"
 								@input="(!assetid)? getAssetCategories():''"
-								data-toggle="tooltip" 
-								title="Seleccione un registro de la lista" 
+								data-toggle="tooltip"
+								title="Seleccione un registro de la lista"
 								v-model="record.asset_type_id"></select2>
-						<input type="hidden" v-model="record.id">
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -49,7 +60,7 @@
 						<select2 :options="asset_categories" id="asset_categories_select"
 								@input="(!assetid)? getAssetSubcategories():''"
 								:disabled="(!this.record.asset_type_id != '')"
-								data-toggle="tooltip" 
+								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"
 								v-model="record.asset_category_id"></select2>
 					</div>
@@ -60,7 +71,7 @@
 						<select2 :options="asset_subcategories" id="asset_subcategories_select"
 								@input="(!assetid)? getAssetSpecificCategories():''"
 								:disabled="(!this.record.asset_category_id != '')"
-								data-toggle="tooltip" 
+								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"
 								v-model="record.asset_subcategory_id"></select2>
 					</div>
@@ -71,7 +82,7 @@
 						<select2 :options="asset_specific_categories"
 								:disabled="(!this.record.asset_subcategory_id != '')"
 								@input="getAssetRequired()"
-								data-toggle="tooltip" 
+								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"
 								v-model="record.asset_specific_category_id"></select2>
 					</div>
@@ -79,8 +90,8 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label>Especificaciones</label>
-						<textarea  data-toggle="tooltip" 
-								   title="Indique las especificaciones del bien (opcional)" 
+						<textarea  data-toggle="tooltip"
+								   title="Indique las especificaciones del bien (opcional)"
 								   class="form-control" v-model="record.specifications">
 					   </textarea>
 					</div>
@@ -98,8 +109,8 @@
 				<div class="col-md-3">
 					<div class="form-group is-required">
 						<label>Año de Adquisición</label>
-						<input type="number" min="0" placeholder="Año de Adquisición" data-toggle="tooltip" 
-							   title="Indique el año de adquisición" 
+						<input type="number" min="0" placeholder="Año de Adquisición" data-toggle="tooltip"
+							   title="Indique el año de adquisición"
 							   class="form-control input-sm" v-model="record.acquisition_year">
 					</div>
 				</div>
@@ -111,12 +122,12 @@
 								v-model="record.proveedor_id"></select2>
 					</div>
 				</div>
-			
+
 				<div class="col-md-3">
 					<div class="form-group is-required">
 						<label>Condición Física</label>
 						<select2 :options="asset_conditions"
-								 data-toggle="tooltip" 
+								 data-toggle="tooltip"
 								 title="Seleccione un registro de la lista"
 								 v-model="record.asset_condition_id"></select2>
 					</div>
@@ -126,7 +137,7 @@
 					<div class="form-group is-required">
 						<label>Estatus de Uso</label>
 						<select2 :options="asset_status"
-								 data-toggle="tooltip" 
+								 data-toggle="tooltip"
 								 title="Seleccione un registro de la lista"
 								 v-model="record.asset_status_id"></select2>
 					</div>
@@ -136,33 +147,33 @@
 					<div class="form-group is-required">
 						<label>Función de Uso</label>
 						<select2 :options="asset_use_functions"
-								 data-toggle="tooltip" 
+								 data-toggle="tooltip"
 								 title="Seleccione un registro de la lista"
 								 v-model="record.asset_use_function_id"></select2>
 					</div>
 				</div>
-				
+
 				<div class="col-md-3" v-if="required.serial == true">
 					<div class="form-group is-required">
 						<label>Serial</label>
-						<input type="text" placeholder="Serial de Fabricación" data-toggle="tooltip" 
-							   title="Indique el serial de fabricación" 
+						<input type="text" placeholder="Serial de Fabricación" data-toggle="tooltip"
+							   title="Indique el serial de fabricación"
 							   class="form-control input-sm" v-model="record.serial">
 					</div>
 				</div>
 				<div class="col-md-3" v-if="required.marca == true">
 					<div class="form-group is-required">
 						<label>Marca</label>
-						<input type="text" placeholder="Marca" data-toggle="tooltip" 
-							   title="Indique la marca del bien" 
+						<input type="text" placeholder="Marca" data-toggle="tooltip"
+							   title="Indique la marca del bien"
 							   class="form-control input-sm" v-model="record.marca">
 					</div>
 				</div>
 				<div class="col-md-3" v-if="required.model == true">
 					<div class="form-group is-required">
 						<label>Modelo</label>
-						<input type="text" placeholder="Modelo" data-toggle="tooltip" 
-							   title="Indique el modelo del bien" 
+						<input type="text" placeholder="Modelo" data-toggle="tooltip"
+							   title="Indique el modelo del bien"
 							   class="form-control input-sm" v-model="record.model">
 					</div>
 				</div>
@@ -170,8 +181,8 @@
 					<div class="form-group is-required">
 						<label>Valor</label>
 						<input type="number" min="0" step=".01"
-								placeholder="Precio por unidad" data-toggle="tooltip" 
-								title="Indique el precio del bien" 
+								placeholder="Precio por unidad" data-toggle="tooltip"
+								title="Indique el precio del bien"
 								class="form-control input-sm" v-model="record.value">
 					</div>
 				</div>
@@ -185,8 +196,8 @@
 				<div class="col-md-3" v-if="record.id == ''">
 					<div class="form-group is-required">
 						<label>Cantidad</label>
-						<input type="number" min="0" placeholder="Cantidad" data-toggle="tooltip" 
-							   title="Indique la cantidad del bien a registrar" 
+						<input type="number" min="0" placeholder="Cantidad" data-toggle="tooltip"
+							   title="Indique la cantidad del bien a registrar"
 							   class="form-control input-sm" v-model="record.quantity">
 					</div>
 				</div>
@@ -232,13 +243,13 @@
 					<div class="col-md-6">
 						<div class="form-group is-required">
 							<label>Dirección</label>
-							<textarea  data-toggle="tooltip" 
-									   title="Indique dirección física del bien" 
+							<textarea  data-toggle="tooltip"
+									   title="Indique dirección física del bien"
 									   class="form-control" v-model="record.address">
 						   </textarea>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -301,10 +312,11 @@
 
 				},
 				required: {},
-				
+
 				records: [],
 				errors: [],
 
+				institutions: [],
 				asset_types: [],
 				asset_categories: [],
 				asset_subcategories: [],
@@ -324,7 +336,7 @@
 			}
 		},
 		props: {
-			assetid: Number, 
+			assetid: Number,
 		},
 		methods: {
 			reset() {
@@ -356,7 +368,7 @@
 
 					specifications: '',
 					currency_id: '',
-					
+
 				};
 
 			},
@@ -455,7 +467,7 @@
 			getEstates() {
 				const vm = this;
 				vm.estates = [];
-				
+
 				if (vm.record.country_id) {
 					axios.get('/get-estates/' + this.record.country_id).then(response => {
 						vm.estates = response.data;
@@ -467,7 +479,7 @@
 					});
 				}
 			},
-			
+
 			/**
 			 * * Reescribe el método getMunicipalities para cambiar su comportamiento por defecto
 			 * Obtiene los Municipios del Estado seleccionado
@@ -488,7 +500,7 @@
 					});
 				}
 			},
-			
+
 			/**
 			 * Reescribe el método getParishes para cambiar su comportamiento por defecto
 			 * Obtiene las parroquias del municipio seleccionado
@@ -497,7 +509,7 @@
 			getParishes() {
 				const vm = this;
 				vm.parishes = [];
-				
+
 				if (this.record.municipality_id) {
 					axios.get('/get-parishes/' + this.record.municipality_id).then(response => {
 						vm.parishes = response.data;
@@ -512,7 +524,7 @@
 			getAssetRequired() {
 				const vm = this;
 				vm.required = {};
-				
+
 				if (vm.record.asset_specific_category_id) {
 					axios.get('/asset/get-required/' + this.record.asset_specific_category_id).then(response => {
 						vm.required = response.data.record;
@@ -521,6 +533,7 @@
 			},
 		},
 		created() {
+			this.getInstitutions();
 			this.getAssetAcquisitionTypes();
 			this.getAssetConditions();
 			this.getAssetStatus();

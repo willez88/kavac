@@ -1,7 +1,7 @@
 
 <template>																																		
 	<div class="col-md-12">
-		<hr>
+		
 		<v-client-table :columns="columns" :data="records" :options="table_options">
 			<div slot="id" slot-scope="props" class="text-center">
 				<button @click="acceptRequest(props.index)" 

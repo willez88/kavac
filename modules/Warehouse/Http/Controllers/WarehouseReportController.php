@@ -36,7 +36,7 @@ class WarehouseReportController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:asset.report.create', ['only' => 'create']);
+        $this->middleware('permission:warehouse.report.create', ['only' => 'create']);
     }
 
     /**

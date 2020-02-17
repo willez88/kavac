@@ -268,11 +268,24 @@ class CitizenServiceRequestController extends Controller
     {
         return response()->json(['records' => CitizenServiceRequest::where('state', 'Pendiente')->get()], 200);
     }
-
+    public function vueListClosing()
+    {
+        $citizenServiceRequest = CitizenServiceRequest::where('state', 'Iniciado')->get();
+        return response()->json(['records' => $citizenServiceRequest], 200);
+    }
+    public function vueClose($id)
+    {
+        $citizenServiceRequest = CitizenServiceRequest::find($id);
+        return response()->json(['record' => $citizenServiceRequest], 200);
+    }
+    public function vueCloseImageUpdate()
+    {
+        dd("entro");
+    }
     public function approved(Request $request, $id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
-        $citizenServiceRequest->state = 'Aprobado';
+        $citizenServiceRequest->state = 'Iniciado';
 
       
         $citizenServiceRequest->save();

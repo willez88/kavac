@@ -27,4 +27,9 @@ class Document extends Model implements Auditable
         'code', 'file', 'url', 'signs', 'archive_number', 'physical_support', 'digital_support_original',
         'digital_support_signed'
     ];
+
+    public function documentable()
+    {
+        return $this->morphTo();
+    }
 }

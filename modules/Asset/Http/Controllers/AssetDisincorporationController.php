@@ -13,6 +13,7 @@ use App\Models\CodeSetting;
 use Modules\Asset\Models\AssetDisincorporationAsset;
 use Modules\Asset\Models\AssetDisincorporation;
 use Modules\Asset\Models\Asset;
+use App\Models\Profile;
 
 /**
  * @class AssetDisincorporationController
@@ -248,8 +249,20 @@ class AssetDisincorporationController extends Controller
      */
     public function vueList()
     {
+        $user_profile = Profile::where('user_id', auth()->user()->id)->first();
+        $institution_id = isset($user_profile->institution_id)
+            ? $user_profile->institution_id
+            : null;
+
+        if (Auth()->user()->isAdmin()) {
+            $assetDisincorporations = AssetDisincorporation::with('assetDisincorporationMotive')->get();
+        } else {
+            $assetDisincorporations = AssetDisincorporation::where('institution_id', $institution_id)
+                ->with('assetDisincorporationMotive')->get();
+        }
+
         return response()->json(
-            ['records' => AssetDisincorporation::with('assetDisincorporationMotive')->get()],
+            ['records' => $assetDisincorporations],
             200
         );
     }
