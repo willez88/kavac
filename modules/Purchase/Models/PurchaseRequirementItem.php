@@ -55,4 +55,26 @@ class PurchaseRequirementItem extends Model implements Auditable
         // belongsTo(RelatedModel, foreignKey = measurementUnit_id, keyOnRelatedModel = id)
         return $this->belongsTo(MeasurementUnit::class);
     }
+
+    /**
+     * PurchaseRequirementItem has many PurchaseBaseBudget.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchaseBaseBudget()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseRequirementItem_id, localKey = id)
+        return $this->hasMany(PurchaseBaeBudget::class);
+    }
+
+    /**
+     * PurchaseRequirementItem has many PurchaseOrder.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchaseOrder()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseRequirementItem_id, localKey = id)
+        return $this->hasMany(PurchaseOrder::class);
+    }
 }

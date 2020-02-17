@@ -24,7 +24,7 @@ class PurchaseBaseBudget extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['currency_id','tax_id'];
+    protected $fillable = ['currency_id', 'tax_id', 'purchase_requirement_item_id','unit_price', 'purchase_requirement_id'];
 
     /**
      * PurchaseBaseBudget belongs to Currency.
@@ -56,5 +56,16 @@ class PurchaseBaseBudget extends Model implements Auditable
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
         return $this->hasMany(PurchaseRequirement::class);
+    }
+
+    /**
+     * PurchaseBaseBudget belongs to PurchaseRequirementItem.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseRequirementItem()
+    {
+        // belongsTo(RelatedModel, foreignKey = purchaseRequirementItem_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseRequirementItem::class);
     }
 }

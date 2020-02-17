@@ -50,20 +50,19 @@ class PurchaseManageBaseBudget implements ShouldQueue
     {
         $data = $this->data;
         if ($data['action'] == 'create') {
-            $baseBudget = PurchaseBaseBudget::create([
-                                                        'currency_id' => $data['currency_id'],
-                                                        'tax_id'      => $data['tax_id'],
-                                                    ]);
             foreach ($data['list'] as $requirement) {
                 $rq = PurchaseRequirement::find($requirement['id']);
                 $rq->requirement_status = 'PROCESSED';
-                $rq->purchase_base_budget_id = $baseBudget['id'];
                 $rq->save();
 
                 foreach ($requirement['purchase_requirement_items'] as $item) {
-                    $it = PurchaseRequirementItem::find($item['id']);
-                    $it['unit_price'] = $item['unit_price'];
-                    $it->save();
+                    $baseBudget = PurchaseBaseBudget::create([
+                        'currency_id'                  => $data['currency_id'],
+                        'tax_id'                       => $data['tax_id'],
+                        'unit_price'                   => $item['unit_price'],
+                        'purchase_requirement_id'      => $rq['id'],
+                        'purchase_requirement_item_id' => $item['id'],
+                    ]);
                 }
             }
         } elseif ($data['action'] == 'update') {
@@ -73,28 +72,33 @@ class PurchaseManageBaseBudget implements ShouldQueue
             $baseBudget->save();
 
             foreach ($data['list_to_delete'] as $requirement) {
+                // trae lista de requerimientos
+                
+                $records = PurchaseBaseBudget::where('purchase_requirement_id', $requirement['id'])
+                                            ->orderBy('id', 'ASC')->get();
+
+                foreach ($records as $record) {
+                    $record->delete();
+                }
+
                 $rq = PurchaseRequirement::find($requirement['id']);
                 $rq->requirement_status = 'WAIT';
-                $rq->purchase_base_budget_id = null;
                 $rq->save();
-
-                foreach ($requirement['purchase_requirement_items'] as $item) {
-                    $it = PurchaseRequirementItem::find($item['id']);
-                    $it['unit_price'] = null;
-                    $it->save();
-                }
             }
 
             foreach ($data['list'] as $requirement) {
                 $rq = PurchaseRequirement::find($requirement['id']);
                 $rq->requirement_status = 'PROCESSED';
-                $rq->purchase_base_budget_id = $baseBudget['id'];
                 $rq->save();
 
                 foreach ($requirement['purchase_requirement_items'] as $item) {
-                    $it = PurchaseRequirementItem::find($item['id']);
-                    $it['unit_price'] = $item['unit_price'];
-                    $it->save();
+                    $baseBudget = PurchaseBaseBudget::updateOrcreate([
+                        'currency_id'                  => $data['currency_id'],
+                        'tax_id'                       => $data['tax_id'],
+                        'unit_price'                   => $item['unit_price'],
+                        'purchase_requirement_id'      => $rq['id'],
+                        'purchase_requirement_item_id' => $item['id'],
+                    ], []);
                 }
             }
         }
