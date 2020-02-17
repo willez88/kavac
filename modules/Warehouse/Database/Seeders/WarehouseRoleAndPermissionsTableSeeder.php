@@ -175,6 +175,15 @@ class WarehouseRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'almacen.movement.eliminar',
                 'short_description' => 'eliminar movimiento de artículos de almacén'
             ],
+            /**
+             * Reportes de Bienes
+             */
+            [
+                'name' => 'Crear reporte de inventario', 'slug' => 'warehouse.report.create',
+                'description' => 'Acceso para crear reportes de inventario',
+                'model' => '', 'model_prefix' => 'almacen',
+                'slug_alt' => 'almacen.reporte.crear', 'short_description' => 'generar reporte de inventario'
+            ],
         ];
         
         $warehouseRole->detachAllPermissions();
