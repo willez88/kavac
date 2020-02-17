@@ -29,7 +29,7 @@ class AssetCreateAssets implements ShouldQueue
      */
     public $timeout = 0;
 
-    
+
     /**
      * Crea una nueva instancia del trabajo
      *
@@ -67,6 +67,7 @@ class AssetCreateAssets implements ShouldQueue
                 'model'                      => $this->data['model'],
                 'value'                      => $this->data['value'],
                 'currency_id'                => $this->data['currency_id'],
+                'institution_id'             => $this->data['institution_id'],
                 'asset_use_function_id'      => $this->data['asset_use_function_id'],
                 'parish_id'                  => $this->data['parish_id'],
                 'address'                    => $this->data['address'],

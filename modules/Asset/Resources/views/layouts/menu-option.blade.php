@@ -6,10 +6,12 @@
     </a>
     <ul class="submenu" style="{!! display_submenu('asset') !!}">
 
+         @role(['admin','asset'])
          <li class="{!! set_active_menu('asset.setting.index') !!}">
             <a href="{{ route('asset.setting.index') }}" data-toggle="tooltip" data-placement="right" 
                title="Configuración de bienes">Configuración</a>
         </li>
+        @endrole
         
         <li title="Gestión de registros de bienes institucionales" data-toggle="tooltip"
             data-placement="right"

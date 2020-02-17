@@ -4,7 +4,7 @@
 		   href="#" title="Registros de Tipos de Bienes" data-toggle="tooltip"
 		   @click="addRecord('add_type', 'types', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
-			<span>Tipos</span>
+			<span>Tipos<br>de Bienes</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_type">
 			<div class="modal-dialog vue-crud" role="document">

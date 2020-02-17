@@ -19,9 +19,14 @@
 @section('content')
 	<div class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card" id="helpCodeSettingForm">
 				<div class="card-header">
-					<h6 class="card-title">Formatos de Códigos</h6>
+					<h6 class="card-title">Formatos de Códigos
+			    @include('buttons.help', [
+					    'helpId' => 'AssetCodeSetting',
+					    'helpSteps' => get_json_resource('ui-guides/settings/code_setting.json', 'asset')
+			    ])
+					</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
@@ -37,7 +42,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-3">
+							<div class="col-md-3" id="helpCodeAsignation">
 								<div class="form-group">
 									{!! Form::label('asignation_code', 'Código de las asignaciones', []) !!}
 									{!! Form::text('asignations_code', ($asCode) ? $asCode->format_code : old('asignations_code'), [
@@ -48,7 +53,7 @@
 									]) !!}
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3" id="helpCodeDisincorporation">
 								<div class="form-group">
 									{!! Form::label('disincorporation_code', 'Código de las desincorporaciones', []) !!}
 									{!! Form::text('disincorporations_code', ($dsCode) ? $dsCode->format_code : old('disincorporations_code'), [
@@ -59,7 +64,7 @@
 									]) !!}
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3" id="helpCodeRequest">
 								<div class="form-group">
 									{!! Form::label('request_code', 'Código de las solicitudes', []) !!}
 									{!! Form::text('requests_code', ($rqCode) ? $rqCode->format_code : old('requests_code'), [
@@ -70,7 +75,7 @@
 									]) !!}
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3" id="helpCodeInventory">
 								<div class="form-group">
 									{!! Form::label('inventory_code', 'Código de los registros de inventario', []) !!}
 									{!! Form::text('inventories_code', ($ivCode) ? $ivCode->format_code : old('inventories_code'), [
@@ -81,7 +86,7 @@
 									]) !!}
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3" id="helpCodeReport">
 								<div class="form-group">
 									{!! Form::label('report_code', 'Código de los reportes', []) !!}
 									{!! Form::text('reports_code', ($rpCode) ? $rpCode->format_code : old('reports_code'), [
@@ -104,9 +109,13 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card" id="helpGeneralParamsForm">
 				<div class="card-header">
-					<h6 class="card-title">Parámetros Generales</h6>
+					<h6 class="card-title">Parámetros Generales
+					@include('buttons.help', [
+					    'helpId' => 'GeneralParams',
+							'helpSteps' => get_json_resource('ui-guides/settings/general_parameters.json', 'asset')
+					])</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
@@ -115,16 +124,16 @@
 				<div class="card-body">
 					<div class="row">
 						{{-- Configuración de la Condición Física de un Bien --}}
-						<asset-conditions></asset-conditions>
+						<asset-conditions id="helpAssetConditions"></asset-conditions>
 
 						{{-- Configuración del Status de Uso de un Bien --}}
-						<asset-status></asset-status>
+						<asset-status id="helpAssetStatus"></asset-status>
 
 						{{-- Configuración de la Función de Uso de un Bien --}}
-						<asset-use-functions></asset-use-functions>
+						<asset-use-functions id="helpAssetUseFunctions"></asset-use-functions>
 
 						{{-- Configuración del Tipo de Adquisición de un Bien --}}
-						<asset-acquisition-types></asset-acquisition-types>
+						<asset-acquisition-types id="helpAssetAcquisitionTypes"></asset-acquisition-types>
 
 					</div>
 				</div>
@@ -135,7 +144,12 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Parámetros Específicos del Clasificador de Bienes</h6>
+					<h6 class="card-title">Parámetros Específicos del Clasificador de Bienes
+						@include('buttons.help', [
+						    'helpId' => 'EspecificParams',
+								'helpSteps' => get_json_resource('ui-guides/settings/specific_parameters.json', 'asset')
+						])
+					</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
@@ -144,16 +158,16 @@
 				<div class="card-body">
 					<div class="row">
 						{{-- Configuración de Tipos de Bienes --}}
-						<asset-types></asset-types>
+						<asset-types id="helpAssetTypes"></asset-types>
 
 						{{-- Configuración de Categorías Generales de Bienes --}}
-						<asset-categories></asset-categories>
+						<asset-categories id="helpAssetCategories"></asset-categories>
 
 						{{-- Configuración de Subcategorías de Bienes --}}
-						<asset-subcategories></asset-subcategories>
+						<asset-subcategories id="helpAssetSubcategories"></asset-subcategories>
 
 						{{-- Configuración de Categorías Específicas de Bienes --}}
-						<asset-specific-categories></asset-specific-categories>
+						<asset-specific-categories id="helpAssetSpecificCategories"></asset-specific-categories>
 					</div>
 				</div>
 			</div>
