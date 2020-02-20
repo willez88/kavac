@@ -334,7 +334,7 @@
 					<div class="form-group">
 						<label>Institución</label>
 						<div class="col-12">
-							<input type="radio" name="type_institution" value="institution" id="sel_type_institution" 
+							<input type="checkbox" name="type_institution" value="institution" id="sel_type_institution" 
 								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_institution" 
 								   data-on-label="SI" data-off-label="NO">
 							<input type="hidden" v-model="record.type_institution">
@@ -502,7 +502,7 @@
 			}
 		},
 		methods: {
-			 loadForm(id){
+			loadForm(id){
 				const vm = this;
 	            
 	            axios.get('/citizenservice/requests/vue-info/'+id).then(response => {

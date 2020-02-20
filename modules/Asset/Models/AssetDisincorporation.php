@@ -37,7 +37,7 @@ class AssetDisincorporation extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['code', 'asset_disincorporation_motive_id', 'date', 'observation', 'user_id'];
+    protected $fillable = ['code', 'asset_disincorporation_motive_id', 'date', 'observation', 'user_id', 'institution_id'];
 
     /**
     * Método que obtiene los bienes desincorporados

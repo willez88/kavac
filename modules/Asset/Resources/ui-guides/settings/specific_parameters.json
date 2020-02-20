@@ -1,0 +1,18 @@
+[
+    {
+        "element" : "#helpAssetTypes",
+        "intro" : "Gestiona información acerca de los tipos de bienes institucionales"
+    },
+    {
+        "element" : "#helpAssetCategories",
+        "intro" : "Gestiona información acerca de las categorías de bienes institucionales"
+    },
+    {
+        "element" : "#helpAssetSubcategories",
+        "intro" : "Gestiona información acerca de las subcategorías de bienes institucionales"
+    },
+    {
+        "element" : "#helpAssetSpecificCategories",
+        "intro" : "Gestiona información acerca de las categorías específicas de bienes institucionales"
+    }
+]

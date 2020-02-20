@@ -11,12 +11,12 @@
         <i class="ion-ios-list-outline"></i><span>Almacén</span>
     </a>
     <ul class="submenu" style="{!! display_submenu('warehouse') !!}">
-        
+        @role(['admin','warehouse'])
         <li class="{!! set_active_menu('warehouse.setting.index') !!}" data-toggle="tooltip" data-placement="right" 
             title="Configuración de almacén">            
             <a href="{{ route('warehouse.setting.index') }}">Configuración</a>
         </li>
-
+        @endrole
         <li class="{!! set_active_menu(['warehouse.reception.index','warehouse.reception.create','warehouse.reception.edit']) !!}" data-toggle="tooltip" data-placement="right"
                 title="Gestión de las Recepciones o Ingresos de artículos al Almacén">
 

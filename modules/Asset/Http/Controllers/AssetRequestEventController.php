@@ -13,8 +13,7 @@ use Modules\Asset\Models\Asset;
 use App\Models\Document;
 use App\Repositories\UploadDocRepository;
 
-use Modules\TechnicalSupport\Models\TechnicalSupportRequestRepair;
-use Modules\TechnicalSupport\Models\TechnicalSupportRequestRepairAsset;
+use Modules\TechnicalSupport\Models\TechnicalSupportRequest;
 
 /**
  * @class AssetRequestEventController
@@ -79,23 +78,17 @@ class AssetRequestEventController extends Controller
             'description'      => $request->input('description'),
             'asset_request_id' => $request->input('asset_request_id')
         ]);
-        /** Si se selecciona la opción averiado */
-        if ($request->type == 1) {
-            $technicalSupportRequestRepair = TechnicalSupportRequestRepair::create([
-                'state'   => 'Pendiente',
-                'user_id' => Auth::id(),
-            ]);
-        };
-        
         foreach ($request->equipments as $equipment) {
             $asset = Asset::find($equipment);
             /** Si se selecciona la opción averiado */
             if ($request->type == 1) {
                 $asset->asset_condition_id = 4;
                 $asset->save();
-                $technicalSupportRequestRepairAsset = TechnicalSupportRequestRepairAsset::create([
-                    'asset_id'                            => $asset->id,
-                    'technical_support_request_repair_id' => $technicalSupportRequestRepair->id,
+                $technicalSupportRequest = TechnicalSupportRequest::create([
+                    'state'       => 'Pendiente',
+                    'description' => $request->input('description'),
+                    'user_id'     => Auth::id(),
+                    'asset_id'    => $asset->id,
                 ]);
             }
             /** Falta agregar para el caso de perdido */

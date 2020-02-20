@@ -1,0 +1,18 @@
+[
+    {
+        "element" : "#helpAssetConditions",
+        "intro" : "Gestiona información acerca de las condiciones físicas de los bienes institucionales"
+    },
+    {
+        "element" : "#helpAssetStatus",
+        "intro" : "Gestiona información acerca de los estatus de uso de los bienes institucionales"
+    },
+    {
+        "element" : "#helpAssetUseFunctions",
+        "intro" : "Gestiona información acerca de las funciones de uso de los bienes institucionales"
+    },
+    {
+        "element" : "#helpAssetAcquisitionTypes",
+        "intro" : "Gestiona información acerca de los tipos de adquisición de los bienes institucionales"
+    }
+]

@@ -16,6 +16,8 @@ use Modules\Asset\Models\AssetAsignation;
 use Modules\Asset\Models\AssetDisincorporation;
 use Modules\Asset\Models\AssetRequiredItem;
 use Modules\Asset\Models\Asset;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Profile;
 
 /**
  * @class AssetController
@@ -92,6 +94,7 @@ class AssetController extends Controller
                 'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
                 'quantity' => ['regex:/^[1-9][0-9]*$/'],
                 'currency_id' => ['required'],
+                'institution_id' => ['required'],
 
                 'serial' => new RequiredItem($item_required->serial),
                 'marca'  => new RequiredItem($item_required->marca),
@@ -113,11 +116,12 @@ class AssetController extends Controller
                 'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
                 'quantity' => ['required', 'regex:/^[1-9][0-9]*$/'],
                 'currency_id' => ['required'],
-                
+                'institution_id' => ['required'],
+
             ]);
         }
         AssetCreateAssets::dispatch($request->all());
-        
+
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('asset.register.index')], 200);
     }
@@ -158,8 +162,9 @@ class AssetController extends Controller
             'asset_condition_id' => ['required'],
             'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
             'currency_id' => ['required'],
+            'institution_id' => ['required'],
         ]);
-        
+
         if ($request->asset_type_id == 1) {
             $this->validate($request, [
                 'serial' => ['required', 'max:50'],
@@ -188,11 +193,12 @@ class AssetController extends Controller
         $asset->model = $request->model;
         $asset->value = $request->value;
         $asset->currency_id = $request->currency_id;
+        $asset->institution_id = $request->institution_id;
         $asset->asset_use_function_id = $request->asset_use_function_id;
         $asset->parish_id = $request->parish_id;
         $asset->address = $request->address;
         $asset->asset_status_id = $request->asset_status_id;
-        
+
         $asset->save();
 
         $request->session()->flash('message', ['type' => 'update']);
@@ -231,6 +237,7 @@ class AssetController extends Controller
                 'assetCondition',
                 'assetStatus',
                 'assetUseFunction',
+                'institution',
                 'parish' => function ($query) {
                     $query->with(['municipality' => function ($query) {
                         $query->with(['estate' => function ($query) {
@@ -252,18 +259,51 @@ class AssetController extends Controller
      */
     public function vueList($perPage = 10, $page = 1, $operation = null, $operation_id = null)
     {
+        $user_profile = Profile::where('user_id', auth()->user()->id)->first();
+        $institution_id = isset($user_profile->institution_id)
+            ? $user_profile->institution_id
+            : null;
+
         if ($operation == null) {
-            $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id');
+            if (Auth()->user()->isAdmin()) {
+                $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id');
+            } else {
+                $assets = Asset::where('institution_id', $institution_id)
+                ->with([
+                    'institution',
+                    'assetCondition',
+                    'assetStatus'
+                ])->orderBy('id');
+            }
+            
         } elseif ($operation_id == null) {
             if ($operation == 'asignations') {
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->where('asset_condition_id', 1)->where('asset_status_id', 10);
+                if (Auth()->user()->isAdmin()) {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->where('asset_condition_id', 1)->where('asset_status_id', 10);
+                } else {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->where('institution_id', $institution_id)
+                        ->where('asset_condition_id', 1)->where('asset_status_id', 10);
+                }
             } elseif ($operation == 'disincorporations') {
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->where('asset_status_id', 10);
+                if (Auth()->user()->isAdmin()) {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->where('asset_status_id', 10);
+                } else {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->where('institution_id', $institution_id)
+                        ->where('asset_status_id', 10);
+                }
             } elseif ($operation == 'requests') {
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->where('asset_status_id', 10);
+                if (Auth()->user()->isAdmin()) {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->where('asset_status_id', 10);
+                } else {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->where('institution_id', $institution_id)
+                        ->where('asset_status_id', 10);
+                }
             }
         } else {
             if ($operation == 'asignations') {
@@ -272,10 +312,18 @@ class AssetController extends Controller
                 foreach ($assetAsignationAssets as $assetAsignationAsset) {
                     array_push($selected, $assetAsignationAsset->asset_id);
                 }
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->whereIn('id', $selected)
-                    ->orWhere('asset_status_id', 10)
-                    ->where('asset_condition_id', 1);
+                if (Auth()->user()->isAdmin()) {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->whereIn('id', $selected)
+                        ->orWhere('asset_status_id', 10)
+                        ->where('asset_condition_id', 1);
+                } else {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->whereIn('id', $selected)
+                        ->orWhere('asset_status_id', 10)
+                        ->where('asset_condition_id', 1)
+                        ->where('institution_id', $institution_id);
+                }
             } elseif ($operation == 'disincorporations') {
                 $selected = [];
                 $assetDisincorporationAssets = AssetDisincorporation::find($operation_id)
@@ -283,18 +331,32 @@ class AssetController extends Controller
                 foreach ($assetDisincorporationAssets as $assetDisincorporationAsset) {
                     array_push($selected, $assetDisincorporationAsset->asset_id);
                 }
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->whereIn('id', $selected)
-                    ->orWhere('asset_status_id', 10);
+                if (Auth()->user()->isAdmin()) {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->whereIn('id', $selected)
+                        ->orWhere('asset_status_id', 10);
+                } else {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->whereIn('id', $selected)
+                        ->orWhere('asset_status_id', 10)
+                        ->where('institution_id', $institution_id);
+                }
             } elseif ($operation == 'requests') {
                 $selected = [];
                 $assetRequestAssets = AssetRequest::find($operation_id)->assetRequestAssets()->get();
                 foreach ($assetRequestAssets as $assetRequestAsset) {
                     array_push($selected, $assetRequestAsset->asset_id);
                 }
-                $assets = Asset::with('assetCondition', 'assetStatus')->orderBy('id')
-                    ->whereIn('id', $selected)
-                    ->orWhere('asset_status_id', 10);
+                if (Auth()->user()->isAdmin()) {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->whereIn('id', $selected)
+                        ->orWhere('asset_status_id', 10);
+                } else {
+                    $assets = Asset::with('institution', 'assetCondition', 'assetStatus')->orderBy('id')
+                        ->whereIn('id', $selected)
+                        ->orWhere('asset_status_id', 10)
+                        ->where('institution_id', $institution_id);
+                }
             }
         }
         $total = $assets->count();
@@ -324,7 +386,7 @@ class AssetController extends Controller
             $request->asset_category,
             $request->asset_subcategory,
             $request->asset_specific_category
-        )->with('assetCondition', 'assetStatus')->get();
+        )->with('institution', 'assetCondition', 'assetStatus')->get();
 
         return response()->json(['records' => $assets], 200);
     }
@@ -339,8 +401,8 @@ class AssetController extends Controller
     public function searchGeneral(Request $request)
     {
         $assets = Asset::DateClasification($request->start_date, $request->end_date, $request->mes_id, $request->year)
-            ->with('assetCondition', 'assetStatus')->get();
-        
+            ->with('institution', 'assetCondition', 'assetStatus')->get();
+
         return response()->json(['records' => $assets], 200);
     }
 

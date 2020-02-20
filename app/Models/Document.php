@@ -29,7 +29,7 @@ class Document extends Model implements Auditable
     ];
 
     /**
-     * Cocument morphs to models in documentable_type.
+     * Document morphs to models in documentable_type
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo

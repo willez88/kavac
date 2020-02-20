@@ -11,5 +11,8 @@
         <li class="{!! set_active_menu(['citizenservice.request.index']) !!}">
              <a href="{{ route('citizenservice.request.index') }}">Solicitudes</a>
         </li>
+         <li class="{!! set_active_menu(['citizenservice.report.index']) !!}">
+             <a href="{{ route('citizenservice.report.index') }}">Reportes</a>
+        </li>
     </ul>
 </li>

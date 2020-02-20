@@ -9,11 +9,14 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CodeSetting;
+use Session;
 
 use Modules\Asset\Models\AssetRequestDelivery;
+use Modules\Asset\Models\AssetRequestExtension;
 use Modules\Asset\Models\AssetRequestAsset;
 use Modules\Asset\Models\AssetRequest;
 use Modules\Asset\Models\Asset;
+use App\Models\Profile;
 
 /**
  * @class AssetRequestController
@@ -240,8 +243,17 @@ class AssetRequestController extends Controller
      */
     public function destroy(AssetRequest $request)
     {
+        $assetRequestExtensions = AssetRequestExtension::where('asset_request_id', $request->id)->get();
+        foreach ($assetRequestExtensions as $assetRequestExtension) {
+            $assetRequestExtension->delete();
+        }
+        $assetRequestDeliveries = AssetRequestDelivery::where('asset_request_id', $request->id)->get();
+        foreach ($assetRequestDeliveries as $assetRequestDelivery) {
+            $assetRequestDelivery->delete();
+        }
         $request->delete();
-        return response()->json(['message' => 'destroy'], 200);
+        Session()->flash('message', ['type' => 'destroy']);
+        return response()->json(['redirect' => route('asset.request.index')], 200);
     }
 
     /**
@@ -252,7 +264,18 @@ class AssetRequestController extends Controller
      */
     public function vueList()
     {
-        return response()->json(['records' => AssetRequest::all()], 200);
+        $user_profile = Profile::where('user_id', auth()->user()->id)->first();
+        $institution_id = isset($user_profile->institution_id)
+            ? $user_profile->institution_id
+            : null;
+
+        if (Auth()->user()->isAdmin()) {
+            $assetRequests = AssetRequest::all();
+        } else {
+            $assetRequests = AssetRequest::where('institution_id', $institution_id)->get();
+        }
+
+        return response()->json(['records' => $assetRequests ], 200);
     }
 
     /**
@@ -263,7 +286,20 @@ class AssetRequestController extends Controller
      */
     public function vuePendingList()
     {
-        return response()->json(['records' => AssetRequest::with('user')->where('state', 'Pendiente')->get()], 200);
+        $user_profile = Profile::where('user_id', auth()->user()->id)->first();
+        $institution_id = isset($user_profile->institution_id)
+            ? $user_profile->institution_id
+            : null;
+
+        if (Auth()->user()->isAdmin()) {
+            $assetRequests = AssetRequest::with('user')->where('state', 'Pendiente')->get();
+        } else {
+            $assetRequests = AssetRequest::with('user')
+                ->where('institution_id', $institution_id)
+                ->where('state', 'Pendiente')->get();
+        }
+
+        return response()->json(['records' => $assetRequests ], 200);
     }
 
     /**

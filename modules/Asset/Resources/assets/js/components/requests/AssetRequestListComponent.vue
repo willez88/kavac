@@ -121,7 +121,59 @@
 						}
 					}
 				});
-			}
+			},
+			/**
+			 * Reescribe el método deleteRecord para cambiar su comportamiento por defecto
+	         * Método para la eliminación de registros
+	         *
+	         * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+	         *
+	         * @param  {integer} index Elemento seleccionado para su eliminación
+	         * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
+	         */
+	        deleteRecord(index, url) {
+	            var url = (url)?url:this.route_delete;
+	            var records = this.records;
+	            var confirmated = false;
+	            var index = index - 1;
+	            const vm = this;
+
+	            bootbox.confirm({
+	                title: "Eliminar registro?",
+	                message: "Esta seguro de eliminar este registro?",
+	                buttons: {
+	                    cancel: {
+	                        label: '<i class="fa fa-times"></i> Cancelar'
+	                    },
+	                    confirm: {
+	                        label: '<i class="fa fa-check"></i> Confirmar'
+	                    }
+	                },
+	                callback: function (result) {
+	                    if (result) {
+	                        confirmated = true;
+	                        axios.delete(url + '/' + records[index].id).then(response => {
+	                            if (typeof(response.data.error) !== "undefined") {
+	                                /** Muestra un mensaje de error si sucede algún evento en la eliminación */
+	                                vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
+	                                return false;
+	                            }
+	                            if (typeof(response.data.redirect) !== "undefined") {
+									location.href = response.data.redirect;
+								}
+	                        }).catch(error => {
+	                            vm.logs('mixins.js', 498, error, 'deleteRecord');
+	                        });
+	                    }
+	                }
+	            });
+
+	            if (confirmated) {
+	                if (typeof(response.data.redirect) !== "undefined") {
+						location.href = response.data.redirect;
+					}
+	            }
+	        },
 
 		}
 	}

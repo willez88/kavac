@@ -38,7 +38,7 @@ class WarehouseRequest extends Model implements Auditable
      */
     protected $fillable = [
         'code', 'state', 'observations', 'delivered', 'delivery_date', 'motive',
-        'budget_specific_action_id', 'department_id', 'payroll_staff_id'
+        'budget_specific_action_id', 'department_id', 'payroll_staff_id', 'institution_id'
     ];
 
     /**
