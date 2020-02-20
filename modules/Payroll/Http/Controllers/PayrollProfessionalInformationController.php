@@ -137,12 +137,12 @@ class PayrollProfessionalInformationController extends Controller
         }
         $payrollProfessionalInformation->save();
 
-        //return response()->json(['result' => true, 'hola' => $request->acknowledgment], 200);
+        /*return response()->json(['result' => true, 'hola' => $request->acknowledgment], 200);
         if ($upDoc->uploadDoc($request->file('acknowledgment'), 'documents')) {
             $doc_id = $upDoc->getDocStored()->id;
             $doc_url = $upDoc->getDocStored()->url;
             //return response()->json(['result' => true, 'doc_id' => $doc_id, 'doc_url' => $doc_url], 200);
-        }
+        }*/
 
         if ($request->payroll_instruction_degree_id == $payrollInstructionDegree1 ||
             $request->payroll_instruction_degree_id == $payrollInstructionDegree2

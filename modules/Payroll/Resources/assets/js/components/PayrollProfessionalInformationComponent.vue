@@ -268,7 +268,7 @@
 			processFiles() {
                 const vm = this;
                 var inputFile = document.querySelector('#acknowledgment');
-                //formData.append("acknowledgment", inputFile.files[0]);
+                //formData.append("acknowledgment", inputFile.files);
 				vm.record.acknowledgment = inputFile.files;
 				console.log(vm.record.acknowledgment);
                 /*axios.post('/payroll/professional-informations/document-save', formData, {
