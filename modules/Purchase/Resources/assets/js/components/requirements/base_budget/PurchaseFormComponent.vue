@@ -249,7 +249,6 @@
                             'currency_id':this.currency_id,
                             'tax_id':this.record_tax.id,
                         }).then(response=>{
-                        console.log('creo')
                         this.loading = false;
                         this.showMessage('store');
                         setTimeout(function() {
@@ -279,7 +278,6 @@
                             'currency_id':this.currency_id,
                             'tax_id':this.record_tax.id,
                         }).then(response=>{
-                            console.log('edito')
                         this.loading = false;
                         this.showMessage('update');
                         setTimeout(function() {

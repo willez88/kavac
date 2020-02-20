@@ -8,6 +8,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
+use Modules\Purchase\Models\Pivot\PurchasePivotModelsToRequirementItem;
+
 class PurchaseBaseBudget extends Model implements Auditable
 {
     use SoftDeletes;
@@ -24,7 +26,7 @@ class PurchaseBaseBudget extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['currency_id', 'tax_id', 'purchase_requirement_item_id','unit_price', 'purchase_requirement_id'];
+    protected $fillable = ['currency_id', 'tax_id'];
 
     /**
      * PurchaseBaseBudget belongs to Currency.
@@ -59,13 +61,13 @@ class PurchaseBaseBudget extends Model implements Auditable
     }
 
     /**
-     * PurchaseBaseBudget belongs to PurchaseRequirementItem.
+     * PurchaseBaseBudget morphs many PurchasePivotModelsToRequirementItem.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function purchaseRequirementItem()
+    public function relatable()
     {
-        // belongsTo(RelatedModel, foreignKey = purchaseRequirementItem_id, keyOnRelatedModel = id)
-        return $this->belongsTo(PurchaseRequirementItem::class);
+        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+        return $this->morphMany(PurchasePivotModelsToRequirementItem::class, 'relatable');
     }
 }

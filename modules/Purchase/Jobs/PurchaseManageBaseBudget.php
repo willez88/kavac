@@ -12,6 +12,8 @@ use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
 
+use Modules\Purchase\Models\Pivot\PurchasePivotModelsToRequirementItem;
+
 class PurchaseManageBaseBudget implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;

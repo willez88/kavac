@@ -28,6 +28,21 @@ class PurchaseBaseBudgetController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     * @return Response
+     */
+    public function index()
+    {
+        $records = PurchaseRequirement::with(
+            'PurchaseBaseBudget.currency',
+            'purchaseRequirementItems'
+        )->where('requirement_status', 'PROCESSED')->orderBy('created_at', 'DESC')->get();
+
+        $baseBudget = PurchaseBaseBudget::with('currency')->orderBy('id', 'ASC')->get();
+        return response()->json(['records' => $baseBudget, 'message'=>'success'], 200);
+    }
+
+    /**
      * Show the form for creating a new resource.
      * @return Response
      */

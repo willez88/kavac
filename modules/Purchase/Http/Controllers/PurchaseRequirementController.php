@@ -69,9 +69,7 @@ class PurchaseRequirementController extends Controller
             'purchaseSupplierType',
             'fiscalYear'
         )->orderBy('code', 'ASC')->get();
-
-        $baseBudget = PurchaseBaseBudget::with('currency')->orderBy('id', 'ASC')->get();
-        return view('purchase::requirements.index', ['requirements' => $requirements, 'baseBudget' => $baseBudget]);
+        return view('purchase::requirements.index', ['requirements' => $requirements]);
     }
 
     /**

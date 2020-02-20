@@ -29,14 +29,6 @@
 </template>
 <script>
     export default{
-        props:{
-            record_list:{
-                type:Array,
-                default: function() {
-                    return [];
-                }
-            },
-        },
         data(){
             return {
                 records:[],
@@ -50,7 +42,7 @@
         created(){
             this.table_options.headings = {
                 'created_at': 'Fecha',
-                'currency.name': 'Tipo de moneda',
+                'Purchase_base_budget.currency.name': 'Tipo de moneda',
                 'id': 'ACCIÓN'
             };
             this.table_options.columnsClasses = {
@@ -60,7 +52,10 @@
             };
         },
         mounted(){
-            this.records = this.record_list;
+            axios.get('/purchase/base_budget').then(response => {
+                this.records = response.data.records;
+                console.log(this.records)
+            });
         }
     };
 </script>
