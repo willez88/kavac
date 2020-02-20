@@ -421,5 +421,17 @@ Vue.mixin({
 				this.payroll_blood_types = response.data;
 			});
 		},
+
+		/**
+		 * Obtiene los datos de roles registrados
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve>
+		 */
+		 getPayrollRoles() {
+			this.payroll_roles = [];
+			axios.get('/payroll/get-roles').then(response => {
+				this.payroll_roles = response.data;
+			});
+		},
 	},
 });

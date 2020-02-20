@@ -28,6 +28,12 @@ class Document extends Model implements Auditable
         'digital_support_signed'
     ];
 
+    /**
+     * Document morphs to models in documentable_type
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
     public function documentable()
     {
         return $this->morphTo();

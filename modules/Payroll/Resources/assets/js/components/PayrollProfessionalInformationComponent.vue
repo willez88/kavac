@@ -153,7 +153,7 @@
 									Reconocimientos:
 	                            </label>
 								<input id="acknowledgment" name="acknowledgment" type="file"
-									accept=".png, .jpg, .pdf, .odt" multiple>
+									accept=".png, .jpg, .pdf, .odt" @change="processFiles" multiple>
 							</div>
 						</div>
 					</div>
@@ -196,6 +196,7 @@
 					class_schedule: '',
 					professions: [],
 					language_details: [],
+					acknowledgment: '',
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -263,6 +264,35 @@
 					payroll_language_level_id: '',
 				});
 			},
+
+			processFiles() {
+                const vm = this;
+                var inputFile = document.querySelector('#acknowledgment');
+                //formData.append("acknowledgment", inputFile.files);
+				vm.record.acknowledgment = inputFile.files;
+				console.log(vm.record.acknowledgment);
+                /*axios.post('/payroll/professional-informations/document-save', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(response => {
+                	console.log(response.data.image_id);
+                	console.log(response.data.image_url);
+                    vm.showMessage(
+	                    'custom', 'Éxito', 'success', 'screen-ok',
+	                    'Documento cargado de manera existosa.'
+	                );
+                }).catch(error => {
+                    vm.errors = [];
+                    if (typeof(error.response) !="undefined") {
+                        for (var index in error.response.data.errors) {
+                            if (error.response.data.errors[index]) {
+                                vm.errors.push(error.response.data.errors[index][0]);
+                            }
+                        }
+                    }
+                });*/
+			}
 		},
 		created() {
 			this.record.language_details = [];

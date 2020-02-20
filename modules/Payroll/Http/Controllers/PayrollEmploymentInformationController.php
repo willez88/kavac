@@ -73,13 +73,13 @@ class PayrollEmploymentInformationController extends Controller
     {
         $this->validate($request, [
             'payroll_staff_id' => ['required', 'unique:payroll_employment_informations,payroll_staff_id'],
-            'start_date_apn' => ['required', 'date'],
-            'start_date' => ['required', 'date'],
+            'start_date_apn' => ['required', 'date', 'before_or_equal:start_date', 'before_or_equal:end_date'],
+            'start_date' => ['required', 'date', 'before_or_equal:end_date'],
             'end_date' => ['nullable', 'date'],
-            'payroll_inactivity_type_id' => ['nullable'],
             'institution_email' => ['email', 'nullable', 'unique:payroll_employment_informations,institution_email'],
             'function_description' => ['nullable'],
             'payroll_position_type_id' => ['required'],
+            'payroll_role_id' => ['required'],
             'payroll_position_id' => ['required'],
             'payroll_staff_type_id' => ['required'],
             'institution_id' => ['required'],
@@ -96,12 +96,17 @@ class PayrollEmploymentInformationController extends Controller
         if ($payrollEmploymentInformation->active) {
             $payrollEmploymentInformation->payroll_inactivity_type_id = null;
         } else {
+            $this->validate($request, [
+                'payroll_inactivity_type_id' => ['required']
+            ]);
+            $payrollEmploymentInformation->active = false;
             $payrollEmploymentInformation->payroll_inactivity_type_id = $request->payroll_inactivity_type_id;
         }
 
         $payrollEmploymentInformation->institution_email = $request->institution_email;
         $payrollEmploymentInformation->function_description = $request->function_description;
         $payrollEmploymentInformation->payroll_position_type_id = $request->payroll_position_type_id;
+        $payrollEmploymentInformation->payroll_role_id = $request->payroll_role_id;
         $payrollEmploymentInformation->payroll_position_id = $request->payroll_position_id;
         $payrollEmploymentInformation->payroll_staff_type_id = $request->payroll_staff_type_id;
         $payrollEmploymentInformation->department_id = $request->department_id;
@@ -130,8 +135,8 @@ class PayrollEmploymentInformationController extends Controller
     public function show($id)
     {
         $payrollEmploymentInformation = PayrollEmploymentInformation::where('id', $id)->with([
-            'payrollStaff', 'payrollInactivityType', 'payrollPositionType', 'payrollPosition',
-            'payrollStaffType', 'department', 'payrollContractType'
+            'payrollStaff', 'payrollInactivityType', 'payrollPositionType', 'payrollRole',
+            'payrollPosition', 'payrollStaffType', 'department', 'payrollContractType'
         ])->first();
         return response()->json(['record' => $payrollEmploymentInformation], 200);
     }
@@ -165,16 +170,16 @@ class PayrollEmploymentInformationController extends Controller
                 'required',
                 'unique:payroll_employment_informations,payroll_staff_id,'.$payrollEmploymentInformation->id
             ],
-            'start_date_apn' => ['required', 'date'],
-            'start_date' => ['required', 'date'],
+            'start_date_apn' => ['required', 'date', 'before_or_equal:start_date', 'before_or_equal:end_date'],
+            'start_date' => ['required', 'date', 'before_or_equal:end_date'],
             'end_date' => ['nullable', 'date'],
-            'payroll_inactivity_type_id' => ['nullable'],
             'institution_email' => [
                 'email','nullable',
                 'unique:payroll_employment_informations,institution_email,'.$payrollEmploymentInformation->id
             ],
             'function_description' => ['nullable'],
             'payroll_position_type_id' => ['required'],
+            'payroll_role_id' => ['required'],
             'payroll_position_id' => ['required'],
             'payroll_staff_type_id' => ['required'],
             'institution_id' => ['required'],
@@ -190,6 +195,10 @@ class PayrollEmploymentInformationController extends Controller
         if ($payrollEmploymentInformation->active) {
             $payrollEmploymentInformation->payroll_inactivity_type_id = null;
         } else {
+            $this->validate($request, [
+                'payroll_inactivity_type_id' => ['required']
+            ]);
+            $payrollEmploymentInformation->active = false;
             $payrollEmploymentInformation->payroll_inactivity_type_id = $request->payroll_inactivity_type_id;
         }
 
@@ -198,6 +207,7 @@ class PayrollEmploymentInformationController extends Controller
         $payrollEmploymentInformation->payroll_position_type_id = $request->payroll_position_type_id;
         $payrollEmploymentInformation->payroll_position_id = $request->payroll_position_id;
         $payrollEmploymentInformation->payroll_staff_type_id = $request->payroll_staff_type_id;
+        $payrollEmploymentInformation->payroll_role_id = $request->payroll_role_id;
         //$payrollEmploymentInformation->institution_id = $request->institution_id;
         $payrollEmploymentInformation->department_id = $request->department_id;
         $payrollEmploymentInformation->payroll_contract_type_id = $request->payroll_contract_type_id;
@@ -229,8 +239,8 @@ class PayrollEmploymentInformationController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollEmploymentInformation::with([
-            'payrollStaff', 'payrollInactivityType', 'payrollPositionType', 'payrollPosition',
-            'payrollStaffType', 'department', 'payrollContractType'
+            'payrollStaff', 'payrollInactivityType', 'payrollPositionType', 'payrollRole',
+            'payrollPosition', 'payrollStaffType', 'department', 'payrollContractType'
         ])->get()], 200);
     }
 }
