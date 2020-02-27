@@ -30,11 +30,14 @@ class PurchaseRequirement extends Model implements Auditable
      */
     protected $dates = ['deleted_at'];
 
+
     protected $fillable = [
         'code', 'description', 'fiscal_year_id', 'contracting_department_id', 'user_department_id',
         'purchase_supplier_type_id', 'requirement_status', 'purchase_base_budget_id', 'purchase_order_id'
     ];
 
+    protected $with = ['contratingDepartment','userDepartment','purchaseSupplierType','fiscalYear'];
+    
     /**
      * PurchaseRequirement belongs to FiscalYear.
      *

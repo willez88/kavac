@@ -42,7 +42,7 @@
         created(){
             this.table_options.headings = {
                 'created_at': 'Fecha',
-                'Purchase_base_budget.currency.name': 'Tipo de moneda',
+                'currency.name': 'Tipo de moneda',
                 'id': 'ACCIÓN'
             };
             this.table_options.columnsClasses = {
@@ -54,7 +54,6 @@
         mounted(){
             axios.get('/purchase/base_budget').then(response => {
                 this.records = response.data.records;
-                console.log(this.records)
             });
         }
     };

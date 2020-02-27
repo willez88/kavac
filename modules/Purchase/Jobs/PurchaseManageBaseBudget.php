@@ -12,7 +12,7 @@ use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
 
-use Modules\Purchase\Models\Pivot\PurchasePivotModelsToRequirementItem;
+use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 
 class PurchaseManageBaseBudget implements ShouldQueue
 {
@@ -52,18 +52,22 @@ class PurchaseManageBaseBudget implements ShouldQueue
     {
         $data = $this->data;
         if ($data['action'] == 'create') {
+            $baseBudget = PurchaseBaseBudget::create([
+                'currency_id' => $data['currency_id'],
+                'tax_id'      => $data['tax_id'],
+            ]);
             foreach ($data['list'] as $requirement) {
                 $rq = PurchaseRequirement::find($requirement['id']);
                 $rq->requirement_status = 'PROCESSED';
+                $rq->purchase_base_budget_id = $baseBudget['id'];
                 $rq->save();
 
                 foreach ($requirement['purchase_requirement_items'] as $item) {
-                    $baseBudget = PurchaseBaseBudget::create([
-                        'currency_id'                  => $data['currency_id'],
-                        'tax_id'                       => $data['tax_id'],
-                        'unit_price'                   => $item['unit_price'],
-                        'purchase_requirement_id'      => $rq['id'],
+                    PurchasePivotModelsToRequirementItem::create([
                         'purchase_requirement_item_id' => $item['id'],
+                        'relatable_type'               => PurchaseBaseBudget::class,
+                        'relatable_id'                 => $baseBudget['id'],
+                        'unit_price'                   => $item['unit_price']
                     ]);
                 }
             }
@@ -74,33 +78,34 @@ class PurchaseManageBaseBudget implements ShouldQueue
             $baseBudget->save();
 
             foreach ($data['list_to_delete'] as $requirement) {
-                // trae lista de requerimientos
-                
-                $records = PurchaseBaseBudget::where('purchase_requirement_id', $requirement['id'])
-                                            ->orderBy('id', 'ASC')->get();
-
-                foreach ($records as $record) {
-                    $record->delete();
-                }
-
+                // trae requerimiento
                 $rq = PurchaseRequirement::find($requirement['id']);
-                $rq->requirement_status = 'WAIT';
-                $rq->save();
+
+                if ($rq) {
+                    $rq->requirement_status = 'WAIT';
+                    $rq->purchase_base_budget_id = null;
+                    $rq->save();
+                }
             }
 
             foreach ($data['list'] as $requirement) {
                 $rq = PurchaseRequirement::find($requirement['id']);
                 $rq->requirement_status = 'PROCESSED';
+                $rq->purchase_base_budget_id = $baseBudget['id'];
                 $rq->save();
 
+                $baseBudget = PurchaseBaseBudget::updateOrcreate([
+                    'currency_id' => $data['currency_id'],
+                    'tax_id'      => $data['tax_id'],
+                ], []);
                 foreach ($requirement['purchase_requirement_items'] as $item) {
-                    $baseBudget = PurchaseBaseBudget::updateOrcreate([
-                        'currency_id'                  => $data['currency_id'],
-                        'tax_id'                       => $data['tax_id'],
-                        'unit_price'                   => $item['unit_price'],
-                        'purchase_requirement_id'      => $rq['id'],
+                    PurchasePivotModelsToRequirementItem::updateOrcreate([
                         'purchase_requirement_item_id' => $item['id'],
-                    ], []);
+                        'relatable_type'               => PurchaseBaseBudget::class,
+                        'relatable_id'                 => $baseBudget['id'],
+                    ], [
+                        'unit_price'                   => $item['unit_price']
+                    ]);
                 }
             }
         }

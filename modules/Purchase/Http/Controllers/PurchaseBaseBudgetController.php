@@ -33,13 +33,14 @@ class PurchaseBaseBudgetController extends Controller
      */
     public function index()
     {
-        $records = PurchaseRequirement::with(
-            'PurchaseBaseBudget.currency',
-            'purchaseRequirementItems'
-        )->where('requirement_status', 'PROCESSED')->orderBy('created_at', 'DESC')->get();
-
-        $baseBudget = PurchaseBaseBudget::with('currency')->orderBy('id', 'ASC')->get();
-        return response()->json(['records' => $baseBudget, 'message'=>'success'], 200);
+        return response()->json([
+            'records' => PurchaseBaseBudget::with(
+                'currency',
+                'purchaseRequirement',
+                'relatable.purchaseRequirementItem.purchaseRequirement'
+            )->orderBy('id', 'ASC')->get(),
+            'message'=>'success'
+        ], 200);
     }
 
     /**
@@ -101,11 +102,8 @@ class PurchaseBaseBudgetController extends Controller
         return response()->json(['records' => PurchaseBaseBudget::with(
             'currency',
             'tax.histories',
-            'purchaseRequirement.contratingDepartment',
-            'purchaseRequirement.userDepartment',
-            'purchaseRequirement.purchaseSupplierType',
-            'purchaseRequirement.fiscalYear',
-            'purchaseRequirement.purchaseRequirementItems.measurementUnit',
+            'purchaseRequirement',
+            'relatable.purchaseRequirementItem.purchaseRequirement',
         )->find($id)], 200);
     }
 
@@ -117,11 +115,8 @@ class PurchaseBaseBudgetController extends Controller
     {
         $baseBudget = PurchaseBaseBudget::with(
             'tax.histories',
-            'purchaseRequirement.contratingDepartment',
-            'purchaseRequirement.userDepartment',
-            'purchaseRequirement.purchaseSupplierType',
-            'purchaseRequirement.fiscalYear',
-            'purchaseRequirement.purchaseRequirementItems.measurementUnit',
+            'purchaseRequirement',
+            'purchaseRequirement.purchaseRequirementItems',
         )->find($id);
 
         $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {

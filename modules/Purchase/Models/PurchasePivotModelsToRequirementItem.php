@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Purchase\Models\Pivot;
+namespace Modules\Purchase\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,7 +25,9 @@ class PurchasePivotModelsToRequirementItem extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [ 'purchase_requirement_item_id',
-                            'unit_price'
+                            'unit_price',
+                            'relatable_type',
+                            'relatable_id',
                         ];
 
     /**
@@ -38,5 +40,16 @@ class PurchasePivotModelsToRequirementItem extends Model implements Auditable
         // morphTo($name = relatable, $type = relatable_type, $id = relatable_id)
         // requires relatable_type and relatable_id fields on $this->table
         return $this->morphTo();
+    }
+
+    /**
+     * PurchasePivotModelsToRequirementItem belongs to PurchaseRequirementItem.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseRequirementItem()
+    {
+        // belongsTo(RelatedModel, foreignKey = purchaseRequirementItem_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseRequirementItem::class);
     }
 }

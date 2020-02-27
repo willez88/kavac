@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
-use Modules\Purchase\Models\Pivot\PurchasePivotModelsToRequirementItem;
+use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 
 class PurchaseBaseBudget extends Model implements Auditable
 {

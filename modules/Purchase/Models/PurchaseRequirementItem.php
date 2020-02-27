@@ -36,6 +36,8 @@ class PurchaseRequirementItem extends Model implements Auditable
         'warehouse_product_id', 'purchase_requirement_id', 'unit_price'
     ];
 
+    protected $with = ['measurementUnit'];
+
     /**
      * PurchaseRequirementItem belongs to PurchaseRequirement.
      *
@@ -76,5 +78,16 @@ class PurchaseRequirementItem extends Model implements Auditable
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseRequirementItem_id, localKey = id)
         return $this->hasMany(PurchaseOrder::class);
+    }
+
+    /**
+     * PurchaseRequirementItem has one PurchasePivotModelsToRequirementItem.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function pivotPurchase()
+    {
+        // hasOne(RelatedModel, foreignKeyOnRelatedModel = purchaseRequirementItem_id, localKey = id)
+        return $this->hasOne(PurchasePivotModelsToRequirementItem::class);
     }
 }

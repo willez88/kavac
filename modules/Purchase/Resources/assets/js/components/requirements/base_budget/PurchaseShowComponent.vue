@@ -112,7 +112,8 @@ export default{
     data(){
         return{
             records:[],
-            column_requirements: [  'code',
+            column_requirements: [  
+                                'code',
                                 'description',
                                 'fiscal_year.year',
                                 'contrating_department.name',
@@ -192,7 +193,7 @@ export default{
          * @author  Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
          */
         reset() {
-            
+            // 
         },
 
         addDecimals(value){
@@ -295,15 +296,16 @@ export default{
         },
         purchase_requirement_items: function(){
             var pur_req_items = [];
-            if (this.records.purchase_requirement) {
-                for (var i = 0; i < this.records.purchase_requirement.length; i++) {
-                    if (this.records.purchase_requirement[i].purchase_requirement_items) {
-                        var purchase_requirement_items = this.records.purchase_requirement[i].purchase_requirement_items;
-                        for (var x = 0; x < purchase_requirement_items.length; x++) {
-                            purchase_requirement_items[x].requirement_code = this.records.purchase_requirement[i].code;
-                            purchase_requirement_items[x].qty_price = purchase_requirement_items[x].quantity * purchase_requirement_items[x].unit_price;
-                        }
-                        pur_req_items = pur_req_items.concat(this.records.purchase_requirement[i].purchase_requirement_items)
+            if (this.records.relatable) {
+                for (var i = 0; i < this.records.relatable.length; i++) {
+                    if (this.records.relatable[i].purchase_requirement_item) {
+                        var item = this.records.relatable[i].purchase_requirement_item;
+
+                        item.requirement_code = this.records.relatable[i].purchase_requirement_item.purchase_requirement.code;
+                        item.qty_price = this.records.relatable[i].purchase_requirement_item.quantity 
+                                                                  * this.records.relatable[i].unit_price;
+                        item.unit_price = this.records.relatable[i].unit_price;
+                        pur_req_items.push(this.records.relatable[i].purchase_requirement_item)
                     }
                 }
             }
