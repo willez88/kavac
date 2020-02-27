@@ -115,7 +115,6 @@ class PurchaseBaseBudgetController extends Controller
     {
         $baseBudget = PurchaseBaseBudget::with(
             'tax.histories',
-            'purchaseRequirement',
             'purchaseRequirement.purchaseRequirementItems',
         )->find($id);
 
@@ -124,11 +123,7 @@ class PurchaseBaseBudgetController extends Controller
         })->where('operation_date', '<=', date('Y-m-d'))->orderBy('operation_date', 'DESC')->first();
 
         $requirements = PurchaseRequirement::with(
-            'contratingDepartment',
-            'userDepartment',
-            'purchaseSupplierType',
-            'fiscalYear',
-            'purchaseRequirementItems.measurementUnit'
+            'purchaseRequirementItems'
         )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
 
         return view('purchase::requirements.base_budget', [

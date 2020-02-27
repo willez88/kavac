@@ -8,6 +8,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Models\MeasurementUnit;
 
+use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
+
 /**
  * @class PurchaseRequirementItem
  * @brief Datos de los productos o servicios en los requerimientos de compras
@@ -31,9 +33,11 @@ class PurchaseRequirementItem extends Model implements Auditable
      */
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['unit_price'];
+
     protected $fillable = [
         'name', 'description', 'technical_specifications', 'quantity', 'measurement_unit_id',
-        'warehouse_product_id', 'purchase_requirement_id', 'unit_price'
+        'warehouse_product_id', 'purchase_requirement_id'
     ];
 
     protected $with = ['measurementUnit'];
@@ -89,5 +93,22 @@ class PurchaseRequirementItem extends Model implements Auditable
     {
         // hasOne(RelatedModel, foreignKeyOnRelatedModel = purchaseRequirementItem_id, localKey = id)
         return $this->hasOne(PurchasePivotModelsToRequirementItem::class);
+    }
+
+    /**
+     * Obtiene el nombre de un Pais
+     *
+     * @method     getCountryNameAttribute
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     string|null  Devuelve el nombre de un pais si esta definido, de lo contrario devuelve nulo
+     */
+    public function getUnitPriceAttribute(): ?String
+    {
+        $r = PurchasePivotModelsToRequirementItem::where('purchase_requirement_item_id', $this->id)->first();
+        return $r
+                ? $r->unit_price
+                : null;
     }
 }

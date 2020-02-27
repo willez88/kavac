@@ -94,10 +94,6 @@ class PurchaseManageBaseBudget implements ShouldQueue
                 $rq->purchase_base_budget_id = $baseBudget['id'];
                 $rq->save();
 
-                $baseBudget = PurchaseBaseBudget::updateOrcreate([
-                    'currency_id' => $data['currency_id'],
-                    'tax_id'      => $data['tax_id'],
-                ], []);
                 foreach ($requirement['purchase_requirement_items'] as $item) {
                     PurchasePivotModelsToRequirementItem::updateOrcreate([
                         'purchase_requirement_item_id' => $item['id'],
