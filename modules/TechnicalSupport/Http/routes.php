@@ -1,9 +1,9 @@
 <?php
 
 /**
- * -----------------------------------------------------------------------
+ * -----------------------------------------------------------------------------
  * Grupo de rutas para la gestión de Soporte Técnico
- * -----------------------------------------------------------------------
+ * -----------------------------------------------------------------------------
  *
  * Permite gestionar las operaciones realizadas en el módulo de soporte técnico.
  *
@@ -13,12 +13,19 @@ Route::group([
     'prefix' => 'technicalsupport',
     'namespace' => 'Modules\TechnicalSupport\Http\Controllers'
 ], function () {
-    Route::get('/', 'TechnicalSupportController@index');
 
     /**
-     * ------------------------------------------------------------
+     * -------------------------------------------------------------------------
+     * Rutas de uso general dentro del módulo de soporte técnico
+     * -------------------------------------------------------------------------
+     */
+    Route::get('/', 'TechnicalSupportController@index');
+    Route::get('/get-technicalsupport-staff', 'TechnicalSupportController@getTechnicalSupportStaff');
+
+    /**
+     * -------------------------------------------------------------------------
      * Rutas para gestionar la configuración general del módulo.
-     * ------------------------------------------------------------
+     * -------------------------------------------------------------------------
      */
     Route::get('/settings', 'TechnicalSupportSettingController@index')->name('technicalsupport.setting.index');
 
@@ -32,14 +39,41 @@ Route::group([
         'TechnicalSupportRepairController',
         ['as' => 'technicalsupport', 'except' => ['show']]
     );
+    Route::get('/repairs/vue-list', 'TechnicalSupportRepairController@vueList');
+    Route::get('/repairs/vue-info/{repair}', 'TechnicalSupportRepairController@vueInfo');
 
-    Route::get('/repairs/requests/vue-list', 'TechnicalSupportRequestRepairController@index')
-        ->name('technicalsupport.request-repair.index');
+    /**
+     * -------------------------------------------------------------------------
+     * Rutas para gestionar las reparaciones de avería de bienes institucionales.
+     * -------------------------------------------------------------------------
+     */
+    Route::resource(
+        'repair-diagnostics',
+        'TechnicalSupportDiagnosticController',
+        ['as' => 'technicalsupport', 'except' => ['show', 'create', 'edit', 'destroy']]
+    );
+    
+    Route::get('repair-diagnostics/{repair}', 'TechnicalSupportDiagnosticController@create')
+        ->name('technicalsupport.repair-diagnostics.create');
 
-    Route::get('/repairs/requests/vue-info/{request}', 'TechnicalSupportRequestRepairController@vueInfo')
-        ->name('technicalsupport.request-repair.vue-info');
+    Route::get('repair-diagnostics/asset/{asset}', 'TechnicalSupportDiagnosticController@index')
+        ->name('technicalsupport.repair-diagnostics.index-diagnostic');
+    Route::post('repair-diagnostics/asset/{asset}', 'TechnicalSupportDiagnosticController@strore')
+        ->name('technicalsupport.repair-diagnostics.store-diagnostic');
 
-    Route::post('/repairs/assign-repair-manager', 'TechnicalSupportRequestRepairController@store');
-
-    Route::get('/get-technicalsupport-staff', 'TechnicalSupportController@getTechnicalSupportStaff');
+    /**
+     * -------------------------------------------------------------------------
+     * Rutas para gestionar las solicitudes de reparación de averías de bienes
+     * institucionales.
+     * -------------------------------------------------------------------------
+     */
+    Route::resource(
+        'requests',
+        'TechnicalSupportRequestController',
+        ['as' => 'technicalsupport', 'except' => ['show']]
+    );
+    Route::get('/requests/vue-list', 'TechnicalSupportRequestController@vueList')
+        ->name('technicalsupport.requests.vue-list');
+    Route::get('/requests/vue-info/{request}', 'TechnicalSupportRequestController@vueInfo')
+        ->name('technicalsupport.requests.vue-info');
 });

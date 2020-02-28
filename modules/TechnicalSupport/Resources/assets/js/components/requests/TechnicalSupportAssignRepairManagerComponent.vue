@@ -1,12 +1,12 @@
 <template>
     <section id="TechnicalSupportAssignRepairManagerFormComponent">
-        <a class="btn btn-default btn-xs btn-icon btn-action" 
-           href="#" title="Asignar reparación" data-toggle="tooltip"
-           @click="addRecord('assign_repair_manager','repairs/assign-repair-manager', $event)">
+        <a class="btn btn-default btn-xs btn-icon btn-action"
+           href="#" title="Asignar responsable de la reparación" data-toggle="tooltip"
+           @click="addRecord('assign_request_' + id, route_show, $event)">
             <i class="fa fa-user-plus"></i>
         </a>
 
-        <div class="modal fade text-left" tabindex="-1" role="dialog" id="assign_repair_manager">
+        <div class="modal fade text-left" tabindex="-1" role="dialog" :id="'assign_request_' + id">
             <div class="modal-dialog modal-xs">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -14,11 +14,10 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
-                            
                             Asignación de Responsable de la reparación
                         </h6>
                     </div>
-                    
+
                     <div class="modal-body">
 
                         <div class="alert alert-danger" v-if="errors.length > 0">
@@ -38,26 +37,58 @@
                                 </ul>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>Fecha de Inicio</label>
+                                    <div class="input-group input-sm">
+                                        <span class="input-group-addon">
+                                            <i class="now-ui-icons ui-1_calendar-60"></i>
+                                        </span>
+                                        <input  id="start_date"
+                                                type="date" class="form-control input-sm" 
+                                                data-toogle="tooltip" 
+                                                title="Indique la fecha de inicio de la reparación (opcional)"
+                                                v-model="record.start_date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Fecha tope de entrega</label>
+                                    <div class="input-group input-sm">
+                                        <span class="input-group-addon">
+                                            <i class="now-ui-icons ui-1_calendar-60"></i>
+                                        </span>
+                                        <input  id="end_date"
+                                                type="date" class="form-control input-sm" 
+                                                data-toogle="tooltip" 
+                                                title="Indique la fecha tope para realizar la reparación (opcional)"
+                                                v-model="record.end_date">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group is-required">
                                     <label>Responsable de la reparación</label>
                                     <select2 :options="technicalSupportStaffs"
-                                             v-model="technical_support_repair.user_id"></select2>
+                                             id="user_select"
+                                             v-model="record.user_id"></select2>
                                     <input type="hidden" v-model="record.id">
-                                </div>        
+                                </div>
                             </div>
-                        </div>  
+                        </div>
                     </div>
 
                     <div class="modal-footer">
 
-                        <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+                        <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
                                 data-dismiss="modal">
                             Cerrar
                         </button>
-                        <button type="button" @click="createRecord('technicalsupport/repairs/assign-repair-manager')"
+                        <button type="button" @click="createRecord('technicalsupport/repairs')"
                                 class="btn btn-primary btn-sm btn-round btn-modal-save">
                             Guardar
                         </button>
@@ -76,16 +107,10 @@
                 record: {
                     id: '',
                     state: '',
-                    user_id: '',
-                },
-                technical_support_repair: {
-                    id: '',
-                    state: '',
-                    result: '',
                     start_date: '',
                     end_date: '',
                     user_id: '',
-                    technical_support_request_repair_id: ''  
+                    technical_support_request_id: '',
                 },
                 technicalSupportStaffs: [],
                 records: [],
@@ -93,24 +118,30 @@
             }
         },
         props: {
-            requestid: Number,
+            id: {
+                type: Number,
+                required: true
+            }
         },
         created() {
             const vm = this;
-            vm.getTechnicalSupportStaff();
+            vm.getTechnicalSupportStaffs();
 
         },
         methods: {
             /**
              * Método que borra todos los datos del formulario
-             * 
+             *
              * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
             reset() {
                 this.record = {
-                    id: '',                    
+                    id: '',
                     state: '',
+                    start_date: '',
+                    end_date: '',
                     user_id: '',
+                    technical_support_request_id: '',
                 };
             },
             /**
@@ -120,18 +151,31 @@
              */
             initRecords(url,modal_id){
                 const vm = this;
+
                 vm.errors = [];
                 var fields = {};
-                var url = 'repairs/requests/vue-info/' + this.requestid;
+
                 axios.get(url).then(response => {
-                    if (typeof(response.data.records) !== "undefined") {
-                        fields = response.data.record;
+                    if (typeof(response.data.record.technical_support_request_repair) !== "undefined") {
+                        fields = response.data.record.technical_support_request_repair;
                         vm.record = {
-                            id: fields.id,
-                            state: fields.state,
-                            user_id: fields.user_id
+                            id: (fields !== null)
+                                ? fields.technical_support_repair.id
+                                : '',
+                            state: (fields !== null)
+                                ? fields.technical_support_repair.state
+                                : '',
+                            start_date: (fields !== null)
+                                ? fields.technical_support_repair.start_date
+                                : '',
+                            end_date: (fields !== null)
+                                ? fields.technical_support_repair.end_date
+                                : '',
+                            user_id: (fields !== null)
+                                ? fields.technical_support_repair.user_id
+                                : '',
+                            technical_support_request_id: vm.id,
                         };
-                        vm.technical_support_repair = fields.technical_support_repair;
                     }
                     if ($("#" + modal_id).length) {
                         $("#" + modal_id).modal('show');
@@ -147,51 +191,6 @@
                             vm.logs('resources/js/all.js', 343, error, 'initRecords');
                         }
                     }
-                });
-            },
-            createRecord(url, list = true, reset = true) {
-                const vm = this;
-                var fields = {
-                    id: vm.record.id,
-                    state: vm.record.state,
-                    user_id: vm.record.user_id,
-                    technical_support_repair: vm.technical_support_repair
-                };
-                vm.loading = true;
-                axios.post('/' + url, fields).then(response => {
-                    if (typeof(response.data.redirect) !== "undefined") {
-                        location.href = response.data.redirect;
-                    }
-                    else {
-                        vm.errors = [];
-                        if (reset) {
-                            vm.reset();
-                        }
-                        if (list) {
-                            vm.readRecords(url);
-                        }
-                        vm.loading = false;
-                        vm.showMessage('store');
-                    }
-
-                }).catch(error => {
-                    vm.errors = [];
-
-                    if (typeof(error.response) !="undefined") {
-                        for (var index in error.response.data.errors) {
-                            if (error.response.data.errors[index]) {
-                                vm.errors.push(error.response.data.errors[index][0]);
-                            }
-                        }
-                    }
-
-                    vm.loading = false;
-                });
-            },
-            getTechnicalSupportStaff() {
-                const vm = this;
-                axios.get('/technicalsupport/get-technicalsupport-staff').then(response => {
-                    vm.technicalSupportStaffs = response.data;
                 });
             },
         },

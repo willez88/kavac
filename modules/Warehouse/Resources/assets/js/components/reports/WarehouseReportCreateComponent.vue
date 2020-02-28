@@ -1,18 +1,5 @@
 <template>
-	<div class="card">
-		<div class="card-header">
-			<h6 class="card-title text-uppercase">Inventario de Productos Almacén</h6>
-			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
-				   title="Ir atrás" data-toggle="tooltip">
-					<i class="fa fa-reply"></i>
-				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-				   data-toggle="tooltip">
-					<i class="now-ui-icons arrows-1_minimal-up"></i>
-				</a>
-			</div>
-		</div>
+	<section id="WarehouseReportForm">
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<ul>
@@ -46,7 +33,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-12" align="left">
+				<div class="col-md-3 offset-md-9" id="helpParamButtons">
 					<button type="button" @click="createReport()"
 					class='btn btn-sm btn-primary btn-custom'>
 						<i class="fa fa-plus-circle"></i>
@@ -87,7 +74,7 @@
 			</v-client-table>
 
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

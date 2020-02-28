@@ -1,6 +1,6 @@
 <template>
     <v-client-table :columns="columns" :data="records" :options="table_options">
-        <div slot="applicanted_by" slot-scope="props">
+        <div slot="assigned_to" slot-scope="props">
             <span>
                 {{ (props.row.user.profile)
                     ? ((props.row.user.profile.first_name
@@ -12,29 +12,28 @@
                 }}
             </span>
         </div>
-        <div slot="assigned_to" slot-scope="props">
-            <span>
-                {{ (props.row.technical_support_repair)
-                        ? (props.row.technical_support_repair.user.profile)
-                            ? ((props.row.technical_support_repair.user.profile.first_name
-                                ? props.row.technical_support_repair.user.profile.first_name
-                                : '') + (props.row.technical_support_repair.user.profile.last_name
-                                    ? (' ' + props.row.technical_support_repair.user.profile.last_name)
-                                    : ''))
-                            : props.row.technical_support_repair.user.name
-                        : 'No definido'
-                }}
-            </span>
-        </div>
         <div slot="state" slot-scope="props">
             <span>
                 {{ (props.row.state)?props.row.state:'N/A' }}
             </span>
         </div>
+
         <div slot="id" slot-scope="props" class="text-center">
             <div class="d-inline-flex">
-                <technicalsupport-assign-repair-manager :requestid="props.row.id">
-                </technicalsupport-assign-repair-manager>
+                <technicalsupport-repair-info
+                    :route_show="'repairs/vue-info/' + props.row.id"
+                    :id="props.row.id">
+                </technicalsupport-repair-info>
+                <button 
+                        @click="redirect_back('/technicalsupport/repair-diagnostics/' + props.row.id)"
+                        class="btn btn-default btn-xs btn-icon btn-action"
+                        title="Gestionar diagnóstico" data-toggle="tooltip" type="button">
+                    <i class="fa fa-filter"></i>
+                </button>
+                <technicalsupport-deliver-equipment
+                    :route_show="'repairs/deliver-equipment/' + props.row.id"
+                    :repair_id="props.row.id">
+                </technicalsupport-deliver-equipment>
             </div>
         </div>
     </v-client-table>
@@ -45,19 +44,18 @@
         data() {
             return {
                 records: [],
-                columns: ['created_at', 'applicanted_by', 'assigned_to', 'state', 'id']
+                columns: ['created_at', 'assigned_to', 'state', 'id']
             }
         },
         created() {
             this.table_options.headings = {
-                'created_at': 'Fecha de la Solicitud',
-                'applicanted_by': 'Solicitante',
+                'created_at': 'Fecha de Asignación',
                 'assigned_to': 'Responsable',
-                'state': 'Estado de la solicitud',
+                'state': 'Estado de la Reparación',
                 'id': 'Acción'
             };
-            this.table_options.sortable = ['created_at', 'applicanted_by', 'assigned_to', 'state'];
-            this.table_options.filterable = ['created_at', 'applicanted_by', 'assigned_to', 'state'];
+            this.table_options.sortable = ['created_at', 'assigned_to', 'state'];
+            this.table_options.filterable = ['created_at', 'assigned_to', 'state'];
         },
         mounted () {
             this.initRecords(this.route_list, '');
@@ -69,7 +67,7 @@
              * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
              */
             reset() {
-                
+
             },
         }
     };

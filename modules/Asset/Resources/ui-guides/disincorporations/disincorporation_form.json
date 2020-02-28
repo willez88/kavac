@@ -1,0 +1,56 @@
+[
+    {
+        "element" : "#cardAssetDisincorporationForm",
+        "intro" : "Formulario de desincorporación de bienes institucionales"
+    },
+    {
+        "element" : "#helpDisincorporationDate",
+        "intro" : "Parámetro que establece la fecha asociada a la desincorporación",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpDisincorporationMotive",
+        "intro" : "Parámetro que establece el motivo asociado a la desincorporación",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpDisincorporationObservation",
+        "intro" : "Parámetro que establece las observaciones generales asociadas a la desincorporación",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchAssetType",
+        "intro" : "Parámetro utilizado para filtrar los bienes institucionales por el tipo al que pertenecen",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchAssetCategory",
+        "intro" : "Parámetro utilizado para filtrar los bienes institucionales por la categoria general a la que pertenecen",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchAssetSubCategory",
+        "intro" : "Parámetro utilizado para filtrar los bienes institucionales por la subcategoria a la que pertenecen",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchAssetSpecificCategory",
+        "intro" : "Parámetro utilizado para filtrar los bienes institucionales por la categoria especifica a la que pertenecen",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchButton",
+        "intro" : "Botón para ejecutar la acción de buscar de acuerdo a los datos establecidos en los filtros del formulario",
+        "position" : "left"
+    },
+    {
+        "element" : "#helpTable",
+        "intro" : "Listado de bienes registrados en la institución y disponibles para su correspondiente desincorporación",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "left"
+    }
+]

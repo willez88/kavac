@@ -45,4 +45,9 @@ Route::group([
      * Rutas para generar reporte
      */
     Route::get('reports', 'CitizenServiceReportController@index')->name('citizenservice.report.index');
+    
+    Route::post('reports', 'CitizenServiceReportController@store');
+    
+    Route::post('reports/search/period', 'CitizenServiceReportController@searchPeriod');
+    Route::post('reports/search/date', 'CitizenServiceReportController@searchDate');
 });

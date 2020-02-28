@@ -1,0 +1,22 @@
+[
+    {
+        "element" : "#helpConfigParamsForm",
+        "intro" : "Esta sección permite establecer la configuración del módulo de almacén",
+    },
+    {
+        "element" : "#helpWarehouses",
+        "intro" : "Gestiona información acerca de los almacenes"
+    },
+    {
+        "element" : "#helpWarehouseProducts",
+        "intro" : "Gestiona información acerca de los productos almacenables"
+    },
+    {
+        "element" : "#helpWarehouseRules",
+        "intro" : "Gestiona información acerca de las reglas de abastecimiento"
+    },
+    {
+        "element" : "#helpWarehouseCloses",
+        "intro" : "Gestiona información acerca de los cierres de almacén"
+    }
+]

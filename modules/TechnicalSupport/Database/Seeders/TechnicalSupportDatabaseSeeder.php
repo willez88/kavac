@@ -16,6 +16,7 @@ class TechnicalSupportDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        /** Roles y permisos disponibles para el acceso al módulo de soporte técnico */
+        $this->call(TechnicalSupportRoleAndPermissionsTableSeeder::class);
     }
 }

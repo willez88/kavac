@@ -1,18 +1,5 @@
 <template>
-	<div class="card">
-		<div class="card-header">
-			<h6 class="card-title text-uppercase">Solicitud de Almacén</h6>
-			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
-				   title="Ir atrás" data-toggle="tooltip">
-					<i class="fa fa-reply"></i>
-				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-				   data-toggle="tooltip">
-					<i class="now-ui-icons arrows-1_minimal-up"></i>
-				</a>
-			</div>
-		</div>
+	<section id="WarehouseRequestStaffForm">
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<div class="container">
@@ -37,7 +24,7 @@
 					<b>Datos de la Solicitud</b>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpWarehouseRequestDate">
 					<div class="form-group is-required">
 						<label>Fecha de la Solicitud</label>
 						<input type="text" data-toggle="tooltip" 
@@ -49,7 +36,7 @@
                     </div>
 				</div>
 			
-				<div class="col-md-8">
+				<div class="col-md-8" id="helpWarehouseRequestMotive">
 					<div class="form-group is-required">
 						<label>Motivo de la Solicitud</label>
 						<textarea  data-toggle="tooltip" 
@@ -59,21 +46,21 @@
                     </div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpWarehouseRequestDepartment">
 					<div class=" form-group is-required">
 						<label>Departamento</label>
 						<select2 :options="departments"
 							v-model="record.department_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpWarehouseRequestPosition">
 					<div class=" form-group is-required">
 						<label>Cargo</label>
 						<select2 :options="payroll_positions"
 							v-model="record.payroll_position_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpWarehouseRequestStaff">
 					<div class=" form-group is-required">
 						<label>Solicitante</label>
 						<select2 :options="payroll_staffs"
@@ -83,7 +70,8 @@
 			</div>
 
 			<hr>
-			<v-client-table @row-click="toggleActive" :columns="columns" :data="records" :options="table_options">
+			<v-client-table id="helpTable"
+				@row-click="toggleActive" :columns="columns" :data="records" :options="table_options">
 				<div slot="h__check" class="text-center">
 					<label class="form-checkbox">
 						<input type="checkbox" v-model="selectAll" @click="select()" class="cursor-pointer">
@@ -127,30 +115,32 @@
 				</div>
 				
 			</v-client-table>
-
-	        <div class="card-footer text-right">
-            	<button type="button" @click="reset()"
-						class="btn btn-default btn-icon btn-round"
-						title ="Borrar datos del formulario">
-						<i class="fa fa-eraser"></i>
-				</button>
-
-            	<button type="button"
-            			class="btn btn-warning btn-icon btn-round btn-modal-close"
-            			data-dismiss="modal"
-            			title="Cancelar y regresar">
-            			<i class="fa fa-ban"></i>
-            	</button>
-
-            	<button type="button"  @click="createRequest('warehouse/requests/staff')"
-            			class="btn btn-success btn-icon btn-round btn-modal-save"
-            			title="Guardar registro">
-            		<i class="fa fa-save"></i>
-                </button>
-            </div>
-
 		</div>
-	</div>
+		<div class="card-footer text-right">
+			<div class="row">
+				<div class="col-md-3 offset-md-9" id="helpParamButtons">
+		        	<button type="button" @click="reset()"
+							class="btn btn-default btn-icon btn-round"
+							title ="Borrar datos del formulario">
+							<i class="fa fa-eraser"></i>
+					</button>
+
+		        	<button type="button"
+		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
+		        			data-dismiss="modal"
+		        			title="Cancelar y regresar">
+		        			<i class="fa fa-ban"></i>
+		        	</button>
+
+		        	<button type="button"  @click="createRequest('warehouse/requests/staff')"
+		        			class="btn btn-success btn-icon btn-round btn-modal-save"
+		        			title="Guardar registro">
+		        		<i class="fa fa-save"></i>
+		            </button>
+		        </div>
+		    </div>
+        </div>
+	</section>
 </template>
 
 <style>

@@ -1,18 +1,5 @@
 <template>
-	<div class="card">
-		<div class="card-header">
-			<h6 class="card-title text-uppercase">Desincorporación de Bienes Institucionales</h6>
-			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
-				   title="Ir atrás" data-toggle="tooltip">
-					<i class="fa fa-reply"></i>
-				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-				   data-toggle="tooltip">
-					<i class="now-ui-icons arrows-1_minimal-up"></i>
-				</a>
-			</div>
-		</div>
+	<section id="AssetDisincorporationForm">
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<div class="container">
@@ -33,7 +20,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6" id="helpDisincorporationDate">
 					<div class="form-group is-required">
     					<label>Fecha de la Desincorporación</label>
     					<div class="input-group input-sm">
@@ -45,9 +32,8 @@
                     	</div>
 				    </div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6" id="helpDisincorporationMotive">
 					<div class="form-group is-required">
-						
 						<label>Motivo de la Desincorporación</label>
 						<select2 :options="asset_disincorporation_motives" data-toggle="tooltip"
 								 title="Indique el motivo de la desincorporación del bien"
@@ -55,7 +41,7 @@
 						<input type="hidden" v-model="record.id">
 					</div>
 				</div>
-			    <div class="col-md-6">
+			    <div class="col-md-6" id="helpDisincorporationObservation">
 			        <div class="form-group is-required">
 			            <label>Observaciones generales</label>
 			            <textarea  data-toggle="tooltip" 
@@ -78,7 +64,7 @@
 			</div>
 				
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpSearchAssetType">
 					<div class="form-group">
 						<label>Tipo de Bien</label>
 						<select2 :options="asset_types" @input="getAssetCategories()"
@@ -88,7 +74,7 @@
 					</div>
 				</div>
 									
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpSearchAssetCategory">
 					<div class="form-group">
 						<label>Categoria General</label>
 						<select2 :options="asset_categories" @input="getAssetSubcategories()" 
@@ -97,7 +83,7 @@
 								 v-model="record.asset_category_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpSearchAssetSubCategory">
 					<div class="form-group">
 						<label>Subcategoria</label>
 						<select2 :options="asset_subcategories" @input="getAssetSpecificCategories()" 
@@ -107,7 +93,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpSearchAssetSpecificCategory">
 					<div class="form-group">
 						<label>Categoria Específica</label>
 						<select2 :options="asset_specific_categories"
@@ -120,7 +106,8 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<button type="button" @click="filterRecords()"class="btn btn-sm btn-primary btn-info float-right" 
+					<button type="button" id="helpSearchButton"
+							@click="filterRecords()"class="btn btn-sm btn-primary btn-info float-right" 
 							title="Buscar registros"
 							data-toggle="tooltip">
 						<i class="fa fa-search"></i>
@@ -138,7 +125,8 @@
 					</select2>
 				</div>
 			</div>
-			<v-client-table @row-click="toggleActive" :columns="columns" :data="records" :options="table_options" ref="tableMax">
+			<v-client-table id="helpTable"
+				@row-click="toggleActive" :columns="columns" :data="records" :options="table_options" ref="tableMax">
 				<div slot="h__check" class="text-center">
 					<label class="form-checkbox">
 						<input type="checkbox" v-model="selectAll" @click="select()" class="cursor-pointer">
@@ -192,26 +180,30 @@
 		</div>
 
 		<div class="card-footer text-right">
-        	<button type="button" @click="reset()"
-					class="btn btn-default btn-icon btn-round"
-					title ="Borrar datos del formulario">
-					<i class="fa fa-eraser"></i>
-			</button>
+			<div class="row">
+				<div class="col-md-3 offset-md-9" id="helpParamButtons">
+		        	<button type="button" @click="reset()"
+							class="btn btn-default btn-icon btn-round"
+							title ="Borrar datos del formulario">
+							<i class="fa fa-eraser"></i>
+					</button>
 
-        	<button type="button"
-        			class="btn btn-warning btn-icon btn-round btn-modal-close"
-        			data-dismiss="modal"
-        			title="Cancelar y regresar">
-        			<i class="fa fa-ban"></i>
-        	</button>
+		        	<button type="button"
+		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
+		        			data-dismiss="modal"
+		        			title="Cancelar y regresar">
+		        			<i class="fa fa-ban"></i>
+		        	</button>
 
-        	<button type="button"  @click="createForm('asset/disincorporations')"
-        			class="btn btn-success btn-icon btn-round btn-modal-save"
-        			title="Guardar registro">
-        		<i class="fa fa-save"></i>
-            </button>
+		        	<button type="button"  @click="createForm('asset/disincorporations')"
+		        			class="btn btn-success btn-icon btn-round btn-modal-save"
+		        			title="Guardar registro">
+		        		<i class="fa fa-save"></i>
+		            </button>
+		        </div>
+		    </div>
         </div>
-	</div>
+	</section>
 </template>
 
 <style>

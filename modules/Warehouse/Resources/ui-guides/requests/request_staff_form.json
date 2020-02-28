@@ -1,0 +1,41 @@
+[
+    {
+        "element" : "#cardWarehouseRequestStaffForm",
+        "intro" : "Formulario de solicitudes de productos al almacén"
+    },
+    {
+        "element" : "#helpWarehouseRequestDate",
+        "intro" : "Parámetro que establece la fecha de la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpWarehouseRequestMotive",
+        "intro" : "Parámetro que establece el motivo de la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpWarehouseRequestDepartment",
+        "intro" : "Parámetro que establece la dependencia o departamento asociado al trabajador que genera la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpWarehouseRequestPosition",
+        "intro" : "Parámetro que establece el cargo asociado al trabajador que genera la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpWarehouseRequestStaff",
+        "intro" : "Parámetro que establece el trabajador que genera la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpTable",
+        "intro" : "Listado de productos registrados y disponibles en almacén para su correspondiente solicitud",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "left"
+    }
+]

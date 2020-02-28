@@ -65,4 +65,26 @@ class CitizenServiceRequest extends Model implements Auditable
     {
         return $this->morphMany(\App\Models\Document::class, 'documentable');
     }
+
+    public function scopeSearchPeriod(
+        $query,
+        $start_date,
+        $end_date,
+        $citizen_service_request_type_id,
+        $citizen_service_id
+    ) {
+        return $query->whereBetween("date", [$start,$end])
+                     ->where("citizen_service_request_type_id", $citizen_service_request_type_id)
+                     ->where("state", $citizen_service_id);
+    }
+    public function scopeSearchDate(
+        $query,
+        $date,
+        $citizen_service_request_type_id,
+        $citizen_service_id
+    ) {
+        return $query->where("date", $date)
+                     ->where("citizen_service_request_type_id", $citizen_service_request_type_id)
+                     ->where("state", $citizen_service_id);
+    }
 }

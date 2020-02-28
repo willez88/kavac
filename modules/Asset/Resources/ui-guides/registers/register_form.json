@@ -1,0 +1,122 @@
+[
+    {
+        "element" : "#cardAssetForm",
+        "intro" : "Formulario de asignación de bienes institucionales",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpInstitution",
+        "intro" : "Parámetro que establece la institución asociada al trabajador",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetType",
+        "intro" : "Parámetro que establece el tipo de bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetCategory",
+        "intro" : "Parámetro que establece la categoría general del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetSubCategory",
+        "intro" : "Parámetro que establece la sub-categoría del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetSpecificCategory",
+        "intro" : "Parámetro que establece la categoría específica del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetSpecification",
+        "intro" : "Parámetro que establece las especificaciones del bien. Este parámetro es opcional",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetAcquisitionType",
+        "intro" : "Parámetro que establece la forma de adquisición del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetAcquisitionYear",
+        "intro" : "Parámetro que establece el año de adquisición del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetCondition",
+        "intro" : "Parámetro que establece la condición física del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetStatus",
+        "intro" : "Parámetro que establece el estatus de uso del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetUseFunction",
+        "intro" : "Parámetro que establece la función de uso del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetSerial",
+        "intro" : "Parámetro que establece el serial de fabricación del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetMarca",
+        "intro" : "Parámetro que establece la marca del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetModel",
+        "intro" : "Parámetro que establece el modelo del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetValue",
+        "intro" : "Parámetro que establece el precio por unidad del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetCurrency",
+        "intro" : "Parámetro que establece la moneda en la que se expresa el valor del bien",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetQuantity",
+        "intro" : "Parámetro que establece la catidad de bienes a registrar",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetCountry",
+        "intro" : "Parámetro que establece el país donde se ubica el bien. Solo para bienes inmuebles",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetEstate",
+        "intro" : "Parámetro que establece el estado donde se ubica el bien. Solo para bienes inmuebles",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetMunicipality",
+        "intro" : "Parámetro que establece el municipio donde se ubica el bien. Solo para bienes inmuebles",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetParish",
+        "intro" : "Parámetro que establece la parroquía donde se ubica el bien. Solo para bienes inmuebles",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetAddress",
+        "intro" : "Parámetro que establece la dirección física donde se ubica el bien. Solo para bienes inmuebles",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "left"
+    }
+]

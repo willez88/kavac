@@ -1,0 +1,42 @@
+[
+    {
+        "element" : "#cardWarehouseMovementForm",
+        "intro" : "Formulario de movimientos de productos entre almacenes",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpInstitutionInitial",
+        "intro" : "Parámetro que establece la institución de donde se van a movilizar los productos",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpWarehouseInitial",
+        "intro" : "Parámetro que establece el almacén de donde se van a movilizar los productos",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpInstitutionEnd",
+        "intro" : "Parámetro que establece la institución a donde se van a movilizar los productos",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpWarehouseEnd",
+        "intro" : "Parámetro que establece el almacén a donde se van a movilizar los productos",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpWarehouseMovementDescription",
+        "intro" : "Parámetro que establece la descripción del movimiento",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpTable",
+        "intro" : "Listado de los productos registrados en almacén y disponibles para su correspondiente movimiento",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "left"
+    }
+]
